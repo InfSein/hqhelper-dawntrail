@@ -3,9 +3,21 @@
 ![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) <br>
 ![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)
 
+**English** | [简体中文](https://github.com/InfSein/hqhelper-dawntrail/blob/master/README-ZH.md)
+
 ## Introductions
 
 One web app designed for ffxiv dawntrail master crafters.
+
+Visit our [Github Page](https://infsein.github.io/hqhelper-dawntrail/) and enjoy!
+
+### Development Progress
+
+It is just a foundation now.
+
+#### To-do List
+- [ ] i18n
+- [ ] Development Document
 
 ### Predecessor
 
@@ -17,3 +29,19 @@ During the `ENDWALKER` expansion of `Final Fantasy XIV` period, the application 
 providing gamers with production statistics support spanning from `6.0` to `6.4` game patch.
 
 You could still view screenshot, description and tutorials, or just download and run the application from the Release Page in [NGA Player Community](https://bbs.nga.cn/read.php?tid=31596099).
+
+## Development Guidelines
+
+The application would be updated automatically when `master` branch code been changed.
+
+In the early stages of development, the code can be directly pushed to the master branch. 
+But after the application is officially launched, the changes should be thoroughly tested in the dev branch before merging into the master branch.
+
+### Clone and Build
+
+```sh
+git clone https://github.com/InfSein/hqhelper-dawntrail.git
+cd hqhelper-dawntrail
+npm i
+npm run dev
+```

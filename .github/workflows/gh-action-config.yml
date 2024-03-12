@@ -1,0 +1,37 @@
+name: Build and Deploy
+# 监听 master 分支上的 push 事件
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    # 构建环境使用 ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      # 官方action, 将代码拉取到虚拟机
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      # 安装node.js
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.8.1"
+
+      # 下载依赖、打包项目
+      - name: Install and Build
+        run: |
+          yarn install
+          yarn build
+
+      # 部署
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          # 项目配置的打包目录名称
+          folder: dist
+          # 部署后提交到的分支
+          branch: static-pages
