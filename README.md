@@ -5,7 +5,7 @@
 
 ## Introductions
 
-One a web app designed for ffxiv dawntrail master crafters.
+One web app designed for ffxiv dawntrail master crafters.
 
 ### Predecessor
 
