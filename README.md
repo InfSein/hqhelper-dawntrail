@@ -1,48 +1,19 @@
 # FFXIV HQ Helper: DAWNTRAIL
 
-![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github)
+![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) <br>
 ![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)
 
 ## Introductions
 
-This repository is 
+One a web app designed for ffxiv dawntrail master crafters.
 
-## Clone Repository (Global)
+### Predecessor
 
-```sh
-git clone https://github.com/InfSein/hqhelper-dawntrail.git
-```
+The first version of `HQ Helper`(also might be called `HqHelper` below) was a `Windows Forms` app based on `.NET 6.0`. 
 
-## Clone Repository (CN)
+The application interface was built by the designer of `WinForm`, and the native UI of `Windows 11`.
 
-```sh
-git clone https://mirror.ghproxy.com/https://github.com/InfSein/hqhelper-dawntrail.git
-```
+During the `ENDWALKER` expansion of `Final Fantasy XIV` period, the application established over 50 version updates through online storage and distribution,
+providing gamers with production statistics support spanning from `6.0` to `6.4` game patch.
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+You could still view screenshot, description and tutorials, or just download and run the application from the Release Page in [NGA Player Community](https://bbs.nga.cn/read.php?tid=31596099).
