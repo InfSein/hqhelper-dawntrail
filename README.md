@@ -1,14 +1,23 @@
-# hqhelper-dawntrail
+# FFXIV HQ Helper: DAWNTRAIL
 
-This template should help get you started developing with Vue 3 in Vite.
+![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github)
+![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)
 
-## Recommended IDE Setup
+## Introductions
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+This repository is 
 
-## Type Support for `.vue` Imports in TS
+## Clone Repository (Global)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+```sh
+git clone https://github.com/InfSein/hqhelper-dawntrail.git
+```
+
+## Clone Repository (CN)
+
+```sh
+git clone https://mirror.ghproxy.com/https://github.com/InfSein/hqhelper-dawntrail.git
+```
 
 ## Customize configuration
 
