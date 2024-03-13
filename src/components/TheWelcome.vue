@@ -5,9 +5,29 @@ import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
+import { ref } from 'vue'
+import EorzeaTime from '@/tools/EorzeaTime'
+
+const eorzeaTime = ref<EorzeaTime>(new EorzeaTime())
+setInterval(() => {
+  eorzeaTime.value = new EorzeaTime()
+}, 200)
 </script>
 
 <template>
+  <WelcomeItem>
+    <template #icon>
+      <DocumentationIcon />
+    </template>
+    <template #heading>Eorzea Time</template>
+
+    HqHelper calculates real-time eorzea time.
+    <p>Current Eorzea time is:
+    {{ eorzeaTime.gameTime }} (In-game format)</p>
+    <p>Total Eorzea minutes (timeStamp):
+    {{ eorzeaTime.timeStamp }}</p>
+  </WelcomeItem>
+
   <WelcomeItem>
     <template #icon>
       <DocumentationIcon />
