@@ -1,17 +1,28 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
 import WelcomeItem from './WelcomeItem.vue'
+
 import DocumentationIcon from './icons/IconDocumentation.vue'
 import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
-import { ref } from 'vue'
+
 import EorzeaTime from '@/tools/EorzeaTime'
+import AppStatus from '@/variables/AppStatus'
 
 const eorzeaTime = ref<EorzeaTime>(new EorzeaTime())
 setInterval(() => {
   eorzeaTime.value = new EorzeaTime()
 }, 200)
+
+const { locale } = useI18n()
+const changeLanguage = (value: string) => {
+	locale.value = value
+  console.log('Language has already been changed to ' + value)
+}
 </script>
 
 <template>
@@ -30,51 +41,26 @@ setInterval(() => {
 
   <WelcomeItem>
     <template #icon>
-      <DocumentationIcon />
-    </template>
-    <template #heading>Documentation</template>
-
-    Vue’s
-    <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
-    provides you with all information you need to get started.
-  </WelcomeItem>
-
-  <WelcomeItem>
-    <template #icon>
       <ToolingIcon />
     </template>
-    <template #heading>Tooling</template>
+    <template #heading>i18n</template>
 
-    This project is served and bundled with
-    <a href="https://vitejs.dev/guide/features.html" target="_blank" rel="noopener">Vite</a>. The
-    recommended IDE setup is
-    <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VSCode</a> +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank" rel="noopener">Volar</a>. If
-    you need to test your components and web pages, check out
-    <a href="https://www.cypress.io/" target="_blank" rel="noopener">Cypress</a> and
-    <a href="https://on.cypress.io/component" target="_blank" rel="noopener"
-      >Cypress Component Testing</a
-    >.
-
-    <br />
-
-    More instructions are available in <code>README.md</code>.
+    HqHelper has already built `i18n` support.
+    <p>Try to change languange:</p>
+    <p>
+      <a href="javascript:void(0)" @click="changeLanguage('zh')">Zh-CN</a> |
+      <a href="javascript:void(0)" @click="changeLanguage('en')">En-US</a> |
+      <a href="javascript:void(0)" @click="changeLanguage('jp')">Ja-JP</a>
+    </p>
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
       <EcosystemIcon />
     </template>
-    <template #heading>Ecosystem</template>
+    <template #heading>AppStatus</template>
 
-    Get official tools and libraries for your project:
-    <a href="https://pinia.vuejs.org/" target="_blank" rel="noopener">Pinia</a>,
-    <a href="https://router.vuejs.org/" target="_blank" rel="noopener">Vue Router</a>,
-    <a href="https://test-utils.vuejs.org/" target="_blank" rel="noopener">Vue Test Utils</a>, and
-    <a href="https://github.com/vuejs/devtools" target="_blank" rel="noopener">Vue Dev Tools</a>. If
-    you need more resources, we suggest paying
-    <a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">Awesome Vue</a>
-    a visit.
+    Mobile: {{ AppStatus.Mobile }}
   </WelcomeItem>
 
   <WelcomeItem>
