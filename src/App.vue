@@ -78,6 +78,9 @@ const NAIVE_UI_MESSAGE = message
 // * register i18n
 const { t } = useI18n()
 
+// * register child components ref
+const appHeader = ref<any>(null)
+
 // #endregion
 
 // #region Local Variables
@@ -96,6 +99,7 @@ const appForceUpdate = () => {
   locale.value = store.state.userConfig?.language_ui ?? 'zh'
   // Update ui
   theme.value = store.state.userConfig?.theme ?? 'system'
+  appHeader?.value?.initializeSettingOptions()
 }
 
 // * HqHelper Toast
@@ -161,7 +165,7 @@ provide('hqHelperToaster', hqHelperToast)
   >
     <n-layout id="main-layout" position="absolute" :native-scrollbar="false">
       <n-layout-header bordered position="absolute">
-        <AppHeader />
+        <AppHeader ref="appHeader" />
       </n-layout-header>
 
       <n-layout-content>

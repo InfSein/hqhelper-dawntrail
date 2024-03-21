@@ -6,6 +6,7 @@ export default {
     back: '戻る',
     save: '保存',
     submit: '送信',
+    more: '詳細',
     settings: {
       user_preferences: 'プリファレンス設定',
       language_ui: 'インタフェース言語',

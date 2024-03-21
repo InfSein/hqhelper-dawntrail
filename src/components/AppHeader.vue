@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, h } from 'vue'
+import { inject, h, ref } from 'vue'
 import type { Component } from 'vue'
 import { NIcon } from 'naive-ui'
 
@@ -18,17 +18,25 @@ const renderIcon = (icon: Component) => {
   }
 }
 
-const settingOptions = [
-  {
-    label: t('ui.settings.user_preferences'),
-    key: 'user_preferences',
-    icon: renderIcon(SettingsIcon)
-  },
-]
+const settingOptions = ref<any[]>([])
+const initializeSettingOptions = () => {
+  settingOptions.value = [
+    {
+      label: t('ui.settings.user_preferences'),
+      key: 'user_preferences',
+      icon: renderIcon(SettingsIcon)
+    },
+  ]
+}
+initializeSettingOptions()
+defineExpose({initializeSettingOptions})
 
 const onSettingOptionSelected = (key: string) => {
   if (key === 'user_preferences') {
+    // show user preferences modal by inject from `App.vue`.
     showUserPreferencesModal()
+    // refresh options every time after languange setting might be changed.
+    initializeSettingOptions()
   } else {
     console.warn('unknown setting-option selected.')
   }
@@ -49,7 +57,7 @@ const onSettingOptionSelected = (key: string) => {
         <template #icon>
           <MenuIcon />
         </template>
-        更多
+        {{ $t('ui.more') }}
       </n-button>
     </n-dropdown>
   </div>

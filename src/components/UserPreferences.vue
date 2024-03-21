@@ -39,20 +39,22 @@ const handleClose = () => {
       label-placement="left"
       label-width="auto"
     >
-      <n-form-item :label="$t('ui.settings.theme')">
-        <n-radio-group v-model:value="formData.theme" name="theme">
-          <n-radio-button value="system" :label="$t('themes.system')" />
-          <n-radio-button value="light" :label="$t('themes.light')" />
-          <n-radio-button value="dark" :label="$t('themes.dark')" />
-        </n-radio-group>
-      </n-form-item>
-      <n-form-item :label="$t('ui.settings.language_ui')">
-        <n-radio-group v-model:value="formData.language_ui" name="language_ui">
-          <n-radio-button value="zh" label="简体中文" />
-          <n-radio-button value="en" label="English" />
-          <n-radio-button value="ja" label="日本語" />
-        </n-radio-group>
-      </n-form-item>
+      <div class="items-container">
+        <n-form-item :label="$t('ui.settings.theme')">
+          <n-radio-group v-model:value="formData.theme" name="theme">
+            <n-radio-button value="system" :label="$t('themes.system')" />
+            <n-radio-button value="light" :label="$t('themes.light')" />
+            <n-radio-button value="dark" :label="$t('themes.dark')" />
+          </n-radio-group>
+        </n-form-item>
+        <n-form-item :label="$t('ui.settings.language_ui')">
+          <n-radio-group v-model:value="formData.language_ui" name="language_ui">
+            <n-radio-button value="zh" label="简体中文" />
+            <n-radio-button value="en" label="English" />
+            <n-radio-button value="ja" label="日本語" />
+          </n-radio-group>
+        </n-form-item>
+      </div>
 
       <div class="submit-container">
         <n-button type="primary" @click="handleSave">{{ $t('ui.save') }}</n-button>
@@ -62,6 +64,10 @@ const handleClose = () => {
 </template>
 
 <style scoped>
+.items-container {
+  max-width: 100%;
+  overflow-x: auto;
+}
 .submit-container {
   display: flex;
   justify-content: flex-end;

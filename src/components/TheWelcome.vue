@@ -100,10 +100,9 @@ const changeLanguage = (value: 'zh' | 'en' | 'ja') => {
     <template #icon>
       <SupportIcon />
     </template>
-    <template #heading>Support Vue</template>
+    <template #heading>Support HqHelper</template>
 
-    As an independent project, Vue relies on community backing for its sustainability. You can help
-    us by
-    <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
+    Please give us a star in
+    <a href="https://github.com/InfSein/hqhelper-dawntrail" target="_blank" rel="noopener">Github</a>.
   </WelcomeItem>
 </template>

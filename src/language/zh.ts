@@ -6,6 +6,7 @@ export default {
     back: '返回',
     save: '保存',
     submit: '提交',
+    more: '更多',
     settings: {
       user_preferences: '偏好设置',
       language_ui: '界面语言',

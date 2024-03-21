@@ -6,6 +6,7 @@ export default {
     back: 'Back',
     save: 'Save',
     submit: 'Submit',
+    more: 'More',
     settings: {
       user_preferences: 'User Preferences',
       language_ui: 'UI Language',
