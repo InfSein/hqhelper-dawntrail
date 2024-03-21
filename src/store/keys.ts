@@ -1,0 +1,1 @@
+export const _user_config = 'user_config'

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { inject, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import WelcomeItem from './WelcomeItem.vue'
@@ -13,15 +13,31 @@ import SupportIcon from './icons/IconSupport.vue'
 import EorzeaTime from '@/tools/EorzeaTime'
 import AppStatus from '@/variables/AppStatus'
 
+// * import store
+import { useStore } from '@/store/index'
+const store = useStore()
+
+const mobile = ref(AppStatus.Mobile)
+const theme = ref(store.state.userConfig?.theme ?? 'system')
+
+const hqHelperToaster = inject<(
+  message: string, 
+  type?: 'info' | 'success' | 'warning' | 'error', 
+  duration?: number
+) => void>('hqHelperToaster') ?? (() => {})
+const setTheme = inject<(theme: 'light' | 'dark' | 'system') => void>('setTheme') ?? (() => {})
+const setLocale = inject<(locale: 'zh' | 'en' | 'ja') => void>('setLocale') ?? (() => {})
+
 const eorzeaTime = ref<EorzeaTime>(new EorzeaTime())
 setInterval(() => {
   eorzeaTime.value = new EorzeaTime()
 }, 200)
 
 const { locale } = useI18n()
-const changeLanguage = (value: string) => {
+locale.value = store.state.userConfig?.language_ui ?? 'zh'
+const changeLanguage = (value: 'zh' | 'en' | 'ja') => {
 	locale.value = value
-  console.log('Language has already been changed to ' + value)
+  setLocale(value)
 }
 </script>
 
@@ -50,7 +66,22 @@ const changeLanguage = (value: string) => {
     <p>
       <a href="javascript:void(0)" @click="changeLanguage('zh')">Zh-CN</a> |
       <a href="javascript:void(0)" @click="changeLanguage('en')">En-US</a> |
-      <a href="javascript:void(0)" @click="changeLanguage('jp')">Ja-JP</a>
+      <a href="javascript:void(0)" @click="changeLanguage('ja')">Ja-JP</a>
+    </p>
+  </WelcomeItem>
+
+  <WelcomeItem>
+    <template #icon>
+      <CommunityIcon />
+    </template>
+    <template #heading>Theme</template>
+
+    HqHelper can change theme now!
+    <p>Try to change theme:</p>
+    <p>
+      <a href="javascript:void(0)" @click="setTheme('light')">Light</a> |
+      <a href="javascript:void(0)" @click="setTheme('dark')">Dark</a> |
+      <a href="javascript:void(0)" @click="setTheme('system')">System</a>
     </p>
   </WelcomeItem>
 
@@ -60,25 +91,9 @@ const changeLanguage = (value: string) => {
     </template>
     <template #heading>AppStatus</template>
 
-    Mobile: {{ AppStatus.Mobile }}
-  </WelcomeItem>
-
-  <WelcomeItem>
-    <template #icon>
-      <CommunityIcon />
-    </template>
-    <template #heading>Community</template>
-
-    Got stuck? Ask your question on
-    <a href="https://chat.vuejs.org" target="_blank" rel="noopener">Vue Land</a>, our official
-    Discord server, or
-    <a href="https://stackoverflow.com/questions/tagged/vue.js" target="_blank" rel="noopener"
-      >StackOverflow</a
-    >. You should also subscribe to
-    <a href="https://news.vuejs.org" target="_blank" rel="noopener">our mailing list</a> and follow
-    the official
-    <a href="https://twitter.com/vuejs" target="_blank" rel="noopener">@vuejs</a>
-    twitter account for latest news in the Vue world.
+    <p>Mobile: {{ mobile }}</p>
+    <p>Store.Language: {{ locale }}</p>
+    <p>Store.Theme: {{ theme }}</p>
   </WelcomeItem>
 
   <WelcomeItem>
