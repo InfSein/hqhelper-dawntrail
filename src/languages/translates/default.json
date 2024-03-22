@@ -1,0 +1,73 @@
+{
+    "欢迎": {
+        "en": "Welcome",
+        "ja": "ようこそ",
+        "$files": [
+            "App.vue"
+        ]
+    },
+    "偏好设置": {
+        "en": "User Preferences",
+        "ja": "プリファレンス設定",
+        "$files": [
+            "components\\AppHeader.vue",
+            "components\\UserPreferences.vue"
+        ]
+    },
+    "更多": {
+        "en": "More",
+        "ja": "詳細",
+        "$files": [
+            "components\\AppHeader.vue"
+        ]
+    },
+    "主题": {
+        "en": "Theme",
+        "ja": "トピック",
+        "$files": [
+            "components\\UserPreferences.vue"
+        ]
+    },
+    "跟随系统": {
+        "en": "System",
+        "ja": "フォローアップシステム",
+        "$files": [
+            "components\\UserPreferences.vue"
+        ]
+    },
+    "浅色": {
+        "en": "Light",
+        "ja": "薄い",
+        "$files": [
+            "components\\UserPreferences.vue"
+        ]
+    },
+    "深色": {
+        "en": "Dark",
+        "ja": "ダークカラー",
+        "$files": [
+            "components\\UserPreferences.vue"
+        ]
+    },
+    "界面语言": {
+        "en": "UI Language",
+        "ja": "インタフェース言語",
+        "$files": [
+            "components\\UserPreferences.vue"
+        ]
+    },
+    "保存": {
+        "en": "Save",
+        "ja": "ホゾン",
+        "$files": [
+            "components\\UserPreferences.vue"
+        ]
+    },
+    "保存成功": {
+        "en": "Save Success",
+        "ja": "保存に成功しました",
+        "$files": [
+            "App.vue"
+        ]
+    }
+}

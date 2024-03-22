@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { inject, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 
 import WelcomeItem from './WelcomeItem.vue'
 
@@ -14,11 +13,10 @@ import EorzeaTime from '@/tools/EorzeaTime'
 import AppStatus from '@/variables/AppStatus'
 
 // * import store
-import { useStore } from '@/store/index'
-const store = useStore()
+// import { useStore } from '@/store/index'
+// const store = useStore()
 
 const mobile = ref(AppStatus.Mobile)
-const theme = ref(store.state.userConfig?.theme ?? 'system')
 
 const hqHelperToaster = inject<(
   message: string, 
@@ -33,10 +31,7 @@ setInterval(() => {
   eorzeaTime.value = new EorzeaTime()
 }, 200)
 
-const { locale } = useI18n()
-locale.value = store.state.userConfig?.language_ui ?? 'zh'
 const changeLanguage = (value: 'zh' | 'en' | 'ja') => {
-	locale.value = value
   setLocale(value)
 }
 </script>
@@ -92,8 +87,6 @@ const changeLanguage = (value: 'zh' | 'en' | 'ja') => {
     <template #heading>AppStatus</template>
 
     <p>Mobile: {{ mobile }}</p>
-    <p>Store.Language: {{ locale }}</p>
-    <p>Store.Theme: {{ theme }}</p>
   </WelcomeItem>
 
   <WelcomeItem>

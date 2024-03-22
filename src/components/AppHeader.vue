@@ -22,7 +22,7 @@ const settingOptions = ref<any[]>([])
 const initializeSettingOptions = () => {
   settingOptions.value = [
     {
-      label: t('ui.settings.user_preferences'),
+      label: t('偏好设置'),
       key: 'user_preferences',
       icon: renderIcon(SettingsIcon)
     },
@@ -57,7 +57,7 @@ const onSettingOptionSelected = (key: string) => {
         <template #icon>
           <MenuIcon />
         </template>
-        {{ $t('ui.more') }}
+        {{ t('更多') }}
       </n-button>
     </n-dropdown>
   </div>

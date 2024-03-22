@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { inject, ref } from 'vue'
 import { useStore } from '@/store/index'
 import { type UserConfigModel, defaultUserConfig } from '@/variables/UserConfig'
 
 const emit = defineEmits(['close', 'afterSubmit'])
 
 const store = useStore()
+const t = inject<(i18nKey: string) => string>('t') ?? (() => { return '' })
 
 const formData = ref<UserConfigModel>(store.state.userConfig ?? defaultUserConfig)
 
@@ -32,7 +33,7 @@ const handleClose = () => {
     closable
     role="dialog"
     style="max-width: 600px; max-height: 60%;"
-    :title="$t('ui.settings.user_preferences')"
+    :title="t('偏好设置')"
     @close="handleClose"
   >
     <n-form
@@ -40,14 +41,14 @@ const handleClose = () => {
       label-width="auto"
     >
       <div class="items-container">
-        <n-form-item :label="$t('ui.settings.theme')">
+        <n-form-item :label="t('主题')">
           <n-radio-group v-model:value="formData.theme" name="theme">
-            <n-radio-button value="system" :label="$t('themes.system')" />
-            <n-radio-button value="light" :label="$t('themes.light')" />
-            <n-radio-button value="dark" :label="$t('themes.dark')" />
+            <n-radio-button value="system" :label="t('跟随系统')" />
+            <n-radio-button value="light" :label="t('浅色')" />
+            <n-radio-button value="dark" :label="t('深色')" />
           </n-radio-group>
         </n-form-item>
-        <n-form-item :label="$t('ui.settings.language_ui')">
+        <n-form-item :label="t('界面语言')">
           <n-radio-group v-model:value="formData.language_ui" name="language_ui">
             <n-radio-button value="zh" label="简体中文" />
             <n-radio-button value="en" label="English" />
@@ -57,7 +58,7 @@ const handleClose = () => {
       </div>
 
       <div class="submit-container">
-        <n-button type="primary" @click="handleSave">{{ $t('ui.save') }}</n-button>
+        <n-button type="primary" @click="handleSave">{{ t('保存') }}</n-button>
       </div>
     </n-form>
   </n-card>

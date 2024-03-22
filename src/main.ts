@@ -2,7 +2,9 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
-import i18n from './language/i18n'
+
+import i18nPlugin, { type VoerkaI18nPluginOptions } from '@voerkai18n/vue'
+import { i18nScope } from './languages'
 
 // UI-Libs
 import {
@@ -35,8 +37,10 @@ const naive = create({
 
 import { store, key } from './store'
 
-const app = createApp(App)
-app.use(i18n)
-app.use(store, key)
-app.use(naive)
-app.mount('#app')
+i18nScope.ready(()=>{
+  const app = createApp(App)
+  app.use<VoerkaI18nPluginOptions>(i18nPlugin, { i18nScope })
+  app.use(store, key)
+  app.use(naive)
+  app.mount('#app')
+})

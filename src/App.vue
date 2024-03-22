@@ -1,7 +1,11 @@
 <script setup lang="ts">
 // #region Imports
 
+// * import basic
 import { computed, provide, ref, getCurrentInstance } from 'vue'
+import { useStore } from '@/store/index'
+import { t } from '@/languages'
+import { injectVoerkaI18n } from "@voerkai18n/vue"
 
 // * import components
 import AppHeader from './components/AppHeader.vue'
@@ -23,18 +27,20 @@ import {
 // * import variables
 //import AppStatus from './variables/AppStatus'
 
-// * import store
-import { useStore } from '@/store/index'
-import { useI18n } from 'vue-i18n'
-const store = useStore()
-const { locale } = useI18n()
-
 // #endregion
 
-// #region Stored Variables
+// #region Refs
 
+const store = useStore()
+const i18n = injectVoerkaI18n()
+
+// * Stored Variables
 const theme = ref(store.state.userConfig?.theme ?? 'system')
-locale.value = store.state.userConfig?.language_ui ?? 'zh'
+const locale = ref(store.state.userConfig?.language_ui ?? 'zh')
+i18n.activeLanguage = locale.value
+
+// * Local Variables
+const showUserPreferencesModal = ref(false)
 
 // #endregion
 
@@ -75,31 +81,24 @@ const { message/*, notification, dialog, loadingBar*/ } = createDiscreteApi(
 )
 const NAIVE_UI_MESSAGE = message
 
-// * register i18n
-const { t } = useI18n()
-
 // * register child components ref
 const appHeader = ref<any>(null)
-
-// #endregion
-
-// #region Local Variables
-
-const showUserPreferencesModal = ref(false)
 
 // #endregion
 
 // #region functions
 
 const appForceUpdate = () => {
-  const instance = getCurrentInstance()
-  instance?.proxy?.$forceUpdate()
-
   // Update i18n
   locale.value = store.state.userConfig?.language_ui ?? 'zh'
+  console.log('i18n.languages:', i18n.languages)
+  i18n.activeLanguage = locale.value
   // Update ui
   theme.value = store.state.userConfig?.theme ?? 'system'
   appHeader?.value?.initializeSettingOptions()
+
+  const instance = getCurrentInstance()
+  instance?.proxy?.$forceUpdate()
 }
 
 // * HqHelper Toast
@@ -118,7 +117,7 @@ const closeUserPreferencesModal = () => {
 const onUserPreferencesSubmitted = () => {
   closeUserPreferencesModal()
   appForceUpdate()
-  hqHelperToast(t('tips.save_succeed'), 'success')
+  hqHelperToast(t('保存成功'), 'success')
 }
 
 // #endregion
@@ -145,6 +144,7 @@ provide('setTheme', (newTheme: 'light' | 'dark' | 'system') => {
 // * Provide Locale Changer
 provide('setLocale', (newLocale: 'zh' | 'en' | 'ja') => {
   locale.value = newLocale
+  VoerkaI18n.change(locale.value)
   const newConfig = store.state.userConfig ?? {}
   newConfig.language_ui = newLocale
   store.commit('setUserConfig', newConfig)
@@ -174,7 +174,7 @@ provide('hqHelperToaster', hqHelperToast)
             <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
             <div class="wrapper">
-              <HelloWorld :msg="$t('welcome')" />
+              <HelloWorld :msg="t('欢迎')" />
             </div>
           </header>
           <main>

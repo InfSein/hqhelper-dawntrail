@@ -16,7 +16,7 @@ Visit our [Github Page](https://infsein.github.io/hqhelper-dawntrail/) and enjoy
 It is just a foundation now.
 
 #### To-do List
-- [ ] i18n
+- [√] i18n
 - [ ] Development Document
 
 ### Predecessor
