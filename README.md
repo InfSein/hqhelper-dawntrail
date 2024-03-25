@@ -13,10 +13,11 @@ Visit our [Github Page](https://infsein.github.io/hqhelper-dawntrail/) and enjoy
 
 ### Development Progress
 
-It is just a foundation now.
+This repository is still under construction and may undergo significant changes at any time.
 
 #### To-do List
-- [√] i18n
+
+- [x] i18n
 - [ ] Development Document
 
 ### Predecessor
@@ -34,8 +35,10 @@ You could still view screenshot, description and tutorials, or just download and
 
 The application would be updated automatically when `master` branch code been changed.
 
-In the early stages of development, the code can be directly pushed to the master branch. 
-But after the application is officially launched, the changes should be thoroughly tested in the dev branch before merging into the master branch.
+In the early stages of development, the code can be directly pushed to the `master` branch. 
+But after the application is officially launched,
+the changes should be thoroughly tested in the `dev` branch
+before merging into the `master` branch.
 
 ### Clone and Build
 
@@ -45,3 +48,16 @@ cd hqhelper-dawntrail
 npm i
 npm run dev
 ```
+
+## References
+
+1. [Naive UI](https://github.com/tusen-ai/naive-ui)
+2. [FFXIV Axis Font Icons](https://github.com/thewakingsands/ffxiv-axis-font-icons)
+
+Reference may not be all listed above.
+
+## License
+
+The license of this project might be changed in the future.
+
+For now, it is under `MIT License`.

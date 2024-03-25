@@ -37,7 +37,7 @@ const naive = create({
 
 import { store, key } from './store'
 
-i18nScope.ready(()=>{
+i18nScope.ready(() => {
   const app = createApp(App)
   app.use<VoerkaI18nPluginOptions>(i18nPlugin, { i18nScope })
   app.use(store, key)

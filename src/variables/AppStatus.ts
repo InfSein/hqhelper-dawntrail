@@ -1,6 +1,8 @@
+import PackageJson from '../../package.json'
+
 class AppStatus {
-  static get Mobile() {
-    return window.innerHeight > window.innerWidth
+  static get Version() {
+    return PackageJson.version
   }
 }
 

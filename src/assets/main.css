@@ -1,4 +1,6 @@
 @import './base.css';
+@import './font.css';
+@import './font/xiv-axis-font.css';
 
 #app {
   max-width: 1280px;

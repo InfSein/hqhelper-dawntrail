@@ -41,6 +41,14 @@ i18n.activeLanguage = locale.value
 
 // * Local Variables
 const showUserPreferencesModal = ref(false)
+const isMobile = ref(false)
+
+// * Variables' auto updates
+const updateIsMobile = () => {
+  isMobile.value = window.innerWidth < window.innerHeight
+}
+updateIsMobile()
+window.addEventListener('resize', updateIsMobile)
 
 // #endregion
 
@@ -127,6 +135,9 @@ const onUserPreferencesSubmitted = () => {
 // * Provide i18n t
 provide('t', t)
 
+// * Procide is-mobile
+provide('isMobile', isMobile)
+
 // * Provide User Preferences Modal
 provide('showUserPreferencesModal', () => {
   showUserPreferencesModal.value = true
@@ -171,7 +182,7 @@ provide('hqHelperToaster', hqHelperToast)
       <n-layout-content>
         <div id="main-container">
           <header>
-            <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+            <i class="xiv hq logo" style=""></i>
 
             <div class="wrapper">
               <HelloWorld :msg="t('欢迎')" />
@@ -220,6 +231,8 @@ header {
 .logo {
   display: block;
   margin: 0 auto 2rem;
+  font-size: 125px;
+  color: var(--n-text-color);
 }
 
 @media (min-width: 1024px) {

@@ -68,6 +68,7 @@ const handleClose = () => {
 .items-container {
   max-width: 100%;
   overflow-x: auto;
+  overflow-y: auto;
 }
 .submit-container {
   display: flex;

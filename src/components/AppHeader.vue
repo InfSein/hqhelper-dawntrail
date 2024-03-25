@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { inject, h, ref } from 'vue'
 import type { Component } from 'vue'
+import AppStatus from '@/variables/AppStatus'
 import { NIcon } from 'naive-ui'
 
 import MenuIcon from "./x-icons/IconMenu.vue"
@@ -45,15 +46,16 @@ const onSettingOptionSelected = (key: string) => {
 
 <template>
   <div class="app-header">
-    <img src="../assets/logo_32x32.png" width="15" height="15" alt="Logo" />
+    <i class="xiv hq logo-font"></i>
     <p class="app-name">HQ Helper</p>
+    <p>{{ AppStatus.Version }}</p>
     <n-dropdown
       size="huge"
       trigger="click"
       :options="settingOptions"
       @select="onSettingOptionSelected"
     >
-      <n-button secondary strong class="menu-btn">
+      <n-button ghost class="menu-btn">
         <template #icon>
           <MenuIcon />
         </template>
@@ -69,6 +71,10 @@ const onSettingOptionSelected = (key: string) => {
   align-items: center;
   line-height: 35px;
 
+  .logo-font {
+    font-size: 24px;
+    color: var(--n-text-color);
+  }
   .app-name {
     margin: 5px;
     font-weight: 600;

@@ -1,0 +1,5 @@
+@font-face {
+  font-family: 'FFXIV';
+  src: url('font/FFXIV_Lodestone_SSF.woff') format('woff');
+  unicode-range: U+E020-E0DB;
+}

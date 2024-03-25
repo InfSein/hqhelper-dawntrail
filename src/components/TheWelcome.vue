@@ -10,13 +10,12 @@ import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
 
 import EorzeaTime from '@/tools/EorzeaTime'
-import AppStatus from '@/variables/AppStatus'
 
 // * import store
 // import { useStore } from '@/store/index'
 // const store = useStore()
 
-const mobile = ref(AppStatus.Mobile)
+const isMobile = inject<boolean>('isMobile') ?? false
 
 const hqHelperToaster = inject<(
   message: string, 
@@ -86,7 +85,7 @@ const changeLanguage = (value: 'zh' | 'en' | 'ja') => {
     </template>
     <template #heading>AppStatus</template>
 
-    <p>Mobile: {{ mobile }}</p>
+    <p>Mobile: {{ isMobile }}</p>
   </WelcomeItem>
 
   <WelcomeItem>
