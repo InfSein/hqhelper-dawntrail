@@ -229,8 +229,9 @@ header {
 }
 
 .logo {
-  display: block;
-  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 125px;
   color: var(--n-text-color);
 }
@@ -249,7 +250,8 @@ header {
   }
 
   .logo {
-    margin: 0 2rem 0 0;
+    display: block;
+    margin: 0 auto 2rem;
   }
 
   header .wrapper {
