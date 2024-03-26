@@ -17,22 +17,11 @@ import EorzeaTime from '@/tools/EorzeaTime'
 
 const isMobile = inject<boolean>('isMobile') ?? false
 
-const hqHelperToaster = inject<(
-  message: string, 
-  type?: 'info' | 'success' | 'warning' | 'error', 
-  duration?: number
-) => void>('hqHelperToaster') ?? (() => {})
-const setTheme = inject<(theme: 'light' | 'dark' | 'system') => void>('setTheme') ?? (() => {})
-const setLocale = inject<(locale: 'zh' | 'en' | 'ja') => void>('setLocale') ?? (() => {})
-
 const eorzeaTime = ref<EorzeaTime>(new EorzeaTime())
 setInterval(() => {
   eorzeaTime.value = new EorzeaTime()
 }, 200)
 
-const changeLanguage = (value: 'zh' | 'en' | 'ja') => {
-  setLocale(value)
-}
 </script>
 
 <template>
@@ -56,12 +45,6 @@ const changeLanguage = (value: 'zh' | 'en' | 'ja') => {
     <template #heading>i18n</template>
 
     HqHelper has already built `i18n` support.
-    <p>Try to change languange:</p>
-    <p>
-      <a href="javascript:void(0)" @click="changeLanguage('zh')">Zh-CN</a> |
-      <a href="javascript:void(0)" @click="changeLanguage('en')">En-US</a> |
-      <a href="javascript:void(0)" @click="changeLanguage('ja')">Ja-JP</a>
-    </p>
   </WelcomeItem>
 
   <WelcomeItem>
@@ -71,12 +54,6 @@ const changeLanguage = (value: 'zh' | 'en' | 'ja') => {
     <template #heading>Theme</template>
 
     HqHelper can change theme now!
-    <p>Try to change theme:</p>
-    <p>
-      <a href="javascript:void(0)" @click="setTheme('light')">Light</a> |
-      <a href="javascript:void(0)" @click="setTheme('dark')">Dark</a> |
-      <a href="javascript:void(0)" @click="setTheme('system')">System</a>
-    </p>
   </WelcomeItem>
 
   <WelcomeItem>

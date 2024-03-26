@@ -7,16 +7,11 @@ import { useStore } from '@/store/index'
 import { t } from '@/languages'
 import { injectVoerkaI18n } from "@voerkai18n/vue"
 
-// * import components
-import AppHeader from './components/AppHeader.vue'
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-import UserPreferences from './components/UserPreferences.vue'
+// * import pages
+import MainPage from './views/MainPage.vue'
 
 // * import ui lib
 import {
-  createDiscreteApi,
-  type ConfigProviderProps,
   darkTheme,
   lightTheme,
   useOsTheme,
@@ -40,7 +35,6 @@ const locale = ref(store.state.userConfig?.language_ui ?? 'zh')
 i18n.activeLanguage = locale.value
 
 // * Local Variables
-const showUserPreferencesModal = ref(false)
 const isMobile = ref(false)
 
 // * Variables' auto updates
@@ -77,17 +71,9 @@ const naiveUiDateLocale = computed(() => {
     default: return dateZhCN
   }
 })
-const configProviderPropsRef = computed<ConfigProviderProps>(() => ({
-  theme: naiveUiTheme.value,
-  locale: naiveUiLocale.value,
-  dateLocale: naiveUiDateLocale.value
-}))
-const { message/*, notification, dialog, loadingBar*/ } = createDiscreteApi(
-  ['message'/*, 'dialog', 'notification', 'loadingBar'*/], {
-    configProviderProps: configProviderPropsRef
-  }
-)
-const NAIVE_UI_MESSAGE = message
+const naiveUiMessagePlacement = computed(() => {
+  return isMobile.value ? 'bottom' : 'top'
+})
 
 // * register child components ref
 const appHeader = ref<any>(null)
@@ -99,7 +85,6 @@ const appHeader = ref<any>(null)
 const appForceUpdate = () => {
   // Update i18n
   locale.value = store.state.userConfig?.language_ui ?? 'zh'
-  console.log('i18n.languages:', i18n.languages)
   i18n.activeLanguage = locale.value
   // Update ui
   theme.value = store.state.userConfig?.theme ?? 'system'
@@ -107,25 +92,6 @@ const appForceUpdate = () => {
 
   const instance = getCurrentInstance()
   instance?.proxy?.$forceUpdate()
-}
-
-// * HqHelper Toast
-const hqHelperToast = (
-  message: string,
-  type: 'info' | 'success' | 'warning' | 'error' = 'info',
-  duration: number = 2000,
-) => {
-  // Naive Message
-  NAIVE_UI_MESSAGE[type](message, { closable: true, duration: duration })
-}
-
-const closeUserPreferencesModal = () => {
-  showUserPreferencesModal.value = false
-}
-const onUserPreferencesSubmitted = () => {
-  closeUserPreferencesModal()
-  appForceUpdate()
-  hqHelperToast(t('保存成功'), 'success')
 }
 
 // #endregion
@@ -138,32 +104,8 @@ provide('t', t)
 // * Procide is-mobile
 provide('isMobile', isMobile)
 
-// * Provide User Preferences Modal
-provide('showUserPreferencesModal', () => {
-  showUserPreferencesModal.value = true
-})
-
-// * Provide Theme Changer
-provide('setTheme', (newTheme: 'light' | 'dark' | 'system') => {
-  theme.value = newTheme
-  const newConfig = store.state.userConfig ?? {}
-  newConfig.theme = newTheme
-  store.commit('setUserConfig', newConfig)
-  hqHelperToast('Theme has been changed to ' + newTheme)
-})
-
-// * Provide Locale Changer
-provide('setLocale', (newLocale: 'zh' | 'en' | 'ja') => {
-  locale.value = newLocale
-  VoerkaI18n.change(locale.value)
-  const newConfig = store.state.userConfig ?? {}
-  newConfig.language_ui = newLocale
-  store.commit('setUserConfig', newConfig)
-  hqHelperToast('Language has been changed to ' + newLocale)
-})
-
-// * Provide HqHelper Toaster
-provide('hqHelperToaster', hqHelperToast)
+// * Provide App Force Update
+provide('appForceUpdate', appForceUpdate)
 
 // #endregion
 </script>
@@ -174,90 +116,12 @@ provide('hqHelperToaster', hqHelperToast)
     :locale="naiveUiLocale"
     :date-locale="naiveUiDateLocale"
   >
-    <n-layout id="main-layout" position="absolute" :native-scrollbar="false">
-      <n-layout-header bordered position="absolute">
-        <AppHeader ref="appHeader" />
-      </n-layout-header>
-
-      <n-layout-content>
-        <div id="main-container">
-          <header>
-            <i class="xiv hq logo" style=""></i>
-
-            <div class="wrapper">
-              <HelloWorld :msg="t('欢迎')" />
-            </div>
-          </header>
-          <main>
-            <TheWelcome />
-          </main>
-        </div>
-      </n-layout-content>
-    </n-layout>
-
-    <n-modal :show="showUserPreferencesModal">
-      <UserPreferences
-        @after-submit="onUserPreferencesSubmitted"
-        @close="closeUserPreferencesModal"
-      />
-    </n-modal>
-    
-    <n-back-top />
+    <n-message-provider :placement="naiveUiMessagePlacement">
+      <MainPage />
+    </n-message-provider>
   </n-config-provider>
 </template>
 
 <style scoped>
-#main-layout {
-  .n-layout-header {
-    height: 64px; padding: 10px 20px;
-    z-index: 1000;
-  }
-  .n-layout-content {
-    margin-top: 65px;
-  }
 
-  #main-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    font-weight: 400;
-  }
-}
-
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 125px;
-  color: var(--n-text-color);
-}
-
-@media (min-width: 1024px) {
-  #main-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    display: block;
-    margin: 0 auto 2rem;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
