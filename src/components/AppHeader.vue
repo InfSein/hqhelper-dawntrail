@@ -38,7 +38,7 @@ const openUserPreferencesModal = () => {
     <n-drawer
       v-model:show="showMenus"
       placement="right"
-      :width="200"
+      :width="250"
       :trap-focus="false"
       :block-scroll="false"
       to="#main-container"
