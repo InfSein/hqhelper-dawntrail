@@ -48,7 +48,7 @@ provide('showUserPreferencesModal', () => {
       <AppHeader ref="appHeader" />
     </n-layout-header>
 
-    <n-layout-content id="main-content">
+    <n-layout-content id="main-content" position="absolute">
       <n-flex id="main-container">
         <n-flex vertical id="sub-container-1">
           <i class="xiv hq logo" style=""></i>
