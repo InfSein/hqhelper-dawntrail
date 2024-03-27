@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { inject, h, ref } from 'vue'
-import type { Component } from 'vue'
+import { inject, ref } from 'vue'
 import AppStatus from '@/variables/AppStatus'
 import { NIcon } from 'naive-ui'
 import {
   MenuFilled,
   SettingsSharp
 } from '@vicons/material'
-
-import MenuIcon from "./x-icons/IconMenu.vue"
 
 const t = inject<(i18nKey: string) => string>('t') ?? (() => { return '' })
 const showUserPreferencesModal = inject<() => void>('showUserPreferencesModal') ?? (() => {})
