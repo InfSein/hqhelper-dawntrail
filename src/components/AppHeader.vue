@@ -3,45 +3,25 @@ import { inject, h, ref } from 'vue'
 import type { Component } from 'vue'
 import AppStatus from '@/variables/AppStatus'
 import { NIcon } from 'naive-ui'
+import {
+  MenuFilled,
+  SettingsSharp
+} from '@vicons/material'
 
 import MenuIcon from "./x-icons/IconMenu.vue"
-import SettingsIcon from "./x-icons/IconSettings.vue"
 
 const t = inject<(i18nKey: string) => string>('t') ?? (() => { return '' })
 const showUserPreferencesModal = inject<() => void>('showUserPreferencesModal') ?? (() => {})
 
-// to use icons in naive-ui, re-render is needed
-const renderIcon = (icon: Component) => {
-  return () => {
-    return h(NIcon, null, {
-      default: () => h(icon)
-    })
-  }
+const showMenus = ref(false)
+
+const openUserPreferencesModal = () => {
+  // close menus first
+  showMenus.value = false
+  // show user preferences modal by inject
+  showUserPreferencesModal()
 }
 
-const settingOptions = ref<any[]>([])
-const initializeSettingOptions = () => {
-  settingOptions.value = [
-    {
-      label: t('偏好设置'),
-      key: 'user_preferences',
-      icon: renderIcon(SettingsIcon)
-    },
-  ]
-}
-initializeSettingOptions()
-defineExpose({initializeSettingOptions})
-
-const onSettingOptionSelected = (key: string) => {
-  if (key === 'user_preferences') {
-    // show user preferences modal by inject from `App.vue`.
-    showUserPreferencesModal()
-    // refresh options every time after languange setting might be changed.
-    initializeSettingOptions()
-  } else {
-    console.warn('unknown setting-option selected.')
-  }
-}
 </script>
 
 <template>
@@ -49,19 +29,34 @@ const onSettingOptionSelected = (key: string) => {
     <i class="xiv hq logo-font"></i>
     <p class="app-name">HQ Helper</p>
     <p>{{ AppStatus.Version }}</p>
-    <n-dropdown
-      size="huge"
-      trigger="click"
-      :options="settingOptions"
-      @select="onSettingOptionSelected"
-    >
-      <n-button ghost class="menu-btn">
+    <div class="tail-contents">
+      <n-button ghost @click="showMenus = !showMenus">
         <template #icon>
-          <MenuIcon />
+          <n-icon><menu-filled /></n-icon>
         </template>
         {{ t('更多') }}
       </n-button>
-    </n-dropdown>
+    </div>
+    
+    <n-drawer
+      v-model:show="showMenus"
+      placement="right"
+      :width="200"
+      :trap-focus="false"
+      :block-scroll="false"
+      to="#main-container"
+    >
+      <n-drawer-content>
+        <n-flex vertical>
+          <n-button @click="openUserPreferencesModal">
+            <template #icon>
+              <n-icon><settings-sharp /></n-icon>
+            </template>
+            {{ t('偏好设置') }}
+          </n-button>
+        </n-flex>
+      </n-drawer-content>
+    </n-drawer>
   </div>
 </template>
 
@@ -79,7 +74,7 @@ const onSettingOptionSelected = (key: string) => {
     margin: 5px;
     font-weight: 600;
   }
-  .menu-btn {
+  .tail-contents {
     margin-left: auto;
   }
 }

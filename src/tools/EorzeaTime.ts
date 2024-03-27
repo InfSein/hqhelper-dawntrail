@@ -30,6 +30,8 @@ class EorzeaTime {
   private _minute: number
   private _timeStamp: number
 
+  private _local_date: Date
+
   get year(): number {
     return Math.floor(this._year)
   }
@@ -55,6 +57,16 @@ class EorzeaTime {
   }
 
   /**
+   * get earth local time string in the format like in-game display.
+   * Sample: `15:31`
+   */
+  get localTime(): string {
+    const hour = this._local_date.getHours()
+    const minute = this._local_date.getMinutes()
+    return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`
+  }
+
+  /**
    * get the timestamp (total minutes) of this eorzea time.
    */
   get timeStamp(): number {
@@ -67,6 +79,7 @@ class EorzeaTime {
    */
   constructor(date?: Date) {
     date ??= new Date()
+    this._local_date = date
     const totalSeconds = date.getTime() / 1000
 
     const eorzeaMinutes = Math.floor(totalSeconds * EorzeaTime.MinutesOfHour / EorzeaTime.TimeRate)

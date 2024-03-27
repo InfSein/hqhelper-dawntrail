@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { inject, provide, ref } from 'vue';
 import AppHeader from '../components/AppHeader.vue'
+import EorzeaTimeCard from '../components/user-controls/EorzeaTimeCard.vue'
+import UserPreferences from '../components/UserPreferences.vue'
 import HelloWorld from '../components/HelloWorld.vue'
 import TheWelcome from '../components/TheWelcome.vue'
-import UserPreferences from '../components/UserPreferences.vue'
 import { useMessage } from 'naive-ui';
 
 const NAIVE_UI_MESSAGE = useMessage()
@@ -47,19 +48,21 @@ provide('showUserPreferencesModal', () => {
       <AppHeader ref="appHeader" />
     </n-layout-header>
 
-    <n-layout-content>
-      <div id="main-container">
-        <header>
+    <n-layout-content id="main-content">
+      <n-flex id="main-container">
+        <n-flex vertical id="sub-container-1">
           <i class="xiv hq logo" style=""></i>
 
           <div class="wrapper">
             <HelloWorld :msg="t('欢迎')" />
           </div>
-        </header>
-        <main>
+
+          <EorzeaTimeCard />
+        </n-flex>
+        <n-flex vertical id="sub-container-2">
           <TheWelcome />
-        </main>
-      </div>
+        </n-flex>
+      </n-flex>
     </n-layout-content>
   </n-layout>
 
@@ -85,7 +88,6 @@ provide('showUserPreferencesModal', () => {
 
   #main-container {
     max-width: 1280px;
-    margin: 0 auto;
     padding: 2rem;
     font-weight: 400;
   }
@@ -108,6 +110,11 @@ header {
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
+    margin: 0 auto 0 15%;
+  }
+
+  #sub-container-2 {
+    margin-left: 10%;
   }
 
   header {

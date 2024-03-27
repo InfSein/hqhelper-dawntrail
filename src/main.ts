@@ -14,8 +14,9 @@ import {
   // use a-z sort
   NButton, NBackTop,
   NConfigProvider, NCard,
-  NDropdown, NDialog, NDialogProvider,
+  NDrawer, NDrawerContent, NDropdown, NDialog, NDialogProvider, NDivider,
   NFlex, NForm, NFormItem,
+  NIcon,
   NLayout, NLayoutHeader, NLayoutContent, NLayoutSider,
   NMessageProvider, NModal,
   NRadioButton, NRadioGroup,
@@ -26,8 +27,9 @@ const naive = create({
   components: [
     NButton, NBackTop,
     NConfigProvider, NCard,
-    NDropdown, NDialog, NDialogProvider,
+    NDrawer, NDrawerContent, NDropdown, NDialog, NDialogProvider, NDivider,
     NFlex, NForm, NFormItem,
+    NIcon,
     NLayout, NLayoutHeader, NLayoutContent, NLayoutSider,
     NMessageProvider, NModal,
     NRadioButton, NRadioGroup,
