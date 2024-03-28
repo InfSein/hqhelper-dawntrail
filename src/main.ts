@@ -13,7 +13,7 @@ import {
   // components
   // use a-z sort
   NButton, NBackTop,
-  NConfigProvider, NCard,
+  NCard, NConfigProvider, NCollapse, NCollapseItem,
   NDrawer, NDrawerContent, NDropdown, NDialog, NDialogProvider, NDivider,
   NFlex, NForm, NFormItem,
   NIcon,
@@ -26,7 +26,7 @@ import {
 const naive = create({
   components: [
     NButton, NBackTop,
-    NConfigProvider, NCard,
+    NCard, NConfigProvider, NCollapse, NCollapseItem,
     NDrawer, NDrawerContent, NDropdown, NDialog, NDialogProvider, NDivider,
     NFlex, NForm, NFormItem,
     NIcon,

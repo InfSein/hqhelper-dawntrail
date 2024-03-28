@@ -3,6 +3,7 @@ import { inject, provide, ref } from 'vue';
 import AppHeader from '../components/AppHeader.vue'
 import EorzeaTimeCard from '../components/user-controls/EorzeaTimeCard.vue'
 import UserPreferences from '../components/UserPreferences.vue'
+import AboutApp from '../components/AboutApp.vue'
 import HelloWorld from '../components/HelloWorld.vue'
 import TheWelcome from '../components/TheWelcome.vue'
 import { useMessage } from 'naive-ui';
@@ -10,7 +11,7 @@ import { useMessage } from 'naive-ui';
 const NAIVE_UI_MESSAGE = useMessage()
 
 const t = inject<(i18nKey: string) => string>('t') ?? (() => { return '' })
-const appForceUpdate = inject<() => void>('appForceUpdate') ?? (() => { return })
+const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 // const isMobile = inject<boolean>('isMobile') ?? false
 
 // * HqHelper Toast
@@ -26,9 +27,13 @@ const hqHelperToast = (
 provide('hqHelperToaster', hqHelperToast)
 
 const showUserPreferencesModal = ref(false)
+const showAboutAppModal = ref(false)
 
 const closeUserPreferencesModal = () => {
   showUserPreferencesModal.value = false
+}
+const closeAboutAppModal = () => {
+  showAboutAppModal.value = false
 }
 const onUserPreferencesSubmitted = () => {
   closeUserPreferencesModal()
@@ -36,9 +41,12 @@ const onUserPreferencesSubmitted = () => {
   hqHelperToast(t('保存成功'), 'success')
 }
 
-// * Provide User Preferences Modal
+// * Provide Show Modals
 provide('showUserPreferencesModal', () => {
   showUserPreferencesModal.value = true
+})
+provide('showAboutAppModal', () => {
+  showAboutAppModal.value = true
 })
 </script>
 
@@ -70,6 +78,11 @@ provide('showUserPreferencesModal', () => {
     <UserPreferences
       @after-submit="onUserPreferencesSubmitted"
       @close="closeUserPreferencesModal"
+    />
+  </n-modal>
+  <n-modal :show="showAboutAppModal">
+    <AboutApp
+      @close="closeAboutAppModal"
     />
   </n-modal>
   

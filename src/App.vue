@@ -102,7 +102,7 @@ const appForceUpdate = () => {
 provide('t', t)
 provide('locale', locale)
 
-// * Procide is-mobile
+// * Provide is-mobile
 provide('isMobile', isMobile)
 
 // * Provide App Force Update

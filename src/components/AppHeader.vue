@@ -4,19 +4,28 @@ import AppStatus from '@/variables/AppStatus'
 import { NIcon } from 'naive-ui'
 import {
   MenuFilled,
-  SettingsSharp
+  SettingsSharp,
+  InfoFilled
 } from '@vicons/material'
 
 const t = inject<(i18nKey: string) => string>('t') ?? (() => { return '' })
 const showUserPreferencesModal = inject<() => void>('showUserPreferencesModal') ?? (() => {})
+const showAboutAppModal = inject<() => void>('showAboutAppModal') ?? (() => {})
 
 const showMenus = ref(false)
 
-const openUserPreferencesModal = () => {
+const openModal = (key: string) => {
   // close menus first
   showMenus.value = false
-  // show user preferences modal by inject
-  showUserPreferencesModal()
+  // show modal by inject
+  switch (key) {
+    case 'user-preferences':
+      showUserPreferencesModal()
+      break
+    case 'about-app':
+      showAboutAppModal()
+      break
+  }
 }
 
 </script>
@@ -45,11 +54,17 @@ const openUserPreferencesModal = () => {
     >
       <n-drawer-content>
         <n-flex vertical>
-          <n-button @click="openUserPreferencesModal">
+          <n-button @click="openModal('user-preferences')">
             <template #icon>
               <n-icon><settings-sharp /></n-icon>
             </template>
             {{ t('偏好设置') }}
+          </n-button>
+          <n-button @click="openModal('about-app')">
+            <template #icon>
+              <n-icon><info-filled /></n-icon>
+            </template>
+            {{ t('关于本作') }}
           </n-button>
         </n-flex>
       </n-drawer-content>

@@ -69,5 +69,96 @@
         "$files": [
             "App.vue"
         ]
+    },
+    "版权信息": {
+        "en": "Copyright information",
+        "ja": "著作権情報",
+        "$files": [
+            "components\\AboutApp.vue"
+        ]
+    },
+    "本作涉及《最终幻想XIV》之内容，版权归于SQUARE ENIX所有。": {
+        "en": "This work involves the content of Final Fantasy XIV, and the copyright belongs to SQUARE ENIX.",
+        "ja": "本作は『ファイナルファンタジーXIV』の内容に関連しており、著作権はSQUARE ENIXが所有している。",
+        "$files": [
+            "components\\AboutApp.vue"
+        ]
+    },
+    "本作仅供学习交流使用，不得以任何方式用于商业用途。": {
+        "en": "This work is for learning and communication purposes only and may not be used for commercial purposes in any way.",
+        "ja": "本作は学習交流用にのみ使用されており、ビジネス用途には使用されていません。",
+        "$files": [
+            "components\\AboutApp.vue"
+        ]
+    },
+    "转载、搬运须注明作者及出处。": {
+        "en": "Reproduction and handling must indicate the author and source.",
+        "ja": "転載、運搬は作者と出所を明記しなければならない。",
+        "$files": [
+            "components\\AboutApp.vue"
+        ]
+    },
+    "致谢：开发协助": {
+        "en": "Thanks: Development Assistance",
+        "ja": "お礼：開発協力",
+        "$files": [
+            "components\\AboutApp.vue"
+        ]
+    },
+    "特别感谢以下人员或组织为本作提供技术层面的支持：": {
+        "en": "Special thanks to the following individuals or organizations for providing technical support for this work:",
+        "ja": "特に、この作品に技術的なサポートを提供してくれた人や組織に感謝します：",
+        "$files": [
+            "components\\AboutApp.vue"
+        ]
+    },
+    "程序内容贡献者：": {
+        "en": "Program content contributors:",
+        "ja": "プログラム内容貢献者：",
+        "$files": [
+            "components\\AboutApp.vue"
+        ]
+    },
+    "技术支持或指导：": {
+        "en": "Technical support or guidance:",
+        "ja": "テクニカルサポートまたはアドバイザ：",
+        "$files": [
+            "components\\AboutApp.vue"
+        ]
+    },
+    "致谢：赞助者": {
+        "en": "Thanks: Sponsors",
+        "ja": "お礼：スポンサー",
+        "$files": [
+            "components\\AboutApp.vue"
+        ]
+    },
+    "HqHelper的诞生与持续开发离不开用户的支持。": {
+        "en": "The birth and continuous development of HqHelper cannot be separated from the support of users.",
+        "ja": "HqHelperの誕生と持続的な開発にはユーザーの支持が欠かせない。",
+        "$files": [
+            "components\\AboutApp.vue"
+        ]
+    },
+    "特别感谢以下用户对前代HqHelper项目的赞助：": {
+        "en": "Special thanks to the following users for sponsoring the previous generation HqHelper project:",
+        "ja": "特に、次のユーザーは前世代HqHelperプロジェクトへの協賛に感謝しています：",
+        "$files": [
+            "components\\AboutApp.vue"
+        ]
+    },
+    "关于本作": {
+        "en": "About",
+        "ja": "本作について",
+        "$files": [
+            "components\\AppHeader.vue"
+        ]
+    },
+    "本作程序源代码遵循MIT协议开源，但使用的协议在正式发布之前随时可能被更改。": {
+        "en": "The source code of this program follows the MIT protocol for open source, but the protocol used may be changed at any time before official release.",
+        "ja": "このプログラムのソースコードはMITプロトコルのオープンソースに準拠していますが、使用するプロトコルは正式にリリースされる前にいつでも変更される可能性があります。",
+        "$files": [
+            "components\\AboutApp.vue"
+        ]
     }
 }

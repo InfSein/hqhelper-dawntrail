@@ -8,5 +8,18 @@ export default {
     "7": "Dark",
     "8": "UI Language",
     "9": "Save",
-    "10": "Save Success"
+    "10": "Save Success",
+    "11": "Copyright information",
+    "12": "This work involves the content of Final Fantasy XIV, and the copyright belongs to SQUARE ENIX.",
+    "13": "This work is for learning and communication purposes only and may not be used for commercial purposes in any way.",
+    "14": "Reproduction and handling must indicate the author and source.",
+    "15": "Thanks: Development Assistance",
+    "16": "Special thanks to the following individuals or organizations for providing technical support for this work:",
+    "17": "Program content contributors:",
+    "18": "Technical support or guidance:",
+    "19": "Thanks: Sponsors",
+    "20": "The birth and continuous development of HqHelper cannot be separated from the support of users.",
+    "21": "Special thanks to the following users for sponsoring the previous generation HqHelper project:",
+    "22": "About",
+    "23": "The source code of this program follows the MIT protocol for open source, but the protocol used may be changed at any time before official release."
 }
