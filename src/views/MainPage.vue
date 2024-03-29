@@ -177,6 +177,9 @@ header {
     margin: 0 auto 0 15%;
   }
 
+  #sub-container-1 {
+    max-width: 600px;
+  }
   #sub-container-2 {
     margin-left: 10%;
   }

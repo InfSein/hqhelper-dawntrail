@@ -1,5 +1,9 @@
-<script setup>
+<script setup lang="ts">
+import { inject } from 'vue'
 import JobButton from './user-controls/JobButton.vue'
+import GroupBox from './user-controls/GroupBox.vue'
+
+const t = inject<(i18nKey: string) => string>('t') ?? (() => { return '' })
 
 // todo: I dont know how to import icons automatically
 // for now, they have to be imported manually
@@ -7,6 +11,14 @@ import JobButton from './user-controls/JobButton.vue'
 // todo: After the better solution is found, codes below should be refactored
 
 // #region data
+
+import IconDoH from '@/assets/game-icons/jobs/role/clear_doh.png'
+import IconDoL from '@/assets/game-icons/jobs/role/clear_dol.png'
+import IconDpsMagic from '@/assets/game-icons/jobs/role/clear_dps_magic.png'
+import IconDpsMelee from '@/assets/game-icons/jobs/role/clear_dps.png'
+import IconDpsRanged from '@/assets/game-icons/jobs/role/clear_dps_ranged.png'
+import IconTank from '@/assets/game-icons/jobs/role/clear_tank.png'
+import IconHealer from '@/assets/game-icons/jobs/role/clear_healer.png'
 
 import IconWarrior from '@/assets/game-icons/jobs/job/battle/warrior.png'
 import IconPaladin from '@/assets/game-icons/jobs/job/battle/paladin.png'
@@ -97,42 +109,84 @@ const jobs = {
 
 <template>
   <n-card embedded :bordered="false">
-    <n-flex vertical>
-      <n-flex size="small">
-        <div v-for="job in jobs.tanks" :key="job.job">
-          <JobButton role="tank" :job="job.job" :job-icon="job.iconPath" />
-        </div>
-      </n-flex>
-      <n-flex size="small">
-        <div v-for="job in jobs.healers" :key="job.job">
-          <JobButton role="healer" :job="job.job" :job-icon="job.iconPath" />
-        </div>
-      </n-flex>
-      <n-flex size="small">
-        <div v-for="job in jobs.melee_dps" :key="job.job">
-          <JobButton role="dps" :job="job.job" :job-icon="job.iconPath" />
-        </div>
-      </n-flex>
-      <n-flex size="small">
-        <div v-for="job in jobs.ranged_dps" :key="job.job">
-          <JobButton role="dps" :job="job.job" :job-icon="job.iconPath" />
-        </div>
-      </n-flex>
-      <n-flex size="small">
-        <div v-for="job in jobs.magic_dps" :key="job.job">
-          <JobButton role="dps" :job="job.job" :job-icon="job.iconPath" />
-        </div>
-      </n-flex>
-      <n-flex size="small">
-        <div v-for="job in jobs.crafters" :key="job.job">
-          <JobButton role="other" :job="job.job" :job-icon="job.iconPath" />
-        </div>
-      </n-flex>
-      <n-flex size="small">
-        <div v-for="job in jobs.gatherers" :key="job.job">
-          <JobButton role="other" :job="job.job" :job-icon="job.iconPath" />
-        </div>
-      </n-flex>
+    <n-flex :size="[12,12]">
+      <GroupBox border-color="#409eff">
+        <template #title>
+          <img :src="IconTank" width="14" height="14" />
+          <span>{{t('防护职业')}}</span>
+        </template>
+        <n-flex size="small">
+          <div v-for="job in jobs.tanks" :key="job.job">
+            <JobButton role="tank" :job="job.job" :job-icon="job.iconPath" />
+          </div>
+        </n-flex>
+      </GroupBox>
+      <GroupBox border-color="#67c23a">
+        <template #title>
+          <img :src="IconHealer" width="14" height="14" />
+          <span>{{t('治疗职业')}}</span>
+        </template>
+        <n-flex size="small">
+          <div v-for="job in jobs.healers" :key="job.job">
+            <JobButton role="healer" :job="job.job" :job-icon="job.iconPath" />
+          </div>
+        </n-flex>
+      </GroupBox>
+      <GroupBox border-color="#f56c6c">
+        <template #title>
+          <img :src="IconDpsMelee" width="14" height="14" />
+          <span>{{t('近战职业')}}</span>
+        </template>
+        <n-flex size="small">
+          <div v-for="job in jobs.melee_dps" :key="job.job">
+            <JobButton role="dps" :job="job.job" :job-icon="job.iconPath" />
+          </div>
+        </n-flex>
+      </GroupBox>
+      <GroupBox border-color="#f56c6c">
+        <template #title>
+          <img :src="IconDpsRanged" width="14" height="14" />
+          <span>{{t('远程物理职业')}}</span>
+        </template>
+        <n-flex size="small">
+          <div v-for="job in jobs.ranged_dps" :key="job.job">
+            <JobButton role="dps" :job="job.job" :job-icon="job.iconPath" />
+          </div>
+        </n-flex>
+      </GroupBox>
+      <GroupBox border-color="#f56c6c">
+        <template #title>
+          <img :src="IconDpsMagic" width="14" height="14" />
+          <span>{{t('远程魔法职业')}}</span>
+        </template>
+        <n-flex size="small">
+          <div v-for="job in jobs.magic_dps" :key="job.job">
+            <JobButton role="dps" :job="job.job" :job-icon="job.iconPath" />
+          </div>
+        </n-flex>
+      </GroupBox>
+      <GroupBox border-color="#a4acb2">
+        <template #title>
+          <img :src="IconDoH" width="14" height="14" />
+          <span>{{t('能工巧匠')}}</span>
+        </template>
+        <n-flex size="small">
+          <div v-for="job in jobs.crafters" :key="job.job">
+            <JobButton role="other" :job="job.job" :job-icon="job.iconPath" />
+          </div>
+        </n-flex>
+      </GroupBox>
+      <GroupBox border-color="#a4acb2">
+        <template #title>
+          <img :src="IconDoL" width="14" height="14" />
+          <span>{{t('大地使者')}}</span>
+        </template>
+        <n-flex size="small">
+          <div v-for="job in jobs.gatherers" :key="job.job">
+            <JobButton role="other" :job="job.job" :job-icon="job.iconPath" />
+          </div>
+        </n-flex>
+      </GroupBox>
     </n-flex>
   </n-card>
 </template>
