@@ -32,7 +32,7 @@ const handleClose = () => {
   <n-card
     closable
     role="dialog"
-    style="max-width: 600px; max-height: 60%;"
+    style="max-width: 600px;"
     :title="t('偏好设置')"
     @close="handleClose"
   >

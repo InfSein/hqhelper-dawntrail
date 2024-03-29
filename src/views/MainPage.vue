@@ -2,6 +2,7 @@
 import { inject, provide, ref } from 'vue';
 import AppHeader from '../components/AppHeader.vue'
 import EorzeaTimeCard from '../components/user-controls/EorzeaTimeCard.vue'
+import JobPanel from '../components/JobPanel.vue'
 import UserPreferences from '../components/UserPreferences.vue'
 import AboutApp from '../components/AboutApp.vue'
 import HelloWorld from '../components/HelloWorld.vue'
@@ -48,6 +49,54 @@ provide('showUserPreferencesModal', () => {
 provide('showAboutAppModal', () => {
   showAboutAppModal.value = true
 })
+
+// ! temp
+const base = '/assets/game-icons/jobs/job/'
+const jobs = {
+  tanks: [
+    { job: 'warrior', iconPath: base + 'battle/warrior.png' },
+    { job: 'paladin', iconPath: base + 'battle/paladin.png' },
+    { job: 'darkknight', iconPath: base + 'battle/darkknight.png' },
+    { job: 'gunbreaker', iconPath: base + 'battle/gunbreaker.png' },
+  ],
+  healers: [
+    { job: 'whitemage', iconPath: base + 'battle/whitemage.png' },
+    { job: 'scholar', iconPath: base + 'battle/scholar.png' },
+    { job: 'astrologian', iconPath: base + 'battle/astrologian.png' },
+    { job: 'sage', iconPath: base + 'battle/sage.png' },
+  ],
+  melee_dps: [
+    { job: 'monk', iconPath: base + 'battle/monk.png' },
+    { job: 'dragoon', iconPath: base + 'battle/dragoon.png' },
+    { job: 'ninja', iconPath: base + 'battle/ninja.png' },
+    { job: 'reaper', iconPath: base + 'battle/reaper.png' },
+  ],
+  ranged_dps: [
+    { job: 'bard', iconPath: base + 'battle/bard.png' },
+    { job: 'machinist', iconPath: base + 'battle/machinist.png' },
+    { job: 'dancer', iconPath: base + 'battle/dancer.png' },
+  ],
+  magic_dps: [
+    { job: 'blackmage', iconPath: base + 'battle/blackmage.png' },
+    { job: 'summoner', iconPath: base + 'battle/summoner.png' },
+    { job: 'redmage', iconPath: base + 'battle/redmage.png' },
+  ],
+  crafters: [
+    { job: 'carpenter', iconPath: base + 'non-battle/carpenter.png' },
+    { job: 'blacksmith', iconPath: base + 'non-battle/blacksmith.png' },
+    { job: 'armorer', iconPath: base + 'non-battle/armorer.png' },
+    { job: 'goldsmith', iconPath: base + 'non-battle/goldsmith.png' },  
+    { job: 'leatherworker', iconPath: base + 'non-battle/leatherworker.png' },
+    { job: 'weaver', iconPath: base + 'non-battle/weaver.png' },
+    { job: 'alchemist', iconPath: base + 'non-battle/alchemist.png' },
+    { job: 'culinarian', iconPath: base + 'non-battle/culinarian.png' },
+  ],
+  gatherers: [
+    { job: 'botanist', iconPath: base + 'non-battle/botanist.png' },
+    { job: 'miner', iconPath: base + 'non-battle/miner.png' },  
+    { job: 'fisher', iconPath: base + 'non-battle/fisher.png' },
+  ]
+}
 </script>
 
 <template>
@@ -66,6 +115,8 @@ provide('showAboutAppModal', () => {
           </div>
 
           <EorzeaTimeCard />
+
+          <JobPanel />
         </n-flex>
         <n-flex vertical id="sub-container-2">
           <TheWelcome />

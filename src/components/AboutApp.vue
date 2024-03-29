@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject } from 'vue';
-import sponsors from '../assets/data/sponsors.json';
+import aboutData from '../assets/data/about-app.json';
 
 const t = inject<(i18nKey: string) => string>('t') ?? (() => { return '' })
 
@@ -14,7 +14,7 @@ const handleClose = () => {
   <n-card
     closable
     role="dialog"
-    style="max-width: 80%; max-height: 80%;"
+    style="max-width: 500px;"
     :title="t('关于本作')"
     @close="handleClose"
   >
@@ -26,37 +26,69 @@ const handleClose = () => {
       <n-divider />
       <div class="about-content">
         <n-collapse accordion arrow-placement="right">
-          <n-collapse-item :title="t('版权信息')" name="1">
-            <p>{{ t('本作程序源代码遵循MIT协议开源，但使用的协议在正式发布之前随时可能被更改。') }}</p>
-            <p>{{ t('本作涉及《最终幻想XIV》之内容，版权归于SQUARE ENIX所有。') }}</p>
-            <p>{{ t('本作仅供学习交流使用，不得以任何方式用于商业用途。') }}</p>
-            <p>{{ t('转载、搬运须注明作者及出处。') }}</p>
-          </n-collapse-item>
-          <n-collapse-item :title="t('致谢：开发协助')" name="2">
-            <p>{{ t('特别感谢以下人员或组织为本作提供技术层面的支持：') }}</p>
-            <p class="bold">{{ t('程序内容贡献者：') }}</p>
-            <n-flex>
-              <a href="https://github.com/InfSein" target="_blank">InfSein</a>
-            </n-flex>
-            <p class="bold">{{ t('技术支持或指导：') }}</p>
-            <n-flex>
-              <a href="https://www.xivdb.com/" target="_blank">XIVDB</a>
-              <a href="https://www.ffcafe.cn/" target="_blank">FF-CAFE</a>
+          <n-collapse-item name="1">
+            <template #header>
+              <span class="bold">{{ t('版权信息') }}</span>
+            </template>
+            <n-flex vertical size="small">
+              <p>{{ t('本作程序源代码遵循MIT协议开源，但使用的协议在正式发布之前随时可能被更改。') }}</p>
+              <p>{{ t('本作涉及《最终幻想XIV》之内容，版权归于SQUARE ENIX所有。') }}</p>
+              <p>{{ t('本作仅供学习交流使用，不得以任何方式用于商业用途。') }}</p>
+              <p>{{ t('转载、搬运须注明作者及出处。') }}</p>
             </n-flex>
           </n-collapse-item>
-          <n-collapse-item :title="t('致谢：赞助者')" name="3">
-            <p>{{ t('HqHelper的诞生与持续开发离不开用户的支持。') }}</p>
-            <p class="bold">{{ t('特别感谢以下用户对前代HqHelper项目的赞助：') }}</p>
-            <n-flex>
-              <n-button
-                v-for="(sponsor, i) in sponsors.sponsors_gen1"
-                :key="i"
-                type="warning"
-                dashed
-                size="tiny"
-              >
-                {{ sponsor }}
-              </n-button>
+          <n-collapse-item name="2">
+            <template #header>
+              <span class="bold">{{ t('致谢：开发协助') }}</span>
+            </template>
+            <n-flex vertical size="small">
+              <p>{{ t('特别感谢以下人员或组织为本作提供技术层面的支持：') }}</p>
+              <div>
+                <p class="bold">{{ t('程序内容贡献者：') }}</p>
+                <n-flex>
+                  <a
+                    target="_blank"
+                    v-for="(developers, i) in aboutData.app_developers"
+                    :key="'developer-'+i"
+                    :href="developers.page"
+                  >
+                    {{ developers.name }}
+                  </a>
+                </n-flex>
+              </div>
+              <div>
+                <p class="bold">{{ t('技术支持或指导：') }}</p>
+                <n-flex>
+                  <a
+                    target="_blank"
+                    v-for="(t_supporters, i) in aboutData.tech_supporters"
+                    :key="'t_supporters-'+i"
+                    :href="t_supporters.page"
+                  >
+                    {{ t_supporters.name }}
+                  </a>
+                </n-flex>
+              </div>
+            </n-flex>
+          </n-collapse-item>
+          <n-collapse-item name="3">
+            <template #header>
+              <span class="bold">{{ t('致谢：赞助者') }}</span>
+            </template>
+            <n-flex vertical size="small">
+              <p>{{ t('HqHelper的诞生与持续开发离不开用户的支持。') }}</p>
+              <p class="bold">{{ t('特别感谢以下用户对前代HqHelper项目的赞助：') }}</p>
+              <n-flex style="margin-top: 5px;">
+                <n-button
+                  v-for="(sponsor, i) in aboutData.sponsors_gen1"
+                  :key="'sponsor-'+i"
+                  type="warning"
+                  dashed
+                  size="tiny"
+                >
+                  {{ sponsor }}
+                </n-button>
+              </n-flex>
             </n-flex>
           </n-collapse-item>
         </n-collapse>
@@ -66,11 +98,6 @@ const handleClose = () => {
 </template>
 
 <style scoped>
-.n-collapse-item__header-main {
-  font-size: 16px !important;
-  font-weight: bold !important;
-}
-
 .about-header {
   display: flex;
   flex-direction: column;
