@@ -1,11 +1,4 @@
 {
-    "欢迎": {
-        "en": "Welcome",
-        "ja": "ようこそ",
-        "$files": [
-            "App.vue"
-        ]
-    },
     "偏好设置": {
         "en": "User Preferences",
         "ja": "プリファレンス設定",
@@ -159,6 +152,27 @@
         "ja": "このプログラムのソースコードはMITプロトコルのオープンソースに準拠していますが、使用するプロトコルは正式にリリースされる前にいつでも変更される可能性があります。",
         "$files": [
             "components\\AboutApp.vue"
+        ]
+    },
+    "禁用国际加速": {
+        "en": "Use Global API",
+        "ja": "グローバルAPIの使用",
+        "$files": [
+            "components\\UserPreferences.vue"
+        ]
+    },
+    "国内用户不建议打开。": {
+        "en": "Open this if you are not in China Mainland.",
+        "ja": "もしあなたが中国大陸にいなければ、これを開けてください。",
+        "$files": [
+            "components\\UserPreferences.vue"
+        ]
+    },
+    "不过如果图片加载特别慢，也可以试试。": {
+        "en": "Otherwise you can try switching this if image loading is slow.",
+        "ja": "そうでなければ、画像のロードが遅い場合は、このオプションを切り替えてみてください。",
+        "$files": [
+            "components\\UserPreferences.vue"
         ]
     }
 }

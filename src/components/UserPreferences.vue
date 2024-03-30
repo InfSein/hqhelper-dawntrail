@@ -55,6 +55,17 @@ const handleClose = () => {
             <n-radio-button value="ja" label="日本語" />
           </n-radio-group>
         </n-form-item>
+        <n-form-item :label="t('禁用国际加速')">
+          <n-popover trigger="hover" max-width="300px">
+            <template #trigger>
+              <n-switch v-model:value="formData.disable_xivapi_mirror" />
+            </template>
+            <div class="flex-column flex-center">
+              <p class="font-center">{{ t('国内用户不建议打开。') }}</p>
+              <p class="font-center">{{ t('不过如果图片加载特别慢，也可以试试。') }}</p>
+            </div>
+          </n-popover>
+        </n-form-item>
       </div>
 
       <div class="submit-container">

@@ -1,0 +1,245 @@
+{
+  "tank": {
+    "role_name_en": "Tank",
+    "role_name_zh": "防护职业",
+    "role_name_ja": "タンク",
+    "role_color": "#409eff",
+    "role_icon_url": "~ApiBase/cj/misc/clear_tank.png",
+    "jobs": [
+      {
+        "job_name_en": "Warrior",
+        "job_name_zh": "战士",
+        "job_name_ja": "戦士",
+        "job_icon_url": "~ApiBase/cj/companion/warrior.png"
+      },
+      {
+        "job_name_en": "Paladin",
+        "job_name_zh": "骑士",
+        "job_name_ja": "ナイト",
+        "job_icon_url": "~ApiBase/cj/companion/paladin.png"
+      },
+      {
+        "job_name_en": "Dark Knight",
+        "job_name_zh": "暗黑骑士",
+        "job_name_ja": "暗黒騎士",
+        "job_icon_url": "~ApiBase/cj/companion/darkknight.png"
+      },
+      {
+        "job_name_en": "Gunbreaker",
+        "job_name_zh": "绝枪战士",
+        "job_name_ja": "ガンブレイカー",
+        "job_icon_url": "~ApiBase/cj/companion/gunbreaker.png"
+      }
+    ]
+  },
+  "healer": {
+    "role_name_en": "Healer",
+    "role_name_zh": "治疗职业",
+    "role_name_ja": "ヒーラー",
+    "role_color": "#67c23a",
+    "role_icon_url": "~ApiBase/cj/misc/clear_healer.png",
+    "jobs": [
+      {
+        "job_name_en": "White Mage",
+        "job_name_zh": "白魔法师",
+        "job_name_ja": "白魔道士",
+        "job_icon_url": "~ApiBase/cj/companion/whitemage.png"
+      },
+      {
+        "job_name_en": "Scholar",
+        "job_name_zh": "学者",
+        "job_name_ja": "学者",
+        "job_icon_url": "~ApiBase/cj/companion/scholar.png"
+      },
+      {
+        "job_name_en": "Astrologian",
+        "job_name_zh": "占星术士",
+        "job_name_ja": "占星術師",
+        "job_icon_url": "~ApiBase/cj/companion/astrologian.png"
+      },
+      {
+        "job_name_en": "Sage",
+        "job_name_zh": "贤者",
+        "job_name_ja": "賢者",
+        "job_icon_url": "~ApiBase/cj/companion/sage.png"
+      }
+    ]
+  },
+  "dps_melee": {
+    "role_name_en": "Melee DPS",
+    "role_name_zh": "近战职业",
+    "role_name_ja": "近接物理系DPS",
+    "role_color": "#f56c6c",
+    "role_icon_url": "~ApiBase/cj/misc/clear_dps.png",
+    "jobs": [
+      {
+        "job_name_en": "Ninja",
+        "job_name_zh": "忍者",
+        "job_name_ja": "忍者",
+        "job_icon_url": "~ApiBase/cj/companion/ninja.png"
+      },
+      {
+        "job_name_en": "Dragoon",
+        "job_name_zh": "龙骑士",
+        "job_name_ja": "竜騎士",
+        "job_icon_url": "~ApiBase/cj/companion/dragoon.png"
+      },
+      {
+        "job_name_en": "Reaper",
+        "job_name_zh": "钐镰客",
+        "job_name_ja": "リーパー",
+        "job_icon_url": "~ApiBase/cj/companion/reaper.png"
+      },
+      {
+        "job_name_en": "Monk",
+        "job_name_zh": "武僧",
+        "job_name_ja": "モンク",
+        "job_icon_url": "~ApiBase/cj/companion/monk.png"
+      },
+      {
+        "job_name_en": "Samurai",
+        "job_name_zh": "武士",
+        "job_name_ja": "侍",
+        "job_icon_url": "~ApiBase/cj/companion/samurai.png"
+      }
+    ]
+  },
+  "dps_ranged": {
+    "role_name_en": "Physical Ranged DPS",
+    "role_name_zh": "远程物理职业",
+    "role_name_ja": "遠隔物理系DPS",
+    "role_color": "#f56c6c",
+    "role_icon_url": "~ApiBase/cj/misc/clear_ranged.png",
+    "jobs": [
+      {
+        "job_name_en": "Bard",
+        "job_name_zh": "吟游诗人",
+        "job_name_ja": "吟遊詩人",
+        "job_icon_url": "~ApiBase/cj/companion/bard.png"
+      },
+      {
+        "job_name_en": "Machinist",
+        "job_name_zh": "机工士",
+        "job_name_ja": "機工士",
+        "job_icon_url": "~ApiBase/cj/companion/machinist.png"
+      },
+      {
+        "job_name_en": "Dancer",
+        "job_name_zh": "舞者",
+        "job_name_ja": "踊り子",
+        "job_icon_url": "~ApiBase/cj/companion/dancer.png"
+      }
+    ]
+  },
+  "dps_magic": {
+    "role_name_en": "Magical Ranged DPS",
+    "role_name_zh": "远程魔法职业",
+    "role_name_ja": "遠隔魔法系DPS",
+    "role_color": "#f56c6c",
+    "role_icon_url": "~ApiBase/cj/misc/clear_dps_magic.png",
+    "jobs": [
+      {
+        "job_name_en": "Black Mage",
+        "job_name_zh": "黑魔法师",
+        "job_name_ja": "黒魔道士",
+        "job_icon_url": "~ApiBase/cj/companion/blackmage.png"
+      },
+      {
+        "job_name_en": "Summoner",
+        "job_name_zh": "召唤师",
+        "job_name_ja": "召喚士",
+        "job_icon_url": "~ApiBase/cj/companion/summoner.png"
+      },
+      {
+        "job_name_en": "Red Mage",
+        "job_name_zh": "赤魔法师",
+        "job_name_ja": "赤魔道士",
+        "job_icon_url": "~ApiBase/cj/companion/redmage.png"
+      }
+    ]
+  },
+  "gatherer": {
+    "role_name_en": "Disciples of the Land",
+    "role_name_zh": "大地使者",
+    "role_name_ja": "ギャザラー",
+    "role_color": "#a4acb2",
+    "role_icon_url": "~ApiBase/cj/misc/clear_dol.png",
+    "jobs": [
+      {
+        "job_name_en": "Miner",
+        "job_name_zh": "采矿工",
+        "job_name_ja": "採掘師",
+        "job_icon_url": "~ApiBase/cj/companion/miner.png"
+      },
+      {
+        "job_name_en": "Botanist",
+        "job_name_zh": "园艺工",
+        "job_name_ja": "園芸師",
+        "job_icon_url": "~ApiBase/cj/companion/botanist.png"
+      },
+      {
+        "job_name_en": "Fisher",
+        "job_name_zh": "捕鱼人",
+        "job_name_ja": "漁師",
+        "job_icon_url": "~ApiBase/cj/companion/fisher.png"
+      }
+    ]
+  },
+  "crafter": {
+    "role_name_en": "Disciple of the Hand",
+    "role_name_zh": "能工巧匠",
+    "role_name_ja": "クラフター",
+    "role_color": "#a4acb2",
+    "role_icon_url": "~ApiBase/cj/misc/clear_doh.png",
+    "jobs": [
+      {
+        "job_name_en": "Carpenter",
+        "job_name_zh": "刻木匠",
+        "job_name_ja": "木工師",
+        "job_icon_url": "~ApiBase/cj/companion/carpenter.png"
+      },
+      {
+        "job_name_en": "Blacksmith",
+        "job_name_zh": "锻铁匠",
+        "job_name_ja": "鍛冶師",
+        "job_icon_url": "~ApiBase/cj/companion/blacksmith.png"
+      },
+      {
+        "job_name_en": "Armorer",
+        "job_name_zh": "铸甲匠",
+        "job_name_ja": "甲冑師",
+        "job_icon_url": "~ApiBase/cj/companion/armorer.png"
+      },
+      {
+        "job_name_en": "Goldsmith",
+        "job_name_zh": "雕金匠",
+        "job_name_ja": "彫金師",
+        "job_icon_url": "~ApiBase/cj/companion/goldsmith.png"
+      },
+      {
+        "job_name_en": "Leatherworker",
+        "job_name_zh": "制革匠",
+        "job_name_ja": "革細工師",
+        "job_icon_url": "~ApiBase/cj/companion/leatherworker.png"
+      },
+      {
+        "job_name_en": "Weaver",
+        "job_name_zh": "裁衣匠",
+        "job_name_ja": "裁縫師",
+        "job_icon_url": "~ApiBase/cj/companion/weaver.png"
+      },
+      {
+        "job_name_en": "Alchemist",
+        "job_name_zh": "炼金术士",
+        "job_name_ja": "錬金術師",
+        "job_icon_url": "~ApiBase/cj/companion/alchemist.png"
+      },
+      {
+        "job_name_en": "Culinarian",
+        "job_name_zh": "烹调师",
+        "job_name_ja": "調理師",
+        "job_icon_url": "~ApiBase/cj/companion/culinarian.png"
+      }
+    ]
+  }
+}

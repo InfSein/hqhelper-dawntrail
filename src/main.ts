@@ -19,8 +19,9 @@ import {
   NIcon, NImage,
   NLayout, NLayoutHeader, NLayoutContent, NLayoutSider,
   NMessageProvider, NModal,
+  NPopover,
   NRadioButton, NRadioGroup,
-  NScrollbar,
+  NScrollbar, NSwitch,
 } from 'naive-ui'
 
 const naive = create({
@@ -32,8 +33,9 @@ const naive = create({
     NIcon, NImage,
     NLayout, NLayoutHeader, NLayoutContent, NLayoutSider,
     NMessageProvider, NModal,
+    NPopover,
     NRadioButton, NRadioGroup,
-    NScrollbar,
+    NScrollbar, NSwitch,
   ]
 })
 

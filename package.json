@@ -1,6 +1,6 @@
 {
   "name": "hqhelper-dawntrail",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,7 +14,6 @@
   "dependencies": {
     "@voerkai18n/runtime": "^2.1.8",
     "@voerkai18n/vue": "^2.1.8",
-    "vant": "^4.8.5",
     "vue": "^3.4.21",
     "vuex": "^4.0.2"
   },

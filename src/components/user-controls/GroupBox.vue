@@ -33,7 +33,7 @@ const props = defineProps({
     width: fit-content;
     text-align: center;
     color: var(--n-text-color);
-    background-color: var(--n-color);
+    background-color: var(--n-color-embedded);
   }
 }
 </style>

@@ -110,10 +110,6 @@ const jobs = {
         <n-flex vertical id="sub-container-1">
           <i class="xiv hq logo" style=""></i>
 
-          <div class="wrapper">
-            <HelloWorld :msg="t('欢迎')" />
-          </div>
-
           <EorzeaTimeCard />
 
           <JobPanel />
@@ -165,7 +161,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 125px;
+  font-size: 85px;
   color: var(--n-text-color);
 }
 
@@ -178,7 +174,7 @@ header {
   }
 
   #sub-container-1 {
-    max-width: 600px;
+    max-width: 450px;
   }
   #sub-container-2 {
     margin-left: 10%;
@@ -192,7 +188,7 @@ header {
 
   .logo {
     display: block;
-    margin: 0 auto 2rem;
+    margin: 0 auto 0.5rem;
   }
 
   header .wrapper {
