@@ -6,6 +6,30 @@
 
 ## 翻译
 
+注意：由于`voerkai18n`的框架限制，无论通过哪种方法翻译，都不能更改中文文本！
+
+### 使用表格进行翻译
+
+此方法必须借助开发管理员的闭源项目`hqhelper-resolver`进行。
+
+向开发管理员提出申请后，开发管理员将会向您发送一个`.xlsx`文件，您可使用`Microsoft Excel`等软件打开并编辑。
+
+请注意在编辑的过程中不要对`中文`列做出任何修改，也不要删除标题行(第1行)。
+
+请根据中文文本和程序的UI界面场景将其翻译为由您负责处理的语言，然后将修改后的`.xlsx`文件发送回开发管理员。
+
+#### 开发管理员的操作流程
+
+1. 开发后，执行`voerkai18n extract`命令来更新`default.json`
+2. 通过`hqhelper-resolver`将`default.json`转译为`i18n.xlsx`
+3. 将`i18n.xlsx`发送给翻译人员
+4. 从翻译人员处获取翻译好的`i18n.xlsx`
+5. 通过`hqhelper-resolver`将`i18n.xlsx`转译为`default.json`
+6. 通过格式化程序格式化`default.json`，以保持其可读性
+7. 执行`voerkai18n compile`命令以做好发布准备
+
+### 直接修改JSON文件
+
 在程序的`/src/languages/translates/default.json`中进行翻译。
 
 JSON的大致格式如下：
@@ -33,7 +57,7 @@ JSON的大致格式如下：
 voerkai18n extract
 ```
 
-注：反复执行voerkai18n extract命令是安全的，不会导致进行了一半的翻译内容丢失。
+注：反复执行`voerkai18n extract`命令是安全的，不会导致进行了一半的翻译内容丢失。
 
 ### 自动翻译
 
