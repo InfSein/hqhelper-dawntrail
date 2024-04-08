@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
+import XivFARImage from './XivFARImage.vue'
 
 interface JobButtonProps {
   /** 职能 */
@@ -8,10 +9,13 @@ interface JobButtonProps {
   job: string;
   /** 职业图标 */
   jobIcon: string;
+  /** 图片API地址 */
+  apiBase: string;
+  /** 备用API地址 */
+  apiBaseSpare: string;
 }
 
 const props = defineProps<JobButtonProps>()
-const emits = defineEmits(['onIconLoadError'])
 
 const size = ref(32)
 const getType = () => {
@@ -27,21 +31,7 @@ const getType = () => {
   }
   return 'default'
 }
-const type = computed(() => {
-  switch (props.role) {
-    case "tank":
-      return "info"
-    case "healer":
-      return "success"
-    case "dps":
-      return "error"
-  }
-  return "default"
-})
 
-const onIconLoadError = () => {
-  emits('onIconLoadError')
-}
 </script>
 
 <template>
@@ -51,11 +41,11 @@ const onIconLoadError = () => {
     :style="{ width: `${size+5}px`, height: `${size+5}px` }"
   >
     <template #icon>
-      <img
+      <XivFARImage
         :src="jobIcon"
-        :width="size"
-        :height="size"
-        @error="onIconLoadError"
+        :size="size"
+        :apiBase="apiBase"
+        :apiBaseSpare="apiBaseSpare"
       />
     </template>
   </n-button>

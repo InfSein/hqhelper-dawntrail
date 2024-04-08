@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject } from 'vue';
-import aboutData from '../assets/data/about-app.json';
+import AboutData from '../../assets/data/about-app.json';
 
 const t = inject<(i18nKey: string) => string>('t') ?? (() => { return '' })
 
@@ -48,7 +48,7 @@ const handleClose = () => {
                 <n-flex>
                   <a
                     target="_blank"
-                    v-for="(developers, i) in aboutData.app_developers"
+                    v-for="(developers, i) in AboutData.app_developers"
                     :key="'developer-'+i"
                     :href="developers.page"
                   >
@@ -61,7 +61,7 @@ const handleClose = () => {
                 <n-flex>
                   <a
                     target="_blank"
-                    v-for="(t_supporters, i) in aboutData.tech_supporters"
+                    v-for="(t_supporters, i) in AboutData.tech_supporters"
                     :key="'t_supporters-'+i"
                     :href="t_supporters.page"
                   >
@@ -80,7 +80,7 @@ const handleClose = () => {
               <p class="bold">{{ t('特别感谢以下用户对前代HqHelper项目的赞助：') }}</p>
               <n-flex style="margin-top: 5px;">
                 <n-button
-                  v-for="(sponsor, i) in aboutData.sponsors_gen1"
+                  v-for="(sponsor, i) in AboutData.sponsors_gen1"
                   :key="'sponsor-'+i"
                   type="warning"
                   dashed

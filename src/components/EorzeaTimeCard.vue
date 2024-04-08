@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type Ref, computed, inject, ref } from 'vue'
-import EorzeaTime from '../../tools/EorzeaTime'
+import EorzeaTime from '../tools/EorzeaTime'
 
 const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh');
 const isChina = computed(() => locale.value === 'zh');

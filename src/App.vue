@@ -75,9 +75,6 @@ const naiveUiMessagePlacement = computed(() => {
   return isMobile.value ? 'bottom' : 'top'
 })
 
-// * register child components ref
-const appHeader = ref<any>(null)
-
 // #endregion
 
 // #region functions
@@ -88,8 +85,7 @@ const appForceUpdate = () => {
   i18n.activeLanguage = locale.value
   // Update ui
   theme.value = store.state.userConfig?.theme ?? 'system'
-  appHeader?.value?.initializeSettingOptions()
-
+  // Update vue
   const instance = getCurrentInstance()
   instance?.proxy?.$forceUpdate()
 }

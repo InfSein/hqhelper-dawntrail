@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import { inject, provide, ref } from 'vue';
-import AppHeader from '../components/AppHeader.vue'
-import EorzeaTimeCard from '../components/user-controls/EorzeaTimeCard.vue'
+import AppHeader from '../components/main/AppHeader.vue'
+import EorzeaTimeCard from '../components/EorzeaTimeCard.vue'
 import JobPanel from '../components/JobPanel.vue'
-import UserPreferences from '../components/UserPreferences.vue'
-import AboutApp from '../components/AboutApp.vue'
-import HelloWorld from '../components/HelloWorld.vue'
+import UserPreferences from '../components/modals/UserPreferences.vue'
+import AboutApp from '../components/modals/AboutApp.vue'
 import TheWelcome from '../components/TheWelcome.vue'
 import { useMessage } from 'naive-ui';
 
@@ -21,10 +20,8 @@ const hqHelperToast = (
   type: 'info' | 'success' | 'warning' | 'error' = 'info',
   duration: number = 2000,
 ) => {
-  // Naive Message
   NAIVE_UI_MESSAGE[type](message, { closable: true, duration: duration })
 }
-// * Provide HqHelper Toaster
 provide('hqHelperToaster', hqHelperToast)
 
 const showUserPreferencesModal = ref(false)
@@ -102,13 +99,13 @@ const jobs = {
 <template>
   <n-layout id="main-layout" position="absolute" :native-scrollbar="false">
     <n-layout-header bordered position="absolute">
-      <AppHeader ref="appHeader" />
+      <AppHeader />
     </n-layout-header>
 
     <n-layout-content id="main-content" position="absolute">
       <n-flex id="main-container">
         <n-flex vertical id="sub-container-1">
-          <i class="xiv hq logo" style=""></i>
+          <i class="xiv hq logo"></i>
 
           <EorzeaTimeCard />
 
@@ -153,10 +150,6 @@ const jobs = {
   }
 }
 
-header {
-  line-height: 1.5;
-}
-
 .logo {
   display: flex;
   align-items: center;
@@ -180,21 +173,9 @@ header {
     margin-left: 10%;
   }
 
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
   .logo {
     display: block;
     margin: 0 auto 0.5rem;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
   }
 }
 </style>

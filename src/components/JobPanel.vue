@@ -4,11 +4,20 @@ import { XivApiBase } from '@/variables/Constants'
 import XivJobs from '@/assets/data/xiv-jobs.json'
 import JobButton from './user-controls/JobButton.vue'
 import GroupBox from './user-controls/GroupBox.vue'
+import XivFARImage from './user-controls/XivFARImage.vue'
 
 const store = useStore()
 const uiLanguage = store.state.userConfig?.language_ui ?? 'zh'
+
+let xivApiBase: string, xivApiBaseSpare: string
 const disableXivApiMirror = store.state.userConfig?.disable_xivapi_mirror ?? false
-const xivApiBase = disableXivApiMirror ? XivApiBase.global : XivApiBase.cn
+if (disableXivApiMirror) {
+  xivApiBase = XivApiBase.global
+  xivApiBaseSpare = XivApiBase.cn
+} else {
+  xivApiBase = XivApiBase.cn
+  xivApiBaseSpare = XivApiBase.global
+}
 
 const getRoleName = (role: any) => {
   switch (uiLanguage) {
@@ -30,17 +39,6 @@ const getJobName = (job: any) => {
       return job.job_name_zh
   }
 }
-
-const getUrl = (url: string) => {
-  return url.replace('~ApiBase', xivApiBase)
-}
-const onImageLoadError = (event: Event) => {
-  const img = event.target as HTMLImageElement
-  if (img.src.includes(XivApiBase.global)) {
-    return
-  }
-  img.src = img.src.replace(XivApiBase.cn, XivApiBase.global)
-}
 </script>
 
 <template>
@@ -52,10 +50,11 @@ const onImageLoadError = (event: Event) => {
         :border-color="role.role_color"
       >
         <template #title>
-          <img
-            width="14" height="14"
-            :src="getUrl(role.role_icon_url)"
-            @error="onImageLoadError"
+          <XivFARImage
+            :src="role.role_icon_url"
+            :size="14"
+            :api-base="xivApiBase"
+            :api-base-spare="xivApiBaseSpare"
           />
           <span>
             {{ getRoleName(role) }}
@@ -70,8 +69,9 @@ const onImageLoadError = (event: Event) => {
             <JobButton
               :role="roleIndex"
               :job="job.job_name_en"
-              :job-icon="getUrl(job.job_icon_url)"
-              @on-icon-load-error="onImageLoadError"
+              :job-icon="job.job_icon_url"
+              :api-base="xivApiBase"
+              :api-base-spare="xivApiBaseSpare"
             />
           </div>
         </n-flex>
