@@ -14,6 +14,11 @@ const showAboutAppModal = inject<() => void>('showAboutAppModal') ?? (() => {})
 
 const showMenus = ref(false)
 
+const menuItems = [
+  { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp },
+  { key: 'about-app', label: t('关于本作'), icon: InfoFilled }
+]
+
 const openModal = (key: string) => {
   // close menus first
   showMenus.value = false
@@ -54,17 +59,15 @@ const openModal = (key: string) => {
     >
       <n-drawer-content>
         <n-flex vertical>
-          <n-button @click="openModal('user-preferences')">
+          <n-button
+            v-for="item in menuItems"
+            :key="item.key"
+            @click="openModal(item.key)"
+          >
             <template #icon>
-              <n-icon><settings-sharp /></n-icon>
+              <n-icon><component :is="item.icon" /></n-icon>
             </template>
-            {{ t('偏好设置') }}
-          </n-button>
-          <n-button @click="openModal('about-app')">
-            <template #icon>
-              <n-icon><info-filled /></n-icon>
-            </template>
-            {{ t('关于本作') }}
+            {{ item.label }}
           </n-button>
         </n-flex>
       </n-drawer-content>

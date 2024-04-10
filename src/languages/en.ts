@@ -23,5 +23,7 @@ export default {
     "22": "The source code of this program follows the MIT protocol for open source, but the protocol used may be changed at any time before official release.",
     "23": "Use Global API",
     "24": "Open this if you are not in China Mainland.",
-    "25": "Otherwise you can try switching this if image loading is slow."
+    "25": "Otherwise you can try switching this if image loading is slow.",
+    "26": "Local Time",
+    "27": "Eorzea Time"
 }

@@ -14,17 +14,31 @@ setInterval(() => {
 <template>
   <n-card embedded :bordered="false">
     <n-flex style="justify-content: center; align-items: center;">
-      <p>
-        <span v-if="isChina"><i class="xiv local-time-chs"></i></span>
-        <span v-else><i class="xiv local-time"></i></span>
-        <span class="time-text">{{ eorzeaTime.localTime }}</span>
-      </p>
+      <n-popover trigger="hover">
+        <template #trigger>
+          <p>
+            <span v-if="isChina"><i class="xiv local-time-chs"></i></span>
+            <span v-else><i class="xiv local-time"></i></span>
+            <span class="time-text">{{ eorzeaTime.localTime }}</span>
+          </p>
+        </template>
+        <div class="flex-column flex-center">
+          <p class="font-center">{{ t('本地时间') }}</p>
+        </div>
+      </n-popover>
       <n-divider vertical />
-      <p>
-        <span v-if="isChina"><i class="xiv eorzea-time-chs"></i></span>
-        <span v-else><i class="xiv eorzea-time"></i></span>
-        <span class="time-text">{{ eorzeaTime.gameTime }}</span>
-      </p>
+      <n-popover trigger="hover">
+        <template #trigger>
+          <p>
+            <span v-if="isChina"><i class="xiv eorzea-time-chs"></i></span>
+            <span v-else><i class="xiv eorzea-time"></i></span>
+            <span class="time-text">{{ eorzeaTime.gameTime }}</span>
+          </p>
+        </template>
+        <div class="flex-column flex-center">
+          <p class="font-center">{{ t('艾欧泽亚时间') }}</p>
+        </div>
+      </n-popover>
     </n-flex>
   </n-card>
 </template>

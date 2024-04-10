@@ -56,7 +56,7 @@ const handleClose = () => {
           </n-radio-group>
         </n-form-item>
         <n-form-item :label="t('禁用国际加速')">
-          <n-popover trigger="hover" max-width="300px">
+          <n-popover trigger="hover" style="max-width: 300px;">
             <template #trigger>
               <n-switch v-model:value="formData.disable_xivapi_mirror" />
             </template>

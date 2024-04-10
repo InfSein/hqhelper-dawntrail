@@ -174,5 +174,19 @@
         "$files": [
             "components\\UserPreferences.vue"
         ]
+    },
+    "本地时间": {
+        "en": "Local Time",
+        "ja": "ローカル時間",
+        "$files": [
+            "components\\EorzeaTimeCard.vue"
+        ]
+    },
+    "艾欧泽亚时间": {
+        "en": "Eorzea Time",
+        "ja": "エオルゼア時間",
+        "$files": [
+            "components\\EorzeaTimeCard.vue"
+        ]
     }
 }

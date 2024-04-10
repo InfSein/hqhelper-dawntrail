@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
 import XivFARImage from './XivFARImage.vue'
 
 interface JobButtonProps {
@@ -17,7 +16,9 @@ interface JobButtonProps {
 
 const props = defineProps<JobButtonProps>()
 
-const size = ref(32)
+const imgSize = 32
+const btnSize = imgSize + 5
+
 const getType = () => {
   switch (props.role) {
     case "tank":
@@ -38,12 +39,12 @@ const getType = () => {
   <n-button
     ghost
     :type="getType()"
-    :style="{ width: `${size+5}px`, height: `${size+5}px` }"
+    :style="{ width: `${btnSize}px`, height: `${btnSize}px` }"
   >
     <template #icon>
       <XivFARImage
         :src="jobIcon"
-        :size="size"
+        :size="imgSize"
         :apiBase="apiBase"
         :apiBaseSpare="apiBaseSpare"
       />
