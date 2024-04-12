@@ -162,12 +162,14 @@ const jobs = {
   #main-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    height: 100%;
+    overflow: auto;
     padding: 0 2rem;
     margin: 0 auto 0 15%;
   }
 
   #sub-container-1 {
-    max-width: 450px;
+    max-width: 475px;
   }
   #sub-container-2 {
     margin-left: 10%;

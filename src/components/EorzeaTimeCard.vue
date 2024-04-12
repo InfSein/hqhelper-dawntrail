@@ -46,7 +46,7 @@ setInterval(() => {
 <style scoped>
 .time-text {
   margin-left: 5px;
-  font-family: system-ui, -apple-system;
+  /* font-family: system-ui, -apple-system; */
   font-weight: 400;
 }
 </style>

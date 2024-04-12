@@ -13,12 +13,16 @@ const formData = ref<UserConfigModel>(store.state.userConfig ?? defaultUserConfi
 const handleSave = () => {
   console.log('formData', formData.value)
 
+  const ui_size_preset = formData.value.ui_size_preset ?? '2k'
   const theme = formData.value.theme ?? 'system'
   const language_ui = formData.value.language_ui ?? 'zh'
+  const disable_xivapi_mirror = formData.value.disable_xivapi_mirror ?? false
 
   const newConfig = store.state.userConfig ?? {}
+  newConfig.ui_size_preset = ui_size_preset
   newConfig.theme = theme
   newConfig.language_ui = language_ui
+  newConfig.disable_xivapi_mirror = disable_xivapi_mirror
   store.commit('setUserConfig', newConfig)
 
   emit('afterSubmit')
@@ -41,6 +45,13 @@ const handleClose = () => {
       label-width="auto"
     >
       <div class="items-container">
+        <n-form-item :label="t('UI大小')">
+          <n-radio-group v-model:value="formData.ui_size_preset" name="ui_size_preset">
+            <n-radio-button value="1080p" :label="t('中等(1080P)')" />
+            <n-radio-button value="2k" :label="t('较大(2K/手机)')" />
+            <n-radio-button value="4k" :label="t('超大(4K)')" />
+          </n-radio-group>
+        </n-form-item>
         <n-form-item :label="t('主题')">
           <n-radio-group v-model:value="formData.theme" name="theme">
             <n-radio-button value="system" :label="t('跟随系统')" />

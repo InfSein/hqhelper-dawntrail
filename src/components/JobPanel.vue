@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { useStore } from '@/store/index'
+import { ref, inject, type Ref, computed } from 'vue'
 import { XivApiBase } from '@/variables/Constants'
+import { type UserConfigModel, defaultUserConfig } from '@/variables/UserConfig'
 import XivJobs from '@/assets/data/xiv-jobs.json'
 import JobButton from './user-controls/JobButton.vue'
 import GroupBox from './user-controls/GroupBox.vue'
 import XivFARImage from './user-controls/XivFARImage.vue'
 
-const store = useStore()
-const uiLanguage = store.state.userConfig?.language_ui ?? 'zh'
+const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
+const uiSizePreset = userConfig.value?.ui_size_preset ?? '2k'
+const uiLanguage = userConfig.value?.language_ui ?? 'zh'
 
 let xivApiBase: string, xivApiBaseSpare: string
-const disableXivApiMirror = store.state.userConfig?.disable_xivapi_mirror ?? false
+const disableXivApiMirror = userConfig.value?.disable_xivapi_mirror ?? false
 if (disableXivApiMirror) {
   xivApiBase = XivApiBase.global
   xivApiBaseSpare = XivApiBase.cn
@@ -39,10 +41,19 @@ const getJobName = (job: any) => {
       return job.job_name_zh
   }
 }
+const jobImageSize = computed(() => {
+  switch (uiSizePreset) {
+    case '2k':
+      return 32
+    case '4k':
+      return 36
+  }
+  return 28 // default or 1080p
+})
 </script>
 
 <template>
-  <n-card embedded :bordered="false">
+  <n-card :title="t('按职业选择')" embedded :bordered="false">
     <n-flex :size="[10,13]">
       <GroupBox
         v-for="(role, roleIndex) in XivJobs"
@@ -70,6 +81,7 @@ const getJobName = (job: any) => {
               :role="roleIndex"
               :job="job.job_name_en"
               :job-icon="job.job_icon_url"
+              :img-size="jobImageSize"
               :api-base="xivApiBase"
               :api-base-spare="xivApiBaseSpare"
             />

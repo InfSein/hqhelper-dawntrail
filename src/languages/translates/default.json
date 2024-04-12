@@ -188,5 +188,40 @@
         "$files": [
             "components\\EorzeaTimeCard.vue"
         ]
+    },
+    "按职业选择": {
+        "en": "Select by job",
+        "ja": "按职业选择",
+        "$files": [
+            "components\\JobPanel.vue"
+        ]
+    },
+    "UI大小": {
+        "en": "UI Size",
+        "ja": "UI大小",
+        "$files": [
+            "components\\modals\\UserPreferences.vue"
+        ]
+    },
+    "中等(1080P)": {
+        "en": "Medium (1080P)",
+        "ja": "中等(1080P)",
+        "$files": [
+            "components\\modals\\UserPreferences.vue"
+        ]
+    },
+    "较大(2K/手机)": {
+        "en": "Large (2K/Phone)",
+        "ja": "较大(2K/手机)",
+        "$files": [
+            "components\\modals\\UserPreferences.vue"
+        ]
+    },
+    "超大(4K)": {
+        "en": "Huge (4K)",
+        "ja": "超大(4K)",
+        "$files": [
+            "components\\modals\\UserPreferences.vue"
+        ]
     }
 }

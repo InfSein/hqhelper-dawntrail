@@ -68,17 +68,13 @@ body {
     background-color 0.5s;
   line-height: 1.6;
   font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
+    FFXIV,
+    Lato, 
+    Helvetica Neue, 
+    Microsoft Yahei, 
+    微软雅黑, 
+    Arial, 
+    Helvetica, 
     sans-serif;
   font-size: 15px;
   text-rendering: optimizeLegibility;

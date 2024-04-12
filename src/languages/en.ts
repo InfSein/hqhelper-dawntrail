@@ -25,5 +25,10 @@ export default {
     "24": "Open this if you are not in China Mainland.",
     "25": "Otherwise you can try switching this if image loading is slow.",
     "26": "Local Time",
-    "27": "Eorzea Time"
+    "27": "Eorzea Time",
+    "28": "Select by job",
+    "29": "UI Size",
+    "30": "Medium (1080P)",
+    "31": "Large (2K/Phone)",
+    "32": "Huge (4K)"
 }

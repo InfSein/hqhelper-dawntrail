@@ -19,8 +19,8 @@ import {
   dateZhCN, dateEnUS, dateJaJP
 } from 'naive-ui'
 
-// * import variables
-//import AppStatus from './variables/AppStatus'
+// * user preferences
+import { type UserConfigModel, defaultUserConfig } from '@/variables/UserConfig'
 
 // #endregion
 
@@ -33,6 +33,7 @@ const i18n = injectVoerkaI18n()
 const theme = ref(store.state.userConfig?.theme ?? 'system')
 const locale = ref(store.state.userConfig?.language_ui ?? 'zh')
 i18n.activeLanguage = locale.value
+const userConfig = ref<UserConfigModel>(store.state.userConfig ?? defaultUserConfig)
 
 // * Local Variables
 const isMobile = ref(false)
@@ -80,11 +81,13 @@ const naiveUiMessagePlacement = computed(() => {
 // #region functions
 
 const appForceUpdate = () => {
+  // Update user config
+  userConfig.value = store.state.userConfig ?? defaultUserConfig
   // Update i18n
-  locale.value = store.state.userConfig?.language_ui ?? 'zh'
+  locale.value = userConfig.value?.language_ui ?? 'zh'
   i18n.activeLanguage = locale.value
   // Update ui
-  theme.value = store.state.userConfig?.theme ?? 'system'
+  theme.value = userConfig.value?.theme ?? 'system'
   // Update vue
   const instance = getCurrentInstance()
   instance?.proxy?.$forceUpdate()
@@ -93,6 +96,9 @@ const appForceUpdate = () => {
 // #endregion
 
 // #region Provides
+
+// * Provide user config
+provide('userConfig', userConfig)
 
 // * Provide i18n t
 provide('t', t)

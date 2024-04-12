@@ -8,6 +8,8 @@ interface JobButtonProps {
   job: string;
   /** 职业图标 */
   jobIcon: string;
+  /** UI尺寸预设 */
+  imgSize: number;
   /** 图片API地址 */
   apiBase: string;
   /** 备用API地址 */
@@ -16,8 +18,7 @@ interface JobButtonProps {
 
 const props = defineProps<JobButtonProps>()
 
-const imgSize = 32
-const btnSize = imgSize + 5
+const btnSize = props.imgSize + 5
 
 const getType = () => {
   switch (props.role) {
