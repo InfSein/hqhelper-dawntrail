@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { inject, provide, ref } from 'vue';
 import AppHeader from '../components/main/AppHeader.vue'
+import PatchPanel from '../components/PatchPanel.vue'
 import EorzeaTimeCard from '../components/EorzeaTimeCard.vue'
 import JobPanel from '../components/JobPanel.vue'
 import UserPreferences from '../components/modals/UserPreferences.vue'
@@ -10,7 +11,7 @@ import { useMessage } from 'naive-ui';
 
 const NAIVE_UI_MESSAGE = useMessage()
 
-const t = inject<(i18nKey: string) => string>('t') ?? (() => { return '' })
+const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 // const isMobile = inject<boolean>('isMobile') ?? false
 
@@ -103,16 +104,16 @@ const jobs = {
     </n-layout-header>
 
     <n-layout-content id="main-content" position="absolute">
-      <n-flex id="main-container">
-        <n-flex vertical id="sub-container-1">
-          <i class="xiv hq logo"></i>
-
-          <EorzeaTimeCard />
-
-          <JobPanel />
-        </n-flex>
-        <n-flex vertical id="sub-container-2">
-          <TheWelcome />
+      <n-flex vertical id="main-container">
+        <PatchPanel />
+        <n-flex>
+          <n-flex vertical id="sub-container-1">
+            <JobPanel />
+          </n-flex>
+          <n-flex vertical id="sub-container-2">
+            <EorzeaTimeCard />
+            <TheWelcome />
+          </n-flex>
         </n-flex>
       </n-flex>
     </n-layout-content>
@@ -144,7 +145,7 @@ const jobs = {
   }
 
   #main-container {
-    max-width: 1280px;
+    max-width: 100%;
     padding: 2rem;
     font-weight: 400;
   }
@@ -165,7 +166,7 @@ const jobs = {
     height: 100%;
     overflow: auto;
     padding: 0 2rem;
-    margin: 0 auto 0 15%;
+    /* margin: 0 auto 0 15%; */
   }
 
   #sub-container-1 {

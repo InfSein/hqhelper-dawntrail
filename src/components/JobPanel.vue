@@ -7,6 +7,7 @@ import JobButton from './user-controls/JobButton.vue'
 import GroupBox from './user-controls/GroupBox.vue'
 import XivFARImage from './user-controls/XivFARImage.vue'
 
+const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 const uiSizePreset = userConfig.value?.ui_size_preset ?? '2k'
 const uiLanguage = userConfig.value?.language_ui ?? 'zh'

@@ -4,6 +4,22 @@
 
 `HqHelper` 借助 [VoerkaI18n](https://zhangfisher.github.io/voerka-i18n/#/zh/guide/intro/install) 提供基础UI界面的本地化翻译。
 
+## 开发注意事项
+
+### 插值
+
+采用`t('翻译内容，插入值1：{}，插入值2：{}', 插入值1, 插入值2)`来构建插值。
+
+出现多个插值，且后续可能会追加的场景，使用对象插值，格式如
+
+```typescript
+t('翻译内容，插入值：{key1}，{key2}，{key3}', {
+  key1: 插入值1,
+  key2: 插入值2,
+  key3: 插入值3
+})
+```
+
 ## 翻译
 
 注意：由于`voerkai18n`的框架限制，无论通过哪种方法翻译，都不能更改中文文本！

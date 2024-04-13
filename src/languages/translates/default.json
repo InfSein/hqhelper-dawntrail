@@ -223,5 +223,19 @@
         "$files": [
             "components\\modals\\UserPreferences.vue"
         ]
+    },
+    "按职能选择": {
+        "en": "Select by role",
+        "ja": "按职能选择",
+        "$files": [
+            "components\\ClassPanel.vue"
+        ]
+    },
+    "版本{v}: {name}": {
+        "en": "Patch{v}: {name}",
+        "ja": "版本{v}: {name}",
+        "$files": [
+            "components\\PatchPanel.vue"
+        ]
     }
 }

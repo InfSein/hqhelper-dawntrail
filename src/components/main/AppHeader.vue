@@ -8,7 +8,7 @@ import {
   InfoFilled
 } from '@vicons/material'
 
-const t = inject<(i18nKey: string) => string>('t') ?? (() => { return '' })
+const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const showUserPreferencesModal = inject<() => void>('showUserPreferencesModal') ?? (() => {})
 const showAboutAppModal = inject<() => void>('showAboutAppModal') ?? (() => {})
 

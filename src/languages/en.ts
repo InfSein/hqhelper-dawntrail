@@ -30,5 +30,7 @@ export default {
     "29": "UI Size",
     "30": "Medium (1080P)",
     "31": "Large (2K/Phone)",
-    "32": "Huge (4K)"
+    "32": "Huge (4K)",
+    "33": "Select by role",
+    "34": "Patch{v}: {name}"
 }

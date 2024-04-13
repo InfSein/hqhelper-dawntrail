@@ -70,7 +70,10 @@ body {
   font-family:
     FFXIV,
     Lato, 
-    Helvetica Neue, 
+    -apple-system, 
+    Helvetica Neue,
+    '思源黑体 CN',
+    Segoe UI,
     Microsoft Yahei, 
     微软雅黑, 
     Arial, 

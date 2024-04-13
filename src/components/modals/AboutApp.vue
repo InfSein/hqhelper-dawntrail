@@ -2,7 +2,7 @@
 import { inject } from 'vue';
 import AboutData from '../../assets/data/about-app.json';
 
-const t = inject<(i18nKey: string) => string>('t') ?? (() => { return '' })
+const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 
 const emit = defineEmits(['close'])
 const handleClose = () => {

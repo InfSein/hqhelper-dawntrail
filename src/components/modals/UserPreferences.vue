@@ -6,7 +6,7 @@ import { type UserConfigModel, defaultUserConfig } from '@/variables/UserConfig'
 const emit = defineEmits(['close', 'afterSubmit'])
 
 const store = useStore()
-const t = inject<(i18nKey: string) => string>('t') ?? (() => { return '' })
+const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 
 const formData = ref<UserConfigModel>(store.state.userConfig ?? defaultUserConfig)
 
