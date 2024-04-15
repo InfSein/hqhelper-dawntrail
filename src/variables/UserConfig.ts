@@ -2,7 +2,10 @@ interface UserConfigModel {
   ui_size_preset: '1080p' | '2k' | '4k'
   theme: 'light' | 'dark' | 'system'
   language_ui: 'zh' | 'en' | 'ja'
-  disable_xivapi_mirror: boolean
+  disable_xivapi_mirror: boolean,
+
+  // hidden options
+  ui_fold_cache: any
 }
 export type { UserConfigModel };
 
@@ -11,5 +14,7 @@ export var defaultUserConfig: UserConfigModel = {
   ui_size_preset: '2k',
   theme: 'light',
   language_ui: 'zh',
-  disable_xivapi_mirror: false
+  disable_xivapi_mirror: false,
+
+  ui_fold_cache: {} // active cache, { key:string -> value:boolean }
 }

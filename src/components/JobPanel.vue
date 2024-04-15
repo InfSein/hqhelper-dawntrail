@@ -3,9 +3,10 @@ import { ref, inject, type Ref, computed } from 'vue'
 import { XivApiBase } from '@/variables/Constants'
 import { type UserConfigModel, defaultUserConfig } from '@/variables/UserConfig'
 import XivJobs from '@/assets/data/xiv-jobs.json'
-import JobButton from './user-controls/JobButton.vue'
-import GroupBox from './user-controls/GroupBox.vue'
-import XivFARImage from './user-controls/XivFARImage.vue'
+import FoldableCard from './custom-controls/FoldableCard.vue'
+import JobButton from './custom-controls/JobButton.vue'
+import GroupBox from './custom-controls/GroupBox.vue'
+import XivFARImage from './custom-controls/XivFARImage.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
@@ -54,7 +55,11 @@ const jobImageSize = computed(() => {
 </script>
 
 <template>
-  <n-card :title="t('按职业选择')" embedded :bordered="false">
+  <FoldableCard card-key="select-job">
+    <template #header>
+      <i class="xiv square-2"></i>
+      <span class="card-title-text">{{ t('选择职业') }}</span>
+    </template>
     <n-flex :size="[10,13]">
       <GroupBox
         v-for="(role, roleIndex) in XivJobs"
@@ -90,5 +95,5 @@ const jobImageSize = computed(() => {
         </n-flex>
       </GroupBox>
     </n-flex>
-  </n-card>
+  </FoldableCard>
 </template>

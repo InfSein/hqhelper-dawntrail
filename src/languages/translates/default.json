@@ -189,13 +189,6 @@
             "components\\EorzeaTimeCard.vue"
         ]
     },
-    "按职业选择": {
-        "en": "Select by job",
-        "ja": "按职业选择",
-        "$files": [
-            "components\\JobPanel.vue"
-        ]
-    },
     "UI大小": {
         "en": "UI Size",
         "ja": "UI大小",
@@ -236,6 +229,118 @@
         "ja": "版本{v}: {name}",
         "$files": [
             "components\\PatchPanel.vue"
+        ]
+    },
+    "选择部件": {
+        "en": "Select Gears",
+        "ja": "选择部件",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "主手": {
+        "en": "Mainhand",
+        "ja": "主手",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "副手": {
+        "en": "Offhand",
+        "ja": "副手",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "头部": {
+        "en": "Head",
+        "ja": "头部",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "身体": {
+        "en": "Body",
+        "ja": "身体",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "手部": {
+        "en": "Hands",
+        "ja": "手部",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "腿部": {
+        "en": "Legs",
+        "ja": "腿部",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "脚部": {
+        "en": "Feet",
+        "ja": "脚部",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "耳坠": {
+        "en": "Ear",
+        "ja": "耳坠",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "项链": {
+        "en": "Neck",
+        "ja": "项链",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "手镯": {
+        "en": "Wrist",
+        "ja": "手镯",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "戒指": {
+        "en": "Rings",
+        "ja": "戒指",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "选择职业": {
+        "en": "Select Job",
+        "ja": "选择职业",
+        "$files": [
+            "components\\JobPanel.vue"
+        ]
+    },
+    "选择版本": {
+        "en": "Select Patch",
+        "ja": "选择版本",
+        "$files": [
+            "components\\PatchPanel.vue"
+        ]
+    },
+    "展开": {
+        "en": "Expand",
+        "ja": "展开",
+        "$files": [
+            "components\\custom-controls\\FoldableCard.vue"
+        ]
+    },
+    "折叠": {
+        "en": "Fold",
+        "ja": "折叠",
+        "$files": [
+            "components\\custom-controls\\FoldableCard.vue"
         ]
     }
 }

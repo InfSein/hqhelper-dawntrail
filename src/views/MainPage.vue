@@ -1,19 +1,20 @@
 <script lang="ts" setup>
-import { inject, provide, ref } from 'vue';
+import { inject, provide, ref, type Ref } from 'vue';
 import AppHeader from '../components/main/AppHeader.vue'
 import PatchPanel from '../components/PatchPanel.vue'
 import EorzeaTimeCard from '../components/EorzeaTimeCard.vue'
 import JobPanel from '../components/JobPanel.vue'
+import GearSelectionPanel from '@/components/GearSelectionPanel.vue'
 import UserPreferences from '../components/modals/UserPreferences.vue'
 import AboutApp from '../components/modals/AboutApp.vue'
-import TheWelcome from '../components/TheWelcome.vue'
+import AppResource from '../components/AppResource.vue'
 import { useMessage } from 'naive-ui';
 
 const NAIVE_UI_MESSAGE = useMessage()
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
-// const isMobile = inject<boolean>('isMobile') ?? false
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 // * HqHelper Toast
 const hqHelperToast = (
@@ -48,52 +49,14 @@ provide('showAboutAppModal', () => {
   showAboutAppModal.value = true
 })
 
-// ! temp
-const base = '/assets/game-icons/jobs/job/'
-const jobs = {
-  tanks: [
-    { job: 'warrior', iconPath: base + 'battle/warrior.png' },
-    { job: 'paladin', iconPath: base + 'battle/paladin.png' },
-    { job: 'darkknight', iconPath: base + 'battle/darkknight.png' },
-    { job: 'gunbreaker', iconPath: base + 'battle/gunbreaker.png' },
-  ],
-  healers: [
-    { job: 'whitemage', iconPath: base + 'battle/whitemage.png' },
-    { job: 'scholar', iconPath: base + 'battle/scholar.png' },
-    { job: 'astrologian', iconPath: base + 'battle/astrologian.png' },
-    { job: 'sage', iconPath: base + 'battle/sage.png' },
-  ],
-  melee_dps: [
-    { job: 'monk', iconPath: base + 'battle/monk.png' },
-    { job: 'dragoon', iconPath: base + 'battle/dragoon.png' },
-    { job: 'ninja', iconPath: base + 'battle/ninja.png' },
-    { job: 'reaper', iconPath: base + 'battle/reaper.png' },
-  ],
-  ranged_dps: [
-    { job: 'bard', iconPath: base + 'battle/bard.png' },
-    { job: 'machinist', iconPath: base + 'battle/machinist.png' },
-    { job: 'dancer', iconPath: base + 'battle/dancer.png' },
-  ],
-  magic_dps: [
-    { job: 'blackmage', iconPath: base + 'battle/blackmage.png' },
-    { job: 'summoner', iconPath: base + 'battle/summoner.png' },
-    { job: 'redmage', iconPath: base + 'battle/redmage.png' },
-  ],
-  crafters: [
-    { job: 'carpenter', iconPath: base + 'non-battle/carpenter.png' },
-    { job: 'blacksmith', iconPath: base + 'non-battle/blacksmith.png' },
-    { job: 'armorer', iconPath: base + 'non-battle/armorer.png' },
-    { job: 'goldsmith', iconPath: base + 'non-battle/goldsmith.png' },  
-    { job: 'leatherworker', iconPath: base + 'non-battle/leatherworker.png' },
-    { job: 'weaver', iconPath: base + 'non-battle/weaver.png' },
-    { job: 'alchemist', iconPath: base + 'non-battle/alchemist.png' },
-    { job: 'culinarian', iconPath: base + 'non-battle/culinarian.png' },
-  ],
-  gatherers: [
-    { job: 'botanist', iconPath: base + 'non-battle/botanist.png' },
-    { job: 'miner', iconPath: base + 'non-battle/miner.png' },  
-    { job: 'fisher', iconPath: base + 'non-battle/fisher.png' },
+const getPanelStyle = (maxWidth: number) => {
+  const style = isMobile.value ? [
+    'width: 100%'
+  ] : [
+    `max-width: ${maxWidth}px`,
   ]
+  console.log(style)
+  return style.join(';')
 }
 </script>
 
@@ -103,16 +66,19 @@ const jobs = {
       <AppHeader />
     </n-layout-header>
 
-    <n-layout-content id="main-content" position="absolute">
+    <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
       <n-flex vertical id="main-container">
         <PatchPanel />
         <n-flex>
-          <n-flex vertical id="sub-container-1">
-            <JobPanel />
+          <n-flex vertical id="sub-container-l1">
+            <n-flex>
+              <JobPanel :style="getPanelStyle(480)" />
+              <GearSelectionPanel :style="getPanelStyle(355)" />
+            </n-flex>
+            <!-- todo: 快速操作 -->
           </n-flex>
-          <n-flex vertical id="sub-container-2">
-            <EorzeaTimeCard />
-            <TheWelcome />
+          <n-flex vertical id="sub-container-l2">
+            <EorzeaTimeCard :style="getPanelStyle(300)" />
           </n-flex>
         </n-flex>
       </n-flex>
@@ -130,13 +96,30 @@ const jobs = {
       @close="closeAboutAppModal"
     />
   </n-modal>
+
+  <AppResource />
   
   <n-back-top />
 </template>
 
 <style scoped>
-#main-layout {
-  .n-layout-header {
+/* PC only */
+@media (min-width: 1024px) {
+  #main-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+    overflow: auto;
+    padding: 0 2rem;
+    /* margin: 0 auto 0 15%; */
+
+    #sub-container-l1 {
+      min-width: 850px;
+    }
+  }
+}
+/* common */
+.n-layout-header {
     height: 64px; padding: 10px 20px;
     z-index: 1000;
   }
@@ -149,36 +132,4 @@ const jobs = {
     padding: 2rem;
     font-weight: 400;
   }
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 85px;
-  color: var(--n-text-color);
-}
-
-@media (min-width: 1024px) {
-  #main-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 100%;
-    overflow: auto;
-    padding: 0 2rem;
-    /* margin: 0 auto 0 15%; */
-  }
-
-  #sub-container-1 {
-    max-width: 475px;
-  }
-  #sub-container-2 {
-    margin-left: 10%;
-  }
-
-  .logo {
-    display: block;
-    margin: 0 auto 0.5rem;
-  }
-}
 </style>

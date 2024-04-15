@@ -30,6 +30,7 @@ const onImageLoadError = (event: Event) => {
 
 <template>
   <img
+    alt="-"
     :src="getUrl()"
     :width="size"
     :height="size"

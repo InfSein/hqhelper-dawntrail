@@ -2,6 +2,7 @@
 import { ref, inject, type Ref } from 'vue'
 import { type UserConfigModel, defaultUserConfig } from '@/variables/UserConfig'
 import XivPatches from "@/assets/data/xiv-patches.json"
+import FoldableCard from './custom-controls/FoldableCard.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
@@ -18,15 +19,40 @@ const getPatchName = (patch: any) => {
 
   return t('版本{v}: {name}', { v: patch.v, name: patchName })
 }
+
+const getButtonSize = () => {
+  switch (userConfig.value?.ui_size_preset ?? '2k') {
+    case '1080p':
+      return { width: 260, height: 110 } // todo: adjust
+    case '4k':
+      return { width: 340, height: 130 }
+  }
+  return { width: 260, height: 110 }
+}
+
 const buildButtonStyle = (patch: any) => {
+  const size = getButtonSize()
   return [
+    `width: ${size.width}px;`,
+    `height: ${size.height}px;`,
     `background-image: url(${patch.logo});`
+  ].join(' ')
+}
+const buildButtonContentStyle = () => {
+  const size = getButtonSize()
+  return [
+    `width: ${size.width - 10}px;`,
+    `height: ${size.height - 10}px;`
   ].join(' ')
 }
 </script>
 
 <template>
-  <n-card id="patches-panel" embedded :bordered="false">
+  <FoldableCard card-key="game-patches" class="game-patches-panel">
+    <template #header>
+      <i class="xiv square-1"></i>
+      <span class="card-title-text">{{ t('选择版本') }}</span>
+    </template>
     <n-flex justify="center">
       <n-button
         class="patch-button"
@@ -37,27 +63,22 @@ const buildButtonStyle = (patch: any) => {
       >
         <div
           class="patch-button-content"
-        :style="buildButtonStyle(patch)"
+          :style="buildButtonContentStyle()"
         >
-          <h1
-            class="patch-button-image"
-          />
           <div class="patch-button-text">
             {{ getPatchName(patch) }}
           </div>
         </div>
       </n-button>
     </n-flex>
-  </n-card>
+  </FoldableCard>
 </template>
 
 <style scoped>
-#patches-panel {
+.game-patches-panel {
   width: 100%;
-  
+
   .patch-button {
-    width: 260px;
-    height: 110px;
     padding: 5px;
     background-position-x: center;
     background-position-y: center;
@@ -65,8 +86,6 @@ const buildButtonStyle = (patch: any) => {
     background-size: auto 100%;
 
     .patch-button-content {
-      width: 250px;
-      height: 100px;
       display: flex;
       justify-content: center;
       align-items: end;

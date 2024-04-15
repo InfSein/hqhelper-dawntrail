@@ -1,3 +1,7 @@
+/* Display */
+.hidden {
+  display: none;
+}
 .flex {
   display: flex;
 }
@@ -5,17 +9,18 @@
   display: flex;
   flex-direction: column;
 }
-
 .flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* Text */
 .font-center {
   text-align: center;
 }
 
+/* Sizing */
 .w-full {
   width: 100%;
 }
@@ -23,3 +28,9 @@
   height: 100%;
 }
 
+/* Ui-lib Customs */
+.card-title-text {
+  margin-left: 3px;
+  font-size: var(--n-title-font-size);
+  font-weight: var(--n-title-font-weight);
+}
