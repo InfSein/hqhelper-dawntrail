@@ -7,7 +7,6 @@ import JobPanel from '../components/JobPanel.vue'
 import GearSelectionPanel from '@/components/GearSelectionPanel.vue'
 import UserPreferences from '../components/modals/UserPreferences.vue'
 import AboutApp from '../components/modals/AboutApp.vue'
-import AppResource from '../components/AppResource.vue'
 import { useMessage } from 'naive-ui';
 
 const NAIVE_UI_MESSAGE = useMessage()
@@ -96,8 +95,6 @@ const getPanelStyle = (maxWidth: number) => {
       @close="closeAboutAppModal"
     />
   </n-modal>
-
-  <AppResource />
   
   <n-back-top />
 </template>
