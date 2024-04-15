@@ -46,8 +46,6 @@ const getType = () => {
       <XivFARImage
         :src="jobIcon"
         :size="imgSize"
-        :apiBase="apiBase"
-        :apiBaseSpare="apiBaseSpare"
       />
     </template>
   </n-button>

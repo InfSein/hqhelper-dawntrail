@@ -70,8 +70,6 @@ const jobImageSize = computed(() => {
           <XivFARImage
             :src="role.role_icon_url"
             :size="14"
-            :api-base="xivApiBase"
-            :api-base-spare="xivApiBaseSpare"
           />
           <span>
             {{ getRoleName(role) }}
