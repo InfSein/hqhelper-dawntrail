@@ -2,16 +2,17 @@
 <script setup lang="ts">
 const modelValue = defineModel('value')
 defineProps({
-  label: { type: String, required: true },
+  label: { type: String, default: '' },
   min: { type: Number, default: 0 },
   max: { type: Number, default: 99999 },
+  containerStyle: { type: String, default: '' }
 })
 </script>
 
 <template>
   <div class="stepper">
     <span>{{ label }}</span>
-    <div class="stepper-input">
+    <div class="stepper-input" :style="containerStyle">
       <n-input-number
         v-model:value="modelValue"
         size="small"
@@ -29,8 +30,10 @@ defineProps({
 }
 
 .stepper {
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   font-size: 15px;
 
   .stepper-input {

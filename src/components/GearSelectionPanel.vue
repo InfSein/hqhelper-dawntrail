@@ -22,19 +22,6 @@ defineProps({
   }
 })
 
-/*
-"MainHand": 37000,    // 主手
-"OffHand": 37001,     // 副手
-"HeadArmor": 0,       // 头部防具
-"BodyArmor": 0,       // 身体防具
-"HandsArmor": 0,      // 手部防具
-"LegsArmor": 0,       // 腿部防具
-"FeetArmor": 0,       // 脚部防具
-"Earrings": 0,        // 耳坠
-"Necklace": 0,        // 项链
-"Wrist": 0,           // 手镯
-"Rings": 0,           // 戒指
-*/
 const selections = ref({
   MainHand: 0,
   OffHand: 0,
@@ -56,31 +43,84 @@ const selections = ref({
       <i class="xiv square-3"></i>
       <span class="card-title-text">{{ t('选择部件') }}</span>
     </template>
-    <n-flex>
-      <Stepper v-model:value="selections.MainHand" :label="t('主手')" />
-      <Stepper v-model:value="selections.OffHand" :label="t('副手')" />
+    <table>
+      <tbody>
+        <tr>
+          <td>{{ t('主手') }}</td>
+          <td><Stepper v-model:value="selections.MainHand" /></td>
+          <td>{{ t('副手') }}</td>
+          <td><Stepper v-model:value="selections.OffHand" /></td>
+        </tr>
+
+        <tr class="divider">
+          <td colspan="4"><n-divider dashed /></td>
+        </tr>
+
+        <tr>
+          <td style="min-width: 40px;">{{ t('头部') }}</td>
+          <td><Stepper v-model:value="selections.HeadArmor" /></td>
+          <td style="min-width: 40px;">{{ t('耳坠') }}</td>
+          <td><Stepper v-model:value="selections.Earrings" /></td>
+        </tr>
+
+        <tr>
+          <td>{{ t('身体') }}</td>
+          <td><Stepper v-model:value="selections.BodyArmor" /></td>
+          <td>{{ t('项链') }}</td>
+          <td><Stepper v-model:value="selections.Necklace" /></td>
+        </tr>
+
+        <tr>
+          <td>{{ t('手部') }}</td>
+          <td><Stepper v-model:value="selections.HandsArmor" /></td>
+          <td>{{ t('手镯') }}</td>
+          <td><Stepper v-model:value="selections.Wrist" /></td>
+        </tr>
+
+        <tr>
+          <td>{{ t('腿部') }}</td>
+          <td><Stepper v-model:value="selections.LegsArmor" /></td>
+          <td>{{ t('戒指') }}</td>
+          <td><Stepper v-model:value="selections.Rings" /></td>
+        </tr>
+
+        <tr>
+          <td>{{ t('脚部') }}</td>
+          <td><Stepper v-model:value="selections.FeetArmor" /></td>
+          <td></td>
+          <td>
+            <div style="display: flex; justify-content: end;">
+              <n-button size="small" style="width: 85%;">{{ t('已选部件') }}</n-button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <n-divider dashed />
+
+    <n-flex class="bottom-buttons" justify="end">
+      <n-button size="small">{{ t('清空全部') }}</n-button>
+      <n-button size="small">{{ t('清空当前') }}</n-button>
+      <n-button size="small">{{ t('添加整套') }}</n-button>
     </n-flex>
-    <n-divider />
-    <n-flex>
-      <n-flex vertical>
-        <Stepper v-model:value="selections.HeadArmor" :label="t('头部')" />
-        <Stepper v-model:value="selections.BodyArmor" :label="t('身体')" />
-        <Stepper v-model:value="selections.HandsArmor" :label="t('手部')" />
-        <Stepper v-model:value="selections.LegsArmor" :label="t('腿部')" />
-        <Stepper v-model:value="selections.FeetArmor" :label="t('脚部')" />
-      </n-flex>
-      <n-flex vertical>
-        <Stepper v-model:value="selections.Earrings" :label="t('耳坠')" />
-        <Stepper v-model:value="selections.Necklace" :label="t('项链')" />
-        <Stepper v-model:value="selections.Wrist" :label="t('手镯')" />
-        <Stepper v-model:value="selections.Rings" :label="t('戒指')" />
-      </n-flex>
-    </n-flex>
+
   </FoldableCard>
 </template>
 
 <style scoped>
-:deep(input.n-input__input-el) {
-  text-align: center;
+table {
+  width: 100%;
+
+  td {
+    text-align: center;
+  }
+}
+.n-divider {
+  margin: 3px 0;
+}
+.bottom-buttons {
+  margin-top: 6px;
+  margin-right: 3px;
 }
 </style>

@@ -72,7 +72,7 @@ const getPanelStyle = (maxWidth: number) => {
           <n-flex vertical id="sub-container-l1">
             <n-flex>
               <JobPanel :style="getPanelStyle(480)" />
-              <GearSelectionPanel :style="getPanelStyle(355)" />
+              <GearSelectionPanel :style="getPanelStyle(405)" />
             </n-flex>
             <!-- todo: 快速操作 -->
           </n-flex>
@@ -111,7 +111,7 @@ const getPanelStyle = (maxWidth: number) => {
     /* margin: 0 auto 0 15%; */
 
     #sub-container-l1 {
-      min-width: 850px;
+      min-width: 900px;
     }
   }
 }
@@ -126,7 +126,7 @@ const getPanelStyle = (maxWidth: number) => {
 
   #main-container {
     max-width: 100%;
-    padding: 2rem;
+    padding: 1rem;
     font-weight: 400;
   }
 </style>
