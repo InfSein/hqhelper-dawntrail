@@ -2,6 +2,7 @@
 import { ref, inject } from 'vue'
 import FoldableCard from './custom-controls/FoldableCard.vue'
 import Stepper from './custom-controls/Stepper.vue'
+import GearSlot from './custom-controls/GearSlot.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 
@@ -46,9 +47,19 @@ const selections = ref({
     <table>
       <tbody>
         <tr>
-          <td>{{ t('主手') }}</td>
+          <td>
+            <GearSlot
+              slot-icon-src="~ApiBase/image/game-gear-slot/mainhand.png"
+              :slot-description="t('武器/工具：主手')"
+            />
+          </td>
           <td><Stepper v-model:value="selections.MainHand" /></td>
-          <td>{{ t('副手') }}</td>
+          <td>
+            <GearSlot
+              slot-icon-src="~ApiBase/image/game-gear-slot/offhand.png"
+              :slot-description="t('武器/工具：副手')"
+            />
+          </td>
           <td><Stepper v-model:value="selections.OffHand" /></td>
         </tr>
 
@@ -57,35 +68,80 @@ const selections = ref({
         </tr>
 
         <tr>
-          <td style="min-width: 40px;">{{ t('头部') }}</td>
+          <td style="min-width: 40px;">
+            <GearSlot
+              slot-icon-src="~ApiBase/image/game-gear-slot/head.png"
+              :slot-description="t('防具：头部')"
+            />
+          </td>
           <td><Stepper v-model:value="selections.HeadArmor" /></td>
-          <td style="min-width: 40px;">{{ t('耳坠') }}</td>
+          <td style="min-width: 40px;">
+            <GearSlot
+              slot-icon-src="~ApiBase/image/game-gear-slot/ear.png"
+              :slot-description="t('首饰：耳坠')"
+            />
+          </td>
           <td><Stepper v-model:value="selections.Earrings" /></td>
         </tr>
 
         <tr>
-          <td>{{ t('身体') }}</td>
+          <td>
+            <GearSlot
+              slot-icon-src="~ApiBase/image/game-gear-slot/body.png"
+              :slot-description="t('防具：身体')"
+            />
+          </td>
           <td><Stepper v-model:value="selections.BodyArmor" /></td>
-          <td>{{ t('项链') }}</td>
+          <td>
+            <GearSlot
+              slot-icon-src="~ApiBase/image/game-gear-slot/neck.png"
+              :slot-description="t('首饰：项链')"
+            />
+          </td>
           <td><Stepper v-model:value="selections.Necklace" /></td>
         </tr>
 
         <tr>
-          <td>{{ t('手部') }}</td>
+          <td>
+            <GearSlot
+              slot-icon-src="~ApiBase/image/game-gear-slot/hands.png"
+              :slot-description="t('防具：手部')"
+            />
+          </td>
           <td><Stepper v-model:value="selections.HandsArmor" /></td>
-          <td>{{ t('手镯') }}</td>
+          <td>
+            <GearSlot
+              slot-icon-src="~ApiBase/image/game-gear-slot/wrist.png"
+              :slot-description="t('首饰：手镯')"
+            />
+          </td>
           <td><Stepper v-model:value="selections.Wrist" /></td>
         </tr>
 
         <tr>
-          <td>{{ t('腿部') }}</td>
+          <td>
+            <GearSlot
+              slot-icon-src="~ApiBase/image/game-gear-slot/legs.png"
+              :slot-description="t('防具：腿部')"
+            />
+          </td>
           <td><Stepper v-model:value="selections.LegsArmor" /></td>
-          <td>{{ t('戒指') }}</td>
+          <td>
+            <GearSlot
+              slot-icon-src="~ApiBase/image/game-gear-slot/ring.png"
+              :slot-description="t('首饰：戒指')"
+            />
+          </td>
           <td><Stepper v-model:value="selections.Rings" /></td>
         </tr>
 
         <tr>
-          <td>{{ t('脚部') }}</td>
+          <td>
+            <GearSlot
+              slot-icon-src="~ApiBase/image/game-gear-slot/feet.png"
+              :slot-description="t('防具：脚部')"
+            />
+          </td>
           <td><Stepper v-model:value="selections.FeetArmor" /></td>
           <td></td>
           <td>

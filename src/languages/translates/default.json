@@ -238,83 +238,6 @@
             "components\\GearSelectionPanel.vue"
         ]
     },
-    "主手": {
-        "en": "Mainhand",
-        "ja": "主手",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "副手": {
-        "en": "Offhand",
-        "ja": "副手",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "头部": {
-        "en": "Head",
-        "ja": "头部",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "身体": {
-        "en": "Body",
-        "ja": "身体",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "手部": {
-        "en": "Hands",
-        "ja": "手部",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "腿部": {
-        "en": "Legs",
-        "ja": "腿部",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "脚部": {
-        "en": "Feet",
-        "ja": "脚部",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "耳坠": {
-        "en": "Ear",
-        "ja": "耳坠",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "项链": {
-        "en": "Neck",
-        "ja": "项链",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "手镯": {
-        "en": "Wrist",
-        "ja": "手镯",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "戒指": {
-        "en": "Rings",
-        "ja": "戒指",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
     "选择职业": {
         "en": "Select Job",
         "ja": "选择职业",
@@ -341,6 +264,244 @@
         "ja": "折叠",
         "$files": [
             "components\\custom-controls\\FoldableCard.vue"
+        ]
+    },
+    "武器/工具：主手": {
+        "en": "Weapon/Tool: Mainhand",
+        "ja": "武器/工具：主手",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "武器/工具：副手": {
+        "en": "Weapon/Tool: Offhand",
+        "ja": "武器/工具：副手",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "防具：头部": {
+        "en": "Armor: Head",
+        "ja": "防具：头部",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "首饰：耳坠": {
+        "en": "Jewelry: Earrings",
+        "ja": "首饰：耳坠",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "防具：身体": {
+        "en": "Armor: Body",
+        "ja": "防具：身体",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "首饰：项链": {
+        "en": "Jewelry: Necklace",
+        "ja": "首饰：项链",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "防具：手部": {
+        "en": "Armor: Hands",
+        "ja": "防具：手部",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "首饰：手镯": {
+        "en": "Jewelry: Wrist",
+        "ja": "首饰：手镯",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "防具：腿部": {
+        "en": "Armor: Legs",
+        "ja": "防具：腿部",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "首饰：戒指": {
+        "en": "Jewelry: Rings",
+        "ja": "首饰：戒指",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "防具：脚部": {
+        "en": "Armor: Feet",
+        "ja": "防具：脚部",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "已选部件": {
+        "en": "View Selected",
+        "ja": "已选部件",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "清空全部": {
+        "en": "Clear All",
+        "ja": "清空全部",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "清空当前": {
+        "en": "Clear current",
+        "ja": "清空当前",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "添加整套": {
+        "en": "Add suit",
+        "ja": "添加整套",
+        "$files": [
+            "components\\GearSelectionPanel.vue"
+        ]
+    },
+    "坦克": {
+        "en": "Tank",
+        "ja": "坦克",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "治疗": {
+        "en": "Healer",
+        "ja": "治疗",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "制敌": {
+        "en": "Fend",
+        "ja": "制敌",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "强袭": {
+        "en": "Strike",
+        "ja": "强袭",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "游击": {
+        "en": "Scout",
+        "ja": "游击",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "远敏": {
+        "en": "Aim",
+        "ja": "远敏",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "法系": {
+        "en": "Cast",
+        "ja": "法系",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "快速操作": {
+        "en": "Quick Opeatations",
+        "ja": "快速操作",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "战斗职业专用": {
+        "en": "Battle",
+        "ja": "战斗职业专用",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "选择职能": {
+        "en": "Select Role",
+        "ja": "选择职能",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "实行操作": {
+        "en": "Resolve",
+        "ja": "实行操作",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "添加一套防具": {
+        "en": "Add 1 armor set",
+        "ja": "添加一套防具",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "添加一套首饰": {
+        "en": "Add 1 jewel set",
+        "ja": "添加一套首饰",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "添加一套防具与首饰": {
+        "en": "Add 1 armor&jewel set",
+        "ja": "添加一套防具与首饰",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "生产采集专用": {
+        "en": "Crafter and Gatherer",
+        "ja": "生产采集专用",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "添加一套生产防具&首饰": {
+        "en": "Add 1 crafter's armor&jewel set",
+        "ja": "添加一套生产防具&首饰",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "添加一套采集防具&首饰": {
+        "en": "Add 1 gatherer's armor&jewel set",
+        "ja": "添加一套采集防具&首饰",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "添加一套生产主副手": {
+        "en": "Add 1 crafter's tool set",
+        "ja": "添加一套生产主副手",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "添加一套采集主副手": {
+        "en": "Add 1 gatherer's tool set",
+        "ja": "添加一套采集主副手",
+        "$files": [
+            "components\\QuickOperatePanel.vue"
         ]
     }
 }

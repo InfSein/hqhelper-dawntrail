@@ -1,5 +1,21 @@
 # 简要笔记 / Quick Notes
 
+## 兼容手机端与电脑端
+
+利用CSS-media选择器来实现不同设备的兼容。
+
+```css
+/* 电脑端 */
+@media screen and (min-width: 768px) {
+  /* 电脑端样式 */
+}
+
+/* 手机端 */
+@media screen and (max-width: 767px) {
+  /* 手机端样式 */
+}
+```
+
 ## 动态引入资源
 
 在部分(或者大多数)环节，可能需要从json等文件动态地引入图片等资源。

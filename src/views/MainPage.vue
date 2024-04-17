@@ -2,9 +2,10 @@
 import { inject, provide, ref, type Ref } from 'vue';
 import AppHeader from '../components/main/AppHeader.vue'
 import PatchPanel from '../components/PatchPanel.vue'
-import EorzeaTimeCard from '../components/EorzeaTimeCard.vue'
 import JobPanel from '../components/JobPanel.vue'
 import GearSelectionPanel from '@/components/GearSelectionPanel.vue'
+import QuickOperatePanel from '@/components/QuickOperatePanel.vue'
+import EorzeaTimeCard from '../components/EorzeaTimeCard.vue'
 import UserPreferences from '../components/modals/UserPreferences.vue'
 import AboutApp from '../components/modals/AboutApp.vue'
 import { useMessage } from 'naive-ui';
@@ -74,7 +75,7 @@ const getPanelStyle = (maxWidth: number) => {
               <JobPanel :style="getPanelStyle(480)" />
               <GearSelectionPanel :style="getPanelStyle(405)" />
             </n-flex>
-            <!-- todo: 快速操作 -->
+            <QuickOperatePanel :style="getPanelStyle(900)" />
           </n-flex>
           <n-flex vertical id="sub-container-l2">
             <EorzeaTimeCard :style="getPanelStyle(300)" />
