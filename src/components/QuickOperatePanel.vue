@@ -51,7 +51,7 @@ const roles = [
               <n-button>
                 <span class="auto-text">{{ t('添加一套首饰') }}</span>
               </n-button>
-              <n-button>
+              <n-button class="auto-btn">
                 <span class="auto-text">{{ t('添加一套防具与首饰') }}</span>
               </n-button>
             </n-flex>
@@ -98,6 +98,10 @@ const roles = [
       width: 47%;
       height: 75px;
     }
+  }
+  .auto-btn {
+    padding: 14px;
+    height: fit-content;
   }
   .auto-text {
     display: inline-block;
