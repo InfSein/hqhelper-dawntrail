@@ -281,63 +281,63 @@
         ]
     },
     "防具：头部": {
-        "en": "Armor: Head",
+        "en": "Attire: Head",
         "ja": "防具：头部",
         "$files": [
             "components\\GearSelectionPanel.vue"
         ]
     },
     "首饰：耳坠": {
-        "en": "Jewelry: Earrings",
+        "en": "Accessory: Earrings",
         "ja": "首饰：耳坠",
         "$files": [
             "components\\GearSelectionPanel.vue"
         ]
     },
     "防具：身体": {
-        "en": "Armor: Body",
+        "en": "Attire: Body",
         "ja": "防具：身体",
         "$files": [
             "components\\GearSelectionPanel.vue"
         ]
     },
     "首饰：项链": {
-        "en": "Jewelry: Necklace",
+        "en": "Accessory: Necklace",
         "ja": "首饰：项链",
         "$files": [
             "components\\GearSelectionPanel.vue"
         ]
     },
     "防具：手部": {
-        "en": "Armor: Hands",
+        "en": "Attire: Hands",
         "ja": "防具：手部",
         "$files": [
             "components\\GearSelectionPanel.vue"
         ]
     },
     "首饰：手镯": {
-        "en": "Jewelry: Wrist",
+        "en": "Accessory: Wrist",
         "ja": "首饰：手镯",
         "$files": [
             "components\\GearSelectionPanel.vue"
         ]
     },
     "防具：腿部": {
-        "en": "Armor: Legs",
+        "en": "Attire: Legs",
         "ja": "防具：腿部",
         "$files": [
             "components\\GearSelectionPanel.vue"
         ]
     },
     "首饰：戒指": {
-        "en": "Jewelry: Rings",
+        "en": "Accessory: Rings",
         "ja": "首饰：戒指",
         "$files": [
             "components\\GearSelectionPanel.vue"
         ]
     },
     "防具：脚部": {
-        "en": "Armor: Feet",
+        "en": "Attire: Feet",
         "ja": "防具：脚部",
         "$files": [
             "components\\GearSelectionPanel.vue"
@@ -379,14 +379,14 @@
         ]
     },
     "治疗": {
-        "en": "Healer",
+        "en": "Heal",
         "ja": "治疗",
         "$files": [
             "components\\QuickOperatePanel.vue"
         ]
     },
     "制敌": {
-        "en": "Fend",
+        "en": "Maim",
         "ja": "制敌",
         "$files": [
             "components\\QuickOperatePanel.vue"
@@ -449,21 +449,21 @@
         ]
     },
     "添加一套防具": {
-        "en": "Add 1 armor set",
+        "en": "Add 1 attire set",
         "ja": "添加一套防具",
         "$files": [
             "components\\QuickOperatePanel.vue"
         ]
     },
     "添加一套首饰": {
-        "en": "Add 1 jewel set",
+        "en": "Add 1 accessory set",
         "ja": "添加一套首饰",
         "$files": [
             "components\\QuickOperatePanel.vue"
         ]
     },
     "添加一套防具与首饰": {
-        "en": "Add 1 armor&jewel set",
+        "en": "Add 1 attire&accessory set",
         "ja": "添加一套防具与首饰",
         "$files": [
             "components\\QuickOperatePanel.vue"
@@ -477,14 +477,14 @@
         ]
     },
     "添加一套生产防具&首饰": {
-        "en": "Add 1 crafter's armor&jewel set",
+        "en": "Add 1 crafter's attire&accessory set",
         "ja": "添加一套生产防具&首饰",
         "$files": [
             "components\\QuickOperatePanel.vue"
         ]
     },
     "添加一套采集防具&首饰": {
-        "en": "Add 1 gatherer's armor&jewel set",
+        "en": "Add 1 gatherer's attire&accessory set",
         "ja": "添加一套采集防具&首饰",
         "$files": [
             "components\\QuickOperatePanel.vue"

@@ -28,7 +28,7 @@ const handlePlusClick = () => {
   <div class="stepper" :style="containerStyle">
     <n-button size="small" class="stepper-button" :disabled="modelValue === min" @click="handleMinusClick">
       <template #icon>
-        <minus-sharp />
+        <n-icon><minus-sharp /></n-icon>
       </template>
     </n-button>
     <div class="stepper-input" :style="inputStyle">
@@ -42,7 +42,7 @@ const handlePlusClick = () => {
     </div>
     <n-button size="small" class="stepper-button" :disabled="modelValue === max" @click="handlePlusClick">
       <template #icon>
-        <add-sharp />
+        <n-icon><add-sharp /></n-icon>
       </template>
     </n-button>
   </div>

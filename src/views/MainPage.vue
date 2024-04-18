@@ -70,12 +70,12 @@ const getPanelStyle = (maxWidth: number) => {
       <n-flex vertical id="main-container">
         <PatchPanel />
         <n-flex>
-          <n-flex vertical id="sub-container-l1">
+          <n-flex vertical id="sub-container-l1" :style="getPanelStyle(900)">
             <n-flex>
               <JobPanel :style="getPanelStyle(480)" />
               <GearSelectionPanel :style="getPanelStyle(405)" />
             </n-flex>
-            <QuickOperatePanel :style="getPanelStyle(900)" />
+            <QuickOperatePanel />
           </n-flex>
           <n-flex vertical id="sub-container-l2">
             <EorzeaTimeCard :style="getPanelStyle(300)" />
@@ -109,25 +109,20 @@ const getPanelStyle = (maxWidth: number) => {
     height: 100%;
     overflow: auto;
     padding: 0 2rem;
-    /* margin: 0 auto 0 15%; */
-
-    #sub-container-l1 {
-      min-width: 900px;
-    }
   }
 }
 /* common */
 .n-layout-header {
-    height: 64px; padding: 10px 20px;
-    z-index: 1000;
-  }
-  .n-layout-content {
-    margin-top: 65px;
-  }
+  height: 64px; padding: 10px 20px;
+  z-index: 1000;
+}
+.n-layout-content {
+  margin-top: 65px;
+}
 
-  #main-container {
-    max-width: 100%;
-    padding: 1rem;
-    font-weight: 400;
-  }
+#main-container {
+  max-width: 100%;
+  padding: 1rem;
+  font-weight: 400;
+}
 </style>

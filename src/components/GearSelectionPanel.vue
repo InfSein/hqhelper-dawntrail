@@ -26,11 +26,11 @@ defineProps({
 const selections = ref({
   MainHand: 0,
   OffHand: 0,
-  HeadArmor: 0,
-  BodyArmor: 0,
-  HandsArmor: 0,
-  LegsArmor: 0,
-  FeetArmor: 0,
+  HeadAttire: 0,
+  BodyAttire: 0,
+  HandsAttire: 0,
+  LegsAttire: 0,
+  FeetAttire: 0,
   Earrings: 0,
   Necklace: 0,
   Wrist: 0,
@@ -74,7 +74,7 @@ const selections = ref({
               :slot-description="t('防具：头部')"
             />
           </td>
-          <td><Stepper v-model:value="selections.HeadArmor" /></td>
+          <td><Stepper v-model:value="selections.HeadAttire" /></td>
           <td style="min-width: 40px;">
             <GearSlot
               slot-icon-src="~ApiBase/image/game-gear-slot/ear.png"
@@ -91,7 +91,7 @@ const selections = ref({
               :slot-description="t('防具：身体')"
             />
           </td>
-          <td><Stepper v-model:value="selections.BodyArmor" /></td>
+          <td><Stepper v-model:value="selections.BodyAttire" /></td>
           <td>
             <GearSlot
               slot-icon-src="~ApiBase/image/game-gear-slot/neck.png"
@@ -108,7 +108,7 @@ const selections = ref({
               :slot-description="t('防具：手部')"
             />
           </td>
-          <td><Stepper v-model:value="selections.HandsArmor" /></td>
+          <td><Stepper v-model:value="selections.HandsAttire" /></td>
           <td>
             <GearSlot
               slot-icon-src="~ApiBase/image/game-gear-slot/wrist.png"
@@ -125,7 +125,7 @@ const selections = ref({
               :slot-description="t('防具：腿部')"
             />
           </td>
-          <td><Stepper v-model:value="selections.LegsArmor" /></td>
+          <td><Stepper v-model:value="selections.LegsAttire" /></td>
           <td>
             <GearSlot
               slot-icon-src="~ApiBase/image/game-gear-slot/ring.png"
@@ -142,7 +142,7 @@ const selections = ref({
               :slot-description="t('防具：脚部')"
             />
           </td>
-          <td><Stepper v-model:value="selections.FeetArmor" /></td>
+          <td><Stepper v-model:value="selections.FeetAttire" /></td>
           <td></td>
           <td>
             <div style="display: flex; justify-content: end;">

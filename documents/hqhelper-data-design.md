@@ -24,18 +24,18 @@
         "MainHand": 37000,      // 主手装备ID
         "OffHand": 37001,     // 副手装备ID
         // 合并主副手的场景可以把装备箱id填到主手上、副手填0
-        "Armor": "Fending",     // 防具类型，关联到下方防具组内
-        "Jewel": "Fending",     // 首饰类型，关联到下方首饰组内
+        "Attire": "Fending",     // 防具类型，关联到下方防具组内
+        "Accessory": "Fending",     // 首饰类型，关联到下方首饰组内
       },
       "21": {}, // 其他职业，格式一致
     }
     // * 然后去统一填写防具和首饰
-    "Armor": {
+    "Attire": {
       // 依次代表：头部防具、身体防具、手部防具、腿部防具、脚部防具
       "Fending": [37002, 37003, 37004, 37005, 37006], // 防具ID列表
       ... // 其他防具类型
     },
-    "Jewel": {
+    "Accessory": {
       // 依次代表：耳坠、项链、手镯、戒指
       "Fending": [37007, 37008, 37009, 37010], // 首饰ID列表
       "Crafter": [0, 0, 0, 0] // 为0代表这个职业这个版本没有这个部件的新HQ
@@ -74,11 +74,11 @@
         // 使用int来指向物品的id,如果不存在这个部位则设为-1
         "MainHand": 37000,    // 主手
         "Auxiliary": 37001,   // 副手
-        "HeadArmor": 0,       // 头部防具
-        "BodyArmor": 0,       // 身体防具
-        "HandArmor": 0,       // 手部防具
-        "LegArmor": 0,        // 腿部防具
-        "FootArmor": 0,       // 脚部防具
+        "HeadAttire": 0,       // 头部防具
+        "BodyAttire": 0,       // 身体防具
+        "HandAttire": 0,       // 手部防具
+        "LegAttire": 0,        // 腿部防具
+        "FootAttire": 0,       // 脚部防具
         "Earrings": 0,        // 耳坠
         "Necklace": 0,        // 项链
         "Bracelet": 0,        // 手镯
