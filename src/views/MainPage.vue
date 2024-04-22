@@ -6,8 +6,8 @@ import JobPanel from '../components/JobPanel.vue'
 import GearSelectionPanel from '@/components/GearSelectionPanel.vue'
 import QuickOperatePanel from '@/components/QuickOperatePanel.vue'
 import EorzeaTimeCard from '../components/EorzeaTimeCard.vue'
-import UserPreferences from '../components/modals/UserPreferences.vue'
-import AboutApp from '../components/modals/AboutApp.vue'
+import ModalUserPreferences from '../components/modals/ModalUserPreferences.vue'
+import ModalAboutApp from '../components/modals/ModalAboutApp.vue'
 import { useMessage } from 'naive-ui';
 
 const NAIVE_UI_MESSAGE = useMessage()
@@ -29,14 +29,8 @@ provide('hqHelperToaster', hqHelperToast)
 const showUserPreferencesModal = ref(false)
 const showAboutAppModal = ref(false)
 
-const closeUserPreferencesModal = () => {
-  showUserPreferencesModal.value = false
-}
-const closeAboutAppModal = () => {
-  showAboutAppModal.value = false
-}
 const onUserPreferencesSubmitted = () => {
-  closeUserPreferencesModal()
+  showUserPreferencesModal.value = false
   appForceUpdate()
   hqHelperToast(t('保存成功'), 'success')
 }
@@ -85,17 +79,11 @@ const getPanelStyle = (maxWidth: number) => {
     </n-layout-content>
   </n-layout>
 
-  <n-modal :show="showUserPreferencesModal">
-    <UserPreferences
-      @after-submit="onUserPreferencesSubmitted"
-      @close="closeUserPreferencesModal"
-    />
-  </n-modal>
-  <n-modal :show="showAboutAppModal">
-    <AboutApp
-      @close="closeAboutAppModal"
-    />
-  </n-modal>
+  <ModalUserPreferences
+    v-model:show="showUserPreferencesModal"
+    @after-submit="onUserPreferencesSubmitted"
+  />
+  <ModalAboutApp v-model:show="showAboutAppModal" />
   
   <n-back-top />
 </template>
