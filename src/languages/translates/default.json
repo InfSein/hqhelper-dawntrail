@@ -7,13 +7,6 @@
             "components\\ModalUserPreferences.vue"
         ]
     },
-    "更多": {
-        "en": "More",
-        "ja": "詳細",
-        "$files": [
-            "components\\AppHeader.vue"
-        ]
-    },
     "主题": {
         "en": "Theme",
         "ja": "トピック",
@@ -371,55 +364,6 @@
             "components\\GearSelectionPanel.vue"
         ]
     },
-    "坦克": {
-        "en": "Tank",
-        "ja": "坦克",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "治疗": {
-        "en": "Heal",
-        "ja": "治疗",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "制敌": {
-        "en": "Maim",
-        "ja": "制敌",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "强袭": {
-        "en": "Strike",
-        "ja": "强袭",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "游击": {
-        "en": "Scout",
-        "ja": "游击",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "远敏": {
-        "en": "Aim",
-        "ja": "远敏",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "法系": {
-        "en": "Cast",
-        "ja": "法系",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
     "快速操作": {
         "en": "Quick Opeatations",
         "ja": "快速操作",
@@ -435,7 +379,7 @@
         ]
     },
     "选择职能": {
-        "en": "Select Role",
+        "en": "Select Class",
         "ja": "选择职能",
         "$files": [
             "components\\QuickOperatePanel.vue"

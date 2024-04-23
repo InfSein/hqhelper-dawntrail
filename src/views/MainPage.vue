@@ -14,7 +14,7 @@ const NAIVE_UI_MESSAGE = useMessage()
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
-const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+// const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 // * HqHelper Toast
 const hqHelperToast = (
@@ -43,15 +43,6 @@ provide('showAboutAppModal', () => {
   showAboutAppModal.value = true
 })
 
-const getPanelStyle = (maxWidth: number) => {
-  const style = isMobile.value ? [
-    'width: 100%'
-  ] : [
-    `max-width: ${maxWidth}px`,
-  ]
-  console.log(style)
-  return style.join(';')
-}
 </script>
 
 <template>
@@ -64,18 +55,20 @@ const getPanelStyle = (maxWidth: number) => {
       <n-flex vertical id="main-container">
         <PatchPanel />
         <n-flex>
-          <n-flex vertical id="sub-container-l1" :style="getPanelStyle(900)">
+          <n-flex vertical id="sub-container-1">
             <n-flex>
-              <JobPanel :style="getPanelStyle(480)" />
-              <GearSelectionPanel :style="getPanelStyle(405)" />
+              <JobPanel class="job-panel" />
+              <GearSelectionPanel class="gear-panel" />
             </n-flex>
-            <QuickOperatePanel />
+            <QuickOperatePanel class="quick-operate-panel" />
           </n-flex>
-          <n-flex vertical id="sub-container-l2">
-            <EorzeaTimeCard :style="getPanelStyle(300)" />
+          <n-flex vertical id="sub-container-2">
+            <EorzeaTimeCard class="eorzea-time-card" />
           </n-flex>
         </n-flex>
       </n-flex>
+  
+      <n-back-top />
     </n-layout-content>
   </n-layout>
 
@@ -84,33 +77,71 @@ const getPanelStyle = (maxWidth: number) => {
     @after-submit="onUserPreferencesSubmitted"
   />
   <ModalAboutApp v-model:show="showAboutAppModal" />
-  
-  <n-back-top />
 </template>
 
 <style scoped>
+/* All */
+.n-layout-header {
+  height: 64px;
+  padding: 10px 20px;
+  z-index: 1000;
+}
+.n-layout-content {
+  margin-top: 65px;
+}
+#main-container {
+  max-width: 100%;
+  padding: 1rem;
+  font-weight: 400;
+}
+
 /* PC only */
-@media (min-width: 1024px) {
+@media screen and (min-width: 768px) {
   #main-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 100%;
     overflow: auto;
     padding: 0 2rem;
+
+    #sub-container-1 {
+      width: 900px;
+
+      .job-panel {
+        width: 480px;
+      }
+      .gear-panel {
+        width: 405px;
+      }
+    }
+    #sub-container-2 {
+
+      .eorzea-time-card {
+        width: 300px;
+      }
+    }
   }
 }
-/* common */
-.n-layout-header {
-  height: 64px; padding: 10px 20px;
-  z-index: 1000;
-}
-.n-layout-content {
-  margin-top: 65px;
-}
 
-#main-container {
-  max-width: 100%;
-  padding: 1rem;
-  font-weight: 400;
+/* Mobile only */
+@media screen and (max-width: 767px) {
+  #main-container {
+    #sub-container-1 {
+      width: 100%;
+
+      .job-panel {
+        width: 100%;
+      }
+      .gear-panel {
+        width: 100%;
+      }
+    }
+    #sub-container-2 {
+
+      .eorzea-time-card {
+        width: 100%;
+      }
+    }
+  }
 }
 </style>

@@ -144,22 +144,23 @@ const selections = ref({
           </td>
           <td><Stepper v-model:value="selections.FeetAttire" /></td>
           <td></td>
-          <td>
-            <div style="display: flex; justify-content: end;">
-              <n-button size="small" style="width: 85%;">{{ t('已选部件') }}</n-button>
-            </div>
-          </td>
+          <td></td>
         </tr>
       </tbody>
     </table>
 
-    <n-divider dashed />
-
-    <n-flex class="bottom-buttons" justify="end">
-      <n-button size="small">{{ t('清空全部') }}</n-button>
-      <n-button size="small">{{ t('清空当前') }}</n-button>
-      <n-button size="small">{{ t('添加整套') }}</n-button>
-    </n-flex>
+    <div class="bottom-buttons">
+      <div class="content">
+        <n-button class="end" size="small">{{ t('已选部件') }}</n-button>
+      </div>
+      <n-divider dashed />
+      <n-flex class="foot" justify="end">
+        <n-button size="small">{{ t('清空全部') }}</n-button>
+        <n-button size="small">{{ t('清空当前') }}</n-button>
+        <n-button size="small">{{ t('添加整套') }}</n-button>
+      </n-flex>
+    </div>
+    
 
   </FoldableCard>
 </template>
@@ -176,7 +177,15 @@ table {
   margin: 3px 0;
 }
 .bottom-buttons {
-  margin-top: 6px;
+  margin-top: auto;
   margin-right: 3px;
+  
+  .content {
+    display: flex;
+    justify-content: end;
+  }
+  .foot {
+    margin-top: 6px;
+  }
 }
 </style>

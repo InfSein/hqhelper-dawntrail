@@ -1,16 +1,24 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
-import AppStatus from '@/variables/AppStatus'
+import { computed, inject, ref, type Ref } from 'vue'
 import { NIcon } from 'naive-ui'
 import {
   MenuFilled,
   SettingsSharp,
   InfoFilled
 } from '@vicons/material'
+import EorzeaTime from '@/tools/EorzeaTime'
+import AppStatus from '@/variables/AppStatus'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const showUserPreferencesModal = inject<() => void>('showUserPreferencesModal') ?? (() => {})
 const showAboutAppModal = inject<() => void>('showAboutAppModal') ?? (() => {})
+const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh');
+const isChina = computed(() => locale.value === 'zh');
+
+const eorzeaTime = ref<EorzeaTime>(new EorzeaTime())
+setInterval(() => {
+  eorzeaTime.value = new EorzeaTime()
+}, 200)
 
 const showMenus = ref(false)
 
@@ -40,12 +48,24 @@ const openModal = (key: string) => {
     <i class="xiv hq logo-font"></i>
     <p class="app-name">HQ Helper</p>
     <p>{{ AppStatus.Version }}</p>
+    <n-divider vertical></n-divider>
+    <n-popover trigger="hover">
+      <template #trigger>
+        <p>
+          <span v-if="isChina"><i class="xiv eorzea-time-chs"></i></span>
+          <span v-else><i class="xiv eorzea-time"></i></span>
+          <span class="time-text">{{ eorzeaTime.gameTime }}</span>
+        </p>
+      </template>
+      <div class="flex-column flex-center">
+        <p class="font-center">{{ t('艾欧泽亚时间') }}</p>
+      </div>
+    </n-popover>
     <div class="tail-contents">
-      <n-button ghost @click="showMenus = !showMenus">
+      <n-button ghost class="menu-button" @click="showMenus = !showMenus">
         <template #icon>
           <n-icon><menu-filled /></n-icon>
         </template>
-        {{ t('更多') }}
       </n-button>
     </div>
     
@@ -89,8 +109,17 @@ const openModal = (key: string) => {
     margin: 5px;
     font-weight: 600;
   }
+  .time-text {
+    margin-left: 5px;
+    font-weight: 400;
+  }
   .tail-contents {
     margin-left: auto;
+    display: flex;
+
+    .menu-button {
+      margin-left: 20px;
+    }
   }
 }
 </style>

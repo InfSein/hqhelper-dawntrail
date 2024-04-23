@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import { inject } from 'vue';
+import { inject, ref, type Ref } from 'vue';
 import FoldableCard from './custom-controls/FoldableCard.vue'
 import GroupBox from './custom-controls/GroupBox.vue'
 import XivFARImage from './custom-controls/XivFARImage.vue'
-import { XivRoleColors } from '@/variables/Constants'
+import XivClasses from '@/assets/data/xiv-classes.json'
 
+const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh');
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 
-const roles = [
-  { key: 'tank', text: t('坦克'), icon: '~ApiBase/image/game-job/misc/clear_tank.png', color: XivRoleColors.tank, type: 'info' },
-  { key: 'healer', text: t('治疗'), icon: '~ApiBase/image/game-job/misc/clear_healer.png', color: XivRoleColors.healer, type: 'success' },
-  { key: 'fending', text: t('制敌'), icon: '~ApiBase/image/game-job/misc/clear_dps.png', color: XivRoleColors.dps, type: 'error' },
-  { key: 'striking', text: t('强袭'), icon: '~ApiBase/image/game-job/misc/clear_dps.png', color: XivRoleColors.dps, type: 'error' },
-  { key: 'scouting', text: t('游击'), icon: '~ApiBase/image/game-job/misc/clear_dps.png', color: XivRoleColors.dps, type: 'error' },
-  { key: 'aiming', text: t('远敏'), icon: '~ApiBase/image/game-job/misc/clear_ranged.png', color: XivRoleColors.dps, type: 'error' },
-  { key: 'casting', text: t('法系'), icon: '~ApiBase/image/game-job/misc/clear_dps_magic.png', color: XivRoleColors.dps, type: 'error' },
-]
+const getClassName = (_class: any) => {
+  switch (locale.value) {
+    case 'en':
+      return _class.name_en
+    case 'ja':
+      return _class.name_ja
+  }
+  return _class.name_zh
+}
 </script>
 
 <template>
@@ -29,16 +30,16 @@ const roles = [
         <n-flex :size="[12,12]">
           <GroupBox border-color="#919191" style="margin-left: 5px;">
             <template #title>{{ t('选择职能') }}</template>
-            <n-flex size="small" class="role-btns-container">
+            <n-flex :size="[4,4]" class="_class-btns-container">
               <n-button
-                v-for="role in roles"
-                :key="role.key"
-                :color="role.color"
+                v-for="(_class, index) in XivClasses"
+                :key="index"
+                :color="_class.color"
               >
                 <template #icon>
-                  <XivFARImage :src="role.icon" :size="20" />
+                  <XivFARImage :src="_class.icon" :size="20" />
                 </template>
-                {{ role.text }}
+                {{ getClassName(_class) }}
               </n-button>
             </n-flex>
           </GroupBox>
@@ -84,7 +85,7 @@ const roles = [
   .flex-battle {
     max-width: 480px;
 
-    .role-btns-container {
+    ._class-btns-container {
       max-width: 200px;
     }
     .qo-btns-container {
