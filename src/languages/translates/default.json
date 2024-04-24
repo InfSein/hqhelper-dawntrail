@@ -210,13 +210,6 @@
             "components\\modals\\ModalUserPreferences.vue"
         ]
     },
-    "按职能选择": {
-        "en": "Select by role",
-        "ja": "按职能选择",
-        "$files": [
-            "components\\ClassPanel.vue"
-        ]
-    },
     "版本{v}: {name}": {
         "en": "Patch{v}: {name}",
         "ja": "版本{v}: {name}",
@@ -365,7 +358,7 @@
         ]
     },
     "快速操作": {
-        "en": "Quick Opeatations",
+        "en": "Quick Operations",
         "ja": "快速操作",
         "$files": [
             "components\\QuickOperatePanel.vue"
@@ -446,6 +439,55 @@
         "ja": "添加一套采集主副手",
         "$files": [
             "components\\QuickOperatePanel.vue"
+        ]
+    },
+    "还未选择": {
+        "en": "Selected: None",
+        "ja": "还未选择",
+        "$files": [
+            "components\\main\\PatchPanel.vue"
+        ]
+    },
+    "已选择版本: {}": {
+        "en": "Selected: Patch {}",
+        "ja": "已选择版本: {}",
+        "$files": [
+            "components\\main\\PatchPanel.vue"
+        ]
+    },
+    "查看统计": {
+        "en": "View Statistics",
+        "ja": "查看统计",
+        "$files": [
+            "components\\main\\StatisticsPanel.vue"
+        ]
+    },
+    "禁用工作状态记忆": {
+        "en": "Disable Work State Memory",
+        "ja": "禁用工作状态记忆",
+        "$files": [
+            "components\\modals\\ModalUserPreferences.vue"
+        ]
+    },
+    "应用默认记录您的版本、职业和部件选择，从而让应用长期保持上次关闭时的的工作状态。": {
+        "en": "The application records the patch, job, and gear selection as the default, to ensure that the application remembers your last session's state.",
+        "ja": "应用默认记录您的版本、职业和部件选择，从而让应用长期保持上次关闭时的的工作状态。",
+        "$files": [
+            "components\\modals\\ModalUserPreferences.vue"
+        ]
+    },
+    "如果您希望每次打开应用都从头开始，或是在使用过程中出现较严重的卡顿，则可以考虑禁用此项。": {
+        "en": "If you wish to start from scratch every time you open the application or catched frequent lag during use, you can consider disabling this by open this option.",
+        "ja": "如果您希望每次打开应用都从头开始，或是在使用过程中出现较严重的卡顿，则可以考虑禁用此项。",
+        "$files": [
+            "components\\modals\\ModalUserPreferences.vue"
+        ]
+    },
+    "注意：禁用工作状态记忆后，已记录的工作状态将被立即删除！": {
+        "en": "CAUTION: Disabling work status memory will delete the recorded state immediately!",
+        "ja": "注意：禁用工作状态记忆后，已记录的工作状态将被立即删除！",
+        "$files": [
+            "components\\modals\\ModalUserPreferences.vue"
         ]
     }
 }
