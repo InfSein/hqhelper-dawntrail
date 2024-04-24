@@ -39,7 +39,7 @@ const getClassName = (_class: any) => {
                 <template #icon>
                   <XivFARImage :src="_class.icon" :size="20" />
                 </template>
-                {{ getClassName(_class) }}
+                <span class="text">{{ getClassName(_class) }}</span>
               </n-button>
             </n-flex>
           </GroupBox>
@@ -99,6 +99,9 @@ const getClassName = (_class: any) => {
       width: 47%;
       height: 75px;
     }
+  }
+  .text {
+    color: white;
   }
   .auto-btn {
     padding: 14px;
