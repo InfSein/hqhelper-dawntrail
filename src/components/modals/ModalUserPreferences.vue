@@ -21,7 +21,12 @@ const handleSave = () => {
   const ui_size_preset = formData.value.ui_size_preset ?? '2k'
   const theme = formData.value.theme ?? 'system'
   const language_ui = formData.value.language_ui ?? 'zh'
+  const disable_workstate_cache = formData.value.disable_workstate_cache ?? false
   const disable_xivapi_mirror = formData.value.disable_xivapi_mirror ?? false
+
+  if (disable_workstate_cache) {
+    formData.value.cache_work_state = {}
+  }
 
   const newConfig = store.state.userConfig ?? {}
   newConfig.ui_size_preset = ui_size_preset
@@ -68,6 +73,18 @@ const handleSave = () => {
               <n-radio-button value="en" label="English" />
               <n-radio-button value="ja" label="日本語" />
             </n-radio-group>
+          </n-form-item>
+          <n-form-item :label="t('禁用工作状态记忆')">
+            <n-popover trigger="hover" style="max-width: 300px;">
+              <template #trigger>
+                <n-switch v-model:value="formData.disable_workstate_cache" />
+              </template>
+              <div class="flex-column flex-center">
+                <p class="font-center">{{ t('应用默认记录您的版本、职业和部件选择，从而让应用长期保持上次关闭时的的工作状态。') }}</p>
+                <p class="font-center">{{ t('如果您希望每次打开应用都从头开始，或是在使用过程中出现较严重的卡顿，则可以考虑禁用此项。') }}</p>
+                <p class="font-center red">{{ t('注意：禁用工作状态记忆后，已记录的工作状态将被立即删除！') }}</p>
+              </div>
+            </n-popover>
           </n-form-item>
           <n-form-item :label="t('禁用国际加速')">
             <n-popover trigger="hover" style="max-width: 300px;">

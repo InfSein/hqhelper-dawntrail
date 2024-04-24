@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { inject, ref, type Ref } from 'vue';
-import FoldableCard from './custom-controls/FoldableCard.vue'
-import GroupBox from './custom-controls/GroupBox.vue'
-import XivFARImage from './custom-controls/XivFARImage.vue'
+import FoldableCard from '../custom-controls/FoldableCard.vue'
+import GroupBox from '../custom-controls/GroupBox.vue'
+import XivFARImage from '../custom-controls/XivFARImage.vue'
 import XivClasses from '@/assets/data/xiv-classes.json'
 
 const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh');

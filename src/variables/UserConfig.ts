@@ -2,10 +2,12 @@ interface UserConfigModel {
   ui_size_preset: '1080p' | '2k' | '4k'
   theme: 'light' | 'dark' | 'system'
   language_ui: 'zh' | 'en' | 'ja'
-  disable_xivapi_mirror: boolean,
+  disable_workstate_cache: boolean
+  disable_xivapi_mirror: boolean
 
   // hidden options
-  ui_fold_cache: any
+  cache_ui_fold: any
+  cache_work_state: any
 }
 export type { UserConfigModel };
 
@@ -14,7 +16,9 @@ export var defaultUserConfig: UserConfigModel = {
   ui_size_preset: '2k',
   theme: 'light',
   language_ui: 'zh',
+  disable_workstate_cache: false,
   disable_xivapi_mirror: false,
 
-  ui_fold_cache: {} // active cache, { key:string -> value:boolean }
+  cache_ui_fold: {}, // active cache, { key:string -> value:boolean }
+  cache_work_state: {}, // active cache, view struct in `MainPage.vue` 's `workState`
 }

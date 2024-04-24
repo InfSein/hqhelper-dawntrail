@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, inject } from 'vue'
-import FoldableCard from './custom-controls/FoldableCard.vue'
-import Stepper from './custom-controls/Stepper.vue'
-import GearSlot from './custom-controls/GearSlot.vue'
+import FoldableCard from '../custom-controls/FoldableCard.vue'
+import Stepper from '../custom-controls/Stepper.vue'
+import GearSlot from '../custom-controls/GearSlot.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 

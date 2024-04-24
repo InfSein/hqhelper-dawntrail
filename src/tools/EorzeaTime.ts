@@ -1,5 +1,5 @@
 /**
- * Eorzea Game Time Class.
+ * Eorzea Game Time Calculator.
  * 
  * Constructor:
  * ```ts

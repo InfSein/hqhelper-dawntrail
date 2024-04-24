@@ -15,6 +15,11 @@
   align-items: center;
 }
 
+/* Color */
+.red {
+  color: red;
+}
+
 /* Text */
 .font-center {
   text-align: center;

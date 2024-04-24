@@ -1,11 +1,21 @@
 <script setup lang="ts">
-import { ref, inject, type Ref } from 'vue'
+import { ref, inject, type Ref, computed } from 'vue'
 import { type UserConfigModel, defaultUserConfig } from '@/variables/UserConfig'
 import XivPatches from "@/assets/data/xiv-patches.json"
-import FoldableCard from './custom-controls/FoldableCard.vue'
+import FoldableCard from '../custom-controls/FoldableCard.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
+
+const patchSelected = defineModel('patchSelected')
+const cardDescription = computed(() => {
+  if (!patchSelected.value) return t('还未选择')
+  else return t('已选择版本: {}', patchSelected.value)
+})
+
+const handlePatchSelect = (patch: any) => {
+  patchSelected.value = patch.v
+}
 
 const getPatchName = (patch: any) => {
   const uiLanguage = userConfig.value?.language_ui ?? 'zh'
@@ -23,11 +33,11 @@ const getPatchName = (patch: any) => {
 const getButtonSize = () => {
   switch (userConfig.value?.ui_size_preset ?? '2k') {
     case '1080p':
-      return { width: 260, height: 110 } // todo: adjust
+      return { width: 260, height: 110 }
     case '4k':
       return { width: 340, height: 130 }
   }
-  return { width: 260, height: 110 }
+  return { width: 300, height: 120 } // 2k
 }
 
 const buildButtonStyle = (patch: any) => {
@@ -50,7 +60,7 @@ const buildButtonContentStyle = () => {
 </script>
 
 <template>
-  <FoldableCard card-key="game-patches" class="game-patches-panel">
+  <FoldableCard card-key="game-patches" :description="cardDescription" class="game-patches-panel">
     <template #header>
       <i class="xiv square-1"></i>
       <span class="card-title-text">{{ t('选择版本') }}</span>
@@ -62,6 +72,7 @@ const buildButtonContentStyle = () => {
         :key="index"
         :disabled="!patch.updated"
         :style="buildButtonStyle(patch)"
+        @click="handlePatchSelect(patch)"
       >
         <div
           class="patch-button-content"

@@ -3,10 +3,10 @@ import { ref, inject, type Ref, computed } from 'vue'
 import { XivApiBase } from '@/variables/Constants'
 import { type UserConfigModel, defaultUserConfig } from '@/variables/UserConfig'
 import XivJobs from '@/assets/data/xiv-jobs.json'
-import FoldableCard from './custom-controls/FoldableCard.vue'
-import JobButton from './custom-controls/JobButton.vue'
-import GroupBox from './custom-controls/GroupBox.vue'
-import XivFARImage from './custom-controls/XivFARImage.vue'
+import FoldableCard from '../custom-controls/FoldableCard.vue'
+import JobButton from '../custom-controls/JobButton.vue'
+import GroupBox from '../custom-controls/GroupBox.vue'
+import XivFARImage from '../custom-controls/XivFARImage.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)

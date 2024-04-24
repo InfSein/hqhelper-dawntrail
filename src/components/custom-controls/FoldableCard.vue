@@ -17,13 +17,17 @@ const props = defineProps({
   title: {
     type: String,
     default: ''
+  },
+  description: {
+    type: String,
+    default: ''
   }
 })
 const emit = defineEmits([
   'onCardFoldedChange'
 ])
 
-const ui_fold_cache = userConfig.value.ui_fold_cache ?? {}
+const ui_fold_cache = userConfig.value.cache_ui_fold ?? {}
 const foldOnDefault : boolean = ui_fold_cache[props.cardKey] ?? false
 
 const folded = ref(foldOnDefault)
@@ -45,9 +49,9 @@ const updateUi = () => {
 updateUi()
 
 const updateCache = () => {
-  const _ui_fold_cache = userConfig.value.ui_fold_cache ?? {} // refresh to avoid mutation
+  const _ui_fold_cache = userConfig.value.cache_ui_fold ?? {} // refresh to avoid mutation
   _ui_fold_cache[props.cardKey] = folded.value
-  userConfig.value.ui_fold_cache = _ui_fold_cache
+  userConfig.value.cache_ui_fold = _ui_fold_cache
   store.commit('setUserConfig', userConfig.value)
 }
 
@@ -64,6 +68,7 @@ const handleFoldOrExpand = () => {
   <n-card :id="'card-'+cardKey" :title="title" :content-style="cardContentStyle" embedded :bordered="false">
     <template #header>
       <slot name="header" />
+      <span class="description">{{ description }}</span>
     </template>
     <template #header-extra>
       <n-button text style="font-size: 16px;" @click="handleFoldOrExpand">
@@ -80,6 +85,10 @@ const handleFoldOrExpand = () => {
 </template>
 
 <style scoped>
+.description {
+  margin-left: 10px;
+  font-size: 14px;
+}
 .collapse-button {
   font-size: 16px;
 }

@@ -1,19 +1,25 @@
 <script lang="ts" setup>
-import { inject, provide, ref, type Ref } from 'vue';
-import AppHeader from '../components/main/AppHeader.vue'
-import PatchPanel from '../components/PatchPanel.vue'
-import JobPanel from '../components/JobPanel.vue'
-import GearSelectionPanel from '@/components/GearSelectionPanel.vue'
-import QuickOperatePanel from '@/components/QuickOperatePanel.vue'
-import EorzeaTimeCard from '../components/EorzeaTimeCard.vue'
-import ModalUserPreferences from '../components/modals/ModalUserPreferences.vue'
-import ModalAboutApp from '../components/modals/ModalAboutApp.vue'
+import { inject, provide, ref, watch, type Ref } from 'vue';
+import AppHeader from '@/components/main/AppHeader.vue'
+import PatchPanel from '@/components/main/PatchPanel.vue'
+import JobPanel from '@/components/main/JobPanel.vue'
+import GearSelectionPanel from '@/components/main/GearSelectionPanel.vue'
+import QuickOperatePanel from '@/components/main/QuickOperatePanel.vue'
+import StatisticsPanel from '@/components/main/StatisticsPanel.vue'
+import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
+import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import { useMessage } from 'naive-ui';
+import { defaultUserConfig, type UserConfigModel } from '@/variables/UserConfig';
+import { useStore } from '@/store';
 
+const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
+
+// #region Provides & Injections
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
+const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 // * HqHelper Toast
@@ -43,6 +49,24 @@ provide('showAboutAppModal', () => {
   showAboutAppModal.value = true
 })
 
+// #endregion
+
+const workState = ref({
+  patch: '',
+})
+const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
+if (!disable_workstate_cache) {
+  if (userConfig.value.cache_work_state) {
+    workState.value = userConfig.value.cache_work_state
+  }
+
+  // todo - 留意性能：深度侦听需要遍历被侦听对象中的所有嵌套的属性，当用于大型数据结构时，开销很大
+  watch(workState, () => {
+    console.log('workState changed', workState.value)
+    userConfig.value.cache_work_state = workState.value
+    store.commit('setUserConfig', userConfig.value)
+  }, {deep: true})
+}
 </script>
 
 <template>
@@ -53,7 +77,7 @@ provide('showAboutAppModal', () => {
 
     <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
       <n-flex vertical id="main-container">
-        <PatchPanel />
+        <PatchPanel v-model:patch-selected="workState.patch" />
         <n-flex>
           <n-flex vertical id="sub-container-1">
             <n-flex>
@@ -63,7 +87,7 @@ provide('showAboutAppModal', () => {
             <QuickOperatePanel class="quick-operate-panel" />
           </n-flex>
           <n-flex vertical id="sub-container-2">
-            <EorzeaTimeCard class="eorzea-time-card" />
+            <StatisticsPanel class="statistics-panel" />
           </n-flex>
         </n-flex>
       </n-flex>
@@ -115,9 +139,10 @@ provide('showAboutAppModal', () => {
       }
     }
     #sub-container-2 {
+      width: calc(100% - 912px);
 
-      .eorzea-time-card {
-        width: 300px;
+      .statistics-panel {
+        width: 100%;
       }
     }
   }
@@ -137,8 +162,9 @@ provide('showAboutAppModal', () => {
       }
     }
     #sub-container-2 {
+      width: 100%;
 
-      .eorzea-time-card {
+      .statistics-panel {
         width: 100%;
       }
     }
