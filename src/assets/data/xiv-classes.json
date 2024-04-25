@@ -1,8 +1,8 @@
 {
   "fending": {
     "name_en": "Fend",
-    "name_zh": "御敌",
-    "name_ja": "ディフェンダー",
+    "name_zh": "坦克",
+    "name_ja": "タンク",
     "icon": "~ApiBase/image/game-job/misc/clear_tank.png",
     "color": "#2D3A80"
   },
@@ -23,7 +23,7 @@
   "striking": {
     "name_en": "Strike",
     "name_zh": "强袭",
-    "name_ja": "ストライカー",
+    "name_ja": "ストライカ",
     "icon": "~ApiBase/image/game-job/misc/clear_dps.png",
     "color": "#732828"
   },

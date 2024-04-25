@@ -41,6 +41,7 @@ const onImageLoadError = (event: Event) => {
 <template>
   <img
     alt="-"
+    :draggable="false"
     :src="getUrl()"
     :width="size"
     :height="size"

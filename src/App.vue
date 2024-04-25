@@ -111,6 +111,15 @@ provide('isMobile', isMobile)
 provide('appForceUpdate', appForceUpdate)
 
 // #endregion
+
+const appClass = computed(() => {
+  const classes = [
+    'lang-' + locale.value,
+    'app-' + isMobile.value ? 'mobile' : 'desktop',
+  ]
+  return classes.join(' ')
+})
+
 </script>
 
 <template>
@@ -120,7 +129,9 @@ provide('appForceUpdate', appForceUpdate)
     :date-locale="naiveUiDateLocale"
   >
     <n-message-provider :placement="naiveUiMessagePlacement">
-      <MainPage />
+      <div :class="appClass">
+        <MainPage />
+      </div>
     </n-message-provider>
   </n-config-provider>
 </template>

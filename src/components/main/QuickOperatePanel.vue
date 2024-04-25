@@ -27,33 +27,32 @@ const getClassName = (_class: any) => {
     </template>
     <n-flex>
       <n-card size="small" class="flex-battle" :title="t('战斗职业专用')">
-        <n-flex :size="[12,12]">
-          <GroupBox border-color="#919191" style="margin-left: 5px;">
-            <template #title>{{ t('选择职能') }}</template>
-            <n-flex :size="[4,4]" class="_class-btns-container">
+        <n-flex :size="[12,12]" style="height: 100%;">
+          <GroupBox border-color="#919191" class="class-btns-container">
+            <template #title>{{ t('选择职类') }}</template>
+            <n-flex justify="space-between" :size="[4,4]">
               <n-button
+                class="class-btn"
                 v-for="(_class, index) in XivClasses"
                 :key="index"
                 :color="_class.color"
               >
-                <template #icon>
-                  <XivFARImage :src="_class.icon" :size="20" />
-                </template>
+                <XivFARImage :src="_class.icon" :size="20" />
                 <span class="text">{{ getClassName(_class) }}</span>
               </n-button>
             </n-flex>
           </GroupBox>
-          <GroupBox border-color="#919191" style="margin-left: 5px; height: fit-content;">
+          <GroupBox border-color="#919191" class="qo-btns-container">
             <template #title>{{ t('实行操作') }}</template>
-            <n-flex vertical class="qo-btns-container">
+            <n-flex vertical style="height: 100%;">
               <n-button>
                 <span class="auto-text">{{ t('添加一套防具') }}</span>
               </n-button>
               <n-button>
                 <span class="auto-text">{{ t('添加一套首饰') }}</span>
               </n-button>
-              <n-button class="auto-btn">
-                <span class="auto-text">{{ t('添加一套防具与首饰') }}</span>
+              <n-button class="last-btn">
+                <span class="auto-text">{{ t('添加一套{}防具与首饰', '\n') }}</span>
               </n-button>
             </n-flex>
           </GroupBox>
@@ -80,28 +79,42 @@ const getClassName = (_class: any) => {
 </template>
 
 <style scoped>
+/* All */
+.text {
+  color: white;
+}
+.class-btn {
+  width: 31%;
+  padding: 0 8px;
+}
+.lang-ja .class-btn {
+  width: 49%;
+}
+
 /* PC */
 @media screen and (min-width: 768px) {
   .flex-battle {
-    max-width: 480px;
+    width: 60%;
 
-    ._class-btns-container {
-      max-width: 200px;
+    .class-btns-container {
+      width: 60%;
+      margin-left: 5px;
     }
     .qo-btns-container {
-      max-width: 180px;
+      width: calc(40% - 17px);
+
+      .last-btn {
+        height: calc(100% - 84px);
+      }
     }
   }
   .flex-cg {
-    max-width: 350px;
+    width: calc(40% - 12px);
 
     .cg-btn {
       width: 47%;
       height: 75px;
     }
-  }
-  .text {
-    color: white;
   }
   .auto-btn {
     padding: 14px;

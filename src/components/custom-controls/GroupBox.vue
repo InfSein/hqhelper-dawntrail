@@ -35,5 +35,9 @@ const props = defineProps({
     color: var(--n-text-color);
     background-color: var(--n-color-embedded);
   }
+
+  .group-box-content {
+    height: 100%;
+  }
 }
 </style>

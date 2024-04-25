@@ -56,7 +56,7 @@ export default {
     "55": "Resolve",
     "56": "Add 1 attire set",
     "57": "Add 1 accessory set",
-    "58": "Add 1 attire&accessory set",
+    "58": "Add 1 set of{}attire & accessory",
     "59": "Crafter and Gatherer",
     "60": "Add 1 crafter's attire&accessory set",
     "61": "Add 1 gatherer's attire&accessory set",
@@ -68,5 +68,6 @@ export default {
     "67": "Disable Work State Memory",
     "68": "The application records the patch, job, and gear selection as the default, to ensure that the application remembers your last session's state.",
     "69": "If you wish to start from scratch every time you open the application or catched frequent lag during use, you can consider disabling this by open this option.",
-    "70": "CAUTION: Disabling work status memory will delete the recorded state immediately!"
+    "70": "CAUTION: Disabling work status memory will delete the recorded state immediately!",
+    "71": "Selected: Job {}"
 }

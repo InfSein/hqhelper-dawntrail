@@ -53,6 +53,7 @@ provide('showAboutAppModal', () => {
 
 const workState = ref({
   patch: '',
+  job: 0,
 })
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {
@@ -81,7 +82,7 @@ if (!disable_workstate_cache) {
         <n-flex>
           <n-flex vertical id="sub-container-1">
             <n-flex>
-              <JobPanel class="job-panel" />
+              <JobPanel v-model:job-selected="workState.job" class="job-panel" />
               <GearSelectionPanel class="gear-panel" />
             </n-flex>
             <QuickOperatePanel class="quick-operate-panel" />
@@ -129,17 +130,20 @@ if (!disable_workstate_cache) {
     padding: 0 2rem;
 
     #sub-container-1 {
-      width: 900px;
+      width: 50%;
 
       .job-panel {
-        width: 480px;
+        width: 55%;
       }
       .gear-panel {
-        width: 405px;
+        width: calc(45% - 12px);
+      }
+      .quick-operate-panel {
+        width: 100%;
       }
     }
     #sub-container-2 {
-      width: calc(100% - 912px);
+      width: calc(50% - 12px);
 
       .statistics-panel {
         width: 100%;

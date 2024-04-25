@@ -7,7 +7,7 @@ import FoldableCard from '../custom-controls/FoldableCard.vue'
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 
-const patchSelected = defineModel('patchSelected')
+const patchSelected = defineModel<string>('patchSelected')
 const cardDescription = computed(() => {
   if (!patchSelected.value) return t('还未选择')
   else return t('已选择版本: {}', patchSelected.value)
@@ -68,6 +68,7 @@ const buildButtonContentStyle = () => {
     <n-flex justify="center">
       <n-button
         class="patch-button"
+        :class="patch.v === patchSelected ? 'selected' : ''"
         v-for="(patch, index) in XivPatches"
         :key="index"
         :disabled="!patch.updated"
@@ -103,6 +104,10 @@ const buildButtonContentStyle = () => {
       justify-content: center;
       align-items: end;
     }
+  }
+  .patch-button.selected {
+    border: var(--n-border-pressed);
+    color: var(--n-text-color-hover);
   }
 }
 </style>

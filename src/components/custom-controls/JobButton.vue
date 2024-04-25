@@ -39,17 +39,22 @@ const getType = () => {
 <template>
   <n-button
     ghost
+    class="job-button"
     :type="getType()"
     :style="{ width: `${btnSize}px`, height: `${btnSize}px` }"
   >
-    <template #icon>
-      <XivFARImage
-        :src="jobIcon"
-        :size="imgSize"
-      />
-    </template>
+    <XivFARImage
+      :src="jobIcon"
+      :size="imgSize"
+    />
   </n-button>
 </template>
 
 <style scoped>
+.job-button {
+  padding: 1px;
+}
+.job-button.selected {
+  background-color: #7abcff;
+}
 </style>

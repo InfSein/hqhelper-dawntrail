@@ -371,9 +371,9 @@
             "components\\QuickOperatePanel.vue"
         ]
     },
-    "选择职能": {
+    "选择职类": {
         "en": "Select Class",
-        "ja": "选择职能",
+        "ja": "选择职类",
         "$files": [
             "components\\QuickOperatePanel.vue"
         ]
@@ -399,11 +399,11 @@
             "components\\QuickOperatePanel.vue"
         ]
     },
-    "添加一套防具与首饰": {
-        "en": "Add 1 attire&accessory set",
-        "ja": "添加一套防具与首饰",
+    "添加一套{}防具与首饰": {
+        "en": "Add 1 set of{}attire & accessory",
+        "ja": "添加一套{}防具与首饰",
         "$files": [
-            "components\\QuickOperatePanel.vue"
+            "components\\main\\QuickOperatePanel.vue"
         ]
     },
     "生产采集专用": {
@@ -488,6 +488,13 @@
         "ja": "注意：禁用工作状态记忆后，已记录的工作状态将被立即删除！",
         "$files": [
             "components\\modals\\ModalUserPreferences.vue"
+        ]
+    },
+    "已选择职业: {}": {
+        "en": "Selected: Job {}",
+        "ja": "已选择职业: {}",
+        "$files": [
+            "components\\main\\JobPanel.vue"
         ]
     }
 }
