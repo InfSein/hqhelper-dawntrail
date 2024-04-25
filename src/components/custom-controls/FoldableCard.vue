@@ -78,7 +78,7 @@ const handleFoldOrExpand = () => {
         </n-icon>
       </n-button>
     </template>
-    <div v-show="!folded">
+    <div v-show="!folded" class="h-full">
       <slot />
     </div>
   </n-card>

@@ -30,14 +30,14 @@ const getClassName = (_class: any) => {
         <n-flex :size="[12,12]" style="height: 100%;">
           <GroupBox border-color="#919191" class="class-btns-container">
             <template #title>{{ t('选择职类') }}</template>
-            <n-flex justify="space-between" :size="[4,4]">
+            <n-flex justify="space-between" :size="[4,8]">
               <n-button
                 class="class-btn"
                 v-for="(_class, index) in XivClasses"
                 :key="index"
                 :color="_class.color"
               >
-                <XivFARImage :src="_class.icon" :size="20" />
+                <template #icon><XivFARImage :src="_class.icon" :size="20" /></template>
                 <span class="text">{{ getClassName(_class) }}</span>
               </n-button>
             </n-flex>

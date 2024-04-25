@@ -113,10 +113,10 @@ if (!disable_workstate_cache) {
 }
 .n-layout-content {
   margin-top: 65px;
+  padding: 1rem;
 }
 #main-container {
   max-width: 100%;
-  padding: 1rem;
   font-weight: 400;
 }
 
@@ -127,7 +127,6 @@ if (!disable_workstate_cache) {
     grid-template-columns: 1fr 1fr;
     height: 100%;
     overflow: auto;
-    padding: 0 2rem;
 
     #sub-container-1 {
       width: 50%;

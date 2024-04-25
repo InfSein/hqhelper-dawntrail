@@ -44,128 +44,135 @@ const selections = ref({
       <i class="xiv square-3"></i>
       <span class="card-title-text">{{ t('选择部件') }}</span>
     </template>
-    <table>
-      <tbody>
-        <tr>
-          <td>
-            <GearSlot
-              slot-icon-src="~ApiBase/image/game-gear-slot/mainhand.png"
-              :slot-description="t('武器/工具：主手')"
-            />
-          </td>
-          <td><Stepper v-model:value="selections.MainHand" /></td>
-          <td>
-            <GearSlot
-              slot-icon-src="~ApiBase/image/game-gear-slot/offhand.png"
-              :slot-description="t('武器/工具：副手')"
-            />
-          </td>
-          <td><Stepper v-model:value="selections.OffHand" /></td>
-        </tr>
-
-        <tr class="divider">
-          <td colspan="4"><n-divider dashed /></td>
-        </tr>
-
-        <tr>
-          <td style="min-width: 40px;">
-            <GearSlot
-              slot-icon-src="~ApiBase/image/game-gear-slot/head.png"
-              :slot-description="t('防具：头部')"
-            />
-          </td>
-          <td><Stepper v-model:value="selections.HeadAttire" /></td>
-          <td style="min-width: 40px;">
-            <GearSlot
-              slot-icon-src="~ApiBase/image/game-gear-slot/ear.png"
-              :slot-description="t('首饰：耳坠')"
-            />
-          </td>
-          <td><Stepper v-model:value="selections.Earrings" /></td>
-        </tr>
-
-        <tr>
-          <td>
-            <GearSlot
-              slot-icon-src="~ApiBase/image/game-gear-slot/body.png"
-              :slot-description="t('防具：身体')"
-            />
-          </td>
-          <td><Stepper v-model:value="selections.BodyAttire" /></td>
-          <td>
-            <GearSlot
-              slot-icon-src="~ApiBase/image/game-gear-slot/neck.png"
-              :slot-description="t('首饰：项链')"
-            />
-          </td>
-          <td><Stepper v-model:value="selections.Necklace" /></td>
-        </tr>
-
-        <tr>
-          <td>
-            <GearSlot
-              slot-icon-src="~ApiBase/image/game-gear-slot/hands.png"
-              :slot-description="t('防具：手部')"
-            />
-          </td>
-          <td><Stepper v-model:value="selections.HandsAttire" /></td>
-          <td>
-            <GearSlot
-              slot-icon-src="~ApiBase/image/game-gear-slot/wrist.png"
-              :slot-description="t('首饰：手镯')"
-            />
-          </td>
-          <td><Stepper v-model:value="selections.Wrist" /></td>
-        </tr>
-
-        <tr>
-          <td>
-            <GearSlot
-              slot-icon-src="~ApiBase/image/game-gear-slot/legs.png"
-              :slot-description="t('防具：腿部')"
-            />
-          </td>
-          <td><Stepper v-model:value="selections.LegsAttire" /></td>
-          <td>
-            <GearSlot
-              slot-icon-src="~ApiBase/image/game-gear-slot/ring.png"
-              :slot-description="t('首饰：戒指')"
-            />
-          </td>
-          <td><Stepper v-model:value="selections.Rings" /></td>
-        </tr>
-
-        <tr>
-          <td>
-            <GearSlot
-              slot-icon-src="~ApiBase/image/game-gear-slot/feet.png"
-              :slot-description="t('防具：脚部')"
-            />
-          </td>
-          <td><Stepper v-model:value="selections.FeetAttire" /></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="bottom-buttons">
-      <div class="content">
-        <n-button class="end" size="small">{{ t('已选部件') }}</n-button>
-      </div>
-      <n-divider dashed />
-      <n-flex class="foot" justify="end">
-        <n-button size="small">{{ t('清空全部') }}</n-button>
-        <n-button size="small">{{ t('清空当前') }}</n-button>
-        <n-button size="small">{{ t('添加整套') }}</n-button>
-      </n-flex>
-    </div>
     
+    <div class="gear-selection-containter">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <GearSlot
+                slot-icon-src="~ApiBase/image/game-gear-slot/mainhand.png"
+                :slot-description="t('武器/工具：主手')"
+              />
+            </td>
+            <td><Stepper v-model:value="selections.MainHand" /></td>
+            <td>
+              <GearSlot
+                slot-icon-src="~ApiBase/image/game-gear-slot/offhand.png"
+                :slot-description="t('武器/工具：副手')"
+              />
+            </td>
+            <td><Stepper v-model:value="selections.OffHand" /></td>
+          </tr>
+
+          <tr class="divider">
+            <td colspan="4"><n-divider dashed /></td>
+          </tr>
+
+          <tr>
+            <td style="min-width: 40px;">
+              <GearSlot
+                slot-icon-src="~ApiBase/image/game-gear-slot/head.png"
+                :slot-description="t('防具：头部')"
+              />
+            </td>
+            <td><Stepper v-model:value="selections.HeadAttire" /></td>
+            <td style="min-width: 40px;">
+              <GearSlot
+                slot-icon-src="~ApiBase/image/game-gear-slot/ear.png"
+                :slot-description="t('首饰：耳坠')"
+              />
+            </td>
+            <td><Stepper v-model:value="selections.Earrings" /></td>
+          </tr>
+
+          <tr>
+            <td>
+              <GearSlot
+                slot-icon-src="~ApiBase/image/game-gear-slot/body.png"
+                :slot-description="t('防具：身体')"
+              />
+            </td>
+            <td><Stepper v-model:value="selections.BodyAttire" /></td>
+            <td>
+              <GearSlot
+                slot-icon-src="~ApiBase/image/game-gear-slot/neck.png"
+                :slot-description="t('首饰：项链')"
+              />
+            </td>
+            <td><Stepper v-model:value="selections.Necklace" /></td>
+          </tr>
+
+          <tr>
+            <td>
+              <GearSlot
+                slot-icon-src="~ApiBase/image/game-gear-slot/hands.png"
+                :slot-description="t('防具：手部')"
+              />
+            </td>
+            <td><Stepper v-model:value="selections.HandsAttire" /></td>
+            <td>
+              <GearSlot
+                slot-icon-src="~ApiBase/image/game-gear-slot/wrist.png"
+                :slot-description="t('首饰：手镯')"
+              />
+            </td>
+            <td><Stepper v-model:value="selections.Wrist" /></td>
+          </tr>
+
+          <tr>
+            <td>
+              <GearSlot
+                slot-icon-src="~ApiBase/image/game-gear-slot/legs.png"
+                :slot-description="t('防具：腿部')"
+              />
+            </td>
+            <td><Stepper v-model:value="selections.LegsAttire" /></td>
+            <td>
+              <GearSlot
+                slot-icon-src="~ApiBase/image/game-gear-slot/ring.png"
+                :slot-description="t('首饰：戒指')"
+              />
+            </td>
+            <td><Stepper v-model:value="selections.Rings" /></td>
+          </tr>
+
+          <tr>
+            <td>
+              <GearSlot
+                slot-icon-src="~ApiBase/image/game-gear-slot/feet.png"
+                :slot-description="t('防具：脚部')"
+              />
+            </td>
+            <td><Stepper v-model:value="selections.FeetAttire" /></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="bottom-buttons">
+        <div class="content">
+          <n-button class="end" size="small">{{ t('已选部件') }}</n-button>
+        </div>
+        <n-divider dashed />
+        <n-flex class="foot" justify="end">
+          <n-button size="small">{{ t('清空全部') }}</n-button>
+          <n-button size="small">{{ t('清空当前') }}</n-button>
+          <n-button size="small">{{ t('添加整套') }}</n-button>
+        </n-flex>
+      </div>
+    </div>
 
   </FoldableCard>
 </template>
 
 <style scoped>
+.gear-selection-containter {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 table {
   width: 100%;
 
@@ -183,6 +190,7 @@ table {
   .content {
     display: flex;
     justify-content: end;
+    margin-bottom: 6px;
   }
   .foot {
     margin-top: 6px;
