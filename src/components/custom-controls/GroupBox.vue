@@ -2,7 +2,7 @@
 const props = defineProps({
   borderColor: {
     type: String,
-    default: 'black',
+    default: '#919191',
   }
 })
 </script>

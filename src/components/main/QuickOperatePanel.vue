@@ -28,7 +28,7 @@ const getClassName = (_class: any) => {
     <n-flex>
       <n-card size="small" class="flex-battle" :title="t('战斗职业专用')">
         <n-flex :size="[12,12]" style="height: 100%;">
-          <GroupBox border-color="#919191" class="class-btns-container">
+          <GroupBox class="class-btns-container">
             <template #title>{{ t('选择职类') }}</template>
             <n-flex justify="space-between" :size="[4,8]">
               <n-button
@@ -42,7 +42,7 @@ const getClassName = (_class: any) => {
               </n-button>
             </n-flex>
           </GroupBox>
-          <GroupBox border-color="#919191" class="qo-btns-container">
+          <GroupBox class="qo-btns-container">
             <template #title>{{ t('实行操作') }}</template>
             <n-flex vertical style="height: 100%;">
               <n-button>
