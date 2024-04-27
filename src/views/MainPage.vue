@@ -106,6 +106,9 @@ if (!disable_workstate_cache) {
 
 <style scoped>
 /* All */
+:deep(#main-content .n-scrollbar-container) {
+  padding: 1rem;
+}
 .n-layout-header {
   height: 64px;
   padding: 10px 20px;
@@ -113,7 +116,6 @@ if (!disable_workstate_cache) {
 }
 .n-layout-content {
   margin-top: 65px;
-  padding: 1rem;
 }
 #main-container {
   max-width: 100%;
