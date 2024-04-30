@@ -49,9 +49,9 @@
             "components\\ModalUserPreferences.vue"
         ]
     },
-    "保存成功": {
-        "en": "Save Success",
-        "ja": "保存に成功しました",
+    "保存成功！部分改动需要刷新页面才能生效": {
+        "en": "Save Success! Some changes require refreshing.",
+        "ja": "保存に成功しました！一部変更を有効にするにはページを更新する必要があります。",
         "$files": [
             "App.vue"
         ]
@@ -495,6 +495,48 @@
         "ja": "已选择职业: {}",
         "$files": [
             "components\\main\\JobPanel.vue"
+        ]
+    },
+    "半成品表": {
+        "en": "半成品表",
+        "ja": "半成品表",
+        "$files": [
+            "components\\main\\StatisticsPanel.vue"
+        ]
+    },
+    "特殊": {
+        "en": "特殊",
+        "ja": "特殊",
+        "$files": [
+            "components\\main\\StatisticsPanel.vue"
+        ]
+    },
+    "秘籍半成品": {
+        "en": "秘籍半成品",
+        "ja": "秘籍半成品",
+        "$files": [
+            "components\\main\\StatisticsPanel.vue"
+        ]
+    },
+    "通用": {
+        "en": "General",
+        "ja": "通用",
+        "$files": [
+            "components\\modals\\ModalUserPreferences.vue"
+        ]
+    },
+    "性能": {
+        "en": "Performance",
+        "ja": "性能",
+        "$files": [
+            "components\\modals\\ModalUserPreferences.vue"
+        ]
+    },
+    "网络": {
+        "en": "Network",
+        "ja": "网络",
+        "$files": [
+            "components\\modals\\ModalUserPreferences.vue"
         ]
     }
 }

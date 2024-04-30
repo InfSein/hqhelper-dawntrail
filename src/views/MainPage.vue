@@ -38,7 +38,7 @@ const showAboutAppModal = ref(false)
 const onUserPreferencesSubmitted = () => {
   showUserPreferencesModal.value = false
   appForceUpdate()
-  hqHelperToast(t('保存成功'), 'success')
+  hqHelperToast(t('保存成功！部分改动需要刷新页面才能生效'), 'success')
 }
 
 // * Provide Show Modals

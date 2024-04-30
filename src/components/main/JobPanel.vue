@@ -23,7 +23,7 @@ const handleJobSelect = (jobId: number) => {
 
 
 let xivApiBase: string, xivApiBaseSpare: string
-const disableXivApiMirror = userConfig.value?.disable_xivapi_mirror ?? false
+const disableXivApiMirror = userConfig.value?.disable_api_mirror ?? false
 if (disableXivApiMirror) {
   xivApiBase = XivApiBase.global
   xivApiBaseSpare = XivApiBase.cn

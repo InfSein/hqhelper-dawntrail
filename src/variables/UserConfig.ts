@@ -3,7 +3,7 @@ interface UserConfigModel {
   theme: 'light' | 'dark' | 'system'
   language_ui: 'zh' | 'en' | 'ja'
   disable_workstate_cache: boolean
-  disable_xivapi_mirror: boolean
+  disable_api_mirror: boolean
 
   // hidden options
   cache_ui_fold: any
@@ -17,7 +17,7 @@ export var defaultUserConfig: UserConfigModel = {
   theme: 'light',
   language_ui: 'zh',
   disable_workstate_cache: false,
-  disable_xivapi_mirror: false,
+  disable_api_mirror: false,
 
   cache_ui_fold: {}, // active cache, { key:string -> value:boolean }
   cache_work_state: {}, // active cache, view struct in `MainPage.vue` 's `workState`

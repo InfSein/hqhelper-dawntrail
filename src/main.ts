@@ -22,6 +22,7 @@ import {
   NPopover,
   NRadioButton, NRadioGroup,
   NScrollbar, NSwitch,
+  NTabs, NTabPane
 } from 'naive-ui'
 
 const naive = create({
@@ -36,6 +37,7 @@ const naive = create({
     NPopover,
     NRadioButton, NRadioGroup,
     NScrollbar, NSwitch,
+    NTabs, NTabPane
   ]
 })
 

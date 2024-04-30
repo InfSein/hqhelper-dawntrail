@@ -6,7 +6,7 @@ export default {
     "5": "Dark",
     "6": "UI Language",
     "7": "Save",
-    "8": "Save Success",
+    "8": "Save Success! Some changes require refreshing.",
     "9": "Copyright information",
     "10": "This work involves the content of Final Fantasy XIV, and the copyright belongs to SQUARE ENIX.",
     "11": "This work is for learning and communication purposes only and may not be used for commercial purposes in any way.",
@@ -69,5 +69,11 @@ export default {
     "68": "The application records the patch, job, and gear selection as the default, to ensure that the application remembers your last session's state.",
     "69": "If you wish to start from scratch every time you open the application or catched frequent lag during use, you can consider disabling this by open this option.",
     "70": "CAUTION: Disabling work status memory will delete the recorded state immediately!",
-    "71": "Selected: Job {}"
+    "71": "Selected: Job {}",
+    "72": "半成品表",
+    "73": "特殊",
+    "74": "秘籍半成品",
+    "75": "General",
+    "76": "Performance",
+    "77": "Network"
 }
