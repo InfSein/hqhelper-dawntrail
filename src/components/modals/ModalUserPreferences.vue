@@ -6,7 +6,8 @@ import {
   SettingsSharp,
   TravelExploreRound,
   MemoryRound,
-  WifiRound
+  WifiRound,
+  SaveOutlined
 } from '@vicons/material'
 
 const store = useStore()
@@ -194,7 +195,8 @@ const handleSave = () => {
     <n-card
       closable
       role="dialog"
-      style="max-width: 600px; height: 375px;"
+      style="width: 98%; max-width: 600px; height: 375px;"
+      :style="{ height: isMobile ? '450px' : '375px' }"
       :title="t('偏好设置')"
       @close="handleClose"
     >
@@ -202,13 +204,13 @@ const handleSave = () => {
         <div class="card-title">
           <n-icon><SettingsSharp /></n-icon>
           <span class="title">{{ t('偏好设置') }}</span>
-          <span v-if="isMobile" class="description">{{ getGroupName(currentTab) }}</span>
+          <span class="description">[{{ getGroupName(currentTab) }}]</span>
         </div>
       </template>
       <n-tabs
         animated
         type="line"
-        placement="left"
+        :placement="isMobile ? 'top' : 'left'"
         default-value="general"
         style="height: 100%;"
         v-model:value="currentTab"
@@ -221,7 +223,7 @@ const handleSave = () => {
           <template #tab>
             <div class="tab-title">
               <n-icon><component :is="group.icon" /></n-icon>
-              <span v-if="!isMobile">{{ group.text }}</span>
+              <span>{{ group.text }}</span>
             </div>
           </template>
           <div class="items-container">
@@ -296,9 +298,14 @@ const handleSave = () => {
           </div>
         </n-tab-pane>
       </n-tabs>
-      <template #footer>
+      <template #action>
         <div class="submit-container">
-          <n-button type="primary" size="large" @click="handleSave">{{ t('保存') }}</n-button>
+          <n-button type="primary" size="large" @click="handleSave">
+            <template #icon>
+              <n-icon><SaveOutlined /></n-icon>
+            </template>
+            {{ t('保存') }}
+          </n-button>
         </div>
       </template>
     </n-card>
@@ -306,9 +313,11 @@ const handleSave = () => {
 </template>
 
 <style scoped>
-:deep(.n-tab-pane) {
+:deep(.n-tabs-pane-wrapper) {
   height: 100%;
-  overflow: auto;
+  .n-tab-pane {
+    height: 100%;
+  }
 }
 .card-title {
   display: flex;

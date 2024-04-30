@@ -16,7 +16,7 @@ const handleClose = () => {
     <n-card
       closable
       role="dialog"
-      style="max-width: 500px;"
+      style="width: 98%; max-width: 500px;"
       :title="t('关于本作')"
       @close="handleClose"
     >
