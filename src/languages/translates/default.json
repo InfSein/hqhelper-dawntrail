@@ -84,13 +84,6 @@
             "components\\ModalAboutApp.vue"
         ]
     },
-    "致谢：开发协助": {
-        "en": "Thanks: Development Assistance",
-        "ja": "お礼：開発協力",
-        "$files": [
-            "components\\ModalAboutApp.vue"
-        ]
-    },
     "特别感谢以下人员或组织为本作提供技术层面的支持：": {
         "en": "Special thanks to the following individuals or organizations for providing technical support for this work:",
         "ja": "特に、この作品に技術的なサポートを提供してくれた人や組織に感謝します：",
@@ -98,23 +91,9 @@
             "components\\ModalAboutApp.vue"
         ]
     },
-    "程序内容贡献者：": {
-        "en": "Program content contributors:",
-        "ja": "プログラム内容貢献者：",
-        "$files": [
-            "components\\ModalAboutApp.vue"
-        ]
-    },
     "技术支持或指导：": {
         "en": "Technical support or guidance:",
         "ja": "テクニカルサポートまたはアドバイザ：",
-        "$files": [
-            "components\\ModalAboutApp.vue"
-        ]
-    },
-    "致谢：赞助者": {
-        "en": "Thanks: Sponsors",
-        "ja": "お礼：スポンサー",
         "$files": [
             "components\\ModalAboutApp.vue"
         ]
@@ -537,6 +516,55 @@
         "ja": "网络",
         "$files": [
             "components\\modals\\ModalUserPreferences.vue"
+        ]
+    },
+    "创作人员": {
+        "en": "Staff",
+        "ja": "创作人员",
+        "$files": [
+            "components\\modals\\ModalAboutApp.vue"
+        ]
+    },
+    "HqHelper的诞生和维护与以下人员直接相关：": {
+        "en": "HqHelper的诞生和维护与以下人员直接相关：",
+        "ja": "HqHelper的诞生和维护与以下人员直接相关：",
+        "$files": [
+            "components\\modals\\ModalAboutApp.vue"
+        ]
+    },
+    "主要程序开发：": {
+        "en": "Major Program Development:",
+        "ja": "主要程序开发：",
+        "$files": [
+            "components\\modals\\ModalAboutApp.vue"
+        ]
+    },
+    "本地化翻译：": {
+        "en": "Localize Translation:",
+        "ja": "本地化翻译：",
+        "$files": [
+            "components\\modals\\ModalAboutApp.vue"
+        ]
+    },
+    "致谢：技术": {
+        "en": "ThanksTo: Technical",
+        "ja": "致谢：技术",
+        "$files": [
+            "components\\modals\\ModalAboutApp.vue"
+        ]
+    },
+    "API/数据提供方：": {
+        "en": "API/DATA Providers:",
+        "ja": "API/数据提供方：",
+        "$files": [
+            "components\\modals\\ModalAboutApp.vue"
+        ]
+    },
+    "致谢：赞助": {
+        "en": "ThanksTo: Sponsorship",
+        "ja": "致谢：赞助",
+        "$files": [
+            "components\\modals\\ModalAboutApp.vue"
         ]
     }
 }

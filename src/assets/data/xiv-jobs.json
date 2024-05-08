@@ -4,7 +4,7 @@
     "job_name_en": "Carpenter",
     "job_name_zh": "刻木匠",
     "job_name_ja": "木工師",
-    "job_icon_url": "~ApiBase/image/game-job/companion/carpenter.png"
+    "job_icon_url": "./image/game-job/companion/carpenter.png"
   },
   "9": {
     "job_id": 9,

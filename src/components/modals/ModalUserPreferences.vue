@@ -195,9 +195,8 @@ const handleSave = () => {
     <n-card
       closable
       role="dialog"
-      style="width: 98%; max-width: 600px; height: 375px;"
+      style="width: 98%; max-width: 600px;"
       :style="{ height: isMobile ? '450px' : '375px' }"
-      :title="t('偏好设置')"
       @close="handleClose"
     >
       <template #header>
@@ -318,33 +317,6 @@ const handleSave = () => {
   .n-tab-pane {
     height: 100%;
   }
-}
-.card-title {
-  display: flex;
-  align-items: center;
-
-  .title {
-    margin-left: 5px;
-  }
-  .description {
-    align-self: end;
-    margin-bottom: 2px;
-  }
-}
-.tab-title {
-  display: flex;
-  align-items: center;
-
-  .n-icon {
-    margin-top: 1px;
-  }
-  span {
-    margin-left: 1px;
-  }
-}
-.description {
-  margin-left: 10px;
-  font-size: 14px;
 }
 .items-container {
   max-width: 100%;

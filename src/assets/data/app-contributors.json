@@ -1,11 +1,24 @@
 {
-  "app_developers": [
+  "major_developers": [
     {
       "name": "InfSein",
       "page": "https://github.com/InfSein"
     }
   ],
-  "tech_supporters": [
+  "code_contributors": [],
+  "localization_contributors": [
+    {
+      "name": "夜北Yakita",
+      "page": "https://weibo.com/u/2587269637"
+    }
+  ],
+  "technical_supporters": [
+    {
+      "name": "nbb",
+      "page": "https://github.com/nbbjack"
+    }
+  ],
+  "a_providers": [
     {
       "name": "FF-CAFE",
       "page": "https://www.ffcafe.cn"

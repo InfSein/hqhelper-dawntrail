@@ -39,3 +39,28 @@
   font-size: var(--n-title-font-size);
   font-weight: var(--n-title-font-weight);
 }
+.card-title {
+  display: flex;
+  align-items: center;
+
+  .title {
+    margin-left: 5px;
+  }
+  .description {
+    align-self: end;
+    margin-left: 10px;
+    margin-bottom: 2px;
+    font-size: 14px;
+  }
+}
+.tab-title {
+  display: flex;
+  align-items: center;
+
+  .n-icon {
+    margin-top: 1px;
+  }
+  span {
+    margin-left: 1px;
+  }
+}
