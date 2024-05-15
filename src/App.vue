@@ -78,6 +78,14 @@ const naiveUiMessagePlacement = computed(() => {
 
 // #endregion
 
+// #region Disable mobile scale
+document.addEventListener('touchstart', function(event) {
+  if (event.touches.length > 1) {
+    event.preventDefault()
+  }
+}, { passive: false })
+// #endregion
+
 // #region functions
 
 const appForceUpdate = () => {
