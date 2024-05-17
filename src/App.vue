@@ -10,6 +10,9 @@ import { injectVoerkaI18n } from "@voerkai18n/vue"
 // * import pages
 import MainPage from './views/MainPage.vue'
 
+// * import components
+import DialogConfirm from './components/custom-controls/DialogConfirm.vue'
+
 // * import ui lib
 import {
   darkTheme,
@@ -105,6 +108,56 @@ const appForceUpdate = () => {
 
 // #region Provides
 
+// #region Provide dialoger
+
+const dialogConfirm_show = ref(false)
+const dialogConfirm_title = ref('')
+const dialogConfirm_content = ref('')
+const dialogConfirm_confirmText = ref('')
+const dialogConfirm_cancelText = ref('')
+const dialogConfirm_confirmFunc = ref(() => {})
+const dialogConfirm_cancelFunc = ref(() => {})
+
+const showDialogConfirm = (
+  title: string,
+  content: string,
+  confirmFunc: () => void,
+  cancelFunc: () => void,
+  autoClose: boolean = true, // Close dialog after confirm or cancel automatically.
+  confirmText: string = t('确定 (Enter)'),
+  cancelText: string = t('取消 (Esc)'),
+) => {
+  dialogConfirm_title.value = title
+  dialogConfirm_content.value = content
+  dialogConfirm_confirmText.value = confirmText
+  dialogConfirm_cancelText.value = cancelText
+  dialogConfirm_confirmFunc.value = () => {
+    confirmFunc() 
+    if (autoClose) dialogConfirm_show.value = false
+  }
+  dialogConfirm_cancelFunc.value = () => {
+    cancelFunc()
+    if (autoClose) dialogConfirm_show.value = false
+  }
+  setTimeout(() => {
+    dialogConfirm_show.value = true
+  }, 100) // To prevent the k.e.l. triggered duplicately.
+}
+provide('showDialogConfirm', showDialogConfirm)
+/* -- use: 
+const showDialogConfirm = inject<(
+  title: string,
+  content: string,
+  confirmFunc: () => void,
+  cancelFunc: () => void,
+  autoClose?: boolean,
+  confirmText?: string,
+  cancelText?: string
+) => void>('showDialogConfirm') ?? (() => {})
+*/
+
+// #endregion
+
 // * Provide user config
 provide('userConfig', userConfig)
 
@@ -139,6 +192,16 @@ const appClass = computed(() => {
     <n-message-provider :placement="naiveUiMessagePlacement">
       <div :class="appClass">
         <MainPage />
+        
+        <DialogConfirm
+          v-model:show="dialogConfirm_show"
+          :title="dialogConfirm_title"
+          :content="dialogConfirm_content"
+          :confirm-text="dialogConfirm_confirmText"
+          :cancel-text="dialogConfirm_cancelText"
+          @confirm="dialogConfirm_confirmFunc"
+          @cancel="dialogConfirm_cancelFunc"
+        />
       </div>
     </n-message-provider>
   </n-config-provider>
