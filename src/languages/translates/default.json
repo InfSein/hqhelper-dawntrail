@@ -566,5 +566,19 @@
         "$files": [
             "components\\modals\\ModalAboutApp.vue"
         ]
+    },
+    "确定 (Enter)": {
+        "en": "OK (Enter)",
+        "ja": "确定 (Enter)",
+        "$files": [
+            "App.vue"
+        ]
+    },
+    "取消 (Esc)": {
+        "en": "Cancel (Esc)",
+        "ja": "取消 (Esc)",
+        "$files": [
+            "App.vue"
+        ]
     }
 }

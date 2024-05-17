@@ -79,5 +79,7 @@ export default {
     "78": "Localize Translation:",
     "79": "ThanksTo: Technical",
     "80": "API/DATA Providers:",
-    "81": "ThanksTo: Sponsorship"
+    "81": "ThanksTo: Sponsorship",
+    "82": "OK (Enter)",
+    "83": "Cancel (Esc)"
 }
