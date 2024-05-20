@@ -42,12 +42,10 @@ const getButtonSize = () => {
 
 const buildButtonStyle = (patch: any) => {
   const size = getButtonSize()
-  const logo = patch.logo.replace('~ApiBase', '/hqhelper-dawntrail')
-  const logo_alt = patch.logo.replace('~ApiBase', '')
   return [
     `width: ${size.width}px;`,
     `height: ${size.height}px;`,
-    `background-image: url(${logo}), url(${logo_alt});`
+    `background-image: url(${patch.logo});`
   ].join(' ')
 }
 const buildButtonContentStyle = () => {

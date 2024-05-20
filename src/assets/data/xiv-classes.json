@@ -3,49 +3,49 @@
     "name_en": "Fend",
     "name_zh": "坦克",
     "name_ja": "タンク",
-    "icon": "~ApiBase/image/game-job/misc/clear_tank.png",
+    "icon": "./image/game-job/misc/clear_tank.png",
     "color": "#2D3A80"
   },
   "healing": {
     "name_en": "Heal",
     "name_zh": "治愈",
     "name_ja": "ヒーラー",
-    "icon": "~ApiBase/image/game-job/misc/clear_healer.png",
+    "icon": "./image/game-job/misc/clear_healer.png",
     "color": "#346624"
   },
   "maiming": {
     "name_en": "Maim",
     "name_zh": "制敌",
     "name_ja": "スレイヤー",
-    "icon": "~ApiBase/image/game-job/misc/clear_dps.png",
+    "icon": "./image/game-job/misc/clear_dps.png",
     "color": "#732828"
   },
   "striking": {
     "name_en": "Strike",
     "name_zh": "强袭",
     "name_ja": "ストライカ",
-    "icon": "~ApiBase/image/game-job/misc/clear_dps.png",
+    "icon": "./image/game-job/misc/clear_dps.png",
     "color": "#732828"
   },
   "scouting": {
     "name_en": "Scout",
     "name_zh": "近敏",
     "name_ja": "スカウト",
-    "icon": "~ApiBase/image/game-job/misc/clear_dps.png",
+    "icon": "./image/game-job/misc/clear_dps.png",
     "color": "#732828"
   },
   "aiming": {
     "name_en": "Aim",
     "name_zh": "远敏",
     "name_ja": "レンジャー",
-    "icon": "~ApiBase/image/game-job/misc/clear_ranged.png",
+    "icon": "./image/game-job/misc/clear_ranged.png",
     "color": "#732828"
   },
   "casting": {
     "name_en": "Cast",
     "name_zh": "法系",
     "name_ja": "キャスター",
-    "icon": "~ApiBase/image/game-job/misc/clear_dps_magic.png",
+    "icon": "./image/game-job/misc/clear_dps_magic.png",
     "color": "#732828"
   }
 }
