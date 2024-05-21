@@ -5,6 +5,8 @@
     "role_name_ja": "タンク",
     "role_color": "#2D3A80",
     "role_icon_url": "./image/game-job/misc/clear_tank.png",
+    "attire": "fending",
+    "accessory": "fending",
     "jobs": [19,21,32,37]
   },
   "healer": {
@@ -13,15 +15,39 @@
     "role_name_ja": "ヒーラー",
     "role_color": "#346624",
     "role_icon_url": "./image/game-job/misc/clear_healer.png",
+    "attire": "healing",
+    "accessory": "healing",
     "jobs": [24,28,33,40]
   },
-  "dps_melee": {
-    "role_name_en": "Melee DPS",
-    "role_name_zh": "近战职业",
-    "role_name_ja": "近接物理系DPS",
+  "dps_maim": {
+    "role_name_en": "Maim DPS",
+    "role_name_zh": "制敌DPS",
+    "role_name_ja": "スレイヤー系DPS",
     "role_color": "#732828",
     "role_icon_url": "./image/game-job/misc/clear_dps.png",
-    "jobs": [20,22,30,34,39]
+    "attire": "maiming",
+    "accessory": "slaying",
+    "jobs": [22,39]
+  },
+  "dps_strike": {
+    "role_name_en": "Strike DPS",
+    "role_name_zh": "强袭DPS",
+    "role_name_ja": "ストライカ系DPS",
+    "role_color": "#732828",
+    "role_icon_url": "./image/game-job/misc/clear_dps.png",
+    "attire": "striking",
+    "accessory": "slaying",
+    "jobs": [20,34]
+  },
+  "dps_scout": {
+    "role_name_en": "Scout DPS",
+    "role_name_zh": "游击DPS",
+    "role_name_ja": "スカウト系DPS",
+    "role_color": "#732828",
+    "role_icon_url": "./image/game-job/misc/clear_dps.png",
+    "attire": "scouting",
+    "accessory": "aiming",
+    "jobs": [30,41]
   },
   "dps_ranged": {
     "role_name_en": "Physical Ranged DPS",
@@ -29,6 +55,8 @@
     "role_name_ja": "遠隔物理系DPS",
     "role_color": "#732828",
     "role_icon_url": "./image/game-job/misc/clear_ranged.png",
+    "attire": "aiming",
+    "accessory": "aiming",
     "jobs": [23,31,38]
   },
   "dps_magic": {
@@ -37,7 +65,9 @@
     "role_name_ja": "遠隔魔法系DPS",
     "role_color": "#732828",
     "role_icon_url": "./image/game-job/misc/clear_dps_magic.png",
-    "jobs": [25,27,35]
+    "attire": "casting",
+    "accessory": "casting",
+    "jobs": [25,27,35,42]
   },
   "gatherer": {
     "role_name_en": "Disciples of the Land",
@@ -45,6 +75,8 @@
     "role_name_ja": "ギャザラー",
     "role_color": "#B4993F",
     "role_icon_url": "./image/game-job/misc/clear_dol.png",
+    "attire": "gathering",
+    "accessory": "gathering",
     "jobs": [16,17,18]
   },
   "crafter": {
@@ -53,6 +85,8 @@
     "role_name_ja": "クラフター",
     "role_color": "#704AB7",
     "role_icon_url": "./image/game-job/misc/clear_doh.png",
+    "attire": "crafting",
+    "accessory": "crafting",
     "jobs": [8,9,10,11,12,13,14,15]
   }
 }
