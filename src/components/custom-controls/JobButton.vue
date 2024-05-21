@@ -2,6 +2,8 @@
 import XivFARImage from './XivFARImage.vue'
 
 interface JobButtonProps {
+  /** 被选中 */
+  selected: boolean;
   /** 职能 */
   role: string;
   /** 职业 */
@@ -10,37 +12,21 @@ interface JobButtonProps {
   jobIcon: string;
   /** UI尺寸预设 */
   imgSize: number;
-  /** 图片API地址 */
-  apiBase: string;
-  /** 备用API地址 */
-  apiBaseSpare: string;
+  /** 按钮颜色 */
+  btnColor: string;
 }
 
 const props = defineProps<JobButtonProps>()
 
 const btnSize = props.imgSize + 5
 
-const getType = () => {
-  switch (props.role) {
-    case "tank":
-      return 'info'
-    case "healer":
-      return 'success'
-    case "dps_melee":
-    case "dps_ranged":
-    case "dps_magic":
-      return 'error'
-  }
-  return 'default'
-}
-
 </script>
 
 <template>
   <n-button
-    ghost
+    :ghost="!props.selected"
     class="job-button"
-    :type="getType()"
+    :color="props.btnColor"
     :style="{ width: `${btnSize}px`, height: `${btnSize}px` }"
   >
     <XivFARImage
@@ -53,8 +39,5 @@ const getType = () => {
 <style scoped>
 .job-button {
   padding: 1px;
-}
-.job-button.selected {
-  background-color: #7abcff;
 }
 </style>

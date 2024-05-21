@@ -3,7 +3,7 @@
     "role_name_en": "Tank",
     "role_name_zh": "防护职业",
     "role_name_ja": "タンク",
-    "role_color": "#409eff",
+    "role_color": "#2D3A80",
     "role_icon_url": "./image/game-job/misc/clear_tank.png",
     "jobs": [19,21,32,37]
   },
@@ -11,7 +11,7 @@
     "role_name_en": "Healer",
     "role_name_zh": "治疗职业",
     "role_name_ja": "ヒーラー",
-    "role_color": "#67c23a",
+    "role_color": "#346624",
     "role_icon_url": "./image/game-job/misc/clear_healer.png",
     "jobs": [24,28,33,40]
   },
@@ -19,7 +19,7 @@
     "role_name_en": "Melee DPS",
     "role_name_zh": "近战职业",
     "role_name_ja": "近接物理系DPS",
-    "role_color": "#f56c6c",
+    "role_color": "#732828",
     "role_icon_url": "./image/game-job/misc/clear_dps.png",
     "jobs": [20,22,30,34,39]
   },
@@ -27,7 +27,7 @@
     "role_name_en": "Physical Ranged DPS",
     "role_name_zh": "远程物理职业",
     "role_name_ja": "遠隔物理系DPS",
-    "role_color": "#f56c6c",
+    "role_color": "#732828",
     "role_icon_url": "./image/game-job/misc/clear_ranged.png",
     "jobs": [23,31,38]
   },
@@ -35,7 +35,7 @@
     "role_name_en": "Magical Ranged DPS",
     "role_name_zh": "远程魔法职业",
     "role_name_ja": "遠隔魔法系DPS",
-    "role_color": "#f56c6c",
+    "role_color": "#732828",
     "role_icon_url": "./image/game-job/misc/clear_dps_magic.png",
     "jobs": [25,27,35]
   },
@@ -43,7 +43,7 @@
     "role_name_en": "Disciples of the Land",
     "role_name_zh": "大地使者",
     "role_name_ja": "ギャザラー",
-    "role_color": "#a4acb2",
+    "role_color": "#B4993F",
     "role_icon_url": "./image/game-job/misc/clear_dol.png",
     "jobs": [16,17,18]
   },
@@ -51,7 +51,7 @@
     "role_name_en": "Disciples of the Hand",
     "role_name_zh": "能工巧匠",
     "role_name_ja": "クラフター",
-    "role_color": "#a4acb2",
+    "role_color": "#704AB7",
     "role_icon_url": "./image/game-job/misc/clear_doh.png",
     "jobs": [8,9,10,11,12,13,14,15]
   }

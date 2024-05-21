@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, inject, type Ref, computed } from 'vue'
-import { XivApiBase } from '@/variables/Constants'
 import { type UserConfigModel, defaultUserConfig } from '@/variables/UserConfig'
 import XivRoles from '@/assets/data/xiv-roles.json'
 import XivJobs from '@/assets/data/xiv-jobs.json'
@@ -19,17 +18,6 @@ const cardDescription = computed(() => {
 })
 const handleJobSelect = (jobId: number) => {
   jobSelected.value = jobId
-}
-
-
-let xivApiBase: string, xivApiBaseSpare: string
-const disableXivApiMirror = userConfig.value?.disable_api_mirror ?? false
-if (disableXivApiMirror) {
-  xivApiBase = XivApiBase.global
-  xivApiBaseSpare = XivApiBase.cn
-} else {
-  xivApiBase = XivApiBase.cn
-  xivApiBaseSpare = XivApiBase.global
 }
 
 const uiSizePreset = userConfig.value?.ui_size_preset ?? '2k'
@@ -95,12 +83,12 @@ const jobImageSize = computed(() => {
             :title="getJobName(job)"
           >
             <JobButton
+              :selected="jobSelected === job"
               :role="roleIndex"
               :job="(XivJobs as any)[job].job_name_en"
               :job-icon="(XivJobs as any)[job].job_icon_url"
               :img-size="jobImageSize"
-              :api-base="xivApiBase"
-              :api-base-spare="xivApiBaseSpare"
+              :btn-color="role.role_color"
               :class="{'selected': jobSelected === job}"
               @click="handleJobSelect(job)"
             />
