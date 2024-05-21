@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, ref, type Ref } from 'vue'
 import { useStore } from '@/store/index'
-import { type UserConfigModel, defaultUserConfig } from '@/variables/UserConfig'
+import { type UserConfigModel, defaultUserConfig } from '@/models/user-config'
 import {
   SettingsSharp,
   TravelExploreRound,

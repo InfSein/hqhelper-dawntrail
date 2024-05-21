@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, type Ref, shallowRef, inject } from 'vue'
 import { useStore } from '@/store/index'
-import { type UserConfigModel, defaultUserConfig } from '@/variables/UserConfig'
+import { type UserConfigModel, defaultUserConfig } from '@/models/user-config'
 import { KeyboardArrowUpRound, KeyboardArrowDownRound } from '@vicons/material'
 
 const store = useStore()

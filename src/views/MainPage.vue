@@ -9,7 +9,8 @@ import StatisticsPanel from '@/components/main/StatisticsPanel.vue'
 import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import { useMessage } from 'naive-ui';
-import { defaultUserConfig, type UserConfigModel } from '@/variables/UserConfig';
+import { defaultUserConfig, type UserConfigModel } from '@/models/user-config';
+import type { GearSelections } from '@/models/gears'
 import { useStore } from '@/store';
 
 const store = useStore()
@@ -54,6 +55,7 @@ provide('showAboutAppModal', () => {
 const workState = ref({
   patch: '',
   job: 0,
+  gears: {} as GearSelections,
 })
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {

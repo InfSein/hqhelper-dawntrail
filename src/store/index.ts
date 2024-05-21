@@ -8,7 +8,7 @@ import {
 } from './keys'
 
 // * Import model or default value here
-import { type UserConfigModel, defaultUserConfig } from '@/variables/UserConfig'
+import { type UserConfigModel, defaultUserConfig } from '@/models/user-config'
 
 // * Define states
 const state = {

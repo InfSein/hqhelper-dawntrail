@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, inject, type Ref, computed } from 'vue'
-import { type UserConfigModel, defaultUserConfig } from '@/variables/UserConfig'
+import { type UserConfigModel, defaultUserConfig } from '@/models/user-config'
 import XivRoles from '@/assets/data/xiv-roles.json'
 import XivJobs from '@/assets/data/xiv-jobs.json'
 import FoldableCard from '../custom-controls/FoldableCard.vue'

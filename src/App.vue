@@ -23,7 +23,7 @@ import {
 } from 'naive-ui'
 
 // * user preferences
-import { type UserConfigModel, defaultUserConfig } from '@/variables/UserConfig'
+import { type UserConfigModel, defaultUserConfig } from '@/models/user-config'
 
 // #endregion
 
