@@ -51,53 +51,53 @@ const tipText = computed(() => {
   return `[${jobName}/${attireName}/${accessoryName}]`
 })
 
-const createWeaponComputed = (key: "MainHand" | "OffHand", jobId: number) => {
+const createWeaponComputed = (key: "MainHand" | "OffHand") => {
   return computed({
     get: () => {
-      return gearSelections.value?.[key]?.[jobId] || 0
+      return gearSelections.value?.[key]?.[props.jobId] || 0
     },
     set: (value : number) => {
       if (!gearSelections.value) gearSelections.value = defaultGearSelections
       if (!gearSelections.value[key]) gearSelections.value[key] = {}
-      gearSelections.value[key][jobId] = value
+      gearSelections.value[key][props.jobId] = value
     }
   })
 }
-const createAttireComputed = (key: "HeadAttire" | "BodyAttire" | "HandsAttire" | "LegsAttire" | "FeetAttire", affix: AttireAffix) => {
+const createAttireComputed = (key: "HeadAttire" | "BodyAttire" | "HandsAttire" | "LegsAttire" | "FeetAttire") => {
   return computed({
     get: () => {
-      return gearSelections.value?.[key]?.[affix] || 0
+      return gearSelections.value?.[key]?.[props.attireAffix] || 0
     },
     set: (value : number) => {
       if (!gearSelections.value) gearSelections.value = defaultGearSelections
       if (!gearSelections.value[key]) gearSelections.value[key] = {} as Record<AttireAffix, number>
-      gearSelections.value[key][affix] = value
+      gearSelections.value[key][props.attireAffix] = value
     }
   })
 }
-const createAccessoryComputed = (key: "Earrings" | "Necklace" | "Wrist" | "Rings", affix: AccessoryAffix) => {
+const createAccessoryComputed = (key: "Earrings" | "Necklace" | "Wrist" | "Rings") => {
   return computed({
     get: () => {
-      return gearSelections.value?.[key]?.[affix] || 0
+      return gearSelections.value?.[key]?.[props.accessoryAffix] || 0
     },
     set: (value : number) => {
       if (!gearSelections.value) gearSelections.value = defaultGearSelections
       if (!gearSelections.value[key]) gearSelections.value[key] = {} as Record<AccessoryAffix, number>
-      gearSelections.value[key][affix] = value
+      gearSelections.value[key][props.accessoryAffix] = value
     }
   })
 }
-const MainHand = createWeaponComputed('MainHand', props.jobId)
-const OffHand = createWeaponComputed('OffHand', props.jobId)
-const HeadAttire = createAttireComputed('HeadAttire', props.attireAffix)
-const BodyAttire = createAttireComputed('BodyAttire', props.attireAffix)
-const HandsAttire = createAttireComputed('HandsAttire', props.attireAffix)
-const LegsAttire = createAttireComputed('LegsAttire', props.attireAffix)
-const FeetAttire = createAttireComputed('FeetAttire', props.attireAffix)
-const Earrings = createAccessoryComputed('Earrings', props.accessoryAffix)
-const Necklace = createAccessoryComputed('Necklace', props.accessoryAffix)
-const Wrist = createAccessoryComputed('Wrist', props.accessoryAffix)
-const Rings = createAccessoryComputed('Rings', props.accessoryAffix)
+const MainHand = createWeaponComputed('MainHand')
+const OffHand = createWeaponComputed('OffHand')
+const HeadAttire = createAttireComputed('HeadAttire')
+const BodyAttire = createAttireComputed('BodyAttire')
+const HandsAttire = createAttireComputed('HandsAttire')
+const LegsAttire = createAttireComputed('LegsAttire')
+const FeetAttire = createAttireComputed('FeetAttire')
+const Earrings = createAccessoryComputed('Earrings')
+const Necklace = createAccessoryComputed('Necklace')
+const Wrist = createAccessoryComputed('Wrist')
+const Rings = createAccessoryComputed('Rings')
 </script>
 
 <template>
