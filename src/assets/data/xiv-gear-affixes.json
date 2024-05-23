@@ -1,0 +1,52 @@
+{
+  "fending": {
+    "affix_name_zh": "御敌",
+    "affix_name_en": "Fending",
+    "affix_name_ja": "ディフェンダー"
+  },
+  "healing": {
+    "affix_name_zh": "治愈",
+    "affix_name_en": "Healing",
+    "affix_name_ja": "ヒーラー"
+  },
+  "maiming": {
+    "affix_name_zh": "制敌",
+    "affix_name_en": "Maiming",
+    "affix_name_ja": "スレイヤー"
+  },
+  "striking": {
+    "affix_name_zh": "强袭",
+    "affix_name_en": "Striking",
+    "affix_name_ja": "ストライカー"
+  },
+  "slaying": {
+    "affix_name_zh": "强攻",
+    "affix_name_en": "Slaying",
+    "affix_name_ja": "アタッカー"
+  },
+  "scouting": {
+    "affix_name_zh": "游击",
+    "affix_name_en": "Scouting",
+    "affix_name_ja": "スカウト"
+  },
+  "aiming": {
+    "affix_name_zh": "精准",
+    "affix_name_en": "Aiming",
+    "affix_name_ja": "レンジャー"
+  },
+  "casting": {
+    "affix_name_zh": "咏咒",
+    "affix_name_en": "Casting",
+    "affix_name_ja": "キャスター"
+  },
+  "gathering": {
+    "affix_name_zh": "大地",
+    "affix_name_en": "Gathering",
+    "affix_name_ja": "ギャザラー"
+  },
+  "crafting": {
+    "affix_name_zh": "巧匠",
+    "affix_name_en": "Crafting",
+    "affix_name_ja": "クラフター"
+  }
+}

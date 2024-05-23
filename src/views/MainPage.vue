@@ -10,7 +10,8 @@ import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import { useMessage } from 'naive-ui';
 import { defaultUserConfig, type UserConfigModel } from '@/models/user-config';
-import type { GearSelections } from '@/models/gears'
+import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears'
+import { defaultGearSelections } from '@/models/gears'
 import { useStore } from '@/store';
 
 const store = useStore()
@@ -55,12 +56,19 @@ provide('showAboutAppModal', () => {
 const workState = ref({
   patch: '',
   job: 0,
-  gears: {} as GearSelections,
+  affixes: {
+    attire: '',
+    accessory: ''
+  },
+  gears: defaultGearSelections as GearSelections,
 })
+
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {
   if (userConfig.value.cache_work_state) {
     workState.value = userConfig.value.cache_work_state
+
+    // todo - Compatible with older version caching
   }
 
   // todo - 留意性能：深度侦听需要遍历被侦听对象中的所有嵌套的属性，当用于大型数据结构时，开销很大
@@ -68,8 +76,11 @@ if (!disable_workstate_cache) {
     console.log('workState changed', workState.value)
     userConfig.value.cache_work_state = workState.value
     store.commit('setUserConfig', userConfig.value)
+
+    console.log('gear selections:\n' + JSON.stringify(workState.value.gears))
   }, {deep: true})
 }
+
 </script>
 
 <template>
@@ -84,8 +95,18 @@ if (!disable_workstate_cache) {
         <n-flex>
           <n-flex vertical id="sub-container-1">
             <n-flex>
-              <JobPanel v-model:job-selected="workState.job" class="job-panel" />
-              <GearSelectionPanel class="gear-panel" />
+              <JobPanel
+                v-model:job-selected="workState.job"
+                v-model:affixes-selected="workState.affixes"
+                class="job-panel"
+              />
+              <GearSelectionPanel
+                v-model:gear-selections="workState.gears"
+                class="gear-panel"
+                :job-id="workState.job"
+                :attire-affix="workState.affixes?.attire as AttireAffix"
+                :accessory-affix="workState.affixes?.accessory as AccessoryAffix"
+              />
             </n-flex>
             <QuickOperatePanel class="quick-operate-panel" />
           </n-flex>

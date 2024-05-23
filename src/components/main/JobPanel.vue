@@ -12,12 +12,17 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 
 const jobSelected = defineModel<number>('jobSelected')
+const affixesSelected = defineModel<any>('affixesSelected')
 const cardDescription = computed(() => {
   if (!jobSelected.value) return t('还未选择')
   else return t('已选择职业: {}', getJobName(jobSelected.value))
 })
-const handleJobSelect = (jobId: number) => {
+const handleJobSelect = (jobId: number, role: any) => {
   jobSelected.value = jobId
+  affixesSelected.value = {
+    attire: role.attire,
+    accessory: role.accessory
+  }
 }
 
 const uiSizePreset = userConfig.value?.ui_size_preset ?? '2k'
@@ -90,7 +95,7 @@ const jobImageSize = computed(() => {
               :img-size="jobImageSize"
               :btn-color="role.role_color"
               :class="{'selected': jobSelected === job}"
-              @click="handleJobSelect(job)"
+              @click="handleJobSelect(job, role)"
             />
           </div>
         </n-flex>

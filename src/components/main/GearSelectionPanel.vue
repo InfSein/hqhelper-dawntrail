@@ -1,12 +1,32 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue'
+import { ref, computed, inject,  } from 'vue'
+import type { Ref, PropType } from 'vue'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import Stepper from '../custom-controls/Stepper.vue'
 import GearSlot from '../custom-controls/GearSlot.vue'
+import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears'
+import { defaultGearSelections } from '@/models/gears'
+import GearAffixes from '@/assets/data/xiv-gear-affixes.json'
+import XivJobs from '@/assets/data/xiv-jobs.json'
+import { defaultUserConfig, type UserConfigModel } from '@/models/user-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 
-defineProps({
+const gearSelections = defineModel<GearSelections>('gearSelections')
+const props = defineProps({
+  jobId: {
+    type: Number,
+    required: true
+  },
+  attireAffix: {
+    type: String as PropType<AttireAffix>,
+    required: true
+  },
+  accessoryAffix: {
+    type: String as PropType<AccessoryAffix>,
+    required: true
+  },
   /**
    * Whether to merge the `off-hand` slot with the `main-hand` slot
    * 
@@ -23,23 +43,65 @@ defineProps({
   }
 })
 
-const selections = ref({
-  MainHand: 0,
-  OffHand: 0,
-  HeadAttire: 0,
-  BodyAttire: 0,
-  HandsAttire: 0,
-  LegsAttire: 0,
-  FeetAttire: 0,
-  Earrings: 0,
-  Necklace: 0,
-  Wrist: 0,
-  Rings: 0
+const tipText = computed(() => {
+  const uiLanguage = userConfig.value?.language_ui ?? 'zh'
+  const jobName = (XivJobs as any)?.[props.jobId]?.['job_name_' + uiLanguage] || t('未选择')
+  const attireName = (GearAffixes as any)?.[props.attireAffix]?.['affix_name_' + uiLanguage] || t('未选择')
+  const accessoryName = (GearAffixes as any)?.[props.accessoryAffix]?.['affix_name_' + uiLanguage] || t('未选择')
+  return `[${jobName}/${attireName}/${accessoryName}]`
 })
+
+const createWeaponComputed = (key: "MainHand" | "OffHand", jobId: number) => {
+  return computed({
+    get: () => {
+      return gearSelections.value?.[key]?.[jobId] || 0
+    },
+    set: (value : number) => {
+      if (!gearSelections.value) gearSelections.value = defaultGearSelections
+      if (!gearSelections.value[key]) gearSelections.value[key] = {}
+      gearSelections.value[key][jobId] = value
+    }
+  })
+}
+const createAttireComputed = (key: "HeadAttire" | "BodyAttire" | "HandsAttire" | "LegsAttire" | "FeetAttire", affix: AttireAffix) => {
+  return computed({
+    get: () => {
+      return gearSelections.value?.[key]?.[affix] || 0
+    },
+    set: (value : number) => {
+      if (!gearSelections.value) gearSelections.value = defaultGearSelections
+      if (!gearSelections.value[key]) gearSelections.value[key] = {} as Record<AttireAffix, number>
+      gearSelections.value[key][affix] = value
+    }
+  })
+}
+const createAccessoryComputed = (key: "Earrings" | "Necklace" | "Wrist" | "Rings", affix: AccessoryAffix) => {
+  return computed({
+    get: () => {
+      return gearSelections.value?.[key]?.[affix] || 0
+    },
+    set: (value : number) => {
+      if (!gearSelections.value) gearSelections.value = defaultGearSelections
+      if (!gearSelections.value[key]) gearSelections.value[key] = {} as Record<AccessoryAffix, number>
+      gearSelections.value[key][affix] = value
+    }
+  })
+}
+const MainHand = createWeaponComputed('MainHand', props.jobId)
+const OffHand = createWeaponComputed('OffHand', props.jobId)
+const HeadAttire = createAttireComputed('HeadAttire', props.attireAffix)
+const BodyAttire = createAttireComputed('BodyAttire', props.attireAffix)
+const HandsAttire = createAttireComputed('HandsAttire', props.attireAffix)
+const LegsAttire = createAttireComputed('LegsAttire', props.attireAffix)
+const FeetAttire = createAttireComputed('FeetAttire', props.attireAffix)
+const Earrings = createAccessoryComputed('Earrings', props.accessoryAffix)
+const Necklace = createAccessoryComputed('Necklace', props.accessoryAffix)
+const Wrist = createAccessoryComputed('Wrist', props.accessoryAffix)
+const Rings = createAccessoryComputed('Rings', props.accessoryAffix)
 </script>
 
 <template>
-  <FoldableCard card-key="game-gear-selection">
+  <FoldableCard card-key="game-gear-selection" :description="tipText">
     <template #header>
       <i class="xiv square-3"></i>
       <span class="card-title-text">{{ t('选择部件') }}</span>
@@ -55,14 +117,14 @@ const selections = ref({
                 :slot-description="t('武器/工具：主手')"
               />
             </td>
-            <td><Stepper v-model:value="selections.MainHand" /></td>
+            <td><Stepper v-model:value="MainHand" /></td>
             <td>
               <GearSlot
                 slot-icon-src="~ApiBase/image/game-gear-slot/offhand.png"
                 :slot-description="t('武器/工具：副手')"
               />
             </td>
-            <td><Stepper v-model:value="selections.OffHand" /></td>
+            <td><Stepper v-model:value="OffHand" /></td>
           </tr>
 
           <tr class="divider">
@@ -76,14 +138,14 @@ const selections = ref({
                 :slot-description="t('防具：头部')"
               />
             </td>
-            <td><Stepper v-model:value="selections.HeadAttire" /></td>
+            <td><Stepper v-model:value="HeadAttire" /></td>
             <td style="min-width: 40px;">
               <GearSlot
                 slot-icon-src="~ApiBase/image/game-gear-slot/ear.png"
                 :slot-description="t('首饰：耳坠')"
               />
             </td>
-            <td><Stepper v-model:value="selections.Earrings" /></td>
+            <td><Stepper v-model:value="Earrings" /></td>
           </tr>
 
           <tr>
@@ -93,14 +155,14 @@ const selections = ref({
                 :slot-description="t('防具：身体')"
               />
             </td>
-            <td><Stepper v-model:value="selections.BodyAttire" /></td>
+            <td><Stepper v-model:value="BodyAttire" /></td>
             <td>
               <GearSlot
                 slot-icon-src="~ApiBase/image/game-gear-slot/neck.png"
                 :slot-description="t('首饰：项链')"
               />
             </td>
-            <td><Stepper v-model:value="selections.Necklace" /></td>
+            <td><Stepper v-model:value="Necklace" /></td>
           </tr>
 
           <tr>
@@ -110,14 +172,14 @@ const selections = ref({
                 :slot-description="t('防具：手部')"
               />
             </td>
-            <td><Stepper v-model:value="selections.HandsAttire" /></td>
+            <td><Stepper v-model:value="HandsAttire" /></td>
             <td>
               <GearSlot
                 slot-icon-src="~ApiBase/image/game-gear-slot/wrist.png"
                 :slot-description="t('首饰：手镯')"
               />
             </td>
-            <td><Stepper v-model:value="selections.Wrist" /></td>
+            <td><Stepper v-model:value="Wrist" /></td>
           </tr>
 
           <tr>
@@ -127,14 +189,14 @@ const selections = ref({
                 :slot-description="t('防具：腿部')"
               />
             </td>
-            <td><Stepper v-model:value="selections.LegsAttire" /></td>
+            <td><Stepper v-model:value="LegsAttire" /></td>
             <td>
               <GearSlot
                 slot-icon-src="~ApiBase/image/game-gear-slot/ring.png"
                 :slot-description="t('首饰：戒指')"
               />
             </td>
-            <td><Stepper v-model:value="selections.Rings" /></td>
+            <td><Stepper v-model:value="Rings" /></td>
           </tr>
 
           <tr>
@@ -144,7 +206,7 @@ const selections = ref({
                 :slot-description="t('防具：脚部')"
               />
             </td>
-            <td><Stepper v-model:value="selections.FeetAttire" /></td>
+            <td><Stepper v-model:value="FeetAttire" /></td>
             <td></td>
             <td></td>
           </tr>
