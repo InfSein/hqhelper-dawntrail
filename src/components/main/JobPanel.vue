@@ -81,7 +81,7 @@ const jobImageSize = computed(() => {
             {{ getRoleName(role) }}
           </span>
         </template>
-        <n-flex size="small">
+        <n-flex :size="[4,4]">
           <div
             v-for="job in role.jobs"
             :key="'job-'+job"
