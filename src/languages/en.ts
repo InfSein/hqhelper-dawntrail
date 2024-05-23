@@ -81,5 +81,9 @@ export default {
     "80": "API/DATA Providers:",
     "81": "ThanksTo: Sponsorship",
     "82": "OK (Enter)",
-    "83": "Cancel (Esc)"
+    "83": "Cancel (Esc)",
+    "84": "",
+    "85": "Game data updated to: Patch {}",
+    "86": "",
+    "87": "None"
 }

@@ -580,5 +580,33 @@
         "$files": [
             "App.vue"
         ]
+    },
+    "国服数据版本：{}": {
+        "en": "",
+        "ja": "",
+        "$files": [
+            "components\\main\\AppHeader.vue"
+        ]
+    },
+    "国际服数据版本：{}": {
+        "en": "Game data updated to: Patch {}",
+        "ja": "国际服数据版本：{}",
+        "$files": [
+            "components\\main\\AppHeader.vue"
+        ]
+    },
+    "※ 国服数据尚未更新时，显示的中文名一般为作者自译，请谨慎参考。": {
+        "en": "",
+        "ja": "",
+        "$files": [
+            "components\\main\\AppHeader.vue"
+        ]
+    },
+    "未选择": {
+        "en": "None",
+        "ja": "未选择",
+        "$files": [
+            "components\\main\\GearSelectionPanel.vue"
+        ]
     }
 }
