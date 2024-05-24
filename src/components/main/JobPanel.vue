@@ -13,6 +13,13 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUser
 
 const jobSelected = defineModel<number>('jobSelected')
 const affixesSelected = defineModel<any>('affixesSelected')
+defineProps({
+  patchSelected: {
+    type: String,
+    required: true
+  }
+})
+
 const cardDescription = computed(() => {
   if (!jobSelected.value) return t('还未选择')
   else return t('已选择职业: {}', getJobName(jobSelected.value))
@@ -66,6 +73,14 @@ const jobImageSize = computed(() => {
       <i class="xiv square-2"></i>
       <span class="card-title-text">{{ t('选择职业') }}</span>
     </template>
+    <n-alert
+      v-if="!patchSelected"
+      type="warning"
+      style="margin-bottom: 15px;"
+    >
+      {{ t('请先选择版本') }}
+    </n-alert>
+
     <n-flex :size="[10,13]">
       <GroupBox
         v-for="(role, roleIndex) in XivRoles"
@@ -95,6 +110,7 @@ const jobImageSize = computed(() => {
               :img-size="jobImageSize"
               :btn-color="role.role_color"
               :class="{'selected': jobSelected === job}"
+              :disabled="!patchSelected"
               @click="handleJobSelect(job, role)"
             />
           </div>

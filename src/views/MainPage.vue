@@ -11,7 +11,7 @@ import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import { useMessage } from 'naive-ui';
 import { defaultUserConfig, type UserConfigModel } from '@/models/user-config';
 import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears'
-import { defaultGearSelections } from '@/models/gears'
+import { getDefaulGearSelections } from '@/models/gears'
 import { useStore } from '@/store';
 
 const store = useStore()
@@ -60,7 +60,7 @@ const workState = ref({
     attire: '',
     accessory: ''
   },
-  gears: defaultGearSelections as GearSelections,
+  gears: getDefaulGearSelections(),
 })
 
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
@@ -99,6 +99,7 @@ if (!disable_workstate_cache) {
                 v-model:job-selected="workState.job"
                 v-model:affixes-selected="workState.affixes"
                 class="job-panel"
+                :patch-selected="workState.patch"
               />
               <GearSelectionPanel
                 v-model:gear-selections="workState.gears"

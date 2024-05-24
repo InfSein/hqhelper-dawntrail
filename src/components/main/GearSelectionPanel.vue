@@ -5,7 +5,7 @@ import FoldableCard from '../custom-controls/FoldableCard.vue'
 import Stepper from '../custom-controls/Stepper.vue'
 import GearSlot from '../custom-controls/GearSlot.vue'
 import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears'
-import { defaultGearSelections } from '@/models/gears'
+import { getDefaulGearSelections } from '@/models/gears'
 import GearAffixes from '@/assets/data/xiv-gear-affixes.json'
 import XivJobs from '@/assets/data/xiv-jobs.json'
 import { defaultUserConfig, type UserConfigModel } from '@/models/user-config'
@@ -51,13 +51,27 @@ const tipText = computed(() => {
   return `[${jobName}/${attireName}/${accessoryName}]`
 })
 
+const jobNotSelected = computed(() => {
+  return !(XivJobs as any)?.[props.jobId]
+})
+const disableWeapon = computed(() => {
+  return jobNotSelected.value
+})
+const disableAttire = computed(() => {
+  return !(GearAffixes as any)?.[props.attireAffix]
+})
+const disableAccessory = computed(() => {
+  return !(GearAffixes as any)?.[props.accessoryAffix]
+})
+
+// #region Slot Computeds
 const createWeaponComputed = (key: "MainHand" | "OffHand") => {
   return computed({
     get: () => {
       return gearSelections.value?.[key]?.[props.jobId] || 0
     },
     set: (value : number) => {
-      if (!gearSelections.value) gearSelections.value = defaultGearSelections
+      if (!gearSelections.value) gearSelections.value = getDefaulGearSelections()
       if (!gearSelections.value[key]) gearSelections.value[key] = {}
       gearSelections.value[key][props.jobId] = value
     }
@@ -69,7 +83,7 @@ const createAttireComputed = (key: "HeadAttire" | "BodyAttire" | "HandsAttire" |
       return gearSelections.value?.[key]?.[props.attireAffix] || 0
     },
     set: (value : number) => {
-      if (!gearSelections.value) gearSelections.value = defaultGearSelections
+      if (!gearSelections.value) gearSelections.value = getDefaulGearSelections()
       if (!gearSelections.value[key]) gearSelections.value[key] = {} as Record<AttireAffix, number>
       gearSelections.value[key][props.attireAffix] = value
     }
@@ -81,7 +95,7 @@ const createAccessoryComputed = (key: "Earrings" | "Necklace" | "Wrist" | "Rings
       return gearSelections.value?.[key]?.[props.accessoryAffix] || 0
     },
     set: (value : number) => {
-      if (!gearSelections.value) gearSelections.value = defaultGearSelections
+      if (!gearSelections.value) gearSelections.value = getDefaulGearSelections()
       if (!gearSelections.value[key]) gearSelections.value[key] = {} as Record<AccessoryAffix, number>
       gearSelections.value[key][props.accessoryAffix] = value
     }
@@ -98,6 +112,26 @@ const Earrings = createAccessoryComputed('Earrings')
 const Necklace = createAccessoryComputed('Necklace')
 const Wrist = createAccessoryComputed('Wrist')
 const Rings = createAccessoryComputed('Rings')
+// #endregion
+
+// #region Button Functions
+const clearAll = () => {
+  gearSelections.value = getDefaulGearSelections()
+}
+const clearCurrent = () => {
+  MainHand.value = 0
+  OffHand.value = 0
+  HeadAttire.value = 0
+  BodyAttire.value = 0
+  HandsAttire.value = 0
+  LegsAttire.value = 0
+  FeetAttire.value = 0
+  Earrings.value = 0
+  Necklace.value = 0
+  Wrist.value = 0
+  Rings.value = 0
+}
+// #endregion
 </script>
 
 <template>
@@ -108,6 +142,14 @@ const Rings = createAccessoryComputed('Rings')
     </template>
     
     <div class="gear-selection-containter">
+      <n-alert
+        v-if="jobNotSelected"
+        type="warning"
+        style="margin-bottom: 10px;"
+      >
+        {{ t('请先选择职业') }}
+      </n-alert>
+
       <table>
         <tbody>
           <tr>
@@ -117,14 +159,14 @@ const Rings = createAccessoryComputed('Rings')
                 :slot-description="t('武器/工具：主手')"
               />
             </td>
-            <td><Stepper v-model:value="MainHand" /></td>
+            <td><Stepper v-model:value="MainHand" :disabled="disableWeapon" /></td>
             <td>
               <GearSlot
                 slot-icon-src="~ApiBase/image/game-gear-slot/offhand.png"
                 :slot-description="t('武器/工具：副手')"
               />
             </td>
-            <td><Stepper v-model:value="OffHand" /></td>
+            <td><Stepper v-model:value="OffHand" :disabled="disableWeapon" /></td>
           </tr>
 
           <tr class="divider">
@@ -138,14 +180,14 @@ const Rings = createAccessoryComputed('Rings')
                 :slot-description="t('防具：头部')"
               />
             </td>
-            <td><Stepper v-model:value="HeadAttire" /></td>
+            <td><Stepper v-model:value="HeadAttire" :disabled="disableAttire" /></td>
             <td style="min-width: 40px;">
               <GearSlot
                 slot-icon-src="~ApiBase/image/game-gear-slot/ear.png"
                 :slot-description="t('首饰：耳坠')"
               />
             </td>
-            <td><Stepper v-model:value="Earrings" /></td>
+            <td><Stepper v-model:value="Earrings" :disabled="disableAccessory" /></td>
           </tr>
 
           <tr>
@@ -155,14 +197,14 @@ const Rings = createAccessoryComputed('Rings')
                 :slot-description="t('防具：身体')"
               />
             </td>
-            <td><Stepper v-model:value="BodyAttire" /></td>
+            <td><Stepper v-model:value="BodyAttire" :disabled="disableAttire" /></td>
             <td>
               <GearSlot
                 slot-icon-src="~ApiBase/image/game-gear-slot/neck.png"
                 :slot-description="t('首饰：项链')"
               />
             </td>
-            <td><Stepper v-model:value="Necklace" /></td>
+            <td><Stepper v-model:value="Necklace" :disabled="disableAccessory" /></td>
           </tr>
 
           <tr>
@@ -172,14 +214,14 @@ const Rings = createAccessoryComputed('Rings')
                 :slot-description="t('防具：手部')"
               />
             </td>
-            <td><Stepper v-model:value="HandsAttire" /></td>
+            <td><Stepper v-model:value="HandsAttire" :disabled="disableAttire" /></td>
             <td>
               <GearSlot
                 slot-icon-src="~ApiBase/image/game-gear-slot/wrist.png"
                 :slot-description="t('首饰：手镯')"
               />
             </td>
-            <td><Stepper v-model:value="Wrist" /></td>
+            <td><Stepper v-model:value="Wrist" :disabled="disableAccessory" /></td>
           </tr>
 
           <tr>
@@ -189,14 +231,14 @@ const Rings = createAccessoryComputed('Rings')
                 :slot-description="t('防具：腿部')"
               />
             </td>
-            <td><Stepper v-model:value="LegsAttire" /></td>
+            <td><Stepper v-model:value="LegsAttire" :disabled="disableAttire" /></td>
             <td>
               <GearSlot
                 slot-icon-src="~ApiBase/image/game-gear-slot/ring.png"
                 :slot-description="t('首饰：戒指')"
               />
             </td>
-            <td><Stepper v-model:value="Rings" /></td>
+            <td><Stepper v-model:value="Rings" :disabled="disableAccessory" /></td>
           </tr>
 
           <tr>
@@ -206,7 +248,7 @@ const Rings = createAccessoryComputed('Rings')
                 :slot-description="t('防具：脚部')"
               />
             </td>
-            <td><Stepper v-model:value="FeetAttire" /></td>
+            <td><Stepper v-model:value="FeetAttire" :disabled="disableAttire" /></td>
             <td></td>
             <td></td>
           </tr>
@@ -215,13 +257,13 @@ const Rings = createAccessoryComputed('Rings')
 
       <div class="bottom-buttons">
         <div class="content">
-          <n-button class="end" size="small">{{ t('已选部件') }}</n-button>
+          <n-button class="end" size="small" :disabled="jobNotSelected">{{ t('已选部件') }}</n-button>
         </div>
         <n-divider dashed />
         <n-flex class="foot" justify="end">
-          <n-button size="small">{{ t('清空全部') }}</n-button>
-          <n-button size="small">{{ t('清空当前') }}</n-button>
-          <n-button size="small">{{ t('添加整套') }}</n-button>
+          <n-button size="small" :disabled="jobNotSelected" @click="clearAll">{{ t('清空全部') }}</n-button>
+          <n-button size="small" :disabled="jobNotSelected" @click="clearCurrent">{{ t('清空当前') }}</n-button>
+          <n-button size="small" :disabled="jobNotSelected">{{ t('添加整套') }}</n-button>
         </n-flex>
       </div>
     </div>

@@ -9,7 +9,8 @@ const props = defineProps({
   min: { type: Number, default: 0 },
   max: { type: Number, default: 99999 },
   containerStyle: { type: String, default: '' },
-  inputStyle: { type: String, default: '' }
+  inputStyle: { type: String, default: '' },
+  disabled: { type: Boolean, default: false }
 })
 
 const handleMinusClick = () => {
@@ -26,7 +27,7 @@ const handlePlusClick = () => {
 
 <template>
   <div class="stepper" :style="containerStyle">
-    <n-button size="small" class="stepper-button" :disabled="modelValue === min" @click="handleMinusClick">
+    <n-button size="small" class="stepper-button" :disabled="disabled || modelValue === min" @click="handleMinusClick">
       <template #icon>
         <n-icon><minus-sharp /></n-icon>
       </template>
@@ -38,9 +39,10 @@ const handlePlusClick = () => {
         :min="min"
         :max="max"
         :show-button="false"
+        :disabled="disabled"
       />
     </div>
-    <n-button size="small" class="stepper-button" :disabled="modelValue === max" @click="handlePlusClick">
+    <n-button size="small" class="stepper-button" :disabled="disabled || modelValue === max" @click="handlePlusClick">
       <template #icon>
         <n-icon><add-sharp /></n-icon>
       </template>

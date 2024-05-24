@@ -14,6 +14,8 @@ interface JobButtonProps {
   imgSize: number;
   /** 按钮颜色 */
   btnColor: string;
+  /** 按钮是否禁用(可选,默认false) */
+  disabled?: boolean;
 }
 
 const props = defineProps<JobButtonProps>()
@@ -25,6 +27,7 @@ const btnSize = props.imgSize + 5
 <template>
   <n-button
     :ghost="!props.selected"
+    :disabled="props.disabled"
     class="job-button"
     :color="props.btnColor"
     :style="{ width: `${btnSize}px`, height: `${btnSize}px` }"
