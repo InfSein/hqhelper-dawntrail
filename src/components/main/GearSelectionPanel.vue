@@ -5,7 +5,7 @@ import FoldableCard from '../custom-controls/FoldableCard.vue'
 import Stepper from '../custom-controls/Stepper.vue'
 import GearSlot from '../custom-controls/GearSlot.vue'
 import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears'
-import { getDefaulGearSelections } from '@/models/gears'
+import { getDefaultGearSelections } from '@/models/gears'
 import GearAffixes from '@/assets/data/xiv-gear-affixes.json'
 import XivJobs from '@/assets/data/xiv-jobs.json'
 import { defaultUserConfig, type UserConfigModel } from '@/models/user-config'
@@ -71,7 +71,7 @@ const createWeaponComputed = (key: "MainHand" | "OffHand") => {
       return gearSelections.value?.[key]?.[props.jobId] || 0
     },
     set: (value : number) => {
-      if (!gearSelections.value) gearSelections.value = getDefaulGearSelections()
+      if (!gearSelections.value) gearSelections.value = getDefaultGearSelections()
       if (!gearSelections.value[key]) gearSelections.value[key] = {}
       gearSelections.value[key][props.jobId] = value
     }
@@ -83,7 +83,7 @@ const createAttireComputed = (key: "HeadAttire" | "BodyAttire" | "HandsAttire" |
       return gearSelections.value?.[key]?.[props.attireAffix] || 0
     },
     set: (value : number) => {
-      if (!gearSelections.value) gearSelections.value = getDefaulGearSelections()
+      if (!gearSelections.value) gearSelections.value = getDefaultGearSelections()
       if (!gearSelections.value[key]) gearSelections.value[key] = {} as Record<AttireAffix, number>
       gearSelections.value[key][props.attireAffix] = value
     }
@@ -95,7 +95,7 @@ const createAccessoryComputed = (key: "Earrings" | "Necklace" | "Wrist" | "Rings
       return gearSelections.value?.[key]?.[props.accessoryAffix] || 0
     },
     set: (value : number) => {
-      if (!gearSelections.value) gearSelections.value = getDefaulGearSelections()
+      if (!gearSelections.value) gearSelections.value = getDefaultGearSelections()
       if (!gearSelections.value[key]) gearSelections.value[key] = {} as Record<AccessoryAffix, number>
       gearSelections.value[key][props.accessoryAffix] = value
     }
@@ -116,7 +116,7 @@ const Rings = createAccessoryComputed('Rings')
 
 // #region Button Functions
 const clearAll = () => {
-  gearSelections.value = getDefaulGearSelections()
+  gearSelections.value = getDefaultGearSelections()
 }
 const clearCurrent = () => {
   MainHand.value = 0

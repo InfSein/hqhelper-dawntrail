@@ -30,22 +30,20 @@ export interface GearSelections {
   Rings: Record<AccessoryAffix, number>;
 }
 
-export const defaultGearSelections: GearSelections = {
-  MainHand: {} as Record<number, number>,
-  OffHand: {} as Record<number, number>,
-  HeadAttire: {} as Record<AttireAffix, number>,
-  
-  BodyAttire: {} as Record<AttireAffix, number>,
-  HandsAttire: {} as Record<AttireAffix, number>,
-  LegsAttire: {} as Record<AttireAffix, number>,
-  FeetAttire: {} as Record<AttireAffix, number>,
-  
-  Earrings: {} as Record<AccessoryAffix, number>,
-  Necklace: {} as Record<AccessoryAffix, number>,
-  Wrist: {} as Record<AccessoryAffix, number>,
-  Rings: {} as Record<AccessoryAffix, number>,
-}
-
-export const getDefaulGearSelections = () => {
-  return JSON.parse(JSON.stringify(defaultGearSelections)) as GearSelections;
+export const getDefaultGearSelections = () => {
+  return JSON.parse(JSON.stringify({
+    MainHand: {} as Record<number, number>,
+    OffHand: {} as Record<number, number>,
+    HeadAttire: {} as Record<AttireAffix, number>,
+    
+    BodyAttire: {} as Record<AttireAffix, number>,
+    HandsAttire: {} as Record<AttireAffix, number>,
+    LegsAttire: {} as Record<AttireAffix, number>,
+    FeetAttire: {} as Record<AttireAffix, number>,
+    
+    Earrings: {} as Record<AccessoryAffix, number>,
+    Necklace: {} as Record<AccessoryAffix, number>,
+    Wrist: {} as Record<AccessoryAffix, number>,
+    Rings: {} as Record<AccessoryAffix, number>,
+  })) as GearSelections;
 }
