@@ -45,3 +45,7 @@ export const defaultGearSelections: GearSelections = {
   Wrist: {} as Record<AccessoryAffix, number>,
   Rings: {} as Record<AccessoryAffix, number>,
 }
+
+export const getDefaulGearSelections = () => {
+  return JSON.parse(JSON.stringify(defaultGearSelections)) as GearSelections;
+}
