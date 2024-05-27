@@ -111,6 +111,7 @@ const appForceUpdate = () => {
 // #region Provide dialoger
 
 const dialogConfirm_show = ref(false)
+const dialogConfirm_type = ref<'info' | 'success' | 'error' | 'warning'>('warning')
 const dialogConfirm_title = ref('')
 const dialogConfirm_content = ref('')
 const dialogConfirm_confirmText = ref('')
@@ -123,10 +124,12 @@ const showDialogConfirm = (
   content: string,
   confirmFunc: () => void,
   cancelFunc: () => void,
+  type: 'info' | 'success' | 'error' | 'warning' = 'warning',
   autoClose: boolean = true, // Close dialog after confirm or cancel automatically.
   confirmText: string = t('确定 (Enter)'),
   cancelText: string = t('取消 (Esc)'),
 ) => {
+  dialogConfirm_type.value = type
   dialogConfirm_title.value = title
   dialogConfirm_content.value = content
   dialogConfirm_confirmText.value = confirmText
@@ -195,6 +198,7 @@ const appClass = computed(() => {
         
         <DialogConfirm
           v-model:show="dialogConfirm_show"
+          :type="dialogConfirm_type"
           :title="dialogConfirm_title"
           :content="dialogConfirm_content"
           :confirm-text="dialogConfirm_confirmText"
