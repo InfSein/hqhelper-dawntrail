@@ -455,9 +455,9 @@
             "components\\modals\\ModalUserPreferences.vue"
         ]
     },
-    "如果您希望每次打开应用都从头开始，或是在使用过程中出现较严重的卡顿，则可以考虑禁用此项。": {
+    "如果您希望每次打开应用都从头开始，或是在使用过程中出现较严重的卡顿，则可以考虑打开此选项。": {
         "en": "If you wish to start from scratch every time you open the application or catched frequent lag during use, you can consider disabling this by open this option.",
-        "ja": "如果您希望每次打开应用都从头开始，或是在使用过程中出现较严重的卡顿，则可以考虑禁用此项。",
+        "ja": "如果您希望每次打开应用都从头开始，或是在使用过程中出现较严重的卡顿，则可以考虑打开此选项。",
         "$files": [
             "components\\modals\\ModalUserPreferences.vue"
         ]
@@ -607,6 +607,69 @@
         "ja": "未选择",
         "$files": [
             "components\\main\\GearSelectionPanel.vue"
+        ]
+    },
+    "请先选择职业": {
+        "en": "Please select job first",
+        "ja": "请先选择职业",
+        "$files": [
+            "components\\main\\GearSelectionPanel.vue"
+        ]
+    },
+    "请先选择版本": {
+        "en": "Please select patch first",
+        "ja": "请先选择版本",
+        "$files": [
+            "components\\main\\JobPanel.vue"
+        ]
+    },
+    "增强": {
+        "en": "Enhancements",
+        "ja": "增强",
+        "$files": [
+            "components\\modals\\ModalUserPreferences.vue"
+        ]
+    },
+    "禁用手机端选择版本后自动折叠": {
+        "en": "Disable auto-fold after patch selected (mobile)",
+        "ja": "禁用手机端选择版本后自动折叠",
+        "$files": [
+            "components\\modals\\ModalUserPreferences.vue"
+        ]
+    },
+    "\"选择版本\"在手机端有些太占地方，而且一般也不会被高频率地修改，所以我们默认在你选择版本之后就自动折叠它。": {
+        "en": "\"Select Patch\" costs too much space on mobile, both not frequently modified, so we automatically fold it after you select the patch on mobile.",
+        "ja": "\"选择版本\"在手机端有些太占地方，而且一般也不会被高频率地修改，所以我们默认在你选择版本之后就自动折叠它。",
+        "$files": [
+            "components\\modals\\ModalUserPreferences.vue"
+        ]
+    },
+    "如果你觉得不自动折叠会更好，请打开此选项。": {
+        "en": "If you want to fold it manually, please turn on this option.",
+        "ja": "如果你觉得不自动折叠会更好，请打开此选项。",
+        "$files": [
+            "components\\modals\\ModalUserPreferences.vue"
+        ]
+    },
+    "禁用重复点击已选择的职业按钮时添加主副手": {
+        "en": "Disable adding mainhand/offhand when clicking the selected job button",
+        "ja": "禁用重复点击已选择的职业按钮时添加主副手",
+        "$files": [
+            "components\\modals\\ModalUserPreferences.vue"
+        ]
+    },
+    "在选择了职业之后再度点击职业按钮，将会默认添加一套主副手武器或工具。": {
+        "en": "Clicking the job button again after selecting the job will add a set of mainhand/offhand weapons or tools by default.",
+        "ja": "在选择了职业之后再度点击职业按钮，将会默认添加一套主副手武器或工具。",
+        "$files": [
+            "components\\modals\\ModalUserPreferences.vue"
+        ]
+    },
+    "这一功能在第一代HqHelper是默认关闭的，而本代默认开启。如果这与您的习惯相悖，请打开此选项。": {
+        "en": "If this contradicts your habit, please turn on this option.",
+        "ja": "这一功能在第一代HqHelper是默认关闭的，而本代默认开启。如果这与您的习惯相悖，请打开此选项。",
+        "$files": [
+            "components\\modals\\ModalUserPreferences.vue"
         ]
     }
 }

@@ -85,5 +85,14 @@ export default {
     "84": "",
     "85": "Game data updated to: Patch {}",
     "86": "",
-    "87": "None"
+    "87": "None",
+    "88": "Please select job first",
+    "89": "Please select patch first",
+    "90": "Enhancements",
+    "91": "Disable auto-fold after patch selected (mobile)",
+    "92": "\"Select Patch\" costs too much space on mobile, both not frequently modified, so we automatically fold it after you select the patch on mobile.",
+    "93": "If you want to fold it manually, please turn on this option.",
+    "94": "Disable adding mainhand/offhand when clicking the selected job button",
+    "95": "Clicking the job button again after selecting the job will add a set of mainhand/offhand weapons or tools by default.",
+    "96": "If this contradicts your habit, please turn on this option."
 }
