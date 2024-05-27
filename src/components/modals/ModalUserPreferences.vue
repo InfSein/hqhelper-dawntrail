@@ -5,6 +5,7 @@ import { type UserConfigModel, defaultUserConfig } from '@/models/user-config'
 import {
   SettingsSharp,
   TravelExploreRound,
+  TrendingUpRound,
   MemoryRound,
   WifiRound,
   SaveOutlined
@@ -88,6 +89,52 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
       },
     ]
   },
+  /* Enhancements */
+  {
+    key: 'enhancements',
+    icon: TrendingUpRound,
+    text: t('增强'),
+    children: [
+      {
+        key: 'disable_patchcard_autofold',
+        label: t('禁用手机端选择版本后自动折叠'),
+        descriptions: [
+          {
+            value: t('"选择版本"在手机端有些太占地方，而且一般也不会被高频率地修改，所以我们默认在你选择版本之后就自动折叠它。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('如果你觉得不自动折叠会更好，请打开此选项。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'switch',
+        options: []
+      },
+      {
+        key: 'disable_jobbtn_doubleclick',
+        label: t('禁用重复点击已选择的职业按钮时添加主副手'),
+        descriptions: [
+          {
+            value: t('在选择了职业之后再度点击职业按钮，将会默认添加一套主副手武器或工具。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('这一功能在第一代HqHelper是默认关闭的，而本代默认开启。如果这与您的习惯相悖，请打开此选项。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'switch',
+        options: []
+      }
+    ]
+  },
   /* Performance */
   {
     key: 'performance',
@@ -104,7 +151,7 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
             style: ''
           },
           {
-            value: t('如果您希望每次打开应用都从头开始，或是在使用过程中出现较严重的卡顿，则可以考虑禁用此项。'),
+            value: t('如果您希望每次打开应用都从头开始，或是在使用过程中出现较严重的卡顿，则可以考虑打开此选项。'),
             class: '',
             style: ''
           }
@@ -195,8 +242,8 @@ const handleSave = () => {
     <n-card
       closable
       role="dialog"
-      style="width: 98%; max-width: 600px;"
-      :style="{ height: isMobile ? '450px' : '375px' }"
+      style="width: 98%; max-width: 650px;"
+      :style="{ height: isMobile ? '450px' : '395px' }"
       @close="handleClose"
     >
       <template #header>
@@ -225,7 +272,7 @@ const handleSave = () => {
               <span>{{ group.text }}</span>
             </div>
           </template>
-          <div class="items-container">
+          <div class="items-container" :style="{ maxHeight: isMobile ? '225px' : '220px' }">
             <div class="items" v-for="item in group.children" :key="item.key">
               <div class="item-title">{{ item.label }}</div>
               <div class="item-descriptions">

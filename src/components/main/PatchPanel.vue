@@ -5,6 +5,7 @@ import XivPatches from "@/assets/data/xiv-patches.json"
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 
 const patchSelected = defineModel<string>('patchSelected')
@@ -13,8 +14,14 @@ const cardDescription = computed(() => {
   else return t('已选择版本: {}', patchSelected.value)
 })
 
+const containerCard = ref<any>(null)
+
 const handlePatchSelect = (patch: any) => {
   patchSelected.value = patch.v
+  const autoFold = !(userConfig.value?.disable_patchcard_autofold ?? false)
+  if (isMobile.value && autoFold) {
+    containerCard.value.handleFoldOrExpand()
+  }
 }
 
 const getPatchName = (patch: any) => {
@@ -58,7 +65,7 @@ const buildButtonContentStyle = () => {
 </script>
 
 <template>
-  <FoldableCard card-key="game-patches" :description="cardDescription" class="game-patches-panel">
+  <FoldableCard card-key="game-patches" ref="containerCard" :description="cardDescription" class="game-patches-panel">
     <template #header>
       <i class="xiv square-1"></i>
       <span class="card-title-text">{{ t('选择版本') }}</span>

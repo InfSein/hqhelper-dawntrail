@@ -24,7 +24,7 @@ const props = defineProps({
   }
 })
 const emit = defineEmits([
-  'onCardFoldedChange'
+  'onCardFoldStatusChanged'
 ])
 
 const ui_fold_cache = userConfig.value.cache_ui_fold ?? {}
@@ -59,9 +59,12 @@ const handleFoldOrExpand = () => {
   folded.value = !folded.value
   updateUi()
   updateCache()
-  emit('onCardFoldedChange', folded.value)
+  emit('onCardFoldStatusChanged', folded.value)
 }
 
+defineExpose({
+  handleFoldOrExpand
+})
 </script>
 
 <template>
