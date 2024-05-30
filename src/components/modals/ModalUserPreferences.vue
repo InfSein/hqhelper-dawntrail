@@ -3,6 +3,7 @@ import { inject, ref, type Ref } from 'vue'
 import { useStore } from '@/store/index'
 import { type UserConfigModel, defaultUserConfig } from '@/models/user-config'
 import {
+  HelpOutlineRound,
   SettingsSharp,
   TravelExploreRound,
   TrendingUpRound,
@@ -242,6 +243,7 @@ const handleSave = () => {
     <n-card
       closable
       role="dialog"
+      class="no-select"
       style="width: 98%; max-width: 650px;"
       :style="{ height: isMobile ? '450px' : '395px' }"
       @close="handleClose"
@@ -274,17 +276,28 @@ const handleSave = () => {
           </template>
           <div class="items-container" :style="{ maxHeight: isMobile ? '225px' : '220px' }">
             <div class="items" v-for="item in group.children" :key="item.key">
-              <div class="item-title">{{ item.label }}</div>
-              <div class="item-descriptions">
-                <div
-                  v-for="(description, index) in item.descriptions"
-                  :key="item.key + '-description-' + index"
-                  :class="description.class"
-                  :style="description.style"
-                >
-                  {{ description.value }}
-                </div>
-              </div>
+              <n-collapse arrow-placement="right">
+                <n-collapse-item>
+                  <template #header>
+                    <div class="item-title">{{ item.label }}</div>
+                  </template>
+                  <template #arrow>
+                    <n-icon v-if="item.descriptions.length"><HelpOutlineRound /></n-icon>
+                    <n-icon v-else></n-icon>
+                  </template>
+
+                  <div class="item-descriptions">
+                    <p
+                      v-for="(description, index) in item.descriptions"
+                      :key="item.key + '-description-' + index"
+                      :class="description.class"
+                      :style="description.style"
+                    >
+                      {{ description.value }}
+                    </p>
+                  </div>
+                </n-collapse-item>
+              </n-collapse>
               <div class="item-input">
                 <n-popover
                   v-if="item.warnings.length"
@@ -364,6 +377,9 @@ const handleSave = () => {
   .n-tab-pane {
     height: 100%;
   }
+}
+:deep(.n-collapse-item__content-inner) {
+  padding-top: 0 !important;
 }
 .items-container {
   max-width: 100%;
