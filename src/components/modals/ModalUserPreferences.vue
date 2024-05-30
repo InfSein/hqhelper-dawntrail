@@ -282,7 +282,7 @@ const handleSave = () => {
                     <div class="item-title">{{ item.label }}</div>
                   </template>
                   <template #arrow>
-                    <n-icon v-if="item.descriptions.length"><HelpOutlineRound /></n-icon>
+                    <n-icon v-if="item.descriptions.length" :title="t('点击以展开或折叠此设置项的描述')"><HelpOutlineRound /></n-icon>
                     <n-icon v-else></n-icon>
                   </template>
 
