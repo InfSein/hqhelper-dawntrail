@@ -81,7 +81,7 @@ const jobImageSize = computed(() => {
       {{ t('请先选择版本') }}
     </n-alert>
 
-    <n-flex :size="[10,13]">
+    <n-flex :size="[10,15]">
       <GroupBox
         v-for="(role, roleIndex) in XivRoles"
         :key="roleIndex"
