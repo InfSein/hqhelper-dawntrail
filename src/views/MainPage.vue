@@ -24,23 +24,13 @@ const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
-// * HqHelper Toast
-const hqHelperToast = (
-  message: string,
-  type: 'info' | 'success' | 'warning' | 'error' = 'info',
-  duration: number = 2000,
-) => {
-  NAIVE_UI_MESSAGE[type](message, { closable: true, duration: duration })
-}
-provide('hqHelperToaster', hqHelperToast)
-
 const showUserPreferencesModal = ref(false)
 const showAboutAppModal = ref(false)
 
 const onUserPreferencesSubmitted = () => {
   showUserPreferencesModal.value = false
   appForceUpdate()
-  hqHelperToast(t('保存成功！部分改动需要刷新页面才能生效'), 'success')
+  NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
 }
 
 // * Provide Show Modals
