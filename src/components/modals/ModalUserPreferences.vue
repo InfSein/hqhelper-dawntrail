@@ -29,6 +29,7 @@ interface UserPreferenceGroup {
 interface UserPreferenceItem {
   key: string
   label: string
+  hide?: boolean
   descriptions: {
     value: string
     class: string
@@ -98,7 +99,8 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
     children: [
       {
         key: 'disable_patchcard_autofold',
-        label: t('禁用手机端选择版本后自动折叠'),
+        label: t('禁用选择版本后自动折叠'),
+        hide: !isMobile.value,
         descriptions: [
           {
             value: t('"选择版本"在手机端有些太占地方，而且一般也不会被高频率地修改，所以我们默认在你选择版本之后就自动折叠它。'),
@@ -275,7 +277,7 @@ const handleSave = () => {
             </div>
           </template>
           <div class="items-container" :style="{ maxHeight: isMobile ? '225px' : '220px' }">
-            <div class="items" v-for="item in group.children" :key="item.key">
+            <div class="items" v-for="item in group.children" :key="item.key" v-show="!item.hide">
               <n-collapse arrow-placement="right">
                 <n-collapse-item>
                   <template #header>
