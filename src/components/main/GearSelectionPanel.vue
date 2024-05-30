@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, inject,  } from 'vue'
-import type { Ref, PropType } from 'vue'
+import { ref, computed, inject, h,  } from 'vue'
+import type { Ref, PropType, VNode } from 'vue'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import Stepper from '../custom-controls/Stepper.vue'
 import GearSlot from '../custom-controls/GearSlot.vue'
@@ -9,9 +9,13 @@ import { getDefaultGearSelections } from '@/models/gears'
 import GearAffixes from '@/assets/data/xiv-gear-affixes.json'
 import XivJobs from '@/assets/data/xiv-jobs.json'
 import { defaultUserConfig, type UserConfigModel } from '@/models/user-config'
+import { NTooltip, useMessage, type DropdownGroupOption, type DropdownOption } from 'naive-ui'
+import { KeyboardArrowDownRound } from '@vicons/material'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
+const NAIVE_UI_MESSAGE = useMessage()
 
 const gearSelections = defineModel<GearSelections>('gearSelections')
 const props = defineProps({
@@ -26,20 +30,6 @@ const props = defineProps({
   accessoryAffix: {
     type: String as PropType<AccessoryAffix>,
     required: true
-  },
-  /**
-   * Whether to merge the `off-hand` slot with the `main-hand` slot
-   * 
-   * Represents this job has no `off-hand` weapon or its `main-hand` and `off-hand` can be crafted concurrently.
-   * @default true
-   * */
-  mergeOffHand: {
-    type: Boolean,
-    default: true
-  },
-  canEditMainHand: {
-    type: Boolean,
-    default: true
   }
 })
 
@@ -119,6 +109,9 @@ const clearAll = () => {
   gearSelections.value = getDefaultGearSelections()
 }
 const clearCurrent = () => {
+  if (jobNotSelected.value) {
+    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+  }
   MainHand.value = 0
   OffHand.value = 0
   HeadAttire.value = 0
@@ -130,6 +123,90 @@ const clearCurrent = () => {
   Necklace.value = 0
   Wrist.value = 0
   Rings.value = 0
+}
+const addMainOffHand = () => {
+  if (jobNotSelected.value) {
+    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+  }
+  MainHand.value++
+  OffHand.value++
+}
+const addAttire = () => {
+  if (jobNotSelected.value) {
+    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+  }
+  HeadAttire.value++
+  BodyAttire.value++
+  HandsAttire.value++
+  LegsAttire.value++
+  FeetAttire.value++
+}
+const addAccessory = () => {
+  if (jobNotSelected.value) {
+    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+  }
+  Earrings.value++
+  Necklace.value++
+  Wrist.value++
+  Rings.value += 2
+}
+const addAll = () => {
+  if (jobNotSelected.value) {
+    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+  }
+  addMainOffHand()
+  addAttire()
+  addAccessory()
+}
+// #endregion
+
+// #region Dropdown Options
+const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | DropdownGroupOption }) => {
+  return h(
+    NTooltip,
+    { keepAliveOnHover: false, style: { width: 'max-content', display: isMobile.value ? 'none' : 'inherit' } },
+    {
+      trigger: () => [node],
+      default: () => option.description
+    }
+  )
+}
+
+const clearOptions: DropdownOption[] = [
+  { key: 'clear-current', label: t('清空当前'), description: t('清空当前职业的已选择部件') },
+  { key: 'clear-all', label: t('清空全部'), description: t('清空所有职业的已选择部件') },
+]
+const handleClearSelect = (key: string) => {
+  if (key === 'clear-current') {
+    clearCurrent()
+  } else if (key === 'clear-all') {
+    clearAll()
+  }
+}
+
+const addsuitOptions: DropdownOption[] = [
+  { key: 'add-weapon', label: t('添加一套主副手'), description: t('为当前职业添加一套主副手') },
+  { key: 'add-attire', label: t('添加一套防具'), description: t('为当前职业添加一套防具') },
+  { key: 'add-accessory', label: t('添加一套首饰'), description: t('为当前职业添加一套首饰') },
+  { key: 'add-attire-and-accessory', label: t('添加一套防具和首饰'), description: t('为当前职业添加一套防具和首饰') },
+  { key: 'add-suit', label: t('添加整套'), description: t('为当前职业添加一套主副手、防具和首饰') },
+  { key: 'add-selfdef', label: t('添加(自定义)'), description: t('打开单独的窗口，自定义地添加套装') },
+]
+const handleAddsuitSelect = (key: string) => {
+  if (key === 'add-weapon') {
+    addMainOffHand()
+  } else if (key === 'add-attire') {
+    addAttire()
+  } else if (key === 'add-accessory') {
+    addAccessory()
+  } else if (key === 'add-attire-and-accessory') {
+    addAttire()
+    addAccessory()
+  } else if (key === 'add-suit') {
+    addAll()
+  } else if (key === 'add-selfdef') {
+    // TODO: Add Self-defined Suit
+  }
 }
 // #endregion
 </script>
@@ -261,9 +338,32 @@ const clearCurrent = () => {
         </div>
         <n-divider dashed />
         <n-flex class="foot" justify="end">
-          <n-button size="small" :disabled="jobNotSelected" @click="clearAll">{{ t('清空全部') }}</n-button>
-          <n-button size="small" :disabled="jobNotSelected" @click="clearCurrent">{{ t('清空当前') }}</n-button>
-          <n-button size="small" :disabled="jobNotSelected">{{ t('添加整套') }}</n-button>
+          <n-dropdown
+            trigger="hover"
+            :options="clearOptions"
+            :render-option="renderOption"
+            @select="handleClearSelect"
+          >
+            <n-button size="small" icon-placement="right" :disabled="jobNotSelected">
+              <template #icon>
+                <n-icon><KeyboardArrowDownRound /></n-icon>
+              </template>
+              {{ t('清空') }}
+            </n-button>
+          </n-dropdown>
+          <n-dropdown
+            trigger="hover"
+            :options="addsuitOptions"
+            :render-option="renderOption"
+            @select="handleAddsuitSelect"
+          >
+            <n-button size="small" icon-placement="right" :disabled="jobNotSelected">
+              <template #icon>
+                <n-icon><KeyboardArrowDownRound /></n-icon>
+              </template>
+              {{ t('添加') }}
+            </n-button>
+          </n-dropdown>
         </n-flex>
       </div>
     </div>
