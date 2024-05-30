@@ -92,7 +92,21 @@ export default {
     "91": "Disable auto-fold after patch selected (mobile)",
     "92": "\"Select Patch\" costs too much space on mobile, both not frequently modified, so we automatically fold it after you select the patch on mobile.",
     "93": "If you want to fold it manually, please turn on this option.",
-    "94": "Disable adding mainhand/offhand when clicking the selected job button",
+    "94": "Disable adding main/off-hand when clicking the selected job button",
     "95": "Clicking the job button again after selecting the job will add a set of mainhand/offhand weapons or tools by default.",
-    "96": "If this contradicts your habit, please turn on this option."
+    "96": "If this contradicts your habit, please turn on this option.",
+    "97": "Clear gears selected for current job",
+    "98": "Clear all gears selected for all jobs",
+    "99": "Add 1 set of mainhand&offhand weapons/tools",
+    "100": "Add 1 set of mainhand&offhand for current job",
+    "101": "Add 1 set of attire for current job",
+    "102": "Add 1 set of accessory for current job",
+    "103": "Add 1 set of attire & accessory",
+    "104": "Add 1 set of attire & accessory for current job",
+    "105": "Add 1 set of mainhand&offhand, attire&accessory for current job",
+    "106": "Add (custom)",
+    "107": "Open a separate window to add gear sets customly",
+    "108": "Clear",
+    "109": "Add",
+    "110": "Click to expand or collapse the description of this setting option."
 }
