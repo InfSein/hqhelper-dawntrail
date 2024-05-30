@@ -214,13 +214,13 @@
     "job_name_en": "Viper",
     "job_name_zh": "毒刀客(暂译)",
     "job_name_ja": "ヴァイパー",
-    "job_icon_url": "./image/game-job/companion/none.png"
+    "job_icon_url": "./image/game-job/companion/viper.png"
   },
   "42": {
     "job_id": 42,
     "job_name_en": "Pictomancer",
     "job_name_zh": "绘魔法师(暂译)",
     "job_name_ja": "ピクトマンサー",
-    "job_icon_url": "./image/game-job/companion/none.png"
+    "job_icon_url": "./image/game-job/companion/pictomancer.png"
   }
 }
