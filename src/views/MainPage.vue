@@ -100,7 +100,10 @@ if (!disable_workstate_cache) {
                 :accessory-affix="workState.affixes?.accessory as AccessoryAffix"
               />
             </n-flex>
-            <QuickOperatePanel class="quick-operate-panel" />
+            <QuickOperatePanel
+              class="quick-operate-panel"
+              v-show="false"
+            />
           </n-flex>
           <n-flex vertical id="sub-container-2">
             <StatisticsPanel class="statistics-panel" />
