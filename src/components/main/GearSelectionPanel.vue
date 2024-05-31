@@ -150,13 +150,19 @@ const addAccessory = () => {
   Wrist.value++
   Rings.value += 2
 }
+const addAttireAndAccessory = () => {
+  if (jobNotSelected.value) {
+    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+  }
+  addAttire()
+  addAccessory()
+}
 const addAll = () => {
   if (jobNotSelected.value) {
     NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
   }
   addMainOffHand()
-  addAttire()
-  addAccessory()
+  addAttireAndAccessory()
 }
 // #endregion
 
@@ -200,8 +206,7 @@ const handleAddsuitSelect = (key: string) => {
   } else if (key === 'add-accessory') {
     addAccessory()
   } else if (key === 'add-attire-and-accessory') {
-    addAttire()
-    addAccessory()
+    addAttireAndAccessory()
   } else if (key === 'add-suit') {
     addAll()
   } else if (key === 'add-selfdef') {
