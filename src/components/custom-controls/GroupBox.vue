@@ -3,13 +3,17 @@ const props = defineProps({
   borderColor: {
     type: String,
     default: '#919191',
+  },
+  titleBackgroundColor: {
+    type: String,
+    default: 'var(--n-color)'
   }
 })
 </script>
 
 <template>
   <div class="group-box" :style="{border: `1px dashed ${props.borderColor}`}">
-    <div class="group-box-title">
+    <div class="group-box-title" :style="{ backgroundColor: titleBackgroundColor }">
       <slot name="title" />
     </div>
     <div class="group-box-content">
@@ -33,7 +37,6 @@ const props = defineProps({
     width: fit-content;
     text-align: center;
     color: var(--n-text-color);
-    background-color: var(--n-color-embedded);
   }
 
   .group-box-content {
