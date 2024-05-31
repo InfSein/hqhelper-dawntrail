@@ -17,7 +17,7 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 const NAIVE_UI_MESSAGE = useMessage()
 
-const gearSelections = defineModel<GearSelections>('gearSelections')
+const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
 const props = defineProps({
   jobId: {
     type: Number,

@@ -4,7 +4,7 @@ import {
   AddSharp, MinusSharp
 } from '@vicons/material'
 
-const modelValue = defineModel<number>('value')
+const modelValue = defineModel<number>('value', { required: true })
 const props = defineProps({
   min: { type: Number, default: 0 },
   max: { type: Number, default: 99999 },

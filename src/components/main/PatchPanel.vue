@@ -8,7 +8,7 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 
-const patchSelected = defineModel<string>('patchSelected')
+const patchSelected = defineModel<string>('patchSelected', { required: true })
 const cardDescription = computed(() => {
   if (!patchSelected.value) return t('还未选择')
   else return t('已选择版本: {}', patchSelected.value)

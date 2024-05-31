@@ -34,7 +34,7 @@ import IconSuccess from '@/assets/icons/IconSuccess.vue'
 import IconWarning from '@/assets/icons/IconWarning.vue'
 import KeyboardEventListener from '../keyboard-listener/KeyboardEventListener.vue'
   
-const showModal = defineModel<boolean>('show')
+const showModal = defineModel<boolean>('show', { required: true })
 const props = defineProps({
   type: {
     type: String as PropType<'info' | 'success' | 'error' | 'warning'>,

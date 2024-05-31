@@ -9,7 +9,7 @@ import {
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
-const modelShow = defineModel<boolean>('show')
+const modelShow = defineModel<boolean>('show', { required: true })
 
 const handleClose = () => {
   modelShow.value = false

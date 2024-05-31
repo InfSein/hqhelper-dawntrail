@@ -11,8 +11,8 @@ import XivFARImage from '../custom-controls/XivFARImage.vue'
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 
-const jobSelected = defineModel<number>('jobSelected')
-const affixesSelected = defineModel<any>('affixesSelected')
+const jobSelected = defineModel<number>('jobSelected', { required: true })
+const affixesSelected = defineModel<any>('affixesSelected', { required: true })
 defineProps({
   patchSelected: {
     type: String,
