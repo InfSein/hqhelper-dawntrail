@@ -33,6 +33,26 @@ You could still view screenshot, description and tutorials, or just download and
 
 ## Development Guidelines
 
+### Patch Management
+
+The patch of this application follows the naming convention of `a.b.c`.
+
+1. `a`,`b`,`c` are all pure number;
+2. `a` represents the generation of `HqHelper`;
+3. `b` represents the adapted medium patch of `FFXIV`;
+4. `c` represents the updated patch applied under the conditions specified in `a` and `b`.
+
+For example, `2.1.17` means:
+
+- The `2nd` generation of `HqHelper`;
+- Adapted `7.1` patch of `FFXIV`;
+- The `17th` updated patch in `2.1.x` series.
+
+> [!NOTE]
+> The advancement of version number `c` can be very aggressive, even if this version only has very small optimizations or fixes. This is because the client only automatically update when there is a change in the version number.
+
+### Branch Management
+
 The application would be updated automatically when `master` branch code been changed.
 
 In the early stages of development, the code can be directly pushed to the `master` branch. 
@@ -60,4 +80,4 @@ Reference may not be all listed above.
 
 The license of this project might be changed in the future.
 
-For now, it is under `MIT License`.
+For now, it is under `MIT`.
