@@ -178,6 +178,12 @@ const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | 
   )
 }
 
+const showClearOptions = ref(false)
+const onClearBtnIn = (event: MouseEvent) => {
+  if ((event.target as HTMLButtonElement).disabled) return
+  if (isMobile.value) return
+  showClearOptions.value = true
+}
 const clearOptions: DropdownOption[] = [
   { key: 'clear-current', label: t('清空当前'), description: t('清空当前职业的已选择部件') },
   { key: 'clear-all', label: t('清空全部'), description: t('清空所有职业的已选择部件') },
@@ -190,6 +196,12 @@ const handleClearSelect = (key: string) => {
   }
 }
 
+const showAddsuitOptions = ref(false)
+const onAddsuitBtnIn = (event: MouseEvent) => {
+  if ((event.target as HTMLButtonElement).disabled) return
+  if (isMobile.value) return
+  showAddsuitOptions.value = true
+}
 const addsuitOptions: DropdownOption[] = [
   { key: 'add-weapon', label: t('添加一套主副手'), description: t('为当前职业添加一套主副手') },
   { key: 'add-attire', label: t('添加一套防具'), description: t('为当前职业添加一套防具') },
@@ -344,12 +356,21 @@ const handleAddsuitSelect = (key: string) => {
         <n-divider dashed />
         <n-flex class="foot" justify="end">
           <n-dropdown
-            trigger="hover"
+            :show="showClearOptions"
             :options="clearOptions"
             :render-option="renderOption"
+            class="no-select"
             @select="handleClearSelect"
+            @mouseenter="onClearBtnIn"
+            @mouseleave="showClearOptions = false"
           >
-            <n-button size="small" icon-placement="right" :disabled="jobNotSelected">
+            <n-button
+              icon-placement="right"
+              :disabled="jobNotSelected"
+              @click="showClearOptions = !showClearOptions"
+              @mouseenter="onClearBtnIn"
+              @mouseleave="showClearOptions = false"
+            >
               <template #icon>
                 <n-icon><KeyboardArrowDownRound /></n-icon>
               </template>
@@ -357,12 +378,21 @@ const handleAddsuitSelect = (key: string) => {
             </n-button>
           </n-dropdown>
           <n-dropdown
-            trigger="hover"
+            :show="showAddsuitOptions"
             :options="addsuitOptions"
             :render-option="renderOption"
+            class="no-select"
             @select="handleAddsuitSelect"
+            @mouseenter="onAddsuitBtnIn"
+            @mouseleave="showAddsuitOptions = false"
           >
-            <n-button size="small" icon-placement="right" :disabled="jobNotSelected">
+            <n-button
+              icon-placement="right"
+              :disabled="jobNotSelected"
+              @click="showAddsuitOptions = !showAddsuitOptions"
+              @mouseenter="onAddsuitBtnIn"
+              @mouseleave="showAddsuitOptions = false"
+            >
               <template #icon>
                 <n-icon><KeyboardArrowDownRound /></n-icon>
               </template>
