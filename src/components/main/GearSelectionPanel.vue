@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, inject, h,  } from 'vue'
+import { ref, computed, inject, h, watch,  } from 'vue'
 import type { Ref, PropType, VNode } from 'vue'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import Stepper from '../custom-controls/Stepper.vue'
@@ -235,6 +235,19 @@ const handleAddsuitSelect = (key: string) => {
     // // TODO: Add Self-defined Suit
   }
 }
+
+// keep only one dropdown open at a time
+watch(showClearOptions, (newValue) => {
+  if (newValue) {
+    showAddsuitOptions.value = false
+  }
+})
+watch(showAddsuitOptions, (newValue) => {
+  if (newValue) {
+    showClearOptions.value = false
+  }
+})
+
 // #endregion
 </script>
 
