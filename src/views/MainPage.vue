@@ -10,7 +10,7 @@ import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import { useMessage } from 'naive-ui';
 import { defaultUserConfig, type UserConfigModel } from '@/models/user-config';
-import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears'
+import type { AttireAffix, AccessoryAffix } from '@/models/gears'
 import { getDefaultGearSelections } from '@/models/gears'
 import { useStore } from '@/store';
 
@@ -149,10 +149,10 @@ if (!disable_workstate_cache) {
       width: 50%;
 
       .job-panel {
-        width: 55%;
+        width: 50%;
       }
       .gear-panel {
-        width: calc(45% - 12px);
+        width: calc(50% - 12px);
       }
       .quick-operate-panel {
         width: 100%;
