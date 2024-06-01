@@ -4,7 +4,8 @@ import { NIcon } from 'naive-ui'
 import {
   MenuFilled,
   SettingsSharp,
-  InfoFilled
+  InfoFilled,
+  LocalLibrarySharp
 } from '@vicons/material'
 import EorzeaTime from '@/tools/eorzea-time'
 import AppStatus from '@/variables/app-status'
@@ -12,6 +13,7 @@ import AppStatus from '@/variables/app-status'
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const showUserPreferencesModal = inject<() => void>('showUserPreferencesModal') ?? (() => {})
 const showAboutAppModal = inject<() => void>('showAboutAppModal') ?? (() => {})
+const showContactModal = inject<() => void>('showContactModal') ?? (() => {})
 const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh');
 const isChina = computed(() => locale.value === 'zh');
 
@@ -23,22 +25,16 @@ setInterval(() => {
 const showMenus = ref(false)
 
 const menuItems = [
-  { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp },
-  { key: 'about-app', label: t('关于本作'), icon: InfoFilled }
+  { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp, click: showUserPreferencesModal },
+  { key: 'about-app', label: t('关于本作'), icon: InfoFilled, click: showAboutAppModal },
+  { key: 'contact-us', label: t('联系我们'), icon: LocalLibrarySharp, click: showContactModal },
 ]
 
-const openModal = (key: string) => {
+const openModal = (click?: (() => void)) => {
   // close menus first
   showMenus.value = false
   // show modal by inject
-  switch (key) {
-    case 'user-preferences':
-      showUserPreferencesModal()
-      break
-    case 'about-app':
-      showAboutAppModal()
-      break
-  }
+  click?.()
 }
 
 </script>
@@ -94,7 +90,7 @@ const openModal = (key: string) => {
           <n-button
             v-for="item in menuItems"
             :key="item.key"
-            @click="openModal(item.key)"
+            @click="openModal(item.click)"
           >
             <template #icon>
               <n-icon><component :is="item.icon" /></n-icon>

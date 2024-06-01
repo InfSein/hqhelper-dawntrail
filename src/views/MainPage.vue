@@ -8,6 +8,7 @@ import QuickOperatePanel from '@/components/main/QuickOperatePanel.vue'
 import StatisticsPanel from '@/components/main/StatisticsPanel.vue'
 import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
+import ModalContact from '@/components/modals/ModalContact.vue'
 import { useMessage } from 'naive-ui';
 import { defaultUserConfig, type UserConfigModel } from '@/models/user-config';
 import type { AttireAffix, AccessoryAffix } from '@/models/gears'
@@ -26,6 +27,7 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUser
 
 const showUserPreferencesModal = ref(false)
 const showAboutAppModal = ref(false)
+const showContactModal = ref(false)
 
 const onUserPreferencesSubmitted = () => {
   showUserPreferencesModal.value = false
@@ -39,6 +41,9 @@ provide('showUserPreferencesModal', () => {
 })
 provide('showAboutAppModal', () => {
   showAboutAppModal.value = true
+})
+provide('showContactModal', () => {
+  showContactModal.value = true
 })
 
 // #endregion
@@ -120,6 +125,7 @@ if (!disable_workstate_cache) {
     @after-submit="onUserPreferencesSubmitted"
   />
   <ModalAboutApp v-model:show="showAboutAppModal" />
+  <ModalContact v-model:show="showContactModal" />
 </template>
 
 <style scoped>
