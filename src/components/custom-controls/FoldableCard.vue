@@ -28,7 +28,7 @@ const emit = defineEmits([
 ])
 
 const ui_fold_cache = userConfig.value.cache_ui_fold ?? {}
-const foldOnDefault : boolean = ui_fold_cache[props.cardKey] ?? false
+const foldOnDefault : boolean = !userConfig.value.disable_workstate_cache && (ui_fold_cache[props.cardKey] ?? false)
 
 const folded = ref(foldOnDefault)
 const folderText = ref('')
