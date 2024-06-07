@@ -2,6 +2,27 @@ export type AttireAffix = "fending" | "maiming" | "striking" | "scouting" | "aim
               | "healing" | "casting" | "gathering" | "crafting"
 export type AccessoryAffix = "fending" | "slaying" | "aiming" | "healing" | "casting" | "gathering" | "crafting"
 
+export const attireAffixes: AttireAffix[] = [
+  "fending",
+  "maiming",
+  "striking",
+  "scouting",
+  "aiming",
+  "healing",
+  "casting",
+  "gathering",
+  "crafting"
+]
+export const accessoryAffixes: AccessoryAffix[] = [
+  "fending",
+  "slaying",
+  "aiming",
+  "healing",
+  "casting",
+  "gathering",
+  "crafting"
+]
+
 /** Visit `documents\core-design.md` to see the structure meanings. */
 export interface GearSelections {
   /** Gear selections for the `main hand`. Key: job ID, value: gear count. */

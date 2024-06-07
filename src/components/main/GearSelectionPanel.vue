@@ -4,6 +4,7 @@ import type { Ref, PropType, VNode } from 'vue'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import Stepper from '../custom-controls/Stepper.vue'
 import GearSlot from '../custom-controls/GearSlot.vue'
+import ModalSelectedGears from '../modals/ModalSelectedGears.vue'
 import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears'
 import { getDefaultGearSelections } from '@/models/gears'
 import GearAffixes from '@/assets/data/xiv-gear-affixes.json'
@@ -32,6 +33,8 @@ const props = defineProps({
     required: true
   }
 })
+
+const showSelectedGears = ref(false)
 
 const tipText = computed(() => {
   const uiLanguage = userConfig.value?.language_ui ?? 'zh'
@@ -374,7 +377,14 @@ watch(showAddsuitOptions, (newValue) => {
 
       <div class="bottom-buttons">
         <div class="content">
-          <n-button class="end" size="small" :disabled="jobNotSelected">{{ t('已选部件') }}</n-button>
+          <n-button
+            class="end"
+            size="small"
+            :disabled="jobNotSelected"
+            @click="showSelectedGears = true"
+          >
+            {{ t('已选部件') }}
+          </n-button>
         </div>
         <n-divider dashed />
         <n-flex class="foot" justify="end">
@@ -425,6 +435,11 @@ watch(showAddsuitOptions, (newValue) => {
         </n-flex>
       </div>
     </div>
+
+    <ModalSelectedGears
+      v-model:show="showSelectedGears"
+      v-model:gear-selections="gearSelections"
+    />
 
   </FoldableCard>
 </template>
