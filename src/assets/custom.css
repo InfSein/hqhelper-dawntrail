@@ -73,3 +73,6 @@
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
+table.n-table tbody tr:hover td {
+  background-color: var(--n-th-color-popover);
+}

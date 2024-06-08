@@ -150,38 +150,38 @@ const handleSave = () => {
                     <th>{{ t('词缀') }}</th>
                     <th>
                       <div class="th-inner">
-                        <XivFARImage :size="15" src="~ApiBase/image/game-gear-slot/head.png" />
+                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/head.png" />
                         <span>{{ t('头部') }}</span>
                       </div>
                     </th>
                     <th>
                       <div class="th-inner">
-                        <XivFARImage :size="15" src="~ApiBase/image/game-gear-slot/body.png" />
+                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/body.png" />
                         <span>{{ t('身体') }}</span>
                       </div>
                     </th>
                     <th>
                       <div class="th-inner">
-                        <XivFARImage :size="15" src="~ApiBase/image/game-gear-slot/hands.png" />
+                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/hands.png" />
                         <span>{{ t('手部') }}</span>
                       </div>
                     </th>
                     <th>
                       <div class="th-inner">
-                        <XivFARImage :size="15" src="~ApiBase/image/game-gear-slot/legs.png" />
+                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/legs.png" />
                         <span>{{ t('腿部') }}</span>
                       </div>
                     </th>
                     <th>
                       <div class="th-inner">
-                        <XivFARImage :size="15" src="~ApiBase/image/game-gear-slot/feet.png" />
+                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/feet.png" />
                         <span>{{ t('脚部') }}</span>
                       </div>
                     </th>
                   </tr>
                 </thead>
               </n-table>
-              <n-scrollbar trigger="none" :style="{ height: isMobile ? '120px' : '250px'}">
+              <n-scrollbar trigger="none" :style="{ height: isMobile ? '120px' : '225px'}">
                 <n-table class="attires-table" size="small" :single-line="false">
                   <tbody>
                     <tr v-for="attire in attires" :key="'row-attire-' + attire.name">
@@ -245,33 +245,33 @@ const handleSave = () => {
                     <th>{{ t('词缀') }}</th>
                     <th>
                       <div class="th-inner">
-                        <XivFARImage :size="15" src="~ApiBase/image/game-gear-slot/ear.png" />
+                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/ear.png" />
                         <span>{{ t('耳坠') }}</span>
                       </div>
                     </th>
                     <th>
                       <div class="th-inner">
-                        <XivFARImage :size="15" src="~ApiBase/image/game-gear-slot/neck.png" />
+                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/neck.png" />
                         <span>{{ t('项链') }}</span>
                       </div>
                     </th>
                     <th>
                       <div class="th-inner">
-                        <XivFARImage :size="15" src="~ApiBase/image/game-gear-slot/wrist.png" />
+                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/wrist.png" />
                         <span>{{ t('手镯') }}</span>
                       </div>
                     </th>
                     <th>
                       <div class="th-inner">
-                        <XivFARImage :size="15" src="~ApiBase/image/game-gear-slot/ring.png" />
+                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/ring.png" />
                         <span>{{ t('戒指') }}</span>
                       </div>
                     </th>
-                    <th></th>
+                    <th v-if="!isMobile"></th>
                   </tr>
                 </thead>
               </n-table>
-              <n-scrollbar trigger="none" :style="{ height: isMobile ? '120px' : '205px'}">
+              <n-scrollbar trigger="none" :style="{ height: isMobile ? '120px' : '188px'}">
                 <n-table class="accessories-table" size="small" :single-line="false">
                   <tbody>
                     <tr v-for="accessory in accessories" :key="'row-accessory-' + accessory.name">
@@ -312,7 +312,7 @@ const handleSave = () => {
                           :show-button="!isMobile"
                         />
                       </td>
-                      <td></td>
+                      <td v-if="!isMobile"></td>
                     </tr>
                   </tbody>
                 </n-table>
@@ -338,6 +338,9 @@ const handleSave = () => {
 
 <style scoped>
 /* All */
+:deep(.n-input) {
+  --n-height: 30px !important;
+}
 .wrapper {
   display: grid;
   grid-template-columns: 2fr 3fr;
@@ -354,7 +357,7 @@ const handleSave = () => {
     grid-gap: 5px;
   }
   .accessories {
-    margin-top: 1px;
+    margin-top: 3px;
   }
   th {
     text-align: center;
@@ -385,7 +388,7 @@ const handleSave = () => {
   th:nth-child(5), td:nth-child(5),
   th:nth-child(6), td:nth-child(6) {
     width: 17%;
-    padding: 3px 6px;
+    padding: 3px 10px;
   }
 }
 
@@ -397,7 +400,8 @@ const handleSave = () => {
 /* Mobile only */
 @media (max-width: 768px) {
   .wrapper {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
 
     .weapons-container {
       max-height: 150px;
@@ -407,6 +411,19 @@ const handleSave = () => {
 
     .input-container {
       grid-template-columns: 1fr 1fr;
+    }
+
+    .accessories-table {
+      th:first-child, td:first-child {
+        width: 15%;
+      }
+      th:nth-child(2), td:nth-child(2),
+      th:nth-child(3), td:nth-child(3),
+      th:nth-child(4), td:nth-child(4),
+      th:nth-child(5), td:nth-child(5) {
+        width: 21.25%;
+        padding: 3px 6px;
+      }
     }
   }
 }
