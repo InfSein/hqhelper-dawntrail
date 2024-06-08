@@ -108,6 +108,7 @@ const handleSave = () => {
                 v-for="(role, roleIndex) in XivRoles"
                 :key="roleIndex"
                 :border-color="role.role_color"
+                title-background-color="var(--n-color-modal)"
               >
                 <template #title>
                   <XivFARImage
@@ -181,7 +182,7 @@ const handleSave = () => {
                   </tr>
                 </thead>
               </n-table>
-              <n-scrollbar trigger="none" :style="{ height: isMobile ? '120px' : '225px'}">
+              <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '227px', 'margin-top': '-2px' }">
                 <n-table class="attires-table" size="small" :single-line="false">
                   <tbody>
                     <tr v-for="attire in attires" :key="'row-attire-' + attire.name">
@@ -271,7 +272,7 @@ const handleSave = () => {
                   </tr>
                 </thead>
               </n-table>
-              <n-scrollbar trigger="none" :style="{ height: isMobile ? '120px' : '188px'}">
+              <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '190px', 'margin-top': '-2px' }">
                 <n-table class="accessories-table" size="small" :single-line="false">
                   <tbody>
                     <tr v-for="accessory in accessories" :key="'row-accessory-' + accessory.name">
