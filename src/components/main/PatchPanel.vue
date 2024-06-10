@@ -36,32 +36,6 @@ const getPatchName = (patch: any) => {
 
   return t('版本{v}: {name}', { v: patch.v, name: patchName })
 }
-
-const getButtonSize = () => {
-  switch (userConfig.value?.ui_size_preset ?? '2k') {
-    case '1080p':
-      return { width: 260, height: 110 }
-    case '4k':
-      return { width: 340, height: 130 }
-  }
-  return { width: 300, height: 120 } // 2k
-}
-
-const buildButtonStyle = (patch: any) => {
-  const size = getButtonSize()
-  return [
-    `width: ${size.width}px;`,
-    `height: ${size.height}px;`,
-    `background-image: url(${patch.logo});`
-  ].join(' ')
-}
-const buildButtonContentStyle = () => {
-  const size = getButtonSize()
-  return [
-    `width: ${size.width - 10}px;`,
-    `height: ${size.height - 10}px;`
-  ].join(' ')
-}
 </script>
 
 <template>
@@ -77,12 +51,11 @@ const buildButtonContentStyle = () => {
         v-for="(patch, index) in XivPatches"
         :key="index"
         :disabled="!patch.updated"
-        :style="buildButtonStyle(patch)"
+        :style="`background-image: url(${patch.logo});`"
         @click="handlePatchSelect(patch)"
       >
         <div
           class="patch-button-content"
-          :style="buildButtonContentStyle()"
         >
           <div class="patch-button-text">
             {{ getPatchName(patch) }}
@@ -94,11 +67,17 @@ const buildButtonContentStyle = () => {
 </template>
 
 <style scoped>
+:deep(.n-button__content) {
+  width: 100%;
+  height: 100%;
+}
 .game-patches-panel {
   width: 100%;
 
   .patch-button {
-    padding: 5px;
+    padding: 5px 10px;
+    width: 19%;
+    height: 120px;
     background-position-x: center;
     background-position-y: center;
     background-repeat: no-repeat;
@@ -108,11 +87,22 @@ const buildButtonContentStyle = () => {
       display: flex;
       justify-content: center;
       align-items: end;
+      width: 100%;
+      height: 100%;
     }
   }
   .patch-button.selected {
     border: var(--n-border-pressed);
     color: var(--n-text-color-hover);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .game-patches-panel {
+    .patch-button {
+      width: 100%;
+    }
   }
 }
 </style>
