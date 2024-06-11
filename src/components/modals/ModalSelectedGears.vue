@@ -162,7 +162,7 @@ const handleSave = () => {
                   </tr>
                 </thead>
               </n-table>
-              <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '227px', 'margin-top': '-2px' }">
+              <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '245px', 'margin-top': '-2px' }">
                 <n-table class="attires-table" size="small" :single-line="false">
                   <tbody>
                     <tr v-for="attire in attireAffixes" :key="'row-attire-' + attire">
@@ -252,7 +252,7 @@ const handleSave = () => {
                   </tr>
                 </thead>
               </n-table>
-              <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '190px', 'margin-top': '-2px' }">
+              <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '205px', 'margin-top': '-2px' }">
                 <n-table class="accessories-table" size="small" :single-line="false">
                   <tbody>
                     <tr v-for="accessory in accessoryAffixes" :key="'row-accessory-' + accessory">

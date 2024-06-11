@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
   borderColor: {
     type: String,
     default: '#919191',
