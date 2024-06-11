@@ -7,12 +7,16 @@ const props = defineProps({
   titleBackgroundColor: {
     type: String,
     default: 'var(--n-color)'
+  },
+  containerExtraStyle: {
+    type: String,
+    default: ''
   }
 })
 </script>
 
 <template>
-  <div class="group-box" :style="{border: `1px dashed ${props.borderColor}`}">
+  <div class="group-box" :style="`border: 1px dashed ${borderColor}; ${containerExtraStyle}`">
     <div class="group-box-title" :style="{ backgroundColor: titleBackgroundColor }">
       <slot name="title" />
     </div>

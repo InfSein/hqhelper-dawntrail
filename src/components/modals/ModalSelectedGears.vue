@@ -88,6 +88,7 @@ const handleSave = () => {
                 :key="roleIndex"
                 :border-color="role.role_color"
                 title-background-color="var(--n-color-modal)"
+                container-extra-style="padding: 8px;"
               >
                 <template #title>
                   <XivFARImage
