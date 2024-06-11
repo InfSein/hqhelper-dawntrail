@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch, type Ref } from 'vue'
+import { inject, ref, watch, type Ref } from 'vue'
 import { CheckroomSharp, SaveOutlined } from '@vicons/material'
 import type { GearSelections, AttireAffix, AccessoryAffix } from '@/models/gears'
 import { attireAffixes, accessoryAffixes } from '@/models/gears'
@@ -19,26 +19,6 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const getAffixName = (affix: AttireAffix | AccessoryAffix) => {
   return XivGearAffixes[affix][`affix_name_${uiLanguage}`]
 }
-const attires = computed(() => {
-  const _attires : {
-    affix: AttireAffix
-    name: string
-  }[] = []
-  attireAffixes.forEach(affix => {
-    _attires.push({ affix, name: getAffixName(affix) })
-  })
-  return _attires
-})
-const accessories = computed(() => {
-  const _accessories : {
-    affix: AccessoryAffix
-    name: string
-  }[] = []
-  accessoryAffixes.forEach(affix => {
-    _accessories.push({ affix, name: getAffixName(affix) })
-  })
-  return _accessories
-})
 
 const modelShow = defineModel<boolean>('show', { required: true })
 const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
@@ -49,7 +29,6 @@ watch(modelShow, (newVal, oldVal) => {
     localSelections.value = deepCopy(gearSelections.value)
   }
 })
-
 
 const getRoleName = (role: any) => {
   switch (uiLanguage) {
@@ -185,11 +164,11 @@ const handleSave = () => {
               <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '227px', 'margin-top': '-2px' }">
                 <n-table class="attires-table" size="small" :single-line="false">
                   <tbody>
-                    <tr v-for="attire in attires" :key="'row-attire-' + attire.name">
-                      <td>{{ attire.name }}</td>
+                    <tr v-for="attire in attireAffixes" :key="'row-attire-' + attire">
+                      <td>{{ getAffixName(attire) }}</td>
                       <td>
                         <n-input-number
-                          v-model:value="localSelections.HeadAttire[attire.affix]"
+                          v-model:value="localSelections.HeadAttire[attire]"
                           :min="0"
                           :max="99999"
                           button-placement="both"
@@ -198,7 +177,7 @@ const handleSave = () => {
                       </td>
                       <td>
                         <n-input-number
-                          v-model:value="localSelections.BodyAttire[attire.affix]"
+                          v-model:value="localSelections.BodyAttire[attire]"
                           :min="0"
                           :max="99999"
                           button-placement="both"
@@ -207,7 +186,7 @@ const handleSave = () => {
                       </td>
                       <td>
                         <n-input-number
-                          v-model:value="localSelections.HandsAttire[attire.affix]"
+                          v-model:value="localSelections.HandsAttire[attire]"
                           :min="0"
                           :max="99999"
                           button-placement="both"
@@ -216,7 +195,7 @@ const handleSave = () => {
                       </td>
                       <td>
                         <n-input-number
-                          v-model:value="localSelections.LegsAttire[attire.affix]"
+                          v-model:value="localSelections.LegsAttire[attire]"
                           :min="0"
                           :max="99999"
                           button-placement="both"
@@ -225,7 +204,7 @@ const handleSave = () => {
                       </td>
                       <td>
                         <n-input-number
-                          v-model:value="localSelections.FeetAttire[attire.affix]"
+                          v-model:value="localSelections.FeetAttire[attire]"
                           :min="0"
                           :max="99999"
                           button-placement="both"
@@ -275,11 +254,11 @@ const handleSave = () => {
               <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '190px', 'margin-top': '-2px' }">
                 <n-table class="accessories-table" size="small" :single-line="false">
                   <tbody>
-                    <tr v-for="accessory in accessories" :key="'row-accessory-' + accessory.name">
-                      <td>{{ accessory.name }}</td>
+                    <tr v-for="accessory in accessoryAffixes" :key="'row-accessory-' + accessory">
+                      <td>{{ getAffixName(accessory) }}</td>
                       <td>
                         <n-input-number
-                          v-model:value="localSelections.Earrings[accessory.affix]"
+                          v-model:value="localSelections.Earrings[accessory]"
                           :min="0"
                           :max="99999"
                           button-placement="both"
@@ -288,7 +267,7 @@ const handleSave = () => {
                       </td>
                       <td>
                         <n-input-number
-                          v-model:value="localSelections.Necklace[accessory.affix]"
+                          v-model:value="localSelections.Necklace[accessory]"
                           :min="0"
                           :max="99999"
                           button-placement="both"
@@ -297,7 +276,7 @@ const handleSave = () => {
                       </td>
                       <td>
                         <n-input-number
-                          v-model:value="localSelections.Wrist[accessory.affix]"
+                          v-model:value="localSelections.Wrist[accessory]"
                           :min="0"
                           :max="99999"
                           button-placement="both"
@@ -306,7 +285,7 @@ const handleSave = () => {
                       </td>
                       <td>
                         <n-input-number
-                          v-model:value="localSelections.Rings[accessory.affix]"
+                          v-model:value="localSelections.Rings[accessory]"
                           :min="0"
                           :max="99999"
                           button-placement="both"
