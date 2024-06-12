@@ -28,7 +28,7 @@ const handleClose = () => {
         </div>
       </template>
 
-      <div class="wrapper">
+      <n-flex justify="center" class="wrapper">
         <div id="qq" class="contact-container">
           <n-button class="huge-square-button" />
         </div>
@@ -38,7 +38,7 @@ const handleClose = () => {
         <div id="twitter" class="contact-container">
           <n-button class="huge-square-button" />
         </div>
-      </div>
+      </n-flex>
       
       <template #action>
         <div class="submit-container">
@@ -57,9 +57,9 @@ const handleClose = () => {
 <style scoped>
 /* All */
 .wrapper {
-  display: grid;
+  /*display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 10px;
+  grid-gap: 10px;*/
 
   .contact-container {
     display: flex;
