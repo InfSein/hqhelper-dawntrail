@@ -86,6 +86,7 @@ const jobImageSize = computed(() => {
         v-for="(role, roleIndex) in XivRoles"
         :key="roleIndex"
         :border-color="role.role_color"
+        title-background-color="var(--n-color-embedded)"
       >
         <template #title>
           <XivFARImage
