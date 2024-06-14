@@ -769,5 +769,272 @@
         "$files": [
             "components\\modals\\ModalUserPreferences.vue"
         ]
+    },
+    "联系我们": {
+        "en": "Contact us",
+        "ja": "联系我们",
+        "$files": [
+            "components\\modals\\ModalContact.vue",
+            "components\\main\\AppHeader.vue"
+        ]
+    },
+    "咨询与反馈": {
+        "en": "Consultation & feedback",
+        "ja": "咨询与反馈",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "QQ": {
+        "en": "QQ",
+        "ja": "QQ",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "只要你使用QQ，通过QQ群沟通就会是最便利的方式。": {
+        "en": "As long as you use QQ, communicating through Q-Group will be the most convenient way.",
+        "ja": "只要你使用QQ，通过QQ群沟通就会是最便利的方式。",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "你可以在群内提问，建议，或是单纯的聊天打屁。": {
+        "en": "You can ask questions, give suggestions, or just chat inside.",
+        "ja": "你可以在群内提问，建议，或是单纯的聊天打屁。",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "如果你已经登录了QQ，那么": {
+        "en": "If you have already logged into QQ, just",
+        "ja": "如果你已经登录了QQ，那么",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "点击这里": {
+        "en": "CLICK HERE",
+        "ja": "点击这里",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "就可以直接加入QQ群。": {
+        "en": "to join our Q-Group.",
+        "ja": "就可以直接加入QQ群。",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "你也可以搜索群号": {
+        "en": "You can also search the group number",
+        "ja": "你也可以搜索群号",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "来加入群聊。": {
+        "en": "to join.",
+        "ja": "来加入群聊。",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "也可以手机扫码进群": {
+        "en": "OR scan this qr-code",
+        "ja": "也可以手机扫码进群",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "在Github创建议题 (Issue)": {
+        "en": "Create an issue on Github",
+        "ja": "在Github创建议题 (Issue)",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "在Github通过创建议题(Issue)来反馈你遇到的BUG，或是提出优化和新功能的需求。": {
+        "en": "In Github, you can create issues to report bugs or suggest improvements and new features.",
+        "ja": "在Github通过创建议题(Issue)来反馈你遇到的BUG，或是提出优化和新功能的需求。",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "通过这种方式进行反馈的好处是可以随时追踪到问题的处理进度。": {
+        "en": "Through this way of feedback, you can track the progress of the problem at any time.",
+        "ja": "通过这种方式进行反馈的好处是可以随时追踪到问题的处理进度。",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "如果你拥有一个Github账号，那么可以": {
+        "en": "If you have a Github account, you can",
+        "ja": "如果你拥有一个Github账号，那么可以",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "来创建议题。": {
+        "en": "to create an issue.",
+        "ja": "来创建议题。",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "请注意遵守平台的社区准则，并且仔细阅读议题引导。": {
+        "en": "Please note that you should follow the community guidelines and read the issue guideline carefully.",
+        "ja": "请注意遵守平台的社区准则，并且仔细阅读议题引导。",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "关注最新资讯": {
+        "en": "Follow latest news",
+        "ja": "关注最新资讯",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "我们随时都欢迎你通过社交平台来追踪HqHelper的最新资讯，只要你不嫌吵闹。": {
+        "en": "We welcome you to follow HqHelper's latest news through social media, as long as you don't mind being disturbed.",
+        "ja": "我们随时都欢迎你通过社交平台来追踪HqHelper的最新资讯，只要你不嫌吵闹。",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "微博": {
+        "en": "Weibo",
+        "ja": "微博",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "我们的微博账号只会提供中文内容。": {
+        "en": "Our Weibo account only provides Chinese contents.",
+        "ja": "我们的微博账号只会提供中文内容。",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "来关注我们。": {
+        "en": "to follow us.",
+        "ja": "来关注我们。",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "推特 (X)": {
+        "en": "Twitter (X)",
+        "ja": "推特 (X)",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "我们的推特(X)账号目前提供有限的英文内容。": {
+        "en": "Our twitter(X) account now provides limited English contents.",
+        "ja": "我们的推特(X)账号目前提供有限的英文内容。",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "关闭": {
+        "en": "Close",
+        "ja": "关闭",
+        "$files": [
+            "components\\modals\\ModalContact.vue"
+        ]
+    },
+    "主副手": {
+        "en": "Main/Off-hand",
+        "ja": "主副手",
+        "$files": [
+            "components\\modals\\ModalSelectedGears.vue"
+        ]
+    },
+    "防具": {
+        "en": "Attire",
+        "ja": "防具",
+        "$files": [
+            "components\\modals\\ModalSelectedGears.vue"
+        ]
+    },
+    "词缀": {
+        "en": "Affix",
+        "ja": "词缀",
+        "$files": [
+            "components\\modals\\ModalSelectedGears.vue"
+        ]
+    },
+    "头部": {
+        "en": "Head",
+        "ja": "头部",
+        "$files": [
+            "components\\modals\\ModalSelectedGears.vue"
+        ]
+    },
+    "身体": {
+        "en": "Body",
+        "ja": "身体",
+        "$files": [
+            "components\\modals\\ModalSelectedGears.vue"
+        ]
+    },
+    "手部": {
+        "en": "Hands",
+        "ja": "手部",
+        "$files": [
+            "components\\modals\\ModalSelectedGears.vue"
+        ]
+    },
+    "腿部": {
+        "en": "Legs",
+        "ja": "腿部",
+        "$files": [
+            "components\\modals\\ModalSelectedGears.vue"
+        ]
+    },
+    "脚部": {
+        "en": "Feet",
+        "ja": "脚部",
+        "$files": [
+            "components\\modals\\ModalSelectedGears.vue"
+        ]
+    },
+    "首饰": {
+        "en": "Accessory",
+        "ja": "首饰",
+        "$files": [
+            "components\\modals\\ModalSelectedGears.vue"
+        ]
+    },
+    "耳坠": {
+        "en": "Earrings",
+        "ja": "耳坠",
+        "$files": [
+            "components\\modals\\ModalSelectedGears.vue"
+        ]
+    },
+    "项链": {
+        "en": "Necklace",
+        "ja": "项链",
+        "$files": [
+            "components\\modals\\ModalSelectedGears.vue"
+        ]
+    },
+    "手镯": {
+        "en": "Wrist",
+        "ja": "手镯",
+        "$files": [
+            "components\\modals\\ModalSelectedGears.vue"
+        ]
+    },
+    "戒指": {
+        "en": "Rings",
+        "ja": "戒指",
+        "$files": [
+            "components\\modals\\ModalSelectedGears.vue"
+        ]
     }
 }
