@@ -26,8 +26,8 @@ const showMenus = ref(false)
 
 const menuItems = [
   { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp, click: showUserPreferencesModal },
-  { key: 'about-app', label: t('关于本作'), icon: InfoFilled, click: showAboutAppModal },
   { key: 'contact-us', label: t('联系我们'), icon: ContactlessSharp, click: showContactModal },
+  { key: 'about-app', label: t('关于本作'), icon: InfoFilled, click: showAboutAppModal },
 ]
 
 const openModal = (click?: (() => void)) => {
