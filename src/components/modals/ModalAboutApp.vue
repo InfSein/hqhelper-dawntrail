@@ -23,7 +23,6 @@ const handleClose = () => {
       role="dialog"
       style="width: 98%; max-width: 600px;"
       :style="{ height: isMobile ? '550px' : '400px' }"
-      :title="t('关于本作')"
       @close="handleClose"
     >
       <template #header>
