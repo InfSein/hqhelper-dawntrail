@@ -1,0 +1,118 @@
+## 0.0.33 (2024-06-14)
+
+
+### Bug Fixes
+
+* 'n-dropdown' flashes when moving from the triggered component to option due to leaving the triggering area (PC only) ([094493c](https://github.com/InfSein/hqhelper-dawntrail/commit/094493c28e59302e55a18b9c59b310f959823782))
+* `disable_workstate_cache` now also disables card fold memory. ([b2b860a](https://github.com/InfSein/hqhelper-dawntrail/commit/b2b860aa8a958c6dfe82efb5c20e6b264f9a696a))
+* add requirements for all `defineModel` ([a73db30](https://github.com/InfSein/hqhelper-dawntrail/commit/a73db306f76b50cc557f79147152e130dca61118))
+* errror dropdown interactive on mobile ([7bdb19c](https://github.com/InfSein/hqhelper-dawntrail/commit/7bdb19cd5ee617b3ec8ae5d8084d631a54a4bb20))
+* func name; cache judge ([9ecf26a](https://github.com/InfSein/hqhelper-dawntrail/commit/9ecf26a323faa3001b68962f303debdcf92ec66c))
+* groupbox border of `ModalSelectedGears` ([07e4963](https://github.com/InfSein/hqhelper-dawntrail/commit/07e4963f784f5067701ff44d998a520bce8b4e16))
+* image resource ([29b0eea](https://github.com/InfSein/hqhelper-dawntrail/commit/29b0eeac98018f5d1aff3c82d8243703712b16f5))
+* import `NButtonGroup` ([2fa9956](https://github.com/InfSein/hqhelper-dawntrail/commit/2fa9956b6120fe60ed1700e425fba5a04f8ea21a))
+* index ui ([940df04](https://github.com/InfSein/hqhelper-dawntrail/commit/940df042ee81298522da98a731f8e86c133800f9))
+* pops 2 error not 1 when select `add-attire-and-accessory` ([07dce7b](https://github.com/InfSein/hqhelper-dawntrail/commit/07dce7b9c780da738e96c9a170b38b175498ec25))
+* steppers not be updated after job selections change ([aaf4107](https://github.com/InfSein/hqhelper-dawntrail/commit/aaf4107204045a4f6dd45d1d3666d303c71107ca))
+* text color of `quick-operate` 's buttons ([3838be4](https://github.com/InfSein/hqhelper-dawntrail/commit/3838be4391d765d64db3dc3d7dc85d9994c51653))
+* title's background-color of `GroupBox` ([e58e125](https://github.com/InfSein/hqhelper-dawntrail/commit/e58e1255dc4a26baa9d1ea074f5b5969a5c668ca))
+* ui `menu(expanded)` ([0c4dc34](https://github.com/InfSein/hqhelper-dawntrail/commit/0c4dc34506552ffa6d7108bab36b313167321edf))
+* ui gap of `group-box` ([dc1a2ab](https://github.com/InfSein/hqhelper-dawntrail/commit/dc1a2ab00dd94a6facdd69a97c42d3d619d17067))
+* use `get()` to get `defaultGearSelections` instead of `export const` ([45f984a](https://github.com/InfSein/hqhelper-dawntrail/commit/45f984ab25c3ab0ceb4399ab2e8f3e9bd1dcc0f0))
+
+
+### Features
+
+* add `no-select` custom css ([22dea52](https://github.com/InfSein/hqhelper-dawntrail/commit/22dea5280f6732e11eebe3efd2bf9a1d14db7cb7))
+* add a description popup for `version` in `app-header` ([9de418f](https://github.com/InfSein/hqhelper-dawntrail/commit/9de418f1e2bb739fce0f43ce69536d56481f6708))
+* add new jobs of `7.0` ([eb7970e](https://github.com/InfSein/hqhelper-dawntrail/commit/eb7970eabf13c6907e18f9d69c30c633c9e7a6dd))
+* add title set for `?` in `user-preferences` ([51934b4](https://github.com/InfSein/hqhelper-dawntrail/commit/51934b4348b371f80f5561b8d2bedd50dcf27865))
+* adjust ui gap between job buttons ([51c0a15](https://github.com/InfSein/hqhelper-dawntrail/commit/51c0a15fe0efb0457a2140922dfe18eb4faff419))
+* adjust width of `job-panel` and `gear-panel` ([70edff5](https://github.com/InfSein/hqhelper-dawntrail/commit/70edff5d6ec92fddeaf3e078e967b6162dc5d475))
+* auto-fold patch-card after selected (mobile only) ([5f98079](https://github.com/InfSein/hqhelper-dawntrail/commit/5f98079d9dbbca3a469fc76e8d7e84fda75a0929))
+* change icon of `contact-us` ([5a1fc22](https://github.com/InfSein/hqhelper-dawntrail/commit/5a1fc227decb84454c83b6d3e4c779d0e2bff52c))
+* complete `add-suit` and related functions ([e5adadd](https://github.com/InfSein/hqhelper-dawntrail/commit/e5adadd59026238b2da1ce924618676bc1fd8f68))
+* complete `ModalSelectedGears`. ([76c8fd7](https://github.com/InfSein/hqhelper-dawntrail/commit/76c8fd76e244c87756998c3bd98dcbf2e5d03978))
+* disable components in proper situations; add `n-alert` to tip user. ([69fe6ca](https://github.com/InfSein/hqhelper-dawntrail/commit/69fe6ca52e8b0aeba2e71cd9b593310653056dcb))
+* fix gears to avoid get/set undefined. ([41f2403](https://github.com/InfSein/hqhelper-dawntrail/commit/41f2403a6ff878d3fcc9629a563d5856de1cd921))
+* give a temp name translation for patch `7.0` ([55a7286](https://github.com/InfSein/hqhelper-dawntrail/commit/55a72867b93ac51109924ca53880ad58edd9a015))
+* hide `disable_patchcard_autofold` option on non-mobile env ([4ee00c2](https://github.com/InfSein/hqhelper-dawntrail/commit/4ee00c2f948b38f29126e61c59bdb2d22d7c546d))
+* hide `QuickOperatePanel` ([d386ffd](https://github.com/InfSein/hqhelper-dawntrail/commit/d386ffd14b26f58dd61d959a188225d70b50b773))
+* lite ui adjustment ([ad5a5fe](https://github.com/InfSein/hqhelper-dawntrail/commit/ad5a5fe2d84936ba8a48eec43fd6ddd03dd475b9))
+* modal `contact-us` ([c92c1ff](https://github.com/InfSein/hqhelper-dawntrail/commit/c92c1ff927f2c99198f1fa97cfe41b8875f1e3e0))
+* optimize - keep only one dropdown open at a time ([4b413b5](https://github.com/InfSein/hqhelper-dawntrail/commit/4b413b59376b72b48b39471da2868c1bb4b6bab9))
+* Optimize performance and streamline redundant code for `ModalSelectedGears` ([6664218](https://github.com/InfSein/hqhelper-dawntrail/commit/6664218368b93760158be29593e2c816a21cc39e))
+* optimize trigger of clear/add button ([01e2ef9](https://github.com/InfSein/hqhelper-dawntrail/commit/01e2ef99086536b9e1f4151c32c648670ccae6d8))
+* optimize ui of `ModalSelectedGears.vue` ([8dc31f3](https://github.com/InfSein/hqhelper-dawntrail/commit/8dc31f3d2cdd95ce7d9aa2a95acfdc439be0fd59))
+* optimize ui of `ModalSelectedGears` ([91444fd](https://github.com/InfSein/hqhelper-dawntrail/commit/91444fda32930979106dd960ab5f5e76a15e0f23))
+* rename `.ts` files ([e290f05](https://github.com/InfSein/hqhelper-dawntrail/commit/e290f0583b2931434090e8a4cd5f09a9467b0e0a))
+* rewrite ui core of `PatchPanel` ([6a1958d](https://github.com/InfSein/hqhelper-dawntrail/commit/6a1958db4e2a54231215c428ef56206d1b964af7))
+* struct updates ([50eba96](https://github.com/InfSein/hqhelper-dawntrail/commit/50eba96c8039aa7d8b62c3a364ce920bd64f90ab))
+* ui-update for `job-buttons` ([e2778c7](https://github.com/InfSein/hqhelper-dawntrail/commit/e2778c7d32b4465ae1be1e03982dd4b1c6fe386f))
+* update i18n ([70c6a14](https://github.com/InfSein/hqhelper-dawntrail/commit/70c6a14a82c9ae4ef1edd12ed7343e0650c3abc8))
+* update job icons added dawntrail ([414bdcb](https://github.com/InfSein/hqhelper-dawntrail/commit/414bdcbda743c06cbeea9ae46c358e450162a786))
+* use `./` instead of superfluous `~ApiBase` ([ce07cf3](https://github.com/InfSein/hqhelper-dawntrail/commit/ce07cf37414c0ee273877589637073deb806bef1))
+* use `collapse` to fold setting descriptions ([3ce21f0](https://github.com/InfSein/hqhelper-dawntrail/commit/3ce21f09887e8e9d7da3084b213d33853d44f2a2))
+* v2 of `app-logo` ([2185365](https://github.com/InfSein/hqhelper-dawntrail/commit/2185365abe132726ffd60f62f60d92281194c844))
+
+
+
+## 0.0.33 (2024-06-14)
+
+
+### Bug Fixes
+
+* 'n-dropdown' flashes when moving from the triggered component to option due to leaving the triggering area (PC only) ([094493c](https://github.com/InfSein/hqhelper-dawntrail/commit/094493c28e59302e55a18b9c59b310f959823782))
+* `disable_workstate_cache` now also disables card fold memory. ([b2b860a](https://github.com/InfSein/hqhelper-dawntrail/commit/b2b860aa8a958c6dfe82efb5c20e6b264f9a696a))
+* add requirements for all `defineModel` ([a73db30](https://github.com/InfSein/hqhelper-dawntrail/commit/a73db306f76b50cc557f79147152e130dca61118))
+* errror dropdown interactive on mobile ([7bdb19c](https://github.com/InfSein/hqhelper-dawntrail/commit/7bdb19cd5ee617b3ec8ae5d8084d631a54a4bb20))
+* func name; cache judge ([9ecf26a](https://github.com/InfSein/hqhelper-dawntrail/commit/9ecf26a323faa3001b68962f303debdcf92ec66c))
+* groupbox border of `ModalSelectedGears` ([07e4963](https://github.com/InfSein/hqhelper-dawntrail/commit/07e4963f784f5067701ff44d998a520bce8b4e16))
+* image resource ([29b0eea](https://github.com/InfSein/hqhelper-dawntrail/commit/29b0eeac98018f5d1aff3c82d8243703712b16f5))
+* import `NButtonGroup` ([2fa9956](https://github.com/InfSein/hqhelper-dawntrail/commit/2fa9956b6120fe60ed1700e425fba5a04f8ea21a))
+* index ui ([940df04](https://github.com/InfSein/hqhelper-dawntrail/commit/940df042ee81298522da98a731f8e86c133800f9))
+* pops 2 error not 1 when select `add-attire-and-accessory` ([07dce7b](https://github.com/InfSein/hqhelper-dawntrail/commit/07dce7b9c780da738e96c9a170b38b175498ec25))
+* steppers not be updated after job selections change ([aaf4107](https://github.com/InfSein/hqhelper-dawntrail/commit/aaf4107204045a4f6dd45d1d3666d303c71107ca))
+* text color of `quick-operate` 's buttons ([3838be4](https://github.com/InfSein/hqhelper-dawntrail/commit/3838be4391d765d64db3dc3d7dc85d9994c51653))
+* title's background-color of `GroupBox` ([e58e125](https://github.com/InfSein/hqhelper-dawntrail/commit/e58e1255dc4a26baa9d1ea074f5b5969a5c668ca))
+* ui `menu(expanded)` ([0c4dc34](https://github.com/InfSein/hqhelper-dawntrail/commit/0c4dc34506552ffa6d7108bab36b313167321edf))
+* ui gap of `group-box` ([dc1a2ab](https://github.com/InfSein/hqhelper-dawntrail/commit/dc1a2ab00dd94a6facdd69a97c42d3d619d17067))
+* use `get()` to get `defaultGearSelections` instead of `export const` ([45f984a](https://github.com/InfSein/hqhelper-dawntrail/commit/45f984ab25c3ab0ceb4399ab2e8f3e9bd1dcc0f0))
+
+
+### Features
+
+* add `no-select` custom css ([22dea52](https://github.com/InfSein/hqhelper-dawntrail/commit/22dea5280f6732e11eebe3efd2bf9a1d14db7cb7))
+* add a description popup for `version` in `app-header` ([9de418f](https://github.com/InfSein/hqhelper-dawntrail/commit/9de418f1e2bb739fce0f43ce69536d56481f6708))
+* add new jobs of `7.0` ([eb7970e](https://github.com/InfSein/hqhelper-dawntrail/commit/eb7970eabf13c6907e18f9d69c30c633c9e7a6dd))
+* add title set for `?` in `user-preferences` ([51934b4](https://github.com/InfSein/hqhelper-dawntrail/commit/51934b4348b371f80f5561b8d2bedd50dcf27865))
+* adjust ui gap between job buttons ([51c0a15](https://github.com/InfSein/hqhelper-dawntrail/commit/51c0a15fe0efb0457a2140922dfe18eb4faff419))
+* adjust width of `job-panel` and `gear-panel` ([70edff5](https://github.com/InfSein/hqhelper-dawntrail/commit/70edff5d6ec92fddeaf3e078e967b6162dc5d475))
+* auto-fold patch-card after selected (mobile only) ([5f98079](https://github.com/InfSein/hqhelper-dawntrail/commit/5f98079d9dbbca3a469fc76e8d7e84fda75a0929))
+* change icon of `contact-us` ([5a1fc22](https://github.com/InfSein/hqhelper-dawntrail/commit/5a1fc227decb84454c83b6d3e4c779d0e2bff52c))
+* complete `add-suit` and related functions ([e5adadd](https://github.com/InfSein/hqhelper-dawntrail/commit/e5adadd59026238b2da1ce924618676bc1fd8f68))
+* complete `ModalSelectedGears`. ([76c8fd7](https://github.com/InfSein/hqhelper-dawntrail/commit/76c8fd76e244c87756998c3bd98dcbf2e5d03978))
+* disable components in proper situations; add `n-alert` to tip user. ([69fe6ca](https://github.com/InfSein/hqhelper-dawntrail/commit/69fe6ca52e8b0aeba2e71cd9b593310653056dcb))
+* fix gears to avoid get/set undefined. ([41f2403](https://github.com/InfSein/hqhelper-dawntrail/commit/41f2403a6ff878d3fcc9629a563d5856de1cd921))
+* give a temp name translation for patch `7.0` ([55a7286](https://github.com/InfSein/hqhelper-dawntrail/commit/55a72867b93ac51109924ca53880ad58edd9a015))
+* hide `disable_patchcard_autofold` option on non-mobile env ([4ee00c2](https://github.com/InfSein/hqhelper-dawntrail/commit/4ee00c2f948b38f29126e61c59bdb2d22d7c546d))
+* hide `QuickOperatePanel` ([d386ffd](https://github.com/InfSein/hqhelper-dawntrail/commit/d386ffd14b26f58dd61d959a188225d70b50b773))
+* lite ui adjustment ([ad5a5fe](https://github.com/InfSein/hqhelper-dawntrail/commit/ad5a5fe2d84936ba8a48eec43fd6ddd03dd475b9))
+* modal `contact-us` ([c92c1ff](https://github.com/InfSein/hqhelper-dawntrail/commit/c92c1ff927f2c99198f1fa97cfe41b8875f1e3e0))
+* optimize - keep only one dropdown open at a time ([4b413b5](https://github.com/InfSein/hqhelper-dawntrail/commit/4b413b59376b72b48b39471da2868c1bb4b6bab9))
+* Optimize performance and streamline redundant code for `ModalSelectedGears` ([6664218](https://github.com/InfSein/hqhelper-dawntrail/commit/6664218368b93760158be29593e2c816a21cc39e))
+* optimize trigger of clear/add button ([01e2ef9](https://github.com/InfSein/hqhelper-dawntrail/commit/01e2ef99086536b9e1f4151c32c648670ccae6d8))
+* optimize ui of `ModalSelectedGears.vue` ([8dc31f3](https://github.com/InfSein/hqhelper-dawntrail/commit/8dc31f3d2cdd95ce7d9aa2a95acfdc439be0fd59))
+* optimize ui of `ModalSelectedGears` ([91444fd](https://github.com/InfSein/hqhelper-dawntrail/commit/91444fda32930979106dd960ab5f5e76a15e0f23))
+* rename `.ts` files ([e290f05](https://github.com/InfSein/hqhelper-dawntrail/commit/e290f0583b2931434090e8a4cd5f09a9467b0e0a))
+* rewrite ui core of `PatchPanel` ([6a1958d](https://github.com/InfSein/hqhelper-dawntrail/commit/6a1958db4e2a54231215c428ef56206d1b964af7))
+* struct updates ([50eba96](https://github.com/InfSein/hqhelper-dawntrail/commit/50eba96c8039aa7d8b62c3a364ce920bd64f90ab))
+* ui-update for `job-buttons` ([e2778c7](https://github.com/InfSein/hqhelper-dawntrail/commit/e2778c7d32b4465ae1be1e03982dd4b1c6fe386f))
+* update i18n ([70c6a14](https://github.com/InfSein/hqhelper-dawntrail/commit/70c6a14a82c9ae4ef1edd12ed7343e0650c3abc8))
+* update job icons added dawntrail ([414bdcb](https://github.com/InfSein/hqhelper-dawntrail/commit/414bdcbda743c06cbeea9ae46c358e450162a786))
+* use `./` instead of superfluous `~ApiBase` ([ce07cf3](https://github.com/InfSein/hqhelper-dawntrail/commit/ce07cf37414c0ee273877589637073deb806bef1))
+* use `collapse` to fold setting descriptions ([3ce21f0](https://github.com/InfSein/hqhelper-dawntrail/commit/3ce21f09887e8e9d7da3084b213d33853d44f2a2))
+* v2 of `app-logo` ([2185365](https://github.com/InfSein/hqhelper-dawntrail/commit/2185365abe132726ffd60f62f60d92281194c844))
+
+
+

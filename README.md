@@ -35,21 +35,21 @@ You could still view screenshot, description and tutorials, or just download and
 
 ### Patch Management
 
-The patch of this application follows the naming convention of `a.b.c`.
+The patch of this application follows the naming convention of `MAJOR.MINOR.PATCH`.
 
-1. `a`,`b`,`c` are all pure number;
-2. `a` represents the generation of `HqHelper`;
-3. `b` represents the adapted medium patch of `FFXIV`;
-4. `c` represents the updated patch applied under the conditions specified in `a` and `b`.
+1. `MAJOR`,`MINOR`,`PATCH` are all pure number;
+2. `MAJOR` represents the generation of `HqHelper`, and the adapted large patch of `FFXIV`;
+3. `MINOR` represents the adapted medium patch of `FFXIV`;
+4. `PATCH` represents the updated patch applied under the conditions specified in `MAJOR` and `MINOR`.
 
 For example, `2.1.17` means:
 
-- The `2nd` generation of `HqHelper`;
+- The `2nd` generation of `HqHelper`, and it is designed for the `7.x` patch of `FFXIV`;
 - Adapted `7.1` patch of `FFXIV`;
 - The `17th` updated patch in `2.1.x` series.
 
 > [!NOTE]
-> The advancement of version number `c` can be very aggressive, even if this version only has very small optimizations or fixes. This is because the client only automatically update when there is a change in the version number.
+> The advancement of `PATCH` can be very aggressive, even if this version only has very small optimizations or fixes. This is because the client only automatically update when there is a change in the version number.
 
 ### Branch Management
 

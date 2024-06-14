@@ -1,3 +1,42 @@
+# Commit与CHANGELOG
+
+## Commit规范
+
+涉及新功能和修复的提交使用`Angular`规范。
+
+### Angular规范
+
+* `feat`：新功能
+* `fix`：修复问题
+* `docs`：文档修改
+* `style`：代码格式修改，不影响代码逻辑
+* `refactor`：重构代码，既不修复错误也不添加功能
+* `perf`：性能优化
+* `test`：添加或修改测试代码
+* `build`：构建系统或外部依赖项修改
+* `ci`：持续集成修改
+* `chore`：其他修改，如修改构建流程或辅助工具等
+* `revert`：回滚到之前的提交
+
+## CHANGELOG
+
+使用`conventional-changelog-cli`来自动生成英文版的CHANGELOG。
+可能需要人工修改。
+修改完成之后，交由相关人员进行本地化翻译。
+
+### 文件规范
+
+1. CHANGELOG.md：英文版的CHANGELOG
+2. CHANGELOG-ZH.md：中文版的CHANGELOG
+3. CHANGELOG-JA.md：日文版的CHANGELOG
+
+### 插件
+
+```bash
+npm install -g conventional-changelog-cli
+conventional-changelog -p angular -i CHANGELOG.md -s
+```
+
 # 简要笔记 / Quick Notes
 
 ## 兼容手机端与电脑端
