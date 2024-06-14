@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "i18n-extract": "voerkai18n extract",
+    "i18n-compile": "voerkai18n compile",
+    "update-CHANGELOG": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
