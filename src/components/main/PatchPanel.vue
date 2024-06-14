@@ -14,13 +14,13 @@ const cardDescription = computed(() => {
   else return t('已选择版本: {}', patchSelected.value)
 })
 
-const containerCard = ref<any>(null)
+const containerCard = ref<InstanceType<typeof FoldableCard>>()
 
 const handlePatchSelect = (patch: any) => {
   patchSelected.value = patch.v
   const autoFold = !(userConfig.value?.disable_patchcard_autofold ?? false)
   if (isMobile.value && autoFold) {
-    containerCard.value.handleFoldOrExpand()
+    containerCard.value?.handleFoldOrExpand()
   }
 }
 
