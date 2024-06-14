@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject, ref, type Ref } from 'vue'
-import { LocalLibrarySharp, CloseSharp } from '@vicons/material'
+import { ContactlessSharp, CloseSharp } from '@vicons/material'
 import IconQQ from '@/assets/icons/external/IconQQ.vue'
 import IconGithub from '@/assets/icons/external/IconGithub.vue'
 import IconWeibo from '@/assets/icons/external/IconWeibo.vue'
@@ -44,7 +44,7 @@ const handleClose = () => {
     >
       <template #header>
         <div class="card-title">
-          <n-icon><LocalLibrarySharp /></n-icon>
+          <n-icon><ContactlessSharp /></n-icon>
           <span class="title">{{ t('联系我们') }}</span>
         </div>
       </template>

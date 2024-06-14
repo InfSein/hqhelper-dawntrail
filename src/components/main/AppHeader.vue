@@ -5,7 +5,7 @@ import {
   MenuFilled,
   SettingsSharp,
   InfoFilled,
-  LocalLibrarySharp
+  ContactlessSharp
 } from '@vicons/material'
 import EorzeaTime from '@/tools/eorzea-time'
 import AppStatus from '@/variables/app-status'
@@ -27,7 +27,7 @@ const showMenus = ref(false)
 const menuItems = [
   { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp, click: showUserPreferencesModal },
   { key: 'about-app', label: t('关于本作'), icon: InfoFilled, click: showAboutAppModal },
-  { key: 'contact-us', label: t('联系我们'), icon: LocalLibrarySharp, click: showContactModal },
+  { key: 'contact-us', label: t('联系我们'), icon: ContactlessSharp, click: showContactModal },
 ]
 
 const openModal = (click?: (() => void)) => {
