@@ -14,6 +14,8 @@ interface JobButtonProps {
   imgSize: number;
   /** 按钮颜色 */
   btnColor: string;
+  /** 徽标计数 */
+  count: number;
   /** 按钮是否禁用(可选,默认false) */
   disabled?: boolean;
 }
@@ -25,21 +27,30 @@ const btnSize = props.imgSize + 5
 </script>
 
 <template>
-  <n-button
-    :ghost="!props.selected"
-    :disabled="props.disabled"
-    class="job-button"
-    :color="props.btnColor"
-    :style="{ width: `${btnSize}px`, height: `${btnSize}px` }"
-  >
-    <XivFARImage
-      :src="jobIcon"
-      :size="imgSize"
-    />
-  </n-button>
+  <n-badge :value="count" :max="99" :color="props.btnColor">
+    <n-button
+      :ghost="!props.selected"
+      :disabled="props.disabled"
+      class="job-button"
+      :color="props.btnColor"
+      :style="{ width: `${btnSize}px`, height: `${btnSize}px` }"
+    >
+      <XivFARImage
+        :src="jobIcon"
+        :size="imgSize"
+      />
+    </n-button>
+  </n-badge>
 </template>
 
 <style scoped>
+:deep(.n-badge-sup) {
+  border-radius: 3px;
+  transform: none !important;
+  right: 0;
+  bottom: 0;
+  left: initial;
+}
 .job-button {
   padding: 1px;
 }
