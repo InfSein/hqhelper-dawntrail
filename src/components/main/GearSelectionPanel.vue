@@ -252,6 +252,10 @@ watch(showAddsuitOptions, (newValue) => {
 })
 
 // #endregion
+
+defineExpose({
+  addMainOffHand
+})
 </script>
 
 <template>

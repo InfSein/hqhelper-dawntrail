@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, inject, type Ref, computed } from 'vue'
+import { ref, inject, type Ref, computed, type PropType } from 'vue'
 import { type UserConfigModel, defaultUserConfig } from '@/models/user-config'
 import XivRoles from '@/assets/data/xiv-roles.json'
 import XivJobs from '@/assets/data/xiv-jobs.json'
@@ -17,14 +17,22 @@ defineProps({
   patchSelected: {
     type: String,
     required: true
+  },
+  mainHandSelections: {
+    type: Object as PropType<Record<number, number>>,
+    required: true
   }
 })
+const emit = defineEmits(['onJobButtonDupliClick'])
 
 const cardDescription = computed(() => {
   if (!jobSelected.value) return t('还未选择')
   else return t('已选择职业: {}', getJobName(jobSelected.value))
 })
 const handleJobSelect = (jobId: number, role: any) => {
+  if (jobSelected.value === jobId) {
+    emit('onJobButtonDupliClick')
+  }
   jobSelected.value = jobId
   affixesSelected.value = {
     attire: role.attire,
@@ -110,6 +118,7 @@ const jobImageSize = computed(() => {
               :job-icon="(XivJobs as any)[job].job_icon_url"
               :img-size="jobImageSize"
               :btn-color="role.role_color"
+              :count="mainHandSelections?.[job] || 0"
               :class="{'selected': jobSelected === job}"
               :disabled="!patchSelected"
               @click="handleJobSelect(job, role)"

@@ -21,6 +21,8 @@ const NAIVE_UI_MESSAGE = useMessage()
 
 const XivJobIds = Object.keys(XivJobs).map(jobId => parseInt(jobId))
 
+const gearSelectionPanel = ref<InstanceType<typeof GearSelectionPanel>>()
+
 // #region Provides & Injections
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -103,9 +105,9 @@ if (!disable_workstate_cache) {
   const cachedWorkState = userConfig.value.cache_work_state
   if (cachedWorkState) {
     workState.value = cachedWorkState
-    fixGears()
     // todo - Compatible with older version caching
   }
+  fixGears()
 
   // todo - 留意性能：深度侦听需要遍历被侦听对象中的所有嵌套的属性，当用于大型数据结构时，开销很大
   watch(workState, () => {
@@ -117,6 +119,12 @@ if (!disable_workstate_cache) {
   }, {deep: true})
 } else {
   fixGears()
+}
+
+const handleJobButtonDupliClick = () => {
+  if (!userConfig.value.disable_jobbtn_doubleclick) {
+    gearSelectionPanel.value?.addMainOffHand()
+  }
 }
 
 </script>
@@ -138,9 +146,12 @@ if (!disable_workstate_cache) {
                 v-model:affixes-selected="workState.affixes"
                 class="job-panel"
                 :patch-selected="workState.patch"
+                :main-hand-selections="workState.gears?.MainHand"
+                @on-job-button-dupli-click="handleJobButtonDupliClick"
               />
               <GearSelectionPanel
                 v-model:gear-selections="workState.gears"
+                ref="gearSelectionPanel"
                 class="gear-panel"
                 :job-id="workState.job"
                 :attire-affix="workState.affixes?.attire as AttireAffix"
