@@ -383,7 +383,6 @@ defineExpose({
         <div class="content">
           <n-button
             class="end"
-            size="small"
             :disabled="jobNotSelected"
             @click="showSelectedGears = true"
           >
