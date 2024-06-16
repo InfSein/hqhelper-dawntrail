@@ -36,8 +36,10 @@ const handlePlusClick = () => {
       <n-input-number
         v-model:value="modelValue"
         size="small"
+        :input-props="{ type: 'number' }"
         :min="min"
         :max="max"
+        :precision="0"
         :show-button="false"
         :disabled="disabled"
       />

@@ -104,8 +104,10 @@ const handleSave = () => {
                   <p v-for="job in role.jobs" :key="'weapon-mainhand-' + job">
                     <n-input-number
                       v-model:value="localSelections.MainHand[job]"
+                      :input-props="{ type: 'number' }"
                       :min="0"
                       :max="99999"
+                      :precision="0"
                       :title="getJobName(job)"
                       :show-button="!isMobile"
                     >
@@ -170,8 +172,10 @@ const handleSave = () => {
                       <td>
                         <n-input-number
                           v-model:value="localSelections.HeadAttire[attire]"
+                          :input-props="{ type: 'number' }"
                           :min="0"
                           :max="99999"
+                          :precision="0"
                           button-placement="both"
                           :show-button="!isMobile"
                         />
@@ -179,8 +183,10 @@ const handleSave = () => {
                       <td>
                         <n-input-number
                           v-model:value="localSelections.BodyAttire[attire]"
+                          :input-props="{ type: 'number' }"
                           :min="0"
                           :max="99999"
+                          :precision="0"
                           button-placement="both"
                           :show-button="!isMobile"
                         />
@@ -188,8 +194,10 @@ const handleSave = () => {
                       <td>
                         <n-input-number
                           v-model:value="localSelections.HandsAttire[attire]"
+                          :input-props="{ type: 'number' }"
                           :min="0"
                           :max="99999"
+                          :precision="0"
                           button-placement="both"
                           :show-button="!isMobile"
                         />
@@ -197,8 +205,10 @@ const handleSave = () => {
                       <td>
                         <n-input-number
                           v-model:value="localSelections.LegsAttire[attire]"
+                          :input-props="{ type: 'number' }"
                           :min="0"
                           :max="99999"
+                          :precision="0"
                           button-placement="both"
                           :show-button="!isMobile"
                         />
@@ -206,8 +216,10 @@ const handleSave = () => {
                       <td>
                         <n-input-number
                           v-model:value="localSelections.FeetAttire[attire]"
+                          :input-props="{ type: 'number' }"
                           :min="0"
                           :max="99999"
+                          :precision="0"
                           button-placement="both"
                           :show-button="!isMobile"
                         />
@@ -260,8 +272,10 @@ const handleSave = () => {
                       <td>
                         <n-input-number
                           v-model:value="localSelections.Earrings[accessory]"
+                          :input-props="{ type: 'number' }"
                           :min="0"
                           :max="99999"
+                          :precision="0"
                           button-placement="both"
                           :show-button="!isMobile"
                         />
@@ -269,8 +283,10 @@ const handleSave = () => {
                       <td>
                         <n-input-number
                           v-model:value="localSelections.Necklace[accessory]"
+                          :input-props="{ type: 'number' }"
                           :min="0"
                           :max="99999"
+                          :precision="0"
                           button-placement="both"
                           :show-button="!isMobile"
                         />
@@ -278,8 +294,10 @@ const handleSave = () => {
                       <td>
                         <n-input-number
                           v-model:value="localSelections.Wrist[accessory]"
+                          :input-props="{ type: 'number' }"
                           :min="0"
                           :max="99999"
+                          :precision="0"
                           button-placement="both"
                           :show-button="!isMobile"
                         />
@@ -287,8 +305,10 @@ const handleSave = () => {
                       <td>
                         <n-input-number
                           v-model:value="localSelections.Rings[accessory]"
+                          :input-props="{ type: 'number' }"
                           :min="0"
                           :max="99999"
+                          :precision="0"
                           button-placement="both"
                           :show-button="!isMobile"
                         />

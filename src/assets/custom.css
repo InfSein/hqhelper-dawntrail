@@ -17,7 +17,7 @@
 
 /* Control */
 .no-select {
-  user-select:none;
+  user-select: none;
 }
 
 /* Color */
@@ -78,4 +78,14 @@
 }
 table.n-table tbody tr:hover td {
   background-color: var(--n-th-color-popover);
+}
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+}
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+}
+input[type='number'] {
+  appearance: textfield;
+  -moz-appearance: textfield;
 }
