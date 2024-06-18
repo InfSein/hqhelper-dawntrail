@@ -63,8 +63,8 @@
             "components\\ModalAboutApp.vue"
         ]
     },
-    "本作涉及《最终幻想XIV》之内容，版权归于SQUARE ENIX所有。": {
-        "en": "This work involves the content of Final Fantasy XIV, and the copyright belongs to SQUARE ENIX.",
+    "本站所引用的《最终幻想XIV》相关资料与图像，其版权均归于SQUARE ENIX所有。": {
+        "en": "The copyright of the materials and images related to Final Fantasy XIV cited on this website belongs to SQUARE ENIX.",
         "ja": "本作は『ファイナルファンタジーXIV』の内容に関連しており、著作権はSQUARE ENIXが所有している。",
         "$files": [
             "components\\ModalAboutApp.vue"
@@ -80,20 +80,6 @@
     "转载、搬运须注明作者及出处。": {
         "en": "Reproduction and handling must indicate the author and source.",
         "ja": "転載、運搬は作者と出所を明記しなければならない。",
-        "$files": [
-            "components\\ModalAboutApp.vue"
-        ]
-    },
-    "特别感谢以下人员或组织为本作提供技术层面的支持：": {
-        "en": "Special thanks to the following individuals or organizations for providing technical support for this work:",
-        "ja": "特に、この作品に技術的なサポートを提供してくれた人や組織に感謝します：",
-        "$files": [
-            "components\\ModalAboutApp.vue"
-        ]
-    },
-    "技术支持或指导：": {
-        "en": "Technical support or guidance:",
-        "ja": "テクニカルサポートまたはアドバイザ：",
         "$files": [
             "components\\ModalAboutApp.vue"
         ]
@@ -521,41 +507,6 @@
     "创作人员": {
         "en": "Staff",
         "ja": "创作人员",
-        "$files": [
-            "components\\modals\\ModalAboutApp.vue"
-        ]
-    },
-    "HqHelper的诞生和维护与以下人员直接相关：": {
-        "en": "HqHelper的诞生和维护与以下人员直接相关：",
-        "ja": "HqHelper的诞生和维护与以下人员直接相关：",
-        "$files": [
-            "components\\modals\\ModalAboutApp.vue"
-        ]
-    },
-    "主要程序开发：": {
-        "en": "Major Program Development:",
-        "ja": "主要程序开发：",
-        "$files": [
-            "components\\modals\\ModalAboutApp.vue"
-        ]
-    },
-    "本地化翻译：": {
-        "en": "Localize Translation:",
-        "ja": "本地化翻译：",
-        "$files": [
-            "components\\modals\\ModalAboutApp.vue"
-        ]
-    },
-    "致谢：技术": {
-        "en": "ThanksTo: Technical",
-        "ja": "致谢：技术",
-        "$files": [
-            "components\\modals\\ModalAboutApp.vue"
-        ]
-    },
-    "API/数据提供方：": {
-        "en": "API/DATA Providers:",
-        "ja": "API/数据提供方：",
         "$files": [
             "components\\modals\\ModalAboutApp.vue"
         ]
@@ -1035,6 +986,55 @@
         "ja": "戒指",
         "$files": [
             "components\\modals\\ModalSelectedGears.vue"
+        ]
+    },
+    "制作人": {
+        "en": "Producer",
+        "ja": "プロデューサ",
+        "$files": [
+            "data\\about-app.ts"
+        ]
+    },
+    "主要程序开发": {
+        "en": "Major developer",
+        "ja": "主要プログラム開発",
+        "$files": [
+            "data\\about-app.ts"
+        ]
+    },
+    "核心算法支持": {
+        "en": "Core algorithm support",
+        "ja": "コアアルゴリズムのサポート",
+        "$files": [
+            "data\\about-app.ts"
+        ]
+    },
+    "本地化翻译": {
+        "en": "Localization translator",
+        "ja": "ローカリゼーション翻訳",
+        "$files": [
+            "data\\about-app.ts"
+        ]
+    },
+    "日语": {
+        "en": "Japanese",
+        "ja": "日本語",
+        "$files": [
+            "data\\about-app.ts"
+        ]
+    },
+    "个人主页：": {
+        "en": "Personal homepages: ",
+        "ja": "个人主页：",
+        "$files": [
+            "components\\modals\\ModalAboutApp.vue"
+        ]
+    },
+    "更新日志": {
+        "en": "Change Logs",
+        "ja": "更新日志",
+        "$files": [
+            "components\\modals\\ModalChangeLogs.vue"
         ]
     }
 }
