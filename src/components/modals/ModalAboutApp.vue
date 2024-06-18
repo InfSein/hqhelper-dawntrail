@@ -1,27 +1,13 @@
 <script setup lang="ts">
 import { inject, ref, type Ref } from 'vue'
-import Contributors from '../../assets/data/app-contributors.json'
-import {
-  InfoSharp,
-  CreateSharp, CopyrightSharp, EngineeringSharp, AttachMoneySharp
-} from '@vicons/material'
-import type { Staff, StaffGroup } from '@/models/about-app'
-import { defaultUserConfig, type UserConfigModel } from '@/models/user-config';
+import { InfoSharp } from '@vicons/material'
+import { DataAboutApp } from '@/data/about-app'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
+// const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 
 const modelShow = defineModel<boolean>('show', { required: true })
-
-const staffs = Contributors.staffs as Staff[]
-const getTitle = (obj: Staff | StaffGroup) => {
-  switch (userConfig.value.language_ui) {
-    case 'en': return obj.group_name_en
-    case 'ja': return obj.group_name_ja
-  }
-  return obj.group_name_zh
-}
 
 const handleClose = () => {
   modelShow.value = false
@@ -45,7 +31,7 @@ const handleClose = () => {
       </template>
 
       <n-card embedded class="wrapper" :style="{ height: isMobile ? '450px' : '400px' }">
-        <div class="about-header">
+        <div class="title flex">
           <i class="xiv hq logo-about"></i>
           <p class="about-title">HQ Helper</p>
         </div>
@@ -54,18 +40,18 @@ const handleClose = () => {
           <div class="title">{{ t('创作人员') }}</div>
           <div class="content">
             <div
-              v-for="(group, index) in staffs"
+              v-for="(group, index) in DataAboutApp.staffs"
               :key="'staff-group-' + index"
               class="staff-group"
             >
-              <div class="group-title">{{ getTitle(group) }}</div>
+              <div class="group-title">{{ group.group_name }}</div>
               <div class="group-content">
                 <div
                   v-for="(subgroup, sgIndex) in group.sub_groups"
                   :key="'staff-subgroup-' + index + '-' + sgIndex"
                   class="staff-subgroup"
                 >
-                  <div class="subgroup-title">{{ getTitle(subgroup) }}</div>
+                  <div class="subgroup-title">{{ subgroup.group_name }}</div>
                   <div class="subgroup-content">
                     <div
                       v-for="(member, mIndex) in subgroup.members"
@@ -82,7 +68,43 @@ const handleClose = () => {
                         />
                       </div>
                       <div class="member-name">
-                        <a href="javascript:void(0);">{{ member.name }}</a>
+                        <n-popover :placement="isMobile ? 'bottom' : 'right'">
+                          <template #trigger>
+                            <a href="javascript:void(0);">{{ member.name }}</a>
+                          </template>
+                          <div class="intro-popover">
+                            <div class="base-info">
+                              <div class="avatar">
+                                <n-avatar
+                                  round
+                                  size="medium"
+                                  :src="member.avatar_url"
+                                  fallback-src="./image/game-job/companion/none.png"
+                                />
+                              </div>
+                              <div class="name title">{{ member.name }}</div>
+                            </div>
+                            <n-divider />
+                            <div class="intro">
+                              <p v-for="(intro, i) in member.introductions" :key="member.name + '-intro-' + i">
+                                {{ intro }}
+                              </p>
+                            </div>
+                            <div class="tail">
+                              <div class="title">{{ t('个人主页：') }}</div>
+                              <div class="pages">
+                                <a
+                                  target="_blank"
+                                  v-for="(page, pIndex) in member.pages"
+                                  :key="member.name + '-page-' + pIndex"
+                                  :href="page.url"
+                                >
+                                  {{ page.name }}
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </n-popover>
                       </div>
                     </div>
                   </div>
@@ -107,9 +129,9 @@ const handleClose = () => {
           <div class="content">
             <p>{{ t('HqHelper的诞生与持续开发离不开用户的支持。') }}</p>
             <p class="bold">{{ t('特别感谢以下用户对前代HqHelper项目的赞助：') }}</p>
-            <n-flex style="margin-top: 5px;">
+            <n-flex size="small" style="margin: 5px 0 0 2em;">
               <n-button
-                v-for="(sponsor, i) in Contributors.sponsors_gen1"
+                v-for="(sponsor, i) in DataAboutApp.sponsors_gen1"
                 :key="'sponsor-g1-'+i"
                 type="warning"
                 dashed
@@ -148,7 +170,7 @@ const handleClose = () => {
   .content {
     display: flex;
     flex-direction: column;
-    margin-left: 2em;
+    text-indent: 2em;
   }
 
   #staffs {
@@ -161,28 +183,56 @@ const handleClose = () => {
         display: flex;
         flex-direction: column;
         margin-left: 1em;
+
         .staff-subgroup {
           display: flex;
           align-items: center;
-          gap: 5px;
+          gap: 3px;
+
           .subgroup-title {
             font-weight: bold;
           }
           .subgroup-title::after {
-            content: " - ";
+            content: " -";
           }
           .subgroup-item {
             display: flex;
             align-items: center;
             line-height: 20px;
+            
             .member-avatar {
               display: flex;
               align-items: center;
+            }
+            .member-name {
+              text-indent: initial;
             }
           }
         }
       }
     }
+  }
+}
+
+.intro-popover {
+  width: 220px;
+  max-width: 98%;
+
+  .base-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    line-height: 15px;
+
+    .name {
+      font-size: 20px;
+    }
+  }
+  .tail {
+    margin-top: 5px;
+  }
+  .title {
+    font-weight: bold;
   }
 }
 </style>
