@@ -117,10 +117,7 @@ const handleClose = () => {
         <div id="copyright">
           <div class="title">{{ t('版权信息') }}</div>
           <div class="content">
-            <p>{{ t('本作程序源代码遵循MIT协议开源，但使用的协议在正式发布之前随时可能被更改。') }}</p>
-            <p>{{ t('本作涉及《最终幻想XIV》之内容，版权归于SQUARE ENIX所有。') }}</p>
-            <p>{{ t('本作仅供学习交流使用，不得以任何方式用于商业用途。') }}</p>
-            <p>{{ t('转载、搬运须注明作者及出处。') }}</p>
+            <p v-for="(cr, crIndex) in DataAboutApp.copyrights" :key="'copyright-' + crIndex">{{ cr }}</p>
           </div>
         </div>
         <n-divider />

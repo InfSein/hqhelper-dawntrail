@@ -52,6 +52,12 @@ export const DataAboutApp : DataAboutApp = {
       ]
     }
   ],
+  copyrights: [
+    t('本作程序源代码遵循MIT协议开源，但使用的协议在正式发布之前随时可能被更改。'),
+    t('本站所引用的《最终幻想XIV》相关资料与图像，其版权均归于SQUARE ENIX所有。'),
+    t('本作仅供学习交流使用，不得以任何方式用于商业用途。'),
+    t('转载、搬运须注明作者及出处。'),
+  ],
   /*a_providers: [
     { name: 'FF-CAFE', page: 'https://www.ffcafe.cn' },
     { name: 'XIVAPI', page: 'https://xivapi.com/' },
@@ -67,6 +73,7 @@ export const DataAboutApp : DataAboutApp = {
 
 export interface DataAboutApp {
   staffs: Staff[];
+  copyrights: string[];
   sponsors_gen1: string[];
   sponsors_gen2: string[];
 }
