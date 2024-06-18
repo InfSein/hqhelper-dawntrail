@@ -1,21 +1,60 @@
 {
-  "major_developers": [
+  "staffs": [
     {
-      "name": "InfSein",
-      "page": "https://github.com/InfSein"
-    }
-  ],
-  "code_contributors": [],
-  "localization_contributors": [
+      "group_name_zh": "制作人",
+      "group_name_en": "Producer",
+      "group_name_ja": "プロデューサ",
+      "sub_groups": [
+        {
+          "group_name_zh": "主要程序开发",
+          "group_name_en": "Major developer",
+          "group_name_ja": "主要プログラム開発",
+          "members": [
+            {
+              "name": "InfSein",
+              "avatar_url": "https://avatars.githubusercontent.com/u/54071139?v=4",
+              "pages": [
+                { "name": "GitHub", "url": "https://github.com/InfSein" }
+              ]
+            }
+          ]
+        },
+        {
+          "group_name_zh": "核心算法支持",
+          "group_name_en": "Core algorithm support",
+          "group_name_ja": "コアアルゴリズムのサポート",
+          "members": [
+            {
+              "name": "NbbJack",
+              "avatar_url": "https://avatars.githubusercontent.com/u/7787811?v=4",
+              "pages": [
+                { "name": "GitHub", "url": "https://github.com/nbbjack" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     {
-      "name": "夜北Yakita",
-      "page": "https://weibo.com/u/2587269637"
-    }
-  ],
-  "technical_supporters": [
-    {
-      "name": "nbb",
-      "page": "https://github.com/nbbjack"
+      "group_name_zh": "本地化翻译",
+      "group_name_en": "Localization translator",
+      "group_name_ja": "ローカリゼーション翻訳",
+      "sub_groups": [
+        {
+          "group_name_zh": "日语",
+          "group_name_en": "Japanese",
+          "group_name_ja": "日本語",
+          "members": [
+            {
+              "name": "夜北Yakita",
+              "avatar_url": "https://tvax2.sinaimg.cn/crop.0.0.600.600.180/9a369a05ly8h5bmtuxkkjj20go0gojss.jpg?KID=imgbed,tva&Expires=1718711593&ssig=N137CGfRif",
+              "pages": [
+                { "name": "Weibo", "url": "https://weibo.com/n/%E5%A4%9C%E5%8C%97yakita" }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "a_providers": [

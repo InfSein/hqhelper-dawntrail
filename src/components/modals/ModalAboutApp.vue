@@ -5,11 +5,23 @@ import {
   InfoSharp,
   CreateSharp, CopyrightSharp, EngineeringSharp, AttachMoneySharp
 } from '@vicons/material'
+import type { Staff, StaffGroup } from '@/models/about-app'
+import { defaultUserConfig, type UserConfigModel } from '@/models/user-config';
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 
 const modelShow = defineModel<boolean>('show', { required: true })
+
+const staffs = Contributors.staffs as Staff[]
+const getTitle = (obj: Staff | StaffGroup) => {
+  switch (userConfig.value.language_ui) {
+    case 'en': return obj.group_name_en
+    case 'ja': return obj.group_name_ja
+  }
+  return obj.group_name_zh
+}
 
 const handleClose = () => {
   modelShow.value = false
@@ -22,7 +34,7 @@ const handleClose = () => {
       closable
       role="dialog"
       style="width: 98%; max-width: 600px;"
-      :style="{ height: isMobile ? '550px' : '400px' }"
+      :style="{ height: isMobile ? '550px' : '500px' }"
       @close="handleClose"
     >
       <template #header>
@@ -31,131 +43,83 @@ const handleClose = () => {
           <span class="title">{{ t('关于本作') }}</span>
         </div>
       </template>
-      <div class="about-header">
-        <i class="xiv hq logo-about"></i>
-        <p class="about-title">HQ Helper</p>
-      </div>
-      <n-divider />
-      <n-card class="about-content" embedded :bordered="false">
-        <n-tabs
-          animated
-          type="line"
-          placement="top"
-          default-value="staff"
-          style="height: 100%;"
-        >
-          <n-tab-pane name="staff">
-            <template #tab>
-              <div class="tab-title">
-                <n-icon><CreateSharp /></n-icon>
-                <span>{{ t('创作人员') }}</span>
-              </div>
-            </template>
-            <n-flex vertical size="small">
-              <p>{{ t('HqHelper的诞生和维护与以下人员直接相关：') }}</p>
-              <div>
-                <p class="bold">{{ t('主要程序开发：') }}</p>
-                <n-flex>
-                  <a
-                    target="_blank"
-                    v-for="(developers, i) in Contributors.major_developers"
-                    :key="'major_developers-'+i"
-                    :href="developers.page"
-                  >
-                    {{ developers.name }}
-                  </a>
-                </n-flex>
-              </div>
-              <div>
-                <p class="bold">{{ t('本地化翻译：') }}</p>
-                <n-flex>
-                  <a
-                    target="_blank"
-                    v-for="(developers, i) in Contributors.localization_contributors"
-                    :key="'localization_contributors-'+i"
-                    :href="developers.page"
-                  >
-                    {{ developers.name }}
-                  </a>
-                </n-flex>
-              </div>
-            </n-flex>
-          </n-tab-pane>
-          <n-tab-pane name="copyright">
-            <template #tab>
-              <div class="tab-title">
-                <n-icon><CopyrightSharp /></n-icon>
-                <span>{{ t('版权信息') }}</span>
-              </div>
-            </template>
-            <n-flex vertical size="small">
-              <p>{{ t('本作程序源代码遵循MIT协议开源，但使用的协议在正式发布之前随时可能被更改。') }}</p>
-              <p>{{ t('本作涉及《最终幻想XIV》之内容，版权归于SQUARE ENIX所有。') }}</p>
-              <p>{{ t('本作仅供学习交流使用，不得以任何方式用于商业用途。') }}</p>
-              <p>{{ t('转载、搬运须注明作者及出处。') }}</p>
-            </n-flex>
-          </n-tab-pane>
-          <n-tab-pane name="thanks-dev">
-            <template #tab>
-              <div class="tab-title">
-                <n-icon><EngineeringSharp /></n-icon>
-                <span>{{ t('致谢：技术') }}</span>
-              </div>
-            </template>
-            <n-flex vertical size="small">
-              <p>{{ t('特别感谢以下人员或组织为本作提供技术层面的支持：') }}</p>
-              <div>
-                <p class="bold">{{ t('技术支持或指导：') }}</p>
-                <n-flex>
-                  <a
-                    target="_blank"
-                    v-for="(t_supporter, i) in Contributors.technical_supporters"
-                    :key="'technical_supporters-'+i"
-                    :href="t_supporter.page"
-                  >
-                    {{ t_supporter.name }}
-                  </a>
-                </n-flex>
-              </div>
-              <div>
-                <p class="bold">{{ t('API/数据提供方：') }}</p>
-                <n-flex>
-                  <a
-                    target="_blank"
-                    v-for="(aod_provider, i) in Contributors.a_providers"
-                    :key="'APIorDATA_providers-'+i"
-                    :href="aod_provider.page"
-                  >
-                    {{ aod_provider.name }}
-                  </a>
-                </n-flex>
-              </div>
-            </n-flex>
-          </n-tab-pane>
-          <n-tab-pane name="thanks-donate">
-            <template #tab>
-              <div class="tab-title">
-                <n-icon><AttachMoneySharp /></n-icon>
-                <span>{{ t('致谢：赞助') }}</span>
-              </div>
-            </template>
-            <n-flex vertical size="small">
-              <p>{{ t('HqHelper的诞生与持续开发离不开用户的支持。') }}</p>
-              <p class="bold">{{ t('特别感谢以下用户对前代HqHelper项目的赞助：') }}</p>
-              <n-flex style="margin-top: 5px;">
-                <n-button
-                  v-for="(sponsor, i) in Contributors.sponsors_gen1"
-                  :key="'sponsor-g1-'+i"
-                  type="warning"
-                  dashed
-                  size="tiny"
+
+      <n-card embedded class="wrapper" :style="{ height: isMobile ? '450px' : '400px' }">
+        <div class="about-header">
+          <i class="xiv hq logo-about"></i>
+          <p class="about-title">HQ Helper</p>
+        </div>
+        <n-divider />
+        <div id="staffs">
+          <div class="title">{{ t('创作人员') }}</div>
+          <div class="content">
+            <div
+              v-for="(group, index) in staffs"
+              :key="'staff-group-' + index"
+              class="staff-group"
+            >
+              <div class="group-title">{{ getTitle(group) }}</div>
+              <div class="group-content">
+                <div
+                  v-for="(subgroup, sgIndex) in group.sub_groups"
+                  :key="'staff-subgroup-' + index + '-' + sgIndex"
+                  class="staff-subgroup"
                 >
-                  {{ sponsor }}
-                </n-button>
-              </n-flex>
+                  <div class="subgroup-title">{{ getTitle(subgroup) }}</div>
+                  <div class="subgroup-content">
+                    <div
+                      v-for="(member, mIndex) in subgroup.members"
+                      :key="'staff-member-' + index + '-' + sgIndex + '-' + mIndex"
+                      class="subgroup-item"
+                    >
+                      <n-divider vertical v-if="mIndex" />
+                      <div class="member-avatar">
+                        <n-avatar
+                          round
+                          :size="15"
+                          :src="member.avatar_url"
+                          fallback-src="./image/game-job/companion/none.png"
+                        />
+                      </div>
+                      <div class="member-name">
+                        <a href="javascript:void(0);">{{ member.name }}</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <n-divider />
+        <div id="copyright">
+          <div class="title">{{ t('版权信息') }}</div>
+          <div class="content">
+            <p>{{ t('本作程序源代码遵循MIT协议开源，但使用的协议在正式发布之前随时可能被更改。') }}</p>
+            <p>{{ t('本作涉及《最终幻想XIV》之内容，版权归于SQUARE ENIX所有。') }}</p>
+            <p>{{ t('本作仅供学习交流使用，不得以任何方式用于商业用途。') }}</p>
+            <p>{{ t('转载、搬运须注明作者及出处。') }}</p>
+          </div>
+        </div>
+        <n-divider />
+        <div id="thanks-donate">
+          <div class="title">{{ t('致谢：赞助') }}</div>
+          <div class="content">
+            <p>{{ t('HqHelper的诞生与持续开发离不开用户的支持。') }}</p>
+            <p class="bold">{{ t('特别感谢以下用户对前代HqHelper项目的赞助：') }}</p>
+            <n-flex style="margin-top: 5px;">
+              <n-button
+                v-for="(sponsor, i) in Contributors.sponsors_gen1"
+                :key="'sponsor-g1-'+i"
+                type="warning"
+                dashed
+                size="tiny"
+              >
+                {{ sponsor }}
+              </n-button>
             </n-flex>
-          </n-tab-pane>
-        </n-tabs>
+          </div>
+        </div>
       </n-card>
     </n-card>
   </n-modal>
@@ -172,22 +136,53 @@ const handleClose = () => {
   margin: 10px 0;
 }
 
-.about-header {
-  height: 65px;
+.wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow-y: auto;
+  flex-direction: column;
 
-  .logo-about {
-    font-size: 50px;
+  .title {
+    font-size: 16px;
+    font-weight: bold;
   }
-  .about-title {
-    font-size: 25px;
-    margin-left: 5px;
-    margin-top: 10px;
+  .content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2em;
   }
-}
-.about-content {
-  height: calc(100% - 90px);
+
+  #staffs {
+    .content .staff-group {
+      .group-title {
+        font-size: 15px;
+        font-weight: bold;
+      }
+      .group-content {
+        display: flex;
+        flex-direction: column;
+        margin-left: 1em;
+        .staff-subgroup {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          .subgroup-title {
+            font-weight: bold;
+          }
+          .subgroup-title::after {
+            content: " - ";
+          }
+          .subgroup-item {
+            display: flex;
+            align-items: center;
+            line-height: 20px;
+            .member-avatar {
+              display: flex;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 </style>
