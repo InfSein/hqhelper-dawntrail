@@ -44,14 +44,14 @@ const handleClose = () => {
               :key="'staff-group-' + index"
               class="staff-group"
             >
-              <div class="group-title">{{ group.group_name }}</div>
+              <div class="group-title">{{ t(group.group_name) }}</div>
               <div class="group-content">
                 <div
                   v-for="(subgroup, sgIndex) in group.sub_groups"
                   :key="'staff-subgroup-' + index + '-' + sgIndex"
                   class="staff-subgroup"
                 >
-                  <div class="subgroup-title">{{ subgroup.group_name }}</div>
+                  <div class="subgroup-title">{{ t(subgroup.group_name) }}</div>
                   <div class="subgroup-content">
                     <div
                       v-for="(member, mIndex) in subgroup.members"
@@ -117,7 +117,7 @@ const handleClose = () => {
         <div id="copyright">
           <div class="title">{{ t('版权信息') }}</div>
           <div class="content">
-            <p v-for="(cr, crIndex) in DataAboutApp.copyrights" :key="'copyright-' + crIndex">{{ cr }}</p>
+            <p v-for="(cr, crIndex) in DataAboutApp.copyrights" :key="'copyright-' + crIndex">{{ t(cr) }}</p>
           </div>
         </div>
         <n-divider />
