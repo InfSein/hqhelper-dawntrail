@@ -76,6 +76,12 @@
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
+.n-timeline-item-content__title {
+  text-decoration-line: underline;
+  --n-title-margin: -2px 0 3px 0;
+  --n-title-font-weight: bold;
+  --n-title-font-size: 18px;
+}
 table.n-table tbody tr:hover td {
   background-color: var(--n-th-color-popover);
 }
@@ -88,4 +94,10 @@ input::-webkit-outer-spin-button {
 input[type='number'] {
   appearance: textfield;
   -moz-appearance: textfield;
+}
+code {
+  border: 1px solid var(--n-text-color);
+  padding: 0 4px;
+  border-radius: 4px;
+  font-family: inherit;
 }

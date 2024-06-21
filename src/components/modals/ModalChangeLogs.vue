@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject, ref, watch, type Ref } from 'vue'
-import { EventNoteFilled, CloseSharp } from '@vicons/material'
+import { EventNoteFilled } from '@vicons/material'
 import { defaultUserConfig, type UserConfigModel } from '@/models/user-config'
 import { type UpdateLog, convertToUpdateLogs } from '@/models/changelog'
 
@@ -77,7 +77,7 @@ const handleClose = () => {
       </template>
 
       <n-card embedded class="wrapper" :style="{ height: isMobile ? '450px' : '400px' }">
-        <div class="loading">
+        <div v-if="loading" class="loading">
           <n-spin :size="15" />
           <span>{{ t('加载中...') }}</span>
         </div>
@@ -91,7 +91,8 @@ const handleClose = () => {
               :key="'log-' + index"
               :type="getType(item.type)"
               :title="item.version"
-              :timestamp="item.date"
+              :time="item.date"
+              style="--n-title-font-weight: bold;"
             >
               <div class="vlogs">
                 <div v-for="(vlContent, vlTitle) in item.content" :key="`log-${index}-${vlTitle}`" class="vlog">
@@ -99,7 +100,7 @@ const handleClose = () => {
                   <div class="vlog-contents">
                     <ul>
                       <li v-for="(v, i) in vlContent" :key="`log-${index}-${vlTitle}-${i}`">
-                        {{ v }}
+                        <span v-html="v"></span>
                       </li>
                     </ul>
                   </div>
@@ -114,6 +115,10 @@ const handleClose = () => {
 </template>
 
 <style scoped>
+::deep(.n-timeline .n-timeline-item .n-timeline-item-content .n-timeline-item-content__title) {
+  font-weight: bold;
+}
+
 /* All */
 .wrapper {
   display: flex;
@@ -128,6 +133,21 @@ const handleClose = () => {
   }
   .error-text {
     color: red;
+  }
+
+  .main-content{
+    .n-timeline-item-content__title {
+      font-weight: bold;
+      text-decoration-line: underline;
+    }
+    .vlogs {
+      .vlog-title {
+        font-weight: bold;
+      }
+      .vlog-contents ul {
+        padding-inline-start: 2em;
+      }
+    }
   }
 }
 
