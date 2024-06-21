@@ -20,11 +20,11 @@ const getAffixName = (affix: AttireAffix | AccessoryAffix) => {
   return XivGearAffixes[affix][`affix_name_${uiLanguage}`]
 }
 
-const modelShow = defineModel<boolean>('show', { required: true })
+const showModal = defineModel<boolean>('show', { required: true })
 const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
 
 const localSelections = ref<GearSelections>(deepCopy(gearSelections.value))
-watch(modelShow, (newVal, oldVal) => {
+watch(showModal, (newVal, oldVal) => {
   if (newVal && !oldVal) {
     localSelections.value = deepCopy(gearSelections.value)
   }
@@ -53,7 +53,7 @@ const getJobName = (jobId: number) => {
 }
 
 const handleClose = () => {
-  modelShow.value = false
+  showModal.value = false
 }
 
 const handleSave = () => {
@@ -63,7 +63,7 @@ const handleSave = () => {
 </script>
 
 <template>
-  <n-modal v-model:show="modelShow">
+  <n-modal v-model:show="showModal">
     <n-card
       closable
       role="dialog"

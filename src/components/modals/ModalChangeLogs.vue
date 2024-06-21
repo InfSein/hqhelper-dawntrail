@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import { inject } from 'vue'
-import { ContactlessSharp, CloseSharp } from '@vicons/material'
+import { EventNoteFilled, CloseSharp } from '@vicons/material'
 //import ChangeLogContentEN from 'base/CHANGELOG.md'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
-const modelShow = defineModel<boolean>('show', { required: true })
+const showModal = defineModel<boolean>('show', { required: true })
 
 const handleClose = () => {
-  modelShow.value = false
+  showModal.value = false
 }
 </script>
 
 <template>
-  <n-modal v-model:show="modelShow">
+  <n-modal v-model:show="showModal">
     <n-card
       closable
       role="dialog"
@@ -24,7 +24,7 @@ const handleClose = () => {
     >
       <template #header>
         <div class="card-title">
-          <n-icon><ContactlessSharp /></n-icon>
+          <n-icon><EventNoteFilled /></n-icon>
           <span class="title">{{ t('更新日志') }}</span>
         </div>
       </template>

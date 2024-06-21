@@ -16,7 +16,7 @@ const store = useStore()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
-const modelShow = defineModel<boolean>('show', { required: true })
+const showModal = defineModel<boolean>('show', { required: true })
 const emit = defineEmits(['close', 'afterSubmit'])
 
 // #region data
@@ -210,7 +210,7 @@ const getGroupName = (key: string) => {
 // #endregion
 
 const handleClose = () => {
-  modelShow.value = false
+  showModal.value = false
 }
 
 const currentTab = ref('general')
@@ -241,7 +241,7 @@ const handleSave = () => {
 </script>
 
 <template>
-  <n-modal v-model:show="modelShow">
+  <n-modal v-model:show="showModal">
     <n-card
       closable
       role="dialog"

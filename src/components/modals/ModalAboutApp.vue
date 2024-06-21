@@ -7,15 +7,15 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 
-const modelShow = defineModel<boolean>('show', { required: true })
+const showModal = defineModel<boolean>('show', { required: true })
 
 const handleClose = () => {
-  modelShow.value = false
+  showModal.value = false
 }
 </script>
 
 <template>
-  <n-modal v-model:show="modelShow">
+  <n-modal v-model:show="showModal">
     <n-card
       closable
       role="dialog"

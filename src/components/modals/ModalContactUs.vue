@@ -9,7 +9,7 @@ import IconTwitter from '@/assets/icons/external/IconTwitter.vue'
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
-const modelShow = defineModel<boolean>('show', { required: true })
+const showModal = defineModel<boolean>('show', { required: true })
 
 const qGroupInfo = {
   groupNumber: '721051298',
@@ -29,12 +29,12 @@ const tabContentStyle = [
 ].join(' ')
 
 const handleClose = () => {
-  modelShow.value = false
+  showModal.value = false
 }
 </script>
 
 <template>
-  <n-modal v-model:show="modelShow">
+  <n-modal v-model:show="showModal">
     <n-card
       closable
       role="dialog"
