@@ -7,8 +7,9 @@ import GearSelectionPanel from '@/components/main/GearSelectionPanel.vue'
 import QuickOperatePanel from '@/components/main/QuickOperatePanel.vue'
 import StatisticsPanel from '@/components/main/StatisticsPanel.vue'
 import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
-import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import ModalContactUs from '@/components/modals/ModalContactUs.vue'
+import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
+import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import { useMessage } from 'naive-ui';
 import { defaultUserConfig, type UserConfigModel } from '@/models/user-config';
 import type { AttireAffix, AccessoryAffix } from '@/models/gears'
@@ -33,6 +34,7 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUser
 const showUserPreferencesModal = ref(false)
 const showAboutAppModal = ref(false)
 const showContactUsModal = ref(false)
+const showChangeLogsModal = ref(false)
 
 const onUserPreferencesSubmitted = () => {
   showUserPreferencesModal.value = false
@@ -49,6 +51,9 @@ provide('showAboutAppModal', () => {
 })
 provide('showContactModal', () => {
   showContactUsModal.value = true
+})
+provide('showChangeLogsModal', () => {
+  showChangeLogsModal.value = true
 })
 
 // #endregion
@@ -179,6 +184,7 @@ const handleJobButtonDupliClick = () => {
   />
   <ModalAboutApp v-model:show="showAboutAppModal" />
   <ModalContactUs v-model:show="showContactUsModal" />
+  <ModalChangeLogs v-model:show="showChangeLogsModal" />
 </template>
 
 <style scoped>

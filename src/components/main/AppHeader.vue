@@ -4,6 +4,7 @@ import { NIcon } from 'naive-ui'
 import {
   MenuFilled,
   SettingsSharp,
+  EventNoteFilled,
   InfoFilled,
   ContactlessSharp
 } from '@vicons/material'
@@ -14,6 +15,7 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const showUserPreferencesModal = inject<() => void>('showUserPreferencesModal') ?? (() => {})
 const showAboutAppModal = inject<() => void>('showAboutAppModal') ?? (() => {})
 const showContactModal = inject<() => void>('showContactModal') ?? (() => {})
+const showChangeLogsModal = inject<() => void>('showChangeLogsModal') ?? (() => {})
 const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh');
 const isChina = computed(() => locale.value === 'zh');
 
@@ -27,6 +29,7 @@ const showMenus = ref(false)
 const menuItems = [
   { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp, click: showUserPreferencesModal },
   { key: 'contact-us', label: t('联系我们'), icon: ContactlessSharp, click: showContactModal },
+  { key: 'change-logs', label: t('更新日志'), icon: EventNoteFilled, click: showChangeLogsModal },
   { key: 'about-app', label: t('关于本作'), icon: InfoFilled, click: showAboutAppModal },
 ]
 
