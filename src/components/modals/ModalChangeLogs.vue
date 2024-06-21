@@ -66,7 +66,7 @@ const handleClose = () => {
       role="dialog"
       class="no-select"
       style="width: 98%; max-width: 600px;"
-      :style="{ height: isMobile ? '550px' : '500px' }"
+      :style="{ height: isMobile ? '650px' : '600px' }"
       @close="handleClose"
     >
       <template #header>
@@ -76,7 +76,7 @@ const handleClose = () => {
         </div>
       </template>
 
-      <n-card embedded class="wrapper" :style="{ height: isMobile ? '450px' : '400px' }">
+      <n-card embedded class="wrapper" :style="{ height: isMobile ? '550px' : '500px' }">
         <div v-if="loading" class="loading">
           <n-spin :size="15" />
           <span>{{ t('加载中...') }}</span>
