@@ -50,6 +50,8 @@ const btnSize = props.imgSize + 5
   right: 0;
   bottom: 0;
   left: initial;
+  cursor: pointer;
+  user-select: none;
 }
 .job-button {
   padding: 1px;
