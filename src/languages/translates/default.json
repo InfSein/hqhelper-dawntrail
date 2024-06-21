@@ -1036,5 +1036,19 @@
         "$files": [
             "components\\modals\\ModalChangeLogs.vue"
         ]
+    },
+    "加载更新日志失败": {
+        "en": "An error occurred on loading our changelogs.",
+        "ja": "加载更新日志失败",
+        "$files": [
+            "components\\modals\\ModalChangeLogs.vue"
+        ]
+    },
+    "加载中...": {
+        "en": "Loading...",
+        "ja": "加载中...",
+        "$files": [
+            "components\\modals\\ModalChangeLogs.vue"
+        ]
     }
 }

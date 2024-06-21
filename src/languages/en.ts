@@ -146,5 +146,7 @@ export default {
     "145": "Localization translator",
     "146": "Japanese",
     "147": "Personal homepages: ",
-    "148": "Change Logs"
+    "148": "Change Logs",
+    "149": "An error occurred on loading our changelogs.",
+    "150": "Loading..."
 }
