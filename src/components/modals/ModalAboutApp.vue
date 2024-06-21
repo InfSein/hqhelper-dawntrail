@@ -19,6 +19,7 @@ const handleClose = () => {
     <n-card
       closable
       role="dialog"
+      class="no-select"
       style="width: 98%; max-width: 600px;"
       :style="{ height: isMobile ? '550px' : '500px' }"
       @close="handleClose"
@@ -157,8 +158,9 @@ const handleClose = () => {
 
 .wrapper {
   display: flex;
-  overflow-y: auto;
   flex-direction: column;
+  user-select: text;
+  overflow-y: auto;
 
   .title {
     font-size: 16px;
