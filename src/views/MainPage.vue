@@ -4,7 +4,6 @@ import AppHeader from '@/components/main/AppHeader.vue'
 import PatchPanel from '@/components/main/PatchPanel.vue'
 import JobPanel from '@/components/main/JobPanel.vue'
 import GearSelectionPanel from '@/components/main/GearSelectionPanel.vue'
-import QuickOperatePanel from '@/components/main/QuickOperatePanel.vue'
 import StatisticsPanel from '@/components/main/StatisticsPanel.vue'
 import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
 import ModalContactUs from '@/components/modals/ModalContactUs.vue'
@@ -141,38 +140,30 @@ const handleJobButtonDupliClick = () => {
     </n-layout-header>
 
     <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
-      <n-flex vertical id="main-container">
-        <PatchPanel v-model:patch-selected="workState.patch" />
-        <n-flex>
-          <n-flex vertical id="sub-container-1">
-            <n-flex>
-              <JobPanel
-                v-model:job-selected="workState.job"
-                v-model:affixes-selected="workState.affixes"
-                class="job-panel"
-                :patch-selected="workState.patch"
-                :main-hand-selections="workState.gears?.MainHand"
-                @on-job-button-dupli-click="handleJobButtonDupliClick"
-              />
-              <GearSelectionPanel
-                v-model:gear-selections="workState.gears"
-                ref="gearSelectionPanel"
-                class="gear-panel"
-                :job-id="workState.job"
-                :attire-affix="workState.affixes?.attire as AttireAffix"
-                :accessory-affix="workState.affixes?.accessory as AccessoryAffix"
-              />
-            </n-flex>
-            <QuickOperatePanel
-              class="quick-operate-panel"
-              v-show="false"
-            />
-          </n-flex>
-          <n-flex vertical id="sub-container-2">
-            <StatisticsPanel class="statistics-panel" />
-          </n-flex>
-        </n-flex>
-      </n-flex>
+      <div vertical id="main-container">
+        <PatchPanel id="top-layout" v-model:patch-selected="workState.patch" />
+        <div vertical id="left-layout">
+          <JobPanel
+            v-model:job-selected="workState.job"
+            v-model:affixes-selected="workState.affixes"
+            class="job-panel"
+            :patch-selected="workState.patch"
+            :main-hand-selections="workState.gears?.MainHand"
+            @on-job-button-dupli-click="handleJobButtonDupliClick"
+          />
+          <GearSelectionPanel
+            v-model:gear-selections="workState.gears"
+            ref="gearSelectionPanel"
+            class="gear-panel"
+            :job-id="workState.job"
+            :attire-affix="workState.affixes?.attire as AttireAffix"
+            :accessory-affix="workState.affixes?.accessory as AccessoryAffix"
+          />
+        </div>
+        <div vertical id="right-layout">
+          <StatisticsPanel class="statistics-panel" />
+        </div>
+      </div>
   
       <n-back-top />
     </n-layout-content>
@@ -201,8 +192,13 @@ const handleJobButtonDupliClick = () => {
   margin-top: 65px;
 }
 #main-container {
+  gap: 0.6rem;
   max-width: 100%;
   font-weight: 400;
+
+  #left-layout {
+    gap: 0.6rem;
+  }
 }
 
 /* PC only */
@@ -213,25 +209,16 @@ const handleJobButtonDupliClick = () => {
     height: 100%;
     overflow: auto;
 
-    #sub-container-1 {
-      width: 50%;
-
-      .job-panel {
-        width: 50%;
-      }
-      .gear-panel {
-        width: calc(50% - 12px);
-      }
-      .quick-operate-panel {
-        width: 100%;
-      }
+    #top-layout {
+      grid-column: 1 / 3;
+      grid-row: 1 / 2;
     }
-    #sub-container-2 {
-      width: calc(50% - 12px);
-
-      .statistics-panel {
-        width: 100%;
-      }
+    #left-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    #right-layout .statistics-panel {
+      width: 100%;
     }
   }
 }
@@ -239,8 +226,13 @@ const handleJobButtonDupliClick = () => {
 /* Mobile only */
 @media screen and (max-width: 767px) {
   #main-container {
-    #sub-container-1 {
+    display: flex;
+    flex-direction: column;
+
+    #left-layout {
       width: 100%;
+      display: flex;
+      flex-direction: column;
 
       .job-panel {
         width: 100%;
@@ -249,7 +241,7 @@ const handleJobButtonDupliClick = () => {
         width: 100%;
       }
     }
-    #sub-container-2 {
+    #right-layout {
       width: 100%;
 
       .statistics-panel {
