@@ -15,20 +15,22 @@ export interface UpdateLog {
 export const convertToUpdateLogs = (changelog: string) => {
   const lines = changelog.split('\n')
   const updateLogs: UpdateLog[] = []
+  let previousLog: UpdateLog | null = null
   let currentLog: UpdateLog | null = null
-  let previousVersion: string | null = null
 
   lines.forEach(line => {
-    const versionMatch = line.match(/^##\s+(\d+\.\d+\.\d+)\s+\((\d{4}-\d{2}-\d{2})\)/)
+    const versionMatch = line.match(/^##\s+(.+?)\s+\((\d{4}-\d{2}-\d{2})\)/)
     if (versionMatch) {
       if (currentLog) {
+        previousLog = currentLog
         updateLogs.push(currentLog)
       }
       const version = versionMatch[1]
       const date = versionMatch[2]
-      const { type, discontinuous } = getType(previousVersion || '0.0.0', version)
-      currentLog = { version, type, date, content: {}, discontinuous }
-      previousVersion = version
+      currentLog = { version, type: 'patch', date, content: {}, discontinuous: false }
+      if (previousLog) {
+        dealVersions(previousLog, currentLog)
+      }
     } else if (currentLog) {
       const sectionMatch = line.match(/^###\s+(.*)/)
       if (sectionMatch) {
@@ -56,23 +58,25 @@ export const convertToUpdateLogs = (changelog: string) => {
 const majorVersions = [
   '项目成立', 'Project Established', 'プロジェクト開発開始'
 ]
-function getType(previousVersion: string, currentVersion: string) {
-  let type: "major" | "minor" | "patch" = 'patch', discontinuous = false
-
-  if (majorVersions.includes(previousVersion)) {
-    discontinuous = true
-  }
-  if (majorVersions.includes(currentVersion)) {
-    type = "major"
+/** 处理前后两个版本。由于CHANGELOG默认顺序是从新到旧，所以一般`previousVersion`是新版本，`currentVersion`是旧版本 */
+function dealVersions(previousVersion: UpdateLog, currentVersion: UpdateLog) {
+  if (majorVersions.includes(previousVersion.version)) {
+    previousVersion.type = "major"
   } else {
-    const [prevMajor, prevMinor/*, prevPatch*/] = previousVersion.split('.').map(Number)
-    const [currMajor, currMinor/*, currPatch*/] = currentVersion.split('.').map(Number)
-    if (currMajor > prevMajor) {
-      type = "major"
-    } else if (currMinor > prevMinor) {
-      type = "minor"
+    const _cv = majorVersions.includes(currentVersion.version) ? '0.0.0' : currentVersion.version
+    const [prevMajor, prevMinor/*, prevPatch*/] = previousVersion.version.split('.').map(Number)
+    const [currMajor, currMinor/*, currPatch*/] = _cv.split('.').map(Number)
+    if (prevMajor > currMajor) {
+      previousVersion.type = "major"
+    } else if (prevMinor > currMinor) {
+      previousVersion.type = "minor"
+    } else {
+      previousVersion.type = "patch"
     }
   }
-
-  return { type, discontinuous }
+  
+  if (majorVersions.includes(currentVersion.version)) {
+    previousVersion.discontinuous = true
+    currentVersion.type = "major"
+  }
 }

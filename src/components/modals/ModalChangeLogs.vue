@@ -92,6 +92,7 @@ const handleClose = () => {
               :type="getType(item.type)"
               :title="item.version"
               :time="item.date"
+              :line-type="item.discontinuous ? 'dashed' : 'default'"
               style="--n-title-font-weight: bold;"
             >
               <div class="vlogs">
