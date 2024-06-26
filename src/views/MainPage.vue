@@ -13,6 +13,7 @@ import { useMessage } from 'naive-ui';
 import { defaultUserConfig, type UserConfigModel } from '@/models/user-config';
 import type { AttireAffix, AccessoryAffix } from '@/models/gears'
 import { attireAffixes, accessoryAffixes, getDefaultGearSelections } from '@/models/gears'
+import type { ItemCalculated } from '@/models/item-calculated'
 import { useStore } from '@/store'
 import XivJobs from '@/assets/data/xiv-jobs.json'
 
@@ -131,6 +132,35 @@ const handleJobButtonDupliClick = () => {
   }
 }
 
+const sampleStatistics = {
+  reagents: [
+    { item_id: 27785, count: 1 },
+    { item_id: 27785, count: 2 },
+    { item_id: undefined, count: 3 },
+    { item_id: 27785, count: 4 },
+    { item_id: 27785, count: 5 },
+  ] as ItemCalculated[],
+  masterSemis: [
+    { item_id: 27785, count: 1 },
+    { item_id: 27785, count: 2 },
+    { item_id: 27785, count: 3 },
+    { item_id: 27785, count: 4 },
+    { item_id: 27785, count: 5 },
+  ] as ItemCalculated[],
+  commonSemis: [
+    { item_id: 27785, count: 1 },
+    { item_id: 27785, count: 2 },
+  ] as ItemCalculated[],
+  aethersands: [
+    { item_id: 27785, count: 1 },
+    { item_id: 27785, count: 2 },
+    { item_id: 27785, count: 3 },
+  ] as ItemCalculated[],
+  commonGatherTimeLimited: [] as ItemCalculated[],
+  commonGatherTimeUnlimited: [] as ItemCalculated[],
+  crystals: [] as ItemCalculated[]
+}
+
 </script>
 
 <template>
@@ -161,7 +191,7 @@ const handleJobButtonDupliClick = () => {
           />
         </div>
         <div vertical id="right-layout">
-          <StatisticsPanel class="statistics-panel" />
+          <StatisticsPanel class="statistics-panel" v-bind="sampleStatistics" />
         </div>
       </div>
   

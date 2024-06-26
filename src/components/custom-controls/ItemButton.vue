@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import XivFARImage from './XivFARImage.vue'
+import { getCharsUntilLastN } from '@/tools'
 
 interface ItemButtonProps {
   /** 按钮尺寸，格式：`[宽,高]` */
   btnSize: string[];
   /** 物品ID */
-  itemID: number;
+  itemID?: number;
   /** 物品数量 */
   itemAmount?: number;
   /** 物品图标url(可选,覆盖默认网络图标) */
@@ -15,46 +16,50 @@ interface ItemButtonProps {
   showIcon?: boolean;
   /** 是否显示物品名称(可选,默认false) */
   showName?: boolean;
+  /** 是否显示物品数量(可选,默认false) */
+  showAmount?: boolean;
   /** 按钮是否禁用(可选,默认false) */
   disabled?: boolean;
 }
 const props = defineProps<ItemButtonProps>()
 
-const getItemIcon = (itemID: number) => {
+const getItemIcon = (itemID?: number) => {
   if (props.itemIcon) return props.itemIcon
   console.log(itemID) // todo: get item icon
   return `./image/game-job/companion/none.png`
 }
 const iconSize = computed(() => {
-  return Number(props.btnSize?.[1] || 32) - 5
+  console.log(props.btnSize?.[1], props.btnSize?.[1]?.slice(-2))
+  return Number(getCharsUntilLastN(props.btnSize?.[1] || '32px', 2)) - 5
 })
 
-const getItemName = (itemID: number) => {
+const getItemName = (itemID?: number) => {
   console.log(itemID) // todo: get item name
-  return 'UNKNOWN'
+  if (!itemID) return ''
+  return '光芒大丁草'
 }
-const getItemNameChinese = (itemID: number) => {
+const getItemNameChinese = (itemID?: number) => {
   console.log(itemID) // todo: get item name in Chinese
   return '光芒大丁草'
 }
-const getItemNameSubLang = (itemID: number) => {
+const getItemNameSubLang = (itemID?: number) => {
   console.log(itemID) // todo: get item name in other languages
   return ''
 }
 
-const getItemDescriptions = (itemID: number) => {
+const getItemDescriptions = (itemID?: number) => {
   console.log(itemID) // todo: get item description
   return '<div></div>'
 }
 
 /** 在灰机wiki中打开物品页面 */
-const openInHuijiWiki = (itemID: number) => {
+const openInHuijiWiki = (itemID?: number) => {
   const itemNameChinese = getItemNameChinese(itemID)
   const url = `https://ff14.huijiwiki.com/wiki/物品:${itemNameChinese}`
   window.open(url)
 }
 /** 在 Garland Data 中打开物品页面 */
-const openInGarland = (itemID: number) => {
+const openInGarland = (itemID?: number) => {
   const url = `https://www.garlandtools.org/db/#item/${itemID}`
   window.open(url)
 }
