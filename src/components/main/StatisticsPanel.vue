@@ -66,7 +66,7 @@ const props = defineProps<StatisticsModel>()
             :key="'reagent-' + index"
             :item-id="item.item_id"
             :amount="item.count"
-            :btn-size="['60px', '30px']"
+            :btn-size="['120px', '40px']"
             show-icon show-name show-amount
           >
           </ItemButton>

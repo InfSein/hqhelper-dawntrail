@@ -29,7 +29,6 @@ const getItemIcon = (itemID?: number) => {
   return `./image/game-job/companion/none.png`
 }
 const iconSize = computed(() => {
-  console.log(props.btnSize?.[1], props.btnSize?.[1]?.slice(-2))
   return Number(getCharsUntilLastN(props.btnSize?.[1] || '32px', 2)) - 5
 })
 
@@ -131,5 +130,17 @@ const openInGarland = (itemID?: number) => {
 <style scoped>
 .item-button {
   padding: 1px;
+
+  .item-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    .item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+  }
 }
 </style>
