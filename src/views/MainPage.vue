@@ -140,14 +140,14 @@ const sampleStatistics = {
     { item_id: 27785, count: 4 },
     { item_id: 27785, count: 5 },
   ] as ItemCalculated[],
-  masterSemis: [
+  masterPrecrafts: [
     { item_id: 27785, count: 1 },
     { item_id: 27785, count: 2 },
     { item_id: 27785, count: 3 },
     { item_id: 27785, count: 4 },
     { item_id: 27785, count: 5 },
   ] as ItemCalculated[],
-  commonSemis: [
+  commonPrecrafts: [
     { item_id: 27785, count: 1 },
     { item_id: 27785, count: 2 },
   ] as ItemCalculated[],

@@ -22,12 +22,12 @@ interface StatisticsModel {
    * 
    * 按照制作职业排序，一般顺序为`刻木-锻铁-雕金-制革-裁缝`。
    */
-  masterSemis: ItemCalculated[]
+  masterPrecrafts: ItemCalculated[]
   /**
    * 表示要展示的普通星级半成品。
    * 必须是一个数组，长度无限制
    */
-  commonSemis: ItemCalculated[]
+  commonPrecrafts: ItemCalculated[]
 
   /**
    * 表示独立统计出的灵砂。
@@ -72,12 +72,12 @@ const props = defineProps<StatisticsModel>()
           </ItemButton>
         </div>
       </GroupBox>
-      <GroupBox id="master-semis-group" class="group">
+      <GroupBox id="master-precrafts-group" class="group">
         <template #title>{{ t('秘籍星级半成品统计') }}</template>
         <div class="container">
           <ItemButton
-            v-for="(item, index) in props.masterSemis"
-            :key="'masterSemi-' + index"
+            v-for="(item, index) in props.masterPrecrafts"
+            :key="'masterPrecraft-' + index"
             :item-id="item.item_id"
             :amount="item.count"
             :btn-size="['100px', '20px']"
@@ -86,12 +86,12 @@ const props = defineProps<StatisticsModel>()
           </ItemButton>
         </div>
       </GroupBox>
-      <GroupBox id="common-semis-group" class="group">
+      <GroupBox id="common-precrafts-group" class="group">
         <template #title>{{ t('普通星级半成品统计') }}</template>
         <div class="container">
           <ItemButton
-            v-for="(item, index) in props.commonSemis"
-            :key="'commonSemi-' + index"
+            v-for="(item, index) in props.commonPrecrafts"
+            :key="'commonPrecraft-' + index"
             :item-id="item.item_id"
             :amount="item.count"
             :btn-size="['100px', '20px']"
