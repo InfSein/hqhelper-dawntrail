@@ -462,27 +462,6 @@
             "components\\main\\JobPanel.vue"
         ]
     },
-    "半成品表": {
-        "en": "半成品表",
-        "ja": "半成品表",
-        "$files": [
-            "components\\main\\StatisticsPanel.vue"
-        ]
-    },
-    "特殊": {
-        "en": "特殊",
-        "ja": "特殊",
-        "$files": [
-            "components\\main\\StatisticsPanel.vue"
-        ]
-    },
-    "秘籍半成品": {
-        "en": "秘籍半成品",
-        "ja": "秘籍半成品",
-        "$files": [
-            "components\\main\\StatisticsPanel.vue"
-        ]
-    },
     "通用": {
         "en": "General",
         "ja": "通用",
@@ -1049,6 +1028,83 @@
         "ja": "加载中...",
         "$files": [
             "components\\modals\\ModalChangeLogs.vue"
+        ]
+    },
+    "非常抱歉，但我们还没有准备好正式发布，程序目前还无法正常使用。我们目前的预期是在7.05版本实装之前完成开发，请耐心等待。": {
+        "en": "Sorry, but we're not ready for official release yet, and now the application is not prepared for use. Our current expectation is to complete the development before the implementation of patch 7.05. Please wait.",
+        "ja": "申し訳ありませんが、正式なリリースの準備ができておらず、プログラムはまだ正常に使用できていません。私たちの現在の予想はリリース7.05の実装前に開発が完了する予定ですので、お待ちください。",
+        "$files": [
+            "views\\MainPage.vue"
+        ]
+    },
+    "在灰机wiki中打开": {
+        "en": "Open in HuijiWiki",
+        "ja": "在灰机wiki中打开",
+        "$files": [
+            "components\\custom-controls\\ItemButton.vue"
+        ]
+    },
+    "在Garland中打开": {
+        "en": "Open in Garland",
+        "ja": "在Garland中打开",
+        "$files": [
+            "components\\custom-controls\\ItemButton.vue"
+        ]
+    },
+    "特殊星级半成品&点数统计": {
+        "en": "Special MasterPrecrafts & Allagan",
+        "ja": "特殊星级半成品&点数统计",
+        "$files": [
+            "components\\main\\StatisticsPanel.vue"
+        ]
+    },
+    "秘籍星级半成品统计": {
+        "en": "MasterPrecrafts",
+        "ja": "秘籍星级半成品统计",
+        "$files": [
+            "components\\main\\StatisticsPanel.vue"
+        ]
+    },
+    "普通星级半成品统计": {
+        "en": "CommonPrecrafts",
+        "ja": "普通星级半成品统计",
+        "$files": [
+            "components\\main\\StatisticsPanel.vue"
+        ]
+    },
+    "灵砂统计": {
+        "en": "Aethersands",
+        "ja": "灵砂统计",
+        "$files": [
+            "components\\main\\StatisticsPanel.vue"
+        ]
+    },
+    "采集统计": {
+        "en": "Gatherings",
+        "ja": "采集统计",
+        "$files": [
+            "components\\main\\StatisticsPanel.vue"
+        ]
+    },
+    "常规采集品": {
+        "en": "Common gathering items",
+        "ja": "常规采集品",
+        "$files": [
+            "components\\main\\StatisticsPanel.vue"
+        ]
+    },
+    "限时采集品": {
+        "en": "Limited gathering items",
+        "ja": "限时采集品",
+        "$files": [
+            "components\\main\\StatisticsPanel.vue"
+        ]
+    },
+    "水晶": {
+        "en": "Crystals",
+        "ja": "水晶",
+        "$files": [
+            "components\\main\\StatisticsPanel.vue"
         ]
     }
 }
