@@ -170,6 +170,12 @@ const sampleStatistics = {
     </n-layout-header>
 
     <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
+      <n-alert
+        type="warning"
+        style="margin-bottom: 10px;"
+      >
+        {{ t('非常抱歉，但我们还没有准备好正式发布，程序目前还无法正常使用。我们目前的预期是在7.05版本实装之前完成开发，请耐心等待。') }}
+      </n-alert>
       <div vertical id="main-container">
         <PatchPanel id="top-layout" v-model:patch-selected="workState.patch" />
         <div vertical id="left-layout">
