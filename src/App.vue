@@ -179,8 +179,9 @@ provide('appForceUpdate', appForceUpdate)
 const appClass = computed(() => {
   const classes = [
     'lang-' + locale.value,
-    'app-' + isMobile.value ? 'mobile' : 'desktop',
+    'app-' + (isMobile.value ? 'mobile' : 'desktop'),
   ]
+  console.log(classes)
   return classes.join(' ')
 })
 
