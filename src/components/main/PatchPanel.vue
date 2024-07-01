@@ -27,7 +27,7 @@ const handlePatchSelect = (patch: any) => {
 const getPatchName = (patch: any) => {
   const uiLanguage = userConfig.value?.language_ui ?? 'zh'
 
-  let patchName = patch.name_cn
+  let patchName = patch.name_zh
   if (uiLanguage === 'en') {
     patchName = patch.name_en
   } else if (uiLanguage === 'ja') {

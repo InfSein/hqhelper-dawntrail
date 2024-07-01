@@ -1,7 +1,7 @@
 [
   {
     "v": "7.0",
-    "name_cn": "金曦之遗辉",
+    "name_zh": "金曦之遗辉",
     "name_en": "DAWNTRAIL",
     "name_ja": "黄金のレガシー",
     "updated": true,
@@ -9,7 +9,7 @@
   },
   {
     "v": "7.1",
-    "name_cn": "???",
+    "name_zh": "???",
     "name_en": "???",
     "name_ja": "???",
     "updated": false,
@@ -17,7 +17,7 @@
   },
   {
     "v": "7.2",
-    "name_cn": "???",
+    "name_zh": "???",
     "name_en": "???",
     "name_ja": "???",
     "updated": false,
@@ -25,7 +25,7 @@
   },
   {
     "v": "7.3",
-    "name_cn": "???",
+    "name_zh": "???",
     "name_en": "???",
     "name_ja": "???",
     "updated": false,
@@ -33,7 +33,7 @@
   },
   {
     "v": "7.4",
-    "name_cn": "???",
+    "name_zh": "???",
     "name_en": "???",
     "name_ja": "???",
     "updated": false,
