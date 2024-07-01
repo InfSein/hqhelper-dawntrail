@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import XivFARImage from './XivFARImage.vue'
-import { getCharsUntilLastN } from '@/tools'
 
 interface ItemButtonProps {
   /** 按钮尺寸，格式：`[宽,高]` */
@@ -44,7 +43,7 @@ const btnHeight = computed(() => {
 
 const getItemName = (itemID?: number) => {
   console.log(itemID) // todo: get item name
-  if (!itemID) return ''
+  //if (!itemID) return ''
   return '光芒大丁草'
 }
 const getItemNameChinese = (itemID?: number) => {
@@ -138,18 +137,30 @@ const openInGarland = (itemID?: number) => {
 </template>
 
 <style scoped>
+:deep(.n-button__content){
+  width: 100%;
+  height: 100%;
+}
 .item-button {
   padding: 1px;
 
   .item-container {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
     display: flex;
     align-items: center;
     gap: 5px;
 
     .item-info {
+      margin-left: auto;
       display: flex;
       flex-direction: column;
       gap: 3px;
+
+      div {
+        text-align: end;
+      }
     }
   }
 }

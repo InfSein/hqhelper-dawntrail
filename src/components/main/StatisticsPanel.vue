@@ -57,7 +57,7 @@ const props = defineProps<StatisticsModel>()
       <i class="xiv square-4"></i>
       <span class="card-title-text">{{ t('查看统计') }}</span>
     </template>
-    <n-flex class="wrapper">
+    <div class="wrapper" :size="[1,2]">
       <GroupBox id="reagents-group" class="group">
         <template #title>{{ t('特殊星级半成品&点数统计') }}</template>
         <div class="container">
@@ -69,6 +69,12 @@ const props = defineProps<StatisticsModel>()
             show-icon show-name show-amount
           >
           </ItemButton>
+          <n-button>
+            <div class="w-full flex-column align-right">
+              <p>{{ t('点数') }}</p>
+              <p>x9999</p>
+            </div>
+          </n-button>
         </div>
       </GroupBox>
       <GroupBox id="master-precrafts-group" class="group">
@@ -118,10 +124,51 @@ const props = defineProps<StatisticsModel>()
           <n-button>{{ t('水晶') }}</n-button>
         </div>
       </GroupBox>
-    </n-flex>
+    </div>
   </FoldableCard>
 </template>
   
 <style scoped>
-  
+.group .container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Desktop only */
+@media screen and (min-width: 768px) {
+  div.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 15px;
+    column-gap: 10px;
+  }
+  #reagents-group .container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+  }
+  #actions-group {
+    grid-row: 1 / 3;
+    grid-column: 3;
+  }
+  #aethersands-group {
+    grid-row: 2;
+    grid-column: 1;
+  }
+  #common-precrafts-group {
+    grid-row: 2;
+    grid-column: 2;
+  }
+}
+
+/* Mobile only */
+@media screen and (max-width: 767px) {
+  div.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+}
 </style>
