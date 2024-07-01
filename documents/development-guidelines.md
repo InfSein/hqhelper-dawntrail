@@ -6,23 +6,26 @@
 
 ### Angular规范
 
-* `feat`：新功能
-* `fix`：修复问题
-* `docs`：文档修改
-* `style`：代码格式修改，不影响代码逻辑
-* `refactor`：重构代码，既不修复错误也不添加功能
-* `perf`：性能优化
-* `test`：添加或修改测试代码
-* `build`：构建系统或外部依赖项修改
-* `ci`：持续集成修改
-* `chore`：其他修改，如修改构建流程或辅助工具等
-* `revert`：回滚到之前的提交
+1. `feat`：增加新的特征
+2. `fix`：修复`bug`
+3. `build`：对构建系统或者外部依赖项进行了修改
+4. `ci`：对CI配置文件或脚本进行了修改
+5. `docs`：对文档进行了修改
+6. `pref`：提高性能的代码更改
+7. `refactor`：既不是修复`bug`也不是添加特征的代码重构
+8. `style`：不影响代码含义的修改，比如空格、格式化、缺失的分号等
+9. `test`：增加确实的测试或者矫正已存在的测试
+
+// https://github.com/Document-Collection/git-guide/blob/master/docs/message/Angular%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83.md
 
 ## CHANGELOG
 
 使用`conventional-changelog-cli`来自动生成英文版的CHANGELOG。
 可能需要人工修改。
 修改完成之后，交由相关人员进行本地化翻译。
+
+> [!NOTE]
+> 从2024年7月开始的commit正文开始使用中文，可能是因为某个英语并不怎么好的呆比受不了装模作样写英文的日子了吧
 
 ### 文件规范
 
@@ -51,22 +54,6 @@ conventional-changelog -p angular -i CHANGELOG.md -s
 
 /* 手机端 */
 @media screen and (max-width: 767px) {
-  /* 手机端样式 */
-}
-```
-
-在`0.0.19`版本后，应用组件皆归属于`App.vue`定义的`appClass`类容器下。
-
-因此也可以通过下述模式的CSS选择器来实现不同设备的兼容。
-
-```css
-/* 电脑端 */
-.app-desktop {
-  /* 电脑端样式 */
-}
-
-/* 手机端 */
-.app-mobile {
   /* 手机端样式 */
 }
 ```
