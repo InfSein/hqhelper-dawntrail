@@ -1,7 +1,7 @@
 [
   {
     "v": "7.0",
-    "name_cn": "曦光之遗存",
+    "name_cn": "金曦之遗辉",
     "name_en": "DAWNTRAIL",
     "name_ja": "黄金のレガシー",
     "updated": true,
@@ -20,7 +20,7 @@
     "name_cn": "???",
     "name_en": "???",
     "name_ja": "???",
-    "updated": true,
+    "updated": false,
     "logo": "./image/game-patch/patch-7.0.png"
   },
   {
@@ -28,7 +28,7 @@
     "name_cn": "???",
     "name_en": "???",
     "name_ja": "???",
-    "updated": true,
+    "updated": false,
     "logo": "./image/game-patch/patch-7.0.png"
   },
   {
@@ -36,7 +36,7 @@
     "name_cn": "???",
     "name_en": "???",
     "name_ja": "???",
-    "updated": true,
+    "updated": false,
     "logo": "./image/game-patch/patch-7.0.png"
   }
 ]
