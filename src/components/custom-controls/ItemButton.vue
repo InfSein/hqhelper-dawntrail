@@ -5,7 +5,7 @@ import { getCharsUntilLastN } from '@/tools'
 
 interface ItemButtonProps {
   /** 按钮尺寸，格式：`[宽,高]` */
-  btnSize: string[];
+  btnSize?: number[];
   /** 物品ID */
   itemID?: number;
   /** 物品数量 */
@@ -29,7 +29,17 @@ const getItemIcon = (itemID?: number) => {
   return `./image/game-job/companion/none.png`
 }
 const iconSize = computed(() => {
-  return Number(getCharsUntilLastN(props.btnSize?.[1] || '32px', 2)) - 5
+  return (props.btnSize?.[1] || 32) - 5
+})
+const btnWidth = computed(() => {
+  const _w = props.btnSize?.[0]
+  if (!_w) return 'auto'
+  return `${_w}px`
+})
+const btnHeight = computed(() => {
+  const _h = props.btnSize?.[1]
+  if (!_h) return 'auto'
+  return `${_h}px`
 })
 
 const getItemName = (itemID?: number) => {
@@ -71,7 +81,7 @@ const openInGarland = (itemID?: number) => {
       <n-button
         ghost
         class="item-button"
-        :style="{ width: btnSize?.[0] || 'auto', height: btnSize?.[1] || 'auto' }"
+        :style="{ width: btnWidth, height: btnHeight }"
         :disabled="disabled"
       >
         <slot>

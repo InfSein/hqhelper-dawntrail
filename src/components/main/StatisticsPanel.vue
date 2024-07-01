@@ -66,7 +66,6 @@ const props = defineProps<StatisticsModel>()
             :key="'reagent-' + index"
             :item-id="item.item_id"
             :amount="item.count"
-            :btn-size="['120px', '40px']"
             show-icon show-name show-amount
           >
           </ItemButton>
@@ -80,7 +79,6 @@ const props = defineProps<StatisticsModel>()
             :key="'masterPrecraft-' + index"
             :item-id="item.item_id"
             :amount="item.count"
-            :btn-size="['100px', '20px']"
             show-icon show-name show-amount
           >
           </ItemButton>
@@ -94,7 +92,6 @@ const props = defineProps<StatisticsModel>()
             :key="'commonPrecraft-' + index"
             :item-id="item.item_id"
             :amount="item.count"
-            :btn-size="['100px', '20px']"
             show-icon show-name show-amount
           >
           </ItemButton>
@@ -108,7 +105,6 @@ const props = defineProps<StatisticsModel>()
             :key="'aethersand-' + index"
             :item-id="item.item_id"
             :amount="item.count"
-            :btn-size="['100px', '20px']"
             show-icon show-name show-amount
           >
           </ItemButton>
