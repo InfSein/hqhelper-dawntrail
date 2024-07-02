@@ -69,7 +69,7 @@ const props = defineProps<StatisticsModel>()
             show-icon show-name show-amount
           >
           </ItemButton>
-          <n-button>
+          <n-button class="w-full h-full">
             <div class="w-full flex-column align-right">
               <p>{{ t('点数') }}</p>
               <p>x9999</p>
@@ -134,6 +134,11 @@ const props = defineProps<StatisticsModel>()
   flex-direction: column;
   gap: 5px;
 }
+#reagents-group .container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+}
 
 /* Desktop only */
 @media screen and (min-width: 768px) {
@@ -142,11 +147,6 @@ const props = defineProps<StatisticsModel>()
     grid-template-columns: repeat(3, 1fr);
     row-gap: 15px;
     column-gap: 10px;
-  }
-  #reagents-group .container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 5px;
   }
   #actions-group {
     grid-row: 1 / 3;
