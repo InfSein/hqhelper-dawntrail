@@ -3,64 +3,57 @@
 ![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) <br>
 ![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)
 
-**English** | [简体中文](https://github.com/InfSein/hqhelper-dawntrail/blob/master/README-ZH.md)
+**简体中文** | [日本語](https://github.com/InfSein/hqhelper-dawntrail/blob/master/README-JA.md) | [English](https://github.com/InfSein/hqhelper-dawntrail/blob/master/README-EN.md)
 
-## Introductions
 
-One web app designed for ffxiv dawntrail master crafters.
+## 项目介绍
 
-Visit our [Github Page](https://infsein.github.io/hqhelper-dawntrail/) and enjoy!
+专为7.x版本的《最终幻想XIV》生产玩家设计的Web应用。
 
-### Development Progress
+访问我们的 [Github Page](https://infsein.github.io/hqhelper-dawntrail/) 即可开始使用。
 
-This repository is still under construction and may undergo significant changes at any time.
+### 开发进度
 
-#### To-do List
+本项目仍处于建设阶段，随时可能发生重大变动。
+
+#### To-do 列表
 
 - [x] i18n
 - [ ] Development Document
 
-### Predecessor
+### 前身
 
-The first version of `HQ Helper`(also might be called `HqHelper` below) was a `Windows Forms` app based on `.NET 6.0`. 
+`HQ Helper`(下文中也可能称之为`HqHelper`)的初代版本是一个基于`.NET 6.0`的`Windows Forms`应用。
 
-The application interface was built by the designer of `WinForm`, and the native UI of `Windows 11`.
+该应用的界面由WinForms设计器制作，使用了Windows的原生UI。
 
-During the `ENDWALKER` expansion of `Final Fantasy XIV` period, the application established over 50 version updates through online storage and distribution,
-providing gamers with production statistics support spanning from `6.0` to `6.4` game patch.
+在`最终幻想XIV`的`晓月之终途`资料片期间，`HqHelper`提供了超过50次版本更新，支持版本覆盖了从`6.0`到`6.4`的所有游戏版本。
 
-You could still view screenshot, description and tutorials, or just download and run the application from the Release Page in [NGA Player Community](https://bbs.nga.cn/read.php?tid=31596099).
+你可以仍然在[NGA玩家社区](https://bbs.nga.cn/read.php?tid=31596099)的发布页面查看截图、描述和教程，或者直接下载和使用它。
 
-## Development Guidelines
+## 开发指南
 
-### Patch Management
+我们只在`README`中提供最基本的开发和构建指南，更详细的内容可能需要参阅`docs`文件夹或[Wiki](https://github.com/InfSein/hqhelper-dawntrail/wiki)。
 
-The patch of this application follows the naming convention of `MAJOR.MINOR.PATCH`.
+### 版本号说明
 
-1. `MAJOR`,`MINOR`,`PATCH` are all pure number;
-2. `MAJOR` represents the generation of `HqHelper`, and the adapted large patch of `FFXIV`;
-3. `MINOR` represents the adapted medium patch of `FFXIV`;
-4. `PATCH` represents the updated patch applied under the conditions specified in `MAJOR` and `MINOR`.
+此应用的版本号遵循 `MAJOR.MINOR.PATCH` 的命名规则。
 
-For example, `2.1.17` means:
+1. `MAJOR`,`MINOR`,`PATCH` 均为正整数;
+2. `MAJOR` 代表这是第几代 `HqHelper`，同时也标识着适配的 `最终幻想XIV` 资料片版本;
+3. `MINOR` 代表着适配的 `最终幻想XIV` 中等版本 (例如7.1的1);
+4. `PATCH` 代表着在前述 `MAJOR` 和 `MINOR` 约束下，应用更新的第几个版本。
 
-- The `2nd` generation of `HqHelper`, and it is designed for the `7.x` patch of `FFXIV`;
-- Adapted `7.1` patch of `FFXIV`;
-- The `17th` updated patch in `2.1.x` series.
+例如，`2.1.17` 代表：
+
+- 第 `2` 代的 `HqHelper`，专为 `最终幻想XIV` 的 `7.x` 资料片版本设计;
+- 适配 `最终幻想XIV` 的第 `1` 个中等版本，即 `7.1`;
+- 在适配 `7.1` 的基础上，更新的第 `17` 个版本。
 
 > [!NOTE]
-> The advancement of `PATCH` can be very aggressive, even if this version only has very small optimizations or fixes. This is because the client only automatically update when there is a change in the version number.
+> `PATCH` 版本号的增加可能会很激进，哪怕此版本仅有很小的优化或修复。
 
-### Branch Management
-
-The application would be updated automatically when `master` branch code been changed.
-
-In the early stages of development, the code can be directly pushed to the `master` branch. 
-But after the application is officially launched,
-the changes should be thoroughly tested in the `dev` branch
-before merging into the `master` branch.
-
-### Clone and Build
+### 构建本地调试环境
 
 ```sh
 git clone https://github.com/InfSein/hqhelper-dawntrail.git
@@ -69,15 +62,16 @@ npm i
 npm run dev
 ```
 
-## References
+## 参考内容
 
 1. [Naive UI](https://github.com/tusen-ai/naive-ui)
 2. [FFXIV Axis Font Icons](https://github.com/thewakingsands/ffxiv-axis-font-icons)
 
-Reference may not be all listed above.
+可能并未列举所有参考。
 
-## License
+## 许可
 
-The license of this project might be changed in the future.
+MIT
 
-For now, it is under `MIT`.
+> [!NOTE]
+> 项目许可在正式发布前随时可能发生变更。
