@@ -58,7 +58,7 @@ const props = defineProps<StatisticsModel>()
       <span class="card-title-text">{{ t('查看统计') }}</span>
     </template>
     <div class="wrapper" :size="[1,2]">
-      <GroupBox id="reagents-group" class="group">
+      <GroupBox id="reagents-group" class="group" title-background-color="var(--n-color-embedded)">
         <template #title>{{ t('特殊星级半成品&点数统计') }}</template>
         <div class="container">
           <ItemButton
@@ -77,7 +77,7 @@ const props = defineProps<StatisticsModel>()
           </n-button>
         </div>
       </GroupBox>
-      <GroupBox id="master-precrafts-group" class="group">
+      <GroupBox id="master-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
         <template #title>{{ t('秘籍星级半成品统计') }}</template>
         <div class="container">
           <ItemButton
@@ -90,7 +90,7 @@ const props = defineProps<StatisticsModel>()
           </ItemButton>
         </div>
       </GroupBox>
-      <GroupBox id="common-precrafts-group" class="group">
+      <GroupBox id="common-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
         <template #title>{{ t('普通星级半成品统计') }}</template>
         <div class="container">
           <ItemButton
@@ -103,7 +103,7 @@ const props = defineProps<StatisticsModel>()
           </ItemButton>
         </div>
       </GroupBox>
-      <GroupBox id="aethersands-group" class="group">
+      <GroupBox id="aethersands-group" class="group" title-background-color="var(--n-color-embedded)">
         <template #title>{{ t('灵砂统计') }}</template>
         <div class="container">
           <ItemButton
@@ -116,7 +116,7 @@ const props = defineProps<StatisticsModel>()
           </ItemButton>
         </div>
       </GroupBox>
-      <GroupBox id="actions-group" class="group">
+      <GroupBox id="actions-group" class="group" title-background-color="var(--n-color-embedded)">
         <template #title>{{ t('采集统计') }}</template>
         <div class="container">
           <n-button>{{ t('常规采集品') }}</n-button>
