@@ -115,3 +115,7 @@ https://thewakingsands.github.io/ffxiv-axis-font-icons/
 从[XivApi:ClassJob](https://xivapi.com/classjob)可以获取到所有的职业。
 
 需要手动填写到`data\xiv-jobs.json`中。
+
+## 获取职业Icon的方法 / Ways to get xiv job icons
+
+从[XivApi:Icons062000](https://xivapi.com/docs/Icons?set=icons062000)和[XivApi:Class/Jobs Companion](https://xivapi.com/docs/Icons?set=class_job_companion)可以获取到所有的职业图标。
