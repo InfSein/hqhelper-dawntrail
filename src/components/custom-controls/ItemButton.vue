@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, inject, ref, type Ref } from 'vue';
 import XivFARImage from './XivFARImage.vue'
+
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 interface ItemButtonProps {
   /** 按钮尺寸，格式：`[宽,高]` */
@@ -75,7 +77,7 @@ const openInGarland = (itemID?: number) => {
 </script>
 
 <template>
-  <n-popover v-if="itemId" trigger="hover" style="max-width: 600px;">
+  <n-popover v-if="itemId" :placement="isMobile ? 'bottom' : 'right-start'" style="max-width: 600px;">
     <template #trigger>
       <n-button
         ghost
@@ -202,4 +204,4 @@ const openInGarland = (itemID?: number) => {
     }
   }
 }
-</style>
+</style>, inject, ref, type Ref
