@@ -156,9 +156,27 @@ const sampleStatistics = {
     { item_id: 27785, count: 2 },
     { item_id: 27785, count: 3 },
   ] as ItemCalculated[],
-  commonGatherTimeLimited: [] as ItemCalculated[],
-  commonGatherTimeUnlimited: [] as ItemCalculated[],
-  crystals: [] as ItemCalculated[]
+  gatheringsTimed: [
+    { item_id: 27785, count: 1 },
+    { item_id: 27785, count: 2 },
+    { item_id: 27785, count: 3 },
+    { item_id: 27785, count: 4 },
+    { item_id: 27785, count: 5 },
+  ] as ItemCalculated[],
+  gatheringsCommon: [
+    { item_id: 27785, count: 1 },
+    { item_id: 27785, count: 2 },
+    { item_id: 27785, count: 3 },
+    { item_id: 27785, count: 4 },
+    { item_id: 27785, count: 5 },
+  ] as ItemCalculated[],
+  crystals: [
+    { item_id: 27785, count: 1 },
+    { item_id: 27785, count: 2 },
+    { item_id: 27785, count: 3 },
+    { item_id: 27785, count: 4 },
+    { item_id: 27785, count: 5 },
+  ] as ItemCalculated[]
 }
 
 </script>

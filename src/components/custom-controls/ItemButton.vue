@@ -7,6 +7,8 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 interface ItemButtonProps {
   /** 按钮尺寸，格式：`[宽,高]` */
   btnSize?: number[];
+  /** 按钮颜色 */
+  btnColor?: string;
   /** 物品ID */
   itemId?: number;
   /** 物品数量 */
@@ -80,10 +82,10 @@ const openInGarland = (itemID?: number) => {
   <n-popover v-if="itemId" :placement="isMobile ? 'bottom' : 'right-start'" style="max-width: 600px;">
     <template #trigger>
       <n-button
-        ghost
         class="item-button"
         :style="{ width: btnWidth, height: btnHeight }"
         :disabled="disabled"
+        :color="btnColor"
       >
         <slot>
           <div class="item-container">
@@ -134,10 +136,10 @@ const openInGarland = (itemID?: number) => {
     </div>
   </n-popover>
   <n-button v-else
-    ghost
     class="item-button"
     :style="{ width: btnWidth, height: btnHeight }"
     :disabled="disabled"
+    :color="btnColor"
   >
     <slot>
       <div class="item-container">
