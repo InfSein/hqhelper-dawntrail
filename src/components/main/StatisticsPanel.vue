@@ -1,11 +1,12 @@
 <script setup lang='ts'>
-import { inject } from 'vue'
+import { inject, ref, type Ref } from 'vue'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemButton from '../custom-controls/ItemButton.vue'
 import type { ItemCalculated } from '@/models/item-calculated'
   
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 interface StatisticsModel {
   /** 
@@ -38,17 +39,19 @@ interface StatisticsModel {
   /**
    * 表示限时采集品统计。
    */
-  commonGatherTimeLimited: ItemCalculated[]
+  gatheringsTimed: ItemCalculated[]
   /**
    * 表示非限时(常规)采集品统计。
    */
-  commonGatherTimeUnlimited: ItemCalculated[]
+  gatheringsCommon: ItemCalculated[]
   /**
    * 表示碎晶/水晶/晶簇统计。
    */
   crystals: ItemCalculated[]
 }
 const props = defineProps<StatisticsModel>()
+
+const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'] // 刚巧耐智意
 </script>
 
 <template>
@@ -67,6 +70,7 @@ const props = defineProps<StatisticsModel>()
             :item-id="item.item_id"
             :amount="item.count"
             show-icon show-name show-amount
+            :btn-color="reagentsBtnColors[index]"
           >
           </ItemButton>
           <n-button class="w-full h-full">
@@ -119,9 +123,44 @@ const props = defineProps<StatisticsModel>()
       <GroupBox id="actions-group" class="group" title-background-color="var(--n-color-embedded)">
         <template #title>{{ t('采集统计') }}</template>
         <div class="container">
-          <n-button>{{ t('常规采集品') }}</n-button>
-          <n-button>{{ t('限时采集品') }}</n-button>
-          <n-button>{{ t('水晶') }}</n-button>
+          <n-collapse :accordion="!isMobile" :default-expanded-names="['crystals']">
+            <n-collapse-item :title="t('常规采集品')" name="gatheringsCommon">
+              <div class="item-collapsed-container">
+                <ItemButton
+                  v-for="(item, index) in props.gatheringsCommon"
+                  :key="'gatheringsCommon-' + index"
+                  :item-id="item.item_id"
+                  :amount="item.count"
+                  show-icon show-name show-amount
+                >
+                </ItemButton>
+              </div>
+            </n-collapse-item>
+            <n-collapse-item :title="t('限时采集品')" name="gatheringsTimed">
+              <div class="item-collapsed-container">
+                <ItemButton
+                  v-for="(item, index) in props.gatheringsTimed"
+                  :key="'gatheringsTimed-' + index"
+                  :item-id="item.item_id"
+                  :amount="item.count"
+                  show-icon show-name show-amount
+                >
+                </ItemButton>
+              </div>
+            </n-collapse-item>
+            <n-collapse-item :title="t('水晶')" name="crystals">
+              <div class="item-collapsed-container">
+                <ItemButton
+                  v-for="(item, index) in props.crystals"
+                  :key="'crystals-' + index"
+                  :item-id="item.item_id"
+                  :amount="item.count"
+                  show-icon show-name show-amount
+                >
+                </ItemButton>
+              </div>
+            </n-collapse-item>
+          </n-collapse>
         </div>
       </GroupBox>
     </div>
@@ -138,6 +177,16 @@ const props = defineProps<StatisticsModel>()
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
+}
+#actions-group .container {
+  padding: 10px 0;
+  min-height: calc(100%);
+}
+.item-collapsed-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0 10px;
 }
 
 /* Desktop only */
