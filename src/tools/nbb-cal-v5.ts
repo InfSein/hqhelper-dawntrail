@@ -158,7 +158,7 @@ export class Cal {
         sumMap02 = this.dusum(sumMap5, sumMap02);
         // console.log('sumMap02', sumMap02)
 
-        let re = {
+        const re = {
             ls: sumMap0,
             lv1: sumMap1,
             lv2: sumMap2,
@@ -171,17 +171,17 @@ export class Cal {
     }
 
     calHelperTop(calMap: { [keys: string]: any }, shipArr: any[] = []) {
-        var b: { [keys: string]: any } = {};
-        for (var id in calMap) {
+        const b: { [keys: string]: any } = {};
+        for (const id in calMap) {
             if (shipArr.indexOf(Number(id)) >= 0) continue; // 跳过排除列表
             if (calMap[id].length === 5 && calMap[id][4]) continue;// 特殊场景使用
-            let need = calMap[id][1];// 該素材需要的數量
+            const need = calMap[id][1];// 該素材需要的數量
             let mkc = 0; // 該素材生產次數
-            let repice = this.recipeData[calMap[id][2]];
-            let item = this.itemData[id];
+            const repice = this.recipeData[calMap[id][2]];
+            const item = this.itemData[id];
 
             if (repice) {
-                let pc = parseInt(repice.bp[1]);
+                const pc = parseInt(repice.bp[1]);
                 mkc = parseInt((need / pc).toString()); // eslint-disable-line
                 mkc += (need % pc) > 0 ? 1 : 0;
                 b[id] = {
@@ -215,8 +215,8 @@ export class Cal {
     }
 
     docalHelper(itemTemMap: { [keys: string]: any }, debug = false, hideCluster = false, shipArr: any[] = []) {
-        let reMap: { [keys: string]: any } = {};
-        for (var id in itemTemMap) {
+        const reMap: { [keys: string]: any } = {};
+        for (const id in itemTemMap) {
             if (itemTemMap[id].checked === true) continue;
             let rid = itemTemMap[id].rid;
             if (rid === undefined || rid.length === 0) {
@@ -224,19 +224,19 @@ export class Cal {
             }
             if (typeof rid === 'object' && rid.length !== undefined) rid = rid[0];
             // console.log('calHelper rid', rid)
-            let recipe = this.recipeData[rid];
-            var material = recipe.m;
-            var shard = recipe.s;
-            var mkc = itemTemMap[id].mkc;
+            const recipe = this.recipeData[rid];
+            const material = recipe.m;
+            const shard = recipe.s;
+            const mkc = itemTemMap[id].mkc;
 
-            for (var i = 0; i < 4; i += 2) {
+            for (let i = 0; i < 4; i += 2) {
                 if (hideCluster) continue;
-                let shardId = shard[i];
+                const shardId = shard[i];
                 if (shardId <= 0) continue;
-                let item = this.itemData[shardId];
-                let count = shard[i + 1];
+                const item = this.itemData[shardId];
+                const count = shard[i + 1];
                 if (reMap[shardId]) {
-                    var shardCount2 = parseInt(reMap[shardId]['need']) + count;
+                    const shardCount2 = parseInt(reMap[shardId]['need']) + count;
                     reMap[shardId].need = shardCount2;
                 } else {
                     reMap[shardId] = {
@@ -253,13 +253,13 @@ export class Cal {
                 }
             }
 
-            for (var j = 0; j < material.length; j += 2) {
-                let itemId = material[j];
+            for (let j = 0; j < material.length; j += 2) {
+                const itemId = material[j];
                 if (shipArr.indexOf(Number(itemId)) >= 0) continue;
-                let item = this.itemData[itemId];
-                var count = mkc * parseInt(material[j + 1]);
+                const item = this.itemData[itemId];
+                const count = mkc * parseInt(material[j + 1]);
                 if (reMap[itemId]) {
-                    var count2 = parseInt(reMap[itemId]['need']) + count;
+                    const count2 = parseInt(reMap[itemId]['need']) + count;
                     reMap[itemId].need = count2;
                 } else {
                     reMap[itemId] = {
@@ -276,15 +276,15 @@ export class Cal {
                 }
             }
         }
-        for (var k in reMap) {
-            var jj = reMap[k];
+        for (const k in reMap) {
+            const jj = reMap[k];
             // console.log('jj', jj)
-            var mkc1 = 0;
-            var need1 = parseInt(jj['need']);
-            var pc1 = 0;
+            let mkc1 = 0;
+            const need1 = parseInt(jj['need']);
+            let pc1 = 0;
 
             if (jj.rid && jj.rid.length > 0) {
-                var _recipe1 = this.recipeData[jj.rid[0]];
+                const _recipe1 = this.recipeData[jj.rid[0]];
                 pc1 = parseInt(_recipe1.bp[1]);
                 mkc1 = parseInt((need1 / pc1).toString());
                 mkc1 += (need1 % pc1) > 0 ? 1 : 0;
@@ -301,10 +301,10 @@ export class Cal {
     }
 
     dusum(temmap: { [keys: string]: any }, sumMap02: { [keys: string]: any }) {
-        for (var id in temmap) {
+        for (const id in temmap) {
             if (temmap[id].checked === true) continue;
-            var num = temmap[id]['need'];
-            var name1 = temmap[id]['name'];
+            let num = temmap[id]['need'];
+            // const name1 = temmap[id]['name'];
             if (temmap[id].rid === undefined || temmap[id].rid.length === 0) {
                 if (sumMap02[id]) {
                     num = parseInt(sumMap02[id]['need']) + parseInt(num);

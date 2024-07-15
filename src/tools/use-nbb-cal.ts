@@ -1,5 +1,5 @@
 
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import item from '@/assets/xiv-data/item.json'
 import recipe from '@/assets/xiv-data/recipe.json'
 import hqConfig from '@/assets/xiv-data/hq-config.json'
@@ -24,12 +24,12 @@ export function useNbbCal() {
         if (job['MainHand'] === undefined) {
             return undefined;
         }
-        for (let gearKey in data) {
-            let gear = data[gearKey];
+        for (const gearKey in data) {
+            const gear = data[gearKey];
             // console.log('calGearSelections', gearKey);
-            for (let jobId in gear) {
+            for (const jobId in gear) {
                 if (gear[jobId] > 0) {
-                    let hqInfo = job[gearKey][jobId]
+                    const hqInfo = job[gearKey][jobId]
                     //console.log('calGearSelections hqInfo=', hqInfo);
                     if (hqInfo[0] > 0) {
                         out[hqInfo[0]] = [hqInfo[0], gear[jobId], hqInfo[1], false];
