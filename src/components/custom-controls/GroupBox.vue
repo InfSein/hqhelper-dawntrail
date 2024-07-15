@@ -28,7 +28,7 @@ defineProps({
 
 <style scoped>
 .group-box {
-  padding: 8px 8px 4px 8px;
+  padding: 8px;
   border-radius: var(--n-border-radius);
 
   .group-box-title {
