@@ -16,6 +16,7 @@ import { attireAffixes, accessoryAffixes, getDefaultGearSelections } from '@/mod
 import type { ItemCalculated } from '@/models/item-calculated'
 import { useStore } from '@/store'
 import XivJobs from '@/assets/data/xiv-jobs.json'
+import { useNbbCal } from '@/tools/use-nbb-cal';
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -30,6 +31,9 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+
+// nbb cal
+const { calGearSelections } = useNbbCal();
 
 const showUserPreferencesModal = ref(false)
 const showAboutAppModal = ref(false)
@@ -121,6 +125,7 @@ if (!disable_workstate_cache) {
     store.commit('setUserConfig', userConfig.value)
 
     console.log('gear selections:\n' + JSON.stringify(workState.value.gears))
+    console.log('cal gear selections', calGearSelections(workState.value.gears))
   }, {deep: true})
 } else {
   fixGears()
