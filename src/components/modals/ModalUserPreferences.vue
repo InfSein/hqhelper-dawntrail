@@ -54,18 +54,6 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
     text: t('通用'),
     children: [
       {
-        key: 'ui_size_preset',
-        label: t('UI大小'),
-        descriptions: [],
-        warnings: [],
-        type: 'radio-group',
-        options: [
-          { value: '1080p', label: t('中等(1080P)') },
-          { value: '2k', label: t('较大(2K/手机)') },
-          { value: '4k', label: t('超大(4K)') }
-        ]
-      },
-      {
         key: 'theme',
         label: t('主题'),
         descriptions: [],
@@ -219,7 +207,6 @@ const formData = ref<UserConfigModel>(store.state.userConfig ?? defaultUserConfi
 const handleSave = () => {
   console.log('formData', formData.value)
 
-  const ui_size_preset = formData.value.ui_size_preset ?? '2k'
   const theme = formData.value.theme ?? 'system'
   const language_ui = formData.value.language_ui ?? 'zh'
   const disable_workstate_cache = formData.value.disable_workstate_cache ?? false
@@ -230,7 +217,6 @@ const handleSave = () => {
   }
 
   const newConfig = store.state.userConfig ?? {}
-  newConfig.ui_size_preset = ui_size_preset
   newConfig.theme = theme
   newConfig.language_ui = language_ui
   newConfig.disable_api_mirror = disable_api_mirror

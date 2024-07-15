@@ -9,6 +9,7 @@ import GroupBox from '../custom-controls/GroupBox.vue'
 import XivFARImage from '../custom-controls/XivFARImage.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
 
 const jobSelected = defineModel<number>('jobSelected', { required: true })
@@ -40,7 +41,6 @@ const handleJobSelect = (jobId: number, role: any) => {
   }
 }
 
-const uiSizePreset = userConfig.value?.ui_size_preset ?? '2k'
 const uiLanguage = userConfig.value?.language_ui ?? 'zh'
 
 const getRoleName = (role: any) => {
@@ -65,13 +65,18 @@ const getJobName = (jobId: number) => {
   }
 }
 const jobImageSize = computed(() => {
-  switch (uiSizePreset) {
-    case '2k':
-      return 32
-    case '4k':
-      return 36
+  // * 移动端
+  if (isMobile.value) {
+    return 32
   }
-  return 28 // default or 1080p
+  // * PC端
+  if (window.devicePixelRatio >= 2) {
+    return 36 // 4k
+  } else if (window.devicePixelRatio >= 1.2) {
+    return 32 // 2k
+  } else {
+    return 28 // default or 1080p
+  }
 })
 </script>
 
