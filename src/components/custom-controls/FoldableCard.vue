@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, type Ref, shallowRef, inject } from 'vue'
 import { useStore } from '@/store/index'
-import { type UserConfigModel, defaultUserConfig } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/user-config'
 import { KeyboardArrowUpRound, KeyboardArrowDownRound } from '@vicons/material'
 
 const store = useStore()
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const props = defineProps({
   cardKey: {

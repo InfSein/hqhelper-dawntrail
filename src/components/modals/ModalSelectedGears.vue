@@ -3,7 +3,7 @@ import { inject, ref, watch, type Ref } from 'vue'
 import { CheckroomSharp, SaveOutlined } from '@vicons/material'
 import type { GearSelections, AttireAffix, AccessoryAffix } from '@/models/gears'
 import { attireAffixes, accessoryAffixes } from '@/models/gears'
-import { defaultUserConfig, type UserConfigModel } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/user-config'
 import { deepCopy } from '@/tools'
 import XivRoles from '@/assets/data/xiv-roles.json'
 import XivJobs from '@/assets/data/xiv-jobs.json'
@@ -12,7 +12,7 @@ import XivFARImage from '../custom-controls/XivFARImage.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const uiLanguage = userConfig.value?.language_ui ?? 'zh'
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const jobIds = Object.keys(XivJobs).map(jobId => parseInt(jobId))

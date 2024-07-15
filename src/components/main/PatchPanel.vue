@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, inject, type Ref, computed } from 'vue'
-import { type UserConfigModel, defaultUserConfig } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/user-config'
 import XivPatches from "@/assets/data/xiv-patches.json"
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const patchSelected = defineModel<string>('patchSelected', { required: true })
 const cardDescription = computed(() => {

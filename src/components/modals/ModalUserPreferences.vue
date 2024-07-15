@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, ref, type Ref } from 'vue'
 import { useStore } from '@/store/index'
-import { type UserConfigModel, defaultUserConfig } from '@/models/user-config'
+import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 import {
   HelpOutlineRound,
   SettingsSharp,
@@ -215,7 +215,7 @@ const handleClose = () => {
 }
 
 const currentTab = ref('general')
-const formData = ref<UserConfigModel>(store.state.userConfig ?? defaultUserConfig)
+const formData = ref<UserConfigModel>(fixUserConfig(store.state.userConfig))
 
 const handleSave = () => {
   console.log('formData', formData.value)
@@ -230,7 +230,7 @@ const handleSave = () => {
     formData.value.cache_work_state = {}
   }
 
-  const newConfig = store.state.userConfig ?? {}
+  const newConfig = fixUserConfig(store.state.userConfig)
   newConfig.theme = theme
   newConfig.language_ui = language_ui
   newConfig.language_item = language_item

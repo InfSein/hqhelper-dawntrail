@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { inject, ref, watch, type Ref } from 'vue'
 import { EventNoteFilled } from '@vicons/material'
-import { defaultUserConfig, type UserConfigModel } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/user-config'
 import { type UpdateLog, convertToUpdateLogs } from '@/models/changelog'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const showModal = defineModel<boolean>('show', { required: true })
   watch(showModal, async(newVal, oldVal) => {

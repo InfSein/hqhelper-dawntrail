@@ -1,10 +1,10 @@
-export const getItem = <T>(key: string): T | null => {
+export const getItem = <T>(key: string): T | undefined => {
   const data = window.localStorage.getItem(key)
-  if (!data) return null
+  if (!data) return undefined
   try {
     return JSON.parse(data) as T
   } catch (e) {
-    return null
+    return undefined
   }
 }
 export const getString = (key: string): string => {

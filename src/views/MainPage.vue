@@ -10,7 +10,7 @@ import ModalContactUs from '@/components/modals/ModalContactUs.vue'
 import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import { useMessage } from 'naive-ui';
-import { defaultUserConfig, type UserConfigModel } from '@/models/user-config';
+import { type UserConfigModel } from '@/models/user-config';
 import type { AttireAffix, AccessoryAffix } from '@/models/gears'
 import { attireAffixes, accessoryAffixes, getDefaultGearSelections } from '@/models/gears'
 import type { ItemCalculated } from '@/models/item-calculated'
@@ -29,7 +29,7 @@ const gearSelectionPanel = ref<InstanceType<typeof GearSelectionPanel>>()
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
-const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 // nbb cal

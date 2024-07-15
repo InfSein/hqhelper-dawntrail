@@ -23,7 +23,7 @@ import {
 } from 'naive-ui'
 
 // * user preferences
-import { type UserConfigModel, defaultUserConfig } from '@/models/user-config'
+import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 
 // #endregion
 
@@ -36,7 +36,7 @@ const i18n = injectVoerkaI18n()
 const theme = ref(store.state.userConfig?.theme ?? 'system')
 const locale = ref(store.state.userConfig?.language_ui ?? 'zh')
 i18n.activeLanguage = locale.value
-const userConfig = ref<UserConfigModel>(store.state.userConfig ?? defaultUserConfig)
+const userConfig = ref<UserConfigModel>(fixUserConfig(store.state.userConfig))
 
 // * Local Variables
 const isMobile = ref(false)
@@ -93,7 +93,7 @@ document.addEventListener('touchstart', function(event) {
 
 const appForceUpdate = () => {
   // Update user config
-  userConfig.value = store.state.userConfig ?? defaultUserConfig
+  userConfig.value = fixUserConfig(store.state.userConfig)
   // Update i18n
   locale.value = userConfig.value?.language_ui ?? 'zh'
   i18n.activeLanguage = locale.value

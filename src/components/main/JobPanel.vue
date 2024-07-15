@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, inject, type Ref, computed, type PropType } from 'vue'
-import { type UserConfigModel, defaultUserConfig } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/user-config'
 import XivRoles from '@/assets/data/xiv-roles.json'
 import XivJobs from '@/assets/data/xiv-jobs.json'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
@@ -10,7 +10,7 @@ import XivFARImage from '../custom-controls/XivFARImage.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const jobSelected = defineModel<number>('jobSelected', { required: true })
 const affixesSelected = defineModel<any>('affixesSelected', { required: true })

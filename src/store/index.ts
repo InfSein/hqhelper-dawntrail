@@ -8,13 +8,13 @@ import {
 } from './keys'
 
 // * Import model or default value here
-import { type UserConfigModel, defaultUserConfig } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/user-config'
 
 // * Define states
 const state = {
   // Use `getItem` to get object state,
   // and use `getString` to get string state.
-  userConfig: getItem<UserConfigModel>(_user_config) || defaultUserConfig
+  userConfig: getItem<UserConfigModel>(_user_config)
 }
 export type State = typeof state
 

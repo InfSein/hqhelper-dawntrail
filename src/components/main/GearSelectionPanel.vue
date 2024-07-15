@@ -9,13 +9,13 @@ import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears
 import { getDefaultGearSelections } from '@/models/gears'
 import GearAffixes from '@/assets/data/xiv-gear-affixes.json'
 import XivJobs from '@/assets/data/xiv-jobs.json'
-import { defaultUserConfig, type UserConfigModel } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/user-config'
 import { NTooltip, useMessage, type DropdownGroupOption, type DropdownOption } from 'naive-ui'
 import { KeyboardArrowDownRound } from '@vicons/material'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-const userConfig = inject<Ref<UserConfigModel>>('userConfig') ?? ref(defaultUserConfig)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const NAIVE_UI_MESSAGE = useMessage()
 
 const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
