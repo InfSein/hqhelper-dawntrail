@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { inject, ref, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemButton from '../custom-controls/ItemButton.vue'
@@ -49,13 +49,97 @@ interface StatisticsModel {
    */
   crystals: ItemCalculated[]
 }
-const props = defineProps<StatisticsModel>()
+const props = defineProps({
+  statistics: {
+    type: Object as () => any,
+    required: true
+  }
+})
+
+interface CalculatedItem {
+  /** 物品ID */
+  id: number
+  /** 需要的数量 */
+  need: number
+  /** 物品图标ID */
+  icon: number
+  /** 物品名称组，长度必定为3，分别为日语-英文-中文；中文可能是空字符串 */
+  name: string[]
+  /** 物品描述组，长度必定为3，分别为日语-英文-中文；中文可能是空字符串 */
+  desc: string[]
+  /** 物品的UI组 */
+  uc: number
+  // * 还有一些暂时不知道什么作用的
+  pc: number
+  mkc: number
+  rid: string[]
+}
+
+/** 
+ * 要高亮显示的素材组。
+ * 
+ * 在战斗职业HQ版本用于展示炼金术士的秘籍星级半成品-炼金幻水，顺序为`刚巧耐智意`。
+ * 在生产采集HQ版本用于展示相较于前一战职版本新增的星级半成品，一般在[1,3]号index填写。
+ */
+const reagents = computed(() => {
+  console.log(props.statistics)
+  // todo - 分组归类
+  return null
+})
+
 
 const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'] // 刚巧耐智意
+
+const sampleStatistics = {
+  reagents: [
+    { item_id: 27785, count: 1 },
+    { item_id: 27785, count: 2 },
+    { item_id: undefined, count: 3 },
+    { item_id: 27785, count: 4 },
+    { item_id: 27785, count: 5 },
+  ] as ItemCalculated[],
+  masterPrecrafts: [
+    { item_id: 27785, count: 1 },
+    { item_id: 27785, count: 2 },
+    { item_id: 27785, count: 3 },
+    { item_id: 27785, count: 4 },
+    { item_id: 27785, count: 5 },
+  ] as ItemCalculated[],
+  commonPrecrafts: [
+    { item_id: 27785, count: 1 },
+    { item_id: 27785, count: 2 },
+  ] as ItemCalculated[],
+  aethersands: [
+    { item_id: 27785, count: 1 },
+    { item_id: 27785, count: 2 },
+    { item_id: 27785, count: 3 },
+  ] as ItemCalculated[],
+  gatheringsTimed: [
+    { item_id: 27785, count: 1 },
+    { item_id: 27785, count: 2 },
+    { item_id: 27785, count: 3 },
+    { item_id: 27785, count: 4 },
+    { item_id: 27785, count: 5 },
+  ] as ItemCalculated[],
+  gatheringsCommon: [
+    { item_id: 27785, count: 1 },
+    { item_id: 27785, count: 2 },
+    { item_id: 27785, count: 3 },
+    { item_id: 27785, count: 4 },
+    { item_id: 27785, count: 5 },
+  ] as ItemCalculated[],
+  crystals: [
+    { item_id: 27785, count: 1 },
+    { item_id: 27785, count: 2 },
+    { item_id: 27785, count: 3 },
+    { item_id: 27785, count: 4 },
+    { item_id: 27785, count: 5 },
+  ] as ItemCalculated[]
+}
 </script>
 
 <template>
-  <FoldableCard card-key="main-statistics">
+  <FoldableCard card-key="main-statistics" :reagents="reagents">
     <template #header>
       <i class="xiv square-4"></i>
       <span class="card-title-text">{{ t('查看统计') }}</span>
@@ -65,7 +149,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
         <template #title>{{ t('特殊星级半成品&点数统计') }}</template>
         <div class="container">
           <ItemButton
-            v-for="(item, index) in props.reagents"
+            v-for="(item, index) in sampleStatistics.reagents"
             :key="'reagent-' + index"
             :item-id="item.item_id"
             :amount="item.count"
@@ -85,7 +169,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
         <template #title>{{ t('秘籍星级半成品统计') }}</template>
         <div class="container">
           <ItemButton
-            v-for="(item, index) in props.masterPrecrafts"
+            v-for="(item, index) in sampleStatistics.masterPrecrafts"
             :key="'masterPrecraft-' + index"
             :item-id="item.item_id"
             :amount="item.count"
@@ -98,7 +182,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
         <template #title>{{ t('普通星级半成品统计') }}</template>
         <div class="container">
           <ItemButton
-            v-for="(item, index) in props.commonPrecrafts"
+            v-for="(item, index) in sampleStatistics.commonPrecrafts"
             :key="'commonPrecraft-' + index"
             :item-id="item.item_id"
             :amount="item.count"
@@ -111,7 +195,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
         <template #title>{{ t('灵砂统计') }}</template>
         <div class="container">
           <ItemButton
-            v-for="(item, index) in props.aethersands"
+            v-for="(item, index) in sampleStatistics.aethersands"
             :key="'aethersand-' + index"
             :item-id="item.item_id"
             :amount="item.count"
@@ -127,7 +211,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
             <n-collapse-item :title="t('常规采集品')" name="gatheringsCommon">
               <div class="item-collapsed-container">
                 <ItemButton
-                  v-for="(item, index) in props.gatheringsCommon"
+                  v-for="(item, index) in sampleStatistics.gatheringsCommon"
                   :key="'gatheringsCommon-' + index"
                   :item-id="item.item_id"
                   :amount="item.count"
@@ -139,7 +223,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
             <n-collapse-item :title="t('限时采集品')" name="gatheringsTimed">
               <div class="item-collapsed-container">
                 <ItemButton
-                  v-for="(item, index) in props.gatheringsTimed"
+                  v-for="(item, index) in sampleStatistics.gatheringsTimed"
                   :key="'gatheringsTimed-' + index"
                   :item-id="item.item_id"
                   :amount="item.count"
@@ -151,7 +235,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
             <n-collapse-item :title="t('水晶')" name="crystals">
               <div class="item-collapsed-container">
                 <ItemButton
-                  v-for="(item, index) in props.crystals"
+                  v-for="(item, index) in sampleStatistics.crystals"
                   :key="'crystals-' + index"
                   :item-id="item.item_id"
                   :amount="item.count"

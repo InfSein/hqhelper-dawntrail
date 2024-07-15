@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { inject, provide, ref, watch, type Ref } from 'vue';
+import { computed, inject, provide, ref, watch, type Ref } from 'vue';
 import AppHeader from '@/components/main/AppHeader.vue'
 import PatchPanel from '@/components/main/PatchPanel.vue'
 import JobPanel from '@/components/main/JobPanel.vue'
@@ -125,7 +125,6 @@ if (!disable_workstate_cache) {
     store.commit('setUserConfig', userConfig.value)
 
     console.log('gear selections:\n' + JSON.stringify(workState.value.gears))
-    console.log('cal gear selections', calGearSelections(workState.value.gears))
   }, {deep: true})
 } else {
   fixGears()
@@ -136,6 +135,11 @@ const handleJobButtonDupliClick = () => {
     gearSelectionPanel.value?.addMainOffHand()
   }
 }
+
+const statistics = computed(() => {
+  console.log('statistics.computed() called')
+  return calGearSelections(workState.value.gears)
+})
 
 const sampleStatistics = {
   reagents: [
@@ -220,7 +224,7 @@ const sampleStatistics = {
           />
         </div>
         <div vertical id="right-layout">
-          <StatisticsPanel class="statistics-panel" v-bind="sampleStatistics" />
+          <StatisticsPanel class="statistics-panel" v-bind="sampleStatistics" :statistics="statistics" />
         </div>
       </div>
   
