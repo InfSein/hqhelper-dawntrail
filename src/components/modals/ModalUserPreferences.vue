@@ -77,6 +77,19 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
           { value: 'ja', label: '日本語' }
         ]
       },
+      {
+        key: 'language_item',
+        label: t('物品语言'),
+        descriptions: [],
+        warnings: [],
+        type: 'radio-group',
+        options: [
+          { value: 'auto', label: t('跟随界面语言') },
+          { value: 'zh', label: '简体中文' },
+          { value: 'en', label: 'English' },
+          { value: 'ja', label: '日本語' }
+        ]
+      },
     ]
   },
   /* Enhancements */
@@ -209,6 +222,7 @@ const handleSave = () => {
 
   const theme = formData.value.theme ?? 'system'
   const language_ui = formData.value.language_ui ?? 'zh'
+  const language_item = formData.value.language_item ?? 'auto'
   const disable_workstate_cache = formData.value.disable_workstate_cache ?? false
   const disable_api_mirror = formData.value.disable_api_mirror ?? false
 
@@ -219,6 +233,7 @@ const handleSave = () => {
   const newConfig = store.state.userConfig ?? {}
   newConfig.theme = theme
   newConfig.language_ui = language_ui
+  newConfig.language_item = language_item
   newConfig.disable_api_mirror = disable_api_mirror
   store.commit('setUserConfig', newConfig)
 

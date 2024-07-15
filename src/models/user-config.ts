@@ -1,7 +1,8 @@
-interface UserConfigModel {
+export interface UserConfigModel {
   // general
   theme: 'light' | 'dark' | 'system'
   language_ui: 'zh' | 'en' | 'ja'
+  language_item: 'auto' | 'zh' | 'en' | 'ja'
   // enhancements
   disable_patchcard_autofold: boolean
   disable_jobbtn_doubleclick: boolean
@@ -14,12 +15,12 @@ interface UserConfigModel {
   cache_ui_fold: any
   cache_work_state: any
 }
-export type { UserConfigModel };
 
 // eslint-disable-next-line no-var
 export var defaultUserConfig: UserConfigModel = {
   theme: 'light',
   language_ui: 'zh',
+  language_item: 'auto',
   disable_patchcard_autofold: false,
   disable_jobbtn_doubleclick: false,
   disable_workstate_cache: false,
