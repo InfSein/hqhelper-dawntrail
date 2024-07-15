@@ -1,20 +1,28 @@
 <script lang="ts" setup>
 import { computed, inject, ref, type Ref } from 'vue';
 import XivFARImage from './XivFARImage.vue'
+import type { ItemInfo } from '@/tools/item'
+import type { UserConfigModel } from '@/models/user-config'
 
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+
+const itemLanguage = computed(() => {
+  if (userConfig.value.language_item !== 'auto') {
+    return userConfig.value.language_item
+  }
+  return userConfig.value.language_ui
+})
 
 interface ItemButtonProps {
+  /** 道具信息 */
+  itemInfo: ItemInfo
+
   /** 按钮尺寸，格式：`[宽,高]` */
   btnSize?: number[];
   /** 按钮颜色 */
   btnColor?: string;
-  /** 物品ID */
-  itemId?: number;
-  /** 物品数量 */
-  itemAmount?: number;
-  /** 物品图标url(可选,覆盖默认网络图标) */
-  itemIcon?: string;
+
   /** 是否显示物品图标(可选,默认false) */
   showIcon?: boolean;
   /** 是否显示物品名称(可选,默认false) */
@@ -23,14 +31,48 @@ interface ItemButtonProps {
   showAmount?: boolean;
   /** 按钮是否禁用(可选,默认false) */
   disabled?: boolean;
+  /** 是否禁用物品信息提示框(可选,默认false) */
+  disablePop?: boolean;
 }
 const props = defineProps<ItemButtonProps>()
 
-const getItemIcon = (itemID?: number) => {
-  if (props.itemIcon) return props.itemIcon
-  console.log(itemID) // todo: get item icon
-  return `./image/game-job/companion/none.png`
+const getItemName = () => {
+  switch (itemLanguage.value) {
+    case 'ja':
+      return props.itemInfo.nameJA
+    case 'en':
+      return props.itemInfo.nameEN
+    case 'zh':
+    default:
+      return props.itemInfo.nameZH
+  }
 }
+/** 获取物品副名称(即其他语言的名称) */
+const getItemNameSubLang = () => {
+  switch (itemLanguage.value) {
+    case 'ja':
+      return props.itemInfo.nameEN
+    case 'en':
+      return props.itemInfo.nameJA
+    case 'zh':
+    default:
+      return props.itemInfo.nameJA + ' / ' + props.itemInfo.nameEN
+  }
+}
+const getItemDescriptions = () => {
+  let description = ''
+  switch (itemLanguage.value) {
+    case 'ja':
+      description = props.itemInfo.descJA; break
+    case 'en':
+      description = props.itemInfo.descEN; break
+    case 'zh':
+    default:
+      description = props.itemInfo.descZH
+  }
+  return `<div>${description}</div>`
+}
+
 const iconSize = computed(() => {
   return (props.btnSize?.[1] || 32) - 5
 })
@@ -45,41 +87,21 @@ const btnHeight = computed(() => {
   return `${_h}px`
 })
 
-const getItemName = (itemID?: number) => {
-  console.log(itemID) // todo: get item name
-  //if (!itemID) return ''
-  return '光芒大丁草'
-}
-const getItemNameChinese = (itemID?: number) => {
-  console.log(itemID) // todo: get item name in Chinese
-  return '光芒大丁草'
-}
-const getItemNameSubLang = (itemID?: number) => {
-  console.log(itemID) // todo: get item name in other languages
-  return 'ライトガーベラ / Light Gerbera'
-}
-
-const getItemDescriptions = (itemID?: number) => {
-  console.log(itemID) // todo: get item description
-  return '<div>能够绽放出纯白色花朵的大丁草。</div>'
-}
-
 /** 在灰机wiki中打开物品页面 */
-const openInHuijiWiki = (itemID?: number) => {
-  const itemNameChinese = getItemNameChinese(itemID)
-  const url = `https://ff14.huijiwiki.com/wiki/物品:${itemNameChinese}`
+const openInHuijiWiki = () => {
+  const url = `https://ff14.huijiwiki.com/wiki/物品:${props.itemInfo.nameZH}`
   window.open(url)
 }
 /** 在 Garland Data 中打开物品页面 */
-const openInGarland = (itemID?: number) => {
-  const url = `https://www.garlandtools.org/db/#item/${itemID}`
+const openInGarland = () => {
+  const url = `https://www.garlandtools.org/db/#item/${props.itemInfo.id}`
   window.open(url)
 }
 
 </script>
 
 <template>
-  <n-popover v-if="itemId" :placement="isMobile ? 'bottom' : 'right-start'" style="max-width: 600px;">
+  <n-popover v-if="itemInfo.id && !disablePop" :placement="isMobile ? 'bottom' : 'right-start'" style="max-width: 600px;">
     <template #trigger>
       <n-button
         class="item-button"
@@ -91,17 +113,17 @@ const openInGarland = (itemID?: number) => {
           <div class="item-container">
             <div v-if="showIcon" class="item-icon">
               <XivFARImage
-                :src="getItemIcon(itemId)"
+                :src="itemInfo.iconUrl"
                 :size="iconSize"
               />
             </div>
 
             <div v-if="showName" class="item-info">
               <div class="item-name">
-                {{ getItemName(itemId) }}
+                {{ getItemName() }}
               </div>
               <div class="item-amount">
-                x {{ itemAmount || '?' }}
+                x {{ itemInfo.amount }}
               </div>
             </div>
           </div>
@@ -112,23 +134,29 @@ const openInGarland = (itemID?: number) => {
       <div class="base-info">
         <XivFARImage
           class="item-icon"
-          :src="getItemIcon(itemId)"
+          :src="itemInfo.iconUrl"
           :size="40"
         />
         <div class="item-names">
-          <div class="main-lang">{{ getItemName(itemId) }}</div>
-          <div class="sub-lang">{{ getItemNameSubLang(itemId) }}</div>
+          <div class="main-lang">{{ getItemName() }}</div>
+          <div class="sub-lang">
+            <p>{{ getItemNameSubLang() }}</p>
+            <p>
+              <span>[{{ itemInfo.patch }}] </span>
+              <span>[{{ itemInfo.id }}] </span>
+            </p>
+          </div>
         </div>
       </div>
       <div class="item-descriptions">
-        <div v-html="getItemDescriptions(itemId)"></div>
+        <div v-html="getItemDescriptions()"></div>
         <slot name="extra-descriptions" />
       </div>
       <n-flex class="item-actions">
-        <n-button size="small" @click="openInHuijiWiki(itemId)">
+        <n-button size="small" @click="openInHuijiWiki()">
           {{ t('在灰机wiki中打开') }}
         </n-button>
-        <n-button size="small" @click="openInGarland(itemId)">
+        <n-button size="small" @click="openInGarland()">
           {{ t('在Garland中打开') }}
         </n-button>
         <slot name="extra-actions" />
@@ -143,19 +171,19 @@ const openInGarland = (itemID?: number) => {
   >
     <slot>
       <div class="item-container">
-        <div v-if="showIcon" class="item-icon">
+        <div v-if="showIcon && itemInfo.id" class="item-icon">
           <XivFARImage
-            :src="getItemIcon(itemId)"
+            :src="itemInfo.iconUrl"
             :size="iconSize"
           />
         </div>
 
         <div v-if="showName" class="item-info">
           <div class="item-name">
-            {{ getItemName(itemId) }}
+            {{ getItemName() }}
           </div>
           <div class="item-amount">
-            x {{ itemAmount || '?' }}
+            x {{ itemInfo.amount }}
           </div>
         </div>
       </div>

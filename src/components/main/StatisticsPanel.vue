@@ -3,77 +3,17 @@ import { computed, inject, ref, type Ref } from 'vue'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemButton from '../custom-controls/ItemButton.vue'
-import type { ItemCalculated } from '@/models/item-calculated'
-  
+import { getItemInfo, type ItemInfo } from '@/tools/item'
+
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
-interface StatisticsModel {
-  /** 
-   * 要高亮显示的素材组。
-   * 必须是一个长度为5的数组，无数据的元素传递`item_id=undefined`。
-   * 
-   * 在战斗职业HQ版本用于展示炼金术士的秘籍星级半成品-炼金幻水，顺序为`刚巧耐智意`。
-   * 在生产采集HQ版本用于展示相较于前一战职版本新增的星级半成品，一般在[1,3]号index填写。
-   */
-  reagents: ItemCalculated[]
-  /**
-   * 要展示的秘籍星级半成品。
-   * 必须是一个长度为5的数组，而且一般情况下不应该有无数据的元素。
-   * 
-   * 按照制作职业排序，一般顺序为`刻木-锻铁-雕金-制革-裁缝`。
-   */
-  masterPrecrafts: ItemCalculated[]
-  /**
-   * 表示要展示的普通星级半成品。
-   * 必须是一个数组，长度无限制
-   */
-  commonPrecrafts: ItemCalculated[]
-
-  /**
-   * 表示独立统计出的灵砂。
-   * 展示时应注意说明此灵砂已计入其他半成品所需的数量。
-   */
-  aethersands: ItemCalculated[]
-
-  /**
-   * 表示限时采集品统计。
-   */
-  gatheringsTimed: ItemCalculated[]
-  /**
-   * 表示非限时(常规)采集品统计。
-   */
-  gatheringsCommon: ItemCalculated[]
-  /**
-   * 表示碎晶/水晶/晶簇统计。
-   */
-  crystals: ItemCalculated[]
-}
 const props = defineProps({
   statistics: {
     type: Object as () => any,
     required: true
   }
 })
-
-interface CalculatedItem {
-  /** 物品ID */
-  id: number
-  /** 需要的数量 */
-  need: number
-  /** 物品图标ID */
-  icon: number
-  /** 物品名称组，长度必定为3，分别为日语-英文-中文；中文可能是空字符串 */
-  name: string[]
-  /** 物品描述组，长度必定为3，分别为日语-英文-中文；中文可能是空字符串 */
-  desc: string[]
-  /** 物品的UI组 */
-  uc: number
-  // * 还有一些暂时不知道什么作用的
-  pc: number
-  mkc: number
-  rid: string[]
-}
 
 /** 
  * 要高亮显示的素材组。
@@ -82,60 +22,79 @@ interface CalculatedItem {
  * 在生产采集HQ版本用于展示相较于前一战职版本新增的星级半成品，一般在[1,3]号index填写。
  */
 const reagents = computed(() => {
-  console.log(props.statistics)
-  // todo - 分组归类
-  return null
+  // todo - 分组归类：炼金秘籍半成品(多半要留到7.05再做)
+  const placeHolder = getItemInfo(0)
+  return [placeHolder,placeHolder,placeHolder,placeHolder,placeHolder]
 })
 
+/**
+ * 要展示的秘籍星级半成品。
+ * 
+ * 按照制作职业排序，一般顺序为`刻木-锻铁-雕金-制革-裁缝`。
+ * ? 理论上按照成品id升序排序就可以达到这个效果，有待验证
+ */
+const masterPrecrafts = computed(() => {
+  // todo - 分组归类：其他秘籍半成品(多半要留到7.05再做)
+  return [] as ItemInfo[]
+})
+
+/**
+ * 表示要展示的普通星级半成品。
+ * 必须是一个数组，长度无限制
+ */
+const commonPrecrafts = computed(() => {
+  // todo - 这里的分组归类算法会计入秘籍半成品，等7.05了必须做区分
+  const crafts = []
+  for (const id in props.statistics.lv1) {
+    const item = props.statistics.lv1[id]
+    if (item.uc && item.uc >= 48 && item.uc <= 54) { // * 参见src\assets\data\xiv-item-types.json
+      crafts.push(getItemInfo(item))
+    }
+  }
+  return crafts
+})
+
+/**
+ * 表示独立统计出的灵砂。
+ * 展示时应注意说明此灵砂已计入其他半成品所需的数量。
+ */
+const aethersands = computed(() => {
+  // todo - 分组归类：灵砂
+  return [] as ItemInfo[]
+})
+
+/**
+ * 表示限时采集品统计。
+ */
+const gatheringsTimed = computed(() => {
+  // todo - 分组归类：限时采集
+  return [] as ItemInfo[]
+})
+
+/**
+ * 表示非限时(常规)采集品统计。
+ */
+const gatheringsCommon = computed(() => {
+  // todo - 分组归类：非限时采集
+  return [] as ItemInfo[]
+})
+
+/**
+ * 表示碎晶/水晶/晶簇统计。
+ */
+const crystals = computed(() => {
+  const _crystals = []
+  for (const id in props.statistics.lvBase) {
+    const item = props.statistics.lv1[id]
+    if (item?.uc === 59) { // * 参见src\assets\data\xiv-item-types.json
+      _crystals.push(getItemInfo(item))
+    }
+  }
+  return _crystals
+})
 
 const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'] // 刚巧耐智意
 
-const sampleStatistics = {
-  reagents: [
-    { item_id: 27785, count: 1 },
-    { item_id: 27785, count: 2 },
-    { item_id: undefined, count: 3 },
-    { item_id: 27785, count: 4 },
-    { item_id: 27785, count: 5 },
-  ] as ItemCalculated[],
-  masterPrecrafts: [
-    { item_id: 27785, count: 1 },
-    { item_id: 27785, count: 2 },
-    { item_id: 27785, count: 3 },
-    { item_id: 27785, count: 4 },
-    { item_id: 27785, count: 5 },
-  ] as ItemCalculated[],
-  commonPrecrafts: [
-    { item_id: 27785, count: 1 },
-    { item_id: 27785, count: 2 },
-  ] as ItemCalculated[],
-  aethersands: [
-    { item_id: 27785, count: 1 },
-    { item_id: 27785, count: 2 },
-    { item_id: 27785, count: 3 },
-  ] as ItemCalculated[],
-  gatheringsTimed: [
-    { item_id: 27785, count: 1 },
-    { item_id: 27785, count: 2 },
-    { item_id: 27785, count: 3 },
-    { item_id: 27785, count: 4 },
-    { item_id: 27785, count: 5 },
-  ] as ItemCalculated[],
-  gatheringsCommon: [
-    { item_id: 27785, count: 1 },
-    { item_id: 27785, count: 2 },
-    { item_id: 27785, count: 3 },
-    { item_id: 27785, count: 4 },
-    { item_id: 27785, count: 5 },
-  ] as ItemCalculated[],
-  crystals: [
-    { item_id: 27785, count: 1 },
-    { item_id: 27785, count: 2 },
-    { item_id: 27785, count: 3 },
-    { item_id: 27785, count: 4 },
-    { item_id: 27785, count: 5 },
-  ] as ItemCalculated[]
-}
 </script>
 
 <template>
@@ -149,10 +108,9 @@ const sampleStatistics = {
         <template #title>{{ t('特殊星级半成品&点数统计') }}</template>
         <div class="container">
           <ItemButton
-            v-for="(item, index) in sampleStatistics.reagents"
+            v-for="(item, index) in reagents"
             :key="'reagent-' + index"
-            :item-id="item.item_id"
-            :amount="item.count"
+            :item-info="item"
             show-icon show-name show-amount
             :btn-color="reagentsBtnColors[index]"
           >
@@ -169,10 +127,9 @@ const sampleStatistics = {
         <template #title>{{ t('秘籍星级半成品统计') }}</template>
         <div class="container">
           <ItemButton
-            v-for="(item, index) in sampleStatistics.masterPrecrafts"
+            v-for="(item, index) in masterPrecrafts"
             :key="'masterPrecraft-' + index"
-            :item-id="item.item_id"
-            :amount="item.count"
+            :item-info="item"
             show-icon show-name show-amount
           >
           </ItemButton>
@@ -182,10 +139,9 @@ const sampleStatistics = {
         <template #title>{{ t('普通星级半成品统计') }}</template>
         <div class="container">
           <ItemButton
-            v-for="(item, index) in sampleStatistics.commonPrecrafts"
+            v-for="(item, index) in commonPrecrafts"
             :key="'commonPrecraft-' + index"
-            :item-id="item.item_id"
-            :amount="item.count"
+            :item-info="item"
             show-icon show-name show-amount
           >
           </ItemButton>
@@ -195,10 +151,9 @@ const sampleStatistics = {
         <template #title>{{ t('灵砂统计') }}</template>
         <div class="container">
           <ItemButton
-            v-for="(item, index) in sampleStatistics.aethersands"
+            v-for="(item, index) in aethersands"
             :key="'aethersand-' + index"
-            :item-id="item.item_id"
-            :amount="item.count"
+            :item-info="item"
             show-icon show-name show-amount
           >
           </ItemButton>
@@ -211,10 +166,9 @@ const sampleStatistics = {
             <n-collapse-item :title="t('常规采集品')" name="gatheringsCommon">
               <div class="item-collapsed-container">
                 <ItemButton
-                  v-for="(item, index) in sampleStatistics.gatheringsCommon"
+                  v-for="(item, index) in gatheringsCommon"
                   :key="'gatheringsCommon-' + index"
-                  :item-id="item.item_id"
-                  :amount="item.count"
+                  :item-info="item"
                   show-icon show-name show-amount
                 >
                 </ItemButton>
@@ -223,10 +177,9 @@ const sampleStatistics = {
             <n-collapse-item :title="t('限时采集品')" name="gatheringsTimed">
               <div class="item-collapsed-container">
                 <ItemButton
-                  v-for="(item, index) in sampleStatistics.gatheringsTimed"
+                  v-for="(item, index) in gatheringsTimed"
                   :key="'gatheringsTimed-' + index"
-                  :item-id="item.item_id"
-                  :amount="item.count"
+                  :item-info="item"
                   show-icon show-name show-amount
                 >
                 </ItemButton>
@@ -235,10 +188,9 @@ const sampleStatistics = {
             <n-collapse-item :title="t('水晶')" name="crystals">
               <div class="item-collapsed-container">
                 <ItemButton
-                  v-for="(item, index) in sampleStatistics.crystals"
+                  v-for="(item, index) in crystals"
                   :key="'crystals-' + index"
-                  :item-id="item.item_id"
-                  :amount="item.count"
+                  :item-info="item"
                   show-icon show-name show-amount
                 >
                 </ItemButton>
