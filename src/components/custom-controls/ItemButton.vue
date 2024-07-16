@@ -48,7 +48,7 @@ const getItemName = () => {
   }
 }
 /** 获取物品副名称(即其他语言的名称) */
-const getItemNameSubLang = () => {
+const getItemSubName = () => {
   switch (itemLanguage.value) {
     case 'ja':
       return props.itemInfo.nameEN
@@ -71,6 +71,17 @@ const getItemDescriptions = () => {
       description = props.itemInfo.descZH
   }
   return `<div>${description}</div>`
+}
+const getItemTypeName = () => {
+  switch (itemLanguage.value) {
+    case 'ja':
+      return props.itemInfo.uiTypeNameJA
+    case 'en':
+      return props.itemInfo.uiTypeNameEN
+    case 'zh':
+    default:
+      return props.itemInfo.uiTypeNameZH
+  }
 }
 
 const iconSize = computed(() => {
@@ -101,7 +112,11 @@ const openInGarland = () => {
 </script>
 
 <template>
-  <n-popover v-if="itemInfo.id && !disablePop" :placement="isMobile ? 'bottom' : 'right-start'" style="max-width: 600px;">
+  <n-popover
+    v-if="itemInfo.id && !disablePop"
+    :placement="isMobile ? 'bottom' : 'right-start'"
+    :style="{ maxWidth: isMobile ? 'unset' : '290px' }"
+  >
     <template #trigger>
       <n-button
         class="item-button"
@@ -135,24 +150,31 @@ const openInGarland = () => {
         <XivFARImage
           class="item-icon"
           :src="itemInfo.iconUrl"
-          :size="40"
+          :size="35"
         />
         <div class="item-names">
           <div class="main-lang">{{ getItemName() }}</div>
-          <div class="sub-lang">
-            <p>{{ getItemNameSubLang() }}</p>
-            <p>
-              <span>[{{ itemInfo.patch }}] </span>
-              <span>[{{ itemInfo.id }}] </span>
-            </p>
-          </div>
+          <div class="sub-lang">{{ getItemSubName() }}</div>
         </div>
       </div>
+      <n-divider class="item-divider" />
       <div class="item-descriptions">
-        <div v-html="getItemDescriptions()"></div>
+        <div class="item-attributes">
+          <div class="item-type">
+            <XivFARImage
+              class="item-icon"
+              :src="itemInfo.uiTypeIconUrl"
+              :size="14"
+            />
+            <p>{{ getItemTypeName() }}</p>
+          </div>
+          <p>{{ t('[{patch}版本] [{id}]', { patch: itemInfo.patch, id: itemInfo.id }) }}</p>
+        </div>
+        <div class="main-descriptions" v-html="getItemDescriptions()"></div>
         <slot name="extra-descriptions" />
       </div>
-      <n-flex class="item-actions">
+      <!-- 操作按钮不太适合放到悬浮里，后续做进右键菜单 -->
+      <n-flex v-show="false" class="item-actions">
         <n-button size="small" @click="openInHuijiWiki()">
           {{ t('在灰机wiki中打开') }}
         </n-button>
@@ -248,11 +270,46 @@ const openInGarland = () => {
 
   .base-info {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    gap: 5px;
+    margin-top: 2%;
+
+    .item-names {
+      .main-lang {
+        line-height: 1;
+        font-size: calc(var(--n-font-size) + 2px);
+      }
+      .sub-lang {
+        line-height: 1;
+        font-size: calc(var(--n-font-size) - 2px);
+      }
+    }
+  }
+  .item-divider {
+    margin: 0 2px;
+  }
+  .item-descriptions {
+    display: flex;
+    flex-direction: column;
     gap: 5px;
 
-    .item-names .sub-lang {
-      font-size: calc(var(--n-font-size) - 2px);
+    .item-attributes {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      line-height: 1;
+
+      .item-type {
+        display: flex;
+        align-items: center;
+        gap: 1px;
+      }
+      .item-type::before { content: "["; }
+      .item-type::after { content: "]"; }
+    }
+    .main-descriptions {
+      text-indent: 1em;
+      line-height: 1.2;
     }
   }
 }
