@@ -122,7 +122,7 @@ const openInGarland = () => {
               <div class="item-name">
                 {{ getItemName() }}
               </div>
-              <div class="item-amount">
+              <div v-if="showAmount" class="item-amount">
                 x {{ itemInfo.amount }}
               </div>
             </div>
@@ -163,7 +163,7 @@ const openInGarland = () => {
       </n-flex>
     </div>
   </n-popover>
-  <n-button v-else
+  <n-button v-else-if="itemInfo.id"
     class="item-button"
     :style="{ width: btnWidth, height: btnHeight }"
     :disabled="disabled"
@@ -182,8 +182,30 @@ const openInGarland = () => {
           <div class="item-name">
             {{ getItemName() }}
           </div>
-          <div class="item-amount">
+          <div v-if="showAmount" class="item-amount">
             x {{ itemInfo.amount }}
+          </div>
+        </div>
+      </div>
+    </slot>
+  </n-button>
+  <n-button v-else
+    class="item-button"
+    :style="{ width: btnWidth, height: btnHeight }"
+    :disabled="disabled"
+    :color="btnColor"
+  >
+    <slot>
+      <div class="item-container">
+        <div class="item-icon">
+        </div>
+
+        <div v-if="showName" class="item-info">
+          <div class="item-name">
+            &nbsp;
+          </div>
+          <div v-if="showAmount" class="item-amount">
+            &nbsp;
           </div>
         </div>
       </div>
