@@ -3,6 +3,7 @@ import { computed, inject, ref, type Ref } from 'vue'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemButton from '../custom-controls/ItemButton.vue'
+import TomeScriptButton from '../custom-controls/TomeScriptButton.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -115,12 +116,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
             :btn-color="reagentsBtnColors[index]"
           >
           </ItemButton>
-          <n-button class="w-full h-full">
-            <div class="w-full flex-column align-right">
-              <p>{{ t('点数') }}</p>
-              <p>x9999</p>
-            </div>
-          </n-button>
+          <TomeScriptButton class="w-full h-full"></TomeScriptButton>
         </div>
       </GroupBox>
       <GroupBox id="master-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
