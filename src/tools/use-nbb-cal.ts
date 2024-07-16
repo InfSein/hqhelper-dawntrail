@@ -1,8 +1,8 @@
 
 import { ref } from 'vue';
-import item from '@/assets/xiv-data/item.json'
-import recipe from '@/assets/xiv-data/recipe.json'
-import hqConfig from '@/assets/xiv-data/hq-config.json'
+import item from '@/assets/data/unpacks/item.json'
+import recipe from '@/assets/data/unpacks/recipe.json'
+import hqConfig from '@/assets/data/unpacks/hq-config.json'
 import { Cal, type IHqConfig } from './nbb-cal-v5';
 import type { GearSelections } from '@/models/gears';
 

@@ -29,10 +29,10 @@ const phItem = {
   rid: []
 }
 
-import XivItems from '@/assets/xiv-data/item.json'
+import XivItems from '@/assets/data/unpacks/item.json'
 import XivItemTypes from '@/assets/data/xiv-item-types.json'
-import XivItemNameZHTemp from '@/assets/data/xiv-itemname-zhtemp.json'
-import XivItemDescZHTemp from '@/assets/data/xiv-itemdesc-zhtemp.json'
+import XivItemNameZHTemp from '@/assets/data/translations/xiv-item-names.json'
+import XivItemDescZHTemp from '@/assets/data/translations/xiv-item-descriptions.json'
 import { deepCopy } from '.'
 
 export interface ItemInfo {
