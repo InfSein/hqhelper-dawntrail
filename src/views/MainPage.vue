@@ -13,7 +13,6 @@ import { useMessage } from 'naive-ui';
 import { type UserConfigModel } from '@/models/user-config';
 import type { AttireAffix, AccessoryAffix } from '@/models/gears'
 import { attireAffixes, accessoryAffixes, getDefaultGearSelections } from '@/models/gears'
-import type { ItemCalculated } from '@/models/item-calculated'
 import { useStore } from '@/store'
 import XivJobs from '@/assets/data/xiv-jobs.json'
 import { useNbbCal } from '@/tools/use-nbb-cal';
@@ -140,54 +139,6 @@ const statistics = computed(() => {
   console.log('statistics.computed() called')
   return calGearSelections(workState.value.gears)
 })
-
-const sampleStatistics = {
-  reagents: [
-    { item_id: 27785, count: 1 },
-    { item_id: 27785, count: 2 },
-    { item_id: undefined, count: 3 },
-    { item_id: 27785, count: 4 },
-    { item_id: 27785, count: 5 },
-  ] as ItemCalculated[],
-  masterPrecrafts: [
-    { item_id: 27785, count: 1 },
-    { item_id: 27785, count: 2 },
-    { item_id: 27785, count: 3 },
-    { item_id: 27785, count: 4 },
-    { item_id: 27785, count: 5 },
-  ] as ItemCalculated[],
-  commonPrecrafts: [
-    { item_id: 27785, count: 1 },
-    { item_id: 27785, count: 2 },
-  ] as ItemCalculated[],
-  aethersands: [
-    { item_id: 27785, count: 1 },
-    { item_id: 27785, count: 2 },
-    { item_id: 27785, count: 3 },
-  ] as ItemCalculated[],
-  gatheringsTimed: [
-    { item_id: 27785, count: 1 },
-    { item_id: 27785, count: 2 },
-    { item_id: 27785, count: 3 },
-    { item_id: 27785, count: 4 },
-    { item_id: 27785, count: 5 },
-  ] as ItemCalculated[],
-  gatheringsCommon: [
-    { item_id: 27785, count: 1 },
-    { item_id: 27785, count: 2 },
-    { item_id: 27785, count: 3 },
-    { item_id: 27785, count: 4 },
-    { item_id: 27785, count: 5 },
-  ] as ItemCalculated[],
-  crystals: [
-    { item_id: 27785, count: 1 },
-    { item_id: 27785, count: 2 },
-    { item_id: 27785, count: 3 },
-    { item_id: 27785, count: 4 },
-    { item_id: 27785, count: 5 },
-  ] as ItemCalculated[]
-}
-
 </script>
 
 <template>
@@ -224,7 +175,7 @@ const sampleStatistics = {
           />
         </div>
         <div vertical id="right-layout">
-          <StatisticsPanel class="statistics-panel" v-bind="sampleStatistics" :statistics="statistics" />
+          <StatisticsPanel class="statistics-panel" :statistics="statistics" />
         </div>
       </div>
   
