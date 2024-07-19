@@ -1051,23 +1051,23 @@
             "components\\custom-controls\\ItemButton.vue"
         ]
     },
-    "特殊星级半成品&点数统计": {
+    "特殊秘籍半成品&点数统计": {
         "en": "Special MasterPrecrafts & Allagan",
-        "ja": "特殊星级半成品&点数统计",
+        "ja": "特殊秘籍半成品&点数统计",
         "$files": [
             "components\\main\\StatisticsPanel.vue"
         ]
     },
-    "秘籍星级半成品统计": {
+    "普通秘籍半成品统计": {
         "en": "MasterPrecrafts",
-        "ja": "秘籍星级半成品统计",
+        "ja": "普通秘籍半成品统计",
         "$files": [
             "components\\main\\StatisticsPanel.vue"
         ]
     },
-    "普通星级半成品统计": {
+    "普通半成品统计": {
         "en": "CommonPrecrafts",
-        "ja": "普通星级半成品统计",
+        "ja": "普通半成品统计",
         "$files": [
             "components\\main\\StatisticsPanel.vue"
         ]
