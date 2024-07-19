@@ -6,6 +6,7 @@ import {
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemButton from '../custom-controls/ItemButton.vue'
+import ItemList from '../custom-controls/ItemList.vue'
 import TomeScriptButton from '../custom-controls/TomeScriptButton.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 
@@ -109,7 +110,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
     </template>
     <div class="wrapper" :size="[1,2]">
       <GroupBox id="reagents-group" class="group" title-background-color="var(--n-color-embedded)">
-        <template #title>{{ t('特殊星级半成品&点数统计') }}</template>
+        <template #title>{{ t('特殊秘籍半成品&点数统计') }}</template>
         <div class="container">
           <ItemButton
             v-for="(item, index) in reagents"
@@ -122,40 +123,30 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
           <TomeScriptButton class="w-full h-full"></TomeScriptButton>
         </div>
       </GroupBox>
-      <GroupBox id="master-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
-        <template #title>{{ t('秘籍星级半成品统计') }}</template>
-        <div class="container">
-          <ItemButton
-            v-for="(item, index) in masterPrecrafts"
-            :key="'masterPrecraft-' + index"
-            :item-info="item"
-            show-icon show-name show-amount
-          >
-          </ItemButton>
-        </div>
-      </GroupBox>
-      <GroupBox id="common-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
-        <template #title>{{ t('普通星级半成品统计') }}</template>
-        <div class="container">
-          <ItemButton
-            v-for="(item, index) in commonPrecrafts"
-            :key="'commonPrecraft-' + index"
-            :item-info="item"
-            show-icon show-name show-amount
-          >
-          </ItemButton>
-        </div>
-      </GroupBox>
       <GroupBox id="aethersands-group" class="group" title-background-color="var(--n-color-embedded)">
         <template #title>{{ t('灵砂统计') }}</template>
         <div class="container">
-          <ItemButton
-            v-for="(item, index) in aethersands"
-            :key="'aethersand-' + index"
-            :item-info="item"
-            show-icon show-name show-amount
-          >
-          </ItemButton>
+          <ItemList
+            :items="aethersands"
+          />
+        </div>
+      </GroupBox>
+      <GroupBox id="master-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
+        <template #title>{{ t('普通秘籍半成品统计') }}</template>
+        <div class="container">
+          <ItemList
+            :items="masterPrecrafts"
+            :list-height="isMobile ? undefined : 320"
+          />
+        </div>
+      </GroupBox>
+      <GroupBox id="common-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
+        <template #title>{{ t('普通半成品统计') }}</template>
+        <div class="container">
+          <ItemList
+            :items="commonPrecrafts"
+            :list-height="isMobile ? undefined : 320"
+          />
         </div>
       </GroupBox>
       <GroupBox id="actions-group" class="group" title-background-color="var(--n-color-embedded)">
@@ -164,35 +155,26 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
           <n-collapse :accordion="!isMobile" :default-expanded-names="['crystals']">
             <n-collapse-item :title="t('常规采集品')" name="gatheringsCommon">
               <div class="item-collapsed-container">
-                <ItemButton
-                  v-for="(item, index) in gatheringsCommon"
-                  :key="'gatheringsCommon-' + index"
-                  :item-info="item"
-                  show-icon show-name show-amount
-                >
-                </ItemButton>
+                <ItemList
+                  :items="gatheringsCommon"
+                  :list-height="isMobile ? undefined : 320"
+                />
               </div>
             </n-collapse-item>
             <n-collapse-item :title="t('限时采集品')" name="gatheringsTimed">
               <div class="item-collapsed-container">
-                <ItemButton
-                  v-for="(item, index) in gatheringsTimed"
-                  :key="'gatheringsTimed-' + index"
-                  :item-info="item"
-                  show-icon show-name show-amount
-                >
-                </ItemButton>
+                <ItemList
+                  :items="gatheringsTimed"
+                  :list-height="isMobile ? undefined : 320"
+                />
               </div>
             </n-collapse-item>
             <n-collapse-item :title="t('水晶')" name="crystals">
               <div class="item-collapsed-container">
-                <ItemButton
-                  v-for="(item, index) in crystals"
-                  :key="'crystals-' + index"
-                  :item-info="item"
-                  show-icon show-name show-amount
-                >
-                </ItemButton>
+                <ItemList
+                  :items="crystals"
+                  :list-height="isMobile ? undefined : 320"
+                />
               </div>
             </n-collapse-item>
           </n-collapse>
@@ -207,6 +189,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
   display: flex;
   flex-direction: column;
   gap: 5px;
+  height: 100%;
 }
 #reagents-group .container {
   display: grid;
@@ -215,7 +198,6 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
 }
 #actions-group .container {
   padding: 10px 0;
-  min-height: calc(100%);
 }
 .item-collapsed-container {
   display: flex;
@@ -235,14 +217,6 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
   #actions-group {
     grid-row: 1 / 3;
     grid-column: 3;
-  }
-  #aethersands-group {
-    grid-row: 2;
-    grid-column: 1;
-  }
-  #common-precrafts-group {
-    grid-row: 2;
-    grid-column: 2;
   }
 }
 
