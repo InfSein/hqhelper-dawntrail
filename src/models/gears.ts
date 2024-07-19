@@ -51,8 +51,9 @@ export interface GearSelections {
   Rings: Record<AccessoryAffix, number>;
 }
 
+import XivJobs from '@/assets/data/xiv-jobs.json'
 export const getDefaultGearSelections = () => {
-  return JSON.parse(JSON.stringify({
+  const gears = JSON.parse(JSON.stringify({
     MainHand: {} as Record<number, number>,
     OffHand: {} as Record<number, number>,
     HeadAttire: {} as Record<AttireAffix, number>,
@@ -66,5 +67,27 @@ export const getDefaultGearSelections = () => {
     Necklace: {} as Record<AccessoryAffix, number>,
     Wrist: {} as Record<AccessoryAffix, number>,
     Rings: {} as Record<AccessoryAffix, number>,
-  })) as GearSelections;
+  })) as GearSelections
+  fixGearSelections(gears)
+  return gears
+}
+export const fixGearSelections = (gears: GearSelections) => {
+  const XivJobIds = Object.keys(XivJobs).map(jobId => parseInt(jobId))
+  XivJobIds.forEach(jobId => {
+    gears.MainHand[jobId] |= 0
+    gears.OffHand[jobId] |= 0
+  })
+  attireAffixes.forEach(affix => {
+    gears.HeadAttire[affix] |= 0
+    gears.BodyAttire[affix] |= 0
+    gears.HandsAttire[affix] |= 0
+    gears.LegsAttire[affix] |= 0
+    gears.FeetAttire[affix] |= 0
+  })
+  accessoryAffixes.forEach(affix => {
+    gears.Earrings[affix] |= 0
+    gears.Necklace[affix] |= 0
+    gears.Wrist[affix] |= 0
+    gears.Rings[affix] |= 0
+  })
 }

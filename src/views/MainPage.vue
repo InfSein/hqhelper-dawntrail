@@ -15,15 +15,12 @@ import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import { useMessage } from 'naive-ui';
 import { type UserConfigModel } from '@/models/user-config';
 import type { AttireAffix, AccessoryAffix } from '@/models/gears'
-import { attireAffixes, accessoryAffixes, getDefaultGearSelections } from '@/models/gears'
+import { getDefaultGearSelections, fixGearSelections } from '@/models/gears'
 import { useStore } from '@/store'
-import XivJobs from '@/assets/data/xiv-jobs.json'
 import { useNbbCal } from '@/tools/use-nbb-cal';
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
-
-const XivJobIds = Object.keys(XivJobs).map(jobId => parseInt(jobId))
 
 const gearSelectionPanel = ref<InstanceType<typeof GearSelectionPanel>>()
 
@@ -74,62 +71,32 @@ const workState = ref({
   gears: getDefaultGearSelections(),
 })
 
-/** fill gears with default values to prevent get/set `undefined` when using `v-model` */
-const fixGears = () => {
-  // * Whole object
-  workState.value.gears = workState.value.gears || getDefaultGearSelections()
-  // * Weapon
-  workState.value.gears.MainHand = workState.value.gears.MainHand || {}
-  workState.value.gears.OffHand = workState.value.gears.OffHand || {}
-  XivJobIds.forEach(jobId => {
-    workState.value.gears.MainHand[jobId] = workState.value.gears.MainHand[jobId] || 0
-    workState.value.gears.OffHand[jobId] = workState.value.gears.OffHand[jobId] || 0
-  })
-  // * Attire
-  workState.value.gears.HeadAttire = workState.value.gears.HeadAttire || {}
-  workState.value.gears.BodyAttire = workState.value.gears.BodyAttire || {}
-  workState.value.gears.HandsAttire = workState.value.gears.HandsAttire || {}
-  workState.value.gears.LegsAttire = workState.value.gears.LegsAttire || {}
-  workState.value.gears.FeetAttire = workState.value.gears.FeetAttire || {}
-  attireAffixes.forEach(affix => {
-    workState.value.gears.HeadAttire[affix] = workState.value.gears.HeadAttire[affix] || 0
-    workState.value.gears.BodyAttire[affix] = workState.value.gears.BodyAttire[affix] || 0
-    workState.value.gears.HandsAttire[affix] = workState.value.gears.HandsAttire[affix] || 0
-    workState.value.gears.LegsAttire[affix] = workState.value.gears.LegsAttire[affix] || 0
-    workState.value.gears.FeetAttire[affix] = workState.value.gears.FeetAttire[affix] || 0
-  })
-  // * Accessory
-  workState.value.gears.Earrings = workState.value.gears.Earrings || {}
-  workState.value.gears.Necklace = workState.value.gears.Necklace || {}
-  workState.value.gears.Wrist = workState.value.gears.Wrist || {}
-  workState.value.gears.Rings = workState.value.gears.Rings || {}
-  accessoryAffixes.forEach(affix => {
-    workState.value.gears.Earrings[affix] = workState.value.gears.Earrings[affix] || 0
-    workState.value.gears.Necklace[affix] = workState.value.gears.Necklace[affix] || 0
-    workState.value.gears.Wrist[affix] = workState.value.gears.Wrist[affix] || 0
-    workState.value.gears.Rings[affix] = workState.value.gears.Rings[affix] || 0
-  })
-}
-
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {
   const cachedWorkState = userConfig.value.cache_work_state
   if (cachedWorkState) {
     workState.value = cachedWorkState
-    // todo - Compatible with older version caching
+    fixGearSelections(workState.value.gears)
+    // Compatible with older version caching
   }
-  fixGears()
 
   // todo - 留意性能：深度侦听需要遍历被侦听对象中的所有嵌套的属性，当用于大型数据结构时，开销很大
-  watch(workState, () => {
-    console.log('workState changed', workState.value)
-    userConfig.value.cache_work_state = workState.value
-    store.commit('setUserConfig', userConfig.value)
+  watch(workState, async () => {
+    if (workState.value && userConfig) {
+      try {
+        console.log('workState changed', workState.value)
+        await Promise.resolve()
+        userConfig.value.cache_work_state = workState.value
+        store.commit('setUserConfig', userConfig.value)
 
-    console.log('gear selections:\n' + JSON.stringify(workState.value.gears))
+        console.log('gear selections:\n' + JSON.stringify(workState.value.gears))
+      } catch (error) {
+        console.error('Error handling workState change:', error)
+      }
+    } else {
+      console.warn('workState or userConfig is not defined')
+    }
   }, {deep: true})
-} else {
-  fixGears()
 }
 
 const handleJobButtonDupliClick = () => {
