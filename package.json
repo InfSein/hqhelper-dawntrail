@@ -29,13 +29,13 @@
     "@voerkai18n/vite": "^2.1.8",
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/tsconfig": "^0.5.1",
-    "eslint": "^8.49.0",
+    "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.17.0",
-    "naive-ui": "^2.38.1",
+    "naive-ui": "^2.39.0",
     "npm-run-all2": "^6.1.2",
-    "typescript": "~5.4.0",
-    "vite": "^5.1.5",
-    "vite-plugin-vue-devtools": "^7.0.16",
+    "typescript": "~5.4.5",
+    "vite": "^5.3.4",
+    "vite-plugin-vue-devtools": "^7.3.6",
     "vue-tsc": "^2.0.6"
   }
 }
