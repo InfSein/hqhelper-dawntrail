@@ -21,6 +21,9 @@ import {
   zhCN, enUS, jaJP,
   dateZhCN, dateEnUS, dateJaJP
 } from 'naive-ui'
+import {
+  NConfigProvider, NMessageProvider
+} from 'naive-ui'
 
 // * user preferences
 import { type UserConfigModel, fixUserConfig } from '@/models/user-config'

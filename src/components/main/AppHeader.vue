@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
-import { NIcon } from 'naive-ui'
+import {
+  NButton, NDrawer, NDrawerContent, NDivider, NFlex, NIcon, NPopover
+} from 'naive-ui'
 import {
   MenuFilled,
   SettingsSharp,

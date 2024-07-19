@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { inject, ref, type Ref } from 'vue'
+import {
+  NButton, NCard, NCollapse, NCollapseItem, NIcon, NModal, NPopover, NRadioButton, NRadioGroup, NSwitch, NTabs, NTabPane
+} from 'naive-ui'
 import { useStore } from '@/store/index'
 import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 import {

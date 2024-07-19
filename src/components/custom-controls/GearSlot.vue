@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import {
+  NPopover
+} from 'naive-ui'
 import XivFARImage from './XivFARImage.vue'
 
 defineProps({

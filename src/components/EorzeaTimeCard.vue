@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { type Ref, computed, inject, ref } from 'vue'
+import {
+  NCard, NFlex, NPopover
+} from 'naive-ui'
 import EorzeaTime from '../tools/eorzea-time'
 
 const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh');

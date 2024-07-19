@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, computed, inject, h, watch,  } from 'vue'
 import type { Ref, PropType, VNode } from 'vue'
+import {
+  NAlert, NButton, NDropdown, NDivider, NFlex, NIcon, NTooltip,
+  useMessage, type DropdownGroupOption, type DropdownOption
+} from 'naive-ui'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import Stepper from '../custom-controls/Stepper.vue'
 import GearSlot from '../custom-controls/GearSlot.vue'
@@ -10,7 +14,6 @@ import { getDefaultGearSelections } from '@/models/gears'
 import GearAffixes from '@/assets/data/xiv-gear-affixes.json'
 import XivJobs from '@/assets/data/xiv-jobs.json'
 import { type UserConfigModel } from '@/models/user-config'
-import { NTooltip, useMessage, type DropdownGroupOption, type DropdownOption } from 'naive-ui'
 import { KeyboardArrowDownRound } from '@vicons/material'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })

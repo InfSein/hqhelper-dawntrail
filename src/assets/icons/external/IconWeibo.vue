@@ -5,6 +5,7 @@
 </template>
 
 <script setup lang='ts'>
+import { NIcon } from 'naive-ui'
 defineProps({
   color: {
     type: String,

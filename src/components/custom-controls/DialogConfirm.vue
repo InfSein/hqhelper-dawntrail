@@ -28,6 +28,9 @@
   
 <script setup lang='ts'>
 import type { PropType } from 'vue'
+import {
+  NButton, NButtonGroup, NCard, NModal
+} from 'naive-ui'
 import IconInfo from '@/assets/icons/IconInfo.vue'
 import IconError from '@/assets/icons/IconError.vue'
 import IconSuccess from '@/assets/icons/IconSuccess.vue'

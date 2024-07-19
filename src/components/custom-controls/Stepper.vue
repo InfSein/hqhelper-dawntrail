@@ -1,6 +1,9 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import {
+  NButton, NIcon, NInputNumber
+} from 'naive-ui'
+import {
   AddSharp, MinusSharp
 } from '@vicons/material'
 

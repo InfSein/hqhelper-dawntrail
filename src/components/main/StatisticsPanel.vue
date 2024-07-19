@@ -1,5 +1,8 @@
 <script setup lang='ts'>
 import { computed, inject, ref, type Ref } from 'vue'
+import {
+  NCollapse, NCollapseItem
+} from 'naive-ui'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemButton from '../custom-controls/ItemButton.vue'

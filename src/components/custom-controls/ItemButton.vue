@@ -1,5 +1,8 @@
 <script lang="ts" setup>
-import { computed, inject, ref, type Ref } from 'vue';
+import { computed, inject, ref, type Ref } from 'vue'
+import {
+  NButton, NDivider, NFlex, NPopover
+} from 'naive-ui'
 import XivFARImage from './XivFARImage.vue'
 import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'

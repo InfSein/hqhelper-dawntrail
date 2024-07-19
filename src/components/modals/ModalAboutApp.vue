@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { inject, ref, type Ref } from 'vue'
+import {
+  NAvatar, NButton, NCard, NDivider, NFlex, NIcon, NModal, NPopover
+} from 'naive-ui'
 import { InfoSharp } from '@vicons/material'
 import { DataAboutApp } from '@/data/about-app'
 

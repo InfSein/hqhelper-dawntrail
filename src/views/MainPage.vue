@@ -1,5 +1,8 @@
 <script lang="ts" setup>
 import { computed, inject, provide, ref, watch, type Ref } from 'vue';
+import {
+  NAlert, NBackTop, NLayout, NLayoutHeader, NLayoutContent
+} from 'naive-ui'
 import AppHeader from '@/components/main/AppHeader.vue'
 import PatchPanel from '@/components/main/PatchPanel.vue'
 import JobPanel from '@/components/main/JobPanel.vue'

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref, type Ref, shallowRef, inject } from 'vue'
+import {
+  NButton, NCard, NIcon
+} from 'naive-ui'
 import { useStore } from '@/store/index'
 import { type UserConfigModel } from '@/models/user-config'
 import { KeyboardArrowUpRound, KeyboardArrowDownRound } from '@vicons/material'

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { inject, ref, type Ref } from 'vue'
+import {
+  NButton, NCard, NDivider, NFlex, NGradientText, NIcon, NModal, NPopover, NQrCode, NScrollbar, NTabs, NTabPane
+} from 'naive-ui'
 import { ContactlessSharp, CloseSharp } from '@vicons/material'
 import IconQQ from '@/assets/icons/external/IconQQ.vue'
 import IconGithub from '@/assets/icons/external/IconGithub.vue'
@@ -77,7 +80,7 @@ const handleClose = () => {
                     <n-button size="small">{{ t('也可以手机扫码进群') }}</n-button>
                   </template>
                   <n-flex justify="center">
-                    <n-qr-code class="qgroup-qrcode" size="110" :value="qGroupInfo.groupUrl" />
+                    <n-qr-code class="qgroup-qrcode" :size="110" :value="qGroupInfo.groupUrl" />
                   </n-flex>
                 </n-popover>
               </div>

@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue';
+import { inject, ref, type Ref } from 'vue'
+import {
+  NButton, NCard, NFlex
+} from 'naive-ui'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import XivFARImage from '../custom-controls/XivFARImage.vue'

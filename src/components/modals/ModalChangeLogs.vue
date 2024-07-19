@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { inject, ref, watch, type Ref } from 'vue'
+import {
+  NCard, NIcon, NModal, NSpin, NTimeline, NTimelineItem
+} from 'naive-ui'
 import { EventNoteFilled } from '@vicons/material'
 import { type UserConfigModel } from '@/models/user-config'
 import { type UpdateLog, convertToUpdateLogs } from '@/models/changelog'

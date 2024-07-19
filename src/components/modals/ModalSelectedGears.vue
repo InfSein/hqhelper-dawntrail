@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { inject, ref, watch, type Ref } from 'vue'
+import {
+  NButton, NCard, NIcon, NInputNumber, NModal, NScrollbar, NTable
+} from 'naive-ui'
 import { CheckroomSharp, SaveOutlined } from '@vicons/material'
 import type { GearSelections, AttireAffix, AccessoryAffix } from '@/models/gears'
 import { attireAffixes, accessoryAffixes } from '@/models/gears'

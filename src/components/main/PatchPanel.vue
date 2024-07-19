@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref, inject, type Ref, computed } from 'vue'
+import {
+  NButton, NFlex
+} from 'naive-ui'
 import { type UserConfigModel } from '@/models/user-config'
 import XivPatches from "@/assets/data/xiv-patches.json"
 import FoldableCard from '../custom-controls/FoldableCard.vue'
