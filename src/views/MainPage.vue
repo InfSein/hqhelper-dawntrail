@@ -74,7 +74,7 @@ const workState = ref({
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {
   const cachedWorkState = userConfig.value.cache_work_state
-  if (cachedWorkState) {
+  if (cachedWorkState && JSON.stringify(cachedWorkState).length > 2) {
     workState.value = cachedWorkState
     fixGearSelections(workState.value.gears)
     // Compatible with older version caching

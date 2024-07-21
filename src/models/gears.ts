@@ -72,6 +72,7 @@ export const getDefaultGearSelections = () => {
   return gears
 }
 export const fixGearSelections = (gears: GearSelections) => {
+  if (!gears) return getDefaultGearSelections()
   const XivJobIds = Object.keys(XivJobs).map(jobId => parseInt(jobId))
   XivJobIds.forEach(jobId => {
     gears.MainHand[jobId] |= 0
