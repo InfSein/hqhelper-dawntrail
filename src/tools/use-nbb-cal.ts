@@ -61,6 +61,7 @@ export function useNbbCal() {
             limitedGathering: data?.limitedGathering,
             masterCrafting: data?.masterCrafting,
             normalCrafting: data?.normalCrafting,
+            alkahests: data?.alkahests
         }
     }
 

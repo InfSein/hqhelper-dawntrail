@@ -692,25 +692,32 @@
     "limitedGathering": [
       27828
     ],
+    "alkahests": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
     "masterCrafting": [],
     "normalCrafting": [
-      3877,
-      5282,
-      5588,
-      5590,
-      5591,
-      5626,
-      5627,
-      5631,
-      5632,
-      5641,
-      5642,
-      5646,
-      5647,
-      5651,
-      5652,
-      5660,
-      5661
+      27838,
+      36077,
+      43977,
+      43976,
+      43975,
+      44022,
+      44023,
+      44000,
+      44001,
+      44011,
+      44012,
+      44061,
+      44062,
+      44032,
+      44033,
+      44013,
+      44051
     ],
     "tradeShops": [
       {
@@ -1125,6 +1132,7 @@
     "normalGathering": [],
     "reduceGathering": [],
     "limitedGathering": [],
+    "alkahests": [],
     "masterCrafting": [],
     "normalCrafting": [],
     "tradeShops": []
@@ -1135,6 +1143,7 @@
     "normalGathering": [],
     "reduceGathering": [],
     "limitedGathering": [],
+    "alkahests": [],
     "masterCrafting": [],
     "normalCrafting": [],
     "tradeShops": []
@@ -1145,6 +1154,7 @@
     "normalGathering": [],
     "reduceGathering": [],
     "limitedGathering": [],
+    "alkahests": [],
     "masterCrafting": [],
     "normalCrafting": [],
     "tradeShops": []
@@ -1155,6 +1165,7 @@
     "normalGathering": [],
     "reduceGathering": [],
     "limitedGathering": [],
+    "alkahests": [],
     "masterCrafting": [],
     "normalCrafting": [],
     "tradeShops": []

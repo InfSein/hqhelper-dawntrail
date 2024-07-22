@@ -26,6 +26,7 @@ export interface IHqVer {
     normalGathering?: number[];
     reduceGathering?: unknown[];
     limitedGathering?: number[];
+    alkahests?: number[];
     masterCrafting?: number[];
     normalCrafting?: number[];
     tradeShops?: unknown[];

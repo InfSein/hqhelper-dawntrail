@@ -156,7 +156,7 @@ const specialItems = computed(() => {
             :aethersand-gatherings="[]"
             :master-craftings="specialItems.masterCrafting"
             :normal-craftings="specialItems.normalCrafting"
-            :alkahests="[]"
+            :alkahests="specialItems.alkahests"
           />
         </div>
       </div>
