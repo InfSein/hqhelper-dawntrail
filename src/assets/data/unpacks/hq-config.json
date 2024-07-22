@@ -617,56 +617,465 @@
         ]
       ]
     },
-    "vendor": {},
-    "currencyInfo": {},
-    "reduceGathering": {},
-    "limitedGathering": {},
-    "normalGathering": {},
-    "masterCrafting": {},
-    "normalCrafting": {}
+    "normalGathering": [
+      27696,
+      27697,
+      27828,
+      27829,
+      36083,
+      36097,
+      36098,
+      43982,
+      43983,
+      43984,
+      43985,
+      43995,
+      43996,
+      44005,
+      44006,
+      44007,
+      44028,
+      44034,
+      44039,
+      44041,
+      44043
+    ],
+    "reduceGathering": [],
+    "limitedGathering": [
+      27820,
+      36089,
+      36090,
+      43980,
+      43981,
+      43986,
+      43987,
+      44017,
+      44018,
+      44040,
+      44042,
+      44052
+    ],
+    "masterCrafting": [],
+    "normalCrafting": [
+      3877,
+      5282,
+      5588,
+      5590,
+      5591,
+      5626,
+      5627,
+      5631,
+      5632,
+      5641,
+      5642,
+      5646,
+      5647,
+      5651,
+      5652,
+      5660,
+      5661
+    ],
+    "tradeShops": [
+      {
+        "id": "1770752",
+        "receiveId": 44056,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770755",
+        "receiveId": 44057,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770755",
+        "receiveId": 44057,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770749",
+        "receiveId": 44027,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770755",
+        "receiveId": 44057,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770749",
+        "receiveId": 44027,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770755",
+        "receiveId": 44057,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770752",
+        "receiveId": 44056,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770749",
+        "receiveId": 44027,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770755",
+        "receiveId": 44057,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770752",
+        "receiveId": 44056,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770755",
+        "receiveId": 44057,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770749",
+        "receiveId": 44027,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770755",
+        "receiveId": 44057,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770749",
+        "receiveId": 44027,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770755",
+        "receiveId": 44057,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770752",
+        "receiveId": 44056,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770749",
+        "receiveId": 44027,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770755",
+        "receiveId": 44057,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770752",
+        "receiveId": 44056,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770755",
+        "receiveId": 44057,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770755",
+        "receiveId": 44057,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770471",
+        "receiveId": 36256,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 2,
+        "costHqCount": 2
+      },
+      {
+        "id": "1770746",
+        "receiveId": 44063,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770749",
+        "receiveId": 44106,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770749",
+        "receiveId": 44071,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770752",
+        "receiveId": 44072,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770786",
+        "receiveId": 44035,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 41785,
+        "costCount": 100,
+        "costHqCount": 100
+      },
+      {
+        "id": "1770749",
+        "receiveId": 44071,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770752",
+        "receiveId": 44072,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770786",
+        "receiveId": 44035,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 41785,
+        "costCount": 100,
+        "costHqCount": 100
+      },
+      {
+        "id": "1770749",
+        "receiveId": 44071,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770752",
+        "receiveId": 44072,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770786",
+        "receiveId": 44035,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 41785,
+        "costCount": 100,
+        "costHqCount": 100
+      },
+      {
+        "id": "1770749",
+        "receiveId": 44071,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770752",
+        "receiveId": 44072,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770786",
+        "receiveId": 44035,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 41785,
+        "costCount": 100,
+        "costHqCount": 100
+      },
+      {
+        "id": "1770749",
+        "receiveId": 44071,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770752",
+        "receiveId": 44072,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 26807,
+        "costCount": 3,
+        "costHqCount": 3
+      },
+      {
+        "id": "1770786",
+        "receiveId": 44035,
+        "receiveCount": 1,
+        "receiveHqCount": false,
+        "costId": 41785,
+        "costCount": 100,
+        "costHqCount": 100
+      }
+    ]
   },
   "7.1": {
     "available": false,
     "jobs": {},
-    "vendor": {},
-    "currencyInfo": {},
-    "reduceGathering": {},
-    "limitedGathering": {},
-    "normalGathering": {},
-    "masterCrafting": {},
-    "normalCrafting": {}
+    "normalGathering": [],
+    "reduceGathering": [],
+    "limitedGathering": [],
+    "masterCrafting": [],
+    "normalCrafting": [],
+    "tradeShops": []
   },
   "7.2": {
     "available": false,
     "jobs": {},
-    "vendor": {},
-    "currencyInfo": {},
-    "reduceGathering": {},
-    "limitedGathering": {},
-    "normalGathering": {},
-    "masterCrafting": {},
-    "normalCrafting": {}
+    "normalGathering": [],
+    "reduceGathering": [],
+    "limitedGathering": [],
+    "masterCrafting": [],
+    "normalCrafting": [],
+    "tradeShops": []
   },
   "7.3": {
     "available": false,
     "jobs": {},
-    "vendor": {},
-    "currencyInfo": {},
-    "reduceGathering": {},
-    "limitedGathering": {},
-    "normalGathering": {},
-    "masterCrafting": {},
-    "normalCrafting": {}
+    "normalGathering": [],
+    "reduceGathering": [],
+    "limitedGathering": [],
+    "masterCrafting": [],
+    "normalCrafting": [],
+    "tradeShops": []
   },
   "7.4": {
     "available": false,
     "jobs": {},
-    "vendor": {},
-    "currencyInfo": {},
-    "reduceGathering": {},
-    "limitedGathering": {},
-    "normalGathering": {},
-    "masterCrafting": {},
-    "normalCrafting": {}
+    "normalGathering": [],
+    "reduceGathering": [],
+    "limitedGathering": [],
+    "masterCrafting": [],
+    "normalCrafting": [],
+    "tradeShops": []
   }
 }
