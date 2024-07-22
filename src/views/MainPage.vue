@@ -32,7 +32,7 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 // nbb cal
-const { calGearSelections } = useNbbCal();
+const { calGearSelections, getSpecialItems } = useNbbCal();
 
 const showUserPreferencesModal = ref(false)
 const showAboutAppModal = ref(false)
@@ -107,7 +107,10 @@ const handleJobButtonDupliClick = () => {
 
 const statistics = computed(() => {
   console.log('statistics.computed() called')
-  return calGearSelections(workState.value.gears)
+  return calGearSelections(workState.value.gears, workState.value.patch || '7.0')
+})
+const specialItems = computed(() => {
+  return getSpecialItems(workState.value.patch || '7.0')
 })
 </script>
 
@@ -145,7 +148,16 @@ const statistics = computed(() => {
           />
         </div>
         <div vertical id="right-layout">
-          <StatisticsPanel class="statistics-panel" :statistics="statistics" />
+          <StatisticsPanel
+            class="statistics-panel"
+            :statistics="statistics"
+            :normal-gatherings="specialItems.normalGathering"
+            :limited-gatherings="specialItems.limitedGathering"
+            :aethersand-gatherings="[]"
+            :master-craftings="specialItems.masterCrafting"
+            :normal-craftings="specialItems.normalCrafting"
+            :alkahests="[]"
+          />
         </div>
       </div>
   

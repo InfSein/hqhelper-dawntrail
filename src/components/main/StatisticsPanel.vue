@@ -17,6 +17,30 @@ const props = defineProps({
   statistics: {
     type: Object as () => any,
     required: true
+  },
+  normalGatherings: {
+    type: Array as () => number[] | undefined,
+    required: true
+  },
+  limitedGatherings: {
+    type: Array as () => number[] | undefined,
+    required: true
+  },
+  aethersandGatherings: {
+    type: Array as () => number[] | undefined,
+    required: true
+  },
+  masterCraftings: {
+    type: Array as () => number[] | undefined,
+    required: true
+  },
+  normalCraftings: {
+    type: Array as () => number[] | undefined,
+    required: true
+  },
+  alkahests: {
+    type: Array as () => number[] | undefined,
+    required: true
   }
 })
 
@@ -27,9 +51,19 @@ const props = defineProps({
  * 在生产采集HQ版本用于展示相较于前一战职版本新增的星级半成品，一般在[1,3]号index填写。
  */
 const reagents = computed(() => {
-  // todo - 分组归类：炼金秘籍半成品(多半要留到7.05再做)
   const placeHolder = getItemInfo(0)
-  return [placeHolder,placeHolder,placeHolder,placeHolder,placeHolder]
+  if (!props.alkahests?.length) {
+    return [placeHolder,placeHolder,placeHolder,placeHolder,placeHolder]
+  }
+  const crafts = []
+  props.alkahests.forEach(alkahest => {
+    const item = props.statistics.lv1[alkahest.toString()] ?? alkahest
+    crafts.push(getItemInfo(item))
+  })
+  while (crafts.length < 5) {
+    crafts.push(placeHolder);
+  }
+  return crafts
 })
 
 /**
@@ -39,8 +73,16 @@ const reagents = computed(() => {
  * ? 理论上按照成品id升序排序就可以达到这个效果，有待验证
  */
 const masterPrecrafts = computed(() => {
-  // todo - 分组归类：其他秘籍半成品(多半要留到7.05再做)
-  return [] as ItemInfo[]
+  if (!props.masterCraftings?.length) {
+    return [] as ItemInfo[]
+  }
+  const crafts : ItemInfo[] = []
+  props.masterCraftings.forEach(mc => {
+    if (props.alkahests?.includes(mc)) return // 忽略特殊秘籍半成品：炼金幻水
+    const item = props.statistics.lv1[mc.toString()] ?? mc
+    crafts.push(getItemInfo(item))
+  })
+  return crafts
 })
 
 /**
@@ -48,12 +90,19 @@ const masterPrecrafts = computed(() => {
  * 必须是一个数组，长度无限制
  */
 const commonPrecrafts = computed(() => {
-  // todo - 这里的分组归类算法会计入秘籍半成品，等7.05了必须做区分
+  if (!props.normalCraftings?.length) {
+    return [] as ItemInfo[]
+  }
   const crafts = []
   for (const id in props.statistics.lv1) {
-    const item = props.statistics.lv1[id]
-    if (item.uc && item.uc >= 48 && item.uc <= 54) { // * 参见src\assets\data\xiv-item-types.json
-      crafts.push(getItemInfo(item))
+    try {
+      const _id = parseInt(id)
+      if (props.normalCraftings.includes(_id)) {
+        const item = props.statistics.lv1[id]
+        crafts.push(getItemInfo(item))
+      }
+    } catch (error) {
+      console.warn('[compute.commonPrecrafts] Error processing item ' + id + ':', error)
     }
   }
   return crafts
@@ -64,24 +113,61 @@ const commonPrecrafts = computed(() => {
  * 展示时应注意说明此灵砂已计入其他半成品所需的数量。
  */
 const aethersands = computed(() => {
-  // todo - 分组归类：灵砂
-  return [] as ItemInfo[]
+  if (!props.aethersandGatherings?.length) {
+    return [] as ItemInfo[]
+  }
+  const aethersands : ItemInfo[] = []
+  props.aethersandGatherings.forEach(ag => {
+    if (props.alkahests?.includes(ag)) return // 忽略特殊秘籍半成品：炼金幻水
+    const item = props.statistics.lvBase[ag.toString()] ?? ag
+    aethersands.push(getItemInfo(item))
+  })
+  return aethersands
 })
 
 /**
  * 表示限时采集品统计。
  */
 const gatheringsTimed = computed(() => {
-  // todo - 分组归类：限时采集
-  return [] as ItemInfo[]
+  // todo - 不知道是否包含灵砂，有待检查
+  if (!props.limitedGatherings?.length) {
+    return [] as ItemInfo[]
+  }
+  const gathers = []
+  for (const id in props.statistics.lvBase) {
+    try {
+      const _id = parseInt(id)
+      if (props.limitedGatherings.includes(_id)) {
+        const item = props.statistics.lvBase[id]
+        gathers.push(getItemInfo(item))
+      }
+    } catch (error) {
+      console.warn('[compute.gatheringsTimed] Error processing item ' + id + ':', error)
+    }
+  }
+  return gathers
 })
 
 /**
  * 表示非限时(常规)采集品统计。
  */
 const gatheringsCommon = computed(() => {
-  // todo - 分组归类：非限时采集
-  return [] as ItemInfo[]
+  if (!props.normalGatherings?.length) {
+    return [] as ItemInfo[]
+  }
+  const gathers = []
+  for (const id in props.statistics.lvBase) {
+    try {
+      const _id = parseInt(id)
+      if (props.normalGatherings.includes(_id)) {
+        const item = props.statistics.lvBase[id]
+        gathers.push(getItemInfo(item))
+      }
+    } catch (error) {
+      console.warn('[compute.gatheringsTimed] Error processing item ' + id + ':', error)
+    }
+  }
+  return gathers
 })
 
 /**
