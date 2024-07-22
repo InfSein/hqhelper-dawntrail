@@ -620,40 +620,77 @@
     "normalGathering": [
       27696,
       27697,
-      27828,
+      27820,
       27829,
       36083,
+      36089,
+      36090,
       36097,
       36098,
+      43980,
+      43981,
       43982,
       43983,
       43984,
       43985,
+      43986,
+      43987,
       43995,
       43996,
       44005,
       44006,
       44007,
+      44017,
+      44018,
       44028,
       44034,
       44039,
-      44041,
-      44043
-    ],
-    "reduceGathering": [],
-    "limitedGathering": [
-      27820,
-      36089,
-      36090,
-      43980,
-      43981,
-      43986,
-      43987,
-      44017,
-      44018,
       44040,
+      44041,
       44042,
+      44043,
       44052
+    ],
+    "reduceGathering": [
+      [
+        44035,
+        43731
+      ],
+      [
+        44035,
+        43714
+      ],
+      [
+        44035,
+        43829
+      ],
+      [
+        44035,
+        43931
+      ],
+      [
+        44035,
+        43933
+      ],
+      [
+        44036,
+        43932
+      ],
+      [
+        44037,
+        43934
+      ],
+      [
+        44038,
+        43847
+      ],
+      [
+        44038,
+        43784
+      ]
+    ],
+    "limitedGathering": [
+      27828
     ],
     "masterCrafting": [],
     "normalCrafting": [
@@ -683,7 +720,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -692,7 +730,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -701,7 +740,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -710,7 +750,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -719,7 +760,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -728,7 +770,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -737,7 +780,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -746,7 +790,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -755,7 +800,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -764,7 +810,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -773,7 +820,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -782,7 +830,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -791,7 +840,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -800,7 +850,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -809,7 +860,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -818,7 +870,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -827,7 +880,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -836,7 +890,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -845,7 +900,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -854,7 +910,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -863,7 +920,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -872,7 +930,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770471",
@@ -881,7 +940,12 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 2,
-        "costHqCount": 2
+        "costHqCount": 2,
+        "costCHS": {
+          "costId": 26807,
+          "costCount": 2,
+          "costHqCount": 2
+        }
       },
       {
         "id": "1770746",
@@ -890,7 +954,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -899,7 +964,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -908,7 +974,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -917,7 +984,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -926,7 +994,8 @@
         "receiveHqCount": false,
         "costId": 41785,
         "costCount": 100,
-        "costHqCount": 100
+        "costHqCount": 100,
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -935,7 +1004,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -944,7 +1014,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -953,7 +1024,8 @@
         "receiveHqCount": false,
         "costId": 41785,
         "costCount": 100,
-        "costHqCount": 100
+        "costHqCount": 100,
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -962,7 +1034,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -971,7 +1044,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -980,7 +1054,8 @@
         "receiveHqCount": false,
         "costId": 41785,
         "costCount": 100,
-        "costHqCount": 100
+        "costHqCount": 100,
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -989,7 +1064,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -998,7 +1074,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1007,7 +1084,8 @@
         "receiveHqCount": false,
         "costId": 41785,
         "costCount": 100,
-        "costHqCount": 100
+        "costHqCount": 100,
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -1016,7 +1094,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -1025,7 +1104,8 @@
         "receiveHqCount": false,
         "costId": 26807,
         "costCount": 3,
-        "costHqCount": 3
+        "costHqCount": 3,
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1034,7 +1114,8 @@
         "receiveHqCount": false,
         "costId": 41785,
         "costCount": 100,
-        "costHqCount": 100
+        "costHqCount": 100,
+        "costCHS": false
       }
     ]
   },
