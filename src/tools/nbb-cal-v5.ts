@@ -23,13 +23,12 @@ export interface IHqJobs {
 export interface IHqVer {
     available: boolean;
     jobs: IHqJobs;
-    vendor?: Record<string, unknown>;
-    currencyInfo?: Record<string, unknown>;
-    reduceGathering?: Record<string, unknown>;
-    limitedGathering?: Record<string, unknown>;
-    normalGathering?: Record<string, unknown>;
-    masterCrafting?: Record<string, unknown>;
-    normalCrafting?: Record<string, unknown>;
+    normalGathering?: number[];
+    reduceGathering?: number[];
+    limitedGathering?: number[];
+    masterCrafting?: number[];
+    normalCrafting?: number[];
+    tradeShops?: unknown[];
 }
 
 export interface IHqConfig {
