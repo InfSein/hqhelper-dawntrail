@@ -126,6 +126,7 @@ const openInGarland = () => {
   <n-popover
     v-if="itemInfo.id && !disablePop"
     :placement="isMobile ? 'bottom' : 'right-start'"
+    :width="isMobile ? 'trigger' : undefined"
     :style="{ maxWidth: isMobile ? 'unset' : '290px' }"
   >
     <template #trigger>
