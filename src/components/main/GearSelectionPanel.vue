@@ -198,16 +198,16 @@ const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | 
   )
 }
 
-const showQuickOperates = ref(false)
+const showQuickOperatesOptions = ref(false)
 const handleQuickOperatesDropdownMouseEnter = (event: MouseEvent) => {
   if (isMobile.value) return
   if ((event.target as HTMLButtonElement).disabled) return
-  showQuickOperates.value = true
+  showQuickOperatesOptions.value = true
 }
 const handleQuickOperatesDropdownMouseLeave = (event: MouseEvent) => {
   if (isMobile.value) return
   if ((event.target as HTMLButtonElement).disabled) return
-  showQuickOperates.value = false
+  showQuickOperatesOptions.value = false
 }
 const quickOperatesOptions: DropdownOption[] = [
   { key: 'add-crafter-mainoff', label: t('添加一套生产主副手'), description: t('添加所有能工巧匠职业的主手工具、副手工具各1件') },
@@ -317,13 +317,21 @@ const handleAddsuitSelect = (key: string) => {
 }
 
 // keep only one dropdown open at a time
+watch(showQuickOperatesOptions, (newValue) => {
+  if (newValue) {
+    showClearOptions.value = false
+    showAddsuitOptions.value = false
+  }
+})
 watch(showClearOptions, (newValue) => {
   if (newValue) {
+    showQuickOperatesOptions.value = false
     showAddsuitOptions.value = false
   }
 })
 watch(showAddsuitOptions, (newValue) => {
   if (newValue) {
+    showQuickOperatesOptions.value = false
     showClearOptions.value = false
   }
 })
@@ -479,7 +487,7 @@ defineExpose({
         <n-divider dashed />
         <n-flex class="foot" justify="end">
           <n-dropdown
-            :show="showQuickOperates"
+            :show="showQuickOperatesOptions"
             :options="quickOperatesOptions"
             :render-option="renderOption"
             class="no-select"
@@ -490,7 +498,7 @@ defineExpose({
             <n-button
               icon-placement="right"
               :disabled="jobNotSelected"
-              @click="showClearOptions = !showClearOptions"
+              @click="showQuickOperatesOptions = !showQuickOperatesOptions"
               @mouseenter="handleQuickOperatesDropdownMouseEnter"
               @mouseleave="handleQuickOperatesDropdownMouseLeave"
             >
