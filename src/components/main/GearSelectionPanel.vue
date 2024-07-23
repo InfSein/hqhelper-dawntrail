@@ -2,7 +2,7 @@
 import { ref, computed, inject, h, watch,  } from 'vue'
 import type { Ref, PropType, VNode } from 'vue'
 import {
-  NAlert, NButton, NDropdown, NDivider, NFlex, NIcon, NTooltip,
+  NAlert, NButton, NDropdown, NDivider, NFlex, NIcon, NPopover, NTooltip,
   useMessage, type DropdownGroupOption, type DropdownOption
 } from 'naive-ui'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
@@ -39,13 +39,26 @@ const props = defineProps({
 
 const showSelectedGears = ref(false)
 
-const tipText = computed(() => {
+const selectedAffixes = computed(() => {
+  const { jobName, attireName, accessoryName } = getAffixesName()
+  return `[${jobName}/${attireName}/${accessoryName}]`
+})
+const affixesTips = computed(() => {
+  const { jobName, attireName, accessoryName } = getAffixesName()
+  return [
+    t('相同的装备会合并显示。'),
+    t('当前主副手对应职业：{}', jobName),
+    t('当前防具对应的词缀：{}', attireName),
+    t('当前首饰对应的词缀：{}', accessoryName)
+  ]
+})
+const getAffixesName = () => {
   const uiLanguage = userConfig.value?.language_ui ?? 'zh'
   const jobName = (XivJobs as any)?.[props.jobId]?.['job_name_' + uiLanguage] || t('未选择')
   const attireName = (GearAffixes as any)?.[props.attireAffix]?.['affix_name_' + uiLanguage] || t('未选择')
   const accessoryName = (GearAffixes as any)?.[props.accessoryAffix]?.['affix_name_' + uiLanguage] || t('未选择')
-  return `[${jobName}/${attireName}/${accessoryName}]`
-})
+  return { jobName, attireName, accessoryName }
+}
 
 const jobNotSelected = computed(() => {
   return !(XivJobs as any)?.[props.jobId]
@@ -262,10 +275,20 @@ defineExpose({
 </script>
 
 <template>
-  <FoldableCard card-key="game-gear-selection" :description="tipText">
+  <FoldableCard card-key="game-gear-selection">
     <template #header>
       <i class="xiv square-3"></i>
       <span class="card-title-text">{{ t('选择部件') }}</span>
+      <n-popover placement="bottom-start">
+        <template #trigger>
+          <span class="card-title-desc">{{ selectedAffixes }}</span>
+        </template>
+        <div>
+          <p v-for="(tip, index) in affixesTips" :key="'title-tip' + index">
+            {{ tip }}
+          </p>
+        </div>
+      </n-popover>
     </template>
     
     <div class="gear-selection-containter">
@@ -455,6 +478,10 @@ defineExpose({
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+.card-title-desc {
+  margin-left: 10px;
+  font-size: 14px;
 }
 table {
   width: 100%;
