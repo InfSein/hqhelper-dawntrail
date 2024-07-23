@@ -190,7 +190,7 @@ const openInGarland = () => {
         <slot name="extra-descriptions" />
         <div class="tail-descriptions">
           <p v-for="(desc, index) in itemTailDescriptions" :key="'tail-descriptions' + index">
-            {{ t('注{index}：', itemTailDescriptions.length === 1 ? '' : index + 1) }}{{ desc }}
+            {{ t('注{}：', itemTailDescriptions.length === 1 ? '' : index + 1) }}{{ desc }}
           </p>
         </div>
       </div>
