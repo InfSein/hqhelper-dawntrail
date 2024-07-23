@@ -51,7 +51,7 @@
   },
   "dps_ranged": {
     "role_name_en": "Physical Ranged DPS",
-    "role_name_zh": "远程物理职业",
+    "role_name_zh": "远敏DPS",
     "role_name_ja": "遠隔物理系DPS",
     "role_color": "#732828",
     "role_icon_url": "./image/game-job/misc/clear_ranged.png",
@@ -61,7 +61,7 @@
   },
   "dps_magic": {
     "role_name_en": "Magical Ranged DPS",
-    "role_name_zh": "远程魔法职业",
+    "role_name_zh": "法系DPS",
     "role_name_ja": "遠隔魔法系DPS",
     "role_color": "#732828",
     "role_icon_url": "./image/game-job/misc/clear_dps_magic.png",

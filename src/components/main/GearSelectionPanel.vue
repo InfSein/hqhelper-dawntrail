@@ -2,7 +2,7 @@
 import { ref, computed, inject, h, watch,  } from 'vue'
 import type { Ref, PropType, VNode } from 'vue'
 import {
-  NAlert, NButton, NDropdown, NDivider, NFlex, NIcon, NTooltip,
+  NAlert, NButton, NDropdown, NDivider, NFlex, NIcon, NPopover, NTooltip,
   useMessage, type DropdownGroupOption, type DropdownOption
 } from 'naive-ui'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
@@ -13,6 +13,7 @@ import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears
 import { getDefaultGearSelections } from '@/models/gears'
 import GearAffixes from '@/assets/data/xiv-gear-affixes.json'
 import XivJobs from '@/assets/data/xiv-jobs.json'
+import XivRoles from '@/assets/data/xiv-roles.json'
 import { type UserConfigModel } from '@/models/user-config'
 import { KeyboardArrowDownRound } from '@vicons/material'
 
@@ -39,13 +40,26 @@ const props = defineProps({
 
 const showSelectedGears = ref(false)
 
-const tipText = computed(() => {
+const selectedAffixes = computed(() => {
+  const { jobName, attireName, accessoryName } = getAffixesName()
+  return `[${jobName}/${attireName}/${accessoryName}]`
+})
+const affixesTips = computed(() => {
+  const { jobName, attireName, accessoryName } = getAffixesName()
+  return [
+    t('相同的装备会合并显示。'),
+    t('当前主副手对应职业：{}', jobName),
+    t('当前防具对应的词缀：{}', attireName),
+    t('当前首饰对应的词缀：{}', accessoryName)
+  ]
+})
+const getAffixesName = () => {
   const uiLanguage = userConfig.value?.language_ui ?? 'zh'
   const jobName = (XivJobs as any)?.[props.jobId]?.['job_name_' + uiLanguage] || t('未选择')
   const attireName = (GearAffixes as any)?.[props.attireAffix]?.['affix_name_' + uiLanguage] || t('未选择')
   const accessoryName = (GearAffixes as any)?.[props.accessoryAffix]?.['affix_name_' + uiLanguage] || t('未选择')
-  return `[${jobName}/${attireName}/${accessoryName}]`
-})
+  return { jobName, attireName, accessoryName }
+}
 
 const jobNotSelected = computed(() => {
   return !(XivJobs as any)?.[props.jobId]
@@ -184,6 +198,66 @@ const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | 
   )
 }
 
+const showQuickOperatesOptions = ref(false)
+const handleQuickOperatesDropdownMouseEnter = (event: MouseEvent) => {
+  if (isMobile.value) return
+  if ((event.target as HTMLButtonElement).disabled) return
+  showQuickOperatesOptions.value = true
+}
+const handleQuickOperatesDropdownMouseLeave = (event: MouseEvent) => {
+  if (isMobile.value) return
+  if ((event.target as HTMLButtonElement).disabled) return
+  showQuickOperatesOptions.value = false
+}
+const quickOperatesOptions: DropdownOption[] = [
+  { key: 'add-crafter-mainoff', label: t('添加一套生产主副手'), description: t('添加所有能工巧匠职业的主手工具、副手工具各1件') },
+  { key: 'add-gatherer-mainoff', label: t('添加一套采集主副手'), description: t('添加所有大地使者职业的主手工具、副手工具各1件') },
+  { key: 'add-crafter-aaa', label: t('添加一套生产防具&首饰'), description: t('添加一套能工巧匠职业共用的防具与首饰。如果没有首饰则不会添加。') },
+  { key: 'add-gatherer-aaa', label: t('添加一套采集防具&首饰'), description: t('添加一套大地使者职业共用的防具与首饰。如果没有首饰则不会添加。') },
+  // `aaa` means `attire-and-accessory`, does it droll?
+]
+const handleQuickOperatesSelect = (key: string) => {
+  if (jobNotSelected.value) {
+    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+  }
+  if (key === 'add-crafter-mainoff') {
+    XivRoles.crafter.jobs.forEach(jobId => {
+      gearSelections.value.MainHand[jobId]++
+      gearSelections.value.OffHand[jobId]++
+    })
+  } else if (key === 'add-gatherer-mainoff') {
+    XivRoles.gatherer.jobs.forEach(jobId => {
+      gearSelections.value.MainHand[jobId]++
+      gearSelections.value.OffHand[jobId]++
+    })
+  } else if (key === 'add-crafter-aaa') {
+    let affix = XivRoles.crafter.attire
+    gearSelections.value.HeadAttire[affix as AttireAffix]++
+    gearSelections.value.BodyAttire[affix as AttireAffix]++
+    gearSelections.value.HandsAttire[affix as AttireAffix]++
+    gearSelections.value.LegsAttire[affix as AttireAffix]++
+    gearSelections.value.FeetAttire[affix as AttireAffix]++
+    affix = XivRoles.crafter.accessory
+    gearSelections.value.Earrings[affix as AccessoryAffix]++
+    gearSelections.value.Necklace[affix as AccessoryAffix]++
+    gearSelections.value.Wrist[affix as AccessoryAffix]++
+    gearSelections.value.Rings[affix as AccessoryAffix] += 2
+  } else if (key === 'add-gatherer-aaa') {
+    let affix = XivRoles.gatherer.attire
+    gearSelections.value.HeadAttire[affix as AttireAffix]++
+    gearSelections.value.BodyAttire[affix as AttireAffix]++
+    gearSelections.value.HandsAttire[affix as AttireAffix]++
+    gearSelections.value.LegsAttire[affix as AttireAffix]++
+    gearSelections.value.FeetAttire[affix as AttireAffix]++
+    affix = XivRoles.gatherer.accessory
+    gearSelections.value.Earrings[affix as AccessoryAffix]++
+    gearSelections.value.Necklace[affix as AccessoryAffix]++
+    gearSelections.value.Wrist[affix as AccessoryAffix]++
+    gearSelections.value.Rings[affix as AccessoryAffix] += 2
+  }
+}
+
+
 const showClearOptions = ref(false)
 const handleClearDropdownMouseEnter = (event: MouseEvent) => {
   if (isMobile.value) return
@@ -243,13 +317,21 @@ const handleAddsuitSelect = (key: string) => {
 }
 
 // keep only one dropdown open at a time
+watch(showQuickOperatesOptions, (newValue) => {
+  if (newValue) {
+    showClearOptions.value = false
+    showAddsuitOptions.value = false
+  }
+})
 watch(showClearOptions, (newValue) => {
   if (newValue) {
+    showQuickOperatesOptions.value = false
     showAddsuitOptions.value = false
   }
 })
 watch(showAddsuitOptions, (newValue) => {
   if (newValue) {
+    showQuickOperatesOptions.value = false
     showClearOptions.value = false
   }
 })
@@ -262,10 +344,20 @@ defineExpose({
 </script>
 
 <template>
-  <FoldableCard card-key="game-gear-selection" :description="tipText">
+  <FoldableCard card-key="game-gear-selection">
     <template #header>
       <i class="xiv square-3"></i>
       <span class="card-title-text">{{ t('选择部件') }}</span>
+      <n-popover placement="bottom-start">
+        <template #trigger>
+          <span class="card-title-desc">{{ selectedAffixes }}</span>
+        </template>
+        <div>
+          <p v-for="(tip, index) in affixesTips" :key="'title-tip' + index">
+            {{ tip }}
+          </p>
+        </div>
+      </n-popover>
     </template>
     
     <div class="gear-selection-containter">
@@ -395,6 +487,28 @@ defineExpose({
         <n-divider dashed />
         <n-flex class="foot" justify="end">
           <n-dropdown
+            :show="showQuickOperatesOptions"
+            :options="quickOperatesOptions"
+            :render-option="renderOption"
+            class="no-select"
+            @select="handleQuickOperatesSelect"
+            @mouseenter="handleQuickOperatesDropdownMouseEnter"
+            @mouseleave="handleQuickOperatesDropdownMouseLeave"
+          >
+            <n-button
+              icon-placement="right"
+              :disabled="jobNotSelected"
+              @click="showQuickOperatesOptions = !showQuickOperatesOptions"
+              @mouseenter="handleQuickOperatesDropdownMouseEnter"
+              @mouseleave="handleQuickOperatesDropdownMouseLeave"
+            >
+              <template #icon>
+                <n-icon><KeyboardArrowDownRound /></n-icon>
+              </template>
+              {{ t('快速操作') }}
+            </n-button>
+          </n-dropdown>
+          <n-dropdown
             :show="showClearOptions"
             :options="clearOptions"
             :render-option="renderOption"
@@ -456,6 +570,10 @@ defineExpose({
   display: flex;
   flex-direction: column;
 }
+.card-title-desc {
+  margin-left: 10px;
+  font-size: 14px;
+}
 table {
   width: 100%;
 
@@ -467,7 +585,7 @@ table {
   margin: 3px 0;
 }
 .bottom-buttons {
-  margin-top: auto;
+  margin-top: 1em;
   margin-right: 3px;
   
   .content {
@@ -477,6 +595,13 @@ table {
   }
   .foot {
     margin-top: 6px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .bottom-buttons {
+    margin-top: auto;
   }
 }
 </style>

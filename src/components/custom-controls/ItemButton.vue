@@ -7,6 +7,7 @@ import XivFARImage from './XivFARImage.vue'
 import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 
+const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
@@ -47,7 +48,7 @@ const getItemName = () => {
       return props.itemInfo.nameEN
     case 'zh':
     default:
-      return props.itemInfo.nameZH
+      return props.itemInfo.nameZH || '未翻译的物品'
   }
 }
 /** 获取物品副名称(即其他语言的名称) */
@@ -86,6 +87,13 @@ const getItemTypeName = () => {
       return props.itemInfo.uiTypeNameZH
   }
 }
+const itemTailDescriptions = computed(() => {
+  const descriptions : string[] = []
+  if (itemLanguage.value === 'zh' && props.itemInfo.usedZHTemp) {
+    descriptions.push(t('该物品国服尚未实装，中文名为临时译名。'))
+  }
+  return descriptions
+})
 
 const iconSize = computed(() => {
   return (props.btnSize?.[1] || 32) - 5
@@ -118,6 +126,7 @@ const openInGarland = () => {
   <n-popover
     v-if="itemInfo.id && !disablePop"
     :placement="isMobile ? 'bottom' : 'right-start'"
+    :width="isMobile ? 'trigger' : undefined"
     :style="{ maxWidth: isMobile ? 'unset' : '290px' }"
   >
     <template #trigger>
@@ -156,8 +165,13 @@ const openInGarland = () => {
           :size="35"
         />
         <div class="item-names">
-          <div class="main-lang">{{ getItemName() }}</div>
-          <div class="sub-lang">{{ getItemSubName() }}</div>
+          <div class="main">
+            <span>{{ getItemName() }}</span>
+            <span class="extra-name" v-if="itemLanguage === 'zh' && itemInfo.usedZHTemp">
+              {{ t('(暂译)') }}
+            </span>
+          </div>
+          <div class="sub">{{ getItemSubName() }}</div>
         </div>
       </div>
       <n-divider class="item-divider" />
@@ -175,6 +189,11 @@ const openInGarland = () => {
         </div>
         <div class="main-descriptions" v-html="getItemDescriptions()"></div>
         <slot name="extra-descriptions" />
+        <div class="tail-descriptions">
+          <p v-for="(desc, index) in itemTailDescriptions" :key="'tail-descriptions' + index">
+            {{ t('注{}：', itemTailDescriptions.length === 1 ? '' : index + 1) }}{{ desc }}
+          </p>
+        </div>
       </div>
       <!-- 操作按钮不太适合放到悬浮里，后续做进右键菜单 -->
       <n-flex v-show="false" class="item-actions">
@@ -278,11 +297,12 @@ const openInGarland = () => {
     margin-top: 2%;
 
     .item-names {
-      .main-lang {
+      .main span {
         line-height: 1;
         font-size: calc(var(--n-font-size) + 2px);
       }
-      .sub-lang {
+      .sub,
+      .main span.extra-name {
         line-height: 1;
         font-size: calc(var(--n-font-size) - 2px);
       }
@@ -313,6 +333,10 @@ const openInGarland = () => {
     .main-descriptions {
       text-indent: 1em;
       line-height: 1.2;
+    }
+    .tail-descriptions {
+      font-size: calc(var(--n-font-size) - 2px);
+      line-height: 1;
     }
   }
 }

@@ -122,10 +122,10 @@ const specialItems = computed(() => {
 
     <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
       <n-alert
-        type="warning"
+        type="info"
         style="margin-bottom: 10px;"
       >
-        {{ t('非常抱歉，但我们还没有准备好正式发布，程序目前还无法正常使用。我们目前的预期是在7.05版本实装之前完成开发，请耐心等待。') }}
+        {{ t('我们已经开始内测，并提供7.0版本生产采集新HQ的装备数据。如果遇到问题，请通过“联系我们”中的方式反馈。') }}
       </n-alert>
       <div vertical id="main-container">
         <PatchPanel id="top-layout" v-model:patch-selected="workState.patch" />

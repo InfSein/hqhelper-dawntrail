@@ -113,6 +113,7 @@ const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
       v-else-if="mode === 'list'"
       v-model:value="listValue"
       readonly
+      autosize
       type="textarea"
       :style="getScrollbarStyles()"
     />
