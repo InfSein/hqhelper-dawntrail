@@ -13,6 +13,7 @@ import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears
 import { getDefaultGearSelections } from '@/models/gears'
 import GearAffixes from '@/assets/data/xiv-gear-affixes.json'
 import XivJobs from '@/assets/data/xiv-jobs.json'
+import XivRoles from '@/assets/data/xiv-roles.json'
 import { type UserConfigModel } from '@/models/user-config'
 import { KeyboardArrowDownRound } from '@vicons/material'
 
@@ -196,6 +197,66 @@ const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | 
     }
   )
 }
+
+const showQuickOperates = ref(false)
+const handleQuickOperatesDropdownMouseEnter = (event: MouseEvent) => {
+  if (isMobile.value) return
+  if ((event.target as HTMLButtonElement).disabled) return
+  showQuickOperates.value = true
+}
+const handleQuickOperatesDropdownMouseLeave = (event: MouseEvent) => {
+  if (isMobile.value) return
+  if ((event.target as HTMLButtonElement).disabled) return
+  showQuickOperates.value = false
+}
+const quickOperatesOptions: DropdownOption[] = [
+  { key: 'add-crafter-mainoff', label: t('添加一套生产主副手'), description: t('添加所有能工巧匠职业的主手工具、副手工具各1件') },
+  { key: 'add-gatherer-mainoff', label: t('添加一套采集主副手'), description: t('添加所有大地使者职业的主手工具、副手工具各1件') },
+  { key: 'add-crafter-aaa', label: t('添加一套生产防具&首饰'), description: t('添加一套能工巧匠职业共用的防具与首饰。如果没有首饰则不会添加。') },
+  { key: 'add-gatherer-aaa', label: t('添加一套采集防具&首饰'), description: t('添加一套大地使者职业共用的防具与首饰。如果没有首饰则不会添加。') },
+  // `aaa` means `attire-and-accessory`, does it droll?
+]
+const handleQuickOperatesSelect = (key: string) => {
+  if (jobNotSelected.value) {
+    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+  }
+  if (key === 'add-crafter-mainoff') {
+    XivRoles.crafter.jobs.forEach(jobId => {
+      gearSelections.value.MainHand[jobId]++
+      gearSelections.value.OffHand[jobId]++
+    })
+  } else if (key === 'add-gatherer-mainoff') {
+    XivRoles.gatherer.jobs.forEach(jobId => {
+      gearSelections.value.MainHand[jobId]++
+      gearSelections.value.OffHand[jobId]++
+    })
+  } else if (key === 'add-crafter-aaa') {
+    let affix = XivRoles.crafter.attire
+    gearSelections.value.HeadAttire[affix as AttireAffix]++
+    gearSelections.value.BodyAttire[affix as AttireAffix]++
+    gearSelections.value.HandsAttire[affix as AttireAffix]++
+    gearSelections.value.LegsAttire[affix as AttireAffix]++
+    gearSelections.value.FeetAttire[affix as AttireAffix]++
+    affix = XivRoles.crafter.accessory
+    gearSelections.value.Earrings[affix as AccessoryAffix]++
+    gearSelections.value.Necklace[affix as AccessoryAffix]++
+    gearSelections.value.Wrist[affix as AccessoryAffix]++
+    gearSelections.value.Rings[affix as AccessoryAffix] += 2
+  } else if (key === 'add-gatherer-aaa') {
+    let affix = XivRoles.gatherer.attire
+    gearSelections.value.HeadAttire[affix as AttireAffix]++
+    gearSelections.value.BodyAttire[affix as AttireAffix]++
+    gearSelections.value.HandsAttire[affix as AttireAffix]++
+    gearSelections.value.LegsAttire[affix as AttireAffix]++
+    gearSelections.value.FeetAttire[affix as AttireAffix]++
+    affix = XivRoles.gatherer.accessory
+    gearSelections.value.Earrings[affix as AccessoryAffix]++
+    gearSelections.value.Necklace[affix as AccessoryAffix]++
+    gearSelections.value.Wrist[affix as AccessoryAffix]++
+    gearSelections.value.Rings[affix as AccessoryAffix] += 2
+  }
+}
+
 
 const showClearOptions = ref(false)
 const handleClearDropdownMouseEnter = (event: MouseEvent) => {
@@ -417,6 +478,28 @@ defineExpose({
         </div>
         <n-divider dashed />
         <n-flex class="foot" justify="end">
+          <n-dropdown
+            :show="showQuickOperates"
+            :options="quickOperatesOptions"
+            :render-option="renderOption"
+            class="no-select"
+            @select="handleQuickOperatesSelect"
+            @mouseenter="handleQuickOperatesDropdownMouseEnter"
+            @mouseleave="handleQuickOperatesDropdownMouseLeave"
+          >
+            <n-button
+              icon-placement="right"
+              :disabled="jobNotSelected"
+              @click="showClearOptions = !showClearOptions"
+              @mouseenter="handleQuickOperatesDropdownMouseEnter"
+              @mouseleave="handleQuickOperatesDropdownMouseLeave"
+            >
+              <template #icon>
+                <n-icon><KeyboardArrowDownRound /></n-icon>
+              </template>
+              {{ t('快速操作') }}
+            </n-button>
+          </n-dropdown>
           <n-dropdown
             :show="showClearOptions"
             :options="clearOptions"
