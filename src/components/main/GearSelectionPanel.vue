@@ -577,7 +577,7 @@ table {
   margin: 3px 0;
 }
 .bottom-buttons {
-  margin-top: auto;
+  margin-top: 1em;
   margin-right: 3px;
   
   .content {
@@ -587,6 +587,13 @@ table {
   }
   .foot {
     margin-top: 6px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .bottom-buttons {
+    margin-top: auto;
   }
 }
 </style>
