@@ -1,1110 +1,1110 @@
 {
-    "偏好设置": {
-        "en": "User Preferences",
-        "ja": "プリファレンス設定",
-        "$files": [
-            "components\\AppHeader.vue",
-            "components\\ModalUserPreferences.vue"
-        ]
-    },
-    "主题": {
-        "en": "Theme",
-        "ja": "トピック",
-        "$files": [
-            "components\\ModalUserPreferences.vue"
-        ]
-    },
-    "跟随系统": {
-        "en": "System",
-        "ja": "フォローアップシステム",
-        "$files": [
-            "components\\ModalUserPreferences.vue"
-        ]
-    },
-    "浅色": {
-        "en": "Light",
-        "ja": "薄い",
-        "$files": [
-            "components\\ModalUserPreferences.vue"
-        ]
-    },
-    "深色": {
-        "en": "Dark",
-        "ja": "ダークカラー",
-        "$files": [
-            "components\\ModalUserPreferences.vue"
-        ]
-    },
-    "界面语言": {
-        "en": "UI Language",
-        "ja": "インタフェース言語",
-        "$files": [
-            "components\\ModalUserPreferences.vue"
-        ]
-    },
-    "保存": {
-        "en": "Save",
-        "ja": "ホゾン",
-        "$files": [
-            "components\\ModalUserPreferences.vue"
-        ]
-    },
-    "保存成功！部分改动需要刷新页面才能生效": {
-        "en": "Save Success! Some changes require refreshing.",
-        "ja": "保存に成功しました！一部変更を有効にするにはページを更新する必要があります。",
-        "$files": [
-            "App.vue"
-        ]
-    },
-    "版权信息": {
-        "en": "Copyright information",
-        "ja": "著作権情報",
-        "$files": [
-            "components\\ModalAboutApp.vue"
-        ]
-    },
-    "本站所引用的《最终幻想XIV》相关资料与图像，其版权均归于SQUARE ENIX所有。": {
-        "en": "The copyright of the materials and images related to Final Fantasy XIV cited on this website belongs to SQUARE ENIX.",
-        "ja": "本作は『ファイナルファンタジーXIV』の内容に関連しており、著作権はSQUARE ENIXが所有している。",
-        "$files": [
-            "components\\ModalAboutApp.vue"
-        ]
-    },
-    "本作仅供学习交流使用，不得以任何方式用于商业用途。": {
-        "en": "This work is for learning and communication purposes only and may not be used for commercial purposes in any way.",
-        "ja": "本作は学習交流用にのみ使用されており、ビジネス用途には使用されていません。",
-        "$files": [
-            "components\\ModalAboutApp.vue"
-        ]
-    },
-    "转载、搬运须注明作者及出处。": {
-        "en": "Reproduction and handling must indicate the author and source.",
-        "ja": "転載、運搬は作者と出所を明記しなければならない。",
-        "$files": [
-            "components\\ModalAboutApp.vue"
-        ]
-    },
-    "HqHelper的诞生与持续开发离不开用户的支持。": {
-        "en": "The birth and continuous development of HqHelper cannot be separated from the support of users.",
-        "ja": "HqHelperの誕生と持続的な開発にはユーザーの支持が欠かせない。",
-        "$files": [
-            "components\\ModalAboutApp.vue"
-        ]
-    },
-    "特别感谢以下用户对前代HqHelper项目的赞助：": {
-        "en": "Special thanks to the following users for sponsoring the previous generation HqHelper project:",
-        "ja": "特に、次のユーザーは前世代HqHelperプロジェクトへの協賛に感謝しています：",
-        "$files": [
-            "components\\ModalAboutApp.vue"
-        ]
-    },
-    "关于本作": {
-        "en": "About",
-        "ja": "本作について",
-        "$files": [
-            "components\\AppHeader.vue"
-        ]
-    },
-    "本作程序源代码遵循MIT协议开源，但使用的协议在正式发布之前随时可能被更改。": {
-        "en": "The source code of this program follows the MIT protocol for open source, but the protocol used may be changed at any time before official release.",
-        "ja": "このプログラムのソースコードはMITプロトコルのオープンソースに準拠していますが、使用するプロトコルは正式にリリースされる前にいつでも変更される可能性があります。",
-        "$files": [
-            "components\\ModalAboutApp.vue"
-        ]
-    },
-    "禁用国际加速": {
-        "en": "Use Global API",
-        "ja": "グローバルAPIの使用",
-        "$files": [
-            "components\\ModalUserPreferences.vue"
-        ]
-    },
-    "国内用户不建议打开。": {
-        "en": "Open this if you are not in China Mainland.",
-        "ja": "もしあなたが中国大陸にいなければ、これを開けてください。",
-        "$files": [
-            "components\\ModalUserPreferences.vue"
-        ]
-    },
-    "不过如果图片加载特别慢，也可以试试。": {
-        "en": "Otherwise you can try switching this if image loading is slow.",
-        "ja": "そうでなければ、画像のロードが遅い場合は、このオプションを切り替えてみてください。",
-        "$files": [
-            "components\\ModalUserPreferences.vue"
-        ]
-    },
-    "本地时间": {
-        "en": "Local Time",
-        "ja": "ローカル時間",
-        "$files": [
-            "components\\EorzeaTimeCard.vue"
-        ]
-    },
-    "艾欧泽亚时间": {
-        "en": "Eorzea Time",
-        "ja": "エオルゼア時間",
-        "$files": [
-            "components\\EorzeaTimeCard.vue"
-        ]
-    },
-    "UI大小": {
-        "en": "UI Size",
-        "ja": "UI大小",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "中等(1080P)": {
-        "en": "Medium (1080P)",
-        "ja": "中等(1080P)",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "较大(2K/手机)": {
-        "en": "Large (2K/Phone)",
-        "ja": "较大(2K/手机)",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "超大(4K)": {
-        "en": "Huge (4K)",
-        "ja": "超大(4K)",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "版本{v}: {name}": {
-        "en": "Patch{v}: {name}",
-        "ja": "版本{v}: {name}",
-        "$files": [
-            "components\\PatchPanel.vue"
-        ]
-    },
-    "选择部件": {
-        "en": "Select Gears",
-        "ja": "选择部件",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "选择职业": {
-        "en": "Select Job",
-        "ja": "选择职业",
-        "$files": [
-            "components\\JobPanel.vue"
-        ]
-    },
-    "选择版本": {
-        "en": "Select Patch",
-        "ja": "选择版本",
-        "$files": [
-            "components\\PatchPanel.vue"
-        ]
-    },
-    "展开": {
-        "en": "Expand",
-        "ja": "展开",
-        "$files": [
-            "components\\custom-controls\\FoldableCard.vue"
-        ]
-    },
-    "折叠": {
-        "en": "Fold",
-        "ja": "折叠",
-        "$files": [
-            "components\\custom-controls\\FoldableCard.vue"
-        ]
-    },
-    "武器/工具：主手": {
-        "en": "Weapon/Tool: Mainhand",
-        "ja": "武器/工具：主手",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "武器/工具：副手": {
-        "en": "Weapon/Tool: Offhand",
-        "ja": "武器/工具：副手",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "防具：头部": {
-        "en": "Attire: Head",
-        "ja": "防具：头部",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "首饰：耳坠": {
-        "en": "Accessory: Earrings",
-        "ja": "首饰：耳坠",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "防具：身体": {
-        "en": "Attire: Body",
-        "ja": "防具：身体",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "首饰：项链": {
-        "en": "Accessory: Necklace",
-        "ja": "首饰：项链",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "防具：手部": {
-        "en": "Attire: Hands",
-        "ja": "防具：手部",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "首饰：手镯": {
-        "en": "Accessory: Wrist",
-        "ja": "首饰：手镯",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "防具：腿部": {
-        "en": "Attire: Legs",
-        "ja": "防具：腿部",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "首饰：戒指": {
-        "en": "Accessory: Rings",
-        "ja": "首饰：戒指",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "防具：脚部": {
-        "en": "Attire: Feet",
-        "ja": "防具：脚部",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "已选部件": {
-        "en": "View Selected",
-        "ja": "已选部件",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "清空全部": {
-        "en": "Clear All",
-        "ja": "清空全部",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "清空当前": {
-        "en": "Clear current",
-        "ja": "清空当前",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "添加整套": {
-        "en": "Add suit",
-        "ja": "添加整套",
-        "$files": [
-            "components\\GearSelectionPanel.vue"
-        ]
-    },
-    "快速操作": {
-        "en": "Quick Operations",
-        "ja": "快速操作",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "战斗职业专用": {
-        "en": "Battle",
-        "ja": "战斗职业专用",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "选择职类": {
-        "en": "Select Class",
-        "ja": "选择职类",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "实行操作": {
-        "en": "Resolve",
-        "ja": "实行操作",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "添加一套防具": {
-        "en": "Add 1 attire set",
-        "ja": "添加一套防具",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "添加一套首饰": {
-        "en": "Add 1 accessory set",
-        "ja": "添加一套首饰",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "添加一套{}防具与首饰": {
-        "en": "Add 1 set of{}attire & accessory",
-        "ja": "添加一套{}防具与首饰",
-        "$files": [
-            "components\\main\\QuickOperatePanel.vue"
-        ]
-    },
-    "生产采集专用": {
-        "en": "Crafter and Gatherer",
-        "ja": "生产采集专用",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "添加一套生产防具&首饰": {
-        "en": "Add 1 crafter's attire&accessory set",
-        "ja": "添加一套生产防具&首饰",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "添加一套采集防具&首饰": {
-        "en": "Add 1 gatherer's attire&accessory set",
-        "ja": "添加一套采集防具&首饰",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "添加一套生产主副手": {
-        "en": "Add 1 crafter's tool set",
-        "ja": "添加一套生产主副手",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "添加一套采集主副手": {
-        "en": "Add 1 gatherer's tool set",
-        "ja": "添加一套采集主副手",
-        "$files": [
-            "components\\QuickOperatePanel.vue"
-        ]
-    },
-    "还未选择": {
-        "en": "Selected: None",
-        "ja": "还未选择",
-        "$files": [
-            "components\\main\\PatchPanel.vue"
-        ]
-    },
-    "已选择版本: {}": {
-        "en": "Selected: Patch {}",
-        "ja": "已选择版本: {}",
-        "$files": [
-            "components\\main\\PatchPanel.vue"
-        ]
-    },
-    "查看统计": {
-        "en": "View Statistics",
-        "ja": "查看统计",
-        "$files": [
-            "components\\main\\StatisticsPanel.vue"
-        ]
-    },
-    "禁用工作状态记忆": {
-        "en": "Disable Work State Memory",
-        "ja": "禁用工作状态记忆",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "应用默认记录您的版本、职业和部件选择，从而让应用长期保持上次关闭时的的工作状态。": {
-        "en": "The application records the patch, job, and gear selection as the default, to ensure that the application remembers your last session's state.",
-        "ja": "应用默认记录您的版本、职业和部件选择，从而让应用长期保持上次关闭时的的工作状态。",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "如果您希望每次打开应用都从头开始，或是在使用过程中出现较严重的卡顿，则可以考虑打开此选项。": {
-        "en": "If you wish to start from scratch every time you open the application or catched frequent lag during use, you can consider disabling this by open this option.",
-        "ja": "如果您希望每次打开应用都从头开始，或是在使用过程中出现较严重的卡顿，则可以考虑打开此选项。",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "注意：禁用工作状态记忆后，已记录的工作状态将被立即删除！": {
-        "en": "CAUTION: Disabling work status memory will delete the recorded state immediately!",
-        "ja": "注意：禁用工作状态记忆后，已记录的工作状态将被立即删除！",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "已选择职业: {}": {
-        "en": "Selected: Job {}",
-        "ja": "已选择职业: {}",
-        "$files": [
-            "components\\main\\JobPanel.vue"
-        ]
-    },
-    "通用": {
-        "en": "General",
-        "ja": "通用",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "性能": {
-        "en": "Performance",
-        "ja": "性能",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "网络": {
-        "en": "Network",
-        "ja": "网络",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "创作人员": {
-        "en": "Staff",
-        "ja": "创作人员",
-        "$files": [
-            "components\\modals\\ModalAboutApp.vue"
-        ]
-    },
-    "致谢：赞助": {
-        "en": "ThanksTo: Sponsorship",
-        "ja": "致谢：赞助",
-        "$files": [
-            "components\\modals\\ModalAboutApp.vue"
-        ]
-    },
-    "确定 (Enter)": {
-        "en": "OK (Enter)",
-        "ja": "确定 (Enter)",
-        "$files": [
-            "App.vue"
-        ]
-    },
-    "取消 (Esc)": {
-        "en": "Cancel (Esc)",
-        "ja": "取消 (Esc)",
-        "$files": [
-            "App.vue"
-        ]
-    },
-    "国服数据版本：{}": {
-        "en": "",
-        "ja": "",
-        "$files": [
-            "components\\main\\AppHeader.vue"
-        ]
-    },
-    "国际服数据版本：{}": {
-        "en": "Game data updated to: Patch {}",
-        "ja": "国际服数据版本：{}",
-        "$files": [
-            "components\\main\\AppHeader.vue"
-        ]
-    },
-    "※ 国服数据尚未更新时，显示的中文名一般为作者自译，请谨慎参考。": {
-        "en": "",
-        "ja": "",
-        "$files": [
-            "components\\main\\AppHeader.vue"
-        ]
-    },
-    "未选择": {
-        "en": "None",
-        "ja": "未选择",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "请先选择职业": {
-        "en": "Please select job first",
-        "ja": "请先选择职业",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "请先选择版本": {
-        "en": "Please select patch first",
-        "ja": "请先选择版本",
-        "$files": [
-            "components\\main\\JobPanel.vue"
-        ]
-    },
-    "增强": {
-        "en": "Enhancements",
-        "ja": "增强",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "禁用选择版本后自动折叠": {
-        "en": "Disable auto-fold after patch selected (mobile)",
-        "ja": "禁用选择版本后自动折叠",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "\"选择版本\"在手机端有些太占地方，而且一般也不会被高频率地修改，所以我们默认在你选择版本之后就自动折叠它。": {
-        "en": "\"Select Patch\" costs too much space on mobile, both not frequently modified, so we automatically fold it after you select the patch on mobile.",
-        "ja": "\"选择版本\"在手机端有些太占地方，而且一般也不会被高频率地修改，所以我们默认在你选择版本之后就自动折叠它。",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "如果你觉得不自动折叠会更好，请打开此选项。": {
-        "en": "If you want to fold it manually, please turn on this option.",
-        "ja": "如果你觉得不自动折叠会更好，请打开此选项。",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "禁用重复点击已选择的职业按钮时添加主副手": {
-        "en": "Disable adding main/off-hand when clicking the selected job button",
-        "ja": "禁用重复点击已选择的职业按钮时添加主副手",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "在选择了职业之后再度点击职业按钮，将会默认添加一套主副手武器或工具。": {
-        "en": "Clicking the job button again after selecting the job will add a set of mainhand/offhand weapons or tools by default.",
-        "ja": "在选择了职业之后再度点击职业按钮，将会默认添加一套主副手武器或工具。",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "这一功能在第一代HqHelper是默认关闭的，而本代默认开启。如果这与您的习惯相悖，请打开此选项。": {
-        "en": "If this contradicts your habit, please turn on this option.",
-        "ja": "这一功能在第一代HqHelper是默认关闭的，而本代默认开启。如果这与您的习惯相悖，请打开此选项。",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "清空当前职业的已选择部件": {
-        "en": "Clear gears selected for current job",
-        "ja": "清空当前职业的已选择部件",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "清空所有职业的已选择部件": {
-        "en": "Clear all gears selected for all jobs",
-        "ja": "清空所有职业的已选择部件",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "添加一套主副手": {
-        "en": "Add 1 set of mainhand&offhand weapons/tools",
-        "ja": "添加一套主副手",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "为当前职业添加一套主副手": {
-        "en": "Add 1 set of mainhand&offhand for current job",
-        "ja": "为当前职业添加一套主副手",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "为当前职业添加一套防具": {
-        "en": "Add 1 set of attire for current job",
-        "ja": "为当前职业添加一套防具",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "为当前职业添加一套首饰": {
-        "en": "Add 1 set of accessory for current job",
-        "ja": "为当前职业添加一套首饰",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "添加一套防具和首饰": {
-        "en": "Add 1 set of attire & accessory",
-        "ja": "添加一套防具和首饰",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "为当前职业添加一套防具和首饰": {
-        "en": "Add 1 set of attire & accessory for current job",
-        "ja": "为当前职业添加一套防具和首饰",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "为当前职业添加一套主副手、防具和首饰": {
-        "en": "Add 1 set of mainhand&offhand, attire&accessory for current job",
-        "ja": "为当前职业添加一套主副手、防具和首饰",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "添加(自定义)": {
-        "en": "Add (custom)",
-        "ja": "添加(自定义)",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "打开单独的窗口，自定义地添加套装": {
-        "en": "Open a separate window to add gear sets customly",
-        "ja": "打开单独的窗口，自定义地添加套装",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "清空": {
-        "en": "Clear",
-        "ja": "清空",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "添加": {
-        "en": "Add",
-        "ja": "添加",
-        "$files": [
-            "components\\main\\GearSelectionPanel.vue"
-        ]
-    },
-    "点击以展开或折叠此设置项的描述": {
-        "en": "Click to expand or collapse the description of this setting option.",
-        "ja": "点击以展开或折叠此设置项的描述",
-        "$files": [
-            "components\\modals\\ModalUserPreferences.vue"
-        ]
-    },
-    "联系我们": {
-        "en": "Contact Us",
-        "ja": "联系我们",
-        "$files": [
-            "components\\modals\\ModalContact.vue",
-            "components\\main\\AppHeader.vue"
-        ]
-    },
-    "咨询与反馈": {
-        "en": "Consultation & Feedback",
-        "ja": "咨询与反馈",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "QQ": {
-        "en": "QQ",
-        "ja": "QQ",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "只要你使用QQ，通过QQ群沟通就会是最便利的方式。": {
-        "en": "As long as you use QQ, communicating through Q-Group will be the most convenient way. ",
-        "ja": "只要你使用QQ，通过QQ群沟通就会是最便利的方式。",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "你可以在群内提问，建议，或是单纯的聊天打屁。": {
-        "en": "You can ask questions, give suggestions, or just chat inside. ",
-        "ja": "你可以在群内提问，建议，或是单纯的聊天打屁。",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "如果你已经登录了QQ，那么": {
-        "en": "If you have already logged into QQ, just",
-        "ja": "如果你已经登录了QQ，那么",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "点击这里": {
-        "en": "CLICK HERE",
-        "ja": "点击这里",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "就可以直接加入QQ群。": {
-        "en": "to join our Q-Group. ",
-        "ja": "就可以直接加入QQ群。",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "你也可以搜索群号": {
-        "en": "You can also search the group number",
-        "ja": "你也可以搜索群号",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "来加入群聊。": {
-        "en": "to join. ",
-        "ja": "来加入群聊。",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "也可以手机扫码进群": {
-        "en": "OR scan this qr-code",
-        "ja": "也可以手机扫码进群",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "在Github创建议题 (Issue)": {
-        "en": "Create an issue on Github",
-        "ja": "在Github创建议题 (Issue)",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "在Github通过创建议题(Issue)来反馈你遇到的BUG，或是提出优化和新功能的需求。": {
-        "en": "In Github, you can create issues to report bugs or suggest improvements and new features. ",
-        "ja": "在Github通过创建议题(Issue)来反馈你遇到的BUG，或是提出优化和新功能的需求。",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "通过这种方式进行反馈的好处是可以随时追踪到问题的处理进度。": {
-        "en": "Through this way of feedback, you can track the progress of the problem at any time. ",
-        "ja": "通过这种方式进行反馈的好处是可以随时追踪到问题的处理进度。",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "如果你拥有一个Github账号，那么可以": {
-        "en": "If you have a Github account, you can",
-        "ja": "如果你拥有一个Github账号，那么可以",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "来创建议题。": {
-        "en": "to create an issue. ",
-        "ja": "来创建议题。",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "请注意遵守平台的社区准则，并且仔细阅读议题引导。": {
-        "en": "Please note that you should follow the community guidelines and read the issue guideline carefully. ",
-        "ja": "请注意遵守平台的社区准则，并且仔细阅读议题引导。",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "关注最新资讯": {
-        "en": "Follow latest news",
-        "ja": "关注最新资讯",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "我们随时都欢迎你通过社交平台来追踪HqHelper的最新资讯，只要你不嫌吵闹。": {
-        "en": "We welcome you to follow HqHelper's latest news through social media, as long as you don't mind being disturbed. ",
-        "ja": "我们随时都欢迎你通过社交平台来追踪HqHelper的最新资讯，只要你不嫌吵闹。",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "微博": {
-        "en": "Weibo",
-        "ja": "微博",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "我们的微博账号只会提供中文内容。": {
-        "en": "Our Weibo account only provides Chinese contents. ",
-        "ja": "我们的微博账号只会提供中文内容。",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "来关注我们。": {
-        "en": "to follow us. ",
-        "ja": "来关注我们。",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "推特 (X)": {
-        "en": "Twitter (X)",
-        "ja": "推特 (X)",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "我们的推特(X)账号目前提供有限的英文内容。": {
-        "en": "Our twitter(X) account now provides limited English contents. ",
-        "ja": "我们的推特(X)账号目前提供有限的英文内容。",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "关闭": {
-        "en": "Close",
-        "ja": "关闭",
-        "$files": [
-            "components\\modals\\ModalContact.vue"
-        ]
-    },
-    "主副手": {
-        "en": "Main/Off-hand",
-        "ja": "主副手",
-        "$files": [
-            "components\\modals\\ModalSelectedGears.vue"
-        ]
-    },
-    "防具": {
-        "en": "Attire",
-        "ja": "防具",
-        "$files": [
-            "components\\modals\\ModalSelectedGears.vue"
-        ]
-    },
-    "词缀": {
-        "en": "Affix",
-        "ja": "词缀",
-        "$files": [
-            "components\\modals\\ModalSelectedGears.vue"
-        ]
-    },
-    "头部": {
-        "en": "Head",
-        "ja": "头部",
-        "$files": [
-            "components\\modals\\ModalSelectedGears.vue"
-        ]
-    },
-    "身体": {
-        "en": "Body",
-        "ja": "身体",
-        "$files": [
-            "components\\modals\\ModalSelectedGears.vue"
-        ]
-    },
-    "手部": {
-        "en": "Hands",
-        "ja": "手部",
-        "$files": [
-            "components\\modals\\ModalSelectedGears.vue"
-        ]
-    },
-    "腿部": {
-        "en": "Legs",
-        "ja": "腿部",
-        "$files": [
-            "components\\modals\\ModalSelectedGears.vue"
-        ]
-    },
-    "脚部": {
-        "en": "Feet",
-        "ja": "脚部",
-        "$files": [
-            "components\\modals\\ModalSelectedGears.vue"
-        ]
-    },
-    "首饰": {
-        "en": "Accessory",
-        "ja": "首饰",
-        "$files": [
-            "components\\modals\\ModalSelectedGears.vue"
-        ]
-    },
-    "耳坠": {
-        "en": "Earrings",
-        "ja": "耳坠",
-        "$files": [
-            "components\\modals\\ModalSelectedGears.vue"
-        ]
-    },
-    "项链": {
-        "en": "Necklace",
-        "ja": "项链",
-        "$files": [
-            "components\\modals\\ModalSelectedGears.vue"
-        ]
-    },
-    "手镯": {
-        "en": "Wrist",
-        "ja": "手镯",
-        "$files": [
-            "components\\modals\\ModalSelectedGears.vue"
-        ]
-    },
-    "戒指": {
-        "en": "Rings",
-        "ja": "戒指",
-        "$files": [
-            "components\\modals\\ModalSelectedGears.vue"
-        ]
-    },
-    "制作人": {
-        "en": "Producer",
-        "ja": "プロデューサ",
-        "$files": [
-            "data\\about-app.ts"
-        ]
-    },
-    "主要程序开发": {
-        "en": "Major developer",
-        "ja": "主要プログラム開発",
-        "$files": [
-            "data\\about-app.ts"
-        ]
-    },
-    "核心算法支持": {
-        "en": "Core algorithm support",
-        "ja": "コアアルゴリズムのサポート",
-        "$files": [
-            "data\\about-app.ts"
-        ]
-    },
-    "本地化翻译": {
-        "en": "Localization translator",
-        "ja": "ローカリゼーション翻訳",
-        "$files": [
-            "data\\about-app.ts"
-        ]
-    },
-    "日语": {
-        "en": "Japanese",
-        "ja": "日本語",
-        "$files": [
-            "data\\about-app.ts"
-        ]
-    },
-    "个人主页：": {
-        "en": "Personal homepages: ",
-        "ja": "个人主页：",
-        "$files": [
-            "components\\modals\\ModalAboutApp.vue"
-        ]
-    },
-    "更新日志": {
-        "en": "Change Logs",
-        "ja": "更新日志",
-        "$files": [
-            "components\\modals\\ModalChangeLogs.vue"
-        ]
-    },
-    "加载更新日志失败": {
-        "en": "An error occurred on loading our changelogs.",
-        "ja": "加载更新日志失败",
-        "$files": [
-            "components\\modals\\ModalChangeLogs.vue"
-        ]
-    },
-    "加载中...": {
-        "en": "Loading...",
-        "ja": "加载中...",
-        "$files": [
-            "components\\modals\\ModalChangeLogs.vue"
-        ]
-    },
-    "非常抱歉，但我们还没有准备好正式发布，程序目前还无法正常使用。我们目前的预期是在7.05版本实装之前完成开发，请耐心等待。": {
-        "en": "Sorry, but we're not ready for official release yet, and now the application is not prepared for use. Our current expectation is to complete the development before the implementation of patch 7.05. Please wait.",
-        "ja": "申し訳ありませんが、正式なリリースの準備ができておらず、プログラムはまだ正常に使用できていません。私たちの現在の予想はリリース7.05の実装前に開発が完了する予定ですので、お待ちください。",
-        "$files": [
-            "views\\MainPage.vue"
-        ]
-    },
-    "在灰机wiki中打开": {
-        "en": "Open in HuijiWiki",
-        "ja": "在灰机wiki中打开",
-        "$files": [
-            "components\\custom-controls\\ItemButton.vue"
-        ]
-    },
-    "在Garland中打开": {
-        "en": "Open in Garland",
-        "ja": "在Garland中打开",
-        "$files": [
-            "components\\custom-controls\\ItemButton.vue"
-        ]
-    },
-    "特殊秘籍半成品&点数统计": {
-        "en": "Special MasterPrecrafts & Allagan",
-        "ja": "特殊秘籍半成品&点数统计",
-        "$files": [
-            "components\\main\\StatisticsPanel.vue"
-        ]
-    },
-    "普通秘籍半成品统计": {
-        "en": "MasterPrecrafts",
-        "ja": "普通秘籍半成品统计",
-        "$files": [
-            "components\\main\\StatisticsPanel.vue"
-        ]
-    },
-    "普通半成品统计": {
-        "en": "CommonPrecrafts",
-        "ja": "普通半成品统计",
-        "$files": [
-            "components\\main\\StatisticsPanel.vue"
-        ]
-    },
-    "灵砂统计": {
-        "en": "Aethersands",
-        "ja": "灵砂统计",
-        "$files": [
-            "components\\main\\StatisticsPanel.vue"
-        ]
-    },
-    "采集统计": {
-        "en": "Gatherings",
-        "ja": "采集统计",
-        "$files": [
-            "components\\main\\StatisticsPanel.vue"
-        ]
-    },
-    "常规采集品": {
-        "en": "Common gathering items",
-        "ja": "常规采集品",
-        "$files": [
-            "components\\main\\StatisticsPanel.vue"
-        ]
-    },
-    "限时采集品": {
-        "en": "Limited gathering items",
-        "ja": "限时采集品",
-        "$files": [
-            "components\\main\\StatisticsPanel.vue"
-        ]
-    },
-    "水晶": {
-        "en": "Crystals",
-        "ja": "水晶",
-        "$files": [
-            "components\\main\\StatisticsPanel.vue"
-        ]
-    }
+  "偏好设置": {
+    "en": "User Preferences",
+    "ja": "プリファレンス設定",
+    "$files": [
+      "components\\AppHeader.vue",
+      "components\\ModalUserPreferences.vue"
+    ]
+  },
+  "主题": {
+    "en": "Theme",
+    "ja": "トピック",
+    "$files": [
+      "components\\ModalUserPreferences.vue"
+    ]
+  },
+  "跟随系统": {
+    "en": "System",
+    "ja": "フォローアップシステム",
+    "$files": [
+      "components\\ModalUserPreferences.vue"
+    ]
+  },
+  "浅色": {
+    "en": "Light",
+    "ja": "薄い",
+    "$files": [
+      "components\\ModalUserPreferences.vue"
+    ]
+  },
+  "深色": {
+    "en": "Dark",
+    "ja": "ダークカラー",
+    "$files": [
+      "components\\ModalUserPreferences.vue"
+    ]
+  },
+  "界面语言": {
+    "en": "UI Language",
+    "ja": "インタフェース言語",
+    "$files": [
+      "components\\ModalUserPreferences.vue"
+    ]
+  },
+  "保存": {
+    "en": "Save",
+    "ja": "ホゾン",
+    "$files": [
+      "components\\ModalUserPreferences.vue"
+    ]
+  },
+  "保存成功！部分改动需要刷新页面才能生效": {
+    "en": "Save Success! Some changes require refreshing.",
+    "ja": "保存に成功しました！一部変更を有効にするにはページを更新する必要があります。",
+    "$files": [
+      "App.vue"
+    ]
+  },
+  "版权信息": {
+    "en": "Copyright information",
+    "ja": "著作権情報",
+    "$files": [
+      "components\\ModalAboutApp.vue"
+    ]
+  },
+  "本站所引用的《最终幻想XIV》相关资料与图像，其版权均归于SQUARE ENIX所有。": {
+    "en": "The copyright of the materials and images related to Final Fantasy XIV cited on this website belongs to SQUARE ENIX.",
+    "ja": "本作は『ファイナルファンタジーXIV』の内容に関連しており、著作権はSQUARE ENIXが所有している。",
+    "$files": [
+      "components\\ModalAboutApp.vue"
+    ]
+  },
+  "本作仅供学习交流使用，不得以任何方式用于商业用途。": {
+    "en": "This work is for learning and communication purposes only and may not be used for commercial purposes in any way.",
+    "ja": "本作は学習交流用にのみ使用されており、ビジネス用途には使用されていません。",
+    "$files": [
+      "components\\ModalAboutApp.vue"
+    ]
+  },
+  "转载、搬运须注明作者及出处。": {
+    "en": "Reproduction and handling must indicate the author and source.",
+    "ja": "転載、運搬は作者と出所を明記しなければならない。",
+    "$files": [
+      "components\\ModalAboutApp.vue"
+    ]
+  },
+  "HqHelper的诞生与持续开发离不开用户的支持。": {
+    "en": "The birth and continuous development of HqHelper cannot be separated from the support of users.",
+    "ja": "HqHelperの誕生と持続的な開発にはユーザーの支持が欠かせない。",
+    "$files": [
+      "components\\ModalAboutApp.vue"
+    ]
+  },
+  "特别感谢以下用户对前代HqHelper项目的赞助：": {
+    "en": "Special thanks to the following users for sponsoring the previous generation HqHelper project:",
+    "ja": "特に、次のユーザーは前世代HqHelperプロジェクトへの協賛に感謝しています：",
+    "$files": [
+      "components\\ModalAboutApp.vue"
+    ]
+  },
+  "关于本作": {
+    "en": "About",
+    "ja": "本作について",
+    "$files": [
+      "components\\AppHeader.vue"
+    ]
+  },
+  "本作程序源代码遵循MIT协议开源，但使用的协议在正式发布之前随时可能被更改。": {
+    "en": "The source code of this program follows the MIT protocol for open source, but the protocol used may be changed at any time before official release.",
+    "ja": "このプログラムのソースコードはMITプロトコルのオープンソースに準拠していますが、使用するプロトコルは正式にリリースされる前にいつでも変更される可能性があります。",
+    "$files": [
+      "components\\ModalAboutApp.vue"
+    ]
+  },
+  "禁用国际加速": {
+    "en": "Use Global API",
+    "ja": "グローバルAPIの使用",
+    "$files": [
+      "components\\ModalUserPreferences.vue"
+    ]
+  },
+  "国内用户不建议打开。": {
+    "en": "Open this if you are not in China Mainland.",
+    "ja": "もしあなたが中国大陸にいなければ、これを開けてください。",
+    "$files": [
+      "components\\ModalUserPreferences.vue"
+    ]
+  },
+  "不过如果图片加载特别慢，也可以试试。": {
+    "en": "Otherwise you can try switching this if image loading is slow.",
+    "ja": "そうでなければ、画像のロードが遅い場合は、このオプションを切り替えてみてください。",
+    "$files": [
+      "components\\ModalUserPreferences.vue"
+    ]
+  },
+  "本地时间": {
+    "en": "Local Time",
+    "ja": "ローカル時間",
+    "$files": [
+      "components\\EorzeaTimeCard.vue"
+    ]
+  },
+  "艾欧泽亚时间": {
+    "en": "Eorzea Time",
+    "ja": "エオルゼア時間",
+    "$files": [
+      "components\\EorzeaTimeCard.vue"
+    ]
+  },
+  "UI大小": {
+    "en": "UI Size",
+    "ja": "UI大小",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "中等(1080P)": {
+    "en": "Medium (1080P)",
+    "ja": "中等(1080P)",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "较大(2K/手机)": {
+    "en": "Large (2K/Phone)",
+    "ja": "较大(2K/手机)",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "超大(4K)": {
+    "en": "Huge (4K)",
+    "ja": "超大(4K)",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "版本{v}: {name}": {
+    "en": "Patch{v}: {name}",
+    "ja": "版本{v}: {name}",
+    "$files": [
+      "components\\PatchPanel.vue"
+    ]
+  },
+  "选择部件": {
+    "en": "Select Gears",
+    "ja": "选择部件",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "选择职业": {
+    "en": "Select Job",
+    "ja": "选择职业",
+    "$files": [
+      "components\\JobPanel.vue"
+    ]
+  },
+  "选择版本": {
+    "en": "Select Patch",
+    "ja": "选择版本",
+    "$files": [
+      "components\\PatchPanel.vue"
+    ]
+  },
+  "展开": {
+    "en": "Expand",
+    "ja": "展开",
+    "$files": [
+      "components\\custom-controls\\FoldableCard.vue"
+    ]
+  },
+  "折叠": {
+    "en": "Fold",
+    "ja": "折叠",
+    "$files": [
+      "components\\custom-controls\\FoldableCard.vue"
+    ]
+  },
+  "武器/工具：主手": {
+    "en": "Weapon/Tool: Mainhand",
+    "ja": "武器/工具：主手",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "武器/工具：副手": {
+    "en": "Weapon/Tool: Offhand",
+    "ja": "武器/工具：副手",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "防具：头部": {
+    "en": "Attire: Head",
+    "ja": "防具：头部",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "首饰：耳坠": {
+    "en": "Accessory: Earrings",
+    "ja": "首饰：耳坠",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "防具：身体": {
+    "en": "Attire: Body",
+    "ja": "防具：身体",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "首饰：项链": {
+    "en": "Accessory: Necklace",
+    "ja": "首饰：项链",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "防具：手部": {
+    "en": "Attire: Hands",
+    "ja": "防具：手部",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "首饰：手镯": {
+    "en": "Accessory: Wrist",
+    "ja": "首饰：手镯",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "防具：腿部": {
+    "en": "Attire: Legs",
+    "ja": "防具：腿部",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "首饰：戒指": {
+    "en": "Accessory: Rings",
+    "ja": "首饰：戒指",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "防具：脚部": {
+    "en": "Attire: Feet",
+    "ja": "防具：脚部",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "已选部件": {
+    "en": "View Selected",
+    "ja": "已选部件",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "清空全部": {
+    "en": "Clear All",
+    "ja": "清空全部",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "清空当前": {
+    "en": "Clear current",
+    "ja": "清空当前",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "添加整套": {
+    "en": "Add suit",
+    "ja": "添加整套",
+    "$files": [
+      "components\\GearSelectionPanel.vue"
+    ]
+  },
+  "快速操作": {
+    "en": "Quick Operations",
+    "ja": "快速操作",
+    "$files": [
+      "components\\QuickOperatePanel.vue"
+    ]
+  },
+  "战斗职业专用": {
+    "en": "Battle",
+    "ja": "战斗职业专用",
+    "$files": [
+      "components\\QuickOperatePanel.vue"
+    ]
+  },
+  "选择职类": {
+    "en": "Select Class",
+    "ja": "选择职类",
+    "$files": [
+      "components\\QuickOperatePanel.vue"
+    ]
+  },
+  "实行操作": {
+    "en": "Resolve",
+    "ja": "实行操作",
+    "$files": [
+      "components\\QuickOperatePanel.vue"
+    ]
+  },
+  "添加一套防具": {
+    "en": "Add 1 attire set",
+    "ja": "添加一套防具",
+    "$files": [
+      "components\\QuickOperatePanel.vue"
+    ]
+  },
+  "添加一套首饰": {
+    "en": "Add 1 accessory set",
+    "ja": "添加一套首饰",
+    "$files": [
+      "components\\QuickOperatePanel.vue"
+    ]
+  },
+  "添加一套{}防具与首饰": {
+    "en": "Add 1 set of{}attire & accessory",
+    "ja": "添加一套{}防具与首饰",
+    "$files": [
+      "components\\main\\QuickOperatePanel.vue"
+    ]
+  },
+  "生产采集专用": {
+    "en": "Crafter and Gatherer",
+    "ja": "生产采集专用",
+    "$files": [
+      "components\\QuickOperatePanel.vue"
+    ]
+  },
+  "添加一套生产防具&首饰": {
+    "en": "Add 1 crafter's attire&accessory set",
+    "ja": "添加一套生产防具&首饰",
+    "$files": [
+      "components\\QuickOperatePanel.vue"
+    ]
+  },
+  "添加一套采集防具&首饰": {
+    "en": "Add 1 gatherer's attire&accessory set",
+    "ja": "添加一套采集防具&首饰",
+    "$files": [
+      "components\\QuickOperatePanel.vue"
+    ]
+  },
+  "添加一套生产主副手": {
+    "en": "Add 1 crafter's tool set",
+    "ja": "添加一套生产主副手",
+    "$files": [
+      "components\\QuickOperatePanel.vue"
+    ]
+  },
+  "添加一套采集主副手": {
+    "en": "Add 1 gatherer's tool set",
+    "ja": "添加一套采集主副手",
+    "$files": [
+      "components\\QuickOperatePanel.vue"
+    ]
+  },
+  "还未选择": {
+    "en": "Selected: None",
+    "ja": "还未选择",
+    "$files": [
+      "components\\main\\PatchPanel.vue"
+    ]
+  },
+  "已选择版本: {}": {
+    "en": "Selected: Patch {}",
+    "ja": "已选择版本: {}",
+    "$files": [
+      "components\\main\\PatchPanel.vue"
+    ]
+  },
+  "查看统计": {
+    "en": "View Statistics",
+    "ja": "查看统计",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "禁用工作状态记忆": {
+    "en": "Disable Work State Memory",
+    "ja": "禁用工作状态记忆",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "应用默认记录您的版本、职业和部件选择，从而让应用长期保持上次关闭时的的工作状态。": {
+    "en": "The application records the patch, job, and gear selection as the default, to ensure that the application remembers your last session's state.",
+    "ja": "应用默认记录您的版本、职业和部件选择，从而让应用长期保持上次关闭时的的工作状态。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "如果您希望每次打开应用都从头开始，或是在使用过程中出现较严重的卡顿，则可以考虑打开此选项。": {
+    "en": "If you wish to start from scratch every time you open the application or catched frequent lag during use, you can consider disabling this by open this option.",
+    "ja": "如果您希望每次打开应用都从头开始，或是在使用过程中出现较严重的卡顿，则可以考虑打开此选项。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "注意：禁用工作状态记忆后，已记录的工作状态将被立即删除！": {
+    "en": "CAUTION: Disabling work status memory will delete the recorded state immediately!",
+    "ja": "注意：禁用工作状态记忆后，已记录的工作状态将被立即删除！",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "已选择职业: {}": {
+    "en": "Selected: Job {}",
+    "ja": "已选择职业: {}",
+    "$files": [
+      "components\\main\\JobPanel.vue"
+    ]
+  },
+  "通用": {
+    "en": "General",
+    "ja": "通用",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "性能": {
+    "en": "Performance",
+    "ja": "性能",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "网络": {
+    "en": "Network",
+    "ja": "网络",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "创作人员": {
+    "en": "Staff",
+    "ja": "创作人员",
+    "$files": [
+      "components\\modals\\ModalAboutApp.vue"
+    ]
+  },
+  "致谢：赞助": {
+    "en": "ThanksTo: Sponsorship",
+    "ja": "致谢：赞助",
+    "$files": [
+      "components\\modals\\ModalAboutApp.vue"
+    ]
+  },
+  "确定 (Enter)": {
+    "en": "OK (Enter)",
+    "ja": "确定 (Enter)",
+    "$files": [
+      "App.vue"
+    ]
+  },
+  "取消 (Esc)": {
+    "en": "Cancel (Esc)",
+    "ja": "取消 (Esc)",
+    "$files": [
+      "App.vue"
+    ]
+  },
+  "国服数据版本：{}": {
+    "en": "",
+    "ja": "",
+    "$files": [
+      "components\\main\\AppHeader.vue"
+    ]
+  },
+  "国际服数据版本：{}": {
+    "en": "Game data updated to: Patch {}",
+    "ja": "国际服数据版本：{}",
+    "$files": [
+      "components\\main\\AppHeader.vue"
+    ]
+  },
+  "※ 国服数据尚未更新时，显示的中文名一般为作者自译，请谨慎参考。": {
+    "en": "",
+    "ja": "",
+    "$files": [
+      "components\\main\\AppHeader.vue"
+    ]
+  },
+  "未选择": {
+    "en": "None",
+    "ja": "未选择",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "请先选择职业": {
+    "en": "Please select job first",
+    "ja": "请先选择职业",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "请先选择版本": {
+    "en": "Please select patch first",
+    "ja": "请先选择版本",
+    "$files": [
+      "components\\main\\JobPanel.vue"
+    ]
+  },
+  "增强": {
+    "en": "Enhancements",
+    "ja": "增强",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "禁用选择版本后自动折叠": {
+    "en": "Disable auto-fold after patch selected (mobile)",
+    "ja": "禁用选择版本后自动折叠",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "\"选择版本\"在手机端有些太占地方，而且一般也不会被高频率地修改，所以我们默认在你选择版本之后就自动折叠它。": {
+    "en": "\"Select Patch\" costs too much space on mobile, both not frequently modified, so we automatically fold it after you select the patch on mobile.",
+    "ja": "\"选择版本\"在手机端有些太占地方，而且一般也不会被高频率地修改，所以我们默认在你选择版本之后就自动折叠它。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "如果你觉得不自动折叠会更好，请打开此选项。": {
+    "en": "If you want to fold it manually, please turn on this option.",
+    "ja": "如果你觉得不自动折叠会更好，请打开此选项。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "禁用重复点击已选择的职业按钮时添加主副手": {
+    "en": "Disable adding main/off-hand when clicking the selected job button",
+    "ja": "禁用重复点击已选择的职业按钮时添加主副手",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "在选择了职业之后再度点击职业按钮，将会默认添加一套主副手武器或工具。": {
+    "en": "Clicking the job button again after selecting the job will add a set of mainhand/offhand weapons or tools by default.",
+    "ja": "在选择了职业之后再度点击职业按钮，将会默认添加一套主副手武器或工具。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "这一功能在第一代HqHelper是默认关闭的，而本代默认开启。如果这与您的习惯相悖，请打开此选项。": {
+    "en": "If this contradicts your habit, please turn on this option.",
+    "ja": "这一功能在第一代HqHelper是默认关闭的，而本代默认开启。如果这与您的习惯相悖，请打开此选项。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "清空当前职业的已选择部件": {
+    "en": "Clear gears selected for current job",
+    "ja": "清空当前职业的已选择部件",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "清空所有职业的已选择部件": {
+    "en": "Clear all gears selected for all jobs",
+    "ja": "清空所有职业的已选择部件",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "添加一套主副手": {
+    "en": "Add 1 set of mainhand&offhand weapons/tools",
+    "ja": "添加一套主副手",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "为当前职业添加一套主副手": {
+    "en": "Add 1 set of mainhand&offhand for current job",
+    "ja": "为当前职业添加一套主副手",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "为当前职业添加一套防具": {
+    "en": "Add 1 set of attire for current job",
+    "ja": "为当前职业添加一套防具",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "为当前职业添加一套首饰": {
+    "en": "Add 1 set of accessory for current job",
+    "ja": "为当前职业添加一套首饰",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "添加一套防具和首饰": {
+    "en": "Add 1 set of attire & accessory",
+    "ja": "添加一套防具和首饰",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "为当前职业添加一套防具和首饰": {
+    "en": "Add 1 set of attire & accessory for current job",
+    "ja": "为当前职业添加一套防具和首饰",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "为当前职业添加一套主副手、防具和首饰": {
+    "en": "Add 1 set of mainhand&offhand, attire&accessory for current job",
+    "ja": "为当前职业添加一套主副手、防具和首饰",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "添加(自定义)": {
+    "en": "Add (custom)",
+    "ja": "添加(自定义)",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "打开单独的窗口，自定义地添加套装": {
+    "en": "Open a separate window to add gear sets customly",
+    "ja": "打开单独的窗口，自定义地添加套装",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "清空": {
+    "en": "Clear",
+    "ja": "清空",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "添加": {
+    "en": "Add",
+    "ja": "添加",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "点击以展开或折叠此设置项的描述": {
+    "en": "Click to expand or collapse the description of this setting option.",
+    "ja": "点击以展开或折叠此设置项的描述",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "联系我们": {
+    "en": "Contact Us",
+    "ja": "联系我们",
+    "$files": [
+      "components\\modals\\ModalContact.vue",
+      "components\\main\\AppHeader.vue"
+    ]
+  },
+  "咨询与反馈": {
+    "en": "Consultation & Feedback",
+    "ja": "咨询与反馈",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "QQ": {
+    "en": "QQ",
+    "ja": "QQ",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "只要你使用QQ，通过QQ群沟通就会是最便利的方式。": {
+    "en": "As long as you use QQ, communicating through Q-Group will be the most convenient way. ",
+    "ja": "只要你使用QQ，通过QQ群沟通就会是最便利的方式。",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "你可以在群内提问，建议，或是单纯的聊天打屁。": {
+    "en": "You can ask questions, give suggestions, or just chat inside. ",
+    "ja": "你可以在群内提问，建议，或是单纯的聊天打屁。",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "如果你已经登录了QQ，那么": {
+    "en": "If you have already logged into QQ, just",
+    "ja": "如果你已经登录了QQ，那么",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "点击这里": {
+    "en": "CLICK HERE",
+    "ja": "点击这里",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "就可以直接加入QQ群。": {
+    "en": "to join our Q-Group. ",
+    "ja": "就可以直接加入QQ群。",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "你也可以搜索群号": {
+    "en": "You can also search the group number",
+    "ja": "你也可以搜索群号",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "来加入群聊。": {
+    "en": "to join. ",
+    "ja": "来加入群聊。",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "也可以手机扫码进群": {
+    "en": "OR scan this qr-code",
+    "ja": "也可以手机扫码进群",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "在Github创建议题 (Issue)": {
+    "en": "Create an issue on Github",
+    "ja": "在Github创建议题 (Issue)",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "在Github通过创建议题(Issue)来反馈你遇到的BUG，或是提出优化和新功能的需求。": {
+    "en": "In Github, you can create issues to report bugs or suggest improvements and new features. ",
+    "ja": "在Github通过创建议题(Issue)来反馈你遇到的BUG，或是提出优化和新功能的需求。",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "通过这种方式进行反馈的好处是可以随时追踪到问题的处理进度。": {
+    "en": "Through this way of feedback, you can track the progress of the problem at any time. ",
+    "ja": "通过这种方式进行反馈的好处是可以随时追踪到问题的处理进度。",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "如果你拥有一个Github账号，那么可以": {
+    "en": "If you have a Github account, you can",
+    "ja": "如果你拥有一个Github账号，那么可以",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "来创建议题。": {
+    "en": "to create an issue. ",
+    "ja": "来创建议题。",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "请注意遵守平台的社区准则，并且仔细阅读议题引导。": {
+    "en": "Please note that you should follow the community guidelines and read the issue guideline carefully. ",
+    "ja": "请注意遵守平台的社区准则，并且仔细阅读议题引导。",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "关注最新资讯": {
+    "en": "Follow latest news",
+    "ja": "关注最新资讯",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "我们随时都欢迎你通过社交平台来追踪HqHelper的最新资讯，只要你不嫌吵闹。": {
+    "en": "We welcome you to follow HqHelper's latest news through social media, as long as you don't mind being disturbed. ",
+    "ja": "我们随时都欢迎你通过社交平台来追踪HqHelper的最新资讯，只要你不嫌吵闹。",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "微博": {
+    "en": "Weibo",
+    "ja": "微博",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "我们的微博账号只会提供中文内容。": {
+    "en": "Our Weibo account only provides Chinese contents. ",
+    "ja": "我们的微博账号只会提供中文内容。",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "来关注我们。": {
+    "en": "to follow us. ",
+    "ja": "来关注我们。",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "推特 (X)": {
+    "en": "Twitter (X)",
+    "ja": "推特 (X)",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "我们的推特(X)账号目前提供有限的英文内容。": {
+    "en": "Our twitter(X) account now provides limited English contents. ",
+    "ja": "我们的推特(X)账号目前提供有限的英文内容。",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "关闭": {
+    "en": "Close",
+    "ja": "关闭",
+    "$files": [
+      "components\\modals\\ModalContact.vue"
+    ]
+  },
+  "主副手": {
+    "en": "Main/Off-hand",
+    "ja": "主副手",
+    "$files": [
+      "components\\modals\\ModalSelectedGears.vue"
+    ]
+  },
+  "防具": {
+    "en": "Attire",
+    "ja": "防具",
+    "$files": [
+      "components\\modals\\ModalSelectedGears.vue"
+    ]
+  },
+  "词缀": {
+    "en": "Affix",
+    "ja": "词缀",
+    "$files": [
+      "components\\modals\\ModalSelectedGears.vue"
+    ]
+  },
+  "头部": {
+    "en": "Head",
+    "ja": "头部",
+    "$files": [
+      "components\\modals\\ModalSelectedGears.vue"
+    ]
+  },
+  "身体": {
+    "en": "Body",
+    "ja": "身体",
+    "$files": [
+      "components\\modals\\ModalSelectedGears.vue"
+    ]
+  },
+  "手部": {
+    "en": "Hands",
+    "ja": "手部",
+    "$files": [
+      "components\\modals\\ModalSelectedGears.vue"
+    ]
+  },
+  "腿部": {
+    "en": "Legs",
+    "ja": "腿部",
+    "$files": [
+      "components\\modals\\ModalSelectedGears.vue"
+    ]
+  },
+  "脚部": {
+    "en": "Feet",
+    "ja": "脚部",
+    "$files": [
+      "components\\modals\\ModalSelectedGears.vue"
+    ]
+  },
+  "首饰": {
+    "en": "Accessory",
+    "ja": "首饰",
+    "$files": [
+      "components\\modals\\ModalSelectedGears.vue"
+    ]
+  },
+  "耳坠": {
+    "en": "Earrings",
+    "ja": "耳坠",
+    "$files": [
+      "components\\modals\\ModalSelectedGears.vue"
+    ]
+  },
+  "项链": {
+    "en": "Necklace",
+    "ja": "项链",
+    "$files": [
+      "components\\modals\\ModalSelectedGears.vue"
+    ]
+  },
+  "手镯": {
+    "en": "Wrist",
+    "ja": "手镯",
+    "$files": [
+      "components\\modals\\ModalSelectedGears.vue"
+    ]
+  },
+  "戒指": {
+    "en": "Rings",
+    "ja": "戒指",
+    "$files": [
+      "components\\modals\\ModalSelectedGears.vue"
+    ]
+  },
+  "制作人": {
+    "en": "Producer",
+    "ja": "プロデューサ",
+    "$files": [
+      "data\\about-app.ts"
+    ]
+  },
+  "主要程序开发": {
+    "en": "Major developer",
+    "ja": "主要プログラム開発",
+    "$files": [
+      "data\\about-app.ts"
+    ]
+  },
+  "核心算法支持": {
+    "en": "Core algorithm support",
+    "ja": "コアアルゴリズムのサポート",
+    "$files": [
+      "data\\about-app.ts"
+    ]
+  },
+  "本地化翻译": {
+    "en": "Localization translator",
+    "ja": "ローカリゼーション翻訳",
+    "$files": [
+      "data\\about-app.ts"
+    ]
+  },
+  "日语": {
+    "en": "Japanese",
+    "ja": "日本語",
+    "$files": [
+      "data\\about-app.ts"
+    ]
+  },
+  "个人主页：": {
+    "en": "Personal homepages: ",
+    "ja": "个人主页：",
+    "$files": [
+      "components\\modals\\ModalAboutApp.vue"
+    ]
+  },
+  "更新日志": {
+    "en": "Change Logs",
+    "ja": "更新日志",
+    "$files": [
+      "components\\modals\\ModalChangeLogs.vue"
+    ]
+  },
+  "加载更新日志失败": {
+    "en": "An error occurred on loading our changelogs.",
+    "ja": "加载更新日志失败",
+    "$files": [
+      "components\\modals\\ModalChangeLogs.vue"
+    ]
+  },
+  "加载中...": {
+    "en": "Loading...",
+    "ja": "加载中...",
+    "$files": [
+      "components\\modals\\ModalChangeLogs.vue"
+    ]
+  },
+  "非常抱歉，但我们还没有准备好正式发布，程序目前还无法正常使用。我们目前的预期是在7.05版本实装之前完成开发，请耐心等待。": {
+    "en": "Sorry, but we're not ready for official release yet, and now the application is not prepared for use. Our current expectation is to complete the development before the implementation of patch 7.05. Please wait.",
+    "ja": "申し訳ありませんが、正式なリリースの準備ができておらず、プログラムはまだ正常に使用できていません。私たちの現在の予想はリリース7.05の実装前に開発が完了する予定ですので、お待ちください。",
+    "$files": [
+      "views\\MainPage.vue"
+    ]
+  },
+  "在灰机wiki中打开": {
+    "en": "Open in HuijiWiki",
+    "ja": "在灰机wiki中打开",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "在Garland中打开": {
+    "en": "Open in Garland",
+    "ja": "在Garland中打开",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "特殊秘籍半成品&点数统计": {
+    "en": "Special MasterPrecrafts & Allagan",
+    "ja": "特殊秘籍半成品&点数统计",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "普通秘籍半成品统计": {
+    "en": "MasterPrecrafts",
+    "ja": "普通秘籍半成品统计",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "普通半成品统计": {
+    "en": "CommonPrecrafts",
+    "ja": "普通半成品统计",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "灵砂统计": {
+    "en": "Aethersands",
+    "ja": "灵砂统计",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "采集统计": {
+    "en": "Gatherings",
+    "ja": "采集统计",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "常规采集品": {
+    "en": "Common gathering items",
+    "ja": "常规采集品",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "限时采集品": {
+    "en": "Limited gathering items",
+    "ja": "限时采集品",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "水晶": {
+    "en": "Crystals",
+    "ja": "水晶",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  }
 }
