@@ -108,7 +108,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     if (tempZhMap?.[itemInfo.id]) {
       itemInfo.nameZH = tempZhMap[itemInfo.id]
       itemInfo.usedZHTemp = true
-    } else {
+    } else if (itemInfo.nameJA) {
       console.log('[开发提示] 此物品需要填写中文暂译:', itemInfo)
     }
   }

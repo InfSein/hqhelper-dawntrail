@@ -52,12 +52,9 @@ if (!disable_workstate_cache) {
   watch(workState, async () => {
     if (workState.value && userConfig) {
       try {
-        console.log('workState changed', workState.value)
         await Promise.resolve()
         userConfig.value.cache_work_state = workState.value
         store.commit('setUserConfig', userConfig.value)
-
-        console.log('gear selections:\n' + JSON.stringify(workState.value.gears))
       } catch (error) {
         console.error('Error handling workState change:', error)
       }
@@ -74,7 +71,6 @@ const handleJobButtonDupliClick = () => {
 }
 
 const statistics = computed(() => {
-  console.log('statistics.computed() called')
   return calGearSelections(workState.value.gears, workState.value.patch || '7.0')
 })
 const specialItems = computed(() => {

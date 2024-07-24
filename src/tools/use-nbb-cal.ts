@@ -37,7 +37,7 @@ export function useNbbCal() {
                 }
             }
         }
-        console.log('calGearSelections calMap=', out)
+        // console.log('calGearSelections calMap=', out)
         return doCal(out);
     }
 

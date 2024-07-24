@@ -163,7 +163,6 @@ const appClass = computed(() => {
     'lang-' + locale.value,
     'app-' + (isMobile.value ? 'mobile' : 'desktop'),
   ]
-  console.log(classes)
   return classes.join(' ')
 })
 

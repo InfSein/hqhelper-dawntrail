@@ -116,7 +116,7 @@ export class Cal {
     recipeData: { [keys: number | string]: IRecipe };
 
     constructor(a: { [keys: number | string]: IItem }, b: { [keys: number | string]: IRecipe }) {
-        console.log("Cal init....")
+        // console.log("Cal init....")
         this.itemData = a;
         this.recipeData = b;
     }
@@ -294,7 +294,7 @@ export class Cal {
             reMap[k].pc = pc1;
 
             if (debug) {
-                console.log(' 需求数量  = ', need1, ' 产量 = ', pc1, ' 生产次数 = ', mkc1);
+                // console.log(' 需求数量  = ', need1, ' 产量 = ', pc1, ' 生产次数 = ', mkc1);
             }
         }
         return reMap
