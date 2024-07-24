@@ -70,7 +70,36 @@ export function useNbbCal() {
         return data?.tradeShops; // todo - 也许可以在这里处理好兑换格式
     }
 
+    const getFoodAndTincs = () => {
+        const data = []
+        for (const patch in config) {
+            const o = config[patch].jobs
+            const foods : number[] = []
+            const tincs : number[] = []
+            o.Meal?.forEach(mealGroup => {
+                if (mealGroup.length >= 2) {
+                    foods.push(mealGroup[0])
+                }
+            })
+            o.Medicine?.forEach(tincGroup => {
+                if (tincGroup.length >= 2) {
+                    tincs.push(tincGroup[0])
+                }
+            })
+            data.push({
+                patch,
+                foods,
+                tincs
+            })
+        }
+        return data as {
+            patch: "7.0" | "7.1" | "7.2" | "7.3" | "7.4",
+            foods: number[],
+            tincs: number[]
+        }[]
+    }
+
     return {
-        doCal, getItem, getItemsName, calGearSelections, getSpecialItems, getTradeShops
+        doCal, getItem, getItemsName, calGearSelections, getSpecialItems, getTradeShops, getFoodAndTincs
     }
 }

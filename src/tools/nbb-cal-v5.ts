@@ -16,8 +16,8 @@ export interface IHqJobs {
     // Necklace?: Record<string, number>;
     // Wrist?: Record<string, number>;
     // Rings?: Record<string, number>;
-    // Meal?: number[];
-    // Medicine?: number[];
+    Meal?: number[][];
+    Medicine?: number[][];
 }
 
 export interface IHqVer {

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-center w-full h-full">
+  <div id="main-container" class="flex-center w-full h-full">
     <n-result status="404" title="404 Not Found">
       <div>
         <p v-for="(description, index) in descriptions" :key="index">{{ description }}</p>
