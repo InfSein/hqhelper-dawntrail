@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NButton, NDrawer, NDrawerContent, NDivider, NFlex, NIcon, NPopover
+  NButton, NDrawer, NDrawerContent, NDivider, NFlex, NIcon, NPopover,
+  useMessage
 } from 'naive-ui'
 import {
   MenuFilled,
@@ -10,16 +11,19 @@ import {
   InfoFilled,
   ContactlessSharp
 } from '@vicons/material'
+import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
+import ModalContactUs from '@/components/modals/ModalContactUs.vue'
+import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
+import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import EorzeaTime from '@/tools/eorzea-time'
 import AppStatus from '@/variables/app-status'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const showUserPreferencesModal = inject<() => void>('showUserPreferencesModal') ?? (() => {})
-const showAboutAppModal = inject<() => void>('showAboutAppModal') ?? (() => {})
-const showContactModal = inject<() => void>('showContactModal') ?? (() => {})
-const showChangeLogsModal = inject<() => void>('showChangeLogsModal') ?? (() => {})
-const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh');
-const isChina = computed(() => locale.value === 'zh');
+const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh')
+const isChina = computed(() => locale.value === 'zh')
+const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
+
+const NAIVE_UI_MESSAGE = useMessage()
 
 const eorzeaTime = ref<EorzeaTime>(new EorzeaTime())
 setInterval(() => {
@@ -28,11 +32,28 @@ setInterval(() => {
 
 const showMenus = ref(false)
 
+const showUserPreferencesModal = ref(false)
+const showAboutAppModal = ref(false)
+const showContactModal = ref(false)
+const showChangeLogsModal = ref(false)
+const displayUserPreferencesModal = () => {
+  showUserPreferencesModal.value = true
+}
+const displayAboutAppModal = () => {
+  showAboutAppModal.value = true
+}
+const displayContactModal = () => {
+  showContactModal.value = true
+}
+const displayChangeLogsModal = () => {
+  showChangeLogsModal.value = true
+}
+
 const menuItems = [
-  { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp, click: showUserPreferencesModal },
-  { key: 'contact-us', label: t('联系我们'), icon: ContactlessSharp, click: showContactModal },
-  { key: 'change-logs', label: t('更新日志'), icon: EventNoteFilled, click: showChangeLogsModal },
-  { key: 'about-app', label: t('关于本作'), icon: InfoFilled, click: showAboutAppModal },
+  { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal },
+  { key: 'contact-us', label: t('联系我们'), icon: ContactlessSharp, click: displayContactModal },
+  { key: 'change-logs', label: t('更新日志'), icon: EventNoteFilled, click: displayChangeLogsModal },
+  { key: 'about-app', label: t('关于本作'), icon: InfoFilled, click: displayAboutAppModal },
 ]
 
 const openModal = (click?: (() => void)) => {
@@ -42,6 +63,12 @@ const openModal = (click?: (() => void)) => {
   click?.()
 }
 
+
+const onUserPreferencesSubmitted = () => {
+  showUserPreferencesModal.value = false
+  appForceUpdate()
+  NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
+}
 </script>
 
 <template>
@@ -105,6 +132,14 @@ const openModal = (click?: (() => void)) => {
         </n-flex>
       </n-drawer-content>
     </n-drawer>
+
+    <ModalUserPreferences
+      v-model:show="showUserPreferencesModal"
+      @after-submit="onUserPreferencesSubmitted"
+    />
+    <ModalAboutApp v-model:show="showAboutAppModal" />
+    <ModalContactUs v-model:show="showContactModal" />
+    <ModalChangeLogs v-model:show="showChangeLogsModal" />
   </div>
 </template>
 

@@ -3,29 +3,21 @@
 
 // * import basic
 import { computed, provide, ref, getCurrentInstance } from 'vue'
+import {
+  darkTheme, lightTheme, useOsTheme,
+  zhCN, enUS, jaJP, dateZhCN, dateEnUS, dateJaJP,
+  NConfigProvider, NMessageProvider,
+  NLayout, NLayoutHeader, NLayoutContent
+} from 'naive-ui'
+
+// * import pages and components
+import AppHeader from './components/main/AppHeader.vue'
+import DialogConfirm from './components/custom-controls/DialogConfirm.vue'
+
+// * import others
 import { useStore } from '@/store/index'
 import { t } from '@/languages'
 import { injectVoerkaI18n } from "@voerkai18n/vue"
-
-// * import pages
-import MainPage from './views/MainPage.vue'
-
-// * import components
-import DialogConfirm from './components/custom-controls/DialogConfirm.vue'
-
-// * import ui lib
-import {
-  darkTheme,
-  lightTheme,
-  useOsTheme,
-  zhCN, enUS, jaJP,
-  dateZhCN, dateEnUS, dateJaJP
-} from 'naive-ui'
-import {
-  NConfigProvider, NMessageProvider
-} from 'naive-ui'
-
-// * user preferences
 import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 
 // #endregion
@@ -35,16 +27,13 @@ import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 const store = useStore()
 const i18n = injectVoerkaI18n()
 
-// * Stored Variables
-const theme = ref(store.state.userConfig?.theme ?? 'system')
-const locale = ref(store.state.userConfig?.language_ui ?? 'zh')
-i18n.activeLanguage = locale.value
 const userConfig = ref<UserConfigModel>(fixUserConfig(store.state.userConfig))
+const locale = computed(() => {
+  return userConfig.value?.language_ui ?? 'zh'
+})
+i18n.activeLanguage = locale.value
 
-// * Local Variables
 const isMobile = ref(false)
-
-// * Variables' auto updates
 const updateIsMobile = () => {
   isMobile.value = window.innerWidth < window.innerHeight
 }
@@ -58,7 +47,7 @@ window.addEventListener('resize', updateIsMobile)
 // * register ui
 const osTheme = useOsTheme()
 const naiveUiTheme = computed(() => {
-  let _theme = theme.value
+  let _theme = userConfig.value.theme
   if (_theme === 'system') {
     return osTheme.value === 'dark' ? darkTheme : lightTheme
   }
@@ -84,7 +73,7 @@ const naiveUiMessagePlacement = computed(() => {
 
 // #endregion
 
-// #region Disable mobile scale
+// #region Disable mobile scale (好像没用，先不管他)
 document.addEventListener('touchstart', function(event) {
   if (event.touches.length > 1) {
     event.preventDefault()
@@ -98,10 +87,7 @@ const appForceUpdate = () => {
   // Update user config
   userConfig.value = fixUserConfig(store.state.userConfig)
   // Update i18n
-  locale.value = userConfig.value?.language_ui ?? 'zh'
   i18n.activeLanguage = locale.value
-  // Update ui
-  theme.value = userConfig.value?.theme ?? 'system'
   // Update vue
   const instance = getCurrentInstance()
   instance?.proxy?.$forceUpdate()
@@ -164,17 +150,10 @@ const showDialogConfirm = inject<(
 
 // #endregion
 
-// * Provide user config
 provide('userConfig', userConfig)
-
-// * Provide i18n t
 provide('t', t)
 provide('locale', locale)
-
-// * Provide is-mobile
 provide('isMobile', isMobile)
-
-// * Provide App Force Update
 provide('appForceUpdate', appForceUpdate)
 
 // #endregion
@@ -198,7 +177,16 @@ const appClass = computed(() => {
   >
     <n-message-provider :placement="naiveUiMessagePlacement">
       <div :class="appClass">
-        <MainPage />
+        <n-layout id="main-layout" position="absolute" :native-scrollbar="false">
+          <n-layout-header bordered position="absolute">
+            <AppHeader />
+          </n-layout-header>
+
+          <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
+            <router-view />
+          </n-layout-content>
+        </n-layout>
+        
         
         <DialogConfirm
           v-model:show="dialogConfirm_show"
@@ -216,5 +204,18 @@ const appClass = computed(() => {
 </template>
 
 <style scoped>
-
+:deep(#main-content .n-scrollbar-container) {
+  padding: 1rem;
+}
+:deep(#main-content .n-scrollbar-container .n-scrollbar-content){
+  height: 100%;
+}
+.n-layout-header {
+  height: 64px;
+  padding: 10px 20px;
+  z-index: 1000;
+}
+.n-layout-content {
+  margin-top: 65px;
+}
 </style>

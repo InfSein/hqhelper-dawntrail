@@ -1,18 +1,12 @@
 <script lang="ts" setup>
-import { computed, inject, provide, ref, watch, type Ref } from 'vue';
+import { computed, inject, ref, watch, type Ref } from 'vue';
 import {
-  NAlert, NBackTop, NLayout, NLayoutHeader, NLayoutContent
+  NAlert, NBackTop
 } from 'naive-ui'
-import AppHeader from '@/components/main/AppHeader.vue'
 import PatchPanel from '@/components/main/PatchPanel.vue'
 import JobPanel from '@/components/main/JobPanel.vue'
 import GearSelectionPanel from '@/components/main/GearSelectionPanel.vue'
 import StatisticsPanel from '@/components/main/StatisticsPanel.vue'
-import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
-import ModalContactUs from '@/components/modals/ModalContactUs.vue'
-import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
-import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
-import { useMessage } from 'naive-ui';
 import { type UserConfigModel } from '@/models/user-config';
 import type { AttireAffix, AccessoryAffix } from '@/models/gears'
 import { getDefaultGearSelections, fixGearSelections } from '@/models/gears'
@@ -20,44 +14,18 @@ import { useStore } from '@/store'
 import { useNbbCal } from '@/tools/use-nbb-cal';
 
 const store = useStore()
-const NAIVE_UI_MESSAGE = useMessage()
+// const NAIVE_UI_MESSAGE = useMessage()
 
 const gearSelectionPanel = ref<InstanceType<typeof GearSelectionPanel>>()
 
 // #region Provides & Injections
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 // nbb cal
 const { calGearSelections, getSpecialItems } = useNbbCal();
-
-const showUserPreferencesModal = ref(false)
-const showAboutAppModal = ref(false)
-const showContactUsModal = ref(false)
-const showChangeLogsModal = ref(false)
-
-const onUserPreferencesSubmitted = () => {
-  showUserPreferencesModal.value = false
-  appForceUpdate()
-  NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
-}
-
-// * Provide Show Modals
-provide('showUserPreferencesModal', () => {
-  showUserPreferencesModal.value = true
-})
-provide('showAboutAppModal', () => {
-  showAboutAppModal.value = true
-})
-provide('showContactModal', () => {
-  showContactUsModal.value = true
-})
-provide('showChangeLogsModal', () => {
-  showChangeLogsModal.value = true
-})
 
 // #endregion
 
@@ -115,78 +83,53 @@ const specialItems = computed(() => {
 </script>
 
 <template>
-  <n-layout id="main-layout" position="absolute" :native-scrollbar="false">
-    <n-layout-header bordered position="absolute">
-      <AppHeader />
-    </n-layout-header>
-
-    <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
-      <n-alert
-        type="info"
-        style="margin-bottom: 10px;"
-      >
-        {{ t('我们已经开始内测，并提供7.0版本生产采集新HQ的装备数据。如果遇到问题，请通过“联系我们”中的方式反馈。') }}
-      </n-alert>
-      <div vertical id="main-container">
-        <PatchPanel id="top-layout" v-model:patch-selected="workState.patch" />
-        <div vertical id="left-layout">
-          <JobPanel
-            v-model:job-selected="workState.job"
-            v-model:affixes-selected="workState.affixes"
-            class="job-panel"
-            :patch-selected="workState.patch"
-            :main-hand-selections="workState.gears?.MainHand"
-            @on-job-button-dupli-click="handleJobButtonDupliClick"
-          />
-          <GearSelectionPanel
-            v-model:gear-selections="workState.gears"
-            ref="gearSelectionPanel"
-            class="gear-panel"
-            :job-id="workState.job"
-            :attire-affix="workState.affixes?.attire as AttireAffix"
-            :accessory-affix="workState.affixes?.accessory as AccessoryAffix"
-          />
-        </div>
-        <div vertical id="right-layout">
-          <StatisticsPanel
-            class="statistics-panel"
-            :statistics="statistics"
-            :normal-gatherings="specialItems.normalGathering"
-            :limited-gatherings="specialItems.limitedGathering"
-            :aethersand-gatherings="[]"
-            :master-craftings="specialItems.masterCrafting"
-            :normal-craftings="specialItems.normalCrafting"
-            :alkahests="specialItems.alkahests"
-          />
-        </div>
+  <div>
+    <n-alert
+      type="info"
+      style="margin-bottom: 10px;"
+    >
+      {{ t('我们已经开始内测，并提供7.0版本生产采集新HQ的装备数据。如果遇到问题，请通过“联系我们”中的方式反馈。') }}
+    </n-alert>
+    <div vertical id="main-container">
+      <PatchPanel id="top-layout" v-model:patch-selected="workState.patch" />
+      <div vertical id="left-layout">
+        <JobPanel
+          v-model:job-selected="workState.job"
+          v-model:affixes-selected="workState.affixes"
+          class="job-panel"
+          :patch-selected="workState.patch"
+          :main-hand-selections="workState.gears?.MainHand"
+          @on-job-button-dupli-click="handleJobButtonDupliClick"
+        />
+        <GearSelectionPanel
+          v-model:gear-selections="workState.gears"
+          ref="gearSelectionPanel"
+          class="gear-panel"
+          :job-id="workState.job"
+          :attire-affix="workState.affixes?.attire as AttireAffix"
+          :accessory-affix="workState.affixes?.accessory as AccessoryAffix"
+        />
       </div>
-  
-      <n-back-top />
-    </n-layout-content>
-  </n-layout>
+      <div vertical id="right-layout">
+        <StatisticsPanel
+          class="statistics-panel"
+          :statistics="statistics"
+          :normal-gatherings="specialItems.normalGathering"
+          :limited-gatherings="specialItems.limitedGathering"
+          :aethersand-gatherings="[]"
+          :master-craftings="specialItems.masterCrafting"
+          :normal-craftings="specialItems.normalCrafting"
+          :alkahests="specialItems.alkahests"
+        />
+      </div>
+    </div>
 
-  <ModalUserPreferences
-    v-model:show="showUserPreferencesModal"
-    @after-submit="onUserPreferencesSubmitted"
-  />
-  <ModalAboutApp v-model:show="showAboutAppModal" />
-  <ModalContactUs v-model:show="showContactUsModal" />
-  <ModalChangeLogs v-model:show="showChangeLogsModal" />
+    <n-back-top />
+  </div>
 </template>
 
 <style scoped>
 /* All */
-:deep(#main-content .n-scrollbar-container) {
-  padding: 1rem;
-}
-.n-layout-header {
-  height: 64px;
-  padding: 10px 20px;
-  z-index: 1000;
-}
-.n-layout-content {
-  margin-top: 65px;
-}
 #main-container {
   gap: 0.6rem;
   max-width: 100%;
