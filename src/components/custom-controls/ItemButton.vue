@@ -22,8 +22,10 @@ interface ItemButtonProps {
   /** 道具信息 */
   itemInfo: ItemInfo
 
-  /** 按钮尺寸，格式：`[宽,高]` */
-  btnSize?: number[];
+  /** 按钮宽度 */
+  btnWidth?: number;
+  /** 按钮高度 */
+  btnHeight?: number;
   /** 按钮颜色 */
   btnColor?: string;
 
@@ -74,7 +76,21 @@ const getItemDescriptions = () => {
     default:
       description = props.itemInfo.descZH
   }
-  return `<div>${description}</div>`
+
+  // * 处理特殊字符(好像只有E端有)
+  description = description.replace(/\{\{color\|id=(\d+)\|([^}]+)\}\}/g, (match, id, text) => {
+    let color = ''
+    if (id == 504) color = 'orange'
+
+    if (color) {
+      return `<span style="color: ${color}">${text}</span>`
+    } else {
+      return text
+    }
+  })
+
+  const descs = description.split('<br>')
+  return `<p>${descs.join('</p><p>')}</p>`
 }
 const getItemTypeName = () => {
   switch (itemLanguage.value) {
@@ -96,15 +112,15 @@ const itemTailDescriptions = computed(() => {
 })
 
 const iconSize = computed(() => {
-  return (props.btnSize?.[1] || 32) - 5
+  return (props.btnHeight || 34) - 7
 })
-const btnWidth = computed(() => {
-  const _w = props.btnSize?.[0]
+const btnWidthVal = computed(() => {
+  const _w = props.btnWidth
   if (!_w) return 'auto'
   return `${_w}px`
 })
-const btnHeight = computed(() => {
-  const _h = props.btnSize?.[1]
+const btnHeightVal = computed(() => {
+  const _h = props.btnHeight
   if (!_h) return 'auto'
   return `${_h}px`
 })
@@ -132,7 +148,7 @@ const openInGarland = () => {
     <template #trigger>
       <n-button
         class="item-button"
-        :style="{ width: btnWidth, height: btnHeight }"
+        :style="{ width: btnWidthVal, height: btnHeightVal }"
         :disabled="disabled"
         :color="btnColor"
       >
@@ -235,7 +251,7 @@ const openInGarland = () => {
   </n-button>
   <n-button v-else
     class="item-button"
-    :style="{ width: btnWidth, height: btnHeight }"
+    :style="{ width: btnWidthVal, height: btnHeightVal }"
     :disabled="disabled"
     :color="btnColor"
   >
@@ -273,6 +289,9 @@ const openInGarland = () => {
     align-items: center;
     gap: 5px;
 
+    .item-icon {
+      display: flex;
+    }
     .item-info {
       margin-left: auto;
       display: flex;

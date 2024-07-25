@@ -112,7 +112,7 @@ const specialItems = computed(() => {
           :statistics="statistics"
           :normal-gatherings="specialItems.normalGathering"
           :limited-gatherings="specialItems.limitedGathering"
-          :aethersand-gatherings="[]"
+          :aethersand-gatherings="specialItems.aethersands"
           :master-craftings="specialItems.masterCrafting"
           :normal-craftings="specialItems.normalCrafting"
           :alkahests="specialItems.alkahests"

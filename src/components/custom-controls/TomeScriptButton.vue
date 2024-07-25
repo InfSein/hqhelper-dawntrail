@@ -1,5 +1,8 @@
 <script lang="ts" setup>
+import { inject } from 'vue'
 import { NButton } from 'naive-ui'
+
+const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 </script>
 
 <template>

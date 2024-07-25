@@ -5,10 +5,9 @@ import {
 } from 'naive-ui'
 import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
 import XivFARImage from '../custom-controls/XivFARImage.vue'
-import ItemButton from '../custom-controls/ItemButton.vue'
-import Stepper from '../custom-controls/Stepper.vue'
+import ItemSelector from '../custom-controls/ItemSelector.vue'
 import { useNbbCal } from '@/tools/use-nbb-cal'
-import { getItemInfo, type ItemInfo } from '@/tools/item'
+import { getItemInfo } from '@/tools/item'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 
@@ -30,46 +29,54 @@ const foodAndTincs = computed(() => getFoodAndTincs())
 
       <n-tabs v-model:value="patch" type="line" animated>
         <n-tab-pane
-          v-for="(foodAndTinc, index) in foodAndTincs"
-          :key="'foodAndTincs-' + index"
+          v-for="(foodAndTinc, tabIndex) in foodAndTincs.data"
+          :key="'foodAndTincs-' + tabIndex"
           :name="foodAndTinc.patch"
           :tab="t('版本{}', foodAndTinc.patch)"
+          :disabled="!foodAndTinc.count"
         >
           <div class="item-selection-container">
             <n-card size="small">
               <template #header>
-                <XivFARImage
-                  :size="14"
-                  src="./image/game-job/companion/culinarian.png"
-                />
-                <span class="card-title-text">{{ t('食物') }}</span>
+                <div class="card-title">
+                  <XivFARImage
+                    :size="16"
+                    src="./image/game-job/companion/culinarian.png"
+                  />
+                  <span class="title">{{ t('食物') }}</span>
+                </div>
               </template>
               
               <div class="item-btn-container">
-                <div
+                <ItemSelector
                   class="item"
                   v-for="(item, index) in foodAndTinc.foods"
-                  :key="'food-' + index"
-                >
-                  <ItemButton
-                    :item-info="getItemInfo(item)"
-                    show-icon show-name
-                  />
-                  <Stepper
-                    v-model:value="itemSelected[item]"
-                  />
-                </div>
+                  :key="`food-${tabIndex}-${index}`"
+                  :item-info="getItemInfo(item)"
+                  v-model:value="itemSelected[item]"
+                />
               </div>
             </n-card>
             <n-card size="small">
               <template #header>
-                <XivFARImage
-                  :size="14"
-                  src="./image/game-job/companion/alchemist.png"
-                />
-                <span class="card-title-text">{{ t('爆发药') }}</span>
+                <div class="card-title">
+                  <XivFARImage
+                    :size="16"
+                    src="./image/game-job/companion/alchemist.png"
+                  />
+                  <span class="title">{{ t('爆发药') }}</span>
+                </div>
               </template>
-              卡片内容
+              
+              <div class="item-btn-container">
+                <ItemSelector
+                  class="item"
+                  v-for="(item, index) in foodAndTinc.tincs"
+                  :key="`tinc-${tabIndex}-${index}`"
+                  :item-info="getItemInfo(item)"
+                  v-model:value="itemSelected[item]"
+                />
+              </div>
             </n-card>
           </div>
         </n-tab-pane>
@@ -86,6 +93,11 @@ const foodAndTincs = computed(() => getFoodAndTincs())
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  .item-btn-container {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 /* PC only */
@@ -93,6 +105,10 @@ const foodAndTincs = computed(() => getFoodAndTincs())
   .item-selection-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+
+    .item-btn-container {
+      gap: 5px;
+    }
   }
 }
 
@@ -101,6 +117,10 @@ const foodAndTincs = computed(() => getFoodAndTincs())
   .item-selection-container {
     display: flex;
     flex-direction: column;
+
+    .item-btn-container {
+      gap: 10px;
+    }
   }
 }
 </style>

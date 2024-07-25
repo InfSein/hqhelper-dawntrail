@@ -5,6 +5,7 @@ import {
   useMessage
 } from 'naive-ui'
 import {
+  FastfoodOutlined,
   MenuFilled,
   SettingsSharp,
   EventNoteFilled,
@@ -17,6 +18,7 @@ import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import EorzeaTime from '@/tools/eorzea-time'
 import AppStatus from '@/variables/app-status'
+import router from '@/router'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh')
@@ -48,11 +50,15 @@ const displayContactModal = () => {
 const displayChangeLogsModal = () => {
   showChangeLogsModal.value = true
 }
+const redirectToFoodAndTincPage = () => {
+  router.push('/fthelper')
+}
 
 const menuItems = [
-  { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal },
+  { key: 'ft-helper', label: t('食药计算'), icon: FastfoodOutlined, click: redirectToFoodAndTincPage },
   { key: 'contact-us', label: t('联系我们'), icon: ContactlessSharp, click: displayContactModal },
   { key: 'change-logs', label: t('更新日志'), icon: EventNoteFilled, click: displayChangeLogsModal },
+  { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal },
   { key: 'about-app', label: t('关于本作'), icon: InfoFilled, click: displayAboutAppModal },
 ]
 
@@ -115,7 +121,7 @@ const onUserPreferencesSubmitted = () => {
       :width="250"
       :trap-focus="false"
       :block-scroll="false"
-      to="#main-container"
+      to="#main-content"
     >
       <n-drawer-content>
         <n-flex vertical>

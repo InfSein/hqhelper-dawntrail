@@ -24,7 +24,7 @@ export interface IHqVer {
     available: boolean;
     jobs: IHqJobs;
     normalGathering?: number[];
-    reduceGathering?: unknown[];
+    reduceGathering?: number[][];
     limitedGathering?: number[];
     alkahests?: number[];
     masterCrafting?: number[];
