@@ -57,7 +57,7 @@ const redirectToFoodAndTincPage = () => {
 const menuItems = [
   { key: 'ft-helper', label: t('食药计算'), icon: FastfoodOutlined, click: redirectToFoodAndTincPage },
   { key: 'contact-us', label: t('联系我们'), icon: ContactlessSharp, click: displayContactModal },
-  { key: 'change-logs', label: t('更新日志'), icon: EventNoteFilled, click: displayChangeLogsModal },
+  { key: 'change-logs', label: t('更新日志'), hide: true, icon: EventNoteFilled, click: displayChangeLogsModal },
   { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal },
   { key: 'about-app', label: t('关于本作'), icon: InfoFilled, click: displayAboutAppModal },
 ]
@@ -128,6 +128,7 @@ const onUserPreferencesSubmitted = () => {
           <n-button
             v-for="item in menuItems"
             :key="item.key"
+            v-show="!item?.hide"
             @click="openModal(item.click)"
           >
             <template #icon>
