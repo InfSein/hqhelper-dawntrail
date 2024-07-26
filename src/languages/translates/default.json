@@ -1,6 +1,6 @@
 {
   "偏好设置": {
-    "en": "User Preferences",
+    "en": "Preferences",
     "ja": "設定",
     "$files": [
       "components\\AppHeader.vue",
@@ -274,7 +274,7 @@
     ]
   },
   "清空全部": {
-    "en": "Clear All",
+    "en": "Clear all",
     "ja": "すべてクリア",
     "$files": [
       "components\\GearSelectionPanel.vue"
@@ -323,14 +323,14 @@
     ]
   },
   "添加一套防具": {
-    "en": "Add 1 attire set",
+    "en": "Add 1 set of attire",
     "ja": "防具を１セット追加",
     "$files": [
       "components\\QuickOperatePanel.vue"
     ]
   },
   "添加一套首饰": {
-    "en": "Add 1 accessory set",
+    "en": "Add 1 set of accessory",
     "ja": "アクセサリを１セット追加",
     "$files": [
       "components\\QuickOperatePanel.vue"
@@ -497,7 +497,7 @@
       "components\\main\\AppHeader.vue"
     ]
   },
-  "※ 国服数据尚未更新时，显示的中文名一般为作者自译，请谨慎参考。": {
+  "※ 国服数据尚未更新时，显示的中文名一般为人工临时翻译，请谨慎参考。": {
     "en": "",
     "ja": "",
     "$files": [
@@ -1073,143 +1073,269 @@
     ]
   },
   "我们已经开始内测，并提供7.0版本生产采集新HQ的装备数据。如果遇到问题，请通过“联系我们”中的方式反馈。": {
-    "en": "我们已经开始内测，并提供7.0版本生产采集新HQ的装备数据。如果遇到问题，请通过“联系我们”中的方式反馈。",
+    "en": "We have started beta testing and provided equipment data for the new sets of crafter and gatherer in patch 7.0. If you encounter any problems, please provide feedback through the \"Contact\" section.",
     "ja": "ベータテストを開始し，パッチ7.0のクラフターとギャザラーのHQ装備データーの提供を開始しました。何か問題がありましたら“コンタクト”に記載された方法でフィードバックしてください。",
     "$files": [
       "views\\MainPage.vue"
     ]
   },
   "该物品国服尚未实装，中文名为临时译名。": {
-    "en": "该物品国服尚未实装，中文名为临时译名。",
+    "en": "",
     "ja": "",
     "$files": [
       "components\\custom-controls\\ItemButton.vue"
     ]
   },
   "(暂译)": {
-    "en": "(暂译)",
+    "en": "",
     "ja": "",
     "$files": [
       "components\\custom-controls\\ItemButton.vue"
     ]
   },
   "[{patch}版本] [{id}]": {
-    "en": "[{patch}版本] [{id}]",
+    "en": "[Patch{patch}] [{id}]",
     "ja": "[パッチ{patch}] [{id}]",
     "$files": [
       "components\\custom-controls\\ItemButton.vue"
     ]
   },
   "注{}：": {
-    "en": "注{}：",
+    "en": "Note {}：",
     "ja": "注{}：",
     "$files": [
       "components\\custom-controls\\ItemButton.vue"
     ]
   },
   "复制宏": {
-    "en": "复制宏",
+    "en": "Copy as macro",
     "ja": "マクロをコピー",
     "$files": [
       "components\\custom-controls\\ItemList.vue"
     ]
   },
   "清单": {
-    "en": "清单",
+    "en": "View list",
     "ja": "リスト",
     "$files": [
       "components\\custom-controls\\ItemList.vue"
     ]
   },
   "返回": {
-    "en": "返回",
+    "en": "Return",
     "ja": "戻る",
     "$files": [
       "components\\custom-controls\\ItemList.vue"
     ]
   },
   "本组没有需要的道具": {
-    "en": "本组没有需要的道具",
+    "en": "Nothing needed in this group.",
     "ja": "当グループに該当するアイテムはありません",
     "$files": [
       "components\\custom-controls\\ItemList.vue"
     ]
   },
   "点数": {
-    "en": "点数",
+    "en": "TomeScript",
     "ja": "ポイント",
     "$files": [
       "components\\custom-controls\\TomeScriptButton.vue"
     ]
   },
   "相同的装备会合并显示。": {
-    "en": "相同的装备会合并显示。",
+    "en": "Same equipments will be merged in displaying.",
     "ja": "同じ装備は合併表示されます。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
   "当前主副手对应职业：{}": {
-    "en": "当前主副手对应职业：{}",
+    "en": "Current mainhand and offhand correspond to job: {}",
     "ja": "現在の主副道具が該当するジョブ：{}",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
   "当前防具对应的词缀：{}": {
-    "en": "当前防具对应的词缀：{}",
+    "en": "Current attire correspond to affix: {}",
     "ja": "現在の防具が該当する種類：{}",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
   "当前首饰对应的词缀：{}": {
-    "en": "当前首饰对应的词缀：{}",
+    "en": "Current accessory correspond to affix: {}",
     "ja": "現在のアクセサリが該当する種類：{}",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
   "添加所有能工巧匠职业的主手工具、副手工具各1件": {
-    "en": "添加所有能工巧匠职业的主手工具、副手工具各1件",
+    "en": "Add 1 mainhand and offhand tool for all crafters",
     "ja": "全クラフターの主副道具を１件追加",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
   "添加所有大地使者职业的主手工具、副手工具各1件": {
-    "en": "添加所有大地使者职业的主手工具、副手工具各1件",
+    "en": "Add 1 mainhand and offhand tool for all gatherers",
     "ja": "全ギャザラーの主副道具を１件追加",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
   "添加一套能工巧匠职业共用的防具与首饰。如果没有首饰则不会添加。": {
-    "en": "添加一套能工巧匠职业共用的防具与首饰。如果没有首饰则不会添加。",
+    "en": "Add a set of protective attire and accessory commonly used by crafters. If there is no accessory, it will not be added.",
     "ja": "クラフターの共通防具とアクセサリを追加する。ただし、アクセサリが存在しない場合は追加しない。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
   "添加一套大地使者职业共用的防具与首饰。如果没有首饰则不会添加。": {
-    "en": "添加一套大地使者职业共用的防具与首饰。如果没有首饰则不会添加。",
+    "en": "Add a set of protective attire and accessory commonly used by gatherers. If there is no accessory, it will not be added.",
     "ja": "ギャザラーの共通防具とアクセサリを追加する。ただし、アクセサリが存在しない場合は追加しない。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
   "物品语言": {
-    "en": "物品语言",
+    "en": "Item Language",
     "ja": "アイテム言語",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "跟随界面语言": {
-    "en": "跟随界面语言",
+    "en": "Auto",
     "ja": "システム設定",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "访问的页面不存在。": {
+    "en": "Page does not exist.",
+    "ja": "访问的页面不存在。",
+    "$files": [
+      "views\\ErrorPage404.vue"
+    ]
+  },
+  "请尝试回到上一页或直接返回首页。": {
+    "en": "Please try Go Back or Back to Home Page.",
+    "ja": "请尝试回到上一页或直接返回首页。",
+    "$files": [
+      "views\\ErrorPage404.vue"
+    ]
+  },
+  "食药计算器": {
+    "en": "Calculator of food and tinctures",
+    "ja": "食药计算器",
+    "$files": [
+      "views\\FoodAndTincPage.vue"
+    ]
+  },
+  "挑选食药": {
+    "en": "Select food and tinctures",
+    "ja": "挑选食药",
+    "$files": [
+      "components\\ft-helper\\ItemSelectionPanel.vue"
+    ]
+  },
+  "版本{}": {
+    "en": "Patch{}",
+    "ja": "版本{}",
+    "$files": [
+      "components\\ft-helper\\ItemSelectionPanel.vue"
+    ]
+  },
+  "食物": {
+    "en": "Food",
+    "ja": "食物",
+    "$files": [
+      "components\\ft-helper\\ItemSelectionPanel.vue"
+    ]
+  },
+  "爆发药": {
+    "en": "Tinctures",
+    "ja": "爆发药",
+    "$files": [
+      "components\\ft-helper\\ItemSelectionPanel.vue"
+    ]
+  },
+  "兑换道具统计": {
+    "en": "Exchanges",
+    "ja": "兑换道具统计",
+    "$files": [
+      "components\\ft-helper\\StatisticsPanel.vue"
+    ]
+  },
+  "半成品统计": {
+    "en": "Precrafts",
+    "ja": "半成品统计",
+    "$files": [
+      "components\\ft-helper\\StatisticsPanel.vue"
+    ]
+  },
+  "食药计算": {
+    "en": "FT Helper",
+    "ja": "食药计算",
+    "$files": [
+      "components\\main\\AppHeader.vue"
+    ]
+  },
+  "未知": {
+    "en": "UNKNOWN",
+    "ja": "未知",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "效果": {
+    "en": "Effects",
+    "ja": "效果",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "(上限{})": {
+    "en": "(Max {})",
+    "ja": "(上限{})",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "※ 此处仅展示物品的{NQorHQ}属性": {
+    "en": "※ Only the {NQorHQ} attribute of the item is displayed here",
+    "ja": "※ 此处仅展示物品的{NQorHQ}属性",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "制作配方": {
+    "en": "Recipe",
+    "ja": "制作配方",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "返回首页": {
+    "en": "Back to Home Page",
+    "ja": "返回首页",
+    "$files": [
+      "components\\subs\\RouterCard.vue"
+    ]
+  },
+  "主页": {
+    "en": "Home",
+    "ja": "主页",
+    "$files": [
+      "components\\subs\\RouterCard.vue"
+    ]
+  },
+  "※ 您正处于HqHelper的子页面。": {
+    "en": "※ You are currently on a subpage of HqHelper",
+    "ja": "※ 您正处于HqHelper的子页面。",
+    "$files": [
+      "components\\subs\\RouterCard.vue"
     ]
   }
 }

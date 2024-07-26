@@ -88,7 +88,7 @@ const onUserPreferencesSubmitted = () => {
       <div class="flex-column">
         <p>{{ t('国服数据版本：{}', AppStatus.SupportedGameVersion.CN) }}</p>
         <p>{{ t('国际服数据版本：{}', AppStatus.SupportedGameVersion.GLOBAL) }}</p>
-        <p>{{ t('※ 国服数据尚未更新时，显示的中文名一般为作者自译，请谨慎参考。') }}</p>
+        <p>{{ t('※ 国服数据尚未更新时，显示的中文名一般为人工临时翻译，请谨慎参考。') }}</p>
       </div>
     </n-popover>
 
