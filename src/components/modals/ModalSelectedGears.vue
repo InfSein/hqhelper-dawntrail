@@ -26,7 +26,7 @@ const getAffixName = (affix: AttireAffix | AccessoryAffix) => {
 const showModal = defineModel<boolean>('show', { required: true })
 const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
 
-const localSelections = ref<GearSelections>(deepCopy(gearSelections.value))
+const localSelections = ref<GearSelections>(gearSelections.value)
 watch(showModal, (newVal, oldVal) => {
   if (newVal && !oldVal) {
     localSelections.value = deepCopy(gearSelections.value)
@@ -127,202 +127,200 @@ const handleSave = () => {
             </div>
           </n-card>
         </div>
-        <div class="subs">
-          <div class="attires">
-            <n-card size="small" :title="t('防具')">
+        <div class="attires">
+          <n-card size="small" :title="t('防具')">
+            <n-table class="attires-table" size="small" :single-line="false">
+              <thead>
+                <tr>
+                  <th>{{ t('词缀') }}</th>
+                  <th>
+                    <div class="th-inner">
+                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/head.png" />
+                      <span>{{ t('头部') }}</span>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="th-inner">
+                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/body.png" />
+                      <span>{{ t('身体') }}</span>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="th-inner">
+                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/hands.png" />
+                      <span>{{ t('手部') }}</span>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="th-inner">
+                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/legs.png" />
+                      <span>{{ t('腿部') }}</span>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="th-inner">
+                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/feet.png" />
+                      <span>{{ t('脚部') }}</span>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+            </n-table>
+            <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '245px', 'margin-top': '-2px' }">
               <n-table class="attires-table" size="small" :single-line="false">
-                <thead>
-                  <tr>
-                    <th>{{ t('词缀') }}</th>
-                    <th>
-                      <div class="th-inner">
-                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/head.png" />
-                        <span>{{ t('头部') }}</span>
-                      </div>
-                    </th>
-                    <th>
-                      <div class="th-inner">
-                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/body.png" />
-                        <span>{{ t('身体') }}</span>
-                      </div>
-                    </th>
-                    <th>
-                      <div class="th-inner">
-                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/hands.png" />
-                        <span>{{ t('手部') }}</span>
-                      </div>
-                    </th>
-                    <th>
-                      <div class="th-inner">
-                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/legs.png" />
-                        <span>{{ t('腿部') }}</span>
-                      </div>
-                    </th>
-                    <th>
-                      <div class="th-inner">
-                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/feet.png" />
-                        <span>{{ t('脚部') }}</span>
-                      </div>
-                    </th>
+                <tbody>
+                  <tr v-for="attire in attireAffixes" :key="'row-attire-' + attire">
+                    <td>{{ getAffixName(attire) }}</td>
+                    <td>
+                      <n-input-number
+                        v-model:value="localSelections.HeadAttire[attire]"
+                        :input-props="{ type: 'number' }"
+                        :min="0"
+                        :max="99999"
+                        :precision="0"
+                        button-placement="both"
+                        :show-button="!isMobile"
+                      />
+                    </td>
+                    <td>
+                      <n-input-number
+                        v-model:value="localSelections.BodyAttire[attire]"
+                        :input-props="{ type: 'number' }"
+                        :min="0"
+                        :max="99999"
+                        :precision="0"
+                        button-placement="both"
+                        :show-button="!isMobile"
+                      />
+                    </td>
+                    <td>
+                      <n-input-number
+                        v-model:value="localSelections.HandsAttire[attire]"
+                        :input-props="{ type: 'number' }"
+                        :min="0"
+                        :max="99999"
+                        :precision="0"
+                        button-placement="both"
+                        :show-button="!isMobile"
+                      />
+                    </td>
+                    <td>
+                      <n-input-number
+                        v-model:value="localSelections.LegsAttire[attire]"
+                        :input-props="{ type: 'number' }"
+                        :min="0"
+                        :max="99999"
+                        :precision="0"
+                        button-placement="both"
+                        :show-button="!isMobile"
+                      />
+                    </td>
+                    <td>
+                      <n-input-number
+                        v-model:value="localSelections.FeetAttire[attire]"
+                        :input-props="{ type: 'number' }"
+                        :min="0"
+                        :max="99999"
+                        :precision="0"
+                        button-placement="both"
+                        :show-button="!isMobile"
+                      />
+                    </td>
                   </tr>
-                </thead>
+                </tbody>
               </n-table>
-              <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '245px', 'margin-top': '-2px' }">
-                <n-table class="attires-table" size="small" :single-line="false">
-                  <tbody>
-                    <tr v-for="attire in attireAffixes" :key="'row-attire-' + attire">
-                      <td>{{ getAffixName(attire) }}</td>
-                      <td>
-                        <n-input-number
-                          v-model:value="localSelections.HeadAttire[attire]"
-                          :input-props="{ type: 'number' }"
-                          :min="0"
-                          :max="99999"
-                          :precision="0"
-                          button-placement="both"
-                          :show-button="!isMobile"
-                        />
-                      </td>
-                      <td>
-                        <n-input-number
-                          v-model:value="localSelections.BodyAttire[attire]"
-                          :input-props="{ type: 'number' }"
-                          :min="0"
-                          :max="99999"
-                          :precision="0"
-                          button-placement="both"
-                          :show-button="!isMobile"
-                        />
-                      </td>
-                      <td>
-                        <n-input-number
-                          v-model:value="localSelections.HandsAttire[attire]"
-                          :input-props="{ type: 'number' }"
-                          :min="0"
-                          :max="99999"
-                          :precision="0"
-                          button-placement="both"
-                          :show-button="!isMobile"
-                        />
-                      </td>
-                      <td>
-                        <n-input-number
-                          v-model:value="localSelections.LegsAttire[attire]"
-                          :input-props="{ type: 'number' }"
-                          :min="0"
-                          :max="99999"
-                          :precision="0"
-                          button-placement="both"
-                          :show-button="!isMobile"
-                        />
-                      </td>
-                      <td>
-                        <n-input-number
-                          v-model:value="localSelections.FeetAttire[attire]"
-                          :input-props="{ type: 'number' }"
-                          :min="0"
-                          :max="99999"
-                          :precision="0"
-                          button-placement="both"
-                          :show-button="!isMobile"
-                        />
-                      </td>
-                    </tr>
-                  </tbody>
-                </n-table>
-              </n-scrollbar>
-            </n-card>
-          </div>
-          <div class="accessories">
-            <n-card size="small" :title="t('首饰')">
+            </n-scrollbar>
+          </n-card>
+        </div>
+        <div class="accessories">
+          <n-card size="small" :title="t('首饰')">
+            <n-table class="accessories-table" size="small" :single-line="false">
+              <thead>
+                <tr>
+                  <th>{{ t('词缀') }}</th>
+                  <th>
+                    <div class="th-inner">
+                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/ear.png" />
+                      <span>{{ t('耳坠') }}</span>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="th-inner">
+                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/neck.png" />
+                      <span>{{ t('项链') }}</span>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="th-inner">
+                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/wrist.png" />
+                      <span>{{ t('手镯') }}</span>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="th-inner">
+                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/ring.png" />
+                      <span>{{ t('戒指') }}</span>
+                    </div>
+                  </th>
+                  <th v-if="!isMobile"></th>
+                </tr>
+              </thead>
+            </n-table>
+            <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '205px', 'margin-top': '-2px' }">
               <n-table class="accessories-table" size="small" :single-line="false">
-                <thead>
-                  <tr>
-                    <th>{{ t('词缀') }}</th>
-                    <th>
-                      <div class="th-inner">
-                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/ear.png" />
-                        <span>{{ t('耳坠') }}</span>
-                      </div>
-                    </th>
-                    <th>
-                      <div class="th-inner">
-                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/neck.png" />
-                        <span>{{ t('项链') }}</span>
-                      </div>
-                    </th>
-                    <th>
-                      <div class="th-inner">
-                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/wrist.png" />
-                        <span>{{ t('手镯') }}</span>
-                      </div>
-                    </th>
-                    <th>
-                      <div class="th-inner">
-                        <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/ring.png" />
-                        <span>{{ t('戒指') }}</span>
-                      </div>
-                    </th>
-                    <th v-if="!isMobile"></th>
+                <tbody>
+                  <tr v-for="accessory in accessoryAffixes" :key="'row-accessory-' + accessory">
+                    <td>{{ getAffixName(accessory) }}</td>
+                    <td>
+                      <n-input-number
+                        v-model:value="localSelections.Earrings[accessory]"
+                        :input-props="{ type: 'number' }"
+                        :min="0"
+                        :max="99999"
+                        :precision="0"
+                        button-placement="both"
+                        :show-button="!isMobile"
+                      />
+                    </td>
+                    <td>
+                      <n-input-number
+                        v-model:value="localSelections.Necklace[accessory]"
+                        :input-props="{ type: 'number' }"
+                        :min="0"
+                        :max="99999"
+                        :precision="0"
+                        button-placement="both"
+                        :show-button="!isMobile"
+                      />
+                    </td>
+                    <td>
+                      <n-input-number
+                        v-model:value="localSelections.Wrist[accessory]"
+                        :input-props="{ type: 'number' }"
+                        :min="0"
+                        :max="99999"
+                        :precision="0"
+                        button-placement="both"
+                        :show-button="!isMobile"
+                      />
+                    </td>
+                    <td>
+                      <n-input-number
+                        v-model:value="localSelections.Rings[accessory]"
+                        :input-props="{ type: 'number' }"
+                        :min="0"
+                        :max="99999"
+                        :precision="0"
+                        button-placement="both"
+                        :show-button="!isMobile"
+                      />
+                    </td>
+                    <td v-if="!isMobile"></td>
                   </tr>
-                </thead>
+                </tbody>
               </n-table>
-              <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '205px', 'margin-top': '-2px' }">
-                <n-table class="accessories-table" size="small" :single-line="false">
-                  <tbody>
-                    <tr v-for="accessory in accessoryAffixes" :key="'row-accessory-' + accessory">
-                      <td>{{ getAffixName(accessory) }}</td>
-                      <td>
-                        <n-input-number
-                          v-model:value="localSelections.Earrings[accessory]"
-                          :input-props="{ type: 'number' }"
-                          :min="0"
-                          :max="99999"
-                          :precision="0"
-                          button-placement="both"
-                          :show-button="!isMobile"
-                        />
-                      </td>
-                      <td>
-                        <n-input-number
-                          v-model:value="localSelections.Necklace[accessory]"
-                          :input-props="{ type: 'number' }"
-                          :min="0"
-                          :max="99999"
-                          :precision="0"
-                          button-placement="both"
-                          :show-button="!isMobile"
-                        />
-                      </td>
-                      <td>
-                        <n-input-number
-                          v-model:value="localSelections.Wrist[accessory]"
-                          :input-props="{ type: 'number' }"
-                          :min="0"
-                          :max="99999"
-                          :precision="0"
-                          button-placement="both"
-                          :show-button="!isMobile"
-                        />
-                      </td>
-                      <td>
-                        <n-input-number
-                          v-model:value="localSelections.Rings[accessory]"
-                          :input-props="{ type: 'number' }"
-                          :min="0"
-                          :max="99999"
-                          :precision="0"
-                          button-placement="both"
-                          :show-button="!isMobile"
-                        />
-                      </td>
-                      <td v-if="!isMobile"></td>
-                    </tr>
-                  </tbody>
-                </n-table>
-              </n-scrollbar>
-            </n-card>
-          </div>
+            </n-scrollbar>
+          </n-card>
         </div>
       </div>
       
@@ -401,7 +399,19 @@ const handleSave = () => {
   justify-content: flex-end;
 }
 
-/* Mobile only */
+/* Desktop */
+@media (min-width: 769px) {
+  .weapons {
+    grid-row: 1 / 3;
+    height: 100%;
+
+    .n-card {
+      height: 100%;
+    }
+  }
+}
+
+/* Mobile */
 @media (max-width: 768px) {
   .wrapper {
     display: flex;

@@ -188,13 +188,15 @@ const addAll = () => {
 
 // #region Dropdown Options
 const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | DropdownGroupOption }) => {
-  return h(
+  return option.description ? h(
     NTooltip,
     { keepAliveOnHover: false, style: { width: 'max-content', display: isMobile.value ? 'none' : 'inherit' } },
     {
       trigger: () => [node],
       default: () => option.description
     }
+  ) : h(
+    node
   )
 }
 

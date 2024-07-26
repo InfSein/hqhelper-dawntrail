@@ -26,6 +26,9 @@
 }
 
 /* Text */
+.bold {
+  font-weight: bold;
+}
 .font-center {
   text-align: center;
 }

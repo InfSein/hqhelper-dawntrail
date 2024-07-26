@@ -67,7 +67,7 @@ const reagents = computed(() => {
 })
 
 /**
- * 要展示的秘籍星级半成品。
+ * 要展示的秘籍半成品。
  * 
  * 按照制作职业排序，一般顺序为`刻木-锻铁-雕金-制革-裁缝`。
  * ? 理论上按照成品id升序排序就可以达到这个效果，有待验证
@@ -86,8 +86,7 @@ const masterPrecrafts = computed(() => {
 })
 
 /**
- * 表示要展示的普通星级半成品。
- * 必须是一个数组，长度无限制
+ * 表示要展示的普通半成品。
  */
 const commonPrecrafts = computed(() => {
   if (!props.normalCraftings?.length) {
@@ -129,7 +128,6 @@ const aethersands = computed(() => {
  * 表示限时采集品统计。
  */
 const gatheringsTimed = computed(() => {
-  // todo - 不知道是否包含灵砂，有待检查
   if (!props.limitedGatherings?.length) {
     return [] as ItemInfo[]
   }
@@ -137,7 +135,7 @@ const gatheringsTimed = computed(() => {
   for (const id in props.statistics.lvBase) {
     try {
       const _id = parseInt(id)
-      if (props.limitedGatherings.includes(_id)) {
+      if (props.limitedGatherings.includes(_id) && !props.aethersandGatherings?.includes(_id)) {
         const item = props.statistics.lvBase[id]
         gathers.push(getItemInfo(item))
       }
@@ -176,7 +174,7 @@ const gatheringsCommon = computed(() => {
 const crystals = computed(() => {
   const _crystals = []
   for (const id in props.statistics.lvBase) {
-    const item = props.statistics.lv1[id]
+    const item = props.statistics.lvBase[id]
     if (item?.uc === 59) { // * 参见src\assets\data\xiv-item-types.json
       _crystals.push(getItemInfo(item))
     }
@@ -189,13 +187,13 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
 </script>
 
 <template>
-  <FoldableCard card-key="main-statistics" :reagents="reagents">
+  <FoldableCard card-key="main-statistics">
     <template #header>
       <i class="xiv square-4"></i>
       <span class="card-title-text">{{ t('查看统计') }}</span>
     </template>
-    <div class="wrapper" :size="[1,2]">
-      <GroupBox id="reagents-group" class="group" title-background-color="var(--n-color-embedded)">
+    <div class="wrapper">
+      <GroupBox id="reagents-group" class="group" title-background-color="var(--n-color-embedded)" title-max-width="200px">
         <template #title>{{ t('特殊秘籍半成品&点数统计') }}</template>
         <div class="container">
           <ItemButton
@@ -279,7 +277,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
 }
 #reagents-group .container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 5px;
 }
 #actions-group .container {
@@ -296,7 +294,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
 @media screen and (min-width: 768px) {
   div.wrapper {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     row-gap: 15px;
     column-gap: 10px;
   }

@@ -79,7 +79,7 @@ const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
 <template>
   <div v-if="items.length" class="list-container" :style="getContainerStyles()">
     <div v-if="!hideActions" class="actions">
-      <n-button size="tiny" @click="clickFuncPlaceholder">
+      <n-button size="tiny" @click="clickFuncPlaceholder" v-show="false">
         <template #icon>
           <n-icon><CodeSharp /></n-icon>
         </template>
@@ -125,6 +125,9 @@ const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
 </template>
   
 <style scoped>
+:deep(.n-empty__description) {
+  text-align: center;
+}
 .list-container {
   display: flex;
   flex-direction: column;

@@ -1,25 +1,31 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NButton, NDrawer, NDrawerContent, NDivider, NFlex, NIcon, NPopover
+  NButton, NDrawer, NDrawerContent, NDivider, NFlex, NIcon, NPopover,
+  useMessage
 } from 'naive-ui'
 import {
+  FastfoodOutlined,
   MenuFilled,
   SettingsSharp,
   EventNoteFilled,
   InfoFilled,
   ContactlessSharp
 } from '@vicons/material'
+import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
+import ModalContactUs from '@/components/modals/ModalContactUs.vue'
+import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
+import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import EorzeaTime from '@/tools/eorzea-time'
 import AppStatus from '@/variables/app-status'
+import router from '@/router'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const showUserPreferencesModal = inject<() => void>('showUserPreferencesModal') ?? (() => {})
-const showAboutAppModal = inject<() => void>('showAboutAppModal') ?? (() => {})
-const showContactModal = inject<() => void>('showContactModal') ?? (() => {})
-const showChangeLogsModal = inject<() => void>('showChangeLogsModal') ?? (() => {})
-const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh');
-const isChina = computed(() => locale.value === 'zh');
+const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh')
+const isChina = computed(() => locale.value === 'zh')
+const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
+
+const NAIVE_UI_MESSAGE = useMessage()
 
 const eorzeaTime = ref<EorzeaTime>(new EorzeaTime())
 setInterval(() => {
@@ -28,11 +34,32 @@ setInterval(() => {
 
 const showMenus = ref(false)
 
+const showUserPreferencesModal = ref(false)
+const showAboutAppModal = ref(false)
+const showContactModal = ref(false)
+const showChangeLogsModal = ref(false)
+const displayUserPreferencesModal = () => {
+  showUserPreferencesModal.value = true
+}
+const displayAboutAppModal = () => {
+  showAboutAppModal.value = true
+}
+const displayContactModal = () => {
+  showContactModal.value = true
+}
+const displayChangeLogsModal = () => {
+  showChangeLogsModal.value = true
+}
+const redirectToFoodAndTincPage = () => {
+  router.push('/fthelper')
+}
+
 const menuItems = [
-  { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp, click: showUserPreferencesModal },
-  { key: 'contact-us', label: t('联系我们'), icon: ContactlessSharp, click: showContactModal },
-  { key: 'change-logs', label: t('更新日志'), icon: EventNoteFilled, click: showChangeLogsModal },
-  { key: 'about-app', label: t('关于本作'), icon: InfoFilled, click: showAboutAppModal },
+  { key: 'ft-helper', label: t('食药计算'), icon: FastfoodOutlined, click: redirectToFoodAndTincPage },
+  { key: 'contact-us', label: t('联系我们'), icon: ContactlessSharp, click: displayContactModal },
+  { key: 'change-logs', label: t('更新日志'), hide: true, icon: EventNoteFilled, click: displayChangeLogsModal },
+  { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal },
+  { key: 'about-app', label: t('关于本作'), icon: InfoFilled, click: displayAboutAppModal },
 ]
 
 const openModal = (click?: (() => void)) => {
@@ -42,6 +69,12 @@ const openModal = (click?: (() => void)) => {
   click?.()
 }
 
+
+const onUserPreferencesSubmitted = () => {
+  showUserPreferencesModal.value = false
+  appForceUpdate()
+  NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
+}
 </script>
 
 <template>
@@ -55,7 +88,7 @@ const openModal = (click?: (() => void)) => {
       <div class="flex-column">
         <p>{{ t('国服数据版本：{}', AppStatus.SupportedGameVersion.CN) }}</p>
         <p>{{ t('国际服数据版本：{}', AppStatus.SupportedGameVersion.GLOBAL) }}</p>
-        <p>{{ t('※ 国服数据尚未更新时，显示的中文名一般为作者自译，请谨慎参考。') }}</p>
+        <p>{{ t('※ 国服数据尚未更新时，显示的中文名一般为人工临时翻译，请谨慎参考。') }}</p>
       </div>
     </n-popover>
 
@@ -88,13 +121,14 @@ const openModal = (click?: (() => void)) => {
       :width="250"
       :trap-focus="false"
       :block-scroll="false"
-      to="#main-container"
+      to="#main-content"
     >
       <n-drawer-content>
         <n-flex vertical>
           <n-button
             v-for="item in menuItems"
             :key="item.key"
+            v-show="!item?.hide"
             @click="openModal(item.click)"
           >
             <template #icon>
@@ -105,6 +139,14 @@ const openModal = (click?: (() => void)) => {
         </n-flex>
       </n-drawer-content>
     </n-drawer>
+
+    <ModalUserPreferences
+      v-model:show="showUserPreferencesModal"
+      @after-submit="onUserPreferencesSubmitted"
+    />
+    <ModalAboutApp v-model:show="showAboutAppModal" />
+    <ModalContactUs v-model:show="showContactModal" />
+    <ModalChangeLogs v-model:show="showChangeLogsModal" />
   </div>
 </template>
 

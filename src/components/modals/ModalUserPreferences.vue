@@ -221,8 +221,6 @@ const currentTab = ref('general')
 const formData = ref<UserConfigModel>(fixUserConfig(store.state.userConfig))
 
 const handleSave = () => {
-  console.log('formData', formData.value)
-
   const theme = formData.value.theme ?? 'system'
   const language_ui = formData.value.language_ui ?? 'zh'
   const language_item = formData.value.language_item ?? 'auto'

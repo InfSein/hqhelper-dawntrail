@@ -38,8 +38,6 @@ const loadChangelog = async() => {
     const text = await response.text()
     const arr = convertToUpdateLogs(text)
     changelogs.value = arr
-    console.log('text', text)
-    console.log('arr', arr)
   } catch (error) {
     console.error(error)
     errorText.value = t('加载更新日志失败')

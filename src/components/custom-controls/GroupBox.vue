@@ -8,6 +8,10 @@ defineProps({
     type: String,
     default: 'var(--n-color)'
   },
+  titleMaxWidth: {
+    type: String,
+    default: 'unset'
+  },
   containerExtraStyle: {
     type: String,
     default: ''
@@ -17,7 +21,10 @@ defineProps({
 
 <template>
   <div class="group-box" :style="`border: 1px dashed ${borderColor}; ${containerExtraStyle}`">
-    <div class="group-box-title" :style="{ backgroundColor: titleBackgroundColor }">
+    <div
+      class="group-box-title"
+      :style="{ backgroundColor: titleBackgroundColor, maxWidth: titleMaxWidth }"
+    >
       <slot name="title" />
     </div>
     <div class="group-box-content">
@@ -41,6 +48,9 @@ defineProps({
     width: fit-content;
     text-align: center;
     color: var(--n-text-color);
+    white-space: nowrap;       /* 防止文本换行 */
+    overflow: hidden;          /* 隐藏溢出的内容 */
+    text-overflow: ellipsis;
   }
 
   .group-box-content {
