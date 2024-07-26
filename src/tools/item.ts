@@ -33,6 +33,7 @@ import XivItems from '@/assets/data/unpacks/item.json'
 import XivItemTypes from '@/assets/data/xiv-item-types.json'
 import XivItemNameZHTemp from '@/assets/data/translations/xiv-item-names.json'
 import XivItemDescZHTemp from '@/assets/data/translations/xiv-item-descriptions.json'
+import XivRecipes from '@/assets/data/unpacks/recipe.json'
 import { deepCopy } from '.'
 
 export interface ItemInfo {
@@ -56,6 +57,22 @@ export interface ItemInfo {
   uiTypeIconUrl: string
   /** 是否使用了中文暂译 */
   usedZHTemp?: boolean
+  /**
+   * 物品使用后会提供的临时属性，常见于食物爆发药。
+   * 
+   * 内部数组长度一般为5，分别代表：
+   * * (index)`0`: 提供的属性的id，可在`src\assets\data\xiv-attributes.json`中检索
+   * * (index)`1`: 是否有NQ/HQ的区分
+   * * (index)`2`: NQ道具提供的属性的百分比
+   * * (index)`3`: NQ道具提供的属性的最大值
+   * * (index)`4`: HQ道具提供的属性的百分比
+   * * (index)`5`: HQ道具提供的属性的最大值
+   */
+  tempAttrsProvided: number[][]
+  /** 制作此道具需要的直接道具 (从道具的第一个关联配方中解析) */
+  craftRequires: {
+    id: number, count: number
+  }[]
 }
 
 /**
@@ -134,6 +151,28 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     itemInfo.uiTypeNameEN = typeMap[_item.uc].lang[1]
     itemInfo.uiTypeNameZH = typeMap[_item.uc].lang[2]
     itemInfo.uiTypeIconUrl = getImgCdnUrl(typeMap[_item.uc].icon)
+  }
+
+  // * 组装物品特殊属性
+  itemInfo.tempAttrsProvided = _item.actParm
+
+  // * 组装物品配方
+  itemInfo.craftRequires = []
+  if (_item.rids?.length) {
+    const recipeID = _item.rids[0]
+    const recipe = (XivRecipes as any)[recipeID]
+    if (recipe) {
+      const items = recipe.m as number[]
+      if (items?.length % 2 === 0) {
+        for (let ptr = 0; ptr < items.length; ptr += 2) {
+          const requiredItemID = items[ptr]
+          const requiredItemCount = items[ptr + 1]
+          itemInfo.craftRequires.push({
+            id: requiredItemID, count: requiredItemCount
+          })
+        }
+      }
+    }
   }
 
   // * 组装完毕，返回结果

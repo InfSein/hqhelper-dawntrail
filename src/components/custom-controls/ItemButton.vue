@@ -4,8 +4,10 @@ import {
   NButton, NDivider, NFlex, NPopover
 } from 'naive-ui'
 import XivFARImage from './XivFARImage.vue'
-import type { ItemInfo } from '@/tools/item'
+import ItemSpan from './ItemSpan.vue'
+import  { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
+import XivAttributes from '@/assets/data/xiv-attributes.json'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -103,6 +105,25 @@ const getItemTypeName = () => {
       return props.itemInfo.uiTypeNameZH
   }
 }
+const getAttrName = (attrId: number) => {
+  const attrMap = XivAttributes as any
+  const attr = attrMap[attrId.toString()]
+  if (!attr) {
+    return t('未知')
+  }
+  switch (itemLanguage.value) {
+    case 'ja':
+      return attr.Name_ja
+    case 'en':
+      return attr.Name_en
+    case 'zh':
+    default:
+      return attr.Name
+  }
+}
+const itemHasHQ = computed(() => {
+  return props.itemInfo.tempAttrsProvided.every(subArr => subArr.length >= 5)
+})
 const itemTailDescriptions = computed(() => {
   const descriptions : string[] = []
   if (itemLanguage.value === 'zh' && props.itemInfo.usedZHTemp) {
@@ -204,6 +225,45 @@ const openInGarland = () => {
           <p>{{ t('[{patch}版本] [{id}]', { patch: itemInfo.patch, id: itemInfo.id }) }}</p>
         </div>
         <div class="main-descriptions" v-html="getItemDescriptions()"></div>
+        <div class="temp-attr-descriptions" v-if="itemInfo.tempAttrsProvided.length">
+          <div class="title">{{ t('效果') }}</div>
+          <n-divider class="item-divider" />
+          <div class="content">
+            <div class="block hq" v-if="itemHasHQ">
+              <p
+                v-for="(attr, index) in itemInfo.tempAttrsProvided"
+                :key="'temp-attr-hq' + index"
+              >
+                <span class="attr-name">{{ getAttrName(attr[0]) }}</span>
+                <span> +{{ attr[4] }}% {{ t('(上限{})', attr[5]) }}</span>
+              </p>
+            </div>
+            <div class="block nq" v-else>
+              <p
+                v-for="(attr, index) in itemInfo.tempAttrsProvided"
+                :key="'temp-attr-hq' + index"
+              >
+                <span class="attr-name">{{ getAttrName(attr[0]) }}</span>
+                <span> +{{ attr[2] }}% {{ t('(上限{})', attr[3]) }}</span>
+              </p>
+            </div>
+          </div>
+          <div class="extra">{{ t('※ 此处仅展示物品的{NQorHQ}属性', itemHasHQ ? 'HQ' : 'NQ') }}</div>
+        </div>
+        <div class="recipe-descriptions" v-if="itemInfo.craftRequires.length">
+          <div class="title">{{ t('制作配方') }}</div>
+          <n-divider class="item-divider" />
+          <div class="content">
+            <div
+              class="item"
+              v-for="(item, index) in itemInfo.craftRequires"
+              :key="'recipe-' + index"
+            >
+              <ItemSpan :item-info="getItemInfo(item.id)" />
+              <div class="count"> x{{ item.count }}</div>
+            </div>
+          </div>
+        </div>
         <slot name="extra-descriptions" />
         <div class="tail-descriptions">
           <p v-for="(desc, index) in itemTailDescriptions" :key="'tail-descriptions' + index">
@@ -353,10 +413,39 @@ const openInGarland = () => {
       text-indent: 1em;
       line-height: 1.2;
     }
+    .temp-attr-descriptions {
+      line-height: 1.2;
+
+      .title {
+        margin-top: 2px;
+      }
+      .content {
+        margin-left: 1em;
+      }
+      .content .block p::before {
+        content: "· ";
+      }
+      .extra {
+        font-size: calc(var(--n-font-size) - 2px);
+        margin: 2px 0 5px 0;
+      }
+    }
+    .recipe-descriptions {
+      line-height: 1.2;
+
+      .content {
+        margin-left: 1em;
+
+        .item {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
     .tail-descriptions {
       font-size: calc(var(--n-font-size) - 2px);
       line-height: 1;
     }
   }
 }
-</style>, inject, ref, type Ref
+</style>

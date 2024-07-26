@@ -1,0 +1,513 @@
+{
+  "1": {
+    "Name": "力量",
+    "Name_en": "Strength",
+    "Name_ja": "STR",
+    "Name_de": "St?rke",
+    "Name_fr": "Force"
+  },
+  "2": {
+    "Name": "灵巧",
+    "Name_en": "Dexterity",
+    "Name_ja": "DEX",
+    "Name_de": "Geschick",
+    "Name_fr": "Dextérité"
+  },
+  "3": {
+    "Name": "耐力",
+    "Name_en": "Vitality",
+    "Name_ja": "VIT",
+    "Name_de": "Konstitution",
+    "Name_fr": "Vitalité"
+  },
+  "4": {
+    "Name": "智力",
+    "Name_en": "Intelligence",
+    "Name_ja": "INT",
+    "Name_de": "Intelligenz",
+    "Name_fr": "Intelligence"
+  },
+  "5": {
+    "Name": "精神",
+    "Name_en": "Mind",
+    "Name_ja": "MND",
+    "Name_de": "Willenskraft",
+    "Name_fr": "Esprit"
+  },
+  "6": {
+    "Name": "信仰",
+    "Name_en": "Piety",
+    "Name_ja": "信仰",
+    "Name_de": "Fr?mmigkeit",
+    "Name_fr": "Piété"
+  },
+  "7": {
+    "Name": "体力",
+    "Name_en": "HP",
+    "Name_ja": "HP",
+    "Name_de": "LP",
+    "Name_fr": "PV"
+  },
+  "8": {
+    "Name": "魔力",
+    "Name_en": "MP",
+    "Name_ja": "MP",
+    "Name_de": "MP",
+    "Name_fr": "PM"
+  },
+  "9": {
+    "Name": "技力",
+    "Name_en": "TP",
+    "Name_ja": "TP",
+    "Name_de": "TP",
+    "Name_fr": "PT"
+  },
+  "10": {
+    "Name": "采集力",
+    "Name_en": "GP",
+    "Name_ja": "GP",
+    "Name_de": "SP",
+    "Name_fr": "PR"
+  },
+  "11": {
+    "Name": "制作力",
+    "Name_en": "CP",
+    "Name_ja": "CP",
+    "Name_de": "HP",
+    "Name_fr": "PS"
+  },
+  "12": {
+    "Name": "物理基本性能",
+    "Name_en": "Physical Damage",
+    "Name_ja": "物理基本性能",
+    "Name_de": "Phys. Basiswert",
+    "Name_fr": "Dégats physiques"
+  },
+  "13": {
+    "Name": "魔法基本性能",
+    "Name_en": "Magic Damage",
+    "Name_ja": "魔法基本性能",
+    "Name_de": "Mag. Basiswert",
+    "Name_fr": "Dégats magiques"
+  },
+  "14": {
+    "Name": "攻击间隔",
+    "Name_en": "Delay",
+    "Name_ja": "攻撃間隔",
+    "Name_de": "Verz?gerung",
+    "Name_fr": "Délai"
+  },
+  "15": {
+    "Name": "附加效果",
+    "Name_en": "Additional Effect: ",
+    "Name_ja": "追加効果",
+    "Name_de": "Zusatzeffekt: ",
+    "Name_fr": "Effet supplémentaire : "
+  },
+  "16": {
+    "Name": "攻击次数",
+    "Name_en": "Attack Speed",
+    "Name_ja": "攻撃回数",
+    "Name_de": "Anzahl der Attacken: ",
+    "Name_fr": "Nombre d'attaques"
+  },
+  "17": {
+    "Name": "格挡发动力",
+    "Name_en": "Block Rate",
+    "Name_ja": "ブロック発動力",
+    "Name_de": "Blockrate",
+    "Name_fr": "Taux de blocage"
+  },
+  "18": {
+    "Name": "格挡性能",
+    "Name_en": "Block Strength",
+    "Name_ja": "ブロック性能",
+    "Name_de": "Blockeffekt",
+    "Name_fr": "Blocage"
+  },
+  "19": {
+    "Name": "坚韧",
+    "Name_en": "Tenacity",
+    "Name_ja": "不屈",
+    "Name_de": "Unbeugsamkeit",
+    "Name_fr": "Ténacité"
+  },
+  "20": {
+    "Name": "物理攻击力",
+    "Name_en": "Attack Power",
+    "Name_ja": "物理攻撃力",
+    "Name_de": "Attacke",
+    "Name_fr": "Attaque"
+  },
+  "21": {
+    "Name": "物理防御力",
+    "Name_en": "Defense",
+    "Name_ja": "物理防御力",
+    "Name_de": "Verteidigung",
+    "Name_fr": "Défense"
+  },
+  "22": {
+    "Name": "直击",
+    "Name_en": "Direct Hit Rate",
+    "Name_ja": "ダイレクトヒット",
+    "Name_de": "Direkter Treffer",
+    "Name_fr": "Coups nets"
+  },
+  "23": {
+    "Name": "回避力",
+    "Name_en": "Evasion",
+    "Name_ja": "回避力",
+    "Name_de": "Ausweichen",
+    "Name_fr": "Esquive"
+  },
+  "24": {
+    "Name": "魔法防御力",
+    "Name_en": "Magic Defense",
+    "Name_ja": "魔法防御力",
+    "Name_de": "Magieabwehr",
+    "Name_fr": "Défense magique"
+  },
+  "25": {
+    "Name": "暴击攻击力",
+    "Name_en": "Critical Hit Power",
+    "Name_ja": "クリティカル攻撃力",
+    "Name_de": "Kritischer Attackewert",
+    "Name_fr": "Attaque critique"
+  },
+  "26": {
+    "Name": "暴击防御力",
+    "Name_en": "Critical Hit Resilience",
+    "Name_ja": "クリティカル防御力",
+    "Name_de": "Abwehr kritischer Treffer",
+    "Name_fr": "Résilience"
+  },
+  "27": {
+    "Name": "暴击",
+    "Name_en": "Critical Hit",
+    "Name_ja": "クリティカル",
+    "Name_de": "Kritischer Treffer",
+    "Name_fr": "Critique"
+  },
+  "28": {
+    "Name": "暴击回避力",
+    "Name_en": "Critical Hit Evasion",
+    "Name_ja": "クリティカル回避力",
+    "Name_de": "Kritisches Ausweichen",
+    "Name_fr": "Esquive critique"
+  },
+  "29": {
+    "Name": "斩击耐性",
+    "Name_en": "Slashing Resistance",
+    "Name_ja": "斬耐性",
+    "Name_de": "Hiebresistenz",
+    "Name_fr": "Résistance au tranchant"
+  },
+  "30": {
+    "Name": "突刺耐性",
+    "Name_en": "Piercing Resistance",
+    "Name_ja": "突耐性",
+    "Name_de": "Stichresistenz",
+    "Name_fr": "Résistance au perforant"
+  },
+  "31": {
+    "Name": "打击耐性",
+    "Name_en": "Blunt Resistance",
+    "Name_ja": "打耐性",
+    "Name_de": "Schlagresistenz",
+    "Name_fr": "Résistance au contondant"
+  },
+  "32": {
+    "Name": "射击耐性",
+    "Name_en": "Projectile Resistance",
+    "Name_ja": "射耐性",
+    "Name_de": "Projektilresistenz",
+    "Name_fr": "Résistance aux projectiles"
+  },
+  "33": {
+    "Name": "攻击魔法威力",
+    "Name_en": "Attack Magic Potency",
+    "Name_ja": "攻撃魔法 威力",
+    "Name_de": "Offensivmagie",
+    "Name_fr": "Magie offensive"
+  },
+  "34": {
+    "Name": "治疗魔法威力",
+    "Name_en": "Healing Magic Potency",
+    "Name_ja": "回復魔法威力",
+    "Name_de": "Heilmagie",
+    "Name_fr": "Magie curative"
+  },
+  "35": {
+    "Name": "强化魔法威力",
+    "Name_en": "Enhancement Magic Potency",
+    "Name_ja": "強化魔法威力",
+    "Name_de": "St?rkungsmagie",
+    "Name_fr": "Magie fortifiante"
+  },
+  "36": {
+    "Name": "元素加持",
+    "Name_en": "Elemental Bonus",
+    "Name_ja": "エレメンタル補正",
+    "Name_de": "Elementarbonus",
+    "Name_fr": "Bonus élémentaire"
+  },
+  "37": {
+    "Name": "火",
+    "Name_en": "Fire Resistance",
+    "Name_ja": "火",
+    "Name_de": "Feuerresistenz",
+    "Name_fr": "Résistance au feu"
+  },
+  "38": {
+    "Name": "冰",
+    "Name_en": "Ice Resistance",
+    "Name_ja": "氷",
+    "Name_de": "Eisresistenz",
+    "Name_fr": "Résistance à la glace"
+  },
+  "39": {
+    "Name": "风",
+    "Name_en": "Wind Resistance",
+    "Name_ja": "風",
+    "Name_de": "Windresistenz",
+    "Name_fr": "Résistance au vent"
+  },
+  "40": {
+    "Name": "土",
+    "Name_en": "Earth Resistance",
+    "Name_ja": "土",
+    "Name_de": "Erdresistenz",
+    "Name_fr": "Résistance à la terre"
+  },
+  "41": {
+    "Name": "雷",
+    "Name_en": "Lightning Resistance",
+    "Name_ja": "雷",
+    "Name_de": "Blitzresistenz",
+    "Name_fr": "Résistance à la foudre"
+  },
+  "42": {
+    "Name": "水",
+    "Name_en": "Water Resistance",
+    "Name_ja": "水",
+    "Name_de": "Wasserresistenz",
+    "Name_fr": "Résistance à l'eau"
+  },
+  "43": {
+    "Name": "全魔法耐性",
+    "Name_en": "Magic Resistance",
+    "Name_ja": "全魔法耐性",
+    "Name_de": "Magieresistenz",
+    "Name_fr": "Résistance magique"
+  },
+  "44": {
+    "Name": "信念",
+    "Name_en": "Determination",
+    "Name_ja": "意思力",
+    "Name_de": "Entschlossenheit",
+    "Name_fr": "Détermination"
+  },
+  "45": {
+    "Name": "技能速度",
+    "Name_en": "Skill Speed",
+    "Name_ja": "スキルスピード",
+    "Name_de": "Schnelligkeit",
+    "Name_fr": "Vivacité"
+  },
+  "46": {
+    "Name": "咏唱速度",
+    "Name_en": "Spell Speed",
+    "Name_ja": "スペルスピード",
+    "Name_de": "Zaubertempo",
+    "Name_fr": "Célérité"
+  },
+  "47": {
+    "Name": "加速",
+    "Name_en": "Haste",
+    "Name_ja": "ヘイスト",
+    "Name_de": "Hast",
+    "Name_fr": "Hate"
+  },
+  "48": {
+    "Name": "斗志",
+    "Name_en": "Morale",
+    "Name_ja": "モラル",
+    "Name_de": "Moral",
+    "Name_fr": "Moral"
+  },
+  "49": {
+    "Name": "仇恨",
+    "Name_en": "Enmity",
+    "Name_ja": "敵視",
+    "Name_de": "Feindseligkeit",
+    "Name_fr": "Inimitié"
+  },
+  "50": {
+    "Name": "降低仇恨",
+    "Name_en": "Enmity Reduction",
+    "Name_ja": "敵視-",
+    "Name_de": "Feindseligkeitsreduktion",
+    "Name_fr": "Réduction d'inimitié"
+  },
+  "51": {
+    "Name": "分解技能提升率",
+    "Name_en": "Desynthesis Skill Gain",
+    "Name_ja": "分解スキル上昇率",
+    "Name_de": "Verbessertes Verwertungsgeschick",
+    "Name_fr": "Augmentation de la compétence de recyclage"
+  },
+  "52": {
+    "Name": "经验值获得量",
+    "Name_en": "EXP Bonus",
+    "Name_ja": "経験値獲得量",
+    "Name_de": "Routinebonus",
+    "Name_fr": "Points d'expérience gagnés"
+  },
+  "53": {
+    "Name": "生命再生",
+    "Name_en": "Regen",
+    "Name_ja": "リジェネ",
+    "Name_de": "Regena",
+    "Name_fr": "Récup"
+  },
+  "54": {
+    "Name": "魔力再生",
+    "Name_en": "Refresh",
+    "Name_ja": "リフレシュ",
+    "Name_de": "Erfrischen",
+    "Name_fr": "Recharge"
+  },
+  "55": {
+    "Name": "主状态修正",
+    "Name_en": "Main Attribute",
+    "Name_ja": "主能力補正",
+    "Name_de": "Hauptattribut",
+    "Name_fr": "Bonus de base"
+  },
+  "56": {
+    "Name": "副状态修正",
+    "Name_en": "Secondary Attribute",
+    "Name_ja": "副能力補正",
+    "Name_de": "Zweitattribut",
+    "Name_fr": "Bonus additionnels"
+  },
+  "57": {
+    "Name": "减速耐性",
+    "Name_en": "Slow Resistance",
+    "Name_ja": "スロウ耐性",
+    "Name_de": "Gemach-Resistenz",
+    "Name_fr": "Résistance à Lenteur"
+  },
+  "58": {
+    "Name": "石化耐性",
+    "Name_en": "Petrification Resistance",
+    "Name_ja": "石化耐性",
+    "Name_de": "Stein-Resistenz",
+    "Name_fr": "Résistance à Pétrification"
+  },
+  "59": {
+    "Name": "麻痹耐性",
+    "Name_en": "Paralysis Resistance",
+    "Name_ja": "麻痺耐性",
+    "Name_de": "Paralyse-Resistenz",
+    "Name_fr": "Résistance à Paralysie"
+  },
+  "60": {
+    "Name": "静寂耐性",
+    "Name_en": "Silence Resistance",
+    "Name_ja": "沈黙耐性",
+    "Name_de": "Schweigen-Resistenz",
+    "Name_fr": "Résistance à Silence"
+  },
+  "61": {
+    "Name": "失明耐性",
+    "Name_en": "Blind Resistance",
+    "Name_ja": "暗闇耐性",
+    "Name_de": "Blind-Resistenz",
+    "Name_fr": "Résistance à Cécité"
+  },
+  "62": {
+    "Name": "中毒耐性",
+    "Name_en": "Poison Resistance",
+    "Name_ja": "毒耐性",
+    "Name_de": "Gift-Resistenz",
+    "Name_fr": "Résistance à Poison"
+  },
+  "63": {
+    "Name": "眩晕耐性",
+    "Name_en": "Stun Resistance",
+    "Name_ja": "スタン耐性",
+    "Name_de": "Bet?ubungs-Resistenz",
+    "Name_fr": "Résistance à étourdissement"
+  },
+  "64": {
+    "Name": "睡眠耐性",
+    "Name_en": "Sleep Resistance",
+    "Name_ja": "睡眠耐性",
+    "Name_de": "Schlaf-Resistenz",
+    "Name_fr": "Résistance à Sommeil"
+  },
+  "65": {
+    "Name": "止步耐性",
+    "Name_en": "Bind Resistance",
+    "Name_ja": "バインド耐性",
+    "Name_de": "Fessel-Resistenz",
+    "Name_fr": "Résistance à Entrave"
+  },
+  "66": {
+    "Name": "加重耐性",
+    "Name_en": "Heavy Resistance",
+    "Name_ja": "ヘヴィ耐性",
+    "Name_de": "Gewicht-Resistenz",
+    "Name_fr": "Résistance à Pesanteur"
+  },
+  "67": {
+    "Name": "死亡宣告耐性",
+    "Name_en": "Doom Resistance",
+    "Name_ja": "死の宣告耐性",
+    "Name_de": "Verh?ngnis-Resistenz",
+    "Name_fr": "Résistance à Glas"
+  },
+  "68": {
+    "Name": "装备损耗耐性",
+    "Name_en": "Reduced Durability Loss",
+    "Name_ja": "装備消耗耐性",
+    "Name_de": "Verschlei?minderung",
+    "Name_fr": "Résistance à l'usure"
+  },
+  "69": {
+    "Name": "精炼度提升量",
+    "Name_en": "Increased Spiritbond Gain",
+    "Name_ja": "錬精度上昇量",
+    "Name_de": "Erh?hte Bindung",
+    "Name_fr": "Gain accru de symbiose"
+  },
+  "70": {
+    "Name": "作业精度",
+    "Name_en": "Craftsmanship",
+    "Name_ja": "作業精度",
+    "Name_de": "Kunstfertigkeit",
+    "Name_fr": "Habileté"
+  },
+  "71": {
+    "Name": "加工精度",
+    "Name_en": "Control",
+    "Name_ja": "加工精度",
+    "Name_de": "Kontrolle",
+    "Name_fr": "Contr?le"
+  },
+  "72": {
+    "Name": "获得力",
+    "Name_en": "Gathering",
+    "Name_ja": "獲得力",
+    "Name_de": "Sammelgeschick",
+    "Name_fr": "Collecte"
+  },
+  "73": {
+    "Name": "鉴别力",
+    "Name_en": "Perception",
+    "Name_ja": "技術力",
+    "Name_de": "Expertise",
+    "Name_fr": "Savoir-faire"
+  }
+}
