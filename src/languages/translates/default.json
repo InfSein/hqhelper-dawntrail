@@ -673,7 +673,7 @@
     ]
   },
   "联系我们": {
-    "en": "Contact Us",
+    "en": "Contact",
     "ja": "コンタクト",
     "$files": [
       "components\\modals\\ModalContact.vue",

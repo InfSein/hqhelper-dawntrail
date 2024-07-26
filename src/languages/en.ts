@@ -95,7 +95,7 @@ export default {
     "94": "Clear",
     "95": "Add",
     "96": "Click to expand or collapse the description of this setting option.",
-    "97": "Contact Us",
+    "97": "Contact",
     "98": "Consultation & Feedback",
     "99": "QQ",
     "100": "As long as you use QQ, communicating through Q-Group will be the most convenient way. ",
