@@ -62,7 +62,7 @@ const handleClose = () => {
                       :key="'staff-member-' + index + '-' + sgIndex + '-' + mIndex"
                       class="subgroup-item"
                     >
-                      <n-divider vertical v-if="mIndex" />
+                      <n-divider vertical v-if="mIndex" style="margin: 0 2px;" />
                       <div class="member-avatar">
                         <n-avatar
                           round
@@ -197,17 +197,21 @@ const handleClose = () => {
           .subgroup-title::after {
             content: " -";
           }
-          .subgroup-item {
+          .subgroup-content {
             display: flex;
-            align-items: center;
-            line-height: 20px;
-            
-            .member-avatar {
+
+            .subgroup-item {
               display: flex;
               align-items: center;
-            }
-            .member-name {
-              text-indent: initial;
+              line-height: 20px;
+              
+              .member-avatar {
+                display: flex;
+                align-items: center;
+              }
+              .member-name {
+                text-indent: initial;
+              }
             }
           }
         }

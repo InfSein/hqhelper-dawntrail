@@ -37,8 +37,29 @@ export const DataAboutApp : DataAboutApp = {
       group_name: t('本地化翻译'),
       sub_groups: [
         {
-          group_name: t('日语'),
+          group_name: t('中文(国际服物品)'),
           members: [
+            {
+              name: '夜北Yakita',
+              avatar_url: './image/staff/lt-yakita.jpg',
+              introductions: [],
+              pages: [
+                { name: 'Weibo', url: 'https://weibo.com/n/%E5%A4%9C%E5%8C%97yakita' }
+              ]
+            }
+          ]
+        },
+        {
+          group_name: t('日语(UI)'),
+          members: [
+            {
+              name: 'Kim',
+              avatar_url: 'https://avatars.githubusercontent.com/u/44747407?v=4',
+              introductions: [],
+              pages: [
+                { name: 'Github', url: 'https://github.com/kimuchidev' }
+              ]
+            },
             {
               name: '夜北Yakita',
               avatar_url: './image/staff/lt-yakita.jpg',

@@ -967,9 +967,16 @@
       "data\\about-app.ts"
     ]
   },
-  "日语": {
-    "en": "Japanese",
-    "ja": "日本語",
+  "中文(国际服物品)": {
+    "en": "Chinese (Item)",
+    "ja": "中国語(アイテム)",
+    "$files": [
+      "data\\about-app.ts"
+    ]
+  },
+  "日语(UI)": {
+    "en": "Japanese (UI)",
+    "ja": "日本語(UI)",
     "$files": [
       "data\\about-app.ts"
     ]
