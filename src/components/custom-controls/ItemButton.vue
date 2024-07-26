@@ -357,7 +357,14 @@ const openInGarland = () => {
       display: flex;
       flex-direction: column;
       gap: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
+      .item-name {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
       div {
         text-align: end;
       }
