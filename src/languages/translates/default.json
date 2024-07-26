@@ -394,7 +394,7 @@
   },
   "查看统计": {
     "en": "View Statistics",
-    "ja": "統計を見る",
+    "ja": "集計を見る",
     "$files": [
       "components\\main\\StatisticsPanel.vue"
     ]
@@ -1025,7 +1025,7 @@
   },
   "特殊秘籍半成品&点数统计": {
     "en": "Special MasterPrecrafts & Allagan",
-    "ja": "特殊秘伝書の中間素材&アラガントームストーン集計",
+    "ja": "特殊秘伝書の中間素材&トークン集計",
     "$files": [
       "components\\main\\StatisticsPanel.vue"
     ]
@@ -1046,14 +1046,14 @@
   },
   "灵砂统计": {
     "en": "Aethersands",
-    "ja": "霊砂統計",
+    "ja": "霊砂集計",
     "$files": [
       "components\\main\\StatisticsPanel.vue"
     ]
   },
   "采集统计": {
     "en": "Gatherings",
-    "ja": "採集統計",
+    "ja": "採集集計",
     "$files": [
       "components\\main\\StatisticsPanel.vue"
     ]
@@ -1144,7 +1144,7 @@
   },
   "点数": {
     "en": "TomeScript",
-    "ja": "アラガントームストーン",
+    "ja": "トークン",
     "$files": [
       "components\\custom-controls\\TomeScriptButton.vue"
     ]
@@ -1270,7 +1270,7 @@
   },
   "兑换道具统计": {
     "en": "Exchanges",
-    "ja": "トームストーン交換アイテム集計",
+    "ja": "トークン交換アイテム集計",
     "$files": [
       "components\\ft-helper\\StatisticsPanel.vue"
     ]
