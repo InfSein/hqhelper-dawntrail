@@ -49,8 +49,6 @@ export function useNbbCal() {
             if (!count) continue
             calMap[item] = [item, count, recipeMap[item], false];
         }
-        console.log('recipeMap:', recipeMap)
-        console.log('calMap:', calMap)
         return doCal(calMap);
     }
 
@@ -93,7 +91,11 @@ export function useNbbCal() {
         }
     }
 
-    /** 获取可以兑换的道具jsmap */
+    /**
+     * 获取可以兑换的道具jsmap
+     * @returns Record<number, ItemTradeInfo>
+     *  * key: 兑换所得道具的 itemID
+     */
     const getTradeMap = () => {
         const map = {} as Record<number, ItemTradeInfo>
         for (const patch in config) {
