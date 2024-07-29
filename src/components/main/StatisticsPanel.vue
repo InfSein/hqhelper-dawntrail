@@ -212,6 +212,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
         <div class="container">
           <ItemList
             :items="aethersands"
+            :list-height="isMobile ? undefined : 120"
           />
         </div>
       </GroupBox>
