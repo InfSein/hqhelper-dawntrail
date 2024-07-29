@@ -56,6 +56,10 @@
   font-size: var(--n-title-font-size);
   font-weight: var(--n-title-font-weight);
 }
+.card-title-extra {
+  margin-left: 5px;
+  font-size: var(--n-font-size);
+}
 .card-title {
   display: flex;
   align-items: center;

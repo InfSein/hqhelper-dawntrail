@@ -98,6 +98,19 @@ const aethersands = computed(() => {
 })
 
 /**
+ * 统计采集品时的目标统计表。
+ * 在开启了`hidePrecraftGatherings`时，将从`直接素材`而非`基础素材`中获取统计数据。
+ */
+const getGatheringBase = () => {
+  console.log('hidePrecraftGatherings.value:', hidePrecraftGatherings.value)
+  if (hidePrecraftGatherings.value) {
+    return props.statistics.lv1
+  } else {
+    return props.statistics.lvBase
+  }
+}
+
+/**
  * 表示限时采集品统计。
  */
 const gatheringsTimed = computed(() => {
@@ -105,11 +118,12 @@ const gatheringsTimed = computed(() => {
     return [] as ItemInfo[]
   }
   const gathers = []
-  for (const id in props.statistics.lvBase) {
+  const gatheringBase = getGatheringBase()
+  for (const id in gatheringBase) {
     try {
       const _id = parseInt(id)
       if (props.limitedGatherings.includes(_id) && !props.aethersandGatherings?.includes(_id)) {
-        const item = props.statistics.lvBase[id]
+        const item = gatheringBase[id]
         gathers.push(getItemInfo(item))
       }
     } catch (error) {
@@ -127,11 +141,12 @@ const gatheringsCommon = computed(() => {
     return [] as ItemInfo[]
   }
   const gathers = []
-  for (const id in props.statistics.lvBase) {
+  const gatheringBase = getGatheringBase()
+  for (const id in gatheringBase) {
     try {
       const _id = parseInt(id)
       if (props.normalGatherings.includes(_id)) {
-        const item = props.statistics.lvBase[id]
+        const item = gatheringBase[id]
         gathers.push(getItemInfo(item))
       }
     } catch (error) {
@@ -167,7 +182,7 @@ const crystals = computed(() => {
       <div class="pre">
         <div class="preset-item">
           <n-switch v-model:value="hidePrecraftGatherings" :round="false" size="small" />
-          <div style="margin-left: 3px;">{{ t('采集统计不重复计算半成品的素材') }}</div>
+          <div>{{ t('采集统计不显示半成品需要的素材') }}</div>
         </div>
       </div>
       <div class="wrapper">
@@ -235,8 +250,10 @@ const crystals = computed(() => {
 
   .preset-item {
     width: fit-content;
+    line-height: 1.2;
     display: flex;
     align-items: center;
+    gap: 5px;
     padding: 3px;
     border: 1px solid var(--n-color-target);
     border-radius: var(--n-border-radius);
