@@ -48,6 +48,7 @@ const tomeScriptItems = computed(() => {
   for (const id in props.statistics.lvBase) {
     try {
       const _id = parseInt(id)
+      if (props.aethersandGatherings?.length && props.aethersandGatherings.includes(_id)) continue
       if (tradeMap[_id]) {
         const item = props.statistics.lvBase[id]
         items.push(getItemInfo(item))
