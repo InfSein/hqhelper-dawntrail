@@ -3,8 +3,9 @@ import { ref } from 'vue';
 import item from '@/assets/data/unpacks/item.json'
 import recipe from '@/assets/data/unpacks/recipe.json'
 import hqConfig from '@/assets/data/unpacks/hq-config.json'
-import { Cal, type IHqConfig } from './nbb-cal-v5'
+import { Cal, type CostCHS, type IHqConfig } from './nbb-cal-v5'
 import type { GearSelections } from '@/models/gears'
+import type { ItemTradeInfo } from './item';
 
 
 export function useNbbCal() {
@@ -92,9 +93,28 @@ export function useNbbCal() {
         }
     }
 
-    const getTradeShops = (patch: string = '7.0') => {
-        const data = config[patch]
-        return data?.tradeShops; // todo - 也许可以在这里处理好兑换格式
+    /** 获取可以兑换的道具jsmap */
+    const getTradeMap = () => {
+        const map = {} as Record<number, ItemTradeInfo>
+        for (const patch in config) {
+            const trades = config[patch].tradeShops
+            trades?.forEach(trade => {
+                const itemID = trade.receiveId
+                if (itemID) {
+                    const costGlobal = {
+                        costId: trade.costId,
+                        costCount: trade.costCount
+                    }
+                    const costCHS = (trade.costCHS || costGlobal) as CostCHS
+                    map[itemID] = {
+                        receiveCount: trade.receiveCount,
+                        costGlobal: costGlobal,
+                        costCHS: costCHS
+                    }
+                }
+            })
+        }
+        return map
     }
 
     const getFoodAndTincs = () => {
@@ -134,6 +154,6 @@ export function useNbbCal() {
     }
 
     return {
-        doCal, getItem, getItemsName, calGearSelections, calFoodAndTincs, getSpecialItems, getTradeShops, getFoodAndTincs
+        doCal, getItem, getItemsName, calGearSelections, calFoodAndTincs, getSpecialItems, getTradeMap, getFoodAndTincs
     }
 }

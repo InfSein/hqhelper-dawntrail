@@ -131,6 +131,21 @@ const itemTailDescriptions = computed(() => {
   }
   return descriptions
 })
+const itemServer = computed(() => {
+  let server = userConfig.value.item_server
+  if (!server || server === 'auto') {
+    const lang = userConfig.value.language_ui
+    if (lang === 'zh') {
+      server = 'chs'
+    } else {
+      server = 'global'
+    }
+  }
+  return server
+})
+const itemTradeCost = computed(() => {
+  return itemServer.value === 'chs' ? props.itemInfo.tradeInfo?.costCHS : props.itemInfo.tradeInfo?.costGlobal
+})
 
 const iconSize = computed(() => {
   return (props.btnHeight || 34) - 7
@@ -249,6 +264,20 @@ const openInGarland = () => {
             </div>
           </div>
           <div class="extra">{{ t('※ 此处仅展示物品的{NQorHQ}属性', itemHasHQ ? 'HQ' : 'NQ') }}</div>
+        </div>
+        <div class="trade-descriptions" v-if="itemInfo.tradeInfo && itemTradeCost">
+          <div class="title">{{ t('兑换') }}</div>
+          <n-divider class="item-divider" />
+          <div class="content">
+            <div>{{ t('该物品也可以通过兑换获得：') }}</div>
+            <div class="item">
+              <ItemSpan :item-info="getItemInfo(itemTradeCost.costId)" />
+              <div class="count">
+                <span> x{{ itemTradeCost.costCount }}</span>
+                <span v-if="itemInfo.tradeInfo.receiveCount > 1">{{ t('每次兑换可获得{receive}个', itemInfo.tradeInfo.receiveCount) }}</span>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="recipe-descriptions" v-if="itemInfo.craftRequires.length">
           <div class="title">{{ t('制作配方') }}</div>
@@ -435,6 +464,15 @@ const openInGarland = () => {
       .extra {
         font-size: calc(var(--n-font-size) - 2px);
         margin: 2px 0 5px 0;
+      }
+    }
+    .trade-descriptions {
+      line-height: 1.2;
+
+      .content .item {
+        margin-left: 1em;
+        display: flex;
+        align-items: center;
       }
     }
     .recipe-descriptions {
