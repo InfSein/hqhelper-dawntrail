@@ -191,7 +191,7 @@ const crystals = computed(() => {
           <div class="container">
             <ItemList
               :items="tomeScriptItems"
-              :list-height="isMobile ? undefined : 250"
+              :list-height="isMobile ? undefined : 245"
             />
           </div>
         </GroupBox>
@@ -200,7 +200,7 @@ const crystals = computed(() => {
           <div class="container">
             <ItemList
               :items="commonPrecrafts"
-              :list-height="isMobile ? undefined : 250"
+              :list-height="isMobile ? undefined : 245"
             />
           </div>
         </GroupBox>
@@ -217,7 +217,7 @@ const crystals = computed(() => {
           <div class="container">
             <ItemList
               :items="gatheringsCommon"
-              :list-height="isMobile ? undefined : 250"
+              :list-height="isMobile ? undefined : 245"
             />
           </div>
         </GroupBox>
@@ -226,7 +226,7 @@ const crystals = computed(() => {
           <div class="container">
             <ItemList
               :items="gatheringsTimed"
-              :list-height="isMobile ? undefined : 250"
+              :list-height="isMobile ? undefined : 245"
             />
           </div>
         </GroupBox>
@@ -235,7 +235,7 @@ const crystals = computed(() => {
           <div class="container">
             <ItemList
               :items="crystals"
-              :list-height="isMobile ? undefined : 250"
+              :list-height="isMobile ? undefined : 245"
             />
           </div>
         </GroupBox>
