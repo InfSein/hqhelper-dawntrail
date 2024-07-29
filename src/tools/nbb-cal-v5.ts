@@ -250,7 +250,7 @@ export class Cal {
                 const shardId = shard[i];
                 if (shardId <= 0) continue;
                 const item = this.itemData[shardId];
-                const count = shard[i + 1];
+                const count = mkc * parseInt(shard[i + 1]);
                 if (reMap[shardId]) {
                     const shardCount2 = parseInt(reMap[shardId]['need']) + count;
                     reMap[shardId].need = shardCount2;
