@@ -103,7 +103,6 @@ const aethersands = computed(() => {
  * 在开启了`hidePrecraftGatherings`时，将从`直接素材`而非`基础素材`中获取统计数据。
  */
 const getGatheringBase = () => {
-  console.log('hidePrecraftGatherings.value:', hidePrecraftGatherings.value)
   if (hidePrecraftGatherings.value) {
     return props.statistics.lv1
   } else {

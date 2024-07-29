@@ -26,7 +26,6 @@ const recipes = ref<any>({})
 const initialize = () => {
   const { recipeMap } = getFoodAndTincs()
   recipes.value = recipeMap
-  console.log('initialized, recipeMap:', recipeMap)
 }
 initialize()
 
@@ -72,7 +71,6 @@ fixItemSelections()
 
 const statistics = computed(() => {
   const value = calFoodAndTincs(workState.value.itemSelected, recipes.value)
-  console.log('statistics:', value)
   return value
 })
 const specialItems = computed(() => {
