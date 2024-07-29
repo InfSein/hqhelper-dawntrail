@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
+import {
+  NSwitch
+} from 'naive-ui'
 import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemList from '../custom-controls/ItemList.vue'
+import { useNbbCal } from '@/tools/use-nbb-cal'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -31,11 +35,28 @@ const props = defineProps({
   }
 })
 
+const hidePrecraftGatherings = defineModel<boolean | undefined>('hidePrecraftGatherings', { required: true })
+
+const { getTradeMap } = useNbbCal()
+const tradeMap = getTradeMap()
+
 /**
  * 表示需要用亚拉戈神典石或工票兑换的道具。
  */
 const tomeScriptItems = computed(() => {
-  return [] // todo
+  const items = []
+  for (const id in props.statistics.lvBase) {
+    try {
+      const _id = parseInt(id)
+      if (tradeMap[_id]) {
+        const item = props.statistics.lvBase[id]
+        items.push(getItemInfo(item))
+      }
+    } catch (error) {
+      console.warn('[compute.gatheringsTimed] Error processing item ' + id + ':', error)
+    }
+  }
+  return items
 })
 
 /**
@@ -143,6 +164,12 @@ const crystals = computed(() => {
         <span class="card-title-text">{{ t('查看统计') }}</span>
       </template>
 
+      <div class="pre">
+        <div class="preset-item">
+          <n-switch v-model:value="hidePrecraftGatherings" :round="false" size="small" />
+          <div style="margin-left: 3px;">{{ t('采集统计不重复计算半成品的素材') }}</div>
+        </div>
+      </div>
       <div class="wrapper">
         <GroupBox id="tome-script-group" class="group" title-background-color="var(--n-color-embedded)">
           <template #title>{{ t('兑换道具统计') }}</template>
@@ -203,6 +230,18 @@ const crystals = computed(() => {
 </template>
 
 <style scoped>
+.pre {
+  margin-bottom: 15px;
+
+  .preset-item {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    border: 1px solid var(--n-color-target);
+    border-radius: var(--n-border-radius);
+  }
+}
 .wrapper {
   row-gap: 15px;
   column-gap: 10px;
