@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
+import {
+  NSwitch
+} from 'naive-ui'
 import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemList from '../custom-controls/ItemList.vue'
+import { useNbbCal } from '@/tools/use-nbb-cal'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -31,11 +35,29 @@ const props = defineProps({
   }
 })
 
+const hidePrecraftGatherings = defineModel<boolean | undefined>('hidePrecraftGatherings', { required: true })
+
+const { getTradeMap } = useNbbCal()
+const tradeMap = getTradeMap()
+
 /**
  * 表示需要用亚拉戈神典石或工票兑换的道具。
  */
 const tomeScriptItems = computed(() => {
-  return [] // todo
+  const items = []
+  for (const id in props.statistics.lvBase) {
+    try {
+      const _id = parseInt(id)
+      if (props.aethersandGatherings?.length && props.aethersandGatherings.includes(_id)) continue
+      if (tradeMap[_id]) {
+        const item = props.statistics.lvBase[id]
+        items.push(getItemInfo(item))
+      }
+    } catch (error) {
+      console.warn('[compute.gatheringsTimed] Error processing item ' + id + ':', error)
+    }
+  }
+  return items
 })
 
 /**
@@ -77,6 +99,18 @@ const aethersands = computed(() => {
 })
 
 /**
+ * 统计采集品时的目标统计表。
+ * 在开启了`hidePrecraftGatherings`时，将从`直接素材`而非`基础素材`中获取统计数据。
+ */
+const getGatheringBase = () => {
+  if (hidePrecraftGatherings.value) {
+    return props.statistics.lv1
+  } else {
+    return props.statistics.lvBase
+  }
+}
+
+/**
  * 表示限时采集品统计。
  */
 const gatheringsTimed = computed(() => {
@@ -84,11 +118,12 @@ const gatheringsTimed = computed(() => {
     return [] as ItemInfo[]
   }
   const gathers = []
-  for (const id in props.statistics.lvBase) {
+  const gatheringBase = getGatheringBase()
+  for (const id in gatheringBase) {
     try {
       const _id = parseInt(id)
       if (props.limitedGatherings.includes(_id) && !props.aethersandGatherings?.includes(_id)) {
-        const item = props.statistics.lvBase[id]
+        const item = gatheringBase[id]
         gathers.push(getItemInfo(item))
       }
     } catch (error) {
@@ -106,11 +141,12 @@ const gatheringsCommon = computed(() => {
     return [] as ItemInfo[]
   }
   const gathers = []
-  for (const id in props.statistics.lvBase) {
+  const gatheringBase = getGatheringBase()
+  for (const id in gatheringBase) {
     try {
       const _id = parseInt(id)
       if (props.normalGatherings.includes(_id)) {
-        const item = props.statistics.lvBase[id]
+        const item = gatheringBase[id]
         gathers.push(getItemInfo(item))
       }
     } catch (error) {
@@ -143,13 +179,19 @@ const crystals = computed(() => {
         <span class="card-title-text">{{ t('查看统计') }}</span>
       </template>
 
+      <div class="pre">
+        <div class="preset-item">
+          <n-switch v-model:value="hidePrecraftGatherings" :round="false" size="small" />
+          <div>{{ t('采集统计不显示半成品需要的素材') }}</div>
+        </div>
+      </div>
       <div class="wrapper">
         <GroupBox id="tome-script-group" class="group" title-background-color="var(--n-color-embedded)">
           <template #title>{{ t('兑换道具统计') }}</template>
           <div class="container">
             <ItemList
               :items="tomeScriptItems"
-              :list-height="isMobile ? undefined : 250"
+              :list-height="isMobile ? undefined : 245"
             />
           </div>
         </GroupBox>
@@ -158,7 +200,7 @@ const crystals = computed(() => {
           <div class="container">
             <ItemList
               :items="commonPrecrafts"
-              :list-height="isMobile ? undefined : 250"
+              :list-height="isMobile ? undefined : 245"
             />
           </div>
         </GroupBox>
@@ -175,7 +217,7 @@ const crystals = computed(() => {
           <div class="container">
             <ItemList
               :items="gatheringsCommon"
-              :list-height="isMobile ? undefined : 250"
+              :list-height="isMobile ? undefined : 245"
             />
           </div>
         </GroupBox>
@@ -184,7 +226,7 @@ const crystals = computed(() => {
           <div class="container">
             <ItemList
               :items="gatheringsTimed"
-              :list-height="isMobile ? undefined : 250"
+              :list-height="isMobile ? undefined : 245"
             />
           </div>
         </GroupBox>
@@ -193,7 +235,7 @@ const crystals = computed(() => {
           <div class="container">
             <ItemList
               :items="crystals"
-              :list-height="isMobile ? undefined : 250"
+              :list-height="isMobile ? undefined : 245"
             />
           </div>
         </GroupBox>
@@ -203,6 +245,20 @@ const crystals = computed(() => {
 </template>
 
 <style scoped>
+.pre {
+  margin-bottom: 15px;
+
+  .preset-item {
+    width: fit-content;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px;
+    border: 1px solid var(--n-color-target);
+    border-radius: var(--n-border-radius);
+  }
+}
 .wrapper {
   row-gap: 15px;
   column-gap: 10px;

@@ -376,14 +376,14 @@ defineExpose({
           <tr>
             <td>
               <GearSlot
-                slot-icon-src="~ApiBase/image/game-gear-slot/mainhand.png"
+                slot-icon-src="./image/game-gear-slot/mainhand.png"
                 :slot-description="t('武器/工具：主手')"
               />
             </td>
             <td><Stepper v-model:value="MainHand" :disabled="disableWeapon" /></td>
             <td>
               <GearSlot
-                slot-icon-src="~ApiBase/image/game-gear-slot/offhand.png"
+                slot-icon-src="./image/game-gear-slot/offhand.png"
                 :slot-description="t('武器/工具：副手')"
               />
             </td>
@@ -397,14 +397,14 @@ defineExpose({
           <tr>
             <td style="min-width: 40px;">
               <GearSlot
-                slot-icon-src="~ApiBase/image/game-gear-slot/head.png"
+                slot-icon-src="./image/game-gear-slot/head.png"
                 :slot-description="t('防具：头部')"
               />
             </td>
             <td><Stepper v-model:value="HeadAttire" :disabled="disableAttire" /></td>
             <td style="min-width: 40px;">
               <GearSlot
-                slot-icon-src="~ApiBase/image/game-gear-slot/ear.png"
+                slot-icon-src="./image/game-gear-slot/ear.png"
                 :slot-description="t('首饰：耳坠')"
               />
             </td>
@@ -414,14 +414,14 @@ defineExpose({
           <tr>
             <td>
               <GearSlot
-                slot-icon-src="~ApiBase/image/game-gear-slot/body.png"
+                slot-icon-src="./image/game-gear-slot/body.png"
                 :slot-description="t('防具：身体')"
               />
             </td>
             <td><Stepper v-model:value="BodyAttire" :disabled="disableAttire" /></td>
             <td>
               <GearSlot
-                slot-icon-src="~ApiBase/image/game-gear-slot/neck.png"
+                slot-icon-src="./image/game-gear-slot/neck.png"
                 :slot-description="t('首饰：项链')"
               />
             </td>
@@ -431,14 +431,14 @@ defineExpose({
           <tr>
             <td>
               <GearSlot
-                slot-icon-src="~ApiBase/image/game-gear-slot/hands.png"
+                slot-icon-src="./image/game-gear-slot/hands.png"
                 :slot-description="t('防具：手部')"
               />
             </td>
             <td><Stepper v-model:value="HandsAttire" :disabled="disableAttire" /></td>
             <td>
               <GearSlot
-                slot-icon-src="~ApiBase/image/game-gear-slot/wrist.png"
+                slot-icon-src="./image/game-gear-slot/wrist.png"
                 :slot-description="t('首饰：手镯')"
               />
             </td>
@@ -448,14 +448,14 @@ defineExpose({
           <tr>
             <td>
               <GearSlot
-                slot-icon-src="~ApiBase/image/game-gear-slot/legs.png"
+                slot-icon-src="./image/game-gear-slot/legs.png"
                 :slot-description="t('防具：腿部')"
               />
             </td>
             <td><Stepper v-model:value="LegsAttire" :disabled="disableAttire" /></td>
             <td>
               <GearSlot
-                slot-icon-src="~ApiBase/image/game-gear-slot/ring.png"
+                slot-icon-src="./image/game-gear-slot/ring.png"
                 :slot-description="t('首饰：戒指')"
               />
             </td>
@@ -465,7 +465,7 @@ defineExpose({
           <tr>
             <td>
               <GearSlot
-                slot-icon-src="~ApiBase/image/game-gear-slot/feet.png"
+                slot-icon-src="./image/game-gear-slot/feet.png"
                 :slot-description="t('防具：脚部')"
               />
             </td>
