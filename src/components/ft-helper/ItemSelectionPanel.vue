@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 import {
-  NCard, NTabs, NTabPane
+  NButton, NCard, NIcon, NTabs, NTabPane
 } from 'naive-ui'
+import {
+  DeleteSweepRound
+} from '@vicons/material'
 import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
 import XivFARImage from '../custom-controls/XivFARImage.vue'
 import ItemSelector from '../custom-controls/ItemSelector.vue'
@@ -17,6 +20,11 @@ const itemSelected = defineModel<Record<number, number>>('itemSelected', { requi
 const { getFoodAndTincs } = useNbbCal()
 const foodAndTincs = computed(() => getFoodAndTincs())
 
+const handleClearSelections = () => {
+  for (const id in itemSelected.value) {
+    itemSelected.value[id] = 0
+  }
+}
 </script>
 
 <template>
@@ -82,6 +90,14 @@ const foodAndTincs = computed(() => getFoodAndTincs())
         </n-tab-pane>
       </n-tabs>
 
+      <div class="actions">
+        <n-button :title="t('清空已选择的食物和爆发药')" @click="handleClearSelections">
+          <template #icon>
+            <n-icon><DeleteSweepRound /></n-icon>
+          </template>
+          {{ t('清空') }}
+        </n-button>
+      </div>
       
     </FoldableCard>
   </div>
@@ -97,6 +113,14 @@ const foodAndTincs = computed(() => getFoodAndTincs())
   .item-btn-container {
     display: flex;
     flex-direction: column;
+  }
+}
+.actions {
+  display: flex;
+  margin-top: 1em;
+
+  button {
+    margin-left: auto;
   }
 }
 

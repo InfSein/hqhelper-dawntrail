@@ -3,6 +3,7 @@ export interface UserConfigModel {
   theme: 'light' | 'dark' | 'system'
   language_ui: 'zh' | 'en' | 'ja'
   language_item: 'auto' | 'zh' | 'en' | 'ja'
+  item_server: 'auto' | 'chs' | 'global'
   // enhancements
   disable_patchcard_autofold: boolean
   disable_jobbtn_doubleclick: boolean
@@ -22,6 +23,7 @@ const defaultUserConfig: UserConfigModel = {
   theme: 'light',
   language_ui: 'zh',
   language_item: 'auto',
+  item_server: 'auto',
   disable_patchcard_autofold: false,
   disable_jobbtn_doubleclick: false,
   disable_workstate_cache: false,

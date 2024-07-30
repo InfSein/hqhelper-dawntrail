@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { computed, inject, ref, type PropType, type Ref } from 'vue'
 import {
-  NButton, NEmpty, NFlex, NIcon, NInput, NScrollbar
+  NButton, NEmpty, NFlex, NIcon, NInput
 } from 'naive-ui'
 import {
   CodeSharp, ViewListSharp, SettingsBackupRestoreSharp
@@ -98,7 +98,7 @@ const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
         {{ t('返回') }}
       </n-button>
     </div>
-    <n-scrollbar v-if="mode === 'default'" trigger="none" :style="getScrollbarStyles()">
+    <div v-if="mode === 'default'" class="scroll-container" :style="getScrollbarStyles()">
       <n-flex vertical :size="[5,5]">
         <ItemButton
           v-for="(item, index) in items"
@@ -108,7 +108,7 @@ const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
         >
         </ItemButton>
       </n-flex>
-    </n-scrollbar>
+    </div>
     <n-input
       v-else-if="mode === 'list'"
       v-model:value="listValue"
@@ -127,6 +127,9 @@ const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
 <style scoped>
 :deep(.n-empty__description) {
   text-align: center;
+}
+.scroll-container {
+  overflow-y: scroll;
 }
 .list-container {
   display: flex;
@@ -148,14 +151,14 @@ const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
 
 /* Desktop only */
 @media screen and (min-width: 768px) {
-  :deep(.n-scrollbar-container) {
-    padding: 0 1em !important;
+  .scroll-container {
+    padding: 0 0.5em !important;
   }
 }
 
 /* Mobile only */
 @media screen and (max-width: 767px) {
-  :deep(.n-scrollbar-container) {
+  .scroll-container {
     padding: 0 !important;
   }
 }

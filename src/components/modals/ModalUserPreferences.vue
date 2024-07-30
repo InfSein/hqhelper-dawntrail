@@ -10,6 +10,7 @@ import {
   SettingsSharp,
   TravelExploreRound,
   TrendingUpRound,
+  ColorLensRound,
   MemoryRound,
   WifiRound,
   SaveOutlined
@@ -57,18 +58,6 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
     text: t('通用'),
     children: [
       {
-        key: 'theme',
-        label: t('主题'),
-        descriptions: [],
-        warnings: [],
-        type: 'radio-group',
-        options: [
-          { value: 'system', label: t('跟随系统') },
-          { value: 'light', label: t('浅色') },
-          { value: 'dark', label: t('深色') }
-        ]
-      },
-      {
         key: 'language_ui',
         label: t('界面语言'),
         descriptions: [],
@@ -83,16 +72,65 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
       {
         key: 'language_item',
         label: t('物品语言'),
-        descriptions: [],
+        descriptions: [
+          {
+            value: t('如果选择“自动”，物品语言将跟随“界面语言”的设置。'),
+            class: '',
+            style: ''
+          }
+        ],
         warnings: [],
         type: 'radio-group',
         options: [
-          { value: 'auto', label: t('跟随界面语言') },
+          { value: 'auto', label: t('自动') },
           { value: 'zh', label: '简体中文' },
           { value: 'en', label: 'English' },
           { value: 'ja', label: '日本語' }
         ]
       },
+      {
+        key: 'item_server',
+        label: t('服务器'),
+        descriptions: [
+          {
+            value: t('选择您游戏账号所属的服务器。这将会影响一些统计数据，比如点数道具的兑换价格。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('如果选择“自动”，程序会根据您在“界面语言”的设置自动判断。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'radio-group',
+        options: [
+          { value: 'auto', label: t('自动') },
+          { value: 'chs', label: t('国服') },
+          { value: 'global', label: t('国际服') }
+        ]
+      },
+    ]
+  },
+  /* Appearance */
+  {
+    key: 'appearance',
+    icon: ColorLensRound,
+    text: t('外观'),
+    children: [
+      {
+        key: 'theme',
+        label: t('主题'),
+        descriptions: [],
+        warnings: [],
+        type: 'radio-group',
+        options: [
+          { value: 'system', label: t('跟随系统') },
+          { value: 'light', label: t('浅色') },
+          { value: 'dark', label: t('深色') }
+        ]
+      }
     ]
   },
   /* Enhancements */
@@ -274,8 +312,8 @@ const handleSave = () => {
         >
           <template #tab>
             <div class="tab-title">
-              <n-icon><component :is="group.icon" /></n-icon>
-              <span>{{ group.text }}</span>
+              <n-icon :size="isMobile ? 20 : 14"><component :is="group.icon" /></n-icon>
+              <span v-if="!isMobile">{{ group.text }}</span>
             </div>
           </template>
           <div class="items-container" :style="{ maxHeight: isMobile ? '225px' : '220px' }">

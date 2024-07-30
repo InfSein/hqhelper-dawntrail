@@ -18,6 +18,7 @@ const { calFoodAndTincs, getFoodAndTincs, getSpecialItems } = useNbbCal()
 
 const workState = ref({
   patch: '7.0',
+  hidePrecraftGatherings: false,
   itemSelected: {} as Record<number, number>
 })
 const recipes = ref<any>({})
@@ -25,7 +26,6 @@ const recipes = ref<any>({})
 const initialize = () => {
   const { recipeMap } = getFoodAndTincs()
   recipes.value = recipeMap
-  console.log('initialized, recipeMap:', recipeMap)
 }
 initialize()
 
@@ -71,7 +71,6 @@ fixItemSelections()
 
 const statistics = computed(() => {
   const value = calFoodAndTincs(workState.value.itemSelected, recipes.value)
-  console.log('statistics:', value)
   return value
 })
 const specialItems = computed(() => {
@@ -94,6 +93,7 @@ const specialItems = computed(() => {
     </div>
     <div id="right-layout">
       <StatisticsPanel
+        v-model:hide-precraft-gatherings="workState.hidePrecraftGatherings"
         :statistics="statistics"
         :normal-gatherings="specialItems.normalGathering"
         :limited-gatherings="specialItems.limitedGathering"

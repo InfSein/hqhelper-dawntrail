@@ -8,10 +8,12 @@ import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemButton from '../custom-controls/ItemButton.vue'
 import ItemList from '../custom-controls/ItemList.vue'
 import TomeScriptButton from '../custom-controls/TomeScriptButton.vue'
-import { getItemInfo, type ItemInfo } from '@/tools/item'
+import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
+import type { UserConfigModel } from '@/models/user-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const props = defineProps({
   statistics: {
@@ -41,8 +43,25 @@ const props = defineProps({
   alkahests: {
     type: Array as () => number[] | undefined,
     required: true
+  },
+  tradeMap: {
+    type: Object as () => Record<number, ItemTradeInfo>,
+    required: true
   }
 })
+
+const getTradeCost = (itemTradeInfo: ItemTradeInfo) => {
+  let server = userConfig.value.item_server
+  if (!server || server === 'auto') {
+    const lang = userConfig.value.language_ui
+    if (lang === 'zh') {
+      server = 'chs'
+    } else {
+      server = 'global'
+    }
+  }
+  return server === 'chs' ? itemTradeInfo?.costCHS : itemTradeInfo?.costGlobal
+}
 
 /** 
  * 要高亮显示的素材组。
@@ -64,6 +83,31 @@ const reagents = computed(() => {
     crafts.push(placeHolder);
   }
   return crafts
+})
+
+const tomeScriptItems = computed(() => {
+  const items = {} as Record<number, ItemInfo[]>
+  if (!props.tradeMap) {
+    return items
+  }
+  for (const id in props.statistics.lvBase) {
+    try {
+      const _id = parseInt(id)
+      if (props.aethersandGatherings?.length && props.aethersandGatherings.includes(_id)) continue
+      const itemTradeInfo = props.tradeMap[_id]
+      if (itemTradeInfo) {
+        const costId = getTradeCost(itemTradeInfo).costId
+        if (costId === 26807) continue // 忽略双色宝石
+        if (!items[costId]) items[costId] = []
+        const item = props.statistics.lvBase[id]
+        items[costId].push(getItemInfo(item))
+      }
+    } catch (error) {
+      console.warn('[compute.tomeScriptItems] Error processing item ' + id + ':', error)
+    }
+  }
+  // console.log('tomeScriptItems:', items, '\ntradeMap:', props.tradeMap)
+  return items
 })
 
 /**
@@ -204,7 +248,11 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
             :btn-color="reagentsBtnColors[index]"
           >
           </ItemButton>
-          <TomeScriptButton class="w-full h-full"></TomeScriptButton>
+          <TomeScriptButton
+            class="w-full h-full"
+            :items="tomeScriptItems"
+            :trade-map="tradeMap"
+          />
         </div>
       </GroupBox>
       <GroupBox id="aethersands-group" class="group" title-background-color="var(--n-color-embedded)">
@@ -212,6 +260,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
         <div class="container">
           <ItemList
             :items="aethersands"
+            :list-height="isMobile ? undefined : 120"
           />
         </div>
       </GroupBox>

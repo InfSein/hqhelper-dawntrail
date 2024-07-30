@@ -35,6 +35,10 @@ import XivItemNameZHTemp from '@/assets/data/translations/xiv-item-names.json'
 import XivItemDescZHTemp from '@/assets/data/translations/xiv-item-descriptions.json'
 import XivRecipes from '@/assets/data/unpacks/recipe.json'
 import { deepCopy } from '.'
+import { useNbbCal } from './use-nbb-cal'
+
+const { getTradeMap } = useNbbCal()
+const tradeMap = getTradeMap()
 
 export interface ItemInfo {
   id: number
@@ -72,7 +76,19 @@ export interface ItemInfo {
   /** 制作此道具需要的直接道具 (从道具的第一个关联配方中解析) */
   craftRequires: {
     id: number, count: number
-  }[]
+  }[],
+  tradeInfo: ItemTradeInfo | undefined
+}
+export interface ItemTradeInfo {
+  receiveCount: number,
+  costGlobal: {
+    costId: number,
+    costCount: number
+  },
+  costCHS: {
+    costId: number,
+    costCount: number
+  }
 }
 
 /**
@@ -83,7 +99,7 @@ export interface ItemInfo {
 export const getItemInfo = (item: number | CalculatedItem) => {
   // * 尝试从items表中获取物品完整信息
   let itemID = 0, itemAmount = 0
-  if (typeof item === 'number') {
+  if (typeof item === 'number' || typeof item === 'string') {
     itemID = item
   } else {
     itemID = item.id
@@ -174,6 +190,9 @@ export const getItemInfo = (item: number | CalculatedItem) => {
       }
     }
   }
+
+  // * 组装物品兑换信息
+  itemInfo.tradeInfo = tradeMap?.[itemInfo.id]
 
   // * 组装完毕，返回结果
   return itemInfo

@@ -1212,13 +1212,6 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "跟随界面语言": {
-    "en": "Auto",
-    "ja": "システム設定に合わせる",
-    "$files": [
-      "components\\modals\\ModalUserPreferences.vue"
-    ]
-  },
   "访问的页面不存在。": {
     "en": "Page does not exist.",
     "ja": "アクセスされたページは存在しません。",
@@ -1343,6 +1336,97 @@
     "ja": "※ 今が表示されているのはHqHelperのサブページです。",
     "$files": [
       "components\\subs\\RouterCard.vue"
+    ]
+  },
+  "兑换": {
+    "en": "Exchanges",
+    "ja": "兑换",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "该物品可以通过兑换获得：": {
+    "en": "This item could be traded by:",
+    "ja": "该物品可以通过兑换获得：",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "每次兑换可获得{receive}个": {
+    "en": "Could get {receive} each exchanging.",
+    "ja": "每次兑换可获得{receive}个",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "清空已选择的食物和爆发药": {
+    "en": "Clear all food and tinctures selected",
+    "ja": "清空已选择的食物和爆发药",
+    "$files": [
+      "components\\ft-helper\\ItemSelectionPanel.vue"
+    ]
+  },
+  "采集统计不显示半成品需要的素材": {
+    "en": "Hide materials of precrafts",
+    "ja": "采集统计不显示半成品需要的素材",
+    "$files": [
+      "components\\ft-helper\\StatisticsPanel.vue"
+    ]
+  },
+  "如果选择“自动”，物品语言将跟随“界面语言”的设置。": {
+    "en": "It would follow the settings of \"UI Language\" if you select \"Auto\"",
+    "ja": "如果选择“自动”，物品语言将跟随“界面语言”的设置。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "自动": {
+    "en": "Auto",
+    "ja": "自动",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "服务器": {
+    "en": "Item Server",
+    "ja": "服务器",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "选择您游戏账号所属的服务器。这将会影响一些统计数据，比如点数道具的兑换价格。": {
+    "en": "Select the server of your game account. Selection would affect some statistics data, such as the price of exchangeable tokens.",
+    "ja": "选择您游戏账号所属的服务器。这将会影响一些统计数据，比如点数道具的兑换价格。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "如果选择“自动”，程序会根据您在“界面语言”的设置自动判断。": {
+    "en": "It would automatically determine by the setting of \"UI Language\" if you select \"Auto\".",
+    "ja": "如果选择“自动”，程序会根据您在“界面语言”的设置自动判断。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "国服": {
+    "en": "CHS",
+    "ja": "国服",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "国际服": {
+    "en": "Global",
+    "ja": "国际服",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "外观": {
+    "en": "Appearance",
+    "ja": "外观",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
     ]
   }
 }

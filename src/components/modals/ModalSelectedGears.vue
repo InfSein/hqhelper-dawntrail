@@ -135,31 +135,31 @@ const handleSave = () => {
                   <th>{{ t('词缀') }}</th>
                   <th>
                     <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/head.png" />
+                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/head.png" />
                       <span>{{ t('头部') }}</span>
                     </div>
                   </th>
                   <th>
                     <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/body.png" />
+                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/body.png" />
                       <span>{{ t('身体') }}</span>
                     </div>
                   </th>
                   <th>
                     <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/hands.png" />
+                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/hands.png" />
                       <span>{{ t('手部') }}</span>
                     </div>
                   </th>
                   <th>
                     <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/legs.png" />
+                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/legs.png" />
                       <span>{{ t('腿部') }}</span>
                     </div>
                   </th>
                   <th>
                     <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/feet.png" />
+                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/feet.png" />
                       <span>{{ t('脚部') }}</span>
                     </div>
                   </th>
@@ -240,25 +240,25 @@ const handleSave = () => {
                   <th>{{ t('词缀') }}</th>
                   <th>
                     <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/ear.png" />
+                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/ear.png" />
                       <span>{{ t('耳坠') }}</span>
                     </div>
                   </th>
                   <th>
                     <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/neck.png" />
+                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/neck.png" />
                       <span>{{ t('项链') }}</span>
                     </div>
                   </th>
                   <th>
                     <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/wrist.png" />
+                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/wrist.png" />
                       <span>{{ t('手镯') }}</span>
                     </div>
                   </th>
                   <th>
                     <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="~ApiBase/image/game-gear-slot/ring.png" />
+                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/ring.png" />
                       <span>{{ t('戒指') }}</span>
                     </div>
                   </th>

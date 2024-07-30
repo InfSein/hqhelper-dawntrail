@@ -54,13 +54,16 @@ const redirectToFoodAndTincPage = () => {
   router.push('/fthelper')
 }
 
-const menuItems = [
-  { key: 'ft-helper', label: t('食药计算'), icon: FastfoodOutlined, click: redirectToFoodAndTincPage },
-  { key: 'contact-us', label: t('联系我们'), icon: ContactlessSharp, click: displayContactModal },
-  { key: 'change-logs', label: t('更新日志'), hide: true, icon: EventNoteFilled, click: displayChangeLogsModal },
-  { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal },
-  { key: 'about-app', label: t('关于本作'), icon: InfoFilled, click: displayAboutAppModal },
-]
+const menuItems = computed(() => {
+  const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
+  return [
+    { key: 'ft-helper', label: t('食药计算'), hide: hideFTHelper, icon: FastfoodOutlined, click: redirectToFoodAndTincPage },
+    { key: 'contact-us', label: t('联系我们'), icon: ContactlessSharp, click: displayContactModal },
+    { key: 'change-logs', label: t('更新日志'), hide: true, icon: EventNoteFilled, click: displayChangeLogsModal },
+    { key: 'user-preferences', label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal },
+    { key: 'about-app', label: t('关于本作'), icon: InfoFilled, click: displayAboutAppModal },
+  ]
+})
 
 const openModal = (click?: (() => void)) => {
   // close menus first
