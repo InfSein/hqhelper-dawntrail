@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { computed, inject, ref, type PropType, type Ref } from 'vue'
 import {
-  NButton, NEmpty, NFlex, NIcon, NInput, NScrollbar
+  NButton, NEmpty, NFlex, NIcon, NInput
 } from 'naive-ui'
 import {
   CodeSharp, ViewListSharp, SettingsBackupRestoreSharp
