@@ -1,11 +1,14 @@
 <script lang="ts" setup>
-import { computed, inject, type Ref } from 'vue'
-import { NButton } from 'naive-ui'
+import { computed, inject, ref, type Ref } from 'vue'
+import { 
+  NButton, NDivider, NPopover
+} from 'naive-ui'
 import ItemSpan from './ItemSpan.vue'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const props = defineProps({
@@ -56,26 +59,60 @@ const tomeScripts = computed(() => {
 
 <template>
   <!-- todo - 增加一个popup，内含物品汇总和复制宏的操作按钮 -->
-  <n-button class="ts-btn" :title="t('点数')">
-    <div class="w-full flex-column align-right">
-      <p class="text">{{ t('点数') }}</p>
-      <div class="tome-scripts">
-        <div class="tome-script" v-for="(totalAmount, scriptID) in tomeScripts" :key="'tome-script-' + scriptID">
-          <span class="amount">{{ totalAmount }}</span>
-          <ItemSpan hide-name :item-info="getItemInfo(scriptID)" />
+  <n-popover
+    :placement="isMobile ? 'bottom' : 'right-start'"
+    :width="isMobile ? 'trigger' : undefined"
+    :style="{ maxWidth: isMobile ? 'unset' : '290px' }"
+  >
+    <template #trigger>
+      <n-button class="ts-btn" :title="t('点数')">
+        <div class="w-full flex-column align-right">
+          <p class="text">{{ t('点数') }}</p>
+          <div class="tome-scripts">
+            <div class="tome-script" v-for="(totalAmount, scriptID) in tomeScripts" :key="'tome-script-' + scriptID">
+              <span class="amount">{{ totalAmount }}</span>
+              <ItemSpan hide-name :item-info="getItemInfo(scriptID)" />
+            </div>
+            <div class="tome-script" v-if="!Object.keys(tomeScripts).length">
+              <span class="amount">x0</span>
+            </div>
+          </div>
         </div>
-        <div class="tome-script" v-if="!Object.keys(tomeScripts).length">
-          <span class="amount">x0</span>
+      </n-button>
+    </template>
+
+    <div class="pop-wrapper">
+      <div class="items">
+        <div class="item" v-for="(itemInfos, scriptID) in items" :key="'popup-tome-' + scriptID">
+          <div class="line">
+            <ItemSpan :item-info="getItemInfo(scriptID)" />
+            <div class="count"> x{{ tomeScripts[scriptID] }}</div>
+          </div>
+          <n-divider class="item-divider" />
+          <div class="content">
+            <div class="line" v-for="(itemInfo, index) in itemInfos" :key="'popup-tome-' + scriptID + '-' + index">
+              <ItemSpan :item-info="getItemInfo(itemInfo.id)" />
+              <div class="count"> x{{ itemInfo.amount }}</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </n-button>
+  </n-popover>
 </template>
 
 <style scoped>
 :deep(.n-button__content){
   width: 100%;
   height: 100%;
+}
+.item-divider {
+  margin: 0 2px;
+}
+.ts-btn {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
 }
 .text {
   white-space: nowrap;
@@ -91,6 +128,22 @@ const tomeScripts = computed(() => {
     display: flex;
     align-items: center;
     margin-left: auto;
+  }
+}
+.pop-wrapper {
+  .items {
+    line-height: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .item .content {
+      margin-left: 1em;
+    }
+    .item .line {
+      display: flex;
+      gap: 3px;
+    }
   }
 }
 </style>
