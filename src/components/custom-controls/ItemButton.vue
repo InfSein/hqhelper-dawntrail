@@ -269,7 +269,7 @@ const openInGarland = () => {
           <div class="title">{{ t('兑换') }}</div>
           <n-divider class="item-divider" />
           <div class="content">
-            <div>{{ t('该物品也可以通过兑换获得：') }}</div>
+            <div>{{ t('该物品可以通过兑换获得：') }}</div>
             <div class="item">
               <ItemSpan :item-info="getItemInfo(itemTradeCost.costId)" />
               <div class="count">
