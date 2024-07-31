@@ -246,6 +246,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
             :item-info="item"
             show-icon show-name show-amount
             :btn-color="reagentsBtnColors[index]"
+            pop-use-custom-width pop-max-width="85%"
           >
           </ItemButton>
           <TomeScriptButton

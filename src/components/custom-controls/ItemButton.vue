@@ -5,14 +5,27 @@ import {
 } from 'naive-ui'
 import XivFARImage from './XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
-import  { getItemInfo, type ItemInfo } from '@/tools/item'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import XivAttributes from '@/assets/data/xiv-attributes.json'
+import XivJobs from '@/assets/data/xiv-jobs.json'
+
+interface JobInfo {
+  job_id: number,
+  job_name_en: string,
+  job_name_zh: string,
+  job_name_ja: string,
+  job_icon_url: string
+}
+const jobMap = XivJobs as Record<number, JobInfo>
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
+const uiLanguage = computed(() => {
+  return userConfig.value.language_ui
+})
 const itemLanguage = computed(() => {
   if (userConfig.value.language_item !== 'auto') {
     return userConfig.value.language_item
@@ -31,6 +44,11 @@ interface ItemButtonProps {
   /** 按钮颜色 */
   btnColor?: string;
 
+  /** 悬浮窗使用自定义宽度 */
+  popUseCustomWidth?: boolean;
+  /** 悬浮窗的最大宽度 */
+  popMaxWidth?: string;
+
   /** 是否显示物品图标(可选,默认false) */
   showIcon?: boolean;
   /** 是否显示物品名称(可选,默认false) */
@@ -43,6 +61,18 @@ interface ItemButtonProps {
   disablePop?: boolean;
 }
 const props = defineProps<ItemButtonProps>()
+
+const getJobName = (jobInfo: JobInfo) => {
+  switch (uiLanguage.value) {
+    case 'ja':
+      return jobInfo?.job_name_ja || t('未知')
+    case 'en':
+      return jobInfo?.job_name_en || t('未知')
+    case 'zh':
+    default:
+      return jobInfo?.job_name_zh || t('未知')
+  }
+}
 
 const getItemName = () => {
   switch (itemLanguage.value) {
@@ -80,6 +110,7 @@ const getItemDescriptions = () => {
   }
 
   // * 处理特殊字符(好像只有E端有)
+  // 处理颜色字符
   description = description.replace(/\{\{color\|id=(\d+)\|([^}]+)\}\}/g, (match, id, text) => {
     let color = ''
     if (id == 504) color = 'orange'
@@ -90,6 +121,8 @@ const getItemDescriptions = () => {
       return text
     }
   })
+  // 处理斜体
+  description = description.replace(/\{\{Italic\|([^}]*)\}\}/g, '<span class="italic">$1</span>')
 
   const descs = description.split('<br>')
   return `<p>${descs.join('</p><p>')}</p>`
@@ -111,7 +144,7 @@ const getAttrName = (attrId: number) => {
   if (!attr) {
     return t('未知')
   }
-  switch (itemLanguage.value) {
+  switch (uiLanguage.value) {
     case 'ja':
       return attr.Name_ja
     case 'en':
@@ -177,9 +210,10 @@ const openInGarland = () => {
 <template>
   <n-popover
     v-if="itemInfo.id && !disablePop"
+    :trigger="isMobile ? 'click' : 'hover'"
     :placement="isMobile ? 'bottom' : 'right-start'"
-    :width="isMobile ? 'trigger' : undefined"
-    :style="{ maxWidth: isMobile ? 'unset' : '290px' }"
+    :width="popUseCustomWidth ? undefined : (isMobile ? 'trigger' : undefined)"
+    :style="{ maxWidth: popMaxWidth ?? (isMobile ? 'unset' : '290px') }"
   >
     <template #trigger>
       <n-button
@@ -237,35 +271,37 @@ const openInGarland = () => {
             />
             <p>{{ getItemTypeName() }}</p>
           </div>
-          <p>{{ t('[{patch}版本] [{id}]', { patch: itemInfo.patch, id: itemInfo.id }) }}</p>
+          <p>{{ t('[{id}] [{patch}版本] [品级:{ilv}]', { patch: itemInfo.patch, id: itemInfo.id, ilv: itemInfo.itemLevel }) }}</p>
         </div>
         <div class="main-descriptions" v-html="getItemDescriptions()"></div>
-        <div class="temp-attr-descriptions" v-if="itemInfo.tempAttrsProvided.length">
+        <div class="description-block" v-if="itemInfo.tempAttrsProvided.length">
           <div class="title">{{ t('效果') }}</div>
           <n-divider class="item-divider" />
-          <div class="content">
-            <div class="block hq" v-if="itemHasHQ">
-              <p
-                v-for="(attr, index) in itemInfo.tempAttrsProvided"
-                :key="'temp-attr-hq' + index"
-              >
-                <span class="attr-name">{{ getAttrName(attr[0]) }}</span>
-                <span> +{{ attr[4] }}% {{ t('(上限{})', attr[5]) }}</span>
-              </p>
-            </div>
-            <div class="block nq" v-else>
-              <p
-                v-for="(attr, index) in itemInfo.tempAttrsProvided"
-                :key="'temp-attr-hq' + index"
-              >
-                <span class="attr-name">{{ getAttrName(attr[0]) }}</span>
-                <span> +{{ attr[2] }}% {{ t('(上限{})', attr[3]) }}</span>
-              </p>
+          <div class="content" v-if="itemHasHQ">
+            <div
+              class="item"
+              v-for="(attr, index) in itemInfo.tempAttrsProvided"
+              :key="'temp-attr-hq' + index"
+            >
+              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
+              <div> +{{ attr[4] }}% {{ t('(上限{})', attr[5]) }}</div>
             </div>
           </div>
-          <div class="extra">{{ t('※ 此处仅展示物品的{NQorHQ}属性', itemHasHQ ? 'HQ' : 'NQ') }}</div>
+          <div class="content" v-else>
+            <div
+              class="item"
+              v-for="(attr, index) in itemInfo.tempAttrsProvided"
+              :key="'temp-attr-nq' + index"
+            >
+              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
+              <div> +{{ attr[2] }}% {{ t('(上限{})', attr[3]) }}</div>
+            </div>
+          </div>
+          <div class="content extra">
+            {{ t('※ 此处仅展示物品的{NQorHQ}属性', itemHasHQ ? 'HQ' : 'NQ') }}
+          </div>
         </div>
-        <div class="trade-descriptions" v-if="itemInfo.tradeInfo && itemTradeCost">
+        <div class="description-block" v-if="itemInfo.tradeInfo && itemTradeCost">
           <div class="title">{{ t('兑换') }}</div>
           <n-divider class="item-divider" />
           <div class="content">
@@ -274,13 +310,24 @@ const openInGarland = () => {
               <ItemSpan :item-info="getItemInfo(itemTradeCost.costId)" />
               <div class="count">
                 <span> x{{ itemTradeCost.costCount }}</span>
-                <span v-if="itemInfo.tradeInfo.receiveCount > 1">{{ t('每次兑换可获得{receive}个', itemInfo.tradeInfo.receiveCount) }}</span>
               </div>
+            </div>
+            <div class="item" v-if="itemInfo.tradeInfo.receiveCount > 1">
+              {{ t('每次兑换可获得{receive}个', itemInfo.tradeInfo.receiveCount) }}
             </div>
           </div>
         </div>
-        <div class="recipe-descriptions" v-if="itemInfo.craftRequires.length">
-          <div class="title">{{ t('制作配方') }}</div>
+        <div class="description-block" v-if="itemInfo.craftRequires.length">
+          <div class="title">
+            {{ t('制作') }}
+            <span class="extra">
+              {{ t('{lv}级{star}{job}配方', {
+                lv: itemInfo.craftInfo?.craftLevel,
+                star: '★'.repeat(itemInfo.craftInfo?.starCount || 0),
+                job: getJobName(jobMap[itemInfo.craftInfo?.jobId])
+              }) }}
+            </span>
+          </div>
           <n-divider class="item-divider" />
           <div class="content">
             <div
@@ -290,6 +337,25 @@ const openInGarland = () => {
             >
               <ItemSpan :item-info="getItemInfo(item.id)" />
               <div class="count"> x{{ item.count }}</div>
+            </div>
+            <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship && itemInfo.craftInfo?.thresholds?.control">
+              <div>{{ t('制作条件：') }}</div>
+              <div class="item">
+                <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship">
+                  {{ t('作业精度{value}', itemInfo.craftInfo?.thresholds?.craftsmanship) }}
+                </div>
+                <div v-if="itemInfo.craftInfo?.thresholds?.control">
+                  {{ t('加工精度{value}', itemInfo.craftInfo?.thresholds?.control) }}
+                </div>
+              </div>
+            </div>
+            <div class="other-attrs" v-if="(itemInfo.craftInfo?.yields || 1) > 1">
+              {{ t('每次制作会产出{yields}个成品', itemInfo.craftInfo?.yields) }}
+            </div>
+            <div class="other-attrs">
+              <div v-if="itemInfo.craftInfo?.masterRecipeId">{{ t('需要习得秘籍') }}</div>
+              <div v-if="!itemInfo.craftInfo?.qsable" class="red">{{ t('无法进行简易制作') }}</div>
+              <div v-if="!itemInfo.craftInfo?.hqable" class="red">{{ t('无法制作优质道具') }}</div>
             </div>
           </div>
         </div>
@@ -436,6 +502,7 @@ const openInGarland = () => {
       align-items: center;
       gap: 3px;
       line-height: 1;
+      flex-wrap: wrap;
 
       .item-type {
         display: flex;
@@ -466,28 +533,34 @@ const openInGarland = () => {
         margin: 2px 0 5px 0;
       }
     }
-    .trade-descriptions {
+    .description-block {
       line-height: 1.2;
 
+      .title {
+        font-weight: bold;
+
+        .extra {
+          margin-left: 3px;
+          font-weight: normal;
+          font-size: calc(var(--n-font-size) - 2px);
+        }
+      }
       .content .item {
         margin-left: 1em;
         display: flex;
         align-items: center;
+        gap: 3px;
       }
-    }
-    .recipe-descriptions {
-      line-height: 1.2;
-
-      .content {
-        margin-left: 1em;
-
-        .item {
-          display: flex;
-          align-items: center;
-        }
+      .content .other-attrs,
+      .content.extra {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        font-size: calc(var(--n-font-size) - 2px);
       }
     }
     .tail-descriptions {
+      margin-top: 5px;
       font-size: calc(var(--n-font-size) - 2px);
       line-height: 1;
     }

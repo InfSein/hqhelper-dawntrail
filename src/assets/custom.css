@@ -29,6 +29,9 @@
 .bold {
   font-weight: bold;
 }
+.italic {
+  font-style: italic;
+}
 .font-center {
   text-align: center;
 }

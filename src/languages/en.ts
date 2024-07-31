@@ -156,7 +156,7 @@ export default {
     "155": "We have started beta testing and provided equipment data for the new sets of crafter and gatherer in patch 7.0. If you encounter any problems, please provide feedback through the \"Contact\" section.",
     "156": "",
     "157": "",
-    "158": "[Patch{patch}] [{id}]",
+    "158": "[{id}] [Patch{patch}] [Item Level {ilv}]",
     "159": "Note {}：",
     "160": "Copy as macro",
     "161": "View list",
@@ -202,5 +202,14 @@ export default {
     "201": "It would automatically determine by the setting of \"UI Language\" if you select \"Auto\".",
     "202": "CHS",
     "203": "Global",
-    "204": "Appearance"
+    "204": "Appearance",
+    "205": "{job} Lv. {lv}{star}",
+    "206": "Required:",
+    "207": "{value} Craftsmanship",
+    "208": "{value} Control",
+    "209": "Yields: {yields}",
+    "210": "MASTER RECIPE",
+    "211": "Quick Synthesis Unavailable",
+    "212": "High-quality Uncraftable",
+    "213": "(Leveling)"
 }

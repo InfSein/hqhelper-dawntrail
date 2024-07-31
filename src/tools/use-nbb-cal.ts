@@ -5,7 +5,7 @@ import recipe from '@/assets/data/unpacks/recipe.json'
 import hqConfig from '@/assets/data/unpacks/hq-config.json'
 import { Cal, type CostCHS, type IHqConfig } from './nbb-cal-v5'
 import type { GearSelections } from '@/models/gears'
-import type { ItemTradeInfo } from './item';
+import { getItemInfo, type ItemInfo, type ItemTradeInfo } from './item';
 
 
 export function useNbbCal() {
@@ -150,12 +150,57 @@ export function useNbbCal() {
                 tincs
             })
         }
+
         return {
             data, recipeMap
         }
     }
+    const getFoodAndTincs_v2 = () => {
+        const data = {} as Record<string, {
+            count: number,
+            foods: ItemInfo[],
+            tincs: ItemInfo[]
+        }> // key: patch
+        for (const patch in config) {
+            const o = config[patch].jobs
+            o.Meal?.forEach(mealGroup => {
+                if (mealGroup.length >= 2) {
+                    const itemID = mealGroup[0]
+                    const itemInfo = getItemInfo(itemID)
+                    const p = itemInfo.patch
+                    if (!data[p]) data[p] = {
+                        count: 0,
+                        foods: [],
+                        tincs: []
+                    }
+                    data[p].foods.push(itemInfo)
+                    data[p].count++
+                }
+            })
+            o.Medicine?.forEach(tincGroup => {
+                if (tincGroup.length >= 2) {
+                    const itemID = tincGroup[0]
+                    const itemInfo = getItemInfo(itemID)
+                    const p = itemInfo.patch
+                    if (!data[p]) data[p] = {
+                        count: 0,
+                        foods: [],
+                        tincs: []
+                    }
+                    data[p].tincs.push(itemInfo)
+                    data[p].count++
+                }
+            })
+            if (!data[patch]) data[patch] = {
+                count: 0,
+                foods: [],
+                tincs: []
+            }
+        }
+        return data
+    }
 
     return {
-        doCal, getItem, getItemsName, calGearSelections, calFoodAndTincs, getSpecialItems, getTradeMap, getFoodAndTincs
+        doCal, getItem, getItemsName, calGearSelections, calFoodAndTincs, getSpecialItems, getTradeMap, getFoodAndTincs, getFoodAndTincs_v2
     }
 }

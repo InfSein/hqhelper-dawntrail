@@ -45,7 +45,7 @@ defineProps({
 @media screen and (min-width: 768px) {
   .item-selector {
     display: grid;
-    grid-template-columns: 9fr 5fr;
+    grid-template-columns: minmax(0, 8fr) minmax(0, 6fr);
   }
 }
 

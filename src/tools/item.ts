@@ -44,6 +44,8 @@ export interface ItemInfo {
   id: number
   amount: number
   patch: string
+  /** 物品品级 */
+  itemLevel: number
   nameJA: string
   nameEN: string
   nameZH: string
@@ -77,6 +79,38 @@ export interface ItemInfo {
   craftRequires: {
     id: number, count: number
   }[],
+  craftInfo: {
+    /** 制作职业 */
+    jobId: number,
+    /** 制作等级 */
+    craftLevel: number,
+    /** 产量 (一次制作可以获得几个成品) */
+    yields: number,
+    /** 配方星级 (0~5) */
+    starCount: number,
+    /** 配方品级 */
+    rLv: number,
+    /** 可否简易制作 (Quick Synthesis) */
+    qsable: boolean,
+    /** 可否搓出HQ */
+    hqable: boolean,
+    /** 制作门槛 */
+    thresholds: {
+      /** 作业精度 */
+      craftsmanship: number,
+      /** 加工精度 */
+      control: number,
+    },
+    /** 简易制作门槛 */
+    qsThresholds: {
+      /** 作业精度 */
+      craftsmanship: number,
+      /** 加工精度 */
+      control: number,
+    },
+    /** 秘籍ID，这里的ID似乎不是秘籍书的物品ID，只能说有这个属性表明它是秘籍 */
+    masterRecipeId: number
+  },
   tradeInfo: ItemTradeInfo | undefined
 }
 export interface ItemTradeInfo {
@@ -127,13 +161,14 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     console.error('[getItemInfo] 数据不符合规范:', _item)
     return itemInfo
   }
+  itemInfo.itemLevel = _item.ilv
   itemInfo.nameJA = _item.lang[0]
   itemInfo.nameEN = _item.lang[1]
   itemInfo.nameZH = _item.lang[2]
   itemInfo.descJA = _item.desc[0]
   itemInfo.descEN = _item.desc[1]
   itemInfo.descZH = _item.desc[2]
-  itemInfo.patch = _item.p
+  itemInfo.patch = _item.p || '7.05'
 
   // * 针对还没有中文名/中文描述的道具，尝试从暂译表中获取暂译
   if (!itemInfo.nameZH) {
@@ -178,6 +213,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     const recipeID = _item.rids[0]
     const recipe = (XivRecipes as any)[recipeID]
     if (recipe) {
+      console.log('item:', _item, '\nrecipe:', recipe, '\n')
       const items = recipe.m as number[]
       if (items?.length % 2 === 0) {
         for (let ptr = 0; ptr < items.length; ptr += 2) {
@@ -187,6 +223,25 @@ export const getItemInfo = (item: number | CalculatedItem) => {
             id: requiredItemID, count: requiredItemCount
           })
         }
+      }
+
+      itemInfo.craftInfo = {
+        jobId: recipe.job + 8, // 解包配方的jobId是从0开始
+        craftLevel: recipe.bp?.[2],
+        yields: recipe.bp?.[1],
+        starCount: recipe.bp?.[3],
+        rLv: recipe.rlv,
+        qsable: recipe.qs,
+        hqable: recipe.hq,
+        thresholds: {
+          craftsmanship: recipe.sp2?.[0],
+          control: recipe.sp2?.[1]
+        },
+        qsThresholds: {
+          craftsmanship: recipe.sp2?.[2],
+          control: recipe.sp2?.[3]
+        },
+        masterRecipeId: recipe.srb
       }
     }
   }

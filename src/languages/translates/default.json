@@ -1100,9 +1100,9 @@
       "components\\custom-controls\\ItemButton.vue"
     ]
   },
-  "[{patch}版本] [{id}]": {
-    "en": "[Patch{patch}] [{id}]",
-    "ja": "[パッチ{patch}] [{id}]",
+  "[{id}] [{patch}版本] [品级:{ilv}]": {
+    "en": "[{id}] [Patch{patch}] [Item Level {ilv}]",
+    "ja": "[{id}] [パッチ{patch}] [ITEM LEVEL {ilv}]",
     "$files": [
       "components\\custom-controls\\ItemButton.vue"
     ]
@@ -1310,7 +1310,7 @@
       "components\\custom-controls\\ItemButton.vue"
     ]
   },
-  "制作配方": {
+  "制作": {
     "en": "Recipe",
     "ja": "レシピ",
     "$files": [
@@ -1427,6 +1427,69 @@
     "ja": "外見",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "{lv}级{star}{job}配方": {
+    "en": "{job} Lv. {lv}{star}",
+    "ja": "{job} Lv. {lv}{star}",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "制作条件：": {
+    "en": "Required:",
+    "ja": "製作可能条件：",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "作业精度{value}": {
+    "en": "{value} Craftsmanship",
+    "ja": "作業精度{value}",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "加工精度{value}": {
+    "en": "{value} Control",
+    "ja": "加工精度{value}",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "每次制作会产出{yields}个成品": {
+    "en": "Yields: {yields}",
+    "ja": "Yields: {yields}",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "需要习得秘籍": {
+    "en": "MASTER RECIPE",
+    "ja": "「秘伝書」の修得が必要です",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "无法进行简易制作": {
+    "en": "Quick Synthesis Unavailable",
+    "ja": "簡易製作不可",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "无法制作优质道具": {
+    "en": "High-quality Uncraftable",
+    "ja": "HQ製作不可",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "(练级)": {
+    "en": "(Leveling)",
+    "ja": "(レベリング)",
+    "$files": [
+      "components\\ft-helper\\ItemSelectionPanel.vue"
     ]
   }
 }

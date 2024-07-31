@@ -74,7 +74,9 @@ const statistics = computed(() => {
   return value
 })
 const specialItems = computed(() => {
-  return getSpecialItems(workState.value.patch || '7.0')
+  let patch = workState.value.patch
+  if (['7.05'].includes(patch) || patch.includes('LEVELING')) patch = '7.0'
+  return getSpecialItems(patch || '7.0')
 })
 </script>
 
