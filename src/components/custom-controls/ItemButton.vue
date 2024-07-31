@@ -274,9 +274,9 @@ const openInGarland = () => {
               <ItemSpan :item-info="getItemInfo(itemTradeCost.costId)" />
               <div class="count">
                 <span> x{{ itemTradeCost.costCount }}</span>
-                <span v-if="itemInfo.tradeInfo.receiveCount > 1">{{ t('每次兑换可获得{receive}个', itemInfo.tradeInfo.receiveCount) }}</span>
               </div>
             </div>
+            <div class="item" v-if="itemInfo.tradeInfo.receiveCount > 1">{{ t('每次兑换可获得{receive}个', itemInfo.tradeInfo.receiveCount) }}</div>
           </div>
         </div>
         <div class="recipe-descriptions" v-if="itemInfo.craftRequires.length">
