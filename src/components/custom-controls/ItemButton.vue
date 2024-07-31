@@ -5,9 +5,19 @@ import {
 } from 'naive-ui'
 import XivFARImage from './XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
-import  { getItemInfo, type ItemInfo } from '@/tools/item'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import XivAttributes from '@/assets/data/xiv-attributes.json'
+import XivJobs from '@/assets/data/xiv-jobs.json'
+
+interface JobInfo {
+  job_id: number,
+  job_name_en: string,
+  job_name_zh: string,
+  job_name_ja: string,
+  job_icon_url: string
+}
+const jobMap = XivJobs as Record<number, JobInfo>
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -48,6 +58,18 @@ interface ItemButtonProps {
   disablePop?: boolean;
 }
 const props = defineProps<ItemButtonProps>()
+
+const getJobName = (jobInfo: JobInfo) => {
+  switch (itemLanguage.value) {
+    case 'ja':
+      return jobInfo?.job_name_ja || t('未知')
+    case 'en':
+      return jobInfo?.job_name_en || t('未知')
+    case 'zh':
+    default:
+      return jobInfo?.job_name_zh || t('未知')
+  }
+}
 
 const getItemName = () => {
   switch (itemLanguage.value) {
@@ -243,7 +265,7 @@ const openInGarland = () => {
             />
             <p>{{ getItemTypeName() }}</p>
           </div>
-          <p>{{ t('[{patch}版本] [{id}]', { patch: itemInfo.patch, id: itemInfo.id }) }}</p>
+          <p>{{ t('[{id}] [{patch}版本] [品级:{ilv}]', { patch: itemInfo.patch, id: itemInfo.id, ilv: itemInfo.itemLevel }) }}</p>
         </div>
         <div class="main-descriptions" v-html="getItemDescriptions()"></div>
         <div class="description-block" v-if="itemInfo.tempAttrsProvided.length">
@@ -293,6 +315,13 @@ const openInGarland = () => {
           <div class="title">{{ t('制作配方') }}</div>
           <n-divider class="item-divider" />
           <div class="content">
+            <div>
+              {{ t('{lv}级{star}{job}配方', {
+                lv: itemInfo.craftInfo?.craftLevel,
+                star: '★'.repeat(itemInfo.craftInfo?.starCount || 0),
+                job: getJobName(jobMap[itemInfo.craftInfo?.jobId])
+              }) }}
+            </div>
             <div
               class="item"
               v-for="(item, index) in itemInfo.craftRequires"
@@ -300,6 +329,25 @@ const openInGarland = () => {
             >
               <ItemSpan :item-info="getItemInfo(item.id)" />
               <div class="count"> x{{ item.count }}</div>
+            </div>
+            <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship && itemInfo.craftInfo?.thresholds?.control">
+              <div>{{ t('制作条件：') }}</div>
+              <div class="item">
+                <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship">
+                  {{ t('作业精度{value}', itemInfo.craftInfo?.thresholds?.craftsmanship) }}
+                </div>
+                <div v-if="itemInfo.craftInfo?.thresholds?.control">
+                  {{ t('加工精度{value}', itemInfo.craftInfo?.thresholds?.control) }}
+                </div>
+              </div>
+            </div>
+            <div class="other-attrs" v-if="(itemInfo.craftInfo?.yields || 1) > 1">
+              {{ t('每次制作会产出{yields}个成品', itemInfo.craftInfo?.yields) }}
+            </div>
+            <div class="other-attrs">
+              <div v-if="itemInfo.craftInfo?.masterRecipeId">{{ t('需要习得秘籍') }}</div>
+              <div v-if="!itemInfo.craftInfo?.qsable" class="red">{{ t('无法进行简易制作') }}</div>
+              <div v-if="!itemInfo.craftInfo?.hqable" class="red">{{ t('无法制作优质道具') }}</div>
             </div>
           </div>
         </div>
@@ -446,6 +494,7 @@ const openInGarland = () => {
       align-items: center;
       gap: 3px;
       line-height: 1;
+      flex-wrap: wrap;
 
       .item-type {
         display: flex;
@@ -479,14 +528,24 @@ const openInGarland = () => {
     .description-block {
       line-height: 1.2;
 
+      .title {
+        font-weight: bold;
+      }
       .content .item {
         margin-left: 1em;
         display: flex;
         align-items: center;
         gap: 3px;
       }
+      .content .other-attrs {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        font-size: calc(var(--n-font-size) - 2px);
+      }
     }
     .tail-descriptions {
+      margin-top: 5px;
       font-size: calc(var(--n-font-size) - 2px);
       line-height: 1;
     }
