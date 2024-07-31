@@ -10,20 +10,22 @@ import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
 import XivFARImage from '../custom-controls/XivFARImage.vue'
 import ItemSelector from '../custom-controls/ItemSelector.vue'
 import { useNbbCal } from '@/tools/use-nbb-cal'
-import { getItemInfo } from '@/tools/item'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 
-const patch = defineModel<string>('patch', { required: true })
+const patchModel = defineModel<string>('patch', { required: true })
 const itemSelected = defineModel<Record<number, number>>('itemSelected', { required: true })
 
-const { getFoodAndTincs } = useNbbCal()
-const foodAndTincs = computed(() => getFoodAndTincs())
+const { getFoodAndTincs_v2 } = useNbbCal()
+const foodAndTincs = computed(() => getFoodAndTincs_v2())
 
 const handleClearSelections = () => {
   for (const id in itemSelected.value) {
     itemSelected.value[id] = 0
   }
+}
+const fixPatch = (patch: string) => {
+  return patch.replace('LEVELING', t('(练级)'))
 }
 </script>
 
@@ -35,12 +37,12 @@ const handleClearSelections = () => {
         <span class="card-title-text">{{ t('挑选食药') }}</span>
       </template>
 
-      <n-tabs v-model:value="patch" type="line" animated>
+      <n-tabs v-model:value="patchModel" type="line" animated>
         <n-tab-pane
-          v-for="(foodAndTinc, tabIndex) in foodAndTincs.data"
-          :key="'foodAndTincs-' + tabIndex"
-          :name="foodAndTinc.patch"
-          :tab="t('版本{}', foodAndTinc.patch)"
+          v-for="(foodAndTinc, patch) in foodAndTincs"
+          :key="'foodAndTincs-' + patch"
+          :name="patch"
+          :tab="t('版本{}', fixPatch(patch))"
           :disabled="!foodAndTinc.count"
         >
           <div class="item-selection-container">
@@ -59,9 +61,9 @@ const handleClearSelections = () => {
                 <ItemSelector
                   class="item"
                   v-for="(item, index) in foodAndTinc.foods"
-                  :key="`food-${tabIndex}-${index}`"
-                  :item-info="getItemInfo(item)"
-                  v-model:value="itemSelected[item]"
+                  :key="`food-${patch}-${index}`"
+                  :item-info="item"
+                  v-model:value="itemSelected[item.id]"
                 />
               </div>
             </n-card>
@@ -80,9 +82,9 @@ const handleClearSelections = () => {
                 <ItemSelector
                   class="item"
                   v-for="(item, index) in foodAndTinc.tincs"
-                  :key="`tinc-${tabIndex}-${index}`"
-                  :item-info="getItemInfo(item)"
-                  v-model:value="itemSelected[item]"
+                  :key="`tinc-${patch}-${index}`"
+                  :item-info="item"
+                  v-model:value="itemSelected[item.id]"
                 />
               </div>
             </n-card>
