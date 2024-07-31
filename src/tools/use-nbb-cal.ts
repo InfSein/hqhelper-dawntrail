@@ -167,10 +167,7 @@ export function useNbbCal() {
                 if (mealGroup.length >= 2) {
                     const itemID = mealGroup[0]
                     const itemInfo = getItemInfo(itemID)
-                    let p = itemInfo.patch
-                    if (itemInfo.craftInfo?.craftLevel && itemInfo.craftInfo.craftLevel < 100) {
-                        p += 'LEVELING'
-                    }
+                    const p = itemInfo.patch
                     if (!data[p]) data[p] = {
                         count: 0,
                         foods: [],
@@ -184,10 +181,7 @@ export function useNbbCal() {
                 if (tincGroup.length >= 2) {
                     const itemID = tincGroup[0]
                     const itemInfo = getItemInfo(itemID)
-                    let p = itemInfo.patch
-                    if (itemInfo.craftInfo?.craftLevel && itemInfo.craftInfo.craftLevel < 100) {
-                        p += 'LEVELING'
-                    }
+                    const p = itemInfo.patch
                     if (!data[p]) data[p] = {
                         count: 0,
                         foods: [],
