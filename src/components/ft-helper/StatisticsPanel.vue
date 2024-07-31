@@ -48,7 +48,13 @@ const tomeScriptItems = computed(() => {
   for (const id in props.statistics.lvBase) {
     try {
       const _id = parseInt(id)
+
+      // * 过滤掉一些兑换品，以避免出现重复统计
       if (props.aethersandGatherings?.length && props.aethersandGatherings.includes(_id)) continue
+      if (props.normalCraftings?.length && props.normalCraftings.includes(_id)) continue
+      if (props.limitedGatherings?.length && props.limitedGatherings.includes(_id)) continue
+      if (props.normalGatherings?.length && props.normalGatherings.includes(_id)) continue
+      
       if (tradeMap[_id]) {
         const item = props.statistics.lvBase[id]
         items.push(getItemInfo(item))
