@@ -128,7 +128,7 @@ const handleClearSelections = () => {
 @media screen and (min-width: 768px) {
   .item-selection-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
     .item-btn-container {
       gap: 5px;
