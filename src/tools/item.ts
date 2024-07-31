@@ -168,7 +168,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.descJA = _item.desc[0]
   itemInfo.descEN = _item.desc[1]
   itemInfo.descZH = _item.desc[2]
-  itemInfo.patch = _item.p
+  itemInfo.patch = _item.p || '7.05'
 
   // * 针对还没有中文名/中文描述的道具，尝试从暂译表中获取暂译
   if (!itemInfo.nameZH) {
