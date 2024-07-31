@@ -23,6 +23,9 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
+const uiLanguage = computed(() => {
+  return userConfig.value.language_ui
+})
 const itemLanguage = computed(() => {
   if (userConfig.value.language_item !== 'auto') {
     return userConfig.value.language_item
@@ -60,7 +63,7 @@ interface ItemButtonProps {
 const props = defineProps<ItemButtonProps>()
 
 const getJobName = (jobInfo: JobInfo) => {
-  switch (itemLanguage.value) {
+  switch (uiLanguage.value) {
     case 'ja':
       return jobInfo?.job_name_ja || t('未知')
     case 'en':
@@ -141,7 +144,7 @@ const getAttrName = (attrId: number) => {
   if (!attr) {
     return t('未知')
   }
-  switch (itemLanguage.value) {
+  switch (uiLanguage.value) {
     case 'ja':
       return attr.Name_ja
     case 'en':
