@@ -479,6 +479,7 @@ const openInGarland = () => {
         margin-left: 1em;
         display: flex;
         align-items: center;
+        gap: 3px;
       }
     }
     .recipe-descriptions {
@@ -490,6 +491,7 @@ const openInGarland = () => {
         .item {
           display: flex;
           align-items: center;
+          gap: 3px;
         }
       }
     }
