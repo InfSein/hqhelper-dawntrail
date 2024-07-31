@@ -31,6 +31,11 @@ interface ItemButtonProps {
   /** 按钮颜色 */
   btnColor?: string;
 
+  /** 悬浮窗使用自定义宽度 */
+  popUseCustomWidth?: boolean;
+  /** 悬浮窗的最大宽度 */
+  popMaxWidth?: string;
+
   /** 是否显示物品图标(可选,默认false) */
   showIcon?: boolean;
   /** 是否显示物品名称(可选,默认false) */
@@ -177,9 +182,10 @@ const openInGarland = () => {
 <template>
   <n-popover
     v-if="itemInfo.id && !disablePop"
+    :trigger="isMobile ? 'click' : 'hover'"
     :placement="isMobile ? 'bottom' : 'right-start'"
-    :width="isMobile ? 'trigger' : undefined"
-    :style="{ maxWidth: isMobile ? 'unset' : '290px' }"
+    :width="popUseCustomWidth ? undefined : (isMobile ? 'trigger' : undefined)"
+    :style="{ maxWidth: popMaxWidth ?? (isMobile ? 'unset' : '290px') }"
   >
     <template #trigger>
       <n-button

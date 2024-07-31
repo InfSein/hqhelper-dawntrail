@@ -60,8 +60,8 @@ const tomeScripts = computed(() => {
 <template>
   <!-- todo - 增加一个popup，内含物品汇总和复制宏的操作按钮 -->
   <n-popover
+    :trigger="isMobile ? 'click' : 'hover'"
     :placement="isMobile ? 'bottom' : 'right-start'"
-    :width="isMobile ? 'trigger' : undefined"
     :style="{ maxWidth: isMobile ? 'unset' : '290px' }"
   >
     <template #trigger>
