@@ -246,32 +246,34 @@ const openInGarland = () => {
           <p>{{ t('[{patch}版本] [{id}]', { patch: itemInfo.patch, id: itemInfo.id }) }}</p>
         </div>
         <div class="main-descriptions" v-html="getItemDescriptions()"></div>
-        <div class="temp-attr-descriptions" v-if="itemInfo.tempAttrsProvided.length">
+        <div class="description-block" v-if="itemInfo.tempAttrsProvided.length">
           <div class="title">{{ t('效果') }}</div>
           <n-divider class="item-divider" />
-          <div class="content">
-            <div class="block hq" v-if="itemHasHQ">
-              <p
-                v-for="(attr, index) in itemInfo.tempAttrsProvided"
-                :key="'temp-attr-hq' + index"
-              >
-                <span class="attr-name">{{ getAttrName(attr[0]) }}</span>
-                <span> +{{ attr[4] }}% {{ t('(上限{})', attr[5]) }}</span>
-              </p>
-            </div>
-            <div class="block nq" v-else>
-              <p
-                v-for="(attr, index) in itemInfo.tempAttrsProvided"
-                :key="'temp-attr-hq' + index"
-              >
-                <span class="attr-name">{{ getAttrName(attr[0]) }}</span>
-                <span> +{{ attr[2] }}% {{ t('(上限{})', attr[3]) }}</span>
-              </p>
+          <div class="content" v-if="itemHasHQ">
+            <div
+              class="item"
+              v-for="(attr, index) in itemInfo.tempAttrsProvided"
+              :key="'temp-attr-hq' + index"
+            >
+              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
+              <div> +{{ attr[4] }}% {{ t('(上限{})', attr[5]) }}</div>
             </div>
           </div>
-          <div class="extra">{{ t('※ 此处仅展示物品的{NQorHQ}属性', itemHasHQ ? 'HQ' : 'NQ') }}</div>
+          <div class="content" v-else>
+            <div
+              class="item"
+              v-for="(attr, index) in itemInfo.tempAttrsProvided"
+              :key="'temp-attr-nq' + index"
+            >
+              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
+              <div> +{{ attr[2] }}% {{ t('(上限{})', attr[3]) }}</div>
+            </div>
+          </div>
+          <div class="content">
+            {{ t('※ 此处仅展示物品的{NQorHQ}属性', itemHasHQ ? 'HQ' : 'NQ') }}
+          </div>
         </div>
-        <div class="trade-descriptions" v-if="itemInfo.tradeInfo && itemTradeCost">
+        <div class="description-block" v-if="itemInfo.tradeInfo && itemTradeCost">
           <div class="title">{{ t('兑换') }}</div>
           <n-divider class="item-divider" />
           <div class="content">
@@ -282,10 +284,12 @@ const openInGarland = () => {
                 <span> x{{ itemTradeCost.costCount }}</span>
               </div>
             </div>
-            <div class="item" v-if="itemInfo.tradeInfo.receiveCount > 1">{{ t('每次兑换可获得{receive}个', itemInfo.tradeInfo.receiveCount) }}</div>
+            <div class="item" v-if="itemInfo.tradeInfo.receiveCount > 1">
+              {{ t('每次兑换可获得{receive}个', itemInfo.tradeInfo.receiveCount) }}
+            </div>
           </div>
         </div>
-        <div class="recipe-descriptions" v-if="itemInfo.craftRequires.length">
+        <div class="description-block" v-if="itemInfo.craftRequires.length">
           <div class="title">{{ t('制作配方') }}</div>
           <n-divider class="item-divider" />
           <div class="content">
@@ -472,7 +476,7 @@ const openInGarland = () => {
         margin: 2px 0 5px 0;
       }
     }
-    .trade-descriptions {
+    .description-block {
       line-height: 1.2;
 
       .content .item {
@@ -480,19 +484,6 @@ const openInGarland = () => {
         display: flex;
         align-items: center;
         gap: 3px;
-      }
-    }
-    .recipe-descriptions {
-      line-height: 1.2;
-
-      .content {
-        margin-left: 1em;
-
-        .item {
-          display: flex;
-          align-items: center;
-          gap: 3px;
-        }
       }
     }
     .tail-descriptions {
