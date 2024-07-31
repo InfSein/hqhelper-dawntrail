@@ -315,16 +315,18 @@ const openInGarland = () => {
           </div>
         </div>
         <div class="description-block" v-if="itemInfo.craftRequires.length">
-          <div class="title">{{ t('制作配方') }}</div>
-          <n-divider class="item-divider" />
-          <div class="content">
-            <div>
+          <div class="title">
+            {{ t('制作') }}
+            <span class="extra">
               {{ t('{lv}级{star}{job}配方', {
                 lv: itemInfo.craftInfo?.craftLevel,
                 star: '★'.repeat(itemInfo.craftInfo?.starCount || 0),
                 job: getJobName(jobMap[itemInfo.craftInfo?.jobId])
               }) }}
-            </div>
+            </span>
+          </div>
+          <n-divider class="item-divider" />
+          <div class="content">
             <div
               class="item"
               v-for="(item, index) in itemInfo.craftRequires"
@@ -533,6 +535,12 @@ const openInGarland = () => {
 
       .title {
         font-weight: bold;
+
+        .extra {
+          margin-left: 3px;
+          font-weight: normal;
+          font-size: calc(var(--n-font-size) - 2px);
+        }
       }
       .content .item {
         margin-left: 1em;
