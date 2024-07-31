@@ -107,6 +107,7 @@ const getItemDescriptions = () => {
   }
 
   // * 处理特殊字符(好像只有E端有)
+  // 处理颜色字符
   description = description.replace(/\{\{color\|id=(\d+)\|([^}]+)\}\}/g, (match, id, text) => {
     let color = ''
     if (id == 504) color = 'orange'
@@ -117,6 +118,8 @@ const getItemDescriptions = () => {
       return text
     }
   })
+  // 处理斜体
+  description = description.replace(/\{\{Italic\|([^}]*)\}\}/g, '<span class="italic">$1</span>')
 
   const descs = description.split('<br>')
   return `<p>${descs.join('</p><p>')}</p>`
