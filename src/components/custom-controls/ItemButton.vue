@@ -301,6 +301,16 @@ const openInGarland = () => {
             {{ t('※ 此处仅展示物品的{NQorHQ}属性', itemHasHQ ? 'HQ' : 'NQ') }}
           </div>
         </div>
+        <div class="description-block" v-if="itemInfo.canReduceFrom?.length">
+          <div class="title">{{ t('精选') }}</div>
+          <n-divider class="item-divider" />
+          <div class="content">
+            <div>{{ t('该物品可以通过精选以下道具获得：') }}</div>
+            <div class="item" v-for="(reduce, reduceIndex) in itemInfo.canReduceFrom" :key="'reduce-' + reduceIndex">
+              <ItemSpan :item-info="getItemInfo(reduce)" />
+            </div>
+          </div>
+        </div>
         <div class="description-block" v-if="itemInfo.tradeInfo && itemTradeCost">
           <div class="title">{{ t('兑换') }}</div>
           <n-divider class="item-divider" />
@@ -340,7 +350,7 @@ const openInGarland = () => {
             </div>
             <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship && itemInfo.craftInfo?.thresholds?.control">
               <div>{{ t('制作条件：') }}</div>
-              <div class="item">
+              <div class="item small-font">
                 <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship">
                   {{ t('作业精度{value}', itemInfo.craftInfo?.thresholds?.craftsmanship) }}
                 </div>
@@ -432,6 +442,9 @@ const openInGarland = () => {
 :deep(.n-button__content){
   width: 100%;
   height: 100%;
+}
+.small-font {
+  font-size: calc(var(--n-font-size) - 2px);
 }
 .item-button {
   padding: 1px;

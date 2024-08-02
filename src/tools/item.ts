@@ -37,8 +37,9 @@ import XivRecipes from '@/assets/data/unpacks/recipe.json'
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
-const { getTradeMap } = useNbbCal()
+const { getTradeMap, getReduceMap } = useNbbCal()
 const tradeMap = getTradeMap()
+const reduceMap = getReduceMap()
 
 export interface ItemInfo {
   id: number
@@ -75,6 +76,8 @@ export interface ItemInfo {
    * * (index)`5`: HQ道具提供的属性的最大值
    */
   tempAttrsProvided: number[][]
+  /** 可以从哪些道具中精选来获得 (如果数组为空则代表此道具不能精选获得) */
+  canReduceFrom: number[],
   /** 制作此道具需要的直接道具 (从道具的第一个关联配方中解析) */
   craftRequires: {
     id: number, count: number
@@ -206,6 +209,12 @@ export const getItemInfo = (item: number | CalculatedItem) => {
 
   // * 组装物品特殊属性
   itemInfo.tempAttrsProvided = _item.actParm
+
+  // * 组装物品精选信息
+  itemInfo.canReduceFrom = []
+  if (reduceMap[itemID]) {
+    itemInfo.canReduceFrom = reduceMap[itemID]
+  }
 
   // * 组装物品配方
   itemInfo.craftRequires = []

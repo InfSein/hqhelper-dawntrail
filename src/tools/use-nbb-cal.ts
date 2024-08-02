@@ -119,6 +119,28 @@ export function useNbbCal() {
         return map
     }
 
+    /**
+     * 获取可以精选的道具jsmap
+     * @returns Record<number, number[]>
+     *  * key: 精选所得道具的 itemID
+     *  * value: 精选来源的 itemID，可能有多个
+     */
+    const getReduceMap = () => {
+        const map = {} as Record<number, number[]>
+        for (const patch in config) {
+            const reduces = config[patch].reduceGathering
+            reduces?.forEach(reduceGroup => {
+                const idGot = reduceGroup[0]
+                const idGive = reduceGroup[1]
+                if (idGot && idGive) {
+                    if (!map[idGot]) map[idGot] = []
+                    map[idGot].push(idGive)
+                }
+            })
+        }
+        return map
+    }
+
     const getFoodAndTincs = () => {
         const data = [] as {
             patch: string, // "7.0" | "7.1" | "7.2" | "7.3" | "7.4",
@@ -201,6 +223,6 @@ export function useNbbCal() {
     }
 
     return {
-        doCal, getItem, getItemsName, calGearSelections, calFoodAndTincs, getSpecialItems, getTradeMap, getFoodAndTincs, getFoodAndTincs_v2
+        doCal, getItem, getItemsName, calGearSelections, calFoodAndTincs, getSpecialItems, getTradeMap, getReduceMap, getFoodAndTincs, getFoodAndTincs_v2
     }
 }
