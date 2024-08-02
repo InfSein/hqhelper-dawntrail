@@ -154,6 +154,17 @@ const getAttrName = (attrId: number) => {
       return attr.Name
   }
 }
+const getPlaceName = () => {
+  switch (itemLanguage.value) {
+    case 'ja':
+      return props.itemInfo.gatherInfo?.placeNameJA
+    case 'en':
+      return props.itemInfo.gatherInfo?.placeNameEN
+    case 'zh':
+    default:
+      return props.itemInfo.gatherInfo?.placeNameZH
+  }
+}
 const itemHasHQ = computed(() => {
   return props.itemInfo.tempAttrsProvided.every(subArr => subArr.length >= 5)
 })
@@ -308,6 +319,17 @@ const openInGarland = () => {
             <div>{{ t('该物品可以通过精选以下道具获得：') }}</div>
             <div class="item" v-for="(reduce, reduceIndex) in itemInfo.canReduceFrom" :key="'reduce-' + reduceIndex">
               <ItemSpan :item-info="getItemInfo(reduce)" />
+            </div>
+          </div>
+        </div>
+        <div class="description-block" v-if="itemInfo.gatherInfo">
+          <div class="title">{{ t('采集') }}</div>
+          <n-divider class="item-divider" />
+          <div class="content">
+            <div>{{ t('该物品可以在以下位置采集：') }}</div>
+            <div class="item">
+              <div>{{ getPlaceName() }}</div>
+              <div>{{ t('(X:{x}, Y:{y})', { x: itemInfo.gatherInfo.posX, y: itemInfo.gatherInfo.posY }) }}</div>
             </div>
           </div>
         </div>

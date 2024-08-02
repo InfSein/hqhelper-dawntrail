@@ -125,6 +125,8 @@ export interface ItemInfo {
     placeNameZH: string,
     placeNameJA: string,
     placeNameEN: string,
+    posX: string,
+    posY: string
   },
   tradeInfo: ItemTradeInfo | undefined
 }
@@ -245,7 +247,9 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         itemInfo.gatherInfo = {
           placeNameZH: placeNameZH,
           placeNameJA: gatherPlaceData[0],
-          placeNameEN: gatherPlaceData[1]
+          placeNameEN: gatherPlaceData[1],
+          posX: gatherData.coords.x,
+          posY: gatherData.coords.y
         }
       }
     }
