@@ -34,12 +34,19 @@ import XivItemTypes from '@/assets/data/xiv-item-types.json'
 import XivItemNameZHTemp from '@/assets/data/translations/xiv-item-names.json'
 import XivItemDescZHTemp from '@/assets/data/translations/xiv-item-descriptions.json'
 import XivRecipes from '@/assets/data/unpacks/recipe.json'
+import XivGatheringItems from '@/assets/data/unpacks/gathering-item.json'
+import XivGatherTerrory from '@/assets/data/unpacks/territory.json'
+import XivPlaceNames from '@/assets/data/unpacks/place-name.json'
+import XivPlaceZHTemp from '@/assets/data/translations/xiv-places.json'
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
 const { getTradeMap, getReduceMap } = useNbbCal()
 const tradeMap = getTradeMap()
 const reduceMap = getReduceMap()
+const gatherMap = XivGatheringItems as Record<number, any>
+const territoryMap = XivGatherTerrory as Record<number, number[]>
+const placeMap = XivPlaceNames as Record<number, string[]>
 
 export interface ItemInfo {
   id: number
@@ -113,6 +120,11 @@ export interface ItemInfo {
     },
     /** 秘籍书的物品ID，有这个属性表明制作该物品需要习得秘籍 */
     masterRecipeId: number
+  },
+  gatherInfo: {
+    placeNameZH: string,
+    placeNameJA: string,
+    placeNameEN: string,
   },
   tradeInfo: ItemTradeInfo | undefined
 }
@@ -214,6 +226,29 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.canReduceFrom = []
   if (reduceMap[itemID]) {
     itemInfo.canReduceFrom = reduceMap[itemID]
+  }
+
+  // * 组装物品采集信息
+  const gatherData = gatherMap[itemID]
+  if (gatherData) {
+    const territoryID = gatherData.territory
+    const territoryData = territoryMap[territoryID]
+    if (territoryData) {
+      const placeID = territoryData[2]
+      const gatherPlaceData = placeMap[placeID]
+      if (gatherPlaceData) {
+        let placeNameZH = gatherPlaceData[2]
+        if (!placeNameZH) {
+          const tempZhMap = XivPlaceZHTemp as Record<number, string>
+          placeNameZH = tempZhMap[placeID] || '未翻译的地点'
+        }
+        itemInfo.gatherInfo = {
+          placeNameZH: placeNameZH,
+          placeNameJA: gatherPlaceData[0],
+          placeNameEN: gatherPlaceData[1]
+        }
+      }
+    }
   }
 
   // * 组装物品配方
