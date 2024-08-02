@@ -350,6 +350,10 @@ const openInGarland = () => {
             </div>
             <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship && itemInfo.craftInfo?.thresholds?.control">
               <div>{{ t('制作条件：') }}</div>
+              <div class="item small-font" v-if="itemInfo.craftInfo?.masterRecipeId">
+                {{ t('需要习得') }}
+                <ItemSpan :img-size="12" :item-info="getItemInfo(itemInfo.craftInfo.masterRecipeId)" />
+              </div>
               <div class="item small-font">
                 <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship">
                   {{ t('作业精度{value}', itemInfo.craftInfo?.thresholds?.craftsmanship) }}
@@ -363,7 +367,6 @@ const openInGarland = () => {
               {{ t('每次制作会产出{yields}个成品', itemInfo.craftInfo?.yields) }}
             </div>
             <div class="other-attrs">
-              <div v-if="itemInfo.craftInfo?.masterRecipeId">{{ t('需要习得秘籍') }}</div>
               <div v-if="!itemInfo.craftInfo?.qsable" class="red">{{ t('无法进行简易制作') }}</div>
               <div v-if="!itemInfo.craftInfo?.hqable" class="red">{{ t('无法制作优质道具') }}</div>
             </div>

@@ -111,7 +111,7 @@ export interface ItemInfo {
       /** 加工精度 */
       control: number,
     },
-    /** 秘籍ID，这里的ID似乎不是秘籍书的物品ID，只能说有这个属性表明它是秘籍 */
+    /** 秘籍书的物品ID，有这个属性表明制作该物品需要习得秘籍 */
     masterRecipeId: number
   },
   tradeInfo: ItemTradeInfo | undefined
