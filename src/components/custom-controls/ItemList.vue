@@ -49,6 +49,11 @@ const props = defineProps({
   hideEmpty: {
     type: Boolean,
     default: false
+  },
+  /** 物品按钮悬浮窗的最大宽度 */
+  btnPopMaxWidth: {
+    type: String,
+    default: undefined
   }
 })
 
@@ -105,6 +110,7 @@ const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
           :key="'item-' + index"
           :item-info="item"
           show-icon show-name show-amount
+          :pop-max-width="btnPopMaxWidth"
         >
         </ItemButton>
       </n-flex>
