@@ -154,6 +154,17 @@ const getAttrName = (attrId: number) => {
       return attr.Name
   }
 }
+const getPlaceName = () => {
+  switch (itemLanguage.value) {
+    case 'ja':
+      return props.itemInfo.gatherInfo?.placeNameJA
+    case 'en':
+      return props.itemInfo.gatherInfo?.placeNameEN
+    case 'zh':
+    default:
+      return props.itemInfo.gatherInfo?.placeNameZH
+  }
+}
 const itemHasHQ = computed(() => {
   return props.itemInfo.tempAttrsProvided.every(subArr => subArr.length >= 5)
 })
@@ -301,6 +312,27 @@ const openInGarland = () => {
             {{ t('※ 此处仅展示物品的{NQorHQ}属性', itemHasHQ ? 'HQ' : 'NQ') }}
           </div>
         </div>
+        <div class="description-block" v-if="itemInfo.canReduceFrom?.length && false"> <!-- 暂时隐藏，因为精选来源道具的数据还未给出 -->
+          <div class="title">{{ t('精选') }}</div>
+          <n-divider class="item-divider" />
+          <div class="content">
+            <div>{{ t('该物品可以通过精选以下道具获得：') }}</div>
+            <div class="item" v-for="(reduce, reduceIndex) in itemInfo.canReduceFrom" :key="'reduce-' + reduceIndex">
+              <ItemSpan :item-info="getItemInfo(reduce)" />
+            </div>
+          </div>
+        </div>
+        <div class="description-block" v-if="itemInfo.gatherInfo">
+          <div class="title">{{ t('采集') }}</div>
+          <n-divider class="item-divider" />
+          <div class="content">
+            <div>{{ t('该物品可以在以下位置采集：') }}</div>
+            <div class="item">
+              <div>{{ getPlaceName() }}</div>
+              <div>{{ t('(X:{x}, Y:{y})', { x: itemInfo.gatherInfo.posX, y: itemInfo.gatherInfo.posY }) }}</div>
+            </div>
+          </div>
+        </div>
         <div class="description-block" v-if="itemInfo.tradeInfo && itemTradeCost">
           <div class="title">{{ t('兑换') }}</div>
           <n-divider class="item-divider" />
@@ -340,7 +372,11 @@ const openInGarland = () => {
             </div>
             <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship && itemInfo.craftInfo?.thresholds?.control">
               <div>{{ t('制作条件：') }}</div>
-              <div class="item">
+              <div class="item small-font" v-if="itemInfo.craftInfo?.masterRecipeId">
+                {{ t('需要习得') }}
+                <ItemSpan :img-size="12" :item-info="getItemInfo(itemInfo.craftInfo.masterRecipeId)" />
+              </div>
+              <div class="item small-font">
                 <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship">
                   {{ t('作业精度{value}', itemInfo.craftInfo?.thresholds?.craftsmanship) }}
                 </div>
@@ -353,7 +389,6 @@ const openInGarland = () => {
               {{ t('每次制作会产出{yields}个成品', itemInfo.craftInfo?.yields) }}
             </div>
             <div class="other-attrs">
-              <div v-if="itemInfo.craftInfo?.masterRecipeId">{{ t('需要习得秘籍') }}</div>
               <div v-if="!itemInfo.craftInfo?.qsable" class="red">{{ t('无法进行简易制作') }}</div>
               <div v-if="!itemInfo.craftInfo?.hqable" class="red">{{ t('无法制作优质道具') }}</div>
             </div>
@@ -432,6 +467,9 @@ const openInGarland = () => {
 :deep(.n-button__content){
   width: 100%;
   height: 100%;
+}
+.small-font {
+  font-size: calc(var(--n-font-size) - 2px);
 }
 .item-button {
   padding: 1px;

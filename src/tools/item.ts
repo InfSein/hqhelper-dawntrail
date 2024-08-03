@@ -34,11 +34,19 @@ import XivItemTypes from '@/assets/data/xiv-item-types.json'
 import XivItemNameZHTemp from '@/assets/data/translations/xiv-item-names.json'
 import XivItemDescZHTemp from '@/assets/data/translations/xiv-item-descriptions.json'
 import XivRecipes from '@/assets/data/unpacks/recipe.json'
+import XivGatheringItems from '@/assets/data/unpacks/gathering-item.json'
+import XivGatherTerrory from '@/assets/data/unpacks/territory.json'
+import XivPlaceNames from '@/assets/data/unpacks/place-name.json'
+import XivPlaceZHTemp from '@/assets/data/translations/xiv-places.json'
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
-const { getTradeMap } = useNbbCal()
+const { getTradeMap, getReduceMap } = useNbbCal()
 const tradeMap = getTradeMap()
+const reduceMap = getReduceMap()
+const gatherMap = XivGatheringItems as Record<number, any>
+const territoryMap = XivGatherTerrory as Record<number, number[]>
+const placeMap = XivPlaceNames as Record<number, string[]>
 
 export interface ItemInfo {
   id: number
@@ -75,6 +83,8 @@ export interface ItemInfo {
    * * (index)`5`: HQ道具提供的属性的最大值
    */
   tempAttrsProvided: number[][]
+  /** 可以从哪些道具中精选来获得 (如果数组为空则代表此道具不能精选获得) */
+  canReduceFrom: number[],
   /** 制作此道具需要的直接道具 (从道具的第一个关联配方中解析) */
   craftRequires: {
     id: number, count: number
@@ -108,8 +118,15 @@ export interface ItemInfo {
       /** 加工精度 */
       control: number,
     },
-    /** 秘籍ID，这里的ID似乎不是秘籍书的物品ID，只能说有这个属性表明它是秘籍 */
+    /** 秘籍书的物品ID，有这个属性表明制作该物品需要习得秘籍 */
     masterRecipeId: number
+  },
+  gatherInfo: {
+    placeNameZH: string,
+    placeNameJA: string,
+    placeNameEN: string,
+    posX: string,
+    posY: string
   },
   tradeInfo: ItemTradeInfo | undefined
 }
@@ -207,13 +224,44 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // * 组装物品特殊属性
   itemInfo.tempAttrsProvided = _item.actParm
 
+  // * 组装物品精选信息
+  itemInfo.canReduceFrom = []
+  if (reduceMap[itemID]) {
+    itemInfo.canReduceFrom = reduceMap[itemID]
+  }
+
+  // * 组装物品采集信息
+  const gatherData = gatherMap[itemID]
+  if (gatherData) {
+    const territoryID = gatherData.territory
+    const territoryData = territoryMap[territoryID]
+    if (territoryData) {
+      const placeID = territoryData[2]
+      const gatherPlaceData = placeMap[placeID]
+      if (gatherPlaceData) {
+        let placeNameZH = gatherPlaceData[2]
+        if (!placeNameZH) {
+          const tempZhMap = XivPlaceZHTemp as Record<number, string>
+          placeNameZH = tempZhMap[placeID] || '未翻译的地点'
+        }
+        itemInfo.gatherInfo = {
+          placeNameZH: placeNameZH,
+          placeNameJA: gatherPlaceData[0],
+          placeNameEN: gatherPlaceData[1],
+          posX: gatherData.coords.x,
+          posY: gatherData.coords.y
+        }
+      }
+    }
+  }
+
   // * 组装物品配方
   itemInfo.craftRequires = []
   if (_item.rids?.length) {
     const recipeID = _item.rids[0]
     const recipe = (XivRecipes as any)[recipeID]
     if (recipe) {
-      console.log('item:', _item, '\nrecipe:', recipe, '\n')
+      // console.log('item:', _item, '\nrecipe:', recipe, '\n')
       const items = recipe.m as number[]
       if (items?.length % 2 === 0) {
         for (let ptr = 0; ptr < items.length; ptr += 2) {

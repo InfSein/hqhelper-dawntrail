@@ -292,6 +292,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
                 <ItemList
                   :items="gatheringsCommon"
                   :list-height="isMobile ? undefined : 320"
+                  :btn-pop-max-width="isMobile ? undefined : '340px'"
                 />
               </div>
             </n-collapse-item>
@@ -300,6 +301,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
                 <ItemList
                   :items="gatheringsTimed"
                   :list-height="isMobile ? undefined : 320"
+                  :btn-pop-max-width="isMobile ? undefined : '340px'"
                 />
               </div>
             </n-collapse-item>
@@ -308,6 +310,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
                 <ItemList
                   :items="crystals"
                   :list-height="isMobile ? undefined : 320"
+                  :btn-pop-max-width="isMobile ? undefined : '340px'"
                 />
               </div>
             </n-collapse-item>

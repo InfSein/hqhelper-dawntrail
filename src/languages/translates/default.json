@@ -1464,13 +1464,6 @@
       "components\\custom-controls\\ItemButton.vue"
     ]
   },
-  "需要习得秘籍": {
-    "en": "MASTER RECIPE",
-    "ja": "「秘伝書」の修得が必要です",
-    "$files": [
-      "components\\custom-controls\\ItemButton.vue"
-    ]
-  },
   "无法进行简易制作": {
     "en": "Quick Synthesis Unavailable",
     "ja": "簡易製作不可",
@@ -1490,6 +1483,48 @@
     "ja": "(レベリング)",
     "$files": [
       "components\\ft-helper\\ItemSelectionPanel.vue"
+    ]
+  },
+  "精选": {
+    "en": "Aetherial Reduction",
+    "ja": "精選",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "该物品可以通过精选以下道具获得：": {
+    "en": "This item could be reduced from:",
+    "ja": "このアイテムは精選以下のアイテムで入手できます：",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "采集": {
+    "en": "Gathering",
+    "ja": "採集",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "该物品可以在以下位置采集：": {
+    "en": "This item could be gathered at:",
+    "ja": "アイテムは次の場所で収集できます：",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "(X:{x}, Y:{y})": {
+    "en": "(X:{x}, Y:{y})",
+    "ja": "(X:{x}, Y:{y})",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "需要习得": {
+    "en": "Need to learn",
+    "ja": "習得必要：",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
     ]
   }
 }

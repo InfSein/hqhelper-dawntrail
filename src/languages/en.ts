@@ -208,8 +208,13 @@ export default {
     "207": "{value} Craftsmanship",
     "208": "{value} Control",
     "209": "Yields: {yields}",
-    "210": "MASTER RECIPE",
-    "211": "Quick Synthesis Unavailable",
-    "212": "High-quality Uncraftable",
-    "213": "(Leveling)"
+    "210": "Quick Synthesis Unavailable",
+    "211": "High-quality Uncraftable",
+    "212": "(Leveling)",
+    "213": "Aetherial Reduction",
+    "214": "This item could be reduced from:",
+    "215": "Gathering",
+    "216": "This item could be gathered at:",
+    "217": "(X:{x}, Y:{y})",
+    "218": "Need to learn"
 }
