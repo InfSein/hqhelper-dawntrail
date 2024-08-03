@@ -312,7 +312,7 @@ const openInGarland = () => {
             {{ t('※ 此处仅展示物品的{NQorHQ}属性', itemHasHQ ? 'HQ' : 'NQ') }}
           </div>
         </div>
-        <div class="description-block" v-if="itemInfo.canReduceFrom?.length">
+        <div class="description-block" v-if="itemInfo.canReduceFrom?.length && false"> <!-- 暂时隐藏，因为精选来源道具的数据还未给出 -->
           <div class="title">{{ t('精选') }}</div>
           <n-divider class="item-divider" />
           <div class="content">
