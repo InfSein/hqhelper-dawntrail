@@ -261,7 +261,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     const recipeID = _item.rids[0]
     const recipe = (XivRecipes as any)[recipeID]
     if (recipe) {
-      console.log('item:', _item, '\nrecipe:', recipe, '\n')
+      // console.log('item:', _item, '\nrecipe:', recipe, '\n')
       const items = recipe.m as number[]
       if (items?.length % 2 === 0) {
         for (let ptr = 0; ptr < items.length; ptr += 2) {
