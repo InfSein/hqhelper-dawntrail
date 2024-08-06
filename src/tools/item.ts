@@ -259,7 +259,8 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         [1,2,3].forEach(i => {
           if (gatherData?.popTime) {
             const start = gatherData.popTime?.['start' + i]
-            const end = gatherData.popTime?.['end' + i]
+            let end = gatherData.popTime?.['end' + i]
+            if (end === '00:00') end = '24:00'
             if (start && end && start !== '--:--' && end !== '--:--') {
               itemInfo.gatherInfo.timeLimitInfo.push({ start, end })
             }

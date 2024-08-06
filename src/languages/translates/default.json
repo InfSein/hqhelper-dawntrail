@@ -1100,9 +1100,9 @@
       "components\\custom-controls\\ItemButton.vue"
     ]
   },
-  "[{id}] [{patch}版本] [品级:{ilv}]": {
-    "en": "[{id}] [Patch{patch}] [Item Level {ilv}]",
-    "ja": "[{id}] [パッチ{patch}] [ITEM LEVEL {ilv}]",
+  "[{patch}版本] [{id}]": {
+    "en": "[Patch{patch}] [{id}]",
+    "ja": "[パッチ{patch}] [{id}]",
     "$files": [
       "components\\custom-controls\\ItemButton.vue"
     ]
