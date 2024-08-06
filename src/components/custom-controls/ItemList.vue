@@ -7,6 +7,7 @@ import {
   CodeSharp, ViewListSharp, SettingsBackupRestoreSharp
 } from '@vicons/material'
 import ItemButton from './ItemButton.vue'
+import ModalCopyAsMacro from '../modals/ModalCopyAsMacro.vue'
 import { type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 
@@ -57,6 +58,8 @@ const props = defineProps({
   }
 })
 
+const showCopyMacroModal = ref(false)
+
 const getContainerStyles = () => {
   return [
     props.listHeight? `height: ${props.listHeight + 20}px` : '',
@@ -79,6 +82,15 @@ const listValue = computed(() => {
   })
   return result.join('\n')
 })
+const macroValue = computed(() => {
+  const result : string[] = []
+  props.items.forEach(item => {
+    if (item.amount) {
+      result.push(`"${getItemName(item)}"x${item.amount}`)
+    }
+  })
+  return result.join('; ')
+})
 
 const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
 </script>
@@ -86,7 +98,7 @@ const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
 <template>
   <div v-if="items.length" class="list-container" :style="getContainerStyles()">
     <div v-if="!hideActions" class="actions">
-      <n-button size="tiny" @click="clickFuncPlaceholder" v-show="false">
+      <n-button size="tiny" @click="showCopyMacroModal = true">
         <template #icon>
           <n-icon><CodeSharp /></n-icon>
         </template>
@@ -125,11 +137,15 @@ const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
       type="textarea"
       :placeholder="t('本组没有需要的道具')"
     />
+
+    <ModalCopyAsMacro
+      v-model:show="showCopyMacroModal"
+      :macro-content="macroValue"
+    />
   </div>
   <div v-else-if="!hideEmpty" class="empty-container" :style="getContainerStyles()">
     <n-empty :description="t('本组没有需要的道具')" />
   </div>
-  
 </template>
   
 <style scoped>
