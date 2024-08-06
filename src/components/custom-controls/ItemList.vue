@@ -73,7 +73,9 @@ const mode = ref<"default" | "list">('default')
 const listValue = computed(() => {
   const result : string[] = []
   props.items.forEach(item => {
-    result.push(`${getItemName(item)} x ${item.amount}`)
+    if (item.amount) {
+      result.push(`${getItemName(item)} x ${item.amount}`)
+    }
   })
   return result.join('\n')
 })
@@ -121,7 +123,7 @@ const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
       readonly
       autosize
       type="textarea"
-      :style="getScrollbarStyles()"
+      :placeholder="t('本组没有需要的道具')"
     />
   </div>
   <div v-else-if="!hideEmpty" class="empty-container" :style="getContainerStyles()">
