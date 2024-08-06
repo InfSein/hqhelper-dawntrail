@@ -181,7 +181,7 @@ const timeCanGather = (timeLimit: {start: string, end: string}) => {
   try {
     const parseTime = (time: string) => time.split(':').reduce((acc, val, idx) => acc + parseInt(val) * [60, 1][idx], 0)
     const s = parseTime(timeLimit.start)
-    const e = timeLimit.end === '00:00' ? 24 * 60 : parseTime(timeLimit.end)
+    const e = parseTime(timeLimit.end)
     const c = currentET.value.hour * 60 + currentET.value.minute
     if (c >= s && c <= e) {
       return t('进行中')
