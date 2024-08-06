@@ -1,6 +1,13 @@
 <script setup lang="ts">
-import { computed, inject, type PropType, type Ref } from 'vue';
+import { computed, inject, type PropType, type Ref } from 'vue'
+import {
+  NIcon
+} from 'naive-ui'
+import {
+  InfoOutlined
+} from '@vicons/material'
 import XivFARImage from './XivFARImage.vue'
+import ItemPop from './ItemPop.vue'
 import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config';
 
@@ -18,6 +25,14 @@ const props = defineProps({
     type: Object as PropType<ItemInfo>,
     required: true
   },
+  amount: {
+    type: Number,
+    default: 0
+  },
+  showAmount: {
+    type: Boolean,
+    default: false
+  },
   imgSize: {
     type: Number,
     default: 14
@@ -27,6 +42,10 @@ const props = defineProps({
     default: false
   },
   hideName: {
+    type: Boolean,
+    default: false
+  },
+  hidePopIcon: {
     type: Boolean,
     default: false
   }
@@ -56,6 +75,12 @@ const getItemName = () => {
     <span v-show="!hideName" class="name">
       {{ getItemName() }}
     </span>
+    <div v-if="showAmount" class="count">
+      <span> x{{ amount }}</span>
+    </div>
+    <ItemPop v-if="!hidePopIcon" :item-info="itemInfo" pop-use-custom-width>
+      <n-icon v-if="!hidePopIcon" class="pop-icon" size="14" color="#3b7fef"><InfoOutlined /></n-icon>
+    </ItemPop>
   </div>
 </template>
 

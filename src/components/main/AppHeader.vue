@@ -24,13 +24,9 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh')
 const isChina = computed(() => locale.value === 'zh')
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
+const currentET = inject<Ref<EorzeaTime>>('currentET')!
 
 const NAIVE_UI_MESSAGE = useMessage()
-
-const eorzeaTime = ref<EorzeaTime>(new EorzeaTime())
-setInterval(() => {
-  eorzeaTime.value = new EorzeaTime()
-}, 200)
 
 const showMenus = ref(false)
 
@@ -102,7 +98,7 @@ const onUserPreferencesSubmitted = () => {
         <p>
           <span v-if="isChina"><i class="xiv eorzea-time-chs"></i></span>
           <span v-else><i class="xiv eorzea-time"></i></span>
-          <span class="time-text">{{ eorzeaTime.gameTime }}</span>
+          <span class="time-text">{{ currentET.gameTime }}</span>
         </p>
       </template>
       <div class="flex-column flex-center">
