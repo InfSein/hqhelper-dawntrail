@@ -425,7 +425,7 @@ const openInGarland = () => {
       display: flex;
       align-items: center;
       gap: 3px;
-      line-height: 1;
+      line-height: 1.2;
       flex-wrap: wrap;
 
       .item-type {
