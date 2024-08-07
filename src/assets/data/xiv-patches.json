@@ -5,7 +5,8 @@
     "name_en": "DAWNTRAIL",
     "name_ja": "黄金のレガシー",
     "updated": true,
-    "logo": "./image/game-patch/patch-7.0.png"
+    "logo": "./image/game-patch/patch-7.0.png",
+    "background": "./image/game-patch/patch-7.0-background.jpg"
   },
   {
     "v": "7.1",

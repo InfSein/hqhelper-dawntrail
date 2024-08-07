@@ -39,6 +39,15 @@ const getPatchName = (patch: any) => {
 
   return t('版本{v}: {name}', { v: patch.v, name: patchName })
 }
+
+const getPatchBackground = (patch: any) => {
+  if (patch.v === patchSelected.value) {
+    if (patch.background) {
+      return patch.background
+    }
+  }
+  return ''
+}
 </script>
 
 <template>
@@ -54,11 +63,12 @@ const getPatchName = (patch: any) => {
         v-for="(patch, index) in XivPatches"
         :key="index"
         :disabled="!patch.updated"
-        :style="`background-image: url(${patch.logo});`"
         @click="handlePatchSelect(patch)"
+        :style="`background-image: url(${getPatchBackground(patch)});`"
       >
         <div
           class="patch-button-content"
+          :style="`background-image: url(${patch.logo});`"
         >
           <div class="patch-button-text">
             {{ getPatchName(patch) }}
@@ -81,10 +91,10 @@ const getPatchName = (patch: any) => {
     padding: 5px 10px;
     width: 19%;
     height: 120px;
-    background-position-x: center;
-    background-position-y: center;
-    background-repeat: no-repeat;
-    background-size: auto 100%;
+      background-position-x: center;
+      background-position-y: center;
+      background-repeat: no-repeat;
+      background-size: auto 100%;
 
     .patch-button-content {
       display: flex;
@@ -92,6 +102,10 @@ const getPatchName = (patch: any) => {
       align-items: end;
       width: 100%;
       height: 100%;
+      background-position-x: center;
+      background-position-y: center;
+      background-repeat: no-repeat;
+      background-size: auto 100%;
     }
   }
   .patch-button.selected {
