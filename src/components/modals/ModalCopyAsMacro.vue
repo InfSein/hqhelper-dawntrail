@@ -114,7 +114,7 @@ const handleClose = () => {
 
       <template #action>
         <div class="submit-container">
-          <n-button type="primary" size="large" @click="handleCopy">
+          <n-button type="primary" @click="handleCopy">
             <template #icon>
               <n-icon><ContentCopyRound /></n-icon>
             </template>
@@ -128,10 +128,11 @@ const handleClose = () => {
 
 <style scoped>
 :deep(.n-card-header) {
-  padding-bottom: 0;
+  padding-bottom: 10px;
 }
-:deep(.n-card__content) {
-  padding-top: 10px;
+:deep(.n-card__action) {
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 /* All */
