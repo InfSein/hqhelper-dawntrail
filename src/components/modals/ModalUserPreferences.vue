@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
+import { inject, ref, watch, type Ref } from 'vue'
 import {
   NButton, NCard, NCollapse, NCollapseItem, NIcon, NModal, NPopover, NRadioButton, NRadioGroup, NSwitch, NTabs, NTabPane
 } from 'naive-ui'
@@ -15,6 +15,7 @@ import {
   WifiRound,
   SaveOutlined
 } from '@vicons/material'
+import { deepCopy } from '@/tools'
 
 const store = useStore()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -256,24 +257,26 @@ const handleClose = () => {
 }
 
 const currentTab = ref('general')
-const formData = ref<UserConfigModel>(fixUserConfig(store.state.userConfig))
+const formData = ref<UserConfigModel>(deepCopy(fixUserConfig(store.state.userConfig)))
+
+watch(showModal, (newVal, oldVal) => {
+  if (newVal && !oldVal) {
+    formData.value = deepCopy(fixUserConfig(store.state.userConfig))
+  }
+})
 
 const handleSave = () => {
-  const theme = formData.value.theme ?? 'system'
-  const language_ui = formData.value.language_ui ?? 'zh'
-  const language_item = formData.value.language_item ?? 'auto'
-  const disable_workstate_cache = formData.value.disable_workstate_cache ?? false
-  const disable_api_mirror = formData.value.disable_api_mirror ?? false
+  formData.value.theme ??= 'system'
+  formData.value.language_ui ??= 'zh'
+  formData.value.language_item ??= 'auto'
+  formData.value.disable_workstate_cache ??= false
+  formData.value.disable_api_mirror ??= false
 
-  if (disable_workstate_cache) {
+  if (formData.value.disable_workstate_cache) {
     formData.value.cache_work_state = {}
   }
 
-  const newConfig = fixUserConfig(store.state.userConfig)
-  newConfig.theme = theme
-  newConfig.language_ui = language_ui
-  newConfig.language_item = language_item
-  newConfig.disable_api_mirror = disable_api_mirror
+  const newConfig = fixUserConfig(formData.value)
   store.commit('setUserConfig', newConfig)
 
   emit('afterSubmit')
