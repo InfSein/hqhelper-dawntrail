@@ -1,7 +1,8 @@
 <script setup lang='ts'>
 import { computed, inject, ref, type PropType, type Ref } from 'vue'
 import {
-  NButton, NEmpty, NFlex, NIcon, NInput
+  NButton, NEmpty, NFlex, NIcon, NInput,
+  useMessage
 } from 'naive-ui'
 import {
   CodeSharp, ViewListSharp, SettingsBackupRestoreSharp
@@ -10,6 +11,9 @@ import ItemButton from './ItemButton.vue'
 import ModalCopyAsMacro from '../modals/ModalCopyAsMacro.vue'
 import { type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
+import { CopyToClipboard } from '@/tools'
+
+const NAIVE_UI_MESSAGE = useMessage()
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -92,13 +96,27 @@ const macroValue = computed(() => {
   return result.join('; ')
 })
 
-const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
+const copyBtnLoading = ref(false)
+const copyAsMacro = async () => {
+  if (userConfig.value.macro_direct_copy) {
+    copyBtnLoading.value = true
+    const errored = await CopyToClipboard(userConfig.value.macro_copy_prefix + macroValue.value)
+    copyBtnLoading.value = false
+    if (errored) {
+      NAIVE_UI_MESSAGE.error(t('复制失败'))
+      return
+    }
+    NAIVE_UI_MESSAGE.success(t('已复制到剪贴板'))
+  } else {
+    showCopyMacroModal.value = true
+  }
+}
 </script>
 
 <template>
   <div v-if="items.length" class="list-container" :style="getContainerStyles()">
     <div v-if="!hideActions" class="actions">
-      <n-button size="tiny" @click="showCopyMacroModal = true">
+      <n-button size="tiny" :loading="copyBtnLoading" :disabled="copyBtnLoading" @click="copyAsMacro">
         <template #icon>
           <n-icon><CodeSharp /></n-icon>
         </template>

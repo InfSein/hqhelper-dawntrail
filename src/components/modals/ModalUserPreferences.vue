@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NCollapse, NCollapseItem, NIcon, NModal, NPopover, NRadioButton, NRadioGroup, NSwitch, NTabs, NTabPane
+  NButton, NCard, NCollapse, NCollapseItem, NIcon, NModal, NPopover, NRadioButton, NRadioGroup, NSelect, NSwitch, NTabs, NTabPane
 } from 'naive-ui'
 import { useStore } from '@/store/index'
 import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
@@ -45,7 +45,7 @@ interface UserPreferenceItem {
     class: string
     style: string
   }[]
-  type: 'radio-group' | 'switch'
+  type: 'radio-group' | 'switch' | 'select'
   options: {
     value: string
     label: string
@@ -178,6 +178,39 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
         warnings: [],
         type: 'switch',
         options: []
+      },
+      {
+        key: 'macro_direct_copy',
+        label: t('点击“复制宏”时直接复制'),
+        descriptions: [
+          {
+            value: t('在默认情况下，每次您点击“复制宏”按钮，程序都会弹窗询问您要复制哪种宏。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('如果您希望提升效率，可以启用此选项，让程序直接按照默认的宏前缀来复制宏。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'switch',
+        options: []
+      },
+      {
+        key: 'macro_copy_prefix',
+        label: t('默认宏前缀'),
+        descriptions: [],
+        warnings: [],
+        type: 'select',
+        options: [
+          { value: '', label: t('直接复制(无前缀)') },
+          { value: '/e ', label: t('自提醒宏(/e)') },
+          { value: '/p ', label: t('小队宏(/p)') },
+          { value: '/fc ', label: t('部队宏(/fc)') },
+          { value: '/b ', label: t('新频宏(/b)') },
+        ]
       }
     ]
   },
@@ -367,6 +400,12 @@ const handleSave = () => {
                         :label="option.label"
                       />
                     </n-radio-group>
+                    <n-select
+                      v-if="item.type === 'select'"
+                      v-model:value="(formData as any)[item.key]"
+                      :options="item.options"
+                      :style="{ width: isMobile ? '65%' : '50%' }"
+                    />
                   </template>
                   <div class="flex-column flex-center">
                     <p
@@ -396,6 +435,12 @@ const handleSave = () => {
                       :label="option.label"
                     />
                   </n-radio-group>
+                  <n-select
+                    v-if="item.type === 'select'"
+                    v-model:value="(formData as any)[item.key]"
+                    :options="item.options"
+                    :style="{ width: isMobile ? '65%' : '50%' }"
+                  />
                 </div>
               </div>
             </div>
