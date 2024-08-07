@@ -5,6 +5,8 @@
     "name_en": "DAWNTRAIL",
     "name_ja": "黄金のレガシー",
     "updated": true,
+    "combat_hq_il": 710,
+    "life_hq_il": 690,
     "logo": "./image/game-patch/patch-7.0.png",
     "background": "./image/game-patch/patch-7.0-background.jpg"
   },
@@ -14,6 +16,7 @@
     "name_en": "???",
     "name_ja": "???",
     "updated": false,
+    "life_hq_il": 720,
     "logo": "./image/game-patch/patch-7.0.png"
   },
   {
@@ -22,6 +25,7 @@
     "name_en": "???",
     "name_ja": "???",
     "updated": false,
+    "combat_hq_il": 740,
     "logo": "./image/game-patch/patch-7.0.png"
   },
   {
@@ -30,6 +34,7 @@
     "name_en": "???",
     "name_ja": "???",
     "updated": false,
+    "life_hq_il": 750,
     "logo": "./image/game-patch/patch-7.0.png"
   },
   {
@@ -38,6 +43,7 @@
     "name_en": "???",
     "name_ja": "???",
     "updated": false,
+    "combat_hq_il": 770,
     "logo": "./image/game-patch/patch-7.0.png"
   }
 ]
