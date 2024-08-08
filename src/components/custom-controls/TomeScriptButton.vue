@@ -62,7 +62,7 @@ const tomeScripts = computed(() => {
   <n-popover
     :trigger="isMobile ? 'click' : 'hover'"
     :placement="isMobile ? 'bottom' : 'right-start'"
-    :style="{ maxWidth: isMobile ? 'unset' : '290px' }"
+    :style="{ maxWidth: isMobile ? 'unset' : '320px' }"
   >
     <template #trigger>
       <n-button class="ts-btn" :title="t('点数')">
@@ -71,7 +71,7 @@ const tomeScripts = computed(() => {
           <div class="tome-scripts">
             <div class="tome-script" v-for="(totalAmount, scriptID) in tomeScripts" :key="'tome-script-' + scriptID">
               <span class="amount">{{ totalAmount }}</span>
-              <ItemSpan hide-name :item-info="getItemInfo(scriptID)" />
+              <ItemSpan hide-name hide-pop-icon :item-info="getItemInfo(scriptID)" />
             </div>
             <div class="tome-script" v-if="!Object.keys(tomeScripts).length">
               <span class="amount">x0</span>
@@ -85,14 +85,12 @@ const tomeScripts = computed(() => {
       <div class="items">
         <div class="item" v-for="(itemInfos, scriptID) in items" :key="'popup-tome-' + scriptID">
           <div class="line">
-            <ItemSpan :item-info="getItemInfo(scriptID)" />
-            <div class="count"> x{{ tomeScripts[scriptID] }}</div>
+            <ItemSpan :item-info="getItemInfo(scriptID)" :amount="tomeScripts[scriptID]" show-amount />
           </div>
           <n-divider class="item-divider" />
           <div class="content">
             <div class="line" v-for="(itemInfo, index) in itemInfos" :key="'popup-tome-' + scriptID + '-' + index">
-              <ItemSpan :item-info="getItemInfo(itemInfo.id)" />
-              <div class="count"> x{{ itemInfo.amount }}</div>
+              <ItemSpan :item-info="getItemInfo(itemInfo.id)" :amount="itemInfo.amount" show-amount />
             </div>
           </div>
         </div>

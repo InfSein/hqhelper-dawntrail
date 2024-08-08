@@ -11,7 +11,7 @@ import {
 } from 'naive-ui'
 
 // * import pages and components
-import AppHeader from './components/main/AppHeader.vue'
+import AppHeader from './components/custom-controls/AppHeader.vue'
 import DialogConfirm from './components/custom-controls/DialogConfirm.vue'
 
 // * import others
@@ -19,6 +19,7 @@ import { useStore } from '@/store/index'
 import { t } from '@/languages'
 import { injectVoerkaI18n } from "@voerkai18n/vue"
 import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
+import EorzeaTime from './tools/eorzea-time'
 
 // #endregion
 
@@ -155,6 +156,12 @@ provide('t', t)
 provide('locale', locale)
 provide('isMobile', isMobile)
 provide('appForceUpdate', appForceUpdate)
+
+const currentET = ref<EorzeaTime>(new EorzeaTime())
+setInterval(() => {
+  currentET.value = new EorzeaTime()
+}, 200)
+provide('currentET', currentET)
 
 // #endregion
 

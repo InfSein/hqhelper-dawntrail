@@ -126,7 +126,11 @@ export interface ItemInfo {
     placeNameJA: string,
     placeNameEN: string,
     posX: string,
-    posY: string
+    posY: string,
+    timeLimitInfo: {
+      start: string,
+      end: string
+    }[]
   },
   tradeInfo: ItemTradeInfo | undefined
 }
@@ -249,8 +253,19 @@ export const getItemInfo = (item: number | CalculatedItem) => {
           placeNameJA: gatherPlaceData[0],
           placeNameEN: gatherPlaceData[1],
           posX: gatherData.coords.x,
-          posY: gatherData.coords.y
-        }
+          posY: gatherData.coords.y,
+          timeLimitInfo: []
+        };
+        [1,2,3].forEach(i => {
+          if (gatherData?.popTime) {
+            const start = gatherData.popTime?.['start' + i]
+            let end = gatherData.popTime?.['end' + i]
+            if (end === '00:00') end = '24:00'
+            if (start && end && start !== '--:--' && end !== '--:--') {
+              itemInfo.gatherInfo.timeLimitInfo.push({ start, end })
+            }
+          }
+        });
       }
     }
   }

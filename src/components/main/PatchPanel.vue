@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, inject, type Ref, computed } from 'vue'
 import {
-  NButton, NFlex
+  NButton, NFlex, NPopover
 } from 'naive-ui'
 import { type UserConfigModel } from '@/models/user-config'
 import XivPatches from "@/assets/data/xiv-patches.json"
@@ -39,6 +39,15 @@ const getPatchName = (patch: any) => {
 
   return t('版本{v}: {name}', { v: patch.v, name: patchName })
 }
+
+const getPatchBackground = (patch: any) => {
+  if (patch.v === patchSelected.value) {
+    if (patch.background) {
+      return patch.background
+    }
+  }
+  return ''
+}
 </script>
 
 <template>
@@ -48,23 +57,36 @@ const getPatchName = (patch: any) => {
       <span class="card-title-text">{{ t('选择版本') }}</span>
     </template>
     <n-flex justify="center">
-      <n-button
-        class="patch-button"
-        :class="patch.v === patchSelected ? 'selected' : ''"
+      <n-popover
         v-for="(patch, index) in XivPatches"
         :key="index"
-        :disabled="!patch.updated"
-        :style="`background-image: url(${patch.logo});`"
-        @click="handlePatchSelect(patch)"
+        placement="bottom"
+        :trigger="isMobile ? 'manual' : 'hover'"
       >
-        <div
-          class="patch-button-content"
-        >
-          <div class="patch-button-text">
-            {{ getPatchName(patch) }}
-          </div>
+        <template #trigger>
+          <n-button
+            class="patch-button"
+            :class="patch.v === patchSelected ? 'selected' : ''"
+            :disabled="!patch.updated"
+            @click="handlePatchSelect(patch)"
+            :style="`background-image: url(${getPatchBackground(patch)});`"
+          >
+            <div
+              class="patch-button-content"
+              :style="`background-image: url(${patch.logo});`"
+            >
+              <div class="patch-button-text">
+                {{ getPatchName(patch) }}
+              </div>
+            </div>
+          </n-button>
+        </template>
+        <div class="popover-container">
+          <p>{{ t('此版本实装新的HQ制作装：') }}</p>
+          <p class="sub" v-if="patch.life_hq_il">{{ t('生活职业{il}HQ', patch.life_hq_il) }}</p>
+          <p class="sub" v-if="patch.combat_hq_il">{{ t('战斗职业{il}HQ', patch.combat_hq_il) }}</p>
         </div>
-      </n-button>
+      </n-popover>
     </n-flex>
   </FoldableCard>
 </template>
@@ -81,10 +103,10 @@ const getPatchName = (patch: any) => {
     padding: 5px 10px;
     width: 19%;
     height: 120px;
-    background-position-x: center;
-    background-position-y: center;
-    background-repeat: no-repeat;
-    background-size: auto 100%;
+      background-position-x: center;
+      background-position-y: center;
+      background-repeat: no-repeat;
+      background-size: auto 100%;
 
     .patch-button-content {
       display: flex;
@@ -92,12 +114,19 @@ const getPatchName = (patch: any) => {
       align-items: end;
       width: 100%;
       height: 100%;
+      background-position-x: center;
+      background-position-y: center;
+      background-repeat: no-repeat;
+      background-size: auto 100%;
     }
   }
   .patch-button.selected {
     border: var(--n-border-pressed);
     color: var(--n-text-color-hover);
   }
+}
+.popover-container .sub {
+  margin-left: 1em;
 }
 
 /* Mobile */
