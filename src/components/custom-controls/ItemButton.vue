@@ -32,6 +32,8 @@ interface ItemButtonProps {
 
   /** 悬浮窗使用自定义宽度 */
   popUseCustomWidth?: boolean;
+  /** 悬浮窗的自定义宽度，必须同时设置`popUseCustomWidth`才能生效 */
+  popCustomWidth?: number;
   /** 悬浮窗的最大宽度 */
   popMaxWidth?: string;
 
@@ -80,6 +82,7 @@ const btnHeightVal = computed(() => {
   <ItemPop
     :item-info="itemInfo"
     :pop-use-custom-width="popUseCustomWidth"
+    :pop-custom-width="popCustomWidth"
     :pop-max-width="popMaxWidth"
     :disable-pop="disablePop"
   >

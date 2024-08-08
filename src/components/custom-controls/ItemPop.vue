@@ -41,6 +41,8 @@ interface ItemPopProps {
 
   /** 悬浮窗使用自定义宽度 */
   popUseCustomWidth?: boolean;
+  /** 悬浮窗的自定义宽度，必须同时设置`popUseCustomWidth`才能生效 */
+  popCustomWidth?: number;
   /** 悬浮窗的最大宽度 */
   popMaxWidth?: string;
 
@@ -210,7 +212,7 @@ const openInGarland = () => {
     v-if="itemInfo.id && !disablePop"
     :trigger="isMobile ? 'click' : 'hover'"
     :placement="isMobile ? 'bottom' : 'right-start'"
-    :width="popUseCustomWidth ? undefined : (isMobile ? 'trigger' : undefined)"
+    :width="popUseCustomWidth ? popCustomWidth : (isMobile ? 'trigger' : undefined)"
     :style="{ maxWidth: popMaxWidth ?? (isMobile ? 'unset' : '290px') }"
   >
     <template #trigger>

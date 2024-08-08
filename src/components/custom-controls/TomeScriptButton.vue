@@ -62,7 +62,7 @@ const tomeScripts = computed(() => {
   <n-popover
     :trigger="isMobile ? 'click' : 'hover'"
     :placement="isMobile ? 'bottom' : 'right-start'"
-    :style="{ maxWidth: isMobile ? 'unset' : '290px' }"
+    :style="{ maxWidth: isMobile ? 'unset' : '320px' }"
   >
     <template #trigger>
       <n-button class="ts-btn" :title="t('点数')">
