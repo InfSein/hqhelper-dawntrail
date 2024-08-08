@@ -11,7 +11,7 @@ import {
 } from 'naive-ui'
 
 // * import pages and components
-import AppHeader from './components/main/AppHeader.vue'
+import AppHeader from './components/custom-controls/AppHeader.vue'
 import DialogConfirm from './components/custom-controls/DialogConfirm.vue'
 
 // * import others
