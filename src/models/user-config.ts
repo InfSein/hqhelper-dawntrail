@@ -7,6 +7,8 @@ export interface UserConfigModel {
   // enhancements
   disable_patchcard_autofold: boolean
   disable_jobbtn_doubleclick: boolean
+  macro_direct_copy: boolean
+  macro_copy_prefix: string
   // performance
   disable_workstate_cache: boolean
   // network
@@ -26,6 +28,8 @@ const defaultUserConfig: UserConfigModel = {
   item_server: 'auto',
   disable_patchcard_autofold: false,
   disable_jobbtn_doubleclick: false,
+  macro_direct_copy: false,
+  macro_copy_prefix: '',
   disable_workstate_cache: false,
   disable_api_mirror: false,
 

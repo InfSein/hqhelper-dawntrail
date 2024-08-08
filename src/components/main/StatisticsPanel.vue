@@ -246,6 +246,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
             :item-info="item"
             show-icon show-name show-amount
             :btn-color="reagentsBtnColors[index]"
+            pop-use-custom-width pop-max-width="85%"
           >
           </ItemButton>
           <TomeScriptButton
@@ -291,6 +292,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
                 <ItemList
                   :items="gatheringsCommon"
                   :list-height="isMobile ? undefined : 320"
+                  :btn-pop-max-width="isMobile ? undefined : '340px'"
                 />
               </div>
             </n-collapse-item>
@@ -299,6 +301,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
                 <ItemList
                   :items="gatheringsTimed"
                   :list-height="isMobile ? undefined : 320"
+                  :btn-pop-max-width="isMobile ? undefined : '340px'"
                 />
               </div>
             </n-collapse-item>
@@ -307,6 +310,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
                 <ItemList
                   :items="crystals"
                   :list-height="isMobile ? undefined : 320"
+                  :btn-pop-max-width="isMobile ? undefined : '340px'"
                 />
               </div>
             </n-collapse-item>

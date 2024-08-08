@@ -1,14 +1,19 @@
 <script setup lang='ts'>
 import { computed, inject, ref, type PropType, type Ref } from 'vue'
 import {
-  NButton, NEmpty, NFlex, NIcon, NInput
+  NButton, NEmpty, NFlex, NIcon, NInput,
+  useMessage
 } from 'naive-ui'
 import {
   CodeSharp, ViewListSharp, SettingsBackupRestoreSharp
 } from '@vicons/material'
 import ItemButton from './ItemButton.vue'
+import ModalCopyAsMacro from '../modals/ModalCopyAsMacro.vue'
 import { type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
+import { CopyToClipboard } from '@/tools'
+
+const NAIVE_UI_MESSAGE = useMessage()
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -49,8 +54,15 @@ const props = defineProps({
   hideEmpty: {
     type: Boolean,
     default: false
+  },
+  /** 物品按钮悬浮窗的最大宽度 */
+  btnPopMaxWidth: {
+    type: String,
+    default: undefined
   }
 })
+
+const showCopyMacroModal = ref(false)
 
 const getContainerStyles = () => {
   return [
@@ -68,18 +80,43 @@ const mode = ref<"default" | "list">('default')
 const listValue = computed(() => {
   const result : string[] = []
   props.items.forEach(item => {
-    result.push(`${getItemName(item)} x ${item.amount}`)
+    if (item.amount) {
+      result.push(`${getItemName(item)} x ${item.amount}`)
+    }
   })
   return result.join('\n')
 })
+const macroValue = computed(() => {
+  const result : string[] = []
+  props.items.forEach(item => {
+    if (item.amount) {
+      result.push(`"${getItemName(item)}"x${item.amount}`)
+    }
+  })
+  return result.join('; ')
+})
 
-const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
+const copyBtnLoading = ref(false)
+const copyAsMacro = async () => {
+  if (userConfig.value.macro_direct_copy) {
+    copyBtnLoading.value = true
+    const errored = await CopyToClipboard(userConfig.value.macro_copy_prefix + macroValue.value)
+    copyBtnLoading.value = false
+    if (errored) {
+      NAIVE_UI_MESSAGE.error(t('复制失败'))
+      return
+    }
+    NAIVE_UI_MESSAGE.success(t('已复制到剪贴板'))
+  } else {
+    showCopyMacroModal.value = true
+  }
+}
 </script>
 
 <template>
   <div v-if="items.length" class="list-container" :style="getContainerStyles()">
     <div v-if="!hideActions" class="actions">
-      <n-button size="tiny" @click="clickFuncPlaceholder" v-show="false">
+      <n-button size="tiny" :loading="copyBtnLoading" :disabled="copyBtnLoading" @click="copyAsMacro">
         <template #icon>
           <n-icon><CodeSharp /></n-icon>
         </template>
@@ -105,6 +142,7 @@ const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
           :key="'item-' + index"
           :item-info="item"
           show-icon show-name show-amount
+          :pop-max-width="btnPopMaxWidth"
         >
         </ItemButton>
       </n-flex>
@@ -115,13 +153,17 @@ const clickFuncPlaceholder = () => { alert('不好意思这个还没做好') }
       readonly
       autosize
       type="textarea"
-      :style="getScrollbarStyles()"
+      :placeholder="t('本组没有需要的道具')"
+    />
+
+    <ModalCopyAsMacro
+      v-model:show="showCopyMacroModal"
+      :macro-content="macroValue"
     />
   </div>
   <div v-else-if="!hideEmpty" class="empty-container" :style="getContainerStyles()">
     <n-empty :description="t('本组没有需要的道具')" />
   </div>
-  
 </template>
   
 <style scoped>

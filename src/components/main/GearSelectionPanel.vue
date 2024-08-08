@@ -295,11 +295,11 @@ const handleAddsuitDropdownMouseLeave = (event: MouseEvent) => {
   showAddsuitOptions.value = false
 }
 const addsuitOptions: DropdownOption[] = [
-  { key: 'add-weapon', label: t('添加一套主副手'), description: t('为当前职业添加一套主副手') },
-  { key: 'add-attire', label: t('添加一套防具'), description: t('为当前职业添加一套防具') },
-  { key: 'add-accessory', label: t('添加一套首饰'), description: t('为当前职业添加一套首饰') },
-  { key: 'add-attire-and-accessory', label: t('添加一套防具和首饰'), description: t('为当前职业添加一套防具和首饰') },
-  { key: 'add-suit', label: t('添加整套'), description: t('为当前职业添加一套主副手、防具和首饰') },
+  { key: 'add-weapon', label: t('添加一套主副手') },
+  { key: 'add-attire', label: t('添加一套防具') },
+  { key: 'add-accessory', label: t('添加一套首饰') },
+  { key: 'add-attire-and-accessory', label: t('添加一套防具和首饰') },
+  { key: 'add-suit', label: t('添加整套') },
   // { key: 'add-selfdef', label: t('添加(自定义)'), description: t('打开单独的窗口，自定义地添加套装') },
 ]
 const handleAddsuitSelect = (key: string) => {

@@ -24,10 +24,16 @@
 .red {
   color: red;
 }
+.green {
+  color: green;
+}
 
 /* Text */
 .bold {
   font-weight: bold;
+}
+.italic {
+  font-style: italic;
 }
 .font-center {
   text-align: center;

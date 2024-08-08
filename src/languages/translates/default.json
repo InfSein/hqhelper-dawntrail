@@ -595,44 +595,9 @@
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "为当前职业添加一套主副手": {
-    "en": "Add 1 set of mainhand&offhand for current job",
-    "ja": "現在のジョブの主副道具を１セット追加",
-    "$files": [
-      "components\\main\\GearSelectionPanel.vue"
-    ]
-  },
-  "为当前职业添加一套防具": {
-    "en": "Add 1 set of attire for current job",
-    "ja": "現在のジョブの防具を１セット追加",
-    "$files": [
-      "components\\main\\GearSelectionPanel.vue"
-    ]
-  },
-  "为当前职业添加一套首饰": {
-    "en": "Add 1 set of accessory for current job",
-    "ja": "現在のジョブのアクセサリを１セット追加",
-    "$files": [
-      "components\\main\\GearSelectionPanel.vue"
-    ]
-  },
   "添加一套防具和首饰": {
     "en": "Add 1 set of attire & accessory",
     "ja": "防具とアクセサリを１セット追加",
-    "$files": [
-      "components\\main\\GearSelectionPanel.vue"
-    ]
-  },
-  "为当前职业添加一套防具和首饰": {
-    "en": "Add 1 set of attire & accessory for current job",
-    "ja": "現在のジョブの防具とアクセサリを１セット追加",
-    "$files": [
-      "components\\main\\GearSelectionPanel.vue"
-    ]
-  },
-  "为当前职业添加一套主副手、防具和首饰": {
-    "en": "Add 1 set of mainhand&offhand, attire&accessory for current job",
-    "ja": "現在のジョブの主副道具およびアクセサリを１セット追加",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
@@ -1310,7 +1275,7 @@
       "components\\custom-controls\\ItemButton.vue"
     ]
   },
-  "制作配方": {
+  "制作": {
     "en": "Recipe",
     "ja": "レシピ",
     "$files": [
@@ -1427,6 +1392,264 @@
     "ja": "外見",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "{lv}级{star}{job}配方": {
+    "en": "{job} Lv. {lv}{star}",
+    "ja": "{job} Lv. {lv}{star}",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "制作条件：": {
+    "en": "Required:",
+    "ja": "製作可能条件：",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "作业精度{value}": {
+    "en": "{value} Craftsmanship",
+    "ja": "作業精度{value}",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "加工精度{value}": {
+    "en": "{value} Control",
+    "ja": "加工精度{value}",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "每次制作会产出{yields}个成品": {
+    "en": "Yields: {yields}",
+    "ja": "Yields: {yields}",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "无法进行简易制作": {
+    "en": "Quick Synthesis Unavailable",
+    "ja": "簡易製作不可",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "无法制作优质道具": {
+    "en": "High-quality Uncraftable",
+    "ja": "HQ製作不可",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "(练级)": {
+    "en": "(Leveling)",
+    "ja": "(レベリング)",
+    "$files": [
+      "components\\ft-helper\\ItemSelectionPanel.vue"
+    ]
+  },
+  "精选": {
+    "en": "Aetherial Reduction",
+    "ja": "精選",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "该物品可以通过精选以下道具获得：": {
+    "en": "This item could be reduced from:",
+    "ja": "このアイテムは精選以下のアイテムで入手できます：",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "采集": {
+    "en": "Gathering",
+    "ja": "採集",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "该物品可以在以下位置采集：": {
+    "en": "This item could be gathered at:",
+    "ja": "アイテムは次の場所で収集できます：",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "(X:{x}, Y:{y})": {
+    "en": "(X:{x}, Y:{y})",
+    "ja": "(X:{x}, Y:{y})",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "需要习得": {
+    "en": "Need to learn",
+    "ja": "習得必要：",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "复制失败": {
+    "en": "Copy action failed",
+    "ja": "复制失败",
+    "$files": [
+      "components\\custom-controls\\ItemList.vue"
+    ]
+  },
+  "已复制到剪贴板": {
+    "en": "Copy action succeed",
+    "ja": "已复制到剪贴板",
+    "$files": [
+      "components\\custom-controls\\ItemList.vue",
+      "components\\modals\\ModalCopyAsMacro.vue"
+    ]
+  },
+  "进行中": {
+    "en": "ONGOING",
+    "ja": "进行中",
+    "$files": [
+      "components\\custom-controls\\ItemPop.vue"
+    ]
+  },
+  "物品品级 {ilv}": {
+    "en": "ITEM LEVEL {ilv}",
+    "ja": "ITEM LEVEL {ilv}",
+    "$files": [
+      "components\\custom-controls\\ItemPop.vue"
+    ]
+  },
+  "该物品只能在以下ET内采集：": {
+    "en": "This item could be gathered only in following ET:",
+    "ja": "该物品只能在以下ET内采集：",
+    "$files": [
+      "components\\custom-controls\\ItemPop.vue"
+    ]
+  },
+  "直接复制(无前缀)": {
+    "en": "Direct copy (none prefix)",
+    "ja": "直接复制(无前缀)",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue",
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "自提醒宏(/e)": {
+    "en": "Self reminder (/e)",
+    "ja": "自提醒宏(/e)",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue",
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "小队宏(/p)": {
+    "en": "Party (/p)",
+    "ja": "小队宏(/p)",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue",
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "部队宏(/fc)": {
+    "en": "Free company (/fc)",
+    "ja": "部队宏(/fc)",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue",
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "新频宏(/b)": {
+    "en": "Beginner (/b)",
+    "ja": "新频宏(/b)",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue",
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "复制失败，请手动框选预览区域内的文本复制": {
+    "en": "Copy action failed, please select the text in the preview area and copy manually",
+    "ja": "复制失败，请手动框选预览区域内的文本复制",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue"
+    ]
+  },
+  "预览": {
+    "en": "Preview",
+    "ja": "预览",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue"
+    ]
+  },
+  "选项": {
+    "en": "Options",
+    "ja": "选项",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue"
+    ]
+  },
+  "以后不再询问，直接复制": {
+    "en": "No more ask, copy directly",
+    "ja": "以后不再询问，直接复制",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue"
+    ]
+  },
+  "复制": {
+    "en": "Copy",
+    "ja": "复制",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue"
+    ]
+  },
+  "点击“复制宏”时直接复制": {
+    "en": "Copy directly when click \"Copy as macro\"",
+    "ja": "点击“复制宏”时直接复制",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "在默认情况下，每次您点击“复制宏”按钮，程序都会弹窗询问您要复制哪种宏。": {
+    "en": "In default case, every time you click \"Copy as macro\" button, program will popup a modal and ask you which macro you want to copy.",
+    "ja": "在默认情况下，每次您点击“复制宏”按钮，程序都会弹窗询问您要复制哪种宏。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "如果您希望提升效率，可以启用此选项，让程序直接按照默认的宏前缀来复制宏。": {
+    "en": "You can enable this option to let program copy macro directly according to default macro prefix.",
+    "ja": "如果您希望提升效率，可以启用此选项，让程序直接按照默认的宏前缀来复制宏。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "默认宏前缀": {
+    "en": "Default macro prefix",
+    "ja": "默认宏前缀",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "此版本实装新的HQ制作装：": {
+    "en": "This patch provides new HQ crafting items:",
+    "ja": "此版本实装新的HQ制作装：",
+    "$files": [
+      "components\\main\\PatchPanel.vue"
+    ]
+  },
+  "生活职业{il}HQ": {
+    "en": "Non-combat jobs' {il} HQ",
+    "ja": "生活职业{il}HQ",
+    "$files": [
+      "components\\main\\PatchPanel.vue"
+    ]
+  },
+  "战斗职业{il}HQ": {
+    "en": "Combat jobs' {il} HQ",
+    "ja": "战斗职业{il}HQ",
+    "$files": [
+      "components\\main\\PatchPanel.vue"
     ]
   }
 }
