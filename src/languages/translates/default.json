@@ -1487,21 +1487,21 @@
   },
   "需要习得": {
     "en": "Need to learn",
-    "ja": "習得必要：",
+    "ja": "修得必要：",
     "$files": [
       "components\\custom-controls\\ItemButton.vue"
     ]
   },
   "复制失败": {
     "en": "Copy action failed",
-    "ja": "复制失败",
+    "ja": "コピーが失敗しました",
     "$files": [
       "components\\custom-controls\\ItemList.vue"
     ]
   },
   "已复制到剪贴板": {
     "en": "Copy action succeed",
-    "ja": "已复制到剪贴板",
+    "ja": "コピーしました",
     "$files": [
       "components\\custom-controls\\ItemList.vue",
       "components\\modals\\ModalCopyAsMacro.vue"
@@ -1509,28 +1509,28 @@
   },
   "进行中": {
     "en": "ONGOING",
-    "ja": "进行中",
+    "ja": "採集可能期間中",
     "$files": [
       "components\\custom-controls\\ItemPop.vue"
     ]
   },
   "物品品级 {ilv}": {
     "en": "ITEM LEVEL {ilv}",
-    "ja": "ITEM LEVEL {ilv}",
+    "ja": "アイテムレベル {ilv}",
     "$files": [
       "components\\custom-controls\\ItemPop.vue"
     ]
   },
   "该物品只能在以下ET内采集：": {
     "en": "This item could be gathered only in following ET:",
-    "ja": "该物品只能在以下ET内采集：",
+    "ja": "該当アイテムは以下のET内のみ採集可能：",
     "$files": [
       "components\\custom-controls\\ItemPop.vue"
     ]
   },
   "直接复制(无前缀)": {
     "en": "Direct copy (none prefix)",
-    "ja": "直接复制(无前缀)",
+    "ja": "マクロなしでコピーする",
     "$files": [
       "components\\modals\\ModalCopyAsMacro.vue",
       "components\\modals\\ModalUserPreferences.vue"
@@ -1538,7 +1538,7 @@
   },
   "自提醒宏(/e)": {
     "en": "Self reminder (/e)",
-    "ja": "自提醒宏(/e)",
+    "ja": "注意喚起用マクロ(/e)",
     "$files": [
       "components\\modals\\ModalCopyAsMacro.vue",
       "components\\modals\\ModalUserPreferences.vue"
@@ -1546,7 +1546,7 @@
   },
   "小队宏(/p)": {
     "en": "Party (/p)",
-    "ja": "小队宏(/p)",
+    "ja": "PTチャ用マクロ(/p)",
     "$files": [
       "components\\modals\\ModalCopyAsMacro.vue",
       "components\\modals\\ModalUserPreferences.vue"
@@ -1554,7 +1554,7 @@
   },
   "部队宏(/fc)": {
     "en": "Free company (/fc)",
-    "ja": "部队宏(/fc)",
+    "ja": "FCチャ用マクロ(/fc)",
     "$files": [
       "components\\modals\\ModalCopyAsMacro.vue",
       "components\\modals\\ModalUserPreferences.vue"
@@ -1562,7 +1562,7 @@
   },
   "新频宏(/b)": {
     "en": "Beginner (/b)",
-    "ja": "新频宏(/b)",
+    "ja": "ビギチャ用マクロ(/b)",
     "$files": [
       "components\\modals\\ModalCopyAsMacro.vue",
       "components\\modals\\ModalUserPreferences.vue"
@@ -1570,84 +1570,84 @@
   },
   "复制失败，请手动框选预览区域内的文本复制": {
     "en": "Copy action failed, please select the text in the preview area and copy manually",
-    "ja": "复制失败，请手动框选预览区域内的文本复制",
+    "ja": "自動コピーが失敗しました、カーソルでテキストを選択してコピーしてください",
     "$files": [
       "components\\modals\\ModalCopyAsMacro.vue"
     ]
   },
   "预览": {
     "en": "Preview",
-    "ja": "预览",
+    "ja": "プレビュー",
     "$files": [
       "components\\modals\\ModalCopyAsMacro.vue"
     ]
   },
   "选项": {
     "en": "Options",
-    "ja": "选项",
+    "ja": "オプション",
     "$files": [
       "components\\modals\\ModalCopyAsMacro.vue"
     ]
   },
   "以后不再询问，直接复制": {
     "en": "No more ask, copy directly",
-    "ja": "以后不再询问，直接复制",
+    "ja": "次回から表示ぜずにコピーする",
     "$files": [
       "components\\modals\\ModalCopyAsMacro.vue"
     ]
   },
   "复制": {
     "en": "Copy",
-    "ja": "复制",
+    "ja": "コピーする",
     "$files": [
       "components\\modals\\ModalCopyAsMacro.vue"
     ]
   },
   "点击“复制宏”时直接复制": {
     "en": "Copy directly when click \"Copy as macro\"",
-    "ja": "点击“复制宏”时直接复制",
+    "ja": "「マクロをコピーする」をクリックだけでコピー完了とする",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "在默认情况下，每次您点击“复制宏”按钮，程序都会弹窗询问您要复制哪种宏。": {
     "en": "In default case, every time you click \"Copy as macro\" button, program will popup a modal and ask you which macro you want to copy.",
-    "ja": "在默认情况下，每次您点击“复制宏”按钮，程序都会弹窗询问您要复制哪种宏。",
+    "ja": "デフォルトの設定は、毎回「マクロをコピーする」をクリックした際に、どのチャンネルに送信するかを確認します",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "如果您希望提升效率，可以启用此选项，让程序直接按照默认的宏前缀来复制宏。": {
     "en": "You can enable this option to let program copy macro directly according to default macro prefix.",
-    "ja": "如果您希望提升效率，可以启用此选项，让程序直接按照默认的宏前缀来复制宏。",
+    "ja": "効率を上げたい場合は、このオプションをオンにして、コピーは毎回のデフォルト設定で行います",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "默认宏前缀": {
     "en": "Default macro prefix",
-    "ja": "默认宏前缀",
+    "ja": "マクロコマンドのデフォルト設定",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "此版本实装新的HQ制作装：": {
     "en": "This patch provides new HQ crafting items:",
-    "ja": "此版本实装新的HQ制作装：",
+    "ja": "現在のパッチで実装された新たな新式HQ装備：",
     "$files": [
       "components\\main\\PatchPanel.vue"
     ]
   },
   "生活职业{il}HQ": {
     "en": "Non-combat jobs' {il} HQ",
-    "ja": "生活职业{il}HQ",
+    "ja": "クラフター＆ギャザラー{il}HQ",
     "$files": [
       "components\\main\\PatchPanel.vue"
     ]
   },
   "战斗职业{il}HQ": {
     "en": "Combat jobs' {il} HQ",
-    "ja": "战斗职业{il}HQ",
+    "ja": "バトルジョブ{il}HQ",
     "$files": [
       "components\\main\\PatchPanel.vue"
     ]
