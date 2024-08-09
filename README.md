@@ -1,43 +1,98 @@
-# FFXIV HQ Helper: DAWNTRAIL
+<p align="center">
+  <img width="160" alt="icon" height="160" src="./public/icons/logo_v2_shadowed.png" />
+</p>
+
+<h1 align="center">7.x HQ Helper</h1>
+
+<p align="center">
+  <strong>简体中文</strong>
+  |
+  <a href="./docs/README.ja.md">日本語</a>
+  |
+  <a href="./docs/README.en.md">English</a>
+</p>
 
 ![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) <br>
 ![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)
 
-**简体中文** | [日本語](https://github.com/InfSein/hqhelper-dawntrail/blob/master/docs/README.ja.md) | [English](https://github.com/InfSein/hqhelper-dawntrail/blob/master/docs/README.en.md)
+面向生产采集玩家的黄金篇(7.0~7.4)秘籍配方制作计算器。
 
+具体而言，它为你提供7.0/7.05/7.1/7.2/7.3/7.4各个版本新增的HQ装备、食物和爆发药的信息整理和配方计算服务，以及一些其他的生产采集玩家可能比较需要的杂项功能。
 
-## 项目介绍
+## 使用方法
 
-专为7.x版本的《最终幻想XIV》生产玩家设计的Web应用。
+### 在浏览器中使用
 
-访问我们的 [Github Page](https://infsein.github.io/hqhelper-dawntrail/) 即可开始使用。
+第二代的 `HqHelper` 在本质上只是一个静态网页。
 
-### 开发进度
+#### 正式环境网站
 
-本项目仍处于建设阶段，随时可能发生重大变动。
+* 主站点：https://infsein.github.io/hqhelper-dawntrail
+* 备用站：https://hqhelper.nbb.fan/
 
-#### To-do 列表
+> [!TIP]\
+> 对于境内用户而言，访问 `备用站` 可能会更快。
+> 建议把列出的站点都试一试，哪个快用哪个。
 
-- [x] i18n
-- [ ] Development Document
+#### 测试环境网站
 
-### 前身
+* https://beta.hqhelper.nbb.fan/
 
-`HQ Helper`(下文中也可能称之为`HqHelper`)的初代版本是一个基于`.NET 6.0`的`Windows Forms`应用。
+> [!CAUTION]\
+> 测试环境的网站顾名思义，仅供测试。
+> 会经常更新，并随时有可能出现较为严重的BUG。
 
-该应用的界面由WinForms设计器制作，使用了Windows的原生UI。
+### 以应用形式使用
 
-在`最终幻想XIV`的`晓月之终途`资料片期间，`HqHelper`提供了超过50次版本更新，支持版本覆盖了从`6.0`到`6.4`的所有游戏版本。
+我们会考虑为你提供各式各样的套壳，但是不能保证效果跟浏览器一样好。
 
-你可以仍然在[NGA玩家社区](https://bbs.nga.cn/read.php?tid=31596099)的发布页面查看截图、描述和教程，或者直接下载和使用它。
+#### Windows 应用
 
-## 开发指南
+还没做好
 
-我们只在`README`中提供最基本的开发和构建指南，更详细的内容可能需要参阅`docs`文件夹或[Wiki](https://github.com/InfSein/hqhelper-dawntrail/wiki)。
+#### iOS 应用
+
+由于一些原因，我们无法为你提供iOS的app，不过我们的网站支持PWA。
+
+在上方选定了你觉得打开比较快的网站之后，用 `Safari` 打开网页，点击底部正中间的按钮，点击 `添加到主屏幕`，即可获得接近于app的体验。
+
+#### Android 应用
+
+暂无计划
+
+### 手动构建
+
+需要有基础的前端编程知识。
+
+```sh
+git clone https://github.com/InfSein/hqhelper-dawntrail.git
+cd hqhelper-dawntrail
+npm i
+npm run dev
+```
+
+## 提供支持
+
+### 关注我们
+
+* **给这个仓库一个Star**
+* **社交媒体**：[微博](https://weibo.com/u/7870808507) | [推特](https://twitter.com/FF14_HqHelper)
+* **NGA主题帖**：还没发
+
+### 参与开发
+
+* **寻找问题**：如果您在使用过程中发现有错误/问题的地方，或是对我们的界面/功能/逻辑有优化的建议，欢迎 [提出议题](https://github.com/InfSein/hqhelper-dawntrail/issues/new) 。
+* **解决问题**：如果您具有前端编程能力，您可以通过发起 [拉取请求](https://github.com/InfSein/hqhelper-dawntrail/pulls) 等方式参与到 `HqHelper` 的开发工作中。代码可能需要遵守通用规范和一些额外村规，具体请参阅我们的 [Wiki](https://github.com/InfSein/hqhelper-dawntrail/wiki) 。
+
+### 提供赞助
+
+* 还没想好怎么接收
+
+## 其他
 
 ### 版本号说明
 
-此应用的版本号遵循 `MAJOR.MINOR.PATCH` 的命名规则。
+版本号遵循 `MAJOR.MINOR.PATCH` 的命名规则。
 
 1. `MAJOR`,`MINOR`,`PATCH` 均为正整数;
 2. `MAJOR` 代表这是第几代 `HqHelper`，同时也标识着适配的 `最终幻想XIV` 资料片版本;
@@ -50,28 +105,10 @@
 - 适配 `最终幻想XIV` 的第 `1` 个中等版本，即 `7.1`;
 - 在适配 `7.1` 的基础上，更新的第 `17` 个版本。
 
-> [!NOTE]
-> `PATCH` 版本号的增加可能会很激进，哪怕此版本仅有很小的优化或修复。
+### Star数量历史
 
-### 构建本地调试环境
+[![Stargazers over time](https://starchart.cc/InfSein/hqhelper-dawntrail.svg?variant=adaptive)](https://starchart.cc/InfSein/hqhelper-dawntrail)
 
-```sh
-git clone https://github.com/InfSein/hqhelper-dawntrail.git
-cd hqhelper-dawntrail
-npm i
-npm run dev
-```
+## 特别感谢
 
-## 参考内容
-
-1. [Naive UI](https://github.com/tusen-ai/naive-ui)
-2. [FFXIV Axis Font Icons](https://github.com/thewakingsands/ffxiv-axis-font-icons)
-
-可能并未列举所有参考。
-
-## 许可
-
-MIT
-
-> [!NOTE]
-> 项目许可在正式发布前随时可能发生变更。
+* JetBrains 
