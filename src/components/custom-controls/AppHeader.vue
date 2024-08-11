@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
+import { computed, h, inject, ref, type Component, type Ref } from 'vue'
 import {
-  NButton, NButtonGroup, NDrawer, NDrawerContent, NDivider, NFlex, NIcon, NPopover,
-  useMessage
+  NButton, NButtonGroup, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover,
+  useMessage,
+  type DropdownOption
 } from 'naive-ui'
 import {
   ArrowCircleLeftOutlined,
+  FileCopyOutlined,
+  SpaOutlined,
+  ImportExportOutlined,
   FastfoodOutlined,
   MenuFilled,
   SettingsSharp,
@@ -62,7 +66,7 @@ const redirectToFoodAndTincPage = () => {
 
 interface MenuItem {
   label: string
-  icon: any
+  icon: typeof MenuFilled
   hide?: boolean
   click?: () => void
 }
@@ -76,6 +80,121 @@ const menuItems = computed(() => {
     aboutApp: { label: t('关于本作'), icon: InfoFilled, click: displayAboutAppModal } as MenuItem
   }
 })
+interface DesktopMenuItem {
+  label: string
+  icon: typeof MenuFilled
+  hide?: boolean
+  disabled?: boolean
+  click?: () => void
+  options?: DropdownOption[]
+}
+const desktopMenus = computed(() => {
+  const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
+  return [
+    /* 参考资料 */
+    {
+      label: t('参考资料'),
+      icon: FileCopyOutlined,
+      options: [
+        {
+          key: 'ref-self',
+          label: t('自撰攻略'),
+          icon: FileCopyOutlined,
+          children: [
+            {
+              key: 'ref-self-1',
+              label: t('DawnCrafter I: 7.0/7.05生产采集准备工作'),
+              icon: renderIcon(FileCopyOutlined),
+              click: () => {
+                alert('还没写好呢')
+              }
+            }
+          ]
+        },
+        {
+          key: 'ref-oth-book',
+          label: t('其他推荐攻略'),
+          icon: FileCopyOutlined,
+          children: [
+            {
+              key: 'ref-oth-book-1',
+              label: t('???'),
+              icon: renderIcon(FileCopyOutlined),
+              click: () => {
+                alert('还没写好呢')
+              }
+            }
+          ]
+        },
+        {
+          key: 'ref-oth-tool',
+          label: t('其他实用工具'),
+          icon: FileCopyOutlined,
+          children: [
+            {
+              key: 'ref-oth-tool-1',
+              label: t('???'),
+              icon: renderIcon(FileCopyOutlined),
+              click: () => {
+                alert('还没写好呢')
+              }
+            }
+          ]
+        }
+      ]
+    },
+    /* 实用工具 */
+    {
+      label: t('实用工具'),
+      icon: SpaOutlined,
+      options: [
+        { key: 'tool-fthelper', label: t('食药计算'), disabled: hideFTHelper, icon: renderIcon(FastfoodOutlined), click: redirectToFoodAndTincPage }
+      ]
+    },
+    /* 导入导出 */
+    {
+      label: t('导入导出'),
+      icon: ImportExportOutlined,
+      disabled: true,
+      options: [],
+      click: () => {
+        alert('还没写好呢')
+      }
+    },
+    /* 设置与更新 */
+    {
+      label: t('设置与更新'),
+      icon: ImportExportOutlined,
+      options: [
+        { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), click: displayUserPreferencesModal },
+        { key: 'sau-cl', label: t('更新日志'), disabled: true, icon: renderIcon(EventNoteFilled), click: displayChangeLogsModal }
+      ],
+    },
+    /* 关于 */
+    {
+      label: t('关于'),
+      icon: InfoFilled,
+      options: [
+        { key: 'ab-contact', label: t('联系我们'), icon: renderIcon(ContactlessSharp), click: displayContactModal },
+        { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoFilled), click: displayAboutAppModal }
+      ],
+    }
+  ] as DesktopMenuItem[]
+})
+function renderIcon(icon: Component) {
+  return () => {
+    return h(NIcon, null, {
+      default: () => h(icon)
+    })
+  }
+}
+const handleDesktopMenuOptionSelect = (key: string, option: any) => {
+  if (option?.click) {
+    option.click()
+  }
+  console.log(key, option)
+}
+const defaultClickEvent = () => {}
 
 const openModal = (click?: (() => void)) => {
   // close menus first
@@ -140,20 +259,25 @@ const onUserPreferencesSubmitted = () => {
         </div>
       </div>
       <div class="app-menu" v-if="!isMobile">
-        <n-button-group>
+        <n-dropdown
+          size="small"
+          placement="bottom-start"
+          v-for="(item, key) in desktopMenus"
+          :key="'desktop-menu-' + key"
+          :options="item.options"
+          :trigger="item.options?.length ? 'hover' : 'manual'"
+          @select="handleDesktopMenuOptionSelect"
+        >
           <n-button
             size="tiny" tertiary
-            v-for="(item, key) in menuItems"
-            :key="key"
             v-show="!item?.hide"
-            @click="openModal(item.click)"
+            :disabled="item.disabled"
+            @click="item.click ?? defaultClickEvent"
           >
-            <template #icon>
-              <n-icon><component :is="item.icon" /></n-icon>
-            </template>
+            <n-icon><component :is="item.icon" /></n-icon>
             {{ item.label }}
           </n-button>
-        </n-button-group>
+        </n-dropdown>
       </div>
     </div>
     
