@@ -1,17 +1,21 @@
 <script setup lang="ts">
-import { computed, h, inject, ref, type Component, type Ref } from 'vue'
+import { computed, h, inject, ref, type Component, type Ref, type VNode } from 'vue'
 import {
-  NButton, NButtonGroup, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover,
+  NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover, NTooltip,
   useMessage,
-  type DropdownOption
+  type DropdownOption, type DropdownGroupOption
 } from 'naive-ui'
 import {
   ArrowCircleLeftOutlined,
   FileCopyOutlined,
-  SpaOutlined,
+  CasesOutlined,
   ImportExportOutlined,
+  ArrowUpwardOutlined,
+  ArrowDownwardOutlined,
+  AccessAlarmsOutlined,
   FastfoodOutlined,
   MenuFilled,
+  UpdateOutlined,
   SettingsSharp,
   EventNoteFilled,
   InfoFilled,
@@ -70,6 +74,14 @@ interface MenuItem {
   hide?: boolean
   click?: () => void
 }
+interface DesktopMenuItem {
+  label: string
+  icon: typeof MenuFilled
+  hide?: boolean
+  disabled?: boolean
+  click?: () => void
+  options?: DropdownOption[]
+}
 const menuItems = computed(() => {
   const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
   return {
@@ -80,35 +92,22 @@ const menuItems = computed(() => {
     aboutApp: { label: t('关于本作'), icon: InfoFilled, click: displayAboutAppModal } as MenuItem
   }
 })
-interface DesktopMenuItem {
-  label: string
-  icon: typeof MenuFilled
-  hide?: boolean
-  disabled?: boolean
-  click?: () => void
-  options?: DropdownOption[]
-}
 const desktopMenus = computed(() => {
   const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
+  const ftHelperTooltip = hideFTHelper ? t('您已经处于食药计算器的页面。') : undefined
   return [
     /* 参考资料 */
     {
       label: t('参考资料'),
       icon: FileCopyOutlined,
+      hide: true,
       options: [
         {
           key: 'ref-self',
           label: t('自撰攻略'),
           icon: FileCopyOutlined,
           children: [
-            {
-              key: 'ref-self-1',
-              label: t('DawnCrafter I: 7.0/7.05生产采集准备工作'),
-              icon: renderIcon(FileCopyOutlined),
-              click: () => {
-                alert('还没写好呢')
-              }
-            }
+            { key: 'ref-self-1', label: t('DawnCrafter I: 7.0/7.05生产采集准备工作'), icon: renderIcon(FileCopyOutlined), click: notDoneBtnClickEvent }
           ]
         },
         {
@@ -116,14 +115,7 @@ const desktopMenus = computed(() => {
           label: t('其他推荐攻略'),
           icon: FileCopyOutlined,
           children: [
-            {
-              key: 'ref-oth-book-1',
-              label: t('???'),
-              icon: renderIcon(FileCopyOutlined),
-              click: () => {
-                alert('还没写好呢')
-              }
-            }
+            { key: 'ref-oth-book-1', label: t('???'), icon: renderIcon(FileCopyOutlined), click: notDoneBtnClickEvent }
           ]
         },
         {
@@ -131,14 +123,7 @@ const desktopMenus = computed(() => {
           label: t('其他实用工具'),
           icon: FileCopyOutlined,
           children: [
-            {
-              key: 'ref-oth-tool-1',
-              label: t('???'),
-              icon: renderIcon(FileCopyOutlined),
-              click: () => {
-                alert('还没写好呢')
-              }
-            }
+            { key: 'ref-oth-tool-1', label: t('???'), icon: renderIcon(FileCopyOutlined), click: notDoneBtnClickEvent }
           ]
         }
       ]
@@ -146,9 +131,10 @@ const desktopMenus = computed(() => {
     /* 实用工具 */
     {
       label: t('实用工具'),
-      icon: SpaOutlined,
+      icon: CasesOutlined,
       options: [
-        { key: 'tool-fthelper', label: t('食药计算'), disabled: hideFTHelper, icon: renderIcon(FastfoodOutlined), click: redirectToFoodAndTincPage }
+        { key: 'tool-time', label: t('采集时钟'), icon: renderIcon(AccessAlarmsOutlined), disabled: true, click: notDoneBtnClickEvent },
+        { key: 'tool-fthelper', label: t('食药计算'), disabled: hideFTHelper, icon: renderIcon(FastfoodOutlined), description: ftHelperTooltip, click: redirectToFoodAndTincPage }
       ]
     },
     /* 导入导出 */
@@ -156,15 +142,16 @@ const desktopMenus = computed(() => {
       label: t('导入导出'),
       icon: ImportExportOutlined,
       disabled: true,
-      options: [],
-      click: () => {
-        alert('还没写好呢')
-      }
+      hide: true,
+      options: [
+        { key: 'ie-import', label: t('从Excel导入'), icon: renderIcon(ArrowUpwardOutlined), disabled: true, click: notDoneBtnClickEvent },
+        { key: 'ie-export', label: t('导出为Excel'), icon: renderIcon(ArrowDownwardOutlined), disabled: true, click: notDoneBtnClickEvent }
+      ]
     },
     /* 设置与更新 */
     {
       label: t('设置与更新'),
-      icon: ImportExportOutlined,
+      icon: UpdateOutlined,
       options: [
         { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), click: displayUserPreferencesModal },
         { key: 'sau-cl', label: t('更新日志'), disabled: true, icon: renderIcon(EventNoteFilled), click: displayChangeLogsModal }
@@ -188,11 +175,28 @@ function renderIcon(icon: Component) {
     })
   }
 }
+const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | DropdownGroupOption }) => {
+  return option.description ? h(
+    NTooltip,
+    { keepAliveOnHover: false, placement: 'right', style: { width: 'max-content', display: isMobile.value ? 'none' : 'inherit' } },
+    {
+      trigger: () => [node],
+      default: () => option.description
+    }
+  ) : h(
+    node
+  )
+}
 const handleDesktopMenuOptionSelect = (key: string, option: any) => {
   if (option?.click) {
     option.click()
+  } else {
+    console.log('[开发提示] 未分配点击事件', key, option)
   }
-  console.log(key, option)
+  
+}
+const notDoneBtnClickEvent = () => {
+  alert('还没写好呢')
 }
 const defaultClickEvent = () => {}
 
@@ -214,17 +218,26 @@ const onUserPreferencesSubmitted = () => {
 <template>
   <div class="app-header">
     <div class="router-back-container" v-if="!isMobile">
-      <n-button text style="font-size: 35px" :disabled="!canRouteBack" @click="handleRouteBack">
-        <n-icon>
-          <ArrowCircleLeftOutlined />
-        </n-icon>
-      </n-button>
+      <n-popover trigger="hover" :keep-alive-on-hover="isMobile" style="max-width: 300px;">
+        <template #trigger>
+          <n-button text style="font-size: 35px" :disabled="!canRouteBack" @click="handleRouteBack">
+            <n-icon>
+              <ArrowCircleLeftOutlined />
+            </n-icon>
+          </n-button>
+        </template>
+        <div class="flex-column">
+          <p>{{ t('点击此按钮可以返回到上一个页面。') }}</p>
+          <p v-if="!canRouteBack">{{ t('……不过您已经在HqHelper的首页了。') }}</p>
+        </div>
+      </n-popover>
     </div>
     <div class="header-content">
       <div class="app-info">
         <i class="xiv hq logo-font"></i>
         <p class="app-name">HQ Helper</p>
-        <n-popover trigger="hover" style="max-width: 260px;">
+
+        <n-popover trigger="hover" :keep-alive-on-hover="isMobile" style="max-width: 260px;">
           <template #trigger>
             <p>{{ AppStatus.Version }}</p>
           </template>
@@ -237,7 +250,7 @@ const onUserPreferencesSubmitted = () => {
 
         <n-divider vertical></n-divider>
 
-        <n-popover trigger="hover">
+        <n-popover trigger="hover" :keep-alive-on-hover="isMobile">
           <template #trigger>
             <p>
               <span v-if="isChina"><i class="xiv eorzea-time-chs"></i></span>
@@ -258,6 +271,7 @@ const onUserPreferencesSubmitted = () => {
           </n-button>
         </div>
       </div>
+      <n-divider v-if="!isMobile" style="margin: -1px 0 3px 0;" />
       <div class="app-menu" v-if="!isMobile">
         <n-dropdown
           size="small"
@@ -265,6 +279,7 @@ const onUserPreferencesSubmitted = () => {
           v-for="(item, key) in desktopMenus"
           :key="'desktop-menu-' + key"
           :options="item.options"
+          :render-option="renderOption"
           :trigger="item.options?.length ? 'hover' : 'manual'"
           @select="handleDesktopMenuOptionSelect"
         >
@@ -274,7 +289,9 @@ const onUserPreferencesSubmitted = () => {
             :disabled="item.disabled"
             @click="item.click ?? defaultClickEvent"
           >
-            <n-icon><component :is="item.icon" /></n-icon>
+            <template #icon>
+              <n-icon><component :is="item.icon" /></n-icon>
+            </template>
             {{ item.label }}
           </n-button>
         </n-dropdown>
