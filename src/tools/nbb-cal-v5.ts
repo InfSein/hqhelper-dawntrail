@@ -3,19 +3,21 @@
  * 2016-12-10 
  */
 
+import type { AccessoryAffix, AttireAffix } from "@/models/gears";
+
 export interface IHqJobs {
     [key: string]: any;
-    // MainHand?: Record<string, number>;
-    // OffHand?: Record<string, number>;
-    // HeadAttire?: Record<string, number>;
-    // BodyAttire?: Record<string, number>;
-    // HandsAttire?: Record<string, number>;
-    // LegsAttire?: Record<string, number>;
-    // FeetAttire?: Record<string, number>;
-    // Earrings?: Record<string, number>;
-    // Necklace?: Record<string, number>;
-    // Wrist?: Record<string, number>;
-    // Rings?: Record<string, number>;
+    MainHand?: Record<number, number[]>;
+    OffHand?: Record<number, number[]>;
+    HeadAttire?: Record<AttireAffix, number[]>;
+    BodyAttire?: Record<AttireAffix, number[]>;
+    HandsAttire?: Record<AttireAffix, number[]>;
+    LegsAttire?: Record<AttireAffix, number[]>;
+    FeetAttire?: Record<AttireAffix, number[]>;
+    Earrings?: Record<AccessoryAffix, number[]>;
+    Necklace?: Record<AccessoryAffix, number[]>;
+    Wrist?: Record<AccessoryAffix, number[]>;
+    Rings?: Record<AccessoryAffix, number[]>;
     Meal?: number[][];
     Medicine?: number[][];
 }

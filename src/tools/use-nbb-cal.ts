@@ -56,6 +56,10 @@ export function useNbbCal() {
         return cal.value.itemData[id];
     }
 
+    const getPatchData = (patch: string = '7.0') => {
+      return config[patch]
+    }
+
     const getItemsName = (ids: number, lang = 'lang-zh') => {
         const item = cal.value.itemData[ids];
         if (item) {
@@ -223,6 +227,6 @@ export function useNbbCal() {
     }
 
     return {
-        doCal, getItem, getItemsName, calGearSelections, calFoodAndTincs, getSpecialItems, getTradeMap, getReduceMap, getFoodAndTincs, getFoodAndTincs_v2
+        doCal, getItem, getPatchData, getItemsName, calGearSelections, calFoodAndTincs, getSpecialItems, getTradeMap, getReduceMap, getFoodAndTincs, getFoodAndTincs_v2
     }
 }
