@@ -233,5 +233,22 @@ export default {
     "232": "Default macro prefix",
     "233": "This patch provides new HQ crafting items:",
     "234": "Non-combat jobs' {il} HQ",
-    "235": "Combat jobs' {il} HQ"
+    "235": "Combat jobs' {il} HQ",
+    "236": "Go Back",
+    "237": "You have already been inside the page of FT Helper.",
+    "238": "Tools",
+    "239": "Gatherclock",
+    "240": "Import & Export",
+    "241": "Import from .xlsx",
+    "242": "Export to .xlsx",
+    "243": "Settings & Updates",
+    "244": "About",
+    "245": "Click to go back to previous page.",
+    "246": "...But you have already been inside the home page of HqHelper.",
+    "247": "[View statements]",
+    "248": "Crafting Statements",
+    "249": "List of products",
+    "250": "List of direct materials",
+    "251": "List of lv.2 materials",
+    "252": "List of base materials"
 }
