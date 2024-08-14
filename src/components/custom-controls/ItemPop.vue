@@ -324,8 +324,9 @@ const openInGarland = () => {
           <div class="content">
             <div>{{ t('该物品可以在以下位置采集：') }}</div>
             <div class="item">
-              <div>{{ getPlaceName() }}</div>
-              <div>{{ t('(X:{x}, Y:{y})', { x: itemInfo.gatherInfo.posX, y: itemInfo.gatherInfo.posY }) }}</div>
+              <div>
+                {{ getPlaceName() }} {{ t('(X:{x}, Y:{y})', { x: itemInfo.gatherInfo.posX, y: itemInfo.gatherInfo.posY }) }}
+              </div>
             </div>
           </div>
           <div class="content" v-if="itemInfo.gatherInfo?.timeLimitInfo?.length">
