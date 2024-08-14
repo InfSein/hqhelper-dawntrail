@@ -1654,119 +1654,119 @@
   },
   "返回上一页": {
     "en": "Go Back",
-    "ja": "返回上一页",
+    "ja": "前のページに戻る",
     "$files": [
       "views\\ErrorPage404.vue"
     ]
   },
   "您已经处于食药计算器的页面。": {
     "en": "You have already been inside the page of FT Helper.",
-    "ja": "您已经处于食药计算器的页面。",
+    "ja": "すでに調理品&薬品の计算ページに接続しています",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "实用工具": {
     "en": "Tools",
-    "ja": "实用工具",
+    "ja": "ツール",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "采集时钟": {
     "en": "Gatherclock",
-    "ja": "采集时钟",
+    "ja": "採集時計",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "导入导出": {
     "en": "Import & Export",
-    "ja": "导入导出",
+    "ja": "インポート＆エクスポート",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "从Excel导入": {
     "en": "Import from .xlsx",
-    "ja": "从Excel导入",
+    "ja": "エクセルシートからインポート",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "导出为Excel": {
     "en": "Export to .xlsx",
-    "ja": "导出为Excel",
+    "ja": "エクセルシートへエクスポート",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "设置与更新": {
     "en": "Settings & Updates",
-    "ja": "设置与更新",
+    "ja": "設定とアップデート",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "关于": {
     "en": "About",
-    "ja": "关于",
+    "ja": "他の説明",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "点击此按钮可以返回到上一个页面。": {
     "en": "Click to go back to previous page.",
-    "ja": "点击此按钮可以返回到上一个页面。",
+    "ja": "このボタンをクリックすることで、前のページに戻れます。",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "……不过您已经在HqHelper的首页了。": {
     "en": "...But you have already been inside the home page of HqHelper.",
-    "ja": "……不过您已经在HqHelper的首页了。",
+    "ja": "すでにHqHelperのホームページです",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "[查看报表]": {
     "en": "[View statements]",
-    "ja": "[查看报表]",
+    "ja": "[素材リストを表示する]",
     "$files": [
       "components\\main\\StatisticsPanel.vue"
     ]
   },
   "制作报表": {
     "en": "Crafting Statements",
-    "ja": "制作报表",
+    "ja": "素材リストを生成する",
     "$files": [
       "components\\modals\\ModalCraftStatements.vue"
     ]
   },
   "成品清单": {
     "en": "List of products",
-    "ja": "成品清单",
+    "ja": "アイテムリスト",
     "$files": [
       "components\\modals\\ModalCraftStatements.vue"
     ]
   },
   "制作素材：直接": {
     "en": "List of direct materials",
-    "ja": "制作素材：直接",
+    "ja": "素材：直接",
     "$files": [
       "components\\modals\\ModalCraftStatements.vue"
     ]
   },
   "制作素材：二级": {
     "en": "List of lv.2 materials",
-    "ja": "制作素材：二级",
+    "ja": "素材：中間",
     "$files": [
       "components\\modals\\ModalCraftStatements.vue"
     ]
   },
   "制作素材：基础": {
     "en": "List of base materials",
-    "ja": "制作素材：基础",
+    "ja": "素材：基礎",
     "$files": [
       "components\\modals\\ModalCraftStatements.vue"
     ]
