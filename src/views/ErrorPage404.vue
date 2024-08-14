@@ -1,13 +1,13 @@
 <template>
   <div id="main-container" class="flex-center w-full h-full">
-    <n-result status="404" title="404 Not Found">
+    <n-result status="404" title="404 NOT FOUND">
       <div>
         <p v-for="(description, index) in descriptions" :key="index">{{ description }}</p>
       </div>
       <template #footer>
         <div class="footer-container">
-          <n-button @click="$router.go(-1)">返回上一页</n-button>
-          <n-button @click="$router.push('/')">返回首页</n-button>
+          <n-button @click="$router.go(-1)">{{ t('返回上一页') }}</n-button>
+          <n-button @click="$router.push('/')">{{ t('返回首页') }}</n-button>
         </div>
       </template>
     </n-result>

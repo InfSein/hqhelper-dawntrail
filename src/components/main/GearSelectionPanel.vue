@@ -190,7 +190,7 @@ const addAll = () => {
 const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | DropdownGroupOption }) => {
   return option.description ? h(
     NTooltip,
-    { keepAliveOnHover: false, style: { width: 'max-content', display: isMobile.value ? 'none' : 'inherit' } },
+    { keepAliveOnHover: false, placement: 'right', style: { width: 'max-content', display: isMobile.value ? 'none' : 'inherit' } },
     {
       trigger: () => [node],
       default: () => option.description

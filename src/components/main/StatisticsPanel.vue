@@ -8,6 +8,7 @@ import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemButton from '../custom-controls/ItemButton.vue'
 import ItemList from '../custom-controls/ItemList.vue'
 import TomeScriptButton from '../custom-controls/TomeScriptButton.vue'
+import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 
@@ -228,6 +229,37 @@ const crystals = computed(() => {
 
 const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'] // 刚巧耐智意
 
+const showStatementModal = ref(false)
+const showStatement = () => {
+  console.log('statistics:', props.statistics)
+  showStatementModal.value = true
+}
+const statementData = computed(() => {
+  const craftTargets : ItemInfo[] = []
+  const materialsLv1 : ItemInfo[] = []
+  const materialsLv2 : ItemInfo[] = []
+  const materialsLv3 : ItemInfo[] = []
+  const materialsLv4 : ItemInfo[] = []
+  const materialsLv5 : ItemInfo[] = []
+  const materialsLvBase : ItemInfo[] = []
+  
+  processStatistics(props.statistics.ls, craftTargets)
+  processStatistics(props.statistics.lv1, materialsLv1)
+  processStatistics(props.statistics.lv2, materialsLv2)
+  processStatistics(props.statistics.lv3, materialsLv3)
+  processStatistics(props.statistics.lv4, materialsLv4)
+  processStatistics(props.statistics.lv5, materialsLv5)
+  processStatistics(props.statistics.lvBase, materialsLvBase)
+
+  return { craftTargets, materialsLv1, materialsLv2, materialsLv3, materialsLv4, materialsLv5, materialsLvBase }
+
+  function processStatistics(_in: any, out: any[]) {
+    for (const id in _in) {
+      const item = _in[id]
+      out.push(getItemInfo(item))
+    }
+  }
+})
 </script>
 
 <template>
@@ -235,6 +267,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
     <template #header>
       <i class="xiv square-4"></i>
       <span class="card-title-text">{{ t('查看统计') }}</span>
+      <a v-show="!isMobile" class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
     </template>
     <div class="wrapper">
       <GroupBox id="reagents-group" class="group" title-background-color="var(--n-color-embedded)" title-max-width="200px">
@@ -319,6 +352,11 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
         </div>
       </GroupBox>
     </div>
+
+    <ModalCraftStatements
+      v-model:show="showStatementModal"
+      v-bind="statementData"
+    />
   </FoldableCard>
 </template>
   
