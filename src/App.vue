@@ -217,11 +217,11 @@ const appClass = computed(() => {
   height: 100%;
 }
 .n-layout-header {
-  height: 64px;
+  height: 70px;
   padding: 10px 20px;
   z-index: 1000;
 }
 .n-layout-content {
-  margin-top: 65px;
+  margin-top: 70px;
 }
 </style>

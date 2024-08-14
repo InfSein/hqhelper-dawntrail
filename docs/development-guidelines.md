@@ -47,14 +47,12 @@ conventional-changelog -p angular -i CHANGELOG.md -s
 利用CSS-media选择器来实现不同设备的兼容。
 
 ```css
-/* 电脑端 */
+/* Desktop */
 @media screen and (min-width: 768px) {
-  /* 电脑端样式 */
 }
 
-/* 手机端 */
+/* Mobile */
 @media screen and (max-width: 767px) {
-  /* 手机端样式 */
 }
 ```
 
