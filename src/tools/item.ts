@@ -72,9 +72,18 @@ export interface ItemInfo {
   /** 是否使用了中文暂译 */
   usedZHTemp?: boolean
   /**
+   * 物品特殊属性，常见于成品装备。
+   * 
+   * 内部数组长度一般为3，分别代表
+   * * (index)`0`: 提供的属性的id，可在`src\assets\data\xiv-attributes.json`中检索
+   * * (index)`1`: NQ道具提供的属性
+   * * (index)`2`: HQ道具提供的属性，如果道具没有HQ这里会是0
+   */
+  attrsProvided: number[][]
+  /**
    * 物品使用后会提供的临时属性，常见于食物爆发药。
    * 
-   * 内部数组长度一般为5，分别代表：
+   * 内部数组长度一般为6，分别代表：
    * * (index)`0`: 提供的属性的id，可在`src\assets\data\xiv-attributes.json`中检索
    * * (index)`1`: 是否有NQ/HQ的区分
    * * (index)`2`: NQ道具提供的属性的百分比
@@ -226,6 +235,18 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   }
 
   // * 组装物品特殊属性
+  itemInfo.attrsProvided = []
+  if (_item.spm?.length) {
+    const spm = _item.spm as number[][]
+    spm.forEach(sp => {
+      const attr = []
+      attr.push(sp[0])
+      attr.push(sp[1])
+      const hqAttr = (sp.length > 2 && sp[2]) ? sp[1] + sp[2] : 0
+      attr.push(hqAttr)
+      itemInfo.attrsProvided.push(attr)
+    })
+  }
   itemInfo.tempAttrsProvided = _item.actParm
 
   // * 组装物品精选信息

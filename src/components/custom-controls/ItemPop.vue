@@ -155,7 +155,11 @@ const getPlaceName = () => {
   }
 }
 const itemHasHQ = computed(() => {
-  return props.itemInfo.tempAttrsProvided.every(subArr => subArr.length >= 5)
+  if (props.itemInfo.tempAttrsProvided?.length) {
+    return props.itemInfo.tempAttrsProvided.every(subArr => subArr.length >= 5)
+  } else {
+    return props.itemInfo.attrsProvided.every(subArr => subArr[2] > 0)
+  }
 })
 const itemTailDescriptions = computed(() => {
   const descriptions : string[] = []
@@ -250,6 +254,33 @@ const openInGarland = () => {
           <p>{{ t('[{patch}版本] [{id}]', { patch: itemInfo.patch, id: itemInfo.id }) }}</p>
         </div>
         <div class="main-descriptions" v-html="getItemDescriptions()"></div>
+        <div class="description-block" v-if="itemInfo.attrsProvided.length">
+          <div class="title">{{ t('特殊') }}</div>
+          <n-divider class="item-divider" />
+          <div class="content" v-if="itemHasHQ">
+            <div
+              class="item"
+              v-for="(attr, index) in itemInfo.attrsProvided"
+              :key="'attr-hq' + index"
+            >
+              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
+              <div> +{{ attr[2] }}</div>
+            </div>
+          </div>
+          <div class="content" v-else>
+            <div
+              class="item"
+              v-for="(attr, index) in itemInfo.attrsProvided"
+              :key="'attr-nq' + index"
+            >
+              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
+              <div> +{{ attr[1] }}</div>
+            </div>
+          </div>
+          <div class="content extra">
+            {{ t('※ 此处仅展示物品的{NQorHQ}属性', itemHasHQ ? 'HQ' : 'NQ') }}
+          </div>
+        </div>
         <div class="description-block" v-if="itemInfo.tempAttrsProvided.length">
           <div class="title">{{ t('效果') }}</div>
           <n-divider class="item-divider" />
