@@ -358,6 +358,11 @@ const openInGarland = () => {
           <div class="title">
             {{ t('制作') }}
             <span class="extra">
+              <XivFARImage
+                class="item-icon"
+                :src="jobMap[itemInfo.craftInfo?.jobId].job_icon_url"
+                :size="12"
+              />
               {{ t('{lv}级{star}{job}配方', {
                 lv: itemInfo.craftInfo?.craftLevel,
                 star: '★'.repeat(itemInfo.craftInfo?.starCount || 0),
