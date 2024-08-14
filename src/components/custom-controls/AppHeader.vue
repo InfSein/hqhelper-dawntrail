@@ -98,32 +98,32 @@ const desktopMenus = computed(() => {
   return [
     /* 参考资料 */
     {
-      label: t('参考资料'),
+      label: '参考资料',
       icon: FileCopyOutlined,
-      hide: true,
+      hide: true, // 这里的内容仅限中文用户可见，不做国际化
       options: [
         {
           key: 'ref-self',
-          label: t('自撰攻略'),
+          label: '自撰攻略',
           icon: FileCopyOutlined,
           children: [
-            { key: 'ref-self-1', label: t('DawnCrafter I: 7.0/7.05生产采集准备工作'), icon: renderIcon(FileCopyOutlined), click: notDoneBtnClickEvent }
+            { key: 'ref-self-1', label: 'DawnCrafter I: 7.0/7.05生产采集准备工作', icon: renderIcon(FileCopyOutlined), click: notDoneBtnClickEvent }
           ]
         },
         {
           key: 'ref-oth-book',
-          label: t('其他推荐攻略'),
+          label: '其他推荐攻略',
           icon: FileCopyOutlined,
           children: [
-            { key: 'ref-oth-book-1', label: t('???'), icon: renderIcon(FileCopyOutlined), click: notDoneBtnClickEvent }
+            { key: 'ref-oth-book-1', label: '???', icon: renderIcon(FileCopyOutlined), click: notDoneBtnClickEvent }
           ]
         },
         {
           key: 'ref-oth-tool',
-          label: t('其他实用工具'),
+          label: '其他实用工具',
           icon: FileCopyOutlined,
           children: [
-            { key: 'ref-oth-tool-1', label: t('???'), icon: renderIcon(FileCopyOutlined), click: notDoneBtnClickEvent }
+            { key: 'ref-oth-tool-1', label: '???', icon: renderIcon(FileCopyOutlined), click: notDoneBtnClickEvent }
           ]
         }
       ]
