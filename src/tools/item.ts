@@ -142,6 +142,7 @@ export interface ItemInfo {
       end: string
     }[]
   },
+  isFishingItem: boolean,
   tradeInfo: ItemTradeInfo | undefined
 }
 export interface ItemTradeInfo {
@@ -228,11 +229,12 @@ export const getItemInfo = (item: number | CalculatedItem) => {
 
   // * 尝试根据道具的UI类型ID获取类型名称和图标URL
   const typeMap = XivItemTypes as any
-  if (typeMap?.[_item.uc]) {
-    itemInfo.uiTypeNameJA = typeMap[_item.uc].lang[0]
-    itemInfo.uiTypeNameEN = typeMap[_item.uc].lang[1]
-    itemInfo.uiTypeNameZH = typeMap[_item.uc].lang[2]
-    itemInfo.uiTypeIconUrl = getImgCdnUrl(typeMap[_item.uc].icon)
+  const itemType : number = _item.uc
+  if (typeMap?.[itemType]) {
+    itemInfo.uiTypeNameJA = typeMap[itemType].lang[0]
+    itemInfo.uiTypeNameEN = typeMap[itemType].lang[1]
+    itemInfo.uiTypeNameZH = typeMap[itemType].lang[2]
+    itemInfo.uiTypeIconUrl = getImgCdnUrl(typeMap[itemType].icon)
   }
 
   // * 组装物品特殊属性
@@ -294,6 +296,10 @@ export const getItemInfo = (item: number | CalculatedItem) => {
       }
     }
   }
+
+  // * 处理物品是钓鱼采集品的场合
+  // 目前也没有数据，给个标识让人去饿猫鱼糕找吧！
+  itemInfo.isFishingItem = itemType === 47
 
   // * 组装物品配方
   itemInfo.craftRequires = []

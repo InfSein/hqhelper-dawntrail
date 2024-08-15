@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NDivider, NPopover
+  NButton, NDivider, NIcon, NPopover
 } from 'naive-ui'
+import {
+  OpenInNewFilled
+} from '@vicons/material'
 import XivFARImage from './XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
@@ -197,6 +200,19 @@ const timeCanGather = (timeLimit: {start: string, end: string}) => {
   }
   return ''
 }
+
+const openInMomola = () => {
+  window.open(`https://fish.ffmomola.com/#/wiki?fishId=${props.itemInfo.id}`)
+}
+const openInAngler = () => {
+  let lang : string = itemLanguage.value
+  switch (lang) {
+    case 'zh': lang = 'cn'; break
+    case 'ja': lang = 'jp'; break
+  }
+  const domain = `https://${lang}.ff14angler.com/`
+  window.open(`${domain}?search=${props.itemInfo.nameEN}`)
+}
 </script>
 
 <template>
@@ -306,10 +322,10 @@ const timeCanGather = (timeLimit: {start: string, end: string}) => {
             </div>
           </div>
         </div>
-        <div class="description-block" v-if="itemInfo.gatherInfo">
+        <div class="description-block" v-if="itemInfo.gatherInfo || itemInfo.isFishingItem">
           <div class="title">
             {{ t('采集') }}
-            <span class="extra">
+            <span v-if="itemInfo.gatherInfo" class="extra">
               <XivFARImage
                 class="icon"
                 :src="jobMap[itemInfo.gatherInfo.jobId].job_icon_url"
@@ -317,9 +333,17 @@ const timeCanGather = (timeLimit: {start: string, end: string}) => {
               />
               {{ getJobName(jobMap[itemInfo.gatherInfo.jobId]) }}
             </span>
+            <span v-if="itemInfo.isFishingItem" class="extra">
+              <XivFARImage
+                class="icon"
+                :src="jobMap[18].job_icon_url"
+                :size="12"
+              />
+              {{ getJobName(jobMap[18]) }}
+            </span>
           </div>
           <n-divider class="item-divider" />
-          <div class="content">
+          <div class="content" v-if="itemInfo.gatherInfo">
             <div>{{ t('该物品可以在以下位置采集：') }}</div>
             <div class="item">
               <div>
@@ -337,6 +361,26 @@ const timeCanGather = (timeLimit: {start: string, end: string}) => {
               <div>{{ timeLimit.start }} ~ {{ timeLimit.end }}</div>
               <div class="green">{{ timeCanGather(timeLimit) }}</div>
             </div>
+          </div>
+          <div class="content" v-if="itemInfo.isFishingItem">
+            <div>{{ t('可以在以下网站中查询该物品的采集方法：') }}</div>
+            <div class="item actions">
+              <n-button size="small" @click="openInAngler">
+                <template #icon>
+                  <n-icon><OpenInNewFilled /></n-icon>
+                </template>
+                {{ t('在饥饿的猫中打开') }}
+              </n-button>
+              <n-button size="small" @click="openInMomola">
+                <template #icon>
+                  <n-icon><OpenInNewFilled /></n-icon>
+                </template>
+                {{ t('在鱼糕中打开') }}
+              </n-button>
+            </div>
+          </div>
+          <div class="content extra" v-if="itemInfo.isFishingItem">
+            {{ t('※ 国服未实装的道具可能在部分数据网站中没有数据。') }}
           </div>
         </div>
         <div class="description-block" v-if="itemInfo.tradeInfo && itemTradeCost">
@@ -512,6 +556,14 @@ const timeCanGather = (timeLimit: {start: string, end: string}) => {
         display: flex;
         align-items: center;
         gap: 3px;
+      }
+      .content .item.actions {
+        margin: 3px 1em;
+        flex-direction: column;
+
+        button {
+          width: 100%;
+        }
       }
       .content .other-attrs,
       .content.extra {
