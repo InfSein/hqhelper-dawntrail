@@ -254,6 +254,9 @@ const handleQuickOperatesDropdownMouseLeave = (event: MouseEvent) => {
   if ((event.target as HTMLButtonElement).disabled) return
   showQuickOperatesOptions.value = false
 }
+const handleCloseQuickOperatesOptions = () => {
+  showQuickOperatesOptions.value = false
+}
 const quickOperatesOptions: DropdownOption[] = [
   { key: 'add-crafter-mainoff', label: t('添加一套生产主副手'), description: t('添加所有能工巧匠职业的主手工具、副手工具各1件') },
   { key: 'add-gatherer-mainoff', label: t('添加一套采集主副手'), description: t('添加所有大地使者职业的主手工具、副手工具各1件') },
@@ -294,6 +297,9 @@ const handleClearDropdownMouseLeave = (event: MouseEvent) => {
   if ((event.target as HTMLButtonElement).disabled) return
   showClearOptions.value = false
 }
+const handleCloseClearOptions = () => {
+  showClearOptions.value = false
+}
 const clearOptions: DropdownOption[] = [
   { key: 'clear-current', label: t('清空当前'), description: t('清空当前职业的已选择部件') },
   { key: 'clear-all', label: t('清空全部'), description: t('清空所有职业的已选择部件') },
@@ -315,6 +321,9 @@ const handleAddsuitDropdownMouseEnter = (event: MouseEvent) => {
 const handleAddsuitDropdownMouseLeave = (event: MouseEvent) => {
   if (isMobile.value) return
   if ((event.target as HTMLButtonElement).disabled) return
+  showAddsuitOptions.value = false
+}
+const handleCloseAddsuitOptions = () => {
   showAddsuitOptions.value = false
 }
 const addsuitOptions: DropdownOption[] = [
@@ -520,6 +529,7 @@ defineExpose({
             @select="handleQuickOperatesSelect"
             @mouseenter="handleQuickOperatesDropdownMouseEnter"
             @mouseleave="handleQuickOperatesDropdownMouseLeave"
+            :on-clickoutside="handleCloseQuickOperatesOptions"
           >
             <n-button
               icon-placement="right"
@@ -543,6 +553,7 @@ defineExpose({
             @select="handleClearSelect"
             @mouseenter="handleClearDropdownMouseEnter"
             @mouseleave="handleClearDropdownMouseLeave"
+            :on-clickoutside="handleCloseClearOptions"
           >
             <n-button
               icon-placement="right"
@@ -566,6 +577,7 @@ defineExpose({
             @select="handleAddsuitSelect"
             @mouseenter="handleAddsuitDropdownMouseEnter"
             @mouseleave="handleAddsuitDropdownMouseLeave"
+            :on-clickoutside="handleCloseAddsuitOptions"
           >
             <n-button
               icon-placement="right"
