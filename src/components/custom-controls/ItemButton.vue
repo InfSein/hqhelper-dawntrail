@@ -1,14 +1,21 @@
 <script lang="ts" setup>
-import { computed, inject, type Ref } from 'vue'
+import { computed, h, inject, nextTick, ref, type Component, type Ref } from 'vue'
 import {
-  NButton
+  NButton, NDropdown,
+  NIcon
 } from 'naive-ui'
+import {
+  FileCopyOutlined,
+  LanguageOutlined,
+  OpenInNewFilled
+} from '@vicons/material'
 import XivFARImage from './XivFARImage.vue'
 import ItemPop from './ItemPop.vue'
 import { type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
+import { CopyToClipboard } from '@/tools'
 
-// const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
@@ -76,6 +83,100 @@ const btnHeightVal = computed(() => {
   return `${_h}px`
 })
 
+// #region 右键菜单相关
+const options = [
+  {
+    label: t('复制道具名'),
+    key: 'copy-item-name',
+    icon: renderIcon(FileCopyOutlined),
+    children: [
+      {
+        label: t('中文名'),
+        key: 'copy-zh',
+        icon: renderIcon(LanguageOutlined)
+      },
+      {
+        label: t('日文名'),
+        key: 'copy-ja',
+        icon: renderIcon(LanguageOutlined)
+      },
+      {
+        label: t('英文名'),
+        key: 'copy-en',
+        icon: renderIcon(LanguageOutlined)
+      }
+    ]
+  },
+  {
+    type: 'divider',
+    key: 'd1'
+  },
+  {
+    label: t('在灰机维基中打开'),
+    key: 'open-in-hjwiki',
+    icon: renderIcon(OpenInNewFilled),
+    click: () => {
+      window.open(`https://ff14.huijiwiki.com/wiki/物品:${props.itemInfo.nameZH}`)
+    }
+  },
+  {
+    label: t('在花环数据库中打开'),
+    key: 'open-in-garland',
+    icon: renderIcon(OpenInNewFilled),
+    click: () => {
+      window.open(`https://www.garlandtools.org/db/#item/${props.itemInfo.id}`)
+    }
+  },
+  {
+    label: t('在Universalis中打开'),
+    key: 'open-in-universalis',
+    icon: renderIcon(OpenInNewFilled),
+    click: () => {
+      window.open(`https://universalis.app/market/${props.itemInfo.id}`)
+    }
+  },
+]
+function renderIcon(icon: Component) {
+  return () => {
+    return h(NIcon, null, {
+      default: () => h(icon)
+    })
+  }
+}
+
+const showDropdownRef = ref(false)
+const xRef = ref(0)
+const yRef = ref(0)
+const handleContextMenu = (e: MouseEvent) => {
+  e.preventDefault()
+  showDropdownRef.value = false
+  nextTick().then(() => {
+    showDropdownRef.value = true
+    xRef.value = e.clientX
+    yRef.value = e.clientY
+  })
+}
+const handleSelect = async (key: string | number, option: any) => {
+  showDropdownRef.value = false
+  console.log(key)
+  if (option?.click) {
+    option.click()
+  } else {
+    if (key === 'copy-zh') {
+      await CopyToClipboard(props.itemInfo.nameZH)
+    } else if (key === 'copy-ja') {
+      await CopyToClipboard(props.itemInfo.nameJA)
+    } else if (key === 'copy-en') {
+      await CopyToClipboard(props.itemInfo.nameEN)
+    } else {
+      console.log('[开发提示] 未分配点击事件', key, option)
+    }
+  }
+}
+const onClickoutside = () => {
+  showDropdownRef.value = false
+}
+// #endregion
 </script>
 
 <template>
@@ -91,6 +192,7 @@ const btnHeightVal = computed(() => {
       :style="{ width: btnWidthVal, height: btnHeightVal }"
       :disabled="disabled"
       :color="btnColor"
+      @contextmenu="handleContextMenu"
     >
       <slot>
         <div class="item-container">
@@ -111,6 +213,18 @@ const btnHeightVal = computed(() => {
           </div>
         </div>
       </slot>
+
+      <n-dropdown
+        size="small"
+        placement="bottom-start"
+        trigger="manual"
+        :x="xRef"
+        :y="yRef"
+        :options="options"
+        :show="showDropdownRef"
+        :on-clickoutside="onClickoutside"
+        @select="handleSelect"
+      />
     </n-button>
   </ItemPop>
 </template>
