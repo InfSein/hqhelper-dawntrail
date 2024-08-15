@@ -1359,7 +1359,7 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "选择您游戏账号所属的服务器。这将会影响一些统计数据，比如点数道具的兑换价格。": {
+  "选择您游戏账号所属的服务器。此设置还会影响一部分统计数据(例如点数道具的兑换价格)的计算方式。": {
     "en": "Select the server of your game account. Selection would affect some statistics data, such as the price of exchangeable tokens.",
     "ja": "キャラクターが所属するサーバーを選択してください。サーバーが異なることで、集計の結果も変化します。例：トークン素材の相場。",
     "$files": [
