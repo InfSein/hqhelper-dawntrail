@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, inject, ref, type Ref } from 'vue'
 import { 
-  NButton, NDivider, NIcon, NPopover,
+  NButton, NDivider, NEmpty, NIcon, NPopover,
   useMessage
 } from 'naive-ui'
 import {
@@ -160,6 +160,9 @@ const handleCopyAsMacro = async () => {
               <ItemSpan :item-info="getItemInfo(itemInfo.id)" :amount="itemInfo.amount" show-amount />
             </div>
           </div>
+        </div>
+        <div v-if="!Object.keys(items).length">
+          <n-empty :description="t('本组没有需要的道具')" />
         </div>
       </div>
       <n-divider class="block-divider" />
