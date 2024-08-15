@@ -154,6 +154,7 @@ const copyAsMacro = async () => {
       autosize
       type="textarea"
       :placeholder="t('本组没有需要的道具')"
+      style="max-height: calc(100% - 25px);"
     />
 
     <ModalCopyAsMacro
