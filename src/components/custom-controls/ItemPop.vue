@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NButton, NDivider, NFlex, NPopover
+  NDivider, NPopover
 } from 'naive-ui'
 import XivFARImage from './XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
@@ -197,18 +197,6 @@ const timeCanGather = (timeLimit: {start: string, end: string}) => {
   }
   return ''
 }
-
-/** 在灰机wiki中打开物品页面 */
-const openInHuijiWiki = () => {
-  const url = `https://ff14.huijiwiki.com/wiki/物品:${props.itemInfo.nameZH}`
-  window.open(url)
-}
-/** 在 Garland Data 中打开物品页面 */
-const openInGarland = () => {
-  const url = `https://www.garlandtools.org/db/#item/${props.itemInfo.id}`
-  window.open(url)
-}
-
 </script>
 
 <template>
@@ -410,8 +398,7 @@ const openInGarland = () => {
           </p>
         </div>
       </div>
-      <!-- 操作按钮不太适合放到悬浮里，后续做进右键菜单 -->
-      <n-flex v-show="false" class="item-actions">
+      <!-- <n-flex v-show="false" class="item-actions">
         <n-button size="small" @click="openInHuijiWiki()">
           {{ t('在灰机wiki中打开') }}
         </n-button>
@@ -419,7 +406,7 @@ const openInGarland = () => {
           {{ t('在Garland中打开') }}
         </n-button>
         <slot name="extra-actions" />
-      </n-flex>
+      </n-flex> -->
     </div>
   </n-popover>
   <slot v-else />

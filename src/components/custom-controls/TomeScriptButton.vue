@@ -1,8 +1,12 @@
 <script lang="ts" setup>
 import { computed, inject, ref, type Ref } from 'vue'
 import { 
-  NButton, NDivider, NPopover
+  NButton, NDivider, NIcon, NPopover,
+  useMessage
 } from 'naive-ui'
+import {
+  CodeSharp
+} from '@vicons/material'
 import ItemSpan from './ItemSpan.vue'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
@@ -10,6 +14,19 @@ import type { UserConfigModel } from '@/models/user-config'
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const copyAsMacro = inject<(macroContent: string, container?: HTMLElement | undefined) => Promise<{
+  success: boolean;
+  msg: string;
+} | undefined>>('copyAsMacro')!
+
+const itemLanguage = computed(() => {
+  if (userConfig.value.language_item !== 'auto') {
+    return userConfig.value.language_item
+  }
+  return userConfig.value.language_ui
+})
+
+const NAIVE_UI_MESSAGE = useMessage()
 
 const props = defineProps({
   /**
@@ -55,10 +72,56 @@ const tomeScripts = computed(() => {
   }
   return summary
 })
+
+const getItemName = (itemInfo: ItemInfo) => {
+  switch (itemLanguage.value) {
+    case 'ja':
+      return itemInfo.nameJA
+    case 'en':
+      return itemInfo.nameEN
+    case 'zh':
+    default:
+      return itemInfo.nameZH
+  }
+}
+const macroValue = computed(() => {
+  let result = ''
+  for (const _tomeScriptID in props.items) {
+    const tomeScriptID = Number(_tomeScriptID)
+    let tomeScriptName = getItemName(getItemInfo(tomeScriptID))
+    if (itemLanguage.value === 'en') {
+      tomeScriptName = `"${tomeScriptName}"`
+    }
+    result += `[${tomeScriptName}x${tomeScripts.value[tomeScriptID]}] `
+    const items : string[] = []
+    props.items[tomeScriptID].forEach(item => {
+      if (item.amount) {
+        let itemName = getItemName(item)
+        if (itemLanguage.value === 'en') {
+          itemName = `"${itemName}"`
+        }
+        items.push(`${itemName}x${item.amount}`)
+      }
+    })
+    result += items.join(', ') + '; '
+  }
+
+  return result
+})
+
+const copyBtnLoading = ref(false)
+const handleCopyAsMacro = async () => {
+  copyBtnLoading.value = true
+  const response = await copyAsMacro(macroValue.value)
+  if (response) {
+    const tipFunc = response.success ? NAIVE_UI_MESSAGE.success : NAIVE_UI_MESSAGE.error
+    tipFunc(response.msg)
+  }
+  copyBtnLoading.value = false
+}
 </script>
 
 <template>
-  <!-- todo - 增加一个popup，内含物品汇总和复制宏的操作按钮 -->
   <n-popover
     :trigger="isMobile ? 'click' : 'hover'"
     :placement="isMobile ? 'bottom' : 'right-start'"
@@ -82,6 +145,10 @@ const tomeScripts = computed(() => {
     </template>
 
     <div class="pop-wrapper">
+      <div class="pop-header">
+        <p>{{ t('点数统计') }}</p>
+      </div>
+      <n-divider class="block-divider" />
       <div class="items">
         <div class="item" v-for="(itemInfos, scriptID) in items" :key="'popup-tome-' + scriptID">
           <div class="line">
@@ -95,6 +162,15 @@ const tomeScripts = computed(() => {
           </div>
         </div>
       </div>
+      <n-divider class="block-divider" />
+      <div class="actions">
+        <n-button size="tiny" :loading="copyBtnLoading" :disabled="copyBtnLoading" @click="handleCopyAsMacro">
+          <template #icon>
+            <n-icon><CodeSharp /></n-icon>
+          </template>
+          {{ t('复制宏') }}
+        </n-button>
+      </div>
     </div>
   </n-popover>
 </template>
@@ -106,6 +182,9 @@ const tomeScripts = computed(() => {
 }
 .item-divider {
   margin: 0 2px;
+}
+.block-divider {
+  margin: 5px 0;
 }
 .ts-btn {
   width: 100%;
@@ -129,6 +208,14 @@ const tomeScripts = computed(() => {
   }
 }
 .pop-wrapper {
+  .pop-header {
+    display: flex;
+    align-items: center;
+    font-size: calc(var(--n-font-size) + 2px);
+    line-height: 1.2;
+
+    p { font-weight: bold; }
+  }
   .items {
     line-height: 1.2;
     display: flex;

@@ -13,6 +13,7 @@ import {
 // * import pages and components
 import AppHeader from './components/custom-controls/AppHeader.vue'
 import DialogConfirm from './components/custom-controls/DialogConfirm.vue'
+import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
 
 // * import others
 import { useStore } from '@/store/index'
@@ -20,6 +21,7 @@ import { t } from '@/languages'
 import { injectVoerkaI18n } from "@voerkai18n/vue"
 import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 import EorzeaTime from './tools/eorzea-time'
+import { CopyToClipboard } from './tools'
 
 // #endregion
 
@@ -163,6 +165,22 @@ setInterval(() => {
 }, 200)
 provide('currentET', currentET)
 
+const showCopyMacroModal = ref(false)
+const macroValue = ref('')
+const copyAsMacro = async (macroContent: string, container?: HTMLElement | undefined) => {
+  if (userConfig.value.macro_direct_copy) {
+    const errored = await CopyToClipboard(userConfig.value.macro_copy_prefix + macroContent, container)
+    if (errored) {
+      return { success: false, msg: t('复制失败') }
+    }
+    return { success: true, msg: t('已复制到剪贴板') }
+  } else {
+    macroValue.value = macroContent
+    showCopyMacroModal.value = true
+  }
+}
+provide('copyAsMacro', copyAsMacro)
+
 // #endregion
 
 const appClass = computed(() => {
@@ -193,7 +211,10 @@ const appClass = computed(() => {
           </n-layout-content>
         </n-layout>
         
-        
+        <ModalCopyAsMacro
+          v-model:show="showCopyMacroModal"
+          :macro-content="macroValue"
+        />
         <DialogConfirm
           v-model:show="dialogConfirm_show"
           :type="dialogConfirm_type"
