@@ -380,7 +380,7 @@ const openInAngler = () => {
             </div>
           </div>
           <div class="content extra" v-if="itemInfo.isFishingItem">
-            {{ t('※ 国服未实装的道具可能在部分数据网站中没有数据。') }}
+            {{ t('※ 国服未实装的道具可能在部分网站中没有数据。') }}
           </div>
         </div>
         <div class="description-block" v-if="itemInfo.tradeInfo && itemTradeCost">
