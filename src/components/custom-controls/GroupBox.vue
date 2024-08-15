@@ -15,6 +15,10 @@ defineProps({
   containerExtraStyle: {
     type: String,
     default: ''
+  },
+  contentStyle: {
+    type: String,
+    default: ''
   }
 })
 </script>
@@ -27,7 +31,7 @@ defineProps({
     >
       <slot name="title" />
     </div>
-    <div class="group-box-content">
+    <div class="group-box-content" :style="contentStyle">
       <slot />
     </div>
   </div>

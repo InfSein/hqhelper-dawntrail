@@ -87,7 +87,7 @@ const handleClose = () => {
       </template>
 
       <div class="wrapper" ref="wrapper">
-        <GroupBox id="marco-preview" title-background-color="var(--n-color-modal)">
+        <GroupBox id="marco-preview" title-background-color="var(--n-color-modal)" content-style="max-height: 200px; overflow-y: auto;">
           <template #title>
             <span class="title">{{ t('预览') }}</span>
           </template>
@@ -144,6 +144,11 @@ const handleClose = () => {
 
   #marco-preview {
     margin-top: 10px;
+
+    .group-box-content {
+      max-height: 300px;
+      overflow-y: auto;
+    }
   }
   .settings-container {
     display: flex;
