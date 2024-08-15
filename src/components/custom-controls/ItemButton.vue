@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed, h, inject, nextTick, ref, type Component, type Ref } from 'vue'
 import {
-  NButton, NDropdown,
-  NIcon
+  NButton, NDropdown, NIcon,
+  useMessage
 } from 'naive-ui'
 import {
   FileCopyOutlined,
@@ -14,6 +14,8 @@ import ItemPop from './ItemPop.vue'
 import { type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import { CopyToClipboard } from '@/tools'
+
+const NAIVE_UI_MESSAGE = useMessage()
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -163,14 +165,22 @@ const handleSelect = async (key: string | number, option: any) => {
     option.click()
   } else {
     if (key === 'copy-zh') {
-      await CopyToClipboard(props.itemInfo.nameZH)
+      await handleCopy(props.itemInfo.nameZH)
     } else if (key === 'copy-ja') {
-      await CopyToClipboard(props.itemInfo.nameJA)
+      await handleCopy(props.itemInfo.nameJA)
     } else if (key === 'copy-en') {
-      await CopyToClipboard(props.itemInfo.nameEN)
+      await handleCopy(props.itemInfo.nameEN)
     } else {
       console.log('[开发提示] 未分配点击事件', key, option)
     }
+  }
+}
+const handleCopy = async (content: string) => {
+  const response = await CopyToClipboard(content)
+  if (response) {
+    NAIVE_UI_MESSAGE.error(t('复制失败：发生意外错误'))
+  } else {
+    NAIVE_UI_MESSAGE.success(t('已复制到剪贴板'))
   }
 }
 const onClickoutside = () => {
