@@ -243,7 +243,7 @@ const timeCanGather = (timeLimit: {start: string, end: string}) => {
         </div>
         <div class="main-descriptions" v-html="getItemDescriptions()"></div>
         <div class="description-block" v-if="itemInfo.attrsProvided.length">
-          <div class="title">{{ t('特殊') }}</div>
+          <div class="title">{{ t('装备属性') }}</div>
           <n-divider class="item-divider" />
           <div class="content" v-if="itemHasHQ">
             <div
@@ -347,7 +347,7 @@ const timeCanGather = (timeLimit: {start: string, end: string}) => {
             {{ t('制作') }}
             <span class="extra">
               <XivFARImage
-                class="item-icon"
+                class="icon"
                 :src="jobMap[itemInfo.craftInfo?.jobId].job_icon_url"
                 :size="12"
               />
@@ -493,6 +493,8 @@ const timeCanGather = (timeLimit: {start: string, end: string}) => {
           margin-left: 3px;
           font-weight: normal;
           font-size: calc(var(--n-font-size) - 2px);
+
+          .icon { vertical-align: text-bottom; }
         }
       }
       .content .item {
