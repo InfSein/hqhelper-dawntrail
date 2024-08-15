@@ -168,6 +168,9 @@ provide('currentET', currentET)
 const showCopyMacroModal = ref(false)
 const macroValue = ref('')
 const copyAsMacro = async (macroContent: string, container?: HTMLElement | undefined) => {
+  if (!macroContent) {
+    return { success: false, msg: t('没有需要复制的内容') }
+  }
   if (userConfig.value.macro_direct_copy) {
     const errored = await CopyToClipboard(userConfig.value.macro_copy_prefix + macroContent, container)
     if (errored) {
