@@ -8,15 +8,17 @@ import {
   CodeSharp, ViewListSharp, SettingsBackupRestoreSharp
 } from '@vicons/material'
 import ItemButton from './ItemButton.vue'
-import ModalCopyAsMacro from '../modals/ModalCopyAsMacro.vue'
 import { type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
-import { CopyToClipboard } from '@/tools'
 
 const NAIVE_UI_MESSAGE = useMessage()
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const copyAsMacro = inject<(macroContent: string, container?: HTMLElement | undefined) => Promise<{
+  success: boolean;
+  msg: string;
+} | undefined>>('copyAsMacro')!
   
 const itemLanguage = computed(() => {
   if (userConfig.value.language_item !== 'auto') {
@@ -62,8 +64,6 @@ const props = defineProps({
   }
 })
 
-const showCopyMacroModal = ref(false)
-
 const getContainerStyles = () => {
   return [
     props.listHeight? `height: ${props.listHeight + 20}px` : '',
@@ -90,33 +90,33 @@ const macroValue = computed(() => {
   const result : string[] = []
   props.items.forEach(item => {
     if (item.amount) {
-      result.push(`"${getItemName(item)}"x${item.amount}`)
+      let itemName = getItemName(item)
+      if (itemLanguage.value === 'en') {
+        itemName = `"${itemName}"`
+      }
+      result.push(`${itemName}x${item.amount}`)
     }
   })
   return result.join('; ')
 })
 
 const copyBtnLoading = ref(false)
-const copyAsMacro = async () => {
-  if (userConfig.value.macro_direct_copy) {
-    copyBtnLoading.value = true
-    const errored = await CopyToClipboard(userConfig.value.macro_copy_prefix + macroValue.value)
-    copyBtnLoading.value = false
-    if (errored) {
-      NAIVE_UI_MESSAGE.error(t('复制失败'))
-      return
-    }
-    NAIVE_UI_MESSAGE.success(t('已复制到剪贴板'))
-  } else {
-    showCopyMacroModal.value = true
+const listContainer = ref<HTMLElement>()
+const handleCopyAsMacro = async () => {
+  copyBtnLoading.value = true
+  const response = await copyAsMacro(macroValue.value, listContainer.value)
+  if (response) {
+    const tipFunc = response.success ? NAIVE_UI_MESSAGE.success : NAIVE_UI_MESSAGE.error
+    tipFunc(response.msg)
   }
+  copyBtnLoading.value = false
 }
 </script>
 
 <template>
-  <div v-if="items.length" class="list-container" :style="getContainerStyles()">
+  <div v-if="items.length" class="list-container" ref="listContainer" :style="getContainerStyles()">
     <div v-if="!hideActions" class="actions">
-      <n-button size="tiny" :loading="copyBtnLoading" :disabled="copyBtnLoading" @click="copyAsMacro">
+      <n-button size="tiny" :loading="copyBtnLoading" :disabled="copyBtnLoading" @click="handleCopyAsMacro">
         <template #icon>
           <n-icon><CodeSharp /></n-icon>
         </template>
@@ -155,11 +155,6 @@ const copyAsMacro = async () => {
       type="textarea"
       :placeholder="t('本组没有需要的道具')"
       style="max-height: calc(100% - 25px);"
-    />
-
-    <ModalCopyAsMacro
-      v-model:show="showCopyMacroModal"
-      :macro-content="macroValue"
     />
   </div>
   <div v-else-if="!hideEmpty" class="empty-container" :style="getContainerStyles()">
