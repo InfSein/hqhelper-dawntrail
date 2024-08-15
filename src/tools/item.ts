@@ -131,6 +131,7 @@ export interface ItemInfo {
     masterRecipeId: number
   },
   gatherInfo: {
+    jobId: number,
     placeNameZH: string,
     placeNameJA: string,
     placeNameEN: string,
@@ -258,6 +259,8 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // * 组装物品采集信息
   const gatherData = gatherMap[itemID]
   if (gatherData) {
+    const gatherPointType = gatherData.type
+    const gatherJob = gatherPointType <= 1 ? 16 : 17 // * type 0123 分别是割草，伐木，采矿，碎石 (注：好像反了)
     const territoryID = gatherData.territory
     const territoryData = territoryMap[territoryID]
     if (territoryData) {
@@ -270,6 +273,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
           placeNameZH = tempZhMap[placeID] || '未翻译的地点'
         }
         itemInfo.gatherInfo = {
+          jobId: gatherJob,
           placeNameZH: placeNameZH,
           placeNameJA: gatherPlaceData[0],
           placeNameEN: gatherPlaceData[1],

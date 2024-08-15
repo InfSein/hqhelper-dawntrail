@@ -307,7 +307,17 @@ const timeCanGather = (timeLimit: {start: string, end: string}) => {
           </div>
         </div>
         <div class="description-block" v-if="itemInfo.gatherInfo">
-          <div class="title">{{ t('采集') }}</div>
+          <div class="title">
+            {{ t('采集') }}
+            <span class="extra">
+              <XivFARImage
+                class="icon"
+                :src="jobMap[itemInfo.gatherInfo.jobId].job_icon_url"
+                :size="12"
+              />
+              {{ getJobName(jobMap[itemInfo.gatherInfo.jobId]) }}
+            </span>
+          </div>
           <n-divider class="item-divider" />
           <div class="content">
             <div>{{ t('该物品可以在以下位置采集：') }}</div>
