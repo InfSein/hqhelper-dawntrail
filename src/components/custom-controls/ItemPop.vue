@@ -548,7 +548,10 @@ const openInAngler = () => {
           font-weight: normal;
           font-size: calc(var(--n-font-size) - 2px);
 
-          .icon { vertical-align: text-bottom; }
+          .icon {
+            vertical-align: text-bottom;
+            margin-bottom: 1px;
+          }
         }
       }
       .content .item {
