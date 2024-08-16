@@ -325,22 +325,20 @@ const openInAngler = () => {
         <div class="description-block" v-if="itemInfo.gatherInfo || itemInfo.isFishingItem">
           <div class="title">
             {{ t('采集') }}
-            <span v-if="itemInfo.gatherInfo" class="extra">
+            <div v-if="itemInfo.gatherInfo" class="extra">
               <XivFARImage
                 class="icon"
                 :src="jobMap[itemInfo.gatherInfo.jobId].job_icon_url"
-                :size="12"
               />
-              {{ getJobName(jobMap[itemInfo.gatherInfo.jobId]) }}
-            </span>
-            <span v-if="itemInfo.isFishingItem" class="extra">
+              <p>{{ getJobName(jobMap[itemInfo.gatherInfo.jobId]) }}</p>
+            </div>
+            <div v-if="itemInfo.isFishingItem" class="extra">
               <XivFARImage
                 class="icon"
                 :src="jobMap[18].job_icon_url"
-                :size="12"
               />
-              {{ getJobName(jobMap[18]) }}
-            </span>
+              <p>{{ getJobName(jobMap[18]) }}</p>
+            </div>
           </div>
           <n-divider class="item-divider" />
           <div class="content" v-if="itemInfo.gatherInfo">
@@ -399,18 +397,19 @@ const openInAngler = () => {
         <div class="description-block" v-if="itemInfo.craftRequires.length">
           <div class="title">
             {{ t('制作') }}
-            <span class="extra">
+            <div class="extra">
               <XivFARImage
                 class="icon"
                 :src="jobMap[itemInfo.craftInfo?.jobId].job_icon_url"
-                :size="12"
               />
-              {{ t('{lv}级{star}{job}配方', {
-                lv: itemInfo.craftInfo?.craftLevel,
-                star: '★'.repeat(itemInfo.craftInfo?.starCount || 0),
-                job: getJobName(jobMap[itemInfo.craftInfo?.jobId])
-              }) }}
-            </span>
+              <p>
+                {{ t('{lv}级{star}{job}配方', {
+                  lv: itemInfo.craftInfo?.craftLevel,
+                  star: '★'.repeat(itemInfo.craftInfo?.starCount || 0),
+                  job: getJobName(jobMap[itemInfo.craftInfo?.jobId])
+                }) }}
+              </p>
+            </div>
           </div>
           <n-divider class="item-divider" />
           <div class="content">
@@ -542,16 +541,31 @@ const openInAngler = () => {
 
       .title {
         font-weight: bold;
+        display: flex;
+        align-items: baseline;
+        --size-small: calc(var(--n-font-size) - 2px);
+        --textgap-left: calc(var(--n-font-size) - 1px);
 
         .extra {
           margin-left: 3px;
           font-weight: normal;
-          font-size: calc(var(--n-font-size) - 2px);
+          font-size: var(--size-small);
+          line-height: 1;
 
-          .icon {
-            vertical-align: text-bottom;
-            margin-bottom: 1px;
+          img {
+            float: left;
+            height: var(--size-small);
+            display: block;
           }
+          p {
+            font-size: var(--size-small);
+            padding-left: var(--textgap-left);
+          }
+        }
+        .extra::after {
+          content: '';
+          clear: both;
+          display: block;
         }
       }
       .content .item {
