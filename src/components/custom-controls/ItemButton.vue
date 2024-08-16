@@ -186,6 +186,34 @@ const handleCopy = async (content: string) => {
 const onClickoutside = () => {
   showDropdownRef.value = false
 }
+
+// * 移动端通过长按来弹出右键菜单
+// 注：这些事件也只会在移动端触发，不用担心在电脑端的兼容性
+const touchTimeoutEvent = ref<number | undefined>(undefined)
+const handleItemButtonTouchStart = (e: TouchEvent) => {
+  touchTimeoutEvent.value = setTimeout(() => {
+    if (e?.touches?.length) {
+      xRef.value = e.touches[0].clientX
+      yRef.value = e.touches[0].clientY
+      showDropdownRef.value = true
+    } else {
+      console.error('No touches found in handleItemButtonTouchStart. event:', e)
+    }
+  }, 500) // 长按500毫秒触发长按事件
+}
+const handleItemButtonTouchMove = (/*e: TouchEvent*/) => {
+  // 如果有移动则取消所有事件
+  clearTimeout(touchTimeoutEvent.value)
+  touchTimeoutEvent.value = 0
+}
+const handleItemButtonTouchEnd = (/*e: TouchEvent*/) => {
+  // 按下时长不足以触发长按事件时,触发点击事件
+  clearTimeout(touchTimeoutEvent.value)
+  if (touchTimeoutEvent.value !== 0) {
+    // do click if event added later
+  }
+}
+
 // #endregion
 </script>
 
@@ -203,6 +231,9 @@ const onClickoutside = () => {
       :disabled="disabled"
       :color="btnColor"
       @contextmenu="handleContextMenu"
+      @touchstart="handleItemButtonTouchStart" 
+      @touchmove="handleItemButtonTouchMove" 
+      @touchend="handleItemButtonTouchEnd"
     >
       <slot>
         <div class="item-container">
