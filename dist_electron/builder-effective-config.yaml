@@ -1,0 +1,21 @@
+directories:
+  output: dist_electron
+  buildResources: build
+appId: com.infSein.hqhelperDawntrail
+productName: hqhelperDawntrail
+files:
+  - filter:
+      - static-pages/**/*
+      - main.js
+      - preload.js
+nsis:
+  oneClick: false
+  perMachine: true
+  allowToChangeInstallationDirectory: true
+win:
+  icon: ''
+  target:
+    - target: nsis
+      arch:
+        - x64
+electronVersion: 31.4.0

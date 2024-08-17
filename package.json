@@ -1,8 +1,10 @@
 {
   "name": "hqhelper-dawntrail",
-  "version": "0.0.52",
+  "version": "0.0.1",
   "private": true,
-  "type": "module",
+  "author": "wcy",
+  "description": "Hello hqhelper dawntrail",
+  "main": "main.js",
   "scripts": {
     "dev": "vite",
     "i18n-extract": "voerkai18n extract",
@@ -11,12 +13,20 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
+    "electron-start": "nodemon --exec electron .",
+    "electron-build": "electron-builder",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
     "@voerkai18n/runtime": "^2.1.8",
     "@voerkai18n/vue": "^2.1.8",
+    "axios": "^1.7.4",
+    "cheerio": "^1.0.0",
+    "electron-updater": "^6.2.1",
+    "jsdom": "^24.1.1",
+    "pump": "^3.0.0",
+    "unzipper": "^0.12.3",
     "vue": "^3.4.21",
     "vue-clipboard3": "^2.0.0",
     "vue-router": "^4.4.0",
@@ -31,13 +41,42 @@
     "@voerkai18n/vite": "^2.1.8",
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/tsconfig": "^0.5.1",
+    "electron": "^31.4.0",
+    "electron-builder": "^24.13.3",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.17.0",
+    "fs-extra": "^11.2.0",
     "naive-ui": "^2.39.0",
+    "nodemon": "^3.1.4",
     "npm-run-all2": "^6.1.2",
     "typescript": "~5.4.5",
     "vite": "^5.3.4",
     "vite-plugin-vue-devtools": "^7.3.6",
     "vue-tsc": "^2.0.29"
+  },
+  "build": {
+    "appId": "com.infSein.hqhelperDawntrail",
+    "productName": "hqhelperDawntrail",
+    "files": [
+      "static-pages/**/*",
+      "main.js",
+      "preload.js"
+    ],
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    },
+    "win": {
+      "icon": "",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
   }
 }

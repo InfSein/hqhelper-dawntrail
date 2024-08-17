@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, h, inject, ref, type Component, type Ref, type VNode } from 'vue'
+import { computed, h, inject, ref, type Component, type Ref, type VNode, onMounted } from 'vue'
 import {
   NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover, NTooltip,
   useMessage,
@@ -213,6 +213,22 @@ const onUserPreferencesSubmitted = () => {
   appForceUpdate()
   NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
 }
+// 检查更新的方法
+const checkForUpdates = () => {
+  window.electronAPI.checkForUpdates()
+}
+
+// 安装更新的方法
+const installUpdate = () => {
+  window.electronAPI.installUpdate()
+}
+
+// 在组件挂载后设置更新监听
+onMounted(() => {
+  window.electronAPI.onUpdateReady(() => {
+    alert('新版本已下载，点击按钮进行安装更新。')
+  })
+})
 </script>
 
 <template>
@@ -296,6 +312,8 @@ const onUserPreferencesSubmitted = () => {
           </n-button>
         </n-dropdown>
       </div>
+      <button @click="checkForUpdates">检查更新</button>
+      <button @click="installUpdate">安装更新</button>
     </div>
     
     <n-drawer
