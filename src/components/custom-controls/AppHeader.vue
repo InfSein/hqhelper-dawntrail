@@ -106,7 +106,7 @@ const desktopMenus = computed(() => {
   const userPreferenceTooltip = t('以人的意志改变机械的程序。')
   const changelogTooltip = t('此功能尚未制作完成，请耐心等待。')
   const contactTooltip = t('关注我们喵，关注我们谢谢喵。')
-  const aboutTooltip = t('“作个自我介绍吧。”，他说。')
+  const aboutTooltip = t('重新自我介绍一下库啵。')
   return [
     /* 参考资料 */
     {
