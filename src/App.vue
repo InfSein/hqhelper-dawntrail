@@ -49,12 +49,15 @@ window.addEventListener('resize', updateIsMobile)
 
 // * register ui
 const osTheme = useOsTheme()
-const naiveUiTheme = computed(() => {
+const theme = computed(() => {
   let _theme = userConfig.value.theme
   if (_theme === 'system') {
-    return osTheme.value === 'dark' ? darkTheme : lightTheme
+    return osTheme.value === 'dark' ? 'dark' : 'light'
   }
-  return _theme === 'light' ? lightTheme : darkTheme
+  return _theme
+})
+const naiveUiTheme = computed(() => {
+  return theme.value === 'light' ? lightTheme : darkTheme
 })
 const naiveUiLocale = computed(() => {
   switch (locale.value) {
@@ -94,6 +97,10 @@ const appForceUpdate = () => {
   // Update vue
   const instance = getCurrentInstance()
   instance?.proxy?.$forceUpdate()
+}
+const switchTheme = () => {
+  userConfig.value.theme = theme.value === 'light' ? 'dark' : 'light'
+  store.commit('setUserConfig', userConfig.value)
 }
 
 // #endregion
@@ -155,9 +162,11 @@ const showDialogConfirm = inject<(
 
 provide('userConfig', userConfig)
 provide('t', t)
+provide('theme', theme)
 provide('locale', locale)
 provide('isMobile', isMobile)
 provide('appForceUpdate', appForceUpdate)
+provide('switchTheme', switchTheme)
 
 const currentET = ref<EorzeaTime>(new EorzeaTime())
 setInterval(() => {
