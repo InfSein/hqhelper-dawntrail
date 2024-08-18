@@ -1360,7 +1360,7 @@
     ]
   },
   "选择您游戏账号所属的服务器。此设置还会影响一部分统计数据(例如点数道具的兑换价格)的计算方式。": {
-    "en": "Select the server of your game account. Selection would affect some statistics data, such as the price of exchangeable tokens.",
+    "en": "Select the server of your game account. Selection would affect some other statistics data (e.g. price of exchangeable items) calculation.",
     "ja": "キャラクターが所属するサーバーを選択してください。サーバーが異なることで、集計の結果も変化します。例：トークン素材の相場。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
@@ -1769,6 +1769,181 @@
     "ja": "素材：基礎",
     "$files": [
       "components\\modals\\ModalCraftStatements.vue"
+    ]
+  },
+  "没有需要复制的内容": {
+    "en": "Nothing to copy.",
+    "ja": "没有需要复制的内容",
+    "$files": [
+      "App.vue"
+    ]
+  },
+  "切换主题": {
+    "en": "Switch Theme",
+    "ja": "切换主题",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "为这个世界带回黑暗。": {
+    "en": "Switch to dark theme.",
+    "ja": "世界に闇をとりもどしてほしい。",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "静待黎明天光来。": {
+    "en": "Switch to light theme.",
+    "ja": "今はただ夜明けの時を待つ。",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "帮助你制作食物与爆发药。能帮到就好。": {
+    "en": "Helper of food and tinctures.",
+    "ja": "帮助你制作食物与爆发药。能帮到就好。",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "此功能尚未制作完成，请耐心等待。": {
+    "en": "This function has not been finished yet. Please wait.",
+    "ja": "此功能尚未制作完成，请耐心等待。",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "以人的意志改变机械的程序。": {
+    "en": "Change app settings by your will.",
+    "ja": "以人的意志改变机械的程序。",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "关注我们喵，关注我们谢谢喵。": {
+    "en": "Get ways to contact with us.",
+    "ja": "关注我们喵，关注我们谢谢喵。",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "重新自我介绍一下库啵。": {
+    "en": "Get something about us.",
+    "ja": "重新自我介绍一下库啵。",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "复制道具名": {
+    "en": "Copy item name",
+    "ja": "复制道具名",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "中文名": {
+    "en": "Chinese",
+    "ja": "中文名",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "日文名": {
+    "en": "Japanese",
+    "ja": "日文名",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "英文名": {
+    "en": "English",
+    "ja": "英文名",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "在灰机维基中打开": {
+    "en": "Open in HuijiWiki",
+    "ja": "在灰机维基中打开",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "在花环数据库中打开": {
+    "en": "Open in Garland",
+    "ja": "在花环数据库中打开",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "在Universalis中打开": {
+    "en": "Open in Universalis",
+    "ja": "在Universalis中打开",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "复制失败：发生意外错误": {
+    "en": "Copy action failed: unexpected error.",
+    "ja": "复制失败：发生意外错误",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "装备属性": {
+    "en": "Bonuses",
+    "ja": "装備詳細",
+    "$files": [
+      "components\\custom-controls\\ItemPop.vue"
+    ]
+  },
+  "可以在以下网站中查询该物品的采集方法：": {
+    "en": "You might obtain gathering ways of this item in:",
+    "ja": "可以在以下网站中查询该物品的采集方法：",
+    "$files": [
+      "components\\custom-controls\\ItemPop.vue"
+    ]
+  },
+  "在饥饿的猫中打开": {
+    "en": "Open in ff14angler",
+    "ja": "在饥饿的猫中打开",
+    "$files": [
+      "components\\custom-controls\\ItemPop.vue"
+    ]
+  },
+  "在鱼糕中打开": {
+    "en": "Open in ffmomola",
+    "ja": "在鱼糕中打开",
+    "$files": [
+      "components\\custom-controls\\ItemPop.vue"
+    ]
+  },
+  "※ 国服未实装的道具可能在部分网站中没有数据。": {
+    "en": "※ Items that not implemented in the CHS server may not have data on some of the given websites.",
+    "ja": "※ 国服未实装的道具可能在部分网站中没有数据。",
+    "$files": [
+      "components\\custom-controls\\ItemPop.vue"
+    ]
+  },
+  "点数统计": {
+    "en": "Tome Script Summary",
+    "ja": "点数统计",
+    "$files": [
+      "components\\custom-controls\\TomeScriptButton.vue"
+    ]
+  },
+  "制作素材：三级": {
+    "en": "List of lv.3 materials",
+    "ja": "制作素材：三级",
+    "$files": [
+      "components\\modals\\ModalCraftStatements.vue"
+    ]
+  },
+  "选择程序中道具的语言。此设置还会影响一部分其他信息(例如地图名)的语言。": {
+    "en": "Select the language of item name shown in app. This setting also affects some other information(e.g. map name) language.",
+    "ja": "选择程序中道具的语言。此设置还会影响一部分其他信息(例如地图名)的语言。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
     ]
   }
 }
