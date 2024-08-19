@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import item from '@/assets/data/unpacks/item.json'
 import recipe from '@/assets/data/unpacks/recipe.json'
 import hqConfig from '@/assets/data/unpacks/hq-config.json'
+import gatherData from '@/assets/data/unpacks/gathering-item.json'
 import { Cal, type CostCHS, type IHqConfig } from './nbb-cal-v5'
 import type { GearSelections } from '@/models/gears'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from './item';
@@ -52,7 +53,7 @@ export function useNbbCal() {
         return doCal(calMap);
     }
 
-    const getItem = (id: number) => {
+    const getItem = (id: string | number) => {
         return cal.value.itemData[id];
     }
 
@@ -226,7 +227,24 @@ export function useNbbCal() {
         return data
     }
 
+    const getLimitedGatherings = () => {
+      const gd = gatherData as any
+      const map = {} as Record<string, ItemInfo[]>
+      for (const itemID in gatherData) {
+        if (gd[itemID].popTime) { // 是限时物品
+          const id = Number(itemID)
+          const itemInfo = getItemInfo(id)
+          const key = itemInfo.patch
+          if (!map[key]) map[key] = []
+          map[key].push(itemInfo)
+        }
+      }
+      return map
+    }
+
     return {
-        doCal, getItem, getPatchData, getItemsName, calGearSelections, calFoodAndTincs, getSpecialItems, getTradeMap, getReduceMap, getFoodAndTincs, getFoodAndTincs_v2
+      doCal, getItem, getPatchData, getItemsName, calGearSelections,
+      calFoodAndTincs, getSpecialItems, getTradeMap, getReduceMap, getFoodAndTincs,
+      getFoodAndTincs_v2, getLimitedGatherings
     }
 }
