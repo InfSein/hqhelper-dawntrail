@@ -13,8 +13,8 @@ const EXTRACTED_DIR = path.join(TEMP_DIR, 'hqhelper-dawntrail-static-pages');
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1620,
+    height: 835,
     autoHideMenuBar: true,
     titleBarStyle: 'hidden',
     webPreferences: {
