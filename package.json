@@ -4,7 +4,7 @@
   "private": true,
   "author": "InfSein",
   "description": "One web app for ffxiv dawntrail master crafters.",
-  "main": "main.js",
+  "main": "./electron/main.js",
   "scripts": {
     "dev": "vite",
     "i18n-extract": "voerkai18n extract",
@@ -64,8 +64,8 @@
     "productName": "HqHelper",
     "files": [
       "static-pages/**/*",
-      "main.js",
-      "preload.js"
+      "./electron/main.js",
+      "./electron/preload.js"
     ],
     "nsis": {
       "oneClick": false,

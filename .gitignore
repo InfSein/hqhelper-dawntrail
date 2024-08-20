@@ -14,6 +14,7 @@ dist-ssr
 coverage
 *.local
 static-pages
+./electron/static-pages
 
 /cypress/videos/
 /cypress/screenshots/

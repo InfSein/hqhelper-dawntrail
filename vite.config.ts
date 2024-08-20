@@ -9,7 +9,7 @@ import Voerkai18nPlugin from "@voerkai18n/vite"
 export default defineConfig({
   base: './',
   build: {
-    outDir: 'static-pages'
+    outDir: './electron/static-pages'
   },
   plugins: [
     vue(),
