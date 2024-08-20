@@ -1,9 +1,9 @@
 {
   "name": "hqhelper-dawntrail",
-  "version": "0.0.1",
+  "version": "0.0.53",
   "private": true,
-  "author": "wcy",
-  "description": "Hello hqhelper dawntrail",
+  "author": "InfSein",
+  "description": "One web app for ffxiv dawntrail master crafters.",
   "main": "main.js",
   "scripts": {
     "dev": "vite",
