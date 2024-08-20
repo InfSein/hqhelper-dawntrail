@@ -8,6 +8,9 @@ import Voerkai18nPlugin from "@voerkai18n/vite"
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './',
+  build: {
+    outDir: 'static-pages'
+  },
   plugins: [
     vue(),
     VueDevTools(),

@@ -4,7 +4,8 @@
     "env.d.ts",
     "src/**/*",
     "src/**/*.ts",
-    "src/**/*.vue"
+    "src/**/*.vue",
+     "electron.d.ts"
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {

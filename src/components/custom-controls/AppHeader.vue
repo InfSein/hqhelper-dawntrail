@@ -223,6 +223,23 @@ const installUpdate = () => {
   window.electronAPI.installUpdate()
 }
 
+const minimize = () => {
+  window.electronAPI.minimize()
+}
+
+const maximize = () => {
+  window.electronAPI.maximize()
+}
+
+const restore = () => {
+  window.electronAPI.restore()
+}
+
+const close = () => {
+  window.electronAPI.close()
+}
+
+
 // 在组件挂载后设置更新监听
 onMounted(() => {
   window.electronAPI.onUpdateReady(() => {
@@ -314,6 +331,10 @@ onMounted(() => {
       </div>
       <button @click="checkForUpdates">检查更新</button>
       <button @click="installUpdate">安装更新</button>
+      <button @click="minimize">minimize</button>
+      <button @click="maximize">maximize</button>
+      <button @click="restore">restore</button>
+      <button @click="close">close</button>
     </div>
     
     <n-drawer

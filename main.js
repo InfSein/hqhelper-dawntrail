@@ -16,6 +16,7 @@ function createWindow() {
     width: 800,
     height: 600,
     autoHideMenuBar: true,
+    titleBarStyle: 'hidden',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
@@ -75,6 +76,30 @@ function createWindow() {
     } catch (error) {
       console.error('Failed to install update:', error);
     }
+  });
+
+  ipcMain.on('window-minimize', (event) => {
+    const window = BrowserWindow.fromWebContents(event.sender);
+    window.minimize();
+  });
+  
+  ipcMain.on('window-maximize', (event) => {
+    const window = BrowserWindow.fromWebContents(event.sender);
+    if (window.isMaximized()) {
+      window.restore();
+    } else {
+      window.maximize();
+    }
+  });
+  
+  ipcMain.on('window-restore', (event) => {
+    const window = BrowserWindow.fromWebContents(event.sender);
+    window.restore();
+  });
+  
+  ipcMain.on('window-close', (event) => {
+    const window = BrowserWindow.fromWebContents(event.sender);
+    window.close();
   });
 }
 
