@@ -243,6 +243,11 @@ const appClass = computed(() => {
 </template>
 
 <style scoped>
+/* Electron only */
+:deep(.n-layout-header) {
+  -webkit-app-region: drag;
+}
+
 :deep(#main-content .n-scrollbar-container) {
   padding: 1rem;
 }

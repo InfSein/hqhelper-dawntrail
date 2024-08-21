@@ -390,6 +390,12 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+/* Electron only */
+.app-header {
+  width: fit-content;
+  -webkit-app-region: no-drag;
+}
+
 /* All */
 .app-header {
   height: 100%;
