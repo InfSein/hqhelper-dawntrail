@@ -63,18 +63,19 @@
     "appId": "com.infSein.hqhelperDawntrail",
     "productName": "HqHelper",
     "files": [
-      "static-pages/**/*",
-      "./electron/main.js",
-      "./electron/preload.js"
+      "electron/static-pages/**/*",
+      "electron/main.js",
+      "electron/preload.js"
     ],
     "nsis": {
       "oneClick": false,
       "perMachine": true,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "include": "electron/installer.nsh"
     },
     "win": {
       "artifactName": "${productName}.${ext}",
-      "icon": "static-pages/icons/logo_v2_256x256.png",
+      "icon": "electron/static-pages/icons/logo_v2_256x256.png",
       "target": [
         {
           "target": "nsis",
@@ -83,6 +84,7 @@
           ]
         }
       ]
-    }
+    },
+    "asar": true
   }
 }

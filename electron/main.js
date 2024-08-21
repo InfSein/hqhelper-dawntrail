@@ -10,7 +10,8 @@ const ZIP_URL = 'https://github.com/InfSein/hqhelper-dawntrail/archive/refs/head
 const ZIP_PATH = path.join(__dirname, 'static-pages.zip');
 const TEMP_DIR = path.join(__dirname, 'static-pages-temp');
 const EXTRACTED_DIR = path.join(TEMP_DIR, 'hqhelper-dawntrail-static-pages');
-
+// 获取应用的版本号
+const appVersion = app.getVersion();
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1620,
@@ -18,15 +19,13 @@ function createWindow() {
     autoHideMenuBar: true,
     titleBarStyle: 'hidden',
     webPreferences: {
-      preload: path.join(__dirname, './preload.js'),
+      preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
     },
   });
-
-  mainWindow.loadURL(
-    `file://${path.join(__dirname, 'static-pages/index.html')}`
-  );
+  const indexPath = path.join(__dirname, 'static-pages/index.html');
+  mainWindow.loadURL(`file://${indexPath}`);
 
   mainWindow.on('closed', function () {
     mainWindow = null;
@@ -101,6 +100,10 @@ function createWindow() {
     const window = BrowserWindow.fromWebContents(event.sender);
     window.close();
   });
+  ipcMain.handle('get-app-version', () => {
+    return app.getVersion();
+  });
+
 }
 
 app.on('ready', createWindow);

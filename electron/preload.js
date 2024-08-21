@@ -1,6 +1,5 @@
 /* eslint-disable */
-const { contextBridge, ipcRenderer } = require('electron')
-
+const { contextBridge, ipcRenderer, app } = require('electron')
 contextBridge.exposeInMainWorld('electronAPI', {
   checkForUpdates: () => ipcRenderer.send('check-for-updates'),
   installUpdate: () => ipcRenderer.send('install-update'),
@@ -8,5 +7,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   minimize: () => ipcRenderer.send('window-minimize'),
   maximize: () => ipcRenderer.send('window-maximize'),
   restore: () => ipcRenderer.send('window-restore'),
-  close: () => ipcRenderer.send('window-close')
+  close: () => ipcRenderer.send('window-close'),
+  version: ipcRenderer.invoke('get-app-version')
 })

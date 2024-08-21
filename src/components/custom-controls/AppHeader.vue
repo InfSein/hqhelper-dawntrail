@@ -239,12 +239,15 @@ const close = () => {
   window.electronAPI.close()
 }
 
+const electronVersion = ref<string>('');
 
 // 在组件挂载后设置更新监听
-onMounted(() => {
+onMounted(async () => {
   window.electronAPI.onUpdateReady(() => {
     alert('新版本已下载，点击按钮进行安装更新。')
   })
+  electronVersion.value = await window.electronAPI.version;
+  console.log('version.value', electronVersion.value)
 })
 </script>
 
@@ -335,6 +338,7 @@ onMounted(() => {
       <button @click="maximize">maximize</button>
       <button @click="restore">restore</button>
       <button @click="close">close</button>
+      <button >{{ electronVersion }}</button>
     </div>
     
     <n-drawer
