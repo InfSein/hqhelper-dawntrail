@@ -332,13 +332,13 @@ onMounted(async () => {
           </n-button>
         </n-dropdown>
       </div>
-      <button @click="checkForUpdates">检查更新</button>
-      <button @click="installUpdate">安装更新</button>
-      <button @click="minimize">minimize</button>
-      <button @click="maximize">maximize</button>
-      <button @click="restore">restore</button>
-      <button @click="close">close</button>
-      <button >{{ electronVersion }}</button>
+      <button v-if="false" @click="checkForUpdates">检查更新</button>
+      <button v-if="false" @click="installUpdate">安装更新</button>
+      <button v-if="false" @click="minimize">minimize</button>
+      <button v-if="false" @click="maximize">maximize</button>
+      <button v-if="false" @click="restore">restore</button>
+      <button v-if="false" @click="close">close</button>
+      <button v-if="false" >{{ electronVersion }}</button>
     </div>
     
     <n-drawer
