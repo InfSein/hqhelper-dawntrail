@@ -355,10 +355,6 @@ const onUserPreferencesSubmitted = () => {
   gap: 10px;
   user-select: none;
 
-  div {
-    -webkit-app-region: no-drag;
-  }
-
   .router-back-container {
     height: 100%;
     display: flex;

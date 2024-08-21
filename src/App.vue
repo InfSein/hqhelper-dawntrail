@@ -243,16 +243,11 @@ const appClass = computed(() => {
 </template>
 
 <style scoped>
-:deep(n-layout-header) {
-  -webkit-app-region: drag;
-}
 :deep(#main-content .n-scrollbar-container) {
   padding: 1rem;
-  -webkit-app-region: drag;
 }
 :deep(#main-content .n-scrollbar-container .n-scrollbar-content){
   height: 100%;
-  -webkit-app-region: no-drag;
 }
 .n-layout-header {
   height: 70px;
