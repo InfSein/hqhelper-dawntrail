@@ -6,7 +6,7 @@
     "cypress.config.*",
     "nightwatch.conf.*",
     "playwright.config.*",
-     "electron.d.ts"
+    "electron.d.ts"
   ],
   "compilerOptions": {
     "composite": true,
