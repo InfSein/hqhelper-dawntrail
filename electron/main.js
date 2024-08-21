@@ -16,8 +16,12 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1620,
     height: 835,
-    autoHideMenuBar: true,
     titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: 'rgba(0,0,0,30)',
+      height: 35,
+      symbolColor: 'black'
+    },
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
