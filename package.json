@@ -6,15 +6,10 @@
   "description": "One web app for ffxiv dawntrail master crafters.",
   "main": "./electron/main.js",
   "scripts": {
-    "dev": "vite",
-    "i18n-extract": "voerkai18n extract",
-    "i18n-compile": "voerkai18n compile",
-    "update-CHANGELOG": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
-    "build-only": "vite build",
     "electron-start": "nodemon --exec electron .",
     "electron-build": "electron-builder",
+    "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
