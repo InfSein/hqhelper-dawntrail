@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, h, inject, ref, type Component, type Ref, type VNode } from 'vue'
+import { computed, h, inject, ref, type Component, type Ref, type VNode, onMounted } from 'vue'
 import {
   NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover, NTooltip,
   useMessage,
@@ -213,6 +213,42 @@ const onUserPreferencesSubmitted = () => {
   appForceUpdate()
   NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
 }
+// 检查更新的方法
+const checkForUpdates = () => {
+  window.electronAPI.checkForUpdates()
+}
+
+// 安装更新的方法
+const installUpdate = () => {
+  window.electronAPI.installUpdate()
+}
+
+const minimize = () => {
+  window.electronAPI.minimize()
+}
+
+const maximize = () => {
+  window.electronAPI.maximize()
+}
+
+const restore = () => {
+  window.electronAPI.restore()
+}
+
+const close = () => {
+  window.electronAPI.close()
+}
+
+const electronVersion = ref<string>('');
+
+// 在组件挂载后设置更新监听
+onMounted(async () => {
+  window.electronAPI.onUpdateReady(() => {
+    alert('新版本已下载，点击按钮进行安装更新。')
+  })
+  electronVersion.value = await window.electronAPI.version;
+  console.log('version.value', electronVersion.value)
+})
 </script>
 
 <template>
@@ -296,6 +332,13 @@ const onUserPreferencesSubmitted = () => {
           </n-button>
         </n-dropdown>
       </div>
+      <button @click="checkForUpdates">检查更新</button>
+      <button @click="installUpdate">安装更新</button>
+      <button @click="minimize">minimize</button>
+      <button @click="maximize">maximize</button>
+      <button @click="restore">restore</button>
+      <button @click="close">close</button>
+      <button >{{ electronVersion }}</button>
     </div>
     
     <n-drawer
