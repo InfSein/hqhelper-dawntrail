@@ -19,7 +19,8 @@ import {
   SettingsSharp,
   EventNoteFilled,
   InfoFilled,
-  ContactlessSharp
+  ContactlessSharp,
+  DarkModeTwotone, LightModeTwotone
 } from '@vicons/material'
 import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
 import ModalContactUs from '@/components/modals/ModalContactUs.vue'
@@ -35,6 +36,8 @@ const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh')
 const isChina = computed(() => locale.value === 'zh')
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
+const theme = inject<Ref<"light" | "dark">>('theme') ?? ref('light')
+const switchTheme = inject<() => void>('switchTheme')!
 
 const NAIVE_UI_MESSAGE = useMessage()
 
@@ -84,7 +87,9 @@ interface DesktopMenuItem {
 }
 const menuItems = computed(() => {
   const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
+  const changeThemeIcon = theme.value === 'light' ? DarkModeTwotone : LightModeTwotone
   return {
+    changeTheme: { label: t('切换主题'), icon: changeThemeIcon, click: switchTheme } as MenuItem,
     ftHelper: { label: t('食药计算'), hide: hideFTHelper, icon: FastfoodOutlined, click: redirectToFoodAndTincPage } as MenuItem,
     contact: { label: t('联系我们'), icon: ContactlessSharp, click: displayContactModal } as MenuItem,
     changelogs: { label: t('更新日志'), hide: true, icon: EventNoteFilled, click: displayChangeLogsModal } as MenuItem,
@@ -94,7 +99,14 @@ const menuItems = computed(() => {
 })
 const desktopMenus = computed(() => {
   const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
-  const ftHelperTooltip = hideFTHelper ? t('您已经处于食药计算器的页面。') : undefined
+  const changeThemeIcon = theme.value === 'light' ? DarkModeTwotone : LightModeTwotone
+  const changeThemeTooltip = theme.value === 'light' ? t('为这个世界带回黑暗。') : t('静待黎明天光来。')
+  const ftHelperTooltip = hideFTHelper ? t('您已经处于食药计算器的页面。') : t('帮助你制作食物与爆发药。能帮到就好。')
+  const gatherClockTooltip = t('此功能尚未制作完成，请耐心等待。')
+  const userPreferenceTooltip = t('以人的意志改变机械的程序。')
+  const changelogTooltip = t('此功能尚未制作完成，请耐心等待。')
+  const contactTooltip = t('关注我们喵，关注我们谢谢喵。')
+  const aboutTooltip = t('重新自我介绍一下库啵。')
   return [
     /* 参考资料 */
     {
@@ -133,7 +145,7 @@ const desktopMenus = computed(() => {
       label: t('实用工具'),
       icon: CasesOutlined,
       options: [
-        { key: 'tool-time', label: t('采集时钟'), icon: renderIcon(AccessAlarmsOutlined), disabled: true, click: notDoneBtnClickEvent },
+        { key: 'tool-gatherclock', label: t('采集时钟'), disabled: true, icon: renderIcon(AccessAlarmsOutlined), description: gatherClockTooltip, click: notDoneBtnClickEvent },
         { key: 'tool-fthelper', label: t('食药计算'), disabled: hideFTHelper, icon: renderIcon(FastfoodOutlined), description: ftHelperTooltip, click: redirectToFoodAndTincPage }
       ]
     },
@@ -153,8 +165,9 @@ const desktopMenus = computed(() => {
       label: t('设置与更新'),
       icon: UpdateOutlined,
       options: [
-        { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), click: displayUserPreferencesModal },
-        { key: 'sau-cl', label: t('更新日志'), disabled: true, icon: renderIcon(EventNoteFilled), click: displayChangeLogsModal }
+        { key: 'sau-ct', label: t('切换主题'), icon: renderIcon(changeThemeIcon), description: changeThemeTooltip, click: switchTheme },
+        { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), description: userPreferenceTooltip, click: displayUserPreferencesModal },
+        { key: 'sau-cl', label: t('更新日志'), disabled: true, icon: renderIcon(EventNoteFilled), description: changelogTooltip, click: displayChangeLogsModal }
       ],
     },
     /* 关于 */
@@ -162,8 +175,8 @@ const desktopMenus = computed(() => {
       label: t('关于'),
       icon: InfoFilled,
       options: [
-        { key: 'ab-contact', label: t('联系我们'), icon: renderIcon(ContactlessSharp), click: displayContactModal },
-        { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoFilled), click: displayAboutAppModal }
+        { key: 'ab-contact', label: t('联系我们'), icon: renderIcon(ContactlessSharp), description: contactTooltip, click: displayContactModal },
+        { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoFilled), description: aboutTooltip, click: displayAboutAppModal }
       ],
     }
   ] as DesktopMenuItem[]
@@ -384,6 +397,10 @@ onMounted(async () => {
   align-items: center;
   gap: 10px;
   user-select: none;
+
+  div {
+    -webkit-app-region: no-drag;
+  }
 
   .router-back-container {
     height: 100%;

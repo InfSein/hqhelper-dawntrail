@@ -66,7 +66,7 @@ if (!disable_workstate_cache) {
 
 const handleJobButtonDupliClick = () => {
   if (!userConfig.value.disable_jobbtn_doubleclick) {
-    gearSelectionPanel.value?.addMainOffHand()
+    gearSelectionPanel.value?.addCurrMainOffHand()
   }
 }
 
@@ -104,6 +104,7 @@ const tradeMap = computed(() => {
           v-model:gear-selections="workState.gears"
           ref="gearSelectionPanel"
           class="gear-panel"
+          :patch-selected="workState.patch"
           :job-id="workState.job"
           :attire-affix="workState.affixes?.attire as AttireAffix"
           :accessory-affix="workState.affixes?.accessory as AccessoryAffix"

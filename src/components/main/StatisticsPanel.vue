@@ -267,7 +267,7 @@ const statementData = computed(() => {
     <template #header>
       <i class="xiv square-4"></i>
       <span class="card-title-text">{{ t('查看统计') }}</span>
-      <a v-show="!isMobile" class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
+      <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
     </template>
     <div class="wrapper">
       <GroupBox id="reagents-group" class="group" title-background-color="var(--n-color-embedded)" title-max-width="200px">

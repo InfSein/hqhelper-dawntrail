@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NCard, NIcon, NModal
+  NCard, NIcon, NModal, NTabs, NTabPane
 } from 'naive-ui'
 import { 
   TableViewOutlined
@@ -16,7 +16,7 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 const showModal = defineModel<boolean>('show', { required: true })
 
-defineProps({
+const props = defineProps({
   craftTargets: {
     type: Array as () => ItemInfo[],
     required: true
@@ -47,6 +47,36 @@ defineProps({
   }
 })
 
+const statementBlocks = computed(() => {
+  return [
+    {
+      id: 'craft-target',
+      name: t('成品清单'),
+      items: props.craftTargets
+    },
+    {
+      id: 'material-lv1',
+      name: t('制作素材：直接'),
+      items: props.materialsLv1
+    },
+    {
+      id: 'material-lv2',
+      name: t('制作素材：二级'),
+      items: props.materialsLv2
+    },
+    {
+      id: 'material-lv3',
+      name: t('制作素材：三级'),
+      items: props.materialsLv3
+    },
+    {
+      id: 'material-lvBase',
+      name: t('制作素材：基础'),
+      items: props.materialsLvBase
+    },
+  ]
+})
+
 const handleClose = () => {
   showModal.value = false
 }
@@ -69,40 +99,34 @@ const handleClose = () => {
         </div>
       </template>
 
-      <div class="wrapper desktop">
-        <GroupBox id="craft-target" class="group" title-background-color="var(--n-color-modal)">
-          <template #title>{{ t('成品清单') }}</template>
+      <n-tabs v-if="isMobile" type="line" animated>
+        <n-tab-pane
+          v-for="block in statementBlocks"
+          :key="block.id"
+          :name="block.id"
+          :tab="block.name"
+        >
           <div class="container">
             <ItemList
-              :items="craftTargets"
-              :list-height="isMobile ? undefined : 480"
+              :items="block.items"
+              :list-height="480"
             />
           </div>
-        </GroupBox>
-        <GroupBox id="craft-target" class="group" title-background-color="var(--n-color-modal)">
-          <template #title>{{ t('制作素材：直接') }}</template>
+        </n-tab-pane>
+      </n-tabs>
+      <div v-else class="wrapper desktop">
+        <GroupBox
+          v-for="block in statementBlocks"
+          :key="block.id"
+          :id="block.id"
+          class="group"
+          title-background-color="var(--n-color-modal)"
+        >
+          <template #title>{{ block.name }}</template>
           <div class="container">
             <ItemList
-              :items="materialsLv1"
-              :list-height="isMobile ? undefined : 480"
-            />
-          </div>
-        </GroupBox>
-        <GroupBox id="craft-target" class="group" title-background-color="var(--n-color-modal)">
-          <template #title>{{ t('制作素材：二级') }}</template>
-          <div class="container">
-            <ItemList
-              :items="materialsLv2"
-              :list-height="isMobile ? undefined : 480"
-            />
-          </div>
-        </GroupBox>
-        <GroupBox id="craft-target" class="group" title-background-color="var(--n-color-modal)">
-          <template #title>{{ t('制作素材：基础') }}</template>
-          <div class="container">
-            <ItemList
-              :items="materialsLvBase"
-              :list-height="isMobile ? undefined : 480"
+              :items="block.items"
+              :list-height="480"
             />
           </div>
         </GroupBox>
@@ -118,7 +142,7 @@ const handleClose = () => {
 }
 .wrapper.desktop {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
 }
 .group .container {

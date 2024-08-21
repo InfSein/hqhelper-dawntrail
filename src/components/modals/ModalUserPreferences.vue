@@ -75,6 +75,11 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
         label: t('物品语言'),
         descriptions: [
           {
+            value: t('选择程序中道具的语言。此设置还会影响一部分其他信息(例如地图名)的语言。'),
+            class: '',
+            style: ''
+          },
+          {
             value: t('如果选择“自动”，物品语言将跟随“界面语言”的设置。'),
             class: '',
             style: ''
@@ -94,7 +99,7 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
         label: t('服务器'),
         descriptions: [
           {
-            value: t('选择您游戏账号所属的服务器。这将会影响一些统计数据，比如点数道具的兑换价格。'),
+            value: t('选择您游戏账号所属的服务器。此设置还会影响一部分统计数据(例如点数道具的兑换价格)的计算方式。'),
             class: '',
             style: ''
           },
@@ -256,19 +261,19 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
       {
         key: 'disable_api_mirror',
         label: t('禁用国际加速'),
-        descriptions: [],
-        warnings: [
+        descriptions: [
           {
             value: t('国内用户不建议打开。'),
-            class: 'font-center',
+            class: '',
             style: ''
           },
           {
             value: t('不过如果图片加载特别慢，也可以试试。'),
-            class: 'font-center',
+            class: '',
             style: ''
           }
         ],
+        warnings: [],
         type: 'switch',
         options: []
       }

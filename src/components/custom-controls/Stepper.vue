@@ -6,6 +6,7 @@ import {
 import {
   AddSharp, MinusSharp
 } from '@vicons/material'
+import { computed, ref } from 'vue';
 
 const modelValue = defineModel<number>('value', { required: true })
 const props = defineProps({
@@ -14,6 +15,15 @@ const props = defineProps({
   containerStyle: { type: String, default: '' },
   inputStyle: { type: String, default: '' },
   disabled: { type: Boolean, default: false }
+})
+
+const container = ref<HTMLElement>()
+const showButtons = computed(() => {
+  if (container.value?.offsetWidth) {
+    return container.value.offsetWidth >= 100
+  } else {
+    return true
+  }
 })
 
 const handleMinusClick = () => {
@@ -29,8 +39,8 @@ const handlePlusClick = () => {
 </script>
 
 <template>
-  <div class="stepper" :style="containerStyle">
-    <n-button size="small" class="stepper-button" :disabled="disabled || modelValue === min" @click="handleMinusClick">
+  <div class="stepper" ref="container" :style="containerStyle">
+    <n-button v-if="showButtons" size="small" class="stepper-button" :disabled="disabled || modelValue === min" @click="handleMinusClick">
       <template #icon>
         <n-icon><minus-sharp /></n-icon>
       </template>
@@ -47,7 +57,7 @@ const handlePlusClick = () => {
         :disabled="disabled"
       />
     </div>
-    <n-button size="small" class="stepper-button" :disabled="disabled || modelValue === max" @click="handlePlusClick">
+    <n-button v-if="showButtons" size="small" class="stepper-button" :disabled="disabled || modelValue === max" @click="handlePlusClick">
       <template #icon>
         <n-icon><add-sharp /></n-icon>
       </template>

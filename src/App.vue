@@ -13,6 +13,7 @@ import {
 // * import pages and components
 import AppHeader from './components/custom-controls/AppHeader.vue'
 import DialogConfirm from './components/custom-controls/DialogConfirm.vue'
+import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
 
 // * import others
 import { useStore } from '@/store/index'
@@ -20,6 +21,7 @@ import { t } from '@/languages'
 import { injectVoerkaI18n } from "@voerkai18n/vue"
 import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 import EorzeaTime from './tools/eorzea-time'
+import { CopyToClipboard } from './tools'
 
 // #endregion
 
@@ -47,12 +49,15 @@ window.addEventListener('resize', updateIsMobile)
 
 // * register ui
 const osTheme = useOsTheme()
-const naiveUiTheme = computed(() => {
+const theme = computed(() => {
   let _theme = userConfig.value.theme
   if (_theme === 'system') {
-    return osTheme.value === 'dark' ? darkTheme : lightTheme
+    return osTheme.value === 'dark' ? 'dark' : 'light'
   }
-  return _theme === 'light' ? lightTheme : darkTheme
+  return _theme
+})
+const naiveUiTheme = computed(() => {
+  return theme.value === 'light' ? lightTheme : darkTheme
 })
 const naiveUiLocale = computed(() => {
   switch (locale.value) {
@@ -92,6 +97,10 @@ const appForceUpdate = () => {
   // Update vue
   const instance = getCurrentInstance()
   instance?.proxy?.$forceUpdate()
+}
+const switchTheme = () => {
+  userConfig.value.theme = theme.value === 'light' ? 'dark' : 'light'
+  store.commit('setUserConfig', userConfig.value)
 }
 
 // #endregion
@@ -153,15 +162,36 @@ const showDialogConfirm = inject<(
 
 provide('userConfig', userConfig)
 provide('t', t)
+provide('theme', theme)
 provide('locale', locale)
 provide('isMobile', isMobile)
 provide('appForceUpdate', appForceUpdate)
+provide('switchTheme', switchTheme)
 
 const currentET = ref<EorzeaTime>(new EorzeaTime())
 setInterval(() => {
   currentET.value = new EorzeaTime()
 }, 200)
 provide('currentET', currentET)
+
+const showCopyMacroModal = ref(false)
+const macroValue = ref('')
+const copyAsMacro = async (macroContent: string, container?: HTMLElement | undefined) => {
+  if (!macroContent) {
+    return { success: false, msg: t('没有需要复制的内容') }
+  }
+  if (userConfig.value.macro_direct_copy) {
+    const errored = await CopyToClipboard(userConfig.value.macro_copy_prefix + macroContent, container)
+    if (errored) {
+      return { success: false, msg: t('复制失败') }
+    }
+    return { success: true, msg: t('已复制到剪贴板') }
+  } else {
+    macroValue.value = macroContent
+    showCopyMacroModal.value = true
+  }
+}
+provide('copyAsMacro', copyAsMacro)
 
 // #endregion
 
@@ -193,7 +223,10 @@ const appClass = computed(() => {
           </n-layout-content>
         </n-layout>
         
-        
+        <ModalCopyAsMacro
+          v-model:show="showCopyMacroModal"
+          :macro-content="macroValue"
+        />
         <DialogConfirm
           v-model:show="dialogConfirm_show"
           :type="dialogConfirm_type"
@@ -210,11 +243,16 @@ const appClass = computed(() => {
 </template>
 
 <style scoped>
+:deep(n-layout-header) {
+  -webkit-app-region: drag;
+}
 :deep(#main-content .n-scrollbar-container) {
   padding: 1rem;
+  -webkit-app-region: drag;
 }
 :deep(#main-content .n-scrollbar-container .n-scrollbar-content){
   height: 100%;
+  -webkit-app-region: no-drag;
 }
 .n-layout-header {
   height: 70px;
