@@ -10,6 +10,7 @@
     "electron-start": "nodemon --exec electron .",
     "electron-build": "electron-builder",
     "build-only": "vite build",
+    "postinstall": "node scripts/update-version.cjs",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },

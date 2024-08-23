@@ -384,7 +384,7 @@ const handleSave = () => {
               <div class="item-input">
                 <n-popover
                   v-if="item.warnings.length"
-                  trigger="hover"
+                  :trigger="isMobile ? 'click' : 'hover'"
                   placement="bottom"
                   :style="item.type === 'switch' ? 'max-width: 300px;' : ''"
                 >

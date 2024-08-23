@@ -13,6 +13,7 @@ export interface UserConfigModel {
   disable_workstate_cache: boolean
   // network
   disable_api_mirror: boolean
+  github_mirror_site: string
 
   // hidden options
   cache_ui_fold: any
@@ -32,6 +33,7 @@ const defaultUserConfig: UserConfigModel = {
   macro_copy_prefix: '',
   disable_workstate_cache: false,
   disable_api_mirror: false,
+  github_mirror_site: 'https://mirror.ghproxy.com',
 
   cache_ui_fold: {}, // active cache, { key:string -> value:boolean }
   cache_work_state: {}, // active cache, view struct in `MainPage.vue` 's `workState`

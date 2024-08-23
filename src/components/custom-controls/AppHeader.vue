@@ -20,12 +20,15 @@ import {
   EventNoteFilled,
   InfoFilled,
   ContactlessSharp,
-  DarkModeTwotone, LightModeTwotone
+  DarkModeTwotone, LightModeTwotone,
+  UpdateSharp
 } from '@vicons/material'
 import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
 import ModalContactUs from '@/components/modals/ModalContactUs.vue'
 import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
+import ModalCheckUpdates from '@/components/modals/ModalCheckUpdates.vue'
+import type { AppVersionJson } from '@/models'
 import EorzeaTime from '@/tools/eorzea-time'
 import AppStatus from '@/variables/app-status'
 import router from '@/router'
@@ -47,6 +50,7 @@ const showUserPreferencesModal = ref(false)
 const showAboutAppModal = ref(false)
 const showContactModal = ref(false)
 const showChangeLogsModal = ref(false)
+const showCheckUpdatesModal = ref(false)
 
 const canRouteBack = computed(() => {
   return router.currentRoute.value.path !== '/'
@@ -94,6 +98,7 @@ const menuItems = computed(() => {
     contact: { label: t('联系我们'), icon: ContactlessSharp, click: displayContactModal } as MenuItem,
     changelogs: { label: t('更新日志'), hide: true, icon: EventNoteFilled, click: displayChangeLogsModal } as MenuItem,
     userPreferences: { label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal } as MenuItem,
+    checkUpdates: { label: t('检查更新'), icon: UpdateSharp, click: handleCheckUpdates } as MenuItem,
     aboutApp: { label: t('关于本作'), icon: InfoFilled, click: displayAboutAppModal } as MenuItem
   }
 })
@@ -104,6 +109,7 @@ const desktopMenus = computed(() => {
   const ftHelperTooltip = hideFTHelper ? t('您已经处于食药计算器的页面。') : t('帮助你制作食物与爆发药。能帮到就好。')
   const gatherClockTooltip = t('此功能尚未制作完成，请耐心等待。')
   const userPreferenceTooltip = t('以人的意志改变机械的程序。')
+  const checkUpdatesTooltip = t('更新目标的战力等级……变更攻击模式……')
   const changelogTooltip = t('此功能尚未制作完成，请耐心等待。')
   const contactTooltip = t('关注我们喵，关注我们谢谢喵。')
   const aboutTooltip = t('重新自我介绍一下库啵。')
@@ -167,6 +173,7 @@ const desktopMenus = computed(() => {
       options: [
         { key: 'sau-ct', label: t('切换主题'), icon: renderIcon(changeThemeIcon), description: changeThemeTooltip, click: switchTheme },
         { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), description: userPreferenceTooltip, click: displayUserPreferencesModal },
+        { key: 'sau-cu', label: t('检查更新'), icon: renderIcon(UpdateSharp), description: checkUpdatesTooltip, click: handleCheckUpdates },
         { key: 'sau-cl', label: t('更新日志'), disabled: true, icon: renderIcon(EventNoteFilled), description: changelogTooltip, click: displayChangeLogsModal }
       ],
     },
@@ -220,6 +227,24 @@ const openModal = (click?: (() => void)) => {
   click?.()
 }
 
+const handleCheckUpdates = async () => {
+  if (window.electronAPI?.clientVersion) {
+    showCheckUpdatesModal.value = true
+  } else {
+    // Mobile or PWA
+    const versionUrl = document.location.origin + document.location.pathname + 'version.json'
+    const versionResponse = await fetch(versionUrl)
+    const versionContent = await versionResponse.json() as AppVersionJson
+    const currentVersion = AppStatus.Version
+    if (currentVersion !== versionContent.hqhelper) {
+      if (window.confirm(t('检测到新版本{v}，是否更新?', { v: versionContent.hqhelper }))) {
+        window.location.reload()
+      }
+    } else {
+      NAIVE_UI_MESSAGE.success(t('已是最新版本'))
+    }
+  }
+}
 
 const onUserPreferencesSubmitted = () => {
   showUserPreferencesModal.value = false
@@ -286,7 +311,7 @@ onMounted(async () => {
         <i class="xiv hq logo-font"></i>
         <p class="app-name">HQ Helper</p>
 
-        <n-popover trigger="hover" :keep-alive-on-hover="isMobile" style="max-width: 260px;">
+        <n-popover :trigger="isMobile ? 'click' : 'hover'" :keep-alive-on-hover="isMobile" style="max-width: 260px;">
           <template #trigger>
             <p>{{ AppStatus.Version }}</p>
           </template>
@@ -299,7 +324,7 @@ onMounted(async () => {
 
         <n-divider vertical></n-divider>
 
-        <n-popover trigger="hover" :keep-alive-on-hover="isMobile">
+        <n-popover :trigger="isMobile ? 'click' : 'hover'" :keep-alive-on-hover="isMobile">
           <template #trigger>
             <p>
               <span v-if="isChina"><i class="xiv eorzea-time-chs"></i></span>
@@ -386,6 +411,7 @@ onMounted(async () => {
     <ModalAboutApp v-model:show="showAboutAppModal" />
     <ModalContactUs v-model:show="showContactModal" />
     <ModalChangeLogs v-model:show="showChangeLogsModal" />
+    <ModalCheckUpdates v-model:show="showCheckUpdatesModal" />
   </div>
 </template>
 

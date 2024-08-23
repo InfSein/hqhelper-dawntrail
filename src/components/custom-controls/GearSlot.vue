@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { inject, ref, type Ref } from 'vue'
 import {
   NPopover
 } from 'naive-ui'
 import XivFARImage from './XivFARImage.vue'
+
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 defineProps({
   slotIconSrc: {
@@ -17,7 +20,7 @@ defineProps({
 </script>
 
 <template>
-  <n-popover trigger="hover" style="max-width: 300px;">
+  <n-popover :trigger="isMobile ? 'click' : 'hover'" style="max-width: 300px;">
     <template #trigger>
       <div class="flex-center">
         <XivFARImage
