@@ -284,7 +284,7 @@ onMounted(async () => {
   window.electronAPI.onUpdateReady(() => {
     alert('新版本已下载，点击按钮进行安装更新。')
   })
-  electronVersion.value = await window.electronAPI.version;
+  electronVersion.value = await window.electronAPI.clientVersion;
   console.log('version.value', electronVersion.value)
 })
 </script>

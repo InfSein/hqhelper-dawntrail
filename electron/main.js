@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
@@ -10,8 +10,7 @@ const ZIP_URL = 'https://github.com/InfSein/hqhelper-dawntrail/archive/refs/head
 const ZIP_PATH = path.join(__dirname, 'static-pages.zip');
 const TEMP_DIR = path.join(__dirname, 'static-pages-temp');
 const EXTRACTED_DIR = path.join(TEMP_DIR, 'hqhelper-dawntrail-static-pages');
-// 获取应用的版本号
-const appVersion = app.getVersion();
+const CLIENT_VERSION = 'v0'
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1620,
@@ -104,8 +103,61 @@ function createWindow() {
     const window = BrowserWindow.fromWebContents(event.sender);
     window.close();
   });
+
   ipcMain.handle('get-app-version', () => {
-    return app.getVersion();
+    return CLIENT_VERSION
+  });
+  ipcMain.handle('http-get', async (event, url) => {
+    try {
+      const response = await fetch(url)
+      const result = await response.text()
+      return result
+    } catch (error) {
+      throw error
+    }
+  });
+  ipcMain.handle('download-update-pack', async (event, url) => {
+    try {
+      const response = await axios.get(url, { responseType: 'stream' });
+      const writeStream = fs.createWriteStream(ZIP_PATH);
+      response.data.pipe(writeStream);
+
+      writeStream.on('finish', async () => {
+        console.log('ZIP file downloaded successfully');
+        try {
+          await extractZipFile(ZIP_PATH, TEMP_DIR);
+          console.log('ZIP file extracted successfully');
+
+          updateLocalFiles(EXTRACTED_DIR, path.join(__dirname, 'static-pages'));
+
+          fs.rmSync(TEMP_DIR, { recursive: true, force: true });
+          console.log('Temporary files cleaned up');
+        } catch (error) {
+          console.error('Failed to process ZIP file:', error);
+          alert('ZIP file process failed')
+          return
+        }
+        app.relaunch();
+        app.exit();
+      });
+
+      writeStream.on('error', (err) => {
+        console.error('Failed to download ZIP file:', err);
+        alert('Download failed')
+      });
+
+      return ''
+    } catch (error) {
+      console.error('Failed to check for updates:', error);
+      return String(error)
+    }
+  });
+  ipcMain.on('open-url-by-browser', (event, url) => {
+    try {
+      shell.openExternal(url)
+    } catch (error) {
+      throw error
+    }
   });
 
 }

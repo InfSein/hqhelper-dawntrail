@@ -8,5 +8,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
   maximize: () => ipcRenderer.send('window-maximize'),
   restore: () => ipcRenderer.send('window-restore'),
   close: () => ipcRenderer.send('window-close'),
-  version: ipcRenderer.invoke('get-app-version')
+  clientVersion: ipcRenderer.invoke('get-app-version'),
+  httpGet: (url) => ipcRenderer.invoke('http-get', url),
+  downloadUpdatePack: (url) => ipcRenderer.invoke('download-update-pack', url),
+  openUrlByBrowser: (url) => ipcRenderer.send('open-url-by-browser', url),
 })
