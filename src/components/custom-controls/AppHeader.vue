@@ -250,7 +250,7 @@ const onUserPreferencesSubmitted = () => {
         <i class="xiv hq logo-font"></i>
         <p class="app-name">HQ Helper</p>
 
-        <n-popover trigger="hover" :keep-alive-on-hover="isMobile" style="max-width: 260px;">
+        <n-popover :trigger="isMobile ? 'click' : 'hover'" :keep-alive-on-hover="isMobile" style="max-width: 260px;">
           <template #trigger>
             <p>{{ AppStatus.Version }}</p>
           </template>
@@ -263,7 +263,7 @@ const onUserPreferencesSubmitted = () => {
 
         <n-divider vertical></n-divider>
 
-        <n-popover trigger="hover" :keep-alive-on-hover="isMobile">
+        <n-popover :trigger="isMobile ? 'click' : 'hover'" :keep-alive-on-hover="isMobile">
           <template #trigger>
             <p>
               <span v-if="isChina"><i class="xiv eorzea-time-chs"></i></span>
