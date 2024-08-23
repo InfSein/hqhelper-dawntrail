@@ -20,8 +20,11 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 
 const showModal = defineModel<boolean>('show', { required: true })
 
-watch(showModal, (newVal, oldVal) => {
+watch(showModal, async (newVal, oldVal) => {
   if (newVal && !oldVal) {
+    if (window.electronAPI?.clientVersion) {
+      currentElectronVersion.value = await window.electronAPI?.clientVersion
+    }
     handleCheckUpdates()
   }
 })
@@ -37,9 +40,7 @@ const proxyOptions = [
   { label: 'ghps.cc', value: 'https://ghps.cc' }
   // https://www.cnblogs.com/ting1/p/18356265
 ]
-const currentElectronVersion = computed(() => {
-  return window.electronAPI?.clientVersion ?? 'UNKNOWN'
-})
+const currentElectronVersion = ref('UNKNOWN')
 const hqhelperNeedUpdate = computed(() => {
   return latestHqHelperVersion.value && latestHqHelperVersion.value != AppStatus.Version
 })
@@ -55,7 +56,7 @@ const handleCheckUpdates = async () => {
   latestElectronVersion.value = ''
   try {
     let url = document?.location?.origin + document.location.pathname + 'version.json'
-    if (window.electronAPI?.clientVersion || url.includes('localhost')) {
+    if (window.electronAPI || url.includes('localhost')) {
       url = 'https://hqhelper.nbb.fan/version.json'
     }
     const versionResponse = await window.electronAPI.httpGet(url)
