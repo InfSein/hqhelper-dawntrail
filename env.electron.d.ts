@@ -7,7 +7,10 @@ export interface ElectronAPI {
   maximize: () => void;
   restore: () => void;
   close: () => void;
-  version: string;
+  clientVersion: string;
+  httpGet: (url: string) => Promise<string>;
+  downloadUpdatePack: (url: string) => Promise<string>;
+  openUrlByBrowser: (url: string) => void;
 }
 
 // 将 `ElectronAPI` 类型暴露到全局 `window` 对象上
