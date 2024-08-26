@@ -233,10 +233,6 @@ const handleCheckUpdates = async () => {
   } else {
     // Mobile or PWA
     try {
-      NAIVE_UI_MESSAGE.info(JSON.stringify({
-        o:document.location.origin,
-        p:document.location.pathname
-      }))
       const versionUrl = document.location.origin + document.location.pathname + 'version.json'
       const versionResponse = await fetch(versionUrl)
       const versionContent = await versionResponse.json() as AppVersionJson
