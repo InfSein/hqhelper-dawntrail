@@ -15,8 +15,13 @@ export const getCharsUntilLastN = (str: string, n: number): string => str.substr
  */
 export const CopyToClipboard = async (text: string, container?: HTMLElement | undefined) => {
   try {
-    await toClipboard(text, container)
-    return ''
+    if (window.electronAPI?.copyText) {
+      const err = await window.electronAPI.copyText(text)
+      return err ? 'ERROR' : ''
+    } else {
+      await toClipboard(text, container)
+      return ''
+    }
   } catch (e) {
     console.warn('Copy to clipboard action failed due to', e)
     return 'ERROR'
