@@ -13,4 +13,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
   simulatePing: (domain) => ipcRenderer.invoke('simulate-ping', domain),
   downloadUpdatePack: (url) => ipcRenderer.invoke('download-update-pack', url),
   openUrlByBrowser: (url) => ipcRenderer.send('open-url-by-browser', url),
+  copyText: (text) => ipcRenderer.invoke('copy-text', text),
 })

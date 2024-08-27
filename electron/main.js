@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { app, BrowserWindow, ipcMain, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, shell, clipboard } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
@@ -201,7 +201,16 @@ function createWindow() {
       throw error
     }
   })
-
+  
+  /* 复制给定字符串 (electron环境下调用网页的复制方法不生效，需要专门写一个API) */
+  ipcMain.handle('copy-text', (event, text) => {
+    try {
+      clipboard.writeText(text)
+      return ''
+    } catch (e) {
+      return e?.message ?? e
+    }
+  })
 }
 
 app.on('ready', createWindow);
