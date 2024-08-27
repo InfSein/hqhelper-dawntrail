@@ -29,10 +29,11 @@ watch(showModal, async (newVal, oldVal) => {
   }
 })
 
+const checkingUpdates = ref(false)
 const latestHqHelperVersion = ref<string | null>('')
 const latestElectronVersion = ref<string | null>('')
 const proxyValue = ref('https://mirror.ghproxy.com')
-const proxyPings = ref<Record<string, number | "timeout" | "unknown">>({})
+const proxyPings = ref<Record<string, number | "timeout" | "unknown" | "error">>({})
 const proxyOptions = [
   { label: t('不使用加速服务'), value: '' },
   { label: 'mirror.ghproxy.com', value: 'https://mirror.ghproxy.com' },
@@ -52,6 +53,7 @@ const handleCheckUpdates = async () => {
   if (!window.electronAPI?.httpGet) {
     alert('electronAPI.httpGet is not defined'); return
   }
+  checkingUpdates.value = true
   latestHqHelperVersion.value = ''
   latestElectronVersion.value = ''
   try {
@@ -68,6 +70,8 @@ const handleCheckUpdates = async () => {
     alert(t('检查更新失败：{error}', e))
     latestHqHelperVersion.value = null
     latestElectronVersion.value = null
+  } finally {
+    checkingUpdates.value = false
   }
 }
 
@@ -88,8 +92,9 @@ const handleProxyOptionChange = (e: Event) => {
 }
 const handlePing = async () => {
   proxyPings.value = {}
+  const pingFunc = window.electronAPI?.simulatePing || checkUrlLag
   for (const proxyUrl of proxyOptions.map(o => o.value)) {
-    proxyPings.value[proxyUrl] = await checkUrlLag(proxyUrl || 'github.com')
+    proxyPings.value[proxyUrl] = await pingFunc(proxyUrl || 'github.com')
   }
 }
 const getProxyPingText = (proxy: string) => {
@@ -100,6 +105,8 @@ const getProxyPingText = (proxy: string) => {
     return t('超时')
   } else if (ping === 'unknown') {
     return t('未知')
+  } else if (ping === 'error') {
+    return t('错误')
   } else {
     return ping + 'ms'
   }
@@ -108,13 +115,13 @@ const getProxyPingStyle = (proxy: string) => {
   const ping = proxyPings.value[proxy]
   if (ping === undefined) {
     return ''
-  } else if (ping === 'timeout') {
+  } else if (ping === 'timeout' || ping === 'error') {
     return 'color: red;'
   } else if (ping === 'unknown') {
     return 'color: royalblue;'
-  } else if (ping < 300) {
+  } else if (ping < 400) {
     return 'color: green;'
-  } else if (ping < 800) {
+  } else if (ping < 900) {
     return 'color: orange;'
   } else {
     return 'color: orangered;'
@@ -218,7 +225,7 @@ const handleClose = () => {
               </div>
             </div>
             <div class="edge-top-right">
-              <n-button size="tiny" class="btn-recheck" :disabled="!latestHqHelperVersion" @click="handleCheckUpdates">
+              <n-button size="tiny" class="btn-recheck" :loading="checkingUpdates" @click="handleCheckUpdates">
                 <template #icon>
                   <n-icon><RefreshRound /></n-icon>
                 </template>
@@ -255,7 +262,7 @@ const handleClose = () => {
               </div>
             </div>
             <div class="edge-top-right">
-              <n-button size="tiny" class="btn-recheck" @click="handleCheckUpdates">
+              <n-button size="tiny" class="btn-recheck" :loading="checkingUpdates" @click="handleCheckUpdates">
                 <template #icon>
                   <n-icon><RefreshRound /></n-icon>
                 </template>

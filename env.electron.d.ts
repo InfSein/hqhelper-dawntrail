@@ -9,6 +9,7 @@ export interface ElectronAPI {
   close: () => void;
   clientVersion: Promise<string>;
   httpGet: (url: string) => Promise<string>;
+  simulatePing: (domain: string) => Promise<number | "error" | "timeout">;
   downloadUpdatePack: (url: string) => Promise<string>;
   openUrlByBrowser: (url: string) => void;
 }
