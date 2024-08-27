@@ -254,7 +254,16 @@ const handleCheckUpdates = async () => {
 const onUserPreferencesSubmitted = () => {
   showUserPreferencesModal.value = false
   appForceUpdate()
-  NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
+  if (window.confirm(
+    t('偏好设置已经保存，不过部分改动需要刷新页面才能生效。')
+    + '\n' + t('要现在刷新吗?')
+  )) {
+    setTimeout(() => {
+      location.reload()
+    }, 100) // 必须设置一个延迟，不然有些设置不会生效
+  } else {
+    NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
+  }
 }
 
 /*

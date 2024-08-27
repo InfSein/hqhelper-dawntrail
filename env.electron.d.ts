@@ -12,6 +12,7 @@ export interface ElectronAPI {
   simulatePing: (domain: string) => Promise<number | "error" | "timeout">;
   downloadUpdatePack: (url: string) => Promise<string>;
   openUrlByBrowser: (url: string) => void;
+  copyText: (text: string) => Promise<string>;
 }
 
 // 将 `ElectronAPI` 类型暴露到全局 `window` 对象上
