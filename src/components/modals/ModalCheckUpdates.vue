@@ -30,6 +30,7 @@ watch(showModal, async (newVal, oldVal) => {
 })
 
 const checkingUpdates = ref(false)
+const updating = ref(false)
 const latestHqHelperVersion = ref<string | null>('')
 const latestElectronVersion = ref<string | null>('')
 const proxyValue = ref('https://mirror.ghproxy.com')
@@ -65,9 +66,9 @@ const handleCheckUpdates = async () => {
     const versionContent = JSON.parse(versionResponse) as AppVersionJson
     latestHqHelperVersion.value = versionContent.hqhelper
     latestElectronVersion.value = versionContent.electron
-  } catch (e) {
+  } catch (e: any) {
     console.error(e)
-    alert(t('检查更新失败：{error}', e))
+    alert(t('检查更新失败：{error}', e?.message || 'UNKNOWN ERROR' + e))
     latestHqHelperVersion.value = null
     latestElectronVersion.value = null
   } finally {
@@ -94,7 +95,11 @@ const handlePing = async () => {
   proxyPings.value = {}
   const pingFunc = window.electronAPI?.simulatePing || checkUrlLag
   for (const proxyUrl of proxyOptions.map(o => o.value)) {
-    proxyPings.value[proxyUrl] = await pingFunc(proxyUrl || 'github.com')
+    try {
+      proxyPings.value[proxyUrl] = await pingFunc(proxyUrl || 'github.com')
+    } catch {
+      proxyPings.value[proxyUrl] = 'error'
+    }
   }
 }
 const getProxyPingText = (proxy: string) => {
@@ -119,24 +124,49 @@ const getProxyPingStyle = (proxy: string) => {
     return 'color: red;'
   } else if (ping === 'unknown') {
     return 'color: royalblue;'
-  } else if (ping < 400) {
+  } else if (ping < 200) {
     return 'color: green;'
-  } else if (ping < 900) {
+  } else if (ping < 400) {
     return 'color: orange;'
   } else {
     return 'color: orangered;'
   }
 }
 
-const handleDownloadWebPack = () => {
+const handleDownloadWebPack = async () => {
   if (!window.electronAPI?.downloadUpdatePack) {
     alert('electronAPI.downloadUpdatePack is not defined'); return
   }
+  if (!window.confirm(
+    t('即将开始下载HqHelper更新包，可能需要一些时间。')
+    + '\n' + t('更新成功后将自动重启程序。')
+    + '\n' + t('如果长时间无反应，请尝试关闭程序，重新打开并调整“加速服务”的设置。')
+    + '\n' + t('确认要现在开始更新吗?')
+  )) {
+    return
+  }
+  updating.value = true
+
+  let proxy = proxyValue.value || ''
+  if (proxy) proxy = `${proxy}/`
+  const err = await window.electronAPI.downloadUpdatePack(`${proxy}https://github.com/InfSein/hqhelper-dawntrail/archive/refs/heads/static-pages.zip`)
+  if (err) {
+    alert(t('下载更新包失败：{errmsg}', err))
+  }
+  updating.value = false
 }
 const handleDownloadElectronPack = () => {
+  if (!window.confirm(
+    t('即将开始下载客户端更新包。由于客户端体积较大，将调用系统默认浏览器打开下载页。')
+    + '\n' + t('下载成功后，运行下载的安装包即可将客户端更新到新版本。')
+    + '\n' + t('如果下载速度过慢，请尝试取消下载，调整“加速服务”的设置后重试。')
+    + '\n' + t('确认要现在开始更新吗?')
+  )) {
+    return
+  }
   const func = window.electronAPI?.openUrlByBrowser ?? window.open
   let proxy = proxyValue.value || ''
-  if (proxy) proxy = `https://${proxy}/`
+  if (proxy) proxy = `${proxy}/`
   func(`${proxy}https://github.com/InfSein/hqhelper-dawntrail/releases/download/electron.${latestElectronVersion.value}/HqHelper.Setup.exe`)
 }
 
@@ -235,6 +265,7 @@ const handleClose = () => {
             <div class="action">
               <n-button
                 class="btn-do-update"
+                :loading="updating"
                 :disabled="!hqhelperNeedUpdate"
                 @click="handleDownloadWebPack"
               >
