@@ -12,7 +12,7 @@ const ZIP_URL = 'https://github.com/InfSein/hqhelper-dawntrail/archive/refs/head
 const ZIP_PATH = path.join(__dirname, 'static-pages.zip');
 const TEMP_DIR = path.join(__dirname, 'static-pages-temp');
 const EXTRACTED_DIR = path.join(TEMP_DIR, 'hqhelper-dawntrail-static-pages');
-const CLIENT_VERSION = 'v0'
+const CLIENT_VERSION = 'v1'
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1620,
