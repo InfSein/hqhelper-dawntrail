@@ -16,9 +16,14 @@ export const checkUrlLag = async (domain: string) => {
   }, timeout)
 
   try {
-    const response = await fetch(url, { mode: "no-cors", signal })
+    let response : string | Response
+    if (window.electronAPI?.httpGet) {
+      response = await window.electronAPI.httpGet(url)
+    } else {
+      response = await fetch(url, { mode: "no-cors", signal })
+    }
 
-    if (!response.ok && response.status) {
+    if (typeof(response) !== 'string' && !response.ok && response.status) {
       throw new Error(`HTTP 错误: ${response.status}`)
     }
 

@@ -232,16 +232,21 @@ const handleCheckUpdates = async () => {
     showCheckUpdatesModal.value = true
   } else {
     // Mobile or PWA
-    const versionUrl = document.location.origin + document.location.pathname + 'version.json'
-    const versionResponse = await fetch(versionUrl)
-    const versionContent = await versionResponse.json() as AppVersionJson
-    const currentVersion = AppStatus.Version
-    if (currentVersion !== versionContent.hqhelper) {
-      if (window.confirm(t('检测到新版本{v}，是否更新?', { v: versionContent.hqhelper }))) {
-        window.location.reload()
+    try {
+      const versionUrl = document.location.origin + document.location.pathname + 'version.json'
+      const versionResponse = await fetch(versionUrl)
+      const versionContent = await versionResponse.json() as AppVersionJson
+      const currentVersion = AppStatus.Version
+      if (currentVersion !== versionContent.hqhelper) {
+        if (window.confirm(t('检测到新版本{v}，是否更新?', { v: versionContent.hqhelper }))) {
+          window.location.reload()
+        }
+      } else {
+        NAIVE_UI_MESSAGE.success(t('已是最新版本'))
       }
-    } else {
-      NAIVE_UI_MESSAGE.success(t('已是最新版本'))
+    } catch (err) {
+      NAIVE_UI_MESSAGE.error(t('检查更新失败，请稍后再试'))
+      NAIVE_UI_MESSAGE.error(String(err))
     }
   }
 }

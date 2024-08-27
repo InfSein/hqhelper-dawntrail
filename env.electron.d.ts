@@ -7,7 +7,7 @@ export interface ElectronAPI {
   maximize: () => void;
   restore: () => void;
   close: () => void;
-  clientVersion: string;
+  clientVersion: Promise<string>;
   httpGet: (url: string) => Promise<string>;
   downloadUpdatePack: (url: string) => Promise<string>;
   openUrlByBrowser: (url: string) => void;
