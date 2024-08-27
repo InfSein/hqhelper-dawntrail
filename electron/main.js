@@ -129,6 +129,8 @@ function createWindow() {
   ipcMain.handle('simulate-ping', async (event, hostname) => {
     return new Promise((resolve, reject) => {
       const start = Date.now()
+      if (hostname.startsWith('http://') || hostname.startsWith('https://'))
+        hostname = new URL(hostname).hostname
       dns.lookup(hostname, (err, address) => {
         if (err) {
           console.log('DNS lookup failed:', err)
@@ -138,12 +140,15 @@ function createWindow() {
         socket.setTimeout(2000)
         socket.connect(80, address, () => {
           const latency = Date.now() - start
+          console.log(`PING ${hostname} latency: ${latency}ms`)
           socket.destroy(); resolve(latency)
         })
         socket.on('error', (err) => {
+          console.log(`PING ${hostname} FAILED DUE TO`, err)
           socket.destroy(); reject("error")
         })
         socket.on('timeout', () => {
+          console.log(`PING ${hostname} TIMED OUT`)
           socket.destroy(); reject("timeout")
         })
       })
