@@ -256,6 +256,8 @@ const onUserPreferencesSubmitted = () => {
   appForceUpdate()
   NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
 }
+
+/*
 // 检查更新的方法
 const checkForUpdates = () => {
   window.electronAPI.checkForUpdates()
@@ -292,6 +294,7 @@ onMounted(async () => {
   electronVersion.value = await window.electronAPI.clientVersion;
   console.log('version.value', electronVersion.value)
 })
+*/
 </script>
 
 <template>
@@ -375,13 +378,13 @@ onMounted(async () => {
           </n-button>
         </n-dropdown>
       </div>
-      <button v-if="false" @click="checkForUpdates">检查更新</button>
+      <!-- <button v-if="false" @click="checkForUpdates">检查更新</button>
       <button v-if="false" @click="installUpdate">安装更新</button>
       <button v-if="false" @click="minimize">minimize</button>
       <button v-if="false" @click="maximize">maximize</button>
       <button v-if="false" @click="restore">restore</button>
       <button v-if="false" @click="close">close</button>
-      <button v-if="false" >{{ electronVersion }}</button>
+      <button v-if="false" >{{ electronVersion }}</button> -->
     </div>
     
     <n-drawer

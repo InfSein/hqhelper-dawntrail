@@ -4,6 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
 const unzipper = require('unzipper');
+const dns = require('dns');
+const net = require('net');
 
 let mainWindow;
 const ZIP_URL = 'https://github.com/InfSein/hqhelper-dawntrail/archive/refs/heads/static-pages.zip';
@@ -104,18 +106,51 @@ function createWindow() {
     window.close();
   });
 
+  /* 获取客户端的当前版本(需要手动修改CONST值) */
   ipcMain.handle('get-app-version', () => {
     return CLIENT_VERSION
   });
+  
+  /* 向给定URL发送GET请求，成功时返回字符串格式的数据 */
   ipcMain.handle('http-get', async (event, url) => {
+    console.log('GET', url)
     try {
-      const response = await fetch(url)
-      const result = await response.text()
-      return result
+      const response = await axios.get(url, { timeout: 3000 })
+      let data = response.data
+      if (typeof(data) !== 'string') data = JSON.stringify(data)
+      console.log('RESPONSE', data)
+      return data
     } catch (error) {
       throw error
     }
   });
+  
+  /* 检查给定域名的延迟，返回延迟时间(ms)或超时信息 */
+  ipcMain.handle('simulate-ping', async (event, hostname) => {
+    return new Promise((resolve, reject) => {
+      const start = Date.now()
+      dns.lookup(hostname, (err, address) => {
+        if (err) {
+          console.log('DNS lookup failed:', err)
+          return reject("error")
+        }
+        const socket = new net.Socket()
+        socket.setTimeout(2000)
+        socket.connect(80, address, () => {
+          const latency = Date.now() - start
+          socket.destroy(); resolve(latency)
+        })
+        socket.on('error', (err) => {
+          socket.destroy(); reject("error")
+        })
+        socket.on('timeout', () => {
+          socket.destroy(); reject("timeout")
+        })
+      })
+    })
+  })
+  
+  /* 从给定URL下载WEB项目更新包，并在下载成功后自动重启 */
   ipcMain.handle('download-update-pack', async (event, url) => {
     try {
       const response = await axios.get(url, { responseType: 'stream' });
@@ -151,14 +186,16 @@ function createWindow() {
       console.error('Failed to check for updates:', error);
       return String(error)
     }
-  });
+  })
+  
+  /* 调用默认浏览器打开给定URL */
   ipcMain.on('open-url-by-browser', (event, url) => {
     try {
       shell.openExternal(url)
     } catch (error) {
       throw error
     }
-  });
+  })
 
 }
 

@@ -16,6 +16,6 @@ export interface ElectronAPI {
 // 将 `ElectronAPI` 类型暴露到全局 `window` 对象上
 declare global {
   interface Window {
-    electronAPI: ElectronAPI;
+    electronAPI: undefined | ElectronAPI;
   }
 }

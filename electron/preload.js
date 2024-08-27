@@ -10,6 +10,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   close: () => ipcRenderer.send('window-close'),
   clientVersion: ipcRenderer.invoke('get-app-version'),
   httpGet: (url) => ipcRenderer.invoke('http-get', url),
+  simulatePing: (domain) => ipcRenderer.invoke('simulate-ping', domain),
   downloadUpdatePack: (url) => ipcRenderer.invoke('download-update-pack', url),
   openUrlByBrowser: (url) => ipcRenderer.send('open-url-by-browser', url),
 })
