@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref, watch, type Ref } from 'vue'
+import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
   NButton, NCard, NIcon, NInputNumber, NModal, NScrollbar, NTable
 } from 'naive-ui'
@@ -34,11 +34,21 @@ const getAffixName = (affix: AttireAffix | AccessoryAffix) => {
 const showModal = defineModel<boolean>('show', { required: true })
 const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
 
+const pageHeight = ref(window.innerHeight)
 const localSelections = ref<GearSelections>(gearSelections.value)
 watch(showModal, (newVal, oldVal) => {
   if (newVal && !oldVal) {
     localSelections.value = deepCopy(gearSelections.value)
+    pageHeight.value = window.innerHeight
   }
+})
+
+const cardStyle = computed(() => {
+  return [
+    'width: 98%;',
+    'max-width: 1500px;',
+    'max-height: ' + (pageHeight.value - 40) + 'px;',
+  ].join(' ')
 })
 
 const getRoleName = (role: any) => {
@@ -85,7 +95,8 @@ const handleSave = () => {
       closable
       role="dialog"
       class="no-select"
-      style="width: 98%; max-width: 1500px;"
+      :style="cardStyle"
+      content-style="overflow-y: auto;"
       @close="handleClose"
     >
       <template #header>
