@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="160" alt="icon" height="160" src="./public/icons/logo_v2_shadowed.png" />
+  <img width="160" alt="icon" height="160" src="/public/icons/logo_v2_shadowed.png" />
 </p>
 
 <h1 align="center">7.x HQ Helper</h1>
@@ -7,9 +7,9 @@
 <p align="center">
   <strong>简体中文</strong>
   |
-  <a href="./docs/README.ja.md">日本語</a>
+  <a href="/docs/README.ja.md">日本語</a>
   |
-  <a href="./docs/README.en.md">English</a>
+  <a href="/docs/README.en.md">English</a>
 </p>
 
 ![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) <br>
