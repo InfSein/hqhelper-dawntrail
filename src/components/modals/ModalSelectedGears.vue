@@ -47,7 +47,7 @@ const cardStyle = computed(() => {
   return [
     'width: 98%;',
     'max-width: 1500px;',
-    'max-height: ' + (pageHeight.value - 40) + 'px;',
+    'max-height: ' + (pageHeight.value - 80) + 'px;',
   ].join(' ')
 })
 
@@ -192,7 +192,7 @@ const handleSave = () => {
                 </tr>
               </thead>
             </n-table>
-            <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '245px', 'margin-top': '-2px' }">
+            <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '240px', 'margin-top': '-2px' }">
               <n-table class="attires-table" size="small" :single-line="false">
                 <tbody>
                   <tr v-for="attire in attireAffixes" :key="'row-attire-' + attire">
@@ -297,7 +297,7 @@ const handleSave = () => {
                 </tr>
               </thead>
             </n-table>
-            <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '205px', 'margin-top': '-2px' }">
+            <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '200px', 'margin-top': '-2px' }">
               <n-table class="accessories-table" size="small" :single-line="false">
                 <tbody>
                   <tr v-for="accessory in accessoryAffixes" :key="'row-accessory-' + accessory">
@@ -454,7 +454,6 @@ const handleSave = () => {
 
     .weapons-container {
       max-height: 150px;
-      overflow-y: auto;
       padding-top: 10px;
     }
 
