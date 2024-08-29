@@ -12,7 +12,8 @@ import {
   TrendingUpRound,
   ColorLensRound,
   MemoryRound,
-  WifiRound,
+  UpdateRound,
+  // WifiRound,
   SaveOutlined
 } from '@vicons/material'
 import { deepCopy } from '@/tools'
@@ -253,22 +254,32 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
     ]
   },
   /* Network */
+  /*
   {
     key: 'network',
     icon: WifiRound,
     text: t('网络'),
     children: [
+    ]
+  }
+  */
+  /* Update */
+  {
+    key: 'update',
+    icon: UpdateRound,
+    text: t('更新'),
+    children: [
       {
-        key: 'disable_api_mirror',
-        label: t('禁用国际加速'),
+        key: 'disable_auto_update',
+        label: t('禁用自动更新'),
         descriptions: [
           {
-            value: t('国内用户不建议打开。'),
+            value: t('我们默认在您启动应用时检查一次最新版本，并提示您进行更新。'),
             class: '',
             style: ''
           },
           {
-            value: t('不过如果图片加载特别慢，也可以试试。'),
+            value: t('如果您不希望HqHelper自动检查更新，则可以考虑打开此选项。'),
             class: '',
             style: ''
           }
@@ -308,7 +319,6 @@ const handleSave = () => {
   formData.value.language_ui ??= 'zh'
   formData.value.language_item ??= 'auto'
   formData.value.disable_workstate_cache ??= false
-  formData.value.disable_api_mirror ??= false
 
   if (formData.value.disable_workstate_cache) {
     formData.value.cache_work_state = {}

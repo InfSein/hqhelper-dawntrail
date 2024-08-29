@@ -27,7 +27,6 @@ import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
 import ModalContactUs from '@/components/modals/ModalContactUs.vue'
 import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
-import ModalCheckUpdates from '@/components/modals/ModalCheckUpdates.vue'
 import type { AppVersionJson } from '@/models'
 import EorzeaTime from '@/tools/eorzea-time'
 import AppStatus from '@/variables/app-status'
@@ -41,6 +40,7 @@ const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
 const theme = inject<Ref<"light" | "dark">>('theme') ?? ref('light')
 const switchTheme = inject<() => void>('switchTheme')!
+const displayCheckUpdatesModal = inject<() => void>('displayCheckUpdatesModal')!
 
 const NAIVE_UI_MESSAGE = useMessage()
 
@@ -50,7 +50,6 @@ const showUserPreferencesModal = ref(false)
 const showAboutAppModal = ref(false)
 const showContactModal = ref(false)
 const showChangeLogsModal = ref(false)
-const showCheckUpdatesModal = ref(false)
 
 const canRouteBack = computed(() => {
   return router.currentRoute.value.path !== '/'
@@ -229,7 +228,7 @@ const openModal = (click?: (() => void)) => {
 
 const handleCheckUpdates = async () => {
   if (window.electronAPI?.clientVersion) {
-    showCheckUpdatesModal.value = true
+    displayCheckUpdatesModal()
   } else {
     // Mobile or PWA
     try {
@@ -382,7 +381,6 @@ const onUserPreferencesSubmitted = () => {
     <ModalAboutApp v-model:show="showAboutAppModal" />
     <ModalContactUs v-model:show="showContactModal" />
     <ModalChangeLogs v-model:show="showChangeLogsModal" />
-    <ModalCheckUpdates v-model:show="showCheckUpdatesModal" />
   </div>
 </template>
 
