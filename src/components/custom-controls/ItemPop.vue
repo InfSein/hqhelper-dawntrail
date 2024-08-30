@@ -258,7 +258,7 @@ const openInAngler = () => {
           <p>{{ t('[{patch}版本] [{id}]', { patch: itemInfo.patch, id: itemInfo.id }) }}</p>
         </div>
         <div class="main-descriptions" v-html="getItemDescriptions()"></div>
-        <div class="description-block" v-if="itemInfo.attrsProvided.length">
+        <div class="description-block" v-if="itemInfo.attrsProvided.length" v-show="false">
           <div class="title">{{ t('装备属性') }}</div>
           <n-divider class="item-divider" />
           <div class="content" v-if="itemHasHQ">
