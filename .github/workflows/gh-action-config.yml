@@ -35,3 +35,36 @@ jobs:
           folder: dist
           # 部署后提交到的分支
           branch: static-pages
+
+      # 打包构建输出为zip文件
+      - name: Zip Static Pages
+        run: |
+          zip -r static-pages.zip dist
+
+      # 获取 package.json 中的版本号
+      - name: Get Version from package.json
+        id: get_version
+        run: echo "VERSION=$(jq -r .version < package.json)" >> $GITHUB_ENV
+
+      # 检查是否存在同版本的 Release
+      - name: Check for Existing Release
+        id: check_release
+        run: |
+          if gh release view "v${{ env.VERSION }}" > /dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_ENV
+          else
+            echo "exists=false" >> $GITHUB_ENV
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 创建或更新 Release
+      - name: Create or Update Release
+        run: |
+          if [ "${{ env.exists }}" = "true" ]; then
+            gh release upload "v${{ env.VERSION }}" static-pages.zip --clobber
+          else
+            gh release create "v${{ env.VERSION }}" static-pages.zip --title "Release v${{ env.VERSION }}"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

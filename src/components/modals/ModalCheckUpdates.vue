@@ -149,7 +149,7 @@ const handleDownloadWebPack = async () => {
 
   let proxy = proxyValue.value || ''
   if (proxy) proxy = `${proxy}/`
-  const err = await window.electronAPI.downloadUpdatePack(`${proxy}https://github.com/InfSein/hqhelper-dawntrail/archive/refs/heads/static-pages.zip`)
+  const err = await window.electronAPI.downloadUpdatePack(`${proxy}https://github.com/InfSein/hqhelper-dawntrail/releases/download/v${latestHqHelperVersion.value}/static-pages.zip`)
   if (err) {
     alert(t('下载更新包失败：{errmsg}', err))
   }
