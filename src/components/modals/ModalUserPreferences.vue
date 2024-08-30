@@ -279,9 +279,14 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
             style: ''
           },
           {
-            value: t('如果您不希望HqHelper自动检查更新，则可以考虑打开此选项。'),
+            value: t('如果您不希望接收到更新提示，则可以考虑打开此选项。'),
             class: '',
             style: ''
+          },
+          {
+            value: t('如果您使用的是网页端，浏览器会因为缓存而自动更新，开启此选项只能让您收到提示的频率减少。'),
+            class: '',
+            style: 'color: #3b7fef;'
           }
         ],
         warnings: [],
