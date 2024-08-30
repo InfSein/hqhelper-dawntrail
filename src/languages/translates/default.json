@@ -112,27 +112,6 @@
       "components\\ModalAboutApp.vue"
     ]
   },
-  "禁用国际加速": {
-    "en": "Use Global API",
-    "ja": "グローバルAPIの使用",
-    "$files": [
-      "components\\ModalUserPreferences.vue"
-    ]
-  },
-  "国内用户不建议打开。": {
-    "en": "Open this if you are not in China Mainland.",
-    "ja": "中国大陸以外の方は、このオプションを OFF に設定することを推奨します。",
-    "$files": [
-      "components\\ModalUserPreferences.vue"
-    ]
-  },
-  "不过如果图片加载特别慢，也可以试试。": {
-    "en": "Otherwise you can try switching this if image loading is slow.",
-    "ja": "ただ、画像の読み込みが遅い場合は、このオプションを試してみてください。",
-    "$files": [
-      "components\\ModalUserPreferences.vue"
-    ]
-  },
   "本地时间": {
     "en": "Local Time",
     "ja": "ローカル時間",
@@ -443,7 +422,7 @@
   },
   "性能": {
     "en": "Performance",
-    "ja": "パフォーマンス",
+    "ja": "機能",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
@@ -2001,6 +1980,209 @@
     "ja": "测速",
     "$files": [
       "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "检测到客户端有新版本({v})。": {
+    "en": "New version ({v}) of client detected.",
+    "ja": "检测到客户端有新版本({v})。",
+    "$files": [
+      "App.vue"
+    ]
+  },
+  "要现在更新吗?": {
+    "en": "Update NOW?",
+    "ja": "要现在更新吗?",
+    "$files": [
+      "App.vue"
+    ]
+  },
+  "检测到HqHelper有新版本({v})。": {
+    "en": "New version ({v}) of HqHelper detected.",
+    "ja": "检测到HqHelper有新版本({v})。",
+    "$files": [
+      "App.vue"
+    ]
+  },
+  "检查更新失败，请稍后再试": {
+    "en": "Update check failed. Please try again later.",
+    "ja": "检查更新失败，请稍后再试",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "偏好设置已经保存，不过部分改动需要刷新页面才能生效。": {
+    "en": "Preference settings have been saved, but some of them may not take effect until refresh.",
+    "ja": "偏好设置已经保存，不过部分改动需要刷新页面才能生效。",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "要现在刷新吗?": {
+    "en": "Refresh NOW?",
+    "ja": "要现在刷新吗?",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "检查更新失败：{error}": {
+    "en": "Update check failed: {error}",
+    "ja": "检查更新失败：{error}",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "检测中……": {
+    "en": "Checking...",
+    "ja": "检测中……",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "检测失败": {
+    "en": "Check failed",
+    "ja": "检测失败",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "立即更新": {
+    "en": "Update now",
+    "ja": "立即更新",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "错误": {
+    "en": "ERROR",
+    "ja": "错误",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "即将开始下载HqHelper更新包，可能需要一些时间。": {
+    "en": "Update pack download starting. Might take some time.",
+    "ja": "即将开始下载HqHelper更新包，可能需要一些时间。",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "更新成功后将自动重启程序。": {
+    "en": "Application would be restarted automatically after update.",
+    "ja": "更新成功后将自动重启程序。",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "如果长时间无反应，请尝试关闭程序，重新打开并调整“加速服务”的设置。": {
+    "en": "If no response for a long time, please try to restart the application and adjust \"Proxy\" setting.",
+    "ja": "如果长时间无反应，请尝试关闭程序，重新打开并调整“加速服务”的设置。",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "确认要现在开始更新吗?": {
+    "en": "Start updating NOW?",
+    "ja": "确认要现在开始更新吗?",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "下载更新包失败：{errmsg}": {
+    "en": "Download update pack failed: {errmsg}",
+    "ja": "下载更新包失败：{errmsg}",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "即将开始下载客户端更新包。由于客户端体积较大，将调用系统默认浏览器打开下载页。": {
+    "en": "Client update starting. We would open your browser to download the client update pack, cause it might be too big.",
+    "ja": "即将开始下载客户端更新包。由于客户端体积较大，将调用系统默认浏览器打开下载页。",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "下载成功后，运行下载的安装包即可将客户端更新到新版本。": {
+    "en": "Run the \".exe\" file downloaded to update client.",
+    "ja": "下载成功后，运行下载的安装包即可将客户端更新到新版本。",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "如果下载速度过慢，请尝试取消下载，调整“加速服务”的设置后重试。": {
+    "en": "If download speed is too slow, please try to cancel download and adjust \"Proxy\" setting to retry.",
+    "ja": "如果下载速度过慢，请尝试取消下载，调整“加速服务”的设置后重试。",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "HqHelper版本": {
+    "en": "HqHelper Version",
+    "ja": "HqHelper版本",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "当前版本：{v}": {
+    "en": "Current Version: {v}",
+    "ja": "当前版本：{v}",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "最新版本：": {
+    "en": "Latest Version: ",
+    "ja": "最新版本：",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "重新检测": {
+    "en": "Recheck",
+    "ja": "重新检测",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "客户端版本": {
+    "en": "Client Version",
+    "ja": "客户端版本",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "更新": {
+    "en": "Update",
+    "ja": "更新",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "禁用自动更新": {
+    "en": "Disable auto update",
+    "ja": "禁用自动更新",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "我们默认在您启动应用时检查一次最新版本，并提示您进行更新。": {
+    "en": "We check the latest version once when you start the application, and prompt you to update.",
+    "ja": "我们默认在您启动应用时检查一次最新版本，并提示您进行更新。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "如果您不希望接收到更新提示，则可以考虑打开此选项。": {
+    "en": "If you dont want to receive update prompts, you can consider enabling this option.",
+    "ja": "如果您不希望接收到更新提示，则可以考虑打开此选项。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "如果您使用的是网页端，浏览器会因为缓存而自动更新，开启此选项只能让您收到提示的频率减少。": {
+    "en": "If you are using the web version, the browser will automatically update due to cache. Enabling this option can only reduce the frequency of prompts.",
+    "ja": "如果您使用的是网页端，浏览器会因为缓存而自动更新，开启此选项只能让您收到提示的频率减少。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
     ]
   }
 }
