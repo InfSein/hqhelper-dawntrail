@@ -215,36 +215,36 @@ const appClass = computed(() => {
 onMounted(async () => {
   // 处理自动更新
   if (!userConfig.value.disable_auto_update) {
-    let checkVersionResponse : string
-    let url = document?.location?.origin + document.location.pathname + 'version.json'
-    if (window.electronAPI?.httpGet) {
-      url = 'https://hqhelper.nbb.fan/version.json'
-      checkVersionResponse = await window.electronAPI.httpGet(url)
-    } else {
-      checkVersionResponse = await fetch(url)
-        .then(response => response.text())
-    }
-    const versionContent = JSON.parse(checkVersionResponse) as AppVersionJson
-
-    let needUpdateElectron = false, needUpdateHqHelper = false
-    if (window.electronAPI) {
-      const currentElectronVersion = await window.electronAPI.clientVersion
-      needUpdateElectron = currentElectronVersion !== versionContent.electron
-    }
-    needUpdateHqHelper = AppStatus.Version !== versionContent.hqhelper
-
-    let breakHqHelperUpdate = false
-    if (needUpdateElectron) {
-      if (window.confirm(
-        t('检测到客户端有新版本({v})。')
-        + '\n' + t('要现在更新吗?')
-      )) {
-        breakHqHelperUpdate = true
-        displayCheckUpdatesModal()
+    try {
+      let checkVersionResponse : string
+      let url = document?.location?.origin + document.location.pathname + 'version.json'
+      if (window.electronAPI?.httpGet) {
+        url = 'https://hqhelper.nbb.fan/version.json'
+        checkVersionResponse = await window.electronAPI.httpGet(url)
+      } else {
+        checkVersionResponse = await fetch(url)
+          .then(response => response.text())
       }
-    }
-    if (!breakHqHelperUpdate) {
-      if (needUpdateHqHelper) {
+      const versionContent = JSON.parse(checkVersionResponse) as AppVersionJson
+
+      let needUpdateElectron = false, needUpdateHqHelper = false
+      if (window.electronAPI) {
+        const currentElectronVersion = await window.electronAPI.clientVersion
+        needUpdateElectron = currentElectronVersion !== versionContent.electron
+      }
+      needUpdateHqHelper = AppStatus.Version !== versionContent.hqhelper
+
+      let breakHqHelperUpdate = false
+      if (needUpdateElectron) {
+        if (window.confirm(
+          t('检测到客户端有新版本({v})。')
+          + '\n' + t('要现在更新吗?')
+        )) {
+          breakHqHelperUpdate = true
+          displayCheckUpdatesModal()
+        }
+      }
+      if (needUpdateHqHelper && !breakHqHelperUpdate) {
         if (window.confirm(
           t('检测到HqHelper有新版本({v})。')
           + '\n' + t('要现在更新吗?')
@@ -256,6 +256,8 @@ onMounted(async () => {
           }
         }
       }
+    } catch (err) {
+      console.error('自动更新发生错误', err)
     }
   }
 })
