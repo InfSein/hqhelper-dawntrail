@@ -83,12 +83,12 @@ const tradeMap = computed(() => {
 
 <template>
   <div>
-    <n-alert
+    <!-- <n-alert
       type="info"
       style="margin-bottom: 10px;"
     >
       {{ t('我们已经开始内测，并提供7.0版本生产采集新HQ的装备数据。如果遇到问题，请通过“联系我们”中的方式反馈。') }}
-    </n-alert>
+    </n-alert> -->
     <div vertical id="main-container">
       <PatchPanel id="top-layout" v-model:patch-selected="workState.patch" />
       <div vertical id="left-layout">
