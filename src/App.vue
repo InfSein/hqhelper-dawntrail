@@ -14,6 +14,7 @@ import {
 import AppHeader from './components/custom-controls/AppHeader.vue'
 import DialogConfirm from './components/custom-controls/DialogConfirm.vue'
 import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
+import ModalCheckUpdates from './components/modals/ModalCheckUpdates.vue'
 
 // * import others
 import { useStore } from '@/store/index'
