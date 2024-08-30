@@ -2,7 +2,7 @@
 // #region Imports
 
 // * import basic
-import { computed, provide, ref, getCurrentInstance } from 'vue'
+import { computed, provide, ref, getCurrentInstance, onMounted } from 'vue'
 import {
   darkTheme, lightTheme, useOsTheme,
   zhCN, enUS, jaJP, dateZhCN, dateEnUS, dateJaJP,
@@ -13,6 +13,8 @@ import {
 // * import pages and components
 import AppHeader from './components/custom-controls/AppHeader.vue'
 import DialogConfirm from './components/custom-controls/DialogConfirm.vue'
+import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
+import ModalCheckUpdates from './components/modals/ModalCheckUpdates.vue'
 
 // * import others
 import { useStore } from '@/store/index'
@@ -20,6 +22,9 @@ import { t } from '@/languages'
 import { injectVoerkaI18n } from "@voerkai18n/vue"
 import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 import EorzeaTime from './tools/eorzea-time'
+import { CopyToClipboard } from './tools'
+import type { AppVersionJson } from './models'
+import AppStatus from './variables/app-status'
 
 // #endregion
 
@@ -47,12 +52,15 @@ window.addEventListener('resize', updateIsMobile)
 
 // * register ui
 const osTheme = useOsTheme()
-const naiveUiTheme = computed(() => {
+const theme = computed(() => {
   let _theme = userConfig.value.theme
   if (_theme === 'system') {
-    return osTheme.value === 'dark' ? darkTheme : lightTheme
+    return osTheme.value === 'dark' ? 'dark' : 'light'
   }
-  return _theme === 'light' ? lightTheme : darkTheme
+  return _theme
+})
+const naiveUiTheme = computed(() => {
+  return theme.value === 'light' ? lightTheme : darkTheme
 })
 const naiveUiLocale = computed(() => {
   switch (locale.value) {
@@ -92,6 +100,10 @@ const appForceUpdate = () => {
   // Update vue
   const instance = getCurrentInstance()
   instance?.proxy?.$forceUpdate()
+}
+const switchTheme = () => {
+  userConfig.value.theme = theme.value === 'light' ? 'dark' : 'light'
+  store.commit('setUserConfig', userConfig.value)
 }
 
 // #endregion
@@ -153,15 +165,42 @@ const showDialogConfirm = inject<(
 
 provide('userConfig', userConfig)
 provide('t', t)
+provide('theme', theme)
 provide('locale', locale)
 provide('isMobile', isMobile)
 provide('appForceUpdate', appForceUpdate)
+provide('switchTheme', switchTheme)
 
 const currentET = ref<EorzeaTime>(new EorzeaTime())
 setInterval(() => {
   currentET.value = new EorzeaTime()
 }, 200)
 provide('currentET', currentET)
+
+const showCopyMacroModal = ref(false)
+const macroValue = ref('')
+const copyAsMacro = async (macroContent: string, container?: HTMLElement | undefined) => {
+  if (!macroContent) {
+    return { success: false, msg: t('没有需要复制的内容') }
+  }
+  if (userConfig.value.macro_direct_copy) {
+    const errored = await CopyToClipboard(userConfig.value.macro_copy_prefix + macroContent, container)
+    if (errored) {
+      return { success: false, msg: t('复制失败') }
+    }
+    return { success: true, msg: t('已复制到剪贴板') }
+  } else {
+    macroValue.value = macroContent
+    showCopyMacroModal.value = true
+  }
+}
+provide('copyAsMacro', copyAsMacro)
+
+const showCheckUpdatesModal = ref(false)
+const displayCheckUpdatesModal = () => {
+  showCheckUpdatesModal.value = true
+}
+provide('displayCheckUpdatesModal', displayCheckUpdatesModal)
 
 // #endregion
 
@@ -173,6 +212,55 @@ const appClass = computed(() => {
   return classes.join(' ')
 })
 
+onMounted(async () => {
+  // 处理自动更新
+  if (!userConfig.value.disable_auto_update) {
+    try {
+      let checkVersionResponse : string
+      let url = document?.location?.origin + document.location.pathname + 'version.json'
+      if (window.electronAPI?.httpGet) {
+        url = 'https://hqhelper.nbb.fan/version.json'
+        checkVersionResponse = await window.electronAPI.httpGet(url)
+      } else {
+        checkVersionResponse = await fetch(url)
+          .then(response => response.text())
+      }
+      const versionContent = JSON.parse(checkVersionResponse) as AppVersionJson
+
+      let needUpdateElectron = false, needUpdateHqHelper = false
+      if (window.electronAPI) {
+        const currentElectronVersion = await window.electronAPI.clientVersion
+        needUpdateElectron = currentElectronVersion !== versionContent.electron
+      }
+      needUpdateHqHelper = AppStatus.Version !== versionContent.hqhelper
+
+      let breakHqHelperUpdate = false
+      if (needUpdateElectron) {
+        if (window.confirm(
+          t('检测到客户端有新版本({v})。')
+          + '\n' + t('要现在更新吗?')
+        )) {
+          breakHqHelperUpdate = true
+          displayCheckUpdatesModal()
+        }
+      }
+      if (needUpdateHqHelper && !breakHqHelperUpdate) {
+        if (window.confirm(
+          t('检测到HqHelper有新版本({v})。')
+          + '\n' + t('要现在更新吗?')
+        )) {
+          if (window.electronAPI) {
+            displayCheckUpdatesModal()
+          } else {
+            window.location.reload()
+          }
+        }
+      }
+    } catch (err) {
+      console.error('自动更新发生错误', err)
+    }
+  }
+})
 </script>
 
 <template>
@@ -193,7 +281,11 @@ const appClass = computed(() => {
           </n-layout-content>
         </n-layout>
         
-        
+        <ModalCopyAsMacro
+          v-model:show="showCopyMacroModal"
+          :macro-content="macroValue"
+        />
+        <ModalCheckUpdates v-model:show="showCheckUpdatesModal" />
         <DialogConfirm
           v-model:show="dialogConfirm_show"
           :type="dialogConfirm_type"

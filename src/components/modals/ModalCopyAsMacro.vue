@@ -49,6 +49,26 @@ watch(showModal, (newVal, oldVal) => {
 const macro = computed(() => {
   return macroPrefix.value + props.macroContent
 })
+const macroColor = computed(() => {
+  switch (macroPrefix.value) {
+    case '/e ': return '#7E7E7E' // 默语
+    case '/p ': return '#69E6FF' // 小队
+    case '/fc ': return '#ADDCE6' // 部队
+    case '/b ': return '#ADD74A' // 新频
+    default: return ''
+  }
+})
+const macroContentStyle = computed(() => {
+  const styles = [
+    'max-height: 200px;',
+    'overflow-y: auto;'
+  ]
+  if (macroColor.value) {
+    styles.push(`color: ${macroColor.value};`)
+  }
+
+  return styles.join(' ')
+})
 
 const handleCopy = async () => {
   const errored = await CopyToClipboard(macro.value, wrapper.value)
@@ -87,7 +107,7 @@ const handleClose = () => {
       </template>
 
       <div class="wrapper" ref="wrapper">
-        <GroupBox id="marco-preview" title-background-color="var(--n-color-modal)">
+        <GroupBox id="marco-preview" title-background-color="var(--n-color-modal)" :content-style="macroContentStyle">
           <template #title>
             <span class="title">{{ t('预览') }}</span>
           </template>
@@ -144,6 +164,11 @@ const handleClose = () => {
 
   #marco-preview {
     margin-top: 10px;
+
+    .group-box-content {
+      max-height: 300px;
+      overflow-y: auto;
+    }
   }
   .settings-container {
     display: flex;

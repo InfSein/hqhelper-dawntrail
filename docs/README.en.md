@@ -1,57 +1,62 @@
-# FFXIV HQ Helper: DAWNTRAIL
+<p align="center">
+  <img width="160" alt="icon" height="160" src="/public/icons/logo_v2_shadowed.png" />
+</p>
+
+<h1 align="center">7.x HQ Helper</h1>
+
+<p align="center">
+  <a href="/README.md">简体中文</a>
+  |
+  <a href="/docs/README.ja.md">日本語</a>
+  |
+  <strong>English</strong>
+</p>
 
 ![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) <br>
 ![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)
 
-[简体中文](https://github.com/InfSein/hqhelper-dawntrail/blob/master/README-ZH.md) | [日本語](https://github.com/InfSein/hqhelper-dawntrail/blob/master/docs/README.ja.md) | **English**
+Master formula calculator for FFXIV Dawntrail crafters.
 
-## Introductions
+We will provide you with information organization and formula calculation services for equipments, food, and tinctures added in various versions of 7.0/7.05/7.1/7.2/7.3/7.4, as well as some other miscellaneous functions that crafters or gatherers might need.
 
-One web app designed for ffxiv dawntrail master crafters.
+## How to use
 
-Visit our [Github Page](https://infsein.github.io/hqhelper-dawntrail/) and enjoy!
+### Use in browser
 
-### Development Progress
+Essentially, it is just a static webpage.
 
-This repository is still under construction and may undergo significant changes at any time.
+#### Formal Sites
 
-#### To-do List
+* Main：https://infsein.github.io/hqhelper-dawntrail/#/
+* Spare：https://hqhelper.nbb.fan/#/
 
-- [x] i18n
-- [ ] Development Document
+#### Testing Sites
 
-### Predecessor
+* https://beta.hqhelper.nbb.fan/#/
 
-The first version of `HQ Helper`(also might be called `HqHelper` below) was a `Windows Forms` app based on `.NET 6.0`. 
+> [!CAUTION]\
+> As the name suggests, it is only for testing purposes.
+> Would be updated frequently and might append serious bugs at any time.
 
-The application interface was built by the WinForms designer, and the native UI of Windows.
+### Use in app
 
-During the `ENDWALKER` expansion of `Final Fantasy XIV` period, the application established over 50 version updates through online storage and distribution,
-providing gamers with production statistics support spanning from `6.0` to `6.4` game patch.
+We may provide various types of applications, but it is difficult to guarantee that the effect is as good as it in browser.
 
-You could still view screenshot, description and tutorials, or just download and run the application from the Release Page in [NGA Player Community](https://bbs.nga.cn/read.php?tid=31596099).
+#### Windows APP
 
-## Development Guidelines
+Not yet ready.
 
-### Patch Management
+#### iOS APP
 
-The patch of this application follows the naming convention of `MAJOR.MINOR.PATCH`.
+You can use `Add to Home Screen` function of `Safari` to launch app from home screen to get an app like experience.
 
-1. `MAJOR`,`MINOR`,`PATCH` are all pure number;
-2. `MAJOR` represents the generation of `HqHelper`, and the adapted large patch of `FFXIV`;
-3. `MINOR` represents the adapted medium patch of `FFXIV`;
-4. `PATCH` represents the updated patch applied under the conditions specified in `MAJOR` and `MINOR`.
+#### Android APP
 
-For example, `2.1.17` means:
+No plans at the moment.
 
-- The `2nd` generation of `HqHelper`, and it is designed for the `7.x` patch of `FFXIV`;
-- Adapted `7.1` patch of `FFXIV`;
-- The `17th` updated patch in `2.1.x` series.
+### Manually build
 
-> [!NOTE]
-> The advancement of `PATCH` can be very aggressive, even if this version only has very small optimizations or fixes. This is because the client only automatically update when there is a change in the version number.
-
-### Clone and Build
+`Node.js` is required.
 
 ```sh
 git clone https://github.com/InfSein/hqhelper-dawntrail.git
@@ -60,16 +65,43 @@ npm i
 npm run dev
 ```
 
-## References
+## Give us support
 
-1. [Naive UI](https://github.com/tusen-ai/naive-ui)
-2. [FFXIV Axis Font Icons](https://github.com/thewakingsands/ffxiv-axis-font-icons)
+### Follow us
 
-Reference may not be all listed above.
+* **Give us a star**
+* **Social Media**：[Weibo](https://weibo.com/u/7870808507) | [Twitter(X)](https://twitter.com/FF14_HqHelper)
 
-## License
+### Join in development
 
-MIT
+* **Find Problems**：If you find any errors/problems during use, or have suggestions for optimizing our interface/functionality/logic, please feel free to [new a issue](https://github.com/InfSein/hqhelper-dawntrail/issues/new) 。
+* **Solve Problems**：If you have front-end programming skills, you can initiate a [Pull Request](https://github.com/InfSein/hqhelper-dawntrail/pulls) to join in the development of `HqHelper` through various means. The code may need to comply with general specifications and some additional rules, please refer to our [Wiki](https://github.com/InfSein/hqhelper-dawntrail/wiki) for more details.
 
-> [!NOTE]
-> The license of this project might be changed in the future.
+### Donate us
+
+* Sponsorship channels are not yet open.
+
+## Other
+
+### Application version
+
+The version follows the rule of `MAJOR.MINOR.PATCH` .
+
+1. `MAJOR`,`MINOR`,`PATCH` are all positive integers;
+2. `MAJOR` represents the generation of `HqHelper`, and also indicates the adapted version of the `Final Fantasy XIV` expansion pack;
+3. `MINOR` represents the adapted `Final Fantasy XIV` medium version (e.g. the 1 of 7.1);
+4. `PATCH` represents the version of the application under the aforementioned `MAJOR` and `MINOR` constraints.
+
+For example, `2.1.17` represents:
+
+- The `2nd` generation `HqHelper`, designed specifically for the `7.x` expansion version of `Final Fantasy XIV`;
+- Adapt to the `1st` medium version of `Final Fantasy XIV`, which is version `7.1`;
+- On the basis of adapting to version `7.1`, the `17th` version app updated.
+
+### Star History
+
+[![Stargazers over time](https://starchart.cc/InfSein/hqhelper-dawntrail.svg?variant=adaptive)](https://starchart.cc/InfSein/hqhelper-dawntrail)
+
+## Special Thanks To
+
+* JetBrains 

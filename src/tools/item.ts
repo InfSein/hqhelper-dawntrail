@@ -72,9 +72,18 @@ export interface ItemInfo {
   /** 是否使用了中文暂译 */
   usedZHTemp?: boolean
   /**
+   * 物品特殊属性，常见于成品装备。
+   * 
+   * 内部数组长度一般为3，分别代表
+   * * (index)`0`: 提供的属性的id，可在`src\assets\data\xiv-attributes.json`中检索
+   * * (index)`1`: NQ道具提供的属性
+   * * (index)`2`: HQ道具提供的属性，如果道具没有HQ这里会是0
+   */
+  attrsProvided: number[][]
+  /**
    * 物品使用后会提供的临时属性，常见于食物爆发药。
    * 
-   * 内部数组长度一般为5，分别代表：
+   * 内部数组长度一般为6，分别代表：
    * * (index)`0`: 提供的属性的id，可在`src\assets\data\xiv-attributes.json`中检索
    * * (index)`1`: 是否有NQ/HQ的区分
    * * (index)`2`: NQ道具提供的属性的百分比
@@ -122,6 +131,7 @@ export interface ItemInfo {
     masterRecipeId: number
   },
   gatherInfo: {
+    jobId: number,
     placeNameZH: string,
     placeNameJA: string,
     placeNameEN: string,
@@ -132,6 +142,7 @@ export interface ItemInfo {
       end: string
     }[]
   },
+  isFishingItem: boolean,
   tradeInfo: ItemTradeInfo | undefined
 }
 export interface ItemTradeInfo {
@@ -218,14 +229,27 @@ export const getItemInfo = (item: number | CalculatedItem) => {
 
   // * 尝试根据道具的UI类型ID获取类型名称和图标URL
   const typeMap = XivItemTypes as any
-  if (typeMap?.[_item.uc]) {
-    itemInfo.uiTypeNameJA = typeMap[_item.uc].lang[0]
-    itemInfo.uiTypeNameEN = typeMap[_item.uc].lang[1]
-    itemInfo.uiTypeNameZH = typeMap[_item.uc].lang[2]
-    itemInfo.uiTypeIconUrl = getImgCdnUrl(typeMap[_item.uc].icon)
+  const itemType : number = _item.uc
+  if (typeMap?.[itemType]) {
+    itemInfo.uiTypeNameJA = typeMap[itemType].lang[0]
+    itemInfo.uiTypeNameEN = typeMap[itemType].lang[1]
+    itemInfo.uiTypeNameZH = typeMap[itemType].lang[2]
+    itemInfo.uiTypeIconUrl = getImgCdnUrl(typeMap[itemType].icon)
   }
 
   // * 组装物品特殊属性
+  itemInfo.attrsProvided = []
+  if (_item.spm?.length) {
+    const spm = _item.spm as number[][]
+    spm.forEach(sp => {
+      const attr = []
+      attr.push(sp[0])
+      attr.push(sp[1])
+      const hqAttr = (sp.length > 2 && sp[2]) ? sp[1] + sp[2] : 0
+      attr.push(hqAttr)
+      itemInfo.attrsProvided.push(attr)
+    })
+  }
   itemInfo.tempAttrsProvided = _item.actParm
 
   // * 组装物品精选信息
@@ -237,6 +261,8 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // * 组装物品采集信息
   const gatherData = gatherMap[itemID]
   if (gatherData) {
+    const gatherPointType = gatherData.type
+    const gatherJob = gatherPointType <= 1 ? 16 : 17 // * type 0123 分别是割草，伐木，采矿，碎石 (注：好像反了)
     const territoryID = gatherData.territory
     const territoryData = territoryMap[territoryID]
     if (territoryData) {
@@ -249,6 +275,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
           placeNameZH = tempZhMap[placeID] || '未翻译的地点'
         }
         itemInfo.gatherInfo = {
+          jobId: gatherJob,
           placeNameZH: placeNameZH,
           placeNameJA: gatherPlaceData[0],
           placeNameEN: gatherPlaceData[1],
@@ -269,6 +296,10 @@ export const getItemInfo = (item: number | CalculatedItem) => {
       }
     }
   }
+
+  // * 处理物品是钓鱼采集品的场合
+  // 目前也没有数据，给个标识让人去饿猫鱼糕找吧！
+  itemInfo.isFishingItem = itemType === 47
 
   // * 组装物品配方
   itemInfo.craftRequires = []

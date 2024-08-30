@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NButton, NDivider, NFlex, NPopover
+  NButton, NDivider, NIcon, NPopover
 } from 'naive-ui'
+import {
+  OpenInNewFilled
+} from '@vicons/material'
 import XivFARImage from './XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
@@ -155,7 +158,11 @@ const getPlaceName = () => {
   }
 }
 const itemHasHQ = computed(() => {
-  return props.itemInfo.tempAttrsProvided.every(subArr => subArr.length >= 5)
+  if (props.itemInfo.tempAttrsProvided?.length) {
+    return props.itemInfo.tempAttrsProvided.every(subArr => subArr.length >= 5)
+  } else {
+    return props.itemInfo.attrsProvided.every(subArr => subArr[2] > 0)
+  }
 })
 const itemTailDescriptions = computed(() => {
   const descriptions : string[] = []
@@ -194,17 +201,18 @@ const timeCanGather = (timeLimit: {start: string, end: string}) => {
   return ''
 }
 
-/** 在灰机wiki中打开物品页面 */
-const openInHuijiWiki = () => {
-  const url = `https://ff14.huijiwiki.com/wiki/物品:${props.itemInfo.nameZH}`
-  window.open(url)
+const openInMomola = () => {
+  window.open(`https://fish.ffmomola.com/#/wiki?fishId=${props.itemInfo.id}`)
 }
-/** 在 Garland Data 中打开物品页面 */
-const openInGarland = () => {
-  const url = `https://www.garlandtools.org/db/#item/${props.itemInfo.id}`
-  window.open(url)
+const openInAngler = () => {
+  let lang : string = itemLanguage.value
+  switch (lang) {
+    case 'zh': lang = 'cn'; break
+    case 'ja': lang = 'jp'; break
+  }
+  const domain = `https://${lang}.ff14angler.com/`
+  window.open(`${domain}?search=${props.itemInfo.nameEN}`)
 }
-
 </script>
 
 <template>
@@ -250,6 +258,33 @@ const openInGarland = () => {
           <p>{{ t('[{patch}版本] [{id}]', { patch: itemInfo.patch, id: itemInfo.id }) }}</p>
         </div>
         <div class="main-descriptions" v-html="getItemDescriptions()"></div>
+        <div class="description-block" v-if="itemInfo.attrsProvided.length" v-show="false">
+          <div class="title">{{ t('装备属性') }}</div>
+          <n-divider class="item-divider" />
+          <div class="content" v-if="itemHasHQ">
+            <div
+              class="item"
+              v-for="(attr, index) in itemInfo.attrsProvided"
+              :key="'attr-hq' + index"
+            >
+              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
+              <div> +{{ attr[2] }}</div>
+            </div>
+          </div>
+          <div class="content" v-else>
+            <div
+              class="item"
+              v-for="(attr, index) in itemInfo.attrsProvided"
+              :key="'attr-nq' + index"
+            >
+              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
+              <div> +{{ attr[1] }}</div>
+            </div>
+          </div>
+          <div class="content extra">
+            {{ t('※ 此处仅展示物品的{NQorHQ}属性', itemHasHQ ? 'HQ' : 'NQ') }}
+          </div>
+        </div>
         <div class="description-block" v-if="itemInfo.tempAttrsProvided.length">
           <div class="title">{{ t('效果') }}</div>
           <n-divider class="item-divider" />
@@ -287,14 +322,31 @@ const openInGarland = () => {
             </div>
           </div>
         </div>
-        <div class="description-block" v-if="itemInfo.gatherInfo">
-          <div class="title">{{ t('采集') }}</div>
+        <div class="description-block" v-if="itemInfo.gatherInfo || itemInfo.isFishingItem">
+          <div class="title">
+            {{ t('采集') }}
+            <div v-if="itemInfo.gatherInfo" class="extra">
+              <XivFARImage
+                class="icon"
+                :src="jobMap[itemInfo.gatherInfo.jobId].job_icon_url"
+              />
+              <p>{{ getJobName(jobMap[itemInfo.gatherInfo.jobId]) }}</p>
+            </div>
+            <div v-if="itemInfo.isFishingItem" class="extra">
+              <XivFARImage
+                class="icon"
+                :src="jobMap[18].job_icon_url"
+              />
+              <p>{{ getJobName(jobMap[18]) }}</p>
+            </div>
+          </div>
           <n-divider class="item-divider" />
-          <div class="content">
+          <div class="content" v-if="itemInfo.gatherInfo">
             <div>{{ t('该物品可以在以下位置采集：') }}</div>
             <div class="item">
-              <div>{{ getPlaceName() }}</div>
-              <div>{{ t('(X:{x}, Y:{y})', { x: itemInfo.gatherInfo.posX, y: itemInfo.gatherInfo.posY }) }}</div>
+              <div>
+                {{ getPlaceName() }} {{ t('(X:{x}, Y:{y})', { x: itemInfo.gatherInfo.posX, y: itemInfo.gatherInfo.posY }) }}
+              </div>
             </div>
           </div>
           <div class="content" v-if="itemInfo.gatherInfo?.timeLimitInfo?.length">
@@ -307,6 +359,26 @@ const openInGarland = () => {
               <div>{{ timeLimit.start }} ~ {{ timeLimit.end }}</div>
               <div class="green">{{ timeCanGather(timeLimit) }}</div>
             </div>
+          </div>
+          <div class="content" v-if="itemInfo.isFishingItem">
+            <div>{{ t('可以在以下网站中查询该物品的采集方法：') }}</div>
+            <div class="item actions">
+              <n-button size="small" @click="openInAngler">
+                <template #icon>
+                  <n-icon><OpenInNewFilled /></n-icon>
+                </template>
+                {{ t('在饥饿的猫中打开') }}
+              </n-button>
+              <n-button size="small" @click="openInMomola">
+                <template #icon>
+                  <n-icon><OpenInNewFilled /></n-icon>
+                </template>
+                {{ t('在鱼糕中打开') }}
+              </n-button>
+            </div>
+          </div>
+          <div class="content extra" v-if="itemInfo.isFishingItem">
+            {{ t('※ 国服未实装的道具可能在部分网站中没有数据。') }}
           </div>
         </div>
         <div class="description-block" v-if="itemInfo.tradeInfo && itemTradeCost">
@@ -325,13 +397,19 @@ const openInGarland = () => {
         <div class="description-block" v-if="itemInfo.craftRequires.length">
           <div class="title">
             {{ t('制作') }}
-            <span class="extra">
-              {{ t('{lv}级{star}{job}配方', {
-                lv: itemInfo.craftInfo?.craftLevel,
-                star: '★'.repeat(itemInfo.craftInfo?.starCount || 0),
-                job: getJobName(jobMap[itemInfo.craftInfo?.jobId])
-              }) }}
-            </span>
+            <div class="extra">
+              <XivFARImage
+                class="icon"
+                :src="jobMap[itemInfo.craftInfo?.jobId].job_icon_url"
+              />
+              <p>
+                {{ t('{lv}级{star}{job}配方', {
+                  lv: itemInfo.craftInfo?.craftLevel,
+                  star: '★'.repeat(itemInfo.craftInfo?.starCount || 0),
+                  job: getJobName(jobMap[itemInfo.craftInfo?.jobId])
+                }) }}
+              </p>
+            </div>
           </div>
           <n-divider class="item-divider" />
           <div class="content">
@@ -373,8 +451,7 @@ const openInGarland = () => {
           </p>
         </div>
       </div>
-      <!-- 操作按钮不太适合放到悬浮里，后续做进右键菜单 -->
-      <n-flex v-show="false" class="item-actions">
+      <!-- <n-flex v-show="false" class="item-actions">
         <n-button size="small" @click="openInHuijiWiki()">
           {{ t('在灰机wiki中打开') }}
         </n-button>
@@ -382,7 +459,7 @@ const openInGarland = () => {
           {{ t('在Garland中打开') }}
         </n-button>
         <slot name="extra-actions" />
-      </n-flex>
+      </n-flex> -->
     </div>
   </n-popover>
   <slot v-else />
@@ -464,11 +541,31 @@ const openInGarland = () => {
 
       .title {
         font-weight: bold;
+        display: flex;
+        align-items: baseline;
+        --size-small: calc(var(--n-font-size) - 2px);
+        --textgap-left: calc(var(--n-font-size) - 1px);
 
         .extra {
           margin-left: 3px;
           font-weight: normal;
-          font-size: calc(var(--n-font-size) - 2px);
+          font-size: var(--size-small);
+          line-height: 1;
+
+          img {
+            float: left;
+            height: var(--size-small);
+            display: block;
+          }
+          p {
+            font-size: var(--size-small);
+            padding-left: var(--textgap-left);
+          }
+        }
+        .extra::after {
+          content: '';
+          clear: both;
+          display: block;
         }
       }
       .content .item {
@@ -476,6 +573,14 @@ const openInGarland = () => {
         display: flex;
         align-items: center;
         gap: 3px;
+      }
+      .content .item.actions {
+        margin: 3px 1em;
+        flex-direction: column;
+
+        button {
+          width: 100%;
+        }
       }
       .content .other-attrs,
       .content.extra {
