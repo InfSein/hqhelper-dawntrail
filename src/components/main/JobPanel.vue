@@ -118,19 +118,18 @@ const jobImageSize = computed(() => {
           <div
             v-for="job in role.jobs"
             :key="'job-'+job"
-            :title="getJobName(job)"
           >
             <JobButton
               :selected="jobSelected === job"
               :role="roleIndex"
-              :job="(XivJobs as any)[job].job_name_en"
+              :job-name="getJobName(job)"
               :job-icon="(XivJobs as any)[job].job_icon_url"
               :img-size="jobImageSize"
               :btn-color="role.role_color"
               :count="mainHandSelections?.[job] || 0"
               :class="{'selected': jobSelected === job}"
               :disabled="!patchSelected"
-              @click="handleJobSelect(job, role)"
+              @on-btn-clicked="handleJobSelect(job, role)"
             />
           </div>
         </n-flex>

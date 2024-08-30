@@ -87,7 +87,6 @@ const handleClose = () => {
     <n-card
       closable
       role="dialog"
-      class="no-select"
       style="width: 98%; max-width: 1500px;"
       :style="{ height: isMobile ? '650px' : '600px' }"
       @close="handleClose"
@@ -150,6 +149,7 @@ const handleClose = () => {
   flex-direction: column;
   gap: 5px;
   height: 100%;
+  user-select: text;
 }
 
 /* Mobile only */

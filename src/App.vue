@@ -2,7 +2,7 @@
 // #region Imports
 
 // * import basic
-import { computed, provide, ref, getCurrentInstance } from 'vue'
+import { computed, provide, ref, getCurrentInstance, onMounted } from 'vue'
 import {
   darkTheme, lightTheme, useOsTheme,
   zhCN, enUS, jaJP, dateZhCN, dateEnUS, dateJaJP,
@@ -14,6 +14,7 @@ import {
 import AppHeader from './components/custom-controls/AppHeader.vue'
 import DialogConfirm from './components/custom-controls/DialogConfirm.vue'
 import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
+import ModalCheckUpdates from './components/modals/ModalCheckUpdates.vue'
 
 // * import others
 import { useStore } from '@/store/index'
@@ -22,6 +23,8 @@ import { injectVoerkaI18n } from "@voerkai18n/vue"
 import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 import EorzeaTime from './tools/eorzea-time'
 import { CopyToClipboard } from './tools'
+import type { AppVersionJson } from './models'
+import AppStatus from './variables/app-status'
 
 // #endregion
 
@@ -193,6 +196,12 @@ const copyAsMacro = async (macroContent: string, container?: HTMLElement | undef
 }
 provide('copyAsMacro', copyAsMacro)
 
+const showCheckUpdatesModal = ref(false)
+const displayCheckUpdatesModal = () => {
+  showCheckUpdatesModal.value = true
+}
+provide('displayCheckUpdatesModal', displayCheckUpdatesModal)
+
 // #endregion
 
 const appClass = computed(() => {
@@ -203,6 +212,55 @@ const appClass = computed(() => {
   return classes.join(' ')
 })
 
+onMounted(async () => {
+  // 处理自动更新
+  if (!userConfig.value.disable_auto_update) {
+    try {
+      let checkVersionResponse : string
+      let url = document?.location?.origin + document.location.pathname + 'version.json'
+      if (window.electronAPI?.httpGet) {
+        url = 'https://hqhelper.nbb.fan/version.json'
+        checkVersionResponse = await window.electronAPI.httpGet(url)
+      } else {
+        checkVersionResponse = await fetch(url)
+          .then(response => response.text())
+      }
+      const versionContent = JSON.parse(checkVersionResponse) as AppVersionJson
+
+      let needUpdateElectron = false, needUpdateHqHelper = false
+      if (window.electronAPI) {
+        const currentElectronVersion = await window.electronAPI.clientVersion
+        needUpdateElectron = currentElectronVersion !== versionContent.electron
+      }
+      needUpdateHqHelper = AppStatus.Version !== versionContent.hqhelper
+
+      let breakHqHelperUpdate = false
+      if (needUpdateElectron) {
+        if (window.confirm(
+          t('检测到客户端有新版本({v})。')
+          + '\n' + t('要现在更新吗?')
+        )) {
+          breakHqHelperUpdate = true
+          displayCheckUpdatesModal()
+        }
+      }
+      if (needUpdateHqHelper && !breakHqHelperUpdate) {
+        if (window.confirm(
+          t('检测到HqHelper有新版本({v})。')
+          + '\n' + t('要现在更新吗?')
+        )) {
+          if (window.electronAPI) {
+            displayCheckUpdatesModal()
+          } else {
+            window.location.reload()
+          }
+        }
+      }
+    } catch (err) {
+      console.error('自动更新发生错误', err)
+    }
+  }
+})
 </script>
 
 <template>
@@ -227,6 +285,7 @@ const appClass = computed(() => {
           v-model:show="showCopyMacroModal"
           :macro-content="macroValue"
         />
+        <ModalCheckUpdates v-model:show="showCheckUpdatesModal" />
         <DialogConfirm
           v-model:show="dialogConfirm_show"
           :type="dialogConfirm_type"
