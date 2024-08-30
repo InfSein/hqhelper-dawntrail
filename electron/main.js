@@ -11,7 +11,7 @@ let mainWindow;
 const ZIP_URL = 'https://github.com/InfSein/hqhelper-dawntrail/archive/refs/heads/static-pages.zip';
 const ZIP_PATH = path.join(__dirname, 'static-pages.zip');
 const TEMP_DIR = path.join(__dirname, 'static-pages-temp');
-const EXTRACTED_DIR = path.join(TEMP_DIR, 'hqhelper-dawntrail-static-pages');
+const EXTRACTED_DIR = path.join(TEMP_DIR, 'dist');
 const CLIENT_VERSION = 'v1'
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -172,13 +172,13 @@ function createWindow() {
 
           fs.rmSync(TEMP_DIR, { recursive: true, force: true });
           console.log('Temporary files cleaned up');
+
+          app.relaunch();
+          app.exit();
         } catch (error) {
           console.error('Failed to process ZIP file:', error);
           alert('ZIP file process failed')
-          return
         }
-        app.relaunch();
-        app.exit();
       });
 
       writeStream.on('error', (err) => {
