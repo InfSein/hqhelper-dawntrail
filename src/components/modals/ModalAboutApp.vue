@@ -84,7 +84,6 @@ const handleClose = () => {
                       :key="'staff-member-' + index + '-' + sgIndex + '-' + mIndex"
                       class="subgroup-item"
                     >
-                      <n-divider vertical v-if="mIndex" style="margin: 0 2px;" />
                       <div class="member-avatar">
                         <n-avatar
                           round
@@ -192,14 +191,14 @@ const handleClose = () => {
     font-weight: bold;
   }
   .version-info {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
     line-height: 1.3;
+    margin-left: 1.2em;
+    width: fit-content;
   }
   .content {
     display: flex;
     flex-direction: column;
-    text-indent: 2em;
+    text-indent: 1.2em;
   }
 
   #staffs {
@@ -226,6 +225,7 @@ const handleClose = () => {
           }
           .subgroup-content {
             display: flex;
+            gap: 5px;
 
             .subgroup-item {
               display: flex;
@@ -266,6 +266,23 @@ const handleClose = () => {
   }
   .title {
     font-weight: bold;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 768px) {
+  .version-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .version-info {
+    display: flex;
+    flex-direction: column;
   }
 }
 </style>
