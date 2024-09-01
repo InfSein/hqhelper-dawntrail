@@ -1,16 +1,31 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
+import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
   NAvatar, NButton, NCard, NDivider, NFlex, NIcon, NModal, NPopover
 } from 'naive-ui'
 import { InfoSharp } from '@vicons/material'
 import { DataAboutApp } from '@/data/about-app'
+import AppStatus from '@/variables/app-status'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const showModal = defineModel<boolean>('show', { required: true })
+
+watch(showModal, async (newVal, oldVal) => {
+  if (newVal && !oldVal) {
+    if (window.electronAPI?.clientVersion) {
+      currentElectronVersion.value = await window.electronAPI?.clientVersion
+    }
+  }
+})
+
+const currentElectronVersion = ref('')
+
+const cnVersionText = computed(() => {
+  return t('国服数据版本：{}', AppStatus.SupportedGameVersion.CN)
+})
 
 const handleClose = () => {
   showModal.value = false
@@ -39,6 +54,13 @@ const handleClose = () => {
           <i class="xiv hq logo-about"></i>
           <p class="about-title">HQ Helper</p>
         </div>
+        <div class="version-info">
+          <div>{{ t('当前网页版本：{v}', AppStatus.Version) }}</div>
+          <div v-if="currentElectronVersion">{{ t('当前客户端版本：{v}', currentElectronVersion) }}</div>
+          <div v-else />
+          <div v-if="cnVersionText">{{ cnVersionText }}</div>
+          <div>{{ t('国际服数据版本：{}', AppStatus.SupportedGameVersion.GLOBAL) }}</div>
+        </div>
         <n-divider />
         <div id="staffs">
           <div class="title">{{ t('创作人员') }}</div>
@@ -62,7 +84,6 @@ const handleClose = () => {
                       :key="'staff-member-' + index + '-' + sgIndex + '-' + mIndex"
                       class="subgroup-item"
                     >
-                      <n-divider vertical v-if="mIndex" style="margin: 0 2px;" />
                       <div class="member-avatar">
                         <n-avatar
                           round
@@ -169,10 +190,15 @@ const handleClose = () => {
     font-size: 16px;
     font-weight: bold;
   }
+  .version-info {
+    line-height: 1.3;
+    margin-left: 1.2em;
+    width: fit-content;
+  }
   .content {
     display: flex;
     flex-direction: column;
-    text-indent: 2em;
+    text-indent: 1.2em;
   }
 
   #staffs {
@@ -199,6 +225,7 @@ const handleClose = () => {
           }
           .subgroup-content {
             display: flex;
+            gap: 5px;
 
             .subgroup-item {
               display: flex;
@@ -239,6 +266,23 @@ const handleClose = () => {
   }
   .title {
     font-weight: bold;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 768px) {
+  .version-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .version-info {
+    display: flex;
+    flex-direction: column;
   }
 }
 </style>

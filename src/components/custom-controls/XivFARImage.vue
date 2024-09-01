@@ -13,7 +13,7 @@ const props = defineProps({
   /** 图片大小(宽/高一致) */
   size: {
     type: Number,
-    required: true,
+    default: undefined,
   },
   /** 图片API地址 */
   apiBase: {

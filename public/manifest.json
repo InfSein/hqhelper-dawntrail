@@ -1,7 +1,7 @@
 {
   "name": "7.0 HQ Helper",
   "short_name": "HqHelper",
-  "start_url": "./index.html",
+  "start_url": "/#/",
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#fff",

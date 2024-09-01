@@ -66,7 +66,7 @@ if (!disable_workstate_cache) {
 
 const handleJobButtonDupliClick = () => {
   if (!userConfig.value.disable_jobbtn_doubleclick) {
-    gearSelectionPanel.value?.addMainOffHand()
+    gearSelectionPanel.value?.addCurrMainOffHand()
   }
 }
 
@@ -83,12 +83,12 @@ const tradeMap = computed(() => {
 
 <template>
   <div>
-    <n-alert
+    <!-- <n-alert
       type="info"
       style="margin-bottom: 10px;"
     >
       {{ t('我们已经开始内测，并提供7.0版本生产采集新HQ的装备数据。如果遇到问题，请通过“联系我们”中的方式反馈。') }}
-    </n-alert>
+    </n-alert> -->
     <div vertical id="main-container">
       <PatchPanel id="top-layout" v-model:patch-selected="workState.patch" />
       <div vertical id="left-layout">
@@ -104,6 +104,7 @@ const tradeMap = computed(() => {
           v-model:gear-selections="workState.gears"
           ref="gearSelectionPanel"
           class="gear-panel"
+          :patch-selected="workState.patch"
           :job-id="workState.job"
           :attire-affix="workState.affixes?.attire as AttireAffix"
           :accessory-affix="workState.affixes?.accessory as AccessoryAffix"

@@ -5,6 +5,9 @@ import {
   NAlert, NButton, NDropdown, NDivider, NFlex, NIcon, NPopover, NTooltip,
   useMessage, type DropdownGroupOption, type DropdownOption
 } from 'naive-ui'
+import { 
+  KeyboardArrowDownRound
+} from '@vicons/material'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import Stepper from '../custom-controls/Stepper.vue'
 import GearSlot from '../custom-controls/GearSlot.vue'
@@ -15,15 +18,20 @@ import GearAffixes from '@/assets/data/xiv-gear-affixes.json'
 import XivJobs from '@/assets/data/xiv-jobs.json'
 import XivRoles from '@/assets/data/xiv-roles.json'
 import { type UserConfigModel } from '@/models/user-config'
-import { KeyboardArrowDownRound } from '@vicons/material'
+import { useNbbCal } from '@/tools/use-nbb-cal'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const NAIVE_UI_MESSAGE = useMessage()
+const { getPatchData } = useNbbCal()
 
 const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
 const props = defineProps({
+  patchSelected: {
+    type: String,
+    required: true
+  },
   jobId: {
     type: Number,
     required: true
@@ -39,6 +47,10 @@ const props = defineProps({
 })
 
 const showSelectedGears = ref(false)
+
+const patchData = computed(() => {
+  return getPatchData(props.patchSelected)
+})
 
 const selectedAffixes = computed(() => {
   const { jobName, attireName, accessoryName } = getAffixesName()
@@ -144,44 +156,75 @@ const clearCurrent = () => {
   Wrist.value = 0
   Rings.value = 0
 }
-const addMainOffHand = () => {
-  if (jobNotSelected.value) {
-    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+const addMainOffHand = (jobId: number) => {
+  if (patchData.value.jobs.MainHand?.[jobId]?.[0]) {
+    gearSelections.value.MainHand[jobId]++
   }
-  MainHand.value++
-  OffHand.value++
+  if (patchData.value.jobs.OffHand?.[jobId]?.[0]) {
+    gearSelections.value.OffHand[jobId]++
+  }
 }
-const addAttire = () => {
-  if (jobNotSelected.value) {
-    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+const addAttire = (affix: AttireAffix) => {
+  if (patchData.value.jobs.HeadAttire?.[affix]?.[0]) {
+    gearSelections.value.HeadAttire[affix]++
   }
-  HeadAttire.value++
-  BodyAttire.value++
-  HandsAttire.value++
-  LegsAttire.value++
-  FeetAttire.value++
+  if (patchData.value.jobs.BodyAttire?.[affix]?.[0]) {
+    gearSelections.value.BodyAttire[affix]++
+  }
+  if (patchData.value.jobs.HandsAttire?.[affix]?.[0]) {
+    gearSelections.value.HandsAttire[affix]++
+  }
+  if (patchData.value.jobs.LegsAttire?.[affix]?.[0]) {
+    gearSelections.value.LegsAttire[affix]++
+  }
+  if (patchData.value.jobs.FeetAttire?.[affix]?.[0]) {
+    gearSelections.value.FeetAttire[affix]++
+  }
 }
-const addAccessory = () => {
+const addAccessory = (affix: AccessoryAffix) => {
+  if (patchData.value.jobs.Earrings?.[affix]?.[0]) {
+    gearSelections.value.Earrings[affix]++
+  }
+  if (patchData.value.jobs.Necklace?.[affix]?.[0]) {
+    gearSelections.value.Necklace[affix]++
+  }
+  if (patchData.value.jobs.Wrist?.[affix]?.[0]) {
+    gearSelections.value.Wrist[affix]++
+  }
+  if (patchData.value.jobs.Rings?.[affix]?.[0]) {
+    gearSelections.value.Rings[affix] += 2
+  }
+}
+const addCurrMainOffHand = () => {
   if (jobNotSelected.value) {
     NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
   }
-  Earrings.value++
-  Necklace.value++
-  Wrist.value++
-  Rings.value += 2
+  addMainOffHand(props.jobId)
+}
+const addCurrAttire = () => {
+  if (jobNotSelected.value) {
+    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+  }
+  addAttire(props.attireAffix)
+}
+const addCurrAccessory = () => {
+  if (jobNotSelected.value) {
+    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+  }
+  addAccessory(props.accessoryAffix)
 }
 const addAttireAndAccessory = () => {
   if (jobNotSelected.value) {
     NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
   }
-  addAttire()
-  addAccessory()
+  addCurrAttire()
+  addCurrAccessory()
 }
 const addAll = () => {
   if (jobNotSelected.value) {
     NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
   }
-  addMainOffHand()
+  addCurrMainOffHand()
   addAttireAndAccessory()
 }
 // #endregion
@@ -211,6 +254,9 @@ const handleQuickOperatesDropdownMouseLeave = (event: MouseEvent) => {
   if ((event.target as HTMLButtonElement).disabled) return
   showQuickOperatesOptions.value = false
 }
+const handleCloseQuickOperatesOptions = () => {
+  showQuickOperatesOptions.value = false
+}
 const quickOperatesOptions: DropdownOption[] = [
   { key: 'add-crafter-mainoff', label: t('添加一套生产主副手'), description: t('添加所有能工巧匠职业的主手工具、副手工具各1件') },
   { key: 'add-gatherer-mainoff', label: t('添加一套采集主副手'), description: t('添加所有大地使者职业的主手工具、副手工具各1件') },
@@ -224,38 +270,18 @@ const handleQuickOperatesSelect = (key: string) => {
   }
   if (key === 'add-crafter-mainoff') {
     XivRoles.crafter.jobs.forEach(jobId => {
-      gearSelections.value.MainHand[jobId]++
-      gearSelections.value.OffHand[jobId]++
+      addMainOffHand(jobId)
     })
   } else if (key === 'add-gatherer-mainoff') {
     XivRoles.gatherer.jobs.forEach(jobId => {
-      gearSelections.value.MainHand[jobId]++
-      gearSelections.value.OffHand[jobId]++
+      addMainOffHand(jobId)
     })
   } else if (key === 'add-crafter-aaa') {
-    let affix = XivRoles.crafter.attire
-    gearSelections.value.HeadAttire[affix as AttireAffix]++
-    gearSelections.value.BodyAttire[affix as AttireAffix]++
-    gearSelections.value.HandsAttire[affix as AttireAffix]++
-    gearSelections.value.LegsAttire[affix as AttireAffix]++
-    gearSelections.value.FeetAttire[affix as AttireAffix]++
-    affix = XivRoles.crafter.accessory
-    gearSelections.value.Earrings[affix as AccessoryAffix]++
-    gearSelections.value.Necklace[affix as AccessoryAffix]++
-    gearSelections.value.Wrist[affix as AccessoryAffix]++
-    gearSelections.value.Rings[affix as AccessoryAffix] += 2
+    addAttire(XivRoles.crafter.attire as AttireAffix)
+    addAccessory(XivRoles.crafter.accessory as AccessoryAffix)
   } else if (key === 'add-gatherer-aaa') {
-    let affix = XivRoles.gatherer.attire
-    gearSelections.value.HeadAttire[affix as AttireAffix]++
-    gearSelections.value.BodyAttire[affix as AttireAffix]++
-    gearSelections.value.HandsAttire[affix as AttireAffix]++
-    gearSelections.value.LegsAttire[affix as AttireAffix]++
-    gearSelections.value.FeetAttire[affix as AttireAffix]++
-    affix = XivRoles.gatherer.accessory
-    gearSelections.value.Earrings[affix as AccessoryAffix]++
-    gearSelections.value.Necklace[affix as AccessoryAffix]++
-    gearSelections.value.Wrist[affix as AccessoryAffix]++
-    gearSelections.value.Rings[affix as AccessoryAffix] += 2
+    addAttire(XivRoles.gatherer.attire as AttireAffix)
+    addAccessory(XivRoles.gatherer.accessory as AccessoryAffix)
   }
 }
 
@@ -269,6 +295,9 @@ const handleClearDropdownMouseEnter = (event: MouseEvent) => {
 const handleClearDropdownMouseLeave = (event: MouseEvent) => {
   if (isMobile.value) return
   if ((event.target as HTMLButtonElement).disabled) return
+  showClearOptions.value = false
+}
+const handleCloseClearOptions = () => {
   showClearOptions.value = false
 }
 const clearOptions: DropdownOption[] = [
@@ -294,6 +323,9 @@ const handleAddsuitDropdownMouseLeave = (event: MouseEvent) => {
   if ((event.target as HTMLButtonElement).disabled) return
   showAddsuitOptions.value = false
 }
+const handleCloseAddsuitOptions = () => {
+  showAddsuitOptions.value = false
+}
 const addsuitOptions: DropdownOption[] = [
   { key: 'add-weapon', label: t('添加一套主副手') },
   { key: 'add-attire', label: t('添加一套防具') },
@@ -304,11 +336,11 @@ const addsuitOptions: DropdownOption[] = [
 ]
 const handleAddsuitSelect = (key: string) => {
   if (key === 'add-weapon') {
-    addMainOffHand()
+    addCurrMainOffHand()
   } else if (key === 'add-attire') {
-    addAttire()
+    addCurrAttire()
   } else if (key === 'add-accessory') {
-    addAccessory()
+    addCurrAccessory()
   } else if (key === 'add-attire-and-accessory') {
     addAttireAndAccessory()
   } else if (key === 'add-suit') {
@@ -341,7 +373,7 @@ watch(showAddsuitOptions, (newValue) => {
 // #endregion
 
 defineExpose({
-  addMainOffHand
+  addCurrMainOffHand
 })
 </script>
 
@@ -380,14 +412,14 @@ defineExpose({
                 :slot-description="t('武器/工具：主手')"
               />
             </td>
-            <td><Stepper v-model:value="MainHand" :disabled="disableWeapon" /></td>
+            <td><Stepper v-model:value="MainHand" :disabled="disableWeapon || !patchData.jobs.MainHand?.[jobId]?.[0]" /></td>
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/offhand.png"
                 :slot-description="t('武器/工具：副手')"
               />
             </td>
-            <td><Stepper v-model:value="OffHand" :disabled="disableWeapon" /></td>
+            <td><Stepper v-model:value="OffHand" :disabled="disableWeapon || !patchData.jobs.OffHand?.[jobId]?.[0]" /></td>
           </tr>
 
           <tr class="divider">
@@ -401,14 +433,14 @@ defineExpose({
                 :slot-description="t('防具：头部')"
               />
             </td>
-            <td><Stepper v-model:value="HeadAttire" :disabled="disableAttire" /></td>
+            <td><Stepper v-model:value="HeadAttire" :disabled="disableAttire || !patchData.jobs.HeadAttire?.[attireAffix]?.[0]" /></td>
             <td style="min-width: 40px;">
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/ear.png"
                 :slot-description="t('首饰：耳坠')"
               />
             </td>
-            <td><Stepper v-model:value="Earrings" :disabled="disableAccessory" /></td>
+            <td><Stepper v-model:value="Earrings" :disabled="disableAccessory || !patchData.jobs.Earrings?.[accessoryAffix]?.[0]" /></td>
           </tr>
 
           <tr>
@@ -418,14 +450,14 @@ defineExpose({
                 :slot-description="t('防具：身体')"
               />
             </td>
-            <td><Stepper v-model:value="BodyAttire" :disabled="disableAttire" /></td>
+            <td><Stepper v-model:value="BodyAttire" :disabled="disableAttire || !patchData.jobs.BodyAttire?.[attireAffix]?.[0]" /></td>
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/neck.png"
                 :slot-description="t('首饰：项链')"
               />
             </td>
-            <td><Stepper v-model:value="Necklace" :disabled="disableAccessory" /></td>
+            <td><Stepper v-model:value="Necklace" :disabled="disableAccessory || !patchData.jobs.Necklace?.[accessoryAffix]?.[0]" /></td>
           </tr>
 
           <tr>
@@ -435,14 +467,14 @@ defineExpose({
                 :slot-description="t('防具：手部')"
               />
             </td>
-            <td><Stepper v-model:value="HandsAttire" :disabled="disableAttire" /></td>
+            <td><Stepper v-model:value="HandsAttire" :disabled="disableAttire || !patchData.jobs.HandsAttire?.[attireAffix]?.[0]" /></td>
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/wrist.png"
                 :slot-description="t('首饰：手镯')"
               />
             </td>
-            <td><Stepper v-model:value="Wrist" :disabled="disableAccessory" /></td>
+            <td><Stepper v-model:value="Wrist" :disabled="disableAccessory || !patchData.jobs.Wrist?.[accessoryAffix]?.[0]" /></td>
           </tr>
 
           <tr>
@@ -452,14 +484,14 @@ defineExpose({
                 :slot-description="t('防具：腿部')"
               />
             </td>
-            <td><Stepper v-model:value="LegsAttire" :disabled="disableAttire" /></td>
+            <td><Stepper v-model:value="LegsAttire" :disabled="disableAttire || !patchData.jobs.LegsAttire?.[attireAffix]?.[0]" /></td>
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/ring.png"
                 :slot-description="t('首饰：戒指')"
               />
             </td>
-            <td><Stepper v-model:value="Rings" :disabled="disableAccessory" /></td>
+            <td><Stepper v-model:value="Rings" :disabled="disableAccessory || !patchData.jobs.Rings?.[accessoryAffix]?.[0]" /></td>
           </tr>
 
           <tr>
@@ -469,7 +501,7 @@ defineExpose({
                 :slot-description="t('防具：脚部')"
               />
             </td>
-            <td><Stepper v-model:value="FeetAttire" :disabled="disableAttire" /></td>
+            <td><Stepper v-model:value="FeetAttire" :disabled="disableAttire || !patchData.jobs.FeetAttire?.[attireAffix]?.[0]" /></td>
             <td></td>
             <td></td>
           </tr>
@@ -493,9 +525,11 @@ defineExpose({
             :options="quickOperatesOptions"
             :render-option="renderOption"
             class="no-select"
+            placement="bottom"
             @select="handleQuickOperatesSelect"
             @mouseenter="handleQuickOperatesDropdownMouseEnter"
             @mouseleave="handleQuickOperatesDropdownMouseLeave"
+            :on-clickoutside="handleCloseQuickOperatesOptions"
           >
             <n-button
               icon-placement="right"
@@ -515,9 +549,11 @@ defineExpose({
             :options="clearOptions"
             :render-option="renderOption"
             class="no-select"
+            placement="bottom"
             @select="handleClearSelect"
             @mouseenter="handleClearDropdownMouseEnter"
             @mouseleave="handleClearDropdownMouseLeave"
+            :on-clickoutside="handleCloseClearOptions"
           >
             <n-button
               icon-placement="right"
@@ -537,9 +573,11 @@ defineExpose({
             :options="addsuitOptions"
             :render-option="renderOption"
             class="no-select"
+            placement="bottom"
             @select="handleAddsuitSelect"
             @mouseenter="handleAddsuitDropdownMouseEnter"
             @mouseleave="handleAddsuitDropdownMouseLeave"
+            :on-clickoutside="handleCloseAddsuitOptions"
           >
             <n-button
               icon-placement="right"
@@ -561,6 +599,7 @@ defineExpose({
     <ModalSelectedGears
       v-model:show="showSelectedGears"
       v-model:gear-selections="gearSelections"
+      :patch-data="patchData"
     />
 
   </FoldableCard>

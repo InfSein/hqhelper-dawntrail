@@ -1,8 +1,11 @@
 <script lang="ts" setup>
+import { inject, ref, type Ref } from 'vue'
 import {
-  NBadge, NButton
+  NBadge, NButton, NPopover
 } from 'naive-ui'
 import XivFARImage from './XivFARImage.vue'
+
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 interface JobButtonProps {
   /** 被选中 */
@@ -10,7 +13,7 @@ interface JobButtonProps {
   /** 职能 */
   role: string;
   /** 职业 */
-  job: string;
+  jobName: string;
   /** 职业图标 */
   jobIcon: string;
   /** UI尺寸预设 */
@@ -24,26 +27,40 @@ interface JobButtonProps {
 }
 
 const props = defineProps<JobButtonProps>()
+const emit = defineEmits(['on-btn-clicked'])
 
 const btnSize = props.imgSize + 5
 
+const onBtnClicked = () => {
+  emit('on-btn-clicked')
+}
 </script>
 
 <template>
-  <n-badge :value="count" :max="99" :color="props.btnColor">
-    <n-button
-      :ghost="!props.selected"
-      :disabled="props.disabled"
-      class="job-button"
-      :color="props.btnColor"
-      :style="{ width: `${btnSize}px`, height: `${btnSize}px` }"
-    >
-      <XivFARImage
-        :src="jobIcon"
-        :size="imgSize"
-      />
-    </n-button>
-  </n-badge>
+  <n-popover
+    placement="bottom-start"
+    :trigger="isMobile ? 'manual' : 'hover'"
+  >
+    <template #trigger>
+      <n-badge :value="count" :max="99" :color="props.btnColor">
+        <n-button
+          :ghost="!props.selected"
+          :disabled="props.disabled"
+          class="job-button"
+          :color="props.btnColor"
+          :style="{ width: `${btnSize}px`, height: `${btnSize}px` }"
+          @click="onBtnClicked"
+        >
+          <XivFARImage
+            :src="jobIcon"
+            :size="imgSize"
+          />
+        </n-button>
+      </n-badge>
+    </template>
+
+    <div>{{ jobName }}</div>
+  </n-popover>
 </template>
 
 <style scoped>

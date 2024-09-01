@@ -12,7 +12,9 @@ export interface UserConfigModel {
   // performance
   disable_workstate_cache: boolean
   // network
-  disable_api_mirror: boolean
+  github_mirror_site: string
+  // update
+  disable_auto_update: boolean
 
   // hidden options
   cache_ui_fold: any
@@ -31,7 +33,8 @@ const defaultUserConfig: UserConfigModel = {
   macro_direct_copy: false,
   macro_copy_prefix: '',
   disable_workstate_cache: false,
-  disable_api_mirror: false,
+  github_mirror_site: 'https://mirror.ghproxy.com',
+  disable_auto_update: false,
 
   cache_ui_fold: {}, // active cache, { key:string -> value:boolean }
   cache_work_state: {}, // active cache, view struct in `MainPage.vue` 's `workState`
@@ -46,6 +49,20 @@ const defaultUserConfig: UserConfigModel = {
  * @returns 修正后的用户配置
  */
 export const fixUserConfig = (config?: UserConfigModel) => {
+  // 处理特定环境下的设置项
+  if (!config) {
+    config = {} as UserConfigModel
+
+    // 用户初次访问时，尝试根据系统语言自动设置UI语言
+    const systemLanguage = navigator?.language ?? ''
+    if (systemLanguage?.startsWith('en')) {
+      config.language_ui = 'en'
+    } else if (systemLanguage.startsWith('ja')) {
+      config.language_ui = 'ja'
+    }
+  }
+  
+  // 处理其他的设置项
   return assignDefaults(defaultUserConfig, config || {}) as UserConfigModel
 
   function assignDefaults(defaultConfig: any, currentConfig: any): any {

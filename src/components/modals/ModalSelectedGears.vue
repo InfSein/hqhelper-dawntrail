@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref, watch, type Ref } from 'vue'
+import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
   NButton, NCard, NIcon, NInputNumber, NModal, NScrollbar, NTable
 } from 'naive-ui'
@@ -13,11 +13,19 @@ import XivJobs from '@/assets/data/xiv-jobs.json'
 import XivGearAffixes from '@/assets/data/xiv-gear-affixes.json'
 import XivFARImage from '../custom-controls/XivFARImage.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
+import type { IHqVer } from '@/tools/nbb-cal-v5'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const uiLanguage = userConfig.value?.language_ui ?? 'zh'
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+  
+const props = defineProps({
+  patchData: {
+    type: Object as () => IHqVer,
+    required: true
+  }
+})
 // const jobIds = Object.keys(XivJobs).map(jobId => parseInt(jobId))
 const getAffixName = (affix: AttireAffix | AccessoryAffix) => {
   return XivGearAffixes[affix][`affix_name_${uiLanguage}`]
@@ -26,11 +34,21 @@ const getAffixName = (affix: AttireAffix | AccessoryAffix) => {
 const showModal = defineModel<boolean>('show', { required: true })
 const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
 
+const pageHeight = ref(window.innerHeight)
 const localSelections = ref<GearSelections>(gearSelections.value)
 watch(showModal, (newVal, oldVal) => {
   if (newVal && !oldVal) {
     localSelections.value = deepCopy(gearSelections.value)
+    pageHeight.value = window.innerHeight
   }
+})
+
+const cardStyle = computed(() => {
+  return [
+    'width: 98%;',
+    'max-width: 1500px;',
+    'max-height: ' + (pageHeight.value - 80) + 'px;',
+  ].join(' ')
 })
 
 const getRoleName = (role: any) => {
@@ -60,6 +78,12 @@ const handleClose = () => {
 }
 
 const handleSave = () => {
+  for (const _id in localSelections.value.MainHand) {
+    const id = Number(_id)
+    if (props.patchData.jobs.OffHand?.[id]?.[0]) {
+      localSelections.value.OffHand[id] = localSelections.value.MainHand[id]
+    }
+  }
   gearSelections.value = deepCopy(localSelections.value)
   handleClose()
 }
@@ -71,7 +95,8 @@ const handleSave = () => {
       closable
       role="dialog"
       class="no-select"
-      style="width: 98%; max-width: 1500px;"
+      :style="cardStyle"
+      content-style="overflow-y: auto;"
       @close="handleClose"
     >
       <template #header>
@@ -113,6 +138,7 @@ const handleSave = () => {
                       :precision="0"
                       :title="getJobName(job)"
                       :show-button="!isMobile"
+                      :disabled="!patchData.jobs.MainHand?.[job]?.[0] && !patchData.jobs.OffHand?.[job]?.[0]"
                     >
                       <template #prefix>
                         <XivFARImage 
@@ -166,7 +192,7 @@ const handleSave = () => {
                 </tr>
               </thead>
             </n-table>
-            <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '245px', 'margin-top': '-2px' }">
+            <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '240px', 'margin-top': '-2px' }">
               <n-table class="attires-table" size="small" :single-line="false">
                 <tbody>
                   <tr v-for="attire in attireAffixes" :key="'row-attire-' + attire">
@@ -174,6 +200,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.HeadAttire[attire]"
+                        :disabled="!patchData.jobs.HeadAttire?.[attire]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -185,6 +212,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.BodyAttire[attire]"
+                        :disabled="!patchData.jobs.BodyAttire?.[attire]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -196,6 +224,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.HandsAttire[attire]"
+                        :disabled="!patchData.jobs.HandsAttire?.[attire]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -207,6 +236,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.LegsAttire[attire]"
+                        :disabled="!patchData.jobs.LegsAttire?.[attire]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -218,6 +248,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.FeetAttire[attire]"
+                        :disabled="!patchData.jobs.FeetAttire?.[attire]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -266,7 +297,7 @@ const handleSave = () => {
                 </tr>
               </thead>
             </n-table>
-            <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '205px', 'margin-top': '-2px' }">
+            <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '200px', 'margin-top': '-2px' }">
               <n-table class="accessories-table" size="small" :single-line="false">
                 <tbody>
                   <tr v-for="accessory in accessoryAffixes" :key="'row-accessory-' + accessory">
@@ -274,6 +305,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.Earrings[accessory]"
+                        :disabled="!patchData.jobs.Earrings?.[accessory]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -285,6 +317,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.Necklace[accessory]"
+                        :disabled="!patchData.jobs.Necklace?.[accessory]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -296,6 +329,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.Wrist[accessory]"
+                        :disabled="!patchData.jobs.Wrist?.[accessory]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -307,6 +341,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.Rings[accessory]"
+                        :disabled="!patchData.jobs.Rings?.[accessory]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -419,7 +454,6 @@ const handleSave = () => {
 
     .weapons-container {
       max-height: 150px;
-      overflow-y: auto;
       padding-top: 10px;
     }
 

@@ -12,7 +12,8 @@ import {
   TrendingUpRound,
   ColorLensRound,
   MemoryRound,
-  WifiRound,
+  UpdateRound,
+  // WifiRound,
   SaveOutlined
 } from '@vicons/material'
 import { deepCopy } from '@/tools'
@@ -75,6 +76,11 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
         label: t('物品语言'),
         descriptions: [
           {
+            value: t('选择程序中道具的语言。此设置还会影响一部分其他信息(例如地图名)的语言。'),
+            class: '',
+            style: ''
+          },
+          {
             value: t('如果选择“自动”，物品语言将跟随“界面语言”的设置。'),
             class: '',
             style: ''
@@ -94,7 +100,7 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
         label: t('服务器'),
         descriptions: [
           {
-            value: t('选择您游戏账号所属的服务器。这将会影响一些统计数据，比如点数道具的兑换价格。'),
+            value: t('选择您游戏账号所属的服务器。此设置还会影响一部分统计数据(例如点数道具的兑换价格)的计算方式。'),
             class: '',
             style: ''
           },
@@ -248,27 +254,42 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
     ]
   },
   /* Network */
+  /*
   {
     key: 'network',
     icon: WifiRound,
     text: t('网络'),
     children: [
+    ]
+  }
+  */
+  /* Update */
+  {
+    key: 'update',
+    icon: UpdateRound,
+    text: t('更新'),
+    children: [
       {
-        key: 'disable_api_mirror',
-        label: t('禁用国际加速'),
-        descriptions: [],
-        warnings: [
+        key: 'disable_auto_update',
+        label: t('禁用自动更新'),
+        descriptions: [
           {
-            value: t('国内用户不建议打开。'),
-            class: 'font-center',
+            value: t('我们默认在您启动应用时检查一次最新版本，并提示您进行更新。'),
+            class: '',
             style: ''
           },
           {
-            value: t('不过如果图片加载特别慢，也可以试试。'),
-            class: 'font-center',
+            value: t('如果您不希望接收到更新提示，则可以考虑打开此选项。'),
+            class: '',
             style: ''
+          },
+          {
+            value: t('如果您使用的是网页端，浏览器会因为缓存而自动更新，开启此选项只能让您收到提示的频率减少。'),
+            class: '',
+            style: 'color: #3b7fef;'
           }
         ],
+        warnings: [],
         type: 'switch',
         options: []
       }
@@ -303,7 +324,6 @@ const handleSave = () => {
   formData.value.language_ui ??= 'zh'
   formData.value.language_item ??= 'auto'
   formData.value.disable_workstate_cache ??= false
-  formData.value.disable_api_mirror ??= false
 
   if (formData.value.disable_workstate_cache) {
     formData.value.cache_work_state = {}
@@ -379,7 +399,7 @@ const handleSave = () => {
               <div class="item-input">
                 <n-popover
                   v-if="item.warnings.length"
-                  trigger="hover"
+                  :trigger="isMobile ? 'click' : 'hover'"
                   placement="bottom"
                   :style="item.type === 'switch' ? 'max-width: 300px;' : ''"
                 >
