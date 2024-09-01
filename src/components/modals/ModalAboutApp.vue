@@ -1,16 +1,31 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
+import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
   NAvatar, NButton, NCard, NDivider, NFlex, NIcon, NModal, NPopover
 } from 'naive-ui'
 import { InfoSharp } from '@vicons/material'
 import { DataAboutApp } from '@/data/about-app'
+import AppStatus from '@/variables/app-status'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const showModal = defineModel<boolean>('show', { required: true })
+
+watch(showModal, async (newVal, oldVal) => {
+  if (newVal && !oldVal) {
+    if (window.electronAPI?.clientVersion) {
+      currentElectronVersion.value = await window.electronAPI?.clientVersion
+    }
+  }
+})
+
+const currentElectronVersion = ref('')
+
+const cnVersionText = computed(() => {
+  return t('国服数据版本：{}', AppStatus.SupportedGameVersion.CN)
+})
 
 const handleClose = () => {
   showModal.value = false
@@ -38,6 +53,13 @@ const handleClose = () => {
         <div class="title flex">
           <i class="xiv hq logo-about"></i>
           <p class="about-title">HQ Helper</p>
+        </div>
+        <div class="version-info">
+          <div>{{ t('当前网页版本：{v}', AppStatus.Version) }}</div>
+          <div v-if="currentElectronVersion">{{ t('当前客户端版本：{v}', currentElectronVersion) }}</div>
+          <div v-else />
+          <div v-if="cnVersionText">{{ cnVersionText }}</div>
+          <div>{{ t('国际服数据版本：{}', AppStatus.SupportedGameVersion.GLOBAL) }}</div>
         </div>
         <n-divider />
         <div id="staffs">
@@ -168,6 +190,11 @@ const handleClose = () => {
   .title {
     font-size: 16px;
     font-weight: bold;
+  }
+  .version-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    line-height: 1.3;
   }
   .content {
     display: flex;
