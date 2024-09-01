@@ -44,7 +44,7 @@ We may provide various types of applications, but it is difficult to guarantee t
 
 #### Windows APP
 
-Not yet ready.
+See [Release Electron v1](https://github.com/InfSein/hqhelper-dawntrail/releases/tag/electron.v1)
 
 #### iOS APP
 
