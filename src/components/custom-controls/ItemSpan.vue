@@ -78,7 +78,7 @@ const getItemName = () => {
     <div v-if="showAmount" class="count">
       <span> x{{ amount }}</span>
     </div>
-    <ItemPop v-if="!hidePopIcon" :item-info="itemInfo" pop-use-custom-width :pop-custom-width="250">
+    <ItemPop v-if="!hidePopIcon" :item-info="itemInfo">
       <n-icon v-if="!hidePopIcon" class="pop-icon" size="14" color="#3b7fef"><InfoOutlined /></n-icon>
     </ItemPop>
   </div>
@@ -89,5 +89,9 @@ const getItemName = () => {
   display: flex;
   align-items: center;
   gap: 3px;
+
+  .count {
+    min-width: fit-content;
+  }
 }
 </style>
