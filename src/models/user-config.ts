@@ -5,6 +5,7 @@ export interface UserConfigModel {
   language_item: 'auto' | 'zh' | 'en' | 'ja'
   item_server: 'auto' | 'chs' | 'global'
   // enhancements
+  item_button_click_event: 'none' | 'copy_name' | 'copy_isearch'
   disable_patchcard_autofold: boolean
   disable_jobbtn_doubleclick: boolean
   macro_direct_copy: boolean
@@ -28,6 +29,7 @@ const defaultUserConfig: UserConfigModel = {
   language_ui: 'zh',
   language_item: 'auto',
   item_server: 'auto',
+  item_button_click_event: 'none',
   disable_patchcard_autofold: false,
   disable_jobbtn_doubleclick: false,
   macro_direct_copy: false,

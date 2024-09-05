@@ -147,6 +147,24 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
     text: t('增强'),
     children: [
       {
+        key: 'item_button_click_event',
+        label: t('点击物品按钮时的行为'),
+        descriptions: [
+          {
+            value: t('决定鼠标左键单击物品按钮时要如何做。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'select',
+        options: [
+          { value: 'none', label: t('什么都不做') },
+          { value: 'copy_name', label: t('复制物品名') },
+          { value: 'copy_isearch', label: t('复制物品检索宏') },
+        ]
+      },
+      {
         key: 'disable_patchcard_autofold',
         label: t('禁用选择版本后自动折叠'),
         hide: !isMobile.value,
@@ -285,8 +303,8 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
           },
           {
             value: t('如果您使用的是网页端，浏览器会因为缓存而自动更新，开启此选项只能让您收到提示的频率减少。'),
-            class: '',
-            style: 'color: #3b7fef;'
+            class: 'color-info',
+            style: ''
           }
         ],
         warnings: [],

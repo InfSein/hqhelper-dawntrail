@@ -175,12 +175,12 @@ const handleSelect = async (key: string | number, option: any) => {
     }
   }
 }
-const handleCopy = async (content: string) => {
+const handleCopy = async (content: string, successMessage?: string) => {
   const response = await CopyToClipboard(content)
   if (response) {
     NAIVE_UI_MESSAGE.error(t('复制失败：发生意外错误'))
   } else {
-    NAIVE_UI_MESSAGE.success(t('已复制到剪贴板'))
+    NAIVE_UI_MESSAGE.success(successMessage ?? t('已复制到剪贴板'))
   }
 }
 const onClickoutside = () => {
@@ -215,6 +215,23 @@ const handleItemButtonTouchEnd = (/*e: TouchEvent*/) => {
 }
 
 // #endregion
+
+const handleItemButtonClick = async () => {
+  const action = userConfig.value.item_button_click_event
+  const itemName = getItemName()
+  let copyContent = ''
+  if (action === 'copy_name') {
+    copyContent = itemName
+  } else if (action === 'copy_isearch') {
+    copyContent = `/isearch "${itemName}"`
+  } else {
+    // do nothing
+  }
+
+  if (copyContent) {
+    await handleCopy(copyContent, t('已复制 {content}', copyContent))
+  }
+}
 </script>
 
 <template>
