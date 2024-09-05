@@ -231,9 +231,10 @@ const handleItemButtonTouchEnd = (/*e: TouchEvent*/) => {
       :disabled="disabled"
       :color="btnColor"
       @contextmenu="handleContextMenu"
-      @touchstart="handleItemButtonTouchStart" 
-      @touchmove="handleItemButtonTouchMove" 
-      @touchend="handleItemButtonTouchEnd"
+      @touchstart.passive="handleItemButtonTouchStart" 
+      @touchmove.passive="handleItemButtonTouchMove" 
+      @touchend.passive="handleItemButtonTouchEnd"
+      @click="handleItemButtonClick"
     >
       <slot>
         <div class="item-container">
