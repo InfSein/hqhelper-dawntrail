@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NIcon, NInputNumber, NModal, NScrollbar, NTable
+  NButton, NCard, NIcon, NInputNumber, NModal, NScrollbar, NTable, NTabs, NTabPane
 } from 'naive-ui'
 import { CheckroomSharp, SaveOutlined } from '@vicons/material'
 import type { GearSelections, AttireAffix, AccessoryAffix } from '@/models/gears'
@@ -30,6 +30,19 @@ const props = defineProps({
 const getAffixName = (affix: AttireAffix | AccessoryAffix) => {
   return XivGearAffixes[affix][`affix_name_${uiLanguage}`]
 }
+const attireGearSlots = [
+  { key: 'HeadAttire', text: t('头部'), icon: './image/game-gear-slot/head.png' },
+  { key: 'BodyAttire', text: t('身体'), icon: './image/game-gear-slot/body.png' },
+  { key: 'HandsAttire', text: t('手部'), icon: './image/game-gear-slot/hands.png' },
+  { key: 'LegsAttire', text: t('腿部'), icon: './image/game-gear-slot/legs.png' },
+  { key: 'FeetAttire', text: t('脚部'), icon: './image/game-gear-slot/feet.png' },
+]
+const accessoryGearSlots = [
+  { key: 'Earrings', text: t('耳坠'), icon: './image/game-gear-slot/ear.png' },
+  { key: 'Necklace', text: t('项链'), icon: './image/game-gear-slot/neck.png' },
+  { key: 'Wrist', text: t('手镯'), icon: './image/game-gear-slot/wrist.png' },
+  { key: 'Rings', text: t('戒指'), icon: './image/game-gear-slot/ring.png' },
+]
 
 const showModal = defineModel<boolean>('show', { required: true })
 const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
@@ -106,7 +119,7 @@ const handleSave = () => {
         </div>
       </template>
 
-      <div class="wrapper">
+      <div class="wrapper" v-if="!isMobile">
         <div class="weapons">
           <n-card size="small" :title="t('主副手')">
             <div class="weapons-container">
@@ -358,6 +371,128 @@ const handleSave = () => {
           </n-card>
         </div>
       </div>
+      <div class="wrapper" v-else>
+        <n-tabs v-if="isMobile" type="line" animated>
+          <n-tab-pane name="weapon" :tab="t('主副手')">
+            <div class="weapons-container">
+              <GroupBox
+                class="weapon-group"
+                v-for="(role, roleIndex) in XivRoles"
+                :key="'m-'+roleIndex"
+                :border-color="role.role_color"
+                title-background-color="var(--n-color-modal)"
+                container-extra-style="padding: 8px;"
+              >
+                <template #title>
+                  <XivFARImage
+                    :src="role.role_icon_url"
+                    :size="14"
+                  />
+                  <span>
+                    {{ getRoleName(role) }}
+                  </span>
+                </template>
+
+                <div class="input-container">
+                  <p v-for="job in role.jobs" :key="'m-weapon-mainhand-' + job">
+                    <n-input-number
+                      v-model:value="localSelections.MainHand[job]"
+                      :input-props="{ type: 'number' }"
+                      :min="0"
+                      :max="99999"
+                      :precision="0"
+                      :title="getJobName(job)"
+                      :show-button="!isMobile"
+                      :disabled="!patchData.jobs.MainHand?.[job]?.[0] && !patchData.jobs.OffHand?.[job]?.[0]"
+                    >
+                      <template #prefix>
+                        <XivFARImage 
+                          :src="(XivJobs as any)[job].job_icon_url"
+                          :size="15"
+                        />
+                      </template>
+                    </n-input-number>
+                  </p>
+                </div>
+              </GroupBox>
+            </div>
+          </n-tab-pane>
+          <n-tab-pane name="attire" :tab="t('防具')">
+            <div class="weapons-container">
+              <GroupBox
+                class="weapon-group"
+                v-for="(attire, attireIndex) in attireAffixes"
+                :key="'m-at'+attireIndex"
+                title-background-color="var(--n-color-modal)"
+                container-extra-style="padding: 8px;"
+              >
+                <template #title>
+                  <span>
+                    {{ getAffixName(attire) }}
+                  </span>
+                </template>
+
+                <div class="input-container">
+                  <p v-for="gear in attireGearSlots" :key="'m-attire' + attireIndex + '-' + gear.key">
+                    <n-input-number
+                      v-model:value="(localSelections as any)[gear.key][attire]"
+                      :input-props="{ type: 'number' }"
+                      :min="0"
+                      :max="99999"
+                      :precision="0"
+                      :title="gear.text"
+                    >
+                      <template #prefix>
+                        <XivFARImage 
+                          :src="gear.icon"
+                          :size="15"
+                        />
+                      </template>
+                    </n-input-number>
+                  </p>
+                </div>
+              </GroupBox>
+            </div>
+          </n-tab-pane>
+          <n-tab-pane name="accessory" :tab="t('首饰')">
+            <div class="weapons-container">
+              <GroupBox
+                class="weapon-group"
+                v-for="(accessory, accessoryIndex) in accessoryAffixes"
+                :key="'m-ac'+accessoryIndex"
+                title-background-color="var(--n-color-modal)"
+                container-extra-style="padding: 8px;"
+              >
+                <template #title>
+                  <span>
+                    {{ getAffixName(accessory) }}
+                  </span>
+                </template>
+
+                <div class="input-container">
+                  <p v-for="gear in accessoryGearSlots" :key="'m-accessory' + accessoryIndex + '-' + gear.key">
+                    <n-input-number
+                      v-model:value="(localSelections as any)[gear.key][accessory]"
+                      :input-props="{ type: 'number' }"
+                      :min="0"
+                      :max="99999"
+                      :precision="0"
+                      :title="gear.text"
+                    >
+                      <template #prefix>
+                        <XivFARImage 
+                          :src="gear.icon"
+                          :size="15"
+                        />
+                      </template>
+                    </n-input-number>
+                  </p>
+                </div>
+              </GroupBox>
+            </div>
+          </n-tab-pane>
+        </n-tabs>
+      </div>
       
       <template #action>
         <div class="submit-container">
@@ -453,8 +588,9 @@ const handleSave = () => {
     flex-direction: column;
 
     .weapons-container {
-      max-height: 150px;
+      max-height: 450px;
       padding-top: 10px;
+      overflow-y: auto;
     }
 
     .input-container {
