@@ -105,11 +105,11 @@
       "components\\AppHeader.vue"
     ]
   },
-  "本作程序源代码遵循MIT协议开源，但使用的协议在正式发布之前随时可能被更改。": {
-    "en": "The source code of this program follows the MIT protocol for open source, but the protocol used may be changed at any time before official release.",
-    "ja": "このアプリのソースコードはMITライセンスで公開されていますが、正式リリース前にライセンスが変更される可能性があります。",
+  "本作程序源代码遵循MIT协议开源。": {
+    "en": "The source code of this program follows the MIT protocol for open source.",
+    "ja": "このアプリのソースコードはMITライセンスで公開されていますが。",
     "$files": [
-      "components\\ModalAboutApp.vue"
+      "data\\about-app.ts"
     ]
   },
   "本地时间": {
@@ -2181,6 +2181,90 @@
   "如果您使用的是网页端，浏览器会因为缓存而自动更新，开启此选项只能让您收到提示的频率减少。": {
     "en": "If you are using the web version, the browser will automatically update due to cache. Enabling this option can only reduce the frequency of prompts.",
     "ja": "サイト版はブラウザキャッシュの原因で常時自動アップデートされますので、このオプションはお知らせが表示する頻度だけを減らせます、ご注意ください。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "桌面应用开发": {
+    "en": "PC-Client dev",
+    "ja": "桌面应用开发",
+    "$files": [
+      "data\\about-app.ts"
+    ]
+  },
+  "问题修复": {
+    "en": "Bug fixes",
+    "ja": "问题修复",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "功能更新": {
+    "en": "Features",
+    "ja": "功能更新",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "重要变更": {
+    "en": "Breaking changes",
+    "ja": "重要变更",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "已复制 {content}": {
+    "en": "\"{content}\" copied",
+    "ja": "已复制 {content}",
+    "$files": [
+      "components\\custom-controls\\ItemButton.vue"
+    ]
+  },
+  "当前网页版本：{v}": {
+    "en": "Current webpage version: {v}",
+    "ja": "当前网页版本：{v}",
+    "$files": [
+      "components\\modals\\ModalAboutApp.vue"
+    ]
+  },
+  "当前客户端版本：{v}": {
+    "en": "Current client version: {v}",
+    "ja": "当前客户端版本：{v}",
+    "$files": [
+      "components\\modals\\ModalAboutApp.vue"
+    ]
+  },
+  "点击物品按钮时的行为": {
+    "en": "Action while clicking item button",
+    "ja": "点击物品按钮时的行为",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "决定鼠标左键单击物品按钮时要如何做。": {
+    "en": "Decide what would happen while clicking item button.",
+    "ja": "决定鼠标左键单击物品按钮时要如何做。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "什么都不做": {
+    "en": "Do nothing",
+    "ja": "什么都不做",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "复制物品名": {
+    "en": "Copy item name",
+    "ja": "复制物品名",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "复制物品检索宏": {
+    "en": "Copy isearch macro",
+    "ja": "复制物品检索宏",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
