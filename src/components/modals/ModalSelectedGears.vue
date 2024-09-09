@@ -372,7 +372,7 @@ const handleSave = () => {
         </div>
       </div>
       <div class="wrapper" v-else>
-        <n-tabs v-if="isMobile" type="line" animated>
+        <n-tabs v-if="isMobile" type="segment" animated>
           <n-tab-pane name="weapon" :tab="t('主副手')">
             <div class="weapons-container">
               <GroupBox
@@ -402,7 +402,6 @@ const handleSave = () => {
                       :max="99999"
                       :precision="0"
                       :title="getJobName(job)"
-                      :show-button="!isMobile"
                       :disabled="!patchData.jobs.MainHand?.[job]?.[0] && !patchData.jobs.OffHand?.[job]?.[0]"
                     >
                       <template #prefix>
