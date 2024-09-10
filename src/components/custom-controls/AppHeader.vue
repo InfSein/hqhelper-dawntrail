@@ -73,6 +73,9 @@ const displayChangeLogsModal = () => {
 const redirectToFoodAndTincPage = () => {
   router.push('/fthelper')
 }
+const redirectToGatherClockPage = () => {
+  router.push('/gatherclock')
+}
 
 interface MenuItem {
   label: string
@@ -90,9 +93,11 @@ interface DesktopMenuItem {
 }
 const menuItems = computed(() => {
   const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
+  const hideGatherClock = router.currentRoute.value.path.startsWith('/gatherclock')
   const changeThemeIcon = theme.value === 'light' ? DarkModeTwotone : LightModeTwotone
   return {
     changeTheme: { label: t('切换主题'), icon: changeThemeIcon, click: switchTheme } as MenuItem,
+    gatherClock: { label: t('采集时钟'), hide: hideGatherClock, icon: AccessAlarmsOutlined, click: redirectToGatherClockPage } as MenuItem,
     ftHelper: { label: t('食药计算'), hide: hideFTHelper, icon: FastfoodOutlined, click: redirectToFoodAndTincPage } as MenuItem,
     contact: { label: t('联系我们'), icon: ContactlessSharp, click: displayContactModal } as MenuItem,
     changelogs: { label: t('更新日志'), icon: EventNoteFilled, click: displayChangeLogsModal } as MenuItem,
@@ -103,10 +108,11 @@ const menuItems = computed(() => {
 })
 const desktopMenus = computed(() => {
   const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
+  const hideGatherClock = router.currentRoute.value.path.startsWith('/gatherclock')
   const changeThemeIcon = theme.value === 'light' ? DarkModeTwotone : LightModeTwotone
   const changeThemeTooltip = theme.value === 'light' ? t('为这个世界带回黑暗。') : t('静待黎明天光来。')
   const ftHelperTooltip = hideFTHelper ? t('您已经处于食药计算器的页面。') : t('帮助你制作食物与爆发药。能帮到就好。')
-  const gatherClockTooltip = t('此功能尚未制作完成，请耐心等待。')
+  const gatherClockTooltip = hideGatherClock ? t('您已经处于采集时钟页面。') : t('挖穿艾欧泽亚的好帮手！')
   const userPreferenceTooltip = t('以人的意志改变机械的程序。')
   const checkUpdatesTooltip = t('更新目标的战力等级……变更攻击模式……')
   const changelogTooltip = t('修正……改良……开始对循环程序进行更新……')
@@ -150,7 +156,7 @@ const desktopMenus = computed(() => {
       label: t('实用工具'),
       icon: CasesOutlined,
       options: [
-        { key: 'tool-gatherclock', label: t('采集时钟'), disabled: true, icon: renderIcon(AccessAlarmsOutlined), description: gatherClockTooltip, click: notDoneBtnClickEvent },
+        { key: 'tool-gatherclock', label: t('采集时钟'), disabled: hideGatherClock, icon: renderIcon(AccessAlarmsOutlined), description: gatherClockTooltip, click: redirectToGatherClockPage },
         { key: 'tool-fthelper', label: t('食药计算'), disabled: hideFTHelper, icon: renderIcon(FastfoodOutlined), description: ftHelperTooltip, click: redirectToFoodAndTincPage }
       ]
     },

@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import MainPage from '@/views/MainPage.vue'
 import FoodAndTincPage from '@/views/FoodAndTincPage.vue'
+import GatherClockPage from '@/views/GatherClockPage.vue'
 import ErrorPage404 from '@/views/ErrorPage404.vue'
 
 /* 
@@ -11,6 +12,7 @@ import ErrorPage404 from '@/views/ErrorPage404.vue'
 const routes = [
   { path: '/', component: MainPage },
   { path: '/fthelper', component: FoodAndTincPage },
+  { path: '/gatherclock', component: GatherClockPage },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',

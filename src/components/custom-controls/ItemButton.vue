@@ -33,7 +33,7 @@ interface ItemButtonProps {
   itemInfo: ItemInfo
 
   /** 按钮宽度 */
-  btnWidth?: number;
+  btnWidth?: string | number;
   /** 按钮高度 */
   btnHeight?: number;
   /** 按钮颜色 */
@@ -77,6 +77,7 @@ const iconSize = computed(() => {
 const btnWidthVal = computed(() => {
   const _w = props.btnWidth
   if (!_w) return 'auto'
+  if (typeof _w === 'string') return _w
   return `${_w}px`
 })
 const btnHeightVal = computed(() => {
