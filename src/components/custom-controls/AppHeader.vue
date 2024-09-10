@@ -95,7 +95,7 @@ const menuItems = computed(() => {
     changeTheme: { label: t('切换主题'), icon: changeThemeIcon, click: switchTheme } as MenuItem,
     ftHelper: { label: t('食药计算'), hide: hideFTHelper, icon: FastfoodOutlined, click: redirectToFoodAndTincPage } as MenuItem,
     contact: { label: t('联系我们'), icon: ContactlessSharp, click: displayContactModal } as MenuItem,
-    changelogs: { label: t('更新日志'), hide: true, icon: EventNoteFilled, click: displayChangeLogsModal } as MenuItem,
+    changelogs: { label: t('更新日志'), icon: EventNoteFilled, click: displayChangeLogsModal } as MenuItem,
     userPreferences: { label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal } as MenuItem,
     checkUpdates: { label: t('检查更新'), icon: UpdateSharp, click: handleCheckUpdates } as MenuItem,
     aboutApp: { label: t('关于本作'), icon: InfoFilled, click: displayAboutAppModal } as MenuItem
@@ -109,7 +109,7 @@ const desktopMenus = computed(() => {
   const gatherClockTooltip = t('此功能尚未制作完成，请耐心等待。')
   const userPreferenceTooltip = t('以人的意志改变机械的程序。')
   const checkUpdatesTooltip = t('更新目标的战力等级……变更攻击模式……')
-  const changelogTooltip = t('此功能尚未制作完成，请耐心等待。')
+  const changelogTooltip = t('修正……改良……开始对循环程序进行更新……')
   const contactTooltip = t('关注我们喵，关注我们谢谢喵。')
   const aboutTooltip = t('重新自我介绍一下库啵。')
   return [
@@ -173,7 +173,7 @@ const desktopMenus = computed(() => {
         { key: 'sau-ct', label: t('切换主题'), icon: renderIcon(changeThemeIcon), description: changeThemeTooltip, click: switchTheme },
         { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), description: userPreferenceTooltip, click: displayUserPreferencesModal },
         { key: 'sau-cu', label: t('检查更新'), icon: renderIcon(UpdateSharp), description: checkUpdatesTooltip, click: handleCheckUpdates },
-        { key: 'sau-cl', label: t('更新日志'), disabled: true, icon: renderIcon(EventNoteFilled), description: changelogTooltip, click: displayChangeLogsModal }
+        { key: 'sau-cl', label: t('更新日志'), icon: renderIcon(EventNoteFilled), description: changelogTooltip, click: displayChangeLogsModal }
       ],
     },
     /* 关于 */

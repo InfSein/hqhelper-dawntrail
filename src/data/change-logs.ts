@@ -34,7 +34,7 @@ const groupName = {
 export const changelog : PatchNote[] = [
   {
     version: '2.0.1',
-    date: '2024-09-10',
+    date: '2024-09-11',
     changes: [
       {
         name: groupName.bugfix,
@@ -48,9 +48,23 @@ export const changelog : PatchNote[] = [
         changes: [
           t('现在可以在“偏好设置”中自定义点击物品按钮时的行为。'),
           t('重制了移动端“已选部件”弹窗的显示效果。'),
+          t('“更新日志”功能现已正式实装。'),
           t('根据国服7.0特设站公布的新消息更新了职业名。'),
           t('优化了部分场景下物品按钮悬浮窗的显示效果。'),
           t('更新了“关于本作”中创作者的信息。')
+        ]
+      }
+    ]
+  },
+  {
+    version: '2.0.0',
+    date: '2024-09-01',
+    important: true,
+    changes: [
+      {
+        name: groupName.breaking,
+        changes: [
+          t('HqHelper正式发布。')
         ]
       }
     ]
