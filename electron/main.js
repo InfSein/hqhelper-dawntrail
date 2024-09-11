@@ -168,11 +168,11 @@ function createWindow() {
         logger.info('[download-update-pack] 下载完成');
       });
 
+      return ''
     } catch (error) {
       logger.error('[download-update-pack] 检查更新时发生错误：' + error)
       throw error
     }
-    return ''
   })
   
   /* 调用默认浏览器打开给定URL */
