@@ -100,7 +100,7 @@
   },
   "关于本作": {
     "en": "About",
-    "ja": "当サイトについて",
+    "ja": "当ツールについて",
     "$files": [
       "components\\AppHeader.vue"
     ]
@@ -1921,7 +1921,7 @@
   },
   "检测到新版本{v}，是否更新?": {
     "en": "New version {v} detected. Do update now?",
-    "ja": "新しいバーションがありました{v}，アップデートしますか?",
+    "ja": "新しいバーション{v}がありました，アップデートしますか?",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
@@ -2166,56 +2166,56 @@
   },
   "桌面应用开发": {
     "en": "PC-Client dev",
-    "ja": "桌面应用开发",
+    "ja": "クライアント版開発",
     "$files": [
       "data\\about-app.ts"
     ]
   },
   "问题修复": {
     "en": "Bug fixes",
-    "ja": "问题修复",
+    "ja": "不具合修正",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "功能更新": {
     "en": "Features",
-    "ja": "功能更新",
+    "ja": "機能アップデート",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "重要变更": {
     "en": "Breaking changes",
-    "ja": "重要变更",
+    "ja": "重要な変更",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "已复制 {content}": {
     "en": "\"{content}\" copied",
-    "ja": "已复制 {content}",
+    "ja": "{content}をコピーしました",
     "$files": [
       "components\\custom-controls\\ItemButton.vue"
     ]
   },
   "当前网页版本：{v}": {
     "en": "Current webpage version: {v}",
-    "ja": "当前网页版本：{v}",
+    "ja": "現在のウェブ版バージョン：{v}",
     "$files": [
       "components\\modals\\ModalAboutApp.vue"
     ]
   },
   "当前客户端版本：{v}": {
     "en": "Current client version: {v}",
-    "ja": "当前客户端版本：{v}",
+    "ja": "現在のクライアント版バージョン：{v}",
     "$files": [
       "components\\modals\\ModalAboutApp.vue"
     ]
   },
   "点击物品按钮时的行为": {
     "en": "Action while clicking item button",
-    "ja": "点击物品按钮时的行为",
+    "ja": "アイテムボタンをクリックした際の動作",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
@@ -2229,21 +2229,21 @@
   },
   "什么都不做": {
     "en": "Do nothing",
-    "ja": "什么都不做",
+    "ja": "何もしない",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "复制物品名": {
     "en": "Copy item name",
-    "ja": "复制物品名",
+    "ja": "アイテム名をコピーする",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "复制物品检索宏": {
     "en": "Copy isearch macro",
-    "ja": "复制物品检索宏",
+    "ja": "アイテムの検索マクロをコピーする",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
@@ -2257,7 +2257,7 @@
   },
   "修复了客户端的安装更新按钮在已是最新版本时仍旧可以点击的问题。": {
     "en": "Fixed update button still could be clicked when client is up to date.",
-    "ja": "修复了客户端的安装更新按钮在已是最新版本时仍旧可以点击的问题。",
+    "ja": "クライアント版の更新ボタンが、すでに最新バージョンの場合でもクリックできる問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -2271,14 +2271,14 @@
   },
   "现在可以在“偏好设置”中自定义点击物品按钮时的行为。": {
     "en": "Now you could customize action while clicking item button by change settings in \"User Preferences\".",
-    "ja": "现在可以在“偏好设置”中自定义点击物品按钮时的行为。",
+    "ja": "「設定」でアイテムボタンをクリックしたときの動作をカスタマイズできるようになりました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "重制了移动端“已选部件”弹窗的显示效果。": {
     "en": "Remaked the display effect of \"View Selected\" modal on mobile.",
-    "ja": "重制了移动端“已选部件”弹窗的显示效果。",
+    "ja": "スマホ端末で「選択済み部位」ポップアップの表示効果をリニューアルしました。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -2292,112 +2292,112 @@
   },
   "优化了部分场景下物品按钮悬浮窗的显示效果。": {
     "en": "Optimized the display effect of item button floating window in some cases.",
-    "ja": "优化了部分场景下物品按钮悬浮窗的显示效果。",
+    "ja": "一部の状況下でアイテムボタンのツールチップの表示効果を最適化しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "更新了“关于本作”中创作者的信息。": {
     "en": "Updated staff info in \"About\"",
-    "ja": "更新了“关于本作”中创作者的信息。",
+    "ja": "「当ツールについて」に記載されているクリエイター情報を更新しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "HqHelper正式发布。": {
     "en": "HqHelper released.",
-    "ja": "HqHelper正式发布。",
+    "ja": "HqHelperは正式にリリースしました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "更新时间：{date}": {
     "en": "DATE: {date}",
-    "ja": "更新时间：{date}",
+    "ja": "更新日：{date}",
     "$files": [
       "components\\modals\\ModalChangeLogs.vue"
     ]
   },
   "实装了“采集时钟”功能。": {
     "en": "Function \"Gatherclock\" released.",
-    "ja": "实装了“采集时钟”功能。",
+    "ja": "「採集時計」機能を実装しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "实装了“更新日志”功能。": {
     "en": "Function \"Change Logs\" released.",
-    "ja": "实装了“更新日志”功能。",
+    "ja": "「更新ログ」機能を実装しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修复了自动更新提示不会展示最新版本版本号的问题。": {
     "en": "Fixed auto-update prompt not showing latest version number.",
-    "ja": "修复了自动更新提示不会展示最新版本版本号的问题。",
+    "ja": "自動更新通知で最新バージョン番号が表示されない問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修复了启用“禁用工作状态记忆”后，食药计算器的工作状态缓存不会被清除的问题。": {
     "en": "Fixed cache of FT Helper not been cleared after enabling \"Disable Work State Memory\"",
-    "ja": "修复了启用“禁用工作状态记忆”后，食药计算器的工作状态缓存不会被清除的问题。",
+    "ja": "「作業状態の記憶を無効にする」を有効にした後、「調理品&薬品の素材集計」の稼働キャッシュがクリアされない問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修复了移动端点击空白区域关闭{}的悬浮窗后，无法正常再次打开该悬浮窗的问题。": {
     "en": "Fixed floating window not shown while re-clicking {} in mobile.",
-    "ja": "修复了移动端点击空白区域关闭{}的悬浮窗后，无法正常再次打开该悬浮窗的问题。",
+    "ja": "スマホ端末で空白部分をクリックして{}のツールチップを閉じた後、再度に正常に開けない問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "“选择部件”栏目中当前[主副手/防具/首饰]": {
     "en": "Current [Main-offhand/Attire/Accessory] in \"Select Gears\"",
-    "ja": "“选择部件”栏目中当前[主副手/防具/首饰]",
+    "ja": "“部位選択”のカテゴリの現在の[主/副道具・防具・アクセサリ]",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "收藏": {
     "en": "Star",
-    "ja": "收藏",
+    "ja": "お気に入り",
     "$files": [
       "views\\GatherClockPage.vue"
     ]
   },
   "点击此按钮来收藏/取消收藏这个采集品。": {
     "en": "Click the button to star/unstar this item.",
-    "ja": "点击此按钮来收藏/取消收藏这个采集品。",
+    "ja": "このボタンをクリックして、この採集品をお気に入りに登録/登録解除します。",
     "$files": [
       "views\\GatherClockPage.vue"
     ]
   },
   "被收藏的采集品将在“收藏”栏目单独展示。": {
     "en": "Item stared would be shown in \"Star\" column.",
-    "ja": "被收藏的采集品将在“收藏”栏目单独展示。",
+    "ja": "お気に入りに登録された採集品は、「お気に入り」欄に個別に表示されます。",
     "$files": [
       "views\\GatherClockPage.vue"
     ]
   },
   "现可采集": {
     "en": "Can gather now",
-    "ja": "现可采集",
+    "ja": "採集可能中",
     "$files": [
       "views\\GatherClockPage.vue"
     ]
   },
   "您已经处于采集时钟页面。": {
     "en": "You have already been inside the page of Gatherclock.",
-    "ja": "您已经处于采集时钟页面。",
+    "ja": "すでに採集時計ページにいます。",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "挖穿艾欧泽亚的好帮手！": {
     "en": "View time-limited gatherings.",
-    "ja": "挖穿艾欧泽亚的好帮手！",
+    "ja": "エオルゼアを掘り尽くすための最高のサポーター！",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
