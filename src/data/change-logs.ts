@@ -33,7 +33,7 @@ const groupName = {
 
 export const changelog : PatchNote[] = [
   {
-    version: '2.0.1',
+    version: '2.0.2',
     date: '2024-09-11',
     changes: [
       {
