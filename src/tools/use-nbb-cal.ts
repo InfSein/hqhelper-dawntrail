@@ -233,6 +233,8 @@ export function useNbbCal() {
       for (const itemID in gatherData) {
         if (gd[itemID].popTime) { // 是限时物品
           const id = Number(itemID)
+          if (id < 36630) continue // 手动过滤掉7.0之前的
+          if (!getItem(id)) continue // 过滤掉没有数据的
           const itemInfo = getItemInfo(id)
           const key = itemInfo.patch
           if (!map[key]) map[key] = []

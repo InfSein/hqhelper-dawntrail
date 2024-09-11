@@ -5,6 +5,7 @@ export interface UserConfigModel {
   language_item: 'auto' | 'zh' | 'en' | 'ja'
   item_server: 'auto' | 'chs' | 'global'
   // enhancements
+  item_button_click_event: 'none' | 'copy_name' | 'copy_isearch'
   disable_patchcard_autofold: boolean
   disable_jobbtn_doubleclick: boolean
   macro_direct_copy: boolean
@@ -17,9 +18,11 @@ export interface UserConfigModel {
   disable_auto_update: boolean
 
   // hidden options
+  cache_lasttime_version: string
   cache_ui_fold: any
   cache_work_state: any
   fthelper_cache_work_state: any
+  gatherclock_cache_work_state: any
 }
 
 // eslint-disable-next-line no-var
@@ -28,6 +31,7 @@ const defaultUserConfig: UserConfigModel = {
   language_ui: 'zh',
   language_item: 'auto',
   item_server: 'auto',
+  item_button_click_event: 'none',
   disable_patchcard_autofold: false,
   disable_jobbtn_doubleclick: false,
   macro_direct_copy: false,
@@ -36,9 +40,11 @@ const defaultUserConfig: UserConfigModel = {
   github_mirror_site: 'https://mirror.ghproxy.com',
   disable_auto_update: false,
 
+  cache_lasttime_version: 'none',
   cache_ui_fold: {}, // active cache, { key:string -> value:boolean }
   cache_work_state: {}, // active cache, view struct in `MainPage.vue` 's `workState`
   fthelper_cache_work_state: {},
+  gatherclock_cache_work_state: {}
 }
 
 /**

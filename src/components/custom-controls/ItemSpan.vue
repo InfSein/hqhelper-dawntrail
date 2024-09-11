@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, type PropType, type Ref } from 'vue'
+import { computed, inject, ref, type PropType, type Ref } from 'vue'
 import {
   NIcon
 } from 'naive-ui'
@@ -12,6 +12,7 @@ import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config';
 
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 const itemLanguage = computed(() => {
   if (userConfig.value.language_item !== 'auto') {
@@ -78,7 +79,7 @@ const getItemName = () => {
     <div v-if="showAmount" class="count">
       <span> x{{ amount }}</span>
     </div>
-    <ItemPop v-if="!hidePopIcon" :item-info="itemInfo" pop-use-custom-width :pop-custom-width="250">
+    <ItemPop v-if="!hidePopIcon" :item-info="itemInfo" :pop-use-custom-width="isMobile" :pop-custom-width="isMobile ? 275 : undefined">
       <n-icon v-if="!hidePopIcon" class="pop-icon" size="14" color="#3b7fef"><InfoOutlined /></n-icon>
     </ItemPop>
   </div>
@@ -89,5 +90,9 @@ const getItemName = () => {
   display: flex;
   align-items: center;
   gap: 3px;
+
+  .count {
+    min-width: fit-content;
+  }
 }
 </style>

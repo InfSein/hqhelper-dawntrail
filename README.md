@@ -77,7 +77,7 @@ npm run dev
 
 * **给这个仓库一个Star**
 * **社交媒体**：[微博](https://weibo.com/u/7870808507) | [推特](https://twitter.com/FF14_HqHelper)
-* **NGA主题帖**：还没发
+* **NGA主题帖**：<https://bbs.nga.cn/read.php?tid=41510690>
 
 ### 参与开发
 

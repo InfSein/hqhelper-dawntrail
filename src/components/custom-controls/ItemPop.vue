@@ -11,17 +11,8 @@ import ItemSpan from './ItemSpan.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import XivAttributes from '@/assets/data/xiv-attributes.json'
-import XivJobs from '@/assets/data/xiv-jobs.json'
+import { jobMap, type JobInfo } from '@/data'
 import type EorzeaTime from '@/tools/eorzea-time'
-
-interface JobInfo {
-  job_id: number,
-  job_name_en: string,
-  job_name_zh: string,
-  job_name_ja: string,
-  job_icon_url: string
-}
-const jobMap = XivJobs as Record<number, JobInfo>
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)

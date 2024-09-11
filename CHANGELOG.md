@@ -1,3 +1,97 @@
+## [2.0.1](https://github.com/InfSein/hqhelper-dawntrail/compare/v2.0.0...v2.0.1) (2024-09-11)
+
+
+### Bug Fixes
+
+* 修复客户端的安装更新按钮在已是最新版本时仍旧可以点击的问题 ([2d6df96](https://github.com/InfSein/hqhelper-dawntrail/commit/2d6df962e286d25134d1a1309d3b6dca67a90f10))
+* 修复了启用 `禁用工作状态记忆` 后，食药计算器的工作状态缓存不会被清除的问题 ([2bb7981](https://github.com/InfSein/hqhelper-dawntrail/commit/2bb7981e9725aeacf1835f86755f2e09c65856b5))
+* 修复了移动端点击空白区域关闭“选择部件”栏目中当前[主副手/防具/首饰]的悬浮窗后，无法正常再次打开该悬浮窗的问题。 ([e125646](https://github.com/InfSein/hqhelper-dawntrail/commit/e125646684f40b4dc6ce190df2984c0513f93eef))
+
+
+### Features
+
+* 版本更新后第一次打开页面会展示更新日志 ([f112953](https://github.com/InfSein/hqhelper-dawntrail/commit/f1129536cb9f320da62f8f8ec207f5b4707bda73))
+* 采集时钟 ([e12d9c8](https://github.com/InfSein/hqhelper-dawntrail/commit/e12d9c8720a166eefd43b6f8ff25192cfdf57496))
+* 调整关于本作的内容 ([c63886c](https://github.com/InfSein/hqhelper-dawntrail/commit/c63886c5cd2826e80d538e9fa488b6702198f894))
+* 根据国服7.0特设站公布的新消息更新职业名。 ([49145b1](https://github.com/InfSein/hqhelper-dawntrail/commit/49145b1ea4c74ae7102065ee9ede3cdbddb1095f))
+* 更新创作者名单 ([e913e7d](https://github.com/InfSein/hqhelper-dawntrail/commit/e913e7db3f111868f3588d41bdf71317819d5750))
+* 完成 `更新日志` 弹窗 ([84fea6b](https://github.com/InfSein/hqhelper-dawntrail/commit/84fea6bb41d9fd755045e1bdae7778c330a3af87))
+
+
+
+# [2.0.0](https://github.com/InfSein/hqhelper-dawntrail/compare/v0.0.52...v2.0.0) (2024-09-09)
+
+
+### Bug Fixes
+
+* 进一步地修正制作/采集职业图标的对齐 ([f6d4876](https://github.com/InfSein/hqhelper-dawntrail/commit/f6d4876bd881aba734e3f0462bcb9a6d218b2877))
+* 修复查看报表的复制宏功能在启用了直接复制时无法正确控制剪贴板的问题 ([17ad46f](https://github.com/InfSein/hqhelper-dawntrail/commit/17ad46f8d2c3d729cd7af6a2c25a463d867c3574))
+* 修复查看报表中的物品按钮悬浮窗无法正常框选文本内容的问题 ([552ac73](https://github.com/InfSein/hqhelper-dawntrail/commit/552ac73a7d29cbad167b11c27a9411903fc1c509))
+* 修复道具过多时，清单模式的输入框会溢出容器的问题 ([86a4e4b](https://github.com/InfSein/hqhelper-dawntrail/commit/86a4e4b83017c66b5997e3566330564491554766))
+* 修复复制的宏内容过多时，复制为宏弹窗会溢出屏幕的问题 ([74eaf39](https://github.com/InfSein/hqhelper-dawntrail/commit/74eaf391ff1c3ae4ef71251bc2dd8e6afeb6f92e))
+* 修复客户端的安装更新按钮在已是最新版本时仍旧可以点击的问题 ([2d6df96](https://github.com/InfSein/hqhelper-dawntrail/commit/2d6df962e286d25134d1a1309d3b6dca67a90f10))
+* 修复了移动端点击空白区域关闭标题栏/部件图标的悬浮窗后，无法正常再次打开相同悬浮窗的问题 ([8336fbb](https://github.com/InfSein/hqhelper-dawntrail/commit/8336fbbe2fbc390af8e45d85bec17a2cbb18faf0))
+* 修复了PWA应用无法正常检查更新的问题 ([d983e6e](https://github.com/InfSein/hqhelper-dawntrail/commit/d983e6eaf61caca70aa8933b50f25033659ab2ef))
+* 修复Electron环境无法复制文本的问题 ([e1213cc](https://github.com/InfSein/hqhelper-dawntrail/commit/e1213cc94c3bd2418a86148d145b4c5da45e9136))
+* 修正显示效果 ([d26abe4](https://github.com/InfSein/hqhelper-dawntrail/commit/d26abe4cf2d299e8d9536eb74933fe05fa41ecd3))
+* 修正译名 ([e371805](https://github.com/InfSein/hqhelper-dawntrail/commit/e371805fe9e3ad4b1d24c3fb55e53cfd22eb3b0e))
+* 修正译名 ([b2ff5b2](https://github.com/InfSein/hqhelper-dawntrail/commit/b2ff5b2a5213831504cbaee8632e953700877504))
+* 修正译名 ([1df46d7](https://github.com/InfSein/hqhelper-dawntrail/commit/1df46d71a41ebfa423809050c5a9c2b5958c3743))
+* 修正译名 ([212dbfc](https://github.com/InfSein/hqhelper-dawntrail/commit/212dbfccddd770710ab673703577e997c775d551))
+* 修正引用 ([693117c](https://github.com/InfSein/hqhelper-dawntrail/commit/693117cd0f3d21a760eaa3c04d8ebc8d560c14a3))
+* 修正制作职业图标的对齐 ([2b02d08](https://github.com/InfSein/hqhelper-dawntrail/commit/2b02d08f308cd0b91c5a5cc0aa4fdc0e61325213))
+
+
+### Features
+
+* 查看报表增加 `制作素材：三级` 模块 ([ced87d9](https://github.com/InfSein/hqhelper-dawntrail/commit/ced87d98f6416e05f9b6859012ca0db0391daead))
+* 查看为宏现在会修改预览区域文本的颜色以演示其在游戏内的显示效果 ([8003c2d](https://github.com/InfSein/hqhelper-dawntrail/commit/8003c2dab2f405ab6f4cc78f193371a1721fb8e7))
+* 点数按钮的悬浮窗现在可以复制宏 ([bd2600b](https://github.com/InfSein/hqhelper-dawntrail/commit/bd2600bc6795a2c769a63e4cd2c191b98cd20fe2))
+* 点数统计按钮的悬浮窗现在会在没有需要兑换的道具时显示提示 ([91d6eb7](https://github.com/InfSein/hqhelper-dawntrail/commit/91d6eb7c612840f4df88670792f0314f0e913542))
+* 调整关于本作的内容 ([c63886c](https://github.com/InfSein/hqhelper-dawntrail/commit/c63886c5cd2826e80d538e9fa488b6702198f894))
+* 调整职业图标按钮职业名提示的显示效果 ([0ff9b32](https://github.com/InfSein/hqhelper-dawntrail/commit/0ff9b3220b008e870c3634ca67c5dd5737caff42))
+* 更新创作者名单 ([e913e7d](https://github.com/InfSein/hqhelper-dawntrail/commit/e913e7db3f111868f3588d41bdf71317819d5750))
+* 更新前提示 ([8189c6b](https://github.com/InfSein/hqhelper-dawntrail/commit/8189c6bed3dd27865d4c0b32214c39cb007fb5d5))
+* 更新英文ui本地化 ([28025a7](https://github.com/InfSein/hqhelper-dawntrail/commit/28025a7147137ccb100251fbb471e793c31305c5))
+* 进一步优化显示效果 ([17fd160](https://github.com/InfSein/hqhelper-dawntrail/commit/17fd160fb94ec39b134f4be337fa67e56794d2f3))
+* 进一步优化制作/采集职业图标的对齐 ([d09162a](https://github.com/InfSein/hqhelper-dawntrail/commit/d09162ae981c29992ebcc6dbc81a06cf84b62e8d))
+* 可被捕鱼人采集的道具现在会显示采集信息(导航到鱼糕/饿猫) ([28fb886](https://github.com/InfSein/hqhelper-dawntrail/commit/28fb886c78a9ae9f0832971c6cfdd0d3352199cf))
+* 可制作道具的配方信息现在还展示对应生产职业的职业图标 ([1429072](https://github.com/InfSein/hqhelper-dawntrail/commit/14290722258b6cbf5cf1820320374fcebee669ee))
+* 客户端下载webpack的url从仓库源码转为对应版本RELEASE ([0b5b673](https://github.com/InfSein/hqhelper-dawntrail/commit/0b5b673ef6dd00c20faea600be34c9c44694af86))
+* 适应electron接口 ([e05c26b](https://github.com/InfSein/hqhelper-dawntrail/commit/e05c26ba414185f69ca3c3ae37c599c002a6d003))
+* 提供 `electronAPI` 类型声明 ([684d7ea](https://github.com/InfSein/hqhelper-dawntrail/commit/684d7ea78de0f015b440c17096bdf5fb1f12710f))
+* 为7.0新增职业的武器类型添加中文暂译 ([e2850ae](https://github.com/InfSein/hqhelper-dawntrail/commit/e2850ae9714d62b4d0edc2722d634d54b1d95cea))
+* 为所有首页下拉框选项添加提示词 ([174872b](https://github.com/InfSein/hqhelper-dawntrail/commit/174872bbde8be1f97f0d2d621e967291e2f49784))
+* 物品按钮现在可以右键弹出操作菜单 ([3b5bab3](https://github.com/InfSein/hqhelper-dawntrail/commit/3b5bab3ff17628356714bfb5a77b19043d247157))
+* 物品按钮悬浮窗现在还会显示装备道具的特殊属性 ([af9da55](https://github.com/InfSein/hqhelper-dawntrail/commit/af9da5529058f5d21902638f463206fc3698a493))
+* 现在可采集道具会在采集信息处显示采集的职业 ([e295598](https://github.com/InfSein/hqhelper-dawntrail/commit/e295598672965b3a8c48bc33e7cd78e11455ff6e))
+* 现在可以自定义点击物品按钮时的行为 ([ed763e1](https://github.com/InfSein/hqhelper-dawntrail/commit/ed763e1f0a1fa96468e344372fc4821a05b68cb4))
+* 现在清单中没有任何需要的道具时，点击`复制宏`按钮会提示`没有需要复制的内容`而非复制空白内容 ([82e3c73](https://github.com/InfSein/hqhelper-dawntrail/commit/82e3c732db0ba616d04c18d1bcd56276c1305b92))
+* 现在修改偏好设置后，会确认是否需要立即刷新页面来应用设置更改 ([8781763](https://github.com/InfSein/hqhelper-dawntrail/commit/87817631db88df7d72ad20a0ef44f001139759cd))
+* 现在移动端可以正常点击菜单外的空白区域来关闭选择部件区操作按钮的下拉菜单 ([a012f34](https://github.com/InfSein/hqhelper-dawntrail/commit/a012f346ea2907f293023a11e48295857d5abdf0))
+* 移除内测提示横幅 ([1cf6908](https://github.com/InfSein/hqhelper-dawntrail/commit/1cf6908b81bc00917a5541741b0ba9d15983e2e3))
+* 移动端现在也可以查看报表 ([9b486d8](https://github.com/InfSein/hqhelper-dawntrail/commit/9b486d8d36fb5fa0ee9e79976a04b1a65d28244e))
+* 用户初次访问时，尝试根据系统语言自动设置UI语言 ([e629fb8](https://github.com/InfSein/hqhelper-dawntrail/commit/e629fb8f447f0937e4e5cc6e70bad94b5975cd84))
+* 优化步进器组件在特定宽度显示器(例如iPad)上的显示效果 ([c8cef98](https://github.com/InfSein/hqhelper-dawntrail/commit/c8cef9823bc78f9118f1c43663593838e07d8800))
+* 优化部分场景下物品按钮悬浮窗的显示效果 ([0ad8cf9](https://github.com/InfSein/hqhelper-dawntrail/commit/0ad8cf90c326c541e11f987a63e3f88392d8f83d))
+* 优化部件选择逻辑 ([2dd274f](https://github.com/InfSein/hqhelper-dawntrail/commit/2dd274fff10a1a6f27a9b2f0d5e04d6dbdeea98c))
+* 优化采集信息(地图/位置)过长时的显示效果 ([030d3b9](https://github.com/InfSein/hqhelper-dawntrail/commit/030d3b9eb120ed082ee822c791f160cd4d925be3))
+* 优化偏好设置中各设置项的提示文本 ([eca44cb](https://github.com/InfSein/hqhelper-dawntrail/commit/eca44cbd4713529c20d4ac9c229068ecbf2e97d8))
+* 优化设置项描述 ([e89b0cd](https://github.com/InfSein/hqhelper-dawntrail/commit/e89b0cdac085c9ef7994cef7ef3756cbece82677))
+* 优化特定尺寸显示器下，`已选部件` 弹窗的显示效果 ([9d8c4ac](https://github.com/InfSein/hqhelper-dawntrail/commit/9d8c4ac1eddaf1f1a3dcec7e8baa66ec2312b3b9))
+* 优化页面性能 ([91924bf](https://github.com/InfSein/hqhelper-dawntrail/commit/91924bfaf9f63661201dcad708649088fc7e8db9))
+* 优化ui ([9aecf23](https://github.com/InfSein/hqhelper-dawntrail/commit/9aecf23f43b677d0a0503c0bcd3b05e4bac77b93))
+* 右键复制道具名时进行toast提示 ([b9be6f7](https://github.com/InfSein/hqhelper-dawntrail/commit/b9be6f77a49733fc7862e9432441ed875ddd2bac))
+* 允许移动端通过长按的方式来触发物品按钮的右键菜单 ([4488a5e](https://github.com/InfSein/hqhelper-dawntrail/commit/4488a5e2cd2eb6e7459ed2af410287cbf0caa74b))
+* 暂时隐藏 `装备属性` 栏目 ([8d821f2](https://github.com/InfSein/hqhelper-dawntrail/commit/8d821f2eb956fb693e60adbe448dc97142c66f41))
+* 增加了单独的 `切换主题` 菜单选项，以便快捷地切换明暗。 ([4d51d5f](https://github.com/InfSein/hqhelper-dawntrail/commit/4d51d5f2de7f6f47d2dfc576441fd05e82398f71))
+* 支持客户端窗口拖拽 ([a9291c0](https://github.com/InfSein/hqhelper-dawntrail/commit/a9291c05e0a4d8c2e6d8ca0977061df8415c80cc))
+* 自动更新 ([ed88ff5](https://github.com/InfSein/hqhelper-dawntrail/commit/ed88ff5cdd6dc3b7d22c658b8d4afde1bdbdff34))
+* 自动更新添加try-catch ([0bdde43](https://github.com/InfSein/hqhelper-dawntrail/commit/0bdde435d1d6e6820bb8c92c9f30ffad1e0bce34))
+* PING操作改用 `electronAPI.httpGet` ([5f70f91](https://github.com/InfSein/hqhelper-dawntrail/commit/5f70f91f8a89f50d7a3c5dbab3191b808ffc29c7))
+
+
+
 ## v0.0.39 (2024-07-19)
 
 ### New feature:
