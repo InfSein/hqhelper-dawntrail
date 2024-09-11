@@ -38,6 +38,11 @@ interface ItemButtonProps {
   btnHeight?: number;
   /** 按钮颜色 */
   btnColor?: string;
+  /** 按钮额外样式。
+   * * 注意：启用此项将覆盖 `btnWidth` 与 `btnHeight` */
+  btnExtraStyle?: string;
+  /** 按钮额外类名 */
+  btnExtraClass?: string;
 
   /** 悬浮窗使用自定义宽度 */
   popUseCustomWidth?: boolean;
@@ -245,7 +250,8 @@ const handleItemButtonClick = async () => {
   >
     <n-button
       class="item-button"
-      :style="{ width: btnWidthVal, height: btnHeightVal }"
+      :class="btnExtraClass"
+      :style="btnExtraStyle ?? { width: btnWidthVal, height: btnHeightVal }"
       :disabled="disabled"
       :color="btnColor"
       @contextmenu="handleContextMenu"
