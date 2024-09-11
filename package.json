@@ -1,6 +1,6 @@
 {
   "name": "hqhelper-dawntrail",
-  "version": "2.0.1",
+  "version": "2.0.0",
   "private": true,
   "author": "InfSein",
   "description": "One web app for ffxiv dawntrail master crafters.",
@@ -21,6 +21,7 @@
     "cheerio": "^1.0.0",
     "combined-stream": "^1.0.8",
     "delayed-stream": "^1.0.0",
+    "electron-log": "^5.2.0",
     "electron-updater": "^6.2.1",
     "form-data": "^4.0.0",
     "jsdom": "^24.1.1",
@@ -58,10 +59,21 @@
   "build": {
     "appId": "com.infSein.hqhelperDawntrail",
     "productName": "HqHelper",
+    "asar": true,
+    "asarUnpack": [
+      "electron/static-pages/**"
+    ],
     "files": [
-      "electron/static-pages/**/*",
+      "!electron/static-pages/**/*",
       "electron/main.js",
       "electron/preload.js"
+    ],
+    "extraResources": [
+      {
+        "from": "electron/static-pages/",
+        "to": "static-pages/",
+        "filter": ["**/*"]
+      }
     ],
     "nsis": {
       "oneClick": false,
@@ -80,7 +92,6 @@
           ]
         }
       ]
-    },
-    "asar": true
+    }
   }
 }

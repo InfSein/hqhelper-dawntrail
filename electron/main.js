@@ -6,13 +6,24 @@ const axios = require('axios');
 const unzipper = require('unzipper');
 const dns = require('dns');
 const net = require('net');
+const logger = require('electron-log');
+
+logger.transports.console.level = false
+logger.transports.file.level = 'debug'
+logger.transports.file.maxSize = 10024300 // 文件最大不超过 10M
+logger.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}.{ms}] [{level}]{scope} {text}'
+let date = new Date()
+let dateStr = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+logger.transports.file.resolvePath = () => 'log\\' + dateStr + '.log';
 
 let mainWindow;
-const ZIP_URL = 'https://github.com/InfSein/hqhelper-dawntrail/archive/refs/heads/static-pages.zip';
-const ZIP_PATH = path.join(__dirname, 'static-pages.zip');
-const TEMP_DIR = path.join(__dirname, 'static-pages-temp');
+const CLIENT_VERSION = 'v2'
+
+const ZIP_PATH = path.join(app.getPath('userData'), 'static-pages.zip');
+const TEMP_DIR = path.join(app.getPath('userData'), 'static-pages-temp');
 const EXTRACTED_DIR = path.join(TEMP_DIR, 'dist');
-const CLIENT_VERSION = 'v1'
+const STATICPAGE_DIR = path.join(process.resourcesPath, 'static-pages');
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1620,
@@ -29,7 +40,7 @@ function createWindow() {
       contextIsolation: true,
     },
   });
-  const indexPath = path.join(__dirname, 'static-pages/index.html');
+  const indexPath = path.join(STATICPAGE_DIR, 'index.html');
   mainWindow.loadURL(`file://${indexPath}`);
 
   mainWindow.on('closed', function () {
@@ -37,49 +48,13 @@ function createWindow() {
   });
 
   ipcMain.on('check-for-updates', async () => {
-    try {
-      // Download ZIP file
-      const response = await axios.get(ZIP_URL, { responseType: 'stream' });
-      const writeStream = fs.createWriteStream(ZIP_PATH);
-
-      response.data.pipe(writeStream);
-
-      writeStream.on('finish', async () => {
-        console.log('ZIP file downloaded successfully');
-        try {
-          // Extract ZIP file
-          await extractZipFile(ZIP_PATH, TEMP_DIR);
-          console.log('ZIP file extracted successfully');
-
-          // Update local files
-          updateLocalFiles(EXTRACTED_DIR, path.join(__dirname, 'static-pages'));
-
-          // Clean up
-          fs.rmSync(TEMP_DIR, { recursive: true, force: true });
-          console.log('Temporary files cleaned up');
-
-          // Notify renderer process
-          mainWindow.webContents.send('update-ready');
-        } catch (error) {
-          console.error('Failed to process ZIP file:', error);
-        }
-      });
-
-      writeStream.on('error', (err) => {
-        console.error('Failed to download ZIP file:', err);
-      });
-    } catch (error) {
-      console.error('Failed to check for updates:', error);
-    }
+    logger.warn('[common-warn] 调用了被弃用的API: check-for-updates')
+    return 'api deprecated'
   });
 
   ipcMain.on('install-update', () => {
-    try {
-      app.relaunch();
-      app.exit();
-    } catch (error) {
-      console.error('Failed to install update:', error);
-    }
+    logger.warn('[common-warn] 调用了被弃用的API: install-update')
+    return 'api deprecated'
   });
 
   ipcMain.on('window-minimize', (event) => {
@@ -158,39 +133,46 @@ function createWindow() {
   /* 从给定URL下载WEB项目更新包，并在下载成功后自动重启 */
   ipcMain.handle('download-update-pack', async (event, url) => {
     try {
+      logger.info('[download-update-pack] 下载URL: ' + url)
       const response = await axios.get(url, { responseType: 'stream' });
       const writeStream = fs.createWriteStream(ZIP_PATH);
       response.data.pipe(writeStream);
 
       writeStream.on('finish', async () => {
-        console.log('ZIP file downloaded successfully');
+        logger.info('[download-update-pack] 下载成功，开始解压')
         try {
           await extractZipFile(ZIP_PATH, TEMP_DIR);
           console.log('ZIP file extracted successfully');
+          logger.info('[download-update-pack] 解压成功，开始替换本地文件')
 
-          updateLocalFiles(EXTRACTED_DIR, path.join(__dirname, 'static-pages'));
+          updateLocalFiles(EXTRACTED_DIR, STATICPAGE_DIR);
+          logger.info('[download-update-pack] 替换成功')
 
           fs.rmSync(TEMP_DIR, { recursive: true, force: true });
-          console.log('Temporary files cleaned up');
+          logger.info('[download-update-pack] 临时文件清理成功')
 
           app.relaunch();
           app.exit();
         } catch (error) {
-          console.error('Failed to process ZIP file:', error);
-          alert('ZIP file process failed')
+          logger.error('[download-update-pack] 解压期间发生错误：' + error)
+          throw error
         }
       });
 
-      writeStream.on('error', (err) => {
-        console.error('Failed to download ZIP file:', err);
-        alert('Download failed')
+      writeStream.on('error', (error) => {
+        logger.error('[download-update-pack] 下载期间发生错误：' + error)
+        throw error
       });
 
-      return ''
+      writeStream.on('close', () => {
+        logger.info('[download-update-pack] 下载完成');
+      });
+
     } catch (error) {
-      console.error('Failed to check for updates:', error);
-      return String(error)
+      logger.error('[download-update-pack] 检查更新时发生错误：' + error)
+      throw error
     }
+    return ''
   })
   
   /* 调用默认浏览器打开给定URL */
