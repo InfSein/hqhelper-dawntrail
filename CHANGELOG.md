@@ -1,3 +1,11 @@
+## [2.0.2](https://github.com/InfSein/hqhelper-dawntrail/compare/v2.0.1...v2.0.2) (2024-09-11)
+
+
+### Bug Fixes
+
+* 修复未部署I18N的问题
+
+
 ## [2.0.1](https://github.com/InfSein/hqhelper-dawntrail/compare/v2.0.0...v2.0.1) (2024-09-11)
 
 
