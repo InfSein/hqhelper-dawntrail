@@ -1771,13 +1771,6 @@
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
-  "此功能尚未制作完成，请耐心等待。": {
-    "en": "This function has not been finished yet. Please wait.",
-    "ja": "この機能はまだ開発中です、お待ちください。",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
-    ]
-  },
   "以人的意志改变机械的程序。": {
     "en": "Change app settings by your will.",
     "ja": "人の意思で機械の稼働を改変できる神たる能力",
@@ -2263,66 +2256,150 @@
     ]
   },
   "修复了客户端的安装更新按钮在已是最新版本时仍旧可以点击的问题。": {
-    "en": "修复了客户端的安装更新按钮在已是最新版本时仍旧可以点击的问题。",
+    "en": "Fixed update button still could be clicked when client is up to date.",
     "ja": "修复了客户端的安装更新按钮在已是最新版本时仍旧可以点击的问题。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修正了部分道具的中文译名。": {
-    "en": "修正了部分道具的中文译名。",
-    "ja": "修正了部分道具的中文译名。",
+    "en": "",
+    "ja": "",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "现在可以在“偏好设置”中自定义点击物品按钮时的行为。": {
-    "en": "现在可以在“偏好设置”中自定义点击物品按钮时的行为。",
+    "en": "Now you could customize action while clicking item button by change settings in \"User Preferences\".",
     "ja": "现在可以在“偏好设置”中自定义点击物品按钮时的行为。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "重制了移动端“已选部件”弹窗的显示效果。": {
-    "en": "重制了移动端“已选部件”弹窗的显示效果。",
+    "en": "Remaked the display effect of \"View Selected\" modal on mobile.",
     "ja": "重制了移动端“已选部件”弹窗的显示效果。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "根据国服7.0特设站公布的新消息更新了职业名。": {
-    "en": "根据国服7.0特设站公布的新消息更新了职业名。",
-    "ja": "根据国服7.0特设站公布的新消息更新了职业名。",
+    "en": "",
+    "ja": "",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "优化了部分场景下物品按钮悬浮窗的显示效果。": {
-    "en": "优化了部分场景下物品按钮悬浮窗的显示效果。",
+    "en": "Optimized the display effect of item button floating window in some cases.",
     "ja": "优化了部分场景下物品按钮悬浮窗的显示效果。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "更新了“关于本作”中创作者的信息。": {
-    "en": "更新了“关于本作”中创作者的信息。",
+    "en": "Updated staff info in \"About\"",
     "ja": "更新了“关于本作”中创作者的信息。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "HqHelper正式发布。": {
-    "en": "HqHelper正式发布。",
+    "en": "HqHelper released.",
     "ja": "HqHelper正式发布。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "更新时间：{date}": {
-    "en": "更新时间：{date}",
+    "en": "DATE: {date}",
     "ja": "更新时间：{date}",
     "$files": [
       "components\\modals\\ModalChangeLogs.vue"
+    ]
+  },
+  "实装了“采集时钟”功能。": {
+    "en": "Function \"Gatherclock\" released.",
+    "ja": "实装了“采集时钟”功能。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "实装了“更新日志”功能。": {
+    "en": "Function \"Change Logs\" released.",
+    "ja": "实装了“更新日志”功能。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了自动更新提示不会展示最新版本版本号的问题。": {
+    "en": "Fixed auto-update prompt not showing latest version number.",
+    "ja": "修复了自动更新提示不会展示最新版本版本号的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了启用“禁用工作状态记忆”后，食药计算器的工作状态缓存不会被清除的问题。": {
+    "en": "Fixed cache of FT Helper not been cleared after enabling \"Disable Work State Memory\"",
+    "ja": "修复了启用“禁用工作状态记忆”后，食药计算器的工作状态缓存不会被清除的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了移动端点击空白区域关闭{}的悬浮窗后，无法正常再次打开该悬浮窗的问题。": {
+    "en": "Fixed floating window not shown while re-clicking {} in mobile.",
+    "ja": "修复了移动端点击空白区域关闭{}的悬浮窗后，无法正常再次打开该悬浮窗的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "“选择部件”栏目中当前[主副手/防具/首饰]": {
+    "en": "Current [Main-offhand/Attire/Accessory] in \"Select Gears\"",
+    "ja": "“选择部件”栏目中当前[主副手/防具/首饰]",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "收藏": {
+    "en": "Star",
+    "ja": "收藏",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "点击此按钮来收藏/取消收藏这个采集品。": {
+    "en": "Click the button to star/unstar this item.",
+    "ja": "点击此按钮来收藏/取消收藏这个采集品。",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "被收藏的采集品将在“收藏”栏目单独展示。": {
+    "en": "Item stared would be shown in \"Star\" column.",
+    "ja": "被收藏的采集品将在“收藏”栏目单独展示。",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "现可采集": {
+    "en": "Can gather now",
+    "ja": "现可采集",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "您已经处于采集时钟页面。": {
+    "en": "You have already been inside the page of Gatherclock.",
+    "ja": "您已经处于采集时钟页面。",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "挖穿艾欧泽亚的好帮手！": {
+    "en": "View time-limited gatherings.",
+    "ja": "挖穿艾欧泽亚的好帮手！",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
     ]
   }
 }
