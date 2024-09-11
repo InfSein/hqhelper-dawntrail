@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, h, inject, ref, type Component, type Ref, type VNode } from 'vue'
+import { computed, h, inject, onMounted, ref, type Component, type Ref, type VNode } from 'vue'
 import {
   NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover, NTooltip,
   useMessage,
@@ -31,18 +31,31 @@ import type { AppVersionJson } from '@/models'
 import EorzeaTime from '@/tools/eorzea-time'
 import AppStatus from '@/variables/app-status'
 import router from '@/router'
+import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
+import { useStore } from '@/store'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh')
 const isChina = computed(() => locale.value === 'zh')
-const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
 const theme = inject<Ref<"light" | "dark">>('theme') ?? ref('light')
+const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const switchTheme = inject<() => void>('switchTheme')!
 const displayCheckUpdatesModal = inject<() => void>('displayCheckUpdatesModal')!
 
+const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
+
+onMounted(() => {
+  if (userConfig.value.cache_lasttime_version !== AppStatus.Version) {
+    userConfig.value.cache_lasttime_version = AppStatus.Version
+    const newConfig = fixUserConfig(userConfig.value)
+    store.commit('setUserConfig', newConfig)
+    displayChangeLogsModal()
+  }
+})
 
 const showMenus = ref(false)
 

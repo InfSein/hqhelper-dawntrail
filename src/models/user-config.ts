@@ -18,6 +18,7 @@ export interface UserConfigModel {
   disable_auto_update: boolean
 
   // hidden options
+  cache_lasttime_version: string
   cache_ui_fold: any
   cache_work_state: any
   fthelper_cache_work_state: any
@@ -39,6 +40,7 @@ const defaultUserConfig: UserConfigModel = {
   github_mirror_site: 'https://mirror.ghproxy.com',
   disable_auto_update: false,
 
+  cache_lasttime_version: 'none',
   cache_ui_fold: {}, // active cache, { key:string -> value:boolean }
   cache_work_state: {}, // active cache, view struct in `MainPage.vue` 's `workState`
   fthelper_cache_work_state: {},
