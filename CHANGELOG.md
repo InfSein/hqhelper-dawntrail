@@ -1,3 +1,24 @@
+## [2.0.1](https://github.com/InfSein/hqhelper-dawntrail/compare/v2.0.0...v2.0.1) (2024-09-11)
+
+
+### Bug Fixes
+
+* 修复客户端的安装更新按钮在已是最新版本时仍旧可以点击的问题 ([2d6df96](https://github.com/InfSein/hqhelper-dawntrail/commit/2d6df962e286d25134d1a1309d3b6dca67a90f10))
+* 修复了启用 `禁用工作状态记忆` 后，食药计算器的工作状态缓存不会被清除的问题 ([2bb7981](https://github.com/InfSein/hqhelper-dawntrail/commit/2bb7981e9725aeacf1835f86755f2e09c65856b5))
+* 修复了移动端点击空白区域关闭“选择部件”栏目中当前[主副手/防具/首饰]的悬浮窗后，无法正常再次打开该悬浮窗的问题。 ([e125646](https://github.com/InfSein/hqhelper-dawntrail/commit/e125646684f40b4dc6ce190df2984c0513f93eef))
+
+
+### Features
+
+* 版本更新后第一次打开页面会展示更新日志 ([f112953](https://github.com/InfSein/hqhelper-dawntrail/commit/f1129536cb9f320da62f8f8ec207f5b4707bda73))
+* 采集时钟 ([e12d9c8](https://github.com/InfSein/hqhelper-dawntrail/commit/e12d9c8720a166eefd43b6f8ff25192cfdf57496))
+* 调整关于本作的内容 ([c63886c](https://github.com/InfSein/hqhelper-dawntrail/commit/c63886c5cd2826e80d538e9fa488b6702198f894))
+* 根据国服7.0特设站公布的新消息更新职业名。 ([49145b1](https://github.com/InfSein/hqhelper-dawntrail/commit/49145b1ea4c74ae7102065ee9ede3cdbddb1095f))
+* 更新创作者名单 ([e913e7d](https://github.com/InfSein/hqhelper-dawntrail/commit/e913e7db3f111868f3588d41bdf71317819d5750))
+* 完成 `更新日志` 弹窗 ([84fea6b](https://github.com/InfSein/hqhelper-dawntrail/commit/84fea6bb41d9fd755045e1bdae7778c330a3af87))
+
+
+
 # [2.0.0](https://github.com/InfSein/hqhelper-dawntrail/compare/v0.0.52...v2.0.0) (2024-09-09)
 
 
