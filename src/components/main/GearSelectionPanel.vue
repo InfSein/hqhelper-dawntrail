@@ -382,7 +382,7 @@ defineExpose({
     <template #header>
       <i class="xiv square-3"></i>
       <span class="card-title-text">{{ t('选择部件') }}</span>
-      <n-popover placement="bottom-start">
+      <n-popover placement="bottom-start" :trigger="isMobile ? 'click' : 'hover'">
         <template #trigger>
           <span class="card-title-desc">{{ selectedAffixes }}</span>
         </template>

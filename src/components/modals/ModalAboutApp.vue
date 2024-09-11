@@ -44,7 +44,9 @@ const handleClose = () => {
     >
       <template #header>
         <div class="card-title">
-          <n-icon><InfoSharp /></n-icon>
+          <n-icon>
+            <InfoSharp />
+          </n-icon>
           <span class="title">{{ t('关于本作') }}</span>
         </div>
       </template>
@@ -79,59 +81,44 @@ const handleClose = () => {
                 >
                   <div class="subgroup-title">{{ t(subgroup.group_name) }}</div>
                   <div class="subgroup-content">
-                    <div
-                      v-for="(member, mIndex) in subgroup.members"
-                      :key="'staff-member-' + index + '-' + sgIndex + '-' + mIndex"
-                      class="subgroup-item"
-                    >
-                      <div class="member-avatar">
-                        <n-avatar
-                          round
-                          :size="15"
-                          :src="member.avatar_url"
-                          fallback-src="./image/game-job/companion/none.png"
-                        />
-                      </div>
-                      <div class="member-name">
-                        <n-popover :placement="isMobile ? 'bottom' : 'right'">
-                          <template #trigger>
-                            <a href="javascript:void(0);">{{ member.name }}</a>
-                          </template>
-                          <div class="intro-popover">
-                            <div class="base-info">
-                              <div class="avatar">
-                                <n-avatar
-                                  round
-                                  size="medium"
-                                  :src="member.avatar_url"
-                                  fallback-src="./image/game-job/companion/none.png"
-                                />
-                              </div>
-                              <div class="name title">{{ member.name }}</div>
-                            </div>
-                            <n-divider />
-                            <div class="intro">
-                              <p v-for="(intro, i) in member.introductions" :key="member.name + '-intro-' + i">
-                                {{ intro }}
-                              </p>
-                            </div>
-                            <div class="tail">
-                              <div class="title">{{ t('个人主页：') }}</div>
-                              <div class="pages">
-                                <a
-                                  target="_blank"
-                                  v-for="(page, pIndex) in member.pages"
-                                  :key="member.name + '-page-' + pIndex"
-                                  :href="page.url"
-                                >
-                                  {{ page.name }}
-                                </a>
-                              </div>
-                            </div>
+                    <n-popover :placement="isMobile ? 'bottom' : 'right'" v-for="(member, mIndex) in subgroup.members"
+                    :key="'staff-member-' + index + '-' + sgIndex + '-' + mIndex">
+                      <template #trigger>
+                        <div class="subgroup-item">
+                          <div class="member-avatar">
+                            <n-avatar round :size="15" :src="member.avatar_url"
+                              fallback-src="./image/game-job/companion/none.png" />
                           </div>
-                        </n-popover>
+                          <div class="member-name">
+                            <a href="javascript:void(0);">{{ member.name }}</a>
+                          </div>
+                        </div>
+                      </template>
+                      <div class="intro-popover">
+                        <div class="base-info">
+                          <div class="avatar">
+                            <n-avatar round size="medium" :src="member.avatar_url"
+                              fallback-src="./image/game-job/companion/none.png" />
+                          </div>
+                          <div class="name title">{{ member.name }}</div>
+                        </div>
+                        <n-divider />
+                        <div class="intro">
+                          <p v-for="(intro, i) in member.introductions" :key="member.name + '-intro-' + i">
+                            {{ intro }}
+                          </p>
+                        </div>
+                        <div class="tail">
+                          <div class="title">{{ t('个人主页：') }}</div>
+                          <div class="pages">
+                            <a target="_blank" v-for="(page, pIndex) in member.pages"
+                              :key="member.name + '-page-' + pIndex" :href="page.url">
+                              {{ page.name }}
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    </n-popover>
                   </div>
                 </div>
               </div>

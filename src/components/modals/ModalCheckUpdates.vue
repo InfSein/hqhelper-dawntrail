@@ -47,7 +47,7 @@ const hqhelperNeedUpdate = computed(() => {
   return latestHqHelperVersion.value && latestHqHelperVersion.value != AppStatus.Version
 })
 const electronNeedUpdate = computed(() => {
-  return latestElectronVersion.value && latestElectronVersion.value != AppStatus.Version
+  return latestElectronVersion.value && latestElectronVersion.value != currentElectronVersion.value
 })
 
 const handleCheckUpdates = async () => {

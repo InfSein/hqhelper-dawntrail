@@ -217,7 +217,25 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
           { value: '/fc ', label: t('部队宏(/fc)') },
           { value: '/b ', label: t('新频宏(/b)') },
         ]
-      }
+      },
+      {
+        key: 'item_button_click_event',
+        label: t('点击物品按钮时的行为'),
+        descriptions: [
+          {
+            value: t('决定鼠标左键单击物品按钮时要如何做。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'select',
+        options: [
+          { value: 'none', label: t('什么都不做') },
+          { value: 'copy_name', label: t('复制物品名') },
+          { value: 'copy_isearch', label: t('复制物品检索宏') },
+        ]
+      },
     ]
   },
   /* Performance */
@@ -285,8 +303,8 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
           },
           {
             value: t('如果您使用的是网页端，浏览器会因为缓存而自动更新，开启此选项只能让您收到提示的频率减少。'),
-            class: '',
-            style: 'color: #3b7fef;'
+            class: 'color-info',
+            style: ''
           }
         ],
         warnings: [],
@@ -327,6 +345,8 @@ const handleSave = () => {
 
   if (formData.value.disable_workstate_cache) {
     formData.value.cache_work_state = {}
+    formData.value.fthelper_cache_work_state = {}
+    formData.value.gatherclock_cache_work_state = {}
   }
 
   const newConfig = fixUserConfig(formData.value)

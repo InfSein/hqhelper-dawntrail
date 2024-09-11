@@ -33,11 +33,16 @@ interface ItemButtonProps {
   itemInfo: ItemInfo
 
   /** 按钮宽度 */
-  btnWidth?: number;
+  btnWidth?: string | number;
   /** 按钮高度 */
   btnHeight?: number;
   /** 按钮颜色 */
   btnColor?: string;
+  /** 按钮额外样式。
+   * * 注意：启用此项将覆盖 `btnWidth` 与 `btnHeight` */
+  btnExtraStyle?: string;
+  /** 按钮额外类名 */
+  btnExtraClass?: string;
 
   /** 悬浮窗使用自定义宽度 */
   popUseCustomWidth?: boolean;
@@ -77,6 +82,7 @@ const iconSize = computed(() => {
 const btnWidthVal = computed(() => {
   const _w = props.btnWidth
   if (!_w) return 'auto'
+  if (typeof _w === 'string') return _w
   return `${_w}px`
 })
 const btnHeightVal = computed(() => {
@@ -175,12 +181,12 @@ const handleSelect = async (key: string | number, option: any) => {
     }
   }
 }
-const handleCopy = async (content: string) => {
+const handleCopy = async (content: string, successMessage?: string) => {
   const response = await CopyToClipboard(content)
   if (response) {
     NAIVE_UI_MESSAGE.error(t('复制失败：发生意外错误'))
   } else {
-    NAIVE_UI_MESSAGE.success(t('已复制到剪贴板'))
+    NAIVE_UI_MESSAGE.success(successMessage ?? t('已复制到剪贴板'))
   }
 }
 const onClickoutside = () => {
@@ -215,6 +221,23 @@ const handleItemButtonTouchEnd = (/*e: TouchEvent*/) => {
 }
 
 // #endregion
+
+const handleItemButtonClick = async () => {
+  const action = userConfig.value.item_button_click_event
+  const itemName = getItemName()
+  let copyContent = ''
+  if (action === 'copy_name') {
+    copyContent = itemName
+  } else if (action === 'copy_isearch') {
+    copyContent = `/isearch "${itemName}"`
+  } else {
+    // do nothing
+  }
+
+  if (copyContent) {
+    await handleCopy(copyContent, t('已复制 {content}', copyContent))
+  }
+}
 </script>
 
 <template>
@@ -227,13 +250,15 @@ const handleItemButtonTouchEnd = (/*e: TouchEvent*/) => {
   >
     <n-button
       class="item-button"
-      :style="{ width: btnWidthVal, height: btnHeightVal }"
+      :class="btnExtraClass"
+      :style="btnExtraStyle ?? { width: btnWidthVal, height: btnHeightVal }"
       :disabled="disabled"
       :color="btnColor"
       @contextmenu="handleContextMenu"
-      @touchstart="handleItemButtonTouchStart" 
-      @touchmove="handleItemButtonTouchMove" 
-      @touchend="handleItemButtonTouchEnd"
+      @touchstart.passive="handleItemButtonTouchStart" 
+      @touchmove.passive="handleItemButtonTouchMove" 
+      @touchend.passive="handleItemButtonTouchEnd"
+      @click="handleItemButtonClick"
     >
       <slot>
         <div class="item-container">

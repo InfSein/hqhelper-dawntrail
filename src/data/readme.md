@@ -2,6 +2,7 @@
 
 本文件夹存放数据文件，但是以typescript的形式进行编写。
 这里存放的数据，其性质介于assets\data文件夹下的JSON文件和constants文件夹下的ts文件之间。
+此外，`index.ts` 还提供对JSON文件的带有数据结构的解析。
 
 # 规范
 
