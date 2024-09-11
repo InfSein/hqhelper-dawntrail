@@ -345,6 +345,8 @@ const handleSave = () => {
 
   if (formData.value.disable_workstate_cache) {
     formData.value.cache_work_state = {}
+    formData.value.fthelper_cache_work_state = {}
+    formData.value.gatherclock_cache_work_state = {}
   }
 
   const newConfig = fixUserConfig(formData.value)
