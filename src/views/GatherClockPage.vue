@@ -18,6 +18,7 @@ import type { UserConfigModel } from '@/models/user-config'
 import type EorzeaTime from '@/tools/eorzea-time'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
 
@@ -187,7 +188,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
                   show-icon show-name
                   btn-extra-style="flex-grow: 1;"
                 />
-                <n-popover placement="bottom-start" :keep-alive-on-hover="false">
+                <n-popover placement="bottom-start" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
                   <template #trigger>
                     <n-button class="btn-star" @click="handleStarButtonClick(item)">
                       <template #icon>
@@ -284,7 +285,6 @@ const getPlaceName = (itemInfo : ItemInfo) => {
       gap: 0.2rem;
 
       .btn-star {
-        height: 100%;
         padding: 0px 8px;
       }
     }
@@ -326,6 +326,10 @@ const getPlaceName = (itemInfo : ItemInfo) => {
   .items-container {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    .item-card .title .btn-star {
+      height: 100%;
+    }
   }
 }
 
