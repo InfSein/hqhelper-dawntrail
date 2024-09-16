@@ -59,7 +59,7 @@ const handleClose = () => {
                       v-show="!!t(changeContent)"
                     >
                       {{ change.changes.length > 1 ? ((changeContentIndex + 1) + '. ') : '' }}
-                      {{ t(changeContent) }}
+                      {{ changeContent }}
                     </div>
                   </div>
                 </div>
