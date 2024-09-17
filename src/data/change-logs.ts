@@ -37,7 +37,7 @@ export const changelog = computed(() => {
   return [
     {
       version: '2.0.3',
-      date: '2024-09-16',
+      date: '2024-09-17',
       changes: [
         {
           name: groupName.bugfix,
