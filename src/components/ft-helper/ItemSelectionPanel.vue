@@ -10,6 +10,7 @@ import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
 import XivFARImage from '../custom-controls/XivFARImage.vue'
 import ItemSelector from '../custom-controls/ItemSelector.vue'
 import { useNbbCal } from '@/tools/use-nbb-cal'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 
@@ -26,6 +27,24 @@ const handleClearSelections = () => {
 }
 const fixPatch = (patch: string) => {
   return patch.replace('LEVELING', t('(练级)'))
+}
+
+const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
+  const lines : string[] = []
+  items.forEach(item => {
+    let line = ''
+    line += `[img]${item.iconUrl}[/img]` + '\t'
+    line += item.nameZH
+    line += `[size=70%][color=gray]${item.nameJA} / ${item.nameEN}[/color][/size]` + '\t'
+    const requires : string[] = []
+    item.craftRequires.forEach(require => {
+      const rqItemName = getItemInfo(require.id).nameZH
+      requires.push(`${rqItemName}x${require.count}`)
+    })
+    line += requires.join('、')
+    lines.push(line)
+  })
+  console.log(lines.join('\n'))
 }
 </script>
 
@@ -54,6 +73,7 @@ const fixPatch = (patch: string) => {
                     src="./image/game-job/companion/culinarian.png"
                   />
                   <span class="title">{{ t('食物') }}</span>
+                  <a v-if="false" href="javascript:void(0)" @click="handleExportToNgaBbsCode(foodAndTinc.foods)">[EXPORT]</a>
                 </div>
               </template>
               
@@ -75,6 +95,7 @@ const fixPatch = (patch: string) => {
                     src="./image/game-job/companion/alchemist.png"
                   />
                   <span class="title">{{ t('爆发药') }}</span>
+                  <a v-if="false" href="javascript:void(0)" @click="handleExportToNgaBbsCode(foodAndTinc.tincs)">[EXPORT]</a>
                 </div>
               </template>
               

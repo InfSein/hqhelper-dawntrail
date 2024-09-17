@@ -112,10 +112,10 @@ const menuItems = computed(() => {
     changeTheme: { label: t('切换主题'), icon: changeThemeIcon, click: switchTheme } as MenuItem,
     gatherClock: { label: t('采集时钟'), hide: hideGatherClock, icon: AccessAlarmsOutlined, click: redirectToGatherClockPage } as MenuItem,
     ftHelper: { label: t('食药计算'), hide: hideFTHelper, icon: FastfoodOutlined, click: redirectToFoodAndTincPage } as MenuItem,
-    contact: { label: t('联系我们'), icon: ContactlessSharp, click: displayContactModal } as MenuItem,
-    changelogs: { label: t('更新日志'), icon: EventNoteFilled, click: displayChangeLogsModal } as MenuItem,
     userPreferences: { label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal } as MenuItem,
     checkUpdates: { label: t('检查更新'), icon: UpdateSharp, click: handleCheckUpdates } as MenuItem,
+    changelogs: { label: t('更新日志'), icon: EventNoteFilled, click: displayChangeLogsModal } as MenuItem,
+    contact: { label: t('联系我们'), icon: ContactlessSharp, click: displayContactModal } as MenuItem,
     aboutApp: { label: t('关于本作'), icon: InfoFilled, click: displayAboutAppModal } as MenuItem
   }
 })
