@@ -1,6 +1,6 @@
 {
   "偏好设置": {
-    "en": "Preferences",
+    "en": "User Preferences",
     "ja": "設定",
     "$files": [
       "components\\AppHeader.vue",
@@ -99,7 +99,7 @@
     ]
   },
   "关于本作": {
-    "en": "About",
+    "en": "About Us",
     "ja": "当ツールについて",
     "$files": [
       "components\\AppHeader.vue"
@@ -617,7 +617,7 @@
     ]
   },
   "联系我们": {
-    "en": "Contact",
+    "en": "Contact Us",
     "ja": "コンタクト",
     "$files": [
       "components\\modals\\ModalContact.vue",
@@ -1206,7 +1206,7 @@
     ]
   },
   "食药计算": {
-    "en": "FT Helper",
+    "en": "Food & Tinctures",
     "ja": "調理品&薬品の计算",
     "$files": [
       "components\\main\\AppHeader.vue"
@@ -1639,7 +1639,7 @@
     ]
   },
   "采集时钟": {
-    "en": "Gatherclock",
+    "en": "Gather Clock",
     "ja": "採集時計",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
@@ -2298,7 +2298,7 @@
     ]
   },
   "更新了“关于本作”中创作者的信息。": {
-    "en": "Updated staff info in \"About\"",
+    "en": "Updated staff info in \"About Us\"",
     "ja": "「当ツールについて」に記載されているクリエイター情報を更新しました。",
     "$files": [
       "data\\change-logs.ts"
@@ -2400,6 +2400,48 @@
     "ja": "エオルゼアを掘り尽くすための最高のサポーター！",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "修复了“{f1}”中，“{f2}”按钮在移动端的高度不正常的问题。": {
+    "en": "Fixed incorrect height of \"{f2}\" button in \"{f1}\".",
+    "ja": "「{f1}」の「{f2}」ボタンがスマホ端末で高さが正常でない問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了“{f}”中部分文本未正确适配国际化翻译的问题。": {
+    "en": "Fixed some of text in \"{f}\" not correctly adapted to i18n.",
+    "ja": "「{f}」内の一部テキストが翻訳に正しく適応していない問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了{lang}设置为日语/英语时，“{f}”中的更新项序号可能不连贯的问题。": {
+    "en": "Fixed the issue where the update item numbers in \"{f}\" may not be coherent when {lang} is set to Japanese/English.",
+    "ja": "言語設定を日本語/英語にした場合、「{f}」内の更新項目の番号が連続しない可能性がある問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "调整了移动端顶部菜单按钮的顺序。": {
+    "en": "Adjusted the order of top menu buttons in mobile.",
+    "ja": "スマホ端末のトップメニューのボタン順序を調整しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在“{f1}”中的“{f2}”按钮在移动端不再会弹出提示悬浮窗。": {
+    "en": "Now the \"{f2}\" buttons in \"{f1}\" would no longer pop tips in mobile.",
+    "ja": "現在、「{f1}」内の「{f2}」ボタンがスマホ端末でツールチップを表示しなくなりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了部分国际化翻译。": {
+    "en": "Optimized some of i18n translation.",
+    "ja": "一部の翻訳を最適化しました。",
+    "$files": [
+      "data\\change-logs.ts"
     ]
   }
 }

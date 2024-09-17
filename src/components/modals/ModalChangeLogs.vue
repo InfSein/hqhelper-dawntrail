@@ -54,12 +54,11 @@ const handleClose = () => {
                   <div class="change-group-title">{{ t(change.name) }}</div>
                   <div class="change-group-content">
                     <div
-                      v-for="(changeContent, changeContentIndex) in change.changes"
+                      v-for="(changeContent, changeContentIndex) in change.changes.filter(str => str !== '')"
                       :key="patchlog.version + '-' + changeIndex + '-' + changeContentIndex"
-                      v-show="!!t(changeContent)"
                     >
                       {{ change.changes.length > 1 ? ((changeContentIndex + 1) + '. ') : '' }}
-                      {{ t(changeContent) }}
+                      {{ changeContent }}
                     </div>
                   </div>
                 </div>
