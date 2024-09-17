@@ -2404,42 +2404,42 @@
   },
   "修复了“{f1}”中，“{f2}”按钮在移动端的高度不正常的问题。": {
     "en": "Fixed incorrect height of \"{f2}\" button in \"{f1}\".",
-    "ja": "修复了“{f1}”中，“{f2}”按钮在移动端的高度不正常的问题。",
+    "ja": "「{f1}」の「{f2}」ボタンがスマホ端末で高さが正常でない問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修复了“{f}”中部分文本未正确适配国际化翻译的问题。": {
     "en": "Fixed some of text in \"{f}\" not correctly adapted to i18n.",
-    "ja": "修复了“{f}”中部分文本未正确适配国际化翻译的问题。",
+    "ja": "「{f}」内の一部テキストが翻訳に正しく適応していない問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修复了{lang}设置为日语/英语时，“{f}”中的更新项序号可能不连贯的问题。": {
     "en": "Fixed the issue where the update item numbers in \"{f}\" may not be coherent when {lang} is set to Japanese/English.",
-    "ja": "修复了{lang}设置为日语/英语时，“{f}”中的更新项序号可能不连贯的问题。",
+    "ja": "言語設定を日本語/英語にした場合、「{f}」内の更新項目の番号が連続しない可能性がある問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "调整了移动端顶部菜单按钮的顺序。": {
     "en": "Adjusted the order of top menu buttons in mobile.",
-    "ja": "调整了移动端顶部菜单按钮的顺序。",
+    "ja": "スマホ端末のトップメニューのボタン順序を調整しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "现在“{f1}”中的“{f2}”按钮在移动端不再会弹出提示悬浮窗。": {
     "en": "Now the \"{f2}\" buttons in \"{f1}\" would no longer pop tips in mobile.",
-    "ja": "现在“{f1}”中的“{f2}”按钮在移动端不再会弹出提示悬浮窗。",
+    "ja": "現在、「{f1}」内の「{f2}」ボタンがスマホ端末でツールチップを表示しなくなりました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "优化了部分国际化翻译。": {
     "en": "Optimized some of i18n translation.",
-    "ja": "优化了部分国际化翻译。",
+    "ja": "一部の翻訳を最適化しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
