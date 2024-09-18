@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import {
   NCard, NCollapse, NCollapseItem, NIcon, NModal
 } from 'naive-ui'
 import { EventNoteFilled } from '@vicons/material'
-import { changelog } from '@/data/change-logs'
+import { getChangelogs } from '@/data/change-logs'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -14,6 +14,10 @@ const showModal = defineModel<boolean>('show', { required: true })
 const handleClose = () => {
   showModal.value = false
 }
+
+const changelog = computed(() => {
+  return getChangelogs(t)
+})
 </script>
 
 <template>
