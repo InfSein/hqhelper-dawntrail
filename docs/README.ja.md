@@ -1,9 +1,19 @@
-# FFXIV HQ Helper: DAWNTRAIL
+<p align="center">
+  <img width="160" alt="icon" height="160" src="/public/icons/logo_v2_shadowed.png" />
+</p>
+
+<h1 align="center">7.x HQ Helper</h1>
+
+<p align="center">
+  <a href="/README.md">简体中文</a>
+  |
+  <strong>日本語</strong>
+  |
+  <a href="/docs/README.en.md">English</a>
+</p>
 
 ![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) <br>
 ![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)
-
-[简体中文](https://github.com/InfSein/hqhelper-dawntrail/blob/master/README-ZH.md) | **日本語** | [English](https://github.com/InfSein/hqhelper-dawntrail/blob/master/docs/README.en.md)
 
 生産＆採集プレイヤー向けの黄金編（パッチ7.0～7.4）秘伝書レシピ計算ツール。
 
@@ -35,7 +45,7 @@
 
 #### Windows アプリ
 
- [Release Electron v1](https://github.com/InfSein/hqhelper-dawntrail/releases/tag/electron.v1) をご覧ください。
+ [Release Electron v2](https://github.com/InfSein/hqhelper-dawntrail/releases/tag/electron.v2) をご覧ください。
 
 #### iOS アプリ
 
