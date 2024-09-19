@@ -164,7 +164,15 @@ const showDialogConfirm = inject<(
 // #endregion
 
 provide('userConfig', userConfig)
-provide('t', t)
+provide('t', (message: string, ...args: any[]) => {
+  const i18nResult = t(message, ...args)
+  if (/^[1-9]\d*$/.test(i18nResult)) {
+    return '' // 特殊处理 voerka-i18n 会对置空翻译返回 textMap id 的问题
+    // * https://github.com/zhangfisher/voerka-i18n/issues/47
+  } else {
+    return i18nResult
+  }
+})
 provide('theme', theme)
 provide('locale', locale)
 provide('isMobile', isMobile)
