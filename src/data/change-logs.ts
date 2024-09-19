@@ -1,6 +1,3 @@
-import { t } from '@/languages'
-import { computed } from 'vue'
-
 export interface PatchNote {
   /**
    * 版本号
@@ -26,14 +23,12 @@ export interface PatchChangeGroup {
   changes: string[];
 }
 
-const groupName = {
-  bugfix: t('问题修复'),
-  feature: t('功能更新'),
-  breaking: t('重要变更')
-}
-
-export const changelog = computed(() => {
-  console.log("t('修正了部分道具的中文译名。')", t('修正了部分道具的中文译名。'))
+export const getChangelogs = (t: (message: string, ...args: any[]) => string) => {
+  const groupName = {
+    bugfix: t('问题修复'),
+    feature: t('功能更新'),
+    breaking: t('重要变更')
+  }
   return [
     {
       version: '2.0.3',
@@ -113,4 +108,4 @@ export const changelog = computed(() => {
       ]
     }
   ] as PatchNote[]
-})
+}
