@@ -132,25 +132,45 @@ function createWindow() {
   
   /* 从给定URL下载WEB项目更新包，并在下载成功后自动重启 */
   ipcMain.handle('download-update-pack', async (event, url) => {
+    function sendProgress(event, stage, progress) {
+      event.sender.send('update-progress', { stage, progress });
+    }
+
     try {
       logger.info('[download-update-pack] 下载URL: ' + url)
-      const response = await axios.get(url, { responseType: 'stream' });
+      const response = await axios.get(url, {
+        responseType: 'stream',
+        onDownloadProgress: (progressEvent) => {
+          const totalBytes = progressEvent.total;
+          const downloadedBytes = progressEvent.loaded;
+          const progress = {
+            total: (totalBytes / (1024 * 1024)).toFixed(2), // MB
+            downloaded: (downloadedBytes / (1024 * 1024)).toFixed(2), // MB
+            speed: (downloadedBytes / (progressEvent.time / 1000)).toFixed(2) // MB/s (for simplicity)
+          };
+          sendProgress(event, 'downloading', progress);
+        }
+      });
       const writeStream = fs.createWriteStream(ZIP_PATH);
       response.data.pipe(writeStream);
 
       writeStream.on('finish', async () => {
         logger.info('[download-update-pack] 下载成功，开始解压')
+        sendProgress(event, 'extracting', {});
         try {
           await extractZipFile(ZIP_PATH, TEMP_DIR);
           console.log('ZIP file extracted successfully');
           logger.info('[download-update-pack] 解压成功，开始替换本地文件')
+          sendProgress(event, 'replacing', {});
 
           updateLocalFiles(EXTRACTED_DIR, STATICPAGE_DIR);
           logger.info('[download-update-pack] 替换成功')
 
+          sendProgress(event, 'cleaning', {});
           fs.rmSync(TEMP_DIR, { recursive: true, force: true });
           logger.info('[download-update-pack] 临时文件清理成功')
 
+          sendProgress(event, 'relaunching', {});
           app.relaunch();
           app.exit();
         } catch (error) {
