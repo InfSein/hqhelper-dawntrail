@@ -38,6 +38,7 @@ const proxyPings = ref<Record<string, number | "timeout" | "unknown" | "error">>
 const proxyOptions = [
   { label: t('不使用加速服务'), value: '' },
   { label: 'mirror.ghproxy.com', value: 'https://mirror.ghproxy.com' },
+  { label: 'ghp.ci', value: 'https://ghp.ci' },
   { label: 'github.moeyy.xyz', value: 'https://github.moeyy.xyz' },
   { label: 'ghps.cc', value: 'https://ghps.cc' }
   // https://www.cnblogs.com/ting1/p/18356265
