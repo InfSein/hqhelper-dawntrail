@@ -12,7 +12,6 @@ import {
 
 // * import pages and components
 import AppHeader from './components/custom-controls/AppHeader.vue'
-import DialogConfirm from './components/custom-controls/DialogConfirm.vue'
 import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
 import ModalCheckUpdates from './components/modals/ModalCheckUpdates.vue'
 
@@ -110,61 +109,16 @@ const switchTheme = () => {
 
 // #region Provides
 
-// #region Provide dialoger
-
-const dialogConfirm_show = ref(false)
-const dialogConfirm_type = ref<'info' | 'success' | 'error' | 'warning'>('warning')
-const dialogConfirm_title = ref('')
-const dialogConfirm_content = ref('')
-const dialogConfirm_confirmText = ref('')
-const dialogConfirm_cancelText = ref('')
-const dialogConfirm_confirmFunc = ref(() => {})
-const dialogConfirm_cancelFunc = ref(() => {})
-
-const showDialogConfirm = (
-  title: string,
-  content: string,
-  confirmFunc: () => void,
-  cancelFunc: () => void,
-  type: 'info' | 'success' | 'error' | 'warning' = 'warning',
-  autoClose: boolean = true, // Close dialog after confirm or cancel automatically.
-  confirmText: string = t('确定 (Enter)'),
-  cancelText: string = t('取消 (Esc)'),
-) => {
-  dialogConfirm_type.value = type
-  dialogConfirm_title.value = title
-  dialogConfirm_content.value = content
-  dialogConfirm_confirmText.value = confirmText
-  dialogConfirm_cancelText.value = cancelText
-  dialogConfirm_confirmFunc.value = () => {
-    confirmFunc() 
-    if (autoClose) dialogConfirm_show.value = false
-  }
-  dialogConfirm_cancelFunc.value = () => {
-    cancelFunc()
-    if (autoClose) dialogConfirm_show.value = false
-  }
-  setTimeout(() => {
-    dialogConfirm_show.value = true
-  }, 100) // To prevent the k.e.l. triggered duplicately.
-}
-provide('showDialogConfirm', showDialogConfirm)
-/* -- use: 
-const showDialogConfirm = inject<(
-  title: string,
-  content: string,
-  confirmFunc: () => void,
-  cancelFunc: () => void,
-  autoClose?: boolean,
-  confirmText?: string,
-  cancelText?: string
-) => void>('showDialogConfirm') ?? (() => {})
-*/
-
-// #endregion
-
 provide('userConfig', userConfig)
-provide('t', t)
+provide('t', (message: string, ...args: any[]) => {
+  const i18nResult = t(message, ...args)
+  if (/^[1-9]\d*$/.test(i18nResult)) {
+    return '' // 特殊处理 voerka-i18n 会对置空翻译返回 textMap id 的问题
+    // * https://github.com/zhangfisher/voerka-i18n/issues/47
+  } else {
+    return i18nResult
+  }
+})
 provide('theme', theme)
 provide('locale', locale)
 provide('isMobile', isMobile)
@@ -286,16 +240,6 @@ onMounted(async () => {
           :macro-content="macroValue"
         />
         <ModalCheckUpdates v-model:show="showCheckUpdatesModal" />
-        <DialogConfirm
-          v-model:show="dialogConfirm_show"
-          :type="dialogConfirm_type"
-          :title="dialogConfirm_title"
-          :content="dialogConfirm_content"
-          :confirm-text="dialogConfirm_confirmText"
-          :cancel-text="dialogConfirm_cancelText"
-          @confirm="dialogConfirm_confirmFunc"
-          @cancel="dialogConfirm_cancelFunc"
-        />
       </div>
     </n-message-provider>
   </n-config-provider>

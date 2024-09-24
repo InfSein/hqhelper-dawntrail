@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch } from 'vue'
+import { computed, inject, onMounted, reactive, ref, watch } from 'vue'
 import {
-  NButton, NCard, NIcon, NModal, NRadio
+  NAlert, NButton, NCard, NIcon, NModal, NRadio
 } from 'naive-ui'
 import {
   UpdateSharp,
@@ -10,6 +10,7 @@ import {
   BrowserUpdatedRound,
   SpeedRound, RefreshRound
 } from '@vicons/material'
+import type { ProgressData } from 'env.electron'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import AppStatus from '@/variables/app-status'
 import { checkUrlLag } from '@/tools/web-request'
@@ -20,6 +21,15 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 
 const showModal = defineModel<boolean>('show', { required: true })
 
+onMounted(() => {
+  if (window.electronAPI?.onUpdateProgress) {
+    window.electronAPI.onUpdateProgress(handleProgress)
+  } else {
+    updateTip.preText = t('{ver}版本以上的客户端才能查看当前更新进度。', {
+      ver: 'v3'
+    })
+  }
+})
 watch(showModal, async (newVal, oldVal) => {
   if (newVal && !oldVal) {
     if (window.electronAPI?.clientVersion) {
@@ -31,6 +41,12 @@ watch(showModal, async (newVal, oldVal) => {
 
 const checkingUpdates = ref(false)
 const updating = ref(false)
+const updateTip = reactive({
+  preText: '',
+  downloaded: 0,
+  total: 0,
+  downloadSpeed: 0
+})
 const latestHqHelperVersion = ref<string | null>('')
 const latestElectronVersion = ref<string | null>('')
 const proxyValue = ref('https://mirror.ghproxy.com')
@@ -38,6 +54,7 @@ const proxyPings = ref<Record<string, number | "timeout" | "unknown" | "error">>
 const proxyOptions = [
   { label: t('不使用加速服务'), value: '' },
   { label: 'mirror.ghproxy.com', value: 'https://mirror.ghproxy.com' },
+  { label: 'ghp.ci', value: 'https://ghp.ci' },
   { label: 'github.moeyy.xyz', value: 'https://github.moeyy.xyz' },
   { label: 'ghps.cc', value: 'https://ghps.cc' }
   // https://www.cnblogs.com/ting1/p/18356265
@@ -50,6 +67,32 @@ const electronNeedUpdate = computed(() => {
   return latestElectronVersion.value && latestElectronVersion.value != currentElectronVersion.value
 })
 
+const handleProgress = (progressData: ProgressData) => {
+  updateTip.downloaded = progressData.progress?.downloaded ?? 0
+  updateTip.total = progressData.progress?.total ?? 0
+  updateTip.downloadSpeed = progressData.progress?.speed ?? 0
+  switch (progressData.stage) {
+    case 'downloading':
+      updateTip.preText = t('正在下载更新包…… | {now}MB / {total}MB | {speed}MB/s',
+        { now: updateTip.downloaded.toFixed(2), total: updateTip.total.toFixed(2), speed: updateTip.downloadSpeed.toFixed(2) }
+      )
+      break
+    case 'extracting':
+      updateTip.preText = t('正在解压更新包……')
+      break
+    case 'replacing':
+      updateTip.preText = t('正在替换文件……')
+      break
+    case 'cleaning':
+      updateTip.preText = t('正在清理临时文件……')
+      break
+    case 'relaunching':
+      updateTip.preText = t('正在重启程序……')
+      break
+    default:
+      updateTip.preText = ''
+  }
+}
 const handleCheckUpdates = async () => {
   if (!window.electronAPI?.httpGet) {
     alert('electronAPI.httpGet is not defined'); return
@@ -152,6 +195,7 @@ const handleDownloadWebPack = async () => {
   const err = await window.electronAPI.downloadUpdatePack(`${proxy}https://github.com/InfSein/hqhelper-dawntrail/releases/download/v${latestHqHelperVersion.value}/static-pages.zip`)
   if (err) {
     alert(t('下载更新包失败：{errmsg}', err))
+    updateTip.preText = ''
   }
   updating.value = false
 }
@@ -236,6 +280,9 @@ const handleClose = () => {
             </div>
           </div>
         </FoldableCard>
+        <n-alert v-if="updateTip.preText" type="info">
+          {{ updateTip.preText }}
+        </n-alert>
         <n-card class="card web-version" size="small" embedded :bordered="false">
           <template #header>
             <div class="card-title">

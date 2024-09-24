@@ -1,19 +1,24 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import {
   NCard, NCollapse, NCollapseItem, NIcon, NModal
 } from 'naive-ui'
 import { EventNoteFilled } from '@vicons/material'
-import { changelog } from '@/data/change-logs'
+import { getChangelogs } from '@/data/change-logs'
+import type { UserConfigModel } from '@/models/user-config';
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-// const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const showModal = defineModel<boolean>('show', { required: true })
 const handleClose = () => {
   showModal.value = false
 }
+
+const changelog = computed(() => {
+  return getChangelogs(t, userConfig.value.language_ui)
+})
 </script>
 
 <template>
@@ -54,12 +59,11 @@ const handleClose = () => {
                   <div class="change-group-title">{{ t(change.name) }}</div>
                   <div class="change-group-content">
                     <div
-                      v-for="(changeContent, changeContentIndex) in change.changes"
+                      v-for="(changeContent, changeContentIndex) in change.changes.filter(str => str !== '')"
                       :key="patchlog.version + '-' + changeIndex + '-' + changeContentIndex"
-                      v-show="!!t(changeContent)"
                     >
                       {{ change.changes.length > 1 ? ((changeContentIndex + 1) + '. ') : '' }}
-                      {{ t(changeContent) }}
+                      {{ changeContent }}
                     </div>
                   </div>
                 </div>

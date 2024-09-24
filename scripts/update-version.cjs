@@ -17,10 +17,11 @@ if (fs.existsSync(versionJsonPath)) {
   versionJsonContent = JSON.parse(existingVersionJson)
 }
 
-// 更新 hqhelper 字段
-versionJsonContent.hqhelper = newVersion
-
-// 写入更新后的内容到 version.json
-fs.writeFileSync(versionJsonPath, JSON.stringify(versionJsonContent, null, 2), 'utf8')
-
-console.log(`Version updated to ${newVersion}`)
+// 根据 version.json 的现有版本判断是否需要更新
+if (versionJsonContent.hqhelper === newVersion) {
+  console.log('[scripts/update-version.cjs] No need to update version.json')
+} else {
+  versionJsonContent.hqhelper = newVersion
+  fs.writeFileSync(versionJsonPath, JSON.stringify(versionJsonContent, null, 2), 'utf8')
+  console.log(`[scripts/update-version.cjs] Version in version.json updated to ${newVersion}`)
+}
