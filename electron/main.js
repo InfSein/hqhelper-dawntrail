@@ -143,10 +143,19 @@ function createWindow() {
         onDownloadProgress: (progressEvent) => {
           const totalBytes = progressEvent.total;
           const downloadedBytes = progressEvent.loaded;
+
+          // Calculate time difference and bytes difference
+          const currentTime = Date.now();
+          const timeDiff = (currentTime - previousTime) / 1000; // in seconds
+          const bytesDiff = downloadedBytes - previousDownloaded;
+
+          // Calculate current speed in MB/s
+          const speed = (bytesDiff / (1024 * 1024)) / timeDiff;
+
           const progress = {
             total: (totalBytes / (1024 * 1024)).toFixed(2), // MB
             downloaded: (downloadedBytes / (1024 * 1024)).toFixed(2), // MB
-            speed: (downloadedBytes / (progressEvent.time / 1000)).toFixed(2) // MB/s (for simplicity)
+            speed: speed.toFixed(2) // MB/s (for simplicity)
           };
           sendProgress(event, 'downloading', progress);
         }
