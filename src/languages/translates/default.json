@@ -491,14 +491,14 @@
     ]
   },
   "请先选择职业": {
-    "en": "Please select job first",
+    "en": "Please select job",
     "ja": "ジョブを選択してください",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
   "请先选择版本": {
-    "en": "Please select patch first",
+    "en": "Please select patch",
     "ja": "パッチを選択してください",
     "$files": [
       "components\\main\\JobPanel.vue"
@@ -954,8 +954,8 @@
     ]
   },
   "特殊秘籍半成品&点数统计": {
-    "en": "Special MasterPrecrafts & Allagan",
-    "ja": "特殊秘伝書の中間素材&トークン集計",
+    "en": "Special",
+    "ja": "特殊",
     "$files": [
       "components\\main\\StatisticsPanel.vue"
     ]
@@ -1765,7 +1765,7 @@
     ]
   },
   "帮助你制作食物与爆发药。能帮到就好。": {
-    "en": "Helper of food and tinctures.",
+    "en": "Help you craft meal(food) and medicine(tincture).",
     "ja": "調理品と薬品の制作にサポートいたします。お願い、ワタシを使ってください。",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
