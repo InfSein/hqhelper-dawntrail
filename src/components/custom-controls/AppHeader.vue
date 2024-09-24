@@ -28,6 +28,7 @@ import ModalContactUs from '@/components/modals/ModalContactUs.vue'
 import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import type { AppVersionJson } from '@/models'
+import { visitUrl } from '@/tools'
 import EorzeaTime from '@/tools/eorzea-time'
 import AppStatus from '@/variables/app-status'
 import router from '@/router'
@@ -136,30 +137,45 @@ const desktopMenus = computed(() => {
     {
       label: '参考资料',
       icon: FileCopyOutlined,
-      hide: true, // 这里的内容仅限中文用户可见，不做国际化
+      hide: userConfig.value.language_ui !== 'zh', // 这里的内容仅限中文用户可见，不做国际化
       options: [
         {
           key: 'ref-self',
           label: '自撰攻略',
-          icon: FileCopyOutlined,
+          icon: renderIcon(FileCopyOutlined),
           children: [
-            { key: 'ref-self-1', label: 'DawnCrafter I: 7.0/7.05生产采集准备工作', icon: renderIcon(FileCopyOutlined), click: notDoneBtnClickEvent }
+            { key: 'ref-self-1', label: 'DawnCrafter I: 版本7.0&7.05生产采集准备工作', icon: renderIcon(FileCopyOutlined), click: () => {
+              visitUrl('https://bbs.nga.cn/read.php?tid=41573697')
+            } }
           ]
         },
         {
           key: 'ref-oth-book',
           label: '其他推荐攻略',
-          icon: FileCopyOutlined,
+          icon: renderIcon(FileCopyOutlined),
           children: [
-            { key: 'ref-oth-book-1', label: '???', icon: renderIcon(FileCopyOutlined), click: notDoneBtnClickEvent }
+            { key: 'ref-oth-book-1', label: '7.0装备箱羊毛指南 by天然呆树歌', icon: renderIcon(FileCopyOutlined), click: () => {
+              visitUrl('https://bbs.nga.cn/read.php?tid=40686962')
+            } },
+            { key: 'ref-oth-book-2', label: '生产职业90-100练级攻略 by竹笙微凉_', icon: renderIcon(FileCopyOutlined), click: () => {
+              visitUrl('https://bbs.nga.cn/read.php?tid=41158426')
+            } },
+            { key: 'ref-oth-book-3', label: '7.x星级配方制作攻略 by月下独翼', icon: renderIcon(FileCopyOutlined), click: () => {
+              visitUrl('https://bbs.nga.cn/read.php?tid=40690311')
+            } }
           ]
         },
         {
           key: 'ref-oth-tool',
           label: '其他实用工具',
-          icon: FileCopyOutlined,
+          icon: renderIcon(CasesOutlined),
           children: [
-            { key: 'ref-oth-tool-1', label: '???', icon: renderIcon(FileCopyOutlined), click: notDoneBtnClickEvent }
+            { key: 'ref-oth-tool-1', label: '制作模拟器', icon: renderIcon(CasesOutlined), click: () => {
+              visitUrl('https://yyyy.games/crafter/#/simulator')
+            } },
+            { key: 'ref-oth-tool-2', label: '配装模拟器', icon: renderIcon(CasesOutlined), click: () => {
+              visitUrl('https://asvel.github.io/ffxiv-gearing/')
+            } }
           ]
         }
       ]

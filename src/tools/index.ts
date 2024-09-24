@@ -27,3 +27,12 @@ export const CopyToClipboard = async (text: string, container?: HTMLElement | un
     return 'ERROR'
   }
 }
+
+/**
+ * 调用系统默认浏览器打开给定网页
+ * @param url 要打开的网页地址
+ */
+export const visitUrl = (url: string) => {
+  const func = window.electronAPI?.openUrlByBrowser ?? window.open
+  func(url)
+}
