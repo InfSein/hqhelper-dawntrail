@@ -23,12 +23,16 @@ export interface PatchChangeGroup {
   changes: string[];
 }
 
-export const getChangelogs = (t: (message: string, ...args: any[]) => string) => {
+export const getChangelogs = (
+  t: (message: string, ...args: any[]) => string,
+  ui_lang: 'zh' | 'ja' | 'en'
+) => {
   const groupName = {
     bugfix: t('问题修复'),
     feature: t('功能更新'),
     breaking: t('重要变更')
   }
+  const isZh = ui_lang === 'zh'
   return [
     {
       version: '2.0.3',
@@ -79,7 +83,7 @@ export const getChangelogs = (t: (message: string, ...args: any[]) => string) =>
             t('修复了客户端的安装更新按钮在已是最新版本时仍旧可以点击的问题。'),
             t('修复了启用“禁用工作状态记忆”后，食药计算器的工作状态缓存不会被清除的问题。'),
             t('修复了移动端点击空白区域关闭{}的悬浮窗后，无法正常再次打开该悬浮窗的问题。', t('“选择部件”栏目中当前[主副手/防具/首饰]')),
-            t('修正了部分道具的中文译名。')
+            isZh ? '修正了部分道具的中文译名。' : ''
           ]
         },
         {
@@ -87,7 +91,7 @@ export const getChangelogs = (t: (message: string, ...args: any[]) => string) =>
           changes: [
             t('现在可以在“偏好设置”中自定义点击物品按钮时的行为。'),
             t('重制了移动端“已选部件”弹窗的显示效果。'),
-            t('根据国服7.0特设站公布的新消息更新了职业名。'),
+            isZh ? '根据国服7.0特设站公布的新消息更新了职业名。' : '',
             t('优化了部分场景下物品按钮悬浮窗的显示效果。'),
             t('更新了“关于本作”中创作者的信息。')
           ]

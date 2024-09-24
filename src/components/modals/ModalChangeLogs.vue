@@ -5,10 +5,11 @@ import {
 } from 'naive-ui'
 import { EventNoteFilled } from '@vicons/material'
 import { getChangelogs } from '@/data/change-logs'
+import type { UserConfigModel } from '@/models/user-config';
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-// const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const showModal = defineModel<boolean>('show', { required: true })
 const handleClose = () => {
@@ -16,7 +17,7 @@ const handleClose = () => {
 }
 
 const changelog = computed(() => {
-  return getChangelogs(t)
+  return getChangelogs(t, userConfig.value.language_ui)
 })
 </script>
 
