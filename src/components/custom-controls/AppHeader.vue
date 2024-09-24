@@ -7,8 +7,8 @@ import {
 } from 'naive-ui'
 import {
   ArrowCircleLeftOutlined,
-  FileCopyOutlined,
-  CasesOutlined,
+  FileCopyFilled, FileCopyOutlined,
+  CasesRound, CasesOutlined,
   ImportExportOutlined,
   ArrowUpwardOutlined,
   ArrowDownwardOutlined,
@@ -18,8 +18,8 @@ import {
   UpdateOutlined,
   SettingsSharp,
   EventNoteFilled,
-  InfoFilled,
-  ContactlessSharp,
+  InfoFilled, InfoOutlined,
+  ContactlessOutlined,
   DarkModeTwotone, LightModeTwotone,
   UpdateSharp
 } from '@vicons/material'
@@ -116,8 +116,8 @@ const menuItems = computed(() => {
     userPreferences: { label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal } as MenuItem,
     checkUpdates: { label: t('检查更新'), icon: UpdateSharp, click: handleCheckUpdates } as MenuItem,
     changelogs: { label: t('更新日志'), icon: EventNoteFilled, click: displayChangeLogsModal } as MenuItem,
-    contact: { label: t('联系我们'), icon: ContactlessSharp, click: displayContactModal } as MenuItem,
-    aboutApp: { label: t('关于本作'), icon: InfoFilled, click: displayAboutAppModal } as MenuItem
+    contact: { label: t('联系我们'), icon: ContactlessOutlined, click: displayContactModal } as MenuItem,
+    aboutApp: { label: t('关于本作'), icon: InfoOutlined, click: displayAboutAppModal } as MenuItem
   }
 })
 const desktopMenus = computed(() => {
@@ -136,7 +136,7 @@ const desktopMenus = computed(() => {
     /* 参考资料 */
     {
       label: '参考资料',
-      icon: FileCopyOutlined,
+      icon: FileCopyFilled,
       hide: userConfig.value.language_ui !== 'zh', // 这里的内容仅限中文用户可见，不做国际化
       options: [
         {
@@ -183,7 +183,7 @@ const desktopMenus = computed(() => {
     /* 实用工具 */
     {
       label: t('实用工具'),
-      icon: CasesOutlined,
+      icon: CasesRound,
       options: [
         { key: 'tool-gatherclock', label: t('采集时钟'), disabled: hideGatherClock, icon: renderIcon(AccessAlarmsOutlined), description: gatherClockTooltip, click: redirectToGatherClockPage },
         { key: 'tool-fthelper', label: t('食药计算'), disabled: hideFTHelper, icon: renderIcon(FastfoodOutlined), description: ftHelperTooltip, click: redirectToFoodAndTincPage }
@@ -216,8 +216,8 @@ const desktopMenus = computed(() => {
       label: t('关于'),
       icon: InfoFilled,
       options: [
-        { key: 'ab-contact', label: t('联系我们'), icon: renderIcon(ContactlessSharp), description: contactTooltip, click: displayContactModal },
-        { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoFilled), description: aboutTooltip, click: displayAboutAppModal }
+        { key: 'ab-contact', label: t('联系我们'), icon: renderIcon(ContactlessOutlined), description: contactTooltip, click: displayContactModal },
+        { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoOutlined), description: aboutTooltip, click: displayAboutAppModal }
       ],
     }
   ] as DesktopMenuItem[]
