@@ -43,9 +43,9 @@ const checkingUpdates = ref(false)
 const updating = ref(false)
 const updateTip = reactive({
   preText: '',
-  downloaded: 0,
-  total: 0,
-  downloadSpeed: 0
+  downloaded: '',
+  total: '',
+  downloadSpeed: ''
 })
 const latestHqHelperVersion = ref<string | null>('')
 const latestElectronVersion = ref<string | null>('')
@@ -68,13 +68,13 @@ const electronNeedUpdate = computed(() => {
 })
 
 const handleProgress = (progressData: ProgressData) => {
-  updateTip.downloaded = progressData.progress?.downloaded ?? 0
-  updateTip.total = progressData.progress?.total ?? 0
-  updateTip.downloadSpeed = progressData.progress?.speed ?? 0
+  updateTip.downloaded = progressData.progress?.downloaded ?? "???"
+  updateTip.total = progressData.progress?.total ?? "???"
+  updateTip.downloadSpeed = progressData.progress?.speed ?? "???"
   switch (progressData.stage) {
     case 'downloading':
       updateTip.preText = t('正在下载更新包…… | {now}MB / {total}MB | {speed}MB/s',
-        { now: updateTip.downloaded.toFixed(2), total: updateTip.total.toFixed(2), speed: updateTip.downloadSpeed.toFixed(2) }
+        { now: updateTip.downloaded, total: updateTip.total, speed: updateTip.downloadSpeed }
       )
       break
     case 'extracting':
@@ -280,7 +280,7 @@ const handleClose = () => {
             </div>
           </div>
         </FoldableCard>
-        <n-alert v-if="updateTip.preText" type="info">
+        <n-alert v-if="updateTip.preText" class="card upd-tip" type="info" :show-icon="false">
           {{ updateTip.preText }}
         </n-alert>
         <n-card class="card web-version" size="small" embedded :bordered="false">
@@ -405,7 +405,7 @@ const handleClose = () => {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    .card.proxy {
+    .card.proxy, .card.upd-tip {
       grid-column: 1 / 3;
     }
   }
