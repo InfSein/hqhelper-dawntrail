@@ -77,7 +77,7 @@ const handleProgress = (progressData: ProgressData) => {
       updateTip.preText = t('正在请求更新……')
       break
     case 'downloading':
-      updateTip.preText = t('正在下载更新包…… | {now}MB / {total}MB | {speed}MB/s',
+      updateTip.preText = t('正在下载更新包…… 已下载{now}MB，总需下载{total}MB | 当前速度：{speed}MB/s',
         { now: updateTip.downloaded, total: updateTip.total, speed: updateTip.downloadSpeed }
       )
       break
@@ -290,9 +290,6 @@ const handleClose = () => {
             </div>
           </div>
         </FoldableCard>
-        <n-alert v-if="updateTip.preText" class="card upd-tip" type="info" :show-icon="false">
-          {{ updateTip.preText }}
-        </n-alert>
         <n-card class="card web-version" size="small" embedded :bordered="false">
           <template #header>
             <div class="card-title">
@@ -368,6 +365,9 @@ const handleClose = () => {
             </div>
           </div>
         </n-card>
+        <n-alert v-if="updateTip.preText" class="card upd-tip" type="info">
+          {{ updateTip.preText }}
+        </n-alert>
       </div>
     </n-card>
   </n-modal>
