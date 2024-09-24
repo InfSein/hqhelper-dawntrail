@@ -42,6 +42,7 @@ watch(showModal, async (newVal, oldVal) => {
 const checkingUpdates = ref(false)
 const updating = ref(false)
 const updateTip = reactive({
+  updating: false,
   preText: '',
   downloaded: '',
   total: '',
@@ -72,6 +73,9 @@ const handleProgress = (progressData: ProgressData) => {
   updateTip.total = progressData.progress?.total ?? "???"
   updateTip.downloadSpeed = progressData.progress?.speed ?? "???"
   switch (progressData.stage) {
+    case 'requesting': 
+      updateTip.preText = t('正在请求更新……')
+      break
     case 'downloading':
       updateTip.preText = t('正在下载更新包…… | {now}MB / {total}MB | {speed}MB/s',
         { now: updateTip.downloaded, total: updateTip.total, speed: updateTip.downloadSpeed }
@@ -88,6 +92,9 @@ const handleProgress = (progressData: ProgressData) => {
       break
     case 'relaunching':
       updateTip.preText = t('正在重启程序……')
+      break
+    case 'end':
+      updateTip.updating = false
       break
     default:
       updateTip.preText = ''
@@ -119,13 +126,15 @@ const handleCheckUpdates = async () => {
   }
 }
 
-const getDoUpdateBtnText = (versionNow: string, versionLatest: string | null) => {
+const getDoUpdateBtnText = (versionNow: string, versionLatest: string | null, dontshowUpdating = false) => {
   if (versionLatest === '') {
     return t('检测中……')
   } else if (versionLatest === null) {
     return t('检测失败')
   } else if (versionNow === versionLatest) {
     return t('已是最新版本')
+  } else if (!dontshowUpdating && (updateTip.updating || updating.value)) {
+    return t('正在更新')
   } else {
     return t('立即更新', versionLatest)
   }
@@ -189,6 +198,7 @@ const handleDownloadWebPack = async () => {
     return
   }
   updating.value = true
+  updateTip.updating = true
 
   let proxy = proxyValue.value || ''
   if (proxy) proxy = `${proxy}/`
@@ -312,8 +322,8 @@ const handleClose = () => {
             <div class="action">
               <n-button
                 class="btn-do-update"
-                :loading="updating"
-                :disabled="!hqhelperNeedUpdate"
+                :loading="updating || updateTip.updating"
+                :disabled="!hqhelperNeedUpdate || updating || updateTip.updating"
                 @click="handleDownloadWebPack"
               >
                 {{ getDoUpdateBtnText(AppStatus.Version, latestHqHelperVersion) }}
@@ -353,7 +363,7 @@ const handleClose = () => {
                 :disabled="!electronNeedUpdate"
                 @click="handleDownloadElectronPack"
               >
-                {{ getDoUpdateBtnText(currentElectronVersion, latestElectronVersion) }}
+                {{ getDoUpdateBtnText(currentElectronVersion, latestElectronVersion, true) }}
               </n-button>
             </div>
           </div>
