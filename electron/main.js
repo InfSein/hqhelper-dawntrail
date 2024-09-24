@@ -138,6 +138,9 @@ function createWindow() {
 
     try {
       logger.info('[download-update-pack] 下载URL: ' + url)
+      let previousTime = Date.now();
+      let previousDownloaded = 0;
+      sendProgress(event, 'requesting', {});
       const response = await axios.get(url, {
         responseType: 'stream',
         onDownloadProgress: (progressEvent) => {
@@ -151,6 +154,10 @@ function createWindow() {
 
           // Calculate current speed in MB/s
           const speed = (bytesDiff / (1024 * 1024)) / timeDiff;
+
+          // Update previous values
+          previousTime = currentTime;
+          previousDownloaded = downloadedBytes;
 
           const progress = {
             total: (totalBytes / (1024 * 1024)).toFixed(2), // MB
@@ -184,12 +191,14 @@ function createWindow() {
           app.exit();
         } catch (error) {
           logger.error('[download-update-pack] 解压期间发生错误：' + error)
+          sendProgress(event, 'end', {});
           throw error
         }
       });
 
       writeStream.on('error', (error) => {
         logger.error('[download-update-pack] 下载期间发生错误：' + error)
+        sendProgress(event, 'end', {});
         throw error
       });
 
@@ -200,6 +209,7 @@ function createWindow() {
       return ''
     } catch (error) {
       logger.error('[download-update-pack] 检查更新时发生错误：' + error)
+      sendProgress(event, 'end', {});
       throw error
     }
   })
