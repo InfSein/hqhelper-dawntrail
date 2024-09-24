@@ -17,7 +17,7 @@ export interface ElectronAPI {
 }
 
 export interface ProgressData {
-  stage: "downloading" | "extracting" | "replacing" | "cleaning" | "relaunching"; // 当前阶段
+  stage: "requesting" | "downloading" | "extracting" | "replacing" | "cleaning" | "relaunching" | "end"; // 当前阶段
   progress?: {
     total: string;      // 总下载大小 (MB)
     downloaded: string; // 已下载大小 (MB)
