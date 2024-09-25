@@ -884,7 +884,7 @@
     ]
   },
   "制作人": {
-    "en": "Producer",
+    "en": "Producers",
     "ja": "プロデューサ",
     "$files": [
       "data\\about-app.ts"
@@ -898,14 +898,14 @@
     ]
   },
   "核心算法支持": {
-    "en": "Core algorithm support",
+    "en": "Algorithm supporter",
     "ja": "コアアルゴリズムのサポート",
     "$files": [
       "data\\about-app.ts"
     ]
   },
   "本地化翻译": {
-    "en": "Localization translator",
+    "en": "Translators",
     "ja": "ローカライズ",
     "$files": [
       "data\\about-app.ts"
@@ -1045,7 +1045,7 @@
     ]
   },
   "复制宏": {
-    "en": "Copy as macro",
+    "en": "Copy macro",
     "ja": "マクロをコピーする",
     "$files": [
       "components\\custom-controls\\ItemList.vue"
@@ -1255,14 +1255,14 @@
     ]
   },
   "主页": {
-    "en": "Home",
+    "en": "Home Page",
     "ja": "ホームページ",
     "$files": [
       "components\\subs\\RouterCard.vue"
     ]
   },
   "※ 您正处于HqHelper的子页面。": {
-    "en": "※ You are currently on a subpage of HqHelper",
+    "en": "※ You are currently on a subpage of HqHelper.",
     "ja": "※ 今が表示されているのはHqHelperのサブページです。",
     "$files": [
       "components\\subs\\RouterCard.vue"
@@ -1569,14 +1569,14 @@
     ]
   },
   "点击“复制宏”时直接复制": {
-    "en": "Copy directly when click \"Copy as macro\"",
+    "en": "Copy directly when click \"Copy macro\"",
     "ja": "「マクロをコピーする」をクリックだけでコピー完了とする",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "在默认情况下，每次您点击“复制宏”按钮，程序都会弹窗询问您要复制哪种宏。": {
-    "en": "In default case, every time you click \"Copy as macro\" button, program will popup a modal and ask you which macro you want to copy.",
+    "en": "In default case, every time you click \"Copy macro\" button, program will popup a modal and ask you which macro you want to copy.",
     "ja": "デフォルトの設定は、毎回「マクロをコピーする」をクリックした際に、どのチャンネルに送信するかを確認します",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
@@ -2165,28 +2165,28 @@
     ]
   },
   "桌面应用开发": {
-    "en": "PC-Client dev",
+    "en": "Desktop developer",
     "ja": "クライアント版開発",
     "$files": [
       "data\\about-app.ts"
     ]
   },
   "问题修复": {
-    "en": "Bug fixes",
+    "en": "BUG FIXES",
     "ja": "不具合修正",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "功能更新": {
-    "en": "Features",
+    "en": "FEATURES",
     "ja": "機能アップデート",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "重要变更": {
-    "en": "Breaking changes",
+    "en": "BREAKING CHANGES",
     "ja": "重要な変更",
     "$files": [
       "data\\change-logs.ts"
