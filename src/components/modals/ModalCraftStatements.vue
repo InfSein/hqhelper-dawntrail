@@ -126,7 +126,7 @@ const handleClose = () => {
             <ItemList
               :items="block.items"
               :list-height="480"
-              btn-pop-max-width="unset"
+              btn-pop-max-width="300px"
             />
           </div>
         </GroupBox>
