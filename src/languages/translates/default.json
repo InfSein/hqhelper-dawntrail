@@ -112,13 +112,6 @@
       "data\\about-app.ts"
     ]
   },
-  "本地时间": {
-    "en": "Local Time",
-    "ja": "ローカル時間",
-    "$files": [
-      "components\\EorzeaTimeCard.vue"
-    ]
-  },
   "艾欧泽亚时间": {
     "en": "Eorzea Time",
     "ja": "エオルゼア時間",
@@ -446,20 +439,6 @@
     "ja": "謝辞: 支援",
     "$files": [
       "components\\modals\\ModalAboutApp.vue"
-    ]
-  },
-  "确定 (Enter)": {
-    "en": "OK (Enter)",
-    "ja": "確定 (Enter)",
-    "$files": [
-      "App.vue"
-    ]
-  },
-  "取消 (Esc)": {
-    "en": "Cancel (Esc)",
-    "ja": "キャンセル (Esc)",
-    "$files": [
-      "App.vue"
     ]
   },
   "国服数据版本：{}": {
@@ -884,7 +863,7 @@
     ]
   },
   "制作人": {
-    "en": "Producer",
+    "en": "Producers",
     "ja": "プロデューサ",
     "$files": [
       "data\\about-app.ts"
@@ -898,14 +877,14 @@
     ]
   },
   "核心算法支持": {
-    "en": "Core algorithm support",
+    "en": "Algorithm supporter",
     "ja": "コアアルゴリズムのサポート",
     "$files": [
       "data\\about-app.ts"
     ]
   },
   "本地化翻译": {
-    "en": "Localization translator",
+    "en": "Translators",
     "ja": "ローカライズ",
     "$files": [
       "data\\about-app.ts"
@@ -1045,7 +1024,7 @@
     ]
   },
   "复制宏": {
-    "en": "Copy as macro",
+    "en": "Copy macro",
     "ja": "マクロをコピーする",
     "$files": [
       "components\\custom-controls\\ItemList.vue"
@@ -1255,14 +1234,14 @@
     ]
   },
   "主页": {
-    "en": "Home",
+    "en": "Home Page",
     "ja": "ホームページ",
     "$files": [
       "components\\subs\\RouterCard.vue"
     ]
   },
   "※ 您正处于HqHelper的子页面。": {
-    "en": "※ You are currently on a subpage of HqHelper",
+    "en": "※ You are currently on a subpage of HqHelper.",
     "ja": "※ 今が表示されているのはHqHelperのサブページです。",
     "$files": [
       "components\\subs\\RouterCard.vue"
@@ -1569,14 +1548,14 @@
     ]
   },
   "点击“复制宏”时直接复制": {
-    "en": "Copy directly when click \"Copy as macro\"",
+    "en": "Copy directly when click \"Copy macro\"",
     "ja": "「マクロをコピーする」をクリックだけでコピー完了とする",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "在默认情况下，每次您点击“复制宏”按钮，程序都会弹窗询问您要复制哪种宏。": {
-    "en": "In default case, every time you click \"Copy as macro\" button, program will popup a modal and ask you which macro you want to copy.",
+    "en": "In default case, every time you click \"Copy macro\" button, program will popup a modal and ask you which macro you want to copy.",
     "ja": "デフォルトの設定は、毎回「マクロをコピーする」をクリックした際に、どのチャンネルに送信するかを確認します",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
@@ -2165,28 +2144,28 @@
     ]
   },
   "桌面应用开发": {
-    "en": "PC-Client dev",
+    "en": "Desktop developer",
     "ja": "クライアント版開発",
     "$files": [
       "data\\about-app.ts"
     ]
   },
   "问题修复": {
-    "en": "Bug fixes",
+    "en": "BUG FIXES",
     "ja": "不具合修正",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "功能更新": {
-    "en": "Features",
+    "en": "FEATURES",
     "ja": "機能アップデート",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "重要变更": {
-    "en": "Breaking changes",
+    "en": "BREAKING CHANGES",
     "ja": "重要な変更",
     "$files": [
       "data\\change-logs.ts"
@@ -2262,13 +2241,6 @@
       "data\\change-logs.ts"
     ]
   },
-  "修正了部分道具的中文译名。": {
-    "en": "",
-    "ja": "",
-    "$files": [
-      "data\\change-logs.ts"
-    ]
-  },
   "现在可以在“偏好设置”中自定义点击物品按钮时的行为。": {
     "en": "Now you could customize action while clicking item button by change settings in \"User Preferences\".",
     "ja": "「設定」でアイテムボタンをクリックしたときの動作をカスタマイズできるようになりました。",
@@ -2279,13 +2251,6 @@
   "重制了移动端“已选部件”弹窗的显示效果。": {
     "en": "Remaked the display effect of \"View Selected\" modal on mobile.",
     "ja": "スマホ端末で「選択済み部位」ポップアップの表示効果をリニューアルしました。",
-    "$files": [
-      "data\\change-logs.ts"
-    ]
-  },
-  "根据国服7.0特设站公布的新消息更新了职业名。": {
-    "en": "",
-    "ja": "",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -2442,6 +2407,111 @@
     "ja": "一部の翻訳を最適化しました。",
     "$files": [
       "data\\change-logs.ts"
+    ]
+  },
+  "国服数据库更新至{ver}。": {
+    "en": "CHS game data updated to {ver}.",
+    "ja": "中国版データベースが{ver}に更新されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "压缩了部分内置图片的尺寸，清理了一部分无用代码，从而大幅度地降低更新时需要下载的更新包体积、初次访问页面的加载时长和托管服务器的带宽压力。": {
+    "en": "Compressing the size of some built-in images and cleaning up some useless code significantly reduces the volume of update packages that need to be downloaded during updates, the loading time of initial page visits, and the bandwidth pressure of hosting servers.",
+    "ja": "一部の内蔵画像のサイズを圧縮し、不要なコードを整理したことで、更新時にダウンロードするパッケージサイズが大幅に削減され、初回ページアクセス時の読み込み時間とホスティングサーバーの帯域幅負荷が軽減されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了{lang}设置为日语/英语时，部分应当没有内容的区域可能出现无意义数字的问题。": {
+    "en": "Fixed some text area might appear meaningless numbers when {lang} is set to Japanese/English.",
+    "ja": "{lang}設定が日本語/英語の場合、一部の内容が表示されないはずのとことに意味のない数字が表示されてしまう問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "物品按钮悬浮窗现在还会显示装备类道具的属性。": {
+    "en": "Item button floating window now also shows the attributes of equipment.",
+    "ja": "アイテムボタンのツールチップには、装備アイテムの属性も表示されるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了“{f1}”界面物品按钮悬浮窗的显示效果。": {
+    "en": "Optimized the display effect of item button floating window in \"{f1}\".",
+    "ja": "「{f1}」インターフェースのアイテムボタンのツールチップの表示が最適化されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "客户端现在在下载HqHelper更新时会显示下载进度和速度 (仅限v3及更高版本的客户端)。": {
+    "en": "Now the client shows download progress and speed while downloading HqHelper update (only for v3+ clients).",
+    "ja": "クライアントがHqHelperの更新をダウンロードする際、進捗とスピードが表示されるようになりました（v3以降のクライアントのみ対応）。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "调整了客户端在检查更新时可以选择的加速服务列表。": {
+    "en": "Adjusted the list of proxies that can be selected in checking updates.",
+    "ja": "クライアントが更新を確認する際に選択可能なプロキシサービスのリストが調整されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "{ver}版本以上的客户端才能查看当前更新进度。": {
+    "en": "Only clients with version: {ver} or higher can view the current update progress.",
+    "ja": "{ver}バージョン以降のクライアントのみが、現在の更新進行状況を確認できます。",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "正在建立连接……": {
+    "en": "Building connections...",
+    "ja": "接続を確立中……",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "正在下载更新包…… 已下载{now}MB，总需下载{total}MB | 当前速度：{speed}MB/s": {
+    "en": "Downloading... Downloaded:{now}MB / Total:{total}MB / Speed:{speed}MB/s",
+    "ja": "更新パッケージをダウンロード中…… {now}MBをダウンロード済み、総ダウンロードサイズ：{total}MB | 現在の速度：{speed}MB/s",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "正在解压更新包……": {
+    "en": "Extracting...",
+    "ja": "更新パッケージを解凍中……",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "正在替换文件……": {
+    "en": "Replacing files...",
+    "ja": "ファイルを置き換え中……",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "正在清理临时文件……": {
+    "en": "Cleaning temp files...",
+    "ja": "一時ファイルを整理中……",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "正在重启程序……": {
+    "en": "Relaunching...",
+    "ja": "プログラムを再起動中……",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "正在更新": {
+    "en": "Updating",
+    "ja": "更新中……",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
     ]
   }
 }

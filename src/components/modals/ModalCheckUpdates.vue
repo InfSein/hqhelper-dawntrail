@@ -74,7 +74,7 @@ const handleProgress = (progressData: ProgressData) => {
   updateTip.downloadSpeed = progressData.progress?.speed ?? "???"
   switch (progressData.stage) {
     case 'requesting': 
-      updateTip.preText = t('正在请求更新……')
+      updateTip.preText = t('正在建立连接……')
       break
     case 'downloading':
       updateTip.preText = t('正在下载更新包…… 已下载{now}MB，总需下载{total}MB | 当前速度：{speed}MB/s',

@@ -249,10 +249,10 @@ const openInAngler = () => {
           <p>{{ t('[{patch}版本] [{id}]', { patch: itemInfo.patch, id: itemInfo.id }) }}</p>
         </div>
         <div class="main-descriptions" v-html="getItemDescriptions()"></div>
-        <div class="description-block" v-if="itemInfo.attrsProvided.length" v-show="false">
+        <div class="description-block" v-if="itemInfo.attrsProvided.length">
           <div class="title">{{ t('装备属性') }}</div>
           <n-divider class="item-divider" />
-          <div class="content" v-if="itemHasHQ">
+          <div class="content armor" v-if="itemHasHQ">
             <div
               class="item"
               v-for="(attr, index) in itemInfo.attrsProvided"
@@ -572,6 +572,12 @@ const openInAngler = () => {
         button {
           width: 100%;
         }
+      }
+      .content.armor {
+        width: fit-content;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        column-gap: 5px;
       }
       .content .other-attrs,
       .content.extra {

@@ -36,7 +36,7 @@ export const getChangelogs = (
   return [
     {
       version: '2.0.4',
-      date: '2024-09-25',
+      date: '2024-09-26',
       changes: [
         {
           name: groupName.breaking,
@@ -65,6 +65,7 @@ export const getChangelogs = (
           name: groupName.feature,
           changes: [
             isZh ? '增加了“参考资料”菜单项 (仅在界面语言设置为简体中文的电脑上会显示)。' : '',
+            t('物品按钮悬浮窗现在还会显示装备类道具的属性。'),
             t('优化了“{f1}”界面物品按钮悬浮窗的显示效果。', {
               f1: t('制作报表')
             }),
