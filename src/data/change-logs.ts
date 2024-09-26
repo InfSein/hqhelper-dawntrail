@@ -1,6 +1,3 @@
-import { t } from '@/languages'
-import { computed } from 'vue'
-
 export interface PatchNote {
   /**
    * 版本号
@@ -26,18 +23,56 @@ export interface PatchChangeGroup {
   changes: string[];
 }
 
-const groupName = {
-  bugfix: t('问题修复'),
-  feature: t('功能更新'),
-  breaking: t('重要变更')
-}
-
-export const changelog = computed(() => {
-  console.log("t('修正了部分道具的中文译名。')", t('修正了部分道具的中文译名。'))
+export const getChangelogs = (
+  t: (message: string, ...args: any[]) => string,
+  ui_lang: 'zh' | 'ja' | 'en'
+) => {
+  const groupName = {
+    bugfix: t('问题修复'),
+    feature: t('功能更新'),
+    breaking: t('重要变更')
+  }
+  const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.0.4',
+      date: '2024-09-26',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('国服数据库更新至{ver}。', {
+              ver: '7.0'
+            }),
+            t('压缩了部分内置图片的尺寸，清理了一部分无用代码，从而大幅度地降低更新时需要下载的更新包体积、初次访问页面的加载时长和托管服务器的带宽压力。'),
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('修复了{lang}设置为日语/英语时，部分应当没有内容的区域可能出现无意义数字的问题。', {
+              lang: t('界面语言')
+            })
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            isZh ? '增加了“参考资料”菜单项 (仅在界面语言设置为简体中文的电脑上会显示)。' : '',
+            t('物品按钮悬浮窗现在还会显示装备类道具的属性。'),
+            t('优化了“{f1}”界面物品按钮悬浮窗的显示效果。', {
+              f1: t('制作报表')
+            }),
+            t('客户端现在在下载HqHelper更新时会显示下载进度和速度 (仅限v3及更高版本的客户端)。'),
+            t('调整了客户端在检查更新时可以选择的加速服务列表。'),
+            t('优化了部分国际化翻译。')
+          ]
+        }
+      ]
+    },
+    {
       version: '2.0.3',
-      date: '2024-09-16',
+      date: '2024-09-17',
       changes: [
         {
           name: groupName.bugfix,
@@ -84,7 +119,7 @@ export const changelog = computed(() => {
             t('修复了客户端的安装更新按钮在已是最新版本时仍旧可以点击的问题。'),
             t('修复了启用“禁用工作状态记忆”后，食药计算器的工作状态缓存不会被清除的问题。'),
             t('修复了移动端点击空白区域关闭{}的悬浮窗后，无法正常再次打开该悬浮窗的问题。', t('“选择部件”栏目中当前[主副手/防具/首饰]')),
-            t('修正了部分道具的中文译名。')
+            isZh ? '修正了部分道具的中文译名。' : ''
           ]
         },
         {
@@ -92,7 +127,7 @@ export const changelog = computed(() => {
           changes: [
             t('现在可以在“偏好设置”中自定义点击物品按钮时的行为。'),
             t('重制了移动端“已选部件”弹窗的显示效果。'),
-            t('根据国服7.0特设站公布的新消息更新了职业名。'),
+            isZh ? '根据国服7.0特设站公布的新消息更新了职业名。' : '',
             t('优化了部分场景下物品按钮悬浮窗的显示效果。'),
             t('更新了“关于本作”中创作者的信息。')
           ]
@@ -113,4 +148,4 @@ export const changelog = computed(() => {
       ]
     }
   ] as PatchNote[]
-})
+}

@@ -46,6 +46,20 @@ jobs:
         id: get_version
         run: echo "VERSION=$(jq -r .version < package.json)" >> $GITHUB_ENV
 
+      # 获取上一个标签
+      - name: Get Previous Tag
+        id: prev_tag
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^)
+          echo "PREV_TAG=$PREV_TAG" >> $GITHUB_ENV
+
+      # 生成从上一个标签到当前的更改日志
+      - name: Generate Changelog
+        id: generate_changelog
+        run: |
+          CHANGELOG=$(git log ${{ env.PREV_TAG }}..HEAD --grep='^feat:\|^fix:' --pretty=format:"* %s" | sed 's/^feat://;s/^fix://')
+          echo "CHANGELOG=$CHANGELOG" >> $GITHUB_ENV
+
       # 检查是否存在同版本的 Release
       - name: Check for Existing Release
         id: check_release
@@ -58,13 +72,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # 创建或更新 Release
+      # 创建或更新 Release，描述中包含变更日志和提交历史
       - name: Create or Update Release
         run: |
+          RELEASE_NOTES=$(echo -e "## 更新日志\n\n${{ env.CHANGELOG }}\n\n\n\n**查看所有更改**: https://github.com/InfSein/hqhelper-dawntrail/compare/${{ env.PREV_TAG }}...v${{ env.VERSION }}")
           if [ "${{ env.exists }}" = "true" ]; then
             gh release upload "v${{ env.VERSION }}" static-pages.zip --clobber
+            gh release edit "v${{ env.VERSION }}" --notes "$RELEASE_NOTES"
           else
-            gh release create "v${{ env.VERSION }}" static-pages.zip --title "Release v${{ env.VERSION }}"
+            gh release create "v${{ env.VERSION }}" static-pages.zip --title "Release v${{ env.VERSION }}" --notes "$RELEASE_NOTES"
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
