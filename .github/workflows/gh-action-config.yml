@@ -50,7 +50,7 @@ jobs:
       - name: Get Previous Tag
         id: prev_tag
         run: |
-          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^)
+          PREV_TAG=$(git describe --tags --abbrev=0 --first-parent master^ 2>/dev/null || echo "initial")
           echo "PREV_TAG=$PREV_TAG" >> $GITHUB_ENV
 
       # 生成从上一个标签到当前的更改日志
