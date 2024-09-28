@@ -410,6 +410,7 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/mainhand.png"
                 :slot-description="t('武器/工具：主手')"
+                :related-item="patchData.jobs.MainHand?.[jobId]?.[0]"
               />
             </td>
             <td><Stepper v-model:value="MainHand" :disabled="disableWeapon || !patchData.jobs.MainHand?.[jobId]?.[0]" /></td>
@@ -417,6 +418,7 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/offhand.png"
                 :slot-description="t('武器/工具：副手')"
+                :related-item="patchData.jobs.OffHand?.[jobId]?.[0]"
               />
             </td>
             <td><Stepper v-model:value="OffHand" :disabled="disableWeapon || !patchData.jobs.OffHand?.[jobId]?.[0]" /></td>
@@ -431,6 +433,7 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/head.png"
                 :slot-description="t('防具：头部')"
+                :related-item="patchData.jobs.HeadAttire?.[attireAffix]?.[0]"
               />
             </td>
             <td><Stepper v-model:value="HeadAttire" :disabled="disableAttire || !patchData.jobs.HeadAttire?.[attireAffix]?.[0]" /></td>
@@ -438,6 +441,7 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/ear.png"
                 :slot-description="t('首饰：耳坠')"
+                :related-item="patchData.jobs.Earrings?.[accessoryAffix]?.[0]"
               />
             </td>
             <td><Stepper v-model:value="Earrings" :disabled="disableAccessory || !patchData.jobs.Earrings?.[accessoryAffix]?.[0]" /></td>
@@ -448,6 +452,7 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/body.png"
                 :slot-description="t('防具：身体')"
+                :related-item="patchData.jobs.BodyAttire?.[attireAffix]?.[0]"
               />
             </td>
             <td><Stepper v-model:value="BodyAttire" :disabled="disableAttire || !patchData.jobs.BodyAttire?.[attireAffix]?.[0]" /></td>
@@ -455,6 +460,7 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/neck.png"
                 :slot-description="t('首饰：项链')"
+                :related-item="patchData.jobs.Necklace?.[accessoryAffix]?.[0]"
               />
             </td>
             <td><Stepper v-model:value="Necklace" :disabled="disableAccessory || !patchData.jobs.Necklace?.[accessoryAffix]?.[0]" /></td>
@@ -465,6 +471,7 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/hands.png"
                 :slot-description="t('防具：手部')"
+                :related-item="patchData.jobs.HandsAttire?.[attireAffix]?.[0]"
               />
             </td>
             <td><Stepper v-model:value="HandsAttire" :disabled="disableAttire || !patchData.jobs.HandsAttire?.[attireAffix]?.[0]" /></td>
@@ -472,6 +479,7 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/wrist.png"
                 :slot-description="t('首饰：手镯')"
+                :related-item="patchData.jobs.Wrist?.[accessoryAffix]?.[0]"
               />
             </td>
             <td><Stepper v-model:value="Wrist" :disabled="disableAccessory || !patchData.jobs.Wrist?.[accessoryAffix]?.[0]" /></td>
@@ -482,6 +490,7 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/legs.png"
                 :slot-description="t('防具：腿部')"
+                :related-item="patchData.jobs.LegsAttire?.[attireAffix]?.[0]"
               />
             </td>
             <td><Stepper v-model:value="LegsAttire" :disabled="disableAttire || !patchData.jobs.LegsAttire?.[attireAffix]?.[0]" /></td>
@@ -489,6 +498,7 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/ring.png"
                 :slot-description="t('首饰：戒指')"
+                :related-item="patchData.jobs.Rings?.[accessoryAffix]?.[0]"
               />
             </td>
             <td><Stepper v-model:value="Rings" :disabled="disableAccessory || !patchData.jobs.Rings?.[accessoryAffix]?.[0]" /></td>
@@ -499,6 +509,7 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/feet.png"
                 :slot-description="t('防具：脚部')"
+                :related-item="patchData.jobs.FeetAttire?.[attireAffix]?.[0]"
               />
             </td>
             <td><Stepper v-model:value="FeetAttire" :disabled="disableAttire || !patchData.jobs.FeetAttire?.[attireAffix]?.[0]" /></td>
