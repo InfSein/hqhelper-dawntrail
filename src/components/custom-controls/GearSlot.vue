@@ -49,6 +49,7 @@ const itemInfo = computed(() => {
         show-icon show-name
         pop-use-custom-width
         :pop-custom-width="300"
+        btn-extra-style="max-width: 250px;"
       />
       <p v-else>
         {{ t('无') }}
