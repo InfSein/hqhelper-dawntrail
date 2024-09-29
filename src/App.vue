@@ -162,6 +162,7 @@ const appClass = computed(() => {
   const classes = [
     'lang-' + locale.value,
     'app-' + (isMobile.value ? 'mobile' : 'desktop'),
+    window.electronAPI ? 'env-electron' : 'env-web'
   ]
   return classes.join(' ')
 })
@@ -246,6 +247,10 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.env-electron :deep(.n-layout-header) {
+  -webkit-app-region: drag;
+}
+
 :deep(#main-content .n-scrollbar-container) {
   padding: 1rem;
 }
