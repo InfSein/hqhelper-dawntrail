@@ -162,6 +162,7 @@ const appClass = computed(() => {
   const classes = [
     'lang-' + locale.value,
     'app-' + (isMobile.value ? 'mobile' : 'desktop'),
+    window.electronAPI ? 'env-electron' : 'env-web'
   ]
   return classes.join(' ')
 })
@@ -247,7 +248,7 @@ onMounted(async () => {
 
 <style scoped>
 /* Electron only */
-:deep(.n-layout-header) {
+.env-electron :deep(.n-layout-header) {
   -webkit-app-region: drag;
 }
 

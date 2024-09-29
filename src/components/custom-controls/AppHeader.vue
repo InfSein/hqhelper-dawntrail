@@ -467,7 +467,7 @@ onMounted(async () => {
 
 <style scoped>
 /* Electron only */
-.app-header {
+.env-electron .app-header {
   width: fit-content;
   -webkit-app-region: no-drag;
 }
