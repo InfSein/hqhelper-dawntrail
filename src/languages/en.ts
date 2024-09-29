@@ -356,5 +356,8 @@ export default {
     "355": "Replacing files...",
     "356": "Cleaning temp files...",
     "357": "Relaunching...",
-    "358": "Updating"
+    "358": "Updating",
+    "359": "Fixed client might not be able to move window position by dragging top area after updating HqHelper version.",
+    "360": "Now the pop of gear icons in \"{f}\" area will also show the information of related item that correspond to the selected job on this gear.",
+    "361": "None"
 }
