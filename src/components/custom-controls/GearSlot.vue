@@ -5,7 +5,7 @@ import {
 } from 'naive-ui'
 import XivFARImage from './XivFARImage.vue'
 import ItemButton from './ItemButton.vue'
-import { getItemInfo, type CalculatedItem } from '@/tools/item'
+import { getItemInfo } from '@/tools/item'
 
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
@@ -19,7 +19,7 @@ const props = defineProps({
     required: true
   },
   relatedItem: {
-    type: Object as () => number | CalculatedItem | undefined,
+    type: Number,
     required: true
   }
 })
