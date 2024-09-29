@@ -420,6 +420,12 @@ const onUserPreferencesSubmitted = () => {
 </template>
 
 <style scoped>
+/* Electron only */
+.env-electron .app-header {
+  width: fit-content;
+  -webkit-app-region: no-drag;
+}
+
 /* All */
 .app-header {
   height: 100%;

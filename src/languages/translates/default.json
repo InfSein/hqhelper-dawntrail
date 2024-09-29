@@ -2509,9 +2509,30 @@
   },
   "正在更新": {
     "en": "Updating",
-    "ja": "更新中……",
+    "ja": "アップデート中……",
     "$files": [
       "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "修复客户端在更新HqHelper版本后可能无法通过拖拽顶部区域移动窗口位置的问题。": {
+    "en": "Fixed client might not be able to move window position by dragging top area after updating HqHelper version.",
+    "ja": "HqHelperのアップデート後、クライアントがウィンドウの上部をドラッグしても移動できない可能性がある問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在“{f}”区域的部件图标悬浮窗还会显示已选职业在此部件上对应的装备道具信息。": {
+    "en": "Now the pop of gear icons in \"{f}\" area will also show the information of related item that correspond to the selected job on this gear.",
+    "ja": "また、「{f}」の装備アイコンのツールチップに、選択されたジョブのその部位に対応する装備アイテム情報が表示されるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "无": {
+    "en": "None",
+    "ja": "なし",
+    "$files": [
+      "components\\custom-controls\\GearSlot.vue"
     ]
   }
 }

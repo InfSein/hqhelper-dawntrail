@@ -8,16 +8,17 @@
     "combat_hq_il": 710,
     "life_hq_il": 690,
     "logo": "./image/game-patch/patch-7.0.png",
-    "background": "./image/game-patch/patch-7.0-background-v2.jpg"
+    "background": "./image/game-patch/patch-7.0-background.jpg"
   },
   {
     "v": "7.1",
-    "name_zh": "???",
-    "name_en": "???",
-    "name_ja": "???",
+    "name_zh": "与未知的邂逅",
+    "name_en": "Crossroads",
+    "name_ja": "未知との邂逅",
     "updated": false,
     "life_hq_il": 720,
-    "logo": "./image/game-patch/patch-7.0.png"
+    "logo": "./image/game-patch/patch-7.0.png",
+    "background": "./image/game-patch/patch-7.1-background.jpg"
   },
   {
     "v": "7.2",
