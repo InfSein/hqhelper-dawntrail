@@ -35,6 +35,27 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.0.5',
+      date: '2024-09-29',
+      changes: [
+        {
+          name: groupName.bugfix,
+          changes: [
+            isZh ? '修正地名与物品类型的中文文本未更新7.0国服译名的问题。' : '',
+            t('修复客户端在更新HqHelper版本后可能无法通过拖拽顶部区域移动窗口位置的问题。')
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('现在“{f}”区域的部件图标悬浮窗还会显示已选职业在此部件上对应的装备道具信息。', {
+              f: t('选择部件')
+            })
+          ]
+        }
+      ]
+    },
+    {
       version: '2.0.4',
       date: '2024-09-26',
       changes: [
