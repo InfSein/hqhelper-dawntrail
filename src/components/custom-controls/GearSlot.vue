@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NPopover
+  NDivider, NPopover
 } from 'naive-ui'
 import XivFARImage from './XivFARImage.vue'
+import ItemButton from './ItemButton.vue'
+import { getItemInfo } from '@/tools/item'
 
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
-defineProps({
+const props = defineProps({
   slotIconSrc: {
     type: String,
     required: true
@@ -15,7 +17,16 @@ defineProps({
   slotDescription: {
     type: String,
     required: true
+  },
+  relatedItem: {
+    type: Number,
+    required: true
   }
+})
+
+const itemInfo = computed(() => {
+  if (!props.relatedItem) return false
+  return getItemInfo(props.relatedItem)
 })
 </script>
 
@@ -29,11 +40,26 @@ defineProps({
         />
       </div>
     </template>
-    <div class="flex-column flex-center">
-      <p class="font-center">{{ slotDescription }}</p>
+    <div>
+      <p class="bold">{{ slotDescription }}</p>
+      <n-divider class="block-divider" />
+      <ItemButton
+        v-if="itemInfo"
+        :item-info="itemInfo"
+        show-icon show-name
+        pop-use-custom-width
+        :pop-custom-width="300"
+        btn-extra-style="max-width: 250px;"
+      />
+      <p v-else>
+        {{ t('无') }}
+      </p>
     </div>
   </n-popover>
 </template>
 
 <style scoped>
+.block-divider {
+  margin: 1px 0 5px 0 !important;
+}
 </style>
