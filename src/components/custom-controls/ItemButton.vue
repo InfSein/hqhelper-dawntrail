@@ -136,6 +136,14 @@ const options = [
     }
   },
   {
+    label: t('在GamerEscape中打开'),
+    key: 'open-in-garland',
+    icon: renderIcon(OpenInNewFilled),
+    click: () => {
+      window.open(`https://ffxiv.gamerescape.com/wiki/${props.itemInfo.nameEN.replace(' ', '_')}`)
+    }
+  },
+  {
     label: t('在Universalis中打开'),
     key: 'open-in-universalis',
     icon: renderIcon(OpenInNewFilled),
