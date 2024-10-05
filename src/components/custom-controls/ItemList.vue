@@ -66,6 +66,11 @@ const props = defineProps({
   showCollectorIcon: {
     type: Boolean,
     default: false
+  },
+  /** 物品按钮所处容器的ID，在模态框等场景时必须传递，否则无法正常复制物品名 */
+  containerId: {
+    type: String,
+    default: ''
   }
 })
 
@@ -149,6 +154,7 @@ const handleCopyAsMacro = async () => {
           show-icon show-name show-amount
           :pop-max-width="btnPopMaxWidth"
           :show-collector-icon="showCollectorIcon"
+          :container-id="containerId"
         >
         </ItemButton>
       </n-flex>

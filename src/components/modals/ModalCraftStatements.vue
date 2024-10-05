@@ -88,6 +88,7 @@ const handleClose = () => {
     <n-card
       closable
       role="dialog"
+      id="modal-craft-statements"
       style="width: 98%; max-width: 1500px;"
       :style="{ height: isMobile ? '650px' : '600px' }"
       @close="handleClose"
@@ -111,6 +112,7 @@ const handleClose = () => {
               :items="block.items"
               :list-height="480"
               :show-collector-icon="!userConfig.hide_collector_icons"
+              container-id="modal-craft-statements"
             />
           </div>
         </n-tab-pane>
@@ -130,6 +132,7 @@ const handleClose = () => {
               :list-height="480"
               btn-pop-max-width="300px"
               :show-collector-icon="!userConfig.hide_collector_icons"
+              container-id="modal-craft-statements"
             />
           </div>
         </GroupBox>

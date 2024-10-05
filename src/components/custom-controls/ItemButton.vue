@@ -64,6 +64,9 @@ interface ItemButtonProps {
   disabled?: boolean;
   /** 是否禁用物品信息提示框(可选,默认false) */
   disablePop?: boolean;
+
+  /** 物品按钮所处容器的ID，在模态框等场景时必须传递，否则无法正常复制物品名 */
+  containerId?: string
 }
 const props = defineProps<ItemButtonProps>()
 
@@ -193,7 +196,11 @@ const handleSelect = async (key: string | number, option: any) => {
   }
 }
 const handleCopy = async (content: string, successMessage?: string) => {
-  const response = await CopyToClipboard(content)
+  let container : HTMLElement | undefined | null
+  if (props.containerId) {
+    container = document.getElementById(props.containerId)
+  }
+  const response = await CopyToClipboard(content, container)
   if (response) {
     NAIVE_UI_MESSAGE.error(t('复制失败：发生意外错误'))
   } else {
