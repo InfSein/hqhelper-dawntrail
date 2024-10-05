@@ -203,11 +203,11 @@ const handleCopyAsMacro = async () => {
   display: flex;
   align-items: center;
   gap: 3px;
+  margin-left: auto;
 
   .tome-script {
     display: flex;
     align-items: center;
-    margin-left: auto;
   }
 }
 .pop-wrapper {

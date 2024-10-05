@@ -109,6 +109,7 @@ const handleClose = () => {
             <ItemList
               :items="block.items"
               :list-height="480"
+              show-collector-icon
             />
           </div>
         </n-tab-pane>
@@ -127,6 +128,7 @@ const handleClose = () => {
               :items="block.items"
               :list-height="480"
               btn-pop-max-width="300px"
+              show-collector-icon
             />
           </div>
         </GroupBox>

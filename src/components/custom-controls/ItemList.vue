@@ -61,6 +61,11 @@ const props = defineProps({
   btnPopMaxWidth: {
     type: String,
     default: undefined
+  },
+  /** 是否在物品名前展示生产/采集职业的图标 */
+  showCollectorIcon: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -143,6 +148,7 @@ const handleCopyAsMacro = async () => {
           :item-info="item"
           show-icon show-name show-amount
           :pop-max-width="btnPopMaxWidth"
+          :show-collector-icon="showCollectorIcon"
         >
         </ItemButton>
       </n-flex>

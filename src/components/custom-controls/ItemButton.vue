@@ -14,6 +14,7 @@ import ItemPop from './ItemPop.vue'
 import { type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import { CopyToClipboard } from '@/tools'
+import { jobMap } from '@/data'
 
 const NAIVE_UI_MESSAGE = useMessage()
 
@@ -53,6 +54,8 @@ interface ItemButtonProps {
 
   /** 是否显示物品图标(可选,默认false) */
   showIcon?: boolean;
+  /** 是否在物品名前展示生产/采集职业的图标 */
+  showCollectorIcon?: boolean;
   /** 是否显示物品名称(可选,默认false) */
   showName?: boolean;
   /** 是否显示物品数量(可选,默认false) */
@@ -278,8 +281,20 @@ const handleItemButtonClick = async () => {
           </div>
 
           <div v-if="showName" class="item-info">
-            <div class="item-name">
-              {{ getItemName() }}
+            <div class="item-name-container">
+              <XivFARImage
+                v-if="showCollectorIcon && itemInfo.craftInfo?.jobId"
+                :src="jobMap[itemInfo.craftInfo?.jobId].job_icon_url"
+                :size="14"
+              />
+              <XivFARImage
+                v-else-if="showCollectorIcon && itemInfo.gatherInfo?.jobId"
+                :src="jobMap[itemInfo.gatherInfo?.jobId].job_icon_url"
+                :size="14"
+              />
+              <div class="item-name">
+                {{ getItemName() }}
+              </div>
             </div>
             <div v-if="showAmount" class="item-amount">
               x {{ itemInfo.amount }}
@@ -334,9 +349,14 @@ const handleItemButtonClick = async () => {
       overflow: hidden;
       text-overflow: ellipsis;
 
-      .item-name {
-        white-space: nowrap;
-        text-overflow: ellipsis;
+      .item-name-container {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        .item-name {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
       }
       div {
         text-align: end;
