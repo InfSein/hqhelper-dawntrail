@@ -42,6 +42,9 @@ interface ItemPopProps {
 
   /** 是否禁用物品信息提示框(可选,默认false) */
   disablePop?: boolean;
+
+  /** 物品按钮所处容器的ID，在模态框等场景时必须传递，否则无法正常复制物品名 */
+  containerId?: string
 }
 const props = defineProps<ItemPopProps>()
 
@@ -309,7 +312,7 @@ const openInAngler = () => {
           <div class="content">
             <div>{{ t('该物品可以通过精选以下道具获得：') }}</div>
             <div class="item" v-for="(reduce, reduceIndex) in itemInfo.canReduceFrom" :key="'reduce-' + reduceIndex">
-              <ItemSpan :item-info="getItemInfo(reduce)" />
+              <ItemSpan :item-info="getItemInfo(reduce)" :container-id="containerId" />
             </div>
           </div>
         </div>
@@ -378,7 +381,7 @@ const openInAngler = () => {
           <div class="content">
             <div>{{ t('该物品可以通过兑换获得：') }}</div>
             <div class="item">
-              <ItemSpan :item-info="getItemInfo(itemTradeCost.costId)" :amount="itemTradeCost.costCount" show-amount />
+              <ItemSpan :item-info="getItemInfo(itemTradeCost.costId)" :amount="itemTradeCost.costCount" show-amount :container-id="containerId" />
             </div>
             <div class="item" v-if="itemInfo.tradeInfo.receiveCount > 1">
               {{ t('每次兑换可获得{receive}个', itemInfo.tradeInfo.receiveCount) }}
@@ -409,13 +412,13 @@ const openInAngler = () => {
               v-for="(item, index) in itemInfo.craftRequires"
               :key="'recipe-' + index"
             >
-              <ItemSpan :item-info="getItemInfo(item.id)" :amount="item.count" show-amount />
+              <ItemSpan :item-info="getItemInfo(item.id)" :amount="item.count" show-amount :container-id="containerId" />
             </div>
             <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship && itemInfo.craftInfo?.thresholds?.control">
               <div>{{ t('制作条件：') }}</div>
               <div class="item small-font" v-if="itemInfo.craftInfo?.masterRecipeId">
                 {{ t('需要习得') }}
-                <ItemSpan :img-size="12" :item-info="getItemInfo(itemInfo.craftInfo.masterRecipeId)" />
+                <ItemSpan :img-size="12" :item-info="getItemInfo(itemInfo.craftInfo.masterRecipeId)" :container-id="containerId" />
               </div>
               <div class="item small-font">
                 <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship">

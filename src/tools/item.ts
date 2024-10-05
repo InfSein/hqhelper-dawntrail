@@ -384,3 +384,99 @@ export const getStatementData = (statistics: any) => {
     }
   }
 }
+
+import {
+  FileCopyOutlined,
+  LanguageOutlined,
+  OpenInNewFilled
+} from '@vicons/material'
+import { h, type Component } from 'vue'
+import { NIcon } from 'naive-ui'
+export const getItemContexts = (
+  itemInfo: ItemInfo,
+  t: (text: string, ...args: any[]) => string,
+  handleCopy: (content: string, successMessage?: string) => Promise<void>
+) => {
+  const options = [
+    {
+      label: t('复制道具名'),
+      key: 'copy-item-name',
+      icon: renderIcon(FileCopyOutlined),
+      children: [
+        {
+          label: t('中文名'),
+          key: 'copy-zh',
+          icon: renderIcon(LanguageOutlined)
+        },
+        {
+          label: t('日文名'),
+          key: 'copy-ja',
+          icon: renderIcon(LanguageOutlined)
+        },
+        {
+          label: t('英文名'),
+          key: 'copy-en',
+          icon: renderIcon(LanguageOutlined)
+        }
+      ]
+    },
+    {
+      type: 'divider',
+      key: 'd1'
+    },
+    {
+      label: t('在灰机维基中打开'),
+      key: 'open-in-hjwiki',
+      icon: renderIcon(OpenInNewFilled),
+      click: () => {
+        window.open(`https://ff14.huijiwiki.com/wiki/物品:${itemInfo.nameZH}`)
+      }
+    },
+    {
+      label: t('在花环数据库中打开'),
+      key: 'open-in-garland',
+      icon: renderIcon(OpenInNewFilled),
+      click: () => {
+        window.open(`https://www.garlandtools.org/db/#item/${itemInfo.id}`)
+      }
+    },
+    {
+      label: t('在GamerEscape中打开'),
+      key: 'open-in-gamerescape',
+      icon: renderIcon(OpenInNewFilled),
+      click: () => {
+        window.open(`https://ffxiv.gamerescape.com/wiki/${itemInfo.nameEN.replace(' ', '_')}`)
+      }
+    },
+    {
+      label: t('在Universalis中打开'),
+      key: 'open-in-universalis',
+      icon: renderIcon(OpenInNewFilled),
+      click: () => {
+        window.open(`https://universalis.app/market/${itemInfo.id}`)
+      }
+    },
+  ]
+  function renderIcon(icon: Component) {
+    return () => {
+      return h(NIcon, null, {
+        default: () => h(icon)
+      })
+    }
+  }
+
+  const handleKeyEvent = async (key: string | number, option: any) => {
+    switch (key) {
+      case 'copy-zh':
+        await handleCopy(itemInfo.nameZH); break
+      case 'copy-ja':
+        await handleCopy(itemInfo.nameJA); break
+      case 'copy-en':
+        await handleCopy(itemInfo.nameEN); break
+      default:
+        console.log('[开发提示] 未分配点击事件', key, option)
+    }
+  }
+
+  return { options, handleKeyEvent }
+}
