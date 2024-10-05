@@ -9,7 +9,7 @@ import ItemButton from '../custom-controls/ItemButton.vue'
 import ItemList from '../custom-controls/ItemList.vue'
 import TomeScriptButton from '../custom-controls/TomeScriptButton.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
-import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
+import { getItemInfo, getStatementData, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -239,30 +239,7 @@ const showStatement = () => {
   showStatementModal.value = true
 }
 const statementData = computed(() => {
-  const craftTargets : ItemInfo[] = []
-  const materialsLv1 : ItemInfo[] = []
-  const materialsLv2 : ItemInfo[] = []
-  const materialsLv3 : ItemInfo[] = []
-  const materialsLv4 : ItemInfo[] = []
-  const materialsLv5 : ItemInfo[] = []
-  const materialsLvBase : ItemInfo[] = []
-  
-  processStatistics(props.statistics.ls, craftTargets)
-  processStatistics(props.statistics.lv1, materialsLv1)
-  processStatistics(props.statistics.lv2, materialsLv2)
-  processStatistics(props.statistics.lv3, materialsLv3)
-  processStatistics(props.statistics.lv4, materialsLv4)
-  processStatistics(props.statistics.lv5, materialsLv5)
-  processStatistics(props.statistics.lvBase, materialsLvBase)
-
-  return { craftTargets, materialsLv1, materialsLv2, materialsLv3, materialsLv4, materialsLv5, materialsLvBase }
-
-  function processStatistics(_in: any, out: any[]) {
-    for (const id in _in) {
-      const item = _in[id]
-      out.push(getItemInfo(item))
-    }
-  }
+  return getStatementData(props.statistics)
 })
 </script>
 

@@ -353,3 +353,34 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     return `${CDN_ICON}${icon.substring(0, 3)}000/${hq}${icon}.png`
   }
 }
+
+/**
+ * 获取 `查看报表` 需要的数据
+ * @param statistics 通过 `nbb-cal` 计算获得的统计数据
+ */
+export const getStatementData = (statistics: any) => {
+  const craftTargets : ItemInfo[] = []
+  const materialsLv1 : ItemInfo[] = []
+  const materialsLv2 : ItemInfo[] = []
+  const materialsLv3 : ItemInfo[] = []
+  const materialsLv4 : ItemInfo[] = []
+  const materialsLv5 : ItemInfo[] = []
+  const materialsLvBase : ItemInfo[] = []
+  
+  processStatistics(statistics.ls, craftTargets)
+  processStatistics(statistics.lv1, materialsLv1)
+  processStatistics(statistics.lv2, materialsLv2)
+  processStatistics(statistics.lv3, materialsLv3)
+  processStatistics(statistics.lv4, materialsLv4)
+  processStatistics(statistics.lv5, materialsLv5)
+  processStatistics(statistics.lvBase, materialsLvBase)
+
+  return { craftTargets, materialsLv1, materialsLv2, materialsLv3, materialsLv4, materialsLv5, materialsLvBase }
+
+  function processStatistics(_in: any, out: any[]) {
+    for (const id in _in) {
+      const item = _in[id]
+      out.push(getItemInfo(item))
+    }
+  }
+}

@@ -4,7 +4,8 @@ import {
   NSwitch
 } from 'naive-ui'
 import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
-import { getItemInfo, type ItemInfo } from '@/tools/item'
+import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
+import { getItemInfo, getStatementData, type ItemInfo } from '@/tools/item'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemList from '../custom-controls/ItemList.vue'
 import { useNbbCal } from '@/tools/use-nbb-cal'
@@ -175,6 +176,15 @@ const crystals = computed(() => {
   }
   return _crystals
 })
+
+const showStatementModal = ref(false)
+const showStatement = () => {
+  console.log('statistics:', props.statistics)
+  showStatementModal.value = true
+}
+const statementData = computed(() => {
+  return getStatementData(props.statistics)
+})
 </script>
 
 <template>
@@ -183,6 +193,7 @@ const crystals = computed(() => {
       <template #header>
         <i class="xiv square-2"></i>
         <span class="card-title-text">{{ t('查看统计') }}</span>
+        <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
       </template>
 
       <div class="pre">
@@ -246,6 +257,11 @@ const crystals = computed(() => {
           </div>
         </GroupBox>
       </div>
+      
+      <ModalCraftStatements
+        v-model:show="showStatementModal"
+        v-bind="statementData"
+      />
     </FoldableCard>
   </div>
 </template>
