@@ -140,7 +140,7 @@ const options = [
   },
   {
     label: t('在GamerEscape中打开'),
-    key: 'open-in-garland',
+    key: 'open-in-gamerescape',
     icon: renderIcon(OpenInNewFilled),
     click: () => {
       window.open(`https://ffxiv.gamerescape.com/wiki/${props.itemInfo.nameEN.replace(' ', '_')}`)
