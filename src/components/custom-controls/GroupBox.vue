@@ -1,8 +1,22 @@
-<script setup>
+<script setup lang="ts">
+import {
+  NIcon, NTooltip
+} from 'naive-ui'
+import {
+  InfoOutlined
+} from '@vicons/material'
+import { inject, ref, type Ref } from 'vue';
+
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+
 defineProps({
   borderColor: {
     type: String,
     default: '#919191',
+  },
+  title: {
+    type: String,
+    default: ''
   },
   titleBackgroundColor: {
     type: String,
@@ -11,6 +25,10 @@ defineProps({
   titleMaxWidth: {
     type: String,
     default: 'unset'
+  },
+  descriptions: {
+    type: Array as () => string[],
+    default: () => []
   },
   containerExtraStyle: {
     type: String,
@@ -29,7 +47,19 @@ defineProps({
       class="group-box-title"
       :style="{ backgroundColor: titleBackgroundColor, maxWidth: titleMaxWidth }"
     >
-      <slot name="title" />
+      <slot name="title">
+        <div>{{ title }}</div>
+          <div v-if="descriptions?.length">
+            <n-tooltip :trigger="isMobile ? 'click' : 'hover'" placement="top" :style="isMobile ? 'max-width: 250px;' : ''">
+              <template #trigger>
+                <n-icon size="18" style="display: flex;"><InfoOutlined /></n-icon>
+              </template>
+              <div class="descriptions">
+                <div v-for="(desc, dIndex) in descriptions" :key="'desc-' + dIndex">{{ desc }}</div>
+              </div>
+            </n-tooltip>
+          </div>
+      </slot>
     </div>
     <div class="group-box-content" :style="contentStyle">
       <slot />
@@ -55,6 +85,11 @@ defineProps({
     white-space: nowrap;       /* 防止文本换行 */
     overflow: hidden;          /* 隐藏溢出的内容 */
     text-overflow: ellipsis;
+
+    .title-content {
+      display: flex;
+      align-items: center;
+    }
   }
 
   .group-box-content {

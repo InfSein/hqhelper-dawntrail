@@ -271,8 +271,13 @@ const statementData = computed(() => {
           />
         </div>
       </GroupBox>
-      <GroupBox id="aethersands-group" class="group" title-background-color="var(--n-color-embedded)">
-        <template #title>{{ t('灵砂统计') }}</template>
+      <GroupBox
+        id="aethersands-group" class="group" title-background-color="var(--n-color-embedded)"
+        :title="t('灵砂统计')"
+        :descriptions="[
+          t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+        ]"
+      >
         <div class="container">
           <ItemList
             :items="aethersands"
@@ -280,8 +285,13 @@ const statementData = computed(() => {
           />
         </div>
       </GroupBox>
-      <GroupBox id="master-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
-        <template #title>{{ t('普通秘籍半成品统计') }}</template>
+      <GroupBox
+        id="master-precrafts-group" class="group" title-background-color="var(--n-color-embedded)"
+        :title="t('普通秘籍半成品统计')"
+        :descriptions="[
+          t('即炼金术士宝水系列以外的秘籍半成品。')
+        ]"
+      >
         <div class="container">
           <ItemList
             :items="masterPrecrafts"
@@ -300,8 +310,13 @@ const statementData = computed(() => {
           />
         </div>
       </GroupBox>
-      <GroupBox id="actions-group" class="group" title-background-color="var(--n-color-embedded)">
-        <template #title>{{ t('采集统计') }}</template>
+      <GroupBox
+        id="actions-group" class="group" title-background-color="var(--n-color-embedded)"
+        :title="t('采集统计')"
+        :descriptions="[
+          t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+        ]"
+      >
         <div class="container">
           <n-collapse :accordion="!isMobile" :default-expanded-names="['crystals']">
             <n-collapse-item :title="t('常规采集品')" name="gatheringsCommon">

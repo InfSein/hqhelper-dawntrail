@@ -2136,7 +2136,7 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "如果您使用的是网页端，浏览器会因为缓存而自动更新，开启此选项只能让您收到提示的频率减少。": {
+  "在使用网页端时，即使打开了这一选项，浏览器也仍会因为缓存而自动更新。": {
     "en": "If you are using the web version, the browser will automatically update due to cache. Enabling this option can only reduce the frequency of prompts.",
     "ja": "サイト版はブラウザキャッシュの原因で常時自動アップデートされますので、このオプションはお知らせが表示する頻度だけを減らせます、ご注意ください。",
     "$files": [

@@ -205,8 +205,13 @@ const statementData = computed(() => {
         </div>
       </div>
       <div class="wrapper">
-        <GroupBox id="tome-script-group" class="group" title-background-color="var(--n-color-embedded)">
-          <template #title>{{ t('兑换道具统计') }}</template>
+        <GroupBox
+          id="tome-script-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('兑换道具统计')"
+          :descriptions="[
+            t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+          ]"
+        >
           <div class="container">
             <ItemList
               :items="tomeScriptItems"
@@ -220,19 +225,32 @@ const statementData = computed(() => {
             <ItemList
               :items="commonPrecrafts"
               :list-height="isMobile ? undefined : 245"
+              :show-collector-icon="!userConfig.hide_collector_icons"
             />
           </div>
         </GroupBox>
-        <GroupBox id="aethersands-group" class="group" title-background-color="var(--n-color-embedded)">
-          <template #title>{{ t('灵砂统计') }}</template>
+        <GroupBox
+          id="aethersands-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('灵砂统计')"
+          :descriptions="[
+            t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+          ]"
+        >
           <div class="container">
             <ItemList
               :items="aethersands"
             />
           </div>
         </GroupBox>
-        <GroupBox id="common-gatherings-group" class="group" title-background-color="var(--n-color-embedded)">
-          <template #title>{{ t('常规采集品') }}</template>
+        <GroupBox
+          id="common-gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('常规采集品')"
+          :descriptions="[
+            hidePrecraftGatherings
+              ? t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
+              : t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+          ]"
+        >
           <div class="container">
             <ItemList
               :items="gatheringsCommon"
@@ -241,8 +259,15 @@ const statementData = computed(() => {
             />
           </div>
         </GroupBox>
-        <GroupBox id="timed-gatherings-group" class="group" title-background-color="var(--n-color-embedded)">
-          <template #title>{{ t('限时采集品') }}</template>
+        <GroupBox
+          id="timed-gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('限时采集品')"
+          :descriptions="[
+            hidePrecraftGatherings
+              ? t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
+              : t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+          ]"
+        >
           <div class="container">
             <ItemList
               :items="gatheringsTimed"
@@ -251,8 +276,13 @@ const statementData = computed(() => {
             />
           </div>
         </GroupBox>
-        <GroupBox id="crystals-group" class="group" title-background-color="var(--n-color-embedded)">
-          <template #title>{{ t('水晶') }}</template>
+        <GroupBox
+          id="crystals-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('水晶统计')"
+          :descriptions="[
+            t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+          ]"
+        >
           <div class="container">
             <ItemList
               :items="crystals"
