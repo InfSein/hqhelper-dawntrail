@@ -309,7 +309,7 @@ const statementData = computed(() => {
           <ItemList
             :items="masterPrecrafts"
             :list-height="isMobile ? undefined : 320"
-            show-collector-icon
+            :show-collector-icon="!userConfig.hide_collector_icons"
           />
         </div>
       </GroupBox>
@@ -319,7 +319,7 @@ const statementData = computed(() => {
           <ItemList
             :items="commonPrecrafts"
             :list-height="isMobile ? undefined : 320"
-            show-collector-icon
+            :show-collector-icon="!userConfig.hide_collector_icons"
           />
         </div>
       </GroupBox>
@@ -333,7 +333,7 @@ const statementData = computed(() => {
                   :items="gatheringsCommon"
                   :list-height="isMobile ? undefined : 320"
                   :btn-pop-max-width="isMobile ? undefined : '340px'"
-                  show-collector-icon
+                  :show-collector-icon="!userConfig.hide_collector_icons"
                 />
               </div>
             </n-collapse-item>
@@ -343,7 +343,7 @@ const statementData = computed(() => {
                   :items="gatheringsTimed"
                   :list-height="isMobile ? undefined : 320"
                   :btn-pop-max-width="isMobile ? undefined : '340px'"
-                  show-collector-icon
+                  :show-collector-icon="!userConfig.hide_collector_icons"
                 />
               </div>
             </n-collapse-item>

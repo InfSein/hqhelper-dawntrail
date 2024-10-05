@@ -1,9 +1,11 @@
 export interface UserConfigModel {
   // general
-  theme: 'light' | 'dark' | 'system'
   language_ui: 'zh' | 'en' | 'ja'
   language_item: 'auto' | 'zh' | 'en' | 'ja'
   item_server: 'auto' | 'chs' | 'global'
+  // appearance
+  theme: 'light' | 'dark' | 'system'
+  hide_collector_icons: boolean
   // enhancements
   item_button_click_event: 'none' | 'copy_name' | 'copy_isearch'
   disable_patchcard_autofold: boolean
@@ -12,14 +14,17 @@ export interface UserConfigModel {
   macro_copy_prefix: string
   // performance
   disable_workstate_cache: boolean
-  // network
-  github_mirror_site: string
   // update
   disable_auto_update: boolean
+  
+  // check-update
+  github_mirror_site: string
 
-  // hidden options
+  // tome-script-button
   /** 在点数按钮的统计中显示双色宝石兑换物 */
   tomescript_show_bicolor_items: boolean
+
+  // hidden options
   cache_lasttime_version: string
   cache_ui_fold: any
   cache_work_state: any
@@ -29,20 +34,31 @@ export interface UserConfigModel {
 
 // eslint-disable-next-line no-var
 const defaultUserConfig: UserConfigModel = {
-  theme: 'light',
+  // general
   language_ui: 'zh',
   language_item: 'auto',
   item_server: 'auto',
+  // appearance
+  theme: 'light',
+  hide_collector_icons: false,
+  // enhancements
   item_button_click_event: 'none',
   disable_patchcard_autofold: false,
   disable_jobbtn_doubleclick: false,
   macro_direct_copy: false,
   macro_copy_prefix: '',
+  // performance
   disable_workstate_cache: false,
-  github_mirror_site: 'https://mirror.ghproxy.com',
+  // update
   disable_auto_update: false,
-
+  
+  // check-update
+  github_mirror_site: 'https://mirror.ghproxy.com',
+  
+  // tome-script-button
   tomescript_show_bicolor_items: false,
+
+  // hidden options
   cache_lasttime_version: 'none',
   cache_ui_fold: {}, // active cache, { key:string -> value:boolean }
   cache_work_state: {}, // active cache, view struct in `MainPage.vue` 's `workState`

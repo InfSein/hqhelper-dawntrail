@@ -137,6 +137,30 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
           { value: 'light', label: t('浅色') },
           { value: 'dark', label: t('深色') }
         ]
+      },
+      {
+        key: 'hide_collector_icons',
+        label: t('隐藏物品按钮的职业图标'),
+        descriptions: [
+          {
+            value: t('部分物品按钮会在物品名处展示该物品对应的生产/采集职业图标。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('虽然可能会更方便，但显示效果可能不尽如人意。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('如果你觉得这样太过碍眼，请考虑打开此选项。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'switch',
+        options: []
       }
     ]
   },
@@ -521,7 +545,6 @@ const handleSave = () => {
   gap: 10px;
 }
 .items {
-
   .item-title {
     font-weight: bold;
   }
