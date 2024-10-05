@@ -9,9 +9,11 @@ import { getItemInfo, getStatementData, type ItemInfo } from '@/tools/item'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemList from '../custom-controls/ItemList.vue'
 import { useNbbCal } from '@/tools/use-nbb-cal'
+import type { UserConfigModel } from '@/models/user-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const props = defineProps({
   statistics: {
@@ -235,6 +237,7 @@ const statementData = computed(() => {
             <ItemList
               :items="gatheringsCommon"
               :list-height="isMobile ? undefined : 245"
+              :show-collector-icon="!userConfig.hide_collector_icons"
             />
           </div>
         </GroupBox>
@@ -244,6 +247,7 @@ const statementData = computed(() => {
             <ItemList
               :items="gatheringsTimed"
               :list-height="isMobile ? undefined : 245"
+              :show-collector-icon="!userConfig.hide_collector_icons"
             />
           </div>
         </GroupBox>
