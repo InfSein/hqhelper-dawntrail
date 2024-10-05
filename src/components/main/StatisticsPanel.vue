@@ -64,6 +64,10 @@ const getTradeCost = (itemTradeInfo: ItemTradeInfo) => {
   return server === 'chs' ? itemTradeInfo?.costCHS : itemTradeInfo?.costGlobal
 }
 
+const showBiColorItemsInTomeScriptButton = computed(() => {
+  return userConfig.value?.tomescript_show_bicolor_items ?? false
+})
+
 /** 
  * 要高亮显示的素材组。
  * 
@@ -98,7 +102,7 @@ const tomeScriptItems = computed(() => {
       const itemTradeInfo = props.tradeMap[_id]
       if (itemTradeInfo) {
         const costId = getTradeCost(itemTradeInfo).costId
-        if (costId === 26807) continue // 忽略双色宝石
+        if (!showBiColorItemsInTomeScriptButton.value && costId === 26807) continue // 处理双色宝石
         if (!items[costId]) items[costId] = []
         const item = props.statistics.lvBase[id]
         items[costId].push(getItemInfo(item))
@@ -305,6 +309,7 @@ const statementData = computed(() => {
           <ItemList
             :items="masterPrecrafts"
             :list-height="isMobile ? undefined : 320"
+            show-collector-icon
           />
         </div>
       </GroupBox>
@@ -314,6 +319,7 @@ const statementData = computed(() => {
           <ItemList
             :items="commonPrecrafts"
             :list-height="isMobile ? undefined : 320"
+            show-collector-icon
           />
         </div>
       </GroupBox>
@@ -327,6 +333,7 @@ const statementData = computed(() => {
                   :items="gatheringsCommon"
                   :list-height="isMobile ? undefined : 320"
                   :btn-pop-max-width="isMobile ? undefined : '340px'"
+                  show-collector-icon
                 />
               </div>
             </n-collapse-item>
@@ -336,6 +343,7 @@ const statementData = computed(() => {
                   :items="gatheringsTimed"
                   :list-height="isMobile ? undefined : 320"
                   :btn-pop-max-width="isMobile ? undefined : '340px'"
+                  show-collector-icon
                 />
               </div>
             </n-collapse-item>
