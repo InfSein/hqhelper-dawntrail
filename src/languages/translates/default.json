@@ -932,13 +932,6 @@
       "components\\custom-controls\\ItemButton.vue"
     ]
   },
-  "特殊秘籍半成品&点数统计": {
-    "en": "Special",
-    "ja": "特殊",
-    "$files": [
-      "components\\main\\StatisticsPanel.vue"
-    ]
-  },
   "普通秘籍半成品统计": {
     "en": "MasterPrecrafts",
     "ja": "一般秘伝書の中間素材集計",
@@ -2533,6 +2526,177 @@
     "ja": "なし",
     "$files": [
       "components\\custom-controls\\GearSlot.vue"
+    ]
+  },
+  "职业/词缀": {
+    "en": "Job/Affix",
+    "ja": "职业/词缀",
+    "$files": [
+      "tools\\excel.ts"
+    ]
+  },
+  "主手": {
+    "en": "Mainhand",
+    "ja": "主手",
+    "$files": [
+      "tools\\excel.ts"
+    ]
+  },
+  "副手": {
+    "en": "Offhand",
+    "ja": "副手",
+    "$files": [
+      "tools\\excel.ts"
+    ]
+  },
+  "道具名": {
+    "en": "Item Name",
+    "ja": "道具名",
+    "$files": [
+      "tools\\excel.ts"
+    ]
+  },
+  "制作职业": {
+    "en": "Craft Job",
+    "ja": "制作职业",
+    "$files": [
+      "tools\\excel.ts"
+    ]
+  },
+  "数量": {
+    "en": "Amount",
+    "ja": "数量",
+    "$files": [
+      "tools\\excel.ts"
+    ]
+  },
+  "直接素材统计": {
+    "en": "Direct Materials Summary",
+    "ja": "直接素材统计",
+    "$files": [
+      "tools\\excel.ts"
+    ]
+  },
+  "点数类型": {
+    "en": "Tome Script Type",
+    "ja": "点数类型",
+    "$files": [
+      "tools\\excel.ts"
+    ]
+  },
+  "采集品(普通)统计": {
+    "en": "Gatherings (Common) Summary",
+    "ja": "采集品(普通)统计",
+    "$files": [
+      "tools\\excel.ts"
+    ]
+  },
+  "采集品(限时)统计": {
+    "en": "Gatherings (Time-limited) Summary",
+    "ja": "采集品(限时)统计",
+    "$files": [
+      "tools\\excel.ts"
+    ]
+  },
+  "水晶统计": {
+    "en": "Crystals Summary",
+    "ja": "水晶统计",
+    "$files": [
+      "tools\\excel.ts",
+      "components\\ft-helper\\StatisticsPanel.vue"
+    ]
+  },
+  "在GamerEscape中打开": {
+    "en": "Open in GamerEscape",
+    "ja": "在GamerEscape中打开",
+    "$files": [
+      "tools\\item.ts"
+    ]
+  },
+  "显示双色宝石兑换物": {
+    "en": "Show Bicolor Items",
+    "ja": "显示双色宝石兑换物",
+    "$files": [
+      "components\\custom-controls\\TomeScriptButton.vue"
+    ]
+  },
+  "此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。": {
+    "en": "Summary here includes both the materials needed to make the final product and the materials needed to make the semi-finished product.",
+    "ja": "此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。",
+    "$files": [
+      "components\\ft-helper\\StatisticsPanel.vue",
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。": {
+    "en": "Summary here only includes the materials needed to make the final product, not the materials needed to make the semi-finished product.",
+    "ja": "此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。",
+    "$files": [
+      "components\\ft-helper\\StatisticsPanel.vue",
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "请先选择版本和职业": {
+    "en": "Please select job and patch",
+    "ja": "请先选择版本和职业",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "[导出Excel]": {
+    "en": "[Export Excel]",
+    "ja": "[导出Excel]",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "特殊": {
+    "en": "Special",
+    "ja": "特殊",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "包括特殊秘籍半成品(即炼金术士的各个宝水)和点数统计。": {
+    "en": "Includes special master precrafts (Alchemist Gemsaps) and tome script statistics.",
+    "ja": "包括特殊秘籍半成品(即炼金术士的各个宝水)和点数统计。",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "即炼金术士宝水系列以外的秘籍半成品。": {
+    "en": "Master precrafts except Alchemist Gemsaps.",
+    "ja": "即炼金术士宝水系列以外的秘籍半成品。",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "隐藏物品按钮的职业图标": {
+    "en": "Hide job icon in item button",
+    "ja": "隐藏物品按钮的职业图标",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "部分物品按钮会在物品名处展示该物品对应的生产/采集职业图标。": {
+    "en": "Some item buttons show the icon of the job that craft or gather this item.",
+    "ja": "部分物品按钮会在物品名处展示该物品对应的生产/采集职业图标。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "虽然会更方便，但显示效果可能就不太尽如人意。": {
+    "en": "Though this would be more convenient, the display effect may not be as good as expected.",
+    "ja": "虽然会更方便，但显示效果可能就不太尽如人意。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "如果你觉得这样太过碍眼，请考虑打开此选项。": {
+    "en": "If you thought this is too ugly, please consider enabling this option.",
+    "ja": "如果你觉得这样太过碍眼，请考虑打开此选项。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
     ]
   }
 }
