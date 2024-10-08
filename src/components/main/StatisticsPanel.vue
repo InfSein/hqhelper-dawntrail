@@ -287,6 +287,8 @@ const statementData = computed(() => {
           <ItemList
             :items="aethersands"
             :list-height="isMobile ? undefined : 120"
+            display-style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));"
+            scroll-style="overflow-y: auto;"
           />
         </div>
       </GroupBox>

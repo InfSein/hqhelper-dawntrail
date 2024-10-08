@@ -43,6 +43,16 @@ const props = defineProps({
     type: Array as PropType<ItemInfo[]>,
     required: true
   },
+  /** 为物品容器指定额外的样式 */
+  displayStyle: {
+    type: String,
+    default: ''
+  },
+  /** 为滚动容器指定额外的样式 */
+  scrollStyle: {
+    type: String,
+    default: ''
+  },
   /** 清单区域的高度(不计入操作按钮) */
   listHeight: {
     type: Number
@@ -82,6 +92,7 @@ const getContainerStyles = () => {
 const getScrollbarStyles = () => {
   return [
     props.listHeight? `height: ${props.listHeight}px` : '',
+    props.scrollStyle
   ].join(';')
 }
 
@@ -146,7 +157,7 @@ const handleCopyAsMacro = async () => {
       </n-button>
     </div>
     <div v-if="mode === 'default'" class="scroll-container" :style="getScrollbarStyles()">
-      <n-flex vertical :size="[5,5]">
+      <div class="items-container" :style="displayStyle">
         <ItemButton
           v-for="(item, index) in items"
           :key="'item-' + index"
@@ -157,7 +168,7 @@ const handleCopyAsMacro = async () => {
           :container-id="containerId"
         >
         </ItemButton>
-      </n-flex>
+      </div>
     </div>
     <n-input
       v-else-if="mode === 'list'"
@@ -180,6 +191,12 @@ const handleCopyAsMacro = async () => {
 }
 .scroll-container {
   overflow-y: scroll;
+
+  .items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
 }
 .list-container {
   display: flex;
