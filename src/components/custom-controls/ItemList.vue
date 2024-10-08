@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { computed, inject, ref, type PropType, type Ref } from 'vue'
 import {
-  NButton, NEmpty, NFlex, NIcon, NInput,
+  NButton, NEmpty, NIcon, NInput,
   useMessage
 } from 'naive-ui'
 import {

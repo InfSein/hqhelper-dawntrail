@@ -11,6 +11,8 @@ import TomeScriptButton from '../custom-controls/TomeScriptButton.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import { getItemInfo, getStatementData, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
+import { export2Excel } from '@/tools/excel'
+import type { GearSelections } from '@/models/gears'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -48,6 +50,9 @@ const props = defineProps({
   tradeMap: {
     type: Object as () => Record<number, ItemTradeInfo>,
     required: true
+  },
+  gearSelections: {
+    type: Object as () => GearSelections
   }
 })
 
@@ -241,6 +246,26 @@ const showStatement = () => {
 const statementData = computed(() => {
   return getStatementData(props.statistics)
 })
+
+const exportExcel = () => {
+  if (!props.gearSelections) {
+    alert(t('请先选择版本和职业'))
+    return
+  }
+  export2Excel(
+    props.gearSelections,
+    props.statistics,
+    tomeScriptItems.value,
+    gatheringsCommon.value,
+    gatheringsTimed.value,
+    crystals.value,
+    userConfig.value.language_ui,
+    userConfig.value.language_item === 'auto'
+      ? userConfig.value.language_ui
+      : userConfig.value.language_item,
+    t
+  )
+}
 </script>
 
 <template>
@@ -249,6 +274,7 @@ const statementData = computed(() => {
       <i class="xiv square-4"></i>
       <span class="card-title-text">{{ t('查看统计') }}</span>
       <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
+      <a class="card-title-extra" href="javascript:void(0);" @click="exportExcel">{{ t('[导出Excel]') }}</a>
     </template>
     <div class="wrapper">
       <GroupBox
