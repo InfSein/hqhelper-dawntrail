@@ -99,7 +99,7 @@
     ]
   },
   "关于本作": {
-    "en": "About Us",
+    "en": "About us",
     "ja": "当ツールについて",
     "$files": [
       "components\\AppHeader.vue"
@@ -323,28 +323,28 @@
     ]
   },
   "添加一套生产防具&首饰": {
-    "en": "Add 1 crafter's attire&accessory set",
+    "en": "Add 1 set of crafters' attire&accessory",
     "ja": "クラフター防具とアクセサリを１セット追加",
     "$files": [
       "components\\QuickOperatePanel.vue"
     ]
   },
   "添加一套采集防具&首饰": {
-    "en": "Add 1 gatherer's attire&accessory set",
+    "en": "Add 1 set of gatherers' attire&accessory",
     "ja": "ギャザラー防具とアクセサリを１セット追加",
     "$files": [
       "components\\QuickOperatePanel.vue"
     ]
   },
   "添加一套生产主副手": {
-    "en": "Add 1 crafter's tool set",
+    "en": "Add 1 set of crafters' tools",
     "ja": "クラフター主副道具を１セット追加",
     "$files": [
       "components\\QuickOperatePanel.vue"
     ]
   },
   "添加一套采集主副手": {
-    "en": "Add 1 gatherer's tool set",
+    "en": "Add 1 set of gatherers' tools",
     "ja": "ギャザラー主副道具を１セット追加",
     "$files": [
       "components\\QuickOperatePanel.vue"
@@ -547,7 +547,7 @@
     ]
   },
   "添加一套主副手": {
-    "en": "Add 1 set of mainhand&offhand weapons/tools",
+    "en": "Add 1 set of mainhand&offhand",
     "ja": "主副道具を１セット追加",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
@@ -596,7 +596,7 @@
     ]
   },
   "联系我们": {
-    "en": "Contact Us",
+    "en": "Contact us",
     "ja": "コンタクト",
     "$files": [
       "components\\modals\\ModalContact.vue",
@@ -1527,7 +1527,7 @@
     ]
   },
   "以后不再询问，直接复制": {
-    "en": "No more ask, copy directly",
+    "en": "Don't ask again, just copy",
     "ja": "次回から表示ぜずにコピーする",
     "$files": [
       "components\\modals\\ModalCopyAsMacro.vue"
@@ -2256,7 +2256,7 @@
     ]
   },
   "更新了“关于本作”中创作者的信息。": {
-    "en": "Updated staff info in \"About Us\"",
+    "en": "Updated staff info in \"About us\"",
     "ja": "「当ツールについて」に記載されているクリエイター情報を更新しました。",
     "$files": [
       "data\\change-logs.ts"
