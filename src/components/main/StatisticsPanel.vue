@@ -9,8 +9,10 @@ import ItemButton from '../custom-controls/ItemButton.vue'
 import ItemList from '../custom-controls/ItemList.vue'
 import TomeScriptButton from '../custom-controls/TomeScriptButton.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
-import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
+import { getItemInfo, getStatementData, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
+import { export2Excel } from '@/tools/excel'
+import type { GearSelections } from '@/models/gears'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -48,6 +50,9 @@ const props = defineProps({
   tradeMap: {
     type: Object as () => Record<number, ItemTradeInfo>,
     required: true
+  },
+  gearSelections: {
+    type: Object as () => GearSelections
   }
 })
 
@@ -63,6 +68,10 @@ const getTradeCost = (itemTradeInfo: ItemTradeInfo) => {
   }
   return server === 'chs' ? itemTradeInfo?.costCHS : itemTradeInfo?.costGlobal
 }
+
+const showBiColorItemsInTomeScriptButton = computed(() => {
+  return userConfig.value?.tomescript_show_bicolor_items ?? false
+})
 
 /** 
  * 要高亮显示的素材组。
@@ -98,7 +107,7 @@ const tomeScriptItems = computed(() => {
       const itemTradeInfo = props.tradeMap[_id]
       if (itemTradeInfo) {
         const costId = getTradeCost(itemTradeInfo).costId
-        if (costId === 26807) continue // 忽略双色宝石
+        if (!showBiColorItemsInTomeScriptButton.value && costId === 26807) continue // 处理双色宝石
         if (!items[costId]) items[costId] = []
         const item = props.statistics.lvBase[id]
         items[costId].push(getItemInfo(item))
@@ -235,31 +244,28 @@ const showStatement = () => {
   showStatementModal.value = true
 }
 const statementData = computed(() => {
-  const craftTargets : ItemInfo[] = []
-  const materialsLv1 : ItemInfo[] = []
-  const materialsLv2 : ItemInfo[] = []
-  const materialsLv3 : ItemInfo[] = []
-  const materialsLv4 : ItemInfo[] = []
-  const materialsLv5 : ItemInfo[] = []
-  const materialsLvBase : ItemInfo[] = []
-  
-  processStatistics(props.statistics.ls, craftTargets)
-  processStatistics(props.statistics.lv1, materialsLv1)
-  processStatistics(props.statistics.lv2, materialsLv2)
-  processStatistics(props.statistics.lv3, materialsLv3)
-  processStatistics(props.statistics.lv4, materialsLv4)
-  processStatistics(props.statistics.lv5, materialsLv5)
-  processStatistics(props.statistics.lvBase, materialsLvBase)
-
-  return { craftTargets, materialsLv1, materialsLv2, materialsLv3, materialsLv4, materialsLv5, materialsLvBase }
-
-  function processStatistics(_in: any, out: any[]) {
-    for (const id in _in) {
-      const item = _in[id]
-      out.push(getItemInfo(item))
-    }
-  }
+  return getStatementData(props.statistics)
 })
+
+const exportExcel = () => {
+  if (!props.gearSelections) {
+    alert(t('请先选择版本和职业'))
+    return
+  }
+  export2Excel(
+    props.gearSelections,
+    props.statistics,
+    tomeScriptItems.value,
+    gatheringsCommon.value,
+    gatheringsTimed.value,
+    crystals.value,
+    userConfig.value.language_ui,
+    userConfig.value.language_item === 'auto'
+      ? userConfig.value.language_ui
+      : userConfig.value.language_item,
+    t
+  )
+}
 </script>
 
 <template>
@@ -268,10 +274,16 @@ const statementData = computed(() => {
       <i class="xiv square-4"></i>
       <span class="card-title-text">{{ t('查看统计') }}</span>
       <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
+      <a class="card-title-extra" href="javascript:void(0);" @click="exportExcel">{{ t('[导出Excel]') }}</a>
     </template>
     <div class="wrapper">
-      <GroupBox id="reagents-group" class="group" title-background-color="var(--n-color-embedded)" title-max-width="200px">
-        <template #title>{{ t('特殊秘籍半成品&点数统计') }}</template>
+      <GroupBox
+        id="reagents-group" class="group" title-background-color="var(--n-color-embedded)" title-max-width="200px"
+        :title="t('特殊')"
+        :descriptions="[
+          t('包括特殊秘籍半成品(即炼金术士的各个宝水)和点数统计。')
+        ]"
+      >
         <div class="container">
           <ItemButton
             v-for="(item, index) in reagents"
@@ -290,35 +302,59 @@ const statementData = computed(() => {
           />
         </div>
       </GroupBox>
-      <GroupBox id="aethersands-group" class="group" title-background-color="var(--n-color-embedded)">
-        <template #title>{{ t('灵砂统计') }}</template>
+      <GroupBox
+        id="aethersands-group" class="group" title-background-color="var(--n-color-embedded)"
+        :title="t('灵砂统计')"
+        :descriptions="[
+          t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+        ]"
+      >
         <div class="container">
           <ItemList
             :items="aethersands"
             :list-height="isMobile ? undefined : 120"
+            display-style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));"
+            scroll-style="overflow-y: auto;"
           />
         </div>
       </GroupBox>
-      <GroupBox id="master-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
-        <template #title>{{ t('普通秘籍半成品统计') }}</template>
+      <GroupBox
+        id="master-precrafts-group" class="group" title-background-color="var(--n-color-embedded)"
+        :title="t('普通秘籍半成品统计')"
+        :descriptions="[
+          t('即炼金术士宝水系列以外的秘籍半成品。')
+        ]"
+      >
         <div class="container">
           <ItemList
             :items="masterPrecrafts"
             :list-height="isMobile ? undefined : 320"
+            :show-collector-icon="!userConfig.hide_collector_icons"
           />
         </div>
       </GroupBox>
-      <GroupBox id="common-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
-        <template #title>{{ t('普通半成品统计') }}</template>
+      <GroupBox
+        id="common-precrafts-group" class="group" title-background-color="var(--n-color-embedded)"
+        :title="t('普通半成品统计')"
+        :descriptions="[
+          t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
+        ]"
+      >
         <div class="container">
           <ItemList
             :items="commonPrecrafts"
             :list-height="isMobile ? undefined : 320"
+            :show-collector-icon="!userConfig.hide_collector_icons"
           />
         </div>
       </GroupBox>
-      <GroupBox id="actions-group" class="group" title-background-color="var(--n-color-embedded)">
-        <template #title>{{ t('采集统计') }}</template>
+      <GroupBox
+        id="actions-group" class="group" title-background-color="var(--n-color-embedded)"
+        :title="t('采集统计')"
+        :descriptions="[
+          t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+        ]"
+      >
         <div class="container">
           <n-collapse :accordion="!isMobile" :default-expanded-names="['crystals']">
             <n-collapse-item :title="t('常规采集品')" name="gatheringsCommon">
@@ -327,6 +363,7 @@ const statementData = computed(() => {
                   :items="gatheringsCommon"
                   :list-height="isMobile ? undefined : 320"
                   :btn-pop-max-width="isMobile ? undefined : '340px'"
+                  :show-collector-icon="!userConfig.hide_collector_icons"
                 />
               </div>
             </n-collapse-item>
@@ -336,6 +373,7 @@ const statementData = computed(() => {
                   :items="gatheringsTimed"
                   :list-height="isMobile ? undefined : 320"
                   :btn-pop-max-width="isMobile ? undefined : '340px'"
+                  :show-collector-icon="!userConfig.hide_collector_icons"
                 />
               </div>
             </n-collapse-item>

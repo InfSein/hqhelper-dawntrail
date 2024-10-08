@@ -1,19 +1,20 @@
 <script lang="ts" setup>
-import { computed, h, inject, nextTick, ref, type Component, type Ref } from 'vue'
+import { computed, inject, nextTick, ref, type Ref } from 'vue'
 import {
-  NButton, NDropdown, NIcon,
+  NButton, NDropdown, 
   useMessage
 } from 'naive-ui'
-import {
-  FileCopyOutlined,
-  LanguageOutlined,
-  OpenInNewFilled
-} from '@vicons/material'
+// import {
+//   FileCopyOutlined,
+//   LanguageOutlined,
+//   OpenInNewFilled
+// } from '@vicons/material'
 import XivFARImage from './XivFARImage.vue'
 import ItemPop from './ItemPop.vue'
-import { type ItemInfo } from '@/tools/item'
+import { getItemContexts, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import { CopyToClipboard } from '@/tools'
+import { jobMap } from '@/data'
 
 const NAIVE_UI_MESSAGE = useMessage()
 
@@ -53,6 +54,8 @@ interface ItemButtonProps {
 
   /** 是否显示物品图标(可选,默认false) */
   showIcon?: boolean;
+  /** 是否在物品名前展示生产/采集职业的图标 */
+  showCollectorIcon?: boolean;
   /** 是否显示物品名称(可选,默认false) */
   showName?: boolean;
   /** 是否显示物品数量(可选,默认false) */
@@ -61,6 +64,9 @@ interface ItemButtonProps {
   disabled?: boolean;
   /** 是否禁用物品信息提示框(可选,默认false) */
   disablePop?: boolean;
+
+  /** 物品按钮所处容器的ID，在模态框等场景时必须传递，否则无法正常复制物品名 */
+  containerId?: string
 }
 const props = defineProps<ItemButtonProps>()
 
@@ -92,69 +98,24 @@ const btnHeightVal = computed(() => {
 })
 
 // #region 右键菜单相关
-const options = [
-  {
-    label: t('复制道具名'),
-    key: 'copy-item-name',
-    icon: renderIcon(FileCopyOutlined),
-    children: [
-      {
-        label: t('中文名'),
-        key: 'copy-zh',
-        icon: renderIcon(LanguageOutlined)
-      },
-      {
-        label: t('日文名'),
-        key: 'copy-ja',
-        icon: renderIcon(LanguageOutlined)
-      },
-      {
-        label: t('英文名'),
-        key: 'copy-en',
-        icon: renderIcon(LanguageOutlined)
-      }
-    ]
-  },
-  {
-    type: 'divider',
-    key: 'd1'
-  },
-  {
-    label: t('在灰机维基中打开'),
-    key: 'open-in-hjwiki',
-    icon: renderIcon(OpenInNewFilled),
-    click: () => {
-      window.open(`https://ff14.huijiwiki.com/wiki/物品:${props.itemInfo.nameZH}`)
-    }
-  },
-  {
-    label: t('在花环数据库中打开'),
-    key: 'open-in-garland',
-    icon: renderIcon(OpenInNewFilled),
-    click: () => {
-      window.open(`https://www.garlandtools.org/db/#item/${props.itemInfo.id}`)
-    }
-  },
-  {
-    label: t('在Universalis中打开'),
-    key: 'open-in-universalis',
-    icon: renderIcon(OpenInNewFilled),
-    click: () => {
-      window.open(`https://universalis.app/market/${props.itemInfo.id}`)
-    }
-  },
-]
-function renderIcon(icon: Component) {
-  return () => {
-    return h(NIcon, null, {
-      default: () => h(icon)
-    })
-  }
-}
 
 const showDropdownRef = ref(false)
 const xRef = ref(0)
 const yRef = ref(0)
+
+const handleCopy = async (content: string, successMessage?: string) => {
+  let container : HTMLElement | undefined | null
+  if (props.containerId) {
+    container = document.getElementById(props.containerId)
+  }
+  const response = await CopyToClipboard(content, container)
+  if (response) {
+    NAIVE_UI_MESSAGE.error(t('复制失败：发生意外错误'))
+  } else {
+    NAIVE_UI_MESSAGE.success(successMessage ?? t('已复制到剪贴板'))
+  }
+}
+const { options, handleKeyEvent } = getItemContexts(props.itemInfo, t, handleCopy)
 const handleContextMenu = (e: MouseEvent) => {
   e.preventDefault()
   showDropdownRef.value = false
@@ -170,23 +131,7 @@ const handleSelect = async (key: string | number, option: any) => {
   if (option?.click) {
     option.click()
   } else {
-    if (key === 'copy-zh') {
-      await handleCopy(props.itemInfo.nameZH)
-    } else if (key === 'copy-ja') {
-      await handleCopy(props.itemInfo.nameJA)
-    } else if (key === 'copy-en') {
-      await handleCopy(props.itemInfo.nameEN)
-    } else {
-      console.log('[开发提示] 未分配点击事件', key, option)
-    }
-  }
-}
-const handleCopy = async (content: string, successMessage?: string) => {
-  const response = await CopyToClipboard(content)
-  if (response) {
-    NAIVE_UI_MESSAGE.error(t('复制失败：发生意外错误'))
-  } else {
-    NAIVE_UI_MESSAGE.success(successMessage ?? t('已复制到剪贴板'))
+    handleKeyEvent(key, option)
   }
 }
 const onClickoutside = () => {
@@ -270,8 +215,20 @@ const handleItemButtonClick = async () => {
           </div>
 
           <div v-if="showName" class="item-info">
-            <div class="item-name">
-              {{ getItemName() }}
+            <div class="item-name-container">
+              <XivFARImage
+                v-if="showCollectorIcon && itemInfo.craftInfo?.jobId"
+                :src="jobMap[itemInfo.craftInfo?.jobId].job_icon_url"
+                :size="14"
+              />
+              <XivFARImage
+                v-else-if="showCollectorIcon && itemInfo.gatherInfo?.jobId"
+                :src="jobMap[itemInfo.gatherInfo?.jobId].job_icon_url"
+                :size="14"
+              />
+              <div class="item-name">
+                {{ getItemName() }}
+              </div>
             </div>
             <div v-if="showAmount" class="item-amount">
               x {{ itemInfo.amount }}
@@ -326,9 +283,14 @@ const handleItemButtonClick = async () => {
       overflow: hidden;
       text-overflow: ellipsis;
 
-      .item-name {
-        white-space: nowrap;
-        text-overflow: ellipsis;
+      .item-name-container {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        .item-name {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
       }
       div {
         text-align: end;

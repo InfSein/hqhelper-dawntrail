@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, inject, ref, type Ref } from 'vue'
 import { 
-  NButton, NDivider, NEmpty, NIcon, NPopover,
+  NButton, NDivider, NEmpty, NIcon, NPopover, NSwitch,
   useMessage
 } from 'naive-ui'
 import {
@@ -9,7 +9,8 @@ import {
 } from '@vicons/material'
 import ItemSpan from './ItemSpan.vue'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
-import type { UserConfigModel } from '@/models/user-config'
+import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
+import { useStore } from '@/store'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -18,6 +19,7 @@ const copyAsMacro = inject<(macroContent: string, container?: HTMLElement | unde
   success: boolean;
   msg: string;
 } | undefined>>('copyAsMacro')!
+const store = useStore()
 
 const itemLanguage = computed(() => {
   if (userConfig.value.language_item !== 'auto') {
@@ -43,6 +45,13 @@ const props = defineProps({
     required: true
   }
 })
+
+const showBiColorItems = ref(userConfig.value.tomescript_show_bicolor_items)
+const handleShowBiColorItemsChange = (val: boolean) => {
+  const newConfig = fixUserConfig(store.state.userConfig)
+  newConfig.tomescript_show_bicolor_items = val ?? false
+  store.commit('setUserConfig', newConfig)
+}
 
 const getTradeCost = (itemTradeInfo: ItemTradeInfo) => {
   let server = userConfig.value.item_server
@@ -149,6 +158,12 @@ const handleCopyAsMacro = async () => {
         <p>{{ t('点数统计') }}</p>
       </div>
       <n-divider class="block-divider" />
+      <div class="pre">
+        <div class="preset-item">
+          <n-switch v-model:value="showBiColorItems" @update:value="handleShowBiColorItemsChange" :round="false" size="small" />
+          <div>{{ t('显示双色宝石兑换物') }}</div>
+        </div>
+      </div>
       <div class="items">
         <div class="item" v-for="(itemInfos, scriptID) in items" :key="'popup-tome-' + scriptID">
           <div class="line">
@@ -203,11 +218,11 @@ const handleCopyAsMacro = async () => {
   display: flex;
   align-items: center;
   gap: 3px;
+  margin-left: auto;
 
   .tome-script {
     display: flex;
     align-items: center;
-    margin-left: auto;
   }
 }
 .pop-wrapper {
@@ -218,6 +233,20 @@ const handleCopyAsMacro = async () => {
     line-height: 1.2;
 
     p { font-weight: bold; }
+  }
+  .pre {
+    margin-bottom: 5px;
+
+    .preset-item {
+      width: fit-content;
+      line-height: 1.2;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px;
+      border: 1px solid #18A058;
+      border-radius: 3px;
+    }
   }
   .items {
     line-height: 1.2;

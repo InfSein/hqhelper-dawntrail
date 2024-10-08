@@ -9,10 +9,11 @@ import {
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemList from '../custom-controls/ItemList.vue'
 import type { ItemInfo } from '@/tools/item';
+import type { UserConfigModel } from '@/models/user-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-// const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const showModal = defineModel<boolean>('show', { required: true })
 
@@ -87,6 +88,7 @@ const handleClose = () => {
     <n-card
       closable
       role="dialog"
+      id="modal-craft-statements"
       style="width: 98%; max-width: 1500px;"
       :style="{ height: isMobile ? '650px' : '600px' }"
       @close="handleClose"
@@ -109,6 +111,8 @@ const handleClose = () => {
             <ItemList
               :items="block.items"
               :list-height="480"
+              :show-collector-icon="!userConfig.hide_collector_icons"
+              container-id="modal-craft-statements"
             />
           </div>
         </n-tab-pane>
@@ -127,6 +131,8 @@ const handleClose = () => {
               :items="block.items"
               :list-height="480"
               btn-pop-max-width="300px"
+              :show-collector-icon="!userConfig.hide_collector_icons"
+              container-id="modal-craft-statements"
             />
           </div>
         </GroupBox>
