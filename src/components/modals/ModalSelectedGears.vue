@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch, type Ref } from 'vue'
+import { computed, inject, ref, watch, type PropType, type Ref } from 'vue'
 import {
   NButton, NCard, NIcon, NInputNumber, NModal, NScrollbar, NTable, NTabs, NTabPane
 } from 'naive-ui'
@@ -22,8 +22,8 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
   
 const props = defineProps({
   patchData: {
-    type: Object as () => IHqVer,
-    required: true
+    type: Object as PropType<IHqVer | undefined>,
+    required: false // prevent vue warn `Expected Object, got Undefined`
   }
 })
 // const jobIds = Object.keys(XivJobs).map(jobId => parseInt(jobId))
@@ -93,7 +93,7 @@ const handleClose = () => {
 const handleSave = () => {
   for (const _id in localSelections.value.MainHand) {
     const id = Number(_id)
-    if (props.patchData.jobs.OffHand?.[id]?.[0]) {
+    if (props.patchData?.jobs?.OffHand?.[id]?.[0]) {
       localSelections.value.OffHand[id] = localSelections.value.MainHand[id]
     }
   }
@@ -151,7 +151,7 @@ const handleSave = () => {
                       :precision="0"
                       :title="getJobName(job)"
                       :show-button="!isMobile"
-                      :disabled="!patchData.jobs.MainHand?.[job]?.[0] && !patchData.jobs.OffHand?.[job]?.[0]"
+                      :disabled="!patchData?.jobs?.MainHand?.[job]?.[0] && !patchData?.jobs?.OffHand?.[job]?.[0]"
                     >
                       <template #prefix>
                         <XivFARImage 
@@ -213,7 +213,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.HeadAttire[attire]"
-                        :disabled="!patchData.jobs.HeadAttire?.[attire]?.[0]"
+                        :disabled="!patchData?.jobs?.HeadAttire?.[attire]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -225,7 +225,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.BodyAttire[attire]"
-                        :disabled="!patchData.jobs.BodyAttire?.[attire]?.[0]"
+                        :disabled="!patchData?.jobs?.BodyAttire?.[attire]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -237,7 +237,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.HandsAttire[attire]"
-                        :disabled="!patchData.jobs.HandsAttire?.[attire]?.[0]"
+                        :disabled="!patchData?.jobs?.HandsAttire?.[attire]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -249,7 +249,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.LegsAttire[attire]"
-                        :disabled="!patchData.jobs.LegsAttire?.[attire]?.[0]"
+                        :disabled="!patchData?.jobs?.LegsAttire?.[attire]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -261,7 +261,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.FeetAttire[attire]"
-                        :disabled="!patchData.jobs.FeetAttire?.[attire]?.[0]"
+                        :disabled="!patchData?.jobs?.FeetAttire?.[attire]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -318,7 +318,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.Earrings[accessory]"
-                        :disabled="!patchData.jobs.Earrings?.[accessory]?.[0]"
+                        :disabled="!patchData?.jobs?.Earrings?.[accessory]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -330,7 +330,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.Necklace[accessory]"
-                        :disabled="!patchData.jobs.Necklace?.[accessory]?.[0]"
+                        :disabled="!patchData?.jobs?.Necklace?.[accessory]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -342,7 +342,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.Wrist[accessory]"
-                        :disabled="!patchData.jobs.Wrist?.[accessory]?.[0]"
+                        :disabled="!patchData?.jobs?.Wrist?.[accessory]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -354,7 +354,7 @@ const handleSave = () => {
                     <td>
                       <n-input-number
                         v-model:value="localSelections.Rings[accessory]"
-                        :disabled="!patchData.jobs.Rings?.[accessory]?.[0]"
+                        :disabled="!patchData?.jobs?.Rings?.[accessory]?.[0]"
                         :input-props="{ type: 'number' }"
                         :min="0"
                         :max="99999"
@@ -402,7 +402,7 @@ const handleSave = () => {
                       :max="99999"
                       :precision="0"
                       :title="getJobName(job)"
-                      :disabled="!patchData.jobs.MainHand?.[job]?.[0] && !patchData.jobs.OffHand?.[job]?.[0]"
+                      :disabled="!patchData?.jobs?.MainHand?.[job]?.[0] && !patchData?.jobs?.OffHand?.[job]?.[0]"
                     >
                       <template #prefix>
                         <XivFARImage 
