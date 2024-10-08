@@ -49,6 +49,7 @@ export const export2Excel = (
       ws[cell].s = {
         font: {
           bold: cellAddress.r === 0 // 如果是第一行，设置字体加粗
+          // todo: 目前没生效，以后搞吧
         }
       };
     }
@@ -208,7 +209,8 @@ export const export2Excel = (
 
   const directMaterials = statements.materialsLv1
   directMaterials.forEach(item => {
-    if (item.amount) {
+    const itemGroupId = statistics.lvBase[item.id]?.uc ?? 0
+    if (item.amount && itemGroupId !== 59) { // 排除水晶
       tableData.push([
         getItemName(item),
         item.amount.toString()
