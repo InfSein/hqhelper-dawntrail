@@ -251,8 +251,13 @@ const statementData = computed(() => {
       <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
     </template>
     <div class="wrapper">
-      <GroupBox id="reagents-group" class="group" title-background-color="var(--n-color-embedded)" title-max-width="200px">
-        <template #title>{{ t('特殊秘籍半成品&点数统计') }}</template>
+      <GroupBox
+        id="reagents-group" class="group" title-background-color="var(--n-color-embedded)" title-max-width="200px"
+        :title="t('特殊')"
+        :descriptions="[
+          t('包括特殊秘籍半成品(即炼金术士的各个宝水)和点数统计。')
+        ]"
+      >
         <div class="container">
           <ItemButton
             v-for="(item, index) in reagents"
@@ -300,8 +305,13 @@ const statementData = computed(() => {
           />
         </div>
       </GroupBox>
-      <GroupBox id="common-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
-        <template #title>{{ t('普通半成品统计') }}</template>
+      <GroupBox
+        id="common-precrafts-group" class="group" title-background-color="var(--n-color-embedded)"
+        :title="t('普通半成品统计')"
+        :descriptions="[
+          t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
+        ]"
+      >
         <div class="container">
           <ItemList
             :items="commonPrecrafts"
