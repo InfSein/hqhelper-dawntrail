@@ -58,7 +58,8 @@ jobs:
       - name: Generate Changelog
         id: generate_changelog
         run: |
-          CHANGELOG=$(git log ${{ env.PREV_TAG }}..HEAD --grep='^feat:\|^fix:' --pretty=format:"* %s" | awk '{sub(/^feat:/, ""); sub(/^fix:/, ""); print}')
+          git log ${{ env.PREV_TAG }}..HEAD --grep='^feat:\|^fix:' --pretty=format:"* %s" | awk '{sub(/^feat:/, ""); sub(/^fix:/, ""); print}' > changelog.txt
+          CHANGELOG=$(<changelog.txt)
           echo "CHANGELOG=$CHANGELOG" >> $GITHUB_ENV
 
       # 检查是否存在同版本的 Release
