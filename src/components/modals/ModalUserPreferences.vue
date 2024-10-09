@@ -137,7 +137,31 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
           { value: 'light', label: t('浅色') },
           { value: 'dark', label: t('深色') }
         ]
-      }
+      },
+      {
+        key: 'hide_collector_icons',
+        label: t('隐藏物品按钮的职业图标'),
+        descriptions: [
+          {
+            value: t('部分物品按钮会在物品名处展示该物品对应的生产/采集职业图标。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('虽然会更方便，但显示效果可能就不太尽如人意。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('如果你觉得这样太过碍眼，请考虑打开此选项。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'switch',
+        options: []
+      },
     ]
   },
   /* Enhancements */
@@ -302,7 +326,7 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
             style: ''
           },
           {
-            value: t('如果您使用的是网页端，浏览器会因为缓存而自动更新，开启此选项只能让您收到提示的频率减少。'),
+            value: t('在使用网页端时，即使打开了这一选项，浏览器也仍会因为缓存而自动更新。'),
             class: 'color-info',
             style: ''
           }
@@ -521,7 +545,6 @@ const handleSave = () => {
   gap: 10px;
 }
 .items {
-
   .item-title {
     font-weight: bold;
   }

@@ -121,6 +121,7 @@ const tradeMap = computed(() => {
           :normal-craftings="specialItems.normalCrafting"
           :alkahests="specialItems.alkahests"
           :trade-map="tradeMap"
+          :gear-selections="workState.gears"
         />
       </div>
     </div>

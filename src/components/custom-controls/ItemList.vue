@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { computed, inject, ref, type PropType, type Ref } from 'vue'
 import {
-  NButton, NEmpty, NFlex, NIcon, NInput,
+  NButton, NEmpty, NIcon, NInput,
   useMessage
 } from 'naive-ui'
 import {
@@ -43,6 +43,16 @@ const props = defineProps({
     type: Array as PropType<ItemInfo[]>,
     required: true
   },
+  /** 为物品容器指定额外的样式 */
+  displayStyle: {
+    type: String,
+    default: ''
+  },
+  /** 为滚动容器指定额外的样式 */
+  scrollStyle: {
+    type: String,
+    default: ''
+  },
   /** 清单区域的高度(不计入操作按钮) */
   listHeight: {
     type: Number
@@ -61,6 +71,16 @@ const props = defineProps({
   btnPopMaxWidth: {
     type: String,
     default: undefined
+  },
+  /** 是否在物品名前展示生产/采集职业的图标 */
+  showCollectorIcon: {
+    type: Boolean,
+    default: false
+  },
+  /** 物品按钮所处容器的ID，在模态框等场景时必须传递，否则无法正常复制物品名 */
+  containerId: {
+    type: String,
+    default: ''
   }
 })
 
@@ -72,6 +92,7 @@ const getContainerStyles = () => {
 const getScrollbarStyles = () => {
   return [
     props.listHeight? `height: ${props.listHeight}px` : '',
+    props.scrollStyle
   ].join(';')
 }
 
@@ -136,16 +157,18 @@ const handleCopyAsMacro = async () => {
       </n-button>
     </div>
     <div v-if="mode === 'default'" class="scroll-container" :style="getScrollbarStyles()">
-      <n-flex vertical :size="[5,5]">
+      <div class="items-container" :style="displayStyle">
         <ItemButton
           v-for="(item, index) in items"
           :key="'item-' + index"
           :item-info="item"
           show-icon show-name show-amount
           :pop-max-width="btnPopMaxWidth"
+          :show-collector-icon="showCollectorIcon"
+          :container-id="containerId"
         >
         </ItemButton>
-      </n-flex>
+      </div>
     </div>
     <n-input
       v-else-if="mode === 'list'"
@@ -168,6 +191,12 @@ const handleCopyAsMacro = async () => {
 }
 .scroll-container {
   overflow-y: scroll;
+
+  .items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
 }
 .list-container {
   display: flex;

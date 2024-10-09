@@ -4,7 +4,7 @@ import {
   NCard, NCollapse, NCollapseItem, NIcon, NModal
 } from 'naive-ui'
 import { EventNoteFilled } from '@vicons/material'
-import { getChangelogs } from '@/data/change-logs'
+import { getChangelogs, type PatchChangeGroup } from '@/data/change-logs'
 import type { UserConfigModel } from '@/models/user-config';
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -19,6 +19,10 @@ const handleClose = () => {
 const changelog = computed(() => {
   return getChangelogs(t, userConfig.value.language_ui)
 })
+
+const getChanges = (change: PatchChangeGroup) => {
+  return change.changes.filter(str => str !== '')
+}
 </script>
 
 <template>
@@ -59,11 +63,13 @@ const changelog = computed(() => {
                   <div class="change-group-title">{{ t(change.name) }}</div>
                   <div class="change-group-content">
                     <div
-                      v-for="(changeContent, changeContentIndex) in change.changes.filter(str => str !== '')"
+                      v-for="(changeContent, changeContentIndex) in getChanges(change)"
                       :key="patchlog.version + '-' + changeIndex + '-' + changeContentIndex"
                     >
-                      {{ change.changes.length > 1 ? ((changeContentIndex + 1) + '. ') : '' }}
-                      {{ changeContent }}
+                      <span>
+                        {{ getChanges(change).length > 1 ? ((changeContentIndex + 1) + '. ') : '' }}
+                      </span>
+                      <span v-html="changeContent"></span>
                     </div>
                   </div>
                 </div>

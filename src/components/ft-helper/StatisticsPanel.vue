@@ -4,13 +4,16 @@ import {
   NSwitch
 } from 'naive-ui'
 import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
-import { getItemInfo, type ItemInfo } from '@/tools/item'
+import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
+import { getItemInfo, getStatementData, type ItemInfo } from '@/tools/item'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemList from '../custom-controls/ItemList.vue'
 import { useNbbCal } from '@/tools/use-nbb-cal'
+import type { UserConfigModel } from '@/models/user-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const props = defineProps({
   statistics: {
@@ -175,6 +178,15 @@ const crystals = computed(() => {
   }
   return _crystals
 })
+
+const showStatementModal = ref(false)
+const showStatement = () => {
+  console.log('statistics:', props.statistics)
+  showStatementModal.value = true
+}
+const statementData = computed(() => {
+  return getStatementData(props.statistics)
+})
 </script>
 
 <template>
@@ -183,6 +195,7 @@ const crystals = computed(() => {
       <template #header>
         <i class="xiv square-2"></i>
         <span class="card-title-text">{{ t('查看统计') }}</span>
+        <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
       </template>
 
       <div class="pre">
@@ -192,8 +205,13 @@ const crystals = computed(() => {
         </div>
       </div>
       <div class="wrapper">
-        <GroupBox id="tome-script-group" class="group" title-background-color="var(--n-color-embedded)">
-          <template #title>{{ t('兑换道具统计') }}</template>
+        <GroupBox
+          id="tome-script-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('兑换道具统计')"
+          :descriptions="[
+            t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+          ]"
+        >
           <div class="container">
             <ItemList
               :items="tomeScriptItems"
@@ -207,37 +225,64 @@ const crystals = computed(() => {
             <ItemList
               :items="commonPrecrafts"
               :list-height="isMobile ? undefined : 245"
+              :show-collector-icon="!userConfig.hide_collector_icons"
             />
           </div>
         </GroupBox>
-        <GroupBox id="aethersands-group" class="group" title-background-color="var(--n-color-embedded)">
-          <template #title>{{ t('灵砂统计') }}</template>
+        <GroupBox
+          id="aethersands-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('灵砂统计')"
+          :descriptions="[
+            t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+          ]"
+        >
           <div class="container">
             <ItemList
               :items="aethersands"
             />
           </div>
         </GroupBox>
-        <GroupBox id="common-gatherings-group" class="group" title-background-color="var(--n-color-embedded)">
-          <template #title>{{ t('常规采集品') }}</template>
+        <GroupBox
+          id="common-gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('常规采集品')"
+          :descriptions="[
+            hidePrecraftGatherings
+              ? t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
+              : t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+          ]"
+        >
           <div class="container">
             <ItemList
               :items="gatheringsCommon"
               :list-height="isMobile ? undefined : 245"
+              :show-collector-icon="!userConfig.hide_collector_icons"
             />
           </div>
         </GroupBox>
-        <GroupBox id="timed-gatherings-group" class="group" title-background-color="var(--n-color-embedded)">
-          <template #title>{{ t('限时采集品') }}</template>
+        <GroupBox
+          id="timed-gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('限时采集品')"
+          :descriptions="[
+            hidePrecraftGatherings
+              ? t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
+              : t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+          ]"
+        >
           <div class="container">
             <ItemList
               :items="gatheringsTimed"
               :list-height="isMobile ? undefined : 245"
+              :show-collector-icon="!userConfig.hide_collector_icons"
             />
           </div>
         </GroupBox>
-        <GroupBox id="crystals-group" class="group" title-background-color="var(--n-color-embedded)">
-          <template #title>{{ t('水晶') }}</template>
+        <GroupBox
+          id="crystals-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('水晶统计')"
+          :descriptions="[
+            t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+          ]"
+        >
           <div class="container">
             <ItemList
               :items="crystals"
@@ -246,6 +291,11 @@ const crystals = computed(() => {
           </div>
         </GroupBox>
       </div>
+      
+      <ModalCraftStatements
+        v-model:show="showStatementModal"
+        v-bind="statementData"
+      />
     </FoldableCard>
   </div>
 </template>
