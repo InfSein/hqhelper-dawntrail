@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build 和 Deploy
 # 监听 master 分支上的 push 事件
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
           node-version: "20.8.1"
 
       # 下载依赖、打包项目
-      - name: Install and Build
+      - name: Install 和 Build
         run: |
           yarn install
           yarn build
@@ -58,7 +58,7 @@ jobs:
       - name: Generate Changelog
         id: generate_changelog
         run: |
-          CHANGELOG=$(git log ${{ env.PREV_TAG }}..HEAD --grep='^feat:\|^fix:' --pretty=format:"* %s" | sed 's/^feat://;s/^fix://')
+          CHANGELOG=$(git log ${{ env.PREV_TAG }}..HEAD --grep='^feat:\|^fix:' --pretty=format:"* %s" | awk '{sub(/^feat:/, ""); sub(/^fix:/, ""); print}')
           echo "CHANGELOG=$CHANGELOG" >> $GITHUB_ENV
 
       # 检查是否存在同版本的 Release
