@@ -1666,6 +1666,13 @@
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
+  "查看报表": {
+    "en": "View statements",
+    "ja": "素材リストを表示する",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
   "[查看报表]": {
     "en": "[View statements]",
     "ja": "[素材リストを表示する]",
@@ -2276,20 +2283,6 @@
       "components\\modals\\ModalChangeLogs.vue"
     ]
   },
-  "实装了“采集时钟”功能。": {
-    "en": "Function \"Gatherclock\" released.",
-    "ja": "「採集時計」機能を実装しました。",
-    "$files": [
-      "data\\change-logs.ts"
-    ]
-  },
-  "实装了“更新日志”功能。": {
-    "en": "Function \"Change Logs\" released.",
-    "ja": "「更新ログ」機能を実装しました。",
-    "$files": [
-      "data\\change-logs.ts"
-    ]
-  },
   "修复了自动更新提示不会展示最新版本版本号的问题。": {
     "en": "Fixed auto-update prompt not showing latest version number.",
     "ja": "自動更新通知で最新バージョン番号が表示されない問題を修正しました。",
@@ -2430,7 +2423,7 @@
       "data\\change-logs.ts"
     ]
   },
-  "优化了“{f1}”界面物品按钮悬浮窗的显示效果。": {
+  "优化了“{f}”界面物品按钮悬浮窗的显示效果。": {
     "en": "Optimized the display effect of item button floating window in \"{f1}\".",
     "ja": "「{f1}」インターフェースのアイテムボタンのツールチップの表示が最適化されました。",
     "$files": [
@@ -2643,6 +2636,13 @@
       "components\\main\\StatisticsPanel.vue"
     ]
   },
+  "导出Excel": {
+    "en": "Export Excel",
+    "ja": "导出Excel",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
   "[导出Excel]": {
     "en": "[Export Excel]",
     "ja": "[导出Excel]",
@@ -2697,6 +2697,111 @@
     "ja": "如果你觉得这样太过碍眼，请考虑打开此选项。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "实装了“{f}”功能。": {
+    "en": "Function \"{f}\" released.",
+    "ja": "「{f}」機能を実装しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "在主界面选定装备之后，点击“{f1}”右侧的“{f2}”按钮，即可将统计导出成Excel文件。": {
+    "en": "Select gears in the main page, then click \"{f2}\" button on the right side of \"{f1}\" to export statistics to Excel.",
+    "ja": "在主界面选定装备之后，点击“{f1}”右侧的“{f2}”按钮，即可将统计导出成Excel文件。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了网页端“{f}”中物品按钮的复制功能没有正确工作的问题。": {
+    "en": "Fixed copy function of item buttons in \"{f}\" not worked correctly.",
+    "ja": "修复了网页端“{f}”中物品按钮的复制功能没有正确工作的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了初次打开页面时“{f}”会意外消失的问题。": {
+    "en": "Fixed issue that {f} disappears on first opening.",
+    "ja": "修复了初次打开页面时“{f}”会意外消失的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了{lang}设置为日语/英语时，更新日志的部分更新项会对只有一条的更新组显示序号的问题。": {
+    "en": "Fixed some of changelog items still show index on only one update given when {lang} is Japanese/English.",
+    "ja": "修复了{lang}设置为日语/英语时，更新日志的部分更新项会对只有一条的更新组显示序号的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "符合条件的物品按钮现在会在物品名前显示对应的生产/采集职业图标。": {
+    "en": "Item buttons that meet a condition will show the icon of the job that craft or gather it.",
+    "ja": "符合条件的物品按钮现在会在物品名前显示对应的生产/采集职业图标。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "伴随这一改动，“{f}”的“{f1}”选项卡增加了“{f2}”设置项。": {
+    "en": "With this change, the \"{f1}\" tab of \"{f}\" has added a setting option: \"{f2}\".",
+    "ja": "伴随这一改动，“{f}”的“{f1}”选项卡增加了“{f2}”设置项。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在主界面的点数统计还能统计双色宝石兑换物。可以在点数按钮的悬浮窗内控制开关。": {
+    "en": "Now the tome script statistics can also count bicolor gems. You can control the switch in the popup window of the tome script button.",
+    "ja": "现在主界面的点数统计还能统计双色宝石兑换物。可以在点数按钮的悬浮窗内控制开关。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在食药计算器也可以使用“{f}”功能。": {
+    "en": "Now the FT Helper can also use \"{f}\" function.",
+    "ja": "现在食药计算器也可以使用“{f}”功能。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在物品按钮悬浮窗中的子物品也可以通过右键蓝色信息图标的方式展开操作菜单。": {
+    "en": "Now the child item in item button popup can also expand context menu by right-clicking the blue info icon.",
+    "ja": "现在物品按钮悬浮窗中的子物品也可以通过右键蓝色信息图标的方式展开操作菜单。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "此功能暂不支持移动端。": {
+    "en": "This function does not support mobile devices now.",
+    "ja": "此功能暂不支持移动端。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "调整了各个素材统计区域的标题文本，并添加了提示图标和提示语。": {
+    "en": "Adjusted title text of each material statistics area and added tips icon and tips.",
+    "ja": "调整了各个素材统计区域的标题文本，并添加了提示图标和提示语。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了“{f1}”中“{f2}”的显示效果。": {
+    "en": "Optimized the display effect of \"{f2}\" in \"{f1}\".",
+    "ja": "优化了“{f1}”中“{f2}”的显示效果。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "物品按钮的右键菜单现在还可以选择“{f}”。": {
+    "en": "Now the context menu of item button can also select \"{f}\".",
+    "ja": "物品按钮的右键菜单现在还可以选择“{f}”。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在移动端顶部菜单会在特定场合显示“{f}”按钮。": {
+    "en": "Now the top menu will show \"{f}\" button when needed on mobile.",
+    "ja": "现在移动端顶部菜单会在特定场合显示“{f}”按钮。",
+    "$files": [
+      "data\\change-logs.ts"
     ]
   }
 }
