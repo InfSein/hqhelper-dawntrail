@@ -323,6 +323,13 @@ export const export2Excel = (
   XLSX.utils.book_append_sheet(workBook, workSheet, t('水晶统计'))
   // #endregion
 
-  const name = 'sample.xlsx' // 保存的文件名
+  function generateFileName() {
+    const now = new Date()
+    const formattedDate = now.toISOString().slice(0, 10) // YYYY-MM-DD
+    const formattedTime = now.toTimeString().slice(0, 8).replace(/:/g, '') // HHMMSS
+    const fileName = `hqhelper-export_${formattedDate}T${formattedTime}.xlsx`
+    return fileName
+  }
+  const name = generateFileName() // 保存的文件名
   XLSX.writeFile(workBook, name)
 }
