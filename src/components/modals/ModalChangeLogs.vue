@@ -66,8 +66,10 @@ const getChanges = (change: PatchChangeGroup) => {
                       v-for="(changeContent, changeContentIndex) in getChanges(change)"
                       :key="patchlog.version + '-' + changeIndex + '-' + changeContentIndex"
                     >
-                      {{ getChanges(change).length > 1 ? ((changeContentIndex + 1) + '. ') : '' }}
-                      {{ changeContent }}
+                      <span>
+                        {{ getChanges(change).length > 1 ? ((changeContentIndex + 1) + '. ') : '' }}
+                      </span>
+                      <span v-html="changeContent"></span>
                     </div>
                   </div>
                 </div>
