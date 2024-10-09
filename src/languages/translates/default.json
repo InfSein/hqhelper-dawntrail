@@ -2564,7 +2564,7 @@
     ]
   },
   "直接素材统计": {
-    "en": "Direct Materials Summary",
+    "en": "Direct Materials",
     "ja": "直接な素材集計",
     "$files": [
       "tools\\excel.ts"
@@ -2578,21 +2578,21 @@
     ]
   },
   "采集品(普通)统计": {
-    "en": "Gatherings (Common) Summary",
+    "en": "Gatherings (Common)",
     "ja": "採集素材（一般）集計",
     "$files": [
       "tools\\excel.ts"
     ]
   },
   "采集品(限时)统计": {
-    "en": "Gatherings (Time-limited) Summary",
+    "en": "Gatherings (Time-limited)",
     "ja": "採集素材（刻限）集計",
     "$files": [
       "tools\\excel.ts"
     ]
   },
   "水晶统计": {
-    "en": "Crystals Summary",
+    "en": "Crystals",
     "ja": "クリスタル集計",
     "$files": [
       "tools\\excel.ts",

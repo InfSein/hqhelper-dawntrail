@@ -183,7 +183,17 @@ export const export2Excel = (
       let craftJobName = '???'
       const craftJobId = item.craftInfo?.jobId
       if (craftJobId) {
-        craftJobName = XivJobs[craftJobId]?.job_name_zh ?? `NOTFOUND(${craftJobId})`
+        switch (ui_lang) {
+          case 'zh':
+            craftJobName = XivJobs[craftJobId]?.job_name_zh ?? `NOTFOUND(${craftJobId})`
+            break
+          case 'ja':
+            craftJobName = XivJobs[craftJobId]?.job_name_ja ?? `NOTFOUND(${craftJobId})`
+            break
+          case'en':
+            craftJobName = XivJobs[craftJobId]?.job_name_en ?? `NOTFOUND(${craftJobId})`
+            break
+        }
       }
       tableData.push([
         getItemName(item),
