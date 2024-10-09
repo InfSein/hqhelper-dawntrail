@@ -2523,77 +2523,77 @@
   },
   "职业/词缀": {
     "en": "Job/Affix",
-    "ja": "职业/词缀",
+    "ja": "职业/枠名",
     "$files": [
       "tools\\excel.ts"
     ]
   },
   "主手": {
     "en": "Mainhand",
-    "ja": "主手",
+    "ja": "メインアーム",
     "$files": [
       "tools\\excel.ts"
     ]
   },
   "副手": {
     "en": "Offhand",
-    "ja": "副手",
+    "ja": "サブアーム",
     "$files": [
       "tools\\excel.ts"
     ]
   },
   "道具名": {
     "en": "Item Name",
-    "ja": "道具名",
+    "ja": "アイテム名",
     "$files": [
       "tools\\excel.ts"
     ]
   },
   "制作职业": {
     "en": "Craft Job",
-    "ja": "制作职业",
+    "ja": "クラフタージョブ",
     "$files": [
       "tools\\excel.ts"
     ]
   },
   "数量": {
     "en": "Amount",
-    "ja": "数量",
+    "ja": "数",
     "$files": [
       "tools\\excel.ts"
     ]
   },
   "直接素材统计": {
     "en": "Direct Materials Summary",
-    "ja": "直接素材统计",
+    "ja": "直接な素材集計",
     "$files": [
       "tools\\excel.ts"
     ]
   },
   "点数类型": {
     "en": "Tome Script Type",
-    "ja": "点数类型",
+    "ja": "トークンタイプ",
     "$files": [
       "tools\\excel.ts"
     ]
   },
   "采集品(普通)统计": {
     "en": "Gatherings (Common) Summary",
-    "ja": "采集品(普通)统计",
+    "ja": "採集素材（一般）集計",
     "$files": [
       "tools\\excel.ts"
     ]
   },
   "采集品(限时)统计": {
     "en": "Gatherings (Time-limited) Summary",
-    "ja": "采集品(限时)统计",
+    "ja": "採集素材（刻限）集計",
     "$files": [
       "tools\\excel.ts"
     ]
   },
   "水晶统计": {
     "en": "Crystals Summary",
-    "ja": "水晶统计",
+    "ja": "クリスタル集計",
     "$files": [
       "tools\\excel.ts",
       "components\\ft-helper\\StatisticsPanel.vue"
@@ -2601,21 +2601,21 @@
   },
   "在GamerEscape中打开": {
     "en": "Open in GamerEscape",
-    "ja": "在GamerEscape中打开",
+    "ja": "GamerEscapeで開く",
     "$files": [
       "tools\\item.ts"
     ]
   },
   "显示双色宝石兑换物": {
     "en": "Show Bicolor Items",
-    "ja": "显示双色宝石兑换物",
+    "ja": "バイカラージェム交換品を表示",
     "$files": [
       "components\\custom-controls\\TomeScriptButton.vue"
     ]
   },
   "此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。": {
     "en": "Summary here includes both the materials needed to make the final product and the materials needed to make the semi-finished product.",
-    "ja": "此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。",
+    "ja": "ここでの集計には、完成品を直接製作するに必要な素材と、中間品を作成するために必要な素材が含まれています。",
     "$files": [
       "components\\ft-helper\\StatisticsPanel.vue",
       "components\\main\\StatisticsPanel.vue"
@@ -2623,7 +2623,7 @@
   },
   "此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。": {
     "en": "Summary here only includes the materials needed to make the final product, not the materials needed to make the semi-finished product.",
-    "ja": "此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。",
+    "ja": "ここでの集計は、完成品を直接製作するに必要な素材のみを計算し、中間品を作成するために必要な素材は含まれていません。",
     "$files": [
       "components\\ft-helper\\StatisticsPanel.vue",
       "components\\main\\StatisticsPanel.vue"
@@ -2631,21 +2631,21 @@
   },
   "请先选择版本和职业": {
     "en": "Please select job and patch",
-    "ja": "请先选择版本和职业",
+    "ja": "まずパッチとジョブを選択してください",
     "$files": [
       "components\\main\\StatisticsPanel.vue"
     ]
   },
   "导出Excel": {
     "en": "Export Excel",
-    "ja": "导出Excel",
+    "ja": "Excelシートにエクスポート",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "[导出Excel]": {
     "en": "[Export Excel]",
-    "ja": "[导出Excel]",
+    "ja": "[Excelシートにエクスポート]",
     "$files": [
       "components\\main\\StatisticsPanel.vue"
     ]
@@ -2659,42 +2659,42 @@
   },
   "包括特殊秘籍半成品(即炼金术士的各个宝水)和点数统计。": {
     "en": "Includes special master precrafts (Alchemist Gemsaps) and tome script statistics.",
-    "ja": "包括特殊秘籍半成品(即炼金术士的各个宝水)和点数统计。",
+    "ja": "特殊な秘伝書の中間品（錬金術師の各種宝水）およびトークン集計を含みます。",
     "$files": [
       "components\\main\\StatisticsPanel.vue"
     ]
   },
   "即炼金术士宝水系列以外的秘籍半成品。": {
     "en": "Master precrafts except Alchemist Gemsaps.",
-    "ja": "即炼金术士宝水系列以外的秘籍半成品。",
+    "ja": "錬金術師の宝水シリーズ以外の秘伝書中間品です。",
     "$files": [
       "components\\main\\StatisticsPanel.vue"
     ]
   },
   "隐藏物品按钮的职业图标": {
     "en": "Hide job icon in item button",
-    "ja": "隐藏物品按钮的职业图标",
+    "ja": "アイテムボタンのジョブアイコンを非表示にする",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "部分物品按钮会在物品名处展示该物品对应的生产/采集职业图标。": {
     "en": "Some item buttons show the icon of the job that craft or gather this item.",
-    "ja": "部分物品按钮会在物品名处展示该物品对应的生产/采集职业图标。",
+    "ja": "一部のアイテムボタンは、アイテム名の横にそのアイテムに対応するクラフター/ギャザラージョブのアイコンを表示します。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "虽然会更方便，但显示效果可能就不太尽如人意。": {
     "en": "Though this would be more convenient, the display effect may not be as good as expected.",
-    "ja": "虽然会更方便，但显示效果可能就不太尽如人意。",
+    "ja": "便利になりますが、表示がやや見づらくなる可能性があります。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "如果你觉得这样太过碍眼，请考虑打开此选项。": {
     "en": "If you thought this is too ugly, please consider enabling this option.",
-    "ja": "如果你觉得这样太过碍眼，请考虑打开此选项。",
+    "ja": "煩わしく感じる場合は、このオプションを有効にしてください。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
@@ -2708,98 +2708,98 @@
   },
   "在主界面选定装备之后，点击“{f1}”右侧的“{f2}”按钮，即可将统计导出成Excel文件。": {
     "en": "Select gears in the main page, then click \"{f2}\" button on the right side of \"{f1}\" to export statistics to Excel.",
-    "ja": "在主界面选定装备之后，点击“{f1}”右侧的“{f2}”按钮，即可将统计导出成Excel文件。",
+    "ja": "メイン画面で装備品を選定した後、「{f1}」の右側にある「{f2}」ボタンをクリックすると、集計をExcelファイルにエクスポートできます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修复了网页端“{f}”中物品按钮的复制功能没有正确工作的问题。": {
     "en": "Fixed copy function of item buttons in \"{f}\" not worked correctly.",
-    "ja": "修复了网页端“{f}”中物品按钮的复制功能没有正确工作的问题。",
+    "ja": "ウェブ版の「{f}」でアイテムボタンのコピー機能が正常に動作しない問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修复了初次打开页面时“{f}”会意外消失的问题。": {
     "en": "Fixed issue that {f} disappears on first opening.",
-    "ja": "修复了初次打开页面时“{f}”会意外消失的问题。",
+    "ja": "初回ページを開く時に「{f}」が意図せず消える問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修复了{lang}设置为日语/英语时，更新日志的部分更新项会对只有一条的更新组显示序号的问题。": {
     "en": "Fixed some of changelog items still show index on only one update given when {lang} is Japanese/English.",
-    "ja": "修复了{lang}设置为日语/英语时，更新日志的部分更新项会对只有一条的更新组显示序号的问题。",
+    "ja": "{lang}設定を日本語/英語にした場合、更新ログの更新項目が1つしかない場合にも番号が表示される問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "符合条件的物品按钮现在会在物品名前显示对应的生产/采集职业图标。": {
     "en": "Item buttons that meet a condition will show the icon of the job that craft or gather it.",
-    "ja": "符合条件的物品按钮现在会在物品名前显示对应的生产/采集职业图标。",
+    "ja": "該当するアイテムボタンには、アイテム名の前に対応するクラフター/ギャザラージョブのアイコンが表示されるようになりました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "伴随这一改动，“{f}”的“{f1}”选项卡增加了“{f2}”设置项。": {
     "en": "With this change, the \"{f1}\" tab of \"{f}\" has added a setting option: \"{f2}\".",
-    "ja": "伴随这一改动，“{f}”的“{f1}”选项卡增加了“{f2}”设置项。",
+    "ja": "この変更に伴い、「{f}」の「{f1}」タブに「{f2}」設定項目を追加しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "现在主界面的点数统计还能统计双色宝石兑换物。可以在点数按钮的悬浮窗内控制开关。": {
     "en": "Now the tome script statistics can also count bicolor gems. You can control the switch in the popup window of the tome script button.",
-    "ja": "现在主界面的点数统计还能统计双色宝石兑换物。可以在点数按钮的悬浮窗内控制开关。",
+    "ja": "メイン画面のトークン集計には、双蛇党の交換アイテムも集計されるようになりました。トークンボタンのツールチップでオン/オフを切り替えます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "现在食药计算器也可以使用“{f}”功能。": {
     "en": "Now the FT Helper can also use \"{f}\" function.",
-    "ja": "现在食药计算器也可以使用“{f}”功能。",
+    "ja": "調理品&薬品の素材集計でも「{f}」機能が使用できるようになりました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "现在物品按钮悬浮窗中的子物品也可以通过右键蓝色信息图标的方式展开操作菜单。": {
     "en": "Now the child item in item button popup can also expand context menu by right-clicking the blue info icon.",
-    "ja": "现在物品按钮悬浮窗中的子物品也可以通过右键蓝色信息图标的方式展开操作菜单。",
+    "ja": "アイテムボタンのツールチップにあるサブアイテムも、青い情報アイコンを右クリックすることで操作メニューを展開できます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "此功能暂不支持移动端。": {
     "en": "This function does not support mobile devices now.",
-    "ja": "此功能暂不支持移动端。",
+    "ja": "この機能は現時点ではスマホ端末に対応していません。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "调整了各个素材统计区域的标题文本，并添加了提示图标和提示语。": {
     "en": "Adjusted title text of each material statistics area and added tips icon and tips.",
-    "ja": "调整了各个素材统计区域的标题文本，并添加了提示图标和提示语。",
+    "ja": "各素材集計エリアのタイトルテキストを調整し、ヒントアイコンと説明文を追加しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "优化了“{f1}”中“{f2}”的显示效果。": {
     "en": "Optimized the display effect of \"{f2}\" in \"{f1}\".",
-    "ja": "优化了“{f1}”中“{f2}”的显示效果。",
+    "ja": "「{f1}」の「{f2}」の表示を最適化しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "物品按钮的右键菜单现在还可以选择“{f}”。": {
     "en": "Now the context menu of item button can also select \"{f}\".",
-    "ja": "物品按钮的右键菜单现在还可以选择“{f}”。",
+    "ja": "アイテムボタンの右クリックメニューには、今後「{f}」オプションも選べるようになりました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "现在移动端顶部菜单会在特定场合显示“{f}”按钮。": {
     "en": "Now the top menu will show \"{f}\" button when needed on mobile.",
-    "ja": "现在移动端顶部菜单会在特定场合显示“{f}”按钮。",
+    "ja": "スマホ端末のトップメニューには、特定の状況で「{f}」ボタンが表示されるようになりました。",
     "$files": [
       "data\\change-logs.ts"
     ]
