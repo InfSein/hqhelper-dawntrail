@@ -258,6 +258,7 @@ const exportExcel = () => {
     tomeScriptItems.value,
     gatheringsCommon.value,
     gatheringsTimed.value,
+    aethersands.value,
     crystals.value,
     userConfig.value.language_ui,
     userConfig.value.language_item === 'auto'

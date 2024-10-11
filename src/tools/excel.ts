@@ -12,6 +12,7 @@ export const export2Excel = (
   tomeScriptItems: Record<number, ItemInfo[]>,
   normalGathering: ItemInfo[],
   limitedGathering: ItemInfo[],
+  aethersands: ItemInfo[],
   crystals: ItemInfo[],
   ui_lang: 'zh' | 'ja' | 'en',
   item_lang: 'zh' | 'ja' | 'en',
@@ -308,6 +309,29 @@ export const export2Excel = (
   workSheet['!cols'] = calculateColumnWidths(tableData)
   setWorkSheetStyle(workSheet)
   XLSX.utils.book_append_sheet(workBook, workSheet, t('采集品(限时)统计'))
+  // #endregion
+  
+  // #region 灵砂统计
+  tableData = [
+    [
+      t('道具名'),
+      t('数量')
+    ]
+  ]
+  
+  aethersands.forEach(item => {
+    if (item.amount) {
+      tableData.push([
+        getItemName(item),
+        item.amount.toString()
+      ])
+    }
+  })
+  
+  workSheet = XLSX.utils.aoa_to_sheet(tableData)
+  workSheet['!cols'] = calculateColumnWidths(tableData)
+  setWorkSheetStyle(workSheet)
+  XLSX.utils.book_append_sheet(workBook, workSheet, t('灵砂统计'))
   // #endregion
 
   // #region 水晶统计
