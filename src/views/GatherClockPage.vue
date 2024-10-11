@@ -80,6 +80,8 @@ const workState = ref({
   orderBy: 'itemId' as "itemId" | "gatherStartTimeAsc",
   /** 是否将目前可以采集的道具置顶 */
   pinGatherableItems: false,
+  /** 禁用物品按钮悬浮窗 */
+  banItemPop: false,
   starItems: [] as number[],
 })
 const itemSortOptions = computed(() => {
@@ -228,6 +230,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
       <div class="query-form">
         <n-form
           :inline="!isMobile"
+          :show-feedback="false"
           :style="{
             maxWidth: isMobile ? '100%' : '600px'
           }"
@@ -235,12 +238,14 @@ const getPlaceName = (itemInfo : ItemInfo) => {
           <n-form-item :label="t('排序依据')" style="min-width: 200px;">
             <n-select v-model:value="workState.orderBy" :options="itemSortOptions" />
           </n-form-item>
-          <n-form-item :label="t('将当前可采集的物品置顶')">
+          <n-form-item :label="t('将现可采集的物品置顶')">
             <n-switch v-model:value="workState.pinGatherableItems" />
+          </n-form-item>
+          <n-form-item :label="t('禁用物品按钮悬浮窗')">
+            <n-switch v-model:value="workState.banItemPop" />
           </n-form-item>
         </n-form>
       </div>
-      <n-divider class="no-margin" />
       <n-tabs v-model:value="workState.patch" type="line" animated>
         <n-tab-pane
           v-for="patch in gatherData"
@@ -259,6 +264,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
                   :item-info="item"
                   show-icon show-name
                   btn-extra-style="flex-grow: 1;"
+                  :disable-pop="workState.banItemPop"
                 />
                 <n-popover placement="bottom-start" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
                   <template #trigger>
@@ -332,6 +338,20 @@ const getPlaceName = (itemInfo : ItemInfo) => {
   gap: 0.6rem;
   display: flex;
   flex-direction: column;
+}
+.query-form {
+  width: fit-content;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 10px var(--n-border-color);
+
+  .n-form-item {
+    border-radius: 5px;
+    padding: 0.5rem 0.6rem;
+  }
+  .n-form-item:hover {
+    box-shadow: 0 0 10px var(--n-color-target);
+  }
 }
 .items-container {
   gap: 0.3rem;
@@ -407,6 +427,9 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 
 /* Mobile */
 @media screen and (max-width: 767px) {
+  .query-form {
+    width: 100%;
+  }
   .items-container {
     display: flex;
     flex-direction: column;
