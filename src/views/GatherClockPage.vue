@@ -227,17 +227,15 @@ const getPlaceName = (itemInfo : ItemInfo) => {
     <n-card embedded>
       <div class="query-form">
         <n-form
-          label-placement="left"
-          label-width="auto"
-          require-mark-placement="right-hanging"
+          :inline="!isMobile"
           :style="{
-            maxWidth: isMobile ? '100%' : '300px'
+            maxWidth: isMobile ? '100%' : '600px'
           }"
         >
-          <n-form-item :label="t('自定义排序')">
+          <n-form-item :label="t('排序依据')" style="min-width: 200px;">
             <n-select v-model:value="workState.orderBy" :options="itemSortOptions" />
           </n-form-item>
-          <n-form-item :label="t('置顶可采集物品')">
+          <n-form-item :label="t('将当前可采集的物品置顶')">
             <n-switch v-model:value="workState.pinGatherableItems" />
           </n-form-item>
         </n-form>
