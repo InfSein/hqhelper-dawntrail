@@ -65,6 +65,7 @@ export interface ItemInfo {
   descEN: string
   descZH: string
   // * uiType: 游戏内道具描述弹窗的类型，如`触媒`/`灵魂水晶`/`腿部防具`等
+  uiTypeId: number
   uiTypeNameJA: string
   uiTypeNameEN: string
   uiTypeNameZH: string
@@ -231,6 +232,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   const typeMap = XivItemTypes as any
   const itemType : number = _item.uc
   if (typeMap?.[itemType]) {
+    itemInfo.uiTypeId = itemType
     itemInfo.uiTypeNameJA = typeMap[itemType].lang[0]
     itemInfo.uiTypeNameEN = typeMap[itemType].lang[1]
     itemInfo.uiTypeNameZH = typeMap[itemType].lang[2]
