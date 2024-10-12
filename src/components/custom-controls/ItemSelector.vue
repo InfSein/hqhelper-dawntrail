@@ -36,9 +36,6 @@ defineProps({
   .item-button {
     width: 100%;
   }
-  .item-stepper {
-    min-width: 145px;
-  }
 }
 
 /* Desktop */
