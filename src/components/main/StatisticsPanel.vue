@@ -328,6 +328,8 @@ const exportExcel = () => {
             :list-height="isMobile ? undefined : 120"
             display-style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));"
             scroll-style="overflow-y: auto;"
+            btn-pop-use-custom-width
+            :btn-pop-custom-width="isMobile ? 300 : undefined"
           />
         </div>
       </GroupBox>
