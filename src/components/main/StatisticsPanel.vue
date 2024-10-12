@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NCollapse, NCollapseItem
+  NButton, NCollapse, NCollapseItem
 } from 'naive-ui'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
@@ -9,7 +9,7 @@ import ItemButton from '../custom-controls/ItemButton.vue'
 import ItemList from '../custom-controls/ItemList.vue'
 import TomeScriptButton from '../custom-controls/TomeScriptButton.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
-import { getItemInfo, getStatementData, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
+import { getItemInfo, getItemPriceInfo, getStatementData, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import { export2Excel } from '@/tools/excel'
 import type { GearSelections } from '@/models/gears'
@@ -279,6 +279,18 @@ const exportExcel = () => {
     t
   )
 }
+
+const handleAnalysisItemPrices = async () => {
+  const items : number[] = []
+  statementData.value.craftTargets.forEach(item => {
+    items.push(item.id)
+  })
+  statementData.value.materialsLv1.forEach(item => {
+    items.push(item.id)
+  })
+  const itemPrices = await getItemPriceInfo([...new Set(items)], userConfig.value.universalis_server)
+  console.log('itemPrices:', itemPrices)
+}
 </script>
 
 <template>
@@ -363,47 +375,60 @@ const exportExcel = () => {
           />
         </div>
       </GroupBox>
-      <GroupBox
-        id="actions-group" class="group" title-background-color="var(--n-color-embedded)"
-        :title="t('采集统计')"
-        :descriptions="[
-          t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
-        ]"
-      >
-        <div class="container">
-          <n-collapse :accordion="!isMobile" :default-expanded-names="['crystals']">
-            <n-collapse-item :title="t('常规采集品')" name="gatheringsCommon">
-              <div class="item-collapsed-container">
-                <ItemList
-                  :items="gatheringsCommon"
-                  :list-height="isMobile ? undefined : 320"
-                  :btn-pop-max-width="isMobile ? undefined : '340px'"
-                  :show-collector-icon="!userConfig.hide_collector_icons"
-                />
-              </div>
-            </n-collapse-item>
-            <n-collapse-item :title="t('限时采集品')" name="gatheringsTimed">
-              <div class="item-collapsed-container">
-                <ItemList
-                  :items="gatheringsTimed"
-                  :list-height="isMobile ? undefined : 320"
-                  :btn-pop-max-width="isMobile ? undefined : '340px'"
-                  :show-collector-icon="!userConfig.hide_collector_icons"
-                />
-              </div>
-            </n-collapse-item>
-            <n-collapse-item :title="t('水晶')" name="crystals">
-              <div class="item-collapsed-container">
-                <ItemList
-                  :items="crystals"
-                  :list-height="isMobile ? undefined : 320"
-                  :btn-pop-max-width="isMobile ? undefined : '340px'"
-                />
-              </div>
-            </n-collapse-item>
-          </n-collapse>
-        </div>
-      </GroupBox>
+      <div id="statistics-footer">
+        <GroupBox
+          id="gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('采集统计')"
+          :descriptions="[
+            t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+          ]"
+        >
+          <div class="container">
+            <n-collapse :accordion="!isMobile" :default-expanded-names="['crystals']">
+              <n-collapse-item :title="t('常规采集品')" name="gatheringsCommon">
+                <div class="item-collapsed-container">
+                  <ItemList
+                    :items="gatheringsCommon"
+                    :list-height="isMobile ? undefined : 320"
+                    :btn-pop-max-width="isMobile ? undefined : '340px'"
+                    :show-collector-icon="!userConfig.hide_collector_icons"
+                  />
+                </div>
+              </n-collapse-item>
+              <n-collapse-item :title="t('限时采集品')" name="gatheringsTimed">
+                <div class="item-collapsed-container">
+                  <ItemList
+                    :items="gatheringsTimed"
+                    :list-height="isMobile ? undefined : 320"
+                    :btn-pop-max-width="isMobile ? undefined : '340px'"
+                    :show-collector-icon="!userConfig.hide_collector_icons"
+                  />
+                </div>
+              </n-collapse-item>
+              <n-collapse-item :title="t('水晶')" name="crystals">
+                <div class="item-collapsed-container">
+                  <ItemList
+                    :items="crystals"
+                    :list-height="isMobile ? undefined : 320"
+                    :btn-pop-max-width="isMobile ? undefined : '340px'"
+                  />
+                </div>
+              </n-collapse-item>
+            </n-collapse>
+          </div>
+        </GroupBox>
+        <GroupBox
+          id="price-analysis-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('成本/收益分析')"
+        >
+          <n-button @click="handleAnalysisItemPrices" style="width: 100%; height: 55px;">
+            <div style="line-height: 1.2;">
+              <p>成本预估 1,223,123</p>
+              <p>收益预估 5,323,163</p>
+            </div>
+          </n-button>
+        </GroupBox>
+      </div>
     </div>
 
     <ModalCraftStatements
@@ -414,6 +439,18 @@ const exportExcel = () => {
 </template>
   
 <style scoped>
+:deep(.n-collapse-item__content-inner) {
+  padding-top: 2px !important;
+}
+:deep(.n-collapse-item__header) {
+  padding-top: 4px !important;
+}
+:deep(.n-collapse-item) {
+  margin-top: 4px !important;
+}
+:deep(.n-collapse-item:first-child) {
+  margin-top: 0 !important;
+}
 .group .container {
   display: flex;
   flex-direction: column;
@@ -425,8 +462,8 @@ const exportExcel = () => {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 5px;
 }
-#actions-group .container {
-  padding: 10px 0;
+#gatherings-group .container {
+  padding: 4px 0;
 }
 .item-collapsed-container {
   display: flex;
@@ -443,9 +480,13 @@ const exportExcel = () => {
     row-gap: 15px;
     column-gap: 10px;
   }
-  #actions-group {
+  #statistics-footer {
     grid-row: 1 / 3;
     grid-column: 3;
+
+    #price-analysis-group {
+      margin-top: 14px;
+    }
   }
 }
 

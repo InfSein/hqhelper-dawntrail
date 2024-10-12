@@ -1,3 +1,5 @@
+import type { ItemPriceInfo } from "@/tools/item"
+
 export interface UserConfigModel {
   // general
   language_ui: 'zh' | 'en' | 'ja'
@@ -14,6 +16,8 @@ export interface UserConfigModel {
   macro_copy_prefix: string
   // performance
   disable_workstate_cache: boolean
+  // special
+  universalis_server: string
   // update
   disable_auto_update: boolean
   
@@ -28,6 +32,7 @@ export interface UserConfigModel {
   cache_lasttime_version: string
   cache_ui_fold: any
   cache_work_state: any
+  cache_item_prices: Record<number, ItemPriceInfo>
   fthelper_cache_work_state: any
   gatherclock_cache_work_state: any
 }
@@ -49,6 +54,8 @@ const defaultUserConfig: UserConfigModel = {
   macro_copy_prefix: '',
   // performance
   disable_workstate_cache: false,
+  // special
+  universalis_server: '红玉海',
   // update
   disable_auto_update: false,
   
@@ -62,6 +69,7 @@ const defaultUserConfig: UserConfigModel = {
   cache_lasttime_version: 'none',
   cache_ui_fold: {}, // active cache, { key:string -> value:boolean }
   cache_work_state: {}, // active cache, view struct in `MainPage.vue` 's `workState`
+  cache_item_prices: {},
   fthelper_cache_work_state: {},
   gatherclock_cache_work_state: {}
 }

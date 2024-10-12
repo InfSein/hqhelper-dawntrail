@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NCollapse, NCollapseItem, NIcon, NModal, NPopover, NRadioButton, NRadioGroup, NSelect, NSwitch, NTabs, NTabPane
+  NButton, NCard, NCascader, NCollapse, NCollapseItem, NIcon, NModal, NPopover, NRadioButton, NRadioGroup, NSelect, NSwitch, NTabs, NTabPane,
+  type CascaderOption
 } from 'naive-ui'
 import { useStore } from '@/store/index'
 import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
@@ -13,6 +14,7 @@ import {
   ColorLensRound,
   MemoryRound,
   UpdateRound,
+  StarsRound,
   // WifiRound,
   SaveOutlined
 } from '@vicons/material'
@@ -46,11 +48,16 @@ interface UserPreferenceItem {
     class: string
     style: string
   }[]
-  type: 'radio-group' | 'switch' | 'select'
-  options: {
-    value: string
-    label: string
-  }[]
+  type: 'radio-group' | 'switch' | 'select' | 'cascader'
+  options: CascaderOption[]
+}
+const dealSimOptions = (options: string[]) => {
+  return options.map(option => {
+    return {
+      label: option,
+      value: option
+    }
+  })
 }
 const UserPreferenceGroups : UserPreferenceGroup[] = [
   /* General */
@@ -305,6 +312,182 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
     ]
   }
   */
+  /* Special Options */
+  {
+    key: 'special',
+    icon: StarsRound,
+    text: t('特殊'),
+    children: [
+      {
+        key: 'universalis_server',
+        label: t('物品价格服务器'),
+        descriptions: [
+          {
+            value: t('适用于“{f}”功能。', t('成本/收益预估')),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('下方的输入框支持输入关键词检索选项。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'cascader',
+        options: [
+        {
+            value: 'chs',
+            label: '中国',
+            children: [
+              {
+                value: '陆行鸟',
+                label: '陆行鸟',
+                children: dealSimOptions([
+                  "红玉海","神意之地","拉诺西亚","幻影群岛","萌芽池","宇宙和音","沃仙曦染","晨曦王座"
+                ])
+              },
+              {
+                value: '莫古力',
+                label: '莫古力',
+                children: dealSimOptions([
+                  "白银乡","白金幻象","神拳痕","潮风亭","旅人栈桥","拂晓之间","龙巢神殿","梦羽宝境"
+                ])
+              },
+              {
+                value: '猫小胖',
+                label: '猫小胖',
+                children: dealSimOptions([
+                  "紫水栈桥","延夏","静语庄园","摩杜纳","海猫茶屋","柔风海湾","琥珀原"
+                ])
+              },
+              {
+                value: '豆豆柴',
+                label: '豆豆柴',
+                children: dealSimOptions([
+                  "水晶塔","银泪湖","太阳海岸","伊修加德","红茶川","黄金谷","月牙湾","雪松原"
+                ])
+              }
+            ]
+          },
+          {
+            value: 'japan',
+            label: 'Japan',
+            children: [
+              {
+                value: 'Elemental',
+                label: 'Elemental',
+                children: dealSimOptions([
+                  "Carbuncle","Kujata","Typhon","Garuda","Atomos","Tonberry","Aegis","Gungnir"
+                ])
+              },
+              {
+                value: 'Gaia',
+                label: 'Gaia',
+                children: dealSimOptions([
+                  "Alexander","Fenrir","Ultima","Ifrit","Bahamut","Tiamat","Durandal","Ridill"
+                ])
+              },
+              {
+                value: 'Mana',
+                label: 'Mana',
+                children: dealSimOptions([
+                  "Asura","Pandaemonium","Anima","Hades","Ixion","Titan","Chocobo","Masamune"
+                ])
+              },
+              {
+                value: 'Meteor',
+                label: 'Meteor',
+                children: dealSimOptions([
+                  "Belias","Shinryu","Unicorn","Yojimbo","Zeromus","Valefor","Ramuh","Mandragora"
+                ])
+              }
+            ]
+          },
+          {
+            value: 'na',
+            label: 'North-America',
+            children: [
+              {
+                value: 'Aether',
+                label: 'Aether',
+                children: dealSimOptions([
+                  "Jenova","Faerie","Siren","Gilgamesh","Midgardsormr","Adamantoise","Cactuar","Sargatanas"
+                ])
+              },
+              {
+                value: 'Primal',
+                label: 'Primal',
+                children: dealSimOptions([
+                  "Famfrit","Exodus","Lamia","Leviathan","Ultros","Behemoth","Excalibur","Hyperion"
+                ])
+              },
+              {
+                value: 'Crystal',
+                label: 'Crystal',
+                children: dealSimOptions([
+                  "Brynhildr","Mateus","Zalera","Diabolos","Coeurl","Malboro","Goblin","Balmung"
+                ])
+              },
+              {
+                value: 'Dynamis',
+                label: 'Dynamis',
+                children: dealSimOptions([
+                  "Marilith","Seraph","Halicarnassus","Maduin","Cuchulainn","Kraken","Rafflesia","Golem"
+                ])
+              }
+            ]
+          },
+          {
+            value: 'eu',
+            label: 'Europe',
+            children: [
+              {
+                value: 'Chaos',
+                label: 'Chaos',
+                children: dealSimOptions([
+                  "Omega","Moogle","Cerberus","Louisoix","Spriggan","Ragnarok","Sagittarius","Phantom"
+                ])
+              },
+              {
+                value: 'Light',
+                label: 'Light',
+                children: dealSimOptions([
+                  "Twintania","Lich","Zodiark","Phoenix","Odin","Shiva","Alpha","Raiden"
+                ])
+              },
+            ]
+          },
+          {
+            value: 'ocean',
+            label: 'Oceania',
+            children: [
+              {
+                value: 'Materia',
+                label: 'Materia',
+                children: dealSimOptions([
+                  "Ravana","Bismarck","Sephirot","Sophia","Zurvan"
+                ])
+              },
+            ]
+          },
+          {
+            value: 'kr',
+            label: '한국',
+            children: [
+              {
+                value: '한국',
+                label: '한국',
+                children: dealSimOptions([
+                  "카벙클","초코보","모그리","톤베리","펜리르"
+                ])
+              },
+            ]
+          },
+        ]
+      }
+    ]
+  },
   /* Update */
   {
     key: 'update',
@@ -470,6 +653,16 @@ const handleSave = () => {
                       :options="item.options"
                       :style="{ width: isMobile ? '65%' : '50%' }"
                     />
+                    <n-cascader
+                      v-if="item.type === 'cascader'"
+                      v-model:value="(formData as any)[item.key]"
+                      :expand-trigger="!isMobile ? 'hover' : 'click'"
+                      :options="item.options"
+                      check-strategy="child"
+                      show-path
+                      filterable
+                      :style="{ width: isMobile ? '65%' : '50%' }"
+                    />
                   </template>
                   <div class="flex-column flex-center">
                     <p
@@ -504,6 +697,16 @@ const handleSave = () => {
                     v-model:value="(formData as any)[item.key]"
                     :options="item.options"
                     :style="{ width: isMobile ? '65%' : '50%' }"
+                  />
+                  <n-cascader
+                    v-if="item.type === 'cascader'"
+                    v-model:value="(formData as any)[item.key]"
+                    :expand-trigger="!isMobile ? 'hover' : 'click'"
+                    :options="item.options"
+                    check-strategy="child"
+                    show-path
+                    filterable
+                    :style="{ width: isMobile ? '85%' : '70%' }"
                   />
                 </div>
               </div>

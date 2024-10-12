@@ -482,3 +482,80 @@ export const getItemContexts = (
 
   return { options, handleKeyEvent }
 }
+
+export interface ItemPriceInfo {
+  itemID: number,
+  worldID: number,
+  worldName: string,
+  currentAveragePriceNQ: number,
+  currentAveragePriceHQ: number,
+  averagePriceNQ: number,
+  averagePriceHQ: number,
+  minPriceNQ: number,
+  minPriceHQ: number,
+  maxPriceNQ: number,
+  maxPriceHQ: number
+}
+export const getItemPriceInfo = async (
+  item : number | number[],
+  server : string
+) : Promise<Record<number, ItemPriceInfo>> => {
+  if (typeof item === 'number') {
+    return await getItemPrice(item, server)
+  } else {
+    if (!item?.length) {
+      return {}
+    } else if (item.length === 1) {
+      return await getItemPrice(item[0], server)
+    } else {
+      // universalis单次最多请求100个物品的数据，因此需要分块请求
+      const chunkSize = 100
+      const results : Record<number, ItemPriceInfo> = {}
+      const chunkedItems = Array(Math.ceil(item.length / chunkSize))
+        .fill(null)
+        .map((_, index) => item.slice(index * chunkSize, (index + 1) * chunkSize))
+      const responses = await Promise.all(
+        chunkedItems.map(chunk => getMultiItemPrice(chunk, server))
+      )
+      responses.forEach(response => {
+        Object.assign(results, response)
+      })
+      return results
+    }
+  }
+}
+const getItemPrice = async (
+  item : number,
+  server: string
+) => {
+  const itemstr = item.toString()
+  const url = `https://universalis.app/api/v2/${server}/${itemstr}`
+    + '?fields=itemID,worldID,worldName,currentAveragePriceNQ,currentAveragePriceHQ,'
+    + 'averagePriceNQ,averagePriceHQ,minPriceNQ,minPriceHQ,maxPriceNQ,maxPriceHQ'
+  let response : string
+  if (window.electronAPI?.httpGet) {
+    response = await window.electronAPI.httpGet(url)
+  } else {
+    response = await fetch(url)
+      .then(response => response.text())
+  }
+  const data = {} as Record<number, ItemPriceInfo>
+  data[item] = JSON.parse(response) as ItemPriceInfo
+  return data
+}
+const getMultiItemPrice = async (
+  item : number[],
+  server: string
+) => {
+  const itemstr = item.join(',')
+  const url = `https://universalis.app/api/v2/${server}/${itemstr}?listings=0`
+  let response : string
+  if (window.electronAPI?.httpGet) {
+    response = await window.electronAPI.httpGet(url)
+  } else {
+    response = await fetch(url)
+      .then(response => response.text())
+  }
+  const data = JSON.parse(response)
+  return data.items as Record<number, ItemPriceInfo>
+}

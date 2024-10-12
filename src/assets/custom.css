@@ -38,6 +38,9 @@
 .color-info {
   color: #3b7fef;
 }
+.color-warning {
+  color: #ffc107;
+}
 
 /* Text */
 .bold {
