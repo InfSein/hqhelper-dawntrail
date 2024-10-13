@@ -637,7 +637,7 @@ const handleSave = () => {
   }
 
   if (formData.value.universalis_server !== store.state.userConfig?.universalis_server) {
-    if (confirm(t('由于修改了服务器，将清除已获取的物品价格缓存。' + '\n' + t('要继续吗?')))) {
+    if (confirm(t('由于修改了服务器，将清除已获取的物品价格缓存。') + '\n' + t('要继续吗?'))) {
       formData.value.cache_item_prices = {}
     } else {
       return

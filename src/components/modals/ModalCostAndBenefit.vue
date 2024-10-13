@@ -52,7 +52,7 @@ const handleClose = () => {
       <template #header>
         <div class="card-title">
           <n-icon><AttachMoneyOutlined /></n-icon>
-          <span class="title">{{ t('成本/收益分析') }}</span>
+          <span class="title">{{ t('成本/收益预估') }}</span>
         </div>
       </template>
 

@@ -2803,5 +2803,290 @@
     "$files": [
       "data\\change-logs.ts"
     ]
+  },
+  "需要在“{f1}”的“{f2}”选项卡中进行设置。": {
+    "en": "Need to deal settings in \"{f2}\" tab of \"{f1}\" first.",
+    "ja": "需要在“{f1}”的“{f2}”选项卡中进行设置。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了右键物品按钮时，弹出菜单对应的物品不正确的问题。": {
+    "en": "Fixed menu of item button directs to error item.",
+    "ja": "修复了右键物品按钮时，弹出菜单对应的物品不正确的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了“{f}”的输入框在特定尺寸显示器上可能溢出容器的问题": {
+    "en": "Fixed inputs of \"{f}\" may overflow container on specific screen.",
+    "ja": "修复了“{f}”的输入框在特定尺寸显示器上可能溢出容器的问题",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了部分物品按钮悬浮窗在移动端的显示效果。": {
+    "en": "Fixed display effect of some item buttons on mobile.",
+    "ja": "修正了部分物品按钮悬浮窗在移动端的显示效果。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "为“{f}”添加了排序、{f1}和{f2}的功能。": {
+    "en": "Added sort, {f1} and {f2} to \"{f}\".",
+    "ja": "为“{f}”添加了排序、{f1}和{f2}的功能。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "将现可采集的物品置顶": {
+    "en": "Pin gatherable items",
+    "ja": "将现可采集的物品置顶",
+    "$files": [
+      "data\\change-logs.ts",
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "禁用物品按钮悬浮窗": {
+    "en": "Ban item button popup",
+    "ja": "禁用物品按钮悬浮窗",
+    "$files": [
+      "data\\change-logs.ts",
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "现在点数统计的兑换道具顺序与兑换商店的顺序保持一致。": {
+    "en": "Now items in tome script statistics will be sorted same as exchange store.",
+    "ja": "现在点数统计的兑换道具顺序与兑换商店的顺序保持一致。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在，“{f}”还会同时导出灵砂统计。": {
+    "en": "Now the \"f\" will also export aethersand statistics.",
+    "ja": "现在，“{f}”还会同时导出灵砂统计。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "物品编号": {
+    "en": "Item ID",
+    "ja": "物品编号",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "采集开始时间": {
+    "en": "Start Time",
+    "ja": "采集开始时间",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "排序依据": {
+    "en": "Sort by",
+    "ja": "排序依据",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "成本/收益预估": {
+    "en": "Cost/Benefit",
+    "ja": "成本/收益预估",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue",
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "借助Universalis提供的API，为您计算素材成本和预计收益。": {
+    "en": "Calculate the cost and benefit of materials with data given by Universalis API.",
+    "ja": "借助Universalis提供的API，为您计算素材成本和预计收益。",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "“收益”是指卖出制作成品所能获得的金钱，并未扣除成本。": {
+    "en": "Benefit means sold earns, not deducted by cost.",
+    "ja": "“收益”是指卖出制作成品所能获得的金钱，并未扣除成本。",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "预计成本 {val}": {
+    "en": "Costing {val}",
+    "ja": "预计成本 {val}",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue",
+      "components\\modals\\ModalCostAndBenefit.vue"
+    ]
+  },
+  "预计收益 {val}": {
+    "en": "Benefit {val}",
+    "ja": "预计收益 {val}",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue",
+      "components\\modals\\ModalCostAndBenefit.vue"
+    ]
+  },
+  "物品": {
+    "en": "Item",
+    "ja": "物品",
+    "$files": [
+      "components\\custom-controls\\ItemPriceTable.vue"
+    ]
+  },
+  "单价": {
+    "en": "Price",
+    "ja": "单价",
+    "$files": [
+      "components\\custom-controls\\ItemPriceTable.vue"
+    ]
+  },
+  "小计": {
+    "en": "Total",
+    "ja": "小计",
+    "$files": [
+      "components\\custom-controls\\ItemPriceTable.vue"
+    ]
+  },
+  "成本": {
+    "en": "Cost",
+    "ja": "成本",
+    "$files": [
+      "components\\modals\\ModalCostAndBenefit.vue"
+    ]
+  },
+  "收益": {
+    "en": "Benefit",
+    "ja": "收益",
+    "$files": [
+      "components\\modals\\ModalCostAndBenefit.vue"
+    ]
+  },
+  "此处计入物品的NQ价格。": {
+    "en": "Calculated by items' NQ price.",
+    "ja": "此处计入物品的NQ价格。",
+    "$files": [
+      "components\\modals\\ModalCostAndBenefit.vue"
+    ]
+  },
+  "此处计入物品的HQ价格。": {
+    "en": "Calculated by items' HQ price.",
+    "ja": "此处计入物品的HQ价格。",
+    "$files": [
+      "components\\modals\\ModalCostAndBenefit.vue"
+    ]
+  },
+  "物品价格服务器": {
+    "en": "Item Price Server",
+    "ja": "物品价格服务器",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "适用于“{f}”功能。": {
+    "en": "Used in \"{f}\".",
+    "ja": "适用于“{f}”功能。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "下方的输入框支持通过输入关键词来检索选项。": {
+    "en": "Input box supports searching options by keywords.",
+    "ja": "下方的输入框支持通过输入关键词来检索选项。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "物品价格类型": {
+    "en": "Item Price Type",
+    "ja": "物品价格类型",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "计算成本时，默认计算制作材料NQ的价格；计算收益时，默认计算成品道具HQ的价格。": {
+    "en": "Item price calculates NQ by default when calculating cost; calculates HQ by default when calculating benefit.",
+    "ja": "计算成本时，默认计算制作材料NQ的价格；计算收益时，默认计算成品道具HQ的价格。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "平均价格": {
+    "en": "Average Price",
+    "ja": "平均价格",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "当前平均价格": {
+    "en": "Current Average Price",
+    "ja": "当前平均价格",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "最低价格": {
+    "en": "Min Price",
+    "ja": "最低价格",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "最高价格": {
+    "en": "Max Price",
+    "ja": "最高价格",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "物品价格有效期": {
+    "en": "Item Price Expires",
+    "ja": "物品价格有效期",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "设定时间过短，会导致计算价格的效率降低；设置时间过长，则会导致结果过时。": {
+    "en": "Too short might cause efficiency decrease; too long might cause outdated result.",
+    "ja": "设定时间过短，会导致计算价格的效率降低；设置时间过长，则会导致结果过时。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "{val}小时": {
+    "en": "{val} Hours",
+    "ja": "{val}小时",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "{val}天": {
+    "en": "{val} Days",
+    "ja": "{val}天",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "永不过期": {
+    "en": "Never expires",
+    "ja": "永不过期",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "由于修改了服务器，将清除已获取的物品价格缓存。": {
+    "en": "Item Price Cache will be cleaned cause you changed the server.",
+    "ja": "由于修改了服务器，将清除已获取的物品价格缓存。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "要继续吗?": {
+    "en": "Continue?",
+    "ja": "要继续吗?",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
   }
 }
