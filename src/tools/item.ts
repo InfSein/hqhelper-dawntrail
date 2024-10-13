@@ -487,6 +487,7 @@ export interface ItemPriceInfo {
   itemID: number,
   worldID: number,
   worldName: string,
+  updateTime: number,
   currentAveragePriceNQ: number,
   currentAveragePriceHQ: number,
   averagePriceNQ: number,
@@ -520,6 +521,9 @@ export const getItemPriceInfo = async (
       responses.forEach(response => {
         Object.assign(results, response)
       })
+      Object.values(results).forEach(result => {
+        result.updateTime = Date.now()
+      })
       return results
     }
   }
@@ -541,6 +545,7 @@ const getItemPrice = async (
   }
   const data = {} as Record<number, ItemPriceInfo>
   data[item] = JSON.parse(response) as ItemPriceInfo
+  data[item].updateTime = Date.now()
   return data
 }
 const getMultiItemPrice = async (

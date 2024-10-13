@@ -328,7 +328,7 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
             style: ''
           },
           {
-            value: t('下方的输入框支持输入关键词检索选项。'),
+            value: t('下方的输入框支持通过输入关键词来检索选项。'),
             class: '',
             style: ''
           }
@@ -372,7 +372,7 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
           },
           {
             value: 'japan',
-            label: 'Japan',
+            label: '日本',
             children: [
               {
                 value: 'Elemental',
@@ -485,6 +485,86 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
             ]
           },
         ]
+      },
+      {
+        key: 'universalis_priceType',
+        label: t('物品价格类型'),
+        descriptions: [
+          {
+            value: t('适用于“{f}”功能。', t('成本/收益预估')),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('计算成本时，默认计算制作材料NQ的价格；计算收益时，默认计算成品道具HQ的价格。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'select',
+        options: [
+          {
+            value: 'averagePrice',
+            label: t('平均价格')
+          },
+          {
+            value: 'currentAveragePrice',
+            label: t('当前平均价格')
+          },
+          {
+            value: 'minPrice',
+            label: t('最低价格')
+          },
+          {
+            value: 'maxPrice',
+            label: t('最高价格')
+          }
+        ]
+      },
+      {
+        key: 'universalis_expireTime',
+        label: t('物品价格有效期'),
+        descriptions: [
+          {
+            value: t('适用于“{f}”功能。', t('成本/收益预估')),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('设定时间过短，会导致计算价格的效率降低；设置时间过长，则会导致结果过时。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'select',
+        options: [
+          {
+            value: 3 * 60 * 60 * 1000,
+            label: t('{val}小时', 3)
+          },
+          {
+            value: 6 * 60 * 60 * 1000,
+            label: t('{val}小时', 6)
+          },
+          {
+            value: 24 * 60 * 60 * 1000,
+            label: t('{val}小时', 24)
+          },
+          {
+            value: 3 * 24 * 60 * 60 * 1000,
+            label:t('{val}天', 3)
+          },
+          {
+            value: 7 * 24 * 60 * 60 * 1000,
+            label:t('{val}天', 7)
+          },
+          {
+            value: 999999999999999,
+            label: t('永不过期')
+          }
+        ]
       }
     ]
   },
@@ -556,6 +636,14 @@ const handleSave = () => {
     formData.value.gatherclock_cache_work_state = {}
   }
 
+  if (formData.value.universalis_server !== store.state.userConfig?.universalis_server) {
+    if (confirm(t('由于修改了服务器，将清除已获取的物品价格缓存。' + '\n' + t('要继续吗?')))) {
+      formData.value.cache_item_prices = {}
+    } else {
+      return
+    }
+  }
+
   const newConfig = fixUserConfig(formData.value)
   store.commit('setUserConfig', newConfig)
 
@@ -569,8 +657,8 @@ const handleSave = () => {
       closable
       role="dialog"
       class="no-select"
-      style="width: 98%; max-width: 650px;"
-      :style="{ height: isMobile ? '450px' : '395px' }"
+      style="width: 98%; max-width: 700px;"
+      :style="{ height: isMobile ? '550px' : '450px' }"
       @close="handleClose"
     >
       <template #header>
@@ -599,7 +687,7 @@ const handleSave = () => {
               <span v-if="!isMobile">{{ group.text }}</span>
             </div>
           </template>
-          <div class="items-container" :style="{ maxHeight: isMobile ? '225px' : '220px' }">
+          <div class="items-container" :style="{ maxHeight: isMobile ? '320px' : '275px' }">
             <div class="items" v-for="item in group.children" :key="item.key" v-show="!item.hide">
               <n-collapse arrow-placement="right">
                 <n-collapse-item>

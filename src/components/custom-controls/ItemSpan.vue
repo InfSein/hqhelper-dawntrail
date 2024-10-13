@@ -149,7 +149,7 @@ const handleItemButtonTouchEnd = (/*e: TouchEvent*/) => {
   <div class="container">
     <XivFARImage
       v-show="!hideIcon"
-      class="img"
+      class="img no-select"
       :size="imgSize"
       :src="itemInfo.iconUrl"
     />

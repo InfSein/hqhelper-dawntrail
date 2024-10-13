@@ -9,11 +9,14 @@ import ItemButton from '../custom-controls/ItemButton.vue'
 import ItemList from '../custom-controls/ItemList.vue'
 import TomeScriptButton from '../custom-controls/TomeScriptButton.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
-import { getItemInfo, getItemPriceInfo, getStatementData, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
-import type { UserConfigModel } from '@/models/user-config'
+import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
+import { getItemInfo, getItemPriceInfo, getStatementData, type ItemInfo, type ItemPriceInfo, type ItemTradeInfo } from '@/tools/item'
+import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
 import { export2Excel } from '@/tools/excel'
 import type { GearSelections } from '@/models/gears'
+import { useStore } from '@/store'
 
+const store = useStore()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -280,16 +283,84 @@ const exportExcel = () => {
   )
 }
 
-const handleAnalysisItemPrices = async () => {
-  const items : number[] = []
+const showCostAndBenefitModal = ref(false)
+const costAndBenefit = computed(() => {
+  let updateRequired = false
+  const itemsCost = {} as Record<number, {
+    amount: number,
+    price: ItemPriceInfo
+  }>
+  const itemsBenefit = {} as Record<number, {
+    amount: number,
+    price: ItemPriceInfo
+  }>
+  const priceCache = userConfig.value.cache_item_prices
+  const expiresAfter = Date.now() - userConfig.value.universalis_expireTime
+  statementData.value.materialsLvBase.forEach(item => {
+    if (priceCache[item.id] && priceCache[item.id].updateTime > expiresAfter) {
+      itemsCost[item.id] = {
+        amount: item.amount,
+        price: priceCache[item.id]
+      }
+    } else {
+      updateRequired = true
+    }
+  })
   statementData.value.craftTargets.forEach(item => {
-    items.push(item.id)
+    if (priceCache[item.id] && priceCache[item.id].updateTime > expiresAfter) {
+      itemsBenefit[item.id] = {
+        amount: item.amount,
+        price: priceCache[item.id]
+      }
+    } else {
+      updateRequired = true
+    }
   })
-  statementData.value.materialsLv1.forEach(item => {
-    items.push(item.id)
-  })
-  const itemPrices = await getItemPriceInfo([...new Set(items)], userConfig.value.universalis_server)
-  console.log('itemPrices:', itemPrices)
+  let costInfo = '???', benefitInfo = '???'
+  if (!updateRequired) {
+    let costTotal = 0, benefitTotal = 0
+    const priceKey = userConfig.value.universalis_priceType
+    const priceKeyNQ = priceKey + 'NQ' as "averagePriceNQ" | "currentAveragePriceNQ" | "minPriceNQ" | "maxPriceNQ"
+    const priceKeyHQ = priceKey + 'HQ' as "averagePriceHQ" | "currentAveragePriceHQ" | "minPriceHQ" | "maxPriceHQ"
+    Object.values(itemsCost).forEach(item => {
+      costTotal += item.amount * item.price[priceKeyNQ]
+    })
+    Object.values(itemsBenefit).forEach(item => {
+      benefitTotal += item.amount * item.price[priceKeyHQ]
+    })
+    costInfo = Math.floor(costTotal).toLocaleString()
+    benefitInfo = Math.floor(benefitTotal).toLocaleString()
+  }
+  return {
+    updateRequired,
+    itemsCost,
+    itemsBenefit,
+    costInfo,
+    benefitInfo
+  }
+})
+const updatingPrice = ref(false)
+const handleAnalysisItemPrices = async () => {
+  if (costAndBenefit.value.updateRequired) {
+    updatingPrice.value = true
+    const items : number[] = []
+    statementData.value.craftTargets.forEach(item => {
+      items.push(item.id)
+    })
+    statementData.value.materialsLvBase.forEach(item => {
+      items.push(item.id)
+    })
+    const itemPrices = await getItemPriceInfo([...new Set(items)], userConfig.value.universalis_server)
+    console.log('itemPrices:', itemPrices)
+    const newConfig = userConfig.value
+    Object.keys(itemPrices).forEach(id => {
+      const itemID = Number(id)
+      newConfig.cache_item_prices[itemID] = itemPrices[itemID]
+    })
+    await store.commit('setUserConfig', fixUserConfig(newConfig))
+    updatingPrice.value = false
+  }
+  showCostAndBenefitModal.value = true
 }
 </script>
 
@@ -419,12 +490,21 @@ const handleAnalysisItemPrices = async () => {
         </GroupBox>
         <GroupBox
           id="price-analysis-group" class="group" title-background-color="var(--n-color-embedded)"
-          :title="t('成本/收益分析')"
+          :title="t('成本/收益预估')"
+          :descriptions="[
+            t('借助Universalis提供的API，为您计算素材成本和预计收益。'),
+            t('“收益”是指卖出制作成品所能获得的金钱，并未扣除成本。')
+          ]"
         >
-          <n-button @click="handleAnalysisItemPrices" style="width: 100%; height: 55px;">
-            <div style="line-height: 1.2;">
-              <p>成本预估 1,223,123</p>
-              <p>收益预估 5,323,163</p>
+          <n-button
+            style="width: 100%; height: 55px;"
+            @click="handleAnalysisItemPrices"
+            :loading="updatingPrice"
+            :disabled="updatingPrice"
+          >
+            <div style="line-height: 1.2; text-align: left;">
+              <p>{{ t('预计成本 {val}', costAndBenefit.costInfo) }}</p>
+              <p>{{ t('预计收益 {val}', costAndBenefit.benefitInfo) }}</p>
             </div>
           </n-button>
         </GroupBox>
@@ -434,6 +514,13 @@ const handleAnalysisItemPrices = async () => {
     <ModalCraftStatements
       v-model:show="showStatementModal"
       v-bind="statementData"
+    />
+    <ModalCostAndBenefit
+      v-model:show="showCostAndBenefitModal"
+      :cost-items="statementData.materialsLvBase"
+      :benefit-items="statementData.craftTargets"
+      :cost-info="costAndBenefit.costInfo"
+      :benefit-info="costAndBenefit.benefitInfo"
     />
   </FoldableCard>
 </template>

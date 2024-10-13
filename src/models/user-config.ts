@@ -18,6 +18,8 @@ export interface UserConfigModel {
   disable_workstate_cache: boolean
   // special
   universalis_server: string
+  universalis_priceType: 'averagePrice' | 'currentAveragePrice' | 'minPrice' | 'maxPrice'
+  universalis_expireTime: number
   // update
   disable_auto_update: boolean
   
@@ -56,6 +58,8 @@ const defaultUserConfig: UserConfigModel = {
   disable_workstate_cache: false,
   // special
   universalis_server: '红玉海',
+  universalis_priceType: 'averagePrice',
+  universalis_expireTime: 6 * 60 * 60 * 1000, // 默认6小时
   // update
   disable_auto_update: false,
   
