@@ -343,21 +343,26 @@ const updatingPrice = ref(false)
 const handleAnalysisItemPrices = async () => {
   if (costAndBenefit.value.updateRequired) {
     updatingPrice.value = true
-    const items : number[] = []
-    statementData.value.craftTargets.forEach(item => {
-      items.push(item.id)
-    })
-    statementData.value.materialsLvBase.forEach(item => {
-      items.push(item.id)
-    })
-    const itemPrices = await getItemPriceInfo([...new Set(items)], userConfig.value.universalis_server)
-    console.log('itemPrices:', itemPrices)
-    const newConfig = userConfig.value
-    Object.keys(itemPrices).forEach(id => {
-      const itemID = Number(id)
-      newConfig.cache_item_prices[itemID] = itemPrices[itemID]
-    })
-    await store.commit('setUserConfig', fixUserConfig(newConfig))
+    try {
+      const items : number[] = []
+      statementData.value.craftTargets.forEach(item => {
+        items.push(item.id)
+      })
+      statementData.value.materialsLvBase.forEach(item => {
+        items.push(item.id)
+      })
+      const itemPrices = await getItemPriceInfo([...new Set(items)], userConfig.value.universalis_server)
+      console.log('itemPrices:', itemPrices)
+      const newConfig = userConfig.value
+      Object.keys(itemPrices).forEach(id => {
+        const itemID = Number(id)
+        newConfig.cache_item_prices[itemID] = itemPrices[itemID]
+      })
+      await store.commit('setUserConfig', fixUserConfig(newConfig))
+    } catch (error : any) {
+      console.error(error)
+      alert(t('获取价格失败') + '\n' + (error?.message ?? error))
+    }
     updatingPrice.value = false
   }
   showCostAndBenefitModal.value = true

@@ -3088,5 +3088,12 @@
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
+  },
+  "获取价格失败": {
+    "en": "Get Item Price Failed",
+    "ja": "获取价格失败",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue"
+    ]
   }
 }
