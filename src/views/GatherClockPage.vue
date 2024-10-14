@@ -230,6 +230,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
       <div class="query-form">
         <n-form
           :inline="!isMobile"
+          :label-placement="isMobile ? 'left' : 'top'"
           :show-feedback="false"
           :style="{
             maxWidth: isMobile ? '100%' : '600px'
@@ -349,9 +350,6 @@ const getPlaceName = (itemInfo : ItemInfo) => {
     border-radius: 5px;
     padding: 0.5rem 0.6rem;
   }
-  .n-form-item:hover {
-    box-shadow: 0 0 10px var(--n-color-target);
-  }
 }
 .items-container {
   gap: 0.3rem;
@@ -415,6 +413,9 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 
 /* Desktop */
 @media screen and (min-width: 768px) {
+  .query-form .n-form-item:hover {
+    box-shadow: 0 0 10px var(--n-color-target);
+  }
   .items-container {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));

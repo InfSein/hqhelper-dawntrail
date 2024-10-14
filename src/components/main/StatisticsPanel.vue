@@ -497,7 +497,7 @@ const handleAnalysisItemPrices = async () => {
           id="price-analysis-group" class="group" title-background-color="var(--n-color-embedded)"
           :title="t('成本/收益预估')"
           :descriptions="[
-            t('借助Universalis提供的API，为您计算素材成本和预计收益。'),
+            t('借助Universalis提供的API计算素材成本和预计收益。'),
             t('“收益”是指卖出制作成品所能获得的金钱，并未扣除成本。')
           ]"
         >
@@ -577,14 +577,14 @@ const handleAnalysisItemPrices = async () => {
     grid-column: 3;
 
     #price-analysis-group {
-      margin-top: 14px;
+      margin-top: 15px;
     }
   }
 }
 
 /* Mobile only */
 @media screen and (max-width: 767px) {
-  div.wrapper {
+  div.wrapper, #statistics-footer {
     width: 100%;
     display: flex;
     flex-direction: column;

@@ -56,13 +56,13 @@ const handleClose = () => {
         </div>
       </template>
 
-      <n-tabs v-if="isMobile" type="line" animated>
+      <n-tabs v-if="isMobile" type="segment" animated>
         <n-tab-pane
           name="cost"
           :tab="t('成本')"
         >
           <div class="container">
-            <div>{{ t('预计成本 {val}', costInfo) }}</div>
+            <div class="align-right">{{ t('预计成本 {val}', costInfo) }}</div>
             <ItemPriceTable
               price-type="NQ"
               :items="costItems"
@@ -74,7 +74,7 @@ const handleClose = () => {
           :tab="t('收益')"
         >
           <div class="container">
-            <div>{{ t('预计收益 {val}', benefitInfo) }}</div>
+            <div class="align-right">{{ t('预计收益 {val}', benefitInfo) }}</div>
             <ItemPriceTable
               price-type="HQ"
               :items="benefitItems"

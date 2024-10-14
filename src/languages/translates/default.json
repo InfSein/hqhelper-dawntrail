@@ -2862,7 +2862,7 @@
       "data\\change-logs.ts"
     ]
   },
-  "现在，“{f}”还会同时导出灵砂统计。": {
+  "现在“{f}”还会同时导出灵砂统计。": {
     "en": "Now the \"f\" will also export aethersand statistics.",
     "ja": "「{f}」が霊砂の集計も同時に出力するようになりました。",
     "$files": [
@@ -2898,7 +2898,7 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "借助Universalis提供的API，为您计算素材成本和预计收益。": {
+  "借助Universalis提供的API计算素材成本和预计收益。": {
     "en": "Calculate the cost and benefit of materials with data given by Universalis API.",
     "ja": "Universalis APIを利用し、素材のコストと予想される収入を計算します。",
     "$files": [

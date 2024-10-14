@@ -252,13 +252,7 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
       {
         key: 'item_button_click_event',
         label: t('点击物品按钮时的行为'),
-        descriptions: [
-          {
-            value: t('决定鼠标左键单击物品按钮时要如何做。'),
-            class: '',
-            style: ''
-          }
-        ],
+        descriptions: [],
         warnings: [],
         type: 'select',
         options: [
@@ -532,6 +526,11 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
             style: ''
           },
           {
+            value: t('程序会将获取到的物品价格缓存。一旦超出设置的有效期，就需要重新获取价格信息。'),
+            class: '',
+            style: ''
+          },
+          {
             value: t('设定时间过短，会导致计算价格的效率降低；设置时间过长，则会导致结果过时。'),
             class: '',
             style: ''
@@ -739,7 +738,7 @@ const handleSave = () => {
                       v-if="item.type === 'select'"
                       v-model:value="(formData as any)[item.key]"
                       :options="item.options"
-                      :style="{ width: isMobile ? '65%' : '50%' }"
+                      :style="{ width: isMobile ? '75%' : '60%' }"
                     />
                     <n-cascader
                       v-if="item.type === 'cascader'"
@@ -749,7 +748,7 @@ const handleSave = () => {
                       check-strategy="child"
                       show-path
                       filterable
-                      :style="{ width: isMobile ? '65%' : '50%' }"
+                      :style="{ width: isMobile ? '85%' : '70%' }"
                     />
                   </template>
                   <div class="flex-column flex-center">
@@ -784,7 +783,7 @@ const handleSave = () => {
                     v-if="item.type === 'select'"
                     v-model:value="(formData as any)[item.key]"
                     :options="item.options"
-                    :style="{ width: isMobile ? '65%' : '50%' }"
+                    :style="{ width: isMobile ? '75%' : '60%' }"
                   />
                   <n-cascader
                     v-if="item.type === 'cascader'"

@@ -103,5 +103,16 @@ const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
 
 /* Mobile */
 @media screen and (max-width: 767px) {
+  .table {
+    th:first-child, td:first-child {
+      width: 46%;
+    }
+    th:nth-child(2), td:nth-child(2),
+    th:nth-child(3), td:nth-child(3),
+    th:nth-child(4), td:nth-child(4) {
+      width: 18%;
+      text-align: center;
+    }
+  }
 }
 </style>
