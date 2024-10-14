@@ -1128,13 +1128,6 @@
       "views\\ErrorPage404.vue"
     ]
   },
-  "食药计算器": {
-    "en": "Calculator of food and tinctures",
-    "ja": "調理品&薬品の素材集計",
-    "$files": [
-      "views\\FoodAndTincPage.vue"
-    ]
-  },
   "挑选食药": {
     "en": "Select food and tinctures",
     "ja": "調理品&薬品の選択",
@@ -1182,6 +1175,13 @@
     "ja": "調理品&薬品の计算",
     "$files": [
       "components\\main\\AppHeader.vue"
+    ]
+  },
+  "食药计算器": {
+    "en": "FT Helper",
+    "ja": "調理品&薬品の计算",
+    "$files": [
+      "views\\FoodAndTincPage.vue"
     ]
   },
   "未知": {
@@ -2856,7 +2856,7 @@
     ]
   },
   "现在“{f}”还会同时导出灵砂统计。": {
-    "en": "Now the \"f\" will also export aethersand statistics.",
+    "en": "Now the \"{f}\" will also export aethersand statistics.",
     "ja": "「{f}」が霊砂の集計も同時に出力するようになりました。",
     "$files": [
       "data\\change-logs.ts"
