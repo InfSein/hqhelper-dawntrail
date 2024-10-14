@@ -36,7 +36,7 @@ export const getChangelogs = (
   return [
     {
       version: '2.0.7',
-      date: '2024-10-13',
+      date: '2024-10-14',
       changes: [
         {
           name: groupName.breaking,
@@ -70,7 +70,7 @@ export const getChangelogs = (
               f2: t('禁用物品按钮悬浮窗')
             }),
             t('现在点数统计的兑换道具顺序与兑换商店的顺序保持一致。'),
-            '根据国服目前的文本更新了部分7.05版本道具的中文暂译。',
+            isZh ? '根据国服目前的文本更新了部分7.05版本道具的中文暂译。' : '',
             t('现在“{f}”还会同时导出灵砂统计。', {
               f: t('导出Excel')
             }),
