@@ -17,7 +17,7 @@ const handleClose = () => {
 }
 
 const changelog = computed(() => {
-  return getChangelogs(t, userConfig.value.language_ui)
+  return getChangelogs(userConfig.value.language_ui)
 })
 
 const getChanges = (change: PatchChangeGroup) => {

@@ -23,8 +23,8 @@ export interface PatchChangeGroup {
   changes: string[];
 }
 
+import { t } from '@/languages'
 export const getChangelogs = (
-  t: (message: string, ...args: any[]) => string,
   ui_lang: 'zh' | 'ja' | 'en'
 ) => {
   const groupName = {
@@ -77,7 +77,8 @@ export const getChangelogs = (
             t('优化了“{f1}”中“{f2}”的显示效果。', {
               f1: t('食药计算器'),
               f2: t('挑选食药')
-            })
+            }),
+            t('优化了部分国际化翻译。')
           ]
         }
       ]
