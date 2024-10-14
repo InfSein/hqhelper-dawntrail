@@ -1018,7 +1018,7 @@
   },
   "复制宏": {
     "en": "Copy macro",
-    "ja": "マクロをコピーする",
+    "ja": "マクロをコピー",
     "$files": [
       "components\\custom-controls\\ItemList.vue"
     ]
@@ -2110,7 +2110,7 @@
   },
   "更新": {
     "en": "Update",
-    "ja": "アップデート",
+    "ja": "更新",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
@@ -2834,7 +2834,7 @@
   },
   "将现可采集的物品置顶": {
     "en": "Pin gatherable items",
-    "ja": "現在、採集可能なアイテムがトップに表示されます。",
+    "ja": "現在採集可能なアイテムをトップに表示",
     "$files": [
       "data\\change-logs.ts",
       "views\\GatherClockPage.vue"
@@ -2842,7 +2842,7 @@
   },
   "禁用物品按钮悬浮窗": {
     "en": "Ban item button popup",
-    "ja": "アイテムボタンのツールチップを無効化しました。",
+    "ja": "アイテムボタンのツールチップを隠す",
     "$files": [
       "data\\change-logs.ts",
       "views\\GatherClockPage.vue"
@@ -2915,7 +2915,7 @@
   },
   "预计收益 {val}": {
     "en": "Benefit {val}",
-    "ja": "予想収入 {val}",
+    "ja": "予想収入　 {val}",
     "$files": [
       "components\\main\\StatisticsPanel.vue",
       "components\\modals\\ModalCostAndBenefit.vue"
@@ -3091,7 +3091,7 @@
   },
   "程序会将获取到的物品价格缓存。一旦超出设置的有效期，就需要重新获取价格信息。": {
     "en": "Item price would be saved in cache. Once if the expire time is reached, you need to get the price again.",
-    "ja": "程序会将获取到的物品价格缓存。一旦超出设置的有效期，就需要重新获取价格信息。",
+    "ja": "アプリはは取得したアイテムの価格をキャッシュします。設定された有効期間を超えた場合、価格情報を再取得する必要があります。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
