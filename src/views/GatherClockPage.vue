@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NDivider, NIcon, NPopover, NProgress, NTabs, NTabPane
+  NButton, NCard, NDivider, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch, NTabs, NTabPane
 } from 'naive-ui'
 import {
   AccessAlarmsOutlined,
@@ -76,7 +76,25 @@ const itemLanguage = computed(() => {
 
 const workState = ref({
   patch: '7.0',
+  /** 排序依据 */
+  orderBy: 'itemId' as "itemId" | "gatherStartTimeAsc",
+  /** 是否将目前可以采集的道具置顶 */
+  pinGatherableItems: false,
+  /** 禁用物品按钮悬浮窗 */
+  banItemPop: false,
   starItems: [] as number[],
+})
+const itemSortOptions = computed(() => {
+  return [
+    {
+      label: t('物品编号'),
+      value: 'itemId'
+    },
+    {
+      label: t('采集开始时间'),
+      value: 'gatherStartTimeAsc'
+    },
+  ]
 })
 
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
@@ -84,6 +102,8 @@ if (!disable_workstate_cache) {
   const cachedWorkState = userConfig.value.gatherclock_cache_work_state
   if (cachedWorkState && JSON.stringify(cachedWorkState).length > 2) {
     workState.value = cachedWorkState
+    // 在这里处理后续添加的成员默认值
+    workState.value.orderBy ??= 'itemId'
   }
 
   // todo - 留意性能：深度侦听需要遍历被侦听对象中的所有嵌套的属性，当用于大型数据结构时，开销很大
@@ -137,6 +157,44 @@ const handleStarButtonClick = (itemInfo : ItemInfo) => {
   }
 }
 
+const getSortedItems = (items: ItemInfo[]) => {
+  switch (workState.value.orderBy) {
+    case 'gatherStartTimeAsc': // 根据最小的开始时间增序排序
+      return items.sort((a, b) => {
+        let startA = 99, startB = 99
+        a.gatherInfo.timeLimitInfo.forEach(limit => {
+          startA = Math.min(startA, Number(limit.start.split(':')[0]))
+        })
+        b.gatherInfo.timeLimitInfo.forEach(limit => {
+          startB = Math.min(startB, Number(limit.start.split(':')[0]))
+        })
+        if (workState.value.pinGatherableItems) {
+          if (isItemGatherable(a)) startA -= 999
+          if (isItemGatherable(b)) startB -= 999
+        }
+        return startA - startB
+      })
+    default: // 默认为itemID增序排序
+      return items.sort((a, b) => {
+        if (workState.value.pinGatherableItems) {
+          let _a = a.id, _b = b.id
+          if (isItemGatherable(a)) _a -= 999
+          if (isItemGatherable(b)) _b -= 999
+          return _a - _b
+        } else {
+          return a.id - b.id
+        }
+      })
+  }
+  function isItemGatherable(item: ItemInfo) {
+    let gatherable = false
+    item.gatherInfo.timeLimitInfo.forEach(limit => {
+      gatherable ||= dealTimeLimit(limit.start, limit.end).canGather
+    })
+    return gatherable
+  }
+}
+
 const getJobName = (jobInfo: JobInfo) => {
   switch (uiLanguage.value) {
     case 'ja':
@@ -169,6 +227,26 @@ const getPlaceName = (itemInfo : ItemInfo) => {
       :page-icon="AccessAlarmsOutlined"
     />
     <n-card embedded>
+      <div class="query-form">
+        <n-form
+          :inline="!isMobile"
+          :label-placement="isMobile ? 'left' : 'top'"
+          :show-feedback="false"
+          :style="{
+            maxWidth: isMobile ? '100%' : '600px'
+          }"
+        >
+          <n-form-item :label="t('排序依据')" style="min-width: 200px;">
+            <n-select v-model:value="workState.orderBy" :options="itemSortOptions" />
+          </n-form-item>
+          <n-form-item :label="t('将现可采集的物品置顶')">
+            <n-switch v-model:value="workState.pinGatherableItems" />
+          </n-form-item>
+          <n-form-item :label="t('禁用物品按钮悬浮窗')">
+            <n-switch v-model:value="workState.banItemPop" />
+          </n-form-item>
+        </n-form>
+      </div>
       <n-tabs v-model:value="workState.patch" type="line" animated>
         <n-tab-pane
           v-for="patch in gatherData"
@@ -178,7 +256,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
         >
           <div class="items-container">
             <div
-              v-for="item in patch.items"
+              v-for="item in getSortedItems(patch.items)"
               :key="item.id"
               class="item-card"
             >
@@ -187,6 +265,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
                   :item-info="item"
                   show-icon show-name
                   btn-extra-style="flex-grow: 1;"
+                  :disable-pop="workState.banItemPop"
                 />
                 <n-popover placement="bottom-start" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
                   <template #trigger>
@@ -261,6 +340,17 @@ const getPlaceName = (itemInfo : ItemInfo) => {
   display: flex;
   flex-direction: column;
 }
+.query-form {
+  width: fit-content;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 10px var(--n-border-color);
+
+  .n-form-item {
+    border-radius: 5px;
+    padding: 0.5rem 0.6rem;
+  }
+}
 .items-container {
   gap: 0.3rem;
   padding: 0.5rem;
@@ -323,6 +413,9 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 
 /* Desktop */
 @media screen and (min-width: 768px) {
+  .query-form .n-form-item:hover {
+    box-shadow: 0 0 10px var(--n-color-target);
+  }
   .items-container {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -335,6 +428,9 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 
 /* Mobile */
 @media screen and (max-width: 767px) {
+  .query-form {
+    width: 100%;
+  }
   .items-container {
     display: flex;
     flex-direction: column;

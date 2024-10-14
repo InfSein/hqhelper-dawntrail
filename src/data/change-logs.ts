@@ -23,8 +23,8 @@ export interface PatchChangeGroup {
   changes: string[];
 }
 
+import { t } from '@/languages'
 export const getChangelogs = (
-  t: (message: string, ...args: any[]) => string,
   ui_lang: 'zh' | 'ja' | 'en'
 ) => {
   const groupName = {
@@ -34,6 +34,55 @@ export const getChangelogs = (
   }
   const isZh = ui_lang === 'zh'
   return [
+    {
+      version: '2.0.7',
+      date: '2024-10-14',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('实装了“{f}”功能。', {
+              f: t('成本/收益预估')
+            })
+              + '<br>※ '
+              + t('需要在“{f1}”的“{f2}”选项卡中进行设置。', {
+                f1: t('偏好设置'),
+                f2: t('特殊')
+              })
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('修复了右键物品按钮时，弹出菜单对应的物品不正确的问题。'),
+            t('修复了“{f}”的输入框在特定尺寸显示器上可能溢出容器的问题', {
+              f: t('食药计算器')
+            }),
+            t('修正了部分物品按钮悬浮窗在移动端的显示效果。')
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('为“{f}”添加了排序、{f1}和{f2}的功能。', {
+              f: t('采集时钟'),
+              f1: t('将现可采集的物品置顶'),
+              f2: t('禁用物品按钮悬浮窗')
+            }),
+            t('现在点数统计的兑换道具顺序与兑换商店的顺序保持一致。'),
+            isZh ? '根据国服目前的文本更新了部分7.05版本道具的中文暂译。' : '',
+            t('现在“{f}”还会同时导出灵砂统计。', {
+              f: t('导出Excel')
+            }),
+            t('优化了“{f1}”中“{f2}”的显示效果。', {
+              f1: t('食药计算器'),
+              f2: t('挑选食药')
+            }),
+            t('优化了部分国际化翻译。')
+          ]
+        }
+      ]
+    },
     {
       version: '2.0.6',
       date: '2024-10-09',

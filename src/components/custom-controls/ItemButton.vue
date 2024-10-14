@@ -115,7 +115,9 @@ const handleCopy = async (content: string, successMessage?: string) => {
     NAIVE_UI_MESSAGE.success(successMessage ?? t('已复制到剪贴板'))
   }
 }
-const { options, handleKeyEvent } = getItemContexts(props.itemInfo, t, handleCopy)
+const itemContexts = computed(() => {
+  return getItemContexts(props.itemInfo, t, handleCopy)
+})
 const handleContextMenu = (e: MouseEvent) => {
   e.preventDefault()
   showDropdownRef.value = false
@@ -131,7 +133,7 @@ const handleSelect = async (key: string | number, option: any) => {
   if (option?.click) {
     option.click()
   } else {
-    handleKeyEvent(key, option)
+    itemContexts.value.handleKeyEvent(key, option)
   }
 }
 const onClickoutside = () => {
@@ -243,7 +245,7 @@ const handleItemButtonClick = async () => {
         trigger="manual"
         :x="xRef"
         :y="yRef"
-        :options="options"
+        :options="itemContexts.options"
         :show="showDropdownRef"
         :on-clickoutside="onClickoutside"
         @select="handleSelect"

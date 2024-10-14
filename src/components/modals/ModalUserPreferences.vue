@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NCollapse, NCollapseItem, NIcon, NModal, NPopover, NRadioButton, NRadioGroup, NSelect, NSwitch, NTabs, NTabPane
+  NButton, NCard, NCascader, NCollapse, NCollapseItem, NIcon, NModal, NPopover, NRadioButton, NRadioGroup, NSelect, NSwitch, NTabs, NTabPane,
+  type CascaderOption
 } from 'naive-ui'
 import { useStore } from '@/store/index'
 import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
@@ -13,6 +14,7 @@ import {
   ColorLensRound,
   MemoryRound,
   UpdateRound,
+  StarsRound,
   // WifiRound,
   SaveOutlined
 } from '@vicons/material'
@@ -46,11 +48,16 @@ interface UserPreferenceItem {
     class: string
     style: string
   }[]
-  type: 'radio-group' | 'switch' | 'select'
-  options: {
-    value: string
-    label: string
-  }[]
+  type: 'radio-group' | 'switch' | 'select' | 'cascader'
+  options: CascaderOption[]
+}
+const dealSimOptions = (options: string[]) => {
+  return options.map(option => {
+    return {
+      label: option,
+      value: option
+    }
+  })
 }
 const UserPreferenceGroups : UserPreferenceGroup[] = [
   /* General */
@@ -245,13 +252,7 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
       {
         key: 'item_button_click_event',
         label: t('点击物品按钮时的行为'),
-        descriptions: [
-          {
-            value: t('决定鼠标左键单击物品按钮时要如何做。'),
-            class: '',
-            style: ''
-          }
-        ],
+        descriptions: [],
         warnings: [],
         type: 'select',
         options: [
@@ -305,6 +306,267 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
     ]
   }
   */
+  /* Special Options */
+  {
+    key: 'special',
+    icon: StarsRound,
+    text: t('特殊'),
+    children: [
+      {
+        key: 'universalis_server',
+        label: t('物品价格服务器'),
+        descriptions: [
+          {
+            value: t('适用于“{f}”功能。', t('成本/收益预估')),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('下方的输入框支持通过输入关键词来检索选项。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'cascader',
+        options: [
+        {
+            value: 'chs',
+            label: '中国',
+            children: [
+              {
+                value: '陆行鸟',
+                label: '陆行鸟',
+                children: dealSimOptions([
+                  "红玉海","神意之地","拉诺西亚","幻影群岛","萌芽池","宇宙和音","沃仙曦染","晨曦王座"
+                ])
+              },
+              {
+                value: '莫古力',
+                label: '莫古力',
+                children: dealSimOptions([
+                  "白银乡","白金幻象","神拳痕","潮风亭","旅人栈桥","拂晓之间","龙巢神殿","梦羽宝境"
+                ])
+              },
+              {
+                value: '猫小胖',
+                label: '猫小胖',
+                children: dealSimOptions([
+                  "紫水栈桥","延夏","静语庄园","摩杜纳","海猫茶屋","柔风海湾","琥珀原"
+                ])
+              },
+              {
+                value: '豆豆柴',
+                label: '豆豆柴',
+                children: dealSimOptions([
+                  "水晶塔","银泪湖","太阳海岸","伊修加德","红茶川","黄金谷","月牙湾","雪松原"
+                ])
+              }
+            ]
+          },
+          {
+            value: 'japan',
+            label: '日本',
+            children: [
+              {
+                value: 'Elemental',
+                label: 'Elemental',
+                children: dealSimOptions([
+                  "Carbuncle","Kujata","Typhon","Garuda","Atomos","Tonberry","Aegis","Gungnir"
+                ])
+              },
+              {
+                value: 'Gaia',
+                label: 'Gaia',
+                children: dealSimOptions([
+                  "Alexander","Fenrir","Ultima","Ifrit","Bahamut","Tiamat","Durandal","Ridill"
+                ])
+              },
+              {
+                value: 'Mana',
+                label: 'Mana',
+                children: dealSimOptions([
+                  "Asura","Pandaemonium","Anima","Hades","Ixion","Titan","Chocobo","Masamune"
+                ])
+              },
+              {
+                value: 'Meteor',
+                label: 'Meteor',
+                children: dealSimOptions([
+                  "Belias","Shinryu","Unicorn","Yojimbo","Zeromus","Valefor","Ramuh","Mandragora"
+                ])
+              }
+            ]
+          },
+          {
+            value: 'na',
+            label: 'North-America',
+            children: [
+              {
+                value: 'Aether',
+                label: 'Aether',
+                children: dealSimOptions([
+                  "Jenova","Faerie","Siren","Gilgamesh","Midgardsormr","Adamantoise","Cactuar","Sargatanas"
+                ])
+              },
+              {
+                value: 'Primal',
+                label: 'Primal',
+                children: dealSimOptions([
+                  "Famfrit","Exodus","Lamia","Leviathan","Ultros","Behemoth","Excalibur","Hyperion"
+                ])
+              },
+              {
+                value: 'Crystal',
+                label: 'Crystal',
+                children: dealSimOptions([
+                  "Brynhildr","Mateus","Zalera","Diabolos","Coeurl","Malboro","Goblin","Balmung"
+                ])
+              },
+              {
+                value: 'Dynamis',
+                label: 'Dynamis',
+                children: dealSimOptions([
+                  "Marilith","Seraph","Halicarnassus","Maduin","Cuchulainn","Kraken","Rafflesia","Golem"
+                ])
+              }
+            ]
+          },
+          {
+            value: 'eu',
+            label: 'Europe',
+            children: [
+              {
+                value: 'Chaos',
+                label: 'Chaos',
+                children: dealSimOptions([
+                  "Omega","Moogle","Cerberus","Louisoix","Spriggan","Ragnarok","Sagittarius","Phantom"
+                ])
+              },
+              {
+                value: 'Light',
+                label: 'Light',
+                children: dealSimOptions([
+                  "Twintania","Lich","Zodiark","Phoenix","Odin","Shiva","Alpha","Raiden"
+                ])
+              },
+            ]
+          },
+          {
+            value: 'ocean',
+            label: 'Oceania',
+            children: [
+              {
+                value: 'Materia',
+                label: 'Materia',
+                children: dealSimOptions([
+                  "Ravana","Bismarck","Sephirot","Sophia","Zurvan"
+                ])
+              },
+            ]
+          },
+          {
+            value: 'kr',
+            label: '한국',
+            children: [
+              {
+                value: '한국',
+                label: '한국',
+                children: dealSimOptions([
+                  "카벙클","초코보","모그리","톤베리","펜리르"
+                ])
+              },
+            ]
+          },
+        ]
+      },
+      {
+        key: 'universalis_priceType',
+        label: t('物品价格类型'),
+        descriptions: [
+          {
+            value: t('适用于“{f}”功能。', t('成本/收益预估')),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('计算成本时，默认计算制作材料NQ的价格；计算收益时，默认计算成品道具HQ的价格。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'select',
+        options: [
+          {
+            value: 'averagePrice',
+            label: t('平均价格')
+          },
+          {
+            value: 'currentAveragePrice',
+            label: t('当前平均价格')
+          },
+          {
+            value: 'minPrice',
+            label: t('最低价格')
+          },
+          {
+            value: 'maxPrice',
+            label: t('最高价格')
+          }
+        ]
+      },
+      {
+        key: 'universalis_expireTime',
+        label: t('物品价格有效期'),
+        descriptions: [
+          {
+            value: t('适用于“{f}”功能。', t('成本/收益预估')),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('程序会将获取到的物品价格缓存。一旦超出设置的有效期，就需要重新获取价格信息。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('设定时间过短，会导致计算价格的效率降低；设置时间过长，则会导致结果过时。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'select',
+        options: [
+          {
+            value: 3 * 60 * 60 * 1000,
+            label: t('{val}小时', 3)
+          },
+          {
+            value: 6 * 60 * 60 * 1000,
+            label: t('{val}小时', 6)
+          },
+          {
+            value: 24 * 60 * 60 * 1000,
+            label: t('{val}小时', 24)
+          },
+          {
+            value: 3 * 24 * 60 * 60 * 1000,
+            label:t('{val}天', 3)
+          },
+          {
+            value: 7 * 24 * 60 * 60 * 1000,
+            label:t('{val}天', 7)
+          },
+          {
+            value: 999999999999999,
+            label: t('永不过期')
+          }
+        ]
+      }
+    ]
+  },
   /* Update */
   {
     key: 'update',
@@ -373,6 +635,14 @@ const handleSave = () => {
     formData.value.gatherclock_cache_work_state = {}
   }
 
+  if (formData.value.universalis_server !== store.state.userConfig?.universalis_server) {
+    if (confirm(t('由于修改了服务器，将清除已获取的物品价格缓存。') + '\n' + t('要继续吗?'))) {
+      formData.value.cache_item_prices = {}
+    } else {
+      return
+    }
+  }
+
   const newConfig = fixUserConfig(formData.value)
   store.commit('setUserConfig', newConfig)
 
@@ -386,8 +656,8 @@ const handleSave = () => {
       closable
       role="dialog"
       class="no-select"
-      style="width: 98%; max-width: 650px;"
-      :style="{ height: isMobile ? '450px' : '395px' }"
+      style="width: 98%; max-width: 700px;"
+      :style="{ height: isMobile ? '550px' : '450px' }"
       @close="handleClose"
     >
       <template #header>
@@ -416,7 +686,7 @@ const handleSave = () => {
               <span v-if="!isMobile">{{ group.text }}</span>
             </div>
           </template>
-          <div class="items-container" :style="{ maxHeight: isMobile ? '225px' : '220px' }">
+          <div class="items-container" :style="{ maxHeight: isMobile ? '320px' : '275px' }">
             <div class="items" v-for="item in group.children" :key="item.key" v-show="!item.hide">
               <n-collapse arrow-placement="right">
                 <n-collapse-item>
@@ -468,7 +738,17 @@ const handleSave = () => {
                       v-if="item.type === 'select'"
                       v-model:value="(formData as any)[item.key]"
                       :options="item.options"
-                      :style="{ width: isMobile ? '65%' : '50%' }"
+                      :style="{ width: isMobile ? '75%' : '60%' }"
+                    />
+                    <n-cascader
+                      v-if="item.type === 'cascader'"
+                      v-model:value="(formData as any)[item.key]"
+                      :expand-trigger="!isMobile ? 'hover' : 'click'"
+                      :options="item.options"
+                      check-strategy="child"
+                      show-path
+                      filterable
+                      :style="{ width: isMobile ? '85%' : '70%' }"
                     />
                   </template>
                   <div class="flex-column flex-center">
@@ -503,7 +783,17 @@ const handleSave = () => {
                     v-if="item.type === 'select'"
                     v-model:value="(formData as any)[item.key]"
                     :options="item.options"
-                    :style="{ width: isMobile ? '65%' : '50%' }"
+                    :style="{ width: isMobile ? '75%' : '60%' }"
+                  />
+                  <n-cascader
+                    v-if="item.type === 'cascader'"
+                    v-model:value="(formData as any)[item.key]"
+                    :expand-trigger="!isMobile ? 'hover' : 'click'"
+                    :options="item.options"
+                    check-strategy="child"
+                    show-path
+                    filterable
+                    :style="{ width: isMobile ? '85%' : '70%' }"
                   />
                 </div>
               </div>
