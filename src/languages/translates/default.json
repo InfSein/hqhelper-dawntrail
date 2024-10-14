@@ -2199,13 +2199,6 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "决定鼠标左键单击物品按钮时要如何做。": {
-    "en": "Decide what would happen while clicking item button.",
-    "ja": "决定鼠标左键单击物品按钮时要如何做。",
-    "$files": [
-      "components\\modals\\ModalUserPreferences.vue"
-    ]
-  },
   "什么都不做": {
     "en": "Do nothing",
     "ja": "何もしない",
@@ -3094,6 +3087,13 @@
     "ja": "価格の取得に失敗しました。",
     "$files": [
       "components\\main\\StatisticsPanel.vue"
+    ]
+  },
+  "程序会将获取到的物品价格缓存。一旦超出设置的有效期，就需要重新获取价格信息。": {
+    "en": "Item price would be saved in cache. Once if the expire time is reached, you need to get the price again.",
+    "ja": "程序会将获取到的物品价格缓存。一旦超出设置的有效期，就需要重新获取价格信息。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
     ]
   }
 }
