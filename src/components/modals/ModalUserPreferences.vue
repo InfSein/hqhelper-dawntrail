@@ -500,12 +500,12 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
             style: 'margin-top: 5px;'
           },
           {
-            value: t('交易板最近价格：选取交易板前10条在售道具计算平均价格。'),
+            value: t('交易板近期寄售价：选取交易板前10条在售道具计算平均价格。'),
             class: '',
             style: ''
           },
           {
-            value: t('最近成交价格：选取最近5条成交记录计算平均价格。'),
+            value: t('交易板近期成交价：选取最近5条成交记录计算平均价格。'),
             class: '',
             style: ''
           }
@@ -531,11 +531,11 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
           },
           {
             value: 'marketPrice',
-            label: t('交易板最近价格')
+            label: t('交易板近期寄售价')
           },
           {
             value: 'purchasePrice',
-            label: t('最近成交价格')
+            label: t('交易板近期成交价')
           }
         ]
       },
