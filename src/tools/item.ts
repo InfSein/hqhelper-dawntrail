@@ -483,11 +483,89 @@ export const getItemContexts = (
   return { options, handleKeyEvent }
 }
 
+export const ItemPriceApiVersion = 2
 export interface ItemPriceInfo {
   itemID: number,
   worldID: number,
   worldName: string,
+  currentAveragePriceNQ: number,
+  currentAveragePriceHQ: number,
+  averagePriceNQ: number,
+  averagePriceHQ: number,
+  minPriceNQ: number,
+  minPriceHQ: number,
+  maxPriceNQ: number,
+  maxPriceHQ: number,
+  /** 代表此缓存数据记录时，程序相关代码的版本。
+   * 最初版本的缓存值为 `undefined`, 之后递增1。
+   * 在进行破坏性变更时会提升此值，以方便程序判断是否需要重新加载缓存数据。
+   */
+  v?: number,
+  /** 更新时间，毫秒级时间戳 */
   updateTime: number,
+  // 以下是 v2 之后添加的字段
+  /** 交易板的挂牌均价 (仅计入前10条) */
+  marketPriceNQ?: number,
+  /** 交易板的挂牌均价 (仅计入前10条) */
+  marketPriceHQ?: number
+  /** 最近成交价格 (仅计入前5条) */
+  purchasePriceNQ?: number,
+  /** 最近成交价格 (仅计入前5条) */
+  purchasePriceHQ?: number
+}
+const parseApiPriceInfo = (apiPriceInfo : ApiPriceInfo) => {
+  const itemPriceInfo : ItemPriceInfo = {
+    itemID: apiPriceInfo.itemID,
+    worldID: apiPriceInfo.worldID,
+    worldName: apiPriceInfo.worldName,
+    currentAveragePriceNQ: apiPriceInfo.currentAveragePriceNQ,
+    currentAveragePriceHQ: apiPriceInfo.currentAveragePriceHQ,
+    averagePriceNQ: apiPriceInfo.averagePriceNQ,
+    averagePriceHQ: apiPriceInfo.averagePriceHQ,
+    minPriceNQ: apiPriceInfo.minPriceNQ,
+    minPriceHQ: apiPriceInfo.minPriceHQ,
+    maxPriceNQ: apiPriceInfo.maxPriceNQ,
+    maxPriceHQ: apiPriceInfo.maxPriceHQ,
+    v: ItemPriceApiVersion,
+    updateTime: Date.now()
+  }
+
+  // #region v2
+  let nq_quantity = 0, nq_total = 0, hq_quantity = 0, hq_total = 0
+  apiPriceInfo.listings?.forEach(item => {
+    if (item.hq) {
+      hq_quantity += item.quantity
+      hq_total += item.total
+    } else {
+      nq_quantity += item.quantity
+      nq_total += item.total
+    }
+  })
+  itemPriceInfo.marketPriceNQ = nq_quantity ? nq_total / nq_quantity : 0
+  itemPriceInfo.marketPriceHQ = hq_quantity ? hq_total / hq_quantity : 0
+
+  nq_quantity = 0, nq_total = 0, hq_quantity = 0, hq_total = 0
+  apiPriceInfo.recentHistory?.forEach(item => {
+    if (item.hq) {
+      hq_quantity += item.quantity
+      hq_total += item.total
+    } else {
+      nq_quantity += item.quantity
+      nq_total += item.total
+    }
+  })
+  itemPriceInfo.purchasePriceNQ = nq_quantity ? nq_total / nq_quantity : 0
+  itemPriceInfo.purchasePriceHQ = hq_quantity ? hq_total / hq_quantity : 0
+  // #endregion
+
+  return itemPriceInfo
+}
+interface ApiPriceInfo {
+  itemID: number,
+  worldID: number,
+  worldName: string,
+  listings: ApiListInfo[],
+  recentHistory: ApiListInfo[],
   currentAveragePriceNQ: number,
   currentAveragePriceHQ: number,
   averagePriceNQ: number,
@@ -496,6 +574,12 @@ export interface ItemPriceInfo {
   minPriceHQ: number,
   maxPriceNQ: number,
   maxPriceHQ: number
+}
+interface ApiListInfo {
+  pricePerUnit: number
+  hq: boolean
+  quantity: number
+  total: number
 }
 export const getItemPriceInfo = async (
   item : number | number[],
@@ -521,9 +605,6 @@ export const getItemPriceInfo = async (
       responses.forEach(response => {
         Object.assign(results, response)
       })
-      Object.values(results).forEach(result => {
-        result.updateTime = Date.now()
-      })
       return results
     }
   }
@@ -534,8 +615,7 @@ const getItemPrice = async (
 ) => {
   const itemstr = item.toString()
   const url = `https://universalis.app/api/v2/${server}/${itemstr}`
-    + '?fields=itemID,worldID,worldName,currentAveragePriceNQ,currentAveragePriceHQ,'
-    + 'averagePriceNQ,averagePriceHQ,minPriceNQ,minPriceHQ,maxPriceNQ,maxPriceHQ'
+    + '?listings=10'
   let response : string
   if (window.electronAPI?.httpGet) {
     response = await window.electronAPI.httpGet(url)
@@ -544,7 +624,7 @@ const getItemPrice = async (
       .then(response => response.text())
   }
   const data = {} as Record<number, ItemPriceInfo>
-  data[item] = JSON.parse(response) as ItemPriceInfo
+  data[item] = parseApiPriceInfo(JSON.parse(response) as ApiPriceInfo)
   data[item].updateTime = Date.now()
   return data
 }
@@ -553,7 +633,7 @@ const getMultiItemPrice = async (
   server: string
 ) => {
   const itemstr = item.join(',')
-  const url = `https://universalis.app/api/v2/${server}/${itemstr}?listings=0`
+  const url = `https://universalis.app/api/v2/${server}/${itemstr}?listings=10`
   let response : string
   if (window.electronAPI?.httpGet) {
     response = await window.electronAPI.httpGet(url)
@@ -562,5 +642,10 @@ const getMultiItemPrice = async (
       .then(response => response.text())
   }
   const data = JSON.parse(response)
-  return data.items as Record<number, ItemPriceInfo>
+  const items = data.items as Record<number, ApiPriceInfo>
+  const result = {} as Record<number, ItemPriceInfo>
+  Object.values(items).forEach(item => {
+    result[item.itemID] = parseApiPriceInfo(item)
+  })
+  return result
 }

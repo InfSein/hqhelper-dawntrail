@@ -493,6 +493,21 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
             value: t('计算成本时，默认计算制作材料NQ的价格；计算收益时，默认计算成品道具HQ的价格。'),
             class: '',
             style: ''
+          },
+          {
+            value: t('部分选项说明：'),
+            class: '',
+            style: 'margin-top: 5px;'
+          },
+          {
+            value: t('交易板最近价格：选取交易板前10条在售道具计算平均价格。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('最近成交价格：选取最近5条成交记录计算平均价格。'),
+            class: '',
+            style: ''
           }
         ],
         warnings: [],
@@ -513,6 +528,14 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
           {
             value: 'maxPrice',
             label: t('最高价格')
+          },
+          {
+            value: 'marketPrice',
+            label: t('交易板最近价格')
+          },
+          {
+            value: 'purchasePrice',
+            label: t('最近成交价格')
           }
         ]
       },

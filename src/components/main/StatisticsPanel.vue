@@ -10,7 +10,7 @@ import ItemList from '../custom-controls/ItemList.vue'
 import TomeScriptButton from '../custom-controls/TomeScriptButton.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
-import { getItemInfo, getItemPriceInfo, getStatementData, type ItemInfo, type ItemPriceInfo, type ItemTradeInfo } from '@/tools/item'
+import { getItemInfo, getItemPriceInfo, getStatementData, ItemPriceApiVersion, type ItemInfo, type ItemPriceInfo, type ItemTradeInfo } from '@/tools/item'
 import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
 import { export2Excel } from '@/tools/excel'
 import type { GearSelections } from '@/models/gears'
@@ -296,8 +296,13 @@ const costAndBenefit = computed(() => {
   }>
   const priceCache = userConfig.value.cache_item_prices
   const expiresAfter = Date.now() - userConfig.value.universalis_expireTime
+  function cacheNotExpired(item: ItemInfo) {
+    const priceInfo = priceCache[item.id]
+    return priceInfo && priceInfo.updateTime > expiresAfter
+      && priceInfo.v && priceInfo.v >= ItemPriceApiVersion
+  }
   statementData.value.materialsLvBase.forEach(item => {
-    if (priceCache[item.id] && priceCache[item.id].updateTime > expiresAfter) {
+    if (cacheNotExpired(item)) {
       itemsCost[item.id] = {
         amount: item.amount,
         price: priceCache[item.id]
@@ -307,7 +312,7 @@ const costAndBenefit = computed(() => {
     }
   })
   statementData.value.craftTargets.forEach(item => {
-    if (priceCache[item.id] && priceCache[item.id].updateTime > expiresAfter) {
+    if (cacheNotExpired(item)) {
       itemsBenefit[item.id] = {
         amount: item.amount,
         price: priceCache[item.id]
@@ -320,13 +325,13 @@ const costAndBenefit = computed(() => {
   if (!updateRequired) {
     let costTotal = 0, benefitTotal = 0
     const priceKey = userConfig.value.universalis_priceType
-    const priceKeyNQ = priceKey + 'NQ' as "averagePriceNQ" | "currentAveragePriceNQ" | "minPriceNQ" | "maxPriceNQ"
-    const priceKeyHQ = priceKey + 'HQ' as "averagePriceHQ" | "currentAveragePriceHQ" | "minPriceHQ" | "maxPriceHQ"
+    const priceKeyNQ = priceKey + 'NQ' as "averagePriceNQ" | "currentAveragePriceNQ" | "minPriceNQ" | "maxPriceNQ" | 'marketPriceNQ' | 'purchasePriceNQ'
+    const priceKeyHQ = priceKey + 'HQ' as "averagePriceHQ" | "currentAveragePriceHQ" | "minPriceHQ" | "maxPriceHQ" | 'marketPriceHQ' | 'purchasePriceHQ'
     Object.values(itemsCost).forEach(item => {
-      costTotal += item.amount * item.price[priceKeyNQ]
+      costTotal += item.amount * (item.price[priceKeyNQ] ?? 0)
     })
     Object.values(itemsBenefit).forEach(item => {
-      benefitTotal += item.amount * item.price[priceKeyHQ]
+      benefitTotal += item.amount * (item.price[priceKeyHQ] ?? 0)
     })
     costInfo = Math.floor(costTotal).toLocaleString()
     benefitInfo = Math.floor(benefitTotal).toLocaleString()

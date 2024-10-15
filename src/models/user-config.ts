@@ -18,7 +18,7 @@ export interface UserConfigModel {
   disable_workstate_cache: boolean
   // special
   universalis_server: string
-  universalis_priceType: 'averagePrice' | 'currentAveragePrice' | 'minPrice' | 'maxPrice'
+  universalis_priceType: 'averagePrice' | 'currentAveragePrice' | 'minPrice' | 'maxPrice' | 'marketPrice' | 'purchasePrice'
   universalis_expireTime: number
   // update
   disable_auto_update: boolean
