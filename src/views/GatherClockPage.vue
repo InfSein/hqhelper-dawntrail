@@ -54,11 +54,15 @@ const gatherData = computed(() => {
     items: stars
   })
 
-  for (const patch in limitedGatherings) {
+  for (const key in limitedGatherings) {
+    const [patch, il] = key.split('-')
     data.push({
-      title: t('版本{}', patch),
-      key: patch,
-      items: limitedGatherings[patch]
+      title: t('版本{patch} ({il}品级)', {
+        patch: patch,
+        il: il
+      }),
+      key: key,
+      items: limitedGatherings[key]
     })
   }
 
@@ -75,7 +79,7 @@ const itemLanguage = computed(() => {
 })
 
 const workState = ref({
-  patch: '7.0',
+  patch: '7.0-710',
   /** 排序依据 */
   orderBy: 'itemId' as "itemId" | "gatherStartTimeAsc",
   /** 是否将目前可以采集的道具置顶 */
