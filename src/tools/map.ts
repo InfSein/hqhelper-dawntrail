@@ -1,3 +1,5 @@
+import type { XivMapInfo } from "@/assets/data"
+
 export const drawMap = (
   mapSrc: string, 
   mapSize: number,
@@ -63,4 +65,30 @@ export const drawMap = (
 
     mapImage.onerror = reject
   })
+}
+
+/**
+ * 获取当前地图距离给定坐标最近的以太之光名称
+ */
+export const getNearestAetheryte = (
+  map: XivMapInfo | undefined,
+  x: number,
+  y: number,
+  lang: 'zh' | 'ja' | 'en'
+) => {
+  if (!map) return ''
+  const aetherytes = map.aetherytes
+  const distances = aetherytes.map(aetheryte => {
+    const dx = aetheryte.x - x
+    const dy = aetheryte.y - y
+    return Math.sqrt(dx * dx + dy * dy)
+  })
+  const index = distances.indexOf(Math.min(...distances))
+  if (index !== -1) {
+    const aetheryte = aetherytes[index]
+    if (aetheryte) {
+      return aetheryte[`name_${lang}`]
+    }
+  }
+  return ''
 }

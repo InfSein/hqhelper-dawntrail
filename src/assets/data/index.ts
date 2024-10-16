@@ -24,6 +24,14 @@ export interface XivMapInfo {
   name_ja: string
   name_en: string
   map_src: string
+  aetherytes: XivMapAetheryteInfo[]
+}
+export interface XivMapAetheryteInfo {
+  name_zh: string
+  name_ja: string
+  name_en: string
+  x: number
+  y: number
 }
 /**
  * 地图信息,因包体大小控制一般只会包括最新资料片的地图,须在处理旧版本地图时多加注意

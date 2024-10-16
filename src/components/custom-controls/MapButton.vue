@@ -4,8 +4,8 @@ import {
   NPopover
 } from 'naive-ui'
 import XivFARImage from './XivFARImage.vue'
+import XivMap from './XivMap.vue'
 import type { XivMapInfo } from '@/assets/data'
-import { drawMap } from '@/tools/map'
 
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
@@ -16,22 +16,6 @@ interface MapButtonProps {
   flagY: number
 }
 const props = defineProps<MapButtonProps>()
-
-const mapSrc = ref(props.mapData.map_src)
-
-drawMap(
-  props.mapData.map_src,
-  222,
-  [
-    { src: './ui/flag.png', x: props.flagX, y: props.flagY, size: 16 }
-  ]
-)
-  .then((dataUrl) => {
-    mapSrc.value = dataUrl
-  })
-  .catch((error) => {
-    console.error('Error generating image:', error);
-  })
 </script>
 
 <template>
@@ -47,9 +31,11 @@ drawMap(
       />
     </template>
     <div class="map">
-      <XivFARImage
-        :size="222"
-        :src="mapSrc"
+      <XivMap
+        :map-data="props.mapData"
+        :map-size="222"
+        :flag-x="props.flagX"
+        :flag-y="props.flagY"
       />
     </div>
   </n-popover>

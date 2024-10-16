@@ -10,9 +10,13 @@ import {
 import RouterCard from '@/components/subs/RouterCard.vue'
 import ItemButton from '@/components/custom-controls/ItemButton.vue'
 import XivFARImage from '@/components/custom-controls/XivFARImage.vue'
+import XivMap from '@/components/custom-controls/XivMap.vue'
+import LocationSpan from '@/components/custom-controls/LocationSpan.vue'
+import { XivMaps } from '@/assets/data'
 import { useStore } from '@/store'
 import { jobMap, type JobInfo } from '@/data'
 import { useNbbCal } from '@/tools/use-nbb-cal'
+import { getNearestAetheryte } from '@/tools/map'
 import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import type EorzeaTime from '@/tools/eorzea-time'
@@ -86,6 +90,8 @@ const workState = ref({
   pinGatherableItems: false,
   /** 禁用物品按钮悬浮窗 */
   banItemPop: false,
+  /** 是否直接在采集卡片内展示地图 */
+  showMap: false,
   starItems: [] as number[],
 })
 const itemSortOptions = computed(() => {
@@ -237,7 +243,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
           :label-placement="isMobile ? 'left' : 'top'"
           :show-feedback="false"
           :style="{
-            maxWidth: isMobile ? '100%' : '600px'
+            maxWidth: isMobile ? '100%' : '800px'
           }"
         >
           <n-form-item :label="t('排序依据')" style="min-width: 200px;">
@@ -248,6 +254,9 @@ const getPlaceName = (itemInfo : ItemInfo) => {
           </n-form-item>
           <n-form-item :label="t('禁用物品按钮悬浮窗')">
             <n-switch v-model:value="workState.banItemPop" />
+          </n-form-item>
+          <n-form-item :label="t('展示采集地图')">
+            <n-switch v-model:value="workState.showMap" />
           </n-form-item>
         </n-form>
       </div>
@@ -298,13 +307,44 @@ const getPlaceName = (itemInfo : ItemInfo) => {
                     />
                     <p>{{ getJobName(jobMap[item.gatherInfo.jobId]) }}</p>
                   </div>
-                  <div class="gather-place-name">
-                    {{ getPlaceName(item) }}
+                  <div class="recommended-aetheryte" v-if="XivMaps[item.gatherInfo.placeID]">
+                    <span>{{ t('推荐') }}</span>
+                    <span style="vertical-align: middle;">
+                      <XivFARImage
+                        :size="14"
+                        src="./ui/aetheryte.png"
+                      />
+                    </span>
+                    <span>
+                      {{
+                        getNearestAetheryte(
+                          XivMaps[item.gatherInfo.placeID],
+                          item.gatherInfo.posX, item.gatherInfo.posY,
+                          itemLanguage
+                        )
+                      }}
+                    </span>
+                    
                   </div>
-                  <div class="gather-pos">
-                    {{ t('(X:{x}, Y:{y})', { x: item.gatherInfo.posX, y: item.gatherInfo.posY }) }}
+                  <div class="gather-place">
+                    <LocationSpan
+                      :place-id="item.gatherInfo.placeID"
+                      :place-name="getPlaceName(item)"
+                      :coordinate-x="item.gatherInfo.posX"
+                      :coordinate-y="item.gatherInfo.posY"
+                      hide-coordinates
+                    />
+                    <div>{{ t('(X:{x}, Y:{y})', { x: item.gatherInfo.posX, y: item.gatherInfo.posY }) }}</div>
                   </div>
                 </div>
+                <XivMap
+                  v-if="workState.showMap && XivMaps[item.gatherInfo.placeID]"
+                  :map-data="XivMaps[item.gatherInfo.placeID]"
+                  :map-size="isMobile ? 225 : 125"
+                  :flag-x="item.gatherInfo.posX"
+                  :flag-y="item.gatherInfo.posY"
+                  style="justify-content: end;"
+                />
                 <div class="progresses">
                   <div
                     v-for="(timelimit, tlIndex) in item.gatherInfo.timeLimitInfo"
@@ -384,13 +424,12 @@ const getPlaceName = (itemInfo : ItemInfo) => {
     }
     .content {
       .standard-info {
-        text-align: right;
+        position: relative;
         line-height: 1.2;
-        margin: 0 0.1rem;
+        margin: 0 0.1rem 0.2rem 0.1rem;
         --font-size: var(--n-font-size);
 
         .gather-job {
-          position: absolute;
           font-size: var(--font-size);
           text-align: left;
           width: 70%;
@@ -406,6 +445,12 @@ const getPlaceName = (itemInfo : ItemInfo) => {
             font-size: var(--font-size);
             padding-left: var(--textgap-left);
           }
+        }
+        .gather-place {
+          position: absolute;
+          text-align: right;
+          top: 0;
+          right: 0;
         }
       }
       .progresses {
