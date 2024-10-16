@@ -13,6 +13,7 @@ import type { UserConfigModel } from '@/models/user-config'
 import XivAttributes from '@/assets/data/xiv-attributes.json'
 import { jobMap, type JobInfo } from '@/data'
 import type EorzeaTime from '@/tools/eorzea-time'
+import LocationSpan from './LocationSpan.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -338,9 +339,12 @@ const openInAngler = () => {
           <div class="content" v-if="itemInfo.gatherInfo">
             <div>{{ t('该物品可以在以下位置采集：') }}</div>
             <div class="item">
-              <div>
-                {{ getPlaceName() }} {{ t('(X:{x}, Y:{y})', { x: itemInfo.gatherInfo.posX, y: itemInfo.gatherInfo.posY }) }}
-              </div>
+              <LocationSpan
+                :place-id="itemInfo.gatherInfo.placeID"
+                :place-name="getPlaceName()"
+                :coordinate-x="itemInfo.gatherInfo.posX"
+                :coordinate-y="itemInfo.gatherInfo.posY"
+              />
             </div>
           </div>
           <div class="content" v-if="itemInfo.gatherInfo?.timeLimitInfo?.length">

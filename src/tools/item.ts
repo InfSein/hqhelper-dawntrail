@@ -133,11 +133,12 @@ export interface ItemInfo {
   },
   gatherInfo: {
     jobId: number,
+    placeID: number,
     placeNameZH: string,
     placeNameJA: string,
     placeNameEN: string,
-    posX: string,
-    posY: string,
+    posX: number,
+    posY: number,
     timeLimitInfo: {
       start: string,
       end: string
@@ -278,11 +279,12 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         }
         itemInfo.gatherInfo = {
           jobId: gatherJob,
+          placeID: placeID,
           placeNameZH: placeNameZH,
           placeNameJA: gatherPlaceData[0],
           placeNameEN: gatherPlaceData[1],
-          posX: gatherData.coords.x,
-          posY: gatherData.coords.y,
+          posX: Number(gatherData.coords.x),
+          posY: Number(gatherData.coords.y),
           timeLimitInfo: []
         };
         [1,2,3].forEach(i => {
