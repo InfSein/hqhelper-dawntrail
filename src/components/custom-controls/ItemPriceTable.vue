@@ -19,6 +19,11 @@ defineProps({
   priceType: {
     type: String as PropType<'NQ' | 'HQ'>,
     required: true
+  },
+  /** 所处容器的ID，在模态框等场景时必须传递，否则无法正常复制物品名 */
+  containerId: {
+    type: String,
+    default: ''
   }
 })
 
@@ -60,6 +65,7 @@ const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
             <td>
               <ItemSpan
                 :item-info="item"
+                :container-id="containerId"
               />
             </td>
             <td>

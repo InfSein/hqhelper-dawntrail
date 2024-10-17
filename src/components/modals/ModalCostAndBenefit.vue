@@ -66,6 +66,7 @@ const handleClose = () => {
             <ItemPriceTable
               price-type="NQ"
               :items="costItems"
+              container-id="modal-cost-and-benefits"
             />
           </div>
         </n-tab-pane>
@@ -78,6 +79,7 @@ const handleClose = () => {
             <ItemPriceTable
               price-type="HQ"
               :items="benefitItems"
+              container-id="modal-cost-and-benefits"
             />
           </div>
         </n-tab-pane>
@@ -92,6 +94,7 @@ const handleClose = () => {
           <ItemPriceTable
             price-type="NQ"
             :items="costItems"
+            container-id="modal-cost-and-benefits"
           />
         </GroupBox>
         <GroupBox
@@ -103,6 +106,7 @@ const handleClose = () => {
           <ItemPriceTable
             price-type="HQ"
             :items="benefitItems"
+            container-id="modal-cost-and-benefits"
           />
         </GroupBox>
       </div>
