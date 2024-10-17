@@ -2319,7 +2319,7 @@
     ]
   },
   "被收藏的采集品将在“已收藏”栏目单独展示。": {
-    "en": "Item stared would be shown in \"Star\" column.",
+    "en": "Item stared would be shown in \"Starred\" column.",
     "ja": "お気に入りに登録された採集品は、「お気に入り」欄に個別に表示されます。",
     "$files": [
       "views\\GatherClockPage.vue"
@@ -3092,6 +3092,126 @@
   "程序会将获取到的物品价格缓存。一旦超出设置的有效期，就需要重新获取价格信息。": {
     "en": "Item price would be saved in cache. Once if the expire time is reached, you need to get the price again.",
     "ja": "アプリはは取得したアイテムの価格をキャッシュします。設定された有効期間を超えた場合、価格情報を再取得する必要があります。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "已收藏": {
+    "en": "Starred",
+    "ja": "已收藏",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "版本{patch} ({il}品级)": {
+    "en": "Patch {patch} (IL{il})",
+    "ja": "版本{patch} ({il}品级)",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "取消收藏“{}”": {
+    "en": "Unstar \"{}\"",
+    "ja": "取消收藏“{}”",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "收藏“{}”": {
+    "en": "Star \"{}\"",
+    "ja": "收藏“{}”",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "全部取消收藏": {
+    "en": "Unstar all",
+    "ja": "全部取消收藏",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "配置时钟": {
+    "en": "Clock Configurations",
+    "ja": "配置时钟",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "展示采集地图": {
+    "en": "Show gather map",
+    "ja": "展示采集地图",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "点此展开菜单": {
+    "en": "CLICK HERE",
+    "ja": "点此展开菜单",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "推荐": {
+    "en": "Recomm.",
+    "ja": "推荐",
+    "$files": [
+      "views\\GatherClockPage.vue",
+      "components\\custom-controls\\MapButton.vue"
+    ]
+  },
+  "精选收藏品形态的该道具可能获得：": {
+    "en": "Reduce this item might get:",
+    "ja": "精选收藏品形态的该道具可能获得：",
+    "$files": [
+      "components\\custom-controls\\ItemPop.vue"
+    ]
+  },
+  "部分选项说明：": {
+    "en": "Some options' meaning:",
+    "ja": "部分选项说明：",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "近期成交价格": {
+    "en": "Recent purchase price",
+    "ja": "近期成交价格",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "当前寄售最低价": {
+    "en": "Current lowest marketboard price",
+    "ja": "当前寄售最低价",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "当前寄售平均价": {
+    "en": "Current average marketboard price",
+    "ja": "当前寄售平均价",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "近期成交价格：选取最近5条成交记录计算平均价格。": {
+    "en": "Recent purchase price: calculate average by latest 5 market record.",
+    "ja": "近期成交价格：选取最近5条成交记录计算平均价格。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "当前寄售最低价：在交易板前10条在售记录中选取最低价格。": {
+    "en": "Current lowest marketboard price: calculate by lowest price in top 10 market record.",
+    "ja": "当前寄售最低价：在交易板前10条在售记录中选取最低价格。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "当前寄售平均价：选取交易板前10条在售记录计算平均价格。": {
+    "en": "Current average marketboard price: calculate average by top 10 market record.",
+    "ja": "当前寄售平均价：选取交易板前10条在售记录计算平均价格。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
