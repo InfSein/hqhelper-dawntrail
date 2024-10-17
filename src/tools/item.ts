@@ -41,9 +41,10 @@ import XivPlaceZHTemp from '@/assets/data/translations/xiv-places.json'
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
-const { getTradeMap, getReduceMap } = useNbbCal()
+const { getTradeMap, getReduceMap, getReduceMapReverted } = useNbbCal()
 const tradeMap = getTradeMap()
 const reduceMap = getReduceMap()
+const revertedReduceMap = getReduceMapReverted()
 const gatherMap = XivGatheringItems as Record<number, any>
 const territoryMap = XivGatherTerrory as Record<number, number[]>
 const placeMap = XivPlaceNames as Record<number, string[]>
@@ -95,6 +96,8 @@ export interface ItemInfo {
   tempAttrsProvided: number[][]
   /** 可以从哪些道具中精选来获得 (如果数组为空则代表此道具不能精选获得) */
   canReduceFrom: number[],
+  /** 可以精选出什么道具 (仅展示一个，undefined表示无相关数据) */
+  canReduceTo?: number,
   /** 制作此道具需要的直接道具 (从道具的第一个关联配方中解析) */
   craftRequires: {
     id: number, count: number
@@ -259,6 +262,9 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.canReduceFrom = []
   if (reduceMap[itemID]) {
     itemInfo.canReduceFrom = reduceMap[itemID]
+  }
+  if ((revertedReduceMap[itemID])) {
+    itemInfo.canReduceTo = revertedReduceMap[itemID]
   }
 
   // * 组装物品采集信息

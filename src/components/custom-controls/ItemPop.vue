@@ -307,13 +307,19 @@ const openInAngler = () => {
             {{ t('※ 此处仅展示物品的{NQorHQ}属性', itemHasHQ ? 'HQ' : 'NQ') }}
           </div>
         </div>
-        <div class="description-block" v-if="itemInfo.canReduceFrom?.length">
+        <div class="description-block" v-if="itemInfo.canReduceFrom?.length || itemInfo.canReduceTo">
           <div class="title">{{ t('精选') }}</div>
           <n-divider class="item-divider" />
-          <div class="content">
+          <div class="content" v-if="itemInfo.canReduceFrom?.length">
             <div>{{ t('该物品可以通过精选以下道具获得：') }}</div>
             <div class="item" v-for="(reduce, reduceIndex) in itemInfo.canReduceFrom" :key="'reduce-' + reduceIndex">
               <ItemSpan :item-info="getItemInfo(reduce)" :container-id="containerId" />
+            </div>
+          </div>
+          <div class="content" v-else-if="itemInfo.canReduceTo">
+            <div>{{ t('精选收藏品形态的该道具可能获得：') }}</div>
+            <div class="item">
+              <ItemSpan :item-info="getItemInfo(itemInfo.canReduceTo)" :container-id="containerId" hide-pop-icon />
             </div>
           </div>
         </div>

@@ -145,6 +145,26 @@ export function useNbbCal() {
     }
     return map
   }
+  /**
+   * 获取反转的精选jsmap
+   * @returns Record<number, number>
+   *  * key: 精选来源的 itemID
+   *  * value: 精选所得道具的 itemID
+   */
+  const getReduceMapReverted = () => {
+    const map = {} as Record<number, number>
+    for (const patch in config) {
+      const reduces = config[patch].reduceGathering
+      reduces?.forEach(reduceGroup => {
+        const idGot = reduceGroup[0]
+        const idGive = reduceGroup[1]
+        if (idGot && idGive) {
+          map[idGive] = idGot
+        }
+      })
+    }
+    return map
+  }
 
   const getFoodAndTincs = () => {
     const data = [] as {
@@ -247,7 +267,7 @@ export function useNbbCal() {
 
   return {
     doCal, getItem, getPatchData, getItemsName, calGearSelections,
-    calFoodAndTincs, getSpecialItems, getTradeMap, getReduceMap, getFoodAndTincs,
+    calFoodAndTincs, getSpecialItems, getTradeMap, getReduceMap, getReduceMapReverted, getFoodAndTincs,
     getFoodAndTincs_v2, getLimitedGatherings
   }
 }
