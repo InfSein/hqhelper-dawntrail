@@ -516,6 +516,10 @@ export interface ItemPriceInfo {
   marketPriceNQ?: number,
   /** 交易板的挂牌均价 (仅计入前10条) */
   marketPriceHQ?: number
+  /** 交易板当前最低价 */
+  marketLowestPriceNQ?: number
+  /** 交易板当前最低价 */
+  marketLowestPriceHQ?: number
   /** 最近成交价格 (仅计入前5条) */
   purchasePriceNQ?: number,
   /** 最近成交价格 (仅计入前5条) */
@@ -564,6 +568,21 @@ const parseApiPriceInfo = (apiPriceInfo : ApiPriceInfo) => {
   })
   itemPriceInfo.purchasePriceNQ = nq_quantity ? nq_total / nq_quantity : 0
   itemPriceInfo.purchasePriceHQ = hq_quantity ? hq_total / hq_quantity : 0
+
+  let marketLowestPriceNQ = 0, marketLowestPriceHQ = 0
+  apiPriceInfo.listings?.forEach(item => {
+    if (item.hq) {
+      if (marketLowestPriceHQ === 0 || item.pricePerUnit < marketLowestPriceHQ) {
+        marketLowestPriceHQ = item.pricePerUnit
+      }
+    } else {
+      if (marketLowestPriceNQ === 0 || item.pricePerUnit < marketLowestPriceNQ) {
+        marketLowestPriceNQ= item.pricePerUnit
+      }
+    }
+  })
+  itemPriceInfo.marketLowestPriceNQ = marketLowestPriceNQ
+  itemPriceInfo.marketLowestPriceHQ = marketLowestPriceHQ
   // #endregion
 
   return itemPriceInfo

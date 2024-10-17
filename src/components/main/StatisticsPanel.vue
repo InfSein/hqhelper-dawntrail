@@ -325,13 +325,11 @@ const costAndBenefit = computed(() => {
   if (!updateRequired) {
     let costTotal = 0, benefitTotal = 0
     const priceKey = userConfig.value.universalis_priceType
-    const priceKeyNQ = priceKey + 'NQ' as "averagePriceNQ" | "currentAveragePriceNQ" | "minPriceNQ" | "maxPriceNQ" | 'marketPriceNQ' | 'purchasePriceNQ'
-    const priceKeyHQ = priceKey + 'HQ' as "averagePriceHQ" | "currentAveragePriceHQ" | "minPriceHQ" | "maxPriceHQ" | 'marketPriceHQ' | 'purchasePriceHQ'
     Object.values(itemsCost).forEach(item => {
-      costTotal += item.amount * (item.price[priceKeyNQ] ?? 0)
+      costTotal += item.amount * (item.price[`${priceKey}NQ`] ?? 0)
     })
     Object.values(itemsBenefit).forEach(item => {
-      benefitTotal += item.amount * (item.price[priceKeyHQ] ?? 0)
+      benefitTotal += item.amount * (item.price[`${priceKey}HQ`] ?? 0)
     })
     costInfo = Math.floor(costTotal).toLocaleString()
     benefitInfo = Math.floor(benefitTotal).toLocaleString()

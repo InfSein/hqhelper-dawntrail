@@ -500,12 +500,17 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
             style: 'margin-top: 5px;'
           },
           {
-            value: t('交易板近期寄售价：选取交易板前10条在售道具计算平均价格。'),
+            value: t('近期成交价格：选取最近5条成交记录计算平均价格。'),
             class: '',
             style: ''
           },
           {
-            value: t('交易板近期成交价：选取最近5条成交记录计算平均价格。'),
+            value: t('当前寄售最低价：在交易板前10条在售记录中选取最低价格。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('当前寄售平均价：选取交易板前10条在售记录计算平均价格。'),
             class: '',
             style: ''
           }
@@ -530,12 +535,16 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
             label: t('最高价格')
           },
           {
-            value: 'marketPrice',
-            label: t('交易板近期寄售价')
+            value: 'purchasePrice',
+            label: t('近期成交价格')
           },
           {
-            value: 'purchasePrice',
-            label: t('交易板近期成交价')
+            value: 'marketLowestPrice',
+            label: t('当前寄售最低价')
+          },
+          {
+            value: 'marketPrice',
+            label: t('当前寄售平均价')
           }
         ]
       },
