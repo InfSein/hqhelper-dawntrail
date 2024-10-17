@@ -8,6 +8,7 @@ import {
   StarBorderRound, StarRound,
 } from '@vicons/material'
 import RouterCard from '@/components/subs/RouterCard.vue'
+import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
 import ItemButton from '@/components/custom-controls/ItemButton.vue'
 import XivFARImage from '@/components/custom-controls/XivFARImage.vue'
 import XivMap from '@/components/custom-controls/XivMap.vue'
@@ -236,7 +237,12 @@ const getPlaceName = (itemInfo : ItemInfo) => {
       :page-name="t('采集时钟')"
       :page-icon="AccessAlarmsOutlined"
     />
-    <n-card embedded>
+    <FoldableCard card-key="gatherclock-filter">
+      <template #header>
+        <i class="xiv sync-invert"></i>	
+        <span class="card-title-text">{{ t('配置时钟') }}</span>
+      </template>
+
       <div class="query-form">
         <n-form
           :inline="!isMobile"
@@ -260,6 +266,8 @@ const getPlaceName = (itemInfo : ItemInfo) => {
           </n-form-item>
         </n-form>
       </div>
+    </FoldableCard>
+    <n-card embedded>
       <n-tabs v-model:value="workState.patch" type="line" animated>
         <n-tab-pane
           v-for="patch in gatherData"
