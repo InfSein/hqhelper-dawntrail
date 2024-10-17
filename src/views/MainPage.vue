@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, inject, ref, watch, type Ref } from 'vue';
 import {
-  NAlert, NBackTop
+  NBackTop
 } from 'naive-ui'
 import PatchPanel from '@/components/main/PatchPanel.vue'
 import JobPanel from '@/components/main/JobPanel.vue'
@@ -20,7 +20,7 @@ const gearSelectionPanel = ref<InstanceType<typeof GearSelectionPanel>>()
 
 // #region Provides & Injections
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+// const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 

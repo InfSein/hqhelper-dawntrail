@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NDivider, NDropdown, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch, NTabs, NTabPane,
-  type DropdownOption
+  NButton, NCard, NDivider, NDropdown, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch, NTabs, NTabPane
 } from 'naive-ui'
 import {
   AccessAlarmsOutlined,
