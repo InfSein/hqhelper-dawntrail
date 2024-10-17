@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NDivider, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch, NTabs, NTabPane
+  NButton, NCard, NDivider, NDropdown, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch, NTabs, NTabPane,
+  type DropdownOption
 } from 'naive-ui'
 import {
   AccessAlarmsOutlined,
@@ -167,6 +168,43 @@ const handleStarButtonClick = (itemInfo : ItemInfo) => {
     workState.value.starItems.push(itemInfo.id)
   }
 }
+const getBatchStarOptions = () => {
+  return [
+    ...gatherData.value.filter(item => item.key !== 'stars').map(data => {
+      const itemsAllStared = data.items.every(item => workState.value.starItems.includes(item.id))
+      return {
+        label: itemsAllStared ? t('取消收藏“{}”', data.title) : t('收藏“{}”', data.title),
+        key: data.key,
+        click: () => {
+          if (itemsAllStared) {
+            workState.value.starItems = workState.value.starItems.filter(id => !data.items.map(item => item.id).includes(id))
+          } else {
+            data.items.forEach(item => {
+              if (!workState.value.starItems.includes(item.id)) {
+                workState.value.starItems.push(item.id)
+              }
+            })
+          }
+        }
+      }
+    }),
+    {
+      label: t('全部取消收藏'),
+      key: 'removeAll',
+      disabled: workState.value.starItems.length === 0,
+      click: () => {
+        workState.value.starItems = []
+      }
+    }
+  ]
+}
+const handleBatchStarSelect = (key: string | number, option: any) => {
+  if (option?.click) {
+    option.click()
+  } else {
+    console.warn(`Unknown key: ${key}`)
+  }
+}
 
 const getSortedItems = (items: ItemInfo[]) => {
   switch (workState.value.orderBy) {
@@ -249,7 +287,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
           :label-placement="isMobile ? 'left' : 'top'"
           :show-feedback="false"
           :style="{
-            maxWidth: isMobile ? '100%' : '800px'
+            maxWidth: isMobile ? '100%' : 'fit-content'
           }"
         >
           <n-form-item :label="t('排序依据')" style="min-width: 200px;">
@@ -263,6 +301,15 @@ const getPlaceName = (itemInfo : ItemInfo) => {
           </n-form-item>
           <n-form-item :label="t('展示采集地图')">
             <n-switch v-model:value="workState.showMap" />
+          </n-form-item>
+          <n-form-item :label="t('快速操作')">
+            <n-dropdown
+              placement="bottom-start"
+              :options="getBatchStarOptions()"
+              @select="handleBatchStarSelect"
+            >
+              <n-button>{{ t('点此展开菜单') }}</n-button>
+            </n-dropdown>
           </n-form-item>
         </n-form>
       </div>
