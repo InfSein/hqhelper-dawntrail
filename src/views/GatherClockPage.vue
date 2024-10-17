@@ -54,7 +54,7 @@ const gatherData = computed(() => {
     }
   })
   data.push({
-    title: t('收藏'),
+    title: t('已收藏'),
     key: 'stars',
     items: stars
   })
@@ -302,7 +302,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
                     </n-button>
                   </template>
                   <div>{{ t('点击此按钮来收藏/取消收藏这个采集品。') }}</div>
-                  <div>{{ t('被收藏的采集品将在“收藏”栏目单独展示。') }}</div>
+                  <div>{{ t('被收藏的采集品将在“已收藏”栏目单独展示。') }}</div>
                 </n-popover>
               </div>
               <n-divider class="no-margin" />

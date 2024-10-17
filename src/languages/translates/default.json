@@ -2318,7 +2318,7 @@
       "views\\GatherClockPage.vue"
     ]
   },
-  "被收藏的采集品将在“收藏”栏目单独展示。": {
+  "被收藏的采集品将在“已收藏”栏目单独展示。": {
     "en": "Item stared would be shown in \"Star\" column.",
     "ja": "お気に入りに登録された採集品は、「お気に入り」欄に個別に表示されます。",
     "$files": [
