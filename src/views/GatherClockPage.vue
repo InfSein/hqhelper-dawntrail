@@ -313,14 +313,28 @@ const getPlaceName = (itemInfo : ItemInfo) => {
         </n-form>
       </div>
     </FoldableCard>
-    <n-card embedded>
-      <n-tabs v-model:value="workState.patch" type="line" animated>
+    <n-card embedded :bordered="false">
+      <n-tabs v-model:value="workState.patch" type="card" animated>
         <n-tab-pane
           v-for="patch in gatherData"
           :key="patch.key"
           :name="patch.key"
           :tab="patch.title"
         >
+          <template #tab>
+            <div class="tab-title">
+              <span v-if="patch.key === 'stars'">
+                <i class="xiv e05d"></i>
+              </span>
+              <span v-else-if="patch.key.includes('~690')">
+                <i class="xiv collectables"></i>
+              </span>
+              <span v-else>
+                <i class="xiv timer"></i>
+              </span>
+              <span>{{ patch.title }}</span>
+            </div>
+          </template>
           <div class="items-container">
             <div
               v-for="item in getSortedItems(patch.items)"
@@ -334,7 +348,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
                   btn-extra-style="flex-grow: 1;"
                   :disable-pop="workState.banItemPop"
                 />
-                <n-popover placement="bottom-start" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
+                <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
                   <template #trigger>
                     <n-button class="btn-star" @click="handleStarButtonClick(item)">
                       <template #icon>
@@ -448,6 +462,9 @@ const getPlaceName = (itemInfo : ItemInfo) => {
     padding: 0.5rem 0.6rem;
   }
 }
+.tab-title > *:not(:first-child) {
+  margin-left: 3px;
+}
 .items-container {
   gap: 0.3rem;
   padding: 0.5rem;
@@ -486,7 +503,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
           font-size: var(--font-size);
           text-align: left;
           width: 70%;
-          line-height: 1;
+          line-height: var(--font-size);
 
           img {
             float: left;
@@ -498,6 +515,9 @@ const getPlaceName = (itemInfo : ItemInfo) => {
             font-size: var(--font-size);
             padding-left: var(--textgap-left);
           }
+        }
+        .recommended-aetheryte {
+          margin-top: 3px;
         }
         .gather-place {
           position: absolute;
