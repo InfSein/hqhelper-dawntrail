@@ -3160,9 +3160,9 @@
       "components\\custom-controls\\MapButton.vue"
     ]
   },
-  "精选收藏品形态的该道具可能获得：": {
+  "精选收藏品形态的该物品可能获得：": {
     "en": "Reduce this item might get:",
-    "ja": "精选收藏品形态的该道具可能获得：",
+    "ja": "精选收藏品形态的该物品可能获得：",
     "$files": [
       "components\\custom-controls\\ItemPop.vue"
     ]

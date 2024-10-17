@@ -317,7 +317,7 @@ const openInAngler = () => {
             </div>
           </div>
           <div class="content" v-else-if="itemInfo.canReduceTo">
-            <div>{{ t('精选收藏品形态的该道具可能获得：') }}</div>
+            <div>{{ t('精选收藏品形态的该物品可能获得：') }}</div>
             <div class="item">
               <ItemSpan :item-info="getItemInfo(itemInfo.canReduceTo)" :container-id="containerId" hide-pop-icon />
             </div>
