@@ -3,6 +3,7 @@
     "name_zh": "奥阔帕恰山",
     "name_ja": "オルコ・パチャ",
     "name_en": "Urqopacha",
+    "map_id": 857,
     "map_src": "./image/game-map/urqopacha.png",
     "aetherytes": [
       {
@@ -25,6 +26,7 @@
     "name_zh": "克扎玛乌卡湿地",
     "name_ja": "コザマル・カ",
     "name_en": "Kozama'uka",
+    "map_id": 858,
     "map_src": "./image/game-map/kozama-uka.png",
     "aetherytes": [
       {
@@ -54,6 +56,7 @@
     "name_zh": "亚克特尔树海",
     "name_ja": "ヤクテル樹海",
     "name_en": "Yak T'el",
+    "map_id": 859,
     "map_src": "./image/game-map/yak-t-el.png",
     "aetherytes": [
       {
@@ -76,6 +79,7 @@
     "name_zh": "夏劳尼荒野",
     "name_ja": "シャーローニ荒野",
     "name_en": "Shaaloani",
+    "map_id": 860,
     "map_src": "./image/game-map/shaaloani.png",
     "aetherytes": [
       {
@@ -105,6 +109,7 @@
     "name_zh": "遗产之地",
     "name_ja": "ヘリテージファウンド",
     "name_en": "Heritage Found",
+    "map_id": 861,
     "map_src": "./image/game-map/heritage-found.png",
     "aetherytes": [
       {
@@ -134,6 +139,7 @@
     "name_zh": "活着的记忆",
     "name_ja": "リビング・メモリー",
     "name_en": "Living Memory",
+    "map_id": 862,
     "map_src": "./image/game-map/living-memory.png",
     "aetherytes": [
       {

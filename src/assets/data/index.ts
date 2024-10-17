@@ -23,6 +23,7 @@ export interface XivMapInfo {
   name_zh: string
   name_ja: string
   name_en: string
+  map_id: number
   map_src: string
   aetherytes: XivMapAetheryteInfo[]
 }

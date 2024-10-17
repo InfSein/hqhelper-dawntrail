@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NPopover
+  NButton, NIcon, NPopover
 } from 'naive-ui'
+import {
+  OpenInNewFilled
+} from '@vicons/material'
 import XivFARImage from './XivFARImage.vue'
 import XivMap from './XivMap.vue'
 import type { XivMapInfo } from '@/assets/data'
@@ -40,6 +43,10 @@ const getMapSubName = () => {
     default:
       return props.mapData.name_ja + ' / ' + props.mapData.name_en
   }
+}
+
+const handleOpenCafeMap = () => {
+  window.open(`https://map.wakingsands.com/#f=mark&id=${props.mapData.map_id}&x=${props.flagX}&y=${props.flagY}`)
 }
 </script>
 
@@ -84,6 +91,14 @@ const getMapSubName = () => {
               )
             }}
           </span>
+        </div>
+        <div class="actions">
+          <n-button size="small" @click="handleOpenCafeMap">
+            <template #icon>
+              <n-icon><OpenInNewFilled /></n-icon>
+            </template>
+            {{ t('在FFCAFE互动地图中打开') }}
+          </n-button>
         </div>
       </div>
     </div>
