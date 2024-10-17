@@ -324,7 +324,6 @@ const getPlaceName = (itemInfo : ItemInfo) => {
                         )
                       }}
                     </span>
-                    
                   </div>
                   <div class="gather-place">
                     <LocationSpan
