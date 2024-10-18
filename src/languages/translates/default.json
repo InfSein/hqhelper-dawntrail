@@ -1128,13 +1128,6 @@
       "views\\ErrorPage404.vue"
     ]
   },
-  "食药计算器": {
-    "en": "Calculator of food and tinctures",
-    "ja": "調理品&薬品の素材集計",
-    "$files": [
-      "views\\FoodAndTincPage.vue"
-    ]
-  },
   "挑选食药": {
     "en": "Select food and tinctures",
     "ja": "調理品&薬品の選択",
@@ -1182,6 +1175,13 @@
     "ja": "調理品&薬品の计算",
     "$files": [
       "components\\main\\AppHeader.vue"
+    ]
+  },
+  "食药计算器": {
+    "en": "FT Helper",
+    "ja": "調理品&薬品の计算",
+    "$files": [
+      "views\\FoodAndTincPage.vue"
     ]
   },
   "未知": {
@@ -2318,8 +2318,8 @@
       "views\\GatherClockPage.vue"
     ]
   },
-  "被收藏的采集品将在“收藏”栏目单独展示。": {
-    "en": "Item stared would be shown in \"Star\" column.",
+  "被收藏的采集品将在“已收藏”栏目单独展示。": {
+    "en": "Item stared would be shown in \"Starred\" column.",
     "ja": "お気に入りに登録された採集品は、「お気に入り」欄に個別に表示されます。",
     "$files": [
       "views\\GatherClockPage.vue"
@@ -2856,7 +2856,7 @@
     ]
   },
   "现在“{f}”还会同时导出灵砂统计。": {
-    "en": "Now the \"f\" will also export aethersand statistics.",
+    "en": "Now the \"{f}\" will also export aethersand statistics.",
     "ja": "「{f}」が霊砂の集計も同時に出力するようになりました。",
     "$files": [
       "data\\change-logs.ts"
@@ -3094,6 +3094,267 @@
     "ja": "アプリはは取得したアイテムの価格をキャッシュします。設定された有効期間を超えた場合、価格情報を再取得する必要があります。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "已收藏": {
+    "en": "Starred",
+    "ja": "已收藏",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "版本{patch} ({il}品级)": {
+    "en": "Patch {patch} (IL{il})",
+    "ja": "版本{patch} ({il}品级)",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "取消收藏“{}”": {
+    "en": "Unstar \"{}\"",
+    "ja": "取消收藏“{}”",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "收藏“{}”": {
+    "en": "Star \"{}\"",
+    "ja": "收藏“{}”",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "全部取消收藏": {
+    "en": "Unstar all",
+    "ja": "全部取消收藏",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "配置时钟": {
+    "en": "Clock Configurations",
+    "ja": "配置时钟",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "展示采集地图": {
+    "en": "Show gather map",
+    "ja": "展示采集地图",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "点此展开菜单": {
+    "en": "CLICK HERE",
+    "ja": "点此展开菜单",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "推荐": {
+    "en": "Recomm.",
+    "ja": "推荐",
+    "$files": [
+      "views\\GatherClockPage.vue",
+      "components\\custom-controls\\MapButton.vue"
+    ]
+  },
+  "精选收藏品形态的该物品可能获得：": {
+    "en": "Reduce this item might get:",
+    "ja": "精选收藏品形态的该物品可能获得：",
+    "$files": [
+      "components\\custom-controls\\ItemPop.vue"
+    ]
+  },
+  "部分选项说明：": {
+    "en": "Some options' meaning:",
+    "ja": "部分选项说明：",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "近期成交价格": {
+    "en": "Recent purchase price",
+    "ja": "近期成交价格",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "当前寄售最低价": {
+    "en": "Current lowest marketboard price",
+    "ja": "当前寄售最低价",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "当前寄售平均价": {
+    "en": "Current average marketboard price",
+    "ja": "当前寄售平均价",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "近期成交价格：选取最近5条成交记录计算平均价格。": {
+    "en": "Recent purchase price: calculate average by latest 5 market record.",
+    "ja": "近期成交价格：选取最近5条成交记录计算平均价格。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "当前寄售最低价：在交易板前10条在售记录中选取最低价格。": {
+    "en": "Current lowest marketboard price: calculate by lowest price in top 10 market record.",
+    "ja": "当前寄售最低价：在交易板前10条在售记录中选取最低价格。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "当前寄售平均价：选取交易板前10条在售记录计算平均价格。": {
+    "en": "Current average marketboard price: calculate average by top 10 market record.",
+    "ja": "当前寄售平均价：选取交易板前10条在售记录计算平均价格。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "实装了7.0的采集地图。": {
+    "en": "Dawntrail gather map now available.",
+    "ja": "实装了7.0的采集地图。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在物品按钮悬浮窗和采集时钟等区域的采集位置右侧将显示地图按钮。将光标悬停在地图按钮上，即可查看采集位置的示意图和距离采集位置最近的以太之光传送点名称。": {
+    "en": "Now the location info in item button and gather clock will show map button on its right side. Hover the mouse cursor on the map button, you will see the map and the nearest aetheryte portal name to the gather location.",
+    "ja": "现在物品按钮悬浮窗和采集时钟等区域的采集位置右侧将显示地图按钮。将光标悬停在地图按钮上，即可查看采集位置的示意图和距离采集位置最近的以太之光传送点名称。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "出于页面和更新包大小的考虑，地图文件经过较为严重的压缩。如果希望查看更高清的地图，可以在地图按钮悬浮窗中点击“{f}”来跳转到FFCAFE提供的互动地图页面。": {
+    "en": "Map file is compressed heavily due to page/update-pack size consideration. If you want to see a higher quality map, you can click \"{f}\" in the popup of map button.",
+    "ja": "出于页面和更新包大小的考虑，地图文件经过较为严重的压缩。如果希望查看更高清的地图，可以在地图按钮悬浮窗中点击“{f}”来跳转到FFCAFE提供的互动地图页面。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "在FFCAFE互动地图中打开": {
+    "en": "Open in FFCAFE Interactive Map",
+    "ja": "在FFCAFE互动地图中打开",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\custom-controls\\MapButton.vue"
+    ]
+  },
+  "仅实装了7.0的六张野外地图，因此旧版本的可采集道具不会适用上述更改。": {
+    "en": "Only 6 dawntrail maps is given, so gatherable items in old expansions will not be affected by above changes.",
+    "ja": "仅实装了7.0的六张野外地图，因此旧版本的可采集道具不会适用上述更改。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了网页端“{f}”中物品信息图标右键菜单的复制功能没有正确工作的问题。": {
+    "en": "Fixed copy function of the context menu of item info icon in \"{f}\" not worked correctly.",
+    "ja": "修复了网页端“{f}”中物品信息图标右键菜单的复制功能没有正确工作的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了部分国际化翻译。": {
+    "en": "Fixed some of i18n translation.",
+    "ja": "修正了部分国际化翻译。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "“{f}”实装了下述更改：": {
+    "en": "Following changes are implemented in \"{f}\":",
+    "ja": "“{f}”实装了下述更改：",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "① 道具分组逻辑有所变更。现在7.0灵砂精选道具会和7.0传承录星级采集品区分开；": {
+    "en": "① Group logic has changed. Now 7.0 aethersands will be separated from 7.0 Legacy gatherings;",
+    "ja": "① 道具分组逻辑有所变更。现在7.0灵砂精选道具会和7.0传承录星级采集品区分开；",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "② 采集品卡片中增加了地图按钮和推荐传送点(距离采集位置最近的以太之光名称)；": {
+    "en": "② Added map button and recommended aetheryte portal name in gather item card;",
+    "ja": "② 采集品卡片中增加了地图按钮和推荐传送点(距离采集位置最近的以太之光名称)；",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "③ 现在时钟的配置区域可以折叠；": {
+    "en": "③ Now clock's config area can be collapsed;",
+    "ja": "③ 现在时钟的配置区域可以折叠；",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "④ 增加了“{f}”配置项，开启后可以在采集品卡片中直接展示地图；": {
+    "en": "④ Added \"{f}\" config item, you can show map directly in gather item card.",
+    "ja": "④ 增加了“{f}”配置项，开启后可以在采集品卡片中直接展示地图；",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "⑤ 增加了“{f}”配置项，可以快速批量收藏或取消收藏整个分组的采集品；": {
+    "en": "⑤ Added \"{f}\" config item, you can batch star/unstar gather items in whole group.",
+    "ja": "⑤ 增加了“{f}”配置项，可以快速批量收藏或取消收藏整个分组的采集品；",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "⑥ “收藏”选项卡更名为“已收藏”；": {
+    "en": "⑥ The \"Star\" tab has been renamed to \"Starred\"",
+    "ja": "⑥ “收藏”选项卡更名为“已收藏”；",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "⑦ 调整了部分界面元素，提升了选项卡区域的辨识度。": {
+    "en": "⑦ Adjusted some interface elements and improved the distinguishability of tab area.",
+    "ja": "⑦ 调整了部分界面元素，提升了选项卡区域的辨识度。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "“{f1}”的“{f2}”现在还可以设置为“{o1}”、“{o2}”或“{o3}”。": {
+    "en": "Now the \"{f2}\" of \"{f1}\" can be set to \"{o1}\", \"{o2}\" or \"{o3}\".",
+    "ja": "“{f1}”的“{f2}”现在还可以设置为“{o1}”、“{o2}”或“{o3}”。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "可以在 “{f1}”→“{f2}”→“{f3}” 设置和查看详细说明。": {
+    "en": "You can change settings and check details in \"{f1}\"→\"{f2}\"→\"{f3}\"",
+    "ja": "可以在 “{f1}”→“{f2}”→“{f3}” 设置和查看详细说明。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "由于进行了数据类型调整，旧版本获取到的物品价格缓存在更新后需要重新获取。": {
+    "en": "Cache got in old version would be expired after update due to data type adjustment.",
+    "ja": "由于进行了数据类型调整，旧版本获取到的物品价格缓存在更新后需要重新获取。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在物品按钮悬浮窗的精选栏目除了会展示“可以通过什么道具精选出此物品”还会显示“精选此物品有可能获得什么道具(限灵砂)”。": {
+    "en": "Now the item button popup shows not only \"This item could be reduced from\" but also \"Reducing this item could get (aethersand)\"",
+    "ja": "现在物品按钮悬浮窗的精选栏目除了会展示“可以通过什么道具精选出此物品”还会显示“精选此物品有可能获得什么道具(限灵砂)”。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "为了避免物品按钮悬浮窗的无限跳转，后者不会展示可以打开悬浮窗的信息图标。": {
+    "en": "To avoid infinite jumping of the item button popup, the latter will not display info icon that can open the popup.",
+    "ja": "为了避免物品按钮悬浮窗的无限跳转，后者不会展示可以打开悬浮窗的信息图标。",
+    "$files": [
+      "data\\change-logs.ts"
     ]
   }
 }
