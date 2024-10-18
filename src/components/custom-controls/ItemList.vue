@@ -72,6 +72,16 @@ const props = defineProps({
     type: String,
     default: undefined
   },
+  /** 物品悬浮窗使用自定义宽度 */
+  btnPopUseCustomWidth: {
+    type: Boolean,
+    default: false
+  },
+  /** 物品悬浮窗的自定义宽度，必须同时设置`btnPopUseCustomWidth`才能生效 */
+  btnPopCustomWidth: {
+    type: Number,
+    default: undefined
+  },
   /** 是否在物品名前展示生产/采集职业的图标 */
   showCollectorIcon: {
     type: Boolean,
@@ -166,6 +176,8 @@ const handleCopyAsMacro = async () => {
           :pop-max-width="btnPopMaxWidth"
           :show-collector-icon="showCollectorIcon"
           :container-id="containerId"
+          :pop-use-custom-width="btnPopUseCustomWidth"
+          :pop-custom-width="btnPopCustomWidth"
         >
         </ItemButton>
       </div>

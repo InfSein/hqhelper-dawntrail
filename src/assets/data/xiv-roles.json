@@ -50,7 +50,7 @@
     "jobs": [30,41]
   },
   "dps_ranged": {
-    "role_name_en": "Physical Ranged DPS",
+    "role_name_en": "Aim DPS",
     "role_name_zh": "远敏DPS",
     "role_name_ja": "遠隔物理系DPS",
     "role_color": "#732828",
@@ -60,7 +60,7 @@
     "jobs": [23,31,38]
   },
   "dps_magic": {
-    "role_name_en": "Magical Ranged DPS",
+    "role_name_en": "Cast DPS",
     "role_name_zh": "法系DPS",
     "role_name_ja": "遠隔魔法系DPS",
     "role_color": "#732828",

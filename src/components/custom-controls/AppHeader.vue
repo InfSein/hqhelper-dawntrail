@@ -14,6 +14,7 @@ import {
   ArrowDownwardOutlined,
   AccessAlarmsOutlined,
   FastfoodOutlined,
+  HomeOutlined,
   MenuFilled,
   UpdateOutlined,
   SettingsSharp,
@@ -108,9 +109,11 @@ interface DesktopMenuItem {
 const menuItems = computed(() => {
   const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
   const hideGatherClock = router.currentRoute.value.path.startsWith('/gatherclock')
+  const hideHome = router.currentRoute.value.path === '/'
   const changeThemeIcon = theme.value === 'light' ? DarkModeTwotone : LightModeTwotone
   return {
     changeTheme: { label: t('切换主题'), icon: changeThemeIcon, click: switchTheme } as MenuItem,
+    goHome: { label: t('返回首页'), hide: hideHome, icon: HomeOutlined, click: () => { router.push('/'); } } as MenuItem,
     gatherClock: { label: t('采集时钟'), hide: hideGatherClock, icon: AccessAlarmsOutlined, click: redirectToGatherClockPage } as MenuItem,
     ftHelper: { label: t('食药计算'), hide: hideFTHelper, icon: FastfoodOutlined, click: redirectToFoodAndTincPage } as MenuItem,
     userPreferences: { label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal } as MenuItem,

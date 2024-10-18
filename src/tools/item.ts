@@ -41,9 +41,10 @@ import XivPlaceZHTemp from '@/assets/data/translations/xiv-places.json'
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
-const { getTradeMap, getReduceMap } = useNbbCal()
+const { getTradeMap, getReduceMap, getReduceMapReverted } = useNbbCal()
 const tradeMap = getTradeMap()
 const reduceMap = getReduceMap()
+const revertedReduceMap = getReduceMapReverted()
 const gatherMap = XivGatheringItems as Record<number, any>
 const territoryMap = XivGatherTerrory as Record<number, number[]>
 const placeMap = XivPlaceNames as Record<number, string[]>
@@ -65,6 +66,7 @@ export interface ItemInfo {
   descEN: string
   descZH: string
   // * uiType: 游戏内道具描述弹窗的类型，如`触媒`/`灵魂水晶`/`腿部防具`等
+  uiTypeId: number
   uiTypeNameJA: string
   uiTypeNameEN: string
   uiTypeNameZH: string
@@ -94,6 +96,8 @@ export interface ItemInfo {
   tempAttrsProvided: number[][]
   /** 可以从哪些道具中精选来获得 (如果数组为空则代表此道具不能精选获得) */
   canReduceFrom: number[],
+  /** 可以精选出什么道具 (仅展示一个，undefined表示无相关数据) */
+  canReduceTo?: number,
   /** 制作此道具需要的直接道具 (从道具的第一个关联配方中解析) */
   craftRequires: {
     id: number, count: number
@@ -132,11 +136,12 @@ export interface ItemInfo {
   },
   gatherInfo: {
     jobId: number,
+    placeID: number,
     placeNameZH: string,
     placeNameJA: string,
     placeNameEN: string,
-    posX: string,
-    posY: string,
+    posX: number,
+    posY: number,
     timeLimitInfo: {
       start: string,
       end: string
@@ -231,6 +236,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   const typeMap = XivItemTypes as any
   const itemType : number = _item.uc
   if (typeMap?.[itemType]) {
+    itemInfo.uiTypeId = itemType
     itemInfo.uiTypeNameJA = typeMap[itemType].lang[0]
     itemInfo.uiTypeNameEN = typeMap[itemType].lang[1]
     itemInfo.uiTypeNameZH = typeMap[itemType].lang[2]
@@ -257,6 +263,9 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   if (reduceMap[itemID]) {
     itemInfo.canReduceFrom = reduceMap[itemID]
   }
+  if ((revertedReduceMap[itemID])) {
+    itemInfo.canReduceTo = revertedReduceMap[itemID]
+  }
 
   // * 组装物品采集信息
   const gatherData = gatherMap[itemID]
@@ -276,11 +285,12 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         }
         itemInfo.gatherInfo = {
           jobId: gatherJob,
+          placeID: placeID,
           placeNameZH: placeNameZH,
           placeNameJA: gatherPlaceData[0],
           placeNameEN: gatherPlaceData[1],
-          posX: gatherData.coords.x,
-          posY: gatherData.coords.y,
+          posX: Number(gatherData.coords.x),
+          posY: Number(gatherData.coords.y),
           timeLimitInfo: []
         };
         [1,2,3].forEach(i => {
@@ -479,4 +489,190 @@ export const getItemContexts = (
   }
 
   return { options, handleKeyEvent }
+}
+
+export const ItemPriceApiVersion = 2
+export interface ItemPriceInfo {
+  itemID: number,
+  worldID: number,
+  worldName: string,
+  currentAveragePriceNQ: number,
+  currentAveragePriceHQ: number,
+  averagePriceNQ: number,
+  averagePriceHQ: number,
+  minPriceNQ: number,
+  minPriceHQ: number,
+  maxPriceNQ: number,
+  maxPriceHQ: number,
+  /** 代表此缓存数据记录时，程序相关代码的版本。
+   * 最初版本的缓存值为 `undefined`, 之后递增1。
+   * 在进行破坏性变更时会提升此值，以方便程序判断是否需要重新加载缓存数据。
+   */
+  v?: number,
+  /** 更新时间，毫秒级时间戳 */
+  updateTime: number,
+  // 以下是 v2 之后添加的字段
+  /** 交易板的挂牌均价 (仅计入前10条) */
+  marketPriceNQ?: number,
+  /** 交易板的挂牌均价 (仅计入前10条) */
+  marketPriceHQ?: number
+  /** 交易板当前最低价 */
+  marketLowestPriceNQ?: number
+  /** 交易板当前最低价 */
+  marketLowestPriceHQ?: number
+  /** 最近成交价格 (仅计入前5条) */
+  purchasePriceNQ?: number,
+  /** 最近成交价格 (仅计入前5条) */
+  purchasePriceHQ?: number
+}
+const parseApiPriceInfo = (apiPriceInfo : ApiPriceInfo) => {
+  const itemPriceInfo : ItemPriceInfo = {
+    itemID: apiPriceInfo.itemID,
+    worldID: apiPriceInfo.worldID,
+    worldName: apiPriceInfo.worldName,
+    currentAveragePriceNQ: apiPriceInfo.currentAveragePriceNQ,
+    currentAveragePriceHQ: apiPriceInfo.currentAveragePriceHQ,
+    averagePriceNQ: apiPriceInfo.averagePriceNQ,
+    averagePriceHQ: apiPriceInfo.averagePriceHQ,
+    minPriceNQ: apiPriceInfo.minPriceNQ,
+    minPriceHQ: apiPriceInfo.minPriceHQ,
+    maxPriceNQ: apiPriceInfo.maxPriceNQ,
+    maxPriceHQ: apiPriceInfo.maxPriceHQ,
+    v: ItemPriceApiVersion,
+    updateTime: Date.now()
+  }
+
+  // #region v2
+  let nq_quantity = 0, nq_total = 0, hq_quantity = 0, hq_total = 0
+  apiPriceInfo.listings?.forEach(item => {
+    if (item.hq) {
+      hq_quantity += item.quantity
+      hq_total += item.total
+    } else {
+      nq_quantity += item.quantity
+      nq_total += item.total
+    }
+  })
+  itemPriceInfo.marketPriceNQ = nq_quantity ? nq_total / nq_quantity : 0
+  itemPriceInfo.marketPriceHQ = hq_quantity ? hq_total / hq_quantity : 0
+
+  nq_quantity = 0, nq_total = 0, hq_quantity = 0, hq_total = 0
+  apiPriceInfo.recentHistory?.forEach(item => {
+    if (item.hq) {
+      hq_quantity += item.quantity
+      hq_total += item.total
+    } else {
+      nq_quantity += item.quantity
+      nq_total += item.total
+    }
+  })
+  itemPriceInfo.purchasePriceNQ = nq_quantity ? nq_total / nq_quantity : 0
+  itemPriceInfo.purchasePriceHQ = hq_quantity ? hq_total / hq_quantity : 0
+
+  let marketLowestPriceNQ = 0, marketLowestPriceHQ = 0
+  apiPriceInfo.listings?.forEach(item => {
+    if (item.hq) {
+      if (marketLowestPriceHQ === 0 || item.pricePerUnit < marketLowestPriceHQ) {
+        marketLowestPriceHQ = item.pricePerUnit
+      }
+    } else {
+      if (marketLowestPriceNQ === 0 || item.pricePerUnit < marketLowestPriceNQ) {
+        marketLowestPriceNQ= item.pricePerUnit
+      }
+    }
+  })
+  itemPriceInfo.marketLowestPriceNQ = marketLowestPriceNQ
+  itemPriceInfo.marketLowestPriceHQ = marketLowestPriceHQ
+  // #endregion
+
+  return itemPriceInfo
+}
+interface ApiPriceInfo {
+  itemID: number,
+  worldID: number,
+  worldName: string,
+  listings: ApiListInfo[],
+  recentHistory: ApiListInfo[],
+  currentAveragePriceNQ: number,
+  currentAveragePriceHQ: number,
+  averagePriceNQ: number,
+  averagePriceHQ: number,
+  minPriceNQ: number,
+  minPriceHQ: number,
+  maxPriceNQ: number,
+  maxPriceHQ: number
+}
+interface ApiListInfo {
+  pricePerUnit: number
+  hq: boolean
+  quantity: number
+  total: number
+}
+export const getItemPriceInfo = async (
+  item : number | number[],
+  server : string
+) : Promise<Record<number, ItemPriceInfo>> => {
+  if (typeof item === 'number') {
+    return await getItemPrice(item, server)
+  } else {
+    if (!item?.length) {
+      return {}
+    } else if (item.length === 1) {
+      return await getItemPrice(item[0], server)
+    } else {
+      // universalis单次最多请求100个物品的数据，因此需要分块请求
+      const chunkSize = 100
+      const results : Record<number, ItemPriceInfo> = {}
+      const chunkedItems = Array(Math.ceil(item.length / chunkSize))
+        .fill(null)
+        .map((_, index) => item.slice(index * chunkSize, (index + 1) * chunkSize))
+      const responses = await Promise.all(
+        chunkedItems.map(chunk => getMultiItemPrice(chunk, server))
+      )
+      responses.forEach(response => {
+        Object.assign(results, response)
+      })
+      return results
+    }
+  }
+}
+const getItemPrice = async (
+  item : number,
+  server: string
+) => {
+  const itemstr = item.toString()
+  const url = `https://universalis.app/api/v2/${server}/${itemstr}`
+    + '?listings=10'
+  let response : string
+  if (window.electronAPI?.httpGet) {
+    response = await window.electronAPI.httpGet(url)
+  } else {
+    response = await fetch(url)
+      .then(response => response.text())
+  }
+  const data = {} as Record<number, ItemPriceInfo>
+  data[item] = parseApiPriceInfo(JSON.parse(response) as ApiPriceInfo)
+  data[item].updateTime = Date.now()
+  return data
+}
+const getMultiItemPrice = async (
+  item : number[],
+  server: string
+) => {
+  const itemstr = item.join(',')
+  const url = `https://universalis.app/api/v2/${server}/${itemstr}?listings=10`
+  let response : string
+  if (window.electronAPI?.httpGet) {
+    response = await window.electronAPI.httpGet(url)
+  } else {
+    response = await fetch(url)
+      .then(response => response.text())
+  }
+  const data = JSON.parse(response)
+  const items = data.items as Record<number, ApiPriceInfo>
+  const result = {} as Record<number, ItemPriceInfo>
+  Object.values(items).forEach(item => {
+    result[item.itemID] = parseApiPriceInfo(item)
+  })
+  return result
 }

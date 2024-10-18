@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import type { PropType } from 'vue'
+import { inject, ref, type PropType, type Ref } from 'vue'
 import type { ItemInfo } from '@/tools/item'
 import ItemButton from './ItemButton.vue'
 import Stepper from './Stepper.vue'
+
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 const value = defineModel<number>('value', { required: true })
 defineProps({
@@ -20,6 +22,8 @@ defineProps({
       :item-info="itemInfo"
       show-icon show-name
       :btn-height="30"
+      pop-use-custom-width
+      :pop-custom-width="isMobile ? 300 : undefined"
     />
     <Stepper
       class="item-stepper"
@@ -31,13 +35,12 @@ defineProps({
 <style scoped>
 /* All */
 .item-selector {
+  display: grid;
   gap: 5px 10px;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 3fr);
 
   .item-button {
     width: 100%;
-  }
-  .item-stepper {
-    min-width: 145px;
   }
 }
 
@@ -51,14 +54,5 @@ defineProps({
 
 /* Mobile */
 @media screen and (max-width: 767px) {
-  .item-selector {
-    display: flex;
-    flex-direction: column;
-
-    .item-stepper {
-      margin-left: auto;
-      width: 50%;
-    }
-  }
 }
 </style>

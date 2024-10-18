@@ -84,7 +84,7 @@ const specialItems = computed(() => {
   <div id="main-container">
     <RouterCard
       id="router-card"
-      :page-name="t('食药计算器')"
+      :page-name="t('食药计算')"
       :page-icon="FastfoodOutlined"
     />
     <div id="left-layout">

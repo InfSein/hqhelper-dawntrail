@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build 和 Deploy
 # 监听 master 分支上的 push 事件
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
           node-version: "20.8.1"
 
       # 下载依赖、打包项目
-      - name: Install and Build
+      - name: Install 和 Build
         run: |
           yarn install
           yarn build
@@ -58,7 +58,8 @@ jobs:
       - name: Generate Changelog
         id: generate_changelog
         run: |
-          CHANGELOG=$(git log ${{ env.PREV_TAG }}..HEAD --grep='^feat:\|^fix:' --pretty=format:"* %s" | sed 's/^feat://;s/^fix://')
+          git log ${{ env.PREV_TAG }}..HEAD --grep='^feat:\|^fix:' --pretty=format:"* %s" | awk '{sub(/^feat:/, ""); sub(/^fix:/, ""); print}' | tr '\n' ';' > changelog.txt
+          CHANGELOG=$(<changelog.txt)
           echo "CHANGELOG=$CHANGELOG" >> $GITHUB_ENV
 
       # 检查是否存在同版本的 Release
@@ -76,7 +77,8 @@ jobs:
       # 创建或更新 Release，描述中包含变更日志和提交历史
       - name: Create or Update Release
         run: |
-          RELEASE_NOTES=$(echo -e "## 更新日志\n\n${{ env.CHANGELOG }}\n\n\n\n**查看所有更改**: https://github.com/InfSein/hqhelper-dawntrail/compare/${{ env.PREV_TAG }}...v${{ env.VERSION }}")
+          RELEASE_NOTES=$(echo -e "## 更新日志\n\n$(echo '${{ env.CHANGELOG }}' | tr ';' '\n')\n\n\n\n**查看所有更改**: https://github.com/InfSein/hqhelper-dawntrail/compare/${{ env.PREV_TAG }}...v${{ env.VERSION }}")
+    
           if [ "${{ env.exists }}" = "true" ]; then
             gh release upload "v${{ env.VERSION }}" static-pages.zip --clobber
             gh release edit "v${{ env.VERSION }}" --notes "$RELEASE_NOTES"

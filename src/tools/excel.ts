@@ -12,6 +12,7 @@ export const export2Excel = (
   tomeScriptItems: Record<number, ItemInfo[]>,
   normalGathering: ItemInfo[],
   limitedGathering: ItemInfo[],
+  aethersands: ItemInfo[],
   crystals: ItemInfo[],
   ui_lang: 'zh' | 'ja' | 'en',
   item_lang: 'zh' | 'ja' | 'en',
@@ -49,6 +50,7 @@ export const export2Excel = (
       ws[cell].s = {
         font: {
           bold: cellAddress.r === 0 // 如果是第一行，设置字体加粗
+          // todo: 目前没生效，以后搞吧
         }
       };
     }
@@ -182,7 +184,17 @@ export const export2Excel = (
       let craftJobName = '???'
       const craftJobId = item.craftInfo?.jobId
       if (craftJobId) {
-        craftJobName = XivJobs[craftJobId]?.job_name_zh ?? `NOTFOUND(${craftJobId})`
+        switch (ui_lang) {
+          case 'zh':
+            craftJobName = XivJobs[craftJobId]?.job_name_zh ?? `NOTFOUND(${craftJobId})`
+            break
+          case 'ja':
+            craftJobName = XivJobs[craftJobId]?.job_name_ja ?? `NOTFOUND(${craftJobId})`
+            break
+          case'en':
+            craftJobName = XivJobs[craftJobId]?.job_name_en ?? `NOTFOUND(${craftJobId})`
+            break
+        }
       }
       tableData.push([
         getItemName(item),
@@ -208,7 +220,8 @@ export const export2Excel = (
 
   const directMaterials = statements.materialsLv1
   directMaterials.forEach(item => {
-    if (item.amount) {
+    const itemGroupId = statistics.lvBase[item.id]?.uc ?? 0
+    if (item.amount && itemGroupId !== 59) { // 排除水晶
       tableData.push([
         getItemName(item),
         item.amount.toString()
@@ -297,6 +310,29 @@ export const export2Excel = (
   setWorkSheetStyle(workSheet)
   XLSX.utils.book_append_sheet(workBook, workSheet, t('采集品(限时)统计'))
   // #endregion
+  
+  // #region 灵砂统计
+  tableData = [
+    [
+      t('道具名'),
+      t('数量')
+    ]
+  ]
+  
+  aethersands.forEach(item => {
+    if (item.amount) {
+      tableData.push([
+        getItemName(item),
+        item.amount.toString()
+      ])
+    }
+  })
+  
+  workSheet = XLSX.utils.aoa_to_sheet(tableData)
+  workSheet['!cols'] = calculateColumnWidths(tableData)
+  setWorkSheetStyle(workSheet)
+  XLSX.utils.book_append_sheet(workBook, workSheet, t('灵砂统计'))
+  // #endregion
 
   // #region 水晶统计
   tableData = [
@@ -321,6 +357,13 @@ export const export2Excel = (
   XLSX.utils.book_append_sheet(workBook, workSheet, t('水晶统计'))
   // #endregion
 
-  const name = 'sample.xlsx' // 保存的文件名
+  function generateFileName() {
+    const now = new Date()
+    const formattedDate = now.toISOString().slice(0, 10) // YYYY-MM-DD
+    const formattedTime = now.toTimeString().slice(0, 8).replace(/:/g, '') // HHMMSS
+    const fileName = `hqhelper-export_${formattedDate}T${formattedTime}.xlsx`
+    return fileName
+  }
+  const name = generateFileName() // 保存的文件名
   XLSX.writeFile(workBook, name)
 }

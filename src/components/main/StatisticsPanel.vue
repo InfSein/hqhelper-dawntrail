@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NCollapse, NCollapseItem
+  NButton, NCollapse, NCollapseItem
 } from 'naive-ui'
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
@@ -9,11 +9,14 @@ import ItemButton from '../custom-controls/ItemButton.vue'
 import ItemList from '../custom-controls/ItemList.vue'
 import TomeScriptButton from '../custom-controls/TomeScriptButton.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
-import { getItemInfo, getStatementData, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
-import type { UserConfigModel } from '@/models/user-config'
+import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
+import { getItemInfo, getItemPriceInfo, getStatementData, ItemPriceApiVersion, type ItemInfo, type ItemPriceInfo, type ItemTradeInfo } from '@/tools/item'
+import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
 import { export2Excel } from '@/tools/excel'
 import type { GearSelections } from '@/models/gears'
+import { useStore } from '@/store'
 
+const store = useStore()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -115,6 +118,18 @@ const tomeScriptItems = computed(() => {
     } catch (error) {
       console.warn('[compute.tomeScriptItems] Error processing item ' + id + ':', error)
     }
+  }
+  // 根据道具商店兑换顺序重组排序
+  // 逻辑应该是：优先根据物品类型ID排序，然后按照物品ID排序
+  for (const costId in items) {
+    const _costId = Number(costId)
+    items[_costId] = items[_costId].sort((a, b) => {
+      if (a.uiTypeId === b.uiTypeId) {
+        return a.id - b.id
+      } else {
+        return a.uiTypeId - b.uiTypeId
+      }
+    })
   }
   // console.log('tomeScriptItems:', items, '\ntradeMap:', props.tradeMap)
   return items
@@ -258,6 +273,7 @@ const exportExcel = () => {
     tomeScriptItems.value,
     gatheringsCommon.value,
     gatheringsTimed.value,
+    aethersands.value,
     crystals.value,
     userConfig.value.language_ui,
     userConfig.value.language_item === 'auto'
@@ -265,6 +281,94 @@ const exportExcel = () => {
       : userConfig.value.language_item,
     t
   )
+}
+
+const showCostAndBenefitModal = ref(false)
+const costAndBenefit = computed(() => {
+  let updateRequired = false
+  const itemsCost = {} as Record<number, {
+    amount: number,
+    price: ItemPriceInfo
+  }>
+  const itemsBenefit = {} as Record<number, {
+    amount: number,
+    price: ItemPriceInfo
+  }>
+  const priceCache = userConfig.value.cache_item_prices
+  const expiresAfter = Date.now() - userConfig.value.universalis_expireTime
+  function cacheNotExpired(item: ItemInfo) {
+    const priceInfo = priceCache[item.id]
+    return priceInfo && priceInfo.updateTime > expiresAfter
+      && priceInfo.v && priceInfo.v >= ItemPriceApiVersion
+  }
+  statementData.value.materialsLvBase.forEach(item => {
+    if (cacheNotExpired(item)) {
+      itemsCost[item.id] = {
+        amount: item.amount,
+        price: priceCache[item.id]
+      }
+    } else {
+      updateRequired = true
+    }
+  })
+  statementData.value.craftTargets.forEach(item => {
+    if (cacheNotExpired(item)) {
+      itemsBenefit[item.id] = {
+        amount: item.amount,
+        price: priceCache[item.id]
+      }
+    } else {
+      updateRequired = true
+    }
+  })
+  let costInfo = '???', benefitInfo = '???'
+  if (!updateRequired) {
+    let costTotal = 0, benefitTotal = 0
+    const priceKey = userConfig.value.universalis_priceType
+    Object.values(itemsCost).forEach(item => {
+      costTotal += item.amount * (item.price[`${priceKey}NQ`] ?? 0)
+    })
+    Object.values(itemsBenefit).forEach(item => {
+      benefitTotal += item.amount * (item.price[`${priceKey}HQ`] ?? 0)
+    })
+    costInfo = Math.floor(costTotal).toLocaleString()
+    benefitInfo = Math.floor(benefitTotal).toLocaleString()
+  }
+  return {
+    updateRequired,
+    itemsCost,
+    itemsBenefit,
+    costInfo,
+    benefitInfo
+  }
+})
+const updatingPrice = ref(false)
+const handleAnalysisItemPrices = async () => {
+  if (costAndBenefit.value.updateRequired) {
+    updatingPrice.value = true
+    try {
+      const items : number[] = []
+      statementData.value.craftTargets.forEach(item => {
+        items.push(item.id)
+      })
+      statementData.value.materialsLvBase.forEach(item => {
+        items.push(item.id)
+      })
+      const itemPrices = await getItemPriceInfo([...new Set(items)], userConfig.value.universalis_server)
+      console.log('itemPrices:', itemPrices)
+      const newConfig = userConfig.value
+      Object.keys(itemPrices).forEach(id => {
+        const itemID = Number(id)
+        newConfig.cache_item_prices[itemID] = itemPrices[itemID]
+      })
+      await store.commit('setUserConfig', fixUserConfig(newConfig))
+    } catch (error : any) {
+      console.error(error)
+      alert(t('获取价格失败') + '\n' + (error?.message ?? error))
+    }
+    updatingPrice.value = false
+  }
+  showCostAndBenefitModal.value = true
 }
 </script>
 
@@ -315,6 +419,8 @@ const exportExcel = () => {
             :list-height="isMobile ? undefined : 120"
             display-style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));"
             scroll-style="overflow-y: auto;"
+            btn-pop-use-custom-width
+            :btn-pop-custom-width="isMobile ? 300 : undefined"
           />
         </div>
       </GroupBox>
@@ -348,57 +454,98 @@ const exportExcel = () => {
           />
         </div>
       </GroupBox>
-      <GroupBox
-        id="actions-group" class="group" title-background-color="var(--n-color-embedded)"
-        :title="t('采集统计')"
-        :descriptions="[
-          t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
-        ]"
-      >
-        <div class="container">
-          <n-collapse :accordion="!isMobile" :default-expanded-names="['crystals']">
-            <n-collapse-item :title="t('常规采集品')" name="gatheringsCommon">
-              <div class="item-collapsed-container">
-                <ItemList
-                  :items="gatheringsCommon"
-                  :list-height="isMobile ? undefined : 320"
-                  :btn-pop-max-width="isMobile ? undefined : '340px'"
-                  :show-collector-icon="!userConfig.hide_collector_icons"
-                />
-              </div>
-            </n-collapse-item>
-            <n-collapse-item :title="t('限时采集品')" name="gatheringsTimed">
-              <div class="item-collapsed-container">
-                <ItemList
-                  :items="gatheringsTimed"
-                  :list-height="isMobile ? undefined : 320"
-                  :btn-pop-max-width="isMobile ? undefined : '340px'"
-                  :show-collector-icon="!userConfig.hide_collector_icons"
-                />
-              </div>
-            </n-collapse-item>
-            <n-collapse-item :title="t('水晶')" name="crystals">
-              <div class="item-collapsed-container">
-                <ItemList
-                  :items="crystals"
-                  :list-height="isMobile ? undefined : 320"
-                  :btn-pop-max-width="isMobile ? undefined : '340px'"
-                />
-              </div>
-            </n-collapse-item>
-          </n-collapse>
-        </div>
-      </GroupBox>
+      <div id="statistics-footer">
+        <GroupBox
+          id="gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('采集统计')"
+          :descriptions="[
+            t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+          ]"
+        >
+          <div class="container">
+            <n-collapse :accordion="!isMobile" :default-expanded-names="['crystals']">
+              <n-collapse-item :title="t('常规采集品')" name="gatheringsCommon">
+                <div class="item-collapsed-container">
+                  <ItemList
+                    :items="gatheringsCommon"
+                    :list-height="isMobile ? undefined : 320"
+                    :btn-pop-max-width="isMobile ? undefined : '340px'"
+                    :show-collector-icon="!userConfig.hide_collector_icons"
+                  />
+                </div>
+              </n-collapse-item>
+              <n-collapse-item :title="t('限时采集品')" name="gatheringsTimed">
+                <div class="item-collapsed-container">
+                  <ItemList
+                    :items="gatheringsTimed"
+                    :list-height="isMobile ? undefined : 320"
+                    :btn-pop-max-width="isMobile ? undefined : '340px'"
+                    :show-collector-icon="!userConfig.hide_collector_icons"
+                  />
+                </div>
+              </n-collapse-item>
+              <n-collapse-item :title="t('水晶')" name="crystals">
+                <div class="item-collapsed-container">
+                  <ItemList
+                    :items="crystals"
+                    :list-height="isMobile ? undefined : 320"
+                    :btn-pop-max-width="isMobile ? undefined : '340px'"
+                  />
+                </div>
+              </n-collapse-item>
+            </n-collapse>
+          </div>
+        </GroupBox>
+        <GroupBox
+          id="price-analysis-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('成本/收益预估')"
+          :descriptions="[
+            t('借助Universalis提供的API计算素材成本和预计收益。'),
+            t('“收益”是指卖出制作成品所能获得的金钱，并未扣除成本。')
+          ]"
+        >
+          <n-button
+            style="width: 100%; height: 55px;"
+            @click="handleAnalysisItemPrices"
+            :loading="updatingPrice"
+            :disabled="updatingPrice"
+          >
+            <div style="line-height: 1.2; text-align: left;">
+              <p>{{ t('预计成本 {val}', costAndBenefit.costInfo) }}</p>
+              <p>{{ t('预计收益 {val}', costAndBenefit.benefitInfo) }}</p>
+            </div>
+          </n-button>
+        </GroupBox>
+      </div>
     </div>
 
     <ModalCraftStatements
       v-model:show="showStatementModal"
       v-bind="statementData"
     />
+    <ModalCostAndBenefit
+      v-model:show="showCostAndBenefitModal"
+      :cost-items="statementData.materialsLvBase"
+      :benefit-items="statementData.craftTargets"
+      :cost-info="costAndBenefit.costInfo"
+      :benefit-info="costAndBenefit.benefitInfo"
+    />
   </FoldableCard>
 </template>
   
 <style scoped>
+:deep(.n-collapse-item__content-inner) {
+  padding-top: 2px !important;
+}
+:deep(.n-collapse-item__header) {
+  padding-top: 4px !important;
+}
+:deep(.n-collapse-item) {
+  margin-top: 4px !important;
+}
+:deep(.n-collapse-item:first-child) {
+  margin-top: 0 !important;
+}
 .group .container {
   display: flex;
   flex-direction: column;
@@ -410,8 +557,8 @@ const exportExcel = () => {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 5px;
 }
-#actions-group .container {
-  padding: 10px 0;
+#gatherings-group .container {
+  padding: 4px 0;
 }
 .item-collapsed-container {
   display: flex;
@@ -428,15 +575,19 @@ const exportExcel = () => {
     row-gap: 15px;
     column-gap: 10px;
   }
-  #actions-group {
+  #statistics-footer {
     grid-row: 1 / 3;
     grid-column: 3;
+
+    #price-analysis-group {
+      margin-top: 15px;
+    }
   }
 }
 
 /* Mobile only */
 @media screen and (max-width: 767px) {
-  div.wrapper {
+  div.wrapper, #statistics-footer {
     width: 100%;
     display: flex;
     flex-direction: column;

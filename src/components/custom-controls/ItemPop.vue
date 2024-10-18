@@ -13,6 +13,7 @@ import type { UserConfigModel } from '@/models/user-config'
 import XivAttributes from '@/assets/data/xiv-attributes.json'
 import { jobMap, type JobInfo } from '@/data'
 import type EorzeaTime from '@/tools/eorzea-time'
+import LocationSpan from './LocationSpan.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -306,13 +307,19 @@ const openInAngler = () => {
             {{ t('※ 此处仅展示物品的{NQorHQ}属性', itemHasHQ ? 'HQ' : 'NQ') }}
           </div>
         </div>
-        <div class="description-block" v-if="itemInfo.canReduceFrom?.length">
+        <div class="description-block" v-if="itemInfo.canReduceFrom?.length || itemInfo.canReduceTo">
           <div class="title">{{ t('精选') }}</div>
           <n-divider class="item-divider" />
-          <div class="content">
+          <div class="content" v-if="itemInfo.canReduceFrom?.length">
             <div>{{ t('该物品可以通过精选以下道具获得：') }}</div>
             <div class="item" v-for="(reduce, reduceIndex) in itemInfo.canReduceFrom" :key="'reduce-' + reduceIndex">
               <ItemSpan :item-info="getItemInfo(reduce)" :container-id="containerId" />
+            </div>
+          </div>
+          <div class="content" v-else-if="itemInfo.canReduceTo">
+            <div>{{ t('精选收藏品形态的该物品可能获得：') }}</div>
+            <div class="item">
+              <ItemSpan :item-info="getItemInfo(itemInfo.canReduceTo)" :container-id="containerId" hide-pop-icon />
             </div>
           </div>
         </div>
@@ -338,9 +345,12 @@ const openInAngler = () => {
           <div class="content" v-if="itemInfo.gatherInfo">
             <div>{{ t('该物品可以在以下位置采集：') }}</div>
             <div class="item">
-              <div>
-                {{ getPlaceName() }} {{ t('(X:{x}, Y:{y})', { x: itemInfo.gatherInfo.posX, y: itemInfo.gatherInfo.posY }) }}
-              </div>
+              <LocationSpan
+                :place-id="itemInfo.gatherInfo.placeID"
+                :place-name="getPlaceName()"
+                :coordinate-x="itemInfo.gatherInfo.posX"
+                :coordinate-y="itemInfo.gatherInfo.posY"
+              />
             </div>
           </div>
           <div class="content" v-if="itemInfo.gatherInfo?.timeLimitInfo?.length">
