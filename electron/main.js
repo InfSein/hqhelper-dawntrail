@@ -17,7 +17,7 @@ let dateStr = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getD
 logger.transports.file.resolvePath = () => 'log\\' + dateStr + '.log';
 
 let mainWindow;
-const CLIENT_VERSION = 'v3'
+const CLIENT_VERSION = 'v4'
 
 const ZIP_PATH = path.join(app.getPath('userData'), 'static-pages.zip');
 const TEMP_DIR = path.join(app.getPath('userData'), 'static-pages-temp');
@@ -257,25 +257,41 @@ async function extractZipFile(zipPath, extractionDir) {
 }
 
 function updateLocalFiles(sourceDir, targetDir) {
-  fs.readdirSync(sourceDir).forEach(file => {
+  // 确保目标目录存在
+  if (!fs.existsSync(targetDir)) {
+    fs.mkdirSync(targetDir, { recursive: true });
+  }
+
+  // 读取源目录的文件和子目录
+  const sourceFiles = fs.readdirSync(sourceDir);
+
+  // 处理源目录中的每个文件/目录
+  sourceFiles.forEach(file => {
     const sourceFilePath = path.join(sourceDir, file);
     const targetFilePath = path.join(targetDir, file);
 
     if (fs.lstatSync(sourceFilePath).isFile()) {
+      // 复制文件
       fs.copyFileSync(sourceFilePath, targetFilePath);
     } else if (fs.lstatSync(sourceFilePath).isDirectory()) {
-      if (!fs.existsSync(targetFilePath)) {
-        fs.mkdirSync(targetFilePath);
+      // 递归处理子目录
+      updateLocalFiles(sourceFilePath, targetFilePath);
+    }
+  });
+
+  // 删除目标目录中不存在于源目录的文件/目录
+  const targetFiles = fs.readdirSync(targetDir);
+  targetFiles.forEach(file => {
+    const targetFilePath = path.join(targetDir, file);
+    const sourceFilePath = path.join(sourceDir, file);
+
+    if (!sourceFiles.includes(file)) {
+      // 如果目标目录有而源目录没有，删除
+      if (fs.lstatSync(targetFilePath).isFile()) {
+        fs.unlinkSync(targetFilePath);
+      } else if (fs.lstatSync(targetFilePath).isDirectory()) {
+        fs.rmSync(targetFilePath, { recursive: true, force: true });
       }
-      fs.readdirSync(sourceFilePath).forEach(subFile => {
-        const sourceSubFilePath = path.join(sourceFilePath, subFile);
-        const targetSubFilePath = path.join(targetFilePath, subFile);
-        if (fs.lstatSync(sourceSubFilePath).isFile()) {
-          fs.copyFileSync(sourceSubFilePath, targetSubFilePath);
-        } else if (fs.lstatSync(sourceSubFilePath).isDirectory()) {
-          updateLocalFiles(sourceSubFilePath, targetSubFilePath);
-        }
-      });
     }
   });
 }
