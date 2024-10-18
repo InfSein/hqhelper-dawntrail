@@ -518,6 +518,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
         }
         .recommended-aetheryte {
           margin-top: 3px;
+          max-width: 60%;
         }
         .gather-place {
           position: absolute;
