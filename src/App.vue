@@ -6,8 +6,9 @@ import { computed, provide, ref, getCurrentInstance, onMounted } from 'vue'
 import {
   darkTheme, lightTheme, useOsTheme,
   zhCN, enUS, jaJP, dateZhCN, dateEnUS, dateJaJP,
-  NConfigProvider, NMessageProvider,
-  NLayout, NLayoutHeader, NLayoutContent
+  NConfigProvider, NGlobalStyle, NMessageProvider,
+  NLayout, NLayoutHeader, NLayoutContent,
+  type GlobalThemeOverrides
 } from 'naive-ui'
 
 // * import pages and components
@@ -216,6 +217,19 @@ onMounted(async () => {
     }
   }
 })
+
+const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
+  let fontFamily = 'Lato, -apple-system, Helvetica Neue, Segoe UI, Microsoft Yahei, 微软雅黑, Arial, Helvetica, sans-serif'
+  if (userConfig.value.custom_font) {
+    fontFamily = userConfig.value.custom_font + ', ' + fontFamily
+  }
+  fontFamily = 'FFXIV, ' + fontFamily
+  return {
+    common: {
+      fontFamily
+    }
+  }
+})
 </script>
 
 <template>
@@ -223,7 +237,9 @@ onMounted(async () => {
     :theme="naiveUiTheme"
     :locale="naiveUiLocale"
     :date-locale="naiveUiDateLocale"
+    :theme-overrides="naiveUIThemeOverrides"
   >
+    <n-global-style />
     <n-message-provider :placement="naiveUiMessagePlacement">
       <div :class="appClass">
         <n-layout id="main-layout" position="absolute" :native-scrollbar="false">

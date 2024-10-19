@@ -7,6 +7,7 @@ export interface UserConfigModel {
   item_server: 'auto' | 'chs' | 'global'
   // appearance
   theme: 'light' | 'dark' | 'system'
+  custom_font: string
   hide_collector_icons: boolean
   // enhancements
   item_button_click_event: 'none' | 'copy_name' | 'copy_isearch'
@@ -47,6 +48,7 @@ const defaultUserConfig: UserConfigModel = {
   item_server: 'auto',
   // appearance
   theme: 'light',
+  custom_font: '',
   hide_collector_icons: false,
   // enhancements
   item_button_click_event: 'none',
