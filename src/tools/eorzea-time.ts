@@ -115,6 +115,10 @@ class EorzeaTime {
     }
     this._hour = h; this._minute = m
   }
+
+  public static EorzeaMinute2LocalSecond = (eorzeaMinute: number) => {
+    return eorzeaMinute * EorzeaTime.TimeRate / EorzeaTime.MinutesOfHour
+  }
 }
 
 export default EorzeaTime

@@ -20,7 +20,7 @@ import { useNbbCal } from '@/tools/use-nbb-cal'
 import { getNearestAetheryte } from '@/tools/map'
 import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
-import type EorzeaTime from '@/tools/eorzea-time'
+import EorzeaTime from '@/tools/eorzea-time'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -137,6 +137,8 @@ const dealTimeLimit = (start: string, end: string) => {
   let progressStatus : 'info' | 'warning' | 'error' = 'info'
   let progressPercentage = 0
   let canGather = false
+  let remainLT : string | undefined = undefined
+  let ltClass = 'font-small'
   try {
     const parseTime = (time: string) => time.split(':').reduce((acc, val, idx) => acc + parseInt(val) * [60, 1][idx], 0)
     const s = parseTime(start)
@@ -145,6 +147,17 @@ const dealTimeLimit = (start: string, end: string) => {
     if (c >= s && c <= e) {
       canGather = true
       progressPercentage = (c - s) / (e - s) * 100
+      const ls = Math.floor(EorzeaTime.EorzeaMinute2LocalSecond(e - c))
+      if (ls < 30) {
+        ltClass += ' red'
+      } else if (ls < 60) {
+        ltClass += ' color-warning'
+      }
+      remainLT = t('剩余:')
+      if (ls >= 60) {
+        remainLT += t('{minute}分', Math.floor(ls / 60))
+      }
+      remainLT += t('{second}秒', ls % 60)
     } else {
       progressPercentage = 0
     }
@@ -156,7 +169,7 @@ const dealTimeLimit = (start: string, end: string) => {
     canGather: canGather,
     status: progressStatus,
     percentage: progressPercentage,
-    text: '正在进行中'
+    remainLT, ltClass
   }
 }
 
@@ -422,6 +435,9 @@ const getPlaceName = (itemInfo : ItemInfo) => {
                       <span v-if="dealTimeLimit(timelimit.start, timelimit.end).canGather" class="green" style="margin-left: 5px;">
                         {{ t('现可采集') }}
                       </span>
+                      <span v-if="dealTimeLimit(timelimit.start, timelimit.end).remainLT" :class="dealTimeLimit(timelimit.start, timelimit.end).ltClass" style="margin-left: 5px;">
+                        {{ dealTimeLimit(timelimit.start, timelimit.end).remainLT }}
+                      </span>
                     </div>
                     <n-progress
                       type="line"
@@ -429,9 +445,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
                       :show-indicator="false"
                       :status="dealTimeLimit(timelimit.start, timelimit.end).status"
                       :percentage="dealTimeLimit(timelimit.start, timelimit.end).percentage"
-                    >
-                      {{ dealTimeLimit(timelimit.start, timelimit.end).text }}
-                    </n-progress>
+                    />
                   </div>
                 </div>
               </div>
