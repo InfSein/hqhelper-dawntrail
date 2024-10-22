@@ -36,6 +36,29 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.0.9',
+      date: '2024-10-22',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('国服数据库更新至{ver}。', {
+              ver: '7.01'
+            })
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('现在可以在“{f1}”的“{f2}”选项卡中调整程序/网站使用的字体及字体大小。', {
+              f1: t('偏好设置'),
+              f2: t('外观')
+            })
+          ]
+        }
+      ]
+    },
+    {
       version: '2.0.8',
       date: '2024-10-18',
       changes: [
