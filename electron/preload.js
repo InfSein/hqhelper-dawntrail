@@ -15,4 +15,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
   onUpdateProgress: (callback) => ipcRenderer.on('update-progress', (event, progressData) => callback(progressData)),
   openUrlByBrowser: (url) => ipcRenderer.send('open-url-by-browser', url),
   copyText: (text) => ipcRenderer.invoke('copy-text', text),
+  createNewWindow: (id, url, defaultWidth, defaultHeight) => ipcRenderer.send('create-new-window', { id, url, defaultWidth, defaultHeight }),
 })

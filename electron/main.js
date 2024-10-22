@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { app, BrowserWindow, ipcMain, shell, clipboard } = require('electron');
+const { app, BrowserWindow, ipcMain, shell, clipboard, Menu, globalShortcut } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
@@ -21,6 +21,7 @@ const CLIENT_VERSION = 'v4'
 
 const ZIP_PATH = path.join(app.getPath('userData'), 'static-pages.zip');
 const TEMP_DIR = path.join(app.getPath('userData'), 'static-pages-temp');
+const WINDOW_SIZES_PATH = path.join(app.getPath('userData'), 'windowSizes.json');
 const EXTRACTED_DIR = path.join(TEMP_DIR, 'dist');
 const STATICPAGE_DIR = path.join(process.resourcesPath, 'static-pages');
 
@@ -42,6 +43,36 @@ function createWindow() {
   });
   const indexPath = path.join(STATICPAGE_DIR, 'index.html');
   mainWindow.loadURL(`file://${indexPath}`);
+
+  // 注册快捷键
+  globalShortcut.register('Shift+Control+I', () => {
+    const focusedWindow = BrowserWindow.getFocusedWindow();
+    if (focusedWindow) {
+      focusedWindow.webContents.openDevTools();
+    }
+  });
+
+  // 创建自定义菜单
+  const menuTemplate = [
+    {
+      label: '窗口',
+      submenu: [
+        {
+          label: '始终置顶',
+          type: 'checkbox',
+          click: (menuItem) => {
+            const focusedWindow = BrowserWindow.getFocusedWindow();
+            if (focusedWindow) {
+              focusedWindow.setAlwaysOnTop(menuItem.checked);
+            }
+          },
+        }
+      ],
+    },
+  ];
+
+  const menu = Menu.buildFromTemplate(menuTemplate);
+  Menu.setApplicationMenu(menu);
 
   mainWindow.on('closed', function () {
     mainWindow = null;
@@ -232,6 +263,41 @@ function createWindow() {
       return e?.message ?? e
     }
   })
+
+  /* 创建新窗口 */
+  ipcMain.on('create-new-window', (event, { id, url, defaultWidth, defaultHeight }) => {
+    createNewWindow({ id, url, defaultWidth, defaultHeight })
+  });
+  const createNewWindow = ({ id, url, defaultWidth, defaultHeight }) => {
+    const size = loadWindowSizes()[id] || { width: defaultWidth, height: defaultHeight }
+    const newWindow = new BrowserWindow({
+      width: size.width || defaultWidth,
+      height: size.height || defaultHeight,
+      webPreferences: {
+        contextIsolation: true,
+        nodeIntegration: false,
+        preload: path.join(__dirname, 'preload.js'),
+      }
+    })
+    newWindow.loadURL(url)
+
+    newWindow.on('resize', () => {
+      const [newWidth, newHeight] = newWindow.getSize()
+      saveWindowSize(id, newWidth, newHeight)
+    })
+
+    function loadWindowSizes() {
+      if (fs.existsSync(WINDOW_SIZES_PATH)) {
+        return JSON.parse(fs.readFileSync(WINDOW_SIZES_PATH))
+      }
+      return {}
+    }
+    function saveWindowSize(id, width, height) {
+      const sizes = loadWindowSizes()
+      sizes[id] = { width, height }
+      fs.writeFileSync(WINDOW_SIZES_PATH, JSON.stringify(sizes))
+    }
+  }
 }
 
 app.on('ready', createWindow);
