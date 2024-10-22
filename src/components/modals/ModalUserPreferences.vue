@@ -146,46 +146,11 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
         ]
       },
       {
-        key: 'custom_font',
-        label: t('自定义字体'),
-        descriptions: [
-          {
-            value: t('修改程序使用的外观字体。你需要自行安装字体并确认其在浏览器上的名称，然后将其输入到下方输入框中。'),
-            class: '',
-            style: ''
-          },
-          {
-            value: t('字体名称出现空格时，建议用英文的单引号或双引号来将其包裹，例如"思源黑体 CN Medium"。'),
-            class: '',
-            style: ''
-          },
-          {
-            value: t('可以设置多个字体，用英文逗号分隔。当前一个字体字库未包括要显示的文字时，程序会使用下一个字体。如果有文字不在自定义的字体中，程序会显示默认字体。'),
-            class: '',
-            style: ''
-          },
-          {
-            value: t('如果你对CSS有所了解，可以直接参照font-family的语法来填写。'),
-            class: '',
-            style: ''
-          },
-          {
-            value: t('特别提醒：部分字体可能造成UI错位。'),
-            class: '',
-            style: ''
-          }
-        ],
-        warnings: [
-        ],
-        type: 'string',
-        options: []
-      },
-      {
         key: 'custom_font_size',
         label: t('字体大小'),
         descriptions: [
           {
-            value: t('全局性地修改网站的字体大小。'),
+            value: t('全局性地修改程序/网站的字体大小。'),
             class: '',
             style: ''
           },
@@ -209,6 +174,36 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
           { value: '15px', label: t('较大') },
           { value: '16px', label: t('更大') },
         ]
+      },
+      {
+        key: 'custom_font',
+        label: t('自定义字体'),
+        descriptions: [
+          {
+            value: t('全局性地修改程序/网站的字体。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('可以设置多个字体，用英文逗号分隔。当前一个字体字库未包括要显示的文字时，程序会使用下一个字体；如果均不包括，程序会使用设置前的字体。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('字体名称出现空格时，建议用英文的单引号或双引号来将其包裹，例如"思源黑体 CN Medium"。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('如果你对CSS有所了解，可以直接参照font-family的语法来填写。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [
+        ],
+        type: 'string',
+        options: []
       },
       {
         key: 'hide_collector_icons',
