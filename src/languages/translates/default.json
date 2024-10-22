@@ -3356,5 +3356,138 @@
     "$files": [
       "data\\change-logs.ts"
     ]
+  },
+  "现在可以在“{f1}”的“{f2}”选项卡中调整程序/网站使用的字体及字体大小。": {
+    "en": "Now you can customize font and font size in \"{f1}\"→\"{f2}\".",
+    "ja": "现在可以在“{f1}”的“{f2}”选项卡中调整程序/网站使用的字体及字体大小。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "剩余:": {
+    "en": "Remains:",
+    "ja": "剩余:",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "{minute}分": {
+    "en": "{minute}m",
+    "ja": "{minute}分",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "{second}秒": {
+    "en": "{second}s",
+    "ja": "{second}秒",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "字体大小": {
+    "en": "Font size",
+    "ja": "字体大小",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "全局性地修改程序/网站的字体大小。": {
+    "en": "Change the size of text in program/website globally.",
+    "ja": "全局性地修改程序/网站的字体大小。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "部分区域的字体大小不受此设置的影响。此外，还会受到浏览器“最小字号”设置的限制。": {
+    "en": "Some areas do not follow this setting. In addition, it is also limited by the 'Minimum font size' setting of the browser.",
+    "ja": "部分区域的字体大小不受此设置的影响。此外，还会受到浏览器“最小字号”设置的限制。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "暂时无法保证“标准”大小之外的显示效果。除非有特殊需要，否则不建议修改。": {
+    "en": "Now we could not guarantee the display effect of sizes other than \"Standard\". Unless there is a special need, we do not recommend modifying.",
+    "ja": "暂时无法保证“标准”大小之外的显示效果。除非有特殊需要，否则不建议修改。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "更小": {
+    "en": "Tiny",
+    "ja": "更小",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "较小": {
+    "en": "Small",
+    "ja": "较小",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "标准": {
+    "en": "Standard",
+    "ja": "标准",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "较大": {
+    "en": "Large",
+    "ja": "较大",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "更大": {
+    "en": "Huge",
+    "ja": "更大",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "自定义字体": {
+    "en": "Custom font",
+    "ja": "自定义字体",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "全局性地修改程序/网站的字体。": {
+    "en": "Change the font of text in program/website globally.",
+    "ja": "全局性地修改程序/网站的字体。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "可以设置多个字体，用英文逗号分隔。当前一个字体字库未包括要显示的文字时，程序会使用下一个字体；如果均不包括，程序会使用设置前的字体。": {
+    "en": "Allow multi fonts, separated by comma. If the font library of the first font does not include the text to be displayed, the program will use the second font; if none of them include the text, the program will use the font before the setting.",
+    "ja": "可以设置多个字体，用英文逗号分隔。当前一个字体字库未包括要显示的文字时，程序会使用下一个字体；如果均不包括，程序会使用设置前的字体。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "字体名称出现空格时，建议用英文的单引号或双引号来将其包裹，例如\"思源黑体 CN Medium\"。": {
+    "en": "Recommends to wrap the font name with single or double quotes, such as \"Source Han Sans Medium\".",
+    "ja": "字体名称出现空格时，建议用英文的单引号或双引号来将其包裹，例如\"思源黑体 CN Medium\"。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "如果你对CSS有所了解，可以直接参照font-family的语法来填写。": {
+    "en": "If you have knowledge about CSS, you can refer to the syntax of font-family to fill in.",
+    "ja": "如果你对CSS有所了解，可以直接参照font-family的语法来填写。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "现在“{f}”还会在当前可采集道具的采集卡片显示剩余现实时间。": {
+    "en": "Now the \"{f}\" will also show the remaining earth time in the item card of the current collectible item.",
+    "ja": "现在“{f}”还会在当前可采集道具的采集卡片显示剩余现实时间。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
   }
 }
