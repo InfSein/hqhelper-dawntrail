@@ -960,11 +960,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -974,11 +970,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -988,11 +980,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1002,11 +990,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1016,11 +1000,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1030,11 +1010,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1044,11 +1020,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1058,11 +1030,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1072,11 +1040,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1086,11 +1050,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1100,11 +1060,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1114,11 +1070,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1128,11 +1080,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1142,11 +1090,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1156,11 +1100,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1170,11 +1110,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1184,11 +1120,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1198,11 +1130,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1212,11 +1140,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1226,11 +1150,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1240,11 +1160,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1254,11 +1170,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1268,11 +1180,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1282,11 +1190,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1296,11 +1200,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1310,11 +1210,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1324,11 +1220,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1338,11 +1230,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1352,11 +1240,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -1366,11 +1250,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1380,11 +1260,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1394,11 +1270,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1408,11 +1280,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1422,11 +1290,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -1436,11 +1300,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1450,11 +1310,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1464,11 +1320,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1478,11 +1330,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1492,11 +1340,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1506,11 +1350,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1520,11 +1360,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1534,11 +1370,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1548,11 +1380,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1562,11 +1390,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1576,11 +1400,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1590,11 +1410,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1604,11 +1420,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1618,11 +1430,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1632,11 +1440,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1646,11 +1450,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1660,11 +1460,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1674,11 +1470,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1688,11 +1480,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1702,11 +1490,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1716,11 +1500,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1730,11 +1510,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1744,11 +1520,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1758,11 +1530,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1772,11 +1540,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1786,11 +1550,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1800,11 +1560,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1814,11 +1570,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1828,11 +1580,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1842,11 +1590,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1856,11 +1600,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1870,11 +1610,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1884,11 +1620,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1898,11 +1630,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1912,11 +1640,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1926,11 +1650,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1940,11 +1660,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1954,11 +1670,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -1968,11 +1680,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1982,11 +1690,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -1996,11 +1700,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2010,11 +1710,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2024,11 +1720,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2038,11 +1730,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2052,11 +1740,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2066,11 +1750,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2080,11 +1760,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2094,11 +1770,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2108,11 +1780,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -2122,11 +1790,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2136,11 +1800,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2150,11 +1810,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2164,11 +1820,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2178,11 +1830,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2192,11 +1840,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2206,11 +1850,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2220,11 +1860,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2234,11 +1870,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2248,11 +1880,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2262,11 +1890,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2276,11 +1900,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -2290,11 +1910,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2304,11 +1920,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2318,11 +1930,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2332,11 +1940,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2346,11 +1950,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2360,11 +1960,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2374,11 +1970,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2388,11 +1980,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2402,11 +1990,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2416,11 +2000,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2430,11 +2010,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2444,11 +2020,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2458,11 +2030,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2472,11 +2040,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2486,11 +2050,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2500,11 +2060,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2514,11 +2070,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2528,11 +2080,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2542,11 +2090,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2556,11 +2100,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2570,11 +2110,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -2584,11 +2120,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2598,11 +2130,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2612,11 +2140,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2626,11 +2150,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2640,11 +2160,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2654,11 +2170,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2668,11 +2180,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2682,11 +2190,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2696,11 +2200,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2710,11 +2210,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2724,11 +2220,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2738,11 +2230,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2752,11 +2240,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2766,11 +2250,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2780,11 +2260,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2794,11 +2270,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2808,11 +2280,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2822,11 +2290,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2836,11 +2300,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2850,11 +2310,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2864,11 +2320,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2878,11 +2330,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2892,11 +2340,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2906,11 +2350,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2920,11 +2360,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -2934,11 +2370,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2948,11 +2380,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -2962,11 +2390,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2976,11 +2400,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -2990,11 +2410,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3004,11 +2420,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3018,11 +2430,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3032,11 +2440,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3046,11 +2450,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3060,11 +2460,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3074,11 +2470,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3088,11 +2480,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3102,11 +2490,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3116,11 +2500,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3130,11 +2510,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3144,11 +2520,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3158,11 +2530,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3172,11 +2540,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3186,11 +2550,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3200,11 +2560,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3214,11 +2570,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -3228,11 +2580,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3242,11 +2590,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3256,11 +2600,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3270,11 +2610,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3284,11 +2620,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3298,11 +2630,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3312,11 +2640,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3326,11 +2650,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3340,11 +2660,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -3354,11 +2670,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3368,11 +2680,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3382,11 +2690,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3396,11 +2700,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3410,11 +2710,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3424,11 +2720,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3438,11 +2730,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3452,11 +2740,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3466,11 +2750,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3480,11 +2760,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3494,11 +2770,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3508,11 +2780,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3522,11 +2790,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -3536,11 +2800,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3550,11 +2810,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3564,11 +2820,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3578,11 +2830,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3592,11 +2840,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3606,11 +2850,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3620,11 +2860,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3634,11 +2870,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3648,11 +2880,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -3662,11 +2890,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3676,11 +2900,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3690,11 +2910,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3704,11 +2920,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3718,11 +2930,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3732,11 +2940,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3746,11 +2950,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3760,11 +2960,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3774,11 +2970,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3788,11 +2980,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3802,11 +2990,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3816,11 +3000,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3830,11 +3010,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -3844,11 +3020,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3858,11 +3030,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3872,11 +3040,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3886,11 +3050,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3900,11 +3060,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3914,11 +3070,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3928,11 +3080,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3942,11 +3090,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -3956,11 +3100,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -3970,11 +3110,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3984,11 +3120,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -3998,11 +3130,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4012,11 +3140,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4026,11 +3150,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4040,11 +3160,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4054,11 +3170,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4068,11 +3180,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4082,11 +3190,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4096,11 +3200,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4110,11 +3210,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4124,11 +3220,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4138,11 +3230,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -4152,11 +3240,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4166,11 +3250,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4180,11 +3260,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4194,11 +3270,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4208,11 +3280,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4222,11 +3290,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4236,11 +3300,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4250,11 +3310,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4264,11 +3320,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -4278,11 +3330,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4292,11 +3340,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4306,11 +3350,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4320,11 +3360,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4334,11 +3370,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4348,11 +3380,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4362,11 +3390,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4376,11 +3400,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4390,11 +3410,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4404,11 +3420,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4418,11 +3430,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4432,11 +3440,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4446,11 +3450,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4460,11 +3460,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4474,11 +3470,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4488,11 +3480,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4502,11 +3490,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4516,11 +3500,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4530,11 +3510,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4544,11 +3520,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4558,11 +3530,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4572,11 +3540,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4586,11 +3550,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4600,11 +3560,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4614,11 +3570,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -4628,11 +3580,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4642,11 +3590,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4656,11 +3600,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4670,11 +3610,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4684,11 +3620,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -4698,11 +3630,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4712,11 +3640,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4726,11 +3650,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4740,11 +3660,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4754,11 +3670,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -4768,11 +3680,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4782,11 +3690,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4796,11 +3700,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4810,11 +3710,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4824,11 +3720,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -4838,11 +3730,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4852,11 +3740,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4866,11 +3750,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4880,11 +3760,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4894,11 +3770,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -4908,11 +3780,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4922,11 +3790,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4936,11 +3800,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4950,11 +3810,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -4964,11 +3820,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4978,11 +3830,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -4992,11 +3840,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5006,11 +3850,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5020,11 +3860,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5034,11 +3870,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5048,11 +3880,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5062,11 +3890,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5076,11 +3900,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5090,11 +3910,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5104,11 +3920,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5118,11 +3930,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5132,11 +3940,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5146,11 +3950,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5160,11 +3960,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5174,11 +3970,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5188,11 +3980,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5202,11 +3990,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5216,11 +4000,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5230,11 +4010,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5244,11 +4020,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5258,11 +4030,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5272,11 +4040,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5286,11 +4050,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5300,11 +4060,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5314,11 +4070,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5328,11 +4080,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5342,11 +4090,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5356,11 +4100,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5370,11 +4110,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5384,11 +4120,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5398,11 +4130,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5412,11 +4140,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5426,11 +4150,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5440,11 +4160,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5454,11 +4170,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -5468,11 +4180,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5482,11 +4190,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -5496,11 +4200,7 @@
         "costId": 41785,
         "costCount": 200,
         "costHqCount": 200,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 200,
-          "costHqCount": 200
-        }
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -5510,11 +4210,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -5524,11 +4220,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -5538,11 +4230,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -5552,11 +4240,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -5566,11 +4250,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -5580,11 +4260,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -5594,11 +4270,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -5608,11 +4280,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -5622,11 +4290,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -5636,11 +4300,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -5650,11 +4310,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -5664,11 +4320,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -5678,11 +4330,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -5692,11 +4340,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -5706,11 +4350,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -5720,11 +4360,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -5734,11 +4370,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -5748,11 +4380,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -5762,11 +4390,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -5776,11 +4400,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -5790,11 +4410,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770755",
@@ -5804,11 +4420,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -5818,11 +4430,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -5832,11 +4440,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -5846,11 +4450,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -5860,11 +4460,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -5874,11 +4470,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -5888,11 +4480,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770471",
@@ -5916,11 +4504,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770471",
@@ -6070,11 +4654,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770471",
@@ -6098,11 +4678,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770471",
@@ -6126,11 +4702,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -6140,11 +4712,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -6154,11 +4722,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770471",
@@ -6196,11 +4760,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770471",
@@ -6224,11 +4784,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -6238,11 +4794,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770471",
@@ -6266,11 +4818,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770471",
@@ -6294,11 +4842,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -6308,11 +4852,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -6322,11 +4862,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770783",
@@ -6336,11 +4872,7 @@
         "costId": 41784,
         "costCount": 15,
         "costHqCount": 15,
-        "costCHS": {
-          "costId": 41784,
-          "costCount": 15,
-          "costHqCount": 15
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -6350,11 +4882,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770783",
@@ -6364,11 +4892,7 @@
         "costId": 41784,
         "costCount": 15,
         "costHqCount": 15,
-        "costCHS": {
-          "costId": 41784,
-          "costCount": 15,
-          "costHqCount": 15
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -6378,11 +4902,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770471",
@@ -6420,11 +4940,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770783",
@@ -6434,11 +4950,7 @@
         "costId": 41784,
         "costCount": 15,
         "costHqCount": 15,
-        "costCHS": {
-          "costId": 41784,
-          "costCount": 15,
-          "costHqCount": 15
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -6448,11 +4960,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -6462,11 +4970,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -6476,11 +4980,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770783",
@@ -6490,11 +4990,7 @@
         "costId": 41784,
         "costCount": 15,
         "costHqCount": 15,
-        "costCHS": {
-          "costId": 41784,
-          "costCount": 15,
-          "costHqCount": 15
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -6504,11 +5000,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -6518,11 +5010,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770783",
@@ -6532,11 +5020,7 @@
         "costId": 41784,
         "costCount": 15,
         "costHqCount": 15,
-        "costCHS": {
-          "costId": 41784,
-          "costCount": 15,
-          "costHqCount": 15
-        }
+        "costCHS": false
       },
       {
         "id": "1769630",
@@ -6560,11 +5044,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770783",
@@ -6574,11 +5054,7 @@
         "costId": 41784,
         "costCount": 15,
         "costHqCount": 15,
-        "costCHS": {
-          "costId": 41784,
-          "costCount": 15,
-          "costHqCount": 15
-        }
+        "costCHS": false
       },
       {
         "id": "1770471",
@@ -6602,11 +5078,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770783",
@@ -6616,11 +5088,7 @@
         "costId": 41784,
         "costCount": 15,
         "costHqCount": 15,
-        "costCHS": {
-          "costId": 41784,
-          "costCount": 15,
-          "costHqCount": 15
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -6630,11 +5098,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770783",
@@ -6644,11 +5108,7 @@
         "costId": 41784,
         "costCount": 15,
         "costHqCount": 15,
-        "costCHS": {
-          "costId": 41784,
-          "costCount": 15,
-          "costHqCount": 15
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -6658,11 +5118,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770783",
@@ -6672,11 +5128,7 @@
         "costId": 41784,
         "costCount": 15,
         "costHqCount": 15,
-        "costCHS": {
-          "costId": 41784,
-          "costCount": 15,
-          "costHqCount": 15
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -6686,11 +5138,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -6700,11 +5148,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770783",
@@ -6714,11 +5158,7 @@
         "costId": 41784,
         "costCount": 15,
         "costHqCount": 15,
-        "costCHS": {
-          "costId": 41784,
-          "costCount": 15,
-          "costHqCount": 15
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -6728,11 +5168,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -6742,11 +5178,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -6756,11 +5188,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -6770,11 +5198,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -6784,11 +5208,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -6798,11 +5218,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -6812,11 +5228,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -6826,11 +5238,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -6840,11 +5248,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -6854,11 +5258,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -6868,11 +5268,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -6882,11 +5278,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -6896,11 +5288,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -6910,11 +5298,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770752",
@@ -6924,11 +5308,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -6938,11 +5318,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -6952,11 +5328,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -6966,11 +5338,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -6980,11 +5348,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -6994,11 +5358,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -7008,11 +5368,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -7022,11 +5378,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -7036,11 +5388,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -7050,11 +5398,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -7064,11 +5408,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -7078,11 +5418,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -7092,11 +5428,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -7106,11 +5438,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770766",
@@ -7120,11 +5448,7 @@
         "costId": 46,
         "costCount": 20,
         "costHqCount": 20,
-        "costCHS": {
-          "costId": 46,
-          "costCount": 0,
-          "costHqCount": 0
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -7134,11 +5458,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770786",
@@ -7148,11 +5468,7 @@
         "costId": 41785,
         "costCount": 100,
         "costHqCount": 100,
-        "costCHS": {
-          "costId": 41785,
-          "costCount": 100,
-          "costHqCount": 100
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -7162,11 +5478,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770746",
@@ -7176,11 +5488,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       },
       {
         "id": "1770749",
@@ -7190,11 +5498,7 @@
         "costId": 26807,
         "costCount": 3,
         "costHqCount": 3,
-        "costCHS": {
-          "costId": 26807,
-          "costCount": 3,
-          "costHqCount": 3
-        }
+        "costCHS": false
       }
     ]
   },
