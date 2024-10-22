@@ -181,6 +181,36 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
         options: []
       },
       {
+        key: 'custom_font_size',
+        label: t('字体大小'),
+        descriptions: [
+          {
+            value: t('全局性地修改网站的字体大小。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('部分区域的字体大小不受此设置的影响。此外，还会受到浏览器“最小字号”设置的限制。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('暂时无法保证“标准”大小之外的显示效果。除非有特殊需要，否则不建议修改。'),
+            class: '',
+            style: ''
+          },
+        ],
+        warnings: [],
+        type: 'radio-group',
+        options: [
+          { value: '12px', label: t('更小') },
+          { value: '13px', label: t('较小') },
+          { value: '14px', label: t('标准') },
+          { value: '15px', label: t('较大') },
+          { value: '16px', label: t('更大') },
+        ]
+      },
+      {
         key: 'hide_collector_icons',
         label: t('隐藏物品按钮的职业图标'),
         descriptions: [

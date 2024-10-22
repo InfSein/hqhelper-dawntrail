@@ -224,9 +224,17 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
     fontFamily = userConfig.value.custom_font + ', ' + fontFamily
   }
   fontFamily = 'FFXIV, ' + fontFamily
+  const fontSize = userConfig.value.custom_font_size || '14px'
   return {
     common: {
-      fontFamily
+      fontFamily,
+      fontSize,
+      fontSizeMedium: fontSize,
+      fontSizeSmall: fontSize,
+      fontSizeTiny: `calc(${fontSize} - 2px)`,
+      fontSizeMini: `calc(${fontSize} - 1px)`,
+      fontSizeLarge: `calc(${fontSize} + 1px)`,
+      fontSizeHuge: `calc(${fontSize} + 2px)`
     }
   }
 })
