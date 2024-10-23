@@ -373,7 +373,7 @@ const openInAngler = () => {
                 </template>
                 {{ t('在饥饿的猫中打开') }}
               </n-button>
-              <n-button size="small" @click="openInMomola">
+              <n-button v-show="false" size="small" @click="openInMomola">
                 <template #icon>
                   <n-icon><OpenInNewFilled /></n-icon>
                 </template>
@@ -381,7 +381,7 @@ const openInAngler = () => {
               </n-button>
             </div>
           </div>
-          <div class="content extra" v-if="itemInfo.isFishingItem">
+          <div v-show="false" class="content extra" v-if="itemInfo.isFishingItem">
             {{ t('※ 国服未实装的道具可能在部分网站中没有数据。') }}
           </div>
         </div>
