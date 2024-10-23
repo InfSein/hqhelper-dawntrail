@@ -8,6 +8,7 @@ import {
 } from '@vicons/material'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemList from '../custom-controls/ItemList.vue'
+import ItemStatementTable from '../custom-controls/ItemStatementTable.vue'
 import type { ItemInfo } from '@/tools/item';
 import type { UserConfigModel } from '@/models/user-config'
 import { useNbbCal } from '@/tools/use-nbb-cal'
@@ -31,6 +32,7 @@ watch(showModal, async (newVal, oldVal) => {
   if (newVal && !oldVal) {
     itemsPrepared.value.craftTarget = fixMap(itemsPrepared.value.craftTarget, targetItems.value)
     itemsPrepared.value.materialsLv1 = fixMap(itemsPrepared.value.materialsLv1, lv1Items.value)
+    itemsPrepared.value.materialsLvBase = fixMap(itemsPrepared.value.materialsLvBase, baseItems.value)
   }
 })
 
@@ -43,10 +45,12 @@ const itemsPrepared = ref({
 /** 根据旧的准备map和计算后更新的列表，修正准备map */
 const fixMap = (oldprepared: Record<number, number>, newlist: Record<number, number>) => {
   const newMap : Record<number, number> = {}
-  for (const itemID in oldprepared) {
+  for (const itemID in newlist) {
     const id = Number(itemID)
-    if (newlist[id]) {
+    if (oldprepared[id]) {
       newMap[id] = Math.min(oldprepared[id], newlist[id])
+    } else {
+      newMap[id] = 0
     }
   }
   return newMap
@@ -113,19 +117,21 @@ const baseItemsForCal = computed(() => {
   return realItemMap
 })
 
-/*
 const statementBlocks = computed(() => {
   return [
     {
       id: 'craft-target',
       name: t('成品清单'),
-      items: props.craftTargets
+      items: targetItems.value,
+      preparedKey: 'craftTarget' as keyof typeof itemsPrepared.value
     },
     {
       id: 'material-lv1',
       name: t('制作素材：直接'),
-      items: props.materialsLv1
+      items: lv1Items.value,
+      preparedKey: 'materialsLv1' as keyof typeof itemsPrepared.value
     },
+    /*
     {
       id: 'material-lv2',
       name: t('制作素材：二级'),
@@ -136,14 +142,15 @@ const statementBlocks = computed(() => {
       name: t('制作素材：三级'),
       items: props.materialsLv3
     },
+    */
     {
       id: 'material-lvBase',
       name: t('制作素材：基础'),
-      items: props.materialsLvBase
+      items: baseItems.value,
+      preparedKey: 'materialsLvBase' as keyof typeof itemsPrepared.value
     },
   ]
 })
-*/
 
 const handleClose = () => {
   showModal.value = false
@@ -155,7 +162,7 @@ const handleClose = () => {
     <n-card
       closable
       role="dialog"
-      id="modal-craft-statements"
+      id="modal-pro-statements"
       style="width: 98%; max-width: 1500px;"
       :style="{ height: isMobile ? '650px' : '600px' }"
       @close="handleClose"
@@ -168,7 +175,7 @@ const handleClose = () => {
       </template>
 
       <div class="wrapper desktop">
-        <!-- <GroupBox
+        <GroupBox
           v-for="block in statementBlocks"
           :key="block.id"
           :id="block.id"
@@ -177,15 +184,13 @@ const handleClose = () => {
         >
           <template #title>{{ block.name }}</template>
           <div class="container">
-            <ItemList
-              :items="block.items"
-              :list-height="480"
-              btn-pop-max-width="300px"
-              :show-collector-icon="!userConfig.hide_collector_icons"
-              container-id="modal-craft-statements"
+            <ItemStatementTable
+              v-model:items-prepared="itemsPrepared[block.preparedKey]"
+              :items-total="block.items"
+              container-id="modal-pro-statements"
             />
           </div>
-        </GroupBox> -->
+        </GroupBox>
       </div>
     </n-card>
   </n-modal>

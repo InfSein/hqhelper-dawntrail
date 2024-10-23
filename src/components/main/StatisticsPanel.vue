@@ -9,6 +9,7 @@ import ItemButton from '../custom-controls/ItemButton.vue'
 import ItemList from '../custom-controls/ItemList.vue'
 import TomeScriptButton from '../custom-controls/TomeScriptButton.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
+import ModalProStatements from '../modals/ModalProStatements.vue'
 import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
 import { getItemInfo, getItemPriceInfo, getStatementData, ItemPriceApiVersion, type ItemInfo, type ItemPriceInfo, type ItemTradeInfo } from '@/tools/item'
 import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
@@ -254,9 +255,10 @@ const crystals = computed(() => {
 const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'] // 刚巧耐智意
 
 const showStatementModal = ref(false)
+const showProStatementModal = ref(false)
 const showStatement = () => {
   console.log('statistics:', props.statistics)
-  showStatementModal.value = true
+  showProStatementModal.value = true
 }
 const statementData = computed(() => {
   return getStatementData(props.statistics)
@@ -521,6 +523,10 @@ const handleAnalysisItemPrices = async () => {
 
     <ModalCraftStatements
       v-model:show="showStatementModal"
+      v-bind="statementData"
+    />
+    <ModalProStatements
+      v-model:show="showProStatementModal"
       v-bind="statementData"
     />
     <ModalCostAndBenefit
