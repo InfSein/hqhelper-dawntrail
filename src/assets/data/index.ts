@@ -1,3 +1,6 @@
+import JsonXivItemRemarks from './translations/xiv-item-remarks.json'
+export const XivItemRemarks = JsonXivItemRemarks as Record<number, string[]>
+
 import JsonXivJobs from './xiv-jobs.json'
 export interface XivJob {
   job_id: number

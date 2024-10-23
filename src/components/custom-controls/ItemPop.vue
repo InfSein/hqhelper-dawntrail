@@ -8,9 +8,11 @@ import {
 } from '@vicons/material'
 import XivFARImage from './XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
+import ItemRemark from './ItemRemark.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import XivAttributes from '@/assets/data/xiv-attributes.json'
+import { XivItemRemarks } from '@/assets/data'
 import { jobMap, type JobInfo } from '@/data'
 import type EorzeaTime from '@/tools/eorzea-time'
 import LocationSpan from './LocationSpan.vue'
@@ -321,6 +323,16 @@ const openInAngler = () => {
             <div class="item">
               <ItemSpan :item-info="getItemInfo(itemInfo.canReduceTo)" :container-id="containerId" hide-pop-icon />
             </div>
+          </div>
+        </div>
+        <div class="description-block" v-if="uiLanguage === 'zh' && XivItemRemarks[itemInfo.id]?.length">
+          <div class="title">笔记</div>
+          <n-divider class="item-divider" />
+          <div class="content">
+            <ItemRemark
+              :remarks="XivItemRemarks[itemInfo.id]"
+              style="line-height: 1.2;"
+            />
           </div>
         </div>
         <div class="description-block" v-if="itemInfo.gatherInfo || itemInfo.isFishingItem">

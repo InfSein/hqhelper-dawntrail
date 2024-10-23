@@ -159,7 +159,12 @@ const handleItemButtonTouchEnd = (/*e: TouchEvent*/) => {
     <div v-if="showAmount" class="count">
       <span> x{{ amount }}</span>
     </div>
-    <ItemPop v-if="!hidePopIcon" :item-info="itemInfo" :pop-use-custom-width="isMobile" :pop-custom-width="isMobile ? 275 : undefined">
+    <ItemPop
+      v-if="!hidePopIcon"
+      :item-info="itemInfo"
+      pop-use-custom-width
+      :pop-custom-width="275"
+    >
       <n-icon v-if="!hidePopIcon" class="pop-icon" size="14" color="#3b7fef"
         @contextmenu="handleContextMenu"
         @touchstart.passive="handleItemButtonTouchStart" 
