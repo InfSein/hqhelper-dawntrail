@@ -8,12 +8,12 @@ import LocationSpan from './LocationSpan.vue'
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
-defineProps({
-  remarks: {
-    type: Array as PropType<string[]>,
-    required: true
-  }
-})
+interface ItemRemarkProps {
+  remarks: string[]
+  /** 手动指定悬浮窗的触发方式 */
+  popTrigger?: 'hover' | 'click' | 'manual'
+}
+defineProps<ItemRemarkProps>()
 
 const dealLocationInfo = (str: string) => {
   const [placeId, posX, posY] = str.replace('~LOCATION:', '').split(',')
@@ -60,6 +60,7 @@ const dealRemarkContent = (str: string) => {
         <LocationSpan
           v-bind="dealLocationInfo(remark)"
           style="display: inline; margin: 0 3px;"
+          :pop-trigger="popTrigger"
         />
       </span>
       <br v-else-if="remark === 'BR'" />

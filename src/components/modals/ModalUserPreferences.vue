@@ -277,6 +277,26 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
         options: []
       },
       {
+        key: 'click_to_show_pop_in_span',
+        label: t('手动控制二级悬浮窗'),
+        hide: isMobile.value,
+        descriptions: [
+          {
+            value: t('在物品按钮悬浮窗内可能有一些可以打开子悬浮窗的元素，比如制作素材和地图按钮。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('在默认情况下，光标悬停在元素上时就会立即打开子悬浮窗。如果你觉得这样太容易误触，可以打开此选项，只通过左键单击来控制子悬浮窗的显示与否。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'switch',
+        options: []
+      },
+      {
         key: 'macro_direct_copy',
         label: t('点击“复制宏”时直接复制'),
         descriptions: [

@@ -143,6 +143,14 @@ const handleItemButtonTouchEnd = (/*e: TouchEvent*/) => {
 
 // #endregion
 
+const popTrigger = computed(() => {
+  if (!isMobile.value && userConfig.value.click_to_show_pop_in_span) {
+    return 'click'
+  } else {
+    return undefined
+  }
+})
+
 </script>
 
 <template>
@@ -164,6 +172,7 @@ const handleItemButtonTouchEnd = (/*e: TouchEvent*/) => {
       :item-info="itemInfo"
       pop-use-custom-width
       :pop-custom-width="275"
+      :pop-trigger="popTrigger"
     >
       <n-icon v-if="!hidePopIcon" class="pop-icon" size="14" color="#3b7fef"
         @contextmenu="handleContextMenu"

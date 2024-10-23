@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, inject, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import { XivMaps } from '@/assets/data'
 import MapButton from './MapButton.vue'
 import type { UserConfigModel } from '@/models/user-config'
 
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+// const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 interface LocationSpanProps {
   placeId: number,
@@ -16,6 +17,8 @@ interface LocationSpanProps {
   hideMapName?: boolean,
   hideCoordinates?: boolean,
   hideMapButton?: boolean
+  /** 手动指定地图按钮悬浮窗的触发方式 */
+  popTrigger?: 'hover' | 'click' | 'manual'
 }
 const props = defineProps<LocationSpanProps>()
 
@@ -57,6 +60,7 @@ const mapButtonSize = computed(() => {
         :map-data="mapData"
         :flag-x="coordinateX"
         :flag-y="coordinateY"
+        :pop-trigger="popTrigger"
       />
     </span>
   </div>

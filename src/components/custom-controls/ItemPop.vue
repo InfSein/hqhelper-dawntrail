@@ -42,6 +42,8 @@ interface ItemPopProps {
   popCustomWidth?: number;
   /** 悬浮窗的最大宽度 */
   popMaxWidth?: string;
+  /** 手动指定悬浮窗的触发方式 */
+  popTrigger?: 'hover' | 'click' | 'manual'
 
   /** 是否禁用物品信息提示框(可选,默认false) */
   disablePop?: boolean;
@@ -210,12 +212,20 @@ const openInAngler = () => {
   const domain = `https://${lang}.ff14angler.com/`
   window.open(`${domain}?search=${props.itemInfo.nameEN}`)
 }
+
+const innerPopTrigger = computed(() => {
+  if (!isMobile.value && userConfig.value.click_to_show_pop_in_span) {
+    return 'click'
+  } else {
+    return undefined
+  }
+})
 </script>
 
 <template>
   <n-popover
     v-if="itemInfo.id && !disablePop"
-    :trigger="isMobile ? 'click' : 'hover'"
+    :trigger="popTrigger || (isMobile ? 'click' : 'hover')"
     :placement="isMobile ? 'bottom' : 'right-start'"
     :width="popUseCustomWidth ? popCustomWidth : (isMobile ? 'trigger' : undefined)"
     :style="{ maxWidth: popMaxWidth ?? (isMobile ? 'unset' : '290px') }"
@@ -362,6 +372,7 @@ const openInAngler = () => {
                 :place-name="getPlaceName()"
                 :coordinate-x="itemInfo.gatherInfo.posX"
                 :coordinate-y="itemInfo.gatherInfo.posY"
+                :pop-trigger="innerPopTrigger"
               />
             </div>
           </div>
