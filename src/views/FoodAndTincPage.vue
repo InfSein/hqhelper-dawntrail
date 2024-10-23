@@ -14,20 +14,13 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const store = useStore()
-const { calFoodAndTincs, getFoodAndTincs, getSpecialItems } = useNbbCal()
+const { calItems, getFoodAndTincs, getSpecialItems } = useNbbCal()
 
 const workState = ref({
   patch: '7.0',
   hidePrecraftGatherings: false,
   itemSelected: {} as Record<number, number>
 })
-const recipes = ref<any>({})
-
-const initialize = () => {
-  const { recipeMap } = getFoodAndTincs()
-  recipes.value = recipeMap
-}
-initialize()
 
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {
@@ -70,7 +63,7 @@ const fixItemSelections = () => {
 fixItemSelections()
 
 const statistics = computed(() => {
-  const value = calFoodAndTincs(workState.value.itemSelected, recipes.value)
+  const value = calItems(workState.value.itemSelected)
   return value
 })
 const specialItems = computed(() => {

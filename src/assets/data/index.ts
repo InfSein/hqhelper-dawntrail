@@ -1,6 +1,23 @@
 import JsonXivItemRemarks from './translations/xiv-item-remarks.json'
 export const XivItemRemarks = JsonXivItemRemarks as Record<number, string[]>
 
+import JsonXivRecipes from './unpacks/recipe.json'
+export const XivRecipes = JsonXivRecipes as Record<number, {
+  id: number
+  job: number
+  it: number
+  bp: number[]
+  m: number[]
+  rlv: number
+  s: number[]
+  sp1: number[]
+  sp2: number[]
+  sp3: number[]
+  qs: boolean
+  hq: boolean
+  srb: number
+}>
+
 import JsonXivJobs from './xiv-jobs.json'
 export interface XivJob {
   job_id: number
