@@ -144,7 +144,7 @@ const dealTimeLimit = (start: string, end: string) => {
     const s = parseTime(start)
     const e = parseTime(end)
     const c = currentET.value.hour * 60 + currentET.value.minute
-    if (c >= s && c <= e) {
+    if (c >= s && c < e) {
       canGather = true
       progressPercentage = (c - s) / (e - s) * 100
       const ls = Math.floor(EorzeaTime.EorzeaMinute2LocalSecond(e - c))
