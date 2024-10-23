@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { type PropType } from 'vue'
 import { getItemInfo } from '@/tools/item'
 import ItemSpan from './ItemSpan.vue'
 import LocationSpan from './LocationSpan.vue'

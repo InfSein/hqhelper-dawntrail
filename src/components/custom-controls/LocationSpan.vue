@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
+import { computed, inject, type Ref } from 'vue'
 import { XivMaps } from '@/assets/data'
 import MapButton from './MapButton.vue'
 import type { UserConfigModel } from '@/models/user-config'

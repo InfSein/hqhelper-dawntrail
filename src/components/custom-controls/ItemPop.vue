@@ -342,6 +342,7 @@ const innerPopTrigger = computed(() => {
             <ItemRemark
               :remarks="XivItemRemarks[itemInfo.id]"
               style="line-height: 1.2;"
+              :pop-trigger="innerPopTrigger"
             />
           </div>
         </div>
