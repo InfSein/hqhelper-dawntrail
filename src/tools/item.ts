@@ -29,6 +29,15 @@ const phItem = {
   rid: []
 }
 
+export interface StatementRow {
+  info: ItemInfo,
+  amount: {
+    total: number,
+    prepared: number,
+    remain: number
+  }
+}
+
 import XivItems from '@/assets/data/unpacks/item.json'
 import XivItemTypes from '@/assets/data/xiv-item-types.json'
 import XivItemNameZHTemp from '@/assets/data/translations/xiv-item-names.json'

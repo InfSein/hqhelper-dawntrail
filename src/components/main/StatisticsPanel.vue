@@ -257,8 +257,11 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
 const showStatementModal = ref(false)
 const showProStatementModal = ref(false)
 const showStatement = () => {
-  console.log('statistics:', props.statistics)
-  showProStatementModal.value = true
+  if (userConfig.value.use_traditional_statement) {
+    showStatementModal.value = true
+  } else {
+    showProStatementModal.value = true
+  }
 }
 const statementData = computed(() => {
   return getStatementData(props.statistics)

@@ -5,6 +5,7 @@ import {
 } from 'naive-ui'
 import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
+import ModalProStatements from '../modals/ModalProStatements.vue'
 import { getItemInfo, getStatementData, type ItemInfo } from '@/tools/item'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemList from '../custom-controls/ItemList.vue'
@@ -180,9 +181,13 @@ const crystals = computed(() => {
 })
 
 const showStatementModal = ref(false)
+const showProStatementModal = ref(false)
 const showStatement = () => {
-  console.log('statistics:', props.statistics)
-  showStatementModal.value = true
+  if (userConfig.value.use_traditional_statement) {
+    showStatementModal.value = true
+  } else {
+    showProStatementModal.value = true
+  }
 }
 const statementData = computed(() => {
   return getStatementData(props.statistics)
@@ -294,6 +299,10 @@ const statementData = computed(() => {
       
       <ModalCraftStatements
         v-model:show="showStatementModal"
+        v-bind="statementData"
+      />
+      <ModalProStatements
+        v-model:show="showProStatementModal"
         v-bind="statementData"
       />
     </FoldableCard>

@@ -1,31 +1,23 @@
 <script setup lang="ts">
-import { computed, inject, type PropType, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import {
   NInputNumber, NScrollbar, NTable
 } from 'naive-ui'
-import { getItemInfo, type ItemInfo } from '@/tools/item'
-import ItemSpan from './ItemSpan.vue'
-import type { UserConfigModel } from '@/models/user-config'
+import { getItemInfo, type StatementRow } from '@/tools/item'
+import ItemCell from './ItemCell.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-// const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+// const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const itemsPrepared = defineModel<Record<number, number>>('itemsPrepared', { required: true })
 interface ItemStatementTableProps {
   itemsTotal: Record<number, number>,
+  showItemDetails: boolean,
   containerId?: string
 }
 const props = defineProps<ItemStatementTableProps>()
 
-interface StatementRow {
-  info: ItemInfo,
-  amount: {
-    total: number,
-    prepared: number,
-    remain: number
-  }
-}
 const rows = computed(() => {
   const rowsRemaining: StatementRow[] = []
   const rowsCleaned : StatementRow[] = []
@@ -70,10 +62,11 @@ const rows = computed(() => {
     <n-scrollbar trigger="none" :style="{ height: '450px', 'margin-top': '-2px' }">
       <n-table class="table" size="small" :single-line="false">
         <tbody>
-          <tr v-for="(item, index) in rows.remaining" :key="'item-remaining-' + index">
+          <tr v-for="item in rows.remaining" :key="'item-remaining-' + item.info.id">
             <td>
-              <ItemSpan
-                :item-info="item.info"
+              <ItemCell
+                :item="item"
+                :show-item-details="showItemDetails"
                 :container-id="containerId"
               />
             </td>
@@ -86,24 +79,26 @@ const rows = computed(() => {
                 :min="0"
                 :max="item.amount.total"
                 :precision="0"
-                size="tiny"
+                :size="showItemDetails ? 'small' : 'tiny'"
                 button-placement="both"
+                :show-button="!isMobile"
               />
             </td>
             <td>
               {{ item.amount.remain }}
             </td>
           </tr>
-          <tr v-if="rows.cleaned?.length">
+          <tr v-if="rows.cleaned?.length" class="prepared">
             <td colspan="4" class="bold">
               <i class="xiv e05e"></i>
-              {{ t('已结清') }}
+              {{ t('已筹备完成') }}
             </td>
           </tr>
-          <tr v-for="(item, index) in rows.cleaned" :key="'item-cleaned-' + index">
+          <tr v-for="item in rows.cleaned" :key="'item-cleaned-' + item.info.id" class="prepared">
             <td>
-              <ItemSpan
-                :item-info="item.info"
+              <ItemCell
+                :item="item"
+                :show-item-details="showItemDetails"
                 :container-id="containerId"
               />
             </td>
@@ -116,7 +111,7 @@ const rows = computed(() => {
                 :min="0"
                 :max="item.amount.total"
                 :precision="0"
-                size="tiny"
+                :size="showItemDetails ? 'small' : 'tiny'"
                 button-placement="both"
               />
             </td>
@@ -153,7 +148,14 @@ const rows = computed(() => {
       display: flex;
     }
   }
+  tr.prepared td {
+    background-color: var(--n-th-color-popover);
+  }
+  tr.prepared:hover td {
+    background-color: var(--n-td-color-modal);
+  }
 }
+
 
 /* Desktop */
 @media screen and (min-width: 768px) {

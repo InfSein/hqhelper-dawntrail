@@ -277,6 +277,26 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
         options: []
       },
       {
+        key: 'use_traditional_statement',
+        label: t('使用旧版本制作报表'),
+        hide: isMobile.value,
+        descriptions: [
+          {
+            value: t('在2.0.10版本，我们添加了专业版制作报表，提供更详细的物品信息表格，并支持根据已准备素材计算尚需素材。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('如果你并不需要这些功能，或是更喜欢旧版本制作报表的风格，可以考虑打开此选项。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'switch',
+        options: []
+      },
+      {
         key: 'click_to_show_pop_in_span',
         label: t('手动控制二级悬浮窗'),
         hide: isMobile.value,

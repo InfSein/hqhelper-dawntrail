@@ -1,26 +1,29 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
-  NCard, NIcon, NModal, NTabs, NTabPane
+  NCard, NIcon, NModal, NTabs, NTabPane, NTag
 } from 'naive-ui'
 import { 
   TableViewOutlined
 } from '@vicons/material'
 import GroupBox from '../custom-controls/GroupBox.vue'
-import ItemList from '../custom-controls/ItemList.vue'
 import ItemStatementTable from '../custom-controls/ItemStatementTable.vue'
-import type { ItemInfo } from '@/tools/item';
-import type { UserConfigModel } from '@/models/user-config'
+import type { ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { deepCopy } from '@/tools'
+import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
+import { useStore } from '@/store'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const store = useStore()
 
-const { calItems } = useNbbCal()
+const { getRecipeMap, calItems } = useNbbCal()
+const recipeMap = getRecipeMap()
 
 const showModal = defineModel<boolean>('show', { required: true })
+const showItemDetails = ref(true)
 
 const props = defineProps({
   craftTargets: {
@@ -33,6 +36,7 @@ watch(showModal, async (newVal, oldVal) => {
     itemsPrepared.value.craftTarget = fixMap(itemsPrepared.value.craftTarget, targetItems.value)
     itemsPrepared.value.materialsLv1 = fixMap(itemsPrepared.value.materialsLv1, lv1Items.value)
     itemsPrepared.value.materialsLvBase = fixMap(itemsPrepared.value.materialsLvBase, baseItems.value)
+    showItemDetails.value = userConfig.value.statement_show_item_details
   }
 })
 
@@ -106,8 +110,17 @@ const baseItems = computed(() => {
     const amount : number = calResult.need
     caledItemMap[itemID] = amount
   })
+  // nbb计算模型目前会忽略掉制作目标(这里的话是直接素材列表)中没有配方的道具，这里对它们进行特殊处理
+  Object.keys(lv1ItemsForCal.value).forEach(itemID => {
+    const id = Number(itemID)
+    if (!recipeMap[id]) {
+      caledItemMap[id] ??= 0
+      caledItemMap[id] += lv1ItemsForCal.value[id]
+    }
+  })
   return caledItemMap
 })
+/*
 const baseItemsForCal = computed(() => {
   const realItemMap = deepCopy(baseItems.value)
   Object.keys(itemsPrepared.value.materialsLvBase).forEach(itemID => {
@@ -116,6 +129,7 @@ const baseItemsForCal = computed(() => {
   })
   return realItemMap
 })
+*/
 
 const statementBlocks = computed(() => {
   return [
@@ -155,6 +169,18 @@ const statementBlocks = computed(() => {
 const handleClose = () => {
   showModal.value = false
 }
+
+const handleResetPreparedItems = () => {
+  itemsPrepared.value.craftTarget = fixMap({}, targetItems.value)
+  itemsPrepared.value.materialsLv1 = fixMap({}, lv1Items.value)
+  itemsPrepared.value.materialsLvBase = fixMap({}, baseItems.value)
+}
+const handleSwitchShowItemDetails = () => {
+  showItemDetails.value = !showItemDetails.value
+  const newConfig = fixUserConfig(store.state.userConfig)
+  newConfig.statement_show_item_details = showItemDetails.value
+  store.commit('setUserConfig', newConfig)
+}
 </script>
 
 <template>
@@ -170,11 +196,37 @@ const handleClose = () => {
       <template #header>
         <div class="card-title">
           <n-icon><TableViewOutlined /></n-icon>
-          <span class="title">{{ t('制作报表') }}</span>
+          <span class="title">
+            {{ t('制作报表') }}
+          </span>
+          <span class="card-title-extra">
+            <n-tag type="info" size="small" round>PRO</n-tag>
+          </span>
+          <div class="title-actions">
+            <a href="javascript:void(0);" @click="handleResetPreparedItems">[{{ t('重置已有') }}]</a>
+            <a href="javascript:void(0);" @click="handleSwitchShowItemDetails">[{{ showItemDetails ? t('简洁模式') : t('详细模式') }}]</a>
+          </div>
         </div>
       </template>
 
-      <div class="wrapper desktop">
+      <n-tabs v-if="isMobile" type="line" animated>
+        <n-tab-pane
+          v-for="block in statementBlocks"
+          :key="block.id"
+          :name="block.id"
+          :tab="block.name"
+        >
+          <div class="container">
+            <ItemStatementTable
+              v-model:items-prepared="itemsPrepared[block.preparedKey]"
+              :items-total="block.items"
+              :show-item-details="showItemDetails"
+              container-id="modal-pro-statements"
+            />
+          </div>
+        </n-tab-pane>
+      </n-tabs>
+      <div v-else class="wrapper desktop">
         <GroupBox
           v-for="block in statementBlocks"
           :key="block.id"
@@ -187,6 +239,7 @@ const handleClose = () => {
             <ItemStatementTable
               v-model:items-prepared="itemsPrepared[block.preparedKey]"
               :items-total="block.items"
+              :show-item-details="showItemDetails"
               container-id="modal-pro-statements"
             />
           </div>
@@ -198,6 +251,13 @@ const handleClose = () => {
 
 <style scoped>
 /* All */
+.title-actions {
+  height: 100%;
+  display: flex;
+  align-items: baseline;
+  font-size: var(--n-font-size);
+  margin: 3px 0 0 5px;
+}
 .wrapper {
   user-select: text;
 }

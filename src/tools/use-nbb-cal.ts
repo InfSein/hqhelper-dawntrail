@@ -279,7 +279,7 @@ export function useNbbCal() {
   }
 
   return {
-    doCal, getItem, getPatchData, getItemsName, calGearSelections,
+    doCal, getItem, getPatchData, getItemsName, calGearSelections, getRecipeMap,
     calItems, getSpecialItems, getTradeMap, getReduceMap, getReduceMapReverted, getFoodAndTincs,
     getFoodAndTincs_v2, getLimitedGatherings
   }
