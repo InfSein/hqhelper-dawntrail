@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NCascader, NCollapse, NCollapseItem, NIcon, NModal, NPopover, NRadioButton, NRadioGroup, NSelect, NSwitch, NTabs, NTabPane,
+  NButton, NCard, NCascader, NCollapse, NCollapseItem, NIcon, NInput, NModal, NPopover, NRadioButton, NRadioGroup, NSelect, NSwitch, NTabs, NTabPane,
   type CascaderOption
 } from 'naive-ui'
 import { useStore } from '@/store/index'
@@ -48,7 +48,7 @@ interface UserPreferenceItem {
     class: string
     style: string
   }[]
-  type: 'radio-group' | 'switch' | 'select' | 'cascader'
+  type: 'radio-group' | 'switch' | 'select' | 'cascader' | 'string'
   options: CascaderOption[]
 }
 const dealSimOptions = (options: string[]) => {
@@ -144,6 +144,66 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
           { value: 'light', label: t('浅色') },
           { value: 'dark', label: t('深色') }
         ]
+      },
+      {
+        key: 'custom_font_size',
+        label: t('字体大小'),
+        descriptions: [
+          {
+            value: t('全局性地修改程序/网站的字体大小。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('部分区域的字体大小不受此设置的影响。此外，还会受到浏览器“最小字号”设置的限制。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('暂时无法保证“标准”大小之外的显示效果。除非有特殊需要，否则不建议修改。'),
+            class: '',
+            style: ''
+          },
+        ],
+        warnings: [],
+        type: 'radio-group',
+        options: [
+          { value: '12px', label: t('更小') },
+          { value: '13px', label: t('较小') },
+          { value: '14px', label: t('标准') },
+          { value: '15px', label: t('较大') },
+          { value: '16px', label: t('更大') },
+        ]
+      },
+      {
+        key: 'custom_font',
+        label: t('自定义字体'),
+        descriptions: [
+          {
+            value: t('全局性地修改程序/网站的字体。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('可以设置多个字体，用英文逗号分隔。当前一个字体字库未包括要显示的文字时，程序会使用下一个字体；如果均不包括，程序会使用设置前的字体。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('字体名称出现空格时，建议用英文的单引号或双引号来将其包裹，例如"思源黑体 CN Medium"。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('如果你对CSS有所了解，可以直接参照font-family的语法来填写。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [
+        ],
+        type: 'string',
+        options: []
       },
       {
         key: 'hide_collector_icons',
@@ -782,6 +842,12 @@ const handleSave = () => {
                       filterable
                       :style="{ width: isMobile ? '85%' : '70%' }"
                     />
+                    <n-input
+                      v-if="item.type === 'string'"
+                      v-model:value="(formData as any)[item.key]"
+                      type="text"
+                      :style="{ width: isMobile ? '85%' : '70%' }"
+                    />
                   </template>
                   <div class="flex-column flex-center">
                     <p
@@ -825,6 +891,12 @@ const handleSave = () => {
                     check-strategy="child"
                     show-path
                     filterable
+                    :style="{ width: isMobile ? '85%' : '70%' }"
+                  />
+                  <n-input
+                    v-if="item.type === 'string'"
+                    v-model:value="(formData as any)[item.key]"
+                    type="text"
                     :style="{ width: isMobile ? '85%' : '70%' }"
                   />
                 </div>

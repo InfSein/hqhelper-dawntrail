@@ -89,6 +89,18 @@ const redirectToFoodAndTincPage = () => {
   router.push('/fthelper')
 }
 const redirectToGatherClockPage = () => {
+  /*
+  if (window.electronAPI?.createNewWindow) {
+    const path = router.resolve({ path: '/gatherclock' }).href
+    window.electronAPI.createNewWindow(
+      'gatherclock',
+      document?.location?.origin + document.location.pathname + path,
+      300,
+      600
+    )
+  } else {
+  }
+  */
   router.push('/gatherclock')
 }
 

@@ -52,6 +52,9 @@
 .font-center {
   text-align: center;
 }
+.font-small {
+  font-size: calc(var(--n-font-size) - 2px);
+}
 .align-left {
   text-align: left;
 }
