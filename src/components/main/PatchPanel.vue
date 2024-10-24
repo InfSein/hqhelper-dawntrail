@@ -123,6 +123,10 @@ const getPatchBackground = (patch: any) => {
   .patch-button.selected {
     border: var(--n-border-pressed);
     color: var(--n-text-color-hover);
+    .patch-button-text {
+      color: white;
+      text-shadow: 2px 2px 4px #000000;
+    }
   }
 }
 .popover-container .sub {

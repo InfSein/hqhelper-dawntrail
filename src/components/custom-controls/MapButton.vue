@@ -26,7 +26,9 @@ interface MapButtonProps {
   size: number,
   mapData: XivMapInfo,
   flagX: number,
-  flagY: number
+  flagY: number,
+  /** 手动指定悬浮窗的触发方式 */
+  popTrigger?: 'hover' | 'click' | 'manual'
 }
 const props = defineProps<MapButtonProps>()
 
@@ -52,7 +54,7 @@ const handleOpenCafeMap = () => {
 
 <template>
   <n-popover
-    :trigger="isMobile ? 'click' : 'hover'"
+    :trigger="popTrigger || (isMobile ? 'click' : 'hover')"
     :width="isMobile ? 250 : undefined"
     :placement="isMobile ? 'bottom' : 'right-start'"
   >

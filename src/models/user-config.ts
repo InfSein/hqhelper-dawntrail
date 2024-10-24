@@ -11,11 +11,13 @@ export interface UserConfigModel {
   custom_font_size: string
   hide_collector_icons: boolean
   // enhancements
-  item_button_click_event: 'none' | 'copy_name' | 'copy_isearch'
   disable_patchcard_autofold: boolean
   disable_jobbtn_doubleclick: boolean
+  use_traditional_statement: boolean
+  click_to_show_pop_in_span: boolean
   macro_direct_copy: boolean
   macro_copy_prefix: string
+  item_button_click_event: 'none' | 'copy_name' | 'copy_isearch'
   // performance
   disable_workstate_cache: boolean
   // special
@@ -31,6 +33,9 @@ export interface UserConfigModel {
   // tome-script-button
   /** 在点数按钮的统计中显示双色宝石兑换物 */
   tomescript_show_bicolor_items: boolean
+
+  // craft-statements
+  statement_show_item_details: boolean
 
   // hidden options
   cache_lasttime_version: string
@@ -53,11 +58,13 @@ const defaultUserConfig: UserConfigModel = {
   custom_font_size: '14px',
   hide_collector_icons: false,
   // enhancements
-  item_button_click_event: 'none',
   disable_patchcard_autofold: false,
   disable_jobbtn_doubleclick: false,
+  use_traditional_statement: false,
+  click_to_show_pop_in_span: false,
   macro_direct_copy: false,
   macro_copy_prefix: '',
+  item_button_click_event: 'none',
   // performance
   disable_workstate_cache: false,
   // special
@@ -72,6 +79,9 @@ const defaultUserConfig: UserConfigModel = {
   
   // tome-script-button
   tomescript_show_bicolor_items: false,
+
+  // craft-statements
+  statement_show_item_details: true,
 
   // hidden options
   cache_lasttime_version: 'none',

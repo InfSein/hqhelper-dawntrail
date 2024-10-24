@@ -7,7 +7,7 @@ import gatherData from '@/assets/data/unpacks/gathering-item.json'
 import { Cal, type CostCHS, type IHqConfig } from './nbb-cal-v5'
 import type { GearSelections } from '@/models/gears'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from './item';
-
+import { XivRecipes } from '@/assets/data'
 
 export function useNbbCal() {
   const langHash: any = { 'lang-zh': 2, 'lang-en': 1, 'lang-ja': 0 };
@@ -43,7 +43,20 @@ export function useNbbCal() {
     return doCal(out);
   }
 
-  const calFoodAndTincs = (selections: Record<number, number>, recipeMap: any) => {
+  const getRecipeMap = () => {
+    const map : Record<number, number> = {}
+    Object.values(XivRecipes).forEach(recipe => {
+      map[recipe.it] = recipe.id
+    })
+    return map
+  }
+  const recipeMap = getRecipeMap()
+
+  /**
+   * 直接通过 itemMap 来计算所需道具
+   * @param selections key:道具id value:数量
+   */
+  const calItems = (selections: Record<number, number>) => {
     const calMap = {} as any // {"39651":[39651,1,35520,false]}
     for (const item in selections) {
       const count = selections[item]
@@ -266,8 +279,8 @@ export function useNbbCal() {
   }
 
   return {
-    doCal, getItem, getPatchData, getItemsName, calGearSelections,
-    calFoodAndTincs, getSpecialItems, getTradeMap, getReduceMap, getReduceMapReverted, getFoodAndTincs,
+    doCal, getItem, getPatchData, getItemsName, calGearSelections, getRecipeMap,
+    calItems, getSpecialItems, getTradeMap, getReduceMap, getReduceMapReverted, getFoodAndTincs,
     getFoodAndTincs_v2, getLimitedGatherings
   }
 }
