@@ -2820,7 +2820,7 @@
   },
   "修正了部分物品按钮悬浮窗在移动端的显示效果。": {
     "en": "Fixed display effect of some item buttons on mobile.",
-    "ja": "一部のアイテムボタンのホバーウィンドウのスマホ最適化表示を調整しました。",
+    "ja": "一部のアイテムボタンのツールチップのスマホ最適化表示を調整しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -3492,161 +3492,161 @@
   },
   "总需": {
     "en": "Total",
-    "ja": "总需",
+    "ja": "総数",
     "$files": [
       "components\\custom-controls\\ItemStatementTable.vue"
     ]
   },
   "已有": {
     "en": "Prepared",
-    "ja": "已有",
+    "ja": "既にあり",
     "$files": [
       "components\\custom-controls\\ItemStatementTable.vue"
     ]
   },
   "尚需": {
     "en": "Requires",
-    "ja": "尚需",
+    "ja": "まだ必要",
     "$files": [
       "components\\custom-controls\\ItemStatementTable.vue"
     ]
   },
   "已筹备完成": {
     "en": "Prepared Items",
-    "ja": "已筹备完成",
+    "ja": "準備完了",
     "$files": [
       "components\\custom-controls\\ItemStatementTable.vue"
     ]
   },
   "重置已有": {
     "en": "Reset prepared",
-    "ja": "重置已有",
+    "ja": "既存をリセット",
     "$files": [
       "components\\modals\\ModalProStatements.vue"
     ]
   },
   "简洁模式": {
     "en": "Simple mode",
-    "ja": "简洁模式",
+    "ja": "簡潔モード",
     "$files": [
       "components\\modals\\ModalProStatements.vue"
     ]
   },
   "详细模式": {
     "en": "Detail mode",
-    "ja": "详细模式",
+    "ja": "詳細モード",
     "$files": [
       "components\\modals\\ModalProStatements.vue"
     ]
   },
   "使用旧版本制作报表": {
     "en": "Use traditional Craft Statement ",
-    "ja": "使用旧版本制作报表",
+    "ja": "旧バージョンでレポートを作成",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "在2.0.10版本，我们添加了专业版制作报表，提供更详细的物品信息表格，并支持根据已准备素材计算尚需素材。": {
     "en": "We provides PRO Craft Statement after v2.0.10 to provide more detailed item information table and support to calculate the remaining materials based on the prepared materials.",
-    "ja": "在2.0.10版本，我们添加了专业版制作报表，提供更详细的物品信息表格，并支持根据已准备素材计算尚需素材。",
+    "ja": "バージョン2.0.10では、プロ版のレポート作成機能を追加し、より詳細なアイテム情報表と、準備済みの素材に基づいて必要な素材を計算するサポートを提供しています。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "如果你并不需要这些功能，或是更喜欢旧版本制作报表的风格，可以考虑打开此选项。": {
     "en": "If you dont need to use these features, or you prefer the old version of craft statement, you can consider to turn on this option.",
-    "ja": "如果你并不需要这些功能，或是更喜欢旧版本制作报表的风格，可以考虑打开此选项。",
+    "ja": "これらの機能が必要ない場合、または旧バージョンのレポート作成のスタイルを好む場合は、このオプションを有効にすることを検討してください。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "手动控制二级悬浮窗": {
     "en": "Control sub item popup manually",
-    "ja": "手动控制二级悬浮窗",
+    "ja": "手動で二次ツールチップを制御",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "在物品按钮悬浮窗内可能有一些可以打开子悬浮窗的元素，比如制作素材和地图按钮。": {
     "en": "Some elements in item popup may have sub popup, such as craft materials and map buttons.",
-    "ja": "在物品按钮悬浮窗内可能有一些可以打开子悬浮窗的元素，比如制作素材和地图按钮。",
+    "ja": "アイテムボタンのツールチップ内には、素材作成やマップボタンなど、ツールチップを開くことができる要素がいくつかあります。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "在默认情况下，光标悬停在元素上时就会立即打开子悬浮窗。如果你觉得这样太容易误触，可以打开此选项，只通过左键单击来控制子悬浮窗的显示与否。": {
     "en": "In default case, the sub popup will be opened immediately when mouse hover on the element. If you think this is too easy to trigger, you can turn on this option to control the sub popup by left click only.",
-    "ja": "在默认情况下，光标悬停在元素上时就会立即打开子悬浮窗。如果你觉得这样太容易误触，可以打开此选项，只通过左键单击来控制子悬浮窗的显示与否。",
+    "ja": "デフォルトでは、カーソルを要素にホバーするとすぐにツールチップが開きます。これが誤って操作されやすいと感じる場合は、このオプションを有効にして、左クリックのみでツールチップの表示を制御できるようにします。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "实装了专业版的“{f}”。": {
     "en": "{f} PRO now available.",
-    "ja": "实装了专业版的“{f}”。",
+    "ja": "プロ版の「{f}」が実装されました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "专业版制作报表为每个物品提供更详细的信息，包括制作职业、配方等级、采集职业、来源、兑换总价等。": {
     "en": "Pro statement provides more detailed information for each item, including crafting job, recipe level, gathering job, source, and total exchange price.",
-    "ja": "专业版制作报表为每个物品提供更详细的信息，包括制作职业、配方等级、采集职业、来源、兑换总价等。",
+    "ja": "プロ版のレポート作成では、各アイテムに対して詳細な情報が提供されます。これには、クラフタージョブ、レシピレベル、ギャザラージョブ、入手先、交換総額などが含まれます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "不仅如此，专业版制作报表还允许你填写已经准备的素材数量，并根据输入值动态计算还需要筹备的素材。": {
     "en": "Not only that, the pro statement also allows you to fill in the number of materials that have already been prepared, and dynamically calculate the materials that still need to be prepared based on the input values.",
-    "ja": "不仅如此，专业版制作报表还允许你填写已经准备的素材数量，并根据输入值动态计算还需要筹备的素材。",
+    "ja": "さらに、プロ版のレポート作成では、既に準備済みの素材数を入力し、入力値に基づいてまだ必要な素材を動的に計算することができます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "点击主界面或食药计算器的“{f}”按钮，即可查看专业版制作报表。": {
     "en": "Click the \"{f}\" button on main page or FT Helper to use Pro statement.",
-    "ja": "点击主界面或食药计算器的“{f}”按钮，即可查看专业版制作报表。",
+    "ja": "メイン画面または調理品&薬品の素材集計の「{f}」ボタンをクリックすることで、プロ版のレポートを確認できます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "如果还是更喜欢旧版本的制作报表，可以在“{f1}”的“{f2}”选项卡中勾选“{f3}”": {
     "en": "If you still prefer the old version of craft statement, you can turn on the \"{f3}\" option on the \"{f2}\" tab of \"{f1}\".",
-    "ja": "如果还是更喜欢旧版本的制作报表，可以在“{f1}”的“{f2}”选项卡中勾选“{f3}”",
+    "ja": "旧バージョンのレポート作成を好む場合は、「{f1}」の「{f2}」タブで「{f3}」にチェックを入れてください。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修复了采集时钟会将采集时间刚好结束的采集品判断为现可采集的问题。": {
     "en": "Fixed gather clock considers item gatherable when its gather time is just finished.",
-    "ja": "修复了采集时钟会将采集时间刚好结束的采集品判断为现可采集的问题。",
+    "ja": "採集時計が、採集時間がちょうど終了した採集品を現在採集可能と判断してしまう問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "新增了设置项“{f}”。": {
     "en": "Added new setting option \"{f}\".",
-    "ja": "新增了设置项“{f}”。",
+    "ja": "設定項目「{f}」を新たに追加しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "根据特设站公布的信息，更新了{v}版本的logo与背景图。": {
     "en": "Updated logo and background image for {v} version.",
-    "ja": "根据特设站公布的信息，更新了{v}版本的logo与背景图。",
+    "ja": "特設サイトで公開された情報に基づき、パッチ{v}のロゴと背景画像を更新しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "相关数据仍须等待版本正式上线后才能更新。": {
     "en": "Game data still not updated until it's officially released.",
-    "ja": "相关数据仍须等待版本正式上线后才能更新。",
+    "ja": "関連データは、パッチが正式にリリースされた後で更新される予定です。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "优化了选择版本区域按钮文字的显示效果。": {
     "en": "Optimized the display effect of text in patch buttons.",
-    "ja": "优化了选择版本区域按钮文字的显示效果。",
+    "ja": "パッチ選択エリアボタンのテキスト表示効果を最適化しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
