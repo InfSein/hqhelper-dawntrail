@@ -8,7 +8,8 @@ import {
 } from '@vicons/material'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemStatementTable from '../custom-controls/ItemStatementTable.vue'
-import type { ItemInfo } from '@/tools/item'
+import ModalRecommendedProcesses from './ModalRecommendedProcesses.vue'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { deepCopy } from '@/tools'
 import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
@@ -24,6 +25,7 @@ const recipeMap = getRecipeMap()
 
 const showModal = defineModel<boolean>('show', { required: true })
 const showItemDetails = ref(true)
+const showRecommendedProcessesModal = ref(false)
 
 const props = defineProps({
   craftTargets: {
@@ -120,7 +122,6 @@ const baseItems = computed(() => {
   })
   return caledItemMap
 })
-/*
 const baseItemsForCal = computed(() => {
   const realItemMap = deepCopy(baseItems.value)
   Object.keys(itemsPrepared.value.materialsLvBase).forEach(itemID => {
@@ -129,7 +130,6 @@ const baseItemsForCal = computed(() => {
   })
   return realItemMap
 })
-*/
 
 const statementBlocks = computed(() => {
   return [
@@ -165,6 +165,50 @@ const statementBlocks = computed(() => {
     },
   ]
 })
+const recommProcessData = computed(() => {
+  const craftTargets = dealItemMapToItemList(targetItemsForCal.value)
+  const lv1Items = dealItemMapToItemList(lv1ItemsForCal.value)
+
+  // 根据1级素材计算出2/3级素材 (主要是考虑半成品套娃的情况，所以不需要多做处理)
+  const lv2Map : Record<number, number> = {}
+  const lv3Map : Record<number, number> = {}
+  const statistics = calItems(lv1ItemsForCal.value)
+  // 1级素材复算得到的1级素材就是需要的2级素材，2级素材就是需要的3级
+  Object.values(statistics.lv1).forEach((calResult : any) => {
+    const itemID : number = calResult.id
+    const amount : number = calResult.need
+    lv2Map[itemID] = amount
+  })
+  Object.values(statistics.lv2).forEach((calResult : any) => {
+    const itemID : number = calResult.id
+    const amount : number = calResult.need
+    lv3Map[itemID] = amount
+  })
+  const lv2Items = dealItemMapToItemList(lv2Map)
+  const lv3Items = dealItemMapToItemList(lv3Map)
+
+  const lvBaseItems = dealItemMapToItemList(baseItemsForCal.value)
+
+  return {
+    craftTargets,
+    lv1Items, lv2Items, lv3Items,
+    lvBaseItems
+  }
+
+  function dealItemMapToItemList(itemMap: Record<number, number>) {
+    const list : ItemInfo[] = []
+    for (const _id in itemMap) {
+      const id = Number(_id)
+      const amount = itemMap[id]
+      if (amount > 0) {
+        const itemInfo = getItemInfo(id)
+        itemInfo.amount = amount
+        list.push(itemInfo)
+      }
+    }
+    return list
+  }
+})
 
 const handleClose = () => {
   showModal.value = false
@@ -180,6 +224,9 @@ const handleSwitchShowItemDetails = () => {
   const newConfig = fixUserConfig(store.state.userConfig)
   newConfig.statement_show_item_details = showItemDetails.value
   store.commit('setUserConfig', newConfig)
+}
+const handleShowRecommendedProcesses = () => {
+  showRecommendedProcessesModal.value = true
 }
 </script>
 
@@ -202,9 +249,10 @@ const handleSwitchShowItemDetails = () => {
           <span class="card-title-extra">
             <n-tag type="info" size="small" round>PRO</n-tag>
           </span>
-          <div class="title-actions">
+          <div class="card-title-actions">
             <a href="javascript:void(0);" @click="handleResetPreparedItems">[{{ t('重置已有') }}]</a>
             <a href="javascript:void(0);" @click="handleSwitchShowItemDetails">[{{ showItemDetails ? t('简洁模式') : t('详细模式') }}]</a>
+            <a href="javascript:void(0);" @click="handleShowRecommendedProcesses">[{{ t('推荐流程') }}]</a>
           </div>
         </div>
       </template>
@@ -245,19 +293,17 @@ const handleSwitchShowItemDetails = () => {
           </div>
         </GroupBox>
       </div>
+
+      <ModalRecommendedProcesses
+        v-model:show="showRecommendedProcessesModal"
+        v-bind="recommProcessData"
+      />
     </n-card>
   </n-modal>
 </template>
 
 <style scoped>
 /* All */
-.title-actions {
-  height: 100%;
-  display: flex;
-  align-items: baseline;
-  font-size: var(--n-font-size);
-  margin: 3px 0 0 5px;
-}
 .wrapper {
   user-select: text;
 }
