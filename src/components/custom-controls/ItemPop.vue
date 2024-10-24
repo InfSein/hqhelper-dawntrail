@@ -8,9 +8,11 @@ import {
 } from '@vicons/material'
 import XivFARImage from './XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
+import ItemRemark from './ItemRemark.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import XivAttributes from '@/assets/data/xiv-attributes.json'
+import { XivItemRemarks } from '@/assets/data'
 import { jobMap, type JobInfo } from '@/data'
 import type EorzeaTime from '@/tools/eorzea-time'
 import LocationSpan from './LocationSpan.vue'
@@ -40,6 +42,8 @@ interface ItemPopProps {
   popCustomWidth?: number;
   /** 悬浮窗的最大宽度 */
   popMaxWidth?: string;
+  /** 手动指定悬浮窗的触发方式 */
+  popTrigger?: 'hover' | 'click' | 'manual'
 
   /** 是否禁用物品信息提示框(可选,默认false) */
   disablePop?: boolean;
@@ -208,12 +212,20 @@ const openInAngler = () => {
   const domain = `https://${lang}.ff14angler.com/`
   window.open(`${domain}?search=${props.itemInfo.nameEN}`)
 }
+
+const innerPopTrigger = computed(() => {
+  if (!isMobile.value && userConfig.value.click_to_show_pop_in_span) {
+    return 'click'
+  } else {
+    return undefined
+  }
+})
 </script>
 
 <template>
   <n-popover
     v-if="itemInfo.id && !disablePop"
-    :trigger="isMobile ? 'click' : 'hover'"
+    :trigger="popTrigger || (isMobile ? 'click' : 'hover')"
     :placement="isMobile ? 'bottom' : 'right-start'"
     :width="popUseCustomWidth ? popCustomWidth : (isMobile ? 'trigger' : undefined)"
     :style="{ maxWidth: popMaxWidth ?? (isMobile ? 'unset' : '290px') }"
@@ -323,6 +335,17 @@ const openInAngler = () => {
             </div>
           </div>
         </div>
+        <div class="description-block" v-if="uiLanguage === 'zh' && XivItemRemarks[itemInfo.id]?.length">
+          <div class="title">笔记</div>
+          <n-divider class="item-divider" />
+          <div class="content">
+            <ItemRemark
+              :remarks="XivItemRemarks[itemInfo.id]"
+              style="line-height: 1.2;"
+              :pop-trigger="innerPopTrigger"
+            />
+          </div>
+        </div>
         <div class="description-block" v-if="itemInfo.gatherInfo || itemInfo.isFishingItem">
           <div class="title">
             {{ t('采集') }}
@@ -350,6 +373,7 @@ const openInAngler = () => {
                 :place-name="getPlaceName()"
                 :coordinate-x="itemInfo.gatherInfo.posX"
                 :coordinate-y="itemInfo.gatherInfo.posY"
+                :pop-trigger="innerPopTrigger"
               />
             </div>
           </div>
@@ -373,7 +397,7 @@ const openInAngler = () => {
                 </template>
                 {{ t('在饥饿的猫中打开') }}
               </n-button>
-              <n-button size="small" @click="openInMomola">
+              <n-button v-show="false" size="small" @click="openInMomola">
                 <template #icon>
                   <n-icon><OpenInNewFilled /></n-icon>
                 </template>
@@ -381,7 +405,7 @@ const openInAngler = () => {
               </n-button>
             </div>
           </div>
-          <div class="content extra" v-if="itemInfo.isFishingItem">
+          <div v-show="false" class="content extra" v-if="itemInfo.isFishingItem">
             {{ t('※ 国服未实装的道具可能在部分网站中没有数据。') }}
           </div>
         </div>

@@ -11,11 +11,12 @@ export interface UserConfigModel {
   custom_font_size: string
   hide_collector_icons: boolean
   // enhancements
-  item_button_click_event: 'none' | 'copy_name' | 'copy_isearch'
   disable_patchcard_autofold: boolean
   disable_jobbtn_doubleclick: boolean
+  click_to_show_pop_in_span: boolean
   macro_direct_copy: boolean
   macro_copy_prefix: string
+  item_button_click_event: 'none' | 'copy_name' | 'copy_isearch'
   // performance
   disable_workstate_cache: boolean
   // special
@@ -53,11 +54,12 @@ const defaultUserConfig: UserConfigModel = {
   custom_font_size: '14px',
   hide_collector_icons: false,
   // enhancements
-  item_button_click_event: 'none',
   disable_patchcard_autofold: false,
   disable_jobbtn_doubleclick: false,
+  click_to_show_pop_in_span: false,
   macro_direct_copy: false,
   macro_copy_prefix: '',
+  item_button_click_event: 'none',
   // performance
   disable_workstate_cache: false,
   // special
