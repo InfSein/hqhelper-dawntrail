@@ -43,6 +43,8 @@ const itemGroups = computed(() => {
   const aethersands : ItemInfo[] = []
   const itemsTradable : ItemInfo[] = []
   const itemsOtherCollectable : ItemInfo[] = []
+  const itemsPrePrePrecraft : Record<number, ItemInfo[]> = {}
+  const itemsPrePrecraft : Record<number, ItemInfo[]> = {}
   const itemsPrecraft : Record<number, ItemInfo[]> = {}
   const itemsTarget : Record<number, ItemInfo[]> = {}
 
@@ -75,12 +77,12 @@ const itemGroups = computed(() => {
   })
   props.lv2Items.forEach(item => {
     if (item.craftInfo?.jobId) {
-      dealCraftableItem(itemsPrecraft, item)
+      dealCraftableItem(itemsPrePrecraft, item)
     }
   })
   props.lv3Items.forEach(item => {
     if (item.craftInfo?.jobId) {
-      dealCraftableItem(itemsPrecraft, item)
+      dealCraftableItem(itemsPrePrePrecraft, item)
     }
   })
 
@@ -135,6 +137,24 @@ const itemGroups = computed(() => {
       items: itemsOtherCollectable
     })
   }
+  Object.keys(itemsPrePrePrecraft).forEach(_jobID => {
+    const jobId = Number(_jobID)
+    const job = XivJobs[jobId]
+    groups.push({
+      title: t('使用{job}制作半半半成品', getJobName(job)),
+      icon: job.job_icon_url,
+      items: itemsPrePrePrecraft[jobId]
+    })
+  })
+  Object.keys(itemsPrePrecraft).forEach(_jobID => {
+    const jobId = Number(_jobID)
+    const job = XivJobs[jobId]
+    groups.push({
+      title: t('使用{job}制作半半成品', getJobName(job)),
+      icon: job.job_icon_url,
+      items: itemsPrePrecraft[jobId]
+    })
+  })
   Object.keys(itemsPrecraft).forEach(_jobID => {
     const jobId = Number(_jobID)
     const job = XivJobs[jobId]
