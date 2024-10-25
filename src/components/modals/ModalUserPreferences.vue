@@ -361,6 +361,29 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
           { value: 'copy_isearch', label: t('复制物品检索宏') },
         ]
       },
+      {
+        key: 'item_info_icon_click_event',
+        label: t('点击物品信息图标时的行为'),
+        descriptions: [
+          {
+            value: t('控制点击部分区域物品名称右侧蓝色信息图标时触发的事件。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('“{option}”与此项目的设置可能会有冲突。', t('手动控制二级悬浮窗')),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'select',
+        options: [
+          { value: 'none', label: t('什么都不做') },
+          { value: 'copy_name', label: t('复制物品名') },
+          { value: 'copy_isearch', label: t('复制物品检索宏') },
+        ]
+      },
     ]
   },
   /* Performance */

@@ -18,6 +18,7 @@ export interface UserConfigModel {
   macro_direct_copy: boolean
   macro_copy_prefix: string
   item_button_click_event: 'none' | 'copy_name' | 'copy_isearch'
+  item_info_icon_click_event: 'none' | 'copy_name' | 'copy_isearch'
   // performance
   disable_workstate_cache: boolean
   // special
@@ -65,6 +66,7 @@ const defaultUserConfig: UserConfigModel = {
   macro_direct_copy: false,
   macro_copy_prefix: '',
   item_button_click_event: 'none',
+  item_info_icon_click_event: 'none',
   // performance
   disable_workstate_cache: false,
   // special
