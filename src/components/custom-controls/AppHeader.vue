@@ -89,19 +89,17 @@ const redirectToFoodAndTincPage = () => {
   router.push('/fthelper')
 }
 const redirectToGatherClockPage = () => {
-  /*
-  if (window.electronAPI?.createNewWindow) {
-    const path = router.resolve({ path: '/gatherclock' }).href
+  if (userConfig.value.use_overlay_gatherclock && window.electronAPI?.createNewWindow) {
+    const url = document.location.origin + document.location.pathname + '#/gatherclock?mode=overlay'
     window.electronAPI.createNewWindow(
       'gatherclock',
-      document?.location?.origin + document.location.pathname + path,
-      300,
-      600
+      url,
+      390,
+      730
     )
   } else {
+    router.push('/gatherclock')
   }
-  */
-  router.push('/gatherclock')
 }
 
 interface MenuItem {

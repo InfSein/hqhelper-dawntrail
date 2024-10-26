@@ -15,6 +15,7 @@ export interface ElectronAPI {
   openUrlByBrowser: (url: string) => void;
   copyText: (text: string) => Promise<string>;
   createNewWindow: (id: string, url: string, defaultWidth: number, defaultHeight: number) => void;
+  toggleAlwaysOnTop: () => void;
 }
 
 export interface ProgressData {

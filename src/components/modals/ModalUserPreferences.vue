@@ -238,6 +238,21 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
     text: t('增强'),
     children: [
       {
+        key: 'use_overlay_gatherclock',
+        label: t('以悬浮窗模式使用采集时钟'),
+        hide: !window.electronAPI?.toggleAlwaysOnTop,
+        descriptions: [
+          {
+            value: t('仅在悬浮窗模式下，采集时钟可以激活置顶窗口功能。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'switch',
+        options: []
+      },
+      {
         key: 'disable_patchcard_autofold',
         label: t('禁用选择版本后自动折叠'),
         hide: !isMobile.value,

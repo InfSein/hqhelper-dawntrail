@@ -11,6 +11,7 @@ export interface UserConfigModel {
   custom_font_size: string
   hide_collector_icons: boolean
   // enhancements
+  use_overlay_gatherclock: boolean
   disable_patchcard_autofold: boolean
   disable_jobbtn_doubleclick: boolean
   use_traditional_statement: boolean
@@ -59,6 +60,7 @@ const defaultUserConfig: UserConfigModel = {
   custom_font_size: '14px',
   hide_collector_icons: false,
   // enhancements
+  use_overlay_gatherclock: false,
   disable_patchcard_autofold: false,
   disable_jobbtn_doubleclick: false,
   use_traditional_statement: false,
