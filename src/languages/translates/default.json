@@ -3650,5 +3650,111 @@
     "$files": [
       "data\\change-logs.ts"
     ]
+  },
+  "推荐流程": {
+    "en": "Recomm. Process",
+    "ja": "推荐流程",
+    "$files": [
+      "components\\modals\\ModalProStatements.vue",
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}采集": {
+    "en": "Use {job} gather",
+    "ja": "使用{job}采集",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "筹集灵砂": {
+    "en": "Prepare aethersands",
+    "ja": "筹集灵砂",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "兑换道具": {
+    "en": "Trade items",
+    "ja": "兑换道具",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "筹集其他需要的道具": {
+    "en": "Prepare other items needed",
+    "ja": "筹集其他需要的道具",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}制作半半半成品": {
+    "en": "Use {job} craft pre-pre-precrafts",
+    "ja": "使用{job}制作半半半成品",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}制作半半成品": {
+    "en": "Use {job} craft pre-precrafts",
+    "ja": "使用{job}制作半半成品",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}制作半成品": {
+    "en": "Use {job} craft precrafts",
+    "ja": "使用{job}制作半成品",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}制作成品": {
+    "en": "Use {job} craft",
+    "ja": "使用{job}制作成品",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "全部展开": {
+    "en": "Expand all",
+    "ja": "全部展开",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "全部折叠": {
+    "en": "Collapse all",
+    "ja": "全部折叠",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "复制流程": {
+    "en": "Copy processes",
+    "ja": "复制流程",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "点击物品信息图标时的行为": {
+    "en": "Action while clicking item info icon",
+    "ja": "点击物品信息图标时的行为",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "控制点击部分区域物品名称右侧蓝色信息图标时触发的事件。": {
+    "en": "Control the click event while clicking info icon on the right side of item name.",
+    "ja": "控制点击部分区域物品名称右侧蓝色信息图标时触发的事件。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "“{option}”与此项目的设置可能会有冲突。": {
+    "en": "Setting option \"{option}\" may have conflict with this.",
+    "ja": "“{option}”与此项目的设置可能会有冲突。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
   }
 }
