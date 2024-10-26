@@ -121,7 +121,7 @@ watch(
   () => workState.value.pinWindow,
   (newVal, oldVal) => {
     console.log('watch pinWindow: oldVal:' + oldVal + ', newVal:' + newVal)
-    if (oldVal !== undefined) { // 兼容旧版本数据
+    if (oldVal !== undefined && newVal !== undefined && window.electronAPI?.toggleAlwaysOnTop) { // 兼容旧版本数据
       window.electronAPI!.toggleAlwaysOnTop()
     }
   }
@@ -322,7 +322,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
             maxWidth: useMobileUi ? '100%' : 'fit-content'
           }"
         >
-          <n-form-item :label="t('窗口置顶')" v-if="canPinWindow">
+          <n-form-item :label="t('窗口置顶')" v-show="canPinWindow">
             <n-switch v-model:value="workState.pinWindow" />
           </n-form-item>
           <n-form-item :label="t('排序依据')" style="min-width: 200px;">

@@ -320,6 +320,14 @@ const handleShowRecommendedProcesses = () => {
   user-select: text;
 }
 
-/* Mobile only */
-/* @media (max-width: 768px)*/
+/* Desktop */
+@media screen and (min-width: 768px) {
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .card-title-actions {
+    flex-basis: 100%;
+  }
+}
 </style>

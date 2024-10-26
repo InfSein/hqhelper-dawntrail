@@ -86,6 +86,7 @@
 .card-title {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 
   .title {
     margin-left: 5px;
