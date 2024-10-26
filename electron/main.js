@@ -46,14 +46,20 @@ function createWindow() {
 
   // 注册快捷键
   globalShortcut.register('Shift+Control+I', () => {
-    const focusedWindow = BrowserWindow.getFocusedWindow();
+    const focusedWindow = BrowserWindow.getFocusedWindow()
     if (focusedWindow) {
-      focusedWindow.webContents.openDevTools();
+      focusedWindow.webContents.openDevTools()
     }
-  });
+  })
+
+  // 在应用退出时注销快捷键
+  app.on('will-quit', () => {
+    globalShortcut.unregisterAll()
+  })
 
   // 创建自定义菜单
   const menuTemplate = [
+    /*
     {
       label: '窗口',
       submenu: [
@@ -69,6 +75,7 @@ function createWindow() {
         }
       ],
     },
+    */
   ];
 
   const menu = Menu.buildFromTemplate(menuTemplate);
@@ -298,6 +305,15 @@ function createWindow() {
       fs.writeFileSync(WINDOW_SIZES_PATH, JSON.stringify(sizes))
     }
   }
+
+  /* 切换窗口置顶 */
+  ipcMain.on('toggle-always-on-top', (event) => {
+    const focusedWindow = BrowserWindow.getFocusedWindow()
+    if (focusedWindow) {
+      const isAlwaysOnTop = focusedWindow.isAlwaysOnTop()
+      focusedWindow.setAlwaysOnTop(!isAlwaysOnTop, 'normal')
+    }
+  })
 }
 
 app.on('ready', createWindow);
