@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NCollapse, NCollapseItem, NIcon, NModal
+  NButton, NCard, NCollapse, NCollapseItem, NIcon, NModal,
+  useMessage
 } from 'naive-ui'
 import { 
   AllInclusiveSharp, CloseSharp
@@ -11,10 +12,12 @@ import ItemSpan from '../custom-controls/ItemSpan.vue'
 import { type UserConfigModel } from '@/models/user-config'
 import { type ItemInfo } from '@/tools/item'
 import { XivJobs, type XivJob } from '@/assets/data'
+import { CopyToClipboard } from '@/tools'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const NAIVE_UI_MESSAGE = useMessage()
   
 const showModal = defineModel<boolean>('show', { required: true })
 const expandedBlocks = ref<Record<number, string[]>>({})
@@ -188,7 +191,23 @@ const itemGroups = computed(() => {
   }
 })
 
-
+const itemLanguage = computed(() => {
+  if (userConfig.value.language_item !== 'auto') {
+    return userConfig.value.language_item
+  }
+  return userConfig.value.language_ui
+})
+const getItemName = (itemInfo: ItemInfo) => {
+  switch (itemLanguage.value) {
+    case 'ja':
+      return itemInfo.nameJA
+    case 'en':
+      return itemInfo.nameEN
+    case 'zh':
+    default:
+      return itemInfo.nameZH || '未翻译的物品'
+  }
+}
 const getJobName = (jobInfo: XivJob) => {
   switch (userConfig.value.language_ui) {
     case 'ja':
@@ -202,6 +221,16 @@ const getJobName = (jobInfo: XivJob) => {
 
 const handleClose = () => {
   showModal.value = false
+}
+
+const handleCopy = async (content: string, successMessage?: string) => {
+  const container = document.getElementById('modal-recomm-process')
+  const response = await CopyToClipboard(content, container)
+  if (response) {
+    NAIVE_UI_MESSAGE.error(t('复制失败：发生意外错误'))
+  } else {
+    NAIVE_UI_MESSAGE.success(successMessage ?? t('已复制到剪贴板'))
+  }
 }
 
 const isBlocksAllCollapsed = () => {
@@ -218,6 +247,14 @@ const handleCollapseOrUncollapseAllBlocks = () => {
   for (let i = 0; i < itemGroups.value.length; i++) {
     expandedBlocks.value[i] = allCollapsed ? ['1'] : []
   }
+}
+const handleCopyProcesses = () => {
+  const text = itemGroups.value.map((group, index) => {
+    return (index+1) + '. ' + group.title + ':\n' + group.items.map(item => {
+      return '  ' + getItemName(item) + ' x' + item.amount
+    }).join('\n')
+  }).join('\n\n')
+  handleCopy(text)
 }
 </script>
 
@@ -237,6 +274,7 @@ const handleCollapseOrUncollapseAllBlocks = () => {
           <span class="title">{{ t('推荐流程') }}</span>
           <div class="card-title-actions">
             <a href="javascript:void(0);" @click="handleCollapseOrUncollapseAllBlocks">[{{ isBlocksAllCollapsed() ? t('全部展开') : t('全部折叠') }}]</a>
+            <a href="javascript:void(0);" @click="handleCopyProcesses">[{{ t('复制流程') }}]</a>
           </div>
         </div>
       </template>
@@ -255,6 +293,7 @@ const handleCollapseOrUncollapseAllBlocks = () => {
                     <XivFARImage
                       :size="14"
                       :src="group.icon"
+                      class="no-select"
                     />
                   </span>
                   <span>
