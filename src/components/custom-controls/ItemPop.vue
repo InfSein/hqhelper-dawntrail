@@ -21,6 +21,7 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
+const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const uiLanguage = computed(() => {
   return userConfig.value.language_ui
@@ -226,7 +227,7 @@ const innerPopTrigger = computed(() => {
   <n-popover
     v-if="itemInfo.id && !disablePop"
     :trigger="popTrigger || (isMobile ? 'click' : 'hover')"
-    :placement="isMobile ? 'bottom' : 'right-start'"
+    :placement="isMobile || appMode === 'overlay' ? 'bottom' : 'right-start'"
     :width="popUseCustomWidth ? popCustomWidth : (isMobile ? 'trigger' : undefined)"
     :style="{ maxWidth: popMaxWidth ?? (isMobile ? 'unset' : '290px') }"
   >

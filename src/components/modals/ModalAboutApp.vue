@@ -54,7 +54,7 @@ const handleClose = () => {
       <n-card embedded class="wrapper" :style="{ height: isMobile ? '550px' : '500px' }">
         <div class="title flex">
           <i class="xiv hq logo-about"></i>
-          <p class="about-title">HQ Helper</p>
+          HqHelper
         </div>
         <div class="version-info">
           <div>{{ t('当前网页版本：{v}', AppStatus.Version) }}</div>

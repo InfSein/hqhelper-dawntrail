@@ -89,19 +89,17 @@ const redirectToFoodAndTincPage = () => {
   router.push('/fthelper')
 }
 const redirectToGatherClockPage = () => {
-  /*
-  if (window.electronAPI?.createNewWindow) {
-    const path = router.resolve({ path: '/gatherclock' }).href
+  if (userConfig.value.use_overlay_gatherclock && window.electronAPI?.createNewWindow) {
+    const url = document.location.origin + document.location.pathname + '#/gatherclock?mode=overlay'
     window.electronAPI.createNewWindow(
       'gatherclock',
-      document?.location?.origin + document.location.pathname + path,
-      300,
-      600
+      url,
+      390,
+      730
     )
   } else {
+    router.push('/gatherclock')
   }
-  */
-  router.push('/gatherclock')
 }
 
 interface MenuItem {
@@ -336,7 +334,7 @@ const onUserPreferencesSubmitted = () => {
     <div class="header-content">
       <div class="app-info">
         <i class="xiv hq logo-font"></i>
-        <p class="app-name">HQ Helper</p>
+        <p class="app-name">HqHelper</p>
 
         <n-popover :trigger="isMobile ? 'click' : 'hover'" :keep-alive-on-hover="isMobile" style="max-width: 260px;">
           <template #trigger>
@@ -458,12 +456,15 @@ const onUserPreferencesSubmitted = () => {
   .header-content .app-info {
     display: flex;
     align-items: center;
+    font-size: 15px;
+    line-height: 1;
+    margin: 5px 0;
 
     .logo-font {
       color: var(--n-text-color);
     }
     .app-name {
-      margin: 5px;
+      margin: 0 5px 0 3px;
       font-weight: 600;
     }
     .time-text {

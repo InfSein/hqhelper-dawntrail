@@ -316,10 +316,6 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     }
   }
 
-  // * 处理物品是钓鱼采集品的场合
-  // 目前也没有数据，给个标识让人去饿猫鱼糕找吧！
-  itemInfo.isFishingItem = itemType === 47
-
   // * 组装物品配方
   itemInfo.craftRequires = []
   if (_item.rids?.length) {
@@ -361,6 +357,11 @@ export const getItemInfo = (item: number | CalculatedItem) => {
 
   // * 组装物品兑换信息
   itemInfo.tradeInfo = tradeMap?.[itemInfo.id]
+
+  // * 处理物品是钓鱼采集品的场合
+  // 目前也没有数据，给个标识让人去饿猫鱼糕找吧！
+  // 如果可以兑换，那一般不是钓鱼采集品(例如 [44174]ロイヤルロブスター)
+  itemInfo.isFishingItem = !itemInfo.tradeInfo && itemType === 47
 
   // * 组装完毕，返回结果
   return itemInfo

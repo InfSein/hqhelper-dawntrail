@@ -11,6 +11,7 @@ export interface UserConfigModel {
   custom_font_size: string
   hide_collector_icons: boolean
   // enhancements
+  use_overlay_gatherclock: boolean
   disable_patchcard_autofold: boolean
   disable_jobbtn_doubleclick: boolean
   use_traditional_statement: boolean
@@ -18,6 +19,7 @@ export interface UserConfigModel {
   macro_direct_copy: boolean
   macro_copy_prefix: string
   item_button_click_event: 'none' | 'copy_name' | 'copy_isearch'
+  item_info_icon_click_event: 'none' | 'copy_name' | 'copy_isearch'
   // performance
   disable_workstate_cache: boolean
   // special
@@ -58,6 +60,7 @@ const defaultUserConfig: UserConfigModel = {
   custom_font_size: '14px',
   hide_collector_icons: false,
   // enhancements
+  use_overlay_gatherclock: false,
   disable_patchcard_autofold: false,
   disable_jobbtn_doubleclick: false,
   use_traditional_statement: false,
@@ -65,6 +68,7 @@ const defaultUserConfig: UserConfigModel = {
   macro_direct_copy: false,
   macro_copy_prefix: '',
   item_button_click_event: 'none',
+  item_info_icon_click_event: 'none',
   // performance
   disable_workstate_cache: false,
   // special

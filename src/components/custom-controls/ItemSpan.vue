@@ -151,6 +151,22 @@ const popTrigger = computed(() => {
   }
 })
 
+const handleItemIconClick = async () => {
+  const action = userConfig.value.item_info_icon_click_event
+  const itemName = getItemName()
+  let copyContent = ''
+  if (action === 'copy_name') {
+    copyContent = itemName
+  } else if (action === 'copy_isearch') {
+    copyContent = `/isearch "${itemName}"`
+  } else {
+    // do nothing
+  }
+
+  if (copyContent) {
+    await handleCopy(copyContent, t('已复制 {content}', copyContent))
+  }
+}
 </script>
 
 <template>
@@ -179,6 +195,7 @@ const popTrigger = computed(() => {
         @touchstart.passive="handleItemButtonTouchStart" 
         @touchmove.passive="handleItemButtonTouchMove" 
         @touchend.passive="handleItemButtonTouchEnd"
+        @click="handleItemIconClick"
       >
         <InfoOutlined />
         <n-dropdown

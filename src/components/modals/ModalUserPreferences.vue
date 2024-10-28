@@ -238,6 +238,21 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
     text: t('增强'),
     children: [
       {
+        key: 'use_overlay_gatherclock',
+        label: t('以悬浮窗模式使用采集时钟'),
+        hide: !window.electronAPI?.toggleAlwaysOnTop,
+        descriptions: [
+          {
+            value: t('仅在悬浮窗模式下，采集时钟可以激活置顶窗口功能。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'switch',
+        options: []
+      },
+      {
         key: 'disable_patchcard_autofold',
         label: t('禁用选择版本后自动折叠'),
         hide: !isMobile.value,
@@ -353,6 +368,29 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
         key: 'item_button_click_event',
         label: t('点击物品按钮时的行为'),
         descriptions: [],
+        warnings: [],
+        type: 'select',
+        options: [
+          { value: 'none', label: t('什么都不做') },
+          { value: 'copy_name', label: t('复制物品名') },
+          { value: 'copy_isearch', label: t('复制物品检索宏') },
+        ]
+      },
+      {
+        key: 'item_info_icon_click_event',
+        label: t('点击物品信息图标时的行为'),
+        descriptions: [
+          {
+            value: t('控制点击部分区域物品名称右侧蓝色信息图标时触发的事件。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('“{option}”与此项目的设置可能会有冲突。', t('手动控制二级悬浮窗')),
+            class: '',
+            style: ''
+          }
+        ],
         warnings: [],
         type: 'select',
         options: [

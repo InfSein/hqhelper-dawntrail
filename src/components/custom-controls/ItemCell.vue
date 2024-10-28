@@ -86,7 +86,7 @@ const getTradeCost = (row: StatementRow) => {
           />
           <span>{{ getJobName(XivJobs[item.info.gatherInfo.jobId]) }}</span>
         </div>
-        <div v-if="item.info.canReduceFrom?.length">{{ t('精选') }}</div>
+        <div v-else-if="item.info.canReduceFrom?.length">{{ t('精选') }}</div>
         <div v-else-if="getTradeCost(item)">
           <ItemSpan
             :item-info="getItemInfo(getTradeCost(item)!.costItem)"
@@ -94,6 +94,13 @@ const getTradeCost = (row: StatementRow) => {
             :amount="getTradeCost(item)!.costCount"
             hide-pop-icon hide-name show-amount
           />
+        </div>
+        <div v-else-if="item.info.isFishingItem">
+          <XivFARImage
+            :src="XivJobs[18].job_icon_url"
+            :size="12"
+          />
+          <span>{{ getJobName(XivJobs[18]) }}</span>
         </div>
         <div v-if="item.info.uiTypeId === 59">{{ t('水晶') }}</div>
       </div>

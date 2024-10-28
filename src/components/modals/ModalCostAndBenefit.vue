@@ -86,10 +86,11 @@ const handleClose = () => {
       </n-tabs>
       <div v-else class="wrapper">
         <GroupBox
-          :title="t('预计成本 {val}', costInfo)"
+          :title="t('预计成本 {val}', costInfo) + '&#xE049;'"
           :descriptions="[
             t('此处计入物品的NQ价格。')
           ]"
+          title-background-color="var(--n-color-modal)"
         >
           <ItemPriceTable
             price-type="NQ"
@@ -98,10 +99,11 @@ const handleClose = () => {
           />
         </GroupBox>
         <GroupBox
-          :title="t('预计收益 {val}', benefitInfo)"
+          :title="t('预计收益 {val}', benefitInfo) + '&#xE049;'"
           :descriptions="[
             t('此处计入物品的HQ价格。')
           ]"
+          title-background-color="var(--n-color-modal)"
         >
           <ItemPriceTable
             price-type="HQ"
