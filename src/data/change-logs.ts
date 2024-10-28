@@ -52,6 +52,7 @@ export const getChangelogs = (
         {
           name: groupName.bugfix,
           changes: [
+            t('修复了专业版制作报表在特定场合会将不再需要筹备的道具数量标记为NaN的问题。'),
             t('修复了部分实际上无法通过捕鱼人采集获取的道具会在物品按钮悬浮窗中显示采集提示的问题。'),
           ]
         },
