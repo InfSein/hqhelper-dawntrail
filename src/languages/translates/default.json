@@ -3541,21 +3541,21 @@
   },
   "使用旧版本制作报表": {
     "en": "Use traditional Craft Statement ",
-    "ja": "旧バージョンでレポートを作成",
+    "ja": "旧バージョンでリストを作成",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "在2.0.10版本，我们添加了专业版制作报表，提供更详细的物品信息表格，并支持根据已准备素材计算尚需素材。": {
     "en": "We provides PRO Craft Statement after v2.0.10 to provide more detailed item information table and support to calculate the remaining materials based on the prepared materials.",
-    "ja": "バージョン2.0.10では、プロ版のレポート作成機能を追加し、より詳細なアイテム情報表と、準備済みの素材に基づいて必要な素材を計算するサポートを提供しています。",
+    "ja": "バージョン2.0.10では、プロ版のリスト作成機能を追加し、より詳細なアイテム情報表と、準備済みの素材に基づいて必要な素材を計算するサポートを提供しています。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "如果你并不需要这些功能，或是更喜欢旧版本制作报表的风格，可以考虑打开此选项。": {
     "en": "If you dont need to use these features, or you prefer the old version of craft statement, you can consider to turn on this option.",
-    "ja": "これらの機能が必要ない場合、または旧バージョンのレポート作成のスタイルを好む場合は、このオプションを有効にすることを検討してください。",
+    "ja": "これらの機能が必要ない場合、または旧バージョンのリスト作成のスタイルを好む場合は、このオプションを有効にすることを検討してください。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
@@ -3590,28 +3590,28 @@
   },
   "专业版制作报表为每个物品提供更详细的信息，包括制作职业、配方等级、采集职业、来源、兑换总价等。": {
     "en": "Pro statement provides more detailed information for each item, including crafting job, recipe level, gathering job, source, and total exchange price.",
-    "ja": "プロ版のレポート作成では、各アイテムに対して詳細な情報が提供されます。これには、クラフタージョブ、レシピレベル、ギャザラージョブ、入手先、交換総額などが含まれます。",
+    "ja": "プロ版のリスト作成では、各アイテムに対して詳細な情報が提供されます。これには、クラフタージョブ、レシピレベル、ギャザラージョブ、入手先、交換総額などが含まれます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "不仅如此，专业版制作报表还允许你填写已经准备的素材数量，并根据输入值动态计算还需要筹备的素材。": {
     "en": "Not only that, the pro statement also allows you to fill in the number of materials that have already been prepared, and dynamically calculate the materials that still need to be prepared based on the input values.",
-    "ja": "さらに、プロ版のレポート作成では、既に準備済みの素材数を入力し、入力値に基づいてまだ必要な素材を動的に計算することができます。",
+    "ja": "さらに、プロ版のリスト作成では、既に準備済みの素材数を入力し、入力値に基づいてまだ必要な素材を動的に計算することができます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "点击主界面或食药计算器的“{f}”按钮，即可查看专业版制作报表。": {
     "en": "Click the \"{f}\" button on main page or FT Helper to use Pro statement.",
-    "ja": "メイン画面または調理品&薬品の素材集計の「{f}」ボタンをクリックすることで、プロ版のレポートを確認できます。",
+    "ja": "メイン画面または調理品&薬品の素材集計の「{f}」ボタンをクリックすることで、プロ版のリストを確認できます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "如果还是更喜欢旧版本的制作报表，可以在“{f1}”的“{f2}”选项卡中勾选“{f3}”。": {
     "en": "If you still prefer the old version of craft statement, you can turn on the \"{f3}\" option on the \"{f2}\" tab of \"{f1}\".",
-    "ja": "旧バージョンのレポート作成を好む場合は、「{f1}」の「{f2}」タブで「{f3}」にチェックを入れてください。",
+    "ja": "旧バージョンのリスト作成を好む場合は、「{f1}」の「{f2}」タブで「{f3}」にチェックを入れてください。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -3759,21 +3759,21 @@
   },
   "专业版制作报表追加了功能“{f}”。": {
     "en": "Added new function \"{f}\" to Pro statement.",
-    "ja": "プロ版のレポート作成に機能「{f}」が追加されました。",
+    "ja": "プロ版のリスト作成に機能「{f}」が追加されました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "推荐流程会自动根据报表中填写的已有素材计算仍需准备的素材，并按采集/制作职业、类型等归类，最终总结出素材→半成品→成品的有序步骤。": {
     "en": "Recomm. Process will automatically calculate the materials needed and classify them according to the type of process and the profession, and finally summarize the steps in an ordered manner.",
-    "ja": "推奨の回しは、レポートに入力された既存の素材に基づいて、まだ準備が必要な素材を自動的に計算し、採集/制作ジョブや種類ごとに分類し、最終的に素材→中間素材→完成品の順序をまとめます。",
+    "ja": "推奨の回しは、リストに入力された既存の素材に基づいて、まだ準備が必要な素材を自動的に計算し、採集/制作ジョブや種類ごとに分類し、最終的に素材→中間素材→完成品の順序をまとめます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修复了专业版制作报表在特定场合会将不再需要筹备的道具数量标记为NaN的问题。": {
     "en": "Fixed Pro statement might show items that actually not needed with NaN number.",
-    "ja": "プロ版がレポートを生成する時に、用意不要になったアイテムの数にNaNと表示してしまう問題を修正しました。",
+    "ja": "プロ版がリストを生成する時に、用意不要になったアイテムの数にNaNと表示してしまう問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -3787,7 +3787,7 @@
   },
   "优化了专业版制作报表中物品信息的显示逻辑。": {
     "en": "Optimized the display logic of item info in Pro statement.",
-    "ja": "プロ版レポート作成におけるアイテム情報の表示ロジックを最適化しました。",
+    "ja": "プロ版リスト作成におけるアイテム情報の表示ロジックを最適化しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
