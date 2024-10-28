@@ -25,7 +25,7 @@ const rows = computed(() => {
     const id = Number(itemId)
     const itemInfo = getItemInfo(id)
     const _total = props.itemsTotal[id], _prepared = itemsPrepared.value[id] ?? 0
-    if (_total <= 0) continue
+    if (!_total || _total <= 0) continue
     const item : StatementRow = {
       info: itemInfo,
       amount: {
