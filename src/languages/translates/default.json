@@ -3764,9 +3764,9 @@
       "data\\change-logs.ts"
     ]
   },
-  "推荐流程会自动根据报表中填写的已有素材计算仍需准备的素材，并按采集/制作职业、类型等归类，最终总结出有序步骤。": {
+  "推荐流程会自动根据报表中填写的已有素材计算仍需准备的素材，并按采集/制作职业、类型等归类，最终总结出素材→半成品→成品的有序步骤。": {
     "en": "Recomm. Process will automatically calculate the materials needed and classify them according to the type of process and the profession, and finally summarize the steps in an ordered manner.",
-    "ja": "推荐流程会自动根据报表中填写的已有素材计算仍需准备的素材，并按采集/制作职业、类型等归类，最终总结出有序步骤。",
+    "ja": "推荐流程会自动根据报表中填写的已有素材计算仍需准备的素材，并按采集/制作职业、类型等归类，最终总结出素材→半成品→成品的有序步骤。",
     "$files": [
       "data\\change-logs.ts"
     ]
