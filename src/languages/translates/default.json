@@ -3541,21 +3541,21 @@
   },
   "使用旧版本制作报表": {
     "en": "Use traditional Craft Statement ",
-    "ja": "旧バージョンでレポートを作成",
+    "ja": "旧バージョンでリストを作成",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "在2.0.10版本，我们添加了专业版制作报表，提供更详细的物品信息表格，并支持根据已准备素材计算尚需素材。": {
     "en": "We provides PRO Craft Statement after v2.0.10 to provide more detailed item information table and support to calculate the remaining materials based on the prepared materials.",
-    "ja": "バージョン2.0.10では、プロ版のレポート作成機能を追加し、より詳細なアイテム情報表と、準備済みの素材に基づいて必要な素材を計算するサポートを提供しています。",
+    "ja": "バージョン2.0.10では、プロ版のリスト作成機能を追加し、より詳細なアイテム情報表と、準備済みの素材に基づいて必要な素材を計算するサポートを提供しています。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
   "如果你并不需要这些功能，或是更喜欢旧版本制作报表的风格，可以考虑打开此选项。": {
     "en": "If you dont need to use these features, or you prefer the old version of craft statement, you can consider to turn on this option.",
-    "ja": "これらの機能が必要ない場合、または旧バージョンのレポート作成のスタイルを好む場合は、このオプションを有効にすることを検討してください。",
+    "ja": "これらの機能が必要ない場合、または旧バージョンのリスト作成のスタイルを好む場合は、このオプションを有効にすることを検討してください。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
@@ -3590,28 +3590,28 @@
   },
   "专业版制作报表为每个物品提供更详细的信息，包括制作职业、配方等级、采集职业、来源、兑换总价等。": {
     "en": "Pro statement provides more detailed information for each item, including crafting job, recipe level, gathering job, source, and total exchange price.",
-    "ja": "プロ版のレポート作成では、各アイテムに対して詳細な情報が提供されます。これには、クラフタージョブ、レシピレベル、ギャザラージョブ、入手先、交換総額などが含まれます。",
+    "ja": "プロ版のリスト作成では、各アイテムに対して詳細な情報が提供されます。これには、クラフタージョブ、レシピレベル、ギャザラージョブ、入手先、交換総額などが含まれます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "不仅如此，专业版制作报表还允许你填写已经准备的素材数量，并根据输入值动态计算还需要筹备的素材。": {
     "en": "Not only that, the pro statement also allows you to fill in the number of materials that have already been prepared, and dynamically calculate the materials that still need to be prepared based on the input values.",
-    "ja": "さらに、プロ版のレポート作成では、既に準備済みの素材数を入力し、入力値に基づいてまだ必要な素材を動的に計算することができます。",
+    "ja": "さらに、プロ版のリスト作成では、既に準備済みの素材数を入力し、入力値に基づいてまだ必要な素材を動的に計算することができます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "点击主界面或食药计算器的“{f}”按钮，即可查看专业版制作报表。": {
     "en": "Click the \"{f}\" button on main page or FT Helper to use Pro statement.",
-    "ja": "メイン画面または調理品&薬品の素材集計の「{f}」ボタンをクリックすることで、プロ版のレポートを確認できます。",
+    "ja": "メイン画面または調理品&薬品の素材集計の「{f}」ボタンをクリックすることで、プロ版のリストを確認できます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
-  "如果还是更喜欢旧版本的制作报表，可以在“{f1}”的“{f2}”选项卡中勾选“{f3}”": {
+  "如果还是更喜欢旧版本的制作报表，可以在“{f1}”的“{f2}”选项卡中勾选“{f3}”。": {
     "en": "If you still prefer the old version of craft statement, you can turn on the \"{f3}\" option on the \"{f2}\" tab of \"{f1}\".",
-    "ja": "旧バージョンのレポート作成を好む場合は、「{f1}」の「{f2}」タブで「{f3}」にチェックを入れてください。",
+    "ja": "旧バージョンのリスト作成を好む場合は、「{f1}」の「{f2}」タブで「{f3}」にチェックを入れてください。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -3647,6 +3647,154 @@
   "优化了选择版本区域按钮文字的显示效果。": {
     "en": "Optimized the display effect of text in patch buttons.",
     "ja": "パッチ選択エリアボタンのテキスト表示効果を最適化しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "推荐流程": {
+    "en": "Recomm. Process",
+    "ja": "推奨の回し",
+    "$files": [
+      "components\\modals\\ModalProStatements.vue",
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}采集": {
+    "en": "Use {job} gather",
+    "ja": "{job}で採集",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "筹集灵砂": {
+    "en": "Prepare aethersands",
+    "ja": "霊砂を集める",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "兑换道具": {
+    "en": "Trade items",
+    "ja": "アイテム交換",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "筹集其他需要的道具": {
+    "en": "Prepare other items needed",
+    "ja": "その他必要な道具を集める",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}制作半半半成品": {
+    "en": "Use {job} craft pre-pre-precrafts",
+    "ja": "{job}で準準中間素材を制作",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}制作半半成品": {
+    "en": "Use {job} craft pre-precrafts",
+    "ja": "{job}で準中間素材を制作",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}制作半成品": {
+    "en": "Use {job} craft precrafts",
+    "ja": "{job}で中間素材を制作",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}制作成品": {
+    "en": "Use {job} craft",
+    "ja": "{job}で完成品を制作",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "全部展开": {
+    "en": "Expand all",
+    "ja": "全て展開",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "全部折叠": {
+    "en": "Collapse all",
+    "ja": "全て折りたたむ",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "复制流程": {
+    "en": "Copy processes",
+    "ja": "回しをコピー",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "点击物品信息图标时的行为": {
+    "en": "Action while clicking item info icon",
+    "ja": "アイテム情報アイコンをクリックした際の動作",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "控制点击部分区域物品名称右侧蓝色信息图标时触发的事件。": {
+    "en": "Control the click event while clicking info icon on the right side of item name.",
+    "ja": "アイテム名の右側にある青色の情報アイコンを一部の領域でクリックした際に発生するイベントを制御します。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "“{option}”与此项目的设置可能会有冲突。": {
+    "en": "Setting option \"{option}\" may have conflict with this.",
+    "ja": "「{option}」とこの項目の設定は、矛盾する可能性があります。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "专业版制作报表追加了功能“{f}”。": {
+    "en": "Added new function \"{f}\" to Pro statement.",
+    "ja": "プロ版のリスト作成に機能「{f}」が追加されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "推荐流程会自动根据报表中填写的已有素材计算仍需准备的素材，并按采集/制作职业、类型等归类，最终总结出素材→半成品→成品的有序步骤。": {
+    "en": "Recomm. Process will automatically calculate the materials needed and classify them according to the type of process and the profession, and finally summarize the steps in an ordered manner.",
+    "ja": "推奨の回しは、リストに入力された既存の素材に基づいて、まだ準備が必要な素材を自動的に計算し、採集/制作ジョブや種類ごとに分類し、最終的に素材→中間素材→完成品の順序をまとめます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了专业版制作报表在特定场合会将不再需要筹备的道具数量标记为NaN的问题。": {
+    "en": "Fixed Pro statement might show items that actually not needed with NaN number.",
+    "ja": "プロ版がリストを生成する時に、用意不要になったアイテムの数にNaNと表示してしまう問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了部分实际上无法通过捕鱼人采集获取的道具会在物品按钮悬浮窗中显示采集提示的问题。": {
+    "en": "Fixed some item that cannot be obtained by Fisher but show the collection prompt in the item button popup.",
+    "ja": "一部、実際には漁師によっては採集できない道具が、アイテムボタンのサブウィンドウに採集のヒントとして表示される問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了专业版制作报表中物品信息的显示逻辑。": {
+    "en": "Optimized the display logic of item info in Pro statement.",
+    "ja": "プロ版リスト作成におけるアイテム情報の表示ロジックを最適化しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了应用标题栏和各个素材统计区域标题/提示图标的显示效果。": {
+    "en": "Optimized the display effect of title bar of app and the title and prompt icons of each material statistics area.",
+    "ja": "アプリのタイトルバーおよび各素材統計エリアのタイトル/ヒントアイコンの表示効果を最適化しました。",
     "$files": [
       "data\\change-logs.ts"
     ]

@@ -49,16 +49,16 @@ defineProps({
     >
       <slot name="title">
         <div>{{ title }}</div>
-          <div v-if="descriptions?.length">
-            <n-tooltip :trigger="isMobile ? 'click' : 'hover'" placement="top" :style="isMobile ? 'max-width: 250px;' : ''">
-              <template #trigger>
-                <n-icon size="18" style="display: flex;"><InfoOutlined /></n-icon>
-              </template>
-              <div class="descriptions">
-                <div v-for="(desc, dIndex) in descriptions" :key="'desc-' + dIndex">{{ desc }}</div>
-              </div>
-            </n-tooltip>
-          </div>
+        <div v-if="descriptions?.length" style="margin-left: 1px;">
+          <n-tooltip :trigger="isMobile ? 'click' : 'hover'" placement="top" :style="isMobile ? 'max-width: 250px;' : ''">
+            <template #trigger>
+              <n-icon size="18" style="display: flex;"><InfoOutlined /></n-icon>
+            </template>
+            <div class="descriptions">
+              <div v-for="(desc, dIndex) in descriptions" :key="'desc-' + dIndex">{{ desc }}</div>
+            </div>
+          </n-tooltip>
+        </div>
       </slot>
     </div>
     <div class="group-box-content" :style="contentStyle">

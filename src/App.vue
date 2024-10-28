@@ -2,7 +2,7 @@
 // #region Imports
 
 // * import basic
-import { computed, provide, ref, getCurrentInstance, onMounted } from 'vue'
+import { computed, provide, ref, getCurrentInstance, onMounted, watch } from 'vue'
 import {
   darkTheme, lightTheme, useOsTheme,
   zhCN, enUS, jaJP, dateZhCN, dateEnUS, dateJaJP,
@@ -12,6 +12,7 @@ import {
 } from 'naive-ui'
 
 // * import pages and components
+import { useRoute } from 'vue-router'
 import AppHeader from './components/custom-controls/AppHeader.vue'
 import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
 import ModalCheckUpdates from './components/modals/ModalCheckUpdates.vue'
@@ -30,6 +31,7 @@ import AppStatus from './variables/app-status'
 
 // #region Refs
 
+const route = useRoute()
 const store = useStore()
 const i18n = injectVoerkaI18n()
 
@@ -39,9 +41,13 @@ const locale = computed(() => {
 })
 i18n.activeLanguage = locale.value
 
+/** 当前页面模式，通过URL路由赋值的参数 */
+const appMode = ref<"overlay" | "" | undefined>('')
+provide('appMode', appMode)
+
 const isMobile = ref(false)
 const updateIsMobile = () => {
-  isMobile.value = window.innerWidth < window.innerHeight
+  isMobile.value = (window.innerWidth < window.innerHeight) && appMode.value !== 'overlay'
 }
 updateIsMobile()
 window.addEventListener('resize', updateIsMobile)
@@ -163,7 +169,8 @@ const appClass = computed(() => {
   const classes = [
     'lang-' + locale.value,
     'app-' + (isMobile.value ? 'mobile' : 'desktop'),
-    window.electronAPI ? 'env-electron' : 'env-web'
+    window.electronAPI ? 'env-electron' : 'env-web',
+    appMode.value === 'overlay' ? 'env-overlay' : ''
   ]
   return classes.join(' ')
 })
@@ -216,7 +223,17 @@ onMounted(async () => {
       console.error('自动更新发生错误', err)
     }
   }
+  // 处理全局页面参数
+  appMode.value = route.query.mode as typeof appMode.value
+  updateIsMobile()
 })
+watch(
+  () => route.query.mode,
+  (newMode) => {
+    appMode.value = newMode as typeof appMode.value
+    updateIsMobile()
+  }
+)
 
 const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
   let fontFamily = 'Lato, -apple-system, Helvetica Neue, Segoe UI, Microsoft Yahei, 微软雅黑, Arial, Helvetica, sans-serif'
@@ -251,7 +268,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
     <n-message-provider :placement="naiveUiMessagePlacement">
       <div :class="appClass">
         <n-layout id="main-layout" position="absolute" :native-scrollbar="false">
-          <n-layout-header bordered position="absolute">
+          <n-layout-header v-if="appMode !== 'overlay'" bordered position="absolute">
             <AppHeader />
           </n-layout-header>
 
@@ -288,5 +305,8 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
 }
 .n-layout-content {
   margin-top: 70px;
+}
+.env-overlay .n-layout-content {
+  margin-top: 0;
 }
 </style>

@@ -26,6 +26,7 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
+const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const store = useStore()
 const { getLimitedGatherings } = useNbbCal()
@@ -82,9 +83,17 @@ const itemLanguage = computed(() => {
   }
   return userConfig.value.language_ui
 })
+const useMobileUi = computed(() => {
+  return isMobile.value || appMode.value === 'overlay'
+})
+const canPinWindow = computed(() => {
+  return appMode.value === 'overlay' && !!window.electronAPI?.toggleAlwaysOnTop
+})
 
 const workState = ref({
   patch: '7.0-710',
+  /** 是否将整个窗口置顶 (限v5及以上的客户端使用) */
+  pinWindow: false,
   /** 排序依据 */
   orderBy: 'itemId' as "itemId" | "gatherStartTimeAsc",
   /** 是否将目前可以采集的道具置顶 */
@@ -107,6 +116,16 @@ const itemSortOptions = computed(() => {
     },
   ]
 })
+
+watch(
+  () => workState.value.pinWindow,
+  (newVal, oldVal) => {
+    console.log('watch pinWindow: oldVal:' + oldVal + ', newVal:' + newVal)
+    if (oldVal !== undefined && newVal !== undefined && window.electronAPI?.toggleAlwaysOnTop) { // 兼容旧版本数据
+      window.electronAPI!.toggleAlwaysOnTop()
+    }
+  }
+)
 
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {
@@ -283,6 +302,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 <template>
   <div id="main-container">
     <RouterCard
+      v-if="appMode !== 'overlay'"
       id="router-card"
       :page-name="t('采集时钟')"
       :page-icon="AccessAlarmsOutlined"
@@ -295,13 +315,16 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 
       <div class="query-form">
         <n-form
-          :inline="!isMobile"
-          :label-placement="isMobile ? 'left' : 'top'"
+          :inline="!useMobileUi"
+          :label-placement="useMobileUi ? 'left' : 'top'"
           :show-feedback="false"
           :style="{
-            maxWidth: isMobile ? '100%' : 'fit-content'
+            maxWidth: useMobileUi ? '100%' : 'fit-content'
           }"
         >
+          <n-form-item :label="t('窗口置顶')" v-show="canPinWindow">
+            <n-switch v-model:value="workState.pinWindow" />
+          </n-form-item>
           <n-form-item :label="t('排序依据')" style="min-width: 200px;">
             <n-select v-model:value="workState.orderBy" :options="itemSortOptions" />
           </n-form-item>
