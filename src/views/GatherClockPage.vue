@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NDivider, NDropdown, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch, NTabs, NTabPane
+  NButton, NCard, NDivider, NDropdown, NEl, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch
 } from 'naive-ui'
 import {
   AccessAlarmsOutlined,
@@ -350,132 +350,138 @@ const getPlaceName = (itemInfo : ItemInfo) => {
       </div>
     </FoldableCard>
     <n-card embedded :bordered="false">
-      <n-tabs v-model:value="workState.patch" type="card" animated>
-        <n-tab-pane
+      <div class="title-actions">
+        <n-button
           v-for="patch in gatherData"
           :key="patch.key"
-          :name="patch.key"
-          :tab="patch.title"
+          :type="workState.patch === patch.key ? 'primary' : undefined"
+          :size="canPinWindow && isMobile ? 'small' : undefined"
+          @click="workState.patch = patch.key"
         >
-          <template #tab>
-            <div class="tab-title">
-              <span v-if="patch.key === 'stars'">
-                <i class="xiv e05d"></i>
-              </span>
-              <span v-else-if="patch.key.includes('~690')">
-                <i class="xiv collectables"></i>
-              </span>
-              <span v-else>
-                <i class="xiv timer"></i>
-              </span>
-              <span>{{ patch.title }}</span>
+          <div class="tab-title">
+            <span v-if="patch.key === 'stars'">
+              <i class="xiv e05d"></i>
+            </span>
+            <span v-else-if="patch.key.includes('~690')">
+              <i class="xiv collectables"></i>
+            </span>
+            <span v-else>
+              <i class="xiv timer"></i>
+            </span>
+            <span>{{ patch.title }}</span>
+          </div>
+        </n-button>
+      </div>
+      <n-divider style="margin-top: 3px; margin-bottom: 12px;" />
+      <n-el
+        v-for="patch in gatherData"
+        :key="patch.key"
+        v-show="workState.patch === patch.key"
+      >
+        <div class="items-container">
+          <div
+            v-for="item in getSortedItems(patch.items)"
+            :key="item.id"
+            class="item-card"
+          >
+            <div class="title">
+              <ItemButton
+                :item-info="item"
+                show-icon show-name
+                btn-extra-style="flex-grow: 1;"
+                :disable-pop="workState.banItemPop"
+              />
+              <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
+                <template #trigger>
+                  <n-button class="btn-star" @click="handleStarButtonClick(item)">
+                    <template #icon>
+                      <n-icon v-if="workState.starItems.includes(item.id)" color="#F6CA45">
+                        <StarRound />
+                      </n-icon>
+                      <n-icon v-else color="#F6CA45">
+                        <StarBorderRound />
+                      </n-icon>
+                    </template>
+                  </n-button>
+                </template>
+                <div>{{ t('点击此按钮来收藏/取消收藏这个采集品。') }}</div>
+                <div>{{ t('被收藏的采集品将在“已收藏”栏目单独展示。') }}</div>
+              </n-popover>
             </div>
-          </template>
-          <div class="items-container">
-            <div
-              v-for="item in getSortedItems(patch.items)"
-              :key="item.id"
-              class="item-card"
-            >
-              <div class="title">
-                <ItemButton
-                  :item-info="item"
-                  show-icon show-name
-                  btn-extra-style="flex-grow: 1;"
-                  :disable-pop="workState.banItemPop"
-                />
-                <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
-                  <template #trigger>
-                    <n-button class="btn-star" @click="handleStarButtonClick(item)">
-                      <template #icon>
-                        <n-icon v-if="workState.starItems.includes(item.id)" color="#F6CA45">
-                          <StarRound />
-                        </n-icon>
-                        <n-icon v-else color="#F6CA45">
-                          <StarBorderRound />
-                        </n-icon>
-                      </template>
-                    </n-button>
-                  </template>
-                  <div>{{ t('点击此按钮来收藏/取消收藏这个采集品。') }}</div>
-                  <div>{{ t('被收藏的采集品将在“已收藏”栏目单独展示。') }}</div>
-                </n-popover>
-              </div>
-              <n-divider class="no-margin" />
-              <div class="content">
-                <div class="standard-info">
-                  <div class="gather-job">
-                    <XivFARImage
-                      class="icon"
-                      :src="jobMap[item.gatherInfo.jobId].job_icon_url"
-                    />
-                    <p>{{ getJobName(jobMap[item.gatherInfo.jobId]) }}</p>
-                  </div>
-                  <div class="recommended-aetheryte" v-if="XivMaps[item.gatherInfo.placeID]">
-                    <span>{{ t('推荐') }}</span>
-                    <span style="vertical-align: middle;">
-                      <XivFARImage
-                        :size="14"
-                        src="./ui/aetheryte.png"
-                      />
-                    </span>
-                    <span>
-                      {{
-                        getNearestAetheryte(
-                          XivMaps[item.gatherInfo.placeID],
-                          item.gatherInfo.posX, item.gatherInfo.posY,
-                          itemLanguage
-                        )
-                      }}
-                    </span>
-                  </div>
-                  <div class="gather-place">
-                    <LocationSpan
-                      :place-id="item.gatherInfo.placeID"
-                      :place-name="getPlaceName(item)"
-                      :coordinate-x="item.gatherInfo.posX"
-                      :coordinate-y="item.gatherInfo.posY"
-                      hide-coordinates
-                    />
-                    <div>{{ t('(X:{x}, Y:{y})', { x: item.gatherInfo.posX, y: item.gatherInfo.posY }) }}</div>
-                  </div>
+            <n-divider class="no-margin" />
+            <div class="content">
+              <div class="standard-info">
+                <div class="gather-job">
+                  <XivFARImage
+                    class="icon"
+                    :src="jobMap[item.gatherInfo.jobId].job_icon_url"
+                  />
+                  <p>{{ getJobName(jobMap[item.gatherInfo.jobId]) }}</p>
                 </div>
-                <XivMap
-                  v-if="workState.showMap && XivMaps[item.gatherInfo.placeID]"
-                  :map-data="XivMaps[item.gatherInfo.placeID]"
-                  :map-size="isMobile ? 225 : 125"
-                  :flag-x="item.gatherInfo.posX"
-                  :flag-y="item.gatherInfo.posY"
-                  style="justify-content: end;"
-                />
-                <div class="progresses">
-                  <div
-                    v-for="(timelimit, tlIndex) in item.gatherInfo.timeLimitInfo"
-                    :key="item.id + '-' + tlIndex"
-                  >
-                    <div>
-                      {{ timelimit.start }} ~ {{ timelimit.end }}
-                      <span v-if="dealTimeLimit(timelimit.start, timelimit.end).canGather" class="green" style="margin-left: 5px;">
-                        {{ t('现可采集') }}
-                      </span>
-                      <span v-if="dealTimeLimit(timelimit.start, timelimit.end).remainLT" :class="dealTimeLimit(timelimit.start, timelimit.end).ltClass" style="margin-left: 5px;">
-                        {{ dealTimeLimit(timelimit.start, timelimit.end).remainLT }}
-                      </span>
-                    </div>
-                    <n-progress
-                      type="line"
-                      processing
-                      :show-indicator="false"
-                      :status="dealTimeLimit(timelimit.start, timelimit.end).status"
-                      :percentage="dealTimeLimit(timelimit.start, timelimit.end).percentage"
+                <div class="recommended-aetheryte" v-if="XivMaps[item.gatherInfo.placeID]">
+                  <span>{{ t('推荐') }}</span>
+                  <span style="vertical-align: middle;">
+                    <XivFARImage
+                      :size="14"
+                      src="./ui/aetheryte.png"
                     />
+                  </span>
+                  <span>
+                    {{
+                      getNearestAetheryte(
+                        XivMaps[item.gatherInfo.placeID],
+                        item.gatherInfo.posX, item.gatherInfo.posY,
+                        itemLanguage
+                      )
+                    }}
+                  </span>
+                </div>
+                <div class="gather-place">
+                  <LocationSpan
+                    :place-id="item.gatherInfo.placeID"
+                    :place-name="getPlaceName(item)"
+                    :coordinate-x="item.gatherInfo.posX"
+                    :coordinate-y="item.gatherInfo.posY"
+                    hide-coordinates
+                  />
+                  <div>{{ t('(X:{x}, Y:{y})', { x: item.gatherInfo.posX, y: item.gatherInfo.posY }) }}</div>
+                </div>
+              </div>
+              <XivMap
+                v-if="workState.showMap && XivMaps[item.gatherInfo.placeID]"
+                :map-data="XivMaps[item.gatherInfo.placeID]"
+                :map-size="isMobile ? 225 : 125"
+                :flag-x="item.gatherInfo.posX"
+                :flag-y="item.gatherInfo.posY"
+                style="justify-content: end;"
+              />
+              <div class="progresses">
+                <div
+                  v-for="(timelimit, tlIndex) in item.gatherInfo.timeLimitInfo"
+                  :key="item.id + '-' + tlIndex"
+                >
+                  <div>
+                    {{ timelimit.start }} ~ {{ timelimit.end }}
+                    <span v-if="dealTimeLimit(timelimit.start, timelimit.end).canGather" class="green" style="margin-left: 5px;">
+                      {{ t('现可采集') }}
+                    </span>
+                    <span v-if="dealTimeLimit(timelimit.start, timelimit.end).remainLT" :class="dealTimeLimit(timelimit.start, timelimit.end).ltClass" style="margin-left: 5px;">
+                      {{ dealTimeLimit(timelimit.start, timelimit.end).remainLT }}
+                    </span>
                   </div>
+                  <n-progress
+                    type="line"
+                    processing
+                    :show-indicator="false"
+                    :status="dealTimeLimit(timelimit.start, timelimit.end).status"
+                    :percentage="dealTimeLimit(timelimit.start, timelimit.end).percentage"
+                  />
                 </div>
               </div>
             </div>
           </div>
-        </n-tab-pane>
-      </n-tabs>
+        </div>
+      </n-el>
     </n-card>
   </div>
 </template>
@@ -502,17 +508,21 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 .tab-title > *:not(:first-child) {
   margin-left: 3px;
 }
+.title-actions {
+  display: flex;
+  gap: 5px;
+}
 .items-container {
   gap: 0.3rem;
   padding: 0.5rem;
 
   .item-card:hover {
-    box-shadow: 0 0 10px var(--n-bar-color);
-    border-color: var(--n-bar-color);
+    box-shadow: 0 0 10px var(--primary-color);
+    border-color: var(--primary-color);
   }
   .item-card {
     border-radius: 5px;
-    border: 1px solid var(--n-bar-color);
+    border: 1px solid var(--primary-color);
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
     padding: 0.3rem;
     display: flex;
