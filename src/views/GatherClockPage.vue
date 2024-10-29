@@ -444,7 +444,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
                     :coordinate-y="item.gatherInfo.posY"
                     hide-coordinates
                   />
-                  <div>{{ t('(X:{x}, Y:{y})', { x: item.gatherInfo.posX, y: item.gatherInfo.posY }) }}</div>
+                  <div>{{ t('(X:{x}, Y:{y})', { x: item.gatherInfo.posX.toFixed(1), y: item.gatherInfo.posY.toFixed(1) }) }}</div>
                 </div>
               </div>
               <XivMap
