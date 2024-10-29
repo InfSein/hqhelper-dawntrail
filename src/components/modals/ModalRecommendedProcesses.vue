@@ -110,8 +110,26 @@ const itemGroups = computed(() => {
     description?: string,
     items: ItemInfo[]
   }[] = []
-  const dealGatherings = (gathering: ItemInfo[], groupTitle: string) => {
+  const dealGatherings = (gathering: ItemInfo[], groupTitle: string, orderBy?: "map" | "start-time" | undefined) => {
     if (!gathering?.length) return
+    if (orderBy === 'map') {
+      gathering.sort((a, b) => {
+        const aMap = a.gatherInfo.placeID
+        const bMap = b.gatherInfo.placeID
+        return aMap - bMap
+      })
+    } else if (orderBy === 'start-time') {
+      gathering.sort((a, b) => {
+        let startA = 99, startB = 99
+        a.gatherInfo.timeLimitInfo.forEach(limit => {
+          startA = Math.min(startA, Number(limit.start.split(':')[0]))
+        })
+        b.gatherInfo.timeLimitInfo.forEach(limit => {
+          startB = Math.min(startB, Number(limit.start.split(':')[0]))
+        })
+        return startA - startB
+      })
+    }
     const itemsGatheredByBotanist : ItemInfo[] = []
     const itemsGatheredByMiner : ItemInfo[] = []
     const itemsGatheredByFisher : ItemInfo[] = []
@@ -150,8 +168,8 @@ const itemGroups = computed(() => {
       })
     }
   }
-  dealGatherings(itemsGatherableCommon, t('使用{job}采集(非限时)'))
-  dealGatherings(itemsGatherableLimited, t('使用{job}采集(限时)'))
+  dealGatherings(itemsGatherableCommon, t('使用{job}采集(非限时)'), 'map')
+  dealGatherings(itemsGatherableLimited, t('使用{job}采集(限时)'), 'start-time')
   if (aethersands.length) {
     groups.push({
       title: t('筹集灵砂'),
