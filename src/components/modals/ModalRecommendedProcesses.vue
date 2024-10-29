@@ -332,12 +332,11 @@ const isItemGatherableNow = (item: ItemInfo) => {
       closable
       role="dialog"
       id="modal-recomm-process"
-      class="no-select"
       style="width: 98%; max-width: 350px;"
       @close="handleClose"
     >
       <template #header>
-        <div class="card-title">
+        <div class="card-title no-select">
           <n-icon><AllInclusiveSharp /></n-icon>
           <span class="title">{{ t('推荐流程') }}</span>
           <div class="card-title-actions">
@@ -348,7 +347,7 @@ const isItemGatherableNow = (item: ItemInfo) => {
         </div>
       </template>
 
-      <div class="wrapper" ref="wrapper">
+      <div class="wrapper">
         <div
           class="block"
           v-for="(group, index) in itemGroups"
@@ -388,28 +387,28 @@ const isItemGatherableNow = (item: ItemInfo) => {
                     class="gather-detail-time"
                     v-if="showItemGatherDetails && item.gatherInfo?.timeLimitDescription"
                   >
-                    <span style="margin-right: 2px;">(</span>
-                    <span>{{ t('限时：{}', item.gatherInfo.timeLimitDescription) }}</span>
+                    <span style="margin-right: 1px;">(</span>
+                    <span>{{ t('限时: {}', item.gatherInfo.timeLimitDescription) }}</span>
                     <span v-if="isItemGatherableNow(item)" class="green" style="margin-left: 3px;">{{ t('现可采集') }}</span>
-                    <span style="margin-left: 2px;">)</span>
+                    <span style="margin-left: 1px;">)</span>
                   </div>
                   <div
                     class="gather-detail-position"
                     v-if="showItemGatherDetails && item.gatherInfo?.placeID"
                   >
-                  <span style="margin-right: 2px;">(</span>
+                    <span style="margin-right: 1px;">(</span>
                     <span v-if="showItemGatherDetails && item.gatherInfo?.placeID">{{ textsGatherAt.p1 }}</span>
-                    <span v-if="showItemGatherDetails && item.gatherInfo?.placeID">
-                      <LocationSpan
-                        :place-id="item.gatherInfo.placeID"
-                        :place-name="getPlaceName(item)"
-                        :coordinate-x="item.gatherInfo.posX"
-                        :coordinate-y="item.gatherInfo.posY"
-                        :size="12"
-                      />
-                    </span>
+                    <LocationSpan
+                      v-if="showItemGatherDetails && item.gatherInfo?.placeID"
+                      :place-id="item.gatherInfo.placeID"
+                      :place-name="getPlaceName(item)"
+                      :coordinate-x="item.gatherInfo.posX"
+                      :coordinate-y="item.gatherInfo.posY"
+                      :size="12"
+                      style="margin: 0 2px 0 1px; "
+                    />
                     <span v-if="showItemGatherDetails && item.gatherInfo?.placeID">{{ textsGatherAt.p2 }}</span>
-                    <span style="margin-left: 2px;">)</span>
+                    <span style="margin-left: 1px;">)</span>
                   </div>
                 </div>
               </div>
