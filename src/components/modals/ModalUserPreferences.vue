@@ -351,6 +351,25 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
         options: []
       },
       {
+        key: 'use_tc_style_item_list',
+        label: t('使用Teamcraft风格材料清单'),
+        descriptions: [
+          {
+            value: t('Teamcraft风格的清单即为由"<itemCount>x <itemName>"格式的条目组成的清单。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('如果你使用了其他兼容Teamcraft材料清单的程序，可以打开此选项以提供导入支持。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'switch',
+        options: []
+      },
+      {
         key: 'macro_copy_prefix',
         label: t('默认宏前缀'),
         descriptions: [],
