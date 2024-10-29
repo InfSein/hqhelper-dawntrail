@@ -154,7 +154,8 @@ export interface ItemInfo {
     timeLimitInfo: {
       start: string,
       end: string
-    }[]
+    }[],
+    timeLimitDescription: string
   },
   isFishingItem: boolean,
   tradeInfo: ItemTradeInfo | undefined
@@ -292,6 +293,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
           const tempZhMap = XivPlaceZHTemp as Record<number, string>
           placeNameZH = tempZhMap[placeID] || '未翻译的地点'
         }
+        const timelimitdesc : string[] = []
         itemInfo.gatherInfo = {
           jobId: gatherJob,
           placeID: placeID,
@@ -300,7 +302,8 @@ export const getItemInfo = (item: number | CalculatedItem) => {
           placeNameEN: gatherPlaceData[1],
           posX: Number(gatherData.coords.x),
           posY: Number(gatherData.coords.y),
-          timeLimitInfo: []
+          timeLimitInfo: [],
+          timeLimitDescription: ''
         };
         [1,2,3].forEach(i => {
           if (gatherData?.popTime) {
@@ -309,9 +312,13 @@ export const getItemInfo = (item: number | CalculatedItem) => {
             if (end === '00:00') end = '24:00'
             if (start && end && start !== '--:--' && end !== '--:--') {
               itemInfo.gatherInfo.timeLimitInfo.push({ start, end })
+              timelimitdesc.push(`${start.split(':')[0]}~${end.split(':')[0]}`)
             }
           }
         });
+        if (timelimitdesc.length > 0) {
+          itemInfo.gatherInfo.timeLimitDescription = 'ET ' + timelimitdesc.join('/')
+        }
       }
     }
   }

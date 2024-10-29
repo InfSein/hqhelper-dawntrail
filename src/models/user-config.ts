@@ -39,6 +39,9 @@ export interface UserConfigModel {
   // craft-statements
   statement_show_item_details: boolean
 
+  // recomm. processes
+  processes_show_item_gatherdetails: boolean
+
   // hidden options
   cache_lasttime_version: string
   cache_ui_fold: any
@@ -86,6 +89,9 @@ const defaultUserConfig: UserConfigModel = {
 
   // craft-statements
   statement_show_item_details: true,
+
+  // recomm. processes
+  processes_show_item_gatherdetails: false,
 
   // hidden options
   cache_lasttime_version: 'none',
