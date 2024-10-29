@@ -70,7 +70,7 @@ const canRouteBack = computed(() => {
   return router.currentRoute.value.path !== '/'
 })
 const handleRouteBack = () => {
-  router.go(-1)
+  router.push('/')
 }
 
 const displayUserPreferencesModal = () => {
@@ -326,7 +326,7 @@ const onUserPreferencesSubmitted = () => {
           </n-button>
         </template>
         <div class="flex-column">
-          <p>{{ t('点击此按钮可以返回到上一个页面。') }}</p>
+          <p>{{ t('点击此按钮可以返回到首页。') }}</p>
           <p v-if="!canRouteBack">{{ t('……不过您已经在HqHelper的首页了。') }}</p>
         </div>
       </n-popover>
