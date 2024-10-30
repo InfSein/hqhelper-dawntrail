@@ -110,9 +110,10 @@ const mode = ref<"default" | "list">('default')
 
 const listValue = computed(() => {
   const result : string[] = []
+  const tcStyle = userConfig.value.use_tc_style_item_list;
   props.items.forEach(item => {
     if (item.amount) {
-      result.push(`${getItemName(item)} x ${item.amount}`)
+      result.push(tcStyle ? `${item.amount}x ${getItemName(item)}` : `${getItemName(item)} x ${item.amount}`)
     }
   })
   return result.join('\n')

@@ -17,6 +17,7 @@ export interface UserConfigModel {
   use_traditional_statement: boolean
   click_to_show_pop_in_span: boolean
   macro_direct_copy: boolean
+  use_tc_style_item_list: boolean
   macro_copy_prefix: string
   item_button_click_event: 'none' | 'copy_name' | 'copy_isearch'
   item_info_icon_click_event: 'none' | 'copy_name' | 'copy_isearch'
@@ -69,6 +70,7 @@ const defaultUserConfig: UserConfigModel = {
   use_traditional_statement: false,
   click_to_show_pop_in_span: false,
   macro_direct_copy: false,
+  use_tc_style_item_list: false,
   macro_copy_prefix: '',
   item_button_click_event: 'none',
   item_info_icon_click_event: 'none',
