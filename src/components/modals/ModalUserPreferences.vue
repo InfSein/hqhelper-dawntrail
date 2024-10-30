@@ -350,25 +350,6 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
         options: []
       },
       {
-        key: 'use_tc_style_item_list',
-        label: t('使用Teamcraft风格材料清单'),
-        descriptions: [
-          {
-            value: t('Teamcraft风格的清单即为由"<itemCount>x <itemName>"格式的条目组成的清单。'),
-            class: '',
-            style: ''
-          },
-          {
-            value: t('如果你使用了其他兼容Teamcraft材料清单的程序，可以打开此选项以提供导入支持。'),
-            class: '',
-            style: ''
-          }
-        ],
-        warnings: [],
-        type: 'switch',
-        options: []
-      },
-      {
         key: 'macro_copy_prefix',
         label: t('默认宏前缀'),
         descriptions: [],
@@ -415,6 +396,28 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
           { value: 'none', label: t('什么都不做') },
           { value: 'copy_name', label: t('复制物品名') },
           { value: 'copy_isearch', label: t('复制物品检索宏') },
+        ]
+      },
+      {
+        key: 'item_list_style',
+        label: t('材料清单格式'),
+        descriptions: [
+          {
+            value: t('决定在点击材料区域物品按钮组上方的“清单”按钮后，展示的物品清单格式。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('部分程序可能可以识别并导入特定格式的清单。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'select',
+        options: [
+          { value: 'standard', label: t('标准 (物品名称 x 数量)') },
+          { value: 'teamcraft', label: t('Teamcraft风格 (数量x 物品名称)') },
         ]
       },
     ]
