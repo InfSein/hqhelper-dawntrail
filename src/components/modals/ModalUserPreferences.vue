@@ -294,7 +294,6 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
       {
         key: 'use_traditional_statement',
         label: t('使用旧版本制作报表'),
-        hide: isMobile.value,
         descriptions: [
           {
             value: t('在2.0.10版本，我们添加了专业版制作报表，提供更详细的物品信息表格，并支持根据已准备素材计算尚需素材。'),
