@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch, type Ref } from 'vue'
+import { computed, inject, onBeforeUnmount, onMounted, ref, watch, type Ref } from 'vue'
 import {
   NButton, NCard, NDivider, NDropdown, NEl, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch
 } from 'naive-ui'
 import {
   AccessAlarmsOutlined,
+  NotificationsRound, NotificationsNoneRound,
   StarBorderRound, StarRound,
 } from '@vicons/material'
 import RouterCard from '@/components/subs/RouterCard.vue'
@@ -18,7 +19,7 @@ import { useStore } from '@/store'
 import { jobMap, type JobInfo } from '@/data'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { getNearestAetheryte } from '@/tools/map'
-import type { ItemInfo } from '@/tools/item'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import EorzeaTime from '@/tools/eorzea-time'
 
@@ -59,6 +60,23 @@ const gatherData = computed(() => {
     key: 'stars',
     items: stars
   })
+
+  // 订阅的物品
+  const alarmeds : ItemInfo[] = []
+  workState.value.alarmItems.forEach(itemID => {
+    if (allItems[itemID]) {
+      alarmeds.push(allItems[itemID])
+    } else {
+      console.warn(`物品 ${itemID} 在采集时钟数据集中不存在`)
+    }
+  })
+  if (alarmeds.length) {
+    data.push({
+      title: t('已订阅'),
+      key: 'alarmeds',
+      items: alarmeds
+    })
+  }
 
   for (const key in limitedGatherings) {
     const [patch, il] = key.split('-')
@@ -103,6 +121,7 @@ const workState = ref({
   /** 是否直接在采集卡片内展示地图 */
   showMap: false,
   starItems: [] as number[],
+  alarmItems: [] as number[]
 })
 const itemSortOptions = computed(() => {
   return [
@@ -121,11 +140,70 @@ watch(
   () => workState.value.pinWindow,
   (newVal, oldVal) => {
     console.log('watch pinWindow: oldVal:' + oldVal + ', newVal:' + newVal)
-    if (oldVal !== undefined && newVal !== undefined && window.electronAPI?.toggleAlwaysOnTop) { // 兼容旧版本数据
-      window.electronAPI!.toggleAlwaysOnTop()
+    if (window.electronAPI?.toggleAlwaysOnTop) {
+      if ((!oldVal && newVal) || (oldVal && !newVal)) {
+        window.electronAPI!.toggleAlwaysOnTop()
+      }
     }
   }
 )
+
+const alarmedET = ref<number>(0)
+const alarmInterval = ref<number | undefined>(undefined)
+onMounted(() => {
+  if (alarmInterval.value === undefined) {
+    alarmInterval.value = setInterval(() => {
+      // 根据当前ET判断是否需要提醒
+      const _CurrentET = currentET.value.timeStamp
+      if (
+        _CurrentET !== alarmedET.value
+        && workState.value.alarmItems?.length
+        && Notification.permission === 'granted'
+      ) {
+        const currentTimeText = currentET.value.gameTime
+        const itemsNeedAlarm : ItemInfo[] = []
+        workState.value.alarmItems.forEach(itemId => {
+          const itemInfo = getItemInfo(itemId)
+          let needAlarm = false
+          if (itemInfo.gatherInfo?.timeLimitInfo?.length) {
+            itemInfo.gatherInfo.timeLimitInfo.forEach(timeLimitInfo => {
+              needAlarm = needAlarm || timeLimitInfo.start === currentTimeText
+            })
+          }
+          if (needAlarm) {
+            itemsNeedAlarm.push(itemInfo)
+          }
+        })
+        console.log(
+          'ET:', currentTimeText,
+          'last:', alarmedET.value,
+          'items:', JSON.stringify(workState.value.alarmItems),
+          'alarm-items:', JSON.stringify(itemsNeedAlarm)
+        )
+        if (itemsNeedAlarm.length > 0) {
+          let separator = '、'
+          if (uiLanguage.value === 'en') {
+            separator = ', '
+          }
+          new Notification(t('以下物品已可采集'), {
+            tag: 'hqhelper-gatherclock', // 理论上可以避免重复通知，并且会用新通知覆盖旧通知
+            body: itemsNeedAlarm.map(itemInfo => getItemName(itemInfo)).join(separator),
+            icon: './icons/logo_v2_192x192.png',
+            data: 'test'
+          })
+        }
+      }
+      alarmedET.value = _CurrentET
+    }, 500) // 页面最小化时，浏览器会把1s以上的间隔延长，导致错过ET更新
+    console.log('interval created.')
+  }
+})
+onBeforeUnmount(() => {
+  if (alarmInterval.value !== undefined) {
+    clearInterval(alarmInterval.value)
+    console.log('interval cleaned.')
+  }
+})
 
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {
@@ -134,6 +212,7 @@ if (!disable_workstate_cache) {
     workState.value = cachedWorkState
     // 在这里处理后续添加的成员默认值
     workState.value.orderBy ??= 'itemId'
+    workState.value.alarmItems ??= []
   }
 
   // todo - 留意性能：深度侦听需要遍历被侦听对象中的所有嵌套的属性，当用于大型数据结构时，开销很大
@@ -192,6 +271,22 @@ const dealTimeLimit = (start: string, end: string) => {
   }
 }
 
+const handleAlarmButtonClick = (itemInfo : ItemInfo) => {
+  if (workState.value.alarmItems.includes(itemInfo.id)) {
+    workState.value.alarmItems = workState.value.alarmItems.filter(id => id !== itemInfo.id)
+  } else {
+    workState.value.alarmItems.push(itemInfo.id)
+    // 检查权限只在新加道具时处理，避免频繁提醒
+    if (!("Notification" in window)) {
+      alert(t('当前使用的浏览器或客户端不支持通知功能。'))
+    } else if (Notification.permission === 'denied') {
+      alert(t('通知权限被拒绝，请检查浏览器设置。'))
+    } else if (Notification.permission !== 'granted') {
+      Notification.requestPermission()
+    }
+  }
+}
+
 const handleStarButtonClick = (itemInfo : ItemInfo) => {
   if (workState.value.starItems.includes(itemInfo.id)) {
     workState.value.starItems = workState.value.starItems.filter(id => id !== itemInfo.id)
@@ -201,30 +296,71 @@ const handleStarButtonClick = (itemInfo : ItemInfo) => {
 }
 const getBatchStarOptions = () => {
   return [
-    ...gatherData.value.filter(item => item.key !== 'stars').map(data => {
-      const itemsAllStared = data.items.every(item => workState.value.starItems.includes(item.id))
-      return {
-        label: itemsAllStared ? t('取消收藏“{}”', data.title) : t('收藏“{}”', data.title),
-        key: data.key,
-        click: () => {
-          if (itemsAllStared) {
-            workState.value.starItems = workState.value.starItems.filter(id => !data.items.map(item => item.id).includes(id))
-          } else {
-            data.items.forEach(item => {
-              if (!workState.value.starItems.includes(item.id)) {
-                workState.value.starItems.push(item.id)
+    {
+      label: t('收藏'),
+      key: 'group-star',
+      children: [
+        ...gatherData.value.filter(item => item.key !== 'stars' && item.items.length).map(data => {
+          const itemsAllStared = data.items.every(item => workState.value.starItems.includes(item.id))
+          return {
+            label: itemsAllStared ? t('取消收藏“{}”', data.title) : t('收藏“{}”', data.title),
+            key: 'star-option-' + data.key,
+            click: () => {
+              if (itemsAllStared) {
+                workState.value.starItems = workState.value.starItems.filter(id => !data.items.map(item => item.id).includes(id))
+              } else {
+                data.items.forEach(item => {
+                  if (!workState.value.starItems.includes(item.id)) {
+                    workState.value.starItems.push(item.id)
+                  }
+                })
               }
-            })
+            }
           }
-        }
-      }
-    }),
+        })
+      ]
+    },
     {
       label: t('全部取消收藏'),
-      key: 'removeAll',
+      key: 'star-removeAll',
       disabled: workState.value.starItems.length === 0,
       click: () => {
         workState.value.starItems = []
+      }
+    },
+    {
+      type: 'divider'
+    },
+    {
+      label: t('订阅'),
+      key: 'group-alarm',
+      children: [
+        ...gatherData.value.filter(item => item.key !== 'alarmeds' && item.items.length).map(data => {
+          const itemsAllAlarmed = data.items.every(item => workState.value.alarmItems.includes(item.id))
+          return {
+            label: itemsAllAlarmed ? t('取消订阅“{}”', data.title) : t('订阅“{}”', data.title),
+            key: 'alarm-option-' + data.key,
+            click: () => {
+              if (itemsAllAlarmed) {
+                workState.value.alarmItems = workState.value.alarmItems.filter(id => !data.items.map(item => item.id).includes(id))
+              } else {
+                data.items.forEach(item => {
+                  if (!workState.value.alarmItems.includes(item.id)) {
+                    workState.value.alarmItems.push(item.id)
+                  }
+                })
+              }
+            }
+          }
+        })
+      ]
+    },
+    {
+      label: t('全部取消订阅'),
+      key: 'alarm-removeAll',
+      disabled: workState.value.alarmItems.length === 0,
+      click: () => {
+        workState.value.alarmItems = []
       }
     }
   ]
@@ -275,6 +411,17 @@ const getSortedItems = (items: ItemInfo[]) => {
   }
 }
 
+const getItemName = (itemInfo: ItemInfo) => {
+  switch (itemLanguage.value) {
+    case 'ja':
+      return itemInfo.nameJA
+    case 'en':
+      return itemInfo.nameEN
+    case 'zh':
+    default:
+      return itemInfo.nameZH || '未翻译的物品'
+  }
+}
 const getJobName = (jobInfo: JobInfo) => {
   switch (uiLanguage.value) {
     case 'ja':
@@ -362,6 +509,9 @@ const getPlaceName = (itemInfo : ItemInfo) => {
             <span v-if="patch.key === 'stars'">
               <i class="xiv e05d"></i>
             </span>
+            <span v-else-if="patch.key === 'alarmeds'">
+              <i class="xiv e05f"></i>
+            </span>
             <span v-else-if="patch.key.includes('~690')">
               <i class="xiv collectables"></i>
             </span>
@@ -391,6 +541,22 @@ const getPlaceName = (itemInfo : ItemInfo) => {
                 btn-extra-style="flex-grow: 1;"
                 :disable-pop="workState.banItemPop"
               />
+              <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
+                <template #trigger>
+                  <n-button class="btn-alarm" @click="handleAlarmButtonClick(item)">
+                    <template #icon>
+                      <n-icon v-if="workState.alarmItems.includes(item.id)" color="#A80ABF">
+                        <NotificationsRound />
+                      </n-icon>
+                      <n-icon v-else color="#A80ABF">
+                        <NotificationsNoneRound />
+                      </n-icon>
+                    </template>
+                  </n-button>
+                </template>
+                <div>{{ t('点击此按钮来订阅/取消订阅这个采集品。') }}</div>
+                <div>{{ t('被订阅的采集品可以采集时，我们会向您发送提醒。') }}</div>
+              </n-popover>
               <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
                 <template #trigger>
                   <n-button class="btn-star" @click="handleStarButtonClick(item)">
@@ -535,6 +701,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
       align-items: center;
       gap: 0.2rem;
 
+      .btn-alarm,
       .btn-star {
         padding: 0px 8px;
       }
