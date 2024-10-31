@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, onBeforeUnmount, onMounted, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NDivider, NDropdown, NEl, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch
+  NButton, NCard, NDivider, NDropdown, NEl, NEmpty, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch
 } from 'naive-ui'
 import {
   AccessAlarmsOutlined,
@@ -62,21 +62,19 @@ const gatherData = computed(() => {
   })
 
   // 订阅的物品
-  const alarmeds : ItemInfo[] = []
-  workState.value.alarmItems.forEach(itemID => {
+  const subscribed : ItemInfo[] = []
+  workState.value.subscribedItems.forEach(itemID => {
     if (allItems[itemID]) {
-      alarmeds.push(allItems[itemID])
+      subscribed.push(allItems[itemID])
     } else {
       console.warn(`物品 ${itemID} 在采集时钟数据集中不存在`)
     }
   })
-  if (alarmeds.length) {
-    data.push({
-      title: t('已订阅'),
-      key: 'alarmeds',
-      items: alarmeds
-    })
-  }
+  data.push({
+    title: t('已订阅'),
+    key: 'subscribed',
+    items: subscribed
+  })
 
   for (const key in limitedGatherings) {
     const [patch, il] = key.split('-')
@@ -112,6 +110,8 @@ const workState = ref({
   patch: '7.0-710',
   /** 是否将整个窗口置顶 (限v5及以上的客户端使用) */
   pinWindow: false,
+  /** 通知方式 */
+  notifyMode: 'none' as "none" | "system_noti",
   /** 排序依据 */
   orderBy: 'itemId' as "itemId" | "gatherStartTimeAsc",
   /** 是否将目前可以采集的道具置顶 */
@@ -121,7 +121,19 @@ const workState = ref({
   /** 是否直接在采集卡片内展示地图 */
   showMap: false,
   starItems: [] as number[],
-  alarmItems: [] as number[]
+  subscribedItems: [] as number[]
+})
+const notifyModeOptions = computed(() => {
+  return [
+    {
+      label: t('禁用'),
+      value: 'none'
+    },
+    {
+      label: t('系统通知'),
+      value: 'system_noti'
+    },
+  ]
 })
 const itemSortOptions = computed(() => {
   return [
@@ -154,44 +166,28 @@ onMounted(() => {
   if (alarmInterval.value === undefined) {
     alarmInterval.value = setInterval(() => {
       // 根据当前ET判断是否需要提醒
-      const _CurrentET = currentET.value.timeStamp
+      // 浏览器性能限制，最小化之后执行间隔会变长，所以按ET的小时数来判断是否需要提醒
+      const _CurrentET = currentET.value.hour
       if (
         _CurrentET !== alarmedET.value
-        && workState.value.alarmItems?.length
+        && workState.value.subscribedItems?.length
         && Notification.permission === 'granted'
+        && workState.value.notifyMode !== 'none'
       ) {
-        const currentTimeText = currentET.value.gameTime
         const itemsNeedAlarm : ItemInfo[] = []
-        workState.value.alarmItems.forEach(itemId => {
+        workState.value.subscribedItems.forEach(itemId => {
           const itemInfo = getItemInfo(itemId)
           let needAlarm = false
           if (itemInfo.gatherInfo?.timeLimitInfo?.length) {
             itemInfo.gatherInfo.timeLimitInfo.forEach(timeLimitInfo => {
-              needAlarm = needAlarm || timeLimitInfo.start === currentTimeText
+              needAlarm = needAlarm || Number(timeLimitInfo.start.split(':')[0]) === _CurrentET
             })
           }
           if (needAlarm) {
             itemsNeedAlarm.push(itemInfo)
           }
         })
-        console.log(
-          'ET:', currentTimeText,
-          'last:', alarmedET.value,
-          'items:', JSON.stringify(workState.value.alarmItems),
-          'alarm-items:', JSON.stringify(itemsNeedAlarm)
-        )
-        if (itemsNeedAlarm.length > 0) {
-          let separator = '、'
-          if (uiLanguage.value === 'en') {
-            separator = ', '
-          }
-          new Notification(t('以下物品已可采集'), {
-            tag: 'hqhelper-gatherclock', // 理论上可以避免重复通知，并且会用新通知覆盖旧通知
-            body: itemsNeedAlarm.map(itemInfo => getItemName(itemInfo)).join(separator),
-            icon: './icons/logo_v2_192x192.png',
-            data: 'test'
-          })
-        }
+        handleNotify(itemsNeedAlarm)
       }
       alarmedET.value = _CurrentET
     }, 500) // 页面最小化时，浏览器会把1s以上的间隔延长，导致错过ET更新
@@ -205,14 +201,43 @@ onBeforeUnmount(() => {
   }
 })
 
+const handleCheckNotificationPermission = () => {
+  if (workState.value.notifyMode === 'system_noti') {
+    if (!("Notification" in window)) {
+      alert(t('当前使用的浏览器或客户端不支持系统通知功能。'))
+    } else if (Notification.permission === 'denied') {
+      alert(t('通知权限被拒绝，请检查浏览器的网站权限设置。'))
+    } else if (Notification.permission !== 'granted') {
+      Notification.requestPermission()
+    }
+  }
+}
+const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
+  if (workState.value.notifyMode === 'system_noti') {
+    if (itemsNeedAlarm.length > 0) {
+      new Notification(t('以下物品已可采集：'), {
+        body: itemsNeedAlarm.map(item => {
+          let text = `${getItemName(item)}: ${getJobName(jobMap[item.gatherInfo.jobId])} | ${getPlaceName(item)} ${getItemGatherLocation(item)}`
+          if (XivMaps[item.gatherInfo.placeID]) {
+            text += ' | ' + t('推荐传送点 - ') + getNearestAetheryte(XivMaps[item.gatherInfo.placeID], item.gatherInfo.posX, item.gatherInfo.posY, itemLanguage.value)
+          }
+          return text
+        }).join('\n'),
+        icon: itemsNeedAlarm[0].iconUrl
+      })
+    }
+  }
+}
+
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {
   const cachedWorkState = userConfig.value.gatherclock_cache_work_state
   if (cachedWorkState && JSON.stringify(cachedWorkState).length > 2) {
     workState.value = cachedWorkState
     // 在这里处理后续添加的成员默认值
+    workState.value.notifyMode ??= 'none'
     workState.value.orderBy ??= 'itemId'
-    workState.value.alarmItems ??= []
+    workState.value.subscribedItems ??= []
   }
 
   // todo - 留意性能：深度侦听需要遍历被侦听对象中的所有嵌套的属性，当用于大型数据结构时，开销很大
@@ -271,30 +296,22 @@ const dealTimeLimit = (start: string, end: string) => {
   }
 }
 
-const handleAlarmButtonClick = (itemInfo : ItemInfo) => {
-  if (workState.value.alarmItems.includes(itemInfo.id)) {
-    workState.value.alarmItems = workState.value.alarmItems.filter(id => id !== itemInfo.id)
+const handleSubscribeButtonClick = (itemInfo : ItemInfo) => {
+  if (workState.value.subscribedItems.includes(itemInfo.id)) {
+    workState.value.subscribedItems = workState.value.subscribedItems.filter(id => id !== itemInfo.id)
   } else {
-    workState.value.alarmItems.push(itemInfo.id)
-    // 检查权限只在新加道具时处理，避免频繁提醒
-    if (!("Notification" in window)) {
-      alert(t('当前使用的浏览器或客户端不支持通知功能。'))
-    } else if (Notification.permission === 'denied') {
-      alert(t('通知权限被拒绝，请检查浏览器设置。'))
-    } else if (Notification.permission !== 'granted') {
-      Notification.requestPermission()
-    }
+    workState.value.subscribedItems.push(itemInfo.id)
   }
 }
 
-const handleStarButtonClick = (itemInfo : ItemInfo) => {
+const handleQuickOperateButtonClick = (itemInfo : ItemInfo) => {
   if (workState.value.starItems.includes(itemInfo.id)) {
     workState.value.starItems = workState.value.starItems.filter(id => id !== itemInfo.id)
   } else {
     workState.value.starItems.push(itemInfo.id)
   }
 }
-const getBatchStarOptions = () => {
+const getQuickOperateOptions = () => {
   return [
     {
       label: t('收藏'),
@@ -333,20 +350,20 @@ const getBatchStarOptions = () => {
     },
     {
       label: t('订阅'),
-      key: 'group-alarm',
+      key: 'group-subscribe',
       children: [
-        ...gatherData.value.filter(item => item.key !== 'alarmeds' && item.items.length).map(data => {
-          const itemsAllAlarmed = data.items.every(item => workState.value.alarmItems.includes(item.id))
+        ...gatherData.value.filter(item => item.key !== 'subscribed' && item.items.length).map(data => {
+          const itemsAllAlarmed = data.items.every(item => workState.value.subscribedItems.includes(item.id))
           return {
             label: itemsAllAlarmed ? t('取消订阅“{}”', data.title) : t('订阅“{}”', data.title),
-            key: 'alarm-option-' + data.key,
+            key: 'subscribe-option-' + data.key,
             click: () => {
               if (itemsAllAlarmed) {
-                workState.value.alarmItems = workState.value.alarmItems.filter(id => !data.items.map(item => item.id).includes(id))
+                workState.value.subscribedItems = workState.value.subscribedItems.filter(id => !data.items.map(item => item.id).includes(id))
               } else {
                 data.items.forEach(item => {
-                  if (!workState.value.alarmItems.includes(item.id)) {
-                    workState.value.alarmItems.push(item.id)
+                  if (!workState.value.subscribedItems.includes(item.id)) {
+                    workState.value.subscribedItems.push(item.id)
                   }
                 })
               }
@@ -357,15 +374,15 @@ const getBatchStarOptions = () => {
     },
     {
       label: t('全部取消订阅'),
-      key: 'alarm-removeAll',
-      disabled: workState.value.alarmItems.length === 0,
+      key: 'subscribe-removeAll',
+      disabled: workState.value.subscribedItems.length === 0,
       click: () => {
-        workState.value.alarmItems = []
+        workState.value.subscribedItems = []
       }
     }
   ]
 }
-const handleBatchStarSelect = (key: string | number, option: any) => {
+const handleQuickOperateOptionSelect = (key: string | number, option: any) => {
   if (option?.click) {
     option.click()
   } else {
@@ -444,6 +461,9 @@ const getPlaceName = (itemInfo : ItemInfo) => {
       return itemInfo.gatherInfo?.placeNameZH
   }
 }
+const getItemGatherLocation = (itemInfo: ItemInfo) => {
+  return t('(X:{x}, Y:{y})', { x: itemInfo.gatherInfo.posX.toFixed(1), y: itemInfo.gatherInfo.posY.toFixed(1) })
+}
 </script>
 
 <template>
@@ -472,6 +492,9 @@ const getPlaceName = (itemInfo : ItemInfo) => {
           <n-form-item :label="t('窗口置顶')" v-show="canPinWindow">
             <n-switch v-model:value="workState.pinWindow" />
           </n-form-item>
+          <n-form-item :label="t('提醒方式')" style="min-width: 150px;">
+            <n-select v-model:value="workState.notifyMode" :options="notifyModeOptions" @update:value="handleCheckNotificationPermission" />
+          </n-form-item>
           <n-form-item :label="t('排序依据')" style="min-width: 200px;">
             <n-select v-model:value="workState.orderBy" :options="itemSortOptions" />
           </n-form-item>
@@ -487,8 +510,8 @@ const getPlaceName = (itemInfo : ItemInfo) => {
           <n-form-item :label="t('快速操作')">
             <n-dropdown
               placement="bottom-start"
-              :options="getBatchStarOptions()"
-              @select="handleBatchStarSelect"
+              :options="getQuickOperateOptions()"
+              @select="handleQuickOperateOptionSelect"
             >
               <n-button>{{ t('点此展开菜单') }}</n-button>
             </n-dropdown>
@@ -509,7 +532,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
             <span v-if="patch.key === 'stars'">
               <i class="xiv e05d"></i>
             </span>
-            <span v-else-if="patch.key === 'alarmeds'">
+            <span v-else-if="patch.key === 'subscribed'">
               <i class="xiv e05f"></i>
             </span>
             <span v-else-if="patch.key.includes('~690')">
@@ -528,6 +551,9 @@ const getPlaceName = (itemInfo : ItemInfo) => {
         :key="patch.key"
         v-show="workState.patch === patch.key"
       >
+        <div v-if="!patch.items?.length" class="flex-center w-full" :style="isMobile ? 'min-height: 300px;' : ''">
+          <n-empty size="large" :description="t('没有物品')" />
+        </div>
         <div class="items-container">
           <div
             v-for="item in getSortedItems(patch.items)"
@@ -543,9 +569,9 @@ const getPlaceName = (itemInfo : ItemInfo) => {
               />
               <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
                 <template #trigger>
-                  <n-button class="btn-alarm" @click="handleAlarmButtonClick(item)">
+                  <n-button class="btn-alarm" @click="handleSubscribeButtonClick(item)">
                     <template #icon>
-                      <n-icon v-if="workState.alarmItems.includes(item.id)" color="#A80ABF">
+                      <n-icon v-if="workState.subscribedItems.includes(item.id)" color="#A80ABF">
                         <NotificationsRound />
                       </n-icon>
                       <n-icon v-else color="#A80ABF">
@@ -555,11 +581,11 @@ const getPlaceName = (itemInfo : ItemInfo) => {
                   </n-button>
                 </template>
                 <div>{{ t('点击此按钮来订阅/取消订阅这个采集品。') }}</div>
-                <div>{{ t('被订阅的采集品可以采集时，我们会向您发送提醒。') }}</div>
+                <div>{{ t('被订阅的采集品可以采集时，我们会按照您设置的“{setting}”向您发送提醒。', t('提醒方式')) }}</div>
               </n-popover>
               <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
                 <template #trigger>
-                  <n-button class="btn-star" @click="handleStarButtonClick(item)">
+                  <n-button class="btn-star" @click="handleQuickOperateButtonClick(item)">
                     <template #icon>
                       <n-icon v-if="workState.starItems.includes(item.id)" color="#F6CA45">
                         <StarRound />
@@ -610,7 +636,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
                     :coordinate-y="item.gatherInfo.posY"
                     hide-coordinates
                   />
-                  <div>{{ t('(X:{x}, Y:{y})', { x: item.gatherInfo.posX.toFixed(1), y: item.gatherInfo.posY.toFixed(1) }) }}</div>
+                  <div>{{ getItemGatherLocation(item) }}</div>
                 </div>
               </div>
               <XivMap
@@ -664,11 +690,11 @@ const getPlaceName = (itemInfo : ItemInfo) => {
   width: fit-content;
   border-radius: 5px;
   margin-bottom: 1rem;
-  box-shadow: 0 0 10px var(--n-border-color);
 
   .n-form-item {
     border-radius: 5px;
     padding: 0.5rem 0.6rem;
+    border: 1px solid transparent;
   }
 }
 .tab-title > *:not(:first-child) {
@@ -676,6 +702,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 }
 .title-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 5px;
 }
 .items-container {
@@ -751,7 +778,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 /* Desktop */
 @media screen and (min-width: 768px) {
   .query-form .n-form-item:hover {
-    box-shadow: 0 0 10px var(--n-color-target);
+    border: 1px solid var(--n-color-target);
   }
   .items-container {
     display: grid;
