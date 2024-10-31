@@ -48,6 +48,7 @@ const updateTip = reactive({
   total: '',
   downloadSpeed: ''
 })
+const versionContent = ref<AppVersionJson>()
 const latestHqHelperVersion = ref<string | null>('')
 const latestElectronVersion = ref<string | null>('')
 const proxyValue = ref('https://mirror.ghproxy.com')
@@ -113,9 +114,9 @@ const handleCheckUpdates = async () => {
       url = 'https://hqhelper.nbb.fan/version.json'
     }
     const versionResponse = await window.electronAPI.httpGet(url)
-    const versionContent = JSON.parse(versionResponse) as AppVersionJson
-    latestHqHelperVersion.value = versionContent.hqhelper
-    latestElectronVersion.value = versionContent.electron
+    versionContent.value = JSON.parse(versionResponse) as AppVersionJson
+    latestHqHelperVersion.value = versionContent.value.hqhelper
+    latestElectronVersion.value = versionContent.value.electron
   } catch (e: any) {
     console.error(e)
     alert(t('检查更新失败：{error}', e?.message || 'UNKNOWN ERROR' + e))
@@ -202,10 +203,19 @@ const handleDownloadWebPack = async () => {
 
   let proxy = proxyValue.value || ''
   if (proxy) proxy = `${proxy}/`
-  const err = await window.electronAPI.downloadUpdatePack(`${proxy}https://github.com/InfSein/hqhelper-dawntrail/releases/download/v${latestHqHelperVersion.value}/static-pages.zip`)
-  if (err) {
-    alert(t('下载更新包失败：{errmsg}', err))
-    updateTip.preText = ''
+  let url = versionContent.value?.dlink_hqhelper
+  if (!url) {
+    alert('Update link not given. Server might be undergoing maintenance...')
+  } else if (!latestHqHelperVersion.value) {
+    alert('latestHqHelperVersion not given, Please retry later.')
+  } else {
+    url = url.replace('~PROXY', proxy)
+    url = url.replace('~VERSION', latestHqHelperVersion.value)
+    const err = await window.electronAPI.downloadUpdatePack(url)
+    if (err) {
+      alert(t('下载更新包失败：{errmsg}', err))
+      updateTip.preText = ''
+    }
   }
   updating.value = false
 }
@@ -221,7 +231,16 @@ const handleDownloadElectronPack = () => {
   const func = window.electronAPI?.openUrlByBrowser ?? window.open
   let proxy = proxyValue.value || ''
   if (proxy) proxy = `${proxy}/`
-  func(`${proxy}https://github.com/InfSein/hqhelper-dawntrail/releases/download/electron.${latestElectronVersion.value}/HqHelper.Setup.exe`)
+  let url = versionContent.value?.dlink_electron
+  if (!url) {
+    alert('Update link not given. Server might be undergoing maintenance...')
+  } else if (!latestElectronVersion.value) {
+    alert('latestElectronVersion not given, Please retry later.')
+  } else {
+    url = url.replace('~PROXY', proxy)
+    url = url.replace('~VERSION', latestElectronVersion.value)
+    func(url)
+  }
 }
 
 const handleClose = () => {
