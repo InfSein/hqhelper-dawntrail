@@ -47,10 +47,10 @@ const mapButtonSize = computed(() => {
 <template>
   <div class="container">
     <span v-if="!hideMapName">{{ placeName }}</span>
-    <span v-if="!hideCoordinates">{{ t('(X:{x}, Y:{y})', { x: coordinateX, y: coordinateY }) }}</span>
+    <span v-if="!hideCoordinates">{{ t('(X:{x}, Y:{y})', { x: coordinateX.toFixed(1), y: coordinateY.toFixed(1) }) }}</span>
     <span
       v-if="showMapButton"
-      class="map-button"
+      class="map-button no-select"
       :style="{
         lineHeight: mapButtonSize + 'px'
       }"

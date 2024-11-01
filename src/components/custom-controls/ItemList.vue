@@ -112,7 +112,11 @@ const listValue = computed(() => {
   const result : string[] = []
   props.items.forEach(item => {
     if (item.amount) {
-      result.push(`${getItemName(item)} x ${item.amount}`)
+      if (userConfig.value.item_list_style === 'teamcraft') {
+        result.push(`${item.amount}x ${getItemName(item)}`)
+      } else {
+        result.push(`${getItemName(item)} x ${item.amount}`)
+      }
     }
   })
   return result.join('\n')

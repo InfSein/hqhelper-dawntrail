@@ -1,51 +1,79 @@
 import type { ItemPriceInfo } from "@/tools/item"
 
 export interface UserConfigModel {
-  // general
+  // #region 在偏好设置弹窗中设置的配置项
+  // * general
+  /** 界面语言 */
   language_ui: 'zh' | 'en' | 'ja'
+  /** 物品语言 */
   language_item: 'auto' | 'zh' | 'en' | 'ja'
+  /** 服务器 */
   item_server: 'auto' | 'chs' | 'global'
-  // appearance
+  // * appearance
+  /** 主题 */
   theme: 'light' | 'dark' | 'system'
+  /** 自定义字体 */
   custom_font: string
+  /** 字体大小 */
   custom_font_size: string
+  /** 隐藏物品按钮的职业图标 */
   hide_collector_icons: boolean
-  // enhancements
+  // * enhancements
+  /** 以悬浮窗模式使用采集时钟 */
   use_overlay_gatherclock: boolean
+  /** 禁用选择版本后自动折叠 */
   disable_patchcard_autofold: boolean
+  /** 禁用重复点击已选择的职业按钮时添加主副手 */
   disable_jobbtn_doubleclick: boolean
+  /** 使用旧版本制作报表 */
   use_traditional_statement: boolean
+  /** 手动控制二级悬浮窗 */
   click_to_show_pop_in_span: boolean
+  /** 点击“复制宏”时直接复制 */
   macro_direct_copy: boolean
+  /** 默认宏前缀 */
   macro_copy_prefix: string
+  /** 点击物品按钮时的行为 */
   item_button_click_event: 'none' | 'copy_name' | 'copy_isearch'
+  /** 点击物品信息图标时的行为 */
   item_info_icon_click_event: 'none' | 'copy_name' | 'copy_isearch'
-  // performance
+  /** 材料清单格式 */
+  item_list_style: 'standard' | 'teamcraft'
+  // * performance
+  /** 禁用工作状态记忆 */
   disable_workstate_cache: boolean
-  // special
+  // * special
+  /** 物品价格服务器 */
   universalis_server: string
+  /** 物品价格类型 */
   universalis_priceType: 'averagePrice' | 'currentAveragePrice' | 'minPrice' | 'maxPrice' | 'marketLowestPrice' | 'marketPrice' | 'purchasePrice'
+  /** 物品价格有效期 */
   universalis_expireTime: number
-  // update
+  // * update
+  /** 禁用自动更新 */
   disable_auto_update: boolean
+  // #endregion
   
-  // check-update
-  github_mirror_site: string
-
-  // tome-script-button
+  // #region 在其他界面中设置的配置项
+  // * tome-script-button
   /** 在点数按钮的统计中显示双色宝石兑换物 */
   tomescript_show_bicolor_items: boolean
-
-  // craft-statements
+  // * craft-statements
+  /** 专业版制作报表：使用详细模式展示物品 */
   statement_show_item_details: boolean
+  // * recomm. processes
+  /** 推荐流程：显示采集详情 */
+  processes_show_item_gatherdetails: boolean
+  // #endregion
 
-  // hidden options
+  // #region 隐藏的配置项/缓存
   cache_lasttime_version: string
   cache_ui_fold: any
   cache_work_state: any
   cache_item_prices: Record<number, ItemPriceInfo>
   fthelper_cache_work_state: any
   gatherclock_cache_work_state: any
+  // #endregion
 }
 
 // eslint-disable-next-line no-var
@@ -69,6 +97,7 @@ const defaultUserConfig: UserConfigModel = {
   macro_copy_prefix: '',
   item_button_click_event: 'none',
   item_info_icon_click_event: 'none',
+  item_list_style: 'standard',
   // performance
   disable_workstate_cache: false,
   // special
@@ -78,14 +107,14 @@ const defaultUserConfig: UserConfigModel = {
   // update
   disable_auto_update: false,
   
-  // check-update
-  github_mirror_site: 'https://mirror.ghproxy.com',
-  
   // tome-script-button
   tomescript_show_bicolor_items: false,
 
   // craft-statements
   statement_show_item_details: true,
+
+  // recomm. processes
+  processes_show_item_gatherdetails: false,
 
   // hidden options
   cache_lasttime_version: 'none',

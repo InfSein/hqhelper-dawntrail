@@ -9,18 +9,24 @@ import {
 } from '@vicons/material'
 import XivFARImage from '../custom-controls/XivFARImage.vue'
 import ItemSpan from '../custom-controls/ItemSpan.vue'
-import { type UserConfigModel } from '@/models/user-config'
+import LocationSpan from '../custom-controls/LocationSpan.vue'
+import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
 import { type ItemInfo } from '@/tools/item'
 import { XivJobs, type XivJob } from '@/assets/data'
 import { CopyToClipboard } from '@/tools'
+import { useStore } from '@/store'
+import type EorzeaTime from '@/tools/eorzea-time'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const currentET = inject<Ref<EorzeaTime>>('currentET')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
   
 const showModal = defineModel<boolean>('show', { required: true })
 const expandedBlocks = ref<Record<number, string[]>>({})
+const showItemGatherDetails = ref(false)
 
 watch(showModal, async(newVal, oldVal) => {
   if (newVal && !oldVal) {
@@ -28,6 +34,7 @@ watch(showModal, async(newVal, oldVal) => {
     for (let i = 0; i < itemGroups.value.length; i++) {
       expandedBlocks.value[i] = ['1']
     }
+    showItemGatherDetails.value = userConfig.value.processes_show_item_gatherdetails
   }
 })
 
@@ -41,8 +48,8 @@ interface RecommendedProcessesProps {
 const props = defineProps<RecommendedProcessesProps>()
 
 const itemGroups = computed(() => {
-  const itemsGatheredByBotanist : ItemInfo[] = []
-  const itemsGatheredByMiner : ItemInfo[] = []
+  const itemsGatherableCommon : ItemInfo[] = []
+  const itemsGatherableLimited : ItemInfo[] = []
   const aethersands : ItemInfo[] = []
   const itemsTradable : ItemInfo[] = []
   const itemsOtherCollectable : ItemInfo[] = []
@@ -54,10 +61,10 @@ const itemGroups = computed(() => {
   // 从基础素材中检索分类
   props.lvBaseItems.forEach(item => {
     if (item.gatherInfo?.jobId) {
-      if (item.gatherInfo.jobId === 17) {
-        itemsGatheredByBotanist.push(item)
-      } else if (item.gatherInfo.jobId === 16) {
-        itemsGatheredByMiner.push(item)
+      if (item.gatherInfo.timeLimitInfo?.length) {
+        itemsGatherableLimited.push(item)
+      } else {
+        itemsGatherableCommon.push(item)
       }
     } else if (item.canReduceFrom?.length) {
       aethersands.push(item)
@@ -103,22 +110,66 @@ const itemGroups = computed(() => {
     description?: string,
     items: ItemInfo[]
   }[] = []
-  if (itemsGatheredByMiner.length) {
-    const job = itemsGatheredByMiner[0].gatherInfo!.jobId
-    groups.push({
-      title: t('使用{job}采集', getJobName(XivJobs[job])),
-      icon: XivJobs[job].job_icon_url,
-      items: itemsGatheredByMiner
+  const dealGatherings = (gathering: ItemInfo[], groupTitle: string, orderBy?: "map" | "start-time" | undefined) => {
+    if (!gathering?.length) return
+    if (orderBy === 'map') {
+      gathering.sort((a, b) => {
+        const aMap = a.gatherInfo.placeID
+        const bMap = b.gatherInfo.placeID
+        return aMap - bMap
+      })
+    } else if (orderBy === 'start-time') {
+      gathering.sort((a, b) => {
+        let startA = 99, startB = 99
+        a.gatherInfo.timeLimitInfo.forEach(limit => {
+          startA = Math.min(startA, Number(limit.start.split(':')[0]))
+        })
+        b.gatherInfo.timeLimitInfo.forEach(limit => {
+          startB = Math.min(startB, Number(limit.start.split(':')[0]))
+        })
+        return startA - startB
+      })
+    }
+    const itemsGatheredByBotanist : ItemInfo[] = []
+    const itemsGatheredByMiner : ItemInfo[] = []
+    const itemsGatheredByFisher : ItemInfo[] = []
+    gathering.forEach(item => {
+      switch(item.gatherInfo.jobId) {
+        case 16: itemsGatheredByMiner.push(item)
+          break
+        case 17: itemsGatheredByBotanist.push(item)
+          break
+        case 18: itemsGatheredByFisher.push(item)
+          break
+      }
     })
+    if (itemsGatheredByMiner.length) {
+      const jobid = 16
+      groups.push({
+        title: groupTitle.replace('{job}', getJobName(XivJobs[jobid])),
+        icon: XivJobs[jobid].job_icon_url,
+        items: itemsGatheredByMiner
+      })
+    }
+    if (itemsGatheredByBotanist.length) {
+      const jobid = 17
+      groups.push({
+        title: groupTitle.replace('{job}', getJobName(XivJobs[jobid])),
+        icon: XivJobs[jobid].job_icon_url,
+        items: itemsGatheredByBotanist
+      })
+    }
+    if (itemsGatheredByFisher.length) {
+      const jobid = 18
+      groups.push({
+        title: groupTitle.replace('{job}', getJobName(XivJobs[jobid])),
+        icon: XivJobs[jobid].job_icon_url,
+        items: itemsGatheredByFisher
+      })
+    }
   }
-  if (itemsGatheredByBotanist.length) {
-    const job = itemsGatheredByBotanist[0].gatherInfo!.jobId
-    groups.push({
-      title: t('使用{job}采集', getJobName(XivJobs[job])),
-      icon: XivJobs[job].job_icon_url,
-      items: itemsGatheredByBotanist
-    })
-  }
+  dealGatherings(itemsGatherableCommon, t('使用{job}采集(非限时)'), 'map')
+  dealGatherings(itemsGatherableLimited, t('使用{job}采集(限时)'), 'start-time')
   if (aethersands.length) {
     groups.push({
       title: t('筹集灵砂'),
@@ -218,6 +269,21 @@ const getJobName = (jobInfo: XivJob) => {
       return jobInfo?.job_name_zh || t('未知')
   }
 }
+const getPlaceName = (itemInfo : ItemInfo) => {
+  switch (itemLanguage.value) {
+    case 'ja':
+      return itemInfo.gatherInfo?.placeNameJA
+    case 'en':
+      return itemInfo.gatherInfo?.placeNameEN
+    case 'zh':
+    default:
+      return itemInfo.gatherInfo?.placeNameZH
+  }
+}
+const textsGatherAt = computed(() => {
+  const [p1, p2] = t('在{}采集').split('{}')
+  return { p1, p2 }
+})
 
 const handleClose = () => {
   showModal.value = false
@@ -248,6 +314,12 @@ const handleCollapseOrUncollapseAllBlocks = () => {
     expandedBlocks.value[i] = allCollapsed ? ['1'] : []
   }
 }
+const handleSwitchShowItemGatherDetails = () => {
+  showItemGatherDetails.value = !showItemGatherDetails.value
+  const newConfig = fixUserConfig(store.state.userConfig)
+  newConfig.processes_show_item_gatherdetails = showItemGatherDetails.value
+  store.commit('setUserConfig', newConfig)
+}
 const handleCopyProcesses = () => {
   const text = itemGroups.value.map((group, index) => {
     return (index+1) + '. ' + group.title + ':\n' + group.items.map(item => {
@@ -255,6 +327,20 @@ const handleCopyProcesses = () => {
     }).join('\n')
   }).join('\n\n')
   handleCopy(text)
+}
+
+const isItemGatherableNow = (item: ItemInfo) => {
+  let gatherable = false
+  item.gatherInfo.timeLimitInfo?.forEach(info => {
+    const parseTime = (time: string) => time.split(':').reduce((acc, val, idx) => acc + parseInt(val) * [60, 1][idx], 0)
+    const s = parseTime(info.start)
+    const e = parseTime(info.end)
+    const c = currentET.value.hour * 60 + currentET.value.minute
+    if (c >= s && c < e) {
+      gatherable = true
+    }
+  })
+  return gatherable
 }
 </script>
 
@@ -264,22 +350,22 @@ const handleCopyProcesses = () => {
       closable
       role="dialog"
       id="modal-recomm-process"
-      class="no-select"
       style="width: 98%; max-width: 350px;"
       @close="handleClose"
     >
       <template #header>
-        <div class="card-title">
+        <div class="card-title no-select">
           <n-icon><AllInclusiveSharp /></n-icon>
           <span class="title">{{ t('推荐流程') }}</span>
           <div class="card-title-actions">
             <a href="javascript:void(0);" @click="handleCollapseOrUncollapseAllBlocks">[{{ isBlocksAllCollapsed() ? t('全部展开') : t('全部折叠') }}]</a>
+            <a href="javascript:void(0);" @click="handleSwitchShowItemGatherDetails">[{{ showItemGatherDetails ? t('隐藏采集详情') : t('显示采集详情') }}]</a>
             <a href="javascript:void(0);" @click="handleCopyProcesses">[{{ t('复制流程') }}]</a>
           </div>
         </div>
       </template>
 
-      <div class="wrapper" ref="wrapper">
+      <div class="wrapper">
         <div
           class="block"
           v-for="(group, index) in itemGroups"
@@ -303,16 +389,47 @@ const handleCopyProcesses = () => {
               </template>
 
               <div class="description" v-if="group.description">{{ group.description }}</div>
-          <div class="items">
-            <ItemSpan
-              v-for="item in group.items"
-              :key="'item-' + item.id"
-              :item-info="item"
-              :amount="item.amount"
-              show-amount
-              container-id="modal-recomm-process"
-            />
-          </div>
+              <div class="items">
+                <div
+                  v-for="item in group.items"
+                  :key="'item-' + item.id"
+                  style=""
+                >
+                  <ItemSpan
+                    :item-info="item"
+                    :amount="item.amount"
+                    show-amount
+                    container-id="modal-recomm-process"
+                  />
+                  <div
+                    class="gather-detail-time"
+                    v-if="showItemGatherDetails && item.gatherInfo?.timeLimitDescription"
+                  >
+                    <span style="margin-right: 1px;">(</span>
+                    <span>{{ t('限时: {}', item.gatherInfo.timeLimitDescription) }}</span>
+                    <span v-if="isItemGatherableNow(item)" class="green" style="margin-left: 3px;">{{ t('现可采集') }}</span>
+                    <span style="margin-left: 1px;">)</span>
+                  </div>
+                  <div
+                    class="gather-detail-position"
+                    v-if="showItemGatherDetails && item.gatherInfo?.placeID"
+                  >
+                    <span style="margin-right: 1px;">(</span>
+                    <span v-if="showItemGatherDetails && item.gatherInfo?.placeID">{{ textsGatherAt.p1 }}</span>
+                    <LocationSpan
+                      v-if="showItemGatherDetails && item.gatherInfo?.placeID"
+                      :place-id="item.gatherInfo.placeID"
+                      :place-name="getPlaceName(item)"
+                      :coordinate-x="item.gatherInfo.posX"
+                      :coordinate-y="item.gatherInfo.posY"
+                      :size="12"
+                      style="margin: 0 2px 0 1px; "
+                    />
+                    <span v-if="showItemGatherDetails && item.gatherInfo?.placeID">{{ textsGatherAt.p2 }}</span>
+                    <span style="margin-left: 1px;">)</span>
+                  </div>
+                </div>
+              </div>
             </n-collapse-item>
           </n-collapse>
           
@@ -374,6 +491,14 @@ const handleCopyProcesses = () => {
       flex-direction: column;
       gap: 3px;
       margin: 3px 0 0 1em;
+
+      .gather-detail-time,
+      .gather-detail-position {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 1em;
+        font-size: calc(var(--n-font-size) - 2px);
+      }
     }
   }
 }
