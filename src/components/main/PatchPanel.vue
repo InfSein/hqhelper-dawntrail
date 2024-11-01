@@ -4,7 +4,7 @@ import {
   NButton, NFlex, NPopover
 } from 'naive-ui'
 import { type UserConfigModel } from '@/models/user-config'
-import XivPatches from "@/assets/data/xiv-patches.json"
+import { XivPatches, type XivPatch } from "@/assets/data"
 import FoldableCard from '../custom-controls/FoldableCard.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -19,7 +19,7 @@ const cardDescription = computed(() => {
 
 const containerCard = ref<InstanceType<typeof FoldableCard>>()
 
-const handlePatchSelect = (patch: any) => {
+const handlePatchSelect = (patch: XivPatch) => {
   patchSelected.value = patch.v
   const autoFold = !(userConfig.value?.disable_patchcard_autofold ?? false)
   if (isMobile.value && autoFold) {
@@ -27,7 +27,7 @@ const handlePatchSelect = (patch: any) => {
   }
 }
 
-const getPatchName = (patch: any) => {
+const getPatchName = (patch: XivPatch) => {
   const uiLanguage = userConfig.value?.language_ui ?? 'zh'
 
   let patchName = patch.name_zh
@@ -40,7 +40,7 @@ const getPatchName = (patch: any) => {
   return t('版本{v}: {name}', { v: patch.v, name: patchName })
 }
 
-const getPatchBackground = (patch: any) => {
+const getPatchBackground = (patch: XivPatch) => {
   if (patch.v === patchSelected.value) {
     if (patch.background) {
       return patch.background
