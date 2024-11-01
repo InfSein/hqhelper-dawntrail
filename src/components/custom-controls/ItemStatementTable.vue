@@ -45,6 +45,13 @@ const rows = computed(() => {
     cleaned: rowsCleaned
   }
 })
+
+const handleNumInputLoop = (row: StatementRow) => {
+  const itemId = row.info.id
+  if (itemsPrepared.value[itemId] < 0) {
+    itemsPrepared.value[itemId] = row.amount.total
+  }
+}
 </script>
 
 <template>
@@ -76,12 +83,13 @@ const rows = computed(() => {
             <td>
               <n-input-number
                 v-model:value="itemsPrepared[item.info.id]"
-                :min="0"
+                :min="-1"
                 :max="item.amount.total"
                 :precision="0"
                 :size="showItemDetails ? 'small' : 'tiny'"
                 button-placement="both"
                 :show-button="!isMobile"
+                @update:value="handleNumInputLoop(item)"
               />
             </td>
             <td>
