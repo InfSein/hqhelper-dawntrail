@@ -1652,13 +1652,6 @@
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
-  "点击此按钮可以返回到上一个页面。": {
-    "en": "Click to go back to previous page.",
-    "ja": "このボタンをクリックすることで、前のページに戻れます。",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
-    ]
-  },
   "……不过您已经在HqHelper的首页了。": {
     "en": "...But you have already been inside the home page of HqHelper.",
     "ja": "すでにHqHelperのホームページです",
@@ -2312,7 +2305,7 @@
     ]
   },
   "点击此按钮来收藏/取消收藏这个采集品。": {
-    "en": "Click the button to star/unstar this item.",
+    "en": "Click to star/unstar this item.",
     "ja": "このボタンをクリックして、この採集品をお気に入りに登録/登録解除します。",
     "$files": [
       "views\\GatherClockPage.vue"
@@ -3659,13 +3652,6 @@
       "components\\modals\\ModalRecommendedProcesses.vue"
     ]
   },
-  "使用{job}采集": {
-    "en": "Use {job} gather",
-    "ja": "{job}で採集",
-    "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
-    ]
-  },
   "筹集灵砂": {
     "en": "Prepare aethersands",
     "ja": "霊砂を集める",
@@ -3797,6 +3783,347 @@
     "ja": "アプリのタイトルバーおよび各素材統計エリアのタイトル/ヒントアイコンの表示効果を最適化しました。",
     "$files": [
       "data\\change-logs.ts"
+    ]
+  },
+  "向采集时钟追加了订阅/提醒功能。": {
+    "en": "Added subscribe/notification function to Gatherclock.",
+    "ja": "向采集时钟追加了订阅/提醒功能。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在可以订阅采集品，被订阅的采集品将在“{f1}”中集中显示。此外，在“{f2}”区域将“{f3}”设置为“{f4}”后，程序会在采集品可以采集时发送系统级提示。": {
+    "en": "Now you can subscribe gather items, subscribed items will be displayed in \"{f1}\". In addition, after setting \"{f3}\" to \"{f4}\" in \"{f2}\", the program will send a system notification when the gather item can be gathered.",
+    "ja": "现在可以订阅采集品，被订阅的采集品将在“{f1}”中集中显示。此外，在“{f2}”区域将“{f3}”设置为“{f4}”后，程序会在采集品可以采集时发送系统级提示。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "已订阅": {
+    "en": "Subscribed",
+    "ja": "已订阅",
+    "$files": [
+      "data\\change-logs.ts",
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "提醒方式": {
+    "en": "Notification way",
+    "ja": "提醒方式",
+    "$files": [
+      "data\\change-logs.ts",
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "系统通知": {
+    "en": "System notification",
+    "ja": "系统通知",
+    "$files": [
+      "data\\change-logs.ts",
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "可能无法在部分浏览器/设备上正常工作。程序会在您调整“{f}”时检查权限并弹窗提醒。": {
+    "en": "Might cant work in some browser/device. The program will check permission and pop alert when you adjust \"{f}\".",
+    "ja": "可能无法在部分浏览器/设备上正常工作。程序会在您调整“{f}”时检查权限并弹窗提醒。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "HqHelper处于后台时，可能会被浏览器限制性能，导致您收到通知的时间比订阅道具的采集开始时间稍晚。": {
+    "en": "The performance of HqHelper might be restricted by browser when it is in background, which might cause the notification time to be later than the start time of subscribed item.",
+    "ja": "HqHelper处于后台时，可能会被浏览器限制性能，导致您收到通知的时间比订阅道具的采集开始时间稍晚。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "游戏全屏运行时可能会自动进入勿扰模式、屏蔽所有通知。如果希望在游玩游戏时正常接收到通知，则需要关闭自动勿扰模式或是赋予HqHelper白名单权限。": {
+    "en": "System might enter do not disturb mode automatically and block all notifications when game is running in full screen. If you want to receive notifications normally while playing the game, you need to disable auto do not disturb mode or grant HqHelper white list permission.",
+    "ja": "游戏全屏运行时可能会自动进入勿扰模式、屏蔽所有通知。如果希望在游玩游戏时正常接收到通知，则需要关闭自动勿扰模式或是赋予HqHelper白名单权限。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "进一步细化了推荐流程的采集品分组、优化了组内排序逻辑，并可以显示采集详情。": {
+    "en": "Further refined the grouping of gatherings in the Recomm. process, optimized the sorting logic within the group, and enabled the display of collection details.",
+    "ja": "进一步细化了推荐流程的采集品分组、优化了组内排序逻辑，并可以显示采集详情。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在会进一步区分限时与非限时的采集品。同一分组内，非限时采集品会按照采集的地图排序，限时采集品会按照开始时间排序。": {
+    "en": "Now the group will be further divided into limited and unlimited gatherings. In the same group, the non-limited gatherings will be sorted according to the map where they are collected, and the limited products will be sorted according to their start time.",
+    "ja": "现在会进一步区分限时与非限时的采集品。同一分组内，非限时采集品会按照采集的地图排序，限时采集品会按照开始时间排序。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "此外还增加了“{f}”选项，启用后会显示采集品的额外信息，包括限时信息和采集位置信息。": {
+    "en": "In addition, \"{f}\" is added, which will show extra information about gatherings, including limited time and gather location.",
+    "ja": "此外还增加了“{f}”选项，启用后会显示采集品的额外信息，包括限时信息和采集位置信息。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了移动端无法在偏好设置中启用“{f}”的问题。": {
+    "en": "Fixed issue that mobile device cant enable \"{f}\" in preference settings.",
+    "ja": "修复了移动端无法在偏好设置中启用“{f}”的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "① 进一步优化了采集时钟选项卡区域的辨识度；": {
+    "en": "① Further optimized the recognizability of the tabs of the Gatherclock;",
+    "ja": "① 进一步优化了采集时钟选项卡区域的辨识度；",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "② 现在物品采集位置的坐标统一精确到1位小数；": {
+    "en": "② Now the coordinate of item gather location is unified to 1 decimal place;",
+    "ja": "② 现在物品采集位置的坐标统一精确到1位小数；",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "③ 优化了一部分UI细节。": {
+    "en": "③ Optimized some UI details.",
+    "ja": "③ 优化了一部分UI细节。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在专业版制作报表的数量输入框可以在其值为0时点击减号来将这个道具直接标记为已筹备完成(类似游戏中数量输入框的逻辑)。": {
+    "en": "Now the number input box in the Pro statement can click minus button to mark item prepared directly when its value is 0 (similar to the in-game logic).",
+    "ja": "现在专业版制作报表的数量输入框可以在其值为0时点击减号来将这个道具直接标记为已筹备完成(类似游戏中数量输入框的逻辑)。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "“{f1}”的“{f2}”选项卡中追加了设置项“{f3}”。": {
+    "en": "Added new setting option \"{f3}\" in tab \"{f2}\" of \"{f1}\".",
+    "ja": "“{f1}”的“{f2}”选项卡中追加了设置项“{f3}”。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "材料清单格式": {
+    "en": "Item list style",
+    "ja": "材料清单格式",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "现在还可以选择以Teamcraft格式(如：\"3x 黄金灵砂\")展示材料清单。": {
+    "en": "Now you can choose to display item list in Teamcraft format (e.g.: \"3x Sungilt Aethersand\").",
+    "ja": "现在还可以选择以Teamcraft格式(如：\"3x 黄金の霊砂\")展示材料清单。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "桌面端左上返回按钮的逻辑有所变更：现在总是会返回首页，而非上一个访问的页面。": {
+    "en": "The return button in the upper left corner has changed its logic: it will always return to the home page, instead of the previous page.",
+    "ja": "桌面端左上返回按钮的逻辑有所变更：现在总是会返回首页，而非上一个访问的页面。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了客户端内置更新功能的逻辑。": {
+    "en": "Optimized client's inner update logic.",
+    "ja": "优化了客户端内置更新功能的逻辑。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "禁用": {
+    "en": "Disable",
+    "ja": "禁用",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "当前使用的浏览器或客户端不支持系统通知功能。": {
+    "en": "Current browser/device does not support system notification function.",
+    "ja": "当前使用的浏览器或客户端不支持系统通知功能。",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "通知权限被拒绝，请检查浏览器的网站权限设置。": {
+    "en": "Noitfication permission was rejected, please check browser's website permission setting.",
+    "ja": "通知权限被拒绝，请检查浏览器的网站权限设置。",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "以下物品已可采集：": {
+    "en": "Following items can be gathered:",
+    "ja": "以下物品已可采集：",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "推荐传送点 - ": {
+    "en": "Recomm. Aetheryte - ",
+    "ja": "推荐传送点 - ",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "订阅": {
+    "en": "Subscribe",
+    "ja": "订阅",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "取消订阅“{}”": {
+    "en": "Unsubscribe \"{}\"",
+    "ja": "取消订阅“{}”",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "订阅“{}”": {
+    "en": "Subscribe \"{}\"",
+    "ja": "订阅“{}”",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "全部取消订阅": {
+    "en": "Unsubscribe all",
+    "ja": "全部取消订阅",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "窗口置顶": {
+    "en": "Window top",
+    "ja": "窗口置顶",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "没有物品": {
+    "en": "No items here.",
+    "ja": "没有物品",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "点击此按钮来订阅/取消订阅这个采集品。": {
+    "en": "Click to subscribe/unsubscribe this item.",
+    "ja": "点击此按钮来订阅/取消订阅这个采集品。",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "被订阅的采集品可以采集时，我们会按照您设置的“{setting}”向您发送提醒。": {
+    "en": "When the subscribed item can be gathered, we will send you a notification according to your setting \"{setting}\".",
+    "ja": "被订阅的采集品可以采集时，我们会按照您设置的“{setting}”向您发送提醒。",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "点击此按钮可以返回到首页。": {
+    "en": "Click to back to home page.",
+    "ja": "点击此按钮可以返回到首页。",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "{lv}级": {
+    "en": "Lv. {lv}",
+    "ja": "{lv}级",
+    "$files": [
+      "components\\custom-controls\\ItemCell.vue"
+    ]
+  },
+  "显示采集详情": {
+    "en": "Show gather details",
+    "ja": "显示采集详情",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "隐藏采集详情": {
+    "en": "Hide gather details",
+    "ja": "隐藏采集详情",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}采集(非限时)": {
+    "en": "Use {job} gather (Unlimited)",
+    "ja": "使用{job}采集(非限时)",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}采集(限时)": {
+    "en": "Use {job} gather (Time-limited)",
+    "ja": "使用{job}采集(限时)",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "在{}采集": {
+    "en": "Gather at {}",
+    "ja": "在{}采集",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "限时: {}": {
+    "en": "Time-limit: {}",
+    "ja": "限时: {}",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "以悬浮窗模式使用采集时钟": {
+    "en": "Open Gatherclock in overlay mode",
+    "ja": "以悬浮窗模式使用采集时钟",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "仅在悬浮窗模式下，采集时钟可以激活置顶窗口功能。": {
+    "en": "Only in the mode of overlay, the gatherclock can activate the window top function.",
+    "ja": "仅在悬浮窗模式下，采集时钟可以激活置顶窗口功能。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "决定在点击材料区域物品按钮组上方的“清单”按钮后，展示的物品清单格式。": {
+    "en": "Determine the format of the list shown after clicking the \"View list\" button above the item button group.",
+    "ja": "决定在点击材料区域物品按钮组上方的“清单”按钮后，展示的物品清单格式。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "部分程序可能可以识别并导入特定格式的清单。": {
+    "en": "Some of programs might be able to recognize and import specific format of list.",
+    "ja": "部分程序可能可以识别并导入特定格式的清单。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "标准 (物品名称 x 数量)": {
+    "en": "Standard (Name x Amount)",
+    "ja": "标准 (物品名称 x 数量)",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "Teamcraft风格 (数量x 物品名称)": {
+    "en": "Teamcraft style (Amountx Name)",
+    "ja": "Teamcraft风格 (数量x 物品名称)",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
     ]
   }
 }

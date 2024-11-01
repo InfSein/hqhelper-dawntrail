@@ -294,7 +294,6 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
       {
         key: 'use_traditional_statement',
         label: t('使用旧版本制作报表'),
-        hide: isMobile.value,
         descriptions: [
           {
             value: t('在2.0.10版本，我们添加了专业版制作报表，提供更详细的物品信息表格，并支持根据已准备素材计算尚需素材。'),
@@ -397,6 +396,28 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
           { value: 'none', label: t('什么都不做') },
           { value: 'copy_name', label: t('复制物品名') },
           { value: 'copy_isearch', label: t('复制物品检索宏') },
+        ]
+      },
+      {
+        key: 'item_list_style',
+        label: t('材料清单格式'),
+        descriptions: [
+          {
+            value: t('决定在点击材料区域物品按钮组上方的“清单”按钮后，展示的物品清单格式。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('部分程序可能可以识别并导入特定格式的清单。'),
+            class: '',
+            style: ''
+          }
+        ],
+        warnings: [],
+        type: 'select',
+        options: [
+          { value: 'standard', label: t('标准 (物品名称 x 数量)') },
+          { value: 'teamcraft', label: t('Teamcraft风格 (数量x 物品名称)') },
         ]
       },
     ]

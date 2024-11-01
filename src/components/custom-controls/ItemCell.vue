@@ -76,7 +76,7 @@ const getTradeCost = (row: StatementRow) => {
           />
           <span>{{ getJobName(XivJobs[item.info.craftInfo.jobId]) }}</span>
           <span>
-            {{ item.info.craftInfo.craftLevel }}{{ '★'.repeat(item.info.craftInfo?.starCount || 0) }}
+            {{ t('{lv}级', item.info.craftInfo.craftLevel) }}{{ '★'.repeat(item.info.craftInfo?.starCount || 0) }}
           </span>
         </div>
         <div v-if="item.info.gatherInfo?.jobId" class="cell gatherer">
