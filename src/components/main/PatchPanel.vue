@@ -6,12 +6,15 @@ import {
 import { type UserConfigModel } from '@/models/user-config'
 import { XivPatches, type XivPatch } from "@/assets/data"
 import FoldableCard from '../custom-controls/FoldableCard.vue'
+import { fixGearSelections, isGearEmpty, type GearSelections } from '@/models/gears'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const patchSelected = defineModel<string>('patchSelected', { required: true })
+const gearsSelected = defineModel<GearSelections>('gearsSelected', { required: true })
+
 const cardDescription = computed(() => {
   if (!patchSelected.value) return t('还未选择')
   else return t('已选择版本: {}', patchSelected.value)
@@ -20,6 +23,22 @@ const cardDescription = computed(() => {
 const containerCard = ref<InstanceType<typeof FoldableCard>>()
 
 const handlePatchSelect = (patch: XivPatch) => {
+  if (
+    patchSelected.value && patch.v !== patchSelected.value
+    && !isGearEmpty(gearsSelected.value)
+  ) {
+    if (window.confirm(
+      t('确认要将版本从{old}切换到{new}吗?', {
+        old: patchSelected.value,
+        new: patch.v
+      })
+      + '\n' + t('已选部件将被自动清空。')
+    )) {
+      gearsSelected.value = fixGearSelections()
+    } else {
+      return
+    }
+  }
   patchSelected.value = patch.v
   const autoFold = !(userConfig.value?.disable_patchcard_autofold ?? false)
   if (isMobile.value && autoFold) {

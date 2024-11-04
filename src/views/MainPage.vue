@@ -90,7 +90,11 @@ const tradeMap = computed(() => {
       {{ t('我们已经开始内测，并提供7.0版本生产采集新HQ的装备数据。如果遇到问题，请通过“联系我们”中的方式反馈。') }}
     </n-alert> -->
     <div vertical id="main-container">
-      <PatchPanel id="top-layout" v-model:patch-selected="workState.patch" />
+      <PatchPanel
+        id="top-layout"
+        v-model:patch-selected="workState.patch"
+        v-model:gears-selected="workState.gears"
+      />
       <div vertical id="left-layout">
         <JobPanel
           v-model:job-selected="workState.job"
