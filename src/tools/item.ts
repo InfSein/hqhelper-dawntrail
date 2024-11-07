@@ -126,6 +126,12 @@ export interface ItemInfo {
     qsable: boolean,
     /** 可否搓出HQ */
     hqable: boolean,
+    /** 耐久 */
+    durability: number,
+    /** 难度 */
+    progress: number,
+    /** 品质 */
+    quality: number,
     /** 制作门槛 */
     thresholds: {
       /** 作业精度 */
@@ -349,6 +355,9 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         rLv: recipe.rlv,
         qsable: recipe.qs,
         hqable: recipe.hq,
+        durability: recipe.sp1?.[2],
+        progress: recipe.sp1?.[0],
+        quality: recipe.sp1?.[1],
         thresholds: {
           craftsmanship: recipe.sp2?.[0],
           control: recipe.sp2?.[1]
