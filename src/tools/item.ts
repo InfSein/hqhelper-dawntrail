@@ -114,6 +114,8 @@ export interface ItemInfo {
   craftInfo: {
     /** 制作职业 */
     jobId: number,
+    /** 配方ID */
+    recipeId: number,
     /** 制作等级 */
     craftLevel: number,
     /** 产量 (一次制作可以获得几个成品) */
@@ -349,6 +351,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
 
       itemInfo.craftInfo = {
         jobId: recipe.job + 8, // 解包配方的jobId是从0开始
+        recipeId: recipeID,
         craftLevel: recipe.bp?.[2],
         yields: recipe.bp?.[1],
         starCount: recipe.bp?.[3],
@@ -490,6 +493,29 @@ export const getItemContexts = (
       icon: renderIcon(OpenInNewFilled),
       click: () => {
         window.open(`https://universalis.app/market/${itemInfo.id}`)
+      }
+    },
+    {
+      type: 'divider',
+      key: 'd2',
+      show: !!itemInfo?.craftInfo?.recipeId
+    },
+    {
+      label: t('在BestCraft中模拟制作'),
+      key: 'open-in-bestcraft',
+      show: !!itemInfo?.craftInfo?.recipeId,
+      icon: renderIcon(OpenInNewFilled),
+      click: () => {
+        window.open(`https://tnze.yyyy.games/#/recipe?recipeId=${itemInfo?.craftInfo?.recipeId}`)
+      }
+    },
+    {
+      label: t('在TeamCraft中模拟制作'),
+      key: 'open-in-teamcraft',
+      show: !!itemInfo?.craftInfo?.recipeId,
+      icon: renderIcon(OpenInNewFilled),
+      click: () => {
+        window.open(`https://ffxivteamcraft.com/simulator/${itemInfo.id}/${itemInfo?.craftInfo?.recipeId}`)
       }
     },
   ]
