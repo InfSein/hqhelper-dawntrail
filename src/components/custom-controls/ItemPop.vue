@@ -442,12 +442,22 @@ const innerPopTrigger = computed(() => {
           </div>
           <n-divider class="item-divider" />
           <div class="content">
+            <div class="other-attrs">
+              {{ t('耐久{dur} / 难度{pro} / 品质{qua}', {
+                dur: itemInfo.craftInfo?.durability,
+                pro: itemInfo.craftInfo?.progress,
+                qua: itemInfo.craftInfo?.quality
+              }) }}
+            </div>
             <div
               class="item"
               v-for="(item, index) in itemInfo.craftRequires"
               :key="'recipe-' + index"
             >
               <ItemSpan :item-info="getItemInfo(item.id)" :amount="item.count" show-amount :container-id="containerId" />
+            </div>
+            <div class="other-attrs" v-if="(itemInfo.craftInfo?.yields || 1) > 1">
+              {{ t('每次制作会产出{yields}个成品', itemInfo.craftInfo?.yields) }}
             </div>
             <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship && itemInfo.craftInfo?.thresholds?.control">
               <div>{{ t('制作条件：') }}</div>
@@ -463,9 +473,6 @@ const innerPopTrigger = computed(() => {
                   {{ t('加工精度{value}', itemInfo.craftInfo?.thresholds?.control) }}
                 </div>
               </div>
-            </div>
-            <div class="other-attrs" v-if="(itemInfo.craftInfo?.yields || 1) > 1">
-              {{ t('每次制作会产出{yields}个成品', itemInfo.craftInfo?.yields) }}
             </div>
             <div class="other-attrs">
               <div v-if="!itemInfo.craftInfo?.qsable" class="red">{{ t('无法进行简易制作') }}</div>
