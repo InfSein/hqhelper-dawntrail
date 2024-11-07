@@ -1,10 +1,16 @@
 <script lang="ts" setup>
-import { inject, ref, type Ref } from 'vue'
+import { computed, h, inject, nextTick, ref, type Component, type Ref } from 'vue'
 import {
-  NBadge, NButton, NPopover
+  NBadge, NButton, NDropdown, NIcon, NPopover,
+  NText
 } from 'naive-ui'
+import {
+  FileDownloadDoneOutlined,
+  AccessibilityNewOutlined
+} from '@vicons/material'
 import XivFARImage from './XivFARImage.vue'
 
+const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 interface JobButtonProps {
@@ -34,6 +40,111 @@ const btnSize = props.imgSize + 5
 const onBtnClicked = () => {
   emit('on-btn-clicked')
 }
+
+// #region 右键菜单相关
+
+const showDropdownRef = ref(false)
+const xRef = ref(0)
+const yRef = ref(0)
+
+const contextOptions = computed(() => {
+  return [
+    {
+      label: t('已选'),
+      key: 'selected',
+      icon: renderIcon(FileDownloadDoneOutlined),
+      children: [
+        {
+          key: 'selected-header',
+          type: 'render',
+          render: renderGearsSelected
+        },
+        {
+          key: 'selected-header-divider',
+          type: 'divider'
+        },
+        {
+          label: t('在做了'),
+          key: '???1',
+          icon: renderIcon(FileDownloadDoneOutlined)
+        }
+      ]
+    },
+    {
+      type: 'divider',
+      key: 'd1'
+    },
+    {
+      label: t('配装'),
+      key: 'gearing',
+      icon: renderIcon(AccessibilityNewOutlined),
+      children: [
+        {
+          label: t('在配装模拟器中打开'),
+          key: 'gearing-open-simulator',
+          icon: renderIcon(AccessibilityNewOutlined)
+        },
+        {
+          label: t('查看推荐配装'),
+          key: 'gearing-recomm',
+          icon: renderIcon(AccessibilityNewOutlined)
+        }
+      ]
+    }
+  ]
+})
+function renderGearsSelected() {
+  // todo
+  return h(
+    'div',
+    {
+      style: 'display: flex; align-items: center; padding: 8px 12px;'
+    },
+    [
+      h('div', null, [
+        h('div', null, [h(NText, { depth: 2 }, { default: () => '打工仔' })]),
+        h('div', { style: 'font-size: 12px;' }, [
+          h(
+            NText,
+            { depth: 3 },
+            { default: () => '毫无疑问，你是办公室里最亮的星' }
+          )
+        ])
+      ])
+    ]
+  )
+}
+function renderIcon(icon: Component) {
+  return () => {
+    return h(NIcon, null, {
+      default: () => h(icon)
+    })
+  }
+}
+const handleContextMenu = (e: MouseEvent) => {
+  e.preventDefault()
+  showDropdownRef.value = false
+  nextTick().then(() => {
+    showDropdownRef.value = true
+    xRef.value = e.clientX
+    yRef.value = e.clientY
+  })
+}
+const handleSelect = async (key: string | number, option: any) => {
+  showDropdownRef.value = false
+  console.log(key)
+  if (option?.click) {
+    option.click()
+  } else {
+    console.log('[开发提示] 未分配点击事件', key, option)
+  }
+}
+const onClickoutside = () => {
+  showDropdownRef.value = false
+}
+
+// #endregion
+
 </script>
 
 <template>
@@ -50,10 +161,23 @@ const onBtnClicked = () => {
           :color="props.btnColor"
           :style="{ width: `${btnSize}px`, height: `${btnSize}px` }"
           @click="onBtnClicked"
+          @contextmenu="handleContextMenu"
         >
           <XivFARImage
             :src="jobIcon"
             :size="imgSize"
+          />
+          
+          <n-dropdown
+            size="small"
+            placement="bottom-start"
+            trigger="manual"
+            :x="xRef"
+            :y="yRef"
+            :options="contextOptions"
+            :show="showDropdownRef"
+            :on-clickoutside="onClickoutside"
+            @select="handleSelect"
           />
         </n-button>
       </n-badge>
