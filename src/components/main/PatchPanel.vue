@@ -28,11 +28,8 @@ const handlePatchSelect = (patch: XivPatch) => {
     && !isGearEmpty(gearsSelected.value)
   ) {
     if (window.confirm(
-      t('确认要将版本从{old}切换到{new}吗?', {
-        old: patchSelected.value,
-        new: patch.v
-      })
-      + '\n' + t('已选部件将被自动清空。')
+      t('切换版本会清空你已选择的装备部件。')
+      + '\n' + t('要继续吗?')
     )) {
       gearsSelected.value = fixGearSelections()
     } else {
