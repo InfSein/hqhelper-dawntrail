@@ -141,7 +141,7 @@ export interface ItemInfo {
       /** 加工精度 */
       control: number,
     },
-    /** 简易制作门槛 */
+    /** 简易制作门槛 (目前的解包数据未正确提供,请勿引用) */
     qsThresholds: {
       /** 作业精度 */
       craftsmanship: number,

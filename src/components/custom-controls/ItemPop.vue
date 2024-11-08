@@ -461,10 +461,6 @@ const innerPopTrigger = computed(() => {
             </div>
             <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship && itemInfo.craftInfo?.thresholds?.control">
               <div>{{ t('制作条件：') }}</div>
-              <div class="item small-font" v-if="itemInfo.craftInfo?.masterRecipeId">
-                {{ t('需要习得') }}
-                <ItemSpan :img-size="12" :item-info="getItemInfo(itemInfo.craftInfo.masterRecipeId)" :container-id="containerId" />
-              </div>
               <div class="item small-font">
                 <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship">
                   {{ t('作业精度{value}', itemInfo.craftInfo?.thresholds?.craftsmanship) }}
@@ -472,6 +468,10 @@ const innerPopTrigger = computed(() => {
                 <div v-if="itemInfo.craftInfo?.thresholds?.control">
                   {{ t('加工精度{value}', itemInfo.craftInfo?.thresholds?.control) }}
                 </div>
+              </div>
+              <div class="item small-font" v-if="itemInfo.craftInfo?.masterRecipeId">
+                {{ t('需要习得') }}
+                <ItemSpan :img-size="12" :item-info="getItemInfo(itemInfo.craftInfo.masterRecipeId)" :container-id="containerId" />
               </div>
             </div>
             <div class="other-attrs">
