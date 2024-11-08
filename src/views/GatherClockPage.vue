@@ -175,7 +175,6 @@ onMounted(() => {
       if (
         _CurrentET !== alarmedET.value
         && workState.value.subscribedItems?.length
-        && Notification.permission === 'granted'
         && workState.value.notifyMode !== 'none'
       ) {
         const itemsNeedAlarm : ItemInfo[] = []
