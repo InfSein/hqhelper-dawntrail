@@ -214,8 +214,12 @@ const handleCheckNotificationPermission = () => {
       Notification.requestPermission()
     }
   } else if (workState.value.notifyMode === 'audio') {
-    const audio = new Audio('./audio/FFXIV_Incoming_Tell_2.mp3')
-    audio.play()
+    try {
+      const audio = new Audio('./audio/FFXIV_Incoming_Tell_2.mp3')
+      audio.play()
+    } catch (error: any) {
+      alert(t('播放提示音失败。') + '\n' + (error?.message ?? error))
+    }
   }
 }
 const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
