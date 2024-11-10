@@ -22,6 +22,7 @@ import { getNearestAetheryte } from '@/tools/map'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import EorzeaTime from '@/tools/eorzea-time'
+import { playAudio } from '@/tools'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -214,12 +215,7 @@ const handleCheckNotificationPermission = () => {
       Notification.requestPermission()
     }
   } else if (workState.value.notifyMode === 'audio') {
-    try {
-      const audio = new Audio('./audio/FFXIV_Incoming_Tell_2.mp3')
-      audio.play()
-    } catch (error: any) {
-      alert(t('播放提示音失败。') + '\n' + (error?.message ?? error))
-    }
+    playAudio('./audio/FFXIV_Incoming_Tell_2.mp3')
   }
 }
 const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
@@ -237,8 +233,7 @@ const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
       })
     }
   } else if (workState.value.notifyMode === 'audio') {
-    const audio = new Audio('./audio/FFXIV_Incoming_Tell_2.mp3')
-    audio.play()
+    playAudio('./audio/FFXIV_Incoming_Tell_2.mp3')
   }
 }
 

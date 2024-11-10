@@ -34,3 +34,24 @@ export const visitUrl = (url: string) => {
   const func = window.electronAPI?.openUrlByBrowser ?? window.open
   func(url)
 }
+
+/**
+ * 播放音频
+ * @param source 音频src
+ */
+export const playAudio = (source: string) => {
+  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
+
+  fetch(source)
+    .then(response => response.arrayBuffer())
+    .then(data => audioContext.decodeAudioData(data))
+    .then(buffer => {
+      const source = audioContext.createBufferSource()
+      source.buffer = buffer
+      source.connect(audioContext.destination)
+      source.start(0)
+    })
+    .catch(error => {
+      alert("播放失败：\n"+ error)
+    })
+}
