@@ -16,18 +16,11 @@ import { useNbbCal } from '@/tools/use-nbb-cal';
 const store = useStore()
 // const NAIVE_UI_MESSAGE = useMessage()
 
-const gearSelectionPanel = ref<InstanceType<typeof GearSelectionPanel>>()
-
-// #region Provides & Injections
-
 // const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
-// nbb cal
-const { calGearSelections, getSpecialItems, getTradeMap } = useNbbCal();
-
-// #endregion
+const { calGearSelections, getSpecialItems, getTradeMap, getPatchData } = useNbbCal()
 
 const workState = ref({
   patch: '',
@@ -38,6 +31,8 @@ const workState = ref({
   },
   gears: getDefaultGearSelections(),
 })
+
+const gearSelectionPanel = ref<InstanceType<typeof GearSelectionPanel>>()
 
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {
@@ -70,6 +65,9 @@ const handleJobButtonDupliClick = () => {
   }
 }
 
+const patchData = computed(() => {
+  return getPatchData(workState.value.patch)
+})
 const statistics = computed(() => {
   return calGearSelections(workState.value.gears, workState.value.patch || '7.0')
 })
@@ -90,13 +88,18 @@ const tradeMap = computed(() => {
       {{ t('我们已经开始内测，并提供7.0版本生产采集新HQ的装备数据。如果遇到问题，请通过“联系我们”中的方式反馈。') }}
     </n-alert> -->
     <div vertical id="main-container">
-      <PatchPanel id="top-layout" v-model:patch-selected="workState.patch" />
+      <PatchPanel
+        id="top-layout"
+        v-model:patch-selected="workState.patch"
+        v-model:gears-selected="workState.gears"
+      />
       <div vertical id="left-layout">
         <JobPanel
           v-model:job-selected="workState.job"
           v-model:affixes-selected="workState.affixes"
           class="job-panel"
           :patch-selected="workState.patch"
+          :patch-data="patchData"
           :main-hand-selections="workState.gears?.MainHand"
           @on-job-button-dupli-click="handleJobButtonDupliClick"
         />
@@ -106,6 +109,7 @@ const tradeMap = computed(() => {
           class="gear-panel"
           :patch-selected="workState.patch"
           :job-id="workState.job"
+          :patch-data="patchData"
           :attire-affix="workState.affixes?.attire as AttireAffix"
           :accessory-affix="workState.affixes?.accessory as AccessoryAffix"
         />

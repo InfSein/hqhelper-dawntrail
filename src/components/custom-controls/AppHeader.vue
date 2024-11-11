@@ -15,6 +15,7 @@ import {
   AccessAlarmsOutlined,
   FastfoodOutlined,
   HomeOutlined,
+  HelpOutlineOutlined,
   MenuFilled,
   UpdateOutlined,
   SettingsSharp,
@@ -230,6 +231,7 @@ const desktopMenus = computed(() => {
       label: t('关于'),
       icon: InfoFilled,
       options: [
+        { key: 'ab-faq', label: '常见问题', hide: userConfig.value.language_ui !== 'zh', icon: renderIcon(HelpOutlineOutlined), description: '也有不常见的。', click: ()=>{ visitUrl('https://docs.qq.com/doc/DY3pPZmRGRHpubEFi') } },
         { key: 'ab-contact', label: t('联系我们'), icon: renderIcon(ContactlessOutlined), description: contactTooltip, click: displayContactModal },
         { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoOutlined), description: aboutTooltip, click: displayAboutAppModal }
       ],
@@ -244,9 +246,19 @@ function renderIcon(icon: Component) {
   }
 }
 const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | DropdownGroupOption }) => {
+  if (option.hide) {
+    return null
+  }
   return option.description ? h(
     NTooltip,
-    { keepAliveOnHover: false, placement: 'right', style: { width: 'max-content', display: isMobile.value ? 'none' : 'inherit' } },
+    {
+      keepAliveOnHover: false,
+      placement: 'right',
+      style: {
+        width: 'max-content',
+        display: isMobile.value ? 'none' : 'inherit',
+      }
+    },
     {
       trigger: () => [node],
       default: () => option.description

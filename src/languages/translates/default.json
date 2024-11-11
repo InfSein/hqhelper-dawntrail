@@ -4125,5 +4125,82 @@
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
+  },
+  "在BestCraft中模拟制作": {
+    "en": "Simulate-craft in BestCraft",
+    "ja": "BestCraftで製作をシミュレーション",
+    "$files": [
+      "tools\\item.ts"
+    ]
+  },
+  "在TeamCraft中模拟制作": {
+    "en": "Simulate-craft in TeamCraft",
+    "ja": "TeamCraftで製作をシミュレーション",
+    "$files": [
+      "tools\\item.ts"
+    ]
+  },
+  "提示音": {
+    "en": "Sound",
+    "ja": "通知音",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "播放提示音失败。": {
+    "en": "Failed to play sound.",
+    "ja": "通知音の再生に失敗しました。",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "耐久{dur} / 难度{pro} / 品质{qua}": {
+    "en": "Durability {dur} / Progress {pro} / Quality {qua}",
+    "ja": "耐久{dur} / 難易度{pro} / 品質{qua}",
+    "$files": [
+      "components\\custom-controls\\ItemPop.vue"
+    ]
+  },
+  "切换版本会清空你已选择的装备部件。": {
+    "en": "Switch patch would clear all your gear selections.",
+    "ja": "パッチを切り替えると、選択した装備パーツがクリアされます。",
+    "$files": [
+      "components\\main\\PatchPanel.vue"
+    ]
+  },
+  "采集时钟现在还可以将“{f1}”设置为“{f2}”。": {
+    "en": "Now gatherclock could set \"{f1}\" to \"{f2}\".",
+    "ja": "採集タイマーで「{f1}」を「{f2}」に設定できるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "初次设置时会播放一次。": {
+    "en": "Audio would be played once on first setting.",
+    "ja": "初めて設定する際には一度再生されます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在可制作物品的悬浮窗内还会展示配方的耐久/难度/品质信息。": {
+    "en": "Now the popup of craftable items will also show durability/progress/quality info.",
+    "ja": "製作可能なアイテムのツールチップに、レシピの耐久/難易度/品質情報が表示されるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "伴随这一改动，悬浮窗内的配方信息顺序有所调整。": {
+    "en": "With this change, the order of formula information in popup is adjusted.",
+    "ja": "この変更に伴い、ツールチップ内のレシピ情報の順序が変更されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在右键有制作配方的物品按钮时，可以在菜单中选择“{f1}”和“{f2}”。": {
+    "en": "Now the context menu of craftable item will have \"{f1}\" and \"{f2}\" options.",
+    "ja": "レシピのアイテムボタンを右クリックすると、メニューから「{f1}」や「{f2}」を選択できるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
   }
 }

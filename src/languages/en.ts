@@ -584,5 +584,16 @@ export default {
     "583": "Determine the format of the list shown after clicking the \"View list\" button above the item button group.",
     "584": "Some of programs might be able to recognize and import specific format of list.",
     "585": "Standard (Name x Amount)",
-    "586": "Teamcraft style (Amountx Name)"
+    "586": "Teamcraft style (Amountx Name)",
+    "587": "Simulate-craft in BestCraft",
+    "588": "Simulate-craft in TeamCraft",
+    "589": "Sound",
+    "590": "Failed to play sound.",
+    "591": "Durability {dur} / Progress {pro} / Quality {qua}",
+    "592": "Switch patch would clear all your gear selections.",
+    "593": "Now gatherclock could set \"{f1}\" to \"{f2}\".",
+    "594": "Audio would be played once on first setting.",
+    "595": "Now the popup of craftable items will also show durability/progress/quality info.",
+    "596": "With this change, the order of formula information in popup is adjusted.",
+    "597": "Now the context menu of craftable item will have \"{f1}\" and \"{f2}\" options."
 }
