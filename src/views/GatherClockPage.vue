@@ -22,6 +22,7 @@ import { getNearestAetheryte } from '@/tools/map'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import EorzeaTime from '@/tools/eorzea-time'
+import { playAudio } from '@/tools'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -111,7 +112,7 @@ const workState = ref({
   /** 是否将整个窗口置顶 (限v5及以上的客户端使用) */
   pinWindow: false,
   /** 通知方式 */
-  notifyMode: 'none' as "none" | "system_noti",
+  notifyMode: 'none' as "none" | "system_noti" | "audio",
   /** 排序依据 */
   orderBy: 'itemId' as "itemId" | "gatherStartTimeAsc",
   /** 是否将目前可以采集的道具置顶 */
@@ -132,6 +133,10 @@ const notifyModeOptions = computed(() => {
     {
       label: t('系统通知'),
       value: 'system_noti'
+    },
+    {
+      label: t('提示音'),
+      value: 'audio'
     },
   ]
 })
@@ -171,7 +176,6 @@ onMounted(() => {
       if (
         _CurrentET !== alarmedET.value
         && workState.value.subscribedItems?.length
-        && Notification.permission === 'granted'
         && workState.value.notifyMode !== 'none'
       ) {
         const itemsNeedAlarm : ItemInfo[] = []
@@ -210,6 +214,8 @@ const handleCheckNotificationPermission = () => {
     } else if (Notification.permission !== 'granted') {
       Notification.requestPermission()
     }
+  } else if (workState.value.notifyMode === 'audio') {
+    playAudio('./audio/FFXIV_Incoming_Tell_2.mp3')
   }
 }
 const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
@@ -226,6 +232,8 @@ const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
         icon: itemsNeedAlarm[0].iconUrl
       })
     }
+  } else if (workState.value.notifyMode === 'audio') {
+    playAudio('./audio/FFXIV_Incoming_Tell_2.mp3')
   }
 }
 

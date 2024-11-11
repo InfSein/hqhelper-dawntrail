@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, inject, type Ref, computed, type PropType } from 'vue'
+import { ref, inject, type Ref, computed } from 'vue'
 import {
   NAlert, NFlex
 } from 'naive-ui'
@@ -10,6 +10,7 @@ import FoldableCard from '../custom-controls/FoldableCard.vue'
 import JobButton from '../custom-controls/JobButton.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import XivFARImage from '../custom-controls/XivFARImage.vue'
+import type { IHqVer } from '@/tools/nbb-cal-v5'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -17,16 +18,12 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const jobSelected = defineModel<number>('jobSelected', { required: true })
 const affixesSelected = defineModel<any>('affixesSelected', { required: true })
-defineProps({
-  patchSelected: {
-    type: String,
-    required: true
-  },
-  mainHandSelections: {
-    type: Object as PropType<Record<number, number>>,
-    required: true
-  }
-})
+interface JobPanelProps {
+  patchSelected: string
+  patchData?: IHqVer
+  mainHandSelections: Record<number, number>
+}
+const props = defineProps<JobPanelProps>()
 const emit = defineEmits(['onJobButtonDupliClick'])
 
 const cardDescription = computed(() => {
@@ -81,6 +78,13 @@ const jobImageSize = computed(() => {
     return 28 // default or 1080p
   }
 })
+
+const isJobAvailable = (jobId: number) => {
+  return props.patchData?.jobs?.MainHand?.[jobId]?.[0]
+}
+const isJobGroupAvailable = (group: number[]) => {
+  return group.some((jobId: number) => isJobAvailable(jobId))
+}
 </script>
 
 <template>
@@ -101,6 +105,7 @@ const jobImageSize = computed(() => {
       <GroupBox
         v-for="(role, roleIndex) in XivRoles"
         :key="roleIndex"
+        v-show="!patchSelected || isJobGroupAvailable(role.jobs)"
         :border-color="role.role_color"
         title-background-color="var(--n-color-embedded)"
         container-extra-style="padding: 8px 8px 7px 8px;"
@@ -128,7 +133,7 @@ const jobImageSize = computed(() => {
               :btn-color="role.role_color"
               :count="mainHandSelections?.[job] || 0"
               :class="{'selected': jobSelected === job}"
-              :disabled="!patchSelected"
+              :disabled="!patchSelected || !isJobAvailable(job)"
               @on-btn-clicked="handleJobSelect(job, role)"
             />
           </div>

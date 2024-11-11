@@ -114,6 +114,8 @@ export interface ItemInfo {
   craftInfo: {
     /** 制作职业 */
     jobId: number,
+    /** 配方ID */
+    recipeId: number,
     /** 制作等级 */
     craftLevel: number,
     /** 产量 (一次制作可以获得几个成品) */
@@ -126,6 +128,12 @@ export interface ItemInfo {
     qsable: boolean,
     /** 可否搓出HQ */
     hqable: boolean,
+    /** 耐久 */
+    durability: number,
+    /** 难度 */
+    progress: number,
+    /** 品质 */
+    quality: number,
     /** 制作门槛 */
     thresholds: {
       /** 作业精度 */
@@ -133,7 +141,7 @@ export interface ItemInfo {
       /** 加工精度 */
       control: number,
     },
-    /** 简易制作门槛 */
+    /** 简易制作门槛 (目前的解包数据未正确提供,请勿引用) */
     qsThresholds: {
       /** 作业精度 */
       craftsmanship: number,
@@ -343,12 +351,16 @@ export const getItemInfo = (item: number | CalculatedItem) => {
 
       itemInfo.craftInfo = {
         jobId: recipe.job + 8, // 解包配方的jobId是从0开始
+        recipeId: recipeID,
         craftLevel: recipe.bp?.[2],
         yields: recipe.bp?.[1],
         starCount: recipe.bp?.[3],
         rLv: recipe.rlv,
         qsable: recipe.qs,
         hqable: recipe.hq,
+        durability: recipe.sp1?.[2],
+        progress: recipe.sp1?.[0],
+        quality: recipe.sp1?.[1],
         thresholds: {
           craftsmanship: recipe.sp2?.[0],
           control: recipe.sp2?.[1]
@@ -481,6 +493,29 @@ export const getItemContexts = (
       icon: renderIcon(OpenInNewFilled),
       click: () => {
         window.open(`https://universalis.app/market/${itemInfo.id}`)
+      }
+    },
+    {
+      type: 'divider',
+      key: 'd2',
+      show: !!itemInfo?.craftInfo?.recipeId
+    },
+    {
+      label: t('在BestCraft中模拟制作'),
+      key: 'open-in-bestcraft',
+      show: !!itemInfo?.craftInfo?.recipeId,
+      icon: renderIcon(OpenInNewFilled),
+      click: () => {
+        window.open(`https://tnze.yyyy.games/#/recipe?recipeId=${itemInfo?.craftInfo?.recipeId}`)
+      }
+    },
+    {
+      label: t('在TeamCraft中模拟制作'),
+      key: 'open-in-teamcraft',
+      show: !!itemInfo?.craftInfo?.recipeId,
+      icon: renderIcon(OpenInNewFilled),
+      click: () => {
+        window.open(`https://ffxivteamcraft.com/simulator/${itemInfo.id}/${itemInfo?.craftInfo?.recipeId}`)
       }
     },
   ]

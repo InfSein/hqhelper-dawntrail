@@ -59,3 +59,17 @@ export interface XivMapAetheryteInfo {
  * * `key`: placeID
  */
 export const XivMaps = JsonXivMaps as Record<number, XivMapInfo>
+
+import JsonXivPatches from './xiv-patches.json'
+export interface XivPatch {
+  v: string
+  name_zh: string
+  name_en: string
+  name_ja: string
+  updated: boolean
+  combat_hq_il?: number
+  life_hq_il?: number
+  logo: string
+  background?: string
+}
+export const XivPatches = JsonXivPatches as XivPatch[]

@@ -4125,5 +4125,82 @@
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
+  },
+  "在BestCraft中模拟制作": {
+    "en": "Simulate-craft in BestCraft",
+    "ja": "在BestCraft中模拟制作",
+    "$files": [
+      "tools\\item.ts"
+    ]
+  },
+  "在TeamCraft中模拟制作": {
+    "en": "Simulate-craft in TeamCraft",
+    "ja": "在TeamCraft中模拟制作",
+    "$files": [
+      "tools\\item.ts"
+    ]
+  },
+  "提示音": {
+    "en": "Sound",
+    "ja": "提示音",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "播放提示音失败。": {
+    "en": "Failed to play sound.",
+    "ja": "播放提示音失败。",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "耐久{dur} / 难度{pro} / 品质{qua}": {
+    "en": "Durability {dur} / Progress {pro} / Quality {qua}",
+    "ja": "耐久{dur} / 难度{pro} / 品质{qua}",
+    "$files": [
+      "components\\custom-controls\\ItemPop.vue"
+    ]
+  },
+  "切换版本会清空你已选择的装备部件。": {
+    "en": "Switch patch would clear all your gear selections.",
+    "ja": "切换版本会清空你已选择的装备部件。",
+    "$files": [
+      "components\\main\\PatchPanel.vue"
+    ]
+  },
+  "采集时钟现在还可以将“{f1}”设置为“{f2}”。": {
+    "en": "Now gatherclock could set \"{f1}\" to \"{f2}\".",
+    "ja": "采集时钟现在还可以将“{f1}”设置为“{f2}”。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "初次设置时会播放一次。": {
+    "en": "Audio would be played once on first setting.",
+    "ja": "初次设置时会播放一次。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在可制作物品的悬浮窗内还会展示配方的耐久/难度/品质信息。": {
+    "en": "Now the popup of craftable items will also show durability/progress/quality info.",
+    "ja": "现在可制作物品的悬浮窗内还会展示配方的耐久/难度/品质信息。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "伴随这一改动，悬浮窗内的配方信息顺序有所调整。": {
+    "en": "With this change, the order of formula information in popup is adjusted.",
+    "ja": "伴随这一改动，悬浮窗内的配方信息顺序有所调整。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在右键有制作配方的物品按钮时，可以在菜单中选择“{f1}”和“{f2}”。": {
+    "en": "Now the context menu of craftable item will have \"{f1}\" and \"{f2}\" options.",
+    "ja": "现在右键有制作配方的物品按钮时，可以在菜单中选择“{f1}”和“{f2}”。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
   }
 }
