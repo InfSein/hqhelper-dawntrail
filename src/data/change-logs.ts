@@ -68,19 +68,18 @@ export const getChangelogs = (
           changes: [
             t('国服数据库更新至{ver}。', {
               ver: '7.05'
+            }),
+            t('采集时钟现在还可以将“{f1}”设置为“{f2}”。', {
+              f1: t('提醒方式'),
+              f2: t('提示音')
             })
+              + `<br>${emBlock} ※ ` + t('初次设置时会播放一次。') + `<span style="font-size:12px;">(C) SQUARE ENIX <a target="_blank" href="https://jp.finalfantasyxiv.com/lodestone/special/fankit/smartphone_ringtone/">Fan Kit</a></span>`
           ]
         },
         {
           name: groupName.feature,
           changes: [
-            t('采集时钟现在还可以将“{f1}”设置为“{f2}”。', {
-              f1: t('提醒方式'),
-              f2: t('提示音')
-            })
-              + `<br>${emBlock} ※ ` + t('初次设置时会播放一次。')
-              + `<span style="font-size:12px;">(C) SQUARE ENIX <a target="_blank" href="https://jp.finalfantasyxiv.com/lodestone/special/fankit/smartphone_ringtone/">Fan Kit</a></span>`
-            ,
+            isZh ? '向桌面端顶部菜单项“关于”的下属选项中追加了“常见问题” (仅在界面语言设置为简体中文时显示)。' : '',
             t('现在可制作物品的悬浮窗内还会展示配方的耐久/难度/品质信息。')
               + '<br>' + t('伴随这一改动，悬浮窗内的配方信息顺序有所调整。'),
             t('现在右键有制作配方的物品按钮时，可以在菜单中选择“{f1}”和“{f2}”。', {
