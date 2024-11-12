@@ -25,8 +25,8 @@ export interface PatchChangeGroup {
 
 /*
     {
-      version: '2.0.11',
-      date: '2024-10-27',
+      version: '2.0.14',
+      date: '2024-11-12',
       changes: [
         {
           name: groupName.breaking,
@@ -59,6 +59,31 @@ export const getChangelogs = (
   }
   const isZh = ui_lang === 'zh'
   return [
+    {
+      version: '2.1.0',
+      date: '2024-11-12',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('国际服数据库更新至{ver}。', {
+              ver: '7.1'
+            }),
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            isZh ? '修复了部分国服7.05已经实装的道具仍会显示物品名为暂译的问题。' : ''
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+          ]
+        }
+      ]
+    },
     {
       version: '2.0.13',
       date: '2024-11-11',
