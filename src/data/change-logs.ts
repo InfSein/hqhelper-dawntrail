@@ -80,6 +80,9 @@ export const getChangelogs = (
         {
           name: groupName.feature,
           changes: [
+            t('在“{f}”中的各个物品前增加了复选框，勾选可以临时将物品标记为已完成。当某一组物品全部被标记为已完成时，这一组会自动折叠。{f}中的标记不会影响制作报表中记录的已有数量。', {
+              f: t('推荐流程')
+            })
           ]
         }
       ]
