@@ -325,12 +325,16 @@ const onUserPreferencesSubmitted = () => {
     NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
   }
 }
+
+const useDesktopUi = computed(() => {
+  return !isMobile.value || !!window.electronAPI
+})
 </script>
 
 <template>
   <div class="app-header">
-    <div class="router-back-container" v-if="!isMobile">
-      <n-popover trigger="hover" :keep-alive-on-hover="isMobile" style="max-width: 300px;">
+    <div class="router-back-container" v-if="useDesktopUi">
+      <n-popover trigger="hover" :keep-alive-on-hover="false" style="max-width: 300px;">
         <template #trigger>
           <n-button text style="font-size: 35px" :disabled="!canRouteBack" @click="handleRouteBack">
             <n-icon>
@@ -375,7 +379,7 @@ const onUserPreferencesSubmitted = () => {
           </div>
         </n-popover>
 
-        <div class="tail-contents" v-if="isMobile">
+        <div class="tail-contents" v-if="!useDesktopUi">
           <n-button ghost class="menu-button" @click="showMenus = !showMenus">
             <template #icon>
               <n-icon><menu-filled /></n-icon>
@@ -383,8 +387,8 @@ const onUserPreferencesSubmitted = () => {
           </n-button>
         </div>
       </div>
-      <n-divider v-if="!isMobile" style="margin: -1px 0 3px 0;" />
-      <div class="app-menu" v-if="!isMobile">
+      <n-divider v-if="useDesktopUi" style="margin: -1px 0 3px 0;" />
+      <div class="app-menu" v-if="useDesktopUi">
         <n-dropdown
           size="small"
           placement="bottom-start"

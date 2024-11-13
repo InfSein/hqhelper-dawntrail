@@ -377,6 +377,11 @@ const innerPopTrigger = computed(() => {
                 :pop-trigger="innerPopTrigger"
               />
             </div>
+            <div class="other-attrs" v-if="itemInfo.gatherInfo.recommAetheryte" style="margin-left: 1em;">
+              ※ 
+              {{ t('推荐传送点 - ') }}
+              {{ itemInfo.gatherInfo.recommAetheryte?.[`name_${itemLanguage}`] }}
+            </div>
           </div>
           <div class="content" v-if="itemInfo.gatherInfo?.timeLimitInfo?.length">
             <div>{{ t('该物品只能在以下ET内采集：') }}</div>

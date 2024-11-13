@@ -25,8 +25,8 @@ export interface PatchChangeGroup {
 
 /*
     {
-      version: '2.0.11',
-      date: '2024-10-27',
+      version: '2.0.14',
+      date: '2024-11-12',
       changes: [
         {
           name: groupName.breaking,
@@ -59,6 +59,38 @@ export const getChangelogs = (
   }
   const isZh = ui_lang === 'zh'
   return [
+    {
+      version: '2.1.0',
+      date: '2024-11-12',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('国际服数据库更新至{ver}。', {
+              ver: '7.1'
+            }),
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            isZh ? '修复了部分国服7.05已经实装的道具仍会显示物品名为暂译的问题。' : '',
+            t('修复了“{f}”区域按钮的部分区域不会触发点击事件的问题。', {
+              f: t('选择职业')
+            })
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('在“{f}”中的各个物品前增加了复选框，将其勾选可以临时将物品标记为已完成。', t('推荐流程'))
+              + '<br>' + t('当某一组物品全部被标记为已完成时，这一组会自动折叠。')
+              + '<br> ※ ' + t('{f}中的标记不会影响制作报表中记录的已有数量。关闭{f}时会自动重置完成状态。', {f:t('推荐流程')}),
+            t('调整了竖向使用客户端时，顶部菜单栏的显示效果。')
+          ]
+        }
+      ]
+    },
     {
       version: '2.0.13',
       date: '2024-11-11',
