@@ -4230,5 +4230,12 @@
     "$files": [
       "data\\change-logs.ts"
     ]
+  },
+  "调整了竖向使用客户端时，顶部菜单栏的显示效果。": {
+    "en": "Adjusted the display effect of the top menu bar when using the client vertically.",
+    "ja": "调整了竖向使用客户端时，顶部菜单栏的显示效果。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
   }
 }
