@@ -42,14 +42,13 @@ const onBtnClicked = () => {
     :trigger="isMobile ? 'manual' : 'hover'"
   >
     <template #trigger>
-      <n-badge :value="count" :max="99" :color="props.btnColor">
+      <n-badge :value="count" :max="99" :color="props.btnColor" @click="onBtnClicked">
         <n-button
           :ghost="!props.selected"
           :disabled="props.disabled"
           class="job-button"
           :color="props.btnColor"
           :style="{ width: `${btnSize}px`, height: `${btnSize}px` }"
-          @click="onBtnClicked"
         >
           <XivFARImage
             :src="jobIcon"
