@@ -68,15 +68,14 @@ export const drawMap = (
 }
 
 /**
- * 获取当前地图距离给定坐标最近的以太之光名称
+ * 获取当前地图距离给定坐标最近的以太之光
  */
 export const getNearestAetheryte = (
   map: XivMapInfo | undefined,
   x: number,
-  y: number,
-  lang: 'zh' | 'ja' | 'en'
+  y: number
 ) => {
-  if (!map) return ''
+  if (!map) return undefined
   const aetherytes = map.aetherytes
   const distances = aetherytes.map(aetheryte => {
     const dx = aetheryte.x - x
@@ -87,8 +86,8 @@ export const getNearestAetheryte = (
   if (index !== -1) {
     const aetheryte = aetherytes[index]
     if (aetheryte) {
-      return aetheryte[`name_${lang}`]
+      return aetheryte
     }
   }
-  return ''
+  return undefined
 }

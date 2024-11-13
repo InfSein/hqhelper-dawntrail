@@ -47,6 +47,7 @@ import XivGatheringItems from '@/assets/data/unpacks/gathering-item.json'
 import XivGatherTerrory from '@/assets/data/unpacks/territory.json'
 import XivPlaceNames from '@/assets/data/unpacks/place-name.json'
 import XivPlaceZHTemp from '@/assets/data/translations/xiv-places.json'
+import { XivMaps, type XivMapAetheryteInfo } from '@/assets/data'
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
@@ -159,6 +160,7 @@ export interface ItemInfo {
     placeNameEN: string,
     posX: number,
     posY: number,
+    recommAetheryte?: XivMapAetheryteInfo,
     timeLimitInfo: {
       start: string,
       end: string
@@ -313,6 +315,9 @@ export const getItemInfo = (item: number | CalculatedItem) => {
           timeLimitInfo: [],
           timeLimitDescription: ''
         };
+        if (XivMaps[placeID]) {
+          itemInfo.gatherInfo.recommAetheryte = getNearestAetheryte(XivMaps[placeID], itemInfo.gatherInfo.posX, itemInfo.gatherInfo.posY)
+        }
         [1,2,3].forEach(i => {
           if (gatherData?.popTime) {
             const start = gatherData.popTime?.['start' + i]
@@ -431,6 +436,7 @@ import {
 } from '@vicons/material'
 import { h, type Component } from 'vue'
 import { NIcon } from 'naive-ui'
+import { getNearestAetheryte } from './map'
 export const getItemContexts = (
   itemInfo: ItemInfo,
   t: (text: string, ...args: any[]) => string,

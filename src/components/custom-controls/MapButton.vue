@@ -85,13 +85,7 @@ const handleOpenCafeMap = () => {
             />
           </span>
           <span>
-            {{
-              getNearestAetheryte(
-                props.mapData,
-                props.flagX, props.flagY,
-                itemLanguage
-              )
-            }}
+            {{  getNearestAetheryte(props.mapData, props.flagX, props.flagY)?.[`name_${itemLanguage}`] }}
           </span>
         </div>
         <div class="actions">
