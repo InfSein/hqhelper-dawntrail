@@ -4198,42 +4198,42 @@
   },
   "国际服数据库更新至{ver}。": {
     "en": "Global game data updated to {ver}.",
-    "ja": "国际服数据库更新至{ver}。",
+    "ja": "グローバル版のデータベースが{ver}に更新されました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修复了“{f}”区域按钮的部分区域不会触发点击事件的问题。": {
     "en": "Fixed some area of the button in \"{f}\" could not trigger click event.",
-    "ja": "修复了“{f}”区域按钮的部分区域不会触发点击事件的问题。",
+    "ja": "「{f}」エリアのボタンの一部がクリックイベントをトリガーしない問題が修正されました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "在“{f}”中的各个物品前增加了复选框，将其勾选可以临时将物品标记为已完成。": {
     "en": "Added checkbox before each item in \"{f}\". Check to mark item as completed.",
-    "ja": "在“{f}”中的各个物品前增加了复选框，将其勾选可以临时将物品标记为已完成。",
+    "ja": "「{f}」内の各アイテムにチェックボックスが追加され、そのチェックを入れることでアイテムを一時的に「完了済み」としてマークできます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "当某一组物品全部被标记为已完成时，这一组会自动折叠。": {
     "en": "Once if all the items in a group are marked as completed, the group will be automatically collapsed.",
-    "ja": "当某一组物品全部被标记为已完成时，这一组会自动折叠。",
+    "ja": "一組のアイテムがすべて「完了済み」としてマークされると、そのグループは自動的に折りたたまれます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "{f}中的标记不会影响制作报表中记录的已有数量。关闭{f}时会自动重置完成状态。": {
     "en": "Markings in \"{f}\" will not affect the amount recorded in the report. Closing \"{f}\" will automatically reset the completion status.",
-    "ja": "{f}中的标记不会影响制作报表中记录的已有数量。关闭{f}时会自动重置完成状态。",
+    "ja": "「{f}」内でのマークは、レポート作成時の記録された数量には影響しません。「{f}」を閉じると完了状態は自動的にリセットされます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "调整了竖向使用客户端时，顶部菜单栏的显示效果。": {
     "en": "Adjusted the display effect of the top menu bar when using the client vertically.",
-    "ja": "调整了竖向使用客户端时，顶部菜单栏的显示效果。",
+    "ja": "縦向きでクライアントを使用した場合、トップメニューの表示効果が調整されました。",
     "$files": [
       "data\\change-logs.ts"
     ]
