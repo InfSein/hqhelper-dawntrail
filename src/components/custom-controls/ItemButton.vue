@@ -208,7 +208,7 @@ const handleItemButtonClick = async () => {
       @click="handleItemButtonClick"
     >
       <slot>
-        <div class="item-container">
+        <div v-if="itemInfo?.id" class="item-container">
           <div v-if="showIcon" class="item-icon">
             <XivFARImage
               :src="itemInfo.iconUrl"
@@ -234,6 +234,22 @@ const handleItemButtonClick = async () => {
             </div>
             <div v-if="showAmount" class="item-amount">
               x {{ itemInfo.amount }}
+            </div>
+          </div>
+        </div>
+        <div v-else>
+          <div v-if="showIcon" class="item-icon">
+            &nbsp;
+          </div>
+
+          <div v-if="showName" class="item-info">
+            <div class="item-name-container">
+              <div class="item-name">
+                &nbsp;
+              </div>
+            </div>
+            <div v-if="showAmount" class="item-amount">
+              &nbsp;
             </div>
           </div>
         </div>
