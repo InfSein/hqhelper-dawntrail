@@ -8,7 +8,7 @@ import type { GearSelections, AttireAffix, AccessoryAffix } from '@/models/gears
 import { attireAffixes, accessoryAffixes } from '@/models/gears'
 import { type UserConfigModel } from '@/models/user-config'
 import { deepCopy } from '@/tools'
-import XivRoles from '@/assets/data/xiv-roles.json'
+import { XivRoles, type XivRole } from '@/assets/data'
 import XivJobs from '@/assets/data/xiv-jobs.json'
 import XivGearAffixes from '@/assets/data/xiv-gear-affixes.json'
 import XivFARImage from '../custom-controls/XivFARImage.vue'
@@ -86,6 +86,29 @@ const getJobName = (jobId: number) => {
   }
 }
 
+const getVShowOfMainoffHandGroup = (role: XivRole) => {
+  let show = false
+  role.jobs.forEach(jobId => {
+    if (props.patchData?.jobs?.MainHand?.[jobId]?.[0] || props.patchData?.jobs?.OffHand?.[jobId]?.[0]) {
+      show = true
+    }
+  })
+  return show
+}
+const getVShowOfAttireAffixRow = (attire: AttireAffix) => {
+  return props.patchData?.jobs?.HeadAttire?.[attire]?.[0]
+    || props.patchData?.jobs?.BodyAttire?.[attire]?.[0]
+    || props.patchData?.jobs?.HandsAttire?.[attire]?.[0]
+    || props.patchData?.jobs?.LegsAttire?.[attire]?.[0]
+    || props.patchData?.jobs?.FeetAttire?.[attire]?.[0]
+}
+const getVShowOfAccessoryAffixRow = (accessory: AccessoryAffix) => {
+  return props.patchData?.jobs?.Earrings?.[accessory]?.[0]
+    || props.patchData?.jobs?.Necklace?.[accessory]?.[0]
+    || props.patchData?.jobs?.Wrist?.[accessory]?.[0]
+    || props.patchData?.jobs?.Rings?.[accessory]?.[0]
+}
+
 const handleClose = () => {
   showModal.value = false
 }
@@ -127,6 +150,7 @@ const handleSave = () => {
                 class="weapon-group"
                 v-for="(role, roleIndex) in XivRoles"
                 :key="roleIndex"
+                v-show="getVShowOfMainoffHandGroup(role)"
                 :border-color="role.role_color"
                 title-background-color="var(--n-color-modal)"
                 container-extra-style="padding: 8px;"
@@ -208,7 +232,11 @@ const handleSave = () => {
             <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '240px', 'margin-top': '-2px' }">
               <n-table class="attires-table" size="small" :single-line="false">
                 <tbody>
-                  <tr v-for="attire in attireAffixes" :key="'row-attire-' + attire">
+                  <tr
+                    v-for="attire in attireAffixes"
+                    :key="'row-attire-' + attire"
+                    v-show="getVShowOfAttireAffixRow(attire)"
+                  >
                     <td>{{ getAffixName(attire) }}</td>
                     <td>
                       <n-input-number
@@ -313,7 +341,11 @@ const handleSave = () => {
             <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '200px', 'margin-top': '-2px' }">
               <n-table class="accessories-table" size="small" :single-line="false">
                 <tbody>
-                  <tr v-for="accessory in accessoryAffixes" :key="'row-accessory-' + accessory">
+                  <tr
+                    v-for="accessory in accessoryAffixes"
+                    :key="'row-accessory-' + accessory"
+                    v-show="getVShowOfAccessoryAffixRow(accessory)"
+                  >
                     <td>{{ getAffixName(accessory) }}</td>
                     <td>
                       <n-input-number
@@ -379,6 +411,7 @@ const handleSave = () => {
                 class="weapon-group"
                 v-for="(role, roleIndex) in XivRoles"
                 :key="'m-'+roleIndex"
+                v-show="getVShowOfMainoffHandGroup(role)"
                 :border-color="role.role_color"
                 title-background-color="var(--n-color-modal)"
                 container-extra-style="padding: 8px;"
@@ -422,6 +455,7 @@ const handleSave = () => {
                 class="weapon-group"
                 v-for="(attire, attireIndex) in attireAffixes"
                 :key="'m-at'+attireIndex"
+                v-show="getVShowOfAttireAffixRow(attire)"
                 title-background-color="var(--n-color-modal)"
                 container-extra-style="padding: 8px;"
               >
@@ -459,6 +493,7 @@ const handleSave = () => {
                 class="weapon-group"
                 v-for="(accessory, accessoryIndex) in accessoryAffixes"
                 :key="'m-ac'+accessoryIndex"
+                v-show="getVShowOfAccessoryAffixRow(accessory)"
                 title-background-color="var(--n-color-modal)"
                 container-extra-style="padding: 8px;"
               >

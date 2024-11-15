@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NCollapse, NCollapseItem, NIcon, NModal,
+  NButton, NCard, NCheckbox, NCollapse, NCollapseItem, NIcon, NModal,
   useMessage
 } from 'naive-ui'
 import { 
@@ -26,13 +26,19 @@ const NAIVE_UI_MESSAGE = useMessage()
   
 const showModal = defineModel<boolean>('show', { required: true })
 const expandedBlocks = ref<Record<number, string[]>>({})
+/** (groupId, (itemId, checked)) */
+const completedItems = ref<Record<number, Record<number, boolean>>>({})
 const showItemGatherDetails = ref(false)
 
 watch(showModal, async(newVal, oldVal) => {
   if (newVal && !oldVal) {
-    expandedBlocks.value = {}
+    expandedBlocks.value = {}; completedItems.value = {}
     for (let i = 0; i < itemGroups.value.length; i++) {
       expandedBlocks.value[i] = ['1']
+      completedItems.value[i] = {}
+      itemGroups.value[i].items.forEach(item => {
+        completedItems.value[i][item.id] = false
+      })
     }
     showItemGatherDetails.value = userConfig.value.processes_show_item_gatherdetails
   }
@@ -328,6 +334,15 @@ const handleCopyProcesses = () => {
   }).join('\n\n')
   handleCopy(text)
 }
+const handleItemCompletionChange = (groupIndex: number) => {
+  let needToCollapseGroup = true
+  Object.values(completedItems.value[groupIndex]).forEach(completed => {
+    needToCollapseGroup = needToCollapseGroup && completed
+  })
+  if (needToCollapseGroup) {
+    expandedBlocks.value[groupIndex] = []
+  }
+}
 
 const isItemGatherableNow = (item: ItemInfo) => {
   let gatherable = false
@@ -368,10 +383,10 @@ const isItemGatherableNow = (item: ItemInfo) => {
       <div class="wrapper">
         <div
           class="block"
-          v-for="(group, index) in itemGroups"
-          :key="'group-' + index"
+          v-for="(group, groupIndex) in itemGroups"
+          :key="'group-' + groupIndex"
         >
-          <n-collapse arrow-placement="right" v-model:expanded-names="expandedBlocks[index]">
+          <n-collapse arrow-placement="right" v-model:expanded-names="expandedBlocks[groupIndex]">
             <n-collapse-item name="1">
               <template #header>
                 <div class="title">
@@ -383,7 +398,7 @@ const isItemGatherableNow = (item: ItemInfo) => {
                     />
                   </span>
                   <span>
-                    {{ index + 1 }}. {{ group.title }}
+                    {{ groupIndex + 1 }}. {{ group.title }}
                   </span>
                 </div>
               </template>
@@ -395,12 +410,19 @@ const isItemGatherableNow = (item: ItemInfo) => {
                   :key="'item-' + item.id"
                   style=""
                 >
-                  <ItemSpan
-                    :item-info="item"
-                    :amount="item.amount"
-                    show-amount
-                    container-id="modal-recomm-process"
-                  />
+                  <div class="item-container">
+                    <n-checkbox
+                      size="small"
+                      v-model:checked="completedItems[groupIndex][item.id]"
+                      @update:checked="handleItemCompletionChange(groupIndex)"
+                    />
+                    <ItemSpan
+                      :item-info="item"
+                      :amount="item.amount"
+                      show-amount
+                      container-id="modal-recomm-process"
+                    />
+                  </div>
                   <div
                     class="gather-detail-time"
                     v-if="showItemGatherDetails && item.gatherInfo?.timeLimitDescription"
@@ -492,6 +514,11 @@ const isItemGatherableNow = (item: ItemInfo) => {
       gap: 3px;
       margin: 3px 0 0 1em;
 
+      .item-container {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+      }
       .gather-detail-time,
       .gather-detail-position {
         display: flex;

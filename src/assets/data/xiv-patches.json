@@ -12,10 +12,10 @@
   },
   {
     "v": "7.1",
-    "name_zh": "与未知的邂逅",
+    "name_zh": "邂逅未知",
     "name_en": "Crossroads",
     "name_ja": "未知との邂逅",
-    "updated": false,
+    "updated": true,
     "life_hq_il": 720,
     "logo": "./image/game-patch/patch-7.1.png",
     "background": "./image/game-patch/patch-7.1-background.jpg"

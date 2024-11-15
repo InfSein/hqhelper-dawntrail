@@ -2381,13 +2381,6 @@
       "data\\change-logs.ts"
     ]
   },
-  "国服数据库更新至{ver}。": {
-    "en": "CHS game data updated to {ver}.",
-    "ja": "中国版データベースが{ver}に更新されました。",
-    "$files": [
-      "data\\change-logs.ts"
-    ]
-  },
   "压缩了部分内置图片的尺寸，清理了一部分无用代码，从而大幅度地降低更新时需要下载的更新包体积、初次访问页面的加载时长和托管服务器的带宽压力。": {
     "en": "Compressing the size of some built-in images and cleaning up some useless code significantly reduces the volume of update packages that need to be downloaded during updates, the loading time of initial page visits, and the bandwidth pressure of hosting servers.",
     "ja": "一部の内蔵画像のサイズを圧縮し、不要なコードを整理したことで、更新時にダウンロードするパッケージサイズが大幅に削減され、初回ページアクセス時の読み込み時間とホスティングサーバーの帯域幅負荷が軽減されました。",
@@ -4147,13 +4140,6 @@
       "views\\GatherClockPage.vue"
     ]
   },
-  "播放提示音失败。": {
-    "en": "Failed to play sound.",
-    "ja": "通知音の再生に失敗しました。",
-    "$files": [
-      "views\\GatherClockPage.vue"
-    ]
-  },
   "耐久{dur} / 难度{pro} / 品质{qua}": {
     "en": "Durability {dur} / Progress {pro} / Quality {qua}",
     "ja": "耐久{dur} / 難易度{pro} / 品質{qua}",
@@ -4199,6 +4185,55 @@
   "现在右键有制作配方的物品按钮时，可以在菜单中选择“{f1}”和“{f2}”。": {
     "en": "Now the context menu of craftable item will have \"{f1}\" and \"{f2}\" options.",
     "ja": "レシピのアイテムボタンを右クリックすると、メニューから「{f1}」や「{f2}」を選択できるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "国服数据库更新至{ver}。": {
+    "en": "CHS game data updated to {ver}.",
+    "ja": "中国版データベースが{ver}に更新されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "国际服数据库更新至{ver}。": {
+    "en": "Global game data updated to {ver}.",
+    "ja": "グローバル版のデータベースが{ver}に更新されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了“{f}”区域按钮的部分区域不会触发点击事件的问题。": {
+    "en": "Fixed some area of the button in \"{f}\" could not trigger click event.",
+    "ja": "「{f}」エリアのボタンの一部がクリックイベントをトリガーしない問題が修正されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "在“{f}”中的各个物品前增加了复选框，将其勾选可以临时将物品标记为已完成。": {
+    "en": "Added checkbox before each item in \"{f}\". Check to mark item as completed.",
+    "ja": "「{f}」内の各アイテムにチェックボックスが追加され、そのチェックを入れることでアイテムを一時的に「完了済み」としてマークできます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "当某一组物品全部被标记为已完成时，这一组会自动折叠。": {
+    "en": "Once if all the items in a group are marked as completed, the group will be automatically collapsed.",
+    "ja": "一組のアイテムがすべて「完了済み」としてマークされると、そのグループは自動的に折りたたまれます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "{f}中的标记不会影响制作报表中记录的已有数量。关闭{f}时会自动重置完成状态。": {
+    "en": "Markings in \"{f}\" will not affect the amount recorded in the report. Closing \"{f}\" will automatically reset the completion status.",
+    "ja": "「{f}」内でのマークは、レポート作成時の記録された数量には影響しません。「{f}」を閉じると完了状態は自動的にリセットされます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "调整了竖向使用客户端时，顶部菜单栏的显示效果。": {
+    "en": "Adjusted the display effect of the top menu bar when using the client vertically.",
+    "ja": "縦向きでクライアントを使用した場合、トップメニューの表示効果が調整されました。",
     "$files": [
       "data\\change-logs.ts"
     ]

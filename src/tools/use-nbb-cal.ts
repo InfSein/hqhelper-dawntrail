@@ -152,7 +152,7 @@ export function useNbbCal() {
         const idGive = reduceGroup[1]
         if (idGot && idGive) {
           if (!map[idGot]) map[idGot] = []
-          map[idGot].push(idGive)
+          if (!map[idGot].includes(idGive)) map[idGot].push(idGive)
         }
       })
     }

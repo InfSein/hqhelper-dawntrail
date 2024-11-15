@@ -18,7 +18,6 @@ import { XivMaps } from '@/assets/data'
 import { useStore } from '@/store'
 import { jobMap, type JobInfo } from '@/data'
 import { useNbbCal } from '@/tools/use-nbb-cal'
-import { getNearestAetheryte } from '@/tools/map'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import EorzeaTime from '@/tools/eorzea-time'
@@ -224,8 +223,8 @@ const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
       new Notification(t('以下物品已可采集：'), {
         body: itemsNeedAlarm.map(item => {
           let text = `${getItemName(item)}: ${getJobName(jobMap[item.gatherInfo.jobId])} | ${getPlaceName(item)} ${getItemGatherLocation(item)}`
-          if (XivMaps[item.gatherInfo.placeID]) {
-            text += ' | ' + t('推荐传送点 - ') + getNearestAetheryte(XivMaps[item.gatherInfo.placeID], item.gatherInfo.posX, item.gatherInfo.posY, itemLanguage.value)
+          if (item.gatherInfo.recommAetheryte) {
+            text += ' | ' + t('推荐传送点 - ') + item.gatherInfo.recommAetheryte?.[`name_${itemLanguage.value}`]
           }
           return text
         }).join('\n'),
@@ -627,13 +626,7 @@ const getItemGatherLocation = (itemInfo: ItemInfo) => {
                     />
                   </span>
                   <span>
-                    {{
-                      getNearestAetheryte(
-                        XivMaps[item.gatherInfo.placeID],
-                        item.gatherInfo.posX, item.gatherInfo.posY,
-                        itemLanguage
-                      )
-                    }}
+                    {{ item.gatherInfo.recommAetheryte?.[`name_${itemLanguage}`] }}
                   </span>
                 </div>
                 <div class="gather-place">
