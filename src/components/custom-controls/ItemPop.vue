@@ -12,8 +12,7 @@ import ItemRemark from './ItemRemark.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import XivAttributes from '@/assets/data/xiv-attributes.json'
-import { XivItemRemarks } from '@/assets/data'
-import { jobMap, type JobInfo } from '@/data'
+import { XivItemRemarks, XivJobs, type XivJob } from '@/assets/data'
 import type EorzeaTime from '@/tools/eorzea-time'
 import LocationSpan from './LocationSpan.vue'
 
@@ -54,7 +53,7 @@ interface ItemPopProps {
 }
 const props = defineProps<ItemPopProps>()
 
-const getJobName = (jobInfo: JobInfo) => {
+const getJobName = (jobInfo: XivJob) => {
   switch (uiLanguage.value) {
     case 'ja':
       return jobInfo?.job_name_ja || t('未知')
@@ -353,16 +352,16 @@ const innerPopTrigger = computed(() => {
             <div v-if="itemInfo.gatherInfo" class="extra">
               <XivFARImage
                 class="icon"
-                :src="jobMap[itemInfo.gatherInfo.jobId].job_icon_url"
+                :src="XivJobs[itemInfo.gatherInfo.jobId].job_icon_url"
               />
-              <p>{{ getJobName(jobMap[itemInfo.gatherInfo.jobId]) }}</p>
+              <p>{{ getJobName(XivJobs[itemInfo.gatherInfo.jobId]) }}</p>
             </div>
             <div v-if="itemInfo.isFishingItem" class="extra">
               <XivFARImage
                 class="icon"
-                :src="jobMap[18].job_icon_url"
+                :src="XivJobs[18].job_icon_url"
               />
-              <p>{{ getJobName(jobMap[18]) }}</p>
+              <p>{{ getJobName(XivJobs[18]) }}</p>
             </div>
           </div>
           <n-divider class="item-divider" />
@@ -379,7 +378,7 @@ const innerPopTrigger = computed(() => {
             </div>
             <div class="other-attrs" v-if="itemInfo.gatherInfo.recommAetheryte" style="margin-left: 1em;">
               ※ 
-              {{ t('推荐传送点 - ') }}
+              {{ t('推荐传送点') + ' - ' }}
               {{ itemInfo.gatherInfo.recommAetheryte?.[`name_${itemLanguage}`] }}
             </div>
           </div>
@@ -434,13 +433,13 @@ const innerPopTrigger = computed(() => {
             <div class="extra">
               <XivFARImage
                 class="icon"
-                :src="jobMap[itemInfo.craftInfo?.jobId].job_icon_url"
+                :src="XivJobs[itemInfo.craftInfo?.jobId].job_icon_url"
               />
               <p>
                 {{ t('{lv}级{star}{job}配方', {
                   lv: itemInfo.craftInfo?.craftLevel,
                   star: '★'.repeat(itemInfo.craftInfo?.starCount || 0),
-                  job: getJobName(jobMap[itemInfo.craftInfo?.jobId])
+                  job: getJobName(XivJobs[itemInfo.craftInfo?.jobId])
                 }) }}
               </p>
             </div>
