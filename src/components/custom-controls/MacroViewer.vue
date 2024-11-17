@@ -88,7 +88,7 @@ const handleCopy = async (text: string) => {
       </div>
       <div
         v-else
-        class="macro-container"
+        class="macro-container font-small"
         :style="{
           height: contentHeight
         }"
@@ -124,7 +124,9 @@ const handleCopy = async (text: string) => {
 
     .macro-container {
       width: 100%;
+      line-height: 1.3;
       overflow: auto;
+      margin-top: 0.5em;
 
       .macro-line {
         display: flex;

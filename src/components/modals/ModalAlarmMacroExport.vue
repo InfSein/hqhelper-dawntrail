@@ -169,7 +169,7 @@ const handleClose = () => {
       closable
       role="dialog"
       class="no-select"
-      style="width: 98%; max-width: 750px;"
+      style="width: 98%; max-width: 700px;"
       @close="handleClose"
     >
       <template #header>
