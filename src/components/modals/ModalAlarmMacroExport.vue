@@ -295,6 +295,15 @@ const handleClose = () => {
   justify-content: flex-end;
 }
 
-/* Mobile only */
-/* @media (max-width: 768px)*/
+/* Mobile */
+@media (max-width: 768px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-top: 15px;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+}
 </style>
