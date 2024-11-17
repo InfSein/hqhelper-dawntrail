@@ -217,16 +217,18 @@ const handleClose = () => {
                 {{ t('同时清除此前设置的闹钟') }}
               </n-checkbox>
               <div class="flex">
-                <div>{{ t('闹钟名包括：') }}</div>
-                <n-checkbox v-model:checked="alarmMacroOptions.containsJobName">
-                  {{ t('职业') }}
-                </n-checkbox>
-                <n-checkbox v-model:checked="alarmMacroOptions.containsMapName">
-                  {{ t('地图名') }}
-                </n-checkbox>
-                <n-checkbox v-model:checked="alarmMacroOptions.containsAetheryteName">
-                  {{ t('推荐传送点') }}
-                </n-checkbox>
+                <div style="min-width: fit-content;">{{ t('闹钟名包括：') }}</div>
+                <div class="flex-wrap">
+                  <n-checkbox v-model:checked="alarmMacroOptions.containsJobName">
+                    {{ t('职业') }}
+                  </n-checkbox>
+                  <n-checkbox v-model:checked="alarmMacroOptions.containsMapName">
+                    {{ t('地图名') }}
+                  </n-checkbox>
+                  <n-checkbox v-model:checked="alarmMacroOptions.containsAetheryteName">
+                    {{ t('推荐传送点') }}
+                  </n-checkbox>
+                </div>
               </div>
               <n-checkbox v-model:checked="alarmMacroOptions.noRepeat">
                 {{ t('不重复提醒') }}
