@@ -1,23 +1,20 @@
 <script setup lang="ts">
 import { computed, h, inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NCheckbox, NIcon, NModal, NTree,
-  useMessage,
+  NCard, NCheckbox, NIcon, NModal, NTree,
   type TreeOption
 } from 'naive-ui'
 import { 
-  CodeSharp, ContentCopyRound
+  CodeSharp
 } from '@vicons/material'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import { XivJobs, type XivJob } from '@/assets/data'
 import { type UserConfigModel } from '@/models/user-config'
-import { CopyToClipboard } from '@/tools'
 import type { ItemGroup } from '@/models/item'
 import ItemSpan from '../custom-controls/ItemSpan.vue'
 import type { AlarmMacroOptions } from '@/models/gather-clock'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
-
-const NAIVE_UI_MESSAGE = useMessage()
+import MacroViewer from '../custom-controls/MacroViewer.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -161,15 +158,6 @@ const getPlaceName = (itemInfo : ItemInfo) => {
   }
 }
 
-const handleCopy = async () => {
-  const errored = await CopyToClipboard(macro.value.join('\n'), wrapper.value)
-  if (errored) {
-    NAIVE_UI_MESSAGE.error(t('复制失败，请手动框选预览区域内的文本复制'))
-    return
-  }
-  handleClose()
-  NAIVE_UI_MESSAGE.success(t('已复制到剪贴板'))
-}
 const handleClose = () => {
   showModal.value = false
 }
@@ -181,7 +169,7 @@ const handleClose = () => {
       closable
       role="dialog"
       class="no-select"
-      style="width: 98%; max-width: 650px;"
+      style="width: 98%; max-width: 750px;"
       @close="handleClose"
     >
       <template #header>
@@ -240,21 +228,15 @@ const handleClose = () => {
               <span class="title">{{ t('预览') }}</span>
             </template>
 
-            <div class="preview-container" v-html="macro.join('<br>')" />
+            <MacroViewer
+              class="preview-container"
+              :macro-lines="macro"
+              content-height="220px"
+              :container-id="modalId"
+            />
           </GroupBox>
         </div>
       </div>
-
-      <template #action>
-        <div class="submit-container">
-          <n-button type="primary" @click="handleCopy">
-            <template #icon>
-              <n-icon><ContentCopyRound /></n-icon>
-            </template>
-            {{ t('复制') }}
-          </n-button>
-        </div>
-      </template>
     </n-card>
   </n-modal>
 </template>
@@ -262,10 +244,6 @@ const handleClose = () => {
 <style scoped>
 :deep(.n-card-header) {
   padding-bottom: 10px;
-}
-:deep(.n-card__action) {
-  padding-top: 15px;
-  padding-bottom: 15px;
 }
 :deep(.n-tree-node-wrapper) {
   padding: 0;
@@ -296,9 +274,8 @@ const handleClose = () => {
     #macro-preview {
       flex: 1;
       .preview-container {
-        max-width: 100%;
-        max-height: 250px;
-        overflow: auto;
+        margin: 0.6em;
+        padding-right: 0.6em;
       }
     }
   }
