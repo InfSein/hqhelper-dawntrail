@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NInput, NPopover, NRadio, NRadioGroup
+  NDivider, NIcon, NInput, NPopover, NRadio, NRadioGroup
 } from 'naive-ui'
+import {
+  ViewListSharp
+} from '@vicons/material'
 import ButtonCopyAsMacro from './ButtonCopyAsMacro.vue'
 import type { ItemInfo, StatementRow } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
@@ -86,40 +89,65 @@ const listValue = computed(() => {
     </template>
 
     <div class="wrapper" ref="listPopContainer">
+      <div class="pop-title font-big">
+        <n-icon :size="16"><ViewListSharp /></n-icon>
+        <span>{{ t('清单') }}</span>
+      </div>
+      <n-divider style="margin: 0 0 3px 0;" />
       <div class="config-container">
         <div class="config-item">
-          {{ t('数量使用：') }}
-          <n-radio-group
-            v-model:value="amountRule"
-            name="amount-rule"
-          >
-            <n-radio value="all">
-              {{ t('总需') }}
-            </n-radio>
-            <n-radio value="prepared">
-              {{ t('已有') }}
-            </n-radio>
-            <n-radio value="remaining">
-              {{ t('尚需') }}
-            </n-radio>
-          </n-radio-group>
+          <div class="title">{{ t('数量使用：') }}</div>
+          <div class="content">
+            <n-radio-group
+              v-model:value="amountRule"
+              name="amount-rule"
+            >
+              <n-radio value="all">
+                {{ t('总需') }}
+              </n-radio>
+              <n-radio value="prepared">
+                {{ t('已有') }}
+              </n-radio>
+              <n-radio value="remaining">
+                {{ t('尚需') }}
+              </n-radio>
+            </n-radio-group>
+          </div>
         </div>
       </div>
-      <ButtonCopyAsMacro
-        :items="items"
-        :container="listPopContainer"
-      />
+      <div class="actions-container">
+        <ButtonCopyAsMacro
+          :items="items"
+          :container="listPopContainer"
+        />
+      </div>
       <n-input
         v-model:value="listValue"
         readonly
         autosize
         type="textarea"
         :placeholder="t('本组没有需要的道具')"
-        style="max-height: 350px;"
+        style="height: 250px;"
       />
     </div>
   </n-popover>
 </template>
 
 <style scoped>
+.wrapper {
+  .pop-title {
+    display: flex;
+    align-items: center;
+  }
+  .config-container {
+    margin-bottom: 3px;
+
+    .config-item .content {
+      margin-left: 1em;
+    }
+  }
+  .actions-container {
+    text-align: end;
+  }
+}
 </style>
