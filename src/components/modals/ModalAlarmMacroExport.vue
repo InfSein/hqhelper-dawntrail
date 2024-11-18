@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, h, inject, ref, watch, type Ref } from 'vue'
 import {
-  NCard, NCheckbox, NIcon, NModal, NTree,
+  NCard, NCheckbox, NIcon, NModal, NPopover, NTree,
   type TreeOption
 } from 'naive-ui'
 import { 
-  CodeSharp
+  CodeSharp,
+  HelpOutlineRound
 } from '@vicons/material'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import { XivJobs, type XivJob } from '@/assets/data'
@@ -17,7 +18,7 @@ import { getItemInfo, type ItemInfo } from '@/tools/item'
 import MacroViewer from '../custom-controls/MacroViewer.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-// const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const uiLanguage = computed(() => {
   return userConfig.value.language_ui
@@ -211,11 +212,23 @@ const handleClose = () => {
                     {{ t('职业') }}
                   </n-checkbox>
                   <n-checkbox v-model:checked="alarmMacroOptions.containsMapName">
-                    {{ t('地图名') }}
+                    {{ t('地图') }}
                   </n-checkbox>
                   <n-checkbox v-model:checked="alarmMacroOptions.containsAetheryteName">
                     {{ t('推荐传送点') }}
                   </n-checkbox>
+                  <n-popover :trigger="isMobile ? 'click' : 'hover'">
+                    <template #trigger>
+                      <div style="min-width: fit-content; display: flex; align-items: center;">
+                        <n-icon :size="14" style="display: flex;">
+                          <HelpOutlineRound />
+                        </n-icon>
+                      </div>
+                    </template>
+                    <div>
+                      {{ t('闹钟名具有20个字的限制，过长的部分会被截断。') }}
+                    </div>
+                  </n-popover>
                 </div>
               </div>
               <n-checkbox v-model:checked="alarmMacroOptions.noRepeat">
@@ -231,7 +244,7 @@ const handleClose = () => {
             <MacroViewer
               class="preview-container"
               :macro-lines="macro"
-              content-height="220px"
+              content-height="190px"
               :container-id="modalId"
             />
           </GroupBox>
@@ -242,9 +255,6 @@ const handleClose = () => {
 </template>
 
 <style scoped>
-:deep(.n-card-header) {
-  padding-bottom: 10px;
-}
 :deep(.n-tree-node-wrapper) {
   padding: 0;
 }
