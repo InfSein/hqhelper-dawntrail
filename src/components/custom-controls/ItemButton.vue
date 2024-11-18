@@ -14,7 +14,7 @@ import ItemPop from './ItemPop.vue'
 import { getItemContexts, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import { CopyToClipboard } from '@/tools'
-import { jobMap } from '@/data'
+import { XivJobs } from '@/assets/data'
 
 const NAIVE_UI_MESSAGE = useMessage()
 
@@ -220,12 +220,12 @@ const handleItemButtonClick = async () => {
             <div class="item-name-container">
               <XivFARImage
                 v-if="showCollectorIcon && itemInfo.craftInfo?.jobId"
-                :src="jobMap[itemInfo.craftInfo?.jobId].job_icon_url"
+                :src="XivJobs[itemInfo.craftInfo?.jobId].job_icon_url"
                 :size="14"
               />
               <XivFARImage
                 v-else-if="showCollectorIcon && itemInfo.gatherInfo?.jobId"
-                :src="jobMap[itemInfo.gatherInfo?.jobId].job_icon_url"
+                :src="XivJobs[itemInfo.gatherInfo?.jobId].job_icon_url"
                 :size="14"
               />
               <div class="item-name">
