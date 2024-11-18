@@ -1,24 +1,18 @@
 <script setup lang='ts'>
 import { computed, inject, ref, type PropType, type Ref } from 'vue'
 import {
-  NButton, NEmpty, NIcon, NInput,
-  useMessage
+  NButton, NEmpty, NIcon, NInput
 } from 'naive-ui'
 import {
-  CodeSharp, ViewListSharp, SettingsBackupRestoreSharp
+  ViewListSharp, SettingsBackupRestoreSharp
 } from '@vicons/material'
 import ItemButton from './ItemButton.vue'
 import { type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
-
-const NAIVE_UI_MESSAGE = useMessage()
+import ButtonCopyAsMacro from './ButtonCopyAsMacro.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
-const copyAsMacro = inject<(macroContent: string, container?: HTMLElement | undefined) => Promise<{
-  success: boolean;
-  msg: string;
-} | undefined>>('copyAsMacro')!
   
 const itemLanguage = computed(() => {
   if (userConfig.value.language_item !== 'auto') {
@@ -121,42 +115,17 @@ const listValue = computed(() => {
   })
   return result.join('\n')
 })
-const macroValue = computed(() => {
-  const result : string[] = []
-  props.items.forEach(item => {
-    if (item.amount) {
-      let itemName = getItemName(item)
-      if (itemLanguage.value === 'en') {
-        itemName = `"${itemName}"`
-      }
-      result.push(`${itemName}x${item.amount}`)
-    }
-  })
-  return result.join('; ')
-})
 
-const copyBtnLoading = ref(false)
 const listContainer = ref<HTMLElement>()
-const handleCopyAsMacro = async () => {
-  copyBtnLoading.value = true
-  const response = await copyAsMacro(macroValue.value, listContainer.value)
-  if (response) {
-    const tipFunc = response.success ? NAIVE_UI_MESSAGE.success : NAIVE_UI_MESSAGE.error
-    tipFunc(response.msg)
-  }
-  copyBtnLoading.value = false
-}
 </script>
 
 <template>
   <div v-if="items.length" class="list-container" ref="listContainer" :style="getContainerStyles()">
     <div v-if="!hideActions" class="actions">
-      <n-button size="tiny" :loading="copyBtnLoading" :disabled="copyBtnLoading" @click="handleCopyAsMacro">
-        <template #icon>
-          <n-icon><CodeSharp /></n-icon>
-        </template>
-        {{ t('复制宏') }}
-      </n-button>
+      <ButtonCopyAsMacro
+        :items="items"
+        :container="listContainer"
+      />
       <n-button size="tiny" v-if="mode === 'default'" @click="mode = 'list'">
         <template #icon>
           <n-icon><ViewListSharp /></n-icon>
