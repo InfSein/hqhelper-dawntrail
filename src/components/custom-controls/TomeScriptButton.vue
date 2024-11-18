@@ -140,15 +140,15 @@ const handleCopyAsMacro = async () => {
         <div class="w-full flex-column align-right">
           <p class="text">{{ t('点数') }}</p>
           <div class="tome-scripts">
-            <div class="tome-script" v-for="(totalAmount, scriptID) in tomeScripts" :key="'tome-script-' + scriptID">
-              <span class="amount">{{ totalAmount }}</span>
-              <ItemSpan hide-name hide-pop-icon :item-info="getItemInfo(scriptID)" />
-            </div>
-            <div class="tome-script" v-if="!Object.keys(tomeScripts).length">
-              <span class="amount">x0</span>
+              <div class="tome-script" v-for="(totalAmount, scriptID) in tomeScripts" :key="'tome-script-' + scriptID">
+                <span class="amount">{{ totalAmount }}</span>
+                <ItemSpan hide-name hide-pop-icon :item-info="getItemInfo(scriptID)" />
+              </div>
+              <div class="tome-script" v-if="!Object.keys(tomeScripts).length">
+                <span class="amount">x0</span>
+              </div>
             </div>
           </div>
-        </div>
       </n-button>
     </template>
 
@@ -213,15 +213,23 @@ const handleCopyAsMacro = async () => {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.tome-scripts-ellipsis {
+  flex-shrink: 0;
+}
 .tome-scripts {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
+  justify-content: flex-end;
+  max-width: 100%;
   margin-left: auto;
+  overflow: hidden;
 
   .tome-script {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
+    margin-left: auto;
   }
 }
 .pop-wrapper {
