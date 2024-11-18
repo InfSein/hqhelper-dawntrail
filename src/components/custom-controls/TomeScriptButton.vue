@@ -16,7 +16,7 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const copyAsMacro = inject<(macroContent: string, container?: HTMLElement | undefined) => Promise<{
-  success: boolean;
+  result: "success" | "info" | "error";
   msg: string;
 } | undefined>>('copyAsMacro')!
 const store = useStore()
@@ -123,8 +123,7 @@ const handleCopyAsMacro = async () => {
   copyBtnLoading.value = true
   const response = await copyAsMacro(macroValue.value)
   if (response) {
-    const tipFunc = response.success ? NAIVE_UI_MESSAGE.success : NAIVE_UI_MESSAGE.error
-    tipFunc(response.msg)
+    NAIVE_UI_MESSAGE[response.result](response.msg)
   }
   copyBtnLoading.value = false
 }
