@@ -638,7 +638,7 @@
       "components\\modals\\ModalContact.vue"
     ]
   },
-  "点击这里": {
+  "点击此处": {
     "en": "CLICK HERE",
     "ja": "ここをクリックする",
     "$files": [
@@ -3957,9 +3957,9 @@
       "views\\GatherClockPage.vue"
     ]
   },
-  "推荐传送点 - ": {
-    "en": "Recomm. Aetheryte - ",
-    "ja": "おすすめのテレポ地点 - ",
+  "推荐传送点": {
+    "en": "Recomm. Aetheryte",
+    "ja": "おすすめのテレポ地点",
     "$files": [
       "views\\GatherClockPage.vue"
     ]

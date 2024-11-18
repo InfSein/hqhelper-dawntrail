@@ -67,7 +67,7 @@ const handleClose = () => {
                 </p>
                 <p>
                   <span>{{ t('如果你已经登录了QQ，那么') }}</span>
-                  <a :href="qGroupInfo.groupUrl" target="_blank">{{ t('点击这里') }}</a>
+                  <a :href="qGroupInfo.groupUrl" target="_blank">{{ t('点击此处') }}</a>
                   <span>{{ t('就可以直接加入QQ群。') }}</span>
                   <span>{{ t('你也可以搜索群号') }}</span>
                   <n-gradient-text type="info" style="padding: 0 5px;">{{ qGroupInfo.groupNumber }}</n-gradient-text>
@@ -98,7 +98,7 @@ const handleClose = () => {
                 </p>
                 <p>
                   <span>{{ t('如果你拥有一个Github账号，那么可以') }}</span>
-                  <a :href="githubInfo.newIssueUrl" target="_blank">{{ t('点击这里') }}</a>
+                  <a :href="githubInfo.newIssueUrl" target="_blank">{{ t('点击此处') }}</a>
                   <span>{{ t('来创建议题。') }}</span>
                   <span>{{ t('请注意遵守平台的社区准则，并且仔细阅读议题引导。') }}</span>
                 </p>
@@ -118,7 +118,7 @@ const handleClose = () => {
               <div class="content">
                 <p>
                   <span>{{ t('我们的微博账号只会提供中文内容。') }}</span>
-                  <a :href="otherSocialInfo.weiboUrl" target="_blank">{{ t('点击这里') }}</a>
+                  <a :href="otherSocialInfo.weiboUrl" target="_blank">{{ t('点击此处') }}</a>
                   <span>{{ t('来关注我们。') }}</span>
                 </p>
               </div>
@@ -132,7 +132,7 @@ const handleClose = () => {
               <div class="content">
                 <p>
                   <span>{{ t('我们的推特(X)账号目前提供有限的英文内容。') }}</span>
-                  <a :href="otherSocialInfo.twitterUrl" target="_blank">{{ t('点击这里') }}</a>
+                  <a :href="otherSocialInfo.twitterUrl" target="_blank">{{ t('点击此处') }}</a>
                   <span>{{ t('来关注我们。') }}</span>
                 </p>
               </div>
