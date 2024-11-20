@@ -7,7 +7,8 @@ import {
 } from 'naive-ui'
 import {
   ArrowCircleLeftOutlined,
-  FileCopyFilled, FileCopyOutlined,
+  FileCopyFilled, FileCopyOutlined, FilePresentOutlined,
+  OpenInNewOutlined,
   CasesRound, CasesOutlined,
   ImportExportOutlined,
   ArrowUpwardOutlined,
@@ -169,19 +170,20 @@ const desktopMenus = computed(() => {
           label: '自撰攻略',
           icon: renderIcon(FileCopyOutlined),
           children: [
-            buildOuterlinkOption('ref-self-1', 'DawnCrafter I: 版本7.0&7.05生产采集准备工作', 'https://bbs.nga.cn/read.php?tid=41573697', FileCopyOutlined),
+            buildOuterlinkOption('ref-self-1', 'DawnCrafter I: 版本7.0&7.05生产采集准备工作', 'https://bbs.nga.cn/read.php?tid=41573697', OpenInNewOutlined),
+            buildOuterlinkOption('ref-self-2', 'DawnCrafter II: 版本7.1生产采集准备工作', 'https://bbs.nga.cn/read.php?tid=42486060', OpenInNewOutlined),
           ]
         },
         {
           key: 'ref-oth-book',
           label: '其他推荐攻略',
-          icon: renderIcon(FileCopyOutlined),
+          icon: renderIcon(FilePresentOutlined),
           children: [
-            buildOuterlinkOption('ref-oth-book-1', '7.0装备箱羊毛指南 by天然呆树歌', 'https://bbs.nga.cn/read.php?tid=40686962', FileCopyOutlined),
-            buildOuterlinkOption('ref-oth-book-2', '生产职业90-100练级攻略 by竹笙微凉_', 'https://bbs.nga.cn/read.php?tid=41158426', FileCopyOutlined),
-            buildOuterlinkOption('ref-oth-book-3', '7.x星级配方制作攻略 by月下独翼', 'https://bbs.nga.cn/read.php?tid=40690311', FileCopyOutlined),
-            buildOuterlinkOption('ref-oth-book-4', '7.0捕鱼人大地票据指南 by f(x)=kx+b', 'https://bbs.nga.cn/read.php?tid=42046664', FileCopyOutlined),
-            buildOuterlinkOption('ref-oth-book-5', '7.0灵砂/工票鱼信息整理 by plas_g', 'https://bbs.nga.cn/read.php?tid=41277468', FileCopyOutlined),
+            buildOuterlinkOption('ref-oth-book-1', '7.0装备箱羊毛指南 by天然呆树歌', 'https://bbs.nga.cn/read.php?tid=40686962', OpenInNewOutlined),
+            buildOuterlinkOption('ref-oth-book-2', '生产职业90-100练级攻略 by竹笙微凉_', 'https://bbs.nga.cn/read.php?tid=41158426', OpenInNewOutlined),
+            buildOuterlinkOption('ref-oth-book-3', '7.x星级配方制作攻略 by月下独翼', 'https://bbs.nga.cn/read.php?tid=40690311', OpenInNewOutlined),
+            buildOuterlinkOption('ref-oth-book-4', '7.0捕鱼人大地票据指南 by f(x)=kx+b', 'https://bbs.nga.cn/read.php?tid=42046664', OpenInNewOutlined),
+            buildOuterlinkOption('ref-oth-book-5', '7.0灵砂/工票鱼信息整理 by plas_g', 'https://bbs.nga.cn/read.php?tid=41277468', OpenInNewOutlined),
           ]
         },
         {
@@ -189,8 +191,8 @@ const desktopMenus = computed(() => {
           label: '其他实用工具',
           icon: renderIcon(CasesOutlined),
           children: [
-            buildOuterlinkOption('ref-oth-tool-1', '制作模拟器 by Tnze', 'https://yyyy.games/crafter/#/simulator', CasesOutlined),
-            buildOuterlinkOption('ref-oth-tool-2', '配装模拟器 by Asvel', 'https://asvel.github.io/ffxiv-gearing/', CasesOutlined),
+            buildOuterlinkOption('ref-oth-tool-1', '制作模拟器 by Tnze', 'https://tnze.yyyy.games/#/', OpenInNewOutlined),
+            buildOuterlinkOption('ref-oth-tool-2', '配装模拟器 by Asvel', 'https://asvel.github.io/ffxiv-gearing/', OpenInNewOutlined),
           ]
         }
       ]

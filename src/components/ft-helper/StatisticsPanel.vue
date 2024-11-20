@@ -44,6 +44,31 @@ const hidePrecraftGatherings = defineModel<boolean | undefined>('hidePrecraftGat
 const { getTradeMap } = useNbbCal()
 const tradeMap = getTradeMap()
 
+const lv1Items = computed(() => {
+  const items = []
+  for (const id in props.statistics.lv1) {
+    try {
+      const item = getItemInfo(props.statistics.lv1[id])
+      items.push(item)
+    } catch (error) {
+      console.warn('[compute.lv1Items] Error processing item ' + id + ':', error)
+    }
+  }
+  return items
+})
+const lvBaseItems = computed(() => {
+  const items = []
+  for (const id in props.statistics.lvBase) {
+    try {
+      const item = getItemInfo(props.statistics.lvBase[id])
+      items.push(item)
+    } catch (error) {
+      console.warn('[compute.lvBaseItems] Error processing item ' + id + ':', error)
+    }
+  }
+  return items
+})
+
 /**
  * 表示需要用亚拉戈神典石或工票兑换的道具。
  */
@@ -114,9 +139,9 @@ const aethersands = computed(() => {
  */
 const getGatheringBase = () => {
   if (hidePrecraftGatherings.value) {
-    return props.statistics.lv1
+    return lv1Items.value
   } else {
-    return props.statistics.lvBase
+    return lvBaseItems.value
   }
 }
 
@@ -124,22 +149,13 @@ const getGatheringBase = () => {
  * 表示限时采集品统计。
  */
 const gatheringsTimed = computed(() => {
-  if (!props.limitedGatherings?.length) {
-    return [] as ItemInfo[]
-  }
-  const gathers = []
+  const gathers : ItemInfo[] = []
   const gatheringBase = getGatheringBase()
-  for (const id in gatheringBase) {
-    try {
-      const _id = parseInt(id)
-      if (props.limitedGatherings.includes(_id) && !props.aethersandGatherings?.includes(_id)) {
-        const item = gatheringBase[id]
-        gathers.push(getItemInfo(item))
-      }
-    } catch (error) {
-      console.warn('[compute.gatheringsTimed] Error processing item ' + id + ':', error)
+  gatheringBase.forEach(item => {
+    if (item.gatherInfo?.timeLimitInfo?.length) {
+      gathers.push(item)
     }
-  }
+  })
   return gathers
 })
 
@@ -147,22 +163,13 @@ const gatheringsTimed = computed(() => {
  * 表示非限时(常规)采集品统计。
  */
 const gatheringsCommon = computed(() => {
-  if (!props.normalGatherings?.length) {
-    return [] as ItemInfo[]
-  }
-  const gathers = []
+  const gathers : ItemInfo[] = []
   const gatheringBase = getGatheringBase()
-  for (const id in gatheringBase) {
-    try {
-      const _id = parseInt(id)
-      if (props.normalGatherings.includes(_id)) {
-        const item = gatheringBase[id]
-        gathers.push(getItemInfo(item))
-      }
-    } catch (error) {
-      console.warn('[compute.gatheringsTimed] Error processing item ' + id + ':', error)
+  gatheringBase.forEach(item => {
+    if (item.gatherInfo?.placeID && !item.gatherInfo.timeLimitInfo?.length) {
+      gathers.push(item)
     }
-  }
+  })
   return gathers
 })
 

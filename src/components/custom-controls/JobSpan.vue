@@ -2,7 +2,7 @@
 import { computed, inject, type Ref } from 'vue';
 import XivFARImage from './XivFARImage.vue'
 import type { UserConfigModel } from '@/models/user-config'
-import XivJobs from '@/assets/data/xiv-jobs.json'
+import { XivJobs } from '@/assets/data'
 
 interface JobInfo {
   job_id: number,
@@ -11,7 +11,6 @@ interface JobInfo {
   job_name_ja: string,
   job_icon_url: string
 }
-const jobMap = XivJobs as Record<number, JobInfo>
 
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
@@ -42,8 +41,8 @@ const props = defineProps({
 })
 
 const jobInfo = computed(() => {
-  if (jobMap[props.jobId]) {
-    return jobMap[props.jobId]
+  if (XivJobs[props.jobId]) {
+    return XivJobs[props.jobId]
   } else {
     return {
       job_id: 0,

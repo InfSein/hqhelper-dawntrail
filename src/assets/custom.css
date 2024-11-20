@@ -5,6 +5,10 @@
 .flex {
   display: flex;
 }
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
 .flex-column {
   display: flex;
   flex-direction: column;
@@ -54,6 +58,9 @@
 }
 .font-small {
   font-size: calc(var(--n-font-size) - 2px);
+}
+.font-big {
+  font-size: calc(var(--n-font-size) + 2px);
 }
 .align-left {
   text-align: left;

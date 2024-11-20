@@ -14,14 +14,16 @@ import ItemButton from '@/components/custom-controls/ItemButton.vue'
 import XivFARImage from '@/components/custom-controls/XivFARImage.vue'
 import XivMap from '@/components/custom-controls/XivMap.vue'
 import LocationSpan from '@/components/custom-controls/LocationSpan.vue'
-import { XivMaps } from '@/assets/data'
+import { XivMaps, XivJobs, type XivJob } from '@/assets/data'
 import { useStore } from '@/store'
-import { jobMap, type JobInfo } from '@/data'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
+import type { ItemGroup } from '@/models/item'
 import type { UserConfigModel } from '@/models/user-config'
 import EorzeaTime from '@/tools/eorzea-time'
 import { playAudio } from '@/tools'
+import ModalAlarmMacroExport from '@/components/modals/ModalAlarmMacroExport.vue'
+import { fixAlarmMacroOptions } from '@/models/gather-clock'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -40,11 +42,7 @@ const gatherData = computed(() => {
     })
   }
 
-  const data : {
-    title: string,
-    key: string,
-    items: ItemInfo[]
-  }[] = []
+  const data : ItemGroup[] = []
 
   // 收藏的物品
   const stars : ItemInfo[] = []
@@ -120,9 +118,11 @@ const workState = ref({
   banItemPop: false,
   /** 是否直接在采集卡片内展示地图 */
   showMap: false,
+  alarmMacroOptions: fixAlarmMacroOptions(),
   starItems: [] as number[],
   subscribedItems: [] as number[]
 })
+const showAlarmMacroExportModal = ref(false)
 const notifyModeOptions = computed(() => {
   return [
     {
@@ -222,9 +222,9 @@ const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
     if (itemsNeedAlarm.length > 0) {
       new Notification(t('以下物品已可采集：'), {
         body: itemsNeedAlarm.map(item => {
-          let text = `${getItemName(item)}: ${getJobName(jobMap[item.gatherInfo.jobId])} | ${getPlaceName(item)} ${getItemGatherLocation(item)}`
+          let text = `${getItemName(item)}: ${getJobName(XivJobs[item.gatherInfo.jobId])} | ${getPlaceName(item)} ${getItemGatherLocation(item)}`
           if (item.gatherInfo.recommAetheryte) {
-            text += ' | ' + t('推荐传送点 - ') + item.gatherInfo.recommAetheryte?.[`name_${itemLanguage.value}`]
+            text += ' | ' + t('推荐传送点') + ' - ' + item.gatherInfo.recommAetheryte?.[`name_${itemLanguage.value}`]
           }
           return text
         }).join('\n'),
@@ -245,6 +245,7 @@ if (!disable_workstate_cache) {
     workState.value.notifyMode ??= 'none'
     workState.value.orderBy ??= 'itemId'
     workState.value.subscribedItems ??= []
+    workState.value.alarmMacroOptions = fixAlarmMacroOptions(workState.value.alarmMacroOptions)
   }
 
   // todo - 留意性能：深度侦听需要遍历被侦听对象中的所有嵌套的属性，当用于大型数据结构时，开销很大
@@ -446,7 +447,7 @@ const getItemName = (itemInfo: ItemInfo) => {
       return itemInfo.nameZH || '未翻译的物品'
   }
 }
-const getJobName = (jobInfo: JobInfo) => {
+const getJobName = (jobInfo: XivJob) => {
   switch (uiLanguage.value) {
     case 'ja':
       return jobInfo?.job_name_ja || t('未知')
@@ -470,6 +471,10 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 }
 const getItemGatherLocation = (itemInfo: ItemInfo) => {
   return t('(X:{x}, Y:{y})', { x: itemInfo.gatherInfo.posX.toFixed(1), y: itemInfo.gatherInfo.posY.toFixed(1) })
+}
+
+const handleShowAlarmMacroExportModal = () => {
+  showAlarmMacroExportModal.value = true
 }
 </script>
 
@@ -522,6 +527,9 @@ const getItemGatherLocation = (itemInfo: ItemInfo) => {
             >
               <n-button>{{ t('点此展开菜单') }}</n-button>
             </n-dropdown>
+          </n-form-item>
+          <n-form-item :label="t('导出闹钟宏')">
+            <n-button @click="handleShowAlarmMacroExportModal">{{ t('点击此处') }}</n-button>
           </n-form-item>
         </n-form>
       </div>
@@ -613,9 +621,9 @@ const getItemGatherLocation = (itemInfo: ItemInfo) => {
                 <div class="gather-job">
                   <XivFARImage
                     class="icon"
-                    :src="jobMap[item.gatherInfo.jobId].job_icon_url"
+                    :src="XivJobs[item.gatherInfo.jobId].job_icon_url"
                   />
-                  <p>{{ getJobName(jobMap[item.gatherInfo.jobId]) }}</p>
+                  <p>{{ getJobName(XivJobs[item.gatherInfo.jobId]) }}</p>
                 </div>
                 <div class="recommended-aetheryte" v-if="XivMaps[item.gatherInfo.placeID]">
                   <span>{{ t('推荐') }}</span>
@@ -676,6 +684,12 @@ const getItemGatherLocation = (itemInfo: ItemInfo) => {
         </div>
       </n-el>
     </n-card>
+
+    <ModalAlarmMacroExport
+      v-model:show="showAlarmMacroExportModal"
+      v-model:options="workState.alarmMacroOptions"
+      :item-groups="gatherData"
+    />
   </div>
 </template>
 

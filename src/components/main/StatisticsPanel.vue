@@ -77,6 +77,20 @@ const showBiColorItemsInTomeScriptButton = computed(() => {
   return userConfig.value?.tomescript_show_bicolor_items ?? false
 })
 
+const lvBaseItems = computed(() => {
+  const items = []
+  for (const id in props.statistics.lvBase) {
+    try {
+      const item = getItemInfo(props.statistics.lvBase[id])
+      items.push(item)
+    } catch (error) {
+      console.warn('[compute.lvBaseItems] Error processing item ' + id + ':', error)
+    }
+  }
+  console.log('lvBaseItems:', items)
+  return items
+})
+
 /** 
  * 要高亮显示的素材组。
  * 
@@ -198,21 +212,12 @@ const aethersands = computed(() => {
  * 表示限时采集品统计。
  */
 const gatheringsTimed = computed(() => {
-  if (!props.limitedGatherings?.length) {
-    return [] as ItemInfo[]
-  }
-  const gathers = []
-  for (const id in props.statistics.lvBase) {
-    try {
-      const _id = parseInt(id)
-      if (props.limitedGatherings.includes(_id) && !props.aethersandGatherings?.includes(_id)) {
-        const item = props.statistics.lvBase[id]
-        gathers.push(getItemInfo(item))
-      }
-    } catch (error) {
-      console.warn('[compute.gatheringsTimed] Error processing item ' + id + ':', error)
+  const gathers : ItemInfo[] = []
+  lvBaseItems.value.forEach(item => {
+    if (item.gatherInfo?.timeLimitInfo?.length) {
+      gathers.push(item)
     }
-  }
+  })
   return gathers
 })
 
@@ -220,21 +225,12 @@ const gatheringsTimed = computed(() => {
  * 表示非限时(常规)采集品统计。
  */
 const gatheringsCommon = computed(() => {
-  if (!props.normalGatherings?.length) {
-    return [] as ItemInfo[]
-  }
-  const gathers = []
-  for (const id in props.statistics.lvBase) {
-    try {
-      const _id = parseInt(id)
-      if (props.normalGatherings.includes(_id)) {
-        const item = props.statistics.lvBase[id]
-        gathers.push(getItemInfo(item))
-      }
-    } catch (error) {
-      console.warn('[compute.gatheringsTimed] Error processing item ' + id + ':', error)
+  const gathers : ItemInfo[] = []
+  lvBaseItems.value.forEach(item => {
+    if (item.gatherInfo?.placeID && !item.gatherInfo.timeLimitInfo?.length) {
+      gathers.push(item)
     }
-  }
+  })
   return gathers
 })
 

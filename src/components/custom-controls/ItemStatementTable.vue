@@ -5,6 +5,7 @@ import {
 } from 'naive-ui'
 import { getItemInfo, type StatementRow } from '@/tools/item'
 import ItemCell from './ItemCell.vue'
+import StatementListPop from './StatementListPop.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -18,9 +19,12 @@ interface ItemStatementTableProps {
 }
 const props = defineProps<ItemStatementTableProps>()
 
+const tableContainer = ref<HTMLElement>()
+
 const rows = computed(() => {
   const rowsRemaining: StatementRow[] = []
   const rowsCleaned : StatementRow[] = []
+  const rowsAll : StatementRow[] = []
   for (const itemId in props.itemsTotal) {
     const id = Number(itemId)
     const itemInfo = getItemInfo(id)
@@ -39,10 +43,12 @@ const rows = computed(() => {
     } else {
       rowsCleaned.push(item)
     }
+    rowsAll.push(item)
   }
   return {
     remaining: rowsRemaining,
-    cleaned: rowsCleaned
+    cleaned: rowsCleaned,
+    all: rowsAll
   }
 })
 
@@ -55,11 +61,21 @@ const handleNumInputLoop = (row: StatementRow) => {
 </script>
 
 <template>
-  <div class="table-container">
+  <div class="table-container" ref="tableContainer">
     <n-table class="table" size="small" :single-line="false">
       <thead>
         <tr>
-          <th>{{ t('物品') }}</th>
+          <th>
+            {{ t('物品') }}
+            <span class="font-small">
+              <StatementListPop
+                :rows="rows.all"
+                :container="tableContainer"
+              >
+                <a href="javascript:void(0)">[{{ t('清单') }}]</a>
+              </StatementListPop>
+            </span>
+          </th>
           <th>{{ t('总需') }}</th>
           <th>{{ t('已有') }}</th>
           <th>{{ t('尚需') }}</th>

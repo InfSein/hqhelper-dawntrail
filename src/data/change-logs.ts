@@ -25,8 +25,8 @@ export interface PatchChangeGroup {
 
 /*
     {
-      version: '2.0.14',
-      date: '2024-11-12',
+      version: '2.1.1',
+      date: '2024-11-20',
       changes: [
         {
           name: groupName.breaking,
@@ -59,6 +59,35 @@ export const getChangelogs = (
   }
   const isZh = ui_lang === 'zh'
   return [
+    {
+      version: '2.1.1',
+      date: '2024-11-20',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('向采集时钟追加了“{f}”功能。', t('导出闹钟宏')),
+            t('向专业版制作报表追加了“{f}”功能。', t('清单'))
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('修复了统计区域的限时采集品未计入7.1新增道具的问题。'),
+            t('修正了点数按钮在内容过长时的显示效果。'),
+            t('修正了一部分地图数据。')
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            isZh ? '更新了桌面端顶部菜单项“参考资料”的推荐攻略/工具列表 (仅在界面语言设置为简体中文时显示)。' : '',
+            t('在推荐流程中，被标记为已完成的物品将自动隐藏采集详情。'),
+            t('现在因切换版本等情况导致所选职业在当前版本没有可以添加的装备时，程序会在选择职业区域给出提示。'),
+          ]
+        }
+      ]
+    },
     {
       version: '2.1.0',
       date: '2024-11-16',
@@ -191,7 +220,7 @@ export const getChangelogs = (
         {
           name: groupName.breaking,
           changes: [
-            t('专业版制作报表追加了功能“{f}”。', {
+            t('向专业版制作报表追加了“{f}”功能。', {
               f: t('推荐流程')
             })
               + '<br>'
