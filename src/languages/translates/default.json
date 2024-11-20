@@ -3736,7 +3736,7 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "专业版制作报表追加了功能“{f}”。": {
+  "向专业版制作报表追加了“{f}”功能。": {
     "en": "Added new function \"{f}\" to Pro statement.",
     "ja": "プロ版のリスト作成に機能「{f}」が追加されました。",
     "$files": [
@@ -4236,6 +4236,155 @@
     "ja": "縦向きでクライアントを使用した場合、トップメニューの表示効果が調整されました。",
     "$files": [
       "data\\change-logs.ts"
+    ]
+  },
+  "向采集时钟追加了“{f}”功能。": {
+    "en": "Added new function \"{f}\" to Gatherclock.",
+    "ja": "向采集时钟追加了“{f}”功能。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "导出闹钟宏": {
+    "en": "Export alarm macro",
+    "ja": "导出闹钟宏",
+    "$files": [
+      "data\\change-logs.ts",
+      "views\\GatherClockPage.vue",
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "修复了统计区域的限时采集品未计入7.1新增道具的问题。": {
+    "en": "Fixed statistics of time-limited gatherings not included new items in patch 7.1.",
+    "ja": "修复了统计区域的限时采集品未计入7.1新增道具的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了点数按钮在内容过长时的显示效果。": {
+    "en": "Fixed display effect of tome-script buttons while its content is too long.",
+    "ja": "修正了点数按钮在内容过长时的显示效果。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了一部分地图数据。": {
+    "en": "Fixed some data of map.",
+    "ja": "修正了一部分地图数据。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "在推荐流程中，被标记为已完成的物品将自动隐藏采集详情。": {
+    "en": "Gather details of items marked as completed in Recomm. process will be automatically hidden.",
+    "ja": "在推荐流程中，被标记为已完成的物品将自动隐藏采集详情。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在因切换版本等情况导致所选职业在当前版本没有可以添加的装备时，程序会在选择职业区域给出提示。": {
+    "en": "Now the program gives tip when selected job has no equipable item in selected patch.",
+    "ja": "现在因切换版本等情况导致所选职业在当前版本没有可以添加的装备时，程序会在选择职业区域给出提示。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "宏#{index}": {
+    "en": "Macro #{index}",
+    "ja": "宏#{index}",
+    "$files": [
+      "components\\custom-controls\\MacroViewer.vue"
+    ]
+  },
+  "无内容": {
+    "en": "No content",
+    "ja": "无内容",
+    "$files": [
+      "components\\custom-controls\\MacroViewer.vue"
+    ]
+  },
+  "数量使用：": {
+    "en": "Amount use:",
+    "ja": "数量使用：",
+    "$files": [
+      "components\\custom-controls\\StatementListPop.vue"
+    ]
+  },
+  "内容": {
+    "en": "Content",
+    "ja": "内容",
+    "$files": [
+      "components\\custom-controls\\StatementListPop.vue"
+    ]
+  },
+  "复制清单": {
+    "en": "Copy List",
+    "ja": "复制清单",
+    "$files": [
+      "components\\custom-controls\\StatementListPop.vue"
+    ]
+  },
+  "没有需要的道具": {
+    "en": "Now items required",
+    "ja": "没有需要的道具",
+    "$files": [
+      "components\\custom-controls\\StatementListPop.vue"
+    ]
+  },
+  "所选职业在当前版本不可用，请重新选择。": {
+    "en": "Job selected is not available in current version, please reselect.",
+    "ja": "所选职业在当前版本不可用，请重新选择。",
+    "$files": [
+      "components\\main\\JobPanel.vue"
+    ]
+  },
+  "选择物品": {
+    "en": "Select Items",
+    "ja": "选择物品",
+    "$files": [
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "同时清除此前设置的闹钟": {
+    "en": "Clear old alarms",
+    "ja": "同时清除此前设置的闹钟",
+    "$files": [
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "闹钟名包括：": {
+    "en": "Alarm name includes:",
+    "ja": "闹钟名包括：",
+    "$files": [
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "职业": {
+    "en": "Job",
+    "ja": "职业",
+    "$files": [
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "地图": {
+    "en": "Map",
+    "ja": "地图",
+    "$files": [
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "闹钟名具有20个字的限制，过长的部分会被截断。": {
+    "en": "Alarm name has 20 characters limit, and will be truncated if too long.",
+    "ja": "闹钟名具有20个字的限制，过长的部分会被截断。",
+    "$files": [
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "不重复提醒": {
+    "en": "No repeat",
+    "ja": "不重复提醒",
+    "$files": [
+      "components\\modals\\ModalAlarmMacroExport.vue"
     ]
   }
 }
