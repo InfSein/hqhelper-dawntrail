@@ -425,7 +425,7 @@ const isItemGatherableNow = (item: ItemInfo) => {
                   </div>
                   <div
                     class="gather-detail-time"
-                    v-if="showItemGatherDetails && item.gatherInfo?.timeLimitDescription"
+                    v-if="showItemGatherDetails && item.gatherInfo?.timeLimitDescription && !completedItems[groupIndex][item.id]"
                   >
                     <span style="margin-right: 1px;">(</span>
                     <span>{{ t('限时: {}', item.gatherInfo.timeLimitDescription) }}</span>
@@ -434,7 +434,7 @@ const isItemGatherableNow = (item: ItemInfo) => {
                   </div>
                   <div
                     class="gather-detail-position"
-                    v-if="showItemGatherDetails && item.gatherInfo?.placeID"
+                    v-if="showItemGatherDetails && item.gatherInfo?.placeID && !completedItems[groupIndex][item.id]"
                   >
                     <span style="margin-right: 1px;">(</span>
                     <span v-if="showItemGatherDetails && item.gatherInfo?.placeID">{{ textsGatherAt.p1 }}</span>

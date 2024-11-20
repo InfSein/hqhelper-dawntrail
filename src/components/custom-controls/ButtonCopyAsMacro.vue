@@ -14,7 +14,7 @@ const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const copyAsMacro = inject<(macroContent: string, container?: HTMLElement | undefined) => Promise<{
-  success: boolean;
+  result: "success" | "info" | "error";
   msg: string;
 } | undefined>>('copyAsMacro')!
 
@@ -66,8 +66,7 @@ const handleCopyAsMacro = async () => {
   }
   const response = await copyAsMacro(macroValue.value, container)
   if (response) {
-    const tipFunc = response.success ? NAIVE_UI_MESSAGE.success : NAIVE_UI_MESSAGE.error
-    tipFunc(response.msg)
+    NAIVE_UI_MESSAGE[response.result](response.msg)
   }
   copyBtnLoading.value = false
 }
