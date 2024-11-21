@@ -14,7 +14,7 @@ export interface ElectronAPI {
   onUpdateProgress: (callback: (progressData: ProgressData) => void) => void;
   openUrlByBrowser: (url: string) => void;
   copyText: (text: string) => Promise<string>;
-  createNewWindow: (id: string, url: string, defaultWidth: number, defaultHeight: number) => void;
+  createNewWindow: (id: string, url: string, defaultWidth: number, defaultHeight: number, title: string) => void;
   toggleAlwaysOnTop: () => void;
 }
 

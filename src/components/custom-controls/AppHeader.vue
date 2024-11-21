@@ -97,7 +97,8 @@ const redirectToGatherClockPage = () => {
       'gatherclock',
       url,
       390,
-      730
+      730,
+      t('采集时钟')
     )
   } else {
     router.push('/gatherclock')
