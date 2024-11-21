@@ -97,8 +97,8 @@ const itemLanguage = computed(() => {
   }
   return userConfig.value.language_ui
 })
-const useMobileUi = computed(() => {
-  return isMobile.value || appMode.value === 'overlay'
+const isVerticalOverlay = computed(() => {
+  return isMobile.value && appMode.value === 'overlay'
 })
 const canPinWindow = computed(() => {
   return appMode.value === 'overlay' && !!window.electronAPI?.toggleAlwaysOnTop
@@ -323,43 +323,43 @@ const getQuickOperateOptions = () => {
   const starOptions = gatherData.value.filter(
     item => item.key !== 'stars' && item.items.length
   ).map(data => {
-          const itemsAllStared = data.items.every(item => workState.value.starItems.includes(item.id))
-          return {
-            label: itemsAllStared ? t('取消收藏“{}”', data.title) : t('收藏“{}”', data.title),
-            key: 'star-option-' + data.key,
-            click: () => {
-              if (itemsAllStared) {
-                workState.value.starItems = workState.value.starItems.filter(id => !data.items.map(item => item.id).includes(id))
-              } else {
-                data.items.forEach(item => {
-                  if (!workState.value.starItems.includes(item.id)) {
-                    workState.value.starItems.push(item.id)
-                  }
-                })
-              }
+    const itemsAllStared = data.items.every(item => workState.value.starItems.includes(item.id))
+    return {
+      label: itemsAllStared ? t('取消收藏“{}”', data.title) : t('收藏“{}”', data.title),
+      key: 'star-option-' + data.key,
+      click: () => {
+        if (itemsAllStared) {
+          workState.value.starItems = workState.value.starItems.filter(id => !data.items.map(item => item.id).includes(id))
+        } else {
+          data.items.forEach(item => {
+            if (!workState.value.starItems.includes(item.id)) {
+              workState.value.starItems.push(item.id)
             }
-          }
-        })
+          })
+        }
+      }
+    }
+  })
   const subscribeOptions = gatherData.value.filter(
     item => item.key !== 'subscribed' && item.items.length
   ).map(data => {
-          const itemsAllAlarmed = data.items.every(item => workState.value.subscribedItems.includes(item.id))
-          return {
-            label: itemsAllAlarmed ? t('取消订阅“{}”', data.title) : t('订阅“{}”', data.title),
-            key: 'subscribe-option-' + data.key,
-            click: () => {
-              if (itemsAllAlarmed) {
-                workState.value.subscribedItems = workState.value.subscribedItems.filter(id => !data.items.map(item => item.id).includes(id))
-              } else {
-                data.items.forEach(item => {
-                  if (!workState.value.subscribedItems.includes(item.id)) {
-                    workState.value.subscribedItems.push(item.id)
-                  }
-                })
-              }
+    const itemsAllAlarmed = data.items.every(item => workState.value.subscribedItems.includes(item.id))
+    return {
+      label: itemsAllAlarmed ? t('取消订阅“{}”', data.title) : t('订阅“{}”', data.title),
+      key: 'subscribe-option-' + data.key,
+      click: () => {
+        if (itemsAllAlarmed) {
+          workState.value.subscribedItems = workState.value.subscribedItems.filter(id => !data.items.map(item => item.id).includes(id))
+        } else {
+          data.items.forEach(item => {
+            if (!workState.value.subscribedItems.includes(item.id)) {
+              workState.value.subscribedItems.push(item.id)
             }
-          }
-        })
+          })
+        }
+      }
+    }
+  })
 
   const optionUnstarAll = {
     label: t('全部取消收藏'),
@@ -370,13 +370,13 @@ const getQuickOperateOptions = () => {
     }
   }
   const optionUnsubscribeAll = {
-      label: t('全部取消订阅'),
-      key: 'subscribe-removeAll',
-      disabled: workState.value.subscribedItems.length === 0,
-      click: () => {
-        workState.value.subscribedItems = []
-      }
+    label: t('全部取消订阅'),
+    key: 'subscribe-removeAll',
+    disabled: workState.value.subscribedItems.length === 0,
+    click: () => {
+      workState.value.subscribedItems = []
     }
+  }
 
   const divider = {
     type: 'divider'
@@ -516,11 +516,11 @@ const handleShowAlarmMacroExportModal = () => {
 
       <div class="query-form">
         <n-form
-          :inline="!useMobileUi"
-          :label-placement="useMobileUi ? 'left' : 'top'"
+          :inline="!isMobile"
+          :label-placement="isMobile ? 'left' : 'top'"
           :show-feedback="false"
           :style="{
-            maxWidth: useMobileUi ? '100%' : 'fit-content'
+            maxWidth: isMobile ? '100%' : 'fit-content'
           }"
         >
           <n-form-item :label="t('窗口置顶')" v-show="canPinWindow">
@@ -556,13 +556,13 @@ const handleShowAlarmMacroExportModal = () => {
         </n-form>
       </div>
     </FoldableCard>
-    <n-card embedded :bordered="false">
+    <n-card embedded :bordered="false" :content-style="isVerticalOverlay ? 'padding: 1em 0.5em;' : undefined">
       <div class="title-actions">
         <n-button
           v-for="patch in gatherData"
           :key="patch.key"
           :type="workState.patch === patch.key ? 'primary' : undefined"
-          :size="canPinWindow && isMobile ? 'small' : undefined"
+          :size="isVerticalOverlay ? 'tiny' : undefined"
           @click="workState.patch = patch.key"
         >
           <div class="tab-title">
@@ -582,7 +582,10 @@ const handleShowAlarmMacroExportModal = () => {
           </div>
         </n-button>
       </div>
-      <n-divider style="margin-top: 3px; margin-bottom: 12px;" />
+      <n-divider style="margin-top: 3px; margin-bottom: 12px;" :style="{
+        marginTop: '3px',
+        marginBottom: isVerticalOverlay ? '5px' : '12px'
+      }" />
       <n-el
         v-for="patch in gatherData"
         :key="patch.key"
@@ -740,7 +743,7 @@ const handleShowAlarmMacroExportModal = () => {
 .title-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 2px 5px;
 }
 .items-container {
   gap: 0.3rem;
@@ -839,6 +842,9 @@ const handleShowAlarmMacroExportModal = () => {
     .item-card {
       width: 100%;
     }
+  }
+  .env-overlay .items-container {
+    padding: 0;
   }
 }
 </style>

@@ -243,7 +243,12 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
         hide: !window.electronAPI?.toggleAlwaysOnTop,
         descriptions: [
           {
-            value: t('仅在悬浮窗模式下，采集时钟可以激活置顶窗口功能。'),
+            value: t('打开一个新窗口来使用采集时钟，而非跳转页面。'),
+            class: '',
+            style: ''
+          },
+          {
+            value: t('在悬浮窗模式下，采集时钟可以激活置顶窗口功能。'),
             class: '',
             style: ''
           }

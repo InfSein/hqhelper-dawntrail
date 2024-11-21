@@ -47,7 +47,7 @@ provide('appMode', appMode)
 
 const isMobile = ref(false)
 const updateIsMobile = () => {
-  isMobile.value = (window.innerWidth < window.innerHeight) && appMode.value !== 'overlay'
+  isMobile.value = window.innerWidth < window.innerHeight
 }
 updateIsMobile()
 window.addEventListener('resize', updateIsMobile)

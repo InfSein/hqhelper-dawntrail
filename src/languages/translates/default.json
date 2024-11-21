@@ -4084,13 +4084,6 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "仅在悬浮窗模式下，采集时钟可以激活置顶窗口功能。": {
-    "en": "Only in the mode of overlay, the gatherclock can activate the window top function.",
-    "ja": "ツールチップモードのみで、採集時計がウィンドウ最前面機能をアクティブにできます。",
-    "$files": [
-      "components\\modals\\ModalUserPreferences.vue"
-    ]
-  },
   "决定在点击材料区域物品按钮组上方的“清单”按钮后，展示的物品清单格式。": {
     "en": "Determine the format of the list shown after clicking the \"View list\" button above the item button group.",
     "ja": "材料エリアのアイテムボタン上部の「リスト」ボタンをクリックすると、アイテムリストの形式が表示されます。",
@@ -4385,6 +4378,13 @@
     "ja": "リマインダーの重複通知をオフにする",
     "$files": [
       "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "在悬浮窗模式下，采集时钟可以激活置顶窗口功能。": {
+    "en": "Gatherclock in the mode of overlay can activate the toggle on top function.",
+    "ja": "ツールチップモードのみで、採集時計がウィンドウ最前面機能をアクティブにできます。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
     ]
   }
 }
