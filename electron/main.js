@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { app, BrowserWindow, ipcMain, shell, clipboard, Menu, globalShortcut } = require('electron');
+const { app, screen, BrowserWindow, ipcMain, shell, clipboard, Menu, globalShortcut } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
@@ -22,6 +22,7 @@ const CLIENT_VERSION = 'v4'
 const ZIP_PATH = path.join(app.getPath('userData'), 'static-pages.zip');
 const TEMP_DIR = path.join(app.getPath('userData'), 'static-pages-temp');
 const WINDOW_SIZES_PATH = path.join(app.getPath('userData'), 'windowSizes.json');
+const WINDOW_POSITIONS_PATH = path.join(app.getPath('userData'), 'windowPositions.json');
 const EXTRACTED_DIR = path.join(TEMP_DIR, 'dist');
 const STATICPAGE_DIR = path.join(process.resourcesPath, 'static-pages');
 
@@ -276,13 +277,22 @@ function createWindow() {
     createNewWindow({ id, url, defaultWidth, defaultHeight })
   });
   const createNewWindow = ({ id, url, defaultWidth, defaultHeight }) => {
+    // 读取尺寸
     const size = loadWindowSizes()[id] || { width: defaultWidth, height: defaultHeight }
     let width = size.width || defaultWidth; let height = size.height || defaultHeight
     if (width < 100) width = 100
     if (height < 100) height = 100
+
+    // 读取位置
+    const position = loadWindowPosition()[id] || { x: undefined, y: undefined }
+    const { width: screenWidth, height: screenHeight } = screen.getPrimaryDisplay().workAreaSize
+    const x = position.x !== undefined && position.x < screenWidth * 0.9 ? position.x : Math.floor(screenWidth / 2 - size.width / 2)
+    const y = position.y !== undefined && position.y < screenHeight * 0.9 ? position.y : Math.floor(screenHeight / 2 - size.height / 2)
+
     const newWindow = new BrowserWindow({
       width: width,
       height: height,
+      x, y,
       webPreferences: {
         contextIsolation: true,
         nodeIntegration: false,
@@ -295,6 +305,10 @@ function createWindow() {
       const [newWidth, newHeight] = newWindow.getSize()
       saveWindowSize(id, newWidth, newHeight)
     })
+    newWindow.on('move', () => {
+      const [newX, newY] = newWindow.getPosition()
+      saveWindowPosition(id, newX, newY)
+    })
 
     function loadWindowSizes() {
       if (fs.existsSync(WINDOW_SIZES_PATH)) {
@@ -306,6 +320,18 @@ function createWindow() {
       const sizes = loadWindowSizes()
       sizes[id] = { width, height }
       fs.writeFileSync(WINDOW_SIZES_PATH, JSON.stringify(sizes))
+    }
+
+    function loadWindowPosition() {
+      if (fs.existsSync(WINDOW_POSITIONS_PATH)) {
+        return JSON.parse(fs.readFileSync(WINDOW_POSITIONS_PATH))
+      }
+      return {}
+    }
+    function saveWindowPosition(id, x, y) {
+      const positions = loadWindowPosition()
+      positions[id] = { x, y }
+      fs.writeFileSync(WINDOW_POSITIONS_PATH, JSON.stringify(positions))
     }
   }
 
