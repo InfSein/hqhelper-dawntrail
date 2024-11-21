@@ -277,9 +277,12 @@ function createWindow() {
   });
   const createNewWindow = ({ id, url, defaultWidth, defaultHeight }) => {
     const size = loadWindowSizes()[id] || { width: defaultWidth, height: defaultHeight }
+    let width = size.width || defaultWidth; let height = size.height || defaultHeight
+    if (width < 100) width = 100
+    if (height < 100) height = 100
     const newWindow = new BrowserWindow({
-      width: size.width || defaultWidth,
-      height: size.height || defaultHeight,
+      width: width,
+      height: height,
       webPreferences: {
         contextIsolation: true,
         nodeIntegration: false,
