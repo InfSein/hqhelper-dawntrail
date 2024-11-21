@@ -320,12 +320,9 @@ const handleQuickOperateButtonClick = (itemInfo : ItemInfo) => {
   }
 }
 const getQuickOperateOptions = () => {
-  return [
-    {
-      label: t('收藏'),
-      key: 'group-star',
-      children: [
-        ...gatherData.value.filter(item => item.key !== 'stars' && item.items.length).map(data => {
+  const starOptions = gatherData.value.filter(
+    item => item.key !== 'stars' && item.items.length
+  ).map(data => {
           const itemsAllStared = data.items.every(item => workState.value.starItems.includes(item.id))
           return {
             label: itemsAllStared ? t('取消收藏“{}”', data.title) : t('收藏“{}”', data.title),
@@ -343,24 +340,9 @@ const getQuickOperateOptions = () => {
             }
           }
         })
-      ]
-    },
-    {
-      label: t('全部取消收藏'),
-      key: 'star-removeAll',
-      disabled: workState.value.starItems.length === 0,
-      click: () => {
-        workState.value.starItems = []
-      }
-    },
-    {
-      type: 'divider'
-    },
-    {
-      label: t('订阅'),
-      key: 'group-subscribe',
-      children: [
-        ...gatherData.value.filter(item => item.key !== 'subscribed' && item.items.length).map(data => {
+  const subscribeOptions = gatherData.value.filter(
+    item => item.key !== 'subscribed' && item.items.length
+  ).map(data => {
           const itemsAllAlarmed = data.items.every(item => workState.value.subscribedItems.includes(item.id))
           return {
             label: itemsAllAlarmed ? t('取消订阅“{}”', data.title) : t('订阅“{}”', data.title),
@@ -378,9 +360,16 @@ const getQuickOperateOptions = () => {
             }
           }
         })
-      ]
-    },
-    {
+
+  const optionUnstarAll = {
+    label: t('全部取消收藏'),
+    key: 'star-removeAll',
+    disabled: workState.value.starItems.length === 0,
+    click: () => {
+      workState.value.starItems = []
+    }
+  }
+  const optionUnsubscribeAll = {
       label: t('全部取消订阅'),
       key: 'subscribe-removeAll',
       disabled: workState.value.subscribedItems.length === 0,
@@ -388,7 +377,40 @@ const getQuickOperateOptions = () => {
         workState.value.subscribedItems = []
       }
     }
-  ]
+
+  const divider = {
+    type: 'divider'
+  }
+console.warn('isMobile.value:', isMobile.value)
+  if (isMobile.value) {
+    return [
+      ...starOptions,
+      optionUnstarAll,
+      divider,
+      ...subscribeOptions,
+      optionUnsubscribeAll
+    ]
+  } else {
+    return [
+      {
+        label: t('收藏'),
+        key: 'group-star',
+        children: [
+          ...starOptions
+        ]
+      },
+      optionUnstarAll,
+      divider,
+      {
+        label: t('订阅'),
+        key: 'group-subscribe',
+        children: [
+          ...subscribeOptions
+        ]
+      },
+      optionUnsubscribeAll
+    ]
+  }
 }
 const handleQuickOperateOptionSelect = (key: string | number, option: any) => {
   if (option?.click) {
