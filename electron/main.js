@@ -273,10 +273,10 @@ function createWindow() {
   })
 
   /* 创建新窗口 */
-  ipcMain.on('create-new-window', (event, { id, url, defaultWidth, defaultHeight }) => {
-    createNewWindow({ id, url, defaultWidth, defaultHeight })
+  ipcMain.on('create-new-window', (event, { id, url, defaultWidth, defaultHeight, title }) => {
+    createNewWindow({ id, url, defaultWidth, defaultHeight, title })
   });
-  const createNewWindow = ({ id, url, defaultWidth, defaultHeight }) => {
+  const createNewWindow = ({ id, url, defaultWidth, defaultHeight, title }) => {
     // 读取尺寸
     const size = loadWindowSizes()[id] || { width: defaultWidth, height: defaultHeight }
     let width = size.width || defaultWidth; let height = size.height || defaultHeight
@@ -293,6 +293,7 @@ function createWindow() {
       width: width,
       height: height,
       x, y,
+      title: title || 'HqHelper Sub-window',
       webPreferences: {
         contextIsolation: true,
         nodeIntegration: false,
@@ -300,6 +301,10 @@ function createWindow() {
       }
     })
     newWindow.loadURL(url)
+
+    newWindow.webContents.on('did-finish-load', () => {
+      newWindow.setTitle(title || 'HqHelper Sub-window')
+    })
 
     newWindow.on('resize', () => {
       const [newWidth, newHeight] = newWindow.getSize()
