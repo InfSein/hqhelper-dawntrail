@@ -17,7 +17,7 @@ let dateStr = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getD
 logger.transports.file.resolvePath = () => 'log\\' + dateStr + '.log';
 
 let mainWindow;
-const CLIENT_VERSION = 'v4'
+const CLIENT_VERSION = 'v5'
 
 const ZIP_PATH = path.join(app.getPath('userData'), 'static-pages.zip');
 const TEMP_DIR = path.join(app.getPath('userData'), 'static-pages-temp');
