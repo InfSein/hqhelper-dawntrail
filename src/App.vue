@@ -47,7 +47,7 @@ provide('appMode', appMode)
 
 const isMobile = ref(false)
 const updateIsMobile = () => {
-  isMobile.value = (window.innerWidth < window.innerHeight) && appMode.value !== 'overlay'
+  isMobile.value = window.innerWidth < window.innerHeight
 }
 updateIsMobile()
 window.addEventListener('resize', updateIsMobile)
@@ -66,6 +66,10 @@ const theme = computed(() => {
   return _theme
 })
 const naiveUiTheme = computed(() => {
+  const isDarkMode = theme.value !== 'light'
+  if (window.electronAPI?.updateTitleBarTheme) {
+    window.electronAPI.updateTitleBarTheme(isDarkMode)
+  }
   return theme.value === 'light' ? lightTheme : darkTheme
 })
 const naiveUiLocale = computed(() => {

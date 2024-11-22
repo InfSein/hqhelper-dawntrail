@@ -49,6 +49,13 @@ const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const switchTheme = inject<() => void>('switchTheme')!
 const displayCheckUpdatesModal = inject<() => void>('displayCheckUpdatesModal')!
 
+const useDesktopUi = computed(() => {
+  return !isMobile.value || !!window.electronAPI
+})
+const canUseSubwindow = computed(() => {
+  return !!window.electronAPI?.createNewWindow
+})
+
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 
@@ -91,17 +98,20 @@ const redirectToFoodAndTincPage = () => {
   router.push('/fthelper')
 }
 const redirectToGatherClockPage = () => {
-  if (userConfig.value.use_overlay_gatherclock && window.electronAPI?.createNewWindow) {
-    const url = document.location.origin + document.location.pathname + '#/gatherclock?mode=overlay'
-    window.electronAPI.createNewWindow(
-      'gatherclock',
-      url,
-      390,
-      730
-    )
-  } else {
-    router.push('/gatherclock')
+  router.push('/gatherclock')
+}
+const openSubwindowOfGatherClock = () => {
+  if (!window.electronAPI?.createNewWindow) {
+    alert('No api: window.electronAPI.createNewWindow'); return
   }
+  const url = document.location.origin + document.location.pathname + '#/gatherclock?mode=overlay'
+  window.electronAPI.createNewWindow(
+    'gatherclock',
+    url,
+    390,
+    730,
+    t('采集时钟')
+  )
 }
 
 interface MenuItem {
@@ -142,6 +152,7 @@ const desktopMenus = computed(() => {
   const changeThemeTooltip = theme.value === 'light' ? t('为这个世界带回黑暗。') : t('静待黎明天光来。')
   const ftHelperTooltip = hideFTHelper ? t('您已经处于食药计算器的页面。') : t('帮助你制作食物与爆发药。能帮到就好。')
   const gatherClockTooltip = hideGatherClock ? t('您已经处于采集时钟页面。') : t('挖穿艾欧泽亚的好帮手！')
+  const gatherClockSWTooltip = t('在新窗口中打开采集时钟。')
   const userPreferenceTooltip = t('以人的意志改变机械的程序。')
   const checkUpdatesTooltip = t('更新目标的战力等级……变更攻击模式……')
   const changelogTooltip = t('修正……改良……开始对循环程序进行更新……')
@@ -203,7 +214,9 @@ const desktopMenus = computed(() => {
       icon: CasesRound,
       options: [
         { key: 'tool-gatherclock', label: t('采集时钟'), disabled: hideGatherClock, icon: renderIcon(AccessAlarmsOutlined), description: gatherClockTooltip, click: redirectToGatherClockPage },
-        { key: 'tool-fthelper', label: t('食药计算'), disabled: hideFTHelper, icon: renderIcon(FastfoodOutlined), description: ftHelperTooltip, click: redirectToFoodAndTincPage }
+        { key: 'tool-fthelper', label: t('食药计算'), disabled: hideFTHelper, icon: renderIcon(FastfoodOutlined), description: ftHelperTooltip, click: redirectToFoodAndTincPage },
+        { key: 'tool-divider-1', hide: !canUseSubwindow.value, type: 'divider' },
+        { key: 'tool-gatherclock-subwindow', hide: !canUseSubwindow.value, label: t('采集时钟(新窗口)'), icon: renderIcon(AccessAlarmsOutlined), description: gatherClockSWTooltip, click: openSubwindowOfGatherClock },
       ]
     },
     /* 导入导出 */
@@ -248,9 +261,6 @@ function renderIcon(icon: Component) {
   }
 }
 const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | DropdownGroupOption }) => {
-  if (option.hide) {
-    return null
-  }
   return option.description ? h(
     NTooltip,
     {
@@ -327,10 +337,6 @@ const onUserPreferencesSubmitted = () => {
     NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
   }
 }
-
-const useDesktopUi = computed(() => {
-  return !isMobile.value || !!window.electronAPI
-})
 </script>
 
 <template>
@@ -396,7 +402,7 @@ const useDesktopUi = computed(() => {
           placement="bottom-start"
           v-for="(item, key) in desktopMenus"
           :key="'desktop-menu-' + key"
-          :options="item.options"
+          :options="item.options?.filter(o => !o.hide)"
           :render-option="renderOption"
           :trigger="item.options?.length ? 'hover' : 'manual'"
           @select="handleDesktopMenuOptionSelect"
