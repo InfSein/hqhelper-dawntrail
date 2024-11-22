@@ -4077,13 +4077,6 @@
       "components\\modals\\ModalRecommendedProcesses.vue"
     ]
   },
-  "以悬浮窗模式使用采集时钟": {
-    "en": "Open Gatherclock in overlay mode",
-    "ja": "ツールチップモードで採集時計を使用する",
-    "$files": [
-      "components\\modals\\ModalUserPreferences.vue"
-    ]
-  },
   "决定在点击材料区域物品按钮组上方的“清单”按钮后，展示的物品清单格式。": {
     "en": "Determine the format of the list shown after clicking the \"View list\" button above the item button group.",
     "ja": "材料エリアのアイテムボタン上部の「リスト」ボタンをクリックすると、アイテムリストの形式が表示されます。",
@@ -4380,11 +4373,18 @@
       "components\\modals\\ModalAlarmMacroExport.vue"
     ]
   },
-  "在悬浮窗模式下，采集时钟可以激活置顶窗口功能。": {
-    "en": "Gatherclock in the mode of overlay can activate the toggle on top function.",
-    "ja": "ツールチップモードのみで、採集時計がウィンドウ最前面機能をアクティブにできます。",
+  "在新窗口中打开采集时钟。": {
+    "en": "Open gatherclock in a new window.",
+    "ja": "在新窗口中打开采集时钟。",
     "$files": [
-      "components\\modals\\ModalUserPreferences.vue"
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "采集时钟(新窗口)": {
+    "en": "Gather Clock (New window)",
+    "ja": "採集時計(新窗口)",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
     ]
   }
 }
