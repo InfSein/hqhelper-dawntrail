@@ -19,8 +19,6 @@ export interface UserConfigModel {
   /** 隐藏物品按钮的职业图标 */
   hide_collector_icons: boolean
   // * enhancements
-  /** 以悬浮窗模式使用采集时钟 */
-  use_overlay_gatherclock: boolean
   /** 禁用选择版本后自动折叠 */
   disable_patchcard_autofold: boolean
   /** 禁用重复点击已选择的职业按钮时添加主副手 */
@@ -88,7 +86,6 @@ const defaultUserConfig: UserConfigModel = {
   custom_font_size: '14px',
   hide_collector_icons: false,
   // enhancements
-  use_overlay_gatherclock: false,
   disable_patchcard_autofold: false,
   disable_jobbtn_doubleclick: false,
   use_traditional_statement: false,
