@@ -16,5 +16,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   openUrlByBrowser: (url) => ipcRenderer.send('open-url-by-browser', url),
   copyText: (text) => ipcRenderer.invoke('copy-text', text),
   createNewWindow: (id, url, defaultWidth, defaultHeight, title) => ipcRenderer.send('create-new-window', { id, url, defaultWidth, defaultHeight, title }),
-  toggleAlwaysOnTop: () => ipcRenderer.send('toggle-always-on-top')
+  toggleAlwaysOnTop: () => ipcRenderer.send('toggle-always-on-top'),
+  updateTitleBarTheme: (isDarkMode) => ipcRenderer.send('update-title-bar-theme', isDarkMode),
 })

@@ -32,7 +32,7 @@ function createWindow() {
     height: 835,
     titleBarStyle: 'hidden',
     titleBarOverlay: {
-      color: 'rgba(0,0,0,30)',
+      color: 'rgba(255,255,255,0.5)',
       height: 35,
       symbolColor: 'black'
     },
@@ -348,6 +348,20 @@ function createWindow() {
       focusedWindow.setAlwaysOnTop(!isAlwaysOnTop, 'normal')
     }
   })
+
+  ipcMain.on('update-title-bar-theme', (event, isDarkMode) => {
+    updateTitleBarTheme(mainWindow, isDarkMode);
+  });
+  function updateTitleBarTheme(window, isDarkMode) {
+    const color = isDarkMode ? '#18181c' : '#ffffff';
+    const symbolColor = isDarkMode ? 'white' : 'black';
+  
+    window.setTitleBarOverlay({
+      color: color,
+      height: 35,
+      symbolColor: symbolColor,
+    });
+  }
 }
 
 app.on('ready', createWindow);
