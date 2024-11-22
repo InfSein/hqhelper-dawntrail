@@ -16,6 +16,7 @@ export interface ElectronAPI {
   copyText: (text: string) => Promise<string>;
   createNewWindow: (id: string, url: string, defaultWidth: number, defaultHeight: number, title: string) => void;
   toggleAlwaysOnTop: () => void;
+  updateTitleBarTheme: (isDarkMode: boolean) => void;
 }
 
 export interface ProgressData {

@@ -66,6 +66,10 @@ const theme = computed(() => {
   return _theme
 })
 const naiveUiTheme = computed(() => {
+  const isDarkMode = theme.value !== 'light'
+  if (window.electronAPI?.updateTitleBarTheme) {
+    window.electronAPI.updateTitleBarTheme(isDarkMode)
+  }
   return theme.value === 'light' ? lightTheme : darkTheme
 })
 const naiveUiLocale = computed(() => {
