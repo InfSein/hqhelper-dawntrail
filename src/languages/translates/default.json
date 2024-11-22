@@ -4375,14 +4375,14 @@
   },
   "在新窗口中打开采集时钟。": {
     "en": "Open gatherclock in a new window.",
-    "ja": "在新窗口中打开采集时钟。",
+    "ja": "別のウィンドで採集時計を開く。",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "采集时钟(新窗口)": {
     "en": "Gather Clock (New window)",
-    "ja": "採集時計(新窗口)",
+    "ja": "採集時計(別ウィンド)",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
