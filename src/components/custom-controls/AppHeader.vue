@@ -242,7 +242,8 @@ const desktopMenus = computed(() => {
         { key: 'sau-ct', label: t('切换主题'), icon: renderIcon(changeThemeIcon), description: changeThemeTooltip, click: switchTheme },
         { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), description: userPreferenceTooltip, click: displayUserPreferencesModal },
         { key: 'sau-cu', label: t('检查更新'), icon: renderIcon(UpdateSharp), description: checkUpdatesTooltip, click: handleCheckUpdates },
-        { key: 'sau-cl', label: t('更新日志'), icon: renderIcon(EventNoteFilled), description: changelogTooltip, click: displayChangeLogsModal }
+        { key: 'sau-cl', label: t('更新日志'), icon: renderIcon(EventNoteFilled), description: changelogTooltip, click: displayChangeLogsModal },
+        { key: 'sau-dt', hide:!canOpenDevTools.value, label: t('开发工具'), icon: renderIcon(DevicesOtherOutlined), click: ()=>{ window.electronAPI!.openDevTools() } }
       ],
     },
     /* 关于 */
@@ -253,7 +254,6 @@ const desktopMenus = computed(() => {
         { key: 'ab-faq', label: '常见问题', hide: userConfig.value.language_ui !== 'zh', icon: renderIcon(HelpOutlineOutlined), description: '也有不常见的。', click: ()=>{ visitUrl('https://docs.qq.com/doc/DY3pPZmRGRHpubEFi') } },
         { key: 'ab-contact', label: t('联系我们'), icon: renderIcon(ContactlessOutlined), description: contactTooltip, click: displayContactModal },
         { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoOutlined), description: aboutTooltip, click: displayAboutAppModal },
-        { key: 'ab-open-devtools', hide:!canOpenDevTools.value, label: t('开发工具'), icon: renderIcon(DevicesOtherOutlined), click: ()=>{ window.electronAPI!.openDevTools() } }
       ],
     }
   ] as DesktopMenuItem[]
