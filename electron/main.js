@@ -17,7 +17,7 @@ let dateStr = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getD
 logger.transports.file.resolvePath = () => 'log\\' + dateStr + '.log';
 
 let mainWindow;
-const CLIENT_VERSION = 'v5'
+const CLIENT_VERSION = 'v5a'
 
 const ZIP_PATH = path.join(app.getPath('userData'), 'static-pages.zip');
 const TEMP_DIR = path.join(app.getPath('userData'), 'static-pages-temp');
@@ -44,19 +44,6 @@ function createWindow() {
   });
   const indexPath = path.join(STATICPAGE_DIR, 'index.html');
   mainWindow.loadURL(`file://${indexPath}`);
-
-  // 注册快捷键
-  globalShortcut.register('Shift+Control+I', () => {
-    const focusedWindow = BrowserWindow.getFocusedWindow()
-    if (focusedWindow) {
-      focusedWindow.webContents.openDevTools()
-    }
-  })
-
-  // 在应用退出时注销快捷键
-  app.on('will-quit', () => {
-    globalShortcut.unregisterAll()
-  })
 
   // 创建自定义菜单
   const menuTemplate = [
@@ -349,6 +336,7 @@ function createWindow() {
     }
   })
 
+  /* 更新标题栏操作按钮的主题 */
   ipcMain.on('update-title-bar-theme', (event, isDarkMode) => {
     updateTitleBarTheme(mainWindow, isDarkMode);
   });
@@ -362,6 +350,14 @@ function createWindow() {
       symbolColor: symbolColor,
     });
   }
+
+  /* 打开开发者工具 */
+  ipcMain.on('open-dev-tools', (event) => {
+    const focusedWindow = BrowserWindow.getFocusedWindow();
+    if (focusedWindow) {
+      focusedWindow.webContents.openDevTools();
+    }
+  })
 }
 
 app.on('ready', createWindow);
