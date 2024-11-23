@@ -69,6 +69,36 @@ function createWindow() {
   const menu = Menu.buildFromTemplate(menuTemplate);
   Menu.setApplicationMenu(menu);
 
+  // #region 应用快捷键
+
+  // 当窗口获得焦点时，注册快捷键
+  mainWindow.on('focus', () => {
+    registerShortcut();
+  });
+  // 当窗口失去焦点时，注销快捷键
+  mainWindow.on('blur', () => {
+    unregisterShortcut();
+  });
+
+  // 在退出应用时注销所有快捷键
+  app.on('will-quit', () => {
+    globalShortcut.unregisterAll();
+  });
+
+  function registerShortcut() {
+    globalShortcut.register('Shift+Control+I', () => {
+      const focusedWindow = BrowserWindow.getFocusedWindow();
+      if (focusedWindow) {
+        focusedWindow.webContents.openDevTools();
+      }
+    });
+  }
+  function unregisterShortcut() {
+    globalShortcut.unregister('Shift+Control+I');
+  }
+  
+  // #endregion
+
   mainWindow.on('closed', function () {
     mainWindow = null;
   });
