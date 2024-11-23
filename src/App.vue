@@ -183,8 +183,10 @@ const appClass = computed(() => {
 })
 
 onMounted(async () => {
+  // 处理全局页面参数
+  appMode.value = route.query.mode as typeof appMode.value
   // 处理自动更新
-  if (!userConfig.value.disable_auto_update) {
+  if (!userConfig.value.disable_auto_update && appMode.value !== 'overlay') {
     try {
       let checkVersionResponse : string
       let url = document?.location?.origin + document.location.pathname + 'version.json'
@@ -230,8 +232,6 @@ onMounted(async () => {
       console.error('自动更新发生错误', err)
     }
   }
-  // 处理全局页面参数
-  appMode.value = route.query.mode as typeof appMode.value
   updateIsMobile()
 })
 watch(
