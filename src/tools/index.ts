@@ -5,6 +5,8 @@ const { toClipboard } = Clip()
 
 export const deepCopy = <T>(obj: T): T => JSON.parse(JSON.stringify(obj))
 
+export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
 /**
  * 将给定文本复制到设备的剪贴板。
  * @param text 要复制的文本

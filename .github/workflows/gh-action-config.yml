@@ -81,7 +81,6 @@ jobs:
     
           if [ "${{ env.exists }}" = "true" ]; then
             gh release upload "v${{ env.VERSION }}" static-pages.zip --clobber
-            gh release edit "v${{ env.VERSION }}" --notes "$RELEASE_NOTES"
           else
             gh release create "v${{ env.VERSION }}" static-pages.zip --title "Release v${{ env.VERSION }}" --notes "$RELEASE_NOTES"
           fi

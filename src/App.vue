@@ -23,7 +23,7 @@ import { t } from '@/languages'
 import { injectVoerkaI18n } from "@voerkai18n/vue"
 import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 import EorzeaTime from './tools/eorzea-time'
-import { CopyToClipboard } from './tools'
+import { CopyToClipboard, sleep } from './tools'
 import type { AppVersionJson } from './models'
 import AppStatus from './variables/app-status'
 
@@ -183,8 +183,11 @@ const appClass = computed(() => {
 })
 
 onMounted(async () => {
+  await sleep(500)
+  // 处理全局页面参数
+  appMode.value = route.query.mode as typeof appMode.value
   // 处理自动更新
-  if (!userConfig.value.disable_auto_update) {
+  if (!userConfig.value.disable_auto_update && appMode.value !== 'overlay') {
     try {
       let checkVersionResponse : string
       let url = document?.location?.origin + document.location.pathname + 'version.json'
@@ -230,8 +233,6 @@ onMounted(async () => {
       console.error('自动更新发生错误', err)
     }
   }
-  // 处理全局页面参数
-  appMode.value = route.query.mode as typeof appMode.value
   updateIsMobile()
 })
 watch(

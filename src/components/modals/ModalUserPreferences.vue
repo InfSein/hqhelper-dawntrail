@@ -740,6 +740,15 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
             label: t('永不过期')
           }
         ]
+      },
+      {
+        key: 'enable_dev_mode',
+        label: t('启用开发者模式'),
+        hide: !window.electronAPI?.openDevTools,
+        descriptions: [],
+        warnings: [],
+        type: 'switch',
+        options: []
       }
     ]
   },
