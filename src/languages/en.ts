@@ -621,5 +621,7 @@ export default {
     "620": "Alarm name has 20 characters limit, and will be truncated if too long.",
     "621": "No repeat",
     "622": "Open gatherclock in a new window.",
-    "623": "Gather Clock (New window)"
+    "623": "Gather Clock (New window)",
+    "624": "Dev Tools",
+    "625": "Enable dev mode"
 }

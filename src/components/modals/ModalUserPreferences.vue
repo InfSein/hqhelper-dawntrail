@@ -744,7 +744,7 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
       {
         key: 'enable_dev_mode',
         label: t('启用开发者模式'),
-        hide: !window.electronAPI?.openDevTools || store.state.userConfig?.language_ui !== 'zh',
+        hide: !window.electronAPI?.openDevTools,
         descriptions: [],
         warnings: [],
         type: 'switch',

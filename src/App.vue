@@ -23,7 +23,7 @@ import { t } from '@/languages'
 import { injectVoerkaI18n } from "@voerkai18n/vue"
 import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 import EorzeaTime from './tools/eorzea-time'
-import { CopyToClipboard } from './tools'
+import { CopyToClipboard, sleep } from './tools'
 import type { AppVersionJson } from './models'
 import AppStatus from './variables/app-status'
 
@@ -183,6 +183,7 @@ const appClass = computed(() => {
 })
 
 onMounted(async () => {
+  await sleep(500)
   // 处理全局页面参数
   appMode.value = route.query.mode as typeof appMode.value
   // 处理自动更新
