@@ -17,6 +17,7 @@ export interface ElectronAPI {
   createNewWindow: (id: string, url: string, defaultWidth: number, defaultHeight: number, title: string) => void;
   toggleAlwaysOnTop: () => void;
   updateTitleBarTheme: (isDarkMode: boolean) => void;
+  openDevTools: () => void;
 }
 
 export interface ProgressData {

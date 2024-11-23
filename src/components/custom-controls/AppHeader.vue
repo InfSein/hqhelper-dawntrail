@@ -22,6 +22,7 @@ import {
   SettingsSharp,
   EventNoteFilled,
   InfoFilled, InfoOutlined,
+  DevicesOtherOutlined,
   ContactlessOutlined,
   DarkModeTwotone, LightModeTwotone,
   UpdateSharp
@@ -54,6 +55,9 @@ const useDesktopUi = computed(() => {
 })
 const canUseSubwindow = computed(() => {
   return !!window.electronAPI?.createNewWindow
+})
+const canOpenDevTools = computed(() => {
+  return !!window.electronAPI?.openDevTools && userConfig.value.enable_dev_mode
 })
 
 const store = useStore()
@@ -248,7 +252,8 @@ const desktopMenus = computed(() => {
       options: [
         { key: 'ab-faq', label: '常见问题', hide: userConfig.value.language_ui !== 'zh', icon: renderIcon(HelpOutlineOutlined), description: '也有不常见的。', click: ()=>{ visitUrl('https://docs.qq.com/doc/DY3pPZmRGRHpubEFi') } },
         { key: 'ab-contact', label: t('联系我们'), icon: renderIcon(ContactlessOutlined), description: contactTooltip, click: displayContactModal },
-        { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoOutlined), description: aboutTooltip, click: displayAboutAppModal }
+        { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoOutlined), description: aboutTooltip, click: displayAboutAppModal },
+        { key: 'ab-open-devtools', hide:!canOpenDevTools.value, label: t('开发工具'), icon: renderIcon(DevicesOtherOutlined), click: ()=>{ window.electronAPI!.openDevTools() } }
       ],
     }
   ] as DesktopMenuItem[]
