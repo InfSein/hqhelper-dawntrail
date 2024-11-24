@@ -4386,5 +4386,19 @@
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
+  },
+  "开发工具": {
+    "en": "Dev Tools",
+    "ja": "開発ツール",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "启用开发者模式": {
+    "en": "Enable dev mode",
+    "ja": "開発者モードの有効化",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
   }
 }

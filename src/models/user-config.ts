@@ -47,6 +47,8 @@ export interface UserConfigModel {
   universalis_priceType: 'averagePrice' | 'currentAveragePrice' | 'minPrice' | 'maxPrice' | 'marketLowestPrice' | 'marketPrice' | 'purchasePrice'
   /** 物品价格有效期 */
   universalis_expireTime: number
+  /** 启用开发者模式 */
+  enable_dev_mode: boolean
   // * update
   /** 禁用自动更新 */
   disable_auto_update: boolean
@@ -101,6 +103,7 @@ const defaultUserConfig: UserConfigModel = {
   universalis_server: '红玉海',
   universalis_priceType: 'averagePrice',
   universalis_expireTime: 6 * 60 * 60 * 1000, // 默认6小时
+  enable_dev_mode: false,
   // update
   disable_auto_update: false,
   
