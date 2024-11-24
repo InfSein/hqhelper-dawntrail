@@ -177,11 +177,9 @@ const handleItemIconClick = async () => {
       :size="imgSize"
       :src="itemInfo.iconUrl"
     />
-    <span v-show="!hideName" class="name">
-      {{ getItemName() }}
-    </span>
-    <div v-if="showAmount" class="count">
-      <span> x{{ amount }}</span>
+    <div>
+      {{ hideName ? '' : getItemName() + ' ' }}
+      {{ showAmount ? 'x' + amount : '' }}
     </div>
     <ItemPop
       v-if="!hidePopIcon"
@@ -219,9 +217,5 @@ const handleItemIconClick = async () => {
   display: flex;
   align-items: center;
   gap: 3px;
-
-  .count {
-    min-width: fit-content;
-  }
 }
 </style>
