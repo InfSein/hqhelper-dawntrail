@@ -155,7 +155,6 @@ const itemSortOptions = computed(() => {
 watch(
   () => workState.value.pinWindow,
   (newVal, oldVal) => {
-    console.log('watch pinWindow: oldVal:' + oldVal + ', newVal:' + newVal)
     if (window.electronAPI?.toggleAlwaysOnTop) {
       if ((!oldVal && newVal) || (oldVal && !newVal)) {
         window.electronAPI!.toggleAlwaysOnTop()
@@ -194,13 +193,11 @@ onMounted(() => {
       }
       alarmedET.value = _CurrentET
     }, 500) // 页面最小化时，浏览器会把1s以上的间隔延长，导致错过ET更新
-    console.log('interval created.')
   }
 })
 onBeforeUnmount(() => {
   if (alarmInterval.value !== undefined) {
     clearInterval(alarmInterval.value)
-    console.log('interval cleaned.')
   }
 })
 

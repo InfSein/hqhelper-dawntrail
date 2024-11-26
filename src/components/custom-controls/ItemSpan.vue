@@ -103,7 +103,6 @@ const handleContextMenu = (e: MouseEvent) => {
 }
 const handleSelect = async (key: string | number, option: any) => {
   showDropdownRef.value = false
-  console.log(key)
   if (option?.click) {
     option.click()
   } else {
