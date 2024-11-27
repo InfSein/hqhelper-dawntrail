@@ -103,7 +103,6 @@ const handleContextMenu = (e: MouseEvent) => {
 }
 const handleSelect = async (key: string | number, option: any) => {
   showDropdownRef.value = false
-  console.log(key)
   if (option?.click) {
     option.click()
   } else {
@@ -177,11 +176,9 @@ const handleItemIconClick = async () => {
       :size="imgSize"
       :src="itemInfo.iconUrl"
     />
-    <span v-show="!hideName" class="name">
-      {{ getItemName() }}
-    </span>
-    <div v-if="showAmount" class="count">
-      <span> x{{ amount }}</span>
+    <div>
+      {{ hideName ? '' : getItemName() + ' ' }}
+      {{ showAmount ? 'x' + amount : '' }}
     </div>
     <ItemPop
       v-if="!hidePopIcon"
@@ -219,9 +216,5 @@ const handleItemIconClick = async () => {
   display: flex;
   align-items: center;
   gap: 3px;
-
-  .count {
-    min-width: fit-content;
-  }
 }
 </style>

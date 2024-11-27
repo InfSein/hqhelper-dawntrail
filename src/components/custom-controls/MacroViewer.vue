@@ -64,7 +64,7 @@ const handleCopy = async (text: string) => {
       size="tiny"
       style="width: fit-content;"
       :disabled="!macroGroups?.[selectedGroupIndex]"
-      @click="handleCopy(macroGroups?.[selectedGroupIndex]?.join('\n'))"
+      @click="handleCopy(macroGroups?.[selectedGroupIndex]?.join('\r\n'))"
     >
       <template #icon>
         <n-icon><CopyAllOutlined /></n-icon>

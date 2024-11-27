@@ -32,7 +32,7 @@ export const checkUrlLag = async (domain: string) => {
     clearTimeout(timeoutId) // 请求成功，清除超时定时器
     return duration
   } catch (error) {
-    console.log('GET', url, 'FAILED DUE TO\n', error)
+    console.error('GET', url, 'FAILED DUE TO\n', error)
     if (String(error).includes('CORS')) {
       return "unknown"
     }

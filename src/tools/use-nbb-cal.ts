@@ -28,18 +28,15 @@ export function useNbbCal() {
     }
     for (const gearKey in data) {
       const gear = data[gearKey];
-      // console.log('calGearSelections', gearKey);
       for (const jobId in gear) {
         if (gear[jobId] > 0) {
           const hqInfo = job[gearKey][jobId]
-          //console.log('calGearSelections hqInfo=', hqInfo);
           if (hqInfo[0] > 0) {
             out[hqInfo[0]] = [hqInfo[0], gear[jobId], hqInfo[1], false];
           }
         }
       }
     }
-    // console.log('calGearSelections calMap=', out)
     return doCal(out);
   }
 
