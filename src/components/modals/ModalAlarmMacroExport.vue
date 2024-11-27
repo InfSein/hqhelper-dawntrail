@@ -97,7 +97,7 @@ const macro = computed(() => {
   if (alarmMacroOptions.value.clearOldAlarms) {
     result.push('/alarm clear')
   }
-  let repeat = ' rp'
+  let repeat = ' repeat'
   if (alarmMacroOptions.value.noRepeat) repeat = ''
   itemTreeCheckedKeys.value.forEach(itemId => {
     const item = getItemInfo(itemId)

@@ -87,7 +87,6 @@ const lvBaseItems = computed(() => {
       console.warn('[compute.lvBaseItems] Error processing item ' + id + ':', error)
     }
   }
-  console.log('lvBaseItems:', items)
   return items
 })
 
@@ -146,7 +145,6 @@ const tomeScriptItems = computed(() => {
       }
     })
   }
-  // console.log('tomeScriptItems:', items, '\ntradeMap:', props.tradeMap)
   return items
 })
 
@@ -356,7 +354,6 @@ const handleAnalysisItemPrices = async () => {
         items.push(item.id)
       })
       const itemPrices = await getItemPriceInfo([...new Set(items)], userConfig.value.universalis_server)
-      console.log('itemPrices:', itemPrices)
       const newConfig = userConfig.value
       Object.keys(itemPrices).forEach(id => {
         const itemID = Number(id)

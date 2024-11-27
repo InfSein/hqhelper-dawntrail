@@ -101,7 +101,7 @@ const isJobGroupAvailable = (group: number[]) => {
       {{ t('请先选择版本') }}
     </n-alert>
     <n-alert
-      v-else-if="!isJobAvailable(jobSelected)"
+      v-else-if="jobSelected && !isJobAvailable(jobSelected)"
       type="info"
       style="margin-bottom: 15px;"
     >

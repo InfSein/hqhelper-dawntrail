@@ -12,6 +12,7 @@ import type { UserConfigModel } from '@/models/user-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const store = useStore()
 const { calItems, getFoodAndTincs, getSpecialItems } = useNbbCal()
@@ -77,6 +78,7 @@ const specialItems = computed(() => {
   <div id="main-container">
     <RouterCard
       id="router-card"
+      v-show="appMode !== 'overlay'"
       :page-name="t('食药计算')"
       :page-icon="FastfoodOutlined"
     />
