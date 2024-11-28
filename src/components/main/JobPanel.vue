@@ -127,6 +127,7 @@ const isJobGroupAvailable = (group: number[]) => {
             <JobButton
               :selected="jobSelected === job"
               :role="roleIndex"
+              :role-name="getRoleName(role)"
               :job-name="getJobName(job)"
               :job-icon="(XivJobs as any)[job].job_icon_url"
               :img-size="jobImageSize"

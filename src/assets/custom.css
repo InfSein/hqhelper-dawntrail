@@ -55,6 +55,9 @@
 .font-small {
   font-size: calc(var(--n-font-size) - 2px);
 }
+.font-big {
+  font-size: calc(var(--n-font-size) + 2px);
+}
 .align-left {
   text-align: left;
 }

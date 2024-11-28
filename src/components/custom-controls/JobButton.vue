@@ -18,6 +18,8 @@ interface JobButtonProps {
   selected: boolean;
   /** 职能 */
   role: string;
+  /** 职能名称 */
+  roleName: string;
   /** 职业 */
   jobName: string;
   /** 职业图标 */
@@ -50,6 +52,15 @@ const yRef = ref(0)
 const contextOptions = computed(() => {
   return [
     {
+      key: 'context-header',
+      type: 'render',
+      render: renderJobContextHeader
+    },
+    {
+      type: 'divider',
+      key: 'd0'
+    },
+    {
       label: t('已选'),
       key: 'selected',
       icon: renderIcon(FileDownloadDoneOutlined),
@@ -57,7 +68,7 @@ const contextOptions = computed(() => {
         {
           key: 'selected-header',
           type: 'render',
-          render: renderGearsSelected
+          render: renderGearsSelectedHeader
         },
         {
           key: 'selected-header-divider',
@@ -93,7 +104,43 @@ const contextOptions = computed(() => {
     }
   ]
 })
-function renderGearsSelected() {
+const renderJobContextHeader = () => {
+  return h(
+    'div',
+    {
+      class: 'flex',
+      style: 'gap: 5px; padding: 0.2em 0.5em; min-width: 150px;'
+    },
+    [
+      h(
+        'div',
+        {
+          class: 'h-full flex-center'
+        },
+        [
+          h(
+            XivFARImage,
+            {
+              src: props.jobIcon,
+              size: 32
+            }
+          )
+        ]
+      ),
+      h(
+        'div',
+        {
+          style: 'line-height: 1.2;'
+        },
+        [
+          h('p', {class:'font-big'}, props.jobName),
+          h('p', {class:'font-small'}, props.roleName)
+        ]
+      )
+    ]
+  )
+}
+function renderGearsSelectedHeader() {
   // todo
   return h(
     'div',
