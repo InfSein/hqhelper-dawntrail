@@ -264,7 +264,6 @@ const onClickoutside = () => {
           class="job-button"
           :color="props.btnColor"
           :style="{ width: `${btnSize}px`, height: `${btnSize}px` }"
-          @click="onBtnClicked"
           @contextmenu="handleContextMenu"
         >
           <XivFARImage
