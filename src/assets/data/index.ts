@@ -21,6 +21,7 @@ export const XivRecipes = JsonXivRecipes as Record<number, {
 import JsonXivJobs from './xiv-jobs.json'
 export interface XivJob {
   job_id: number
+  short_name: string
   job_name_en: string
   job_name_zh: string
   job_name_ja: string

@@ -9,10 +9,11 @@ import {
   AddOutlined, AddCircleOutlineOutlined, AddCircleOutlined, ClearAllOutlined
 } from '@vicons/material'
 import XivFARImage from './XivFARImage.vue'
-import { XivGearSlots, XivRoles, type XivRole } from '@/assets/data'
+import { XivJobs, XivGearSlots, XivRoles, type XivRole } from '@/assets/data'
 import type { GearSelections } from '@/models/gears'
 import { useGearAdder } from '@/tools/gears'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
+import { visitUrl } from '@/tools'
 
 const {
   addMainOffHand,
@@ -59,6 +60,9 @@ const roleInfo = computed(() => {
     }
   })
   return result
+})
+const jobInfo = computed(() => {
+  return XivJobs[props.jobId]
 })
 
 const onBtnClicked = () => {
@@ -259,7 +263,11 @@ const contextOptions = computed(() => {
         {
           label: t('在配装模拟器中打开'),
           key: 'gearing-open-simulator',
-          icon: renderIcon(AccessibilityNewOutlined)
+          icon: renderIcon(AccessibilityNewOutlined),
+          click: () => {
+            const url = `https://asvel.github.io/ffxiv-gearing/?${jobInfo.value?.short_name}`
+            visitUrl(url)
+          }
         },
         {
           label: t('查看推荐配装'),
