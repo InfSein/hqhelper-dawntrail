@@ -19,8 +19,6 @@ export interface UserConfigModel {
   /** 隐藏物品按钮的职业图标 */
   hide_collector_icons: boolean
   // * enhancements
-  /** 以悬浮窗模式使用采集时钟 */
-  use_overlay_gatherclock: boolean
   /** 禁用选择版本后自动折叠 */
   disable_patchcard_autofold: boolean
   /** 禁用重复点击已选择的职业按钮时添加主副手 */
@@ -49,6 +47,8 @@ export interface UserConfigModel {
   universalis_priceType: 'averagePrice' | 'currentAveragePrice' | 'minPrice' | 'maxPrice' | 'marketLowestPrice' | 'marketPrice' | 'purchasePrice'
   /** 物品价格有效期 */
   universalis_expireTime: number
+  /** 启用开发者模式 */
+  enable_dev_mode: boolean
   // * update
   /** 禁用自动更新 */
   disable_auto_update: boolean
@@ -88,7 +88,6 @@ const defaultUserConfig: UserConfigModel = {
   custom_font_size: '14px',
   hide_collector_icons: false,
   // enhancements
-  use_overlay_gatherclock: false,
   disable_patchcard_autofold: false,
   disable_jobbtn_doubleclick: false,
   use_traditional_statement: false,
@@ -104,6 +103,7 @@ const defaultUserConfig: UserConfigModel = {
   universalis_server: '红玉海',
   universalis_priceType: 'averagePrice',
   universalis_expireTime: 6 * 60 * 60 * 1000, // 默认6小时
+  enable_dev_mode: false,
   // update
   disable_auto_update: false,
   

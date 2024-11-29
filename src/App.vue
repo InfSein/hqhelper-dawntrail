@@ -23,7 +23,7 @@ import { t } from '@/languages'
 import { injectVoerkaI18n } from "@voerkai18n/vue"
 import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 import EorzeaTime from './tools/eorzea-time'
-import { CopyToClipboard } from './tools'
+import { CopyToClipboard, sleep } from './tools'
 import type { AppVersionJson } from './models'
 import AppStatus from './variables/app-status'
 
@@ -47,7 +47,7 @@ provide('appMode', appMode)
 
 const isMobile = ref(false)
 const updateIsMobile = () => {
-  isMobile.value = (window.innerWidth < window.innerHeight) && appMode.value !== 'overlay'
+  isMobile.value = window.innerWidth < window.innerHeight
 }
 updateIsMobile()
 window.addEventListener('resize', updateIsMobile)
@@ -66,6 +66,10 @@ const theme = computed(() => {
   return _theme
 })
 const naiveUiTheme = computed(() => {
+  const isDarkMode = theme.value !== 'light'
+  if (window.electronAPI?.updateTitleBarTheme) {
+    window.electronAPI.updateTitleBarTheme(isDarkMode)
+  }
   return theme.value === 'light' ? lightTheme : darkTheme
 })
 const naiveUiLocale = computed(() => {
@@ -140,16 +144,19 @@ provide('currentET', currentET)
 
 const showCopyMacroModal = ref(false)
 const macroValue = ref('')
-const copyAsMacro = async (macroContent: string, container?: HTMLElement | undefined) => {
+const copyAsMacro = async (macroContent: string, container?: HTMLElement | undefined) : Promise<{
+  result: "success" | "info" | "error"
+  msg: string
+} | undefined> => {
   if (!macroContent) {
-    return { success: false, msg: t('没有需要复制的内容') }
+    return { result: 'info', msg: t('没有需要复制的内容') }
   }
   if (userConfig.value.macro_direct_copy) {
     const errored = await CopyToClipboard(userConfig.value.macro_copy_prefix + macroContent, container)
     if (errored) {
-      return { success: false, msg: t('复制失败') }
+      return { result: 'error', msg: t('复制失败') }
     }
-    return { success: true, msg: t('已复制到剪贴板') }
+    return { result: 'success', msg: t('已复制到剪贴板') }
   } else {
     macroValue.value = macroContent
     showCopyMacroModal.value = true
@@ -176,8 +183,11 @@ const appClass = computed(() => {
 })
 
 onMounted(async () => {
+  await sleep(500)
+  // 处理全局页面参数
+  appMode.value = route.query.mode as typeof appMode.value
   // 处理自动更新
-  if (!userConfig.value.disable_auto_update) {
+  if (!userConfig.value.disable_auto_update && appMode.value !== 'overlay') {
     try {
       let checkVersionResponse : string
       let url = document?.location?.origin + document.location.pathname + 'version.json'
@@ -223,8 +233,6 @@ onMounted(async () => {
       console.error('自动更新发生错误', err)
     }
   }
-  // 处理全局页面参数
-  appMode.value = route.query.mode as typeof appMode.value
   updateIsMobile()
 })
 watch(

@@ -14,7 +14,7 @@ import ItemPop from './ItemPop.vue'
 import { getItemContexts, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import { CopyToClipboard } from '@/tools'
-import { jobMap } from '@/data'
+import { XivJobs } from '@/assets/data'
 
 const NAIVE_UI_MESSAGE = useMessage()
 
@@ -129,7 +129,6 @@ const handleContextMenu = (e: MouseEvent) => {
 }
 const handleSelect = async (key: string | number, option: any) => {
   showDropdownRef.value = false
-  console.log(key)
   if (option?.click) {
     option.click()
   } else {
@@ -208,7 +207,7 @@ const handleItemButtonClick = async () => {
       @click="handleItemButtonClick"
     >
       <slot>
-        <div class="item-container">
+        <div v-if="itemInfo?.id" class="item-container">
           <div v-if="showIcon" class="item-icon">
             <XivFARImage
               :src="itemInfo.iconUrl"
@@ -220,12 +219,12 @@ const handleItemButtonClick = async () => {
             <div class="item-name-container">
               <XivFARImage
                 v-if="showCollectorIcon && itemInfo.craftInfo?.jobId"
-                :src="jobMap[itemInfo.craftInfo?.jobId].job_icon_url"
+                :src="XivJobs[itemInfo.craftInfo?.jobId].job_icon_url"
                 :size="14"
               />
               <XivFARImage
                 v-else-if="showCollectorIcon && itemInfo.gatherInfo?.jobId"
-                :src="jobMap[itemInfo.gatherInfo?.jobId].job_icon_url"
+                :src="XivJobs[itemInfo.gatherInfo?.jobId].job_icon_url"
                 :size="14"
               />
               <div class="item-name">
@@ -234,6 +233,22 @@ const handleItemButtonClick = async () => {
             </div>
             <div v-if="showAmount" class="item-amount">
               x {{ itemInfo.amount }}
+            </div>
+          </div>
+        </div>
+        <div v-else>
+          <div v-if="showIcon" class="item-icon">
+            &nbsp;
+          </div>
+
+          <div v-if="showName" class="item-info">
+            <div class="item-name-container">
+              <div class="item-name">
+                &nbsp;
+              </div>
+            </div>
+            <div v-if="showAmount" class="item-amount">
+              &nbsp;
             </div>
           </div>
         </div>

@@ -7,7 +7,8 @@ import {
 } from 'naive-ui'
 import {
   ArrowCircleLeftOutlined,
-  FileCopyFilled, FileCopyOutlined,
+  FileCopyFilled, FileCopyOutlined, FilePresentOutlined,
+  OpenInNewOutlined,
   CasesRound, CasesOutlined,
   ImportExportOutlined,
   ArrowUpwardOutlined,
@@ -15,11 +16,13 @@ import {
   AccessAlarmsOutlined,
   FastfoodOutlined,
   HomeOutlined,
+  HelpOutlineOutlined,
   MenuFilled,
   UpdateOutlined,
   SettingsSharp,
   EventNoteFilled,
   InfoFilled, InfoOutlined,
+  DevicesOtherOutlined,
   ContactlessOutlined,
   DarkModeTwotone, LightModeTwotone,
   UpdateSharp
@@ -46,6 +49,16 @@ const theme = inject<Ref<"light" | "dark">>('theme') ?? ref('light')
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const switchTheme = inject<() => void>('switchTheme')!
 const displayCheckUpdatesModal = inject<() => void>('displayCheckUpdatesModal')!
+
+const useDesktopUi = computed(() => {
+  return !isMobile.value || !!window.electronAPI
+})
+const canUseSubwindow = computed(() => {
+  return !!window.electronAPI?.createNewWindow
+})
+const canOpenDevTools = computed(() => {
+  return !!window.electronAPI?.openDevTools && userConfig.value.enable_dev_mode
+})
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -89,17 +102,33 @@ const redirectToFoodAndTincPage = () => {
   router.push('/fthelper')
 }
 const redirectToGatherClockPage = () => {
-  if (userConfig.value.use_overlay_gatherclock && window.electronAPI?.createNewWindow) {
-    const url = document.location.origin + document.location.pathname + '#/gatherclock?mode=overlay'
-    window.electronAPI.createNewWindow(
-      'gatherclock',
-      url,
-      390,
-      730
-    )
-  } else {
-    router.push('/gatherclock')
+  router.push('/gatherclock')
+}
+const openSubwindowOfGatherClock = () => {
+  if (!window.electronAPI?.createNewWindow) {
+    alert('No api: window.electronAPI.createNewWindow'); return
   }
+  const url = document.location.origin + document.location.pathname + '#/gatherclock?mode=overlay'
+  window.electronAPI.createNewWindow(
+    'gatherclock',
+    url,
+    390,
+    730,
+    t('采集时钟')
+  )
+}
+const openSubwindowOfFtHelper = () => {
+  if (!window.electronAPI?.createNewWindow) {
+    alert('No api: window.electronAPI.createNewWindow'); return
+  }
+  const url = document.location.origin + document.location.pathname + '#/fthelper?mode=overlay'
+  window.electronAPI.createNewWindow(
+    'fthelper',
+    url,
+    1600,
+    800,
+    t('食药计算')
+  )
 }
 
 interface MenuItem {
@@ -139,7 +168,9 @@ const desktopMenus = computed(() => {
   const changeThemeIcon = theme.value === 'light' ? DarkModeTwotone : LightModeTwotone
   const changeThemeTooltip = theme.value === 'light' ? t('为这个世界带回黑暗。') : t('静待黎明天光来。')
   const ftHelperTooltip = hideFTHelper ? t('您已经处于食药计算器的页面。') : t('帮助你制作食物与爆发药。能帮到就好。')
+  const ftHelperSWTooltip = t('在新窗口中打开食药计算器。')
   const gatherClockTooltip = hideGatherClock ? t('您已经处于采集时钟页面。') : t('挖穿艾欧泽亚的好帮手！')
+  const gatherClockSWTooltip = t('在新窗口中打开采集时钟。')
   const userPreferenceTooltip = t('以人的意志改变机械的程序。')
   const checkUpdatesTooltip = t('更新目标的战力等级……变更攻击模式……')
   const changelogTooltip = t('修正……改良……开始对循环程序进行更新……')
@@ -168,19 +199,20 @@ const desktopMenus = computed(() => {
           label: '自撰攻略',
           icon: renderIcon(FileCopyOutlined),
           children: [
-            buildOuterlinkOption('ref-self-1', 'DawnCrafter I: 版本7.0&7.05生产采集准备工作', 'https://bbs.nga.cn/read.php?tid=41573697', FileCopyOutlined),
+            buildOuterlinkOption('ref-self-1', 'DawnCrafter I: 版本7.0&7.05生产采集准备工作', 'https://bbs.nga.cn/read.php?tid=41573697', OpenInNewOutlined),
+            buildOuterlinkOption('ref-self-2', 'DawnCrafter II: 版本7.1生产采集准备工作', 'https://bbs.nga.cn/read.php?tid=42486060', OpenInNewOutlined),
           ]
         },
         {
           key: 'ref-oth-book',
           label: '其他推荐攻略',
-          icon: renderIcon(FileCopyOutlined),
+          icon: renderIcon(FilePresentOutlined),
           children: [
-            buildOuterlinkOption('ref-oth-book-1', '7.0装备箱羊毛指南 by天然呆树歌', 'https://bbs.nga.cn/read.php?tid=40686962', FileCopyOutlined),
-            buildOuterlinkOption('ref-oth-book-2', '生产职业90-100练级攻略 by竹笙微凉_', 'https://bbs.nga.cn/read.php?tid=41158426', FileCopyOutlined),
-            buildOuterlinkOption('ref-oth-book-3', '7.x星级配方制作攻略 by月下独翼', 'https://bbs.nga.cn/read.php?tid=40690311', FileCopyOutlined),
-            buildOuterlinkOption('ref-oth-book-4', '7.0捕鱼人大地票据指南 by f(x)=kx+b', 'https://bbs.nga.cn/read.php?tid=42046664', FileCopyOutlined),
-            buildOuterlinkOption('ref-oth-book-5', '7.0灵砂/工票鱼信息整理 by plas_g', 'https://bbs.nga.cn/read.php?tid=41277468', FileCopyOutlined),
+            buildOuterlinkOption('ref-oth-book-1', '7.0装备箱羊毛指南 by天然呆树歌', 'https://bbs.nga.cn/read.php?tid=40686962', OpenInNewOutlined),
+            buildOuterlinkOption('ref-oth-book-2', '生产职业90-100练级攻略 by竹笙微凉_', 'https://bbs.nga.cn/read.php?tid=41158426', OpenInNewOutlined),
+            buildOuterlinkOption('ref-oth-book-3', '7.x星级配方制作攻略 by月下独翼', 'https://bbs.nga.cn/read.php?tid=40690311', OpenInNewOutlined),
+            buildOuterlinkOption('ref-oth-book-4', '7.0捕鱼人大地票据指南 by f(x)=kx+b', 'https://bbs.nga.cn/read.php?tid=42046664', OpenInNewOutlined),
+            buildOuterlinkOption('ref-oth-book-5', '7.0灵砂/工票鱼信息整理 by plas_g', 'https://bbs.nga.cn/read.php?tid=41277468', OpenInNewOutlined),
           ]
         },
         {
@@ -188,8 +220,8 @@ const desktopMenus = computed(() => {
           label: '其他实用工具',
           icon: renderIcon(CasesOutlined),
           children: [
-            buildOuterlinkOption('ref-oth-tool-1', '制作模拟器 by Tnze', 'https://yyyy.games/crafter/#/simulator', CasesOutlined),
-            buildOuterlinkOption('ref-oth-tool-2', '配装模拟器 by Asvel', 'https://asvel.github.io/ffxiv-gearing/', CasesOutlined),
+            buildOuterlinkOption('ref-oth-tool-1', '制作模拟器 by Tnze', 'https://tnze.yyyy.games/#/', OpenInNewOutlined),
+            buildOuterlinkOption('ref-oth-tool-2', '配装模拟器 by Asvel', 'https://asvel.github.io/ffxiv-gearing/', OpenInNewOutlined),
           ]
         }
       ]
@@ -200,7 +232,10 @@ const desktopMenus = computed(() => {
       icon: CasesRound,
       options: [
         { key: 'tool-gatherclock', label: t('采集时钟'), disabled: hideGatherClock, icon: renderIcon(AccessAlarmsOutlined), description: gatherClockTooltip, click: redirectToGatherClockPage },
-        { key: 'tool-fthelper', label: t('食药计算'), disabled: hideFTHelper, icon: renderIcon(FastfoodOutlined), description: ftHelperTooltip, click: redirectToFoodAndTincPage }
+        { key: 'tool-fthelper', label: t('食药计算'), disabled: hideFTHelper, icon: renderIcon(FastfoodOutlined), description: ftHelperTooltip, click: redirectToFoodAndTincPage },
+        { key: 'tool-divider-1', hide: !canUseSubwindow.value, type: 'divider' },
+        { key: 'tool-gatherclock-subwindow', hide: !canUseSubwindow.value, label: t('采集时钟(新窗口)'), icon: renderIcon(AccessAlarmsOutlined), description: gatherClockSWTooltip, click: openSubwindowOfGatherClock },
+        { key: 'tool-fthelper-subwindow', hide: !canUseSubwindow.value, label: t('食药计算(新窗口)'), icon: renderIcon(FastfoodOutlined), description: ftHelperSWTooltip, click: openSubwindowOfFtHelper },
       ]
     },
     /* 导入导出 */
@@ -222,7 +257,8 @@ const desktopMenus = computed(() => {
         { key: 'sau-ct', label: t('切换主题'), icon: renderIcon(changeThemeIcon), description: changeThemeTooltip, click: switchTheme },
         { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), description: userPreferenceTooltip, click: displayUserPreferencesModal },
         { key: 'sau-cu', label: t('检查更新'), icon: renderIcon(UpdateSharp), description: checkUpdatesTooltip, click: handleCheckUpdates },
-        { key: 'sau-cl', label: t('更新日志'), icon: renderIcon(EventNoteFilled), description: changelogTooltip, click: displayChangeLogsModal }
+        { key: 'sau-cl', label: t('更新日志'), icon: renderIcon(EventNoteFilled), description: changelogTooltip, click: displayChangeLogsModal },
+        { key: 'sau-dt', hide:!canOpenDevTools.value, label: t('开发工具'), icon: renderIcon(DevicesOtherOutlined), click: ()=>{ window.electronAPI!.openDevTools() } }
       ],
     },
     /* 关于 */
@@ -230,8 +266,9 @@ const desktopMenus = computed(() => {
       label: t('关于'),
       icon: InfoFilled,
       options: [
+        { key: 'ab-faq', label: '常见问题', hide: userConfig.value.language_ui !== 'zh', icon: renderIcon(HelpOutlineOutlined), description: '也有不常见的。', click: ()=>{ visitUrl('https://docs.qq.com/doc/DY3pPZmRGRHpubEFi') } },
         { key: 'ab-contact', label: t('联系我们'), icon: renderIcon(ContactlessOutlined), description: contactTooltip, click: displayContactModal },
-        { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoOutlined), description: aboutTooltip, click: displayAboutAppModal }
+        { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoOutlined), description: aboutTooltip, click: displayAboutAppModal },
       ],
     }
   ] as DesktopMenuItem[]
@@ -246,7 +283,14 @@ function renderIcon(icon: Component) {
 const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | DropdownGroupOption }) => {
   return option.description ? h(
     NTooltip,
-    { keepAliveOnHover: false, placement: 'right', style: { width: 'max-content', display: isMobile.value ? 'none' : 'inherit' } },
+    {
+      keepAliveOnHover: false,
+      placement: 'right',
+      style: {
+        width: 'max-content',
+        display: isMobile.value ? 'none' : 'inherit',
+      }
+    },
     {
       trigger: () => [node],
       default: () => option.description
@@ -317,8 +361,8 @@ const onUserPreferencesSubmitted = () => {
 
 <template>
   <div class="app-header">
-    <div class="router-back-container" v-if="!isMobile">
-      <n-popover trigger="hover" :keep-alive-on-hover="isMobile" style="max-width: 300px;">
+    <div class="router-back-container" v-if="useDesktopUi">
+      <n-popover trigger="hover" :keep-alive-on-hover="false" style="max-width: 300px;">
         <template #trigger>
           <n-button text style="font-size: 35px" :disabled="!canRouteBack" @click="handleRouteBack">
             <n-icon>
@@ -363,7 +407,7 @@ const onUserPreferencesSubmitted = () => {
           </div>
         </n-popover>
 
-        <div class="tail-contents" v-if="isMobile">
+        <div class="tail-contents" v-if="!useDesktopUi">
           <n-button ghost class="menu-button" @click="showMenus = !showMenus">
             <template #icon>
               <n-icon><menu-filled /></n-icon>
@@ -371,14 +415,14 @@ const onUserPreferencesSubmitted = () => {
           </n-button>
         </div>
       </div>
-      <n-divider v-if="!isMobile" style="margin: -1px 0 3px 0;" />
-      <div class="app-menu" v-if="!isMobile">
+      <n-divider v-if="useDesktopUi" style="margin: -1px 0 3px 0;" />
+      <div class="app-menu" v-if="useDesktopUi">
         <n-dropdown
           size="small"
           placement="bottom-start"
           v-for="(item, key) in desktopMenus"
           :key="'desktop-menu-' + key"
-          :options="item.options"
+          :options="item.options?.filter(o => !o.hide)"
           :render-option="renderOption"
           :trigger="item.options?.length ? 'hover' : 'manual'"
           @select="handleDesktopMenuOptionSelect"

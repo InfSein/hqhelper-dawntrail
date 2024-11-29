@@ -5,6 +5,8 @@ const { toClipboard } = Clip()
 
 export const deepCopy = <T>(obj: T): T => JSON.parse(JSON.stringify(obj))
 
+export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
 /**
  * 将给定文本复制到设备的剪贴板。
  * @param text 要复制的文本
@@ -33,4 +35,25 @@ export const CopyToClipboard = async (text: string, container?: HTMLElement | un
 export const visitUrl = (url: string) => {
   const func = window.electronAPI?.openUrlByBrowser ?? window.open
   func(url)
+}
+
+/**
+ * 播放音频
+ * @param source 音频src
+ */
+export const playAudio = (source: string) => {
+  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
+
+  fetch(source)
+    .then(response => response.arrayBuffer())
+    .then(data => audioContext.decodeAudioData(data))
+    .then(buffer => {
+      const source = audioContext.createBufferSource()
+      source.buffer = buffer
+      source.connect(audioContext.destination)
+      source.start(0)
+    })
+    .catch(error => {
+      alert("播放失败：\n"+ error)
+    })
 }

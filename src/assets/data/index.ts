@@ -73,3 +73,16 @@ export interface XivPatch {
   background?: string
 }
 export const XivPatches = JsonXivPatches as XivPatch[]
+
+import JsonXivRoles from './xiv-roles.json'
+export interface XivRole {
+  role_name_en: string
+  role_name_zh: string
+  role_name_ja: string
+  role_color: string
+  role_icon_url: string
+  attire: AttireAffix
+  accessory: AccessoryAffix
+  jobs: number[]
+}
+export const XivRoles = JsonXivRoles as Record<number, XivRole>

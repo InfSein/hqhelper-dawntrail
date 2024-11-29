@@ -101,6 +101,13 @@ const isJobGroupAvailable = (group: number[]) => {
     >
       {{ t('请先选择版本') }}
     </n-alert>
+    <n-alert
+      v-else-if="jobSelected && !isJobAvailable(jobSelected)"
+      type="info"
+      style="margin-bottom: 15px;"
+    >
+      {{ t('所选职业在当前版本不可用，请重新选择。') }}
+    </n-alert>
 
     <n-flex :size="[8,15]">
       <GroupBox

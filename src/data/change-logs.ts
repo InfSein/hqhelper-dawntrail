@@ -23,6 +23,30 @@ export interface PatchChangeGroup {
   changes: string[];
 }
 
+/*
+    {
+      version: '2.1.1',
+      date: '2024-11-20',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+          ]
+        }
+      ]
+    },
+ */
+
 import { t } from '@/languages'
 const emBlock = '<span style="display:inline-block;width:1em;"></span>'
 export const getChangelogs = (
@@ -35,6 +59,140 @@ export const getChangelogs = (
   }
   const isZh = ui_lang === 'zh'
   return [
+    {
+      version: '2.1.2',
+      date: '2024-11-27',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('国际服数据库更新至{ver}。', {
+              ver: '7.11'
+            })
+              + '<br> ※ ' + t('仅为信息更新，没有实际更改。'),
+            t('实装了“{f}”功能。', {
+              f: t('食药计算(新窗口)')
+            })
+              + '<br> ※ ' + t('仅限{ver}及更高版本的客户端。', {
+                ver: 'v5'
+              })
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('修复了直接框选物品悬浮窗和推荐流程等区域的部分内容并复制时，复制内容中物品名称与数量间会有多余换行的问题。')
+              + '<br> ※ ' + t('伴随这一改动，子物品名称过长的场合，悬浮窗的显示效果有所变化。'),
+            t('修复了导出闹钟宏生成的宏内容在国服客户端无法执行的问题。'),
+            t('修复了导出闹钟宏在通过点击复制按钮复制宏时，在游戏内粘贴无法粘贴全部内容的问题。'),
+            t('修复了部分提示会在不正确的场合展示的问题。')
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('优化了{f1}中的{f2}选项在移动端的显示效果。', {
+              f1: t('采集时钟'), f2: t('快速操作')
+            }),
+            isZh ? '追加了爆发药适用职业的笔记 (仅在界面语言设置为简体中文时显示)。' : '',
+            t('网页版/PWA应用/客户端的主页面标题从“7.0 HQ Helper”变更为“7.x HQ Helper”。')
+          ]
+        }
+      ]
+    },
+    {
+      version: '2.1.1',
+      date: '2024-11-20',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('向采集时钟追加了“{f}”功能。', t('导出闹钟宏')),
+            t('向专业版制作报表追加了“{f}”功能。', t('清单'))
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('修复了统计区域的限时采集品未计入7.1新增道具的问题。'),
+            t('修正了点数按钮在内容过长时的显示效果。'),
+            t('修正了一部分地图数据。'),
+            isZh ? '修订了一部分道具译名。' : ''
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            isZh ? '更新了桌面端顶部菜单项“参考资料”的推荐攻略/工具列表 (仅在界面语言设置为简体中文时显示)。' : '',
+            t('在推荐流程中，被标记为已完成的物品将自动隐藏采集详情。'),
+            t('现在因切换版本等情况导致所选职业在当前版本没有可以添加的装备时，程序会在选择职业区域给出提示。'),
+          ]
+        }
+      ]
+    },
+    {
+      version: '2.1.0',
+      date: '2024-11-16',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('国际服数据库更新至{ver}。', {
+              ver: '7.1'
+            }),
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            isZh ? '修复了部分国服7.05已经实装的道具仍会显示物品名为暂译的问题。' : '',
+            t('修复了“{f}”区域按钮的部分区域不会触发点击事件的问题。', {
+              f: t('选择职业')
+            })
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('在“{f}”中的各个物品前增加了复选框，将其勾选可以临时将物品标记为已完成。', t('推荐流程'))
+              + '<br>' + t('当某一组物品全部被标记为已完成时，这一组会自动折叠。')
+              + '<br> ※ ' + t('{f}中的标记不会影响制作报表中记录的已有数量。关闭{f}时会自动重置完成状态。', {f:t('推荐流程')}),
+            t('调整了竖向使用客户端时，顶部菜单栏的显示效果。')
+          ]
+        }
+      ]
+    },
+    {
+      version: '2.0.13',
+      date: '2024-11-11',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('国服数据库更新至{ver}。', {
+              ver: '7.05'
+            }),
+            t('采集时钟现在还可以将“{f1}”设置为“{f2}”。', {
+              f1: t('提醒方式'),
+              f2: t('提示音')
+            })
+              + `<br>${emBlock} ※ ` + t('初次设置时会播放一次。') + `<span style="font-size:12px;">(C) SQUARE ENIX <a target="_blank" href="https://jp.finalfantasyxiv.com/lodestone/special/fankit/smartphone_ringtone/">Fan Kit</a></span>`
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            isZh ? '向桌面端顶部菜单项“关于”的下属选项中追加了“常见问题” (仅在界面语言设置为简体中文时显示)。' : '',
+            t('现在可制作物品的悬浮窗内还会展示配方的耐久/难度/品质信息。')
+              + '<br>' + t('伴随这一改动，悬浮窗内的配方信息顺序有所调整。'),
+            t('现在右键有制作配方的物品按钮时，可以在菜单中选择“{f1}”和“{f2}”。', {
+              f1: t('在BestCraft中模拟制作'),
+              f2: t('在TeamCraft中模拟制作')
+            })
+          ]
+        }
+      ]
+    },
     {
       version: '2.0.12',
       date: '2024-11-01',
@@ -104,7 +262,7 @@ export const getChangelogs = (
         {
           name: groupName.breaking,
           changes: [
-            t('专业版制作报表追加了功能“{f}”。', {
+            t('向专业版制作报表追加了“{f}”功能。', {
               f: t('推荐流程')
             })
               + '<br>'

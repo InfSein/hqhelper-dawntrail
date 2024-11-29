@@ -13,7 +13,8 @@
 </p>
 
 ![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) <br>
-![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)
+![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github) <br>
+![Based on Vite](https://img.shields.io/badge/Vite-5.4.2-646CFF?style=flat&logo=vite&logoColor=white) ![Based on Vue3](https://img.shields.io/badge/Vue-3.4.38-4FC08D?style=flat&logo=vue.js) ![Based on TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-3178C6?style=flat&logo=typescript&logoColor=white) ![Based on Naive UI](https://img.shields.io/badge/Naive%20UI-2.39.0-008080?style=flat&logo=npm&logoColor=white)
 
 生産＆採集プレイヤー向けの黄金編（パッチ7.0～7.4）秘伝書レシピ計算ツール。
 
@@ -22,8 +23,6 @@
 ## 使い方
 
 ### ブラウザで使う
-
-第二世代の `HqHelper` は本質的に静的なウェブページです。
 
 #### 本番環境サイト
 

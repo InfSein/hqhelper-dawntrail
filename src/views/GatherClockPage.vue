@@ -14,14 +14,16 @@ import ItemButton from '@/components/custom-controls/ItemButton.vue'
 import XivFARImage from '@/components/custom-controls/XivFARImage.vue'
 import XivMap from '@/components/custom-controls/XivMap.vue'
 import LocationSpan from '@/components/custom-controls/LocationSpan.vue'
-import { XivMaps } from '@/assets/data'
+import { XivMaps, XivJobs, type XivJob } from '@/assets/data'
 import { useStore } from '@/store'
-import { jobMap, type JobInfo } from '@/data'
 import { useNbbCal } from '@/tools/use-nbb-cal'
-import { getNearestAetheryte } from '@/tools/map'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
+import type { ItemGroup } from '@/models/item'
 import type { UserConfigModel } from '@/models/user-config'
 import EorzeaTime from '@/tools/eorzea-time'
+import { playAudio } from '@/tools'
+import ModalAlarmMacroExport from '@/components/modals/ModalAlarmMacroExport.vue'
+import { fixAlarmMacroOptions } from '@/models/gather-clock'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -40,11 +42,7 @@ const gatherData = computed(() => {
     })
   }
 
-  const data : {
-    title: string,
-    key: string,
-    items: ItemInfo[]
-  }[] = []
+  const data : ItemGroup[] = []
 
   // 收藏的物品
   const stars : ItemInfo[] = []
@@ -99,8 +97,8 @@ const itemLanguage = computed(() => {
   }
   return userConfig.value.language_ui
 })
-const useMobileUi = computed(() => {
-  return isMobile.value || appMode.value === 'overlay'
+const isVerticalOverlay = computed(() => {
+  return isMobile.value && appMode.value === 'overlay'
 })
 const canPinWindow = computed(() => {
   return appMode.value === 'overlay' && !!window.electronAPI?.toggleAlwaysOnTop
@@ -111,7 +109,7 @@ const workState = ref({
   /** 是否将整个窗口置顶 (限v5及以上的客户端使用) */
   pinWindow: false,
   /** 通知方式 */
-  notifyMode: 'none' as "none" | "system_noti",
+  notifyMode: 'none' as "none" | "system_noti" | "audio",
   /** 排序依据 */
   orderBy: 'itemId' as "itemId" | "gatherStartTimeAsc",
   /** 是否将目前可以采集的道具置顶 */
@@ -120,9 +118,11 @@ const workState = ref({
   banItemPop: false,
   /** 是否直接在采集卡片内展示地图 */
   showMap: false,
+  alarmMacroOptions: fixAlarmMacroOptions(),
   starItems: [] as number[],
   subscribedItems: [] as number[]
 })
+const showAlarmMacroExportModal = ref(false)
 const notifyModeOptions = computed(() => {
   return [
     {
@@ -132,6 +132,10 @@ const notifyModeOptions = computed(() => {
     {
       label: t('系统通知'),
       value: 'system_noti'
+    },
+    {
+      label: t('提示音'),
+      value: 'audio'
     },
   ]
 })
@@ -151,7 +155,6 @@ const itemSortOptions = computed(() => {
 watch(
   () => workState.value.pinWindow,
   (newVal, oldVal) => {
-    console.log('watch pinWindow: oldVal:' + oldVal + ', newVal:' + newVal)
     if (window.electronAPI?.toggleAlwaysOnTop) {
       if ((!oldVal && newVal) || (oldVal && !newVal)) {
         window.electronAPI!.toggleAlwaysOnTop()
@@ -171,7 +174,6 @@ onMounted(() => {
       if (
         _CurrentET !== alarmedET.value
         && workState.value.subscribedItems?.length
-        && Notification.permission === 'granted'
         && workState.value.notifyMode !== 'none'
       ) {
         const itemsNeedAlarm : ItemInfo[] = []
@@ -191,13 +193,11 @@ onMounted(() => {
       }
       alarmedET.value = _CurrentET
     }, 500) // 页面最小化时，浏览器会把1s以上的间隔延长，导致错过ET更新
-    console.log('interval created.')
   }
 })
 onBeforeUnmount(() => {
   if (alarmInterval.value !== undefined) {
     clearInterval(alarmInterval.value)
-    console.log('interval cleaned.')
   }
 })
 
@@ -210,6 +210,8 @@ const handleCheckNotificationPermission = () => {
     } else if (Notification.permission !== 'granted') {
       Notification.requestPermission()
     }
+  } else if (workState.value.notifyMode === 'audio') {
+    playAudio('./audio/FFXIV_Incoming_Tell_2.mp3')
   }
 }
 const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
@@ -217,15 +219,17 @@ const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
     if (itemsNeedAlarm.length > 0) {
       new Notification(t('以下物品已可采集：'), {
         body: itemsNeedAlarm.map(item => {
-          let text = `${getItemName(item)}: ${getJobName(jobMap[item.gatherInfo.jobId])} | ${getPlaceName(item)} ${getItemGatherLocation(item)}`
-          if (XivMaps[item.gatherInfo.placeID]) {
-            text += ' | ' + t('推荐传送点 - ') + getNearestAetheryte(XivMaps[item.gatherInfo.placeID], item.gatherInfo.posX, item.gatherInfo.posY, itemLanguage.value)
+          let text = `${getItemName(item)}: ${getJobName(XivJobs[item.gatherInfo.jobId])} | ${getPlaceName(item)} ${getItemGatherLocation(item)}`
+          if (item.gatherInfo.recommAetheryte) {
+            text += ' | ' + t('推荐传送点') + ' - ' + item.gatherInfo.recommAetheryte?.[`name_${itemLanguage.value}`]
           }
           return text
         }).join('\n'),
         icon: itemsNeedAlarm[0].iconUrl
       })
     }
+  } else if (workState.value.notifyMode === 'audio') {
+    playAudio('./audio/FFXIV_Incoming_Tell_2.mp3')
   }
 }
 
@@ -238,6 +242,7 @@ if (!disable_workstate_cache) {
     workState.value.notifyMode ??= 'none'
     workState.value.orderBy ??= 'itemId'
     workState.value.subscribedItems ??= []
+    workState.value.alarmMacroOptions = fixAlarmMacroOptions(workState.value.alarmMacroOptions)
   }
 
   // todo - 留意性能：深度侦听需要遍历被侦听对象中的所有嵌套的属性，当用于大型数据结构时，开销很大
@@ -312,75 +317,97 @@ const handleQuickOperateButtonClick = (itemInfo : ItemInfo) => {
   }
 }
 const getQuickOperateOptions = () => {
-  return [
-    {
-      label: t('收藏'),
-      key: 'group-star',
-      children: [
-        ...gatherData.value.filter(item => item.key !== 'stars' && item.items.length).map(data => {
-          const itemsAllStared = data.items.every(item => workState.value.starItems.includes(item.id))
-          return {
-            label: itemsAllStared ? t('取消收藏“{}”', data.title) : t('收藏“{}”', data.title),
-            key: 'star-option-' + data.key,
-            click: () => {
-              if (itemsAllStared) {
-                workState.value.starItems = workState.value.starItems.filter(id => !data.items.map(item => item.id).includes(id))
-              } else {
-                data.items.forEach(item => {
-                  if (!workState.value.starItems.includes(item.id)) {
-                    workState.value.starItems.push(item.id)
-                  }
-                })
-              }
-            }
-          }
-        })
-      ]
-    },
-    {
-      label: t('全部取消收藏'),
-      key: 'star-removeAll',
-      disabled: workState.value.starItems.length === 0,
+  const starOptions = gatherData.value.filter(
+    item => item.key !== 'stars' && item.items.length
+  ).map(data => {
+    const itemsAllStared = data.items.every(item => workState.value.starItems.includes(item.id))
+    return {
+      label: itemsAllStared ? t('取消收藏“{}”', data.title) : t('收藏“{}”', data.title),
+      key: 'star-option-' + data.key,
       click: () => {
-        workState.value.starItems = []
-      }
-    },
-    {
-      type: 'divider'
-    },
-    {
-      label: t('订阅'),
-      key: 'group-subscribe',
-      children: [
-        ...gatherData.value.filter(item => item.key !== 'subscribed' && item.items.length).map(data => {
-          const itemsAllAlarmed = data.items.every(item => workState.value.subscribedItems.includes(item.id))
-          return {
-            label: itemsAllAlarmed ? t('取消订阅“{}”', data.title) : t('订阅“{}”', data.title),
-            key: 'subscribe-option-' + data.key,
-            click: () => {
-              if (itemsAllAlarmed) {
-                workState.value.subscribedItems = workState.value.subscribedItems.filter(id => !data.items.map(item => item.id).includes(id))
-              } else {
-                data.items.forEach(item => {
-                  if (!workState.value.subscribedItems.includes(item.id)) {
-                    workState.value.subscribedItems.push(item.id)
-                  }
-                })
-              }
+        if (itemsAllStared) {
+          workState.value.starItems = workState.value.starItems.filter(id => !data.items.map(item => item.id).includes(id))
+        } else {
+          data.items.forEach(item => {
+            if (!workState.value.starItems.includes(item.id)) {
+              workState.value.starItems.push(item.id)
             }
-          }
-        })
-      ]
-    },
-    {
-      label: t('全部取消订阅'),
-      key: 'subscribe-removeAll',
-      disabled: workState.value.subscribedItems.length === 0,
-      click: () => {
-        workState.value.subscribedItems = []
+          })
+        }
       }
     }
-  ]
+  })
+  const subscribeOptions = gatherData.value.filter(
+    item => item.key !== 'subscribed' && item.items.length
+  ).map(data => {
+    const itemsAllAlarmed = data.items.every(item => workState.value.subscribedItems.includes(item.id))
+    return {
+      label: itemsAllAlarmed ? t('取消订阅“{}”', data.title) : t('订阅“{}”', data.title),
+      key: 'subscribe-option-' + data.key,
+      click: () => {
+        if (itemsAllAlarmed) {
+          workState.value.subscribedItems = workState.value.subscribedItems.filter(id => !data.items.map(item => item.id).includes(id))
+        } else {
+          data.items.forEach(item => {
+            if (!workState.value.subscribedItems.includes(item.id)) {
+              workState.value.subscribedItems.push(item.id)
+            }
+          })
+        }
+      }
+    }
+  })
+
+  const optionUnstarAll = {
+    label: t('全部取消收藏'),
+    key: 'star-removeAll',
+    disabled: workState.value.starItems.length === 0,
+    click: () => {
+      workState.value.starItems = []
+    }
+  }
+  const optionUnsubscribeAll = {
+    label: t('全部取消订阅'),
+    key: 'subscribe-removeAll',
+    disabled: workState.value.subscribedItems.length === 0,
+    click: () => {
+      workState.value.subscribedItems = []
+    }
+  }
+
+  const divider = {
+    type: 'divider'
+  }
+console.warn('isMobile.value:', isMobile.value)
+  if (isMobile.value) {
+    return [
+      ...starOptions,
+      optionUnstarAll,
+      divider,
+      ...subscribeOptions,
+      optionUnsubscribeAll
+    ]
+  } else {
+    return [
+      {
+        label: t('收藏'),
+        key: 'group-star',
+        children: [
+          ...starOptions
+        ]
+      },
+      optionUnstarAll,
+      divider,
+      {
+        label: t('订阅'),
+        key: 'group-subscribe',
+        children: [
+          ...subscribeOptions
+        ]
+      },
+      optionUnsubscribeAll
+    ]
+  }
 }
 const handleQuickOperateOptionSelect = (key: string | number, option: any) => {
   if (option?.click) {
@@ -439,7 +466,7 @@ const getItemName = (itemInfo: ItemInfo) => {
       return itemInfo.nameZH || '未翻译的物品'
   }
 }
-const getJobName = (jobInfo: JobInfo) => {
+const getJobName = (jobInfo: XivJob) => {
   switch (uiLanguage.value) {
     case 'ja':
       return jobInfo?.job_name_ja || t('未知')
@@ -464,6 +491,10 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 const getItemGatherLocation = (itemInfo: ItemInfo) => {
   return t('(X:{x}, Y:{y})', { x: itemInfo.gatherInfo.posX.toFixed(1), y: itemInfo.gatherInfo.posY.toFixed(1) })
 }
+
+const handleShowAlarmMacroExportModal = () => {
+  showAlarmMacroExportModal.value = true
+}
 </script>
 
 <template>
@@ -482,11 +513,11 @@ const getItemGatherLocation = (itemInfo: ItemInfo) => {
 
       <div class="query-form">
         <n-form
-          :inline="!useMobileUi"
-          :label-placement="useMobileUi ? 'left' : 'top'"
+          :inline="!isMobile"
+          :label-placement="isMobile ? 'left' : 'top'"
           :show-feedback="false"
           :style="{
-            maxWidth: useMobileUi ? '100%' : 'fit-content'
+            maxWidth: isMobile ? '100%' : 'fit-content'
           }"
         >
           <n-form-item :label="t('窗口置顶')" v-show="canPinWindow">
@@ -516,16 +547,19 @@ const getItemGatherLocation = (itemInfo: ItemInfo) => {
               <n-button>{{ t('点此展开菜单') }}</n-button>
             </n-dropdown>
           </n-form-item>
+          <n-form-item :label="t('导出闹钟宏')">
+            <n-button @click="handleShowAlarmMacroExportModal">{{ t('点击此处') }}</n-button>
+          </n-form-item>
         </n-form>
       </div>
     </FoldableCard>
-    <n-card embedded :bordered="false">
+    <n-card embedded :bordered="false" :content-style="isVerticalOverlay ? 'padding: 1em 0.5em;' : undefined">
       <div class="title-actions">
         <n-button
           v-for="patch in gatherData"
           :key="patch.key"
           :type="workState.patch === patch.key ? 'primary' : undefined"
-          :size="canPinWindow && isMobile ? 'small' : undefined"
+          :size="isVerticalOverlay ? 'tiny' : undefined"
           @click="workState.patch = patch.key"
         >
           <div class="tab-title">
@@ -545,7 +579,10 @@ const getItemGatherLocation = (itemInfo: ItemInfo) => {
           </div>
         </n-button>
       </div>
-      <n-divider style="margin-top: 3px; margin-bottom: 12px;" />
+      <n-divider style="margin-top: 3px; margin-bottom: 12px;" :style="{
+        marginTop: '3px',
+        marginBottom: isVerticalOverlay ? '5px' : '12px'
+      }" />
       <n-el
         v-for="patch in gatherData"
         :key="patch.key"
@@ -606,9 +643,9 @@ const getItemGatherLocation = (itemInfo: ItemInfo) => {
                 <div class="gather-job">
                   <XivFARImage
                     class="icon"
-                    :src="jobMap[item.gatherInfo.jobId].job_icon_url"
+                    :src="XivJobs[item.gatherInfo.jobId].job_icon_url"
                   />
-                  <p>{{ getJobName(jobMap[item.gatherInfo.jobId]) }}</p>
+                  <p>{{ getJobName(XivJobs[item.gatherInfo.jobId]) }}</p>
                 </div>
                 <div class="recommended-aetheryte" v-if="XivMaps[item.gatherInfo.placeID]">
                   <span>{{ t('推荐') }}</span>
@@ -619,13 +656,7 @@ const getItemGatherLocation = (itemInfo: ItemInfo) => {
                     />
                   </span>
                   <span>
-                    {{
-                      getNearestAetheryte(
-                        XivMaps[item.gatherInfo.placeID],
-                        item.gatherInfo.posX, item.gatherInfo.posY,
-                        itemLanguage
-                      )
-                    }}
+                    {{ item.gatherInfo.recommAetheryte?.[`name_${itemLanguage}`] }}
                   </span>
                 </div>
                 <div class="gather-place">
@@ -675,6 +706,12 @@ const getItemGatherLocation = (itemInfo: ItemInfo) => {
         </div>
       </n-el>
     </n-card>
+
+    <ModalAlarmMacroExport
+      v-model:show="showAlarmMacroExportModal"
+      v-model:options="workState.alarmMacroOptions"
+      :item-groups="gatherData"
+    />
   </div>
 </template>
 
@@ -703,7 +740,7 @@ const getItemGatherLocation = (itemInfo: ItemInfo) => {
 .title-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 2px 5px;
 }
 .items-container {
   gap: 0.3rem;
@@ -802,6 +839,9 @@ const getItemGatherLocation = (itemInfo: ItemInfo) => {
     .item-card {
       width: 100%;
     }
+  }
+  .env-overlay .items-container {
+    padding: 0;
   }
 }
 </style>

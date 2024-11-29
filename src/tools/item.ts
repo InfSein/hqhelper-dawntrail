@@ -47,6 +47,7 @@ import XivGatheringItems from '@/assets/data/unpacks/gathering-item.json'
 import XivGatherTerrory from '@/assets/data/unpacks/territory.json'
 import XivPlaceNames from '@/assets/data/unpacks/place-name.json'
 import XivPlaceZHTemp from '@/assets/data/translations/xiv-places.json'
+import { XivMaps, type XivMapAetheryteInfo } from '@/assets/data'
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
@@ -114,6 +115,8 @@ export interface ItemInfo {
   craftInfo: {
     /** 制作职业 */
     jobId: number,
+    /** 配方ID */
+    recipeId: number,
     /** 制作等级 */
     craftLevel: number,
     /** 产量 (一次制作可以获得几个成品) */
@@ -139,7 +142,7 @@ export interface ItemInfo {
       /** 加工精度 */
       control: number,
     },
-    /** 简易制作门槛 */
+    /** 简易制作门槛 (目前的解包数据未正确提供,请勿引用) */
     qsThresholds: {
       /** 作业精度 */
       craftsmanship: number,
@@ -157,6 +160,7 @@ export interface ItemInfo {
     placeNameEN: string,
     posX: number,
     posY: number,
+    recommAetheryte?: XivMapAetheryteInfo,
     timeLimitInfo: {
       start: string,
       end: string
@@ -311,6 +315,9 @@ export const getItemInfo = (item: number | CalculatedItem) => {
           timeLimitInfo: [],
           timeLimitDescription: ''
         };
+        if (XivMaps[placeID]) {
+          itemInfo.gatherInfo.recommAetheryte = getNearestAetheryte(XivMaps[placeID], itemInfo.gatherInfo.posX, itemInfo.gatherInfo.posY)
+        }
         [1,2,3].forEach(i => {
           if (gatherData?.popTime) {
             const start = gatherData.popTime?.['start' + i]
@@ -349,6 +356,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
 
       itemInfo.craftInfo = {
         jobId: recipe.job + 8, // 解包配方的jobId是从0开始
+        recipeId: recipeID,
         craftLevel: recipe.bp?.[2],
         yields: recipe.bp?.[1],
         starCount: recipe.bp?.[3],
@@ -428,6 +436,7 @@ import {
 } from '@vicons/material'
 import { h, type Component } from 'vue'
 import { NIcon } from 'naive-ui'
+import { getNearestAetheryte } from './map'
 export const getItemContexts = (
   itemInfo: ItemInfo,
   t: (text: string, ...args: any[]) => string,
@@ -490,6 +499,29 @@ export const getItemContexts = (
       icon: renderIcon(OpenInNewFilled),
       click: () => {
         window.open(`https://universalis.app/market/${itemInfo.id}`)
+      }
+    },
+    {
+      type: 'divider',
+      key: 'd2',
+      show: !!itemInfo?.craftInfo?.recipeId
+    },
+    {
+      label: t('在BestCraft中模拟制作'),
+      key: 'open-in-bestcraft',
+      show: !!itemInfo?.craftInfo?.recipeId,
+      icon: renderIcon(OpenInNewFilled),
+      click: () => {
+        window.open(`https://tnze.yyyy.games/#/recipe?recipeId=${itemInfo?.craftInfo?.recipeId}`)
+      }
+    },
+    {
+      label: t('在TeamCraft中模拟制作'),
+      key: 'open-in-teamcraft',
+      show: !!itemInfo?.craftInfo?.recipeId,
+      icon: renderIcon(OpenInNewFilled),
+      click: () => {
+        window.open(`https://ffxivteamcraft.com/simulator/${itemInfo.id}/${itemInfo?.craftInfo?.recipeId}`)
       }
     },
   ]

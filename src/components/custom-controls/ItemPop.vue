@@ -12,8 +12,7 @@ import ItemRemark from './ItemRemark.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import XivAttributes from '@/assets/data/xiv-attributes.json'
-import { XivItemRemarks } from '@/assets/data'
-import { jobMap, type JobInfo } from '@/data'
+import { XivItemRemarks, XivJobs, type XivJob } from '@/assets/data'
 import type EorzeaTime from '@/tools/eorzea-time'
 import LocationSpan from './LocationSpan.vue'
 
@@ -21,7 +20,7 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
-const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
+// const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const uiLanguage = computed(() => {
   return userConfig.value.language_ui
@@ -54,7 +53,7 @@ interface ItemPopProps {
 }
 const props = defineProps<ItemPopProps>()
 
-const getJobName = (jobInfo: JobInfo) => {
+const getJobName = (jobInfo: XivJob) => {
   switch (uiLanguage.value) {
     case 'ja':
       return jobInfo?.job_name_ja || t('未知')
@@ -227,7 +226,7 @@ const innerPopTrigger = computed(() => {
   <n-popover
     v-if="itemInfo.id && !disablePop"
     :trigger="popTrigger || (isMobile ? 'click' : 'hover')"
-    :placement="isMobile || appMode === 'overlay' ? 'bottom' : 'right-start'"
+    :placement="isMobile ? 'bottom' : 'right-start'"
     :width="popUseCustomWidth ? popCustomWidth : (isMobile ? 'trigger' : undefined)"
     :style="{ maxWidth: popMaxWidth ?? (isMobile ? 'unset' : '290px') }"
   >
@@ -353,16 +352,16 @@ const innerPopTrigger = computed(() => {
             <div v-if="itemInfo.gatherInfo" class="extra">
               <XivFARImage
                 class="icon"
-                :src="jobMap[itemInfo.gatherInfo.jobId].job_icon_url"
+                :src="XivJobs[itemInfo.gatherInfo.jobId].job_icon_url"
               />
-              <p>{{ getJobName(jobMap[itemInfo.gatherInfo.jobId]) }}</p>
+              <p>{{ getJobName(XivJobs[itemInfo.gatherInfo.jobId]) }}</p>
             </div>
             <div v-if="itemInfo.isFishingItem" class="extra">
               <XivFARImage
                 class="icon"
-                :src="jobMap[18].job_icon_url"
+                :src="XivJobs[18].job_icon_url"
               />
-              <p>{{ getJobName(jobMap[18]) }}</p>
+              <p>{{ getJobName(XivJobs[18]) }}</p>
             </div>
           </div>
           <n-divider class="item-divider" />
@@ -376,6 +375,11 @@ const innerPopTrigger = computed(() => {
                 :coordinate-y="itemInfo.gatherInfo.posY"
                 :pop-trigger="innerPopTrigger"
               />
+            </div>
+            <div class="other-attrs" v-if="itemInfo.gatherInfo.recommAetheryte" style="margin-left: 1em;">
+              ※ 
+              {{ t('推荐传送点') + ' - ' }}
+              {{ itemInfo.gatherInfo.recommAetheryte?.[`name_${itemLanguage}`] }}
             </div>
           </div>
           <div class="content" v-if="itemInfo.gatherInfo?.timeLimitInfo?.length">
@@ -429,19 +433,26 @@ const innerPopTrigger = computed(() => {
             <div class="extra">
               <XivFARImage
                 class="icon"
-                :src="jobMap[itemInfo.craftInfo?.jobId].job_icon_url"
+                :src="XivJobs[itemInfo.craftInfo?.jobId].job_icon_url"
               />
               <p>
                 {{ t('{lv}级{star}{job}配方', {
                   lv: itemInfo.craftInfo?.craftLevel,
                   star: '★'.repeat(itemInfo.craftInfo?.starCount || 0),
-                  job: getJobName(jobMap[itemInfo.craftInfo?.jobId])
+                  job: getJobName(XivJobs[itemInfo.craftInfo?.jobId])
                 }) }}
               </p>
             </div>
           </div>
           <n-divider class="item-divider" />
           <div class="content">
+            <div class="other-attrs">
+              {{ t('耐久{dur} / 难度{pro} / 品质{qua}', {
+                dur: itemInfo.craftInfo?.durability,
+                pro: itemInfo.craftInfo?.progress,
+                qua: itemInfo.craftInfo?.quality
+              }) }}
+            </div>
             <div
               class="item"
               v-for="(item, index) in itemInfo.craftRequires"
@@ -449,12 +460,11 @@ const innerPopTrigger = computed(() => {
             >
               <ItemSpan :item-info="getItemInfo(item.id)" :amount="item.count" show-amount :container-id="containerId" />
             </div>
+            <div class="other-attrs" v-if="(itemInfo.craftInfo?.yields || 1) > 1">
+              {{ t('每次制作会产出{yields}个成品', itemInfo.craftInfo?.yields) }}
+            </div>
             <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship && itemInfo.craftInfo?.thresholds?.control">
               <div>{{ t('制作条件：') }}</div>
-              <div class="item small-font" v-if="itemInfo.craftInfo?.masterRecipeId">
-                {{ t('需要习得') }}
-                <ItemSpan :img-size="12" :item-info="getItemInfo(itemInfo.craftInfo.masterRecipeId)" :container-id="containerId" />
-              </div>
               <div class="item small-font">
                 <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship">
                   {{ t('作业精度{value}', itemInfo.craftInfo?.thresholds?.craftsmanship) }}
@@ -463,9 +473,10 @@ const innerPopTrigger = computed(() => {
                   {{ t('加工精度{value}', itemInfo.craftInfo?.thresholds?.control) }}
                 </div>
               </div>
-            </div>
-            <div class="other-attrs" v-if="(itemInfo.craftInfo?.yields || 1) > 1">
-              {{ t('每次制作会产出{yields}个成品', itemInfo.craftInfo?.yields) }}
+              <div class="item small-font" v-if="itemInfo.craftInfo?.masterRecipeId">
+                {{ t('需要习得') }}
+                <ItemSpan :img-size="12" :item-info="getItemInfo(itemInfo.craftInfo.masterRecipeId)" :container-id="containerId" />
+              </div>
             </div>
             <div class="other-attrs">
               <div v-if="!itemInfo.craftInfo?.qsable" class="red">{{ t('无法进行简易制作') }}</div>

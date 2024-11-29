@@ -130,6 +130,10 @@ const handleClose = () => {
           <div class="title">{{ t('版权信息') }}</div>
           <div class="content">
             <p v-for="(cr, crIndex) in DataAboutApp.copyrights" :key="'copyright-' + crIndex">{{ t(cr) }}</p>
+            <div class="extra font-small">
+              FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd. <br>
+              Copyrighted Materials are extracted from FINAL FANTASY XIV © 2010 - 2019 SQUARE ENIX CO., LTD. All Rights Reserved.
+            </div>
           </div>
         </div>
         <n-divider />
@@ -186,6 +190,13 @@ const handleClose = () => {
     display: flex;
     flex-direction: column;
     text-indent: 1.2em;
+
+    .extra {
+      line-height: 1.2;
+      color: gray;
+      text-indent: initial;
+      margin-top: 0.5rem;
+    }
   }
 
   #staffs {
