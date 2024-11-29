@@ -38,6 +38,12 @@ export const XivGearAffixes = JsonXivGearAffixes as Record<AttireAffix | Accesso
   affix_name_en: string
 }>
 
+import JsonXivGearSlots from './xiv-gear-slots.json'
+import type { GearSelections } from '@/models/gears'
+export const XivGearSlots = JsonXivGearSlots as Record<keyof GearSelections, {
+  icon: string
+}>
+
 import JsonXivMaps from './xiv-maps.json'
 export interface XivMapInfo {
   name_zh: string

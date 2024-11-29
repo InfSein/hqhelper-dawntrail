@@ -1,15 +1,24 @@
 <script lang="ts" setup>
-import { computed, h, inject, nextTick, ref, type Component, type Ref } from 'vue'
+import { computed, h, inject, nextTick, ref, type Component, type Ref, type VNode } from 'vue'
 import {
-  NBadge, NButton, NDropdown, NIcon, NPopover,
-  NText
+  NBadge, NButton, NDropdown, NIcon, NPopover
 } from 'naive-ui'
 import {
   FileDownloadDoneOutlined,
-  AccessibilityNewOutlined
+  AccessibilityNewOutlined,
+  AddOutlined, AddCircleOutlineOutlined, AddCircleOutlined, ClearAllOutlined
 } from '@vicons/material'
 import XivFARImage from './XivFARImage.vue'
-import type { GearSelections } from '@/models/gears';
+import { XivGearSlots, XivRoles, type XivRole } from '@/assets/data'
+import type { GearSelections } from '@/models/gears'
+import { useGearAdder } from '@/tools/gears'
+import type { IHqVer } from '@/tools/nbb-cal-v5'
+
+const {
+  addMainOffHand,
+  addAttire,
+  addAccessory
+} = useGearAdder()
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -36,12 +45,21 @@ interface JobButtonProps {
   count: number;
   /** 按钮是否禁用(可选,默认false) */
   disabled?: boolean;
+  patchData?: IHqVer
 }
-
 const props = defineProps<JobButtonProps>()
 const emit = defineEmits(['on-btn-clicked'])
 
 const btnSize = props.imgSize + 5
+const roleInfo = computed(() => {
+  let result : XivRole | undefined
+  Object.values(XivRoles).forEach(role => {
+    if (role.jobs.includes(props.jobId)) {
+      result = role
+    }
+  })
+  return result
+})
 
 const onBtnClicked = () => {
   emit('on-btn-clicked')
@@ -49,56 +67,58 @@ const onBtnClicked = () => {
 
 // #region 右键菜单相关
 
+interface GearInfo {
+  key: keyof GearSelections,
+  amount: number,
+  icon: string
+}
 const currJobGears = computed(() => {
-  const gears : {
-    key: keyof GearSelections,
-    amount: number,
-    icon: string
-  }[] = [];
+  const weapons : GearInfo[] = []
+  const attires : GearInfo[] = []
+  const accessories : GearInfo[] = [];
 
   // 主副手
-  if (gearsSelected.value?.MainHand?.[props.jobId]) {
-    gears.push({
-      key: 'MainHand',
-      amount: gearsSelected.value.MainHand[props.jobId],
-      icon: './image/game-gear-slot/mainhand.png'
-    })
-  }
-  if (gearsSelected.value?.OffHand?.[props.jobId]) {
-    gears.push({
-      key: 'OffHand',
-      amount: gearsSelected.value.OffHand[props.jobId],
-      icon: './image/game-gear-slot/offhand.png'
-    })
-  }
+  (['MainHand', 'OffHand']).forEach(_key => {
+    const key = _key as 'MainHand' | 'OffHand'
+    if (gearsSelected.value?.[key]?.[props.jobId]) {
+      weapons.push({
+        key: key,
+        amount: gearsSelected.value[key][props.jobId],
+        icon: XivGearSlots[key].icon
+      })
+    }
+  });
 
   // 防具
   (['HeadAttire', 'BodyAttire', 'HandsAttire', 'LegsAttire', 'FeetAttire']).forEach(_key => {
     const key = _key as 'HeadAttire' | 'BodyAttire' | 'HandsAttire' | 'LegsAttire' | 'FeetAttire'
-    if (gearsSelected.value?.[key])
-  })
-  /*
-  ([
-    'MainHand', 'OffHand',
-    'HeadAttire', 'BodyAttire', 'HandsAttire', 'LegsAttire', 'FeetAttire',
-    'Earrings', 'Necklace', 'Wrist', 'Rings'
-  ]).forEach(key => {
-    if (gearsSelected.value[key]) {
-      const item = gearsSelected.value[key][Object.keys(gearsSelected.value[key])[0]]
-      if (item) {
-        const itemInfo = allItems[item]
-        if (itemInfo) {
-          gears.push({
-            key: itemInfo.id,
-            amount: Object.keys(gearsSelected.value[key]).length,
-          })
-        }
-      }
+    if (roleInfo.value?.attire && gearsSelected.value?.[key]?.[roleInfo.value.attire]) {
+      attires.push({
+        key: key,
+        amount: gearsSelected.value[key][roleInfo.value.attire],
+        icon: XivGearSlots[key].icon
+      })
     }
   });
-  */
 
-  return gears
+  // 首饰
+  (['Earrings', 'Necklace', 'Wrist', 'Rings']).forEach(_key => {
+    const key = _key as 'Earrings' | 'Necklace' | 'Wrist' | 'Rings'
+    if (roleInfo.value?.accessory && gearsSelected.value?.[key]?.[roleInfo.value.accessory]) {
+      accessories.push({
+        key: key,
+        amount: gearsSelected.value[key][roleInfo.value.accessory],
+        icon: XivGearSlots[key].icon
+      })
+    }
+  });
+
+  return {
+    weapons: weapons,
+    attires: attires,
+    accessories: accessories,
+    count: weapons.length + attires.length + accessories.length
+  }
 })
 
 const showDropdownRef = ref(false)
@@ -131,15 +151,105 @@ const contextOptions = computed(() => {
           type: 'divider'
         },
         {
-          label: t('在做了'),
-          key: '???1',
-          icon: renderIcon(FileDownloadDoneOutlined)
-        }
+          key: 'selected-add',
+          label: t('添加'),
+          icon: renderIcon(AddOutlined),
+          children: [
+            {
+              key: 'selected-add-weapon',
+              label: t('添加一套主副手'),
+              icon: renderIcon(AddCircleOutlineOutlined),
+              click: () => {
+                addMainOffHand(gearsSelected, props.patchData, props.jobId)
+              }
+            },
+            {
+              key: 'selected-add-attire',
+              label: t('添加一套防具'),
+              icon: renderIcon(AddCircleOutlineOutlined),
+              click: () => {
+                if (roleInfo.value?.attire) {
+                  addAttire(gearsSelected, props.patchData, roleInfo.value.attire)
+                } else {
+                  console.error('No attire-affix:', roleInfo.value)
+                }
+              }
+            },
+            {
+              key: 'selected-add-accessory',
+              label: t('添加一套首饰'),
+              icon: renderIcon(AddCircleOutlineOutlined),
+              click: () => {
+                if (roleInfo.value?.accessory) {
+                  addAccessory(gearsSelected, props.patchData, roleInfo.value.accessory)
+                } else {
+                  console.error('No accessory-affix:', roleInfo.value)
+                }
+              }
+            },
+            {
+              key: 'selected-add-attire-and-accessory',
+              label: t('添加一套防具和首饰'),
+              icon: renderIcon(AddCircleOutlineOutlined),
+              click: () => {
+                if (roleInfo.value?.attire) {
+                  addAttire(gearsSelected, props.patchData, roleInfo.value.attire)
+                } else {
+                  console.error('No attire-affix:', roleInfo.value)
+                }
+                if (roleInfo.value?.accessory) {
+                  addAccessory(gearsSelected, props.patchData, roleInfo.value.accessory)
+                } else {
+                  console.error('No accessory-affix:', roleInfo.value)
+                }
+              }
+            },
+            {
+              key: 'selected-add-suit',
+              label: t('添加整套'),
+              icon: renderIcon(AddCircleOutlined),
+              click: () => {
+                addMainOffHand(gearsSelected, props.patchData, props.jobId)
+                if (roleInfo.value?.attire) {
+                  addAttire(gearsSelected, props.patchData, roleInfo.value.attire)
+                } else {
+                  console.error('No attire-affix:', roleInfo.value)
+                }
+                if (roleInfo.value?.accessory) {
+                  addAccessory(gearsSelected, props.patchData, roleInfo.value.accessory)
+                } else {
+                  console.error('No accessory-affix:', roleInfo.value)
+                }
+              }
+            }
+          ]
+        },
+        {
+          key: 'selected-clear',
+          label: t('清空已选'),
+          props: {
+            style: 'color: red;'
+          },
+          icon: renderIcon(ClearAllOutlined, { color: 'red' }),
+          click: () => {
+            gearsSelected.value.MainHand[props.jobId] = 0
+            gearsSelected.value.OffHand[props.jobId] = 0
+            if (roleInfo.value?.attire) {
+              gearsSelected.value.HeadAttire[roleInfo.value.attire] = 0
+              gearsSelected.value.BodyAttire[roleInfo.value.attire] = 0
+              gearsSelected.value.HandsAttire[roleInfo.value.attire] = 0
+              gearsSelected.value.LegsAttire[roleInfo.value.attire] = 0
+              gearsSelected.value.FeetAttire[roleInfo.value.attire] = 0
+            }
+            if (roleInfo.value?.accessory) {
+              gearsSelected.value.Earrings[roleInfo.value.accessory] = 0
+              gearsSelected.value.Necklace[roleInfo.value.accessory] = 0
+              gearsSelected.value.Wrist[roleInfo.value.accessory] = 0
+              gearsSelected.value.Rings[roleInfo.value.accessory] = 0
+            }
+          }
+        },
       ]
-    },
-    {
-      type: 'divider',
-      key: 'd1'
     },
     {
       label: t('配装'),
@@ -197,30 +307,84 @@ const renderJobContextHeader = () => {
   )
 }
 const renderGearsSelectedHeader = () => {
-  // todo
   return h(
     'div',
     {
-      style: 'padding: 8px 12px;'
+      style: 'padding: 0.2em 1em; min-width: 180px;'
     },
     [
-      h('p', null, t('已选部件')),
-      h('div', null, [
-        h('div', null, [h(NText, { depth: 2 }, { default: () => '打工仔' })]),
-        h('div', { style: 'font-size: 12px;' }, [
-          h(
-            NText,
-            { depth: 3 },
-            { default: () => '毫无疑问，你是办公室里最亮的星' }
-          )
-        ])
-      ])
+      h('p', { class: 'bold' }, t('已选部件')),
+      h(
+        'div',
+        { style: 'margin-left: 0.2em;' },
+        dealGearSlots()
+      )
     ]
   )
+
+  function dealGearSlots() {
+    if (!currJobGears.value?.count) {
+      return [
+        h(
+          'div', {class: 'font-small'}, t('无')
+        )
+      ]
+    }
+    const slotDivs : VNode[] = []
+    const containerProps = {
+      class: 'flex',
+      style: 'gap: 3px;'
+    }
+    slotDivs.push(
+      h(
+        'div', containerProps,
+        currJobGears.value.weapons.map(gearInfo => {
+          return dealGear(gearInfo)
+        })
+      )
+    )
+    slotDivs.push(
+      h(
+        'div', containerProps,
+        currJobGears.value.attires.map(gearInfo => {
+          return dealGear(gearInfo)
+        })
+      )
+    )
+    slotDivs.push(
+      h(
+        'div', containerProps,
+        currJobGears.value.accessories.map(gearInfo => {
+          return dealGear(gearInfo)
+        })
+      )
+    )
+    return slotDivs
+
+    function dealGear(gearInfo: GearInfo) {
+      return h(
+        'div',
+        {
+          class: 'font-small',
+          style: 'display: flex; align-items: center; gap: 2px; line-height: 1;'
+        },
+        [
+          h(
+            XivFARImage,
+            {
+              src: gearInfo.icon,
+              size: 12
+            }
+          ),
+          h('p', null, gearInfo.amount)
+        ]
+      )
+    }
+  }
 }
-function renderIcon(icon: Component) {
+function renderIcon(icon: Component, props?: any) {
   return () => {
-    return h(NIcon, null, {
+    return h(NIcon, props, {
       default: () => h(icon)
     })
   }
@@ -235,8 +399,6 @@ const handleContextMenu = (e: MouseEvent) => {
   })
 }
 const handleSelect = async (key: string | number, option: any) => {
-  showDropdownRef.value = false
-  console.log(key)
   if (option?.click) {
     option.click()
   } else {
@@ -257,14 +419,13 @@ const onClickoutside = () => {
     :trigger="isMobile ? 'manual' : 'hover'"
   >
     <template #trigger>
-      <n-badge :value="count" :max="99" :color="props.btnColor" @click="onBtnClicked">
+      <n-badge :value="count" :max="99" :color="props.btnColor" @click="onBtnClicked" @contextmenu="handleContextMenu">
         <n-button
           :ghost="!props.selected"
           :disabled="props.disabled"
           class="job-button"
           :color="props.btnColor"
           :style="{ width: `${btnSize}px`, height: `${btnSize}px` }"
-          @contextmenu="handleContextMenu"
         >
           <XivFARImage
             :src="jobIcon"
