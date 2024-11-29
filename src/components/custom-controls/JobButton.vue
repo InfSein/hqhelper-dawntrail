@@ -9,10 +9,12 @@ import {
   AccessibilityNewOutlined
 } from '@vicons/material'
 import XivFARImage from './XivFARImage.vue'
+import type { GearSelections } from '@/models/gears';
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
+const gearsSelected = defineModel<GearSelections>('gearsSelected', { required: true })
 interface JobButtonProps {
   /** 被选中 */
   selected: boolean;
@@ -20,6 +22,8 @@ interface JobButtonProps {
   role: string;
   /** 职能名称 */
   roleName: string;
+  /** 职业id */
+  jobId: number;
   /** 职业 */
   jobName: string;
   /** 职业图标 */
@@ -44,6 +48,58 @@ const onBtnClicked = () => {
 }
 
 // #region 右键菜单相关
+
+const currJobGears = computed(() => {
+  const gears : {
+    key: keyof GearSelections,
+    amount: number,
+    icon: string
+  }[] = [];
+
+  // 主副手
+  if (gearsSelected.value?.MainHand?.[props.jobId]) {
+    gears.push({
+      key: 'MainHand',
+      amount: gearsSelected.value.MainHand[props.jobId],
+      icon: './image/game-gear-slot/mainhand.png'
+    })
+  }
+  if (gearsSelected.value?.OffHand?.[props.jobId]) {
+    gears.push({
+      key: 'OffHand',
+      amount: gearsSelected.value.OffHand[props.jobId],
+      icon: './image/game-gear-slot/offhand.png'
+    })
+  }
+
+  // 防具
+  (['HeadAttire', 'BodyAttire', 'HandsAttire', 'LegsAttire', 'FeetAttire']).forEach(_key => {
+    const key = _key as 'HeadAttire' | 'BodyAttire' | 'HandsAttire' | 'LegsAttire' | 'FeetAttire'
+    if (gearsSelected.value?.[key])
+  })
+  /*
+  ([
+    'MainHand', 'OffHand',
+    'HeadAttire', 'BodyAttire', 'HandsAttire', 'LegsAttire', 'FeetAttire',
+    'Earrings', 'Necklace', 'Wrist', 'Rings'
+  ]).forEach(key => {
+    if (gearsSelected.value[key]) {
+      const item = gearsSelected.value[key][Object.keys(gearsSelected.value[key])[0]]
+      if (item) {
+        const itemInfo = allItems[item]
+        if (itemInfo) {
+          gears.push({
+            key: itemInfo.id,
+            amount: Object.keys(gearsSelected.value[key]).length,
+          })
+        }
+      }
+    }
+  });
+  */
+
+  return gears
+})
 
 const showDropdownRef = ref(false)
 const xRef = ref(0)
@@ -140,14 +196,15 @@ const renderJobContextHeader = () => {
     ]
   )
 }
-function renderGearsSelectedHeader() {
+const renderGearsSelectedHeader = () => {
   // todo
   return h(
     'div',
     {
-      style: 'display: flex; align-items: center; padding: 8px 12px;'
+      style: 'padding: 8px 12px;'
     },
     [
+      h('p', null, t('已选部件')),
       h('div', null, [
         h('div', null, [h(NText, { depth: 2 }, { default: () => '打工仔' })]),
         h('div', { style: 'font-size: 12px;' }, [
