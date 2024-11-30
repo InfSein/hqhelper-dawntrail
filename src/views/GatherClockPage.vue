@@ -377,7 +377,7 @@ const getQuickOperateOptions = () => {
   const divider = {
     type: 'divider'
   }
-console.warn('isMobile.value:', isMobile.value)
+
   if (isMobile.value) {
     return [
       ...starOptions,
