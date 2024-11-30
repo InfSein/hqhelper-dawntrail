@@ -97,10 +97,10 @@ const tradeMap = computed(() => {
         <JobPanel
           v-model:job-selected="workState.job"
           v-model:affixes-selected="workState.affixes"
+          v-model:gears-selected="workState.gears"
           class="job-panel"
           :patch-selected="workState.patch"
           :patch-data="patchData"
-          :main-hand-selections="workState.gears?.MainHand"
           @on-job-button-dupli-click="handleJobButtonDupliClick"
         />
         <GearSelectionPanel

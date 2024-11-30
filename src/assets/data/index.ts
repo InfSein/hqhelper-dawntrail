@@ -21,6 +21,7 @@ export const XivRecipes = JsonXivRecipes as Record<number, {
 import JsonXivJobs from './xiv-jobs.json'
 export interface XivJob {
   job_id: number
+  short_name: string
   job_name_en: string
   job_name_zh: string
   job_name_ja: string
@@ -36,6 +37,25 @@ export const XivGearAffixes = JsonXivGearAffixes as Record<AttireAffix | Accesso
   affix_name_zh: string,
   affix_name_ja: string,
   affix_name_en: string
+}>
+
+import JsonXivGearRecomm from './xiv-gear-recomm.json'
+import JsonXivGearSets from './xiv-gear-sets.json'
+export interface XivGearSet {
+  title_zh: string,
+  title_ja: string,
+  title_en: string,
+  gcd?: number,
+  author: string,
+  set_no: string
+}
+export const XivGearRecomm = JsonXivGearRecomm as Record<string, Record<number, number[]>>
+export const XivGearSets = JsonXivGearSets as Record<number, XivGearSet>
+
+import JsonXivGearSlots from './xiv-gear-slots.json'
+import type { GearSelections } from '@/models/gears'
+export const XivGearSlots = JsonXivGearSlots as Record<keyof GearSelections, {
+  icon: string
 }>
 
 import JsonXivMaps from './xiv-maps.json'
