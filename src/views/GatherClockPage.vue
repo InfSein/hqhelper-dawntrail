@@ -229,7 +229,9 @@ const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
       })
     }
   } else if (workState.value.notifyMode === 'audio') {
-    playAudio('./audio/FFXIV_Incoming_Tell_2.mp3')
+    if (itemsNeedAlarm.length > 0) {
+      playAudio('./audio/FFXIV_Incoming_Tell_2.mp3')
+    }
   }
 }
 
