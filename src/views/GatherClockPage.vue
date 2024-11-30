@@ -215,7 +215,7 @@ const handleCheckNotificationPermission = () => {
   }
 }
 const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
-  if (itemsNeedAlarm.length > 0) return
+  if (!itemsNeedAlarm.length) return
   if (workState.value.notifyMode === 'system_noti') {
     new Notification(t('以下物品已可采集：'), {
       body: itemsNeedAlarm.map(item => {
