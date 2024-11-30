@@ -209,8 +209,13 @@ const openInAngler = () => {
     case 'zh': lang = 'cn'; break
     case 'ja': lang = 'jp'; break
   }
+  let name = getItemName()
+  if (props.itemInfo.usedZHTemp) {
+    lang = 'en'
+    name = props.itemInfo.nameEN
+  }
   const domain = `https://${lang}.ff14angler.com/`
-  window.open(`${domain}?search=${props.itemInfo.nameEN}`)
+  window.open(`${domain}?search=${name}`)
 }
 
 const innerPopTrigger = computed(() => {
