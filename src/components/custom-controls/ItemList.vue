@@ -108,6 +108,8 @@ const listValue = computed(() => {
     if (item.amount) {
       if (userConfig.value.item_list_style === 'teamcraft') {
         result.push(`${item.amount}x ${getItemName(item)}`)
+      } else if (userConfig.value.item_list_style === 'tight') {
+        result.push(`${getItemName(item)}x${item.amount}`)
       } else {
         result.push(`${getItemName(item)} x ${item.amount}`)
       }

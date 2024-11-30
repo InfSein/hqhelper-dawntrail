@@ -402,6 +402,7 @@ const UserPreferenceGroups : UserPreferenceGroup[] = [
         type: 'select',
         options: [
           { value: 'standard', label: t('标准 (物品名称 x 数量)') },
+          { value: 'tight', label: t('紧凑 (物品名称x数量)') },
           { value: 'teamcraft', label: t('Teamcraft风格 (数量x 物品名称)') },
         ]
       },
