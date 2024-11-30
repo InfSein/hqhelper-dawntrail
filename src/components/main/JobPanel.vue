@@ -145,6 +145,7 @@ const isJobGroupAvailable = (group: number[]) => {
               :count="gearsSelected?.MainHand?.[job] || 0"
               :class="{'selected': jobSelected === job}"
               :disabled="!patchSelected || !isJobAvailable(job)"
+              :patch-selected="patchSelected"
               :patch-data="patchData"
               @on-btn-clicked="handleJobSelect(job, role)"
             />

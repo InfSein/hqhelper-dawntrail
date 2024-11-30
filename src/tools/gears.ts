@@ -1,6 +1,18 @@
 import type { Ref } from "vue"
 import type { AccessoryAffix, AttireAffix, GearSelections } from "@/models/gears"
 import type { IHqVer } from "./nbb-cal-v5"
+import { XivGearRecomm, XivGearSets, type XivGearSet } from "@/assets/data"
+
+export const getGearRecomm = (patch: string, jobId: number) => {
+  console.log(`patch: ${patch}, job: ${jobId}`)
+  const result : XivGearSet[] = []
+  if (XivGearRecomm[patch]?.[jobId]?.length) {
+    XivGearRecomm[patch][jobId].forEach(setId => {
+      result.push(XivGearSets[setId])
+    })
+  }
+  return result
+}
 
 export const useGearAdder = () => {
   const addMainOffHand = (gearSelections: Ref<GearSelections>, patchData: IHqVer | undefined, jobId: number) => {

@@ -11,9 +11,10 @@ import {
 import XivFARImage from './XivFARImage.vue'
 import { XivJobs, XivGearSlots, XivRoles, type XivRole } from '@/assets/data'
 import type { GearSelections } from '@/models/gears'
-import { useGearAdder } from '@/tools/gears'
+import { getGearRecomm, useGearAdder } from '@/tools/gears'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 import { visitUrl } from '@/tools'
+import type { UserConfigModel } from '@/models/user-config'
 
 const {
   addMainOffHand,
@@ -23,6 +24,9 @@ const {
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+
+const uiLanguage = userConfig.value?.language_ui ?? 'zh'
 
 const gearsSelected = defineModel<GearSelections>('gearsSelected', { required: true })
 interface JobButtonProps {
@@ -46,6 +50,7 @@ interface JobButtonProps {
   count: number;
   /** 按钮是否禁用(可选,默认false) */
   disabled?: boolean;
+  patchSelected: string;
   patchData?: IHqVer
 }
 const props = defineProps<JobButtonProps>()
@@ -130,6 +135,38 @@ const xRef = ref(0)
 const yRef = ref(0)
 
 const contextOptions = computed(() => {
+  // 获取推荐配装
+  function dealGearingRecomm() {
+    const recommGears = getGearRecomm(props.patchSelected, props.jobId)
+    const rgContents : any[] = []
+    recommGears.forEach((gear, index) => {
+      let title = gear[`title_${uiLanguage}`] || gear.title_zh
+      if (gear.gcd) {
+        title = `${gear.gcd.toFixed(2)}GCD/ ${title}`
+      }
+      if (gear.author) {
+        title += ` by${gear.author}`
+      }
+      rgContents.push({
+        key: `rg-${props.jobId}-${index}`,
+        label: title,
+        icon: renderIcon(AccessibilityNewOutlined),
+        click: () => {
+          visitUrl(`https://asvel.github.io/ffxiv-gearing/?${gear.set_no}`)
+          showDropdownRef.value = false
+        }
+      })
+    })
+    if (rgContents.length) {
+      return rgContents
+    } else {
+      return [{
+        key: 'rg-none',
+        label: t('无'),
+        disabled: true
+      }]
+    }
+  }
   return [
     {
       key: 'context-header',
@@ -261,18 +298,19 @@ const contextOptions = computed(() => {
       icon: renderIcon(AccessibilityNewOutlined),
       children: [
         {
-          label: t('在配装模拟器中打开'),
+          label: t('模拟配装'),
           key: 'gearing-open-simulator',
           icon: renderIcon(AccessibilityNewOutlined),
           click: () => {
-            const url = `https://asvel.github.io/ffxiv-gearing/?${jobInfo.value?.short_name}`
-            visitUrl(url)
+            visitUrl(`https://asvel.github.io/ffxiv-gearing/?${jobInfo.value?.short_name}`)
+            showDropdownRef.value = false
           }
         },
         {
-          label: t('查看推荐配装'),
+          label: t('推荐配装'),
           key: 'gearing-recomm',
-          icon: renderIcon(AccessibilityNewOutlined)
+          icon: renderIcon(AccessibilityNewOutlined),
+          children: dealGearingRecomm()
         }
       ]
     }
@@ -318,6 +356,7 @@ const renderGearsSelectedHeader = () => {
   return h(
     'div',
     {
+      class: 'no-select',
       style: 'padding: 0.2em 1em; min-width: 180px;'
     },
     [
