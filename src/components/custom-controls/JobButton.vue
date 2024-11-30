@@ -69,6 +69,17 @@ const roleInfo = computed(() => {
 const jobInfo = computed(() => {
   return XivJobs[props.jobId]
 })
+const jobSubName = computed(() => {
+  switch (uiLanguage) {
+    case 'ja':
+      return jobInfo.value.job_name_en
+    case 'en':
+      return jobInfo.value.job_name_ja
+    case 'zh':
+    default:
+      return jobInfo.value.job_name_ja + ' / ' + jobInfo.value.job_name_en
+  }
+})
 
 const onBtnClicked = () => {
   emit('on-btn-clicked')
@@ -317,6 +328,7 @@ const contextOptions = computed(() => {
   ]
 })
 const renderJobContextHeader = () => {
+
   return h(
     'div',
     {
@@ -346,7 +358,7 @@ const renderJobContextHeader = () => {
         },
         [
           h('p', {class:'font-big'}, props.jobName),
-          h('p', {class:'font-small'}, props.roleName)
+          h('p', {class:'font-small'}, jobSubName.value)
         ]
       )
     ]
