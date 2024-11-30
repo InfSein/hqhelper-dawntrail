@@ -215,23 +215,20 @@ const handleCheckNotificationPermission = () => {
   }
 }
 const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
+  if (itemsNeedAlarm.length > 0) return
   if (workState.value.notifyMode === 'system_noti') {
-    if (itemsNeedAlarm.length > 0) {
-      new Notification(t('以下物品已可采集：'), {
-        body: itemsNeedAlarm.map(item => {
-          let text = `${getItemName(item)}: ${getJobName(XivJobs[item.gatherInfo.jobId])} | ${getPlaceName(item)} ${getItemGatherLocation(item)}`
-          if (item.gatherInfo.recommAetheryte) {
-            text += ' | ' + t('推荐传送点') + ' - ' + item.gatherInfo.recommAetheryte?.[`name_${itemLanguage.value}`]
-          }
-          return text
-        }).join('\n'),
-        icon: itemsNeedAlarm[0].iconUrl
-      })
-    }
+    new Notification(t('以下物品已可采集：'), {
+      body: itemsNeedAlarm.map(item => {
+        let text = `${getItemName(item)}: ${getJobName(XivJobs[item.gatherInfo.jobId])} | ${getPlaceName(item)} ${getItemGatherLocation(item)}`
+        if (item.gatherInfo.recommAetheryte) {
+          text += ' | ' + t('推荐传送点') + ' - ' + item.gatherInfo.recommAetheryte?.[`name_${itemLanguage.value}`]
+        }
+        return text
+      }).join('\n'),
+      icon: itemsNeedAlarm[0].iconUrl
+    })
   } else if (workState.value.notifyMode === 'audio') {
-    if (itemsNeedAlarm.length > 0) {
-      playAudio('./audio/FFXIV_Incoming_Tell_2.mp3')
-    }
+    playAudio('./audio/FFXIV_Incoming_Tell_2.mp3')
   }
 }
 
