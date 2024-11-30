@@ -70,32 +70,6 @@ const lvBaseItems = computed(() => {
 })
 
 /**
- * 表示需要用亚拉戈神典石或工票兑换的道具。
- */
-const tomeScriptItems = computed(() => {
-  const items = []
-  for (const id in props.statistics.lvBase) {
-    try {
-      const _id = parseInt(id)
-
-      // * 过滤掉一些兑换品，以避免出现重复统计
-      if (props.aethersandGatherings?.length && props.aethersandGatherings.includes(_id)) continue
-      if (props.normalCraftings?.length && props.normalCraftings.includes(_id)) continue
-      if (props.limitedGatherings?.length && props.limitedGatherings.includes(_id)) continue
-      if (props.normalGatherings?.length && props.normalGatherings.includes(_id)) continue
-      
-      if (tradeMap[_id]) {
-        const item = props.statistics.lvBase[id]
-        items.push(getItemInfo(item))
-      }
-    } catch (error) {
-      console.warn('[compute.gatheringsTimed] Error processing item ' + id + ':', error)
-    }
-  }
-  return items
-})
-
-/**
  * 表示要展示的普通半成品。
  */
 const commonPrecrafts = computed(() => {
@@ -118,19 +92,43 @@ const commonPrecrafts = computed(() => {
 })
 
 /**
- * 表示独立统计出的灵砂。
- * 展示时应注意说明此灵砂已计入其他半成品所需的数量。
+ * 表示需要用亚拉戈神典石或工票兑换的道具。
  */
-const aethersands = computed(() => {
-  if (!props.aethersandGatherings?.length) {
-    return [] as ItemInfo[]
+const tomeScriptItems = computed(() => {
+  const items = []
+  for (const id in props.statistics.lvBase) {
+    try {
+      const _id = parseInt(id)
+
+      // * 过滤掉一些兑换品，以避免出现重复统计
+    if (props.aethersandGatherings?.includes(_id)) continue
+    if (props.normalCraftings?.includes(_id)) continue
+    if (props.limitedGatherings?.includes(_id)) continue
+    if (props.normalGatherings?.includes(_id)) continue
+      
+      if (tradeMap[_id]) {
+        const item = props.statistics.lvBase[id]
+        items.push(getItemInfo(item))
+      }
+    } catch (error) {
+      console.warn('[compute.gatheringsTimed] Error processing item ' + id + ':', error)
+    }
   }
-  const aethersands : ItemInfo[] = []
-  props.aethersandGatherings.forEach(ag => {
-    const item = props.statistics.lvBase[ag.toString()] ?? ag
-    aethersands.push(getItemInfo(item))
-  })
-  return aethersands
+  return items
+})
+
+/**
+ * 表示碎晶/水晶/晶簇统计。
+ */
+const crystals = computed(() => {
+  const _crystals = []
+  for (const id in props.statistics.lvBase) {
+    const item = props.statistics.lvBase[id]
+    if (item?.uc === 59) { // * 参见src\assets\data\xiv-item-types.json
+      _crystals.push(getItemInfo(item))
+    }
+  }
+  return _crystals
 })
 
 /**
@@ -147,8 +145,19 @@ const getGatheringBase = () => {
 
 /**
  * 表示限时采集品统计。
+ * 包括灵砂。统计灵砂时，不遵循“采集统计不显示半成品需要的素材”设置。
  */
 const gatheringsTimed = computed(() => {
+  const aethersands : ItemInfo[] = []
+  console.log('props.aethersandGatherings:', props.aethersandGatherings)
+  props.aethersandGatherings?.forEach(ag => {
+    const item = props.statistics.lvBase[ag.toString()] ?? ag
+    const aethersand = getItemInfo(item)
+    if (aethersand.amount) {
+      aethersands.push(aethersand)
+    }
+  })
+
   const gathers : ItemInfo[] = []
   const gatheringBase = getGatheringBase()
   gatheringBase.forEach(item => {
@@ -156,7 +165,9 @@ const gatheringsTimed = computed(() => {
       gathers.push(item)
     }
   })
-  return gathers
+
+  console.log('aether":', aethersands, 'gathers', gathers)
+  return [...aethersands, ...gathers]
 })
 
 /**
@@ -174,17 +185,23 @@ const gatheringsCommon = computed(() => {
 })
 
 /**
- * 表示碎晶/水晶/晶簇统计。
+ * 表示其他道具统计。
  */
-const crystals = computed(() => {
-  const _crystals = []
-  for (const id in props.statistics.lvBase) {
-    const item = props.statistics.lvBase[id]
-    if (item?.uc === 59) { // * 参见src\assets\data\xiv-item-types.json
-      _crystals.push(getItemInfo(item))
-    }
-  }
-  return _crystals
+const otherMaterials = computed(() => {
+  const items : ItemInfo[] = []
+  const gatheringBase = getGatheringBase()
+  gatheringBase.forEach(item => {
+    const _id = item.id
+    if (props.aethersandGatherings?.includes(_id)) return
+    if (props.normalCraftings?.includes(_id)) return
+    if (props.limitedGatherings?.includes(_id)) return
+    if (props.normalGatherings?.includes(_id)) return
+    if (tradeMap[_id]) return
+    if (item.uiTypeId === 59) return
+    if (item.gatherInfo) return
+    items.push(item)
+  })
+  return items
 })
 
 const showStatementModal = ref(false)
@@ -217,6 +234,16 @@ const statementData = computed(() => {
         </div>
       </div>
       <div class="wrapper">
+        <GroupBox id="common-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
+          <template #title>{{ t('半成品统计') }}</template>
+          <div class="container">
+            <ItemList
+              :items="commonPrecrafts"
+              :list-height="isMobile ? undefined : 245"
+              :show-collector-icon="!userConfig.hide_collector_icons"
+            />
+          </div>
+        </GroupBox>
         <GroupBox
           id="tome-script-group" class="group" title-background-color="var(--n-color-embedded)"
           :title="t('兑换道具统计')"
@@ -231,32 +258,23 @@ const statementData = computed(() => {
             />
           </div>
         </GroupBox>
-        <GroupBox id="common-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
-          <template #title>{{ t('半成品统计') }}</template>
-          <div class="container">
-            <ItemList
-              :items="commonPrecrafts"
-              :list-height="isMobile ? undefined : 245"
-              :show-collector-icon="!userConfig.hide_collector_icons"
-            />
-          </div>
-        </GroupBox>
         <GroupBox
-          id="aethersands-group" class="group" title-background-color="var(--n-color-embedded)"
-          :title="t('灵砂统计')"
+          id="crystals-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('水晶统计')"
           :descriptions="[
             t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
           ]"
         >
           <div class="container">
             <ItemList
-              :items="aethersands"
+              :items="crystals"
+              :list-height="isMobile ? undefined : 245"
             />
           </div>
         </GroupBox>
         <GroupBox
           id="common-gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
-          :title="t('常规采集品')"
+          :title="t('常规采集品统计')"
           :descriptions="[
             hidePrecraftGatherings
               ? t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
@@ -273,12 +291,15 @@ const statementData = computed(() => {
         </GroupBox>
         <GroupBox
           id="timed-gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
-          :title="t('限时采集品')"
-          :descriptions="[
-            hidePrecraftGatherings
-              ? t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
-              : t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
-          ]"
+          :title="t('限时采集品&灵砂统计')"
+          :descriptions="
+            hidePrecraftGatherings ? [
+              t('限时采集品的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。'),
+              t('灵砂的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+            ] : [
+              t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+            ]
+          "
         >
           <div class="container">
             <ItemList
@@ -289,16 +310,20 @@ const statementData = computed(() => {
           </div>
         </GroupBox>
         <GroupBox
-          id="crystals-group" class="group" title-background-color="var(--n-color-embedded)"
-          :title="t('水晶统计')"
+          id="other-materials-group" class="group" title-background-color="var(--n-color-embedded)"
+          :title="t('其他素材统计')"
           :descriptions="[
-            t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+            t('基础素材中未被其他分组归类的道具。'),
+            hidePrecraftGatherings
+              ? t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
+              : t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
           ]"
         >
           <div class="container">
             <ItemList
-              :items="crystals"
+              :items="otherMaterials"
               :list-height="isMobile ? undefined : 245"
+              :show-collector-icon="!userConfig.hide_collector_icons"
             />
           </div>
         </GroupBox>
