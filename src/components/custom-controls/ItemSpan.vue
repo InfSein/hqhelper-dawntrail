@@ -176,7 +176,7 @@ const handleItemIconClick = async () => {
       :size="imgSize"
       :src="itemInfo.iconUrl"
     />
-    <div>
+    <div v-if="!hideName || showAmount">
       {{ hideName ? '' : getItemName() + ' ' }}
       {{ showAmount ? 'x' + amount : '' }}
     </div>
