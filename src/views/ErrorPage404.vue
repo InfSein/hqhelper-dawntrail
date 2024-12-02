@@ -1,19 +1,3 @@
-<template>
-  <div id="main-container" class="flex-center w-full h-full">
-    <n-result status="404" title="404 NOT FOUND">
-      <div>
-        <p v-for="(description, index) in descriptions" :key="index">{{ description }}</p>
-      </div>
-      <template #footer>
-        <div class="footer-container">
-          <n-button @click="$router.go(-1)">{{ t('返回上一页') }}</n-button>
-          <n-button @click="$router.push('/')">{{ t('返回首页') }}</n-button>
-        </div>
-      </template>
-    </n-result>
-  </div>
-</template>
-
 <script setup lang="ts" name="ErrorPage404">
 import { computed, inject } from 'vue'
 import {
@@ -29,6 +13,22 @@ const descriptions = computed(() => {
   ]
 })
 </script>
+
+<template>
+  <div id="main-container" class="flex-center w-full h-full">
+    <n-result status="404" title="404 NOT FOUND">
+      <div>
+        <p v-for="(description, index) in descriptions" :key="index">{{ description }}</p>
+      </div>
+      <template #footer>
+        <div class="footer-container">
+          <n-button @click="$router.go(-1)">{{ t('返回上一页') }}</n-button>
+          <n-button @click="$router.push('/')">{{ t('返回首页') }}</n-button>
+        </div>
+      </template>
+    </n-result>
+  </div>
+</template>
 
 <style scoped>
 .footer-container {

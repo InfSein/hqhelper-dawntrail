@@ -8,7 +8,7 @@ import {
   CodeSharp, ContentCopyRound
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
-import GroupBox from '../custom-controls/GroupBox.vue'
+import GroupBox from '../templates/GroupBox.vue'
 import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
 import { CopyToClipboard } from '@/tools'
 import { useStore } from '@/store'

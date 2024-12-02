@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { getItemInfo } from '@/tools/item'
 import ItemSpan from './ItemSpan.vue'
-import LocationSpan from './LocationSpan.vue'
+import LocationSpan from '../map/LocationSpan.vue'
+import { getItemInfo } from '@/tools/item'
 
 // const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)

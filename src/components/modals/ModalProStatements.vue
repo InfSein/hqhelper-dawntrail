@@ -7,8 +7,8 @@ import {
   TableViewOutlined
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
-import GroupBox from '../custom-controls/GroupBox.vue'
-import ItemStatementTable from '../custom-controls/ItemStatementTable.vue'
+import GroupBox from '../templates/GroupBox.vue'
+import ItemStatementTable from '../custom/item/ItemStatementTable.vue'
 import ModalRecommendedProcesses from './ModalRecommendedProcesses.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'

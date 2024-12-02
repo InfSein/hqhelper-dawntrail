@@ -8,7 +8,7 @@ import {
   AccessibilityNewOutlined,
   AddOutlined, AddCircleOutlineOutlined, AddCircleOutlined, ClearAllOutlined
 } from '@vicons/material'
-import XivFARImage from './XivFARImage.vue'
+import XivFARImage from '../general/XivFARImage.vue'
 import { XivJobs, XivGearSlots, XivRoles, type XivRole } from '@/assets/data'
 import type { GearSelections } from '@/models/gears'
 import { getGearRecomm, useGearAdder } from '@/tools/gears'

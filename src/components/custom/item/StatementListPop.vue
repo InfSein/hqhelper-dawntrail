@@ -7,11 +7,11 @@ import {
 import {
   ViewListSharp, CopyAllOutlined
 } from '@vicons/material'
-import ButtonCopyAsMacro from './ButtonCopyAsMacro.vue'
+import GroupBox from '@/components/templates/GroupBox.vue'
+import ButtonCopyAsMacro from '../macro/ButtonCopyAsMacro.vue'
 import type { ItemInfo, StatementRow } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 import { CopyToClipboard, deepCopy } from '@/tools'
-import GroupBox from './GroupBox.vue'
 
 const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })

@@ -3,9 +3,9 @@ import { inject, ref, type Ref } from 'vue'
 import {
   NButton, NCard, NFlex
 } from 'naive-ui'
-import FoldableCard from '../custom-controls/FoldableCard.vue'
-import GroupBox from '../custom-controls/GroupBox.vue'
-import XivFARImage from '../custom-controls/XivFARImage.vue'
+import FoldableCard from '../templates/FoldableCard.vue'
+import GroupBox from '../templates/GroupBox.vue'
+import XivFARImage from '../custom/general/XivFARImage.vue'
 import XivClasses from '@/assets/data/xiv-classes.json'
 
 const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh');

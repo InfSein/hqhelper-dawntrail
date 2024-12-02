@@ -11,8 +11,8 @@ import {
   SpeedRound, RefreshRound
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
+import FoldableCard from '../templates/FoldableCard.vue'
 import type { ProgressData } from 'env.electron'
-import FoldableCard from '../custom-controls/FoldableCard.vue'
 import AppStatus from '@/variables/app-status'
 import { checkUrlLag } from '@/tools/web-request'
 import type { AppVersionJson } from '@/models'

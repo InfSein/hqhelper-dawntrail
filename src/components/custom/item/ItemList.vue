@@ -7,9 +7,9 @@ import {
   ViewListSharp, SettingsBackupRestoreSharp
 } from '@vicons/material'
 import ItemButton from './ItemButton.vue'
+import ButtonCopyAsMacro from '../macro/ButtonCopyAsMacro.vue'
 import { type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
-import ButtonCopyAsMacro from './ButtonCopyAsMacro.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!

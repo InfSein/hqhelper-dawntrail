@@ -7,9 +7,9 @@ import {
   TableViewOutlined
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
-import GroupBox from '../custom-controls/GroupBox.vue'
-import ItemList from '../custom-controls/ItemList.vue'
-import type { ItemInfo } from '@/tools/item';
+import GroupBox from '../templates/GroupBox.vue'
+import ItemList from '../custom/item/ItemList.vue'
+import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })

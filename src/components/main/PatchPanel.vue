@@ -3,9 +3,9 @@ import { ref, inject, type Ref, computed } from 'vue'
 import {
   NButton, NFlex, NPopover
 } from 'naive-ui'
+import FoldableCard from '../templates/FoldableCard.vue'
 import { type UserConfigModel } from '@/models/user-config'
 import { XivPatches, type XivPatch } from "@/assets/data"
-import FoldableCard from '../custom-controls/FoldableCard.vue'
 import { fixGearSelections, isGearEmpty, type GearSelections } from '@/models/gears'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })

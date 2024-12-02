@@ -7,6 +7,8 @@ import {
   CheckroomSharp, SaveOutlined
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
+import GroupBox from '../templates/GroupBox.vue'
+import XivFARImage from '../custom/general/XivFARImage.vue'
 import type { GearSelections, AttireAffix, AccessoryAffix } from '@/models/gears'
 import { attireAffixes, accessoryAffixes } from '@/models/gears'
 import { type UserConfigModel } from '@/models/user-config'
@@ -14,8 +16,6 @@ import { deepCopy } from '@/tools'
 import { XivRoles, type XivRole } from '@/assets/data'
 import XivJobs from '@/assets/data/xiv-jobs.json'
 import XivGearAffixes from '@/assets/data/xiv-gear-affixes.json'
-import XivFARImage from '../custom-controls/XivFARImage.vue'
-import GroupBox from '../custom-controls/GroupBox.vue'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })

@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { inject, ref, type Ref } from 'vue'
 import {
   NIcon, NTooltip
 } from 'naive-ui'
 import {
   InfoOutlined
 } from '@vicons/material'
-import { inject, ref, type Ref } from 'vue';
 
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 

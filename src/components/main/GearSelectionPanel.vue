@@ -8,9 +8,9 @@ import {
 import { 
   KeyboardArrowDownRound
 } from '@vicons/material'
-import FoldableCard from '../custom-controls/FoldableCard.vue'
-import Stepper from '../custom-controls/Stepper.vue'
-import GearSlot from '../custom-controls/GearSlot.vue'
+import FoldableCard from '../templates/FoldableCard.vue'
+import Stepper from '../custom/general/Stepper.vue'
+import GearSlot from '../custom/gear/GearSlot.vue'
 import ModalSelectedGears from '../modals/ModalSelectedGears.vue'
 import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears'
 import { getDefaultGearSelections } from '@/models/gears'

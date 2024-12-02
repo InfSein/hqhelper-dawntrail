@@ -3,12 +3,12 @@ import { computed, inject, ref, type Ref } from 'vue'
 import {
   NSwitch
 } from 'naive-ui'
-import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
+import GroupBox from '../templates/GroupBox.vue'
+import FoldableCard from '../templates/FoldableCard.vue'
+import ItemList from '../custom/item/ItemList.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import ModalProStatements from '../modals/ModalProStatements.vue'
 import { getItemInfo, getStatementData, type ItemInfo } from '@/tools/item'
-import GroupBox from '../custom-controls/GroupBox.vue'
-import ItemList from '../custom-controls/ItemList.vue'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import type { UserConfigModel } from '@/models/user-config'
 

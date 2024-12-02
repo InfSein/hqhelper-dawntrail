@@ -3,9 +3,9 @@ import { computed, inject, ref, type Ref } from 'vue'
 import {
   NInputNumber, NScrollbar, NTable
 } from 'naive-ui'
-import { getItemInfo, type StatementRow } from '@/tools/item'
 import ItemCell from './ItemCell.vue'
 import StatementListPop from './StatementListPop.vue'
+import { getItemInfo, type StatementRow } from '@/tools/item'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { inject, ref, type PropType, type Ref } from 'vue'
-import type { ItemInfo } from '@/tools/item'
+import Stepper from '../general/Stepper.vue'
 import ItemButton from './ItemButton.vue'
-import Stepper from './Stepper.vue'
+import type { ItemInfo } from '@/tools/item'
 
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 

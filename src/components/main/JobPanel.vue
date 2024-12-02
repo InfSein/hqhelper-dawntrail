@@ -4,14 +4,14 @@ import {
   NAlert, NFlex
 } from 'naive-ui'
 import { type UserConfigModel } from '@/models/user-config'
-import XivRoles from '@/assets/data/xiv-roles.json'
-import XivJobs from '@/assets/data/xiv-jobs.json'
-import FoldableCard from '../custom-controls/FoldableCard.vue'
-import JobButton from '../custom-controls/JobButton.vue'
-import GroupBox from '../custom-controls/GroupBox.vue'
-import XivFARImage from '../custom-controls/XivFARImage.vue'
+import FoldableCard from '../templates/FoldableCard.vue'
+import GroupBox from '../templates/GroupBox.vue'
+import XivFARImage from '../custom/general/XivFARImage.vue'
+import JobButton from '../custom/job/JobButton.vue'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 import type { GearSelections } from '@/models/gears'
+import XivRoles from '@/assets/data/xiv-roles.json'
+import XivJobs from '@/assets/data/xiv-jobs.json'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)

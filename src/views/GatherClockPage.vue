@@ -8,12 +8,13 @@ import {
   NotificationsRound, NotificationsNoneRound,
   StarBorderRound, StarRound,
 } from '@vicons/material'
-import RouterCard from '@/components/subs/RouterCard.vue'
-import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
-import ItemButton from '@/components/custom-controls/ItemButton.vue'
-import XivFARImage from '@/components/custom-controls/XivFARImage.vue'
-import XivMap from '@/components/custom-controls/XivMap.vue'
-import LocationSpan from '@/components/custom-controls/LocationSpan.vue'
+import FoldableCard from '@/components/templates/FoldableCard.vue'
+import XivFARImage from '@/components/custom/general/XivFARImage.vue'
+import RouterCard from '@/components/custom/general/RouterCard.vue'
+import ItemButton from '@/components/custom/item/ItemButton.vue'
+import XivMap from '@/components/custom/map/XivMap.vue'
+import LocationSpan from '@/components/custom/map/LocationSpan.vue'
+import ModalAlarmMacroExport from '@/components/modals/ModalAlarmMacroExport.vue'
 import { XivMaps, XivJobs, type XivJob } from '@/assets/data'
 import { useStore } from '@/store'
 import { useNbbCal } from '@/tools/use-nbb-cal'
@@ -22,7 +23,6 @@ import type { ItemGroup } from '@/models/item'
 import type { UserConfigModel } from '@/models/user-config'
 import EorzeaTime from '@/tools/eorzea-time'
 import { playAudio } from '@/tools'
-import ModalAlarmMacroExport from '@/components/modals/ModalAlarmMacroExport.vue'
 import { fixAlarmMacroOptions } from '@/models/gather-clock'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })

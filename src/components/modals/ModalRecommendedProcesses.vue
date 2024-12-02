@@ -8,9 +8,9 @@ import {
   AllInclusiveSharp, CloseSharp
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
-import XivFARImage from '../custom-controls/XivFARImage.vue'
-import ItemSpan from '../custom-controls/ItemSpan.vue'
-import LocationSpan from '../custom-controls/LocationSpan.vue'
+import XivFARImage from '../custom/general/XivFARImage.vue'
+import ItemSpan from '../custom/item/ItemSpan.vue'
+import LocationSpan from '../custom/map/LocationSpan.vue'
 import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
 import { type ItemInfo } from '@/tools/item'
 import { XivJobs, type XivJob } from '@/assets/data'

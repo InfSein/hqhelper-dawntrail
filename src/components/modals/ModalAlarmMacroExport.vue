@@ -9,14 +9,14 @@ import {
   HelpOutlineRound
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
-import GroupBox from '../custom-controls/GroupBox.vue'
+import GroupBox from '../templates/GroupBox.vue'
+import ItemSpan from '../custom/item/ItemSpan.vue'
+import MacroViewer from '../custom/macro/MacroViewer.vue'
 import { XivJobs, type XivJob } from '@/assets/data'
 import { type UserConfigModel } from '@/models/user-config'
 import type { ItemGroup } from '@/models/item'
-import ItemSpan from '../custom-controls/ItemSpan.vue'
 import type { AlarmMacroOptions } from '@/models/gather-clock'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
-import MacroViewer from '../custom-controls/MacroViewer.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)

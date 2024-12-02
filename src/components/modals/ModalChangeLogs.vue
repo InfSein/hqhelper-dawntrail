@@ -8,7 +8,7 @@ import {
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 import { getChangelogs, type PatchChangeGroup } from '@/data/change-logs'
-import type { UserConfigModel } from '@/models/user-config';
+import type { UserConfigModel } from '@/models/user-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)

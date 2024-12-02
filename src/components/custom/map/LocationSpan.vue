@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, type Ref } from 'vue'
-import { XivMaps } from '@/assets/data'
 import MapButton from './MapButton.vue'
+import { XivMaps } from '@/assets/data'
 import type { UserConfigModel } from '@/models/user-config'
 
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!

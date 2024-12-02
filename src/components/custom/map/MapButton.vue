@@ -6,7 +6,7 @@ import {
 import {
   OpenInNewFilled
 } from '@vicons/material'
-import XivFARImage from './XivFARImage.vue'
+import XivFARImage from '../general/XivFARImage.vue'
 import XivMap from './XivMap.vue'
 import type { XivMapInfo } from '@/assets/data'
 import type { UserConfigModel } from '@/models/user-config'

@@ -4,7 +4,6 @@ import type { IHqVer } from "./nbb-cal-v5"
 import { XivGearRecomm, XivGearSets, type XivGearSet } from "@/assets/data"
 
 export const getGearRecomm = (patch: string, jobId: number) => {
-  console.log(`patch: ${patch}, job: ${jobId}`)
   const result : XivGearSet[] = []
   if (XivGearRecomm[patch]?.[jobId]?.length) {
     XivGearRecomm[patch][jobId].forEach(setId => {

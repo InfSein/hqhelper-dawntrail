@@ -7,11 +7,11 @@ import {
 import {
   InfoOutlined
 } from '@vicons/material'
-import XivFARImage from './XivFARImage.vue'
 import ItemPop from './ItemPop.vue'
-import { getItemContexts, type ItemInfo } from '@/tools/item'
-import type { UserConfigModel } from '@/models/user-config';
+import XivFARImage from '../general/XivFARImage.vue'
+import type { UserConfigModel } from '@/models/user-config'
 import { CopyToClipboard } from '@/tools'
+import { getItemContexts, type ItemInfo } from '@/tools/item'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!

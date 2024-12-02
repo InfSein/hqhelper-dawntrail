@@ -7,9 +7,9 @@ import {
   AttachMoneyOutlined
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
+import GroupBox from '../templates/GroupBox.vue'
+import ItemPriceTable from '../custom/item/ItemPriceTable.vue'
 import type { ItemInfo } from '@/tools/item'
-import ItemPriceTable from '../custom-controls/ItemPriceTable.vue'
-import GroupBox from '../custom-controls/GroupBox.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
