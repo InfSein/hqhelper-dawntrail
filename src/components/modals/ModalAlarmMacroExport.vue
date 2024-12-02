@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, h, inject, ref, watch, type Ref } from 'vue'
+import { computed, h, inject, ref, type Ref } from 'vue'
 import {
   NCheckbox, NIcon, NPopover, NTree,
   type TreeOption
@@ -41,12 +41,6 @@ interface ModalAlarmMacroExportProps {
 const props = defineProps<ModalAlarmMacroExportProps>()
 
 const wrapper = ref<HTMLElement>()
-
-watch(showModal, (newVal, oldVal) => {
-  if (newVal && !oldVal) {
-    //
-  }
-})
 
 const itemTreeCheckedKeys = ref<number[]>([])
 const handleItemTreeSelectedKeysUpdate = (keys: Array<string | number>) => {

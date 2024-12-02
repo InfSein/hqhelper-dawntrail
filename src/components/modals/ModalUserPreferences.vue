@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref, watch, type Ref } from 'vue'
+import { inject, ref, type Ref } from 'vue'
 import {
   NButton, NCascader, NCollapse, NCollapseItem, NIcon, NInput, NPopover, NRadioButton, NRadioGroup, NSelect, NSwitch, NTabs, NTabPane,
   type CascaderOption
@@ -800,11 +800,9 @@ const getGroupName = (key: string) => {
 const currentTab = ref('general')
 const formData = ref<UserConfigModel>(deepCopy(fixUserConfig(store.state.userConfig)))
 
-watch(showModal, (newVal, oldVal) => {
-  if (newVal && !oldVal) {
-    formData.value = deepCopy(fixUserConfig(store.state.userConfig))
-  }
-})
+const onLoad = () => {
+  formData.value = deepCopy(fixUserConfig(store.state.userConfig))
+}
 
 const handleSave = () => {
   formData.value.theme ??= 'system'
@@ -838,6 +836,7 @@ const handleSave = () => {
     v-model:show="showModal"
     max-width="700px"
     :height="isMobile ? '550px' : '450px'"
+    @on-load="onLoad"
   >
     <template #header>
       <div class="card-title">

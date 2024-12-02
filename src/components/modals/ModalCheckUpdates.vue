@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, reactive, ref, watch } from 'vue'
+import { computed, inject, onMounted, reactive, ref } from 'vue'
 import {
   NAlert, NButton, NCard, NIcon, NRadio
 } from 'naive-ui'
@@ -31,14 +31,12 @@ onMounted(() => {
     })
   }
 })
-watch(showModal, async (newVal, oldVal) => {
-  if (newVal && !oldVal) {
-    if (window.electronAPI?.clientVersion) {
-      currentElectronVersion.value = await window.electronAPI?.clientVersion
-    }
-    handleCheckUpdates()
+const onLoad = async () => {
+  if (window.electronAPI?.clientVersion) {
+    currentElectronVersion.value = await window.electronAPI?.clientVersion
   }
-})
+  handleCheckUpdates()
+}
 
 const checkingUpdates = ref(false)
 const updating = ref(false)
@@ -251,6 +249,7 @@ const handleDownloadElectronPack = () => {
     :icon="UpdateSharp"
     :title="t('检查更新')"
     height="auto"
+    @on-load="onLoad"
   >
     <div class="wrapper">
       <FoldableCard class="card proxy" card-key="modal-cu-proxy" card-size="small">

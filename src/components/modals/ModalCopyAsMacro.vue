@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import {
   NButton, NCheckbox, NIcon, NSelect,
   useMessage
@@ -41,11 +41,9 @@ const prefixOptions = [
   { value: '/b ', label: t('新频宏(/b)') },
 ]
 
-watch(showModal, (newVal, oldVal) => {
-  if (newVal && !oldVal) {
-    macroPrefix.value = userConfig.value.macro_copy_prefix
-  }
-})
+const onLoad = () => {
+  macroPrefix.value = userConfig.value.macro_copy_prefix
+}
 
 const macro = computed(() => {
   return macroPrefix.value + props.macroContent
@@ -97,6 +95,7 @@ const handleClose = () => {
     :icon="CodeSharp"
     :title="t('复制宏')"
     max-width="350px"
+    @on-load="onLoad"
   >
     <div class="wrapper" ref="wrapper">
       <GroupBox id="marco-preview" title-background-color="var(--n-color-modal)" :content-style="macroContentStyle">

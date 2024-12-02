@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import {
   NAvatar, NButton, NCard, NDivider, NFlex, NPopover
 } from 'naive-ui'
@@ -14,13 +14,11 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 const showModal = defineModel<boolean>('show', { required: true })
 
-watch(showModal, async (newVal, oldVal) => {
-  if (newVal && !oldVal) {
-    if (window.electronAPI?.clientVersion) {
-      currentElectronVersion.value = await window.electronAPI?.clientVersion
-    }
+const onLoad = async () => {
+  if (window.electronAPI?.clientVersion) {
+    currentElectronVersion.value = await window.electronAPI?.clientVersion
   }
-})
+}
 
 const currentElectronVersion = ref('')
 
@@ -35,6 +33,7 @@ const cnVersionText = computed(() => {
     :icon="InfoSharp"
     :title="t('关于本作')"
     :height="isMobile ? '650px' : '600px'"
+    @on-load="onLoad"
   >
     <n-card embedded class="wrapper" :style="{ height: isMobile ? '550px' : '500px' }">
       <div class="title flex">

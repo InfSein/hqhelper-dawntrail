@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import {
   NIcon, NTabs, NTabPane, NTag
 } from 'naive-ui'
@@ -34,14 +34,12 @@ const props = defineProps({
     required: true
   }
 })
-watch(showModal, async (newVal, oldVal) => {
-  if (newVal && !oldVal) {
-    itemsPrepared.value.craftTarget = fixMap(itemsPrepared.value.craftTarget, targetItems.value)
-    itemsPrepared.value.materialsLv1 = fixMap(itemsPrepared.value.materialsLv1, lv1Items.value)
-    itemsPrepared.value.materialsLvBase = fixMap(itemsPrepared.value.materialsLvBase, baseItems.value)
-    showItemDetails.value = userConfig.value.statement_show_item_details
-  }
-})
+const onLoad = async () => {
+  itemsPrepared.value.craftTarget = fixMap(itemsPrepared.value.craftTarget, targetItems.value)
+  itemsPrepared.value.materialsLv1 = fixMap(itemsPrepared.value.materialsLv1, lv1Items.value)
+  itemsPrepared.value.materialsLvBase = fixMap(itemsPrepared.value.materialsLvBase, baseItems.value)
+  showItemDetails.value = userConfig.value.statement_show_item_details
+}
 
 /** 记录已经准备了的物品 */
 const itemsPrepared = ref({
@@ -232,6 +230,7 @@ const handleShowRecommendedProcesses = () => {
     v-model:show="showModal"
     max-width="1500px"
     :height="isMobile ? '650px' : '600px'"
+    @on-load="onLoad"
   >
     <template #header>
       <div class="card-title">

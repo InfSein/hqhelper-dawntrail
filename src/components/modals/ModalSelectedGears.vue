@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch, type PropType, type Ref } from 'vue'
+import { inject, ref, type PropType, type Ref } from 'vue'
 import {
-  NButton, NCard, NIcon, NInputNumber, NModal, NScrollbar, NTable, NTabs, NTabPane
+  NButton, NCard, NIcon, NInputNumber, NScrollbar, NTable, NTabs, NTabPane
 } from 'naive-ui'
 import { 
   CheckroomSharp, SaveOutlined
@@ -52,20 +52,10 @@ const gearSelections = defineModel<GearSelections>('gearSelections', { required:
 
 const pageHeight = ref(window.innerHeight)
 const localSelections = ref<GearSelections>(gearSelections.value)
-watch(showModal, (newVal, oldVal) => {
-  if (newVal && !oldVal) {
-    localSelections.value = deepCopy(gearSelections.value)
-    pageHeight.value = window.innerHeight
-  }
-})
-
-const cardStyle = computed(() => {
-  return [
-    'width: 98%;',
-    'max-width: 1500px;',
-    'max-height: ' + (pageHeight.value - 80) + 'px;',
-  ].join(' ')
-})
+const onLoad = () => {
+  localSelections.value = deepCopy(gearSelections.value)
+  pageHeight.value = window.innerHeight
+}
 
 const getRoleName = (role: any) => {
   switch (uiLanguage) {
@@ -136,6 +126,7 @@ const handleSave = () => {
     max-width="1500px"
     :height="(pageHeight - 80) + 'px'"
     content-style="overflow-y: auto;"
+    @on-load="onLoad"
   >
     <div class="wrapper" v-if="!isMobile">
       <div class="weapons">
