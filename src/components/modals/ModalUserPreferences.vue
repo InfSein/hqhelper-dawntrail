@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NCascader, NCollapse, NCollapseItem, NIcon, NInput, NModal, NPopover, NRadioButton, NRadioGroup, NSelect, NSwitch, NTabs, NTabPane,
+  NButton, NCascader, NCollapse, NCollapseItem, NIcon, NInput, NPopover, NRadioButton, NRadioGroup, NSelect, NSwitch, NTabs, NTabPane,
   type CascaderOption
 } from 'naive-ui'
-import { useStore } from '@/store/index'
-import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 import {
   HelpOutlineRound,
   SettingsSharp,
@@ -18,6 +16,9 @@ import {
   // WifiRound,
   SaveOutlined
 } from '@vicons/material'
+import MyModal from '../templates/MyModal.vue'
+import { useStore } from '@/store/index'
+import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 import { deepCopy } from '@/tools'
 
 const store = useStore()
@@ -796,10 +797,6 @@ const getGroupName = (key: string) => {
 }
 // #endregion
 
-const handleClose = () => {
-  showModal.value = false
-}
-
 const currentTab = ref('general')
 const formData = ref<UserConfigModel>(deepCopy(fixUserConfig(store.state.userConfig)))
 
@@ -837,124 +834,69 @@ const handleSave = () => {
 </script>
 
 <template>
-  <n-modal v-model:show="showModal">
-    <n-card
-      closable
-      role="dialog"
-      class="no-select"
-      style="width: 98%; max-width: 700px;"
-      :style="{ height: isMobile ? '550px' : '450px' }"
-      @close="handleClose"
+  <MyModal
+    v-model:show="showModal"
+    max-width="700px"
+    :height="isMobile ? '550px' : '450px'"
+  >
+    <template #header>
+      <div class="card-title">
+        <n-icon><SettingsSharp /></n-icon>
+        <span class="title">{{ t('偏好设置') }}</span>
+        <span class="description">[{{ getGroupName(currentTab) }}]</span>
+      </div>
+    </template>
+    <n-tabs
+      animated
+      type="line"
+      :placement="isMobile ? 'top' : 'left'"
+      default-value="general"
+      style="height: 100%;"
+      v-model:value="currentTab"
     >
-      <template #header>
-        <div class="card-title">
-          <n-icon><SettingsSharp /></n-icon>
-          <span class="title">{{ t('偏好设置') }}</span>
-          <span class="description">[{{ getGroupName(currentTab) }}]</span>
-        </div>
-      </template>
-      <n-tabs
-        animated
-        type="line"
-        :placement="isMobile ? 'top' : 'left'"
-        default-value="general"
-        style="height: 100%;"
-        v-model:value="currentTab"
+      <n-tab-pane
+        v-for="(group, index) in UserPreferenceGroups"
+        :key="index"
+        :name="group.key"
       >
-        <n-tab-pane
-          v-for="(group, index) in UserPreferenceGroups"
-          :key="index"
-          :name="group.key"
-        >
-          <template #tab>
-            <div class="tab-title">
-              <n-icon :size="isMobile ? 20 : 14"><component :is="group.icon" /></n-icon>
-              <span v-if="!isMobile">{{ group.text }}</span>
-            </div>
-          </template>
-          <div class="items-container" :style="{ maxHeight: isMobile ? '320px' : '275px' }">
-            <div class="items" v-for="item in group.children" :key="item.key" v-show="!item.hide">
-              <n-collapse arrow-placement="right">
-                <n-collapse-item>
-                  <template #header>
-                    <div class="item-title">{{ item.label }}</div>
-                  </template>
-                  <template #arrow>
-                    <n-icon v-if="item.descriptions.length" :title="t('点击以展开或折叠此设置项的描述')"><HelpOutlineRound /></n-icon>
-                    <n-icon v-else></n-icon>
-                  </template>
+        <template #tab>
+          <div class="tab-title">
+            <n-icon :size="isMobile ? 20 : 14"><component :is="group.icon" /></n-icon>
+            <span v-if="!isMobile">{{ group.text }}</span>
+          </div>
+        </template>
+        <div class="items-container" :style="{ maxHeight: isMobile ? '320px' : '275px' }">
+          <div class="items" v-for="item in group.children" :key="item.key" v-show="!item.hide">
+            <n-collapse arrow-placement="right">
+              <n-collapse-item>
+                <template #header>
+                  <div class="item-title">{{ item.label }}</div>
+                </template>
+                <template #arrow>
+                  <n-icon v-if="item.descriptions.length" :title="t('点击以展开或折叠此设置项的描述')"><HelpOutlineRound /></n-icon>
+                  <n-icon v-else></n-icon>
+                </template>
 
-                  <div class="item-descriptions">
-                    <p
-                      v-for="(description, index) in item.descriptions"
-                      :key="item.key + '-description-' + index"
-                      :class="description.class"
-                      :style="description.style"
-                    >
-                      {{ description.value }}
-                    </p>
-                  </div>
-                </n-collapse-item>
-              </n-collapse>
-              <div class="item-input">
-                <n-popover
-                  v-if="item.warnings.length"
-                  :trigger="isMobile ? 'click' : 'hover'"
-                  placement="bottom"
-                  :style="item.type === 'switch' ? 'max-width: 300px;' : ''"
-                >
-                  <template #trigger>
-                    <n-switch
-                      v-if="item.type ==='switch'"
-                      v-model:value="(formData as any)[item.key]"
-                    />
-                    <n-radio-group
-                      v-if="item.type === 'radio-group'"
-                      v-model:value="(formData as any)[item.key]"
-                      :name="item.key"
-                    >
-                      <n-radio-button
-                        v-for="(option, index) in item.options"
-                        :key="item.key + '-option-' + index"
-                        :value="option.value"
-                        :label="option.label"
-                      />
-                    </n-radio-group>
-                    <n-select
-                      v-if="item.type === 'select'"
-                      v-model:value="(formData as any)[item.key]"
-                      :options="item.options"
-                      :style="{ width: isMobile ? '75%' : '60%' }"
-                    />
-                    <n-cascader
-                      v-if="item.type === 'cascader'"
-                      v-model:value="(formData as any)[item.key]"
-                      :expand-trigger="!isMobile ? 'hover' : 'click'"
-                      :options="item.options"
-                      check-strategy="child"
-                      show-path
-                      filterable
-                      :style="{ width: isMobile ? '85%' : '70%' }"
-                    />
-                    <n-input
-                      v-if="item.type === 'string'"
-                      v-model:value="(formData as any)[item.key]"
-                      type="text"
-                      :style="{ width: isMobile ? '85%' : '70%' }"
-                    />
-                  </template>
-                  <div class="flex-column flex-center">
-                    <p
-                      v-for="(warning, index) in item.warnings"
-                      :key="item.key + '-warning-' + index"
-                      :class="warning.class"
-                      :style="warning.style"
-                    >
-                      {{ warning.value }}
-                    </p>
-                  </div>
-                </n-popover>
-                <div v-else>
+                <div class="item-descriptions">
+                  <p
+                    v-for="(description, index) in item.descriptions"
+                    :key="item.key + '-description-' + index"
+                    :class="description.class"
+                    :style="description.style"
+                  >
+                    {{ description.value }}
+                  </p>
+                </div>
+              </n-collapse-item>
+            </n-collapse>
+            <div class="item-input">
+              <n-popover
+                v-if="item.warnings.length"
+                :trigger="isMobile ? 'click' : 'hover'"
+                placement="bottom"
+                :style="item.type === 'switch' ? 'max-width: 300px;' : ''"
+              >
+                <template #trigger>
                   <n-switch
                     v-if="item.type ==='switch'"
                     v-model:value="(formData as any)[item.key]"
@@ -993,24 +935,74 @@ const handleSave = () => {
                     type="text"
                     :style="{ width: isMobile ? '85%' : '70%' }"
                   />
+                </template>
+                <div class="flex-column flex-center">
+                  <p
+                    v-for="(warning, index) in item.warnings"
+                    :key="item.key + '-warning-' + index"
+                    :class="warning.class"
+                    :style="warning.style"
+                  >
+                    {{ warning.value }}
+                  </p>
                 </div>
+              </n-popover>
+              <div v-else>
+                <n-switch
+                  v-if="item.type ==='switch'"
+                  v-model:value="(formData as any)[item.key]"
+                />
+                <n-radio-group
+                  v-if="item.type === 'radio-group'"
+                  v-model:value="(formData as any)[item.key]"
+                  :name="item.key"
+                >
+                  <n-radio-button
+                    v-for="(option, index) in item.options"
+                    :key="item.key + '-option-' + index"
+                    :value="option.value"
+                    :label="option.label"
+                  />
+                </n-radio-group>
+                <n-select
+                  v-if="item.type === 'select'"
+                  v-model:value="(formData as any)[item.key]"
+                  :options="item.options"
+                  :style="{ width: isMobile ? '75%' : '60%' }"
+                />
+                <n-cascader
+                  v-if="item.type === 'cascader'"
+                  v-model:value="(formData as any)[item.key]"
+                  :expand-trigger="!isMobile ? 'hover' : 'click'"
+                  :options="item.options"
+                  check-strategy="child"
+                  show-path
+                  filterable
+                  :style="{ width: isMobile ? '85%' : '70%' }"
+                />
+                <n-input
+                  v-if="item.type === 'string'"
+                  v-model:value="(formData as any)[item.key]"
+                  type="text"
+                  :style="{ width: isMobile ? '85%' : '70%' }"
+                />
               </div>
             </div>
           </div>
-        </n-tab-pane>
-      </n-tabs>
-      <template #action>
-        <div class="submit-container">
-          <n-button type="primary" size="large" @click="handleSave">
-            <template #icon>
-              <n-icon><SaveOutlined /></n-icon>
-            </template>
-            {{ t('保存') }}
-          </n-button>
         </div>
-      </template>
-    </n-card>
-  </n-modal>
+      </n-tab-pane>
+    </n-tabs>
+    <template #action>
+      <div class="submit-container">
+        <n-button type="primary" size="large" @click="handleSave">
+          <template #icon>
+            <n-icon><SaveOutlined /></n-icon>
+          </template>
+          {{ t('保存') }}
+        </n-button>
+      </div>
+    </template>
+  </MyModal>
 </template>
 
 <style scoped>

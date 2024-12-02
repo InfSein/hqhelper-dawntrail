@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
-  NCard, NIcon, NModal, NTabs, NTabPane, NTag
+  NIcon, NTabs, NTabPane, NTag
 } from 'naive-ui'
 import { 
   TableViewOutlined
 } from '@vicons/material'
+import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemStatementTable from '../custom-controls/ItemStatementTable.vue'
 import ModalRecommendedProcesses from './ModalRecommendedProcesses.vue'
@@ -210,10 +211,6 @@ const recommProcessData = computed(() => {
   }
 })
 
-const handleClose = () => {
-  showModal.value = false
-}
-
 const handleResetPreparedItems = () => {
   itemsPrepared.value.craftTarget = fixMap({}, targetItems.value)
   itemsPrepared.value.materialsLv1 = fixMap({}, lv1Items.value)
@@ -231,75 +228,70 @@ const handleShowRecommendedProcesses = () => {
 </script>
 
 <template>
-  <n-modal v-model:show="showModal">
-    <n-card
-      closable
-      role="dialog"
-      id="modal-pro-statements"
-      style="width: 98%; max-width: 1500px;"
-      :style="{ height: isMobile ? '650px' : '600px' }"
-      @close="handleClose"
-    >
-      <template #header>
-        <div class="card-title">
-          <n-icon><TableViewOutlined /></n-icon>
-          <span class="title">
-            {{ t('制作报表') }}
-          </span>
-          <span class="card-title-extra">
-            <n-tag type="info" size="small" round>PRO</n-tag>
-          </span>
-          <div class="card-title-actions">
-            <a href="javascript:void(0);" @click="handleResetPreparedItems">[{{ t('重置已有') }}]</a>
-            <a href="javascript:void(0);" @click="handleSwitchShowItemDetails">[{{ showItemDetails ? t('简洁模式') : t('详细模式') }}]</a>
-            <a href="javascript:void(0);" @click="handleShowRecommendedProcesses">[{{ t('推荐流程') }}]</a>
-          </div>
+  <MyModal
+    v-model:show="showModal"
+    max-width="1500px"
+    :height="isMobile ? '650px' : '600px'"
+  >
+    <template #header>
+      <div class="card-title">
+        <n-icon><TableViewOutlined /></n-icon>
+        <span class="title">
+          {{ t('制作报表') }}
+        </span>
+        <span class="card-title-extra">
+          <n-tag type="info" size="small" round>PRO</n-tag>
+        </span>
+        <div class="card-title-actions">
+          <a href="javascript:void(0);" @click="handleResetPreparedItems">[{{ t('重置已有') }}]</a>
+          <a href="javascript:void(0);" @click="handleSwitchShowItemDetails">[{{ showItemDetails ? t('简洁模式') : t('详细模式') }}]</a>
+          <a href="javascript:void(0);" @click="handleShowRecommendedProcesses">[{{ t('推荐流程') }}]</a>
         </div>
-      </template>
-
-      <n-tabs v-if="isMobile" type="line" animated>
-        <n-tab-pane
-          v-for="block in statementBlocks"
-          :key="block.id"
-          :name="block.id"
-          :tab="block.name"
-        >
-          <div class="container">
-            <ItemStatementTable
-              v-model:items-prepared="itemsPrepared[block.preparedKey]"
-              :items-total="block.items"
-              :show-item-details="showItemDetails"
-              container-id="modal-pro-statements"
-            />
-          </div>
-        </n-tab-pane>
-      </n-tabs>
-      <div v-else class="wrapper desktop">
-        <GroupBox
-          v-for="block in statementBlocks"
-          :key="block.id"
-          :id="block.id"
-          class="group"
-          title-background-color="var(--n-color-modal)"
-        >
-          <template #title>{{ block.name }}</template>
-          <div class="container">
-            <ItemStatementTable
-              v-model:items-prepared="itemsPrepared[block.preparedKey]"
-              :items-total="block.items"
-              :show-item-details="showItemDetails"
-              container-id="modal-pro-statements"
-            />
-          </div>
-        </GroupBox>
       </div>
+    </template>
 
-      <ModalRecommendedProcesses
-        v-model:show="showRecommendedProcessesModal"
-        v-bind="recommProcessData"
-      />
-    </n-card>
-  </n-modal>
+    <n-tabs v-if="isMobile" type="line" animated>
+      <n-tab-pane
+        v-for="block in statementBlocks"
+        :key="block.id"
+        :name="block.id"
+        :tab="block.name"
+      >
+        <div class="container">
+          <ItemStatementTable
+            v-model:items-prepared="itemsPrepared[block.preparedKey]"
+            :items-total="block.items"
+            :show-item-details="showItemDetails"
+            container-id="modal-pro-statements"
+          />
+        </div>
+      </n-tab-pane>
+    </n-tabs>
+    <div v-else class="wrapper desktop">
+      <GroupBox
+        v-for="block in statementBlocks"
+        :key="block.id"
+        :id="block.id"
+        class="group"
+        title-background-color="var(--n-color-modal)"
+      >
+        <template #title>{{ block.name }}</template>
+        <div class="container">
+          <ItemStatementTable
+            v-model:items-prepared="itemsPrepared[block.preparedKey]"
+            :items-total="block.items"
+            :show-item-details="showItemDetails"
+            container-id="modal-pro-statements"
+          />
+        </div>
+      </GroupBox>
+    </div>
+
+    <ModalRecommendedProcesses
+      v-model:show="showRecommendedProcessesModal"
+      v-bind="recommProcessData"
+    />
+  </MyModal>
 </template>
 
 <style scoped>

@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NCheckbox, NCollapse, NCollapseItem, NIcon, NModal,
+  NButton, NCheckbox, NCollapse, NCollapseItem, NIcon,
   useMessage
 } from 'naive-ui'
 import { 
   AllInclusiveSharp, CloseSharp
 } from '@vicons/material'
+import MyModal from '../templates/MyModal.vue'
 import XivFARImage from '../custom-controls/XivFARImage.vue'
 import ItemSpan from '../custom-controls/ItemSpan.vue'
 import LocationSpan from '../custom-controls/LocationSpan.vue'
@@ -360,123 +361,116 @@ const isItemGatherableNow = (item: ItemInfo) => {
 </script>
 
 <template>
-  <n-modal v-model:show="showModal">
-    <n-card
-      closable
-      role="dialog"
-      id="modal-recomm-process"
-      style="width: 98%; max-width: 350px;"
-      @close="handleClose"
-    >
-      <template #header>
-        <div class="card-title no-select">
-          <n-icon><AllInclusiveSharp /></n-icon>
-          <span class="title">{{ t('推荐流程') }}</span>
-          <div class="card-title-actions">
-            <a href="javascript:void(0);" @click="handleCollapseOrUncollapseAllBlocks">[{{ isBlocksAllCollapsed() ? t('全部展开') : t('全部折叠') }}]</a>
-            <a href="javascript:void(0);" @click="handleSwitchShowItemGatherDetails">[{{ showItemGatherDetails ? t('隐藏采集详情') : t('显示采集详情') }}]</a>
-            <a href="javascript:void(0);" @click="handleCopyProcesses">[{{ t('复制流程') }}]</a>
-          </div>
-        </div>
-      </template>
-
-      <div class="wrapper">
-        <div
-          class="block"
-          v-for="(group, groupIndex) in itemGroups"
-          :key="'group-' + groupIndex"
-        >
-          <n-collapse arrow-placement="right" v-model:expanded-names="expandedBlocks[groupIndex]">
-            <n-collapse-item name="1">
-              <template #header>
-                <div class="title">
-                  <span class="icon">
-                    <XivFARImage
-                      :size="14"
-                      :src="group.icon"
-                      class="no-select"
-                    />
-                  </span>
-                  <span>
-                    {{ groupIndex + 1 }}. {{ group.title }}
-                  </span>
-                </div>
-              </template>
-
-              <div class="description" v-if="group.description">{{ group.description }}</div>
-              <div class="items">
-                <div
-                  v-for="item in group.items"
-                  :key="'item-' + item.id"
-                  style=""
-                >
-                  <div class="item-container">
-                    <n-checkbox
-                      size="small"
-                      v-model:checked="completedItems[groupIndex][item.id]"
-                      @update:checked="handleItemCompletionChange(groupIndex)"
-                    />
-                    <ItemSpan
-                      :item-info="item"
-                      :amount="item.amount"
-                      show-amount
-                      container-id="modal-recomm-process"
-                    />
-                  </div>
-                  <div
-                    class="gather-detail-time"
-                    v-if="showItemGatherDetails && item.gatherInfo?.timeLimitDescription && !completedItems[groupIndex][item.id]"
-                  >
-                    <span style="margin-right: 1px;">(</span>
-                    <span>{{ t('限时: {}', item.gatherInfo.timeLimitDescription) }}</span>
-                    <span v-if="isItemGatherableNow(item)" class="green" style="margin-left: 3px;">{{ t('现可采集') }}</span>
-                    <span style="margin-left: 1px;">)</span>
-                  </div>
-                  <div
-                    class="gather-detail-position"
-                    v-if="showItemGatherDetails && item.gatherInfo?.placeID && !completedItems[groupIndex][item.id]"
-                  >
-                    <span style="margin-right: 1px;">(</span>
-                    <span v-if="showItemGatherDetails && item.gatherInfo?.placeID">{{ textsGatherAt.p1 }}</span>
-                    <LocationSpan
-                      v-if="showItemGatherDetails && item.gatherInfo?.placeID"
-                      :place-id="item.gatherInfo.placeID"
-                      :place-name="getPlaceName(item)"
-                      :coordinate-x="item.gatherInfo.posX"
-                      :coordinate-y="item.gatherInfo.posY"
-                      :size="12"
-                      style="margin: 0 2px 0 1px; "
-                    />
-                    <span v-if="showItemGatherDetails && item.gatherInfo?.placeID">{{ textsGatherAt.p2 }}</span>
-                    <span style="margin-left: 1px;">)</span>
-                  </div>
-                </div>
-              </div>
-            </n-collapse-item>
-          </n-collapse>
-          
-          
+  <MyModal
+    v-model:show="showModal"
+    max-width="350px"
+    extra-style="--n-padding-bottom: 10px;"
+  >
+    <template #header>
+      <div class="card-title no-select">
+        <n-icon><AllInclusiveSharp /></n-icon>
+        <span class="title">{{ t('推荐流程') }}</span>
+        <div class="card-title-actions">
+          <a href="javascript:void(0);" @click="handleCollapseOrUncollapseAllBlocks">[{{ isBlocksAllCollapsed() ? t('全部展开') : t('全部折叠') }}]</a>
+          <a href="javascript:void(0);" @click="handleSwitchShowItemGatherDetails">[{{ showItemGatherDetails ? t('隐藏采集详情') : t('显示采集详情') }}]</a>
+          <a href="javascript:void(0);" @click="handleCopyProcesses">[{{ t('复制流程') }}]</a>
         </div>
       </div>
+    </template>
 
-      <template #action>
-        <div class="submit-container">
-          <n-button type="error" size="large" @click="handleClose">
-            <template #icon>
-              <n-icon><CloseSharp /></n-icon>
+    <div class="wrapper">
+      <div
+        class="block"
+        v-for="(group, groupIndex) in itemGroups"
+        :key="'group-' + groupIndex"
+      >
+        <n-collapse arrow-placement="right" v-model:expanded-names="expandedBlocks[groupIndex]">
+          <n-collapse-item name="1">
+            <template #header>
+              <div class="title">
+                <span class="icon">
+                  <XivFARImage
+                    :size="14"
+                    :src="group.icon"
+                    class="no-select"
+                  />
+                </span>
+                <span>
+                  {{ groupIndex + 1 }}. {{ group.title }}
+                </span>
+              </div>
             </template>
-            {{ t('关闭') }}
-          </n-button>
-        </div>
-      </template>
-    </n-card>
-  </n-modal>
+
+            <div class="description" v-if="group.description">{{ group.description }}</div>
+            <div class="items">
+              <div
+                v-for="item in group.items"
+                :key="'item-' + item.id"
+                style=""
+              >
+                <div class="item-container">
+                  <n-checkbox
+                    size="small"
+                    v-model:checked="completedItems[groupIndex][item.id]"
+                    @update:checked="handleItemCompletionChange(groupIndex)"
+                  />
+                  <ItemSpan
+                    :item-info="item"
+                    :amount="item.amount"
+                    show-amount
+                    container-id="modal-recomm-process"
+                  />
+                </div>
+                <div
+                  class="gather-detail-time"
+                  v-if="showItemGatherDetails && item.gatherInfo?.timeLimitDescription && !completedItems[groupIndex][item.id]"
+                >
+                  <span style="margin-right: 1px;">(</span>
+                  <span>{{ t('限时: {}', item.gatherInfo.timeLimitDescription) }}</span>
+                  <span v-if="isItemGatherableNow(item)" class="green" style="margin-left: 3px;">{{ t('现可采集') }}</span>
+                  <span style="margin-left: 1px;">)</span>
+                </div>
+                <div
+                  class="gather-detail-position"
+                  v-if="showItemGatherDetails && item.gatherInfo?.placeID && !completedItems[groupIndex][item.id]"
+                >
+                  <span style="margin-right: 1px;">(</span>
+                  <span v-if="showItemGatherDetails && item.gatherInfo?.placeID">{{ textsGatherAt.p1 }}</span>
+                  <LocationSpan
+                    v-if="showItemGatherDetails && item.gatherInfo?.placeID"
+                    :place-id="item.gatherInfo.placeID"
+                    :place-name="getPlaceName(item)"
+                    :coordinate-x="item.gatherInfo.posX"
+                    :coordinate-y="item.gatherInfo.posY"
+                    :size="12"
+                    style="margin: 0 2px 0 1px; "
+                  />
+                  <span v-if="showItemGatherDetails && item.gatherInfo?.placeID">{{ textsGatherAt.p2 }}</span>
+                  <span style="margin-left: 1px;">)</span>
+                </div>
+              </div>
+            </div>
+          </n-collapse-item>
+        </n-collapse>
+        
+        
+      </div>
+    </div>
+
+    <template #action>
+      <div class="submit-container">
+        <n-button type="error" size="large" @click="handleClose">
+          <template #icon>
+            <n-icon><CloseSharp /></n-icon>
+          </template>
+          {{ t('关闭') }}
+        </n-button>
+      </div>
+    </template>
+  </MyModal>
 </template>
 
 <style scoped>
-:deep(.n-card-header) {
-  padding-bottom: 10px;
-}
 :deep(.n-card__action) {
   padding-top: 15px;
   padding-bottom: 15px;

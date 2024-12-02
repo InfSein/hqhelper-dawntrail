@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NCard, NIcon, NModal, NTabs, NTabPane
+  NTabs, NTabPane
 } from 'naive-ui'
 import { 
   TableViewOutlined
 } from '@vicons/material'
+import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import ItemList from '../custom-controls/ItemList.vue'
 import type { ItemInfo } from '@/tools/item';
@@ -77,68 +78,54 @@ const statementBlocks = computed(() => {
     },
   ]
 })
-
-const handleClose = () => {
-  showModal.value = false
-}
 </script>
 
 <template>
-  <n-modal v-model:show="showModal">
-    <n-card
-      closable
-      role="dialog"
-      id="modal-craft-statements"
-      style="width: 98%; max-width: 1500px;"
-      :style="{ height: isMobile ? '650px' : '600px' }"
-      @close="handleClose"
-    >
-      <template #header>
-        <div class="card-title">
-          <n-icon><TableViewOutlined /></n-icon>
-          <span class="title">{{ t('制作报表') }}</span>
+  <MyModal
+    v-model:show="showModal"
+    :icon="TableViewOutlined"
+    :title="t('制作报表')"
+    max-width="1500px"
+    :height="isMobile ? '650px' : '600px'"
+  >
+    <n-tabs v-if="isMobile" type="line" animated>
+      <n-tab-pane
+        v-for="block in statementBlocks"
+        :key="block.id"
+        :name="block.id"
+        :tab="block.name"
+      >
+        <div class="container">
+          <ItemList
+            :items="block.items"
+            :list-height="480"
+            :show-collector-icon="!userConfig.hide_collector_icons"
+            container-id="modal-craft-statements"
+          />
         </div>
-      </template>
-
-      <n-tabs v-if="isMobile" type="line" animated>
-        <n-tab-pane
-          v-for="block in statementBlocks"
-          :key="block.id"
-          :name="block.id"
-          :tab="block.name"
-        >
-          <div class="container">
-            <ItemList
-              :items="block.items"
-              :list-height="480"
-              :show-collector-icon="!userConfig.hide_collector_icons"
-              container-id="modal-craft-statements"
-            />
-          </div>
-        </n-tab-pane>
-      </n-tabs>
-      <div v-else class="wrapper desktop">
-        <GroupBox
-          v-for="block in statementBlocks"
-          :key="block.id"
-          :id="block.id"
-          class="group"
-          title-background-color="var(--n-color-modal)"
-        >
-          <template #title>{{ block.name }}</template>
-          <div class="container">
-            <ItemList
-              :items="block.items"
-              :list-height="480"
-              btn-pop-max-width="300px"
-              :show-collector-icon="!userConfig.hide_collector_icons"
-              container-id="modal-craft-statements"
-            />
-          </div>
-        </GroupBox>
-      </div>
-    </n-card>
-  </n-modal>
+      </n-tab-pane>
+    </n-tabs>
+    <div v-else class="wrapper desktop">
+      <GroupBox
+        v-for="block in statementBlocks"
+        :key="block.id"
+        :id="block.id"
+        class="group"
+        title-background-color="var(--n-color-modal)"
+      >
+        <template #title>{{ block.name }}</template>
+        <div class="container">
+          <ItemList
+            :items="block.items"
+            :list-height="480"
+            btn-pop-max-width="300px"
+            :show-collector-icon="!userConfig.hide_collector_icons"
+            container-id="modal-craft-statements"
+          />
+        </div>
+      </GroupBox>
+    </div>
+  </MyModal>
 </template>
 
 <style scoped>

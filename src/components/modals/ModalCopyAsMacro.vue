@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCheckbox, NCard, NIcon, NModal, NSelect,
+  NButton, NCheckbox, NIcon, NSelect,
   useMessage
 } from 'naive-ui'
 import { 
   CodeSharp, ContentCopyRound
 } from '@vicons/material'
+import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../custom-controls/GroupBox.vue'
 import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
 import { CopyToClipboard } from '@/tools'
@@ -91,59 +92,49 @@ const handleClose = () => {
 </script>
 
 <template>
-  <n-modal v-model:show="showModal">
-    <n-card
-      closable
-      role="dialog"
-      class="no-select"
-      style="width: 98%; max-width: 350px;"
-      @close="handleClose"
-    >
-      <template #header>
-        <div class="card-title">
-          <n-icon><CodeSharp /></n-icon>
-          <span class="title">{{ t('复制宏') }}</span>
+  <MyModal
+    v-model:show="showModal"
+    :icon="CodeSharp"
+    :title="t('复制宏')"
+    max-width="350px"
+  >
+    <div class="wrapper" ref="wrapper">
+      <GroupBox id="marco-preview" title-background-color="var(--n-color-modal)" :content-style="macroContentStyle">
+        <template #title>
+          <span class="title">{{ t('预览') }}</span>
+        </template>
+        {{ macro }}
+      </GroupBox>
+      <GroupBox id="marco-settings" title-background-color="var(--n-color-modal)">
+        <template #title>
+          <span class="title">{{ t('选项') }}</span>
+        </template>
+        <div class="settings-container">
+          <n-select
+            size="small"
+            v-model:value="macroPrefix"
+            :options="prefixOptions"
+            :style="{ width: '100%' }"
+            placeholder="请选择宏前缀"
+          />
+          <n-checkbox v-model:checked="noMoreInquiries">
+            {{ t('以后不再询问，直接复制') }}
+          </n-checkbox>
         </div>
-      </template>
+      </GroupBox>
+    </div>
 
-      <div class="wrapper" ref="wrapper">
-        <GroupBox id="marco-preview" title-background-color="var(--n-color-modal)" :content-style="macroContentStyle">
-          <template #title>
-            <span class="title">{{ t('预览') }}</span>
+    <template #action>
+      <div class="submit-container">
+        <n-button type="primary" @click="handleCopy">
+          <template #icon>
+            <n-icon><ContentCopyRound /></n-icon>
           </template>
-          {{ macro }}
-        </GroupBox>
-        <GroupBox id="marco-settings" title-background-color="var(--n-color-modal)">
-          <template #title>
-            <span class="title">{{ t('选项') }}</span>
-          </template>
-          <div class="settings-container">
-            <n-select
-              size="small"
-              v-model:value="macroPrefix"
-              :options="prefixOptions"
-              :style="{ width: '100%' }"
-              placeholder="请选择宏前缀"
-            />
-            <n-checkbox v-model:checked="noMoreInquiries">
-              {{ t('以后不再询问，直接复制') }}
-            </n-checkbox>
-          </div>
-        </GroupBox>
+          {{ t('复制') }}
+        </n-button>
       </div>
-
-      <template #action>
-        <div class="submit-container">
-          <n-button type="primary" @click="handleCopy">
-            <template #icon>
-              <n-icon><ContentCopyRound /></n-icon>
-            </template>
-            {{ t('复制') }}
-          </n-button>
-        </div>
-      </template>
-    </n-card>
-  </n-modal>
+    </template>
+  </MyModal>
 </template>
 
 <style scoped>
