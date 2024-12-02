@@ -1,5 +1,16 @@
+// #region Translations
+import JsonXivTranslatedItemDescriptions from './translations/xiv-item-descriptions.json'
+export const XivTranslatedItemDescriptions = JsonXivTranslatedItemDescriptions as Record<number, string>
+
+import JsonXivTranslatedItemNames from './translations/xiv-item-names.json'
+export const XivTranslatedItemNames = JsonXivTranslatedItemNames as Record<number, string>
+
 import JsonXivItemRemarks from './translations/xiv-item-remarks.json'
 export const XivItemRemarks = JsonXivItemRemarks as Record<number, string[]>
+
+import JsonXivTranslatedPlaces from './translations/xiv-places.json'
+export const XivTranslatedPlaces = JsonXivTranslatedPlaces as Record<number, string>
+// #endregion
 
 import JsonXivRecipes from './unpacks/recipe.json'
 export const XivRecipes = JsonXivRecipes as Record<number, {
