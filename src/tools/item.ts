@@ -193,9 +193,9 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // * 尝试从items表中获取物品完整信息
   let itemID = 0, itemAmount = 0
   if (typeof item === 'number' || typeof item === 'string') {
-    itemID = item
+    itemID = Number(item)
   } else {
-    itemID = item.id
+    itemID = Number(item.id)
     itemAmount = item.need
   }
 
