@@ -455,7 +455,10 @@ export const getItemContexts = (
   handleCopy: (content: string, successMessage?: string) => Promise<void>
 ) => {
   if (!itemInfo.id) {
-    return []
+    return {
+      options: [],
+      handleKeyEvent: () => {}
+    }
   }
   const options = [
     {
