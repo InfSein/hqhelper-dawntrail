@@ -91,7 +91,7 @@ const handleCopy = async (content: string, successMessage?: string) => {
     NAIVE_UI_MESSAGE.success(successMessage ?? t('已复制到剪贴板'))
   }
 }
-const { options, handleKeyEvent } = getItemContexts(props.itemInfo, t, handleCopy)
+const { options, handleKeyEvent } = getItemContexts(props.itemInfo, itemLanguage.value, t, handleCopy)
 const handleContextMenu = (e: MouseEvent) => {
   e.preventDefault()
   showDropdownRef.value = false

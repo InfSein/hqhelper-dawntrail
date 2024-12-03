@@ -116,7 +116,7 @@ const handleCopy = async (content: string, successMessage?: string) => {
   }
 }
 const itemContexts = computed(() => {
-  return getItemContexts(props.itemInfo, t, handleCopy)
+  return getItemContexts(props.itemInfo, itemLanguage.value, t, handleCopy)
 })
 const handleContextMenu = (e: MouseEvent) => {
   e.preventDefault()

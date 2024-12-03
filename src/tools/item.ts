@@ -67,9 +67,12 @@ export interface ItemInfo {
   patch: string
   /** 物品品级 */
   itemLevel: number
-  nameJA: string
-  nameEN: string
-  nameZH: string
+  nameJA: string // deprecated. 逐步取代
+  nameEN: string // deprecated. 逐步取代
+  nameZH: string // deprecated. 逐步取代
+  name_zh: string
+  name_en: string
+  name_ja: string
   // * icon: 道具图标。需要注意hqIcon指向的文件可能不存在
   iconUrl: string
   hqIconUrl: string
@@ -224,18 +227,22 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.nameJA = _item.lang[0]
   itemInfo.nameEN = _item.lang[1]
   itemInfo.nameZH = _item.lang[2]
+  itemInfo.name_ja = _item.lang[0]
+  itemInfo.name_en = _item.lang[1]
+  itemInfo.name_zh = _item.lang[2]
   itemInfo.descJA = _item.desc[0]
   itemInfo.descEN = _item.desc[1]
   itemInfo.descZH = _item.desc[2]
   itemInfo.patch = _item.p || '7.05'
 
   // * 针对还没有中文名/中文描述的道具，尝试从暂译表中获取暂译
-  if (!itemInfo.nameZH) {
+  if (!itemInfo.name_zh) {
     const tempZhMap = XivTranslatedItemNames
     if (tempZhMap?.[itemInfo.id]) {
       itemInfo.nameZH = tempZhMap[itemInfo.id]
+      itemInfo.name_zh = tempZhMap[itemInfo.id]
       itemInfo.usedZHTemp = true
-    } else if (itemInfo.nameJA) {
+    } else if (itemInfo.name_ja) {
       console.log('[开发提示] 此物品需要填写中文暂译:', itemInfo)
     }
   }
@@ -440,6 +447,7 @@ import { NIcon } from 'naive-ui'
 import { getNearestAetheryte } from './map'
 export const getItemContexts = (
   itemInfo: ItemInfo,
+  itemLanguage: "zh" | "en" | "ja",
   t: (text: string, ...args: any[]) => string,
   handleCopy: (content: string, successMessage?: string) => Promise<void>
 ) => {
@@ -448,23 +456,45 @@ export const getItemContexts = (
       label: t('复制道具名'),
       key: 'copy-item-name',
       icon: renderIcon(FileCopyOutlined),
+      click: () => {
+        const copyContent = itemInfo[`name_${itemLanguage}`]
+        handleCopy(copyContent, t('已复制 {content}', copyContent))
+      }
+    },
+    {
+      label: t('复制其他道具名'),
+      key: 'copy-other-names',
+      icon: renderIcon(FileCopyOutlined),
       children: [
         {
           label: t('中文名'),
           key: 'copy-zh',
+          show: itemLanguage !== 'zh',
           icon: renderIcon(LanguageOutlined)
         },
         {
           label: t('日文名'),
           key: 'copy-ja',
+          show: itemLanguage !== 'ja',
           icon: renderIcon(LanguageOutlined)
         },
         {
           label: t('英文名'),
           key: 'copy-en',
+          show: itemLanguage !== 'en',
           icon: renderIcon(LanguageOutlined)
         }
       ]
+    },
+    {
+      label: t('复制物品检索宏'),
+      key: 'copy-isearch-macro',
+      icon: renderIcon(FileCopyOutlined),
+      click: () => {
+        const name = itemInfo[`name_${itemLanguage}`]
+        const copyContent = `/isearch "${name}"`
+        handleCopy(copyContent, t('已复制 {content}', copyContent))
+      }
     },
     {
       type: 'divider',
