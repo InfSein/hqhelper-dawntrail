@@ -1,12 +1,12 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import {
   NButton, NIcon, NInputNumber
 } from 'naive-ui'
 import {
   AddSharp, MinusSharp
 } from '@vicons/material'
-import { computed, ref } from 'vue';
 
 const modelValue = defineModel<number>('value', { required: true })
 const props = defineProps({

@@ -40,14 +40,16 @@ export interface StatementRow {
 
 import XivItems from '@/assets/data/unpacks/item.json'
 import XivItemTypes from '@/assets/data/xiv-item-types.json'
-import XivItemNameZHTemp from '@/assets/data/translations/xiv-item-names.json'
-import XivItemDescZHTemp from '@/assets/data/translations/xiv-item-descriptions.json'
 import XivRecipes from '@/assets/data/unpacks/recipe.json'
 import XivGatheringItems from '@/assets/data/unpacks/gathering-item.json'
 import XivGatherTerrory from '@/assets/data/unpacks/territory.json'
 import XivPlaceNames from '@/assets/data/unpacks/place-name.json'
-import XivPlaceZHTemp from '@/assets/data/translations/xiv-places.json'
-import { XivMaps, type XivMapAetheryteInfo } from '@/assets/data'
+import {
+  XivMaps, type XivMapAetheryteInfo,
+  XivTranslatedItemDescriptions,
+  XivTranslatedItemNames,
+  XivTranslatedPlaces,
+} from '@/assets/data'
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
@@ -229,7 +231,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
 
   // * 针对还没有中文名/中文描述的道具，尝试从暂译表中获取暂译
   if (!itemInfo.nameZH) {
-    const tempZhMap = XivItemNameZHTemp as any
+    const tempZhMap = XivTranslatedItemNames
     if (tempZhMap?.[itemInfo.id]) {
       itemInfo.nameZH = tempZhMap[itemInfo.id]
       itemInfo.usedZHTemp = true
@@ -238,7 +240,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     }
   }
   if (!itemInfo.descZH) {
-    const tempZhMap = XivItemDescZHTemp as any
+    const tempZhMap = XivTranslatedItemDescriptions
     if (tempZhMap?.[itemInfo.id]) {
       itemInfo.descZH = tempZhMap[itemInfo.id]
       itemInfo.usedZHTemp = true
@@ -300,8 +302,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
       if (gatherPlaceData) {
         let placeNameZH = gatherPlaceData[2]
         if (!placeNameZH) {
-          const tempZhMap = XivPlaceZHTemp as Record<number, string>
-          placeNameZH = tempZhMap[placeID] || '未翻译的地点'
+          placeNameZH = XivTranslatedPlaces[placeID] || '未翻译的地点'
         }
         const timelimitdesc : string[] = []
         itemInfo.gatherInfo = {

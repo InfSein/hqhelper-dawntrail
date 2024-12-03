@@ -3,8 +3,8 @@ import { inject, type PropType, type Ref } from 'vue'
 import {
   NScrollbar, NTable
 } from 'naive-ui'
-import type { ItemInfo } from '@/tools/item'
 import ItemSpan from './ItemSpan.vue'
+import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })

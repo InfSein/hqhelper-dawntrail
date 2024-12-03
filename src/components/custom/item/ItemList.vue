@@ -7,9 +7,9 @@ import {
   ViewListSharp, SettingsBackupRestoreSharp
 } from '@vicons/material'
 import ItemButton from './ItemButton.vue'
+import ButtonCopyAsMacro from '../macro/ButtonCopyAsMacro.vue'
 import { type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
-import ButtonCopyAsMacro from './ButtonCopyAsMacro.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -108,6 +108,8 @@ const listValue = computed(() => {
     if (item.amount) {
       if (userConfig.value.item_list_style === 'teamcraft') {
         result.push(`${item.amount}x ${getItemName(item)}`)
+      } else if (userConfig.value.item_list_style === 'tight') {
+        result.push(`${getItemName(item)}x${item.amount}`)
       } else {
         result.push(`${getItemName(item)} x ${item.amount}`)
       }

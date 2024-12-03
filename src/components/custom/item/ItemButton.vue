@@ -9,7 +9,7 @@ import {
 //   LanguageOutlined,
 //   OpenInNewFilled
 // } from '@vicons/material'
-import XivFARImage from './XivFARImage.vue'
+import XivFARImage from '../general/XivFARImage.vue'
 import ItemPop from './ItemPop.vue'
 import { getItemContexts, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'

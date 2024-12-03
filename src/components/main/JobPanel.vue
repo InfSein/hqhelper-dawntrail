@@ -4,13 +4,14 @@ import {
   NAlert, NFlex
 } from 'naive-ui'
 import { type UserConfigModel } from '@/models/user-config'
+import FoldableCard from '../templates/FoldableCard.vue'
+import GroupBox from '../templates/GroupBox.vue'
+import XivFARImage from '../custom/general/XivFARImage.vue'
+import JobButton from '../custom/job/JobButton.vue'
+import type { IHqVer } from '@/tools/nbb-cal-v5'
+import type { GearSelections } from '@/models/gears'
 import XivRoles from '@/assets/data/xiv-roles.json'
 import XivJobs from '@/assets/data/xiv-jobs.json'
-import FoldableCard from '../custom-controls/FoldableCard.vue'
-import JobButton from '../custom-controls/JobButton.vue'
-import GroupBox from '../custom-controls/GroupBox.vue'
-import XivFARImage from '../custom-controls/XivFARImage.vue'
-import type { IHqVer } from '@/tools/nbb-cal-v5'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -18,10 +19,10 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const jobSelected = defineModel<number>('jobSelected', { required: true })
 const affixesSelected = defineModel<any>('affixesSelected', { required: true })
+const gearsSelected = defineModel<GearSelections>('gearsSelected', { required: true })
 interface JobPanelProps {
   patchSelected: string
   patchData?: IHqVer
-  mainHandSelections: Record<number, number>
 }
 const props = defineProps<JobPanelProps>()
 const emit = defineEmits(['onJobButtonDupliClick'])
@@ -132,15 +133,20 @@ const isJobGroupAvailable = (group: number[]) => {
             :key="'job-'+job"
           >
             <JobButton
+              v-model:gears-selected="gearsSelected"
               :selected="jobSelected === job"
               :role="roleIndex"
+              :role-name="getRoleName(role)"
+              :job-id="job"
               :job-name="getJobName(job)"
               :job-icon="(XivJobs as any)[job].job_icon_url"
               :img-size="jobImageSize"
               :btn-color="role.role_color"
-              :count="mainHandSelections?.[job] || 0"
+              :count="gearsSelected?.MainHand?.[job] || 0"
               :class="{'selected': jobSelected === job}"
               :disabled="!patchSelected || !isJobAvailable(job)"
+              :patch-selected="patchSelected"
+              :patch-data="patchData"
               @on-btn-clicked="handleJobSelect(job, role)"
             />
           </div>

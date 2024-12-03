@@ -6,9 +6,9 @@ import {
 import {
   DeleteSweepRound
 } from '@vicons/material'
-import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
-import XivFARImage from '../custom-controls/XivFARImage.vue'
-import ItemSelector from '../custom-controls/ItemSelector.vue'
+import FoldableCard from '../templates/FoldableCard.vue'
+import XivFARImage from '../custom/general/XivFARImage.vue'
+import ItemSelector from '../custom/item/ItemSelector.vue'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 

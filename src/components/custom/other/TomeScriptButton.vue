@@ -7,7 +7,7 @@ import {
 import {
   CodeSharp
 } from '@vicons/material'
-import ItemSpan from './ItemSpan.vue'
+import ItemSpan from '../item/ItemSpan.vue'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
 import { useStore } from '@/store'
