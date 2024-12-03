@@ -39,7 +39,7 @@ const props = defineProps({
   }
 })
 
-const hidePrecraftGatherings = defineModel<boolean | undefined>('hidePrecraftGatherings', { required: true })
+const hidePrecraftMaterials = defineModel<boolean | undefined>('hidePrecraftMaterials', { required: true })
 
 const { getTradeMap } = useNbbCal()
 const tradeMap = getTradeMap()
@@ -69,6 +69,21 @@ const lvBaseItems = computed(() => {
   return items
 })
 
+const materialTarget = computed(() => {
+  if (hidePrecraftMaterials.value) {
+    return lv1Items.value
+  } else {
+    return lvBaseItems.value
+  }
+})
+const materialTargetDescription = computed(() => {
+  return [
+    hidePrecraftMaterials.value
+      ? t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
+      : t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+  ]
+})
+
 /**
  * 表示要展示的普通半成品。
  */
@@ -95,25 +110,12 @@ const commonPrecrafts = computed(() => {
  * 表示需要用亚拉戈神典石或工票兑换的道具。
  */
 const tomeScriptItems = computed(() => {
-  const items = []
-  for (const id in props.statistics.lvBase) {
-    try {
-      const _id = parseInt(id)
-
-      // * 过滤掉一些兑换品，以避免出现重复统计
-    if (props.aethersandGatherings?.includes(_id)) continue
-    if (props.normalCraftings?.includes(_id)) continue
-    if (props.limitedGatherings?.includes(_id)) continue
-    if (props.normalGatherings?.includes(_id)) continue
-      
-      if (tradeMap[_id]) {
-        const item = props.statistics.lvBase[id]
-        items.push(getItemInfo(item))
-      }
-    } catch (error) {
-      console.warn('[compute.gatheringsTimed] Error processing item ' + id + ':', error)
-    }
-  }
+  const items : ItemInfo[] = []
+  materialTarget.value.forEach(material => {
+    if (props.aethersandGatherings?.includes(material.id)) return
+    if (!tradeMap[material.id]) return
+    items.push(material)
+  })
   return items
 })
 
@@ -121,52 +123,32 @@ const tomeScriptItems = computed(() => {
  * 表示碎晶/水晶/晶簇统计。
  */
 const crystals = computed(() => {
-  const _crystals = []
-  for (const id in props.statistics.lvBase) {
-    const item = props.statistics.lvBase[id]
-    if (item?.uc === 59) { // * 参见src\assets\data\xiv-item-types.json
-      _crystals.push(getItemInfo(item))
+  const _crystals : ItemInfo[] = []
+  materialTarget.value.forEach(material => {
+    if (material.uiTypeId === 59) {
+      _crystals.push(material)
     }
-  }
+  })
   return _crystals
 })
 
 /**
- * 统计采集品时的目标统计表。
- * 在开启了`hidePrecraftGatherings`时，将从`直接素材`而非`基础素材`中获取统计数据。
- */
-const getGatheringBase = () => {
-  if (hidePrecraftGatherings.value) {
-    return lv1Items.value
-  } else {
-    return lvBaseItems.value
-  }
-}
-
-/**
  * 表示限时采集品统计。
- * 包括灵砂。统计灵砂时，不遵循“采集统计不显示半成品需要的素材”设置。
+ * 包括灵砂。
  */
 const gatheringsTimed = computed(() => {
   const aethersands : ItemInfo[] = []
-  console.log('props.aethersandGatherings:', props.aethersandGatherings)
-  props.aethersandGatherings?.forEach(ag => {
-    const item = props.statistics.lvBase[ag.toString()] ?? ag
-    const aethersand = getItemInfo(item)
-    if (aethersand.amount) {
-      aethersands.push(aethersand)
-    }
-  })
-
   const gathers : ItemInfo[] = []
-  const gatheringBase = getGatheringBase()
-  gatheringBase.forEach(item => {
-    if (item.gatherInfo?.timeLimitInfo?.length) {
-      gathers.push(item)
+
+  materialTarget.value.forEach(material => {
+    if (props.aethersandGatherings?.includes(material.id)) {
+      aethersands.push(material)
+    }
+    if (material.gatherInfo?.timeLimitInfo?.length) {
+      gathers.push(material)
     }
   })
 
-  console.log('aether":', aethersands, 'gathers', gathers)
   return [...aethersands, ...gathers]
 })
 
@@ -175,10 +157,9 @@ const gatheringsTimed = computed(() => {
  */
 const gatheringsCommon = computed(() => {
   const gathers : ItemInfo[] = []
-  const gatheringBase = getGatheringBase()
-  gatheringBase.forEach(item => {
-    if (item.gatherInfo?.placeID && !item.gatherInfo.timeLimitInfo?.length) {
-      gathers.push(item)
+  materialTarget.value.forEach(material => {
+    if (material.gatherInfo?.placeID && !material.gatherInfo.timeLimitInfo?.length) {
+      gathers.push(material)
     }
   })
   return gathers
@@ -189,17 +170,16 @@ const gatheringsCommon = computed(() => {
  */
 const otherMaterials = computed(() => {
   const items : ItemInfo[] = []
-  const gatheringBase = getGatheringBase()
-  gatheringBase.forEach(item => {
-    const _id = item.id
+  materialTarget.value.forEach(material => {
+    const _id = material.id
     if (props.aethersandGatherings?.includes(_id)) return
     if (props.normalCraftings?.includes(_id)) return
     if (props.limitedGatherings?.includes(_id)) return
     if (props.normalGatherings?.includes(_id)) return
     if (tradeMap[_id]) return
-    if (item.uiTypeId === 59) return
-    if (item.gatherInfo) return
-    items.push(item)
+    if (material.uiTypeId === 59) return
+    if (material.gatherInfo) return
+    items.push(material)
   })
   return items
 })
@@ -229,8 +209,8 @@ const statementData = computed(() => {
 
       <div class="pre">
         <div class="preset-item">
-          <n-switch v-model:value="hidePrecraftGatherings" :round="false" size="small" />
-          <div>{{ t('采集统计不显示半成品需要的素材') }}</div>
+          <n-switch v-model:value="hidePrecraftMaterials" :round="false" size="small" />
+          <div>{{ t('只显示直接制作素材') }}</div>
         </div>
       </div>
       <div class="wrapper">
@@ -247,9 +227,7 @@ const statementData = computed(() => {
         <GroupBox
           id="tome-script-group" class="group" title-background-color="var(--n-color-embedded)"
           :title="t('兑换道具统计')"
-          :descriptions="[
-            t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
-          ]"
+          :descriptions="materialTargetDescription"
         >
           <div class="container">
             <ItemList
@@ -261,9 +239,7 @@ const statementData = computed(() => {
         <GroupBox
           id="crystals-group" class="group" title-background-color="var(--n-color-embedded)"
           :title="t('水晶统计')"
-          :descriptions="[
-            t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
-          ]"
+          :descriptions="materialTargetDescription"
         >
           <div class="container">
             <ItemList
@@ -275,11 +251,7 @@ const statementData = computed(() => {
         <GroupBox
           id="common-gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
           :title="t('常规采集品统计')"
-          :descriptions="[
-            hidePrecraftGatherings
-              ? t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
-              : t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
-          ]"
+          :descriptions="materialTargetDescription"
         >
           <div class="container">
             <ItemList
@@ -292,14 +264,7 @@ const statementData = computed(() => {
         <GroupBox
           id="timed-gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
           :title="t('限时采集品&灵砂统计')"
-          :descriptions="
-            hidePrecraftGatherings ? [
-              t('限时采集品的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。'),
-              t('灵砂的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
-            ] : [
-              t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
-            ]
-          "
+          :descriptions="materialTargetDescription"
         >
           <div class="container">
             <ItemList
@@ -314,9 +279,7 @@ const statementData = computed(() => {
           :title="t('其他素材统计')"
           :descriptions="[
             t('基础素材中未被其他分组归类的道具。'),
-            hidePrecraftGatherings
-              ? t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
-              : t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+            ...materialTargetDescription
           ]"
         >
           <div class="container">
