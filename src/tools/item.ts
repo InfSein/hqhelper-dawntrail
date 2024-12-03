@@ -122,6 +122,8 @@ export interface ItemInfo {
     jobId: number,
     /** 配方ID */
     recipeId: number,
+    /** 配方顺序号 (在制作笔记的顺序) */
+    recipeOrder: number,
     /** 制作等级 */
     craftLevel: number,
     /** 产量 (一次制作可以获得几个成品) */
@@ -365,6 +367,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
       itemInfo.craftInfo = {
         jobId: recipe.job + 8, // 解包配方的jobId是从0开始
         recipeId: recipeID,
+        recipeOrder: recipe.noteBook[0] * 160 + recipe.noteBook[1],
         craftLevel: recipe.bp?.[2],
         yields: recipe.bp?.[1],
         starCount: recipe.bp?.[3],

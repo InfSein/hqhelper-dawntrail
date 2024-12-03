@@ -89,6 +89,7 @@ export const XivUnpackedRecipes = JsonXivUnpackedRecipes as Record<number, {
   qs: boolean
   hq: boolean
   srb: number
+  noteBook: number[]
 }>
 
 import JsonXivUnpackedTerritories from './unpacks/territory.json'
