@@ -454,6 +454,9 @@ export const getItemContexts = (
   t: (text: string, ...args: any[]) => string,
   handleCopy: (content: string, successMessage?: string) => Promise<void>
 ) => {
+  if (!itemInfo.id) {
+    return []
+  }
   const options = [
     {
       label: t('复制道具名'),
