@@ -9,13 +9,15 @@ import {
 import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'
+import {
+  XivGearAffixes,
+  XivRoles, type XivRole,
+  XivJobs
+} from '@/assets/data'
 import type { GearSelections, AttireAffix, AccessoryAffix } from '@/models/gears'
 import { attireAffixes, accessoryAffixes } from '@/models/gears'
 import { type UserConfigModel } from '@/models/user-config'
 import { deepCopy } from '@/tools'
-import { XivRoles, type XivRole } from '@/assets/data'
-import XivJobs from '@/assets/data/xiv-jobs.json'
-import XivGearAffixes from '@/assets/data/xiv-gear-affixes.json'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -31,7 +33,7 @@ const props = defineProps({
 })
 // const jobIds = Object.keys(XivJobs).map(jobId => parseInt(jobId))
 const getAffixName = (affix: AttireAffix | AccessoryAffix) => {
-  return XivGearAffixes[affix][`affix_name_${uiLanguage}`]
+  return XivGearAffixes[affix][`name_${uiLanguage}`]
 }
 const attireGearSlots = [
   { key: 'HeadAttire', text: t('头部'), icon: './image/game-gear-slot/head.png' },
@@ -68,7 +70,7 @@ const getRoleName = (role: any) => {
   }
 }
 const getJobName = (jobId: number) => {
-  const _job = (XivJobs as any)[jobId]
+  const _job = XivJobs[jobId]
   switch (uiLanguage) {
     case 'ja':
       return _job.job_name_ja
@@ -165,7 +167,7 @@ const handleSave = () => {
                   >
                     <template #prefix>
                       <XivFARImage 
-                        :src="(XivJobs as any)[job].job_icon_url"
+                        :src="XivJobs[job].job_icon_url"
                         :size="15"
                       />
                     </template>
@@ -425,7 +427,7 @@ const handleSave = () => {
                   >
                     <template #prefix>
                       <XivFARImage 
-                        :src="(XivJobs as any)[job].job_icon_url"
+                        :src="XivJobs[job].job_icon_url"
                         :size="15"
                       />
                     </template>

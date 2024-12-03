@@ -8,10 +8,12 @@ import FoldableCard from '../templates/FoldableCard.vue'
 import GroupBox from '../templates/GroupBox.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'
 import JobButton from '../custom/job/JobButton.vue'
+import {
+  XivJobs,
+  XivRoles
+}from '@/assets/data'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 import type { GearSelections } from '@/models/gears'
-import XivRoles from '@/assets/data/xiv-roles.json'
-import XivJobs from '@/assets/data/xiv-jobs.json'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -55,7 +57,7 @@ const getRoleName = (role: any) => {
   }
 }
 const getJobName = (jobId: number) => {
-  const _job = (XivJobs as any)[jobId]
+  const _job = XivJobs[jobId]
   switch (uiLanguage) {
     case 'ja':
       return _job.job_name_ja
@@ -139,7 +141,7 @@ const isJobGroupAvailable = (group: number[]) => {
               :role-name="getRoleName(role)"
               :job-id="job"
               :job-name="getJobName(job)"
-              :job-icon="(XivJobs as any)[job].job_icon_url"
+              :job-icon="XivJobs[job].job_icon_url"
               :img-size="jobImageSize"
               :btn-color="role.role_color"
               :count="gearsSelected?.MainHand?.[job] || 0"

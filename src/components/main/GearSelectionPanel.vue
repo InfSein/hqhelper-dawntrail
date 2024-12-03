@@ -12,11 +12,13 @@ import FoldableCard from '../templates/FoldableCard.vue'
 import Stepper from '../custom/general/Stepper.vue'
 import GearSlot from '../custom/gear/GearSlot.vue'
 import ModalSelectedGears from '../modals/ModalSelectedGears.vue'
+import {
+  XivGearAffixes,
+  XivJobs,
+  XivRoles
+} from '@/assets/data'
 import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears'
 import { getDefaultGearSelections } from '@/models/gears'
-import GearAffixes from '@/assets/data/xiv-gear-affixes.json'
-import XivJobs from '@/assets/data/xiv-jobs.json'
-import XivRoles from '@/assets/data/xiv-roles.json'
 import { type UserConfigModel } from '@/models/user-config'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 import { useGearAdder } from '@/tools/gears'
@@ -53,23 +55,23 @@ const affixesTips = computed(() => {
 })
 const getAffixesName = () => {
   const uiLanguage = userConfig.value?.language_ui ?? 'zh'
-  const jobName = (XivJobs as any)?.[props.jobId]?.['job_name_' + uiLanguage] || t('未选择')
-  const attireName = (GearAffixes as any)?.[props.attireAffix]?.['affix_name_' + uiLanguage] || t('未选择')
-  const accessoryName = (GearAffixes as any)?.[props.accessoryAffix]?.['affix_name_' + uiLanguage] || t('未选择')
+  const jobName = XivJobs?.[props.jobId]?.[`job_name_${uiLanguage}`] || t('未选择')
+  const attireName = XivGearAffixes?.[props.attireAffix]?.[`name_${uiLanguage}`] || t('未选择')
+  const accessoryName = XivGearAffixes?.[props.accessoryAffix]?.[`name_${uiLanguage}`] || t('未选择')
   return { jobName, attireName, accessoryName }
 }
 
 const jobNotSelected = computed(() => {
-  return !(XivJobs as any)?.[props.jobId]
+  return !XivJobs?.[props.jobId]
 })
 const disableWeapon = computed(() => {
   return jobNotSelected.value
 })
 const disableAttire = computed(() => {
-  return !(GearAffixes as any)?.[props.attireAffix]
+  return !XivGearAffixes?.[props.attireAffix]
 })
 const disableAccessory = computed(() => {
-  return !(GearAffixes as any)?.[props.accessoryAffix]
+  return !XivGearAffixes?.[props.accessoryAffix]
 })
 
 // #region Slot Computeds

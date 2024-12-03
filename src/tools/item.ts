@@ -16,7 +16,7 @@ export interface CalculatedItem {
   mkc: number
   rid: string[]
 }
-const phItem = {
+const phItem : XivUnpackedItem = {
   id: 0,
   need: 0,
   icon: -1,
@@ -26,7 +26,10 @@ const phItem = {
   uc: -1,
   pc: -1,
   mkc: -1,
-  rid: []
+  rids: [], ilv: -1, sc: 0, hq: false,
+  dye: 0, act: 0, bon: 0, reduce: false,
+  elv: 0, ms: 0, bpm: [], spm: [], 
+  jobs: 0, jd: false, p: '', actParm: []
 }
 
 export interface StatementRow {
@@ -38,17 +41,17 @@ export interface StatementRow {
   }
 }
 
-import XivItems from '@/assets/data/unpacks/item.json'
-import XivItemTypes from '@/assets/data/xiv-item-types.json'
-import XivRecipes from '@/assets/data/unpacks/recipe.json'
-import XivGatheringItems from '@/assets/data/unpacks/gathering-item.json'
-import XivGatherTerrory from '@/assets/data/unpacks/territory.json'
-import XivPlaceNames from '@/assets/data/unpacks/place-name.json'
 import {
   XivMaps, type XivMapAetheryteInfo,
   XivTranslatedItemDescriptions,
   XivTranslatedItemNames,
   XivTranslatedPlaces,
+  XivUnpackedGatheringItems,
+  XivUnpackedItems, type XivUnpackedItem,
+  XivUnpackedPlaceNames,
+  XivUnpackedRecipes,
+  XivUnpackedTerritories,
+  XivItemTypes
 } from '@/assets/data'
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
@@ -57,9 +60,6 @@ const { getTradeMap, getReduceMap, getReduceMapReverted } = useNbbCal()
 const tradeMap = getTradeMap()
 const reduceMap = getReduceMap()
 const revertedReduceMap = getReduceMapReverted()
-const gatherMap = XivGatheringItems as Record<number, any>
-const territoryMap = XivGatherTerrory as Record<number, number[]>
-const placeMap = XivPlaceNames as Record<number, string[]>
 
 export interface ItemInfo {
   id: number
@@ -202,15 +202,14 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     itemAmount = item.need
   }
 
-  let _item : any
+  let _item : XivUnpackedItem
   if (!itemID) {
     _item = deepCopy(phItem)
   } else {
-    const itemsMap = XivItems as any
-    if (!itemsMap?.[itemID]) {
+    if (!XivUnpackedItems?.[itemID]) {
       console.log('[开发提示] 此物品在items表中缺失:', item)
     }
-    _item = deepCopy(itemsMap?.[itemID] || phItem)
+    _item = deepCopy(XivUnpackedItems?.[itemID] || phItem)
     _item.id = itemID
   }
 
@@ -262,7 +261,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.hqIconUrl = getImgCdnUrl(_item.icon, true)
 
   // * 尝试根据道具的UI类型ID获取类型名称和图标URL
-  const typeMap = XivItemTypes as any
+  const typeMap = XivItemTypes
   const itemType : number = _item.uc
   if (typeMap?.[itemType]) {
     itemInfo.uiTypeId = itemType
@@ -297,15 +296,15 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   }
 
   // * 组装物品采集信息
-  const gatherData = gatherMap[itemID]
+  const gatherData = XivUnpackedGatheringItems[itemID]
   if (gatherData) {
     const gatherPointType = gatherData.type
     const gatherJob = gatherPointType <= 1 ? 16 : 17 // * type 0123 分别是割草，伐木，采矿，碎石 (注：好像反了)
     const territoryID = gatherData.territory
-    const territoryData = territoryMap[territoryID]
-    if (territoryData) {
+    if (territoryID && XivUnpackedTerritories[territoryID]) {
+      const territoryData = XivUnpackedTerritories[territoryID]
       const placeID = territoryData[2]
-      const gatherPlaceData = placeMap[placeID]
+      const gatherPlaceData = XivUnpackedPlaceNames[placeID]
       if (gatherPlaceData) {
         let placeNameZH = gatherPlaceData[2]
         if (!placeNameZH) {
@@ -318,8 +317,8 @@ export const getItemInfo = (item: number | CalculatedItem) => {
           placeNameZH: placeNameZH,
           placeNameJA: gatherPlaceData[0],
           placeNameEN: gatherPlaceData[1],
-          posX: Number(gatherData.coords.x),
-          posY: Number(gatherData.coords.y),
+          posX: Number(gatherData!.coords!.x),
+          posY: Number(gatherData!.coords!.y),
           timeLimitInfo: [],
           timeLimitDescription: ''
         };
@@ -328,8 +327,9 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         }
         [1,2,3].forEach(i => {
           if (gatherData?.popTime) {
-            const start = gatherData.popTime?.['start' + i]
-            let end = gatherData.popTime?.['end' + i]
+            const index = i as 1|2|3
+            const start = gatherData.popTime?.[`start${index}`]
+            let end = gatherData.popTime?.[`end${index}`]
             if (end === '00:00') end = '24:00'
             if (start && end && start !== '--:--' && end !== '--:--') {
               itemInfo.gatherInfo.timeLimitInfo.push({ start, end })
@@ -347,11 +347,11 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // * 组装物品配方
   itemInfo.craftRequires = []
   if (_item.rids?.length) {
-    const recipeID = _item.rids[0]
-    const recipe = (XivRecipes as any)[recipeID]
+    const recipeID = Number(_item.rids[0])
+    const recipe = XivUnpackedRecipes[recipeID]
     if (recipe) {
       // console.log('item:', _item, '\nrecipe:', recipe, '\n')
-      const items = recipe.m as number[]
+      const items = recipe.m
       if (items?.length % 2 === 0) {
         for (let ptr = 0; ptr < items.length; ptr += 2) {
           const requiredItemID = items[ptr]

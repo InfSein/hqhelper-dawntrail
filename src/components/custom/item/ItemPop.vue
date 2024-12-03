@@ -10,10 +10,13 @@ import ItemSpan from './ItemSpan.vue'
 import ItemRemark from './ItemRemark.vue'
 import XivFARImage from '../general/XivFARImage.vue'
 import LocationSpan from '../map/LocationSpan.vue'
+import {
+  XivItemRemarks,
+  XivJobs, type XivJob,
+  XivAttributes
+} from '@/assets/data'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
-import XivAttributes from '@/assets/data/xiv-attributes.json'
-import { XivItemRemarks, XivJobs, type XivJob } from '@/assets/data'
 import type EorzeaTime from '@/tools/eorzea-time'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -130,20 +133,11 @@ const getItemTypeName = () => {
   }
 }
 const getAttrName = (attrId: number) => {
-  const attrMap = XivAttributes as any
-  const attr = attrMap[attrId.toString()]
+  const attr = XivAttributes[attrId]
   if (!attr) {
     return t('未知')
   }
-  switch (uiLanguage.value) {
-    case 'ja':
-      return attr.Name_ja
-    case 'en':
-      return attr.Name_en
-    case 'zh':
-    default:
-      return attr.Name
-  }
+  return attr[`name_${uiLanguage.value}`]
 }
 const getPlaceName = () => {
   switch (itemLanguage.value) {
