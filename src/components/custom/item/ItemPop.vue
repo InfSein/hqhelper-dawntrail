@@ -279,8 +279,7 @@ const innerPopTrigger = computed(() => {
               v-for="(attr, index) in itemInfo.attrsProvided"
               :key="'attr-hq' + index"
             >
-              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
-              <div> +{{ attr[2] }}</div>
+              <div>{{ `${getAttrName(attr[0])} +${attr[2]}` }}</div>
             </div>
           </div>
           <div class="content" v-else>
@@ -289,8 +288,7 @@ const innerPopTrigger = computed(() => {
               v-for="(attr, index) in itemInfo.attrsProvided"
               :key="'attr-nq' + index"
             >
-              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
-              <div> +{{ attr[1] }}</div>
+              <div>{{ `${getAttrName(attr[0])} +${attr[1]}` }}</div>
             </div>
           </div>
           <div class="content extra">
@@ -306,8 +304,7 @@ const innerPopTrigger = computed(() => {
               v-for="(attr, index) in itemInfo.tempAttrsProvided"
               :key="'temp-attr-hq' + index"
             >
-              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
-              <div> +{{ attr[4] }}% {{ t('(上限{})', attr[5]) }}</div>
+              <div>{{ `${getAttrName(attr[0])} +${attr[4]}% ${t('(上限{})', attr[5])}` }}</div>
             </div>
           </div>
           <div class="content" v-else>
@@ -316,8 +313,7 @@ const innerPopTrigger = computed(() => {
               v-for="(attr, index) in itemInfo.tempAttrsProvided"
               :key="'temp-attr-nq' + index"
             >
-              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
-              <div> +{{ attr[2] }}% {{ t('(上限{})', attr[3]) }}</div>
+              <div>{{ `${getAttrName(attr[0])} +${attr[2]}% ${t('(上限{})', attr[3])}` }}</div>
             </div>
           </div>
           <div class="content extra">
