@@ -239,7 +239,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
   >
     <n-global-style />
     <n-message-provider :placement="naiveUiMessagePlacement">
-      <div :class="appClass">
+      <div :class="appClass" :data-theme="theme">
         <n-layout id="main-layout" position="absolute" :native-scrollbar="false">
           <n-layout-header v-if="appMode !== 'overlay'" bordered position="absolute">
             <AppHeader />

@@ -1,0 +1,109 @@
+/* Modified from https://blog.csdn.net/m0_61093435/article/details/132341233
+ * Author: m0_61093435
+ */
+
+[data-theme="light"] {
+  --scroll-thumb-bg: #ccc;
+  --scroll-thumb-hover-bg: #aaa;
+  --scroll-track-bg: #f0f0f0;
+  --scroll-button-bg: #ccc;
+}
+[data-theme="dark"] {
+  --scroll-thumb-bg: #444;
+  --scroll-thumb-hover-bg: #666;
+  --scroll-track-bg: #303033;
+  --scroll-button-bg: #444;
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #8b8b8b;
+  height: 15px;
+  width: 15px;
+  border-style: dashed;
+  border-color: transparent;
+  border-width: 4px;
+  border-radius: 10px;
+  background-clip: padding-box;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #606060;
+}
+
+/* 自定义滑动按钮 */
+::-webkit-scrollbar-button:single-button {
+  background-color: transparent;
+  display: block;
+  background-size: 10px;
+  background-repeat: no-repeat;
+}
+
+/* 箭头容器通用 */
+::-webkit-scrollbar-button:single-button:vertical:decrement,
+::-webkit-scrollbar-button:single-button:vertical:increment,
+::-webkit-scrollbar-button:single-button:horizontal:decrement,
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+  height: 15px;
+  width: 15px;
+}
+::-webkit-scrollbar-button:single-button:vertical:decrement,
+::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-position: center 4px;
+}
+::-webkit-scrollbar-button:single-button:horizontal:decrement,
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+  background-position: 3px 3px;
+}
+
+/* 上箭头 */
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="48" height="48" viewBox="-2 -4 24 24"%3E%3Cpath fill="%238b8b8b" d="m12.547 1.621l6.095 9.794A3 3 0 0 1 16.095 16H3.905a3 3 0 0 1-2.547-4.585L7.453 1.62a3 3 0 0 1 5.094 0z"%2F%3E%3C%2Fsvg%3E');
+}
+::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="48" height="48" viewBox="-2 -4 24 24"%3E%3Cpath fill="%23606060" d="m12.547 1.621l6.095 9.794A3 3 0 0 1 16.095 16H3.905a3 3 0 0 1-2.547-4.585L7.453 1.62a3 3 0 0 1 5.094 0z"%2F%3E%3C%2Fsvg%3E');
+}
+::-webkit-scrollbar-button:single-button:vertical:decrement:active {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="48" height="48" transform="scale(0.9)" viewBox="-2 -4 24 24"%3E%3Cpath fill="%23606060" d="m12.547 1.621l6.095 9.794A3 3 0 0 1 16.095 16H3.905a3 3 0 0 1-2.547-4.585L7.453 1.62a3 3 0 0 1 5.094 0z"%2F%3E%3C%2Fsvg%3E');
+}
+
+/* 下箭头 */
+::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="48" height="48" viewBox="-2 -4 24 24"%3E%3Cg transform="rotate(180 10 8)"%3E%3Cpath fill="%238b8b8b" d="m12.547 1.621l6.095 9.794A3 3 0 0 1 16.095 16H3.905a3 3 0 0 1-2.547-4.585L7.453 1.62a3 3 0 0 1 5.094 0z"%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+}
+::-webkit-scrollbar-button:single-button:vertical:increment:hover {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="48" height="48" viewBox="-2 -4 24 24"%3E%3Cg transform="rotate(180 10 8)"%3E%3Cpath fill="%23606060" d="m12.547 1.621l6.095 9.794A3 3 0 0 1 16.095 16H3.905a3 3 0 0 1-2.547-4.585L7.453 1.62a3 3 0 0 1 5.094 0z"%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+}
+::-webkit-scrollbar-button:single-button:vertical:increment:active {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="48" height="48" transform="scale(0.9)" viewBox="-2 -4 24 24"%3E%3Cg transform="rotate(180 10 8)"%3E%3Cpath fill="%23606060" d="m12.547 1.621l6.095 9.794A3 3 0 0 1 16.095 16H3.905a3 3 0 0 1-2.547-4.585L7.453 1.62a3 3 0 0 1 5.094 0z"%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+}
+
+/* 左箭头 */
+::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="-4 -2 24 24"%3E%3Cg transform="rotate(-90 10 10)"%3E%3Cpath fill="%238b8b8b" d="m12.547 1.621l6.095 9.794A3 3 0 0 1 16.095 16H3.905a3 3 0 0 1-2.547-4.585L7.453 1.62a3 3 0 0 1 5.094 0z"%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+}
+::-webkit-scrollbar-button:single-button:horizontal:decrement:hover {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="-4 -2 24 24"%3E%3Cg transform="rotate(-90 10 10)"%3E%3Cpath fill="%23606060" d="m12.547 1.621l6.095 9.794A3 3 0 0 1 16.095 16H3.905a3 3 0 0 1-2.547-4.585L7.453 1.62a3 3 0 0 1 5.094 0z"%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+}
+::-webkit-scrollbar-button:single-button:horizontal:decrement:active {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" transform="scale(0.9)" viewBox="-4 -2 24 24"%3E%3Cg transform="rotate(-90 10 10)"%3E%3Cpath fill="%23606060" d="m12.547 1.621l6.095 9.794A3 3 0 0 1 16.095 16H3.905a3 3 0 0 1-2.547-4.585L7.453 1.62a3 3 0 0 1 5.094 0z"%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+}
+
+/* 右箭头 */
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="-4 -2 24 24"%3E%3Cg transform="rotate(90 8 8)"%3E%3Cpath fill="%238b8b8b" d="m12.547 1.621l6.095 9.794A3 3 0 0 1 16.095 16H3.905a3 3 0 0 1-2.547-4.585L7.453 1.62a3 3 0 0 1 5.094 0z"%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+}
+::-webkit-scrollbar-button:single-button:horizontal:increment:hover {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="-4 -2 24 24"%3E%3Cg transform="rotate(90 8 8)"%3E%3Cpath fill="%23606060" d="m12.547 1.621l6.095 9.794A3 3 0 0 1 16.095 16H3.905a3 3 0 0 1-2.547-4.585L7.453 1.62a3 3 0 0 1 5.094 0z"%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+}
+::-webkit-scrollbar-button:single-button:horizontal:increment:active {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" transform="scale(0.9)" viewBox="-4 -2 24 24"%3E%3Cg transform="rotate(90 8 8)"%3E%3Cpath fill="%23606060" d="m12.547 1.621l6.095 9.794A3 3 0 0 1 16.095 16H3.905a3 3 0 0 1-2.547-4.585L7.453 1.62a3 3 0 0 1 5.094 0z"%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+}
