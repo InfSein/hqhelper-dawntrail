@@ -61,7 +61,7 @@ export const getChangelogs = (
   return [
     {
       version: '2.1.4',
-      date: '2024-12-05',
+      date: '2024-12-04',
       changes: [
         {
           name: groupName.breaking,
