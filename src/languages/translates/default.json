@@ -4446,35 +4446,35 @@
   },
   "为“选择职业”区域的各个职业按钮追加了右键菜单功能。": {
     "en": "Added context menu to each job button in \"Select Job\".",
-    "ja": "为“选择职业”区域的各个职业按钮追加了右键菜单功能。",
+    "ja": "「ジョブ選択」セクションの各ジョブボタンに右クリックメニュー機能を追加しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "在右键菜单中可以快速增加/减少选定职业的已选部件，打开此职业在配装模拟器中的页面，甚至查看推荐配装。": {
     "en": "You can quickly add/subtract selected parts of the selected job, open the page of the selected job in Gearing simulator, or view recommended gearsets.",
-    "ja": "在右键菜单中可以快速增加/减少选定职业的已选部件，打开此职业在配装模拟器中的页面，甚至查看推荐配装。",
+    "ja": "右クリックメニューでは、選択したジョブの選択済みパーツの増減、該当ジョブのギアセットシミュレーターのページを開く、さらにはおすすめ装備を見ることが可能です。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "为食药计算器的“查看统计”实装了下述改动：": {
     "en": "Following changes have been implemented for the \"View Statistics\" of FT Helper:",
-    "ja": "为食药计算器的“查看统计”实装了下述改动：",
+    "ja": "調理品&薬品の计算の「集計を見る」機能に以下の変更を実装しました：",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "增加了“{f}”栏目，统计未被其他分组归类的道具；": {
     "en": "Added a \"{f}\" group to list items that have not been classified by other groups;",
-    "ja": "增加了“{f}”栏目，统计未被其他分组归类的道具；",
+    "ja": "「{f}」列を追加し、他のグループに分類されないアイテムを集計します。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "其他素材统计": {
     "en": "Other materials",
-    "ja": "其他素材统计",
+    "ja": "その他素材の集計",
     "$files": [
       "data\\change-logs.ts",
       "components\\ft-helper\\StatisticsPanel.vue"
@@ -4482,21 +4482,21 @@
   },
   "将灵砂统计合并入限时采集品统计，并调整了各栏目的排列顺序；": {
     "en": "Merge the aethersand statistics into the Limited gathering items statistics and adjust the arrangement order of groups;",
-    "ja": "将灵砂统计合并入限时采集品统计，并调整了各栏目的排列顺序；",
+    "ja": "霊砂の集計を刻限採集品集計に統合し、各列の配置順を調整しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "“{f1}”选项修改为“{f2}”。勾选此项时，除“{f3}”之外的所有栏目都将不再统计食药半成品所需要的素材。": {
     "en": "Change the \"{f1}\" option to \"{f2}\". When this option is checked, all columns except \"{f3}\" will no longer count the materials required for precrafts.",
-    "ja": "“{f1}”选项修改为“{f2}”。勾选此项时，除“{f3}”之外的所有栏目都将不再统计食药半成品所需要的素材。",
+    "ja": "「{f1}」オプションを「{f2}」に変更しました。このオプションを有効にすると、「{f3}」以外のすべての列で調理品&薬品の中間素材に必要な素材を統計しなくなります。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "只显示直接制作素材": {
     "en": "Only show direct materials",
-    "ja": "只显示直接制作素材",
+    "ja": "直接な素材のみを表示",
     "$files": [
       "data\\change-logs.ts",
       "components\\ft-helper\\StatisticsPanel.vue"
@@ -4504,63 +4504,63 @@
   },
   "修复了采集时钟的提醒方式设置为“提示音”时，程序会在没有订阅道具可采集的时间响铃的问题。": {
     "en": "Fixed the issue where the program would ring at times when there were no subscribed items to collect when the Notification way was set to \"Sound\".",
-    "ja": "修复了采集时钟的提醒方式设置为“提示音”时，程序会在没有订阅道具可采集的时间响铃的问题。",
+    "ja": "採集時計の通知方法を「アラーム音」に設定した際、採集可能なアイテムがない時間帯にアラームが鳴る問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修复了将物品语言设定为中文/日文时，钓鱼采集道具悬浮窗中的“{f}”组装出的外部链接可能无法查询到指定道具的问题。": {
     "en": "Fixed an issue where the external link assembled from the \"{f}\" in the fishing items' popup may not be able to retrieve the specified prop when the language of the item is set to Chinese/Japanese.",
-    "ja": "修复了将物品语言设定为中文/日文时，钓鱼采集道具悬浮窗中的“{f}”组装出的外部链接可能无法查询到指定道具的问题。",
+    "ja": "アイテム言語設定を中国語または日本語にした場合、釣り採集アイテムのツールチップ内にある「{f}」で構成された外部リンクが指定アイテムを正しく検索できない場合がある問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修复了框选物品悬浮窗中的食物/装备属性复制时，复制内容中属性名称与数额间会有多余换行的问题。": {
     "en": "Fixed the issue where there were extra line breaks between atrribute names and amounts when directly selecting in items' popup and copying them.",
-    "ja": "修复了框选物品悬浮窗中的食物/装备属性复制时，复制内容中属性名称与数额间会有多余换行的问题。",
+    "ja": "フレーム選択したアイテムのツールチップ内で調理品/装備のステータスをコピーした際、ステータス名と数値の間に余計な改行が入る問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修复了物品右键菜单可以被部分不可操作的物品按钮激活的问题。": {
     "en": "Fixed the issue where the right-click menu of items could be activated by partially inoperable item buttons.",
-    "ja": "修复了物品右键菜单可以被部分不可操作的物品按钮激活的问题。",
+    "ja": "アイテムの右クリックメニューが、一部操作不可能なアイテムボタンで起動可能だった問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修正了特定场景下物品悬浮窗中食物/装备属性的显示效果。": {
     "en": "Fixed the display effect of food/equipment attributes in the item popup in specific scenarios.",
-    "ja": "修正了特定场景下物品悬浮窗中食物/装备属性的显示效果。",
+    "ja": "特定の場面で、アイテムツールチップ内の食品/装備ステータスの表示が正しくない問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修正了点数按钮在显示多种点数时的显示效果。": {
     "en": "Fixed the display effect of the tome script button when displaying multiple scripts.",
-    "ja": "修正了点数按钮在显示多种点数时的显示效果。",
+    "ja": "トークンが複数のポイント種別を表示する場合の表示効果を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "优化了物品按钮的右键菜单中关于复制道具名的排布逻辑，点击“复制道具名”选项会直接复制当前偏好设置下的物品语言，其他语言的物品名则放置在二级菜单。此外，现在还可以复制道具检索宏。": {
     "en": "Optimized the layout logic of copying item names in the right-click menu of the item button. Clicking on the \"Copy Item Name\" option will directly copy the item language under the current preference settings, while item names in other languages will be placed in the secondary menu. In addition, it is now possible to copy /isearch macros.",
-    "ja": "优化了物品按钮的右键菜单中关于复制道具名的排布逻辑，点击“复制道具名”选项会直接复制当前偏好设置下的物品语言，其他语言的物品名则放置在二级菜单。此外，现在还可以复制道具检索宏。",
+    "ja": "アイテムボタンの右クリックメニュー内の「アイテム名をコピーする」オプションのレイアウトロジックを最適化しました。現在の言語設定でのアイテム名を直接コピーできるほか、他の言語でのアイテム名はサブメニューに配置されるようになりました。また、「アイテム検索マクロ」をコピーする機能も追加しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "“{f1}”的设置项“{f2}”现在还可以设置为“{f3}”。": {
     "en": "The setting option \"{f2}\" in \"{f1}\" can now be set to \"{f3}\".",
-    "ja": "“{f1}”的设置项“{f2}”现在还可以设置为“{f3}”。",
+    "ja": "「{f1}」の設定項目「{f2}」は「{f3}」に設定することも可能になりました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "紧凑 (物品名称x数量)": {
     "en": "Tight (物品名称x数量)",
-    "ja": "紧凑 (NamexAmount)",
+    "ja": "コンパクト（アイテム名x数）",
     "$files": [
       "data\\change-logs.ts",
       "components\\modals\\ModalUserPreferences.vue"
@@ -4568,63 +4568,63 @@
   },
   "复制其他道具名": {
     "en": "Copy item name (other lang)",
-    "ja": "复制其他道具名",
+    "ja": "他のアイテム名をコピー",
     "$files": [
       "tools\\item.ts"
     ]
   },
   "常规采集品统计": {
     "en": "Common gatherings",
-    "ja": "常规采集品统计",
+    "ja": "一般採集品集計",
     "$files": [
       "components\\ft-helper\\StatisticsPanel.vue"
     ]
   },
   "限时采集品&灵砂统计": {
     "en": "Limited gatherings & Aethersands",
-    "ja": "限时采集品&灵砂统计",
+    "ja": "刻限採集品＆霊砂集計",
     "$files": [
       "components\\ft-helper\\StatisticsPanel.vue"
     ]
   },
   "未被其他分组归类的道具。": {
     "en": "Items that have not been classified by other groups.",
-    "ja": "未被其他分组归类的道具。",
+    "ja": "他のグループに分類されないアイテム",
     "$files": [
       "components\\ft-helper\\StatisticsPanel.vue"
     ]
   },
   "已选": {
     "en": "Selected",
-    "ja": "已选",
+    "ja": "選択済み",
     "$files": [
       "components\\custom\\job\\JobButton.vue"
     ]
   },
   "清空已选": {
     "en": "Clear selected",
-    "ja": "清空已选",
+    "ja": "選択済みをクリア",
     "$files": [
       "components\\custom\\job\\JobButton.vue"
     ]
   },
   "配装": {
     "en": "Gears",
-    "ja": "配装",
+    "ja": "ギアセット",
     "$files": [
       "components\\custom\\job\\JobButton.vue"
     ]
   },
   "模拟配装": {
     "en": "Gearing simulator",
-    "ja": "模拟配装",
+    "ja": "ギアセットシミュレーター",
     "$files": [
       "components\\custom\\job\\JobButton.vue"
     ]
   },
   "推荐配装": {
     "en": "Recomm. gear sets",
-    "ja": "推荐配装",
+    "ja": "推奨ギアセット",
     "$files": [
       "components\\custom\\job\\JobButton.vue"
     ]
