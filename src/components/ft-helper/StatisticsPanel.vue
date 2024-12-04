@@ -278,7 +278,7 @@ const statementData = computed(() => {
           id="other-materials-group" class="group" title-background-color="var(--n-color-embedded)"
           :title="t('其他素材统计')"
           :descriptions="[
-            t('基础素材中未被其他分组归类的道具。'),
+            t('未被其他分组归类的道具。'),
             ...materialTargetDescription
           ]"
         >
