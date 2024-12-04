@@ -107,13 +107,13 @@ export const export2Excel = (
     let name = '???'
     switch (ui_lang) {
       case 'zh':
-        name = affixData.affix_name_zh
+        name = affixData.name_zh
         break
       case 'ja':
-        name = affixData.affix_name_ja
+        name = affixData.name_ja
         break
       case 'en':
-        name = affixData.affix_name_en
+        name = affixData.name_en
         break
     }
 
