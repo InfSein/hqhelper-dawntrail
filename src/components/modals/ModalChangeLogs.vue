@@ -30,9 +30,10 @@ const getChanges = (change: PatchChangeGroup) => {
     v-model:show="showModal"
     :icon="EventNoteFilled"
     :title="t('更新日志')"
-    :height="isMobile ? '650px' : '600px'"
+    max-width="650px"
+    :height="isMobile ? '650px' : '700px'"
   >
-    <div class="wrapper" :style="{ height: isMobile ? '550px' : '500px' }">
+    <div class="wrapper" :style="{ height: isMobile ? '550px' : '600px' }">
       <n-card
         v-for="(patchlog, logIndex) in changelog"
         :key="patchlog.version"
