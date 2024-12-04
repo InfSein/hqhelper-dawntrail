@@ -7,11 +7,11 @@ import {
 import {
   InfoOutlined
 } from '@vicons/material'
-import XivFARImage from './XivFARImage.vue'
 import ItemPop from './ItemPop.vue'
-import { getItemContexts, type ItemInfo } from '@/tools/item'
-import type { UserConfigModel } from '@/models/user-config';
+import XivFARImage from '../general/XivFARImage.vue'
+import type { UserConfigModel } from '@/models/user-config'
 import { CopyToClipboard } from '@/tools'
+import { getItemContexts, type ItemInfo } from '@/tools/item'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -91,7 +91,7 @@ const handleCopy = async (content: string, successMessage?: string) => {
     NAIVE_UI_MESSAGE.success(successMessage ?? t('已复制到剪贴板'))
   }
 }
-const { options, handleKeyEvent } = getItemContexts(props.itemInfo, t, handleCopy)
+const { options, handleKeyEvent } = getItemContexts(props.itemInfo, itemLanguage.value, t, handleCopy)
 const handleContextMenu = (e: MouseEvent) => {
   e.preventDefault()
   showDropdownRef.value = false
@@ -176,7 +176,7 @@ const handleItemIconClick = async () => {
       :size="imgSize"
       :src="itemInfo.iconUrl"
     />
-    <div>
+    <div v-if="!hideName || showAmount">
       {{ hideName ? '' : getItemName() + ' ' }}
       {{ showAmount ? 'x' + amount : '' }}
     </div>

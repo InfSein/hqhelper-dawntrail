@@ -3,7 +3,6 @@
 -->
 
 <script setup lang="ts">
-
 const props = defineProps({
   /** 图片地址 */
   src: {

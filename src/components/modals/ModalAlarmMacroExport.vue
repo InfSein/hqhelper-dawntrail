@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import { computed, h, inject, ref, watch, type Ref } from 'vue'
+import { computed, h, inject, ref, type Ref } from 'vue'
 import {
-  NCard, NCheckbox, NIcon, NModal, NPopover, NTree,
+  NCheckbox, NIcon, NPopover, NTree,
   type TreeOption
 } from 'naive-ui'
 import { 
   CodeSharp,
   HelpOutlineRound
 } from '@vicons/material'
-import GroupBox from '../custom-controls/GroupBox.vue'
+import MyModal from '../templates/MyModal.vue'
+import GroupBox from '../templates/GroupBox.vue'
+import ItemSpan from '../custom/item/ItemSpan.vue'
+import MacroViewer from '../custom/macro/MacroViewer.vue'
 import { XivJobs, type XivJob } from '@/assets/data'
 import { type UserConfigModel } from '@/models/user-config'
 import type { ItemGroup } from '@/models/item'
-import ItemSpan from '../custom-controls/ItemSpan.vue'
 import type { AlarmMacroOptions } from '@/models/gather-clock'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
-import MacroViewer from '../custom-controls/MacroViewer.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -40,12 +41,6 @@ interface ModalAlarmMacroExportProps {
 const props = defineProps<ModalAlarmMacroExportProps>()
 
 const wrapper = ref<HTMLElement>()
-
-watch(showModal, (newVal, oldVal) => {
-  if (newVal && !oldVal) {
-    //
-  }
-})
 
 const itemTreeCheckedKeys = ref<number[]>([])
 const handleItemTreeSelectedKeysUpdate = (keys: Array<string | number>) => {
@@ -158,100 +153,87 @@ const getPlaceName = (itemInfo : ItemInfo) => {
       return itemInfo.gatherInfo?.placeNameZH
   }
 }
-
-const handleClose = () => {
-  showModal.value = false
-}
 </script>
 
 <template>
-  <n-modal v-model:show="showModal" :id="modalId">
-    <n-card
-      closable
-      role="dialog"
-      class="no-select"
-      style="width: 98%; max-width: 700px;"
-      @close="handleClose"
-    >
-      <template #header>
-        <div class="card-title">
-          <n-icon><CodeSharp /></n-icon>
-          <span class="title">{{ t('导出闹钟宏') }}</span>
-        </div>
-      </template>
-
-      <div class="wrapper" ref="wrapper">
-        <GroupBox id="select-items" title-background-color="var(--n-color-modal)">
+  <MyModal
+    v-model:show="showModal"
+    :id="modalId"
+    :icon="CodeSharp"
+    :title="t('导出闹钟宏')"
+    max-width="700px"
+  >
+    <div class="wrapper" ref="wrapper">
+      <GroupBox id="select-items" title-background-color="var(--n-color-modal)">
+        <template #title>
+          <span class="title">{{ t('选择物品') }}</span>
+        </template>
+        <n-tree
+          block-line
+          cascade
+          checkable
+          :selectable="false"
+          :data="itemTreeData.treeData"
+          :default-expanded-keys="itemTreeData.keys"
+          :default-checked-keys="[]"
+          @update:checked-keys="handleItemTreeSelectedKeysUpdate"
+        />
+      </GroupBox>
+      <div id="right-container">
+        <GroupBox id="export-settings" title-background-color="var(--n-color-modal)">
           <template #title>
-            <span class="title">{{ t('选择物品') }}</span>
+            <span class="title">{{ t('选项') }}</span>
           </template>
-          <n-tree
-            block-line
-            cascade
-            checkable
-            :selectable="false"
-            :data="itemTreeData.treeData"
-            :default-expanded-keys="itemTreeData.keys"
-            :default-checked-keys="[]"
-            @update:checked-keys="handleItemTreeSelectedKeysUpdate"
+          <div class="settings-container">
+            <n-checkbox v-model:checked="alarmMacroOptions.clearOldAlarms">
+              {{ t('同时清除此前设置的闹钟') }}
+            </n-checkbox>
+            <div class="flex">
+              <div style="min-width: fit-content;">{{ t('闹钟名包括：') }}</div>
+              <div class="flex-wrap">
+                <n-checkbox v-model:checked="alarmMacroOptions.containsJobName">
+                  {{ t('职业') }}
+                </n-checkbox>
+                <n-checkbox v-model:checked="alarmMacroOptions.containsMapName">
+                  {{ t('地图') }}
+                </n-checkbox>
+                <n-checkbox v-model:checked="alarmMacroOptions.containsAetheryteName">
+                  {{ t('推荐传送点') }}
+                </n-checkbox>
+                <n-popover :trigger="isMobile ? 'click' : 'hover'">
+                  <template #trigger>
+                    <div style="min-width: fit-content; display: flex; align-items: center;">
+                      <n-icon :size="14" style="display: flex;">
+                        <HelpOutlineRound />
+                      </n-icon>
+                    </div>
+                  </template>
+                  <div>
+                    {{ t('闹钟名具有20个字的限制，过长的部分会被截断。') }}
+                  </div>
+                </n-popover>
+              </div>
+            </div>
+            <n-checkbox v-model:checked="alarmMacroOptions.noRepeat">
+              {{ t('不重复提醒') }}
+            </n-checkbox>
+          </div>
+        </GroupBox>
+        <GroupBox id="macro-preview" title-background-color="var(--n-color-modal)">
+          <template #title>
+            <span class="title">{{ t('预览') }}</span>
+          </template>
+
+          <MacroViewer
+            class="preview-container"
+            :macro-lines="macro"
+            content-height="190px"
+            :container-id="modalId"
           />
         </GroupBox>
-        <div id="right-container">
-          <GroupBox id="export-settings" title-background-color="var(--n-color-modal)">
-            <template #title>
-              <span class="title">{{ t('选项') }}</span>
-            </template>
-            <div class="settings-container">
-              <n-checkbox v-model:checked="alarmMacroOptions.clearOldAlarms">
-                {{ t('同时清除此前设置的闹钟') }}
-              </n-checkbox>
-              <div class="flex">
-                <div style="min-width: fit-content;">{{ t('闹钟名包括：') }}</div>
-                <div class="flex-wrap">
-                  <n-checkbox v-model:checked="alarmMacroOptions.containsJobName">
-                    {{ t('职业') }}
-                  </n-checkbox>
-                  <n-checkbox v-model:checked="alarmMacroOptions.containsMapName">
-                    {{ t('地图') }}
-                  </n-checkbox>
-                  <n-checkbox v-model:checked="alarmMacroOptions.containsAetheryteName">
-                    {{ t('推荐传送点') }}
-                  </n-checkbox>
-                  <n-popover :trigger="isMobile ? 'click' : 'hover'">
-                    <template #trigger>
-                      <div style="min-width: fit-content; display: flex; align-items: center;">
-                        <n-icon :size="14" style="display: flex;">
-                          <HelpOutlineRound />
-                        </n-icon>
-                      </div>
-                    </template>
-                    <div>
-                      {{ t('闹钟名具有20个字的限制，过长的部分会被截断。') }}
-                    </div>
-                  </n-popover>
-                </div>
-              </div>
-              <n-checkbox v-model:checked="alarmMacroOptions.noRepeat">
-                {{ t('不重复提醒') }}
-              </n-checkbox>
-            </div>
-          </GroupBox>
-          <GroupBox id="macro-preview" title-background-color="var(--n-color-modal)">
-            <template #title>
-              <span class="title">{{ t('预览') }}</span>
-            </template>
-
-            <MacroViewer
-              class="preview-container"
-              :macro-lines="macro"
-              content-height="190px"
-              :container-id="modalId"
-            />
-          </GroupBox>
-        </div>
       </div>
-    </n-card>
-  </n-modal>
+    </div>
+  </MyModal>
 </template>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, reactive, ref, watch } from 'vue'
+import { computed, inject, onMounted, reactive, ref } from 'vue'
 import {
-  NAlert, NButton, NCard, NIcon, NModal, NRadio
+  NAlert, NButton, NCard, NIcon, NRadio
 } from 'naive-ui'
 import {
   UpdateSharp,
@@ -10,8 +10,9 @@ import {
   BrowserUpdatedRound,
   SpeedRound, RefreshRound
 } from '@vicons/material'
+import MyModal from '../templates/MyModal.vue'
+import FoldableCard from '../templates/FoldableCard.vue'
 import type { ProgressData } from 'env.electron'
-import FoldableCard from '../custom-controls/FoldableCard.vue'
 import AppStatus from '@/variables/app-status'
 import { checkUrlLag } from '@/tools/web-request'
 import type { AppVersionJson } from '@/models'
@@ -30,14 +31,12 @@ onMounted(() => {
     })
   }
 })
-watch(showModal, async (newVal, oldVal) => {
-  if (newVal && !oldVal) {
-    if (window.electronAPI?.clientVersion) {
-      currentElectronVersion.value = await window.electronAPI?.clientVersion
-    }
-    handleCheckUpdates()
+const onLoad = async () => {
+  if (window.electronAPI?.clientVersion) {
+    currentElectronVersion.value = await window.electronAPI?.clientVersion
   }
-})
+  handleCheckUpdates()
+}
 
 const checkingUpdates = ref(false)
 const updating = ref(false)
@@ -242,154 +241,141 @@ const handleDownloadElectronPack = () => {
     func(url)
   }
 }
-
-const handleClose = () => {
-  showModal.value = false
-}
 </script>
 
 <template>
-  <n-modal v-model:show="showModal">
-    <n-card
-      closable
-      role="dialog"
-      class="no-select"
-      style="width: 98%; max-width: 600px;"
-      @close="handleClose"
-    >
-      <template #header>
-        <div class="card-title">
-          <n-icon><UpdateSharp /></n-icon>
-          <span class="title">{{ t('检查更新') }}</span>
+  <MyModal
+    v-model:show="showModal"
+    :icon="UpdateSharp"
+    :title="t('检查更新')"
+    height="auto"
+    @on-load="onLoad"
+  >
+    <div class="wrapper">
+      <FoldableCard class="card proxy" card-key="modal-cu-proxy" card-size="small">
+        <template #header>
+          <div class="card-title">
+            <n-icon><VpnLockRound /></n-icon>
+            <span class="title">{{ t('加速服务') }}</span>
+          </div>
+        </template>
+
+        <div class="proxy-card-container">
+          <div class="tip-text">
+          </div>
+          <div class="proxy-actions">
+          </div>
+          <div class="proxy-selection-container">
+            <div
+              class="proxy-item"
+              v-for="option in proxyOptions"
+              :key="'proxy-' + option.value"
+            >
+              <div class="proxy-option">
+                <n-radio
+                  name="proxy-option"
+                  :checked="proxyValue === option.value"
+                  :value="option.value"
+                  @change="handleProxyOptionChange"
+                >
+                  {{ option.label }}
+                </n-radio>
+              </div>
+              <div class="proxy-ping" :style="getProxyPingStyle(option.value)">
+                {{ getProxyPingText(option.value) }}
+              </div>
+            </div>
+          </div>
+          <div class="edge-top-right">
+            <n-button size="tiny" @click="handlePing">
+              <template #icon>
+                <n-icon><SpeedRound /></n-icon>
+              </template>
+              {{ t('测速') }}
+            </n-button>
+          </div>
         </div>
-      </template>
+      </FoldableCard>
+      <n-card class="card web-version" size="small" embedded :bordered="false">
+        <template #header>
+          <div class="card-title">
+            <n-icon><SystemUpdateAltRound /></n-icon>
+            <span class="title">{{ t('HqHelper版本') }}</span>
+          </div>
+        </template>
 
-      <div class="wrapper">
-        <FoldableCard class="card proxy" card-key="modal-cu-proxy" card-size="small">
-          <template #header>
-            <div class="card-title">
-              <n-icon><VpnLockRound /></n-icon>
-              <span class="title">{{ t('加速服务') }}</span>
-            </div>
-          </template>
-
-          <div class="proxy-card-container">
-            <div class="tip-text">
-            </div>
-            <div class="proxy-actions">
-            </div>
-            <div class="proxy-selection-container">
-              <div
-                class="proxy-item"
-                v-for="option in proxyOptions"
-                :key="'proxy-' + option.value"
-              >
-                <div class="proxy-option">
-                  <n-radio
-                    name="proxy-option"
-                    :checked="proxyValue === option.value"
-                    :value="option.value"
-                    @change="handleProxyOptionChange"
-                  >
-                    {{ option.label }}
-                  </n-radio>
-                </div>
-                <div class="proxy-ping" :style="getProxyPingStyle(option.value)">
-                  {{ getProxyPingText(option.value) }}
-                </div>
-              </div>
-            </div>
-            <div class="edge-top-right">
-              <n-button size="tiny" @click="handlePing">
-                <template #icon>
-                  <n-icon><SpeedRound /></n-icon>
-                </template>
-                {{ t('测速') }}
-              </n-button>
+        <div class="version-card-container">
+          <div class="versions">
+            <div>{{ t('当前版本：{v}', AppStatus.Version) }}</div>
+            <div>
+              <span>{{ t('最新版本：') }}</span>
+              <span v-if="latestHqHelperVersion">{{ latestHqHelperVersion }}</span>
+              <span v-else-if="latestHqHelperVersion===''">{{ t('检测中……') }}</span>
+              <span v-else>{{ t('检测失败') }}</span>
             </div>
           </div>
-        </FoldableCard>
-        <n-card class="card web-version" size="small" embedded :bordered="false">
-          <template #header>
-            <div class="card-title">
-              <n-icon><SystemUpdateAltRound /></n-icon>
-              <span class="title">{{ t('HqHelper版本') }}</span>
-            </div>
-          </template>
+          <div class="edge-top-right">
+            <n-button size="tiny" class="btn-recheck" :loading="checkingUpdates" @click="handleCheckUpdates">
+              <template #icon>
+                <n-icon><RefreshRound /></n-icon>
+              </template>
+              {{ t('重新检测') }}
+            </n-button>
+          </div>
+          <div class="action">
+            <n-button
+              class="btn-do-update"
+              :loading="updating || updateTip.updating"
+              :disabled="!hqhelperNeedUpdate || updating || updateTip.updating"
+              @click="handleDownloadWebPack"
+            >
+              {{ getDoUpdateBtnText(AppStatus.Version, latestHqHelperVersion) }}
+            </n-button>
+          </div>
+        </div>
+      </n-card>
+      <n-card class="card web-version" size="small" embedded :bordered="false">
+        <template #header>
+          <div class="card-title">
+            <n-icon><BrowserUpdatedRound /></n-icon>
+            <span class="title">{{ t('客户端版本') }}</span>
+          </div>
+        </template>
 
-          <div class="version-card-container">
-            <div class="versions">
-              <div>{{ t('当前版本：{v}', AppStatus.Version) }}</div>
-              <div>
-                <span>{{ t('最新版本：') }}</span>
-                <span v-if="latestHqHelperVersion">{{ latestHqHelperVersion }}</span>
-                <span v-else-if="latestHqHelperVersion===''">{{ t('检测中……') }}</span>
-                <span v-else>{{ t('检测失败') }}</span>
-              </div>
-            </div>
-            <div class="edge-top-right">
-              <n-button size="tiny" class="btn-recheck" :loading="checkingUpdates" @click="handleCheckUpdates">
-                <template #icon>
-                  <n-icon><RefreshRound /></n-icon>
-                </template>
-                {{ t('重新检测') }}
-              </n-button>
-            </div>
-            <div class="action">
-              <n-button
-                class="btn-do-update"
-                :loading="updating || updateTip.updating"
-                :disabled="!hqhelperNeedUpdate || updating || updateTip.updating"
-                @click="handleDownloadWebPack"
-              >
-                {{ getDoUpdateBtnText(AppStatus.Version, latestHqHelperVersion) }}
-              </n-button>
+        <div class="version-card-container">
+          <div class="versions">
+            <div>{{ t('当前版本：{v}', currentElectronVersion) }}</div>
+            <div>
+              <span>{{ t('最新版本：') }}</span>
+              <span v-if="latestElectronVersion">{{ latestElectronVersion }}</span>
+              <span v-else-if="latestElectronVersion===''">{{ t('检测中……') }}</span>
+              <span v-else>{{ t('检测失败') }}</span>
             </div>
           </div>
-        </n-card>
-        <n-card class="card web-version" size="small" embedded :bordered="false">
-          <template #header>
-            <div class="card-title">
-              <n-icon><BrowserUpdatedRound /></n-icon>
-              <span class="title">{{ t('客户端版本') }}</span>
-            </div>
-          </template>
-
-          <div class="version-card-container">
-            <div class="versions">
-              <div>{{ t('当前版本：{v}', currentElectronVersion) }}</div>
-              <div>
-                <span>{{ t('最新版本：') }}</span>
-                <span v-if="latestElectronVersion">{{ latestElectronVersion }}</span>
-                <span v-else-if="latestElectronVersion===''">{{ t('检测中……') }}</span>
-                <span v-else>{{ t('检测失败') }}</span>
-              </div>
-            </div>
-            <div class="edge-top-right">
-              <n-button size="tiny" class="btn-recheck" :loading="checkingUpdates" @click="handleCheckUpdates">
-                <template #icon>
-                  <n-icon><RefreshRound /></n-icon>
-                </template>
-                {{ t('重新检测') }}
-              </n-button>
-            </div>
-            <div class="action">
-              <n-button
-                class="btn-do-update"
-                :disabled="!electronNeedUpdate"
-                @click="handleDownloadElectronPack"
-              >
-                {{ getDoUpdateBtnText(currentElectronVersion, latestElectronVersion, true) }}
-              </n-button>
-            </div>
+          <div class="edge-top-right">
+            <n-button size="tiny" class="btn-recheck" :loading="checkingUpdates" @click="handleCheckUpdates">
+              <template #icon>
+                <n-icon><RefreshRound /></n-icon>
+              </template>
+              {{ t('重新检测') }}
+            </n-button>
           </div>
-        </n-card>
-        <n-alert v-if="updateTip.preText" class="card upd-tip" type="info">
-          {{ updateTip.preText }}
-        </n-alert>
-      </div>
-    </n-card>
-  </n-modal>
+          <div class="action">
+            <n-button
+              class="btn-do-update"
+              :disabled="!electronNeedUpdate"
+              @click="handleDownloadElectronPack"
+            >
+              {{ getDoUpdateBtnText(currentElectronVersion, latestElectronVersion, true) }}
+            </n-button>
+          </div>
+        </div>
+      </n-card>
+      <n-alert v-if="updateTip.preText" class="card upd-tip" type="info">
+        {{ updateTip.preText }}
+      </n-alert>
+    </div>
+  </MyModal>
 </template>
 
 <style scoped>

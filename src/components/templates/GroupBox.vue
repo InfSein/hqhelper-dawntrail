@@ -1,13 +1,7 @@
 <script setup lang="ts">
-import {
-  NIcon, NTooltip
-} from 'naive-ui'
-import {
-  InfoOutlined
-} from '@vicons/material'
-import { inject, ref, type Ref } from 'vue';
+import HelpButton from '../custom/general/HelpButton.vue'
 
-const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+// const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 defineProps({
   borderColor: {
@@ -50,14 +44,11 @@ defineProps({
       <slot name="title">
         <div>{{ title }}</div>
         <div v-if="descriptions?.length" style="margin-left: 1px;">
-          <n-tooltip :trigger="isMobile ? 'click' : 'hover'" placement="top" :style="isMobile ? 'max-width: 250px;' : ''">
-            <template #trigger>
-              <n-icon size="18" style="display: flex;"><InfoOutlined /></n-icon>
-            </template>
-            <div class="descriptions">
-              <div v-for="(desc, dIndex) in descriptions" :key="'desc-' + dIndex">{{ desc }}</div>
-            </div>
-          </n-tooltip>
+          <HelpButton
+            icon="info"
+            :size="18"
+            :descriptions="descriptions"
+          />
         </div>
       </slot>
     </div>

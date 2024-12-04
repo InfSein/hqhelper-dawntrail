@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, inject, type Ref } from 'vue';
-import XivFARImage from './XivFARImage.vue'
-import type { UserConfigModel } from '@/models/user-config'
+import { computed, inject, type Ref } from 'vue'
+import XivFARImage from '../general/XivFARImage.vue'
 import { XivJobs } from '@/assets/data'
+import type { UserConfigModel } from '@/models/user-config'
 
 interface JobInfo {
   job_id: number,

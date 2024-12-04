@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// #region Imports
-
-// * import basic
 import { computed, provide, ref, getCurrentInstance, onMounted, watch } from 'vue'
 import {
   darkTheme, lightTheme, useOsTheme,
@@ -10,26 +7,18 @@ import {
   NLayout, NLayoutHeader, NLayoutContent,
   type GlobalThemeOverrides
 } from 'naive-ui'
-
-// * import pages and components
-import { useRoute } from 'vue-router'
-import AppHeader from './components/custom-controls/AppHeader.vue'
+import AppHeader from './components/custom/general/AppHeader.vue'
 import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
 import ModalCheckUpdates from './components/modals/ModalCheckUpdates.vue'
-
-// * import others
+import { useRoute } from 'vue-router'
 import { useStore } from '@/store/index'
 import { t } from '@/languages'
 import { injectVoerkaI18n } from "@voerkai18n/vue"
-import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
-import EorzeaTime from './tools/eorzea-time'
 import { CopyToClipboard, sleep } from './tools'
+import EorzeaTime from './tools/eorzea-time'
 import type { AppVersionJson } from './models'
+import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
 import AppStatus from './variables/app-status'
-
-// #endregion
-
-// #region Refs
 
 const route = useRoute()
 const store = useStore()
@@ -41,7 +30,6 @@ const locale = computed(() => {
 })
 i18n.activeLanguage = locale.value
 
-/** 当前页面模式，通过URL路由赋值的参数 */
 const appMode = ref<"overlay" | "" | undefined>('')
 provide('appMode', appMode)
 
@@ -52,11 +40,6 @@ const updateIsMobile = () => {
 updateIsMobile()
 window.addEventListener('resize', updateIsMobile)
 
-// #endregion
-
-// #region Registers
-
-// * register ui
 const osTheme = useOsTheme()
 const theme = computed(() => {
   let _theme = userConfig.value.theme
@@ -90,18 +73,6 @@ const naiveUiMessagePlacement = computed(() => {
   return isMobile.value ? 'bottom' : 'top'
 })
 
-// #endregion
-
-// #region Disable mobile scale (好像没用，先不管他)
-document.addEventListener('touchstart', function(event) {
-  if (event.touches.length > 1) {
-    event.preventDefault()
-  }
-}, { passive: false })
-// #endregion
-
-// #region functions
-
 const appForceUpdate = () => {
   // Update user config
   userConfig.value = fixUserConfig(store.state.userConfig)
@@ -115,10 +86,6 @@ const switchTheme = () => {
   userConfig.value.theme = theme.value === 'light' ? 'dark' : 'light'
   store.commit('setUserConfig', userConfig.value)
 }
-
-// #endregion
-
-// #region Provides
 
 provide('userConfig', userConfig)
 provide('t', (message: string, ...args: any[]) => {
@@ -169,8 +136,6 @@ const displayCheckUpdatesModal = () => {
   showCheckUpdatesModal.value = true
 }
 provide('displayCheckUpdatesModal', displayCheckUpdatesModal)
-
-// #endregion
 
 const appClass = computed(() => {
   const classes = [
@@ -274,7 +239,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
   >
     <n-global-style />
     <n-message-provider :placement="naiveUiMessagePlacement">
-      <div :class="appClass">
+      <div :class="appClass" :data-theme="theme">
         <n-layout id="main-layout" position="absolute" :native-scrollbar="false">
           <n-layout-header v-if="appMode !== 'overlay'" bordered position="absolute">
             <AppHeader />

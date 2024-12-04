@@ -44,7 +44,9 @@ export const isGearEmpty = (gearSelections: GearSelections) => {
   return Object.values(gearSelections).every(obj => Object.values(obj).every(val => val === 0))
 }
 
-import XivJobs from '@/assets/data/xiv-jobs.json'
+import {
+  XivJobs
+} from '@/assets/data'
 export const getDefaultGearSelections = () => {
   const gears = JSON.parse(JSON.stringify({
     MainHand: {} as Record<number, number>,

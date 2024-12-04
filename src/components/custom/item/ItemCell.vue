@@ -3,11 +3,11 @@ import { computed, inject, type Ref } from 'vue'
 // import {
 //   NInputNumber, NScrollbar, NTable
 // } from 'naive-ui'
-import { getItemInfo, type StatementRow } from '@/tools/item'
-import XivFARImage from './XivFARImage.vue'
+import XivFARImage from '../general/XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
 import type { UserConfigModel } from '@/models/user-config'
 import { XivJobs, type XivJob } from '@/assets/data'
+import { getItemInfo, type StatementRow } from '@/tools/item'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)

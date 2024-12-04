@@ -9,7 +9,7 @@ import {
 //   LanguageOutlined,
 //   OpenInNewFilled
 // } from '@vicons/material'
-import XivFARImage from './XivFARImage.vue'
+import XivFARImage from '../general/XivFARImage.vue'
 import ItemPop from './ItemPop.vue'
 import { getItemContexts, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
@@ -116,7 +116,7 @@ const handleCopy = async (content: string, successMessage?: string) => {
   }
 }
 const itemContexts = computed(() => {
-  return getItemContexts(props.itemInfo, t, handleCopy)
+  return getItemContexts(props.itemInfo, itemLanguage.value, t, handleCopy)
 })
 const handleContextMenu = (e: MouseEvent) => {
   e.preventDefault()

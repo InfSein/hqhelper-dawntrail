@@ -8,17 +8,20 @@ import {
 import { 
   KeyboardArrowDownRound
 } from '@vicons/material'
-import FoldableCard from '../custom-controls/FoldableCard.vue'
-import Stepper from '../custom-controls/Stepper.vue'
-import GearSlot from '../custom-controls/GearSlot.vue'
+import FoldableCard from '../templates/FoldableCard.vue'
+import Stepper from '../custom/general/Stepper.vue'
+import GearSlot from '../custom/gear/GearSlot.vue'
 import ModalSelectedGears from '../modals/ModalSelectedGears.vue'
+import {
+  XivGearAffixes,
+  XivJobs,
+  XivRoles
+} from '@/assets/data'
 import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears'
 import { getDefaultGearSelections } from '@/models/gears'
-import GearAffixes from '@/assets/data/xiv-gear-affixes.json'
-import XivJobs from '@/assets/data/xiv-jobs.json'
-import XivRoles from '@/assets/data/xiv-roles.json'
 import { type UserConfigModel } from '@/models/user-config'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
+import { useGearAdder } from '@/tools/gears'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -52,23 +55,23 @@ const affixesTips = computed(() => {
 })
 const getAffixesName = () => {
   const uiLanguage = userConfig.value?.language_ui ?? 'zh'
-  const jobName = (XivJobs as any)?.[props.jobId]?.['job_name_' + uiLanguage] || t('未选择')
-  const attireName = (GearAffixes as any)?.[props.attireAffix]?.['affix_name_' + uiLanguage] || t('未选择')
-  const accessoryName = (GearAffixes as any)?.[props.accessoryAffix]?.['affix_name_' + uiLanguage] || t('未选择')
+  const jobName = XivJobs?.[props.jobId]?.[`job_name_${uiLanguage}`] || t('未选择')
+  const attireName = XivGearAffixes?.[props.attireAffix]?.[`name_${uiLanguage}`] || t('未选择')
+  const accessoryName = XivGearAffixes?.[props.accessoryAffix]?.[`name_${uiLanguage}`] || t('未选择')
   return { jobName, attireName, accessoryName }
 }
 
 const jobNotSelected = computed(() => {
-  return !(XivJobs as any)?.[props.jobId]
+  return !XivJobs?.[props.jobId]
 })
 const disableWeapon = computed(() => {
   return jobNotSelected.value
 })
 const disableAttire = computed(() => {
-  return !(GearAffixes as any)?.[props.attireAffix]
+  return !XivGearAffixes?.[props.attireAffix]
 })
 const disableAccessory = computed(() => {
-  return !(GearAffixes as any)?.[props.accessoryAffix]
+  return !XivGearAffixes?.[props.accessoryAffix]
 })
 
 // #region Slot Computeds
@@ -141,62 +144,28 @@ const clearCurrent = () => {
   Wrist.value = 0
   Rings.value = 0
 }
-const addMainOffHand = (jobId: number) => {
-  if (props.patchData?.jobs.MainHand?.[jobId]?.[0]) {
-    gearSelections.value.MainHand[jobId]++
-  }
-  if (props.patchData?.jobs.OffHand?.[jobId]?.[0]) {
-    gearSelections.value.OffHand[jobId]++
-  }
-}
-const addAttire = (affix: AttireAffix) => {
-  if (props.patchData?.jobs.HeadAttire?.[affix]?.[0]) {
-    gearSelections.value.HeadAttire[affix]++
-  }
-  if (props.patchData?.jobs.BodyAttire?.[affix]?.[0]) {
-    gearSelections.value.BodyAttire[affix]++
-  }
-  if (props.patchData?.jobs.HandsAttire?.[affix]?.[0]) {
-    gearSelections.value.HandsAttire[affix]++
-  }
-  if (props.patchData?.jobs.LegsAttire?.[affix]?.[0]) {
-    gearSelections.value.LegsAttire[affix]++
-  }
-  if (props.patchData?.jobs.FeetAttire?.[affix]?.[0]) {
-    gearSelections.value.FeetAttire[affix]++
-  }
-}
-const addAccessory = (affix: AccessoryAffix) => {
-  if (props.patchData?.jobs.Earrings?.[affix]?.[0]) {
-    gearSelections.value.Earrings[affix]++
-  }
-  if (props.patchData?.jobs.Necklace?.[affix]?.[0]) {
-    gearSelections.value.Necklace[affix]++
-  }
-  if (props.patchData?.jobs.Wrist?.[affix]?.[0]) {
-    gearSelections.value.Wrist[affix]++
-  }
-  if (props.patchData?.jobs.Rings?.[affix]?.[0]) {
-    gearSelections.value.Rings[affix] += 2
-  }
-}
+const {
+  addMainOffHand,
+  addAttire,
+  addAccessory
+} = useGearAdder()
 const addCurrMainOffHand = () => {
   if (jobNotSelected.value) {
     NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
   }
-  addMainOffHand(props.jobId)
+  addMainOffHand(gearSelections, props.patchData, props.jobId)
 }
 const addCurrAttire = () => {
   if (jobNotSelected.value) {
     NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
   }
-  addAttire(props.attireAffix)
+  addAttire(gearSelections, props.patchData, props.attireAffix)
 }
 const addCurrAccessory = () => {
   if (jobNotSelected.value) {
     NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
   }
-  addAccessory(props.accessoryAffix)
+  addAccessory(gearSelections, props.patchData, props.accessoryAffix)
 }
 const addAttireAndAccessory = () => {
   if (jobNotSelected.value) {
@@ -255,18 +224,18 @@ const handleQuickOperatesSelect = (key: string) => {
   }
   if (key === 'add-crafter-mainoff') {
     XivRoles.crafter.jobs.forEach(jobId => {
-      addMainOffHand(jobId)
+      addMainOffHand(gearSelections, props.patchData, jobId)
     })
   } else if (key === 'add-gatherer-mainoff') {
     XivRoles.gatherer.jobs.forEach(jobId => {
-      addMainOffHand(jobId)
+      addMainOffHand(gearSelections, props.patchData, jobId)
     })
   } else if (key === 'add-crafter-aaa') {
-    addAttire(XivRoles.crafter.attire as AttireAffix)
-    addAccessory(XivRoles.crafter.accessory as AccessoryAffix)
+    addAttire(gearSelections, props.patchData, XivRoles.crafter.attire as AttireAffix)
+    addAccessory(gearSelections, props.patchData, XivRoles.crafter.accessory as AccessoryAffix)
   } else if (key === 'add-gatherer-aaa') {
-    addAttire(XivRoles.gatherer.attire as AttireAffix)
-    addAccessory(XivRoles.gatherer.accessory as AccessoryAffix)
+    addAttire(gearSelections, props.patchData, XivRoles.gatherer.attire as AttireAffix)
+    addAccessory(gearSelections, props.patchData, XivRoles.gatherer.accessory as AccessoryAffix)
   }
 }
 

@@ -6,15 +6,18 @@ import {
 import {
   OpenInNewFilled
 } from '@vicons/material'
-import XivFARImage from './XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
 import ItemRemark from './ItemRemark.vue'
+import XivFARImage from '../general/XivFARImage.vue'
+import LocationSpan from '../map/LocationSpan.vue'
+import {
+  XivItemRemarks,
+  XivJobs, type XivJob,
+  XivAttributes
+} from '@/assets/data'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/user-config'
-import XivAttributes from '@/assets/data/xiv-attributes.json'
-import { XivItemRemarks, XivJobs, type XivJob } from '@/assets/data'
 import type EorzeaTime from '@/tools/eorzea-time'
-import LocationSpan from './LocationSpan.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -130,20 +133,11 @@ const getItemTypeName = () => {
   }
 }
 const getAttrName = (attrId: number) => {
-  const attrMap = XivAttributes as any
-  const attr = attrMap[attrId.toString()]
+  const attr = XivAttributes[attrId]
   if (!attr) {
     return t('未知')
   }
-  switch (uiLanguage.value) {
-    case 'ja':
-      return attr.Name_ja
-    case 'en':
-      return attr.Name_en
-    case 'zh':
-    default:
-      return attr.Name
-  }
+  return attr[`name_${uiLanguage.value}`]
 }
 const getPlaceName = () => {
   switch (itemLanguage.value) {
@@ -209,8 +203,13 @@ const openInAngler = () => {
     case 'zh': lang = 'cn'; break
     case 'ja': lang = 'jp'; break
   }
+  let name = getItemName()
+  if (props.itemInfo.usedZHTemp) {
+    lang = 'en'
+    name = props.itemInfo.nameEN
+  }
   const domain = `https://${lang}.ff14angler.com/`
-  window.open(`${domain}?search=${props.itemInfo.nameEN}`)
+  window.open(`${domain}?search=${name}`)
 }
 
 const innerPopTrigger = computed(() => {
@@ -274,8 +273,7 @@ const innerPopTrigger = computed(() => {
               v-for="(attr, index) in itemInfo.attrsProvided"
               :key="'attr-hq' + index"
             >
-              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
-              <div> +{{ attr[2] }}</div>
+              <div>{{ `${getAttrName(attr[0])} +${attr[2]}` }}</div>
             </div>
           </div>
           <div class="content" v-else>
@@ -284,8 +282,7 @@ const innerPopTrigger = computed(() => {
               v-for="(attr, index) in itemInfo.attrsProvided"
               :key="'attr-nq' + index"
             >
-              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
-              <div> +{{ attr[1] }}</div>
+              <div>{{ `${getAttrName(attr[0])} +${attr[1]}` }}</div>
             </div>
           </div>
           <div class="content extra">
@@ -301,8 +298,7 @@ const innerPopTrigger = computed(() => {
               v-for="(attr, index) in itemInfo.tempAttrsProvided"
               :key="'temp-attr-hq' + index"
             >
-              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
-              <div> +{{ attr[4] }}% {{ t('(上限{})', attr[5]) }}</div>
+              <div>{{ `${getAttrName(attr[0])} +${attr[4]}% ${t('(上限{})', attr[5])}` }}</div>
             </div>
           </div>
           <div class="content" v-else>
@@ -311,8 +307,7 @@ const innerPopTrigger = computed(() => {
               v-for="(attr, index) in itemInfo.tempAttrsProvided"
               :key="'temp-attr-nq' + index"
             >
-              <div class="attr-name">{{ getAttrName(attr[0]) }}</div>
-              <div> +{{ attr[2] }}% {{ t('(上限{})', attr[3]) }}</div>
+              <div>{{ `${getAttrName(attr[0])} +${attr[2]}% ${t('(上限{})', attr[3])}` }}</div>
             </div>
           </div>
           <div class="content extra">

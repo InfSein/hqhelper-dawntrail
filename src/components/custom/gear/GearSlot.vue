@@ -3,8 +3,8 @@ import { computed, inject, ref, type Ref } from 'vue'
 import {
   NDivider, NPopover
 } from 'naive-ui'
-import XivFARImage from './XivFARImage.vue'
-import ItemButton from './ItemButton.vue'
+import XivFARImage from '../general/XivFARImage.vue'
+import ItemButton from '../item/ItemButton.vue'
 import { getItemInfo } from '@/tools/item'
 
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)

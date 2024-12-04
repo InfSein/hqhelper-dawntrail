@@ -7,11 +7,11 @@ import PatchPanel from '@/components/main/PatchPanel.vue'
 import JobPanel from '@/components/main/JobPanel.vue'
 import GearSelectionPanel from '@/components/main/GearSelectionPanel.vue'
 import StatisticsPanel from '@/components/main/StatisticsPanel.vue'
-import { type UserConfigModel } from '@/models/user-config';
+import { type UserConfigModel } from '@/models/user-config'
 import type { AttireAffix, AccessoryAffix } from '@/models/gears'
 import { getDefaultGearSelections, fixGearSelections } from '@/models/gears'
 import { useStore } from '@/store'
-import { useNbbCal } from '@/tools/use-nbb-cal';
+import { useNbbCal } from '@/tools/use-nbb-cal'
 
 const store = useStore()
 // const NAIVE_UI_MESSAGE = useMessage()
@@ -97,10 +97,10 @@ const tradeMap = computed(() => {
         <JobPanel
           v-model:job-selected="workState.job"
           v-model:affixes-selected="workState.affixes"
+          v-model:gears-selected="workState.gears"
           class="job-panel"
           :patch-selected="workState.patch"
           :patch-data="patchData"
-          :main-hand-selections="workState.gears?.MainHand"
           @on-job-button-dupli-click="handleJobButtonDupliClick"
         />
         <GearSelectionPanel

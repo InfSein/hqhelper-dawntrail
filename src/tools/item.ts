@@ -16,7 +16,7 @@ export interface CalculatedItem {
   mkc: number
   rid: string[]
 }
-const phItem = {
+const phItem : XivUnpackedItem = {
   id: 0,
   need: 0,
   icon: -1,
@@ -26,7 +26,10 @@ const phItem = {
   uc: -1,
   pc: -1,
   mkc: -1,
-  rid: []
+  rids: [], ilv: -1, sc: 0, hq: false,
+  dye: 0, act: 0, bon: 0, reduce: false,
+  elv: 0, ms: 0, bpm: [], spm: [], 
+  jobs: 0, jd: false, p: '', actParm: []
 }
 
 export interface StatementRow {
@@ -38,16 +41,18 @@ export interface StatementRow {
   }
 }
 
-import XivItems from '@/assets/data/unpacks/item.json'
-import XivItemTypes from '@/assets/data/xiv-item-types.json'
-import XivItemNameZHTemp from '@/assets/data/translations/xiv-item-names.json'
-import XivItemDescZHTemp from '@/assets/data/translations/xiv-item-descriptions.json'
-import XivRecipes from '@/assets/data/unpacks/recipe.json'
-import XivGatheringItems from '@/assets/data/unpacks/gathering-item.json'
-import XivGatherTerrory from '@/assets/data/unpacks/territory.json'
-import XivPlaceNames from '@/assets/data/unpacks/place-name.json'
-import XivPlaceZHTemp from '@/assets/data/translations/xiv-places.json'
-import { XivMaps, type XivMapAetheryteInfo } from '@/assets/data'
+import {
+  XivMaps, type XivMapAetheryteInfo,
+  XivTranslatedItemDescriptions,
+  XivTranslatedItemNames,
+  XivTranslatedPlaces,
+  XivUnpackedGatheringItems,
+  XivUnpackedItems, type XivUnpackedItem,
+  XivUnpackedPlaceNames,
+  XivUnpackedRecipes,
+  XivUnpackedTerritories,
+  XivItemTypes
+} from '@/assets/data'
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
@@ -55,9 +60,6 @@ const { getTradeMap, getReduceMap, getReduceMapReverted } = useNbbCal()
 const tradeMap = getTradeMap()
 const reduceMap = getReduceMap()
 const revertedReduceMap = getReduceMapReverted()
-const gatherMap = XivGatheringItems as Record<number, any>
-const territoryMap = XivGatherTerrory as Record<number, number[]>
-const placeMap = XivPlaceNames as Record<number, string[]>
 
 export interface ItemInfo {
   id: number
@@ -65,9 +67,12 @@ export interface ItemInfo {
   patch: string
   /** 物品品级 */
   itemLevel: number
-  nameJA: string
-  nameEN: string
-  nameZH: string
+  nameJA: string // deprecated. 逐步取代
+  nameEN: string // deprecated. 逐步取代
+  nameZH: string // deprecated. 逐步取代
+  name_zh: string
+  name_en: string
+  name_ja: string
   // * icon: 道具图标。需要注意hqIcon指向的文件可能不存在
   iconUrl: string
   hqIconUrl: string
@@ -117,6 +122,8 @@ export interface ItemInfo {
     jobId: number,
     /** 配方ID */
     recipeId: number,
+    /** 配方顺序号 (在制作笔记的顺序) */
+    recipeOrder: number,
     /** 制作等级 */
     craftLevel: number,
     /** 产量 (一次制作可以获得几个成品) */
@@ -191,21 +198,20 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // * 尝试从items表中获取物品完整信息
   let itemID = 0, itemAmount = 0
   if (typeof item === 'number' || typeof item === 'string') {
-    itemID = item
+    itemID = Number(item)
   } else {
-    itemID = item.id
+    itemID = Number(item.id)
     itemAmount = item.need
   }
 
-  let _item : any
+  let _item : XivUnpackedItem
   if (!itemID) {
     _item = deepCopy(phItem)
   } else {
-    const itemsMap = XivItems as any
-    if (!itemsMap?.[itemID]) {
+    if (!XivUnpackedItems?.[itemID]) {
       console.log('[开发提示] 此物品在items表中缺失:', item)
     }
-    _item = deepCopy(itemsMap?.[itemID] || phItem)
+    _item = deepCopy(XivUnpackedItems?.[itemID] || phItem)
     _item.id = itemID
   }
 
@@ -222,23 +228,27 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.nameJA = _item.lang[0]
   itemInfo.nameEN = _item.lang[1]
   itemInfo.nameZH = _item.lang[2]
+  itemInfo.name_ja = _item.lang[0]
+  itemInfo.name_en = _item.lang[1]
+  itemInfo.name_zh = _item.lang[2]
   itemInfo.descJA = _item.desc[0]
   itemInfo.descEN = _item.desc[1]
   itemInfo.descZH = _item.desc[2]
   itemInfo.patch = _item.p || '7.05'
 
   // * 针对还没有中文名/中文描述的道具，尝试从暂译表中获取暂译
-  if (!itemInfo.nameZH) {
-    const tempZhMap = XivItemNameZHTemp as any
+  if (!itemInfo.name_zh) {
+    const tempZhMap = XivTranslatedItemNames
     if (tempZhMap?.[itemInfo.id]) {
       itemInfo.nameZH = tempZhMap[itemInfo.id]
+      itemInfo.name_zh = tempZhMap[itemInfo.id]
       itemInfo.usedZHTemp = true
-    } else if (itemInfo.nameJA) {
+    } else if (itemInfo.name_ja) {
       console.log('[开发提示] 此物品需要填写中文暂译:', itemInfo)
     }
   }
   if (!itemInfo.descZH) {
-    const tempZhMap = XivItemDescZHTemp as any
+    const tempZhMap = XivTranslatedItemDescriptions
     if (tempZhMap?.[itemInfo.id]) {
       itemInfo.descZH = tempZhMap[itemInfo.id]
       itemInfo.usedZHTemp = true
@@ -253,7 +263,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.hqIconUrl = getImgCdnUrl(_item.icon, true)
 
   // * 尝试根据道具的UI类型ID获取类型名称和图标URL
-  const typeMap = XivItemTypes as any
+  const typeMap = XivItemTypes
   const itemType : number = _item.uc
   if (typeMap?.[itemType]) {
     itemInfo.uiTypeId = itemType
@@ -288,20 +298,19 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   }
 
   // * 组装物品采集信息
-  const gatherData = gatherMap[itemID]
+  const gatherData = XivUnpackedGatheringItems[itemID]
   if (gatherData) {
     const gatherPointType = gatherData.type
     const gatherJob = gatherPointType <= 1 ? 16 : 17 // * type 0123 分别是割草，伐木，采矿，碎石 (注：好像反了)
     const territoryID = gatherData.territory
-    const territoryData = territoryMap[territoryID]
-    if (territoryData) {
+    if (territoryID && XivUnpackedTerritories[territoryID]) {
+      const territoryData = XivUnpackedTerritories[territoryID]
       const placeID = territoryData[2]
-      const gatherPlaceData = placeMap[placeID]
+      const gatherPlaceData = XivUnpackedPlaceNames[placeID]
       if (gatherPlaceData) {
         let placeNameZH = gatherPlaceData[2]
         if (!placeNameZH) {
-          const tempZhMap = XivPlaceZHTemp as Record<number, string>
-          placeNameZH = tempZhMap[placeID] || '未翻译的地点'
+          placeNameZH = XivTranslatedPlaces[placeID] || '未翻译的地点'
         }
         const timelimitdesc : string[] = []
         itemInfo.gatherInfo = {
@@ -310,8 +319,8 @@ export const getItemInfo = (item: number | CalculatedItem) => {
           placeNameZH: placeNameZH,
           placeNameJA: gatherPlaceData[0],
           placeNameEN: gatherPlaceData[1],
-          posX: Number(gatherData.coords.x),
-          posY: Number(gatherData.coords.y),
+          posX: Number(gatherData!.coords!.x),
+          posY: Number(gatherData!.coords!.y),
           timeLimitInfo: [],
           timeLimitDescription: ''
         };
@@ -320,8 +329,9 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         }
         [1,2,3].forEach(i => {
           if (gatherData?.popTime) {
-            const start = gatherData.popTime?.['start' + i]
-            let end = gatherData.popTime?.['end' + i]
+            const index = i as 1|2|3
+            const start = gatherData.popTime?.[`start${index}`]
+            let end = gatherData.popTime?.[`end${index}`]
             if (end === '00:00') end = '24:00'
             if (start && end && start !== '--:--' && end !== '--:--') {
               itemInfo.gatherInfo.timeLimitInfo.push({ start, end })
@@ -339,11 +349,11 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // * 组装物品配方
   itemInfo.craftRequires = []
   if (_item.rids?.length) {
-    const recipeID = _item.rids[0]
-    const recipe = (XivRecipes as any)[recipeID]
+    const recipeID = Number(_item.rids[0])
+    const recipe = XivUnpackedRecipes[recipeID]
     if (recipe) {
       // console.log('item:', _item, '\nrecipe:', recipe, '\n')
-      const items = recipe.m as number[]
+      const items = recipe.m
       if (items?.length % 2 === 0) {
         for (let ptr = 0; ptr < items.length; ptr += 2) {
           const requiredItemID = items[ptr]
@@ -357,6 +367,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
       itemInfo.craftInfo = {
         jobId: recipe.job + 8, // 解包配方的jobId是从0开始
         recipeId: recipeID,
+        recipeOrder: recipe.noteBook[0] * 160 + recipe.noteBook[1],
         craftLevel: recipe.bp?.[2],
         yields: recipe.bp?.[1],
         starCount: recipe.bp?.[3],
@@ -439,31 +450,60 @@ import { NIcon } from 'naive-ui'
 import { getNearestAetheryte } from './map'
 export const getItemContexts = (
   itemInfo: ItemInfo,
+  itemLanguage: "zh" | "en" | "ja",
   t: (text: string, ...args: any[]) => string,
   handleCopy: (content: string, successMessage?: string) => Promise<void>
 ) => {
+  if (!itemInfo.id) {
+    return {
+      options: [],
+      handleKeyEvent: () => {}
+    }
+  }
   const options = [
     {
       label: t('复制道具名'),
       key: 'copy-item-name',
       icon: renderIcon(FileCopyOutlined),
+      click: () => {
+        const copyContent = itemInfo[`name_${itemLanguage}`]
+        handleCopy(copyContent, t('已复制 {content}', copyContent))
+      }
+    },
+    {
+      label: t('复制其他道具名'),
+      key: 'copy-other-names',
+      icon: renderIcon(FileCopyOutlined),
       children: [
         {
           label: t('中文名'),
           key: 'copy-zh',
+          show: itemLanguage !== 'zh',
           icon: renderIcon(LanguageOutlined)
         },
         {
           label: t('日文名'),
           key: 'copy-ja',
+          show: itemLanguage !== 'ja',
           icon: renderIcon(LanguageOutlined)
         },
         {
           label: t('英文名'),
           key: 'copy-en',
+          show: itemLanguage !== 'en',
           icon: renderIcon(LanguageOutlined)
         }
       ]
+    },
+    {
+      label: t('复制物品检索宏'),
+      key: 'copy-isearch-macro',
+      icon: renderIcon(FileCopyOutlined),
+      click: () => {
+        const name = itemInfo[`name_${itemLanguage}`]
+        const copyContent = `/isearch "${name}"`
+        handleCopy(copyContent, t('已复制 {content}', copyContent))
+      }
     },
     {
       type: 'divider',
