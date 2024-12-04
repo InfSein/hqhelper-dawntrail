@@ -646,7 +646,7 @@ export default {
     "645": "Fixed the display effect of the tome script button when displaying multiple scripts.",
     "646": "Optimized the layout logic of copying item names in the right-click menu of the item button. Clicking on the \"Copy Item Name\" option will directly copy the item language under the current preference settings, while item names in other languages will be placed in the secondary menu. In addition, it is now possible to copy /isearch macros.",
     "647": "The setting option \"{f2}\" in \"{f1}\" can now be set to \"{f3}\".",
-    "648": "Tight (物品名称x数量)",
+    "648": "Tight (NamexAmount)",
     "649": "Copy item name (other lang)",
     "650": "Common gatherings",
     "651": "Limited gatherings & Aethersands",
