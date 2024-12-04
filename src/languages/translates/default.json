@@ -4559,7 +4559,7 @@
     ]
   },
   "紧凑 (物品名称x数量)": {
-    "en": "Tight (物品名称x数量)",
+    "en": "Tight (NamexAmount)",
     "ja": "コンパクト（アイテム名x数）",
     "$files": [
       "data\\change-logs.ts",
