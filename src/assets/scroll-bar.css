@@ -2,19 +2,6 @@
  * Author: m0_61093435
  */
 
-[data-theme="light"] {
-  --scroll-thumb-bg: #ccc;
-  --scroll-thumb-hover-bg: #aaa;
-  --scroll-track-bg: #f0f0f0;
-  --scroll-button-bg: #ccc;
-}
-[data-theme="dark"] {
-  --scroll-thumb-bg: #444;
-  --scroll-thumb-hover-bg: #666;
-  --scroll-track-bg: #303033;
-  --scroll-button-bg: #444;
-}
-
 ::-webkit-scrollbar {
   width: 15px;
 }
@@ -43,7 +30,7 @@
 ::-webkit-scrollbar-button:single-button {
   background-color: transparent;
   display: block;
-  background-size: 10px;
+  background-size: 12px;
   background-repeat: no-repeat;
 }
 
@@ -57,7 +44,7 @@
 }
 ::-webkit-scrollbar-button:single-button:vertical:decrement,
 ::-webkit-scrollbar-button:single-button:vertical:increment {
-  background-position: center 4px;
+  background-position: center 2px;
 }
 ::-webkit-scrollbar-button:single-button:horizontal:decrement,
 ::-webkit-scrollbar-button:single-button:horizontal:increment {
