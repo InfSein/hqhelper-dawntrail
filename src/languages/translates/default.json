@@ -4628,5 +4628,12 @@
     "$files": [
       "components\\custom\\job\\JobButton.vue"
     ]
+  },
+  "优化了页面滚动条的显示效果。": {
+    "en": "Optimized the display effect of the page scrollbar.",
+    "ja": "ページスクロールバーの表示効果を最適化しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
   }
 }
