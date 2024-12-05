@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { computed, watch, type Component } from 'vue'
 import {
-  NCard, NIcon, NModal
+  NButton, NCard, NIcon, NModal
 } from 'naive-ui'
+import {
+  CloseOutlined
+} from '@vicons/material'
 
 // const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -53,13 +56,11 @@ const handleClose = () => {
 <template>
   <n-modal v-model:show="showModal">
     <n-card
-      closable
       role="dialog"
       class="no-select"
       style="width: 98%;"
       :style="containerStyle"
       :content-style="contentStyle"
-      @close="handleClose"
     >
       <template #header>
         <slot name="header">
@@ -68,6 +69,12 @@ const handleClose = () => {
             <span class="title">{{ title }}</span>
           </div>
         </slot>
+      </template>
+
+      <template #header-extra>
+        <n-button quaternary size="small" class="square-action" @click="handleClose">
+          <n-icon><CloseOutlined /></n-icon>
+        </n-button>
       </template>
 
       <slot />
@@ -81,4 +88,10 @@ const handleClose = () => {
 </template>
 
 <style scoped>
+.square-action {
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+  font-size: 20px;
+}
 </style>
