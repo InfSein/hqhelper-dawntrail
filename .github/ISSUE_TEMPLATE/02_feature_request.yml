@@ -1,0 +1,32 @@
+name: 新功能请求 (??? / Feature Request)
+description: 告知我们你还需要什么 (??? / Tell us what else you need)
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        不要感到有压力：对我们来说，有东西做总会比没有东西做要好。但是我们仍需要对请求进行评估，并非所有新功能请求都会被批准。
+        ???
+        Don't feel pressured: For us, having something to do is always better than having nothing to do. But we still need to evaluate the requests, not all new feature requests will be approved.
+  - type: textarea
+    id: background
+    attributes:
+      label: 简述 (??? / Description)
+      description: |
+        请分享一个清晰简洁的描述。
+        ???
+        Please share a clear and concise description.
+      placeholder: Description
+    validations:
+      required: true
+  - type: textarea
+    id: available-refers
+    attributes:
+      label: 可供参考 (??? / Available References)
+      description: |
+        如果有其他类似的程序/网站已经实现了这个功能，请在这里分享。
+        ???
+        If there are other similar programs/websites that have already implemented this feature, please share it here.
+      placeholder: Related Versions
+    validations:
+      required: false
