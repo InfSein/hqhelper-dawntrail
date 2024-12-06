@@ -1,20 +1,20 @@
 name: 错误报告 (??? / Bug Report)
-description: 告知我们你在运行时遇到的问题 (??? / Inform us of issues encountered during runtime)
+description: 告知我们你在运行时遇到的问题 (実行時に発生した問題をお知らせる / Inform us of issues encountered during runtime)
 labels: []
 body:
   - type: markdown
     attributes:
       value: |
         请先确定你遇到的是一个错误。填写必要的信息，尽可能详细，以便我们定位和处理。
-        ???
+        まずは、発生している問題がエラーであることを確認してください。必要な情報をできるだけ詳しく記載し、問題の特定と対処ができるようご協力ください。
         Please first confirm that you have encountered an error. Fill in the necessary information as detailed as possible for us to locate and process.
   - type: textarea
     id: background
     attributes:
-      label: 简述 (??? / Description)
+      label: 简述 (説明 / Description)
       description: |
         请分享一个清晰简洁的问题描述。
-        ???
+        明確で簡潔な問題の説明を記入してください。
         Please share a clear and concise description of the problem.
       placeholder: Description
     validations:
@@ -22,10 +22,10 @@ body:
   - type: textarea
     id: related-versions
     attributes:
-      label: 出现版本 (??? / Related Versions)
+      label: 出现版本 (発生したバージョン / Related Versions)
       description: |
         请提供你遇到错误的网页/客户端版本。点击顶部菜单项 `关于本作` 可以检查当前所处版本。必要时请说明客户端和网页端是否会同样遇到问题。
-        ???
+        エラーが発生したウェブページ/クライアントのバージョンを提供してください。現在のバージョンは、トップメニューの「本作について」をクリックすると確認できます。必要に応じて、クライアントとウェブ版で同じ問題が発生するかどうかも説明してください。
         Please provide the version of the webpage/client you encountered the problem in. Click on the top menu item `About us` to check the current version. If necessary, please also indicate whether the problem occurs on both the webpage and the client.
       placeholder: Related Versions
     validations:
@@ -33,10 +33,10 @@ body:
   - type: textarea
     id: repro-steps
     attributes:
-      label: 复现步骤 (??? / Reproduction Steps)
+      label: 复现步骤 (再現する手順 / Reproduction Steps)
       description: |
         如果可能的话，请包括重现问题的最小步骤。例如：尽可能小的代码段；或者一个小项目，有运行它的步骤。如果可能的话，将文本作为文本而不是屏幕截图（这样它可以被其他人搜索到）。
-        ???
+        可能であれば、問題を再現するための最小限の手順を記入してください。例えば、できるだけ小さなコードスニペットや小さなプロジェクト、実行手順などです。可能であれば、スクリーンショットではなく、テキストとして提供してください（他の人が検索できるため）。
         Please include minimal steps to reproduce the problem if possible. E.g.: the smallest possible code snippet; or a small project, with steps to run it. If possible include text as text rather than screenshots (so it shows up in searches).
       placeholder: Minimal Reproduction
     validations:
