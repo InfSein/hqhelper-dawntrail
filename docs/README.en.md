@@ -43,7 +43,7 @@ We may provide various types of applications, but it is difficult to guarantee t
 
 #### Windows APP
 
-See [Release Electron v4](https://github.com/InfSein/hqhelper-dawntrail/releases/tag/electron.v4)
+See [Release Electron v5a](https://github.com/InfSein/hqhelper-dawntrail/releases/tag/electron.v5a)
 
 #### iOS APP
 

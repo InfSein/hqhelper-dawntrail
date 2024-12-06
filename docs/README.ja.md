@@ -44,7 +44,7 @@
 
 #### Windows アプリ
 
- [Release Electron v4](https://github.com/InfSein/hqhelper-dawntrail/releases/tag/electron.v4) をご覧ください。
+[Release Electron v5a](https://github.com/InfSein/hqhelper-dawntrail/releases/tag/electron.v5a) をご覧ください。
 
 #### iOS アプリ
 
