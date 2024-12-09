@@ -163,12 +163,12 @@ const listContainer = ref<HTMLElement>()
       readonly
       autosize
       type="textarea"
-      :placeholder="t('本组没有需要的道具')"
+      :placeholder="t('没有需要的道具')"
       style="max-height: calc(100% - 25px);"
     />
   </div>
   <div v-else-if="!hideEmpty" class="empty-container" :style="getContainerStyles()">
-    <n-empty :description="t('本组没有需要的道具')" />
+    <n-empty :description="t('没有需要的道具')" />
   </div>
 </template>
   

@@ -176,7 +176,7 @@ const handleCopyAsMacro = async () => {
           </div>
         </div>
         <div v-if="!Object.keys(items).length">
-          <n-empty :description="t('本组没有需要的道具')" />
+          <n-empty :description="t('没有需要的道具')" />
         </div>
       </div>
       <n-divider class="block-divider" />

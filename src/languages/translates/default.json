@@ -1002,13 +1002,6 @@
       "components\\custom-controls\\ItemList.vue"
     ]
   },
-  "本组没有需要的道具": {
-    "en": "Nothing needed in this group.",
-    "ja": "当グループに該当するアイテムはありません",
-    "$files": [
-      "components\\custom-controls\\ItemList.vue"
-    ]
-  },
   "点数": {
     "en": "TomeScript",
     "ja": "トークン",
