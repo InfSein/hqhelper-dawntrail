@@ -1,4 +1,4 @@
-name: 错误报告 (??? / Bug Report)
+name: 错误报告 (バグ報告 / Bug Report)
 description: 告知我们你在运行时遇到的问题 (実行時に発生した問題をお知らせる / Inform us of issues encountered during runtime)
 labels: []
 body:
