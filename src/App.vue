@@ -172,17 +172,14 @@ onMounted(async () => {
       }
       needUpdateHqHelper = AppStatus.Version !== versionContent.hqhelper
 
-      let breakHqHelperUpdate = false
       if (needUpdateElectron) {
         if (window.confirm(
           t('检测到客户端有新版本({v})。', versionContent.electron)
           + '\n' + t('要现在更新吗?')
         )) {
-          breakHqHelperUpdate = true
           displayCheckUpdatesModal()
         }
-      }
-      if (needUpdateHqHelper && !breakHqHelperUpdate) {
+      } else if (needUpdateHqHelper) {
         if (window.confirm(
           t('检测到HqHelper有新版本({v})。', versionContent.hqhelper)
           + '\n' + t('要现在更新吗?')
