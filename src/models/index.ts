@@ -12,9 +12,9 @@ export interface SettingGroup {
   key: string
   icon: Component
   text: string
-  children: SettingOption[]
+  children: SettingItem[]
 }
-export interface SettingOption {
+export interface SettingItem {
   key: string
   label: string
   hide?: boolean
