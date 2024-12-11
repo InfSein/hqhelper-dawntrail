@@ -149,6 +149,9 @@ defineProps<SettingItemProps>()
   .item-title {
     font-weight: bold;
   }
+  .item-descriptions {
+    user-select: text;
+  }
   .item-input {
     margin-top: 5px;
   }
