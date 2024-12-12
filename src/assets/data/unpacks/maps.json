@@ -6,7 +6,7 @@
     "weatherRate": 15,
     "mapId": 12,
     "mapSrc": "s1t2",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 29,
         "x": 9.61,
@@ -21,7 +21,7 @@
     "weatherRate": 16,
     "mapId": 15,
     "mapSrc": "s1f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 184,
         "x": 26.12,
@@ -36,7 +36,7 @@
     "weatherRate": 17,
     "mapId": 16,
     "mapSrc": "s1f2",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 337,
         "x": 24.62,
@@ -51,7 +51,7 @@
     "weatherRate": 18,
     "mapId": 17,
     "mapSrc": "s1f3",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 206,
         "x": 31.31,
@@ -71,7 +71,7 @@
     "weatherRate": 19,
     "mapId": 18,
     "mapSrc": "s1f4",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 218,
         "x": 34.55,
@@ -91,7 +91,7 @@
     "weatherRate": 20,
     "mapId": 19,
     "mapSrc": "s1f5",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 239,
         "x": 30.27,
@@ -106,7 +106,7 @@
     "weatherRate": 7,
     "mapId": 13,
     "mapSrc": "w1t1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 40,
         "x": 8.37,
@@ -121,7 +121,7 @@
     "weatherRate": 9,
     "mapId": 20,
     "mapSrc": "w1f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 271,
         "x": 22.86,
@@ -136,7 +136,7 @@
     "weatherRate": 10,
     "mapId": 21,
     "mapSrc": "w1f2",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 290,
         "x": 21.1,
@@ -151,7 +151,7 @@
     "weatherRate": 11,
     "mapId": 22,
     "mapSrc": "w1f3",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 300,
         "x": 13.75,
@@ -166,7 +166,7 @@
     "weatherRate": 12,
     "mapId": 23,
     "mapSrc": "w1f4",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 313,
         "x": 18.32,
@@ -186,7 +186,7 @@
     "weatherRate": 13,
     "mapId": 24,
     "mapSrc": "w1f5",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 325,
         "x": 21.92,
@@ -206,7 +206,7 @@
     "weatherRate": 1,
     "mapId": 2,
     "mapSrc": "f1t1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 52,
         "x": 11.95,
@@ -221,7 +221,7 @@
     "weatherRate": 3,
     "mapId": 4,
     "mapSrc": "f1f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 94,
         "x": 21.76,
@@ -236,7 +236,7 @@
     "weatherRate": 4,
     "mapId": 5,
     "mapSrc": "f1f2",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 107,
         "x": 17.78,
@@ -251,7 +251,7 @@
     "weatherRate": 5,
     "mapId": 6,
     "mapSrc": "f1f3",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 129,
         "x": 25.08,
@@ -271,7 +271,7 @@
     "weatherRate": 6,
     "mapId": 7,
     "mapSrc": "f1f4",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 140,
         "x": 20.62,
@@ -286,7 +286,7 @@
     "weatherRate": 21,
     "mapId": 53,
     "mapSrc": "r1f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 388,
         "x": 25.96,
@@ -301,7 +301,7 @@
     "weatherRate": 22,
     "mapId": 25,
     "mapSrc": "l1f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 411,
         "x": 22.3,
@@ -316,7 +316,7 @@
     "weatherRate": 24,
     "mapId": 30,
     "mapSrc": "s1f6",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 237,
         "x": 19.16,
@@ -331,7 +331,7 @@
     "weatherRate": 29,
     "mapId": 51,
     "mapSrc": "s1p1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 358,
         "x": 5.02,
@@ -346,7 +346,7 @@
     "weatherRate": 0,
     "mapId": 196,
     "mapSrc": "w1eb",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 1484,
         "x": 6.13,
@@ -361,7 +361,7 @@
     "weatherRate": 50,
     "mapId": 212,
     "mapSrc": "d2f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2018,
         "x": 33.24,
@@ -381,7 +381,7 @@
     "weatherRate": 52,
     "mapId": 214,
     "mapSrc": "d2f3",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2042,
         "x": 27.93,
@@ -401,7 +401,7 @@
     "weatherRate": 55,
     "mapId": 257,
     "mapSrc": "d2t1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2082,
         "x": 7.57,
@@ -416,7 +416,7 @@
     "weatherRate": 53,
     "mapId": 215,
     "mapSrc": "a2f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2116,
         "x": 10.31,
@@ -436,7 +436,7 @@
     "weatherRate": 54,
     "mapId": 216,
     "mapSrc": "a2f2",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2131,
         "x": 8.12,
@@ -451,7 +451,7 @@
     "weatherRate": 49,
     "mapId": 211,
     "mapSrc": "r2f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2204,
         "x": 32.06,
@@ -466,7 +466,7 @@
     "weatherRate": 47,
     "mapId": 218,
     "mapSrc": "r2t1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2300,
         "x": 9.98,
@@ -481,7 +481,7 @@
     "weatherRate": 78,
     "mapId": 366,
     "mapSrc": "g3t1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2403,
         "x": 12.79,
@@ -496,7 +496,7 @@
     "weatherRate": 82,
     "mapId": 370,
     "mapSrc": "e3t1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2404,
         "x": 12.19,
@@ -511,7 +511,7 @@
     "weatherRate": 79,
     "mapId": 367,
     "mapSrc": "g3f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2613,
         "x": 8.91,
@@ -531,7 +531,7 @@
     "weatherRate": 80,
     "mapId": 368,
     "mapSrc": "g3f2",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2646,
         "x": 23.72,
@@ -551,7 +551,7 @@
     "weatherRate": 81,
     "mapId": 369,
     "mapSrc": "g3f3",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2670,
         "x": 8.47,
@@ -571,7 +571,7 @@
     "weatherRate": 83,
     "mapId": 371,
     "mapSrc": "e3f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2769,
         "x": 28.71,
@@ -591,7 +591,7 @@
     "weatherRate": 84,
     "mapId": 354,
     "mapSrc": "e3f2",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2793,
         "x": 30.17,
@@ -611,7 +611,7 @@
     "weatherRate": 85,
     "mapId": 372,
     "mapSrc": "e3f3",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2814,
         "x": 32.63,
@@ -636,7 +636,7 @@
     "weatherRate": 84,
     "mapId": 463,
     "mapSrc": "e3ec",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2813,
         "x": 7.55,
@@ -651,7 +651,7 @@
     "weatherRate": 112,
     "mapId": 497,
     "mapSrc": "n4t1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2951,
         "x": 9.95,
@@ -666,7 +666,7 @@
     "weatherRate": 113,
     "mapId": 498,
     "mapSrc": "n4t2",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 2952,
         "x": 11.26,
@@ -681,7 +681,7 @@
     "weatherRate": 106,
     "mapId": 491,
     "mapSrc": "n4f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 3044,
         "x": 36.59,
@@ -701,7 +701,7 @@
     "weatherRate": 107,
     "mapId": 492,
     "mapSrc": "n4f2",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 3075,
         "x": 34.87,
@@ -726,7 +726,7 @@
     "weatherRate": 108,
     "mapId": 493,
     "mapSrc": "n4f3",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 3122,
         "x": 26.42,
@@ -751,7 +751,7 @@
     "weatherRate": 109,
     "mapId": 494,
     "mapSrc": "n4f4",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 3147,
         "x": 14.61,
@@ -776,7 +776,7 @@
     "weatherRate": 110,
     "mapId": 495,
     "mapSrc": "n4f5",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 3170,
         "x": 19.44,
@@ -796,7 +796,7 @@
     "weatherRate": 111,
     "mapId": 496,
     "mapSrc": "n4f6",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 3195,
         "x": 32.73,
@@ -816,7 +816,7 @@
     "weatherRate": 137,
     "mapId": 693,
     "mapSrc": "k5t1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 3706,
         "x": 11.26,
@@ -831,7 +831,7 @@
     "weatherRate": 138,
     "mapId": 694,
     "mapSrc": "m5t1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 3707,
         "x": 11.77,
@@ -846,7 +846,7 @@
     "weatherRate": 131,
     "mapId": 695,
     "mapSrc": "k5f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 3833,
         "x": 30.37,
@@ -871,7 +871,7 @@
     "weatherRate": 132,
     "mapId": 696,
     "mapSrc": "m5f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 3880,
         "x": 25.42,
@@ -896,7 +896,7 @@
     "weatherRate": 133,
     "mapId": 697,
     "mapSrc": "m5f2",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 3903,
         "x": 13.33,
@@ -916,7 +916,7 @@
     "weatherRate": 135,
     "mapId": 698,
     "mapSrc": "u5f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 3949,
         "x": 10.15,
@@ -936,7 +936,7 @@
     "weatherRate": 136,
     "mapId": 699,
     "mapSrc": "u5f2",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 3973,
         "x": 10.61,
@@ -961,7 +961,7 @@
     "weatherRate": 134,
     "mapId": 700,
     "mapSrc": "n5f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 3928,
         "x": 24.66,
@@ -986,7 +986,7 @@
     "weatherRate": 163,
     "mapId": 856,
     "mapSrc": "x6t1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 4503,
         "x": 12.39,
@@ -1001,7 +1001,7 @@
     "weatherRate": 159,
     "mapId": 855,
     "mapSrc": "y6t1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 4504,
         "x": 13.46,
@@ -1016,7 +1016,7 @@
     "weatherRate": 160,
     "mapId": 857,
     "mapSrc": "y6f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 4550,
         "x": 28.15,
@@ -1036,7 +1036,7 @@
     "weatherRate": 161,
     "mapId": 858,
     "mapSrc": "y6f2",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 4582,
         "x": 18.1,
@@ -1066,7 +1066,7 @@
     "weatherRate": 162,
     "mapId": 859,
     "mapSrc": "y6f3",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 4614,
         "x": 13.53,
@@ -1086,7 +1086,7 @@
     "weatherRate": 164,
     "mapId": 860,
     "mapSrc": "x6f1",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 4659,
         "x": 29.09,
@@ -1111,7 +1111,7 @@
     "weatherRate": 165,
     "mapId": 861,
     "mapSrc": "x6f2",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 4678,
         "x": 31.81,
@@ -1136,7 +1136,7 @@
     "weatherRate": 166,
     "mapId": 862,
     "mapSrc": "x6f3",
-    "aetheryte": [
+    "aetherytes": [
       {
         "placeId": 4700,
         "x": 21.5,
