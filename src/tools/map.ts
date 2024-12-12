@@ -1,4 +1,32 @@
-import type { XivMapInfo } from "@/assets/data"
+import { XivUnpackedPlaceNames, type XivMapInfo, type XivMapAetheryteInfo, type XivUnpackedMap } from "@/assets/data"
+
+export const parseUnpackedMapData = (data: Record<number, XivUnpackedMap>) => {
+  const result: Record<number, XivMapInfo> = {}
+  Object.values(data).forEach(map => {
+    const placeId = map.placeId
+    const placeNames = XivUnpackedPlaceNames[placeId]
+    const mapSrc = `https://icon.nbbjack.com/maps/${map.mapSrc}.png`
+    const aetherytes : XivMapAetheryteInfo[] = []
+    map.aetheryte.forEach(aetheryte => {
+      const aetheryteName = placeNames[aetheryte.placeId]
+      aetherytes.push({
+        name_ja: aetheryteName[0],
+        name_en: aetheryteName[1],
+        name_zh: aetheryteName[2],
+        x: aetheryte.x,
+        y: aetheryte.y
+      })
+    })
+    result[placeId] = {
+      name_ja: placeNames[0],
+      name_en: placeNames[1],
+      name_zh: placeNames[2],
+      map_id: map.mapId,
+      map_src: mapSrc,
+      aetherytes: aetherytes
+    }
+  })
+}
 
 export const drawMap = (
   mapSrc: string, 

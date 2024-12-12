@@ -71,7 +71,28 @@ export interface XivUnpackedItem {
 }
 export const XivUnpackedItems = JsonXivUnpackedItems as Record<number, XivUnpackedItem>
 
+import JsonXivUnpackedMaps from './unpacks/maps.json'
+export interface XivUnpackedMap {
+  regionId: number
+  zoneId: number
+  placeId: number
+  weatherRate: number
+  mapId: number
+  mapSrc: string
+  aetheryte: {
+    placeId: number
+    x: number
+    y: number
+  }[]
+}
+export const XivUnpackedMaps = JsonXivUnpackedMaps as Record<number, XivUnpackedMap>
+
 import JsonXivUnpackedPlaceNames from './unpacks/place-name.json'
+/**
+ * 解包的地点名称
+ * * `key`: placeID
+ * * `value`: placeNames，顺序 [日文, 英文, 中文]
+ */
 export const XivUnpackedPlaceNames = JsonXivUnpackedPlaceNames as Record<number, string[]>
 
 import JsonXivUnpackedRecipes from './unpacks/recipe.json'
