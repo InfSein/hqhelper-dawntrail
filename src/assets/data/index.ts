@@ -3,6 +3,9 @@ import type {
   AttireAffix, AccessoryAffix,
   GearSelections
 } from '@/models/gears'
+import {
+  parseUnpackedMapData
+} from '@/tools/map'
 // #endregion
 
 // #region Translations
@@ -170,7 +173,6 @@ export interface XivJob {
 }
 export const XivJobs = JsonXivJobs as Record<number, XivJob>
 
-import JsonXivMaps from './xiv-maps.json'
 export interface XivMapInfo {
   name_zh: string
   name_ja: string
@@ -186,11 +188,7 @@ export interface XivMapAetheryteInfo {
   x: number
   y: number
 }
-/**
- * 地图信息,因包体大小控制一般只会包括最新资料片的地图,须在处理旧版本地图时多加注意
- * * `key`: placeID
- */
-export const XivMaps = JsonXivMaps as Record<number, XivMapInfo>
+export const XivMaps = parseUnpackedMapData(XivUnpackedMaps)
 
 import JsonXivPatches from './xiv-patches.json'
 export interface XivPatch {

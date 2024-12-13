@@ -44,6 +44,7 @@ export const drawMap = (
     }
 
     const mapImage = new Image()
+    mapImage.crossOrigin = 'anonymous'
     mapImage.src = mapSrc
 
     mapImage.onload = () => {
