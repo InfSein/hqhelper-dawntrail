@@ -221,6 +221,7 @@ const desktopMenus = computed(() => {
             buildOuterlinkOption('ref-oth-book-3', '7.x星级配方制作攻略 by月下独翼', 'https://bbs.nga.cn/read.php?tid=40690311', OpenInNewOutlined),
             buildOuterlinkOption('ref-oth-book-4', '7.0捕鱼人大地票据指南 by f(x)=kx+b', 'https://bbs.nga.cn/read.php?tid=42046664', OpenInNewOutlined),
             buildOuterlinkOption('ref-oth-book-5', '7.0灵砂/工票鱼信息整理 by plas_g', 'https://bbs.nga.cn/read.php?tid=41277468', OpenInNewOutlined),
+            buildOuterlinkOption('ref-oth-book-6', '全战职开荒/毕业配装 by 孤风行', 'https://www.kdocs.cn/l/ceEcTzlFQBUy', OpenInNewOutlined),
           ]
         },
         {
