@@ -79,6 +79,7 @@ const naiveUiMessagePlacement = computed(() => {
 const appForceUpdate = () => {
   // Update user config
   userConfig.value = fixUserConfig(store.state.userConfig)
+  funcConfig.value = fixFuncConfig(store.state.funcConfig, store.state.userConfig)
   // Update i18n
   i18n.activeLanguage = locale.value
   // Update vue

@@ -111,10 +111,6 @@ const FuncPreferenceGroups : SettingGroup[] = [
       {
         key: 'processes_show_item_details',
         label: t('显示物品详情'),
-        descriptions: dealDescriptions([
-          t('在2.0.10版本，我们添加了专业版制作报表，提供更详细的物品信息表格，并支持根据已准备素材计算尚需素材。'),
-          t('如果你并不需要这些功能，或是更喜欢旧版本制作报表的风格，可以考虑打开此选项。'),
-        ]),
         type: 'switch'
       }
     ]

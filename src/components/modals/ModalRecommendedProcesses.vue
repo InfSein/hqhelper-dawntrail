@@ -11,12 +11,12 @@ import MyModal from '../templates/MyModal.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'
 import ItemSpan from '../custom/item/ItemSpan.vue'
 import LocationSpan from '../custom/map/LocationSpan.vue'
+import ModalFuncPreferences from './ModalFuncPreferences.vue'
 import { type UserConfigModel } from '@/models/config-user'
-import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
+import { type FuncConfigModel } from '@/models/config-func'
 import { type ItemInfo } from '@/tools/item'
 import { XivJobs, type XivJob } from '@/assets/data'
 import { CopyToClipboard } from '@/tools'
-import { useStore } from '@/store'
 import type EorzeaTime from '@/tools/eorzea-time'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -24,14 +24,13 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
-const store = useStore()
+const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const NAIVE_UI_MESSAGE = useMessage()
   
 const showModal = defineModel<boolean>('show', { required: true })
 const expandedBlocks = ref<Record<number, string[]>>({})
 /** (groupId, (itemId, checked)) */
 const completedItems = ref<Record<number, Record<number, boolean>>>({})
-const showItemGatherDetails = ref(false)
 
 watch(showModal, async(newVal, oldVal) => {
   if (newVal && !oldVal) {
@@ -43,7 +42,6 @@ watch(showModal, async(newVal, oldVal) => {
         completedItems.value[i][item.id] = false
       })
     }
-    showItemGatherDetails.value = funcConfig.value.processes_show_item_details
   }
 })
 
@@ -55,6 +53,10 @@ interface RecommendedProcessesProps {
   lvBaseItems: ItemInfo[]
 }
 const props = defineProps<RecommendedProcessesProps>()
+
+const showItemGatherDetails = computed(() => {
+  return funcConfig.value.processes_show_item_details
+})
 
 const itemGroups = computed(() => {
   const itemsGatherableCommon : ItemInfo[] = []
@@ -323,12 +325,6 @@ const handleCollapseOrUncollapseAllBlocks = () => {
     expandedBlocks.value[i] = allCollapsed ? ['1'] : []
   }
 }
-const handleSwitchShowItemGatherDetails = () => {
-  showItemGatherDetails.value = !showItemGatherDetails.value
-  const newConfig = fixFuncConfig(store.state.funcConfig, store.state.userConfig)
-  newConfig.processes_show_item_details = showItemGatherDetails.value
-  store.commit('setFuncConfig', newConfig)
-}
 const handleCopyProcesses = () => {
   const text = itemGroups.value.map((group, index) => {
     return (index+1) + '. ' + group.title + ':\n' + group.items.map(item => {
@@ -360,6 +356,11 @@ const isItemGatherableNow = (item: ItemInfo) => {
   })
   return gatherable
 }
+
+const showFuncPreferencesModal = ref(false)
+const handleSettingButtonClick = () => {
+  showFuncPreferencesModal.value = true
+}
 </script>
 
 <template>
@@ -367,6 +368,8 @@ const isItemGatherableNow = (item: ItemInfo) => {
     v-model:show="showModal"
     max-width="350px"
     extra-style="--n-padding-bottom: 10px;"
+    show-setting
+    @on-setting-button-clicked="handleSettingButtonClick"
   >
     <template #header>
       <div class="card-title no-select">
@@ -374,7 +377,6 @@ const isItemGatherableNow = (item: ItemInfo) => {
         <span class="title">{{ t('推荐流程') }}</span>
         <div class="card-title-actions">
           <a href="javascript:void(0);" @click="handleCollapseOrUncollapseAllBlocks">[{{ isBlocksAllCollapsed() ? t('全部展开') : t('全部折叠') }}]</a>
-          <a href="javascript:void(0);" @click="handleSwitchShowItemGatherDetails">[{{ showItemGatherDetails ? t('隐藏采集详情') : t('显示采集详情') }}]</a>
           <a href="javascript:void(0);" @click="handleCopyProcesses">[{{ t('复制流程') }}]</a>
         </div>
       </div>
@@ -469,6 +471,12 @@ const isItemGatherableNow = (item: ItemInfo) => {
         </n-button>
       </div>
     </template>
+    
+    <ModalFuncPreferences
+      v-model:show="showFuncPreferencesModal"
+      setting-group="recomm_process"
+      @after-submit="appForceUpdate"
+    />
   </MyModal>
 </template>
 
