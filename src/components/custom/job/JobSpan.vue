@@ -2,7 +2,7 @@
 import { computed, inject, type Ref } from 'vue'
 import XivFARImage from '../general/XivFARImage.vue'
 import { XivJobs } from '@/assets/data'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
 
 interface JobInfo {
   job_id: number,

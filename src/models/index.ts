@@ -1,5 +1,7 @@
 import type { Component } from "vue"
 import type { CascaderOption } from "naive-ui"
+import type { UserConfigKey } from "./config-user"
+import type { FuncConfigKey } from "./config-func"
 
 export interface AppVersionJson {
   hqhelper: string;
@@ -9,7 +11,7 @@ export interface AppVersionJson {
 }
 
 export interface SettingGroup {
-  key: string
+  key: UserConfigKey | FuncConfigKey
   icon: Component
   text: string
   children: SettingItem[]

@@ -17,7 +17,8 @@ import { injectVoerkaI18n } from "@voerkai18n/vue"
 import { CopyToClipboard, sleep } from './tools'
 import EorzeaTime from './tools/eorzea-time'
 import type { AppVersionJson } from './models'
-import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
+import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
+import { fixFuncConfig, type FuncConfigModel } from './models/config-func'
 import AppStatus from './variables/app-status'
 
 const route = useRoute()
@@ -25,6 +26,7 @@ const store = useStore()
 const i18n = injectVoerkaI18n()
 
 const userConfig = ref<UserConfigModel>(fixUserConfig(store.state.userConfig))
+const funcConfig = ref<FuncConfigModel>(fixFuncConfig(store.state.funcConfig, store.state.userConfig))
 const locale = computed(() => {
   return userConfig.value?.language_ui ?? 'zh'
 })
@@ -88,6 +90,7 @@ const switchTheme = () => {
 }
 
 provide('userConfig', userConfig)
+provide('funcConfig', funcConfig)
 provide('t', (message: string, ...args: any[]) => {
   const i18nResult = t(message, ...args)
   if (/^[1-9]\d*$/.test(i18nResult)) {
@@ -118,8 +121,8 @@ const copyAsMacro = async (macroContent: string, container?: HTMLElement | undef
   if (!macroContent) {
     return { result: 'info', msg: t('没有需要复制的内容') }
   }
-  if (userConfig.value.macro_direct_copy) {
-    const errored = await CopyToClipboard(userConfig.value.macro_copy_prefix + macroContent, container)
+  if (funcConfig.value.macro_direct_copy) {
+    const errored = await CopyToClipboard(funcConfig.value.macro_copy_prefix + macroContent, container)
     if (errored) {
       return { result: 'error', msg: t('复制失败') }
     }

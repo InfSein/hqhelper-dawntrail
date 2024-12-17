@@ -12,7 +12,7 @@ import {
 import XivFARImage from '../general/XivFARImage.vue'
 import ItemPop from './ItemPop.vue'
 import { getItemContexts, type ItemInfo } from '@/tools/item'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
 import { CopyToClipboard } from '@/tools'
 import { XivJobs } from '@/assets/data'
 

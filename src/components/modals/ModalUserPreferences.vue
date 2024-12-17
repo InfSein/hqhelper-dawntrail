@@ -10,14 +10,13 @@ import {
   ColorLensRound,
   MemoryRound,
   UpdateRound,
-  StarsRound,
   // WifiRound,
   SaveOutlined
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 import SettingItem from '../custom/general/SettingItem.vue'
 import { useStore } from '@/store/index'
-import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
+import { type UserConfigKey, type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { deepCopy } from '@/tools'
 import type { SettingGroup } from '@/models'
 
@@ -29,14 +28,6 @@ const showModal = defineModel<boolean>('show', { required: true })
 const emit = defineEmits(['close', 'afterSubmit'])
 
 // #region data
-const dealSimOptions = (options: string[]) => {
-  return options.map(option => {
-    return {
-      label: option,
-      value: option
-    }
-  })
-}
 const dealDescriptions = (descriptions: string[]) => {
   return descriptions.map(description => {
     return {
@@ -276,270 +267,6 @@ const UserPreferenceGroups : SettingGroup[] = [
           }
         ],
         type: 'switch'
-      }
-    ]
-  },
-  /* Network */
-  /*
-  {
-    key: 'network',
-    icon: WifiRound,
-    text: t('网络'),
-    children: [
-    ]
-  }
-  */
-  /* Special Options */
-  {
-    key: 'special',
-    icon: StarsRound,
-    text: t('特殊'),
-    children: [
-      {
-        key: 'universalis_server',
-        label: t('物品价格服务器'),
-        descriptions: dealDescriptions([
-          t('适用于“{f}”功能。', t('成本/收益预估')),
-          t('下方的输入框支持通过输入关键词来检索选项。'),
-        ]),
-        type: 'cascader',
-        options: [
-        {
-            value: 'chs',
-            label: '中国',
-            children: [
-              {
-                value: '陆行鸟',
-                label: '陆行鸟',
-                children: dealSimOptions([
-                  "红玉海","神意之地","拉诺西亚","幻影群岛","萌芽池","宇宙和音","沃仙曦染","晨曦王座"
-                ])
-              },
-              {
-                value: '莫古力',
-                label: '莫古力',
-                children: dealSimOptions([
-                  "白银乡","白金幻象","神拳痕","潮风亭","旅人栈桥","拂晓之间","龙巢神殿","梦羽宝境"
-                ])
-              },
-              {
-                value: '猫小胖',
-                label: '猫小胖',
-                children: dealSimOptions([
-                  "紫水栈桥","延夏","静语庄园","摩杜纳","海猫茶屋","柔风海湾","琥珀原"
-                ])
-              },
-              {
-                value: '豆豆柴',
-                label: '豆豆柴',
-                children: dealSimOptions([
-                  "水晶塔","银泪湖","太阳海岸","伊修加德","红茶川","黄金谷","月牙湾","雪松原"
-                ])
-              }
-            ]
-          },
-          {
-            value: 'japan',
-            label: '日本',
-            children: [
-              {
-                value: 'Elemental',
-                label: 'Elemental',
-                children: dealSimOptions([
-                  "Carbuncle","Kujata","Typhon","Garuda","Atomos","Tonberry","Aegis","Gungnir"
-                ])
-              },
-              {
-                value: 'Gaia',
-                label: 'Gaia',
-                children: dealSimOptions([
-                  "Alexander","Fenrir","Ultima","Ifrit","Bahamut","Tiamat","Durandal","Ridill"
-                ])
-              },
-              {
-                value: 'Mana',
-                label: 'Mana',
-                children: dealSimOptions([
-                  "Asura","Pandaemonium","Anima","Hades","Ixion","Titan","Chocobo","Masamune"
-                ])
-              },
-              {
-                value: 'Meteor',
-                label: 'Meteor',
-                children: dealSimOptions([
-                  "Belias","Shinryu","Unicorn","Yojimbo","Zeromus","Valefor","Ramuh","Mandragora"
-                ])
-              }
-            ]
-          },
-          {
-            value: 'na',
-            label: 'North-America',
-            children: [
-              {
-                value: 'Aether',
-                label: 'Aether',
-                children: dealSimOptions([
-                  "Jenova","Faerie","Siren","Gilgamesh","Midgardsormr","Adamantoise","Cactuar","Sargatanas"
-                ])
-              },
-              {
-                value: 'Primal',
-                label: 'Primal',
-                children: dealSimOptions([
-                  "Famfrit","Exodus","Lamia","Leviathan","Ultros","Behemoth","Excalibur","Hyperion"
-                ])
-              },
-              {
-                value: 'Crystal',
-                label: 'Crystal',
-                children: dealSimOptions([
-                  "Brynhildr","Mateus","Zalera","Diabolos","Coeurl","Malboro","Goblin","Balmung"
-                ])
-              },
-              {
-                value: 'Dynamis',
-                label: 'Dynamis',
-                children: dealSimOptions([
-                  "Marilith","Seraph","Halicarnassus","Maduin","Cuchulainn","Kraken","Rafflesia","Golem"
-                ])
-              }
-            ]
-          },
-          {
-            value: 'eu',
-            label: 'Europe',
-            children: [
-              {
-                value: 'Chaos',
-                label: 'Chaos',
-                children: dealSimOptions([
-                  "Omega","Moogle","Cerberus","Louisoix","Spriggan","Ragnarok","Sagittarius","Phantom"
-                ])
-              },
-              {
-                value: 'Light',
-                label: 'Light',
-                children: dealSimOptions([
-                  "Twintania","Lich","Zodiark","Phoenix","Odin","Shiva","Alpha","Raiden"
-                ])
-              },
-            ]
-          },
-          {
-            value: 'ocean',
-            label: 'Oceania',
-            children: [
-              {
-                value: 'Materia',
-                label: 'Materia',
-                children: dealSimOptions([
-                  "Ravana","Bismarck","Sephirot","Sophia","Zurvan"
-                ])
-              },
-            ]
-          },
-          {
-            value: 'kr',
-            label: '한국',
-            children: [
-              {
-                value: '한국',
-                label: '한국',
-                children: dealSimOptions([
-                  "카벙클","초코보","모그리","톤베리","펜리르"
-                ])
-              },
-            ]
-          },
-        ]
-      },
-      {
-        key: 'universalis_priceType',
-        label: t('物品价格类型'),
-        descriptions: [
-          ...dealDescriptions([
-            t('适用于“{f}”功能。', t('成本/收益预估')),
-            t('计算成本时，默认计算制作材料NQ的价格；计算收益时，默认计算成品道具HQ的价格。'),
-          ]),
-          {
-            value: t('部分选项说明：'),
-            class: '',
-            style: 'margin-top: 5px;'
-          },
-          ...dealDescriptions([
-            t('近期成交价格：选取最近5条成交记录计算平均价格。'),
-            t('当前寄售最低价：在交易板前10条在售记录中选取最低价格。'),
-            t('当前寄售平均价：选取交易板前10条在售记录计算平均价格。'),
-          ]),
-        ],
-        type: 'select',
-        options: [
-          {
-            value: 'averagePrice',
-            label: t('平均价格')
-          },
-          {
-            value: 'currentAveragePrice',
-            label: t('当前平均价格')
-          },
-          {
-            value: 'minPrice',
-            label: t('最低价格')
-          },
-          {
-            value: 'maxPrice',
-            label: t('最高价格')
-          },
-          {
-            value: 'purchasePrice',
-            label: t('近期成交价格')
-          },
-          {
-            value: 'marketLowestPrice',
-            label: t('当前寄售最低价')
-          },
-          {
-            value: 'marketPrice',
-            label: t('当前寄售平均价')
-          }
-        ]
-      },
-      {
-        key: 'universalis_expireTime',
-        label: t('物品价格有效期'),
-        descriptions: dealDescriptions([
-          t('适用于“{f}”功能。', t('成本/收益预估')),
-          t('程序会将获取到的物品价格缓存。一旦超出设置的有效期，就需要重新获取价格信息。'),
-          t('设定时间过短，会导致计算价格的效率降低；设置时间过长，则会导致结果过时。'),
-        ]),
-        type: 'select',
-        options: [
-          {
-            value: 3 * 60 * 60 * 1000,
-            label: t('{val}小时', 3)
-          },
-          {
-            value: 6 * 60 * 60 * 1000,
-            label: t('{val}小时', 6)
-          },
-          {
-            value: 24 * 60 * 60 * 1000,
-            label: t('{val}小时', 24)
-          },
-          {
-            value: 3 * 24 * 60 * 60 * 1000,
-            label:t('{val}天', 3)
-          },
-          {
-            value: 7 * 24 * 60 * 60 * 1000,
-            label:t('{val}天', 7)
-          },
-          {
-            value: 999999999999999,
-            label: t('永不过期')
-          }
-        ]
       },
       {
         key: 'enable_dev_mode',
@@ -584,7 +311,7 @@ const getGroupName = (key: string) => {
 }
 // #endregion
 
-const currentTab = ref('general')
+const currentTab = ref<UserConfigKey>('general')
 const formData = ref<UserConfigModel>(deepCopy(fixUserConfig(store.state.userConfig)))
 
 const onLoad = () => {
@@ -601,14 +328,6 @@ const handleSave = () => {
     formData.value.cache_work_state = {}
     formData.value.fthelper_cache_work_state = {}
     formData.value.gatherclock_cache_work_state = {}
-  }
-
-  if (formData.value.universalis_server !== store.state.userConfig?.universalis_server) {
-    if (confirm(t('由于修改了服务器，将清除已获取的物品价格缓存。') + '\n' + t('要继续吗?'))) {
-      formData.value.cache_item_prices = {}
-    } else {
-      return
-    }
   }
 
   const newConfig = fixUserConfig(formData.value)
@@ -638,6 +357,11 @@ const handleSave = () => {
       :placement="isMobile ? 'top' : 'left'"
       default-value="general"
       style="height: 100%;"
+      :style="
+        !isMobile
+          ? { height: '275px' }
+          : undefined
+      "
       v-model:value="currentTab"
     >
       <n-tab-pane

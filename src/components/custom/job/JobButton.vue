@@ -14,7 +14,7 @@ import type { GearSelections } from '@/models/gears'
 import { getGearRecomm, useGearAdder } from '@/tools/gears'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 import { visitUrl } from '@/tools'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
 
 const {
   addMainOffHand,

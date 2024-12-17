@@ -9,7 +9,7 @@ import {
 } from '@vicons/material'
 import ItemPop from './ItemPop.vue'
 import XivFARImage from '../general/XivFARImage.vue'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
 import { CopyToClipboard } from '@/tools'
 import { getItemContexts, type ItemInfo } from '@/tools/item'
 

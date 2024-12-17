@@ -9,7 +9,7 @@ import {
 } from '@vicons/material'
 import ItemSpan from '../item/ItemSpan.vue'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
-import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
+import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
 import { useStore } from '@/store'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })

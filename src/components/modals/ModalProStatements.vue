@@ -13,12 +13,12 @@ import ModalRecommendedProcesses from './ModalRecommendedProcesses.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { deepCopy } from '@/tools'
-import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
+import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { useStore } from '@/store'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const store = useStore()
 
 const { getRecipeMap, calItems } = useNbbCal()
@@ -38,7 +38,7 @@ const onLoad = async () => {
   itemsPrepared.value.craftTarget = fixMap(itemsPrepared.value.craftTarget, targetItems.value)
   itemsPrepared.value.materialsLv1 = fixMap(itemsPrepared.value.materialsLv1, lv1Items.value)
   itemsPrepared.value.materialsLvBase = fixMap(itemsPrepared.value.materialsLvBase, baseItems.value)
-  showItemDetails.value = userConfig.value.statement_show_item_details
+  showItemDetails.value = funcConfig.value.prostate_concise_mode
 }
 
 /** 记录已经准备了的物品 */
@@ -216,9 +216,9 @@ const handleResetPreparedItems = () => {
 }
 const handleSwitchShowItemDetails = () => {
   showItemDetails.value = !showItemDetails.value
-  const newConfig = fixUserConfig(store.state.userConfig)
-  newConfig.statement_show_item_details = showItemDetails.value
-  store.commit('setUserConfig', newConfig)
+  const newConfig = fixFuncConfig(store.state.funcConfig, store.state.userConfig)
+  newConfig.prostate_concise_mode = !showItemDetails.value
+  store.commit('setFuncConfig', newConfig)
 }
 const handleShowRecommendedProcesses = () => {
   showRecommendedProcessesModal.value = true

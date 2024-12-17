@@ -12,7 +12,8 @@ import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import ModalProStatements from '../modals/ModalProStatements.vue'
 import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
 import { getItemInfo, getItemPriceInfo, getStatementData, ItemPriceApiVersion, type ItemInfo, type ItemPriceInfo, type ItemTradeInfo } from '@/tools/item'
-import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/config-user'
+import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { export2Excel } from '@/tools/excel'
 import type { GearSelections } from '@/models/gears'
 import { useStore } from '@/store'
@@ -21,6 +22,7 @@ const store = useStore()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
 const props = defineProps({
   statistics: {
@@ -251,7 +253,7 @@ const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'
 const showStatementModal = ref(false)
 const showProStatementModal = ref(false)
 const showStatement = () => {
-  if (userConfig.value.use_traditional_statement) {
+  if (funcConfig.value.use_traditional_statement) {
     showStatementModal.value = true
   } else {
     showProStatementModal.value = true
@@ -293,8 +295,8 @@ const costAndBenefit = computed(() => {
     amount: number,
     price: ItemPriceInfo
   }>
-  const priceCache = userConfig.value.cache_item_prices
-  const expiresAfter = Date.now() - userConfig.value.universalis_expireTime
+  const priceCache = funcConfig.value.cache_item_prices
+  const expiresAfter = Date.now() - funcConfig.value.universalis_expireTime
   function cacheNotExpired(item: ItemInfo) {
     const priceInfo = priceCache[item.id]
     return priceInfo && priceInfo.updateTime > expiresAfter
@@ -323,7 +325,7 @@ const costAndBenefit = computed(() => {
   let costInfo = '???', benefitInfo = '???'
   if (!updateRequired) {
     let costTotal = 0, benefitTotal = 0
-    const priceKey = userConfig.value.universalis_priceType
+    const priceKey = funcConfig.value.universalis_priceType
     Object.values(itemsCost).forEach(item => {
       costTotal += item.amount * (item.price[`${priceKey}NQ`] ?? 0)
     })
@@ -353,13 +355,13 @@ const handleAnalysisItemPrices = async () => {
       statementData.value.materialsLvBase.forEach(item => {
         items.push(item.id)
       })
-      const itemPrices = await getItemPriceInfo([...new Set(items)], userConfig.value.universalis_server)
-      const newConfig = userConfig.value
+      const itemPrices = await getItemPriceInfo([...new Set(items)], funcConfig.value.universalis_server)
+      const newConfig = funcConfig.value
       Object.keys(itemPrices).forEach(id => {
         const itemID = Number(id)
         newConfig.cache_item_prices[itemID] = itemPrices[itemID]
       })
-      await store.commit('setUserConfig', fixUserConfig(newConfig))
+      await store.commit('setFuncConfig', fixFuncConfig(newConfig, store.state.userConfig))
     } catch (error : any) {
       console.error(error)
       alert(t('获取价格失败') + '\n' + (error?.message ?? error))

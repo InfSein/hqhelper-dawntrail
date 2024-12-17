@@ -16,7 +16,7 @@ import {
 } from '@/assets/data'
 import type { GearSelections, AttireAffix, AccessoryAffix } from '@/models/gears'
 import { attireAffixes, accessoryAffixes } from '@/models/gears'
-import { type UserConfigModel } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/config-user'
 import { deepCopy } from '@/tools'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 

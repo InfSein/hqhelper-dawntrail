@@ -4628,5 +4628,34 @@
     "$files": [
       "data\\change-logs.ts"
     ]
+  },
+  "使用简洁模式展示物品": {
+    "en": "使用简洁模式展示物品",
+    "ja": "使用简洁模式展示物品",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "仅在专业版制作报表生效。": {
+    "en": "仅在专业版制作报表生效。",
+    "ja": "仅在专业版制作报表生效。",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "功能设置": {
+    "en": "功能设置",
+    "ja": "功能设置",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue",
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "还好我把魔法人偶的战斗力设置成了最强级别。": {
+    "en": "Change function settings.",
+    "ja": "魔法人形を最強レベルに設定しておいてよかった。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
   }
 }
