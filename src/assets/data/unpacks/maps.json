@@ -374,6 +374,15 @@
       }
     ]
   },
+  "2001": {
+    "regionId": 498,
+    "zoneId": 511,
+    "placeId": 2001,
+    "weatherRate": 51,
+    "mapId": 213,
+    "mapSrc": "d2f2",
+    "aetherytes": []
+  },
   "2002": {
     "regionId": 498,
     "zoneId": 511,
