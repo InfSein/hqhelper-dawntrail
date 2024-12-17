@@ -2,7 +2,7 @@ import type { ItemPriceInfo } from "@/tools/item"
 import type { UserConfigModel } from "./config-user"
 import { deepCopy } from "@/tools"
 
-export type FuncConfigKey = "copy_macro" | "craft_statement" | "cost_benefit"
+export type FuncConfigKey = "copy_macro" | "craft_statement" | "recomm_process" | "cost_benefit"
 
 export interface FuncConfigModel {
   // #region 在偏好设置弹窗中设置的配置项
@@ -17,6 +17,9 @@ export interface FuncConfigModel {
   use_traditional_statement: boolean
   /** 专业版制作报表：使用简洁模式展示物品 */
   prostate_concise_mode: boolean
+
+  // * 推荐流程
+  processes_show_item_details: boolean
 
   // * 物品价格
   /** 物品价格服务器 */
@@ -39,6 +42,8 @@ const defaultFuncConfig: FuncConfigModel = {
   // * 制作报表
   use_traditional_statement: false,
   prostate_concise_mode: false,
+  // * 推荐流程
+  processes_show_item_details: false,
   // * 物品价格
   universalis_server: '红玉海',
   universalis_priceType: 'averagePrice',
@@ -62,6 +67,7 @@ export const fixFuncConfig = (config?: FuncConfigModel, userConfig?: UserConfigM
     if (_userConfig.statement_show_item_details === false) {
       config.prostate_concise_mode = true
     }
+    config.processes_show_item_details ??= _userConfig.processes_show_item_gatherdetails || defaultFuncConfig.processes_show_item_details
     config.universalis_server ??= _userConfig.universalis_server || defaultFuncConfig.universalis_server
     config.universalis_priceType ??= _userConfig.universalis_priceType || defaultFuncConfig.universalis_priceType
     config.universalis_expireTime ??= _userConfig.universalis_expireTime || defaultFuncConfig.universalis_expireTime

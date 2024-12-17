@@ -11,7 +11,8 @@ import MyModal from '../templates/MyModal.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'
 import ItemSpan from '../custom/item/ItemSpan.vue'
 import LocationSpan from '../custom/map/LocationSpan.vue'
-import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
+import { type UserConfigModel } from '@/models/config-user'
+import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { type ItemInfo } from '@/tools/item'
 import { XivJobs, type XivJob } from '@/assets/data'
 import { CopyToClipboard } from '@/tools'
@@ -22,6 +23,7 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
   
@@ -41,7 +43,7 @@ watch(showModal, async(newVal, oldVal) => {
         completedItems.value[i][item.id] = false
       })
     }
-    showItemGatherDetails.value = userConfig.value.processes_show_item_gatherdetails
+    showItemGatherDetails.value = funcConfig.value.processes_show_item_details
   }
 })
 
@@ -323,9 +325,9 @@ const handleCollapseOrUncollapseAllBlocks = () => {
 }
 const handleSwitchShowItemGatherDetails = () => {
   showItemGatherDetails.value = !showItemGatherDetails.value
-  const newConfig = fixUserConfig(store.state.userConfig)
-  newConfig.processes_show_item_gatherdetails = showItemGatherDetails.value
-  store.commit('setUserConfig', newConfig)
+  const newConfig = fixFuncConfig(store.state.funcConfig, store.state.userConfig)
+  newConfig.processes_show_item_details = showItemGatherDetails.value
+  store.commit('setFuncConfig', newConfig)
 }
 const handleCopyProcesses = () => {
   const text = itemGroups.value.map((group, index) => {

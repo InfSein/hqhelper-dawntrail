@@ -367,6 +367,10 @@ const onUserPreferencesSubmitted = () => {
     NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
   }
 }
+const onFuncPreferencesSubmitted = () => {
+  appForceUpdate()
+  NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
+}
 </script>
 
 <template>
@@ -481,7 +485,10 @@ const onUserPreferencesSubmitted = () => {
       v-model:show="showUserPreferencesModal"
       @after-submit="onUserPreferencesSubmitted"
     />
-    <ModalFuncPreferences v-model:show="showFuncPreferencesModal" />
+    <ModalFuncPreferences
+      v-model:show="showFuncPreferencesModal"
+      @after-submit="onFuncPreferencesSubmitted"
+    />
     <ModalAboutApp v-model:show="showAboutAppModal" />
     <ModalContactUs v-model:show="showContactModal" />
     <ModalChangeLogs v-model:show="showChangeLogsModal" />
