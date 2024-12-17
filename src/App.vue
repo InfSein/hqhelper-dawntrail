@@ -20,6 +20,7 @@ import type { AppVersionJson } from './models'
 import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from './models/config-func'
 import AppStatus from './variables/app-status'
+import ModalFestivalEgg from './components/modals/ModalFestivalEgg.vue'
 
 const route = useRoute()
 const store = useStore()
@@ -150,6 +151,8 @@ const appClass = computed(() => {
   return classes.join(' ')
 })
 
+const showFestivalEgg = ref(false)
+
 onMounted(async () => {
   await sleep(500)
   // 处理全局页面参数
@@ -197,6 +200,19 @@ onMounted(async () => {
     } catch (err) {
       console.error('自动更新发生错误', err)
     }
+  }
+  // 处理彩蛋
+  const now = new Date()
+  const date = now.getDate()
+  const eggId = 20241225
+  if (
+    userConfig.value.last_triggered_egg !== eggId &&
+    (now.getMonth() === 11) && ((date === 24 && now.getHours() >= 18) || date === 25)
+  ) {
+    showFestivalEgg.value = true
+    const newConfig = fixUserConfig(store.state.userConfig)
+    newConfig.last_triggered_egg = eggId
+    store.commit('setUserConfig', newConfig)
   }
   updateIsMobile()
 })
@@ -255,6 +271,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
           :macro-content="macroValue"
         />
         <ModalCheckUpdates v-model:show="showCheckUpdatesModal" />
+        <ModalFestivalEgg v-model:show="showFestivalEgg" />
       </div>
     </n-message-provider>
   </n-config-provider>

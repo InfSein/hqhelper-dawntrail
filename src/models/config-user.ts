@@ -45,12 +45,10 @@ export interface UserConfigModel {
   // * tome-script-button
   /** 在点数按钮的统计中显示双色宝石兑换物 */
   tomescript_show_bicolor_items: boolean
-  // * recomm. processes
-  /** 推荐流程：显示采集详情 */
-  processes_show_item_gatherdetails: boolean
   // #endregion
 
   // #region 隐藏的配置项/缓存
+  last_triggered_egg: number
   cache_lasttime_version: string
   cache_ui_fold: any
   cache_work_state: any
@@ -85,10 +83,8 @@ const defaultUserConfig: UserConfigModel = {
   // tome-script-button
   tomescript_show_bicolor_items: false,
 
-  // recomm. processes
-  processes_show_item_gatherdetails: false,
-
   // hidden options
+  last_triggered_egg: 0,
   cache_lasttime_version: 'none',
   cache_ui_fold: {}, // active cache, { key:string -> value:boolean }
   cache_work_state: {}, // active cache, view struct in `MainPage.vue` 's `workState`

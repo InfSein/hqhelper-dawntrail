@@ -385,13 +385,6 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "网络": {
-    "en": "Network",
-    "ja": "ネットワーク",
-    "$files": [
-      "components\\modals\\ModalUserPreferences.vue"
-    ]
-  },
   "创作人员": {
     "en": "Staff",
     "ja": "開発チーム",
@@ -2922,13 +2915,6 @@
       "components\\modals\\ModalCostAndBenefit.vue"
     ]
   },
-  "物品价格服务器": {
-    "en": "Item Price Server",
-    "ja": "アイテム価格サーバー",
-    "$files": [
-      "components\\modals\\ModalUserPreferences.vue"
-    ]
-  },
   "适用于“{f}”功能。": {
     "en": "Used in \"{f}\".",
     "ja": "「{f}」機能に適用されます。",
@@ -2981,13 +2967,6 @@
   "最高价格": {
     "en": "Max Price",
     "ja": "最高価格",
-    "$files": [
-      "components\\modals\\ModalUserPreferences.vue"
-    ]
-  },
-  "物品价格有效期": {
-    "en": "Item Price Expires",
-    "ja": "アイテム価格の有効期間",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
@@ -4656,6 +4635,62 @@
     "ja": "魔法人形を最強レベルに設定しておいてよかった。",
     "$files": [
       "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "星芒节快乐": {
+    "en": "Merry Christmas",
+    "ja": "「星芒祭」おめでとうございます",
+    "$files": [
+      "components\\modals\\ModalFestivalEgg.vue"
+    ]
+  },
+  "星芒节快乐！": {
+    "en": "Good day to you, ",
+    "ja": "「星芒祭」おめでとうございます！",
+    "$files": [
+      "components\\modals\\ModalFestivalEgg.vue"
+    ]
+  },
+  "值此佳节，星光分外璀璨，": {
+    "en": "miss/sir.",
+    "ja": "星の輝きが一層美しくなるこの季節、",
+    "$files": [
+      "components\\modals\\ModalFestivalEgg.vue"
+    ]
+  },
+  "你过得开心吗？": {
+    "en": "I trust you've met with no grief during this year's Starlight Celebration?",
+    "ja": "いかがお過ごしですか？",
+    "$files": [
+      "components\\modals\\ModalFestivalEgg.vue"
+    ]
+  },
+  "显示物品详情": {
+    "en": "显示物品详情",
+    "ja": "显示物品详情",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "物品价格": {
+    "en": "物品价格",
+    "ja": "物品价格",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "价格类型": {
+    "en": "价格类型",
+    "ja": "价格类型",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "缓存有效期": {
+    "en": "缓存有效期",
+    "ja": "缓存有效期",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
     ]
   }
 }
