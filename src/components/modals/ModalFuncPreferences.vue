@@ -110,7 +110,7 @@ const FuncPreferenceGroups : SettingGroup[] = [
     children: [
       {
         key: 'universalis_server',
-        label: t('物品价格服务器'),
+        label: t('服务器'),
         descriptions: dealDescriptions([
           t('适用于“{f}”功能。', t('成本/收益预估')),
           t('下方的输入框支持通过输入关键词来检索选项。'),
@@ -269,7 +269,7 @@ const FuncPreferenceGroups : SettingGroup[] = [
       },
       {
         key: 'universalis_priceType',
-        label: t('物品价格类型'),
+        label: t('价格类型'),
         descriptions: [
           ...dealDescriptions([
             t('适用于“{f}”功能。', t('成本/收益预估')),
@@ -320,7 +320,7 @@ const FuncPreferenceGroups : SettingGroup[] = [
       },
       {
         key: 'universalis_expireTime',
-        label: t('物品价格有效期'),
+        label: t('缓存有效期'),
         descriptions: dealDescriptions([
           t('适用于“{f}”功能。', t('成本/收益预估')),
           t('程序会将获取到的物品价格缓存。一旦超出设置的有效期，就需要重新获取价格信息。'),
@@ -328,6 +328,10 @@ const FuncPreferenceGroups : SettingGroup[] = [
         ]),
         type: 'select',
         options: [
+          {
+            value: 1 * 60 * 60 * 1000,
+            label: t('{val}小时', 1)
+          },
           {
             value: 3 * 60 * 60 * 1000,
             label: t('{val}小时', 3)
@@ -353,12 +357,6 @@ const FuncPreferenceGroups : SettingGroup[] = [
             label: t('永不过期')
           }
         ]
-      },
-      {
-        key: 'enable_dev_mode',
-        label: t('启用开发者模式'),
-        hide: !window.electronAPI?.openDevTools,
-        type: 'switch'
       }
     ]
   },
