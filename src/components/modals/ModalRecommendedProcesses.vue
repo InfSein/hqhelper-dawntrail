@@ -5,7 +5,7 @@ import {
   useMessage
 } from 'naive-ui'
 import { 
-  AllInclusiveSharp, CloseSharp
+  AllInclusiveSharp, CopyAllOutlined
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'
@@ -296,10 +296,6 @@ const textsGatherAt = computed(() => {
   return { p1, p2 }
 })
 
-const handleClose = () => {
-  showModal.value = false
-}
-
 const handleCopy = async (content: string, successMessage?: string) => {
   const container = document.getElementById('modal-recomm-process')
   const response = await CopyToClipboard(content, container)
@@ -377,7 +373,6 @@ const handleSettingButtonClick = () => {
         <span class="title">{{ t('推荐流程') }}</span>
         <div class="card-title-actions">
           <a href="javascript:void(0);" @click="handleCollapseOrUncollapseAllBlocks">[{{ isBlocksAllCollapsed() ? t('全部展开') : t('全部折叠') }}]</a>
-          <a href="javascript:void(0);" @click="handleCopyProcesses">[{{ t('复制流程') }}]</a>
         </div>
       </div>
     </template>
@@ -463,11 +458,11 @@ const handleSettingButtonClick = () => {
 
     <template #action>
       <div class="submit-container">
-        <n-button type="error" size="large" @click="handleClose">
+        <n-button type="info" size="large" @click="handleCopyProcesses">
           <template #icon>
-            <n-icon><CloseSharp /></n-icon>
+            <n-icon><CopyAllOutlined /></n-icon>
           </template>
-          {{ t('关闭') }}
+          {{ t('复制') }}
         </n-button>
       </div>
     </template>
