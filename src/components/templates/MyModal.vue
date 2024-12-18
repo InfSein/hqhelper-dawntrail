@@ -4,8 +4,7 @@ import {
   NButton, NCard, NIcon, NModal
 } from 'naive-ui'
 import {
-  SettingsSharp,
-  CloseOutlined
+  SettingsSharp
 } from '@vicons/material'
 
 // const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -68,6 +67,8 @@ const handleClose = () => {
       style="width: 98%;"
       :style="containerStyle"
       :content-style="contentStyle"
+      closable
+      @close="handleClose"
     >
       <template #header>
         <slot name="header">
@@ -81,9 +82,7 @@ const handleClose = () => {
       <template #header-extra>
         <n-button v-if="showSetting" quaternary size="small" class="square-action" @click="handleShowFuncPreference">
           <n-icon><SettingsSharp /></n-icon>
-        </n-button>
-        <n-button ref="closeButton" quaternary size="small" class="square-action" @click="handleClose">
-          <n-icon><CloseOutlined /></n-icon>
+          <div class="unshow-text">{{ t('设置') }}</div>
         </n-button>
       </template>
 
@@ -99,9 +98,28 @@ const handleClose = () => {
 
 <style scoped>
 .square-action {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   padding: 2px;
-  font-size: 20px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: width 0.3s ease;
+
+  .unshow-text {
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+}
+.square-action:hover {
+  width: auto;
+  
+  .unshow-text {
+    opacity: 1;
+  }
 }
 </style>
