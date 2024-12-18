@@ -79,7 +79,7 @@ export const fixFuncConfig = (config?: FuncConfigModel, userConfig?: UserConfigM
 
   function assignDefaults(defaultConfig: any, currentConfig: any): any {
     for (const key in defaultConfig) {
-      if (Object.prototype.hasOwnProperty.call(defaultConfig, key)) {
+      if (Object.prototype.hasOwnProperty.call(defaultConfig, key) && key !== '__proto__' && key !== 'constructor') {
         if (typeof defaultConfig[key] === 'object' && !Array.isArray(defaultConfig[key]) && defaultConfig[key] !== null) {
           currentConfig[key] = assignDefaults(defaultConfig[key], currentConfig[key] || {});
         } else {
