@@ -456,13 +456,10 @@ const getSortedItems = (items: ItemInfo[]) => {
 
 const getItemName = (itemInfo: ItemInfo) => {
   switch (itemLanguage.value) {
-    case 'ja':
-      return itemInfo.nameJA
-    case 'en':
-      return itemInfo.nameEN
     case 'zh':
+      return itemInfo.name_zh || '未翻译的物品'
     default:
-      return itemInfo.nameZH || '未翻译的物品'
+      return itemInfo[`name_${itemLanguage.value}`]
   }
 }
 const getJobName = (jobInfo: XivJob) => {

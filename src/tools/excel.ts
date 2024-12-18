@@ -25,13 +25,7 @@ export const export2Excel = (
 
   const statements = getStatementData(statistics)
   const getItemName = (item: ItemInfo) => {
-    let name = '???'
-    switch (item_lang) {
-      case 'zh': name = item.nameZH; break
-      case 'ja': name = item.nameJA; break
-      case 'en': name = item.nameEN; break
-    }
-    return name
+    return item[`name_${item_lang}`] || '???'
   }
   /** 自动调整列宽 */
   const calculateColumnWidths = (data: any[][]) => {

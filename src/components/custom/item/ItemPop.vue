@@ -70,25 +70,22 @@ const getJobName = (jobInfo: XivJob) => {
 
 const getItemName = () => {
   switch (itemLanguage.value) {
-    case 'ja':
-      return props.itemInfo.nameJA
-    case 'en':
-      return props.itemInfo.nameEN
     case 'zh':
+      return props.itemInfo.name_zh || '未翻译的物品'
     default:
-      return props.itemInfo.nameZH || '未翻译的物品'
+      return props.itemInfo[`name_${itemLanguage.value}`]
   }
 }
 /** 获取物品副名称(即其他语言的名称) */
 const getItemSubName = () => {
   switch (itemLanguage.value) {
     case 'ja':
-      return props.itemInfo.nameEN
+      return props.itemInfo.name_en
     case 'en':
-      return props.itemInfo.nameJA
+      return props.itemInfo.name_ja
     case 'zh':
     default:
-      return props.itemInfo.nameJA + ' / ' + props.itemInfo.nameEN
+      return props.itemInfo.name_ja + ' / ' + props.itemInfo.name_en
   }
 }
 const getItemDescriptions = () => {
@@ -206,7 +203,7 @@ const openInAngler = () => {
   let name = getItemName()
   if (props.itemInfo.usedZHTemp) {
     lang = 'en'
-    name = props.itemInfo.nameEN
+    name = props.itemInfo.name_en
   }
   const domain = `https://${lang}.ff14angler.com/`
   window.open(`${domain}?search=${name}`)

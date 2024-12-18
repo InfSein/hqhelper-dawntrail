@@ -84,13 +84,10 @@ const tomeScripts = computed(() => {
 
 const getItemName = (itemInfo: ItemInfo) => {
   switch (itemLanguage.value) {
-    case 'ja':
-      return itemInfo.nameJA
-    case 'en':
-      return itemInfo.nameEN
     case 'zh':
+      return itemInfo.name_zh || '未翻译的物品'
     default:
-      return itemInfo.nameZH
+      return itemInfo[`name_${itemLanguage.value}`]
   }
 }
 const macroValue = computed(() => {

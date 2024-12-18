@@ -67,9 +67,6 @@ export interface ItemInfo {
   patch: string
   /** 物品品级 */
   itemLevel: number
-  nameJA: string // deprecated. 逐步取代
-  nameEN: string // deprecated. 逐步取代
-  nameZH: string // deprecated. 逐步取代
   name_zh: string
   name_en: string
   name_ja: string
@@ -225,9 +222,6 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     return itemInfo
   }
   itemInfo.itemLevel = _item.ilv
-  itemInfo.nameJA = _item.lang[0]
-  itemInfo.nameEN = _item.lang[1]
-  itemInfo.nameZH = _item.lang[2]
   itemInfo.name_ja = _item.lang[0]
   itemInfo.name_en = _item.lang[1]
   itemInfo.name_zh = _item.lang[2]
@@ -240,7 +234,6 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   if (!itemInfo.name_zh) {
     const tempZhMap = XivTranslatedItemNames
     if (tempZhMap?.[itemInfo.id]) {
-      itemInfo.nameZH = tempZhMap[itemInfo.id]
       itemInfo.name_zh = tempZhMap[itemInfo.id]
       itemInfo.usedZHTemp = true
     } else if (itemInfo.name_ja) {
@@ -514,7 +507,7 @@ export const getItemContexts = (
       key: 'open-in-hjwiki',
       icon: renderIcon(OpenInNewFilled),
       click: () => {
-        window.open(`https://ff14.huijiwiki.com/wiki/物品:${itemInfo.nameZH}`)
+        window.open(`https://ff14.huijiwiki.com/wiki/物品:${itemInfo.name_zh}`)
       }
     },
     {
@@ -530,7 +523,7 @@ export const getItemContexts = (
       key: 'open-in-gamerescape',
       icon: renderIcon(OpenInNewFilled),
       click: () => {
-        window.open(`https://ffxiv.gamerescape.com/wiki/${itemInfo.nameEN.replace(' ', '_')}`)
+        window.open(`https://ffxiv.gamerescape.com/wiki/${itemInfo.name_en.replace(' ', '_')}`)
       }
     },
     {
@@ -576,11 +569,11 @@ export const getItemContexts = (
   const handleKeyEvent = async (key: string | number, option: any) => {
     switch (key) {
       case 'copy-zh':
-        await handleCopy(itemInfo.nameZH); break
+        await handleCopy(itemInfo.name_zh); break
       case 'copy-ja':
-        await handleCopy(itemInfo.nameJA); break
+        await handleCopy(itemInfo.name_ja); break
       case 'copy-en':
-        await handleCopy(itemInfo.nameEN); break
+        await handleCopy(itemInfo.name_en); break
       default:
         console.log('[开发提示] 未分配点击事件', key, option)
     }

@@ -72,13 +72,10 @@ const props = defineProps<ItemButtonProps>()
 
 const getItemName = () => {
   switch (itemLanguage.value) {
-    case 'ja':
-      return props.itemInfo.nameJA
-    case 'en':
-      return props.itemInfo.nameEN
     case 'zh':
+      return props.itemInfo.name_zh || '未翻译的物品'
     default:
-      return props.itemInfo.nameZH || '未翻译的物品'
+      return props.itemInfo[`name_${itemLanguage.value}`]
   }
 }
 

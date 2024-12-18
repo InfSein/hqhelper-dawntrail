@@ -13,15 +13,13 @@ import ModalRecommendedProcesses from './ModalRecommendedProcesses.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { deepCopy } from '@/tools'
-import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
-import { useStore } from '@/store'
+import { type FuncConfigModel } from '@/models/config-func'
 import ModalFuncPreferences from './ModalFuncPreferences.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
-const store = useStore()
 
 const { getRecipeMap, calItems } = useNbbCal()
 const recipeMap = getRecipeMap()
