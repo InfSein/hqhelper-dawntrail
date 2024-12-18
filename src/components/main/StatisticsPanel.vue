@@ -17,6 +17,7 @@ import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { export2Excel } from '@/tools/excel'
 import type { GearSelections } from '@/models/gears'
 import { useStore } from '@/store'
+import ModalImportExportMain from '../modals/ModalImportExportMain.vue'
 
 const store = useStore()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -283,6 +284,7 @@ const exportExcel = () => {
     t
   )
 }
+const showImportExportModal = ref(false)
 
 const showCostAndBenefitModal = ref(false)
 const costAndBenefit = computed(() => {
@@ -379,6 +381,7 @@ const handleAnalysisItemPrices = async () => {
       <span class="card-title-text">{{ t('查看统计') }}</span>
       <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
       <a class="card-title-extra" href="javascript:void(0);" @click="exportExcel">{{ t('[导出Excel]') }}</a>
+      <a class="card-title-extra" href="javascript:void(0);" @click="showImportExportModal = true">[{{ t('导入/导出') }}]</a>
     </template>
     <div class="wrapper">
       <GroupBox
@@ -526,6 +529,9 @@ const handleAnalysisItemPrices = async () => {
     <ModalProStatements
       v-model:show="showProStatementModal"
       v-bind="statementData"
+    />
+    <ModalImportExportMain
+      v-model:show="showImportExportModal"
     />
     <ModalCostAndBenefit
       v-model:show="showCostAndBenefitModal"
