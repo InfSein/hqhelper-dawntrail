@@ -132,6 +132,7 @@ export const XivAttributes = JsonXivAttributes as Record<number, {
 
 import JsonXivGearAffixes from './xiv-gear-affixes.json'
 export const XivGearAffixes = JsonXivGearAffixes as Record<AttireAffix | AccessoryAffix, {
+  key: AttireAffix | AccessoryAffix,
   name_zh: string,
   name_ja: string,
   name_en: string

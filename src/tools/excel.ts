@@ -3,7 +3,7 @@ import XLSX from 'xlsx'
 import {
   XivJobs, XivGearAffixes
 } from '@/assets/data'
-import { attireAffixes, accessoryAffixes, type GearSelections, type AttireAffix, type AccessoryAffix } from "@/models/gears"
+import { attireAffixes, accessoryAffixes, type GearSelections, type AttireAffix, type AccessoryAffix, fixGearSelections } from "@/models/gears"
 import { getItemInfo, getStatementData, type ItemInfo } from './item'
 
 export const export2Excel = (
@@ -360,4 +360,79 @@ export const export2Excel = (
   }
   const name = generateFileName() // 保存的文件名
   XLSX.writeFile(workBook, name)
+}
+
+export const importExcel = (file: File) : Promise<GearSelections> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = (event) => {
+      try {
+        const data = new Uint8Array(event.target?.result as ArrayBuffer)
+        const workbook = XLSX.read(data, { type: 'array' })
+        const sheet = workbook.Sheets[workbook.SheetNames[0]]
+        const tableData = XLSX.utils.sheet_to_json(sheet, { header: 1 }) as string[][]
+
+        // 初始化结果
+        const gearSelections: GearSelections = fixGearSelections()
+
+        // 解析表头
+        // const headers = tableData[0]
+        const dataRows = tableData.slice(1)
+
+        dataRows.forEach((row) => {
+          const name = row[0]
+          if (!name) return
+
+          // 职业数据
+          if (row[1] || row[2]) {
+            // 主副手解析
+            const job = Object.values(XivJobs).find(
+              (job) => job.job_name_zh === name || job.job_name_ja === name || job.job_name_en === name
+            )
+            if (job) {
+              const jobId = job.job_id
+              gearSelections.MainHand[jobId] = parseInt(row[1] || '0', 10)
+              gearSelections.OffHand[jobId] = parseInt(row[2] || '0', 10)
+            }
+          } else {
+            // 词缀数据解析
+            const affix = Object.values(XivGearAffixes).find(
+              (affix) =>
+                affix.name_zh === name || affix.name_ja === name || affix.name_en === name
+            )
+            if (affix) {
+              const counts = row.slice(3).map((count) => parseInt(count || '0', 10))
+
+              const attireCounts = counts.slice(0, 5)
+              const accessoryCounts = counts.slice(5)
+
+              if (attireCounts.some((count) => count > 0)) {
+                const id = affix.key as AttireAffix
+                gearSelections.HeadAttire[id] = attireCounts[0]
+                gearSelections.BodyAttire[id] = attireCounts[1]
+                gearSelections.HandsAttire[id] = attireCounts[2]
+                gearSelections.LegsAttire[id] = attireCounts[3]
+                gearSelections.FeetAttire[id] = attireCounts[4]
+              }
+
+              if (accessoryCounts.some((count) => count > 0)) {
+                const id = affix.key as AccessoryAffix
+                gearSelections.Earrings[id] = accessoryCounts[0]
+                gearSelections.Necklace[id] = accessoryCounts[1]
+                gearSelections.Wrist[id] = accessoryCounts[2]
+                gearSelections.Rings[id] = accessoryCounts[3]
+              }
+            }
+          }
+        })
+
+        resolve(gearSelections)
+      } catch (error) {
+        reject(error)
+      }
+    }
+
+    reader.onerror = (error) => reject(error)
+    reader.readAsArrayBuffer(file)
+  })
 }
