@@ -502,6 +502,8 @@ const innerPopTrigger = computed(() => {
   font-size: calc(var(--n-font-size) - 2px);
 }
 .item-popover {
+  user-select: text;
+  
   .base-info {
     display: flex;
     align-items: flex-start;
