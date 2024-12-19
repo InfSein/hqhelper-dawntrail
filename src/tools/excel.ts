@@ -16,7 +16,8 @@ export const export2Excel = (
   crystals: ItemInfo[],
   ui_lang: 'zh' | 'ja' | 'en',
   item_lang: 'zh' | 'ja' | 'en',
-  t: (message: string, ...args: any[]) => string
+  t: (message: string, ...args: any[]) => string,
+  file_name?: string
 ) => {
   const workBook = XLSX.utils.book_new()
 
@@ -358,7 +359,7 @@ export const export2Excel = (
     const fileName = `hqhelper-export_${formattedDate}T${formattedTime}.xlsx`
     return fileName
   }
-  const name = generateFileName() // 保存的文件名
+  const name = file_name || generateFileName() // 保存的文件名
   XLSX.writeFile(workBook, name)
 }
 

@@ -264,6 +264,24 @@ const statementData = computed(() => {
   return getStatementData(props.statistics)
 })
 
+const importExportData = computed(() => {
+  return {
+    gearSelections: props.gearSelections,
+    statistics: props.statistics,
+    tomeScriptItems: tomeScriptItems.value,
+    normalGathering: gatheringsCommon.value,
+    limitedGathering: gatheringsTimed.value,
+    aethersands: aethersands.value,
+    crystals: crystals.value,
+    ui_lang: userConfig.value.language_ui,
+    item_lang: userConfig.value.language_item === 'auto'
+      ? userConfig.value.language_ui
+      : userConfig.value.language_item
+  }
+})
+const handleDisplayImportExportModal = () => {
+  showImportExportModal.value = true
+}
 const exportExcel = () => {
   if (!props.gearSelections) {
     alert(t('请先选择版本和职业'))
@@ -381,7 +399,7 @@ const handleAnalysisItemPrices = async () => {
       <span class="card-title-text">{{ t('查看统计') }}</span>
       <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
       <a class="card-title-extra" href="javascript:void(0);" @click="exportExcel">{{ t('[导出Excel]') }}</a>
-      <a class="card-title-extra" href="javascript:void(0);" @click="showImportExportModal = true">[{{ t('导入/导出') }}]</a>
+      <a class="card-title-extra" href="javascript:void(0);" @click="handleDisplayImportExportModal">[{{ t('导入/导出') }}]</a>
     </template>
     <div class="wrapper">
       <GroupBox
@@ -532,6 +550,7 @@ const handleAnalysisItemPrices = async () => {
     />
     <ModalImportExportMain
       v-model:show="showImportExportModal"
+      v-bind="importExportData"
     />
     <ModalCostAndBenefit
       v-model:show="showCostAndBenefitModal"
