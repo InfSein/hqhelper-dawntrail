@@ -19,7 +19,7 @@ import {
 } from '@/assets/data'
 import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears'
 import { getDefaultGearSelections } from '@/models/gears'
-import { type UserConfigModel } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/config-user'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 import { useGearAdder } from '@/tools/gears'
 

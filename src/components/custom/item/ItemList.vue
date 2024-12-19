@@ -9,7 +9,7 @@ import {
 import ItemButton from './ItemButton.vue'
 import ButtonCopyAsMacro from '../macro/ButtonCopyAsMacro.vue'
 import { type ItemInfo } from '@/tools/item'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -22,13 +22,10 @@ const itemLanguage = computed(() => {
 })
 const getItemName = (itemInfo: ItemInfo) => {
   switch (itemLanguage.value) {
-    case 'ja':
-      return itemInfo.nameJA
-    case 'en':
-      return itemInfo.nameEN
     case 'zh':
+      return itemInfo.name_zh || '未翻译的物品'
     default:
-      return itemInfo.nameZH
+      return itemInfo[`name_${itemLanguage.value}`]
   }
 }
   
@@ -163,12 +160,12 @@ const listContainer = ref<HTMLElement>()
       readonly
       autosize
       type="textarea"
-      :placeholder="t('本组没有需要的道具')"
+      :placeholder="t('没有需要的道具')"
       style="max-height: calc(100% - 25px);"
     />
   </div>
   <div v-else-if="!hideEmpty" class="empty-container" :style="getContainerStyles()">
-    <n-empty :description="t('本组没有需要的道具')" />
+    <n-empty :description="t('没有需要的道具')" />
   </div>
 </template>
   

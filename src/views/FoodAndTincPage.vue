@@ -8,7 +8,7 @@ import ItemSelectionPanel from '@/components/ft-helper/ItemSelectionPanel.vue'
 import StatisticsPanel from '@/components/ft-helper/StatisticsPanel.vue'
 import { useStore } from '@/store'
 import { useNbbCal } from '@/tools/use-nbb-cal'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!

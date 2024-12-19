@@ -5,7 +5,7 @@ import { computed, inject, type Ref } from 'vue'
 // } from 'naive-ui'
 import XivFARImage from '../general/XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
 import { XivJobs, type XivJob } from '@/assets/data'
 import { getItemInfo, type StatementRow } from '@/tools/item'
 

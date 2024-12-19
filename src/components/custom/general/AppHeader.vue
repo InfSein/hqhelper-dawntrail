@@ -20,6 +20,7 @@ import {
   MenuFilled,
   UpdateOutlined,
   SettingsSharp,
+  SettingsSuggestFilled,
   EventNoteFilled,
   InfoFilled, InfoOutlined,
   DevicesOtherOutlined,
@@ -36,8 +37,9 @@ import { visitUrl } from '@/tools'
 import EorzeaTime from '@/tools/eorzea-time'
 import AppStatus from '@/variables/app-status'
 import router from '@/router'
-import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
+import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
 import { useStore } from '@/store'
+import ModalFuncPreferences from '@/components/modals/ModalFuncPreferences.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -75,6 +77,7 @@ onMounted(() => {
 const showMenus = ref(false)
 
 const showUserPreferencesModal = ref(false)
+const showFuncPreferencesModal = ref(false)
 const showAboutAppModal = ref(false)
 const showContactModal = ref(false)
 const showChangeLogsModal = ref(false)
@@ -88,6 +91,9 @@ const handleRouteBack = () => {
 
 const displayUserPreferencesModal = () => {
   showUserPreferencesModal.value = true
+}
+const displayFuncPreferencesModal = () => {
+  showFuncPreferencesModal.value = true
 }
 const displayAboutAppModal = () => {
   showAboutAppModal.value = true
@@ -156,6 +162,7 @@ const menuItems = computed(() => {
     gatherClock: { label: t('采集时钟'), hide: hideGatherClock, icon: AccessAlarmsOutlined, click: redirectToGatherClockPage } as MenuItem,
     ftHelper: { label: t('食药计算'), hide: hideFTHelper, icon: FastfoodOutlined, click: redirectToFoodAndTincPage } as MenuItem,
     userPreferences: { label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal } as MenuItem,
+    funcPreferences: { label: t('功能设置'), icon: SettingsSuggestFilled, click: displayFuncPreferencesModal } as MenuItem,
     checkUpdates: { label: t('检查更新'), icon: UpdateSharp, click: handleCheckUpdates } as MenuItem,
     changelogs: { label: t('更新日志'), icon: EventNoteFilled, click: displayChangeLogsModal } as MenuItem,
     contact: { label: t('联系我们'), icon: ContactlessOutlined, click: displayContactModal } as MenuItem,
@@ -172,6 +179,7 @@ const desktopMenus = computed(() => {
   const gatherClockTooltip = hideGatherClock ? t('您已经处于采集时钟页面。') : t('挖穿艾欧泽亚的好帮手！')
   const gatherClockSWTooltip = t('在新窗口中打开采集时钟。')
   const userPreferenceTooltip = t('以人的意志改变机械的程序。')
+  const funcPreferenceTooltip = t('还好我把魔法人偶的战斗力设置成了最强级别。')
   const checkUpdatesTooltip = t('更新目标的战力等级……变更攻击模式……')
   const changelogTooltip = t('修正……改良……开始对循环程序进行更新……')
   const contactTooltip = t('关注我们喵，关注我们谢谢喵。')
@@ -213,6 +221,7 @@ const desktopMenus = computed(() => {
             buildOuterlinkOption('ref-oth-book-3', '7.x星级配方制作攻略 by月下独翼', 'https://bbs.nga.cn/read.php?tid=40690311', OpenInNewOutlined),
             buildOuterlinkOption('ref-oth-book-4', '7.0捕鱼人大地票据指南 by f(x)=kx+b', 'https://bbs.nga.cn/read.php?tid=42046664', OpenInNewOutlined),
             buildOuterlinkOption('ref-oth-book-5', '7.0灵砂/工票鱼信息整理 by plas_g', 'https://bbs.nga.cn/read.php?tid=41277468', OpenInNewOutlined),
+            buildOuterlinkOption('ref-oth-book-6', '全战职开荒/毕业配装 by 孤风行', 'https://www.kdocs.cn/l/ceEcTzlFQBUy', OpenInNewOutlined),
           ]
         },
         {
@@ -256,6 +265,7 @@ const desktopMenus = computed(() => {
       options: [
         { key: 'sau-ct', label: t('切换主题'), icon: renderIcon(changeThemeIcon), description: changeThemeTooltip, click: switchTheme },
         { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), description: userPreferenceTooltip, click: displayUserPreferencesModal },
+        { key: 'sau-fp', label: t('功能设置'), icon: renderIcon(SettingsSuggestFilled), description: funcPreferenceTooltip, click: displayFuncPreferencesModal },
         { key: 'sau-cu', label: t('检查更新'), icon: renderIcon(UpdateSharp), description: checkUpdatesTooltip, click: handleCheckUpdates },
         { key: 'sau-cl', label: t('更新日志'), icon: renderIcon(EventNoteFilled), description: changelogTooltip, click: displayChangeLogsModal },
         { key: 'sau-dt', hide:!canOpenDevTools.value, label: t('开发工具'), icon: renderIcon(DevicesOtherOutlined), click: ()=>{ window.electronAPI!.openDevTools() } }
@@ -356,6 +366,10 @@ const onUserPreferencesSubmitted = () => {
   } else {
     NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
   }
+}
+const onFuncPreferencesSubmitted = () => {
+  appForceUpdate()
+  NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
 }
 </script>
 
@@ -470,6 +484,10 @@ const onUserPreferencesSubmitted = () => {
     <ModalUserPreferences
       v-model:show="showUserPreferencesModal"
       @after-submit="onUserPreferencesSubmitted"
+    />
+    <ModalFuncPreferences
+      v-model:show="showFuncPreferencesModal"
+      @after-submit="onFuncPreferencesSubmitted"
     />
     <ModalAboutApp v-model:show="showAboutAppModal" />
     <ModalContactUs v-model:show="showContactModal" />

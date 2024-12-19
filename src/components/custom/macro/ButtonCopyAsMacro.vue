@@ -8,7 +8,7 @@ import {
   CodeSharp
 } from '@vicons/material'
 import type { ItemInfo } from '@/tools/item'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
 
 const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -26,13 +26,10 @@ const itemLanguage = computed(() => {
 })
 const getItemName = (itemInfo: ItemInfo) => {
   switch (itemLanguage.value) {
-    case 'ja':
-      return itemInfo.nameJA
-    case 'en':
-      return itemInfo.nameEN
     case 'zh':
+      return itemInfo.name_zh || '未翻译的物品'
     default:
-      return itemInfo.nameZH
+      return itemInfo[`name_${itemLanguage.value}`]
   }
 }
 

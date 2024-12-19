@@ -1,4 +1,34 @@
-import type { XivMapInfo } from "@/assets/data"
+import { XivUnpackedPlaceNames, type XivMapInfo, type XivUnpackedMap } from "@/assets/data"
+
+export const getPlaceNames = (placeId: number) => {
+  const placeNames = XivUnpackedPlaceNames[placeId]
+  const unsignedName = `???(${placeId})`
+  let name_ja = placeNames?.[0]
+  let name_en = placeNames?.[1]
+  let name_zh = placeNames?.[2]
+  if (!name_zh && (name_ja || name_en)) {
+    name_zh = `未翻译的地点(${placeId})`
+  }
+  name_ja ??= unsignedName; name_en ??= unsignedName; name_zh ??= unsignedName
+  return { name_ja, name_en, name_zh }
+}
+
+export const parseUnpackedMapData = (data: Record<number, XivUnpackedMap>) => {
+  const result: Record<number, XivMapInfo> = {}
+  Object.values(data).forEach(mapData => {
+    result[mapData.placeId] = {
+      ...getPlaceNames(mapData.placeId),
+      map_id: mapData.mapId,
+      map_src: `https://icon.nbbjack.com/maps/${mapData.mapSrc}.png`,
+      aetherytes: mapData.aetherytes.map(aetheryte => ({
+        ...getPlaceNames(aetheryte.placeId),
+        x: aetheryte.x,
+        y: aetheryte.y
+      }))
+    }
+  })
+  return result
+}
 
 export const drawMap = (
   mapSrc: string, 
@@ -14,6 +44,7 @@ export const drawMap = (
     }
 
     const mapImage = new Image()
+    mapImage.crossOrigin = 'anonymous'
     mapImage.src = mapSrc
 
     mapImage.onload = () => {

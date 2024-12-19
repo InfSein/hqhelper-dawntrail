@@ -10,10 +10,12 @@ import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
 import ItemPriceTable from '../custom/item/ItemPriceTable.vue'
 import type { ItemInfo } from '@/tools/item'
+import ModalFuncPreferences from './ModalFuncPreferences.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const showModal = defineModel<boolean>('show', { required: true })
 defineProps({
@@ -34,6 +36,11 @@ defineProps({
     default: ''
   }
 })
+
+const showFuncPreferencesModal = ref(false)
+const handleSettingButtonClick = () => {
+  showFuncPreferencesModal.value = true
+}
 </script>
 
 <template>
@@ -43,6 +50,8 @@ defineProps({
     :title="t('成本/收益预估')"
     max-width="1200px"
     :height="isMobile ? '650px' : '600px'"
+    show-setting
+    @on-setting-button-clicked="handleSettingButtonClick"
   >
     <n-tabs v-if="isMobile" type="segment" animated>
       <n-tab-pane
@@ -100,6 +109,12 @@ defineProps({
         />
       </GroupBox>
     </div>
+
+    <ModalFuncPreferences
+      v-model:show="showFuncPreferencesModal"
+      setting-group="cost_benefit"
+      @after-submit="appForceUpdate"
+    />
   </MyModal>
 </template>
 

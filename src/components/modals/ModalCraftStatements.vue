@@ -9,12 +9,14 @@ import {
 import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
 import ItemList from '../custom/item/ItemList.vue'
+import ModalFuncPreferences from './ModalFuncPreferences.vue'
 import type { ItemInfo } from '@/tools/item'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const showModal = defineModel<boolean>('show', { required: true })
 
@@ -78,6 +80,11 @@ const statementBlocks = computed(() => {
     },
   ]
 })
+
+const showFuncPreferencesModal = ref(false)
+const handleSettingButtonClick = () => {
+  showFuncPreferencesModal.value = true
+}
 </script>
 
 <template>
@@ -87,6 +94,8 @@ const statementBlocks = computed(() => {
     :title="t('制作报表')"
     max-width="1500px"
     :height="isMobile ? '650px' : '600px'"
+    show-setting
+    @on-setting-button-clicked="handleSettingButtonClick"
   >
     <n-tabs v-if="isMobile" type="line" animated>
       <n-tab-pane
@@ -125,6 +134,12 @@ const statementBlocks = computed(() => {
         </div>
       </GroupBox>
     </div>
+    
+    <ModalFuncPreferences
+      v-model:show="showFuncPreferencesModal"
+      setting-group="craft_statement"
+      @after-submit="appForceUpdate"
+    />
   </MyModal>
 </template>
 
