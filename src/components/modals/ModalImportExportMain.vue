@@ -16,6 +16,7 @@ import GroupBox from '../templates/GroupBox.vue'
 import { export2Excel, importExcel } from '@/tools/excel'
 import type { GearSelections } from '@/models/gears'
 import type { ItemInfo } from '@/tools/item'
+import ModalConfirmImportMain from './ModalConfirmImportMain.vue'
 
 const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -31,12 +32,15 @@ interface ModalImportExportMainProps {
   aethersands: ItemInfo[],
   crystals: ItemInfo[],
   ui_lang: 'zh' | 'ja' | 'en',
-  item_lang: 'zh' | 'ja' | 'en'
+  item_lang: 'zh' | 'ja' | 'en',
+  patchSelected: string
 }
 const props = defineProps<ModalImportExportMainProps>()
 
 const fileName = ref('')
 const fileList = ref<UploadFileInfo[]>([])
+const showConfirmImportModal = ref(false)
+const importGearSelections = ref<GearSelections>()
 
 const handleExportExcel = () => {
   if (!props.gearSelections) {
@@ -60,7 +64,8 @@ const handleExportExcel = () => {
 
 const handleExcel = async (file: File) => {
   const response = await importExcel(file)
-  console.log('response', response)
+  importGearSelections.value = response
+  showConfirmImportModal.value = true
 }
 
 const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
@@ -75,6 +80,11 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
   }
   fileList.value = [] // 清空文件列表，允许再次上传
   return false
+}
+
+const onImportConfirmed = () => {
+  showConfirmImportModal.value = false
+  showModal.value = false
 }
 </script>
 
@@ -138,13 +148,20 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
                 {{ t('点击或者拖动文件到该区域来上传') }}
               </n-text>
               <n-p depth="3" style="margin: 8px 0 0 0">
-                {{ t('仅可接受格式与 HqHelper 导出格式一致的 xlsx 文件') }}
+                {{ t('需要确保表格的第一个工作表是“已选部件”，并且导出时的界面语言设置与现在一致') }}
               </n-p>
             </n-upload-dragger>
           </n-upload>
         </div>
       </n-tab-pane>
     </n-tabs>
+
+    <ModalConfirmImportMain
+      v-model:show="showConfirmImportModal"
+      :gear-selections="importGearSelections"
+      :default-patch="patchSelected"
+      @on-import-confirmed="onImportConfirmed"
+    />
   </MyModal>
 </template>
 
@@ -154,7 +171,7 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
 }
 .pane-container {
   padding: 0 5px;
-  height: 185px;
+  height: 205px;
 }
 .export-panel {
   display: flex;

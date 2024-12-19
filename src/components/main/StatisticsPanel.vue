@@ -25,43 +25,19 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
-const props = defineProps({
-  statistics: {
-    type: Object as () => any,
-    required: true
-  },
-  normalGatherings: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  limitedGatherings: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  aethersandGatherings: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  masterCraftings: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  normalCraftings: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  alkahests: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  tradeMap: {
-    type: Object as () => Record<number, ItemTradeInfo>,
-    required: true
-  },
-  gearSelections: {
-    type: Object as () => GearSelections
-  }
-})
+interface StatisticsPanelProps {
+  patchSelected: string,
+  statistics: any,
+  normalGatherings: number[] | undefined,
+  limitedGatherings: number[] | undefined,
+  aethersandGatherings: number[] | undefined,
+  masterCraftings: number[] | undefined,
+  normalCraftings: number[] | undefined,
+  alkahests: number[] | undefined,
+  tradeMap: Record<number, ItemTradeInfo>,
+  gearSelections: GearSelections
+}
+const props = defineProps<StatisticsPanelProps>()
 
 const getTradeCost = (itemTradeInfo: ItemTradeInfo) => {
   let server = userConfig.value.item_server
@@ -276,7 +252,8 @@ const importExportData = computed(() => {
     ui_lang: userConfig.value.language_ui,
     item_lang: userConfig.value.language_item === 'auto'
       ? userConfig.value.language_ui
-      : userConfig.value.language_item
+      : userConfig.value.language_item,
+    patchSelected: props.patchSelected
   }
 })
 const handleDisplayImportExportModal = () => {

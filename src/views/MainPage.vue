@@ -1,22 +1,23 @@
 <script lang="ts" setup>
-import { computed, inject, ref, watch, type Ref } from 'vue';
+import { computed, inject, provide, ref, watch, type Ref } from 'vue';
 import {
-  NBackTop
+  NBackTop,
+  useMessage
 } from 'naive-ui'
 import PatchPanel from '@/components/main/PatchPanel.vue'
 import JobPanel from '@/components/main/JobPanel.vue'
 import GearSelectionPanel from '@/components/main/GearSelectionPanel.vue'
 import StatisticsPanel from '@/components/main/StatisticsPanel.vue'
 import { type UserConfigModel } from '@/models/config-user'
-import type { AttireAffix, AccessoryAffix } from '@/models/gears'
+import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears'
 import { getDefaultGearSelections, fixGearSelections } from '@/models/gears'
 import { useStore } from '@/store'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 
 const store = useStore()
-// const NAIVE_UI_MESSAGE = useMessage()
+const NAIVE_UI_MESSAGE = useMessage()
 
-// const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
@@ -64,6 +65,13 @@ const handleJobButtonDupliClick = () => {
     gearSelectionPanel.value?.addCurrMainOffHand()
   }
 }
+
+const handleImportState = (patch: string, gearSelections?: GearSelections) => {
+  workState.value.patch = patch
+  workState.value.gears = fixGearSelections(gearSelections)
+  NAIVE_UI_MESSAGE.success(t('导入成功'))
+}
+provide('handleImportState', handleImportState)
 
 const patchData = computed(() => {
   return getPatchData(workState.value.patch)
@@ -117,6 +125,7 @@ const tradeMap = computed(() => {
       <div vertical id="right-layout">
         <StatisticsPanel
           class="statistics-panel"
+          :patch-selected="workState.patch"
           :statistics="statistics"
           :normal-gatherings="specialItems.normalGathering"
           :limited-gatherings="specialItems.limitedGathering"

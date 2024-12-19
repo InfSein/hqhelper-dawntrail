@@ -364,6 +364,7 @@ export const export2Excel = (
 }
 
 export const importExcel = (file: File) : Promise<GearSelections> => {
+  // all fucking from ai generate, but it works
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = (event) => {
