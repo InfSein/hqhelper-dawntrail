@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject, ref, type Ref } from 'vue'
 import {
   NButton, NCheckbox, NIcon, NInput, NP, NTabs, NTabPane, NText, NUpload, NUploadDragger,
   type UploadFileInfo,
@@ -15,11 +15,15 @@ import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
 import { export2Excel, importExcel } from '@/tools/excel'
 import type { GearSelections } from '@/models/gears'
-import type { ItemInfo } from '@/tools/item'
+import type { ItemInfo, ItemPriceInfo } from '@/tools/item'
 import ModalConfirmImportMain from './ModalConfirmImportMain.vue'
+import type { FuncConfigModel } from '@/models/config-func'
+import HelpButton from '../custom/general/HelpButton.vue'
 
 const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+const updateItemPrices = inject<() => Promise<void>>('updateItemPrices')!
 
 const showModal = defineModel<boolean>('show', { required: true })
 
@@ -38,14 +42,22 @@ interface ModalImportExportMainProps {
 const props = defineProps<ModalImportExportMainProps>()
 
 const fileName = ref('')
+const exportItemPrices = ref(false)
+const exporting = ref(false)
 const fileList = ref<UploadFileInfo[]>([])
 const showConfirmImportModal = ref(false)
 const importGearSelections = ref<GearSelections>()
 
-const handleExportExcel = () => {
+const handleExportExcel = async () => {
   if (!props.gearSelections) {
     NAIVE_UI_MESSAGE.error(t('请先选择版本和职业'))
     return
+  }
+  exporting.value = true
+  let item_price_map : Record<number, ItemPriceInfo> | undefined = undefined
+  if (exportItemPrices.value) {
+    await updateItemPrices()
+    item_price_map = funcConfig.value.cache_item_prices
   }
   export2Excel(
     props.gearSelections,
@@ -58,8 +70,11 @@ const handleExportExcel = () => {
     props.ui_lang,
     props.item_lang,
     t,
-    fileName.value ? fileName.value + '.xlsx' : undefined
+    fileName.value ? fileName.value + '.xlsx' : undefined,
+    item_price_map,
+    funcConfig.value.universalis_priceType
   )
+  exporting.value = false
 }
 
 const handleExcel = async (file: File) => {
@@ -108,15 +123,23 @@ const onImportConfirmed = () => {
             </n-input>
           </GroupBox>
           <GroupBox :title="t('选项')">
-            <n-checkbox>
-              {{ t('导出成本/收益信息') }}
+            <n-checkbox v-model:checked="exportItemPrices">
+              <div class="flex-center">
+                <div>{{ t('导出成本/收益分析') }}</div>
+                <HelpButton
+                  :descriptions="[
+                    t('遵循“功能设置”中的“物品价格”设置。'),
+                    t('启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。')
+                  ]"
+                />
+              </div>
             </n-checkbox>
             <n-checkbox v-show="false">
               {{ t('导出成功后打开导出目录') }}
             </n-checkbox>
           </GroupBox>
           <div class="submit-bar">
-            <n-button type="primary" @click="handleExportExcel">
+            <n-button type="primary" :disabled="exporting" :loading="exporting" @click="handleExportExcel">
               <template #icon>
                 <n-icon><FileDownloadOutlined /></n-icon>
               </template>

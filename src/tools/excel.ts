@@ -4,7 +4,7 @@ import {
   XivJobs, XivGearAffixes
 } from '@/assets/data'
 import { attireAffixes, accessoryAffixes, type GearSelections, type AttireAffix, type AccessoryAffix, fixGearSelections } from "@/models/gears"
-import { getItemInfo, getStatementData, type ItemInfo } from './item'
+import { getItemInfo, getStatementData, type ItemInfo, type ItemPriceInfo } from './item'
 
 export const export2Excel = (
   gearSelections: GearSelections,
@@ -17,7 +17,9 @@ export const export2Excel = (
   ui_lang: 'zh' | 'ja' | 'en',
   item_lang: 'zh' | 'ja' | 'en',
   t: (message: string, ...args: any[]) => string,
-  file_name?: string
+  file_name?: string,
+  item_price_map?: Record<number, ItemPriceInfo>,
+  price_type?: "averagePrice" | "currentAveragePrice" | "minPrice" | "maxPrice" | "marketLowestPrice" | "marketPrice" | "purchasePrice"
 ) => {
   const workBook = XLSX.utils.book_new()
 
@@ -351,6 +353,67 @@ export const export2Excel = (
   setWorkSheetStyle(workSheet)
   XLSX.utils.book_append_sheet(workBook, workSheet, t('水晶统计'))
   // #endregion
+
+  if (item_price_map && price_type) {
+    // #region 成本分析
+    tableData = [
+      [
+        t('道具名'),
+        t('数量'),
+        t('单价'),
+        t('小计')
+      ]
+    ]
+  
+    const baseMaterials = statements.materialsLvBase
+    baseMaterials.forEach(item => {
+      if (item.amount) {
+        const price = item_price_map[item.id][`${price_type}NQ`]
+        const subtotal = price === undefined ? t('未知') : (price*item.amount).toString()
+        tableData.push([
+          getItemName(item),
+          item.amount.toString(),
+          price?.toString() ?? t('未知'),
+          subtotal
+        ])
+      }
+    })
+    
+    workSheet = XLSX.utils.aoa_to_sheet(tableData)
+    workSheet['!cols'] = calculateColumnWidths(tableData)
+    setWorkSheetStyle(workSheet)
+    XLSX.utils.book_append_sheet(workBook, workSheet, t('成本分析'))
+    // #endregion
+
+    // #region 收益分析
+    tableData = [
+      [
+        t('道具名'),
+        t('数量'),
+        t('单价'),
+        t('小计')
+      ]
+    ]
+  
+    craftTargets.forEach(item => {
+      if (item.amount) {
+        const price = item_price_map[item.id][`${price_type}HQ`]
+        const subtotal = price === undefined ? t('未知') : (price*item.amount).toString()
+        tableData.push([
+          getItemName(item),
+          item.amount.toString(),
+          price?.toString() ?? t('未知'),
+          subtotal
+        ])
+      }
+    })
+    
+    workSheet = XLSX.utils.aoa_to_sheet(tableData)
+    workSheet['!cols'] = calculateColumnWidths(tableData)
+    setWorkSheetStyle(workSheet)
+    XLSX.utils.book_append_sheet(workBook, workSheet, t('收益分析'))
+    // #endregion
+  }
 
   function generateFileName() {
     const now = new Date()

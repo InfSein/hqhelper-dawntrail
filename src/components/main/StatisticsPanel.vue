@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { computed, inject, ref, type Ref } from 'vue'
+import { computed, inject, provide, ref, type Ref } from 'vue'
 import {
   NButton, NCollapse, NCollapseItem
 } from 'naive-ui'
@@ -14,7 +14,6 @@ import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
 import { getItemInfo, getItemPriceInfo, getStatementData, ItemPriceApiVersion, type ItemInfo, type ItemPriceInfo, type ItemTradeInfo } from '@/tools/item'
 import { type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
-import { export2Excel } from '@/tools/excel'
 import type { GearSelections } from '@/models/gears'
 import { useStore } from '@/store'
 import ModalImportExportMain from '../modals/ModalImportExportMain.vue'
@@ -259,26 +258,6 @@ const importExportData = computed(() => {
 const handleDisplayImportExportModal = () => {
   showImportExportModal.value = true
 }
-const exportExcel = () => {
-  if (!props.gearSelections) {
-    alert(t('请先选择版本和职业'))
-    return
-  }
-  export2Excel(
-    props.gearSelections,
-    props.statistics,
-    tomeScriptItems.value,
-    gatheringsCommon.value,
-    gatheringsTimed.value,
-    aethersands.value,
-    crystals.value,
-    userConfig.value.language_ui,
-    userConfig.value.language_item === 'auto'
-      ? userConfig.value.language_ui
-      : userConfig.value.language_item,
-    t
-  )
-}
 const showImportExportModal = ref(false)
 
 const showCostAndBenefitModal = ref(false)
@@ -341,7 +320,7 @@ const costAndBenefit = computed(() => {
   }
 })
 const updatingPrice = ref(false)
-const handleAnalysisItemPrices = async () => {
+const updateItemPrices = async () => {
   if (costAndBenefit.value.updateRequired) {
     updatingPrice.value = true
     try {
@@ -365,6 +344,10 @@ const handleAnalysisItemPrices = async () => {
     }
     updatingPrice.value = false
   }
+}
+provide('updateItemPrices', updateItemPrices)
+const handleAnalysisItemPrices = async () => {
+  await updateItemPrices()
   showCostAndBenefitModal.value = true
 }
 </script>
@@ -375,7 +358,6 @@ const handleAnalysisItemPrices = async () => {
       <i class="xiv square-4"></i>
       <span class="card-title-text">{{ t('查看统计') }}</span>
       <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
-      <a class="card-title-extra" href="javascript:void(0);" @click="exportExcel">{{ t('[导出Excel]') }}</a>
       <a class="card-title-extra" href="javascript:void(0);" @click="handleDisplayImportExportModal">[{{ t('导入/导出') }}]</a>
     </template>
     <div class="wrapper">
