@@ -368,7 +368,8 @@ export const export2Excel = (
     const baseMaterials = statements.materialsLvBase
     baseMaterials.forEach(item => {
       if (item.amount) {
-        const price = item_price_map[item.id][`${price_type}NQ`]
+        let price = item_price_map[item.id][`${price_type}NQ`]
+        if (price) price = Math.floor(price)
         const subtotal = price === undefined ? t('未知') : (price*item.amount).toString()
         tableData.push([
           getItemName(item),
@@ -397,7 +398,8 @@ export const export2Excel = (
   
     craftTargets.forEach(item => {
       if (item.amount) {
-        const price = item_price_map[item.id][`${price_type}HQ`]
+        let price = item_price_map[item.id][`${price_type}HQ`]
+        if (price) price = Math.floor(price)
         const subtotal = price === undefined ? t('未知') : (price*item.amount).toString()
         tableData.push([
           getItemName(item),

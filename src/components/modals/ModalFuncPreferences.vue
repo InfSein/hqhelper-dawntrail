@@ -6,6 +6,7 @@ import {
 import {
   SettingsSuggestFilled,
   CodeSharp,
+  ImportExportOutlined,
   TableViewOutlined,
   AllInclusiveSharp,
   AttachMoneyOutlined,
@@ -74,6 +75,22 @@ const FuncPreferenceGroups : SettingGroup[] = [
           { value: '/fc ', label: t('部队宏(/fc)') },
           { value: '/b ', label: t('新频宏(/b)') },
         ]
+      }
+    ]
+  },
+  /* 导入/导出 */
+  {
+    key: 'import_export',
+    icon: ImportExportOutlined,
+    text: t('导入/导出'),
+    children: [
+      {
+        key: 'export_item_price',
+        label: t('导出成本/收益分析'),
+        descriptions: dealDescriptions([
+          t('启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。'),
+        ]),
+        type: 'switch'
       }
     ]
   },

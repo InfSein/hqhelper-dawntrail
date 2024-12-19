@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
+import { inject, ref, watch, type Ref } from 'vue'
 import {
   NButton, NCheckbox, NIcon, NInput, NP, NTabs, NTabPane, NText, NUpload, NUploadDragger,
   type UploadFileInfo,
@@ -13,19 +13,24 @@ import {
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
-import { export2Excel, importExcel } from '@/tools/excel'
-import type { GearSelections } from '@/models/gears'
-import type { ItemInfo, ItemPriceInfo } from '@/tools/item'
-import ModalConfirmImportMain from './ModalConfirmImportMain.vue'
-import type { FuncConfigModel } from '@/models/config-func'
 import HelpButton from '../custom/general/HelpButton.vue'
+import ModalConfirmImportMain from './ModalConfirmImportMain.vue'
+import { useStore } from '@/store'
+import { export2Excel, importExcel } from '@/tools/excel'
+import type { ItemInfo, ItemPriceInfo } from '@/tools/item'
+import type { GearSelections } from '@/models/gears'
+import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 
+const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const updateItemPrices = inject<() => Promise<void>>('updateItemPrices')!
 
 const showModal = defineModel<boolean>('show', { required: true })
+const onLoad = () => {
+  exportItemPrices.value = funcConfig.value.export_item_price
+}
 
 interface ModalImportExportMainProps {
   gearSelections: GearSelections | undefined,
@@ -47,6 +52,14 @@ const exporting = ref(false)
 const fileList = ref<UploadFileInfo[]>([])
 const showConfirmImportModal = ref(false)
 const importGearSelections = ref<GearSelections>()
+
+watch(exportItemPrices, async(newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    const newConfig = fixFuncConfig(store.state.funcConfig, store.state.userConfig)
+    newConfig.export_item_price = newVal
+    await store.commit('setFuncConfig', fixFuncConfig(newConfig, store.state.userConfig))
+  }
+})
 
 const handleExportExcel = async () => {
   if (!props.gearSelections) {
@@ -109,6 +122,7 @@ const onImportConfirmed = () => {
     :icon="ImportExportOutlined"
     :title="t('导入/导出')"
     max-width="500px"
+    @on-load="onLoad"
   >
     <n-tabs type="segment" animated>
       <n-tab-pane name="export">
@@ -117,12 +131,12 @@ const onImportConfirmed = () => {
           {{ t('导出为Excel') }}
         </template>
         <div class="pane-container export-panel">
-          <GroupBox id="gbx-file-name" :title="t('文件名')">
+          <GroupBox id="gbx-file-name" :title="t('文件名')" title-background-color="var(--n-color-modal)">
             <n-input v-model:value="fileName" maxlength="100" :placeholder="t('不填则默认以时间命名')">
               <template #suffix>.xlsx</template>
             </n-input>
           </GroupBox>
-          <GroupBox :title="t('选项')">
+          <GroupBox :title="t('选项')" title-background-color="var(--n-color-modal)">
             <n-checkbox v-model:checked="exportItemPrices">
               <div class="flex-center">
                 <div>{{ t('导出成本/收益分析') }}</div>
@@ -171,7 +185,7 @@ const onImportConfirmed = () => {
                 {{ t('点击或者拖动文件到该区域来上传') }}
               </n-text>
               <n-p depth="3" style="margin: 8px 0 0 0">
-                {{ t('需要确保表格的第一个工作表是“已选部件”，并且导出时的界面语言设置与现在一致') }}
+                {{ t('需要确保表格的第一个工作表是“已选部件”') }}
               </n-p>
             </n-upload-dragger>
           </n-upload>

@@ -2,7 +2,7 @@ import type { ItemPriceInfo } from "@/tools/item"
 import type { UserConfigModel } from "./config-user"
 import { deepCopy } from "@/tools"
 
-export type FuncConfigKey = "copy_macro" | "craft_statement" | "recomm_process" | "cost_benefit"
+export type FuncConfigKey = "copy_macro" | "import_export" | "craft_statement" | "recomm_process" | "cost_benefit"
 
 export interface FuncConfigModel {
   // #region 在偏好设置弹窗中设置的配置项
@@ -11,6 +11,9 @@ export interface FuncConfigModel {
   macro_direct_copy: boolean
   /** 默认宏前缀 */
   macro_copy_prefix: string
+
+  // * 导入/导出
+  export_item_price: boolean
 
   // * 制作报表
   /** 使用旧版本制作报表 */
@@ -39,6 +42,8 @@ const defaultFuncConfig: FuncConfigModel = {
   // * 复制宏
   macro_direct_copy: false,
   macro_copy_prefix: '',
+  // * 导入/导出
+  export_item_price: false,
   // * 制作报表
   use_traditional_statement: false,
   prostate_concise_mode: false,

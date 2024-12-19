@@ -22,6 +22,13 @@ const handleImportState = inject<(patch: string, gearSelections?: GearSelections
 const uiLanguage = computed(() => {
   return userConfig.value.language_ui
 })
+const modalMaxWidth = computed(() => {
+  switch (userConfig.value.language_ui) {
+    case 'en': return '1300px'
+    case 'ja': return '1500px'
+    default: return '900px'
+  }
+})
 
 const showModal = defineModel<boolean>('show', { required: true })
 const onLoad = () => {
@@ -153,11 +160,11 @@ const handleSubmit = () => {
     v-model:show="showModal"
     :icon="UnarchiveOutlined"
     :title="t('确认导入内容')"
-    max-width="900px"
+    :max-width="modalMaxWidth"
     @on-load="onLoad"
   >
     <div class="wrapper">
-      <GroupBox v-if="isMobile" :title="t('导入部件')">
+      <GroupBox v-if="isMobile" :title="t('导入部件')" title-background-color="var(--n-color-modal)">
         <n-scrollbar trigger="none" x-scrollable :style="{ width: '100%', height: '300px', 'margin-top': '-2px' }">
           <n-table class="table" size="small" :single-line="false">
             <thead>
@@ -195,7 +202,7 @@ const handleSubmit = () => {
           </n-table>
         </n-scrollbar>
       </GroupBox>
-      <GroupBox v-else :title="t('导入部件')">
+      <GroupBox v-else :title="t('导入部件')" title-background-color="var(--n-color-modal)">
         <n-table class="table" size="small" :single-line="false">
           <thead>
             <tr>
@@ -233,7 +240,7 @@ const handleSubmit = () => {
           </n-table>
         </n-scrollbar>
       </GroupBox>
-      <GroupBox :title="t('选择版本')">
+      <GroupBox :title="t('选择版本')" title-background-color="var(--n-color-modal)">
         <n-select v-model:value="patchSelected" :placeholder="t('选择导入的版本')" :options="patchOptions" />
       </GroupBox>
     </div>
@@ -256,6 +263,7 @@ const handleSubmit = () => {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  user-select: text;
 
   .table {
     width: 100%;
