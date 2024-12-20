@@ -107,6 +107,9 @@ const FuncPreferenceGroups : SettingGroup[] = [
           t('在2.0.10版本，我们添加了专业版制作报表，提供更详细的物品信息表格，并支持根据已准备素材计算尚需素材。'),
           t('如果你并不需要这些功能，或是更喜欢旧版本制作报表的风格，可以考虑打开此选项。'),
         ]),
+        warnings: dealDescriptions([
+          t('修改此选项的设置后需要刷新一次页面方可生效。')
+        ]),
         type: 'switch'
       },
       {
@@ -144,6 +147,9 @@ const FuncPreferenceGroups : SettingGroup[] = [
         descriptions: dealDescriptions([
           t('适用于“{f}”功能。', t('成本/收益预估')),
           t('下方的输入框支持通过输入关键词来检索选项。'),
+        ]),
+        warnings: dealDescriptions([
+          t('修改此选项的设置后需要刷新一次页面方可生效。')
         ]),
         type: 'cascader',
         options: [
@@ -424,6 +430,20 @@ const handleSave = () => {
 
   const newConfig = fixFuncConfig(formData.value)
   store.commit('setFuncConfig', newConfig)
+
+  if (
+    oldConfig?.use_traditional_statement !== newConfig.use_traditional_statement
+    || oldConfig?.universalis_server !== newConfig.universalis_server
+  ) {
+    if (
+      confirm(
+        t('修改的部分设置项需要刷新页面才能生效。')
+        + '\n' + t('要现在刷新吗?')
+      )
+    ) {
+      location.reload()
+    }
+  }
 
   showModal.value = false
 
