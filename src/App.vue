@@ -182,6 +182,7 @@ onMounted(async () => {
       if (needUpdateElectron) {
         if (window.confirm(
           t('检测到客户端有新版本({v})。', versionContent.electron)
+          + (needUpdateHqHelper ? ('\n' + t('检测到HqHelper有新版本({v})。', versionContent.hqhelper)) : '')
           + '\n' + t('要现在更新吗?')
         )) {
           displayCheckUpdatesModal()
