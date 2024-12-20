@@ -32,6 +32,9 @@ import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
 import ModalContactUs from '@/components/modals/ModalContactUs.vue'
 import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
+import ModalFuncPreferences from '@/components/modals/ModalFuncPreferences.vue'
+import ModalFestivalEgg from '@/components/modals/ModalFestivalEgg.vue'
+import ChristmasTree from '@/assets/icons/ChristmasTree.vue'
 import type { AppVersionJson } from '@/models'
 import { visitUrl } from '@/tools'
 import EorzeaTime from '@/tools/eorzea-time'
@@ -39,7 +42,6 @@ import AppStatus from '@/variables/app-status'
 import router from '@/router'
 import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
 import { useStore } from '@/store'
-import ModalFuncPreferences from '@/components/modals/ModalFuncPreferences.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -81,6 +83,13 @@ const showFuncPreferencesModal = ref(false)
 const showAboutAppModal = ref(false)
 const showContactModal = ref(false)
 const showChangeLogsModal = ref(false)
+const showFestivalEggModal = ref(false)
+
+const showFestivalEgg = computed(() => {
+  const now = new Date()
+  const date = now.getDate()
+  return (now.getMonth() === 11) && ((date === 24 && now.getHours() >= 18) || date === 25)
+})
 
 const canRouteBack = computed(() => {
   return router.currentRoute.value.path !== '/'
@@ -406,6 +415,8 @@ const onFuncPreferencesSubmitted = () => {
           </div>
         </n-popover>
 
+        <ChristmasTree v-if="showFestivalEgg" style="margin-left: 8px; cursor: pointer;" @click="showFestivalEggModal = true" />
+
         <n-divider vertical></n-divider>
 
         <n-popover :trigger="isMobile ? 'click' : 'hover'" :keep-alive-on-hover="isMobile">
@@ -492,6 +503,7 @@ const onFuncPreferencesSubmitted = () => {
     <ModalAboutApp v-model:show="showAboutAppModal" />
     <ModalContactUs v-model:show="showContactModal" />
     <ModalChangeLogs v-model:show="showChangeLogsModal" />
+    <ModalFestivalEgg v-model:show="showFestivalEggModal" />
   </div>
 </template>
 
