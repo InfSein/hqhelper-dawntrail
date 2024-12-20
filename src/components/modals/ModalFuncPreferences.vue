@@ -441,7 +441,9 @@ const handleSave = () => {
         + '\n' + t('要现在刷新吗?')
       )
     ) {
-      location.reload()
+      setTimeout(() => {
+        location.reload()
+      }, 100) // 必须设置一个延迟，不然有些设置不会生效
     }
   }
 
