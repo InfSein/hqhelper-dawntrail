@@ -9,7 +9,7 @@ import {
 } from '@vicons/material'
 import ItemSpan from '../item/ItemSpan.vue'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
-import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
+import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
 import { useStore } from '@/store'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -84,13 +84,10 @@ const tomeScripts = computed(() => {
 
 const getItemName = (itemInfo: ItemInfo) => {
   switch (itemLanguage.value) {
-    case 'ja':
-      return itemInfo.nameJA
-    case 'en':
-      return itemInfo.nameEN
     case 'zh':
+      return itemInfo.name_zh || '未翻译的物品'
     default:
-      return itemInfo.nameZH
+      return itemInfo[`name_${itemLanguage.value}`]
   }
 }
 const macroValue = computed(() => {
@@ -176,7 +173,7 @@ const handleCopyAsMacro = async () => {
           </div>
         </div>
         <div v-if="!Object.keys(items).length">
-          <n-empty :description="t('本组没有需要的道具')" />
+          <n-empty :description="t('没有需要的道具')" />
         </div>
       </div>
       <n-divider class="block-divider" />

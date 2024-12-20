@@ -10,11 +10,13 @@ import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import ModalProStatements from '../modals/ModalProStatements.vue'
 import { getItemInfo, getStatementData, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
 const props = defineProps({
   statistics: {
@@ -187,7 +189,7 @@ const otherMaterials = computed(() => {
 const showStatementModal = ref(false)
 const showProStatementModal = ref(false)
 const showStatement = () => {
-  if (userConfig.value.use_traditional_statement) {
+  if (funcConfig.value.use_traditional_statement) {
     showStatementModal.value = true
   } else {
     showProStatementModal.value = true

@@ -9,7 +9,7 @@ import {
 import XivFARImage from '../general/XivFARImage.vue'
 import XivMap from './XivMap.vue'
 import type { XivMapInfo } from '@/assets/data'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
 import { getNearestAetheryte } from '@/tools/map'
 
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)

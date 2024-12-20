@@ -2,7 +2,7 @@
 import { computed, inject, type Ref } from 'vue'
 import MapButton from './MapButton.vue'
 import { XivMaps } from '@/assets/data'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
 
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)

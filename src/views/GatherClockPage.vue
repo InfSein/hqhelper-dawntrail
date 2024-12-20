@@ -20,7 +20,7 @@ import { useStore } from '@/store'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { ItemGroup } from '@/models/item'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
 import EorzeaTime from '@/tools/eorzea-time'
 import { playAudio } from '@/tools'
 import { fixAlarmMacroOptions } from '@/models/gather-clock'
@@ -456,13 +456,10 @@ const getSortedItems = (items: ItemInfo[]) => {
 
 const getItemName = (itemInfo: ItemInfo) => {
   switch (itemLanguage.value) {
-    case 'ja':
-      return itemInfo.nameJA
-    case 'en':
-      return itemInfo.nameEN
     case 'zh':
+      return itemInfo.name_zh || '未翻译的物品'
     default:
-      return itemInfo.nameZH || '未翻译的物品'
+      return itemInfo[`name_${itemLanguage.value}`]
   }
 }
 const getJobName = (jobInfo: XivJob) => {

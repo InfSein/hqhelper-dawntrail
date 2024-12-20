@@ -13,7 +13,7 @@ import GroupBox from '../templates/GroupBox.vue'
 import ItemSpan from '../custom/item/ItemSpan.vue'
 import MacroViewer from '../custom/macro/MacroViewer.vue'
 import { XivJobs, type XivJob } from '@/assets/data'
-import { type UserConfigModel } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/config-user'
 import type { ItemGroup } from '@/models/item'
 import type { AlarmMacroOptions } from '@/models/gather-clock'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
@@ -122,13 +122,10 @@ const macro = computed(() => {
 
 const getItemName = (itemInfo: ItemInfo) => {
   switch (itemLanguage.value) {
-    case 'ja':
-      return itemInfo.nameJA
-    case 'en':
-      return itemInfo.nameEN
     case 'zh':
+      return itemInfo.name_zh || '未翻译的物品'
     default:
-      return itemInfo.nameZH || '未翻译的物品'
+      return itemInfo[`name_${itemLanguage.value}`]
   }
 }
 const getJobName = (jobInfo: XivJob) => {

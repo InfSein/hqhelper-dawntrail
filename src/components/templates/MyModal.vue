@@ -4,7 +4,7 @@ import {
   NButton, NCard, NIcon, NModal
 } from 'naive-ui'
 import {
-  CloseOutlined
+  SettingsSharp
 } from '@vicons/material'
 
 // const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -17,6 +17,8 @@ interface MyModalProps {
   icon?: Component
   /** 模态框标题文本。 */
   title?: string
+  /** 代表这是一个功能弹窗，并且可以关联到 `功能设置` 中的选项卡。 */
+  showSetting?: boolean
   /** 控制模态框容器的最大宽度。默认为 `600px`。 */
   maxWidth?: string
   /** 控制模态框容器的高度。默认为 `auto`。 */
@@ -28,7 +30,8 @@ interface MyModalProps {
 }
 const props = defineProps<MyModalProps>()
 const emit = defineEmits([
-  'onLoad'
+  'onLoad',
+  'onSettingButtonClicked'
 ])
 
 watch(showModal, async (newVal, oldVal) => {
@@ -48,6 +51,9 @@ const containerStyle = computed(() => {
   return builtStyle
 })
 
+const handleShowFuncPreference = () => {
+  emit('onSettingButtonClicked')
+}
 const handleClose = () => {
   showModal.value = false
 }
@@ -61,6 +67,8 @@ const handleClose = () => {
       style="width: 98%;"
       :style="containerStyle"
       :content-style="contentStyle"
+      closable
+      @close="handleClose"
     >
       <template #header>
         <slot name="header">
@@ -72,8 +80,9 @@ const handleClose = () => {
       </template>
 
       <template #header-extra>
-        <n-button quaternary size="small" class="square-action" @click="handleClose">
-          <n-icon><CloseOutlined /></n-icon>
+        <n-button v-if="showSetting" quaternary size="small" class="square-action" @click="handleShowFuncPreference">
+          <n-icon><SettingsSharp /></n-icon>
+          <div class="unshow-text">{{ t('设置') }}</div>
         </n-button>
       </template>
 
@@ -89,9 +98,28 @@ const handleClose = () => {
 
 <style scoped>
 .square-action {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   padding: 2px;
-  font-size: 20px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: width 0.3s ease;
+
+  .unshow-text {
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+}
+.square-action:hover {
+  width: auto;
+  
+  .unshow-text {
+    opacity: 1;
+  }
 }
 </style>

@@ -49,16 +49,61 @@ export interface PatchChangeGroup {
 
 import { t } from '@/languages'
 const emBlock = '<span style="display:inline-block;width:1em;"></span>'
+// const refer = (text: string) => `<span class="font-small" style="font-style: italic;">${text}</span>`
 export const getChangelogs = (
   ui_lang: 'zh' | 'ja' | 'en'
 ) => {
   const groupName = {
     bugfix: t('问题修复'),
     feature: t('功能更新'),
-    breaking: t('重要变更')
+    breaking: t('重要变更'),
+    milestone: t('里程碑')
   }
   const isZh = ui_lang === 'zh'
   return [
+    {
+      version: '2.1.5',
+      date: '2024-12-23',
+      changes: [
+        {
+          name: groupName.milestone,
+          changes: [
+            t('至此，第一代 HqHelper 的所有主要功能均已迁移。')
+          ]
+        },
+        {
+          name: groupName.breaking,
+          changes: [
+            t('追加了2.0/3.0/4.0/5.0/6.0野外和各版本主城的地图/传送点数据。')
+              + '<br>' + t('现在旧版本的采集道具也可以查看地图与推荐传送点。'),
+            t('追加了从已导出 Excel 中导入已选部件的功能。由此，原先的“导出Excel”按钮调整为“导入/导出”。')
+              + '<br>' + t('现在导出前可以自定义导出文件的名称，并且可以导出成本/收益分析。'),
+            t('追加了功能设置窗口，整合各个页面功能的设置选项。除了可以在顶部菜单统一配置之外，也可以点击部分弹窗右上角的设置按钮来单独配置该弹窗的设置项。')
+              + '<br> ※ ' + t('伴随这一改动，部分弹窗的快捷操作有所精简。')
+              + '<br> ※ ' + t('“偏好设置”中的部分设置项已经迁移至功能设置中。'),
+            t('国际服数据库更新至{ver}。', {
+              ver: '7.15'
+            })
+              + '<br> ※ ' + t('仅为信息更新，没有实际更改。'),
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('彻底修复了部分物品悬浮窗内的文本无法框选的问题。')
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('现在可以将物品价格的缓存有效期设置为1小时。'),
+            t('现在客户端和HqHelper同时有新版本可供更新时只会弹窗提醒一次，而非各提醒一次。'),
+            isZh ? '推荐攻略增加了全战职开荒/毕业配装 (仅在界面语言设置为简体中文时显示)。' : '',
+            t('优化了一部分界面文本的表述。')
+          ]
+        }
+      ]
+    },
     {
       version: '2.1.4',
       date: '2024-12-04',
@@ -722,7 +767,7 @@ export const getChangelogs = (
       important: true,
       changes: [
         {
-          name: groupName.breaking,
+          name: groupName.milestone,
           changes: [
             t('HqHelper正式发布。')
           ]

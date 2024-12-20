@@ -1,4 +1,4 @@
-name: 错误报告 (??? / Bug Report)
+name: 错误报告 (バグ報告 / Bug Report)
 description: 告知我们你在运行时遇到的问题 (実行時に発生した問題をお知らせる / Inform us of issues encountered during runtime)
 labels: []
 body:
@@ -35,9 +35,9 @@ body:
     attributes:
       label: 复现步骤 (再現する手順 / Reproduction Steps)
       description: |
-        如果可能的话，请包括重现问题的最小步骤。例如：尽可能小的代码段；或者一个小项目，有运行它的步骤。如果可能的话，将文本作为文本而不是屏幕截图（这样它可以被其他人搜索到）。
-        可能であれば、問題を再現するための最小限の手順を記入してください。例えば、できるだけ小さなコードスニペットや小さなプロジェクト、実行手順などです。可能であれば、スクリーンショットではなく、テキストとして提供してください（他の人が検索できるため）。
-        Please include minimal steps to reproduce the problem if possible. E.g.: the smallest possible code snippet; or a small project, with steps to run it. If possible include text as text rather than screenshots (so it shows up in searches).
+        如果可能的话，请包括重现问题的最小步骤。尽可能以文本形式发送，而非屏幕截图（这样它可以被其他人搜索到）。
+        可能であれば、問題を再現するための最小限の手順を記入してください。可能であれば、スクリーンショットではなく、テキストとして提供してください（他の人が検索できるため）。
+        Please include minimal steps to reproduce the problem if possible. If possible include text as text rather than screenshots (so it shows up in searches).
       placeholder: Minimal Reproduction
     validations:
       required: true
