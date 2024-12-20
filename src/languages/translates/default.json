@@ -4575,21 +4575,21 @@
   },
   "使用简洁模式展示物品": {
     "en": "Show item in concise mode",
-    "ja": "使用简洁模式展示物品",
+    "ja": "簡易モードでアイテムを表示",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue"
     ]
   },
   "仅在专业版制作报表生效。": {
     "en": "Only works in Pro statement.",
-    "ja": "仅在专业版制作报表生效。",
+    "ja": "プロ版でレポート作成時にのみ有効",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue"
     ]
   },
   "功能设置": {
     "en": "Function Preferences",
-    "ja": "功能设置",
+    "ja": "機能設定",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue",
       "components\\custom\\general\\AppHeader.vue"
@@ -4630,149 +4630,149 @@
       "components\\modals\\ModalFestivalEgg.vue"
     ]
   },
-"显示物品详情": {
+  "显示物品详情": {
     "en": "Show item details",
-    "ja": "显示物品详情",
+    "ja": "アイテム詳細を表示",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue"
     ]
   },
   "物品价格": {
     "en": "Item price",
-    "ja": "物品价格",
+    "ja": "アイテム価格",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue"
     ]
   },
   "价格类型": {
     "en": "Price type",
-    "ja": "价格类型",
+    "ja": "価格のタイプ",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue"
     ]
   },
   "缓存有效期": {
     "en": "Cache validity period",
-    "ja": "缓存有效期",
+    "ja": "キャッシュの有効期間",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue"
     ]
   },
   "里程碑": {
     "en": "Milestone",
-    "ja": "里程碑",
+    "ja": "マイルストーン",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "至此，第一代 HqHelper 的所有主要功能均已迁移。": {
     "en": "At this point, all major functions of the first generation HqHelper have been migrated.",
-    "ja": "至此，第一代 HqHelper 的所有主要功能均已迁移。",
+    "ja": "これにより、初代HqHelperのすべての主要機能が移行されました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "追加了2.0/3.0/4.0/5.0/6.0野外和各版本主城的地图/传送点数据。": {
     "en": "Added map/aetherytes data for the 2.0/3.0/4.0/5.0/6.0 wilderness and main cities of each patch.",
-    "ja": "追加了2.0/3.0/4.0/5.0/6.0野外和各版本主城的地图/传送点数据。",
+    "ja": "2.0/3.0/4.0/5.0/6.0のフィールドマップおよび各パッチの都市マップ/テレポ地点データを追加しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "现在旧版本的采集道具也可以查看地图与推荐传送点。": {
     "en": "Now old version gatherable items can also view maps and recommended aetheryte.",
-    "ja": "现在旧版本的采集道具也可以查看地图与推荐传送点。",
+    "ja": "旧パッチの採集アイテムもマップとおすすめテレポ地点を確認できるようになりました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "追加了从已导出 Excel 中导入已选部件的功能。由此，原先的“导出Excel”按钮调整为“导入/导出”。": {
     "en": "Added the function to import gear selections from exported Excel. Therefore, the original 'Export Excel' button has been changed to 'Import/Export'.",
-    "ja": "追加了从已导出 Excel 中导入已选部件的功能。由此，原先的“导出Excel”按钮调整为“导入/导出”。",
+    "ja": "エクスポートしたExcelファイルから選択済み部品をインポートする機能を追加しました。このため、従来の「Excelシートにエクスポート」ボタンは「インポート/エクスポート」に変更されました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "现在导出前可以自定义导出文件的名称，并且可以导出成本/收益分析。": {
     "en": "Now you can customize the name of the export file before exporting, and you can export cost/benefit analysis.",
-    "ja": "现在导出前可以自定义导出文件的名称，并且可以导出成本/收益分析。",
+    "ja": "エクスポート前にファイル名をカスタマイズできるようになり、さらにコスト/収益分析をエクスポート可能になりました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "追加了功能设置窗口，整合各个页面功能的设置选项。除了可以在顶部菜单统一配置之外，也可以点击部分弹窗右上角的设置按钮来单独配置该弹窗的设置项。": {
     "en": "Added Function Preferences window to integrate the settings options of each page function. In addition to being able to configure uniformly in the top menu, you can also click the settings button in the upper right corner of some pop-ups to configure the settings of the pop-up separately.",
-    "ja": "追加了功能设置窗口，整合各个页面功能的设置选项。除了可以在顶部菜单统一配置之外，也可以点击部分弹窗右上角的设置按钮来单独配置该弹窗的设置项。",
+    "ja": "機能設定ウィンドウが追加され、各ページ機能の設定オプションが統合されました。トップメニューで一元的に設定できるほか、いくつかのポップアップウィンドウの右上にある設定ボタンをクリックして個別に設定することもできます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "伴随这一改动，部分弹窗的快捷操作有所精简。": {
     "en": "With this change, some quick operations of the pop-up windows have been streamlined.",
-    "ja": "伴随这一改动，部分弹窗的快捷操作有所精简。",
+    "ja": "この変更に伴い、一部のポップアップウィンドウのショートカット操作が簡素化されました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "“偏好设置”中的部分设置项已经迁移至功能设置中。": {
     "en": "Some settings in 'User Preferences' have been migrated to Function Preferences.",
-    "ja": "“偏好设置”中的部分设置项已经迁移至功能设置中。",
+    "ja": "「設定」内の一部の設定項目が機能設定に移行されました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "彻底修复了部分物品悬浮窗内的文本无法框选的问题。": {
     "en": "Thoroughly fixed the issue where text in some item pop-ups could not be selected.",
-    "ja": "彻底修复了部分物品悬浮窗内的文本无法框选的问题。",
+    "ja": "一部のアイテムのツールチップ内でテキストを選択できない問題が完全に修正されました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "现在可以将物品价格的缓存有效期设置为1小时。": {
     "en": "Now you can set the cache validity period of item prices to 1 hour.",
-    "ja": "现在可以将物品价格的缓存有效期设置为1小时。",
+    "ja": "アイテム価格のキャッシュ有効期限を1時間に設定できるようになりました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "现在客户端和HqHelper同时有新版本可供更新时只会弹窗提醒一次，而非各提醒一次。": {
     "en": "Now when both the client and HqHelper have new versions available for update, only one pop-up reminder will be shown instead of separate reminders.",
-    "ja": "现在客户端和HqHelper同时有新版本可供更新时只会弹窗提醒一次，而非各提醒一次。",
+    "ja": "クライアントとHqHelperの両方に新しいバージョンがある場合、通知は一度だけ表示され、個別には表示されないように改修しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "优化了一部分界面文本的表述。": {
     "en": "Optimized the expression of some interface texts.",
-    "ja": "优化了一部分界面文本的表述。",
+    "ja": "一部のインターフェーステキストの表現が最適化されました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "成本分析": {
     "en": "Cost analysis",
-    "ja": "成本分析",
+    "ja": "コスト分析",
     "$files": [
       "tools\\excel.ts"
     ]
   },
   "收益分析": {
     "en": "Benefit analysis",
-    "ja": "收益分析",
+    "ja": "収益分析",
     "$files": [
       "tools\\excel.ts"
     ]
   },
   "导入成功": {
     "en": "Import succeeded",
-    "ja": "导入成功",
+    "ja": "インポート成功",
     "$files": [
       "views\\MainPage.vue"
     ]
   },
   "导入/导出": {
     "en": "Import/Export",
-    "ja": "导入/导出",
+    "ja": "インポート/エクスポート",
     "$files": [
       "components\\main\\StatisticsPanel.vue",
       "components\\modals\\ModalFuncPreferences.vue",
@@ -4781,35 +4781,35 @@
   },
   "确认导入内容": {
     "en": "Confirm import content",
-    "ja": "确认导入内容",
+    "ja": "インポート内容の確認",
     "$files": [
       "components\\modals\\ModalConfirmImportMain.vue"
     ]
   },
   "导入部件": {
     "en": "Import parts",
-    "ja": "导入部件",
+    "ja": "部品をインポート",
     "$files": [
       "components\\modals\\ModalConfirmImportMain.vue"
     ]
   },
   "选择导入的版本": {
     "en": "Select the version to import",
-    "ja": "选择导入的版本",
+    "ja": "インポートするパッチの選択",
     "$files": [
       "components\\modals\\ModalConfirmImportMain.vue"
     ]
   },
   "确认": {
     "en": "Confirm",
-    "ja": "确认",
+    "ja": "確認",
     "$files": [
       "components\\modals\\ModalConfirmImportMain.vue"
     ]
   },
   "导出成本/收益分析": {
     "en": "Export cost/benefit analysis",
-    "ja": "导出成本/收益分析",
+    "ja": "コスト/収益分析のエクスポート",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue",
       "components\\modals\\ModalImportExportMain.vue"
@@ -4817,7 +4817,7 @@
   },
   "启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。": {
     "en": "When this option is enabled, if the item price cache has expired, it will take some time to refresh the data.",
-    "ja": "启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。",
+    "ja": "このオプションを有効にすると、アイテム価格のキャッシュが期限切れの場合、データを更新するために一定の時間がかかります。",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue",
       "components\\modals\\ModalImportExportMain.vue"
@@ -4825,84 +4825,84 @@
   },
   "修改此选项的设置后需要刷新一次页面方可生效。": {
     "en": "After changing the settings of this option, you need to refresh the page once to take effect.",
-    "ja": "修改此选项的设置后需要刷新一次页面方可生效。",
+    "ja": "この設定を変更した後、ページをリフレッシュする必要があります。",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue"
     ]
   },
   "修改的部分设置项需要刷新页面才能生效。": {
     "en": "Some modified settings need to refresh the page to take effect.",
-    "ja": "修改的部分设置项需要刷新页面才能生效。",
+    "ja": "変更された設定項目はページをリフレッシュする必要があります。",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue"
     ]
   },
   "只能导入.xlsx文件": {
     "en": "Only .xlsx files can be imported",
-    "ja": "只能导入.xlsx文件",
+    "ja": ".xlsxファイルのみインポート可能",
     "$files": [
       "components\\modals\\ModalImportExportMain.vue"
     ]
   },
   "未获取到文件": {
     "en": "No file obtained",
-    "ja": "未获取到文件",
+    "ja": "ファイルを取得できませんでした",
     "$files": [
       "components\\modals\\ModalImportExportMain.vue"
     ]
   },
   "文件名": {
     "en": "File name",
-    "ja": "文件名",
+    "ja": "ファイル名",
     "$files": [
       "components\\modals\\ModalImportExportMain.vue"
     ]
   },
   "不填则默认以时间命名": {
     "en": "If not filled, it will be named by time by default",
-    "ja": "不填则默认以时间命名",
+    "ja": "入力しない場合はデフォルトで時間で命名されます",
     "$files": [
       "components\\modals\\ModalImportExportMain.vue"
     ]
   },
   "遵循“功能设置”中的“物品价格”设置。": {
     "en": "Follow the 'Item Price' settings in 'Function Preferences'.",
-    "ja": "遵循“功能设置”中的“物品价格”设置。",
+    "ja": "「機能設定」内の「アイテム価格」設定に従います。",
     "$files": [
       "components\\modals\\ModalImportExportMain.vue"
     ]
   },
   "导出成功后打开导出目录": {
     "en": "Open the export directory after export succeeded.",
-    "ja": "导出成功后打开导出目录",
+    "ja": "エクスポート後、エクスポートディレクトリを開く",
     "$files": [
       "components\\modals\\ModalImportExportMain.vue"
     ]
   },
   "导出": {
     "en": "Export",
-    "ja": "导出",
+    "ja": "エクスポート",
     "$files": [
       "components\\modals\\ModalImportExportMain.vue"
     ]
   },
   "点击或者拖动文件到该区域来上传": {
     "en": "Click or drag the file to this area to upload",
-    "ja": "点击或者拖动文件到该区域来上传",
+    "ja": "このエリアにファイルをクリックまたはドラッグしてアップロード",
     "$files": [
       "components\\modals\\ModalImportExportMain.vue"
     ]
   },
   "需要确保表格的第一个工作表是“已选部件”": {
     "en": "Make sure the first worksheet of the table is 'View Selected'",
-    "ja": "需要确保表格的第一个工作表是“已选部件”",
+    "ja": "シート1が「選択した部品」であることを確認してください",
     "$files": [
       "components\\modals\\ModalImportExportMain.vue"
     ]
   },
   "设置": {
     "en": "Settings",
-    "ja": "设置",
+    "ja": "設定",
     "$files": [
       "components\\templates\\MyModal.vue"
     ]
