@@ -17,14 +17,17 @@ import { injectVoerkaI18n } from "@voerkai18n/vue"
 import { CopyToClipboard, sleep } from './tools'
 import EorzeaTime from './tools/eorzea-time'
 import type { AppVersionJson } from './models'
-import { type UserConfigModel, fixUserConfig } from '@/models/user-config'
+import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
+import { fixFuncConfig, type FuncConfigModel } from './models/config-func'
 import AppStatus from './variables/app-status'
+import ModalFestivalEgg from './components/modals/ModalFestivalEgg.vue'
 
 const route = useRoute()
 const store = useStore()
 const i18n = injectVoerkaI18n()
 
 const userConfig = ref<UserConfigModel>(fixUserConfig(store.state.userConfig))
+const funcConfig = ref<FuncConfigModel>(fixFuncConfig(store.state.funcConfig, store.state.userConfig))
 const locale = computed(() => {
   return userConfig.value?.language_ui ?? 'zh'
 })
@@ -76,6 +79,7 @@ const naiveUiMessagePlacement = computed(() => {
 const appForceUpdate = () => {
   // Update user config
   userConfig.value = fixUserConfig(store.state.userConfig)
+  funcConfig.value = fixFuncConfig(store.state.funcConfig, store.state.userConfig)
   // Update i18n
   i18n.activeLanguage = locale.value
   // Update vue
@@ -88,6 +92,7 @@ const switchTheme = () => {
 }
 
 provide('userConfig', userConfig)
+provide('funcConfig', funcConfig)
 provide('t', (message: string, ...args: any[]) => {
   const i18nResult = t(message, ...args)
   if (/^[1-9]\d*$/.test(i18nResult)) {
@@ -118,8 +123,8 @@ const copyAsMacro = async (macroContent: string, container?: HTMLElement | undef
   if (!macroContent) {
     return { result: 'info', msg: t('没有需要复制的内容') }
   }
-  if (userConfig.value.macro_direct_copy) {
-    const errored = await CopyToClipboard(userConfig.value.macro_copy_prefix + macroContent, container)
+  if (funcConfig.value.macro_direct_copy) {
+    const errored = await CopyToClipboard(funcConfig.value.macro_copy_prefix + macroContent, container)
     if (errored) {
       return { result: 'error', msg: t('复制失败') }
     }
@@ -147,6 +152,8 @@ const appClass = computed(() => {
   return classes.join(' ')
 })
 
+const showFestivalEgg = ref(false)
+
 onMounted(async () => {
   await sleep(500)
   // 处理全局页面参数
@@ -172,17 +179,15 @@ onMounted(async () => {
       }
       needUpdateHqHelper = AppStatus.Version !== versionContent.hqhelper
 
-      let breakHqHelperUpdate = false
       if (needUpdateElectron) {
         if (window.confirm(
           t('检测到客户端有新版本({v})。', versionContent.electron)
+          + (needUpdateHqHelper ? ('\n' + t('检测到HqHelper有新版本({v})。', versionContent.hqhelper)) : '')
           + '\n' + t('要现在更新吗?')
         )) {
-          breakHqHelperUpdate = true
           displayCheckUpdatesModal()
         }
-      }
-      if (needUpdateHqHelper && !breakHqHelperUpdate) {
+      } else if (needUpdateHqHelper) {
         if (window.confirm(
           t('检测到HqHelper有新版本({v})。', versionContent.hqhelper)
           + '\n' + t('要现在更新吗?')
@@ -197,6 +202,19 @@ onMounted(async () => {
     } catch (err) {
       console.error('自动更新发生错误', err)
     }
+  }
+  // 处理彩蛋
+  const now = new Date()
+  const date = now.getDate()
+  const eggId = 20241225
+  if (
+    userConfig.value.last_triggered_egg !== eggId &&
+    (now.getMonth() === 11) && ((date === 24 && now.getHours() >= 18) || date === 25)
+  ) {
+    showFestivalEgg.value = true
+    const newConfig = fixUserConfig(store.state.userConfig)
+    newConfig.last_triggered_egg = eggId
+    store.commit('setUserConfig', newConfig)
   }
   updateIsMobile()
 })
@@ -255,6 +273,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
           :macro-content="macroValue"
         />
         <ModalCheckUpdates v-model:show="showCheckUpdatesModal" />
+        <ModalFestivalEgg v-model:show="showFestivalEgg" />
       </div>
     </n-message-provider>
   </n-config-provider>

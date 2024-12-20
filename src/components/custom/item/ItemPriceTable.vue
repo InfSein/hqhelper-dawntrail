@@ -5,11 +5,11 @@ import {
 } from 'naive-ui'
 import ItemSpan from './ItemSpan.vue'
 import type { ItemInfo } from '@/tools/item'
-import type { UserConfigModel } from '@/models/user-config'
+import type { FuncConfigModel } from '@/models/config-func'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
 defineProps({
   items: {
@@ -28,9 +28,7 @@ defineProps({
 })
 
 const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
-  const priceKey = userConfig.value.universalis_priceType + type as "averagePriceNQ" | "currentAveragePriceNQ" | "minPriceNQ" | "maxPriceNQ"
-    | "averagePriceHQ" | "currentAveragePriceHQ" | "minPriceHQ" | "maxPriceHQ"
-  const price = userConfig.value.cache_item_prices[item.id]?.[priceKey]
+  const price = funcConfig.value.cache_item_prices[item.id]?.[`${funcConfig.value.universalis_priceType}${type}`]
   if (price === undefined) {
     return {
       price: t('未知'),

@@ -9,16 +9,16 @@ import {
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
-import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
 import { CopyToClipboard } from '@/tools'
 import { useStore } from '@/store'
+import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
   
 const showModal = defineModel<boolean>('show', { required: true })
 
@@ -42,7 +42,7 @@ const prefixOptions = [
 ]
 
 const onLoad = () => {
-  macroPrefix.value = userConfig.value.macro_copy_prefix
+  macroPrefix.value = funcConfig.value.macro_copy_prefix
 }
 
 const macro = computed(() => {
@@ -76,10 +76,10 @@ const handleCopy = async () => {
     return
   }
   if (noMoreInquiries.value) {
-    const newConfig = fixUserConfig(store.state.userConfig)
+    const newConfig = fixFuncConfig(store.state.funcConfig, store.state.userConfig)
     newConfig.macro_direct_copy = true
     newConfig.macro_copy_prefix = macroPrefix.value
-    store.commit('setUserConfig', newConfig)
+    store.commit('setFuncConfig', newConfig)
   }
   handleClose()
   NAIVE_UI_MESSAGE.success(t('已复制到剪贴板'))

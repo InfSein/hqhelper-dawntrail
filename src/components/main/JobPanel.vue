@@ -3,7 +3,7 @@ import { ref, inject, type Ref, computed } from 'vue'
 import {
   NAlert, NFlex
 } from 'naive-ui'
-import { type UserConfigModel } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/config-user'
 import FoldableCard from '../templates/FoldableCard.vue'
 import GroupBox from '../templates/GroupBox.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'

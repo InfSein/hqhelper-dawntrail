@@ -13,19 +13,18 @@ import ModalRecommendedProcesses from './ModalRecommendedProcesses.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { deepCopy } from '@/tools'
-import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
-import { useStore } from '@/store'
+import { type FuncConfigModel } from '@/models/config-func'
+import ModalFuncPreferences from './ModalFuncPreferences.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
-const store = useStore()
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const { getRecipeMap, calItems } = useNbbCal()
 const recipeMap = getRecipeMap()
 
 const showModal = defineModel<boolean>('show', { required: true })
-const showItemDetails = ref(true)
 const showRecommendedProcessesModal = ref(false)
 
 const props = defineProps({
@@ -38,8 +37,11 @@ const onLoad = async () => {
   itemsPrepared.value.craftTarget = fixMap(itemsPrepared.value.craftTarget, targetItems.value)
   itemsPrepared.value.materialsLv1 = fixMap(itemsPrepared.value.materialsLv1, lv1Items.value)
   itemsPrepared.value.materialsLvBase = fixMap(itemsPrepared.value.materialsLvBase, baseItems.value)
-  showItemDetails.value = userConfig.value.statement_show_item_details
 }
+
+const showItemDetails = computed(() => {
+  return !funcConfig.value.prostate_concise_mode
+})
 
 /** 记录已经准备了的物品 */
 const itemsPrepared = ref({
@@ -214,14 +216,13 @@ const handleResetPreparedItems = () => {
   itemsPrepared.value.materialsLv1 = fixMap({}, lv1Items.value)
   itemsPrepared.value.materialsLvBase = fixMap({}, baseItems.value)
 }
-const handleSwitchShowItemDetails = () => {
-  showItemDetails.value = !showItemDetails.value
-  const newConfig = fixUserConfig(store.state.userConfig)
-  newConfig.statement_show_item_details = showItemDetails.value
-  store.commit('setUserConfig', newConfig)
-}
 const handleShowRecommendedProcesses = () => {
   showRecommendedProcessesModal.value = true
+}
+
+const showFuncPreferencesModal = ref(false)
+const handleSettingButtonClick = () => {
+  showFuncPreferencesModal.value = true
 }
 </script>
 
@@ -231,6 +232,8 @@ const handleShowRecommendedProcesses = () => {
     max-width="1500px"
     :height="isMobile ? '650px' : '600px'"
     @on-load="onLoad"
+    show-setting
+    @on-setting-button-clicked="handleSettingButtonClick"
   >
     <template #header>
       <div class="card-title">
@@ -243,7 +246,6 @@ const handleShowRecommendedProcesses = () => {
         </span>
         <div class="card-title-actions">
           <a href="javascript:void(0);" @click="handleResetPreparedItems">[{{ t('重置已有') }}]</a>
-          <a href="javascript:void(0);" @click="handleSwitchShowItemDetails">[{{ showItemDetails ? t('简洁模式') : t('详细模式') }}]</a>
           <a href="javascript:void(0);" @click="handleShowRecommendedProcesses">[{{ t('推荐流程') }}]</a>
         </div>
       </div>
@@ -289,6 +291,11 @@ const handleShowRecommendedProcesses = () => {
     <ModalRecommendedProcesses
       v-model:show="showRecommendedProcessesModal"
       v-bind="recommProcessData"
+    />
+    <ModalFuncPreferences
+      v-model:show="showFuncPreferencesModal"
+      setting-group="craft_statement"
+      @after-submit="appForceUpdate"
     />
   </MyModal>
 </template>

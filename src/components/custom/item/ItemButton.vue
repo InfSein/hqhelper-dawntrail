@@ -12,7 +12,7 @@ import {
 import XivFARImage from '../general/XivFARImage.vue'
 import ItemPop from './ItemPop.vue'
 import { getItemContexts, type ItemInfo } from '@/tools/item'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
 import { CopyToClipboard } from '@/tools'
 import { XivJobs } from '@/assets/data'
 
@@ -72,13 +72,10 @@ const props = defineProps<ItemButtonProps>()
 
 const getItemName = () => {
   switch (itemLanguage.value) {
-    case 'ja':
-      return props.itemInfo.nameJA
-    case 'en':
-      return props.itemInfo.nameEN
     case 'zh':
+      return props.itemInfo.name_zh || '未翻译的物品'
     default:
-      return props.itemInfo.nameZH || '未翻译的物品'
+      return props.itemInfo[`name_${itemLanguage.value}`]
   }
 }
 
