@@ -4,7 +4,7 @@ import {
   NButton, NFlex, NPopover
 } from 'naive-ui'
 import FoldableCard from '../templates/FoldableCard.vue'
-import { type UserConfigModel } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/config-user'
 import { XivPatches, type XivPatch } from "@/assets/data"
 import { fixGearSelections, isGearEmpty, type GearSelections } from '@/models/gears'
 

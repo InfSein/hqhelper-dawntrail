@@ -7,7 +7,7 @@ import {
   KeyboardArrowUpRound, KeyboardArrowDownRound
 } from '@vicons/material'
 import { useStore } from '@/store/index'
-import { type UserConfigModel } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/config-user'
 
 const store = useStore()
 

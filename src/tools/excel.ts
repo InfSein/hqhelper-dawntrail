@@ -3,8 +3,8 @@ import XLSX from 'xlsx'
 import {
   XivJobs, XivGearAffixes
 } from '@/assets/data'
-import { attireAffixes, accessoryAffixes, type GearSelections, type AttireAffix, type AccessoryAffix } from "@/models/gears"
-import { getItemInfo, getStatementData, type ItemInfo } from './item'
+import { attireAffixes, accessoryAffixes, type GearSelections, type AttireAffix, type AccessoryAffix, fixGearSelections } from "@/models/gears"
+import { getItemInfo, getStatementData, type ItemInfo, type ItemPriceInfo } from './item'
 
 export const export2Excel = (
   gearSelections: GearSelections,
@@ -16,7 +16,10 @@ export const export2Excel = (
   crystals: ItemInfo[],
   ui_lang: 'zh' | 'ja' | 'en',
   item_lang: 'zh' | 'ja' | 'en',
-  t: (message: string, ...args: any[]) => string
+  t: (message: string, ...args: any[]) => string,
+  file_name?: string,
+  item_price_map?: Record<number, ItemPriceInfo>,
+  price_type?: "averagePrice" | "currentAveragePrice" | "minPrice" | "maxPrice" | "marketLowestPrice" | "marketPrice" | "purchasePrice"
 ) => {
   const workBook = XLSX.utils.book_new()
 
@@ -25,13 +28,7 @@ export const export2Excel = (
 
   const statements = getStatementData(statistics)
   const getItemName = (item: ItemInfo) => {
-    let name = '???'
-    switch (item_lang) {
-      case 'zh': name = item.nameZH; break
-      case 'ja': name = item.nameJA; break
-      case 'en': name = item.nameEN; break
-    }
-    return name
+    return item[`name_${item_lang}`] || '???'
   }
   /** 自动调整列宽 */
   const calculateColumnWidths = (data: any[][]) => {
@@ -357,6 +354,69 @@ export const export2Excel = (
   XLSX.utils.book_append_sheet(workBook, workSheet, t('水晶统计'))
   // #endregion
 
+  if (item_price_map && price_type) {
+    // #region 成本分析
+    tableData = [
+      [
+        t('道具名'),
+        t('数量'),
+        t('单价'),
+        t('小计')
+      ]
+    ]
+  
+    const baseMaterials = statements.materialsLvBase
+    baseMaterials.forEach(item => {
+      if (item.amount) {
+        let price = item_price_map[item.id][`${price_type}NQ`]
+        if (price) price = Math.floor(price)
+        const subtotal = price === undefined ? t('未知') : (price*item.amount).toString()
+        tableData.push([
+          getItemName(item),
+          item.amount.toString(),
+          price?.toString() ?? t('未知'),
+          subtotal
+        ])
+      }
+    })
+    
+    workSheet = XLSX.utils.aoa_to_sheet(tableData)
+    workSheet['!cols'] = calculateColumnWidths(tableData)
+    setWorkSheetStyle(workSheet)
+    XLSX.utils.book_append_sheet(workBook, workSheet, t('成本分析'))
+    // #endregion
+
+    // #region 收益分析
+    tableData = [
+      [
+        t('道具名'),
+        t('数量'),
+        t('单价'),
+        t('小计')
+      ]
+    ]
+  
+    craftTargets.forEach(item => {
+      if (item.amount) {
+        let price = item_price_map[item.id][`${price_type}HQ`]
+        if (price) price = Math.floor(price)
+        const subtotal = price === undefined ? t('未知') : (price*item.amount).toString()
+        tableData.push([
+          getItemName(item),
+          item.amount.toString(),
+          price?.toString() ?? t('未知'),
+          subtotal
+        ])
+      }
+    })
+    
+    workSheet = XLSX.utils.aoa_to_sheet(tableData)
+    workSheet['!cols'] = calculateColumnWidths(tableData)
+    setWorkSheetStyle(workSheet)
+    XLSX.utils.book_append_sheet(workBook, workSheet, t('收益分析'))
+    // #endregion
+  }
+
   function generateFileName() {
     const now = new Date()
     const formattedDate = now.toISOString().slice(0, 10) // YYYY-MM-DD
@@ -364,6 +424,82 @@ export const export2Excel = (
     const fileName = `hqhelper-export_${formattedDate}T${formattedTime}.xlsx`
     return fileName
   }
-  const name = generateFileName() // 保存的文件名
+  const name = file_name || generateFileName() // 保存的文件名
   XLSX.writeFile(workBook, name)
+}
+
+export const importExcel = (file: File) : Promise<GearSelections> => {
+  // all fucking from ai generate, but it works
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = (event) => {
+      try {
+        const data = new Uint8Array(event.target?.result as ArrayBuffer)
+        const workbook = XLSX.read(data, { type: 'array' })
+        const sheet = workbook.Sheets[workbook.SheetNames[0]]
+        const tableData = XLSX.utils.sheet_to_json(sheet, { header: 1 }) as string[][]
+
+        // 初始化结果
+        const gearSelections: GearSelections = fixGearSelections()
+
+        // 解析表头
+        // const headers = tableData[0]
+        const dataRows = tableData.slice(1)
+
+        dataRows.forEach((row) => {
+          const name = row[0]
+          if (!name) return
+
+          // 职业数据
+          if (row[1] || row[2]) {
+            // 主副手解析
+            const job = Object.values(XivJobs).find(
+              (job) => job.job_name_zh === name || job.job_name_ja === name || job.job_name_en === name
+            )
+            if (job) {
+              const jobId = job.job_id
+              gearSelections.MainHand[jobId] = parseInt(row[1] || '0', 10)
+              gearSelections.OffHand[jobId] = parseInt(row[2] || '0', 10)
+            }
+          } else {
+            // 词缀数据解析
+            const affix = Object.values(XivGearAffixes).find(
+              (affix) =>
+                affix.name_zh === name || affix.name_ja === name || affix.name_en === name
+            )
+            if (affix) {
+              const counts = row.slice(3).map((count) => parseInt(count || '0', 10))
+
+              const attireCounts = counts.slice(0, 5)
+              const accessoryCounts = counts.slice(5)
+
+              if (attireCounts.some((count) => count > 0)) {
+                const id = affix.key as AttireAffix
+                gearSelections.HeadAttire[id] = attireCounts[0]
+                gearSelections.BodyAttire[id] = attireCounts[1]
+                gearSelections.HandsAttire[id] = attireCounts[2]
+                gearSelections.LegsAttire[id] = attireCounts[3]
+                gearSelections.FeetAttire[id] = attireCounts[4]
+              }
+
+              if (accessoryCounts.some((count) => count > 0)) {
+                const id = affix.key as AccessoryAffix
+                gearSelections.Earrings[id] = accessoryCounts[0]
+                gearSelections.Necklace[id] = accessoryCounts[1]
+                gearSelections.Wrist[id] = accessoryCounts[2]
+                gearSelections.Rings[id] = accessoryCounts[3]
+              }
+            }
+          }
+        })
+
+        resolve(gearSelections)
+      } catch (error) {
+        reject(error)
+      }
+    }
+
+    reader.onerror = (error) => reject(error)
+    reader.readAsArrayBuffer(file)
+  })
 }

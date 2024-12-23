@@ -10,7 +10,7 @@ import {
 import GroupBox from '@/components/templates/GroupBox.vue'
 import ButtonCopyAsMacro from '../macro/ButtonCopyAsMacro.vue'
 import type { ItemInfo, StatementRow } from '@/tools/item'
-import type { UserConfigModel } from '@/models/user-config'
+import type { UserConfigModel } from '@/models/config-user'
 import { CopyToClipboard, deepCopy } from '@/tools'
 
 const NAIVE_UI_MESSAGE = useMessage()
@@ -26,13 +26,10 @@ const itemLanguage = computed(() => {
 })
 const getItemName = (itemInfo: ItemInfo) => {
   switch (itemLanguage.value) {
-    case 'ja':
-      return itemInfo.nameJA
-    case 'en':
-      return itemInfo.nameEN
     case 'zh':
+      return itemInfo.name_zh || '未翻译的物品'
     default:
-      return itemInfo.nameZH
+      return itemInfo[`name_${itemLanguage.value}`]
   }
 }
 
