@@ -23,6 +23,7 @@ export interface FuncConfigModel {
 
   // * 推荐流程
   processes_show_item_details: boolean
+  processes_craftable_item_sortby: "itemId" | "recipeOrder"
 
   // * 物品价格
   /** 物品价格服务器 */
@@ -49,6 +50,7 @@ const defaultFuncConfig: FuncConfigModel = {
   prostate_concise_mode: false,
   // * 推荐流程
   processes_show_item_details: false,
+  processes_craftable_item_sortby: 'itemId',
   // * 物品价格
   universalis_server: '红玉海',
   universalis_priceType: 'averagePrice',

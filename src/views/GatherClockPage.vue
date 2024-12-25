@@ -142,7 +142,7 @@ const notifyModeOptions = computed(() => {
 const itemSortOptions = computed(() => {
   return [
     {
-      label: t('物品编号'),
+      label: t('物品ID'),
       value: 'itemId'
     },
     {
