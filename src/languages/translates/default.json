@@ -2800,13 +2800,6 @@
       "data\\change-logs.ts"
     ]
   },
-  "物品编号": {
-    "en": "Item ID",
-    "ja": "アイテム番号",
-    "$files": [
-      "views\\GatherClockPage.vue"
-    ]
-  },
   "采集开始时间": {
     "en": "Start Time",
     "ja": "採集開始時間",
@@ -4905,6 +4898,49 @@
     "ja": "設定",
     "$files": [
       "components\\templates\\MyModal.vue"
+    ]
+  },
+  "物品ID": {
+    "en": "Item ID",
+    "ja": "物品ID",
+    "$files": [
+      "views\\GatherClockPage.vue",
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "剩余时间": {
+    "en": "Remaining time",
+    "ja": "剩余时间",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "现可采集物品的剩余可采集时间 / 未可采集物品距离得可采集的剩余时间": {
+    "en": "Remaining time of the currently gatherable item / Remaining time until the start time of ungatherable item",
+    "ja": "现可采集物品的剩余可采集时间 / 未可采集物品距离得可采集的剩余时间",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "制作物品排序规则": {
+    "en": "Craftable item sorting by",
+    "ja": "制作物品排序规则",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "制作笔记顺序": {
+    "en": "Crafting log order",
+    "ja": "制作笔记顺序",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "如果选择“制作笔记顺序”，将优先按照制作笔记(游戏内按N打开的制作界面)中配方的顺序排列。": {
+    "en": "If you choose 'Crafting log order', the items will be sorted according to the order of the recipes in the crafting log (the crafting interface opened by pressing N in the game).",
+    "ja": "如果选择“制作笔记顺序”，将优先按照制作笔记(游戏内按N打开的制作界面)中配方的顺序排列。",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
     ]
   }
 }
