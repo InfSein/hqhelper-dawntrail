@@ -4978,9 +4978,9 @@
       "data\\change-logs.ts"
     ]
   },
-  "剩余时间指：现可采集物品的剩余可采集时间 / 未可采集物品距离得可采集的剩余时间。": {
+  "剩余时间指：现可采集物品的剩余可采集时间 / 未可采集物品距离变得可采集的剩余时间。": {
     "en": "Remaining time refers to the remaining time of the currently gatherable item / the remaining time until the start time of the ungatherable item.",
-    "ja": "剩余时间指：现可采集物品的剩余可采集时间 / 未可采集物品距离得可采集的剩余时间。",
+    "ja": "剩余时间指：现可采集物品的剩余可采集时间 / 未可采集物品距离变得可采集的剩余时间。",
     "$files": [
       "data\\change-logs.ts"
     ]
