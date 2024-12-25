@@ -49,6 +49,7 @@ export interface PatchChangeGroup {
 
 import { t } from '@/languages'
 const emBlock = '<span style="display:inline-block;width:1em;"></span>'
+const tipper = emBlock + ' ※ '
 // const refer = (text: string) => `<span class="font-small" style="font-style: italic;">${text}</span>`
 export const getChangelogs = (
   ui_lang: 'zh' | 'ja' | 'en'
@@ -61,6 +62,28 @@ export const getChangelogs = (
   }
   const isZh = ui_lang === 'zh'
   return [
+    {
+      version: '2.1.6',
+      date: '2024-12-26',
+      changes: [
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('修复新用户在特定场景下会遇到页面崩溃的问题。'),
+            t('修复功能设置->制作报表->使用简洁模式展示物品设置项在特定场合无法正确工作的问题。'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('功能设置->推荐流程追加了设置项“制作物品排序规则”。')
+              + tipper + t('设置为“制作笔记顺序”，即可让推荐流程中的可制作道具按照游戏内制作笔记的顺序排布。'),
+            t('现在“采集时钟”的“排序依据”还可以设置为“剩余时间”。')
+              + tipper + t('剩余时间指：现可采集物品的剩余可采集时间 / 未可采集物品距离得可采集的剩余时间。')
+          ]
+        }
+      ]
+    },
     {
       version: '2.1.5',
       date: '2024-12-23',
