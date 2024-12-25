@@ -70,7 +70,7 @@ export const fixFuncConfig = (config?: FuncConfigModel, userConfig?: UserConfigM
     config.macro_copy_prefix ??= _userConfig.macro_copy_prefix || defaultFuncConfig.macro_copy_prefix
     config.use_traditional_statement ??= _userConfig.use_traditional_statement || defaultFuncConfig.use_traditional_statement
     if (_userConfig.statement_show_item_details === false) {
-      config.prostate_concise_mode = true
+      config.prostate_concise_mode ??= true
     }
     config.processes_show_item_details ??= _userConfig.processes_show_item_gatherdetails || defaultFuncConfig.processes_show_item_details
     config.universalis_server ??= _userConfig.universalis_server || defaultFuncConfig.universalis_server
