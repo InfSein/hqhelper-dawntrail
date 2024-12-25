@@ -179,6 +179,28 @@ const itemGroups = computed(() => {
       })
     }
   }
+  const dealCraftings = (craftings: Record<number, ItemInfo[]>, groupTitle: string) => {
+    Object.keys(craftings).forEach(_jobID => {
+      const jobId = Number(_jobID)
+      const job = XivJobs[jobId]
+      const items = craftings[jobId]
+      if (funcConfig.value.processes_craftable_item_sortby === 'recipeOrder') {
+        items.sort((a, b) => {
+          if (a.craftInfo?.recipeOrder && b.craftInfo?.recipeOrder) {
+            return a.craftInfo.recipeOrder - b.craftInfo.recipeOrder
+          } else {
+            return a.id - b.id
+          }
+        })
+      }
+      groups.push({
+        title: groupTitle.replace('{job}', getJobName(job)),
+        icon: job.job_icon_url,
+        items: items
+      })
+    })
+  }
+
   dealGatherings(itemsGatherableCommon, t('使用{job}采集(非限时)'), 'map')
   dealGatherings(itemsGatherableLimited, t('使用{job}采集(限时)'), 'start-time')
   if (aethersands.length) {
@@ -202,42 +224,10 @@ const itemGroups = computed(() => {
       items: itemsOtherCollectable
     })
   }
-  Object.keys(itemsPrePrePrecraft).forEach(_jobID => {
-    const jobId = Number(_jobID)
-    const job = XivJobs[jobId]
-    groups.push({
-      title: t('使用{job}制作半半半成品', getJobName(job)),
-      icon: job.job_icon_url,
-      items: itemsPrePrePrecraft[jobId]
-    })
-  })
-  Object.keys(itemsPrePrecraft).forEach(_jobID => {
-    const jobId = Number(_jobID)
-    const job = XivJobs[jobId]
-    groups.push({
-      title: t('使用{job}制作半半成品', getJobName(job)),
-      icon: job.job_icon_url,
-      items: itemsPrePrecraft[jobId]
-    })
-  })
-  Object.keys(itemsPrecraft).forEach(_jobID => {
-    const jobId = Number(_jobID)
-    const job = XivJobs[jobId]
-    groups.push({
-      title: t('使用{job}制作半成品', getJobName(job)),
-      icon: job.job_icon_url,
-      items: itemsPrecraft[jobId]
-    })
-  })
-  Object.keys(itemsTarget).forEach(_jobID => {
-    const jobId = Number(_jobID)
-    const job = XivJobs[jobId]
-    groups.push({
-      title: t('使用{job}制作成品', getJobName(job)),
-      icon: job.job_icon_url,
-      items: itemsTarget[jobId]
-    })
-  })
+  dealCraftings(itemsPrePrePrecraft, t('使用{job}制作半半半成品'))
+  dealCraftings(itemsPrePrecraft, t('使用{job}制作半半成品'))
+  dealCraftings(itemsPrecraft, t('使用{job}制作半成品'))
+  dealCraftings(itemsTarget, t('使用{job}制作成品'))
 
   return groups
 

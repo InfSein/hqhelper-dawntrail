@@ -22,7 +22,7 @@ const qGroupInfo = {
   groupUrl: 'https://jq.qq.com/?_wv=1027&k=LIfWPbZg',
 }
 const githubInfo = {
-  newIssueUrl: 'https://github.com/InfSein/hqhelper-dawntrail/issues/new'
+  newIssueUrl: 'https://github.com/InfSein/hqhelper-dawntrail/issues/new/choose'
 }
 const otherSocialInfo = {
   weiboUrl: 'https://weibo.com/u/7870808507',

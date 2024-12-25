@@ -2800,13 +2800,6 @@
       "data\\change-logs.ts"
     ]
   },
-  "物品编号": {
-    "en": "Item ID",
-    "ja": "アイテム番号",
-    "$files": [
-      "views\\GatherClockPage.vue"
-    ]
-  },
   "采集开始时间": {
     "en": "Start Time",
     "ja": "採集開始時間",
@@ -4905,6 +4898,91 @@
     "ja": "設定",
     "$files": [
       "components\\templates\\MyModal.vue"
+    ]
+  },
+  "物品ID": {
+    "en": "Item ID",
+    "ja": "物品ID",
+    "$files": [
+      "views\\GatherClockPage.vue",
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "剩余时间": {
+    "en": "Remaining time",
+    "ja": "剩余时间",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "现可采集物品的剩余可采集时间 / 未可采集物品距离得可采集的剩余时间": {
+    "en": "Remaining time of the currently gatherable item / Remaining time until the start time of ungatherable item",
+    "ja": "现可采集物品的剩余可采集时间 / 未可采集物品距离得可采集的剩余时间",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "制作物品排序规则": {
+    "en": "Craftable item sorting by",
+    "ja": "制作物品排序规则",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "制作笔记顺序": {
+    "en": "Crafting log order",
+    "ja": "制作笔记顺序",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "如果选择“制作笔记顺序”，将优先按照制作笔记(游戏内按N打开的制作界面)中配方的顺序排列。": {
+    "en": "If you choose 'Crafting log order', the items will be sorted according to the order of the recipes in the crafting log (the crafting interface opened by pressing N in the game).",
+    "ja": "如果选择“制作笔记顺序”，将优先按照制作笔记(游戏内按N打开的制作界面)中配方的顺序排列。",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "修复新用户在特定场景下会遇到页面崩溃的问题。": {
+    "en": "Fixed the issue where new users would encounter page crashes in specific scenarios.",
+    "ja": "修复新用户在特定场景下会遇到页面崩溃的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复功能设置->制作报表->使用简洁模式展示物品设置项在特定场合无法正确工作的问题。": {
+    "en": "Fixed the issue where the 'Show item in concise mode' setting in Function Preferences->Crafting Statement did not work correctly in specific scenarios.",
+    "ja": "修复功能设置->制作报表->使用简洁模式展示物品设置项在特定场合无法正确工作的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "功能设置->推荐流程追加了设置项“制作物品排序规则”。": {
+    "en": "Added the setting option 'Craftable item sorting by' in Function Preferences->Recommended Process.",
+    "ja": "功能设置->推荐流程追加了设置项“制作物品排序规则”。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "设置为“制作笔记顺序”，即可让推荐流程中的可制作道具按照游戏内制作笔记的顺序排布。": {
+    "en": "Set to 'Crafting log order' to allow the craftable items in the recommended process to be arranged in the order of the recipes in the crafting log in the game.",
+    "ja": "设置为“制作笔记顺序”，即可让推荐流程中的可制作道具按照游戏内制作笔记的顺序排布。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在“采集时钟”的“排序依据”还可以设置为“剩余时间”。": {
+    "en": "Now the 'Sort by' of the 'Gather Clock' can also be set to 'Remaining time'.",
+    "ja": "现在“采集时钟”的“排序依据”还可以设置为“剩余时间”。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "剩余时间指：现可采集物品的剩余可采集时间 / 未可采集物品距离变得可采集的剩余时间。": {
+    "en": "Remaining time refers to the remaining time of the currently gatherable item / the remaining time until the start time of the ungatherable item.",
+    "ja": "剩余时间指：现可采集物品的剩余可采集时间 / 未可采集物品距离变得可采集的剩余时间。",
+    "$files": [
+      "data\\change-logs.ts"
     ]
   }
 }
