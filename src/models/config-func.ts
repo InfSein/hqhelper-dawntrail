@@ -76,7 +76,7 @@ export const fixFuncConfig = (config?: FuncConfigModel, userConfig?: UserConfigM
     config.universalis_server ??= _userConfig.universalis_server || defaultFuncConfig.universalis_server
     config.universalis_priceType ??= _userConfig.universalis_priceType || defaultFuncConfig.universalis_priceType
     config.universalis_expireTime ??= _userConfig.universalis_expireTime || defaultFuncConfig.universalis_expireTime
-    config.cache_item_prices ??= deepCopy(_userConfig.cache_item_prices)
+    config.cache_item_prices ??= deepCopy(_userConfig.cache_item_prices ?? {})
   }
 
   // 处理其他的设置项
