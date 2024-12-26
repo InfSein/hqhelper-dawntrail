@@ -34,7 +34,7 @@ import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import ModalFuncPreferences from '@/components/modals/ModalFuncPreferences.vue'
 import ModalFestivalEgg from '@/components/modals/ModalFestivalEgg.vue'
-import ChristmasTree from '@/assets/icons/ChristmasTree.vue'
+// import ChristmasTree from '@/assets/icons/ChristmasTree.vue'
 import type { AppVersionJson } from '@/models'
 import { visitUrl } from '@/tools'
 import EorzeaTime from '@/tools/eorzea-time'
@@ -85,11 +85,11 @@ const showContactModal = ref(false)
 const showChangeLogsModal = ref(false)
 const showFestivalEggModal = ref(false)
 
-const showFestivalEgg = computed(() => {
-  const now = new Date()
-  const date = now.getDate()
-  return (now.getMonth() === 11) && ((date === 24 && now.getHours() >= 18) || date === 25)
-})
+// const showFestivalEgg = computed(() => {
+//   const now = new Date()
+//   const date = now.getDate()
+//   return (now.getMonth() === 11) && ((date === 24 && now.getHours() >= 18) || date === 25)
+// })
 
 const canRouteBack = computed(() => {
   return router.currentRoute.value.path !== '/'
@@ -415,7 +415,7 @@ const onFuncPreferencesSubmitted = () => {
           </div>
         </n-popover>
 
-        <ChristmasTree v-if="showFestivalEgg" style="margin-left: 8px; cursor: pointer;" @click="showFestivalEggModal = true" />
+        <!-- <ChristmasTree v-if="showFestivalEgg" style="margin-left: 8px; cursor: pointer;" @click="showFestivalEggModal = true" /> -->
 
         <n-divider vertical></n-divider>
 
