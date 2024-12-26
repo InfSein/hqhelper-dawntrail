@@ -49,7 +49,7 @@ export interface PatchChangeGroup {
 
 import { t } from '@/languages'
 const emBlock = '<span style="display:inline-block;width:1em;"></span>'
-const tipper = emBlock + ' ※ '
+const tipper = '<br>' +  emBlock + ' ※ '
 // const refer = (text: string) => `<span class="font-small" style="font-style: italic;">${text}</span>`
 export const getChangelogs = (
   ui_lang: 'zh' | 'ja' | 'en'
