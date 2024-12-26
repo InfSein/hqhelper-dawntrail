@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
+import { computed, inject } from 'vue'
 import { 
   FestivalOutlined
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+// const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 const showModal = defineModel<boolean>('show', { required: true })
 interface ModalFestivalEggProps {
@@ -30,7 +30,7 @@ const content = computed(() => {
     max-width="800px"
   >
     <div class="wrapper">
-      <img alt="-" :src="'./image/IMG_7324.jpg'" :width="isMobile ? '100%' : '750px'" height="auto" />
+      <!-- <img alt="-" :src="'./image/IMG_7324.jpg'" :width="isMobile ? '100%' : '750px'" height="auto" /> -->
       <div class="comment font-small">
         Photographed by 旭柠, 2024.
       </div>

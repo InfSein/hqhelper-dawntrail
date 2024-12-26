@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, inject, onBeforeUnmount, onMounted, ref, watch, type Ref } from 'vue'
+import { computed, h, inject, onBeforeUnmount, onMounted, ref, watch, type Ref, type VNode } from 'vue'
 import {
-  NButton, NCard, NDivider, NDropdown, NEl, NEmpty, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch
+  NButton, NCard, NDivider, NDropdown, NEl, NEmpty, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch, NTooltip,
+  type SelectOption
 } from 'naive-ui'
 import {
   AccessAlarmsOutlined,
@@ -111,7 +112,7 @@ const workState = ref({
   /** 通知方式 */
   notifyMode: 'none' as "none" | "system_noti" | "audio",
   /** 排序依据 */
-  orderBy: 'itemId' as "itemId" | "gatherStartTimeAsc",
+  orderBy: 'itemId' as "itemId" | "gatherStartTimeAsc" | "remainingTimeAsc",
   /** 是否将目前可以采集的道具置顶 */
   pinGatherableItems: false,
   /** 禁用物品按钮悬浮窗 */
@@ -142,15 +143,32 @@ const notifyModeOptions = computed(() => {
 const itemSortOptions = computed(() => {
   return [
     {
-      label: t('物品编号'),
+      label: t('物品ID'),
       value: 'itemId'
     },
     {
       label: t('采集开始时间'),
       value: 'gatherStartTimeAsc'
     },
+    {
+      label: t('剩余时间'),
+      value: 'remainingTimeAsc',
+      description: t('现可采集物品的剩余可采集时间 / 未可采集物品距离得可采集的剩余时间')
+    },
   ]
 })
+const renderOption = ({ node, option }: { node: VNode, option: SelectOption }) => {
+  return option.description ? h(
+    NTooltip,
+    { keepAliveOnHover: false, placement: 'right', style: { width: 'max-content', display: isMobile.value ? 'none' : 'inherit' } },
+    {
+      trigger: () => [node],
+      default: () => option.description
+    }
+  ) : h(
+    node
+  )
+}
 
 watch(
   () => workState.value.pinWindow,
@@ -264,6 +282,7 @@ const dealTimeLimit = (start: string, end: string) => {
   let progressStatus : 'info' | 'warning' | 'error' = 'info'
   let progressPercentage = 0
   let canGather = false
+  let remainET = 99999
   let remainLT : string | undefined = undefined
   let ltClass = 'font-small'
   try {
@@ -274,7 +293,8 @@ const dealTimeLimit = (start: string, end: string) => {
     if (c >= s && c < e) {
       canGather = true
       progressPercentage = (c - s) / (e - s) * 100
-      const ls = Math.floor(EorzeaTime.EorzeaMinute2LocalSecond(e - c))
+      remainET = e - c
+      const ls = Math.floor(EorzeaTime.EorzeaMinute2LocalSecond(remainET))
       if (ls < 30) {
         ltClass += ' red'
       } else if (ls < 60) {
@@ -287,6 +307,10 @@ const dealTimeLimit = (start: string, end: string) => {
       remainLT += t('{second}秒', ls % 60)
     } else {
       progressPercentage = 0
+      remainET = s - c
+      if (remainET < 0) {
+        remainET += 1440
+      }
     }
   } catch (err) {
     console.error(err)
@@ -296,7 +320,8 @@ const dealTimeLimit = (start: string, end: string) => {
     canGather: canGather,
     status: progressStatus,
     percentage: progressPercentage,
-    remainLT, ltClass
+    remainLT, ltClass,
+    remainET
   }
 }
 
@@ -433,6 +458,34 @@ const getSortedItems = (items: ItemInfo[]) => {
         }
         return startA - startB
       })
+    case 'remainingTimeAsc': // 根据剩余时间增序排序
+      return items.sort((a, b) => {
+        let aGatherable = false, bGatherable = false
+        let aRemain = 99999, bRemain = 99999
+        a.gatherInfo.timeLimitInfo.forEach(limit => {
+          const dtResult = dealTimeLimit(limit.start, limit.end)
+          if (dtResult.canGather) {
+            aGatherable = true
+            aRemain = dtResult.remainET
+            return // 道具可采集时置顶
+          } else {
+            aRemain = Math.min(aRemain, dtResult.remainET)
+          }
+        })
+        b.gatherInfo.timeLimitInfo.forEach(limit => {
+          const dtResult = dealTimeLimit(limit.start, limit.end)
+          if (dtResult.canGather) {
+            bGatherable = true
+            bRemain = dtResult.remainET
+            return // 道具可采集时置顶
+          } else {
+            bRemain = Math.min(bRemain, dtResult.remainET)
+          }
+        })
+        if (aGatherable) aRemain -= 99999
+        if (bGatherable) bRemain -= 99999
+        return aRemain - bRemain
+      })
     default: // 默认为itemID增序排序
       return items.sort((a, b) => {
         if (workState.value.pinGatherableItems) {
@@ -523,7 +576,7 @@ const handleShowAlarmMacroExportModal = () => {
             <n-select v-model:value="workState.notifyMode" :options="notifyModeOptions" @update:value="handleCheckNotificationPermission" />
           </n-form-item>
           <n-form-item :label="t('排序依据')" style="min-width: 200px;">
-            <n-select v-model:value="workState.orderBy" :options="itemSortOptions" />
+            <n-select v-model:value="workState.orderBy" :options="itemSortOptions" :render-option="renderOption" />
           </n-form-item>
           <n-form-item :label="t('将现可采集的物品置顶')">
             <n-switch v-model:value="workState.pinGatherableItems" />

@@ -132,6 +132,18 @@ const FuncPreferenceGroups : SettingGroup[] = [
         key: 'processes_show_item_details',
         label: t('显示物品详情'),
         type: 'switch'
+      },
+      {
+        key: 'processes_craftable_item_sortby',
+        label: t('制作物品排序规则'),
+        type: 'select',
+        options: [
+          { value: 'itemId', label: t('物品ID') },
+          { value: 'recipeOrder', label: t('制作笔记顺序') }
+        ],
+        descriptions: dealDescriptions([
+          t('如果选择“制作笔记顺序”，将优先按照制作笔记(游戏内按N打开的制作界面)中配方的顺序排列。'),
+        ])
       }
     ]
   },

@@ -3,7 +3,14 @@ import clipBoard from "vue-clipboard3"
 const Clip = clipBoard
 const { toClipboard } = Clip()
 
-export const deepCopy = <T>(obj: T): T => JSON.parse(JSON.stringify(obj))
+export const deepCopy = <T>(obj: T): T => {
+  try {
+    return JSON.parse(JSON.stringify(obj))
+  } catch (e) {
+    console.warn('Deep copy failed due to', e, '\norigin:', obj)
+    return obj
+  }
+}
 
 export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 

@@ -23,6 +23,7 @@ export interface FuncConfigModel {
 
   // * 推荐流程
   processes_show_item_details: boolean
+  processes_craftable_item_sortby: "itemId" | "recipeOrder"
 
   // * 物品价格
   /** 物品价格服务器 */
@@ -49,6 +50,7 @@ const defaultFuncConfig: FuncConfigModel = {
   prostate_concise_mode: false,
   // * 推荐流程
   processes_show_item_details: false,
+  processes_craftable_item_sortby: 'itemId',
   // * 物品价格
   universalis_server: '红玉海',
   universalis_priceType: 'averagePrice',
@@ -70,13 +72,13 @@ export const fixFuncConfig = (config?: FuncConfigModel, userConfig?: UserConfigM
     config.macro_copy_prefix ??= _userConfig.macro_copy_prefix || defaultFuncConfig.macro_copy_prefix
     config.use_traditional_statement ??= _userConfig.use_traditional_statement || defaultFuncConfig.use_traditional_statement
     if (_userConfig.statement_show_item_details === false) {
-      config.prostate_concise_mode = true
+      config.prostate_concise_mode ??= true
     }
     config.processes_show_item_details ??= _userConfig.processes_show_item_gatherdetails || defaultFuncConfig.processes_show_item_details
     config.universalis_server ??= _userConfig.universalis_server || defaultFuncConfig.universalis_server
     config.universalis_priceType ??= _userConfig.universalis_priceType || defaultFuncConfig.universalis_priceType
     config.universalis_expireTime ??= _userConfig.universalis_expireTime || defaultFuncConfig.universalis_expireTime
-    config.cache_item_prices ??= deepCopy(_userConfig.cache_item_prices)
+    config.cache_item_prices ??= deepCopy(_userConfig.cache_item_prices ?? {})
   }
 
   // 处理其他的设置项
