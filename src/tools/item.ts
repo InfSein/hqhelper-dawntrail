@@ -162,6 +162,10 @@ export interface ItemInfo {
     placeNameZH: string,
     placeNameJA: string,
     placeNameEN: string,
+    gntype_zh: string,
+    gntype_en: string,
+    gntype_ja: string,
+    folkloreId?: number,
     posX: number,
     posY: number,
     recommAetheryte?: XivMapAetheryteInfo,
@@ -293,8 +297,17 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // * 组装物品采集信息
   const gatherData = XivUnpackedGatheringItems[itemID]
   if (gatherData) {
-    const gatherPointType = gatherData.type
-    const gatherJob = gatherPointType <= 1 ? 16 : 17 // * type 0123 分别是割草，伐木，采矿，碎石 (注：好像反了)
+    const gatherJob = gatherData.type <= 1 ? 16 /*采矿*/ : 17 /*园艺*/
+    let gntype_zh = '???', gntype_en = '???', gntype_ja = '???'
+    switch (gatherData.type) {
+      case 0: gntype_zh = '矿脉'; gntype_en = 'mineral deposit'; gntype_ja = '採掘'; break
+      case 1: gntype_zh = '石场'; gntype_en = 'rocky outcrop'; gntype_ja = '砕岩'; break
+      case 2: gntype_zh = '良材'; gntype_en = 'mature tree'; gntype_ja = '伐採'; break
+      case 3: gntype_zh = '草场'; gntype_en = 'lush vegetation'; gntype_ja = '草刈'; break
+    }
+    gntype_zh = gatherData.level + '级' + gntype_zh
+    gntype_en = 'Lv ' + gatherData.level + ' ' + gntype_en
+    gntype_ja = 'レベル' + gatherData.level + gntype_ja
     const territoryID = gatherData.territory
     if (territoryID && XivUnpackedTerritories[territoryID]) {
       const territoryData = XivUnpackedTerritories[territoryID]
@@ -312,11 +325,15 @@ export const getItemInfo = (item: number | CalculatedItem) => {
           placeNameZH: placeNameZH,
           placeNameJA: gatherPlaceData[0],
           placeNameEN: gatherPlaceData[1],
+          gntype_zh, gntype_en, gntype_ja,
           posX: Number(gatherData!.coords!.x),
           posY: Number(gatherData!.coords!.y),
           timeLimitInfo: [],
           timeLimitDescription: ''
         };
+        if (gatherData.folkloreBook) {
+          itemInfo.gatherInfo.folkloreId = gatherData.folkloreBook
+        }
         if (XivMaps[placeID]) {
           itemInfo.gatherInfo.recommAetheryte = getNearestAetheryte(XivMaps[placeID], itemInfo.gatherInfo.posX, itemInfo.gatherInfo.posY)
         }

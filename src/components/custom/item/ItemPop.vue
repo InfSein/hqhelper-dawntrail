@@ -355,6 +355,10 @@ const innerPopTrigger = computed(() => {
               />
               <p>{{ getJobName(XivJobs[18]) }}</p>
             </div>
+            <div v-if="itemInfo.gatherInfo?.[`gntype_${uiLanguage}`]" class="extra">
+              {{ ' - ' }}
+              {{ itemInfo.gatherInfo[`gntype_${uiLanguage}`] }}
+            </div>
           </div>
           <n-divider class="item-divider" />
           <div class="content" v-if="itemInfo.gatherInfo">
@@ -383,6 +387,13 @@ const innerPopTrigger = computed(() => {
             >
               <div>{{ timeLimit.start }} ~ {{ timeLimit.end }}</div>
               <div class="green">{{ timeCanGather(timeLimit) }}</div>
+            </div>
+          </div>
+          <div class="content" v-if="itemInfo.gatherInfo?.folkloreId">
+            <div>{{ t('采集条件：') }}</div>
+            <div class="item small-font" v-if="itemInfo.gatherInfo?.folkloreId">
+              {{ t('需要习得') }}
+              <ItemSpan :img-size="12" :item-info="getItemInfo(itemInfo.gatherInfo.folkloreId)" :container-id="containerId" />
             </div>
           </div>
           <div class="content" v-if="itemInfo.isFishingItem">
