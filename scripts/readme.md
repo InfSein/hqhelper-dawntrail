@@ -6,6 +6,16 @@
 
 ## 脚本列表
 
+### compress-data.cjs
+
+此脚本用于压缩部分数据文件，目前包括：
+* `src\assets\data\unpacks\raw\place-name.full.json`
+* `src\assets\data\unpacks\raw\territory.full.json`
+
+其内部逻辑会筛除掉不需要的数据，以减少程序更新包/网页资源体积 (节省量约0.15MB)。
+
+只在更新了解包文件时需要调用，运行 `scripts\package.json` 中的 NPM 脚本 `compress-data` 即可执行。
+
 ### update-version.cjs
 
 此脚本用于在本地 `npm i` 时自动更新 `public/version.json` 文件中的 `hqhelper` 版本，以便客户端判别是否需要更新。
