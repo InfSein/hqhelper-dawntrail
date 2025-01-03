@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "compress-data": "node compress-data.cjs"
+  }
+}
