@@ -71,7 +71,7 @@ const originTerritory = JSON.parse(fs.readFileSync(territoryPath, 'utf8'))
 const territoryFileChanged = JSON.stringify(territory) !== JSON.stringify(originTerritory)
 if (territoryFileChanged) {
   console.log('[scripts/compress-data.cjs] territory.json has changed, writing to file...')
-  fs.writeFileSync(territoryPath, JSON.stringify(territory, null, 2), 'utf8')
+  fs.writeFileSync(territoryPath, customStringify(territory), 'utf8')
 } else {
   console.log('[scripts/compress-data.cjs] territory.json has not changed.')
 }
@@ -92,7 +92,16 @@ const placeFileChanged = JSON.stringify(placeName) !== JSON.stringify(originPlac
 
 if (placeFileChanged) {
   console.log('[scripts/compress-data.cjs] place-name.json has changed, writing to file...')
-  fs.writeFileSync(placeNamePath, JSON.stringify(placeName, null, 2), 'utf8')
+  fs.writeFileSync(placeNamePath, customStringify(placeName), 'utf8')
 } else {
   console.log('[scripts/compress-data.cjs] place-name.json has not changed.')
+}
+
+/** 自定义输出模式 */
+function customStringify(obj) {
+  const kvps = []
+  for (const key in obj) {
+    kvps.push(`  "${key}": ${JSON.stringify(obj[key])}`)
+  }
+  return `{\n${kvps.join(',\n')}\n}`
 }
