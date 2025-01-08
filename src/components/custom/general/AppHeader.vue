@@ -28,6 +28,7 @@ import {
   DarkModeTwotone, LightModeTwotone,
   UpdateSharp
 } from '@vicons/material'
+import ModalPreferences from '@/components/modals/ModalPreferences.vue'
 import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
 import ModalContactUs from '@/components/modals/ModalContactUs.vue'
 import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
@@ -78,6 +79,7 @@ onMounted(() => {
 
 const showMenus = ref(false)
 
+const showPreferencesModal = ref(false)
 const showUserPreferencesModal = ref(false)
 const showFuncPreferencesModal = ref(false)
 const showAboutAppModal = ref(false)
@@ -98,6 +100,9 @@ const handleRouteBack = () => {
   router.push('/')
 }
 
+const displayPreferencesModal = () => {
+  showPreferencesModal.value = true
+}
 const displayUserPreferencesModal = () => {
   showUserPreferencesModal.value = true
 }
@@ -188,7 +193,7 @@ const desktopMenus = computed(() => {
   const gatherClockTooltip = hideGatherClock ? t('您已经处于采集时钟页面。') : t('挖穿艾欧泽亚的好帮手！')
   const gatherClockSWTooltip = t('在新窗口中打开采集时钟。')
   const userPreferenceTooltip = t('以人的意志改变机械的程序。')
-  const funcPreferenceTooltip = t('还好我把魔法人偶的战斗力设置成了最强级别。')
+  // const funcPreferenceTooltip = t('还好我把魔法人偶的战斗力设置成了最强级别。')
   const checkUpdatesTooltip = t('更新目标的战力等级……变更攻击模式……')
   const changelogTooltip = t('修正……改良……开始对循环程序进行更新……')
   const contactTooltip = t('关注我们喵，关注我们谢谢喵。')
@@ -273,8 +278,7 @@ const desktopMenus = computed(() => {
       icon: UpdateOutlined,
       options: [
         { key: 'sau-ct', label: t('切换主题'), icon: renderIcon(changeThemeIcon), description: changeThemeTooltip, click: switchTheme },
-        { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), description: userPreferenceTooltip, click: displayUserPreferencesModal },
-        { key: 'sau-fp', label: t('功能设置'), icon: renderIcon(SettingsSuggestFilled), description: funcPreferenceTooltip, click: displayFuncPreferencesModal },
+        { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), description: userPreferenceTooltip, click: displayPreferencesModal },
         { key: 'sau-cu', label: t('检查更新'), icon: renderIcon(UpdateSharp), description: checkUpdatesTooltip, click: handleCheckUpdates },
         { key: 'sau-cl', label: t('更新日志'), icon: renderIcon(EventNoteFilled), description: changelogTooltip, click: displayChangeLogsModal },
         { key: 'sau-dt', hide:!canOpenDevTools.value, label: t('开发工具'), icon: renderIcon(DevicesOtherOutlined), click: ()=>{ window.electronAPI!.openDevTools() } }
@@ -492,6 +496,9 @@ const onFuncPreferencesSubmitted = () => {
       </n-drawer-content>
     </n-drawer>
 
+    <ModalPreferences
+      v-model:show="showPreferencesModal"
+    />
     <ModalUserPreferences
       v-model:show="showUserPreferencesModal"
       @after-submit="onUserPreferencesSubmitted"

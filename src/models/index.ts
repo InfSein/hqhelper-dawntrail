@@ -10,6 +10,11 @@ export interface AppVersionJson {
   dlink_electron: string;
 }
 
+export interface PreferenceGroup {
+  key: "userConfig" | "funcConfig"
+  text: string
+  settings: SettingGroup[]
+}
 export interface SettingGroup {
   key: UserConfigKey | FuncConfigKey
   icon: Component
