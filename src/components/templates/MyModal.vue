@@ -19,6 +19,8 @@ interface MyModalProps {
   title?: string
   /** 代表这是一个功能弹窗，并且可以关联到 `功能设置` 中的选项卡。 */
   showSetting?: boolean
+  /** 控制模态框标题的 `padding` 属性。 */
+  headerPadding?: string
   /** 控制模态框容器的最大宽度。默认为 `600px`。 */
   maxWidth?: string
   /** 控制模态框容器的高度。默认为 `auto`。 */
@@ -43,7 +45,8 @@ watch(showModal, async (newVal, oldVal) => {
 const containerStyle = computed(() => {
   let builtStyle = [
     'max-width: ' + (props.maxWidth ?? '600px'),
-    'height: ' + (props.height ?? 'auto')
+    'height: ' + (props.height ?? 'auto'),
+    '--header-padding: ' + (props.headerPadding ?? 'var(--n-padding-top) var(--n-padding-left) var(--n-padding-bottom) var(--n-padding-left)')
   ].join('; ')
   if (props.extraStyle) {
     builtStyle += '; ' + props.extraStyle
@@ -97,6 +100,10 @@ const handleClose = () => {
 </template>
 
 <style scoped>
+:deep(.n-card-header) {
+  padding: var(--header-padding);
+}
+
 .square-action {
   width: 22px;
   height: 22px;

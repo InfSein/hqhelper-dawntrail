@@ -145,6 +145,10 @@ defineProps<SettingItemProps>()
 </template>
 
 <style scoped>
+:deep(.n-collapse-item__content-inner) {
+  padding-top: 0 !important;
+}
+
 .setting-item {
   .item-title {
     font-weight: bold;

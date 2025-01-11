@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, h, inject, ref, type Component, type Ref } from 'vue'
 import {
-  NButton, NIcon, NMenu, 
+  NButton, NIcon, NLayout, NLayoutContent, NLayoutSider, NMenu, 
   useMessage, 
   type MenuOption
 } from 'naive-ui'
@@ -17,6 +17,7 @@ import {
   TableViewOutlined,
   AllInclusiveSharp,
   AttachMoneyOutlined,
+  InfoOutlined,
   // WifiRound,
   SaveOutlined
 } from '@vicons/material'
@@ -64,7 +65,7 @@ const renderIcon = (icon: Component) => {
 const preferenceGroups : PreferenceGroup[] = [
   {
     key: 'userConfig',
-    text: t('偏好设置'),
+    text: t('基础设置'),
     settings: [
       /* General */
       {
@@ -664,6 +665,18 @@ const preferenceGroups : PreferenceGroup[] = [
         ]
       },
     ]
+  },
+  {
+    key: 'userConfig',
+    text: t('其他'),
+    settings: [
+      {
+        key: 'about_app',
+        icon: InfoOutlined,
+        text: t('关于本作'),
+        children: []
+      }
+    ]
   }
 ]
 const preferenceMenuOptions = computed(() : MenuOption[] => {
@@ -741,13 +754,18 @@ const handleSave = () => {
   showModal.value = false
   emit('afterSubmit')
 }
+
+const containerMaxHeight = computed(() => {
+  return isMobile.value ? '650px' : '495px'
+})
 </script>
 
 <template>
   <MyModal
     v-model:show="showModal"
     max-width="800px"
-    :height="isMobile ? '650px' : '550px'"
+    :height="isMobile ? '650px' : '660px'"
+    header-padding="var(--n-padding-top) var(--n-padding-left) 5px var(--n-padding-left)"
     @on-load="onLoad"
   >
     <template #header>
@@ -757,17 +775,28 @@ const handleSave = () => {
       </div>
     </template>
 
-    <div class="wrapper">
-      <div class="menu-container">
+    <n-layout has-sider>
+      <n-layout-sider
+        collapse-mode="width"
+        :collapsed-width="110"
+        :width="195"
+        show-trigger="arrow-circle"
+        content-style="padding: 24px;"
+        bordered
+        :native-scrollbar="false"
+        :scrollbar-props="{
+          trigger: 'none',
+          style: {}
+        }"
+        :style="{ maxHeight: containerMaxHeight }"
+      >
         <n-menu
           v-model:value="currentMenuVal"
           :options="preferenceMenuOptions"
-          style="overflow-y: auto;"
-          :style="{ maxHeight: isMobile ? '650px' : '450px' }"
         />
-      </div>
-      <div class="content-container">
-        <div class="items-container" :style="{ maxHeight: isMobile ? '320px' : '275px' }">
+      </n-layout-sider>
+      <n-layout-content content-style="padding: 24px;">
+        <div class="items-container" :style="{ maxHeight: containerMaxHeight }">
           <SettingItem
             v-for="item in currentUPSettings"
             :key="item.key"
@@ -781,8 +810,8 @@ const handleSave = () => {
             :setting-item="item"
           />
         </div>
-      </div>
-    </div>
+      </n-layout-content>
+    </n-layout>
 
     <template #action>
       <div class="submit-container">
@@ -798,20 +827,24 @@ const handleSave = () => {
 </template>
 
 <style scoped>
-:deep(.n-tabs-pane-wrapper) {
-  height: 100%;
-  .n-tab-pane {
-    height: 100%;
-  }
+:deep(.n-card-header) {
+  padding-bottom: 0 !important;
 }
-:deep(.n-collapse-item__content-inner) {
-  padding-top: 0 !important;
+:deep(.n-scrollbar-content) {
+  padding: 5px !important;
 }
-.wrapper {
-  display: grid;
-  grid-template-columns: 225px 1fr;
-  gap: 10px;
+:deep(.n-menu-item) {
+  margin-top: 1px;
+  height: 36px;
 }
+:deep(.n-menu-item-group-title) {
+  padding-left: 24px !important;
+  height: 30px !important;
+}
+:deep(.n-menu-item-content) {
+  padding-left: 36px !important;
+}
+
 .items-container {
   max-width: 100%;
   height: 100%;

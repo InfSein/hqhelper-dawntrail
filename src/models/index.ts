@@ -16,7 +16,7 @@ export interface PreferenceGroup {
   settings: SettingGroup[]
 }
 export interface SettingGroup {
-  key: UserConfigKey | FuncConfigKey
+  key: UserConfigKey | FuncConfigKey | "about_app"
   icon: Component
   text: string
   children: SettingItem[]
