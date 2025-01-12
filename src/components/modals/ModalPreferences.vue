@@ -62,6 +62,17 @@ const renderIcon = (icon: Component) => {
     })
   }
 }
+const getPriceTypeOptions = () => {
+  return [
+    { value: 'averagePrice', label: t('平均价格') },
+    { value: 'currentAveragePrice', label: t('当前平均价格') },
+    { value: 'minPrice', label: t('最低价格') },
+    { value: 'maxPrice', label: t('最高价格') },
+    { value: 'purchasePrice', label: t('近期成交价格') },
+    { value: 'marketLowestPrice', label: t('当前寄售最低价') },
+    { value: 'marketPrice', label: t('当前寄售平均价') }
+  ]
+}
 const preferenceGroups : PreferenceGroup[] = [
   {
     key: 'userConfig',
@@ -591,36 +602,7 @@ const preferenceGroups : PreferenceGroup[] = [
               ]),
             ],
             type: 'select',
-            options: [
-              {
-                value: 'averagePrice',
-                label: t('平均价格')
-              },
-              {
-                value: 'currentAveragePrice',
-                label: t('当前平均价格')
-              },
-              {
-                value: 'minPrice',
-                label: t('最低价格')
-              },
-              {
-                value: 'maxPrice',
-                label: t('最高价格')
-              },
-              {
-                value: 'purchasePrice',
-                label: t('近期成交价格')
-              },
-              {
-                value: 'marketLowestPrice',
-                label: t('当前寄售最低价')
-              },
-              {
-                value: 'marketPrice',
-                label: t('当前寄售平均价')
-              }
-            ]
+            options: getPriceTypeOptions()
           },
           {
             key: 'universalis_expireTime',
@@ -661,6 +643,21 @@ const preferenceGroups : PreferenceGroup[] = [
                 label: t('永不过期')
               }
             ]
+          },
+          {
+            key: 'universalis_showpriceinpop',
+            label: t('在物品悬浮窗中显示'),
+            type: 'switch'
+          },
+          {
+            key: 'universalis_poppricetypes',
+            label: t('在物品悬浮窗中显示的类型'),
+            descriptions: dealDescriptions([
+              t('选择在物品悬浮窗中要显示哪些类型的价格。可以多选。'),
+            ]),
+            type: 'select',
+            multiple: true,
+            options: getPriceTypeOptions()
           }
         ]
       },

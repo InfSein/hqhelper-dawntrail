@@ -69,6 +69,7 @@ defineProps<SettingItemProps>()
           <n-select
             v-if="settingItem.type === 'select'"
             v-model:value="formData[settingItem.key]"
+            :multiple="settingItem.multiple"
             :options="settingItem.options"
             :style="{ width: isMobile ? '75%' : '60%' }"
           />
@@ -120,6 +121,7 @@ defineProps<SettingItemProps>()
         <n-select
           v-if="settingItem.type === 'select'"
           v-model:value="formData[settingItem.key]"
+          :multiple="settingItem.multiple"
           :options="settingItem.options"
           :style="{ width: isMobile ? '75%' : '60%' }"
         />

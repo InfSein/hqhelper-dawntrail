@@ -3,6 +3,7 @@ import type { UserConfigModel } from "./config-user"
 import { deepCopy } from "@/tools"
 
 export type FuncConfigKey = "copy_macro" | "import_export" | "craft_statement" | "recomm_process" | "cost_benefit"
+export type ItemPriceType = 'averagePrice' | 'currentAveragePrice' | 'minPrice' | 'maxPrice' | 'marketLowestPrice' | 'marketPrice' | 'purchasePrice'
 
 export interface FuncConfigModel {
   // #region 在偏好设置弹窗中设置的配置项
@@ -29,9 +30,13 @@ export interface FuncConfigModel {
   /** 物品价格服务器 */
   universalis_server: string
   /** 物品价格类型 */
-  universalis_priceType: 'averagePrice' | 'currentAveragePrice' | 'minPrice' | 'maxPrice' | 'marketLowestPrice' | 'marketPrice' | 'purchasePrice'
+  universalis_priceType: ItemPriceType
   /** 物品价格有效期 */
   universalis_expireTime: number
+  /** 在物品悬浮窗中展示物品价格 */
+  universalis_showpriceinpop: boolean
+  /** 在物品悬浮窗中展示的物品价格类型 */
+  universalis_poppricetypes: ItemPriceType[]
   // #endregion
 
   // #region 隐藏的配置项/缓存
@@ -55,6 +60,8 @@ const defaultFuncConfig: FuncConfigModel = {
   universalis_server: '红玉海',
   universalis_priceType: 'averagePrice',
   universalis_expireTime: 6 * 60 * 60 * 1000, // 默认6小时
+  universalis_showpriceinpop: false,
+  universalis_poppricetypes: [],
   // * 缓存
   cache_item_prices: {},
 }

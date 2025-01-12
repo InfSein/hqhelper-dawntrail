@@ -36,5 +36,6 @@ export interface SettingItem {
     style: string
   }[]
   type: 'radio-group' | 'switch' | 'select' | 'cascader' | 'string'
+  multiple?: boolean
   options?: CascaderOption[]
 }
