@@ -20,7 +20,6 @@ import {
   MenuFilled,
   UpdateOutlined,
   SettingsSharp,
-  SettingsSuggestFilled,
   EventNoteFilled,
   InfoFilled, InfoOutlined,
   DevicesOtherOutlined,
@@ -103,12 +102,6 @@ const handleRouteBack = () => {
 const displayPreferencesModal = () => {
   showPreferencesModal.value = true
 }
-const displayUserPreferencesModal = () => {
-  showUserPreferencesModal.value = true
-}
-const displayFuncPreferencesModal = () => {
-  showFuncPreferencesModal.value = true
-}
 const displayAboutAppModal = () => {
   showAboutAppModal.value = true
 }
@@ -175,8 +168,7 @@ const menuItems = computed(() => {
     goHome: { label: t('返回首页'), hide: hideHome, icon: HomeOutlined, click: () => { router.push('/'); } } as MenuItem,
     gatherClock: { label: t('采集时钟'), hide: hideGatherClock, icon: AccessAlarmsOutlined, click: redirectToGatherClockPage } as MenuItem,
     ftHelper: { label: t('食药计算'), hide: hideFTHelper, icon: FastfoodOutlined, click: redirectToFoodAndTincPage } as MenuItem,
-    userPreferences: { label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal } as MenuItem,
-    funcPreferences: { label: t('功能设置'), icon: SettingsSuggestFilled, click: displayFuncPreferencesModal } as MenuItem,
+    userPreferences: { label: t('偏好设置'), icon: SettingsSharp, click: displayPreferencesModal } as MenuItem,
     checkUpdates: { label: t('检查更新'), icon: UpdateSharp, click: handleCheckUpdates } as MenuItem,
     changelogs: { label: t('更新日志'), icon: EventNoteFilled, click: displayChangeLogsModal } as MenuItem,
     contact: { label: t('联系我们'), icon: ContactlessOutlined, click: displayContactModal } as MenuItem,

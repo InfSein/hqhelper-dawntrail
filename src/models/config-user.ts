@@ -49,6 +49,7 @@ export interface UserConfigModel {
 
   // #region 隐藏的配置项/缓存
   last_triggered_egg: number
+  preference_menu_folded: boolean
   cache_lasttime_version: string
   cache_ui_fold: any
   cache_work_state: any
@@ -85,6 +86,7 @@ const defaultUserConfig: UserConfigModel = {
 
   // hidden options
   last_triggered_egg: 0,
+  preference_menu_folded: false,
   cache_lasttime_version: 'none',
   cache_ui_fold: {}, // active cache, { key:string -> value:boolean }
   cache_work_state: {}, // active cache, view struct in `MainPage.vue` 's `workState`

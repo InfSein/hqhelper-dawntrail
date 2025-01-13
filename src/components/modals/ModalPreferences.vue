@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed, h, inject, ref, type Component, type Ref } from 'vue'
 import {
-  NButton, NIcon, NLayout, NLayoutContent, NLayoutSider, NMenu, 
-  useMessage, 
-  type MenuOption
+  NButton, NIcon, NLayout, NLayoutContent, NLayoutSider, NMenu, NTabs, NTabPane,
+  useMessage
 } from 'naive-ui'
 import {
   SettingsSharp,
@@ -676,7 +675,7 @@ const preferenceGroups : PreferenceGroup[] = [
     ]
   }
 ]
-const preferenceMenuOptions = computed(() : MenuOption[] => {
+const preferenceMenuOptions = computed(() => {
   return preferenceGroups.map(group => {
     return {
       type: 'group',
@@ -697,6 +696,9 @@ const currentUPSettings = computed(() => {
 })
 const currentFPSettings = computed(() => {
   return preferenceGroups[1].settings.find(setting => setting.key === currentMenuVal.value)?.children ?? []
+})
+const currentGroupName = computed(() => {
+  return preferenceGroups.map(group => group.settings).flat().find(setting => setting.key === currentMenuVal.value)?.text ?? ''
 })
 // #endregion
 
@@ -753,7 +755,7 @@ const handleSave = () => {
 }
 
 const containerMaxHeight = computed(() => {
-  return isMobile.value ? '650px' : '495px'
+  return isMobile.value ? '460px' : '535px'
 })
 </script>
 
@@ -761,22 +763,25 @@ const containerMaxHeight = computed(() => {
   <MyModal
     v-model:show="showModal"
     max-width="800px"
-    :height="isMobile ? '650px' : '660px'"
+    :height="isMobile ? '650px' : '670px'"
     header-padding="var(--n-padding-top) var(--n-padding-left) 5px var(--n-padding-left)"
+    content-padding="0 var(--n-padding-left) 0 var(--n-padding-left)"
     @on-load="onLoad"
   >
     <template #header>
       <div class="card-title">
         <n-icon><SettingsSharp /></n-icon>
         <span class="title">{{ t('偏好设置') }}</span>
+        <span class="description">[{{ currentGroupName }}]</span>
       </div>
     </template>
 
-    <n-layout has-sider>
+    <n-layout v-if="!isMobile" has-sider>
       <n-layout-sider
+        v-model:collapsed="formUserConfigData.preference_menu_folded"
         collapse-mode="width"
-        :collapsed-width="110"
-        :width="195"
+        :collapsed-width="105"
+        :width="180"
         show-trigger="arrow-circle"
         content-style="padding: 24px;"
         bordered
@@ -809,6 +814,41 @@ const containerMaxHeight = computed(() => {
         </div>
       </n-layout-content>
     </n-layout>
+    <n-tabs
+      v-else
+      animated
+      type="line"
+      placement="top"
+      default-value="general"
+      style="height: 100%;"
+      v-model:value="currentMenuVal"
+    >
+      <n-tab-pane
+        v-for="(group, index) in preferenceMenuOptions.map(option => option.children).flat()"
+        :key="index"
+        :name="group.key"
+      >
+        <template #tab>
+          <div class="tab-title">
+            <n-icon :size="20"><component :is="group.icon" /></n-icon>
+          </div>
+        </template>
+        <div class="items-container" :style="{ maxHeight: containerMaxHeight }">
+          <SettingItem
+            v-for="item in currentUPSettings"
+            :key="item.key"
+            v-model:form-data="formUserConfigData"
+            :setting-item="item"
+          />
+          <SettingItem
+            v-for="item in currentFPSettings"
+            :key="item.key"
+            v-model:form-data="formFuncConfigData"
+            :setting-item="item"
+          />
+        </div>
+      </n-tab-pane>
+    </n-tabs>
 
     <template #action>
       <div class="submit-container">
@@ -824,9 +864,6 @@ const containerMaxHeight = computed(() => {
 </template>
 
 <style scoped>
-:deep(.n-card-header) {
-  padding-bottom: 0 !important;
-}
 :deep(.n-scrollbar-content) {
   padding: 5px !important;
 }
@@ -840,6 +877,16 @@ const containerMaxHeight = computed(() => {
 }
 :deep(.n-menu-item-content) {
   padding-left: 36px !important;
+}
+:deep(.n-layout-content>.n-layout-scroll-container) {
+  padding: 14px 24px !important;
+}
+:deep(.n-tabs-pane-wrapper) {
+  height: 100%;
+  .n-tab-pane {
+    height: 100%;
+    padding: 12px 0;
+  }
 }
 
 .items-container {
