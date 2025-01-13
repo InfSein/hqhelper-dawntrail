@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import {
   NCascader, NCollapse, NCollapseItem, NIcon, NInput, NRadioButton, NRadioGroup, NSelect, NSwitch
 } from 'naive-ui'
@@ -15,7 +15,21 @@ const formData = defineModel<any>('formData', { required: true })
 interface SettingItemProps {
   settingItem: SettingItem
 }
-defineProps<SettingItemProps>()
+const props = defineProps<SettingItemProps>()
+
+const warnings = computed(() => {
+  const warns : {
+    value: string; class: string; style: string;
+  }[] = []
+  const oriwarns = props.settingItem.warnings ?? []
+  if (props.settingItem.require_reload) {
+    warns.push({
+      value: t('修改此选项的设置后需要刷新一次页面方可生效。'),
+      class: '', style: ''
+    })
+  }
+  return [...warns, ...oriwarns]
+})
 </script>
 
 <template>
@@ -44,7 +58,7 @@ defineProps<SettingItemProps>()
     </n-collapse>
     <div class="item-descriptions">
       <p
-        v-for="(warning, index) in settingItem.warnings"
+        v-for="(warning, index) in warnings"
         :key="settingItem.key + '-warning-' + index"
         :class="warning.class"
         :style="warning.style"

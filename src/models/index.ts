@@ -38,4 +38,5 @@ export interface SettingItem {
   type: 'radio-group' | 'switch' | 'select' | 'cascader' | 'string'
   multiple?: boolean
   options?: CascaderOption[]
+  require_reload?: boolean
 }

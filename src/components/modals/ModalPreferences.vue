@@ -32,6 +32,7 @@ const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const showModal = defineModel<boolean>('show', { required: true })
 const emit = defineEmits(['close', 'afterSubmit'])
@@ -91,7 +92,8 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: 'zh', label: '简体中文' },
               { value: 'en', label: 'English' },
               { value: 'ja', label: '日本語' }
-            ]
+            ],
+            require_reload: true
           },
           {
             key: 'language_item',
@@ -106,7 +108,8 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: 'zh', label: '简体中文' },
               { value: 'en', label: 'English' },
               { value: 'ja', label: '日本語' }
-            ]
+            ],
+            require_reload: true
           },
           {
             key: 'item_server',
@@ -120,14 +123,14 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: 'auto', label: t('自动') },
               { value: 'chs', label: t('国服') },
               { value: 'global', label: t('国际服') }
-            ]
+            ],
+            require_reload: true
           },
           {
             key: 'action_after_savesettings',
             label: t('保存设置后自动刷新'),
             warnings: dealDescriptions([
-              t('此设置修改后本次保存便会生效。'),
-              t('从功能窗口点击设置按钮跳转到此页面时，仅会在需要刷新的时候执行自动刷新。'),
+              t('此设置修改后本次保存便会生效。另外，仅会在需要刷新的时候执行自动刷新。')
             ]),
             type: 'radio-group',
             options: [
@@ -169,7 +172,8 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: '14px', label: t('标准') },
               { value: '15px', label: t('较大') },
               { value: '16px', label: t('更大') },
-            ]
+            ],
+            require_reload: true
           },
           {
             key: 'custom_font',
@@ -180,7 +184,8 @@ const preferenceGroups : PreferenceGroup[] = [
               t('字体名称出现空格时，建议用英文的单引号或双引号来将其包裹，例如"思源黑体 CN Medium"。'),
               t('如果你对CSS有所了解，可以直接参照font-family的语法来填写。'),
             ]),
-            type: 'string'
+            type: 'string',
+            require_reload: true
           },
           {
             key: 'hide_collector_icons',
@@ -289,13 +294,15 @@ const preferenceGroups : PreferenceGroup[] = [
                 style: ''
               }
             ],
-            type: 'switch'
+            type: 'switch',
+            require_reload: true
           },
           {
             key: 'enable_dev_mode',
             label: t('启用开发者模式'),
             hide: !window.electronAPI?.openDevTools,
-            type: 'switch'
+            type: 'switch',
+            require_reload: true
           }
         ]
       },
@@ -387,10 +394,8 @@ const preferenceGroups : PreferenceGroup[] = [
               t('在2.0.10版本，我们添加了专业版制作报表，提供更详细的物品信息表格，并支持根据已准备素材计算尚需素材。'),
               t('如果你并不需要这些功能，或是更喜欢旧版本制作报表的风格，可以考虑打开此选项。'),
             ]),
-            warnings: dealDescriptions([
-              t('修改此选项的设置后需要刷新一次页面方可生效。')
-            ]),
-            type: 'switch'
+            type: 'switch',
+            require_reload: true
           },
           {
             key: 'prostate_concise_mode',
@@ -440,9 +445,12 @@ const preferenceGroups : PreferenceGroup[] = [
               t('适用于“{f}”功能。', t('成本/收益预估')),
               t('下方的输入框支持通过输入关键词来检索选项。'),
             ]),
-            warnings: dealDescriptions([
-              t('修改此选项的设置后需要刷新一次页面方可生效。')
-            ]),
+            warnings: [
+              {
+                value: t('注意：修改此设置将会清除所有已获取的物品价格缓存！'),
+                class: 'red', style: ''
+              }
+            ],
             type: 'cascader',
             options: [
             {
@@ -593,7 +601,8 @@ const preferenceGroups : PreferenceGroup[] = [
                   },
                 ]
               },
-            ]
+            ],
+            require_reload: true
           },
           {
             key: 'universalis_priceType',
@@ -727,6 +736,7 @@ const onLoad = () => {
 
 const handleSave = () => {
   // * 处理偏好设置
+  const oldUserConfig = deepCopy(fixUserConfig(store.state.userConfig))
   formUserConfigData.value.theme ??= 'system'
   formUserConfigData.value.language_ui ??= 'zh'
   formUserConfigData.value.language_item ??= 'auto'
@@ -742,41 +752,65 @@ const handleSave = () => {
   // * 处理功能设置
   const oldFuncConfig = deepCopy(fixFuncConfig(store.state.funcConfig, store.state.userConfig))
   if (formFuncConfigData.value.universalis_server !== oldFuncConfig?.universalis_server) {
-    if (confirm(t('由于修改了服务器，将清除已获取的物品价格缓存。') + '\n' + t('要继续吗?'))) {
-      formFuncConfigData.value.cache_item_prices = {}
-    } else {
-      return
-    }
+    formFuncConfigData.value.cache_item_prices = {}
   }
   const newFuncConfig = fixFuncConfig(formFuncConfigData.value)
   store.commit('setFuncConfig', newFuncConfig)
 
-  // * 确认刷新
-  const dealReload = () => {
-    setTimeout(() => {
-      location.reload()
-    }, 100) // 必须设置一个延迟，不然有些设置不会生效
-  }
-  const dealTip = () => {
-    NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
-  }
-  if (formUserConfigData.value.action_after_savesettings === 'reload') {
-    dealReload()
-  } else if (formUserConfigData.value.action_after_savesettings === 'none') {
-    dealTip()
-  } else {
-    if (window.confirm(
-      t('偏好设置已经保存，不过部分改动需要刷新页面才能生效。')
-      + '\n' + t('要现在刷新吗?')
-    )) {
-      dealReload()
-    } else {
-      dealTip()
+  // * 判断是否需要刷新
+  let needReload = false
+  preferenceGroups[0].settings.forEach(setting => {
+    setting.children.forEach(item => {
+      if (item.require_reload) {
+        const key = item.key as keyof UserConfigModel
+        if (formUserConfigData.value[key] !== oldUserConfig?.[key]) {
+          needReload = true
+        }
+      }
+    })
+  })
+  preferenceGroups[1].settings.forEach(setting => {
+    setting.children.forEach(item => {
+      if (item.require_reload) {
+        const key = item.key as keyof FuncConfigModel
+        if (formFuncConfigData.value[key] !== oldFuncConfig?.[key]) {
+          needReload = true
+        }
+      }
+    })
+  })
+
+  // * 处理刷新
+  if (needReload) {
+    const dealReload = () => {
+      setTimeout(() => {
+        location.reload()
+      }, 100) // 必须设置一个延迟，不然有些设置不会生效
     }
+    const dealTip = () => {
+      NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
+    }
+    if (formUserConfigData.value.action_after_savesettings === 'reload') {
+      dealReload()
+    } else if (formUserConfigData.value.action_after_savesettings === 'none') {
+      dealTip()
+    } else {
+      if (window.confirm(
+        t('偏好设置已经保存，不过部分改动需要刷新页面才能生效。')
+        + '\n' + t('要现在刷新吗?')
+      )) {
+        dealReload()
+      } else {
+        dealTip()
+      }
+    }
+  } else {
+    NAIVE_UI_MESSAGE.success(t('保存成功'))
   }
 
   // * 结算
   showModal.value = false
+  appForceUpdate()
   emit('afterSubmit')
 }
 
@@ -802,7 +836,7 @@ const containerMaxHeight = computed(() => {
       </div>
     </template>
 
-    <n-layout v-if="!isMobile" has-sider>
+    <n-layout v-if="!isMobile" has-sider style="background-color: var(--n-color-modal);">
       <n-layout-sider
         v-model:collapsed="formUserConfigData.preference_menu_folded"
         collapse-mode="width"
@@ -816,6 +850,7 @@ const containerMaxHeight = computed(() => {
           trigger: 'none',
           style: {}
         }"
+        style="background-color: var(--n-color-modal);"
         :style="{ maxHeight: containerMaxHeight }"
       >
         <n-menu
@@ -823,7 +858,7 @@ const containerMaxHeight = computed(() => {
           :options="preferenceMenuOptions"
         />
       </n-layout-sider>
-      <n-layout-content content-style="padding: 24px;">
+      <n-layout-content content-style="padding: 24px;" style="background-color: var(--n-color-modal);">
         <div class="items-container" :style="{ maxHeight: containerMaxHeight }">
           <SettingItem
             v-for="item in currentUPSettings"
