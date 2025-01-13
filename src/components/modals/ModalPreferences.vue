@@ -122,6 +122,20 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: 'global', label: t('国际服') }
             ]
           },
+          {
+            key: 'action_after_savesettings',
+            label: t('保存设置后自动刷新'),
+            warnings: dealDescriptions([
+              t('此设置修改后本次保存便会生效。'),
+              t('从功能窗口点击设置按钮跳转到此页面时，仅会在需要刷新的时候执行自动刷新。'),
+            ]),
+            type: 'radio-group',
+            options: [
+              { value: 'ask', label: t('每次询问') },
+              { value: 'reload', label: t('自动刷新') },
+              { value: 'none', label: t('不刷新') }
+            ]
+          }
         ]
       },
       /* Appearance */
@@ -271,7 +285,7 @@ const preferenceGroups : PreferenceGroup[] = [
             warnings: [
               {
                 value: t('注意：禁用工作状态记忆后，已记录的工作状态将被立即删除！'),
-                class: 'font-center red',
+                class: 'red',
                 style: ''
               }
             ],
@@ -738,15 +752,27 @@ const handleSave = () => {
   store.commit('setFuncConfig', newFuncConfig)
 
   // * 确认刷新
-  if (window.confirm(
-    t('偏好设置已经保存，不过部分改动需要刷新页面才能生效。')
-    + '\n' + t('要现在刷新吗?')
-  )) {
+  const dealReload = () => {
     setTimeout(() => {
       location.reload()
     }, 100) // 必须设置一个延迟，不然有些设置不会生效
-  } else {
+  }
+  const dealTip = () => {
     NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
+  }
+  if (formUserConfigData.value.action_after_savesettings === 'reload') {
+    dealReload()
+  } else if (formUserConfigData.value.action_after_savesettings === 'none') {
+    dealTip()
+  } else {
+    if (window.confirm(
+      t('偏好设置已经保存，不过部分改动需要刷新页面才能生效。')
+      + '\n' + t('要现在刷新吗?')
+    )) {
+      dealReload()
+    } else {
+      dealTip()
+    }
   }
 
   // * 结算
