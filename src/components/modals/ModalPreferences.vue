@@ -21,6 +21,7 @@ import {
   SaveOutlined
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
+import AboutApp from '../custom/general/AboutApp.vue'
 import SettingItem from '../custom/general/SettingItem.vue'
 import { useStore } from '@/store/index'
 import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
@@ -814,8 +815,15 @@ const handleSave = () => {
   emit('afterSubmit')
 }
 
+const pageMaxHeightPx = computed(() => {
+  return isMobile.value ? 460 : 535
+})
+const menuMaxHeight = computed(() => {
+  return pageMaxHeightPx.value + 'px'
+})
 const containerMaxHeight = computed(() => {
-  return isMobile.value ? '460px' : '535px'
+  const padding = isMobile.value ? 24 : 28
+  return (pageMaxHeightPx.value - padding) + 'px'
 })
 </script>
 
@@ -851,7 +859,7 @@ const containerMaxHeight = computed(() => {
           style: {}
         }"
         style="background-color: var(--n-color-modal);"
-        :style="{ maxHeight: containerMaxHeight }"
+        :style="{ maxHeight: menuMaxHeight }"
       >
         <n-menu
           v-model:value="currentMenuVal"
@@ -872,6 +880,7 @@ const containerMaxHeight = computed(() => {
             v-model:form-data="formFuncConfigData"
             :setting-item="item"
           />
+          <AboutApp v-if="currentMenuVal === 'about_app'" />
         </div>
       </n-layout-content>
     </n-layout>
@@ -907,6 +916,7 @@ const containerMaxHeight = computed(() => {
             v-model:form-data="formFuncConfigData"
             :setting-item="item"
           />
+          <AboutApp v-if="currentMenuVal === 'about_app'" />
         </div>
       </n-tab-pane>
     </n-tabs>

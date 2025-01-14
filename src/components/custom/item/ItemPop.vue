@@ -588,7 +588,7 @@ const innerPopTrigger = computed(() => {
           </div>
           <n-divider class="item-divider" />
           <div class="content">
-            <div class="content-item-prices">
+            <div v-if="itemPriceInfo.prices.length" class="content-item-prices">
               <div></div>
               <div class="bold font-center">NQ</div>
               <div class="bold font-center">HQ</div>
@@ -596,10 +596,13 @@ const innerPopTrigger = computed(() => {
                 v-for="(price, index) in itemPriceInfo.prices"
                 :key="'price-' + index"
               >
-                <div class="bold">{{ price.name }}</div>
+                <div>{{ price.name }}</div>
                 <div class="font-center">{{ price.priceNq }}</div>
                 <div class="font-center">{{ price.priceHq }}</div>
               </template>
+            </div>
+            <div v-else style="text-indent: 1em;">
+              {{ t('还没有设置要显示哪些价格类型。请在偏好设置的“{option}”设置项中进行配置。', t('在物品悬浮窗中显示的类型')) }}
             </div>
           </div>
         </div>
