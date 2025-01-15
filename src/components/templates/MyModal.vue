@@ -31,6 +31,12 @@ interface MyModalProps {
   extraStyle?: string
   /** 控制内容样式。 */
   contentStyle?: string
+  /** 控制 `extra-header` 区域的按钮。 */
+  extraHeaderButtons?: {
+    text: string
+    icon: Component
+    onClick: (...args: any[]) => void
+  }[]
 }
 const props = defineProps<MyModalProps>()
 const emit = defineEmits([
@@ -86,10 +92,22 @@ const handleClose = () => {
       </template>
 
       <template #header-extra>
-        <n-button v-if="showSetting" quaternary size="small" class="square-action" @click="handleShowFuncPreference">
-          <n-icon><SettingsSharp /></n-icon>
-          <div class="unshow-text">{{ t('设置') }}</div>
-        </n-button>
+        <div class="extra-header-container">
+          <n-button
+            v-for="(btn, btnIndex) in extraHeaderButtons"
+            :key="btnIndex"
+            quaternary size="small"
+            class="square-action"
+            @click="btn.onClick"
+          >
+            <n-icon :component="btn.icon" />
+            <div class="unshow-text">{{ btn.text }}</div>
+          </n-button>
+          <n-button v-if="showSetting" quaternary size="small" class="square-action" @click="handleShowFuncPreference">
+            <n-icon><SettingsSharp /></n-icon>
+            <div class="unshow-text">{{ t('设置') }}</div>
+          </n-button>
+        </div>
       </template>
 
       <slot />
@@ -110,29 +128,34 @@ const handleClose = () => {
   padding: var(--content-padding);
 }
 
-.square-action {
-  width: 22px;
-  height: 22px;
-  padding: 2px;
-  font-size: 18px;
+.extra-header-container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  white-space: nowrap;
-  transition: width 0.3s ease;
 
-  .unshow-text {
-    font-size: 16px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  .square-action {
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: width 0.3s ease;
+
+    .unshow-text {
+      font-size: 16px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
   }
-}
-.square-action:hover {
-  width: auto;
-  
-  .unshow-text {
-    opacity: 1;
+  .square-action:hover {
+    width: auto;
+    
+    .unshow-text {
+      opacity: 1;
+    }
   }
 }
 </style>

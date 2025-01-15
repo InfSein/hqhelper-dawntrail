@@ -18,6 +18,7 @@ import {
   AttachMoneyOutlined,
   InfoOutlined,
   // WifiRound,
+  ArchiveSharp, UnarchiveSharp,
   SaveOutlined
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
@@ -815,6 +816,29 @@ const handleSave = () => {
   emit('afterSubmit')
 }
 
+// #region 导入/导出设置
+
+const extraHeaderButtons = computed(() => {
+  return [
+    {
+      icon: ArchiveSharp,
+      text: t('导入'),
+      onClick: () => {
+        alert('hao')
+      }
+    },
+    {
+      icon: UnarchiveSharp,
+      text: t('导出'),
+      onClick: () => {
+        alert('buhao')
+      }
+    }
+  ]
+})
+
+// #endregion
+
 const pageMaxHeightPx = computed(() => {
   return isMobile.value ? 460 : 535
 })
@@ -834,6 +858,7 @@ const containerMaxHeight = computed(() => {
     :height="isMobile ? '650px' : '670px'"
     header-padding="var(--n-padding-top) var(--n-padding-left) 5px var(--n-padding-left)"
     content-padding="0 var(--n-padding-left) 0 var(--n-padding-left)"
+    :extra-header-buttons="extraHeaderButtons"
     @on-load="onLoad"
   >
     <template #header>

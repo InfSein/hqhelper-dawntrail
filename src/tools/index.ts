@@ -12,6 +12,15 @@ export const deepCopy = <T>(obj: T): T => {
   }
 }
 
+/** 压缩字符串 */
+export const compressString = (input: string): string => {
+  return btoa(encodeURIComponent(input))
+}
+/** 解压缩字符串 */
+export const decompressString = (input: string): string => {
+  return decodeURIComponent(atob(input))
+}
+
 export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 /**
