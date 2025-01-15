@@ -4,8 +4,9 @@ import {
   NCascader, NCollapse, NCollapseItem, NIcon, NInput, NRadioButton, NRadioGroup, NSelect, NSwitch
 } from 'naive-ui'
 import {
-  HelpOutlineRound
+  KeyboardArrowRightOutlined
 } from '@vicons/material'
+import HelpButton from './HelpButton.vue'
 import type { SettingItem } from '@/models'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -22,12 +23,12 @@ const warnings = computed(() => {
     value: string; class: string; style: string;
   }[] = []
   const oriwarns = props.settingItem.warnings ?? []
-  if (props.settingItem.require_reload) {
-    warns.push({
-      value: t('修改此选项的设置后需要刷新一次页面方可生效。'),
-      class: '', style: ''
-    })
-  }
+  // if (props.settingItem.require_reload) {
+  //   warns.push({
+  //     value: t('修改此选项的设置后需要刷新一次页面方可生效。'),
+  //     class: '', style: ''
+  //   })
+  // }
   return [...warns, ...oriwarns]
 })
 </script>
@@ -38,9 +39,15 @@ const warnings = computed(() => {
       <n-collapse-item>
         <template #header>
           <div class="item-title">{{ settingItem.label }}</div>
+          <HelpButton
+            v-if="settingItem.require_reload"
+            icon="warning"
+            color="#F0A020"
+            :descriptions="[t('修改此选项的设置后需要刷新一次页面方可生效。')]"
+          />
         </template>
         <template #arrow>
-          <n-icon v-if="settingItem.descriptions?.length" :title="t('点击以展开或折叠此设置项的描述')"><HelpOutlineRound /></n-icon>
+          <n-icon v-if="settingItem.descriptions?.length" :title="t('点击以展开或折叠此设置项的描述')"><KeyboardArrowRightOutlined /></n-icon>
           <n-icon v-else></n-icon>
         </template>
 
