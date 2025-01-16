@@ -7,7 +7,7 @@ import {
 import StaffGroup from './StaffGroup.vue'
 import { DataAboutApp } from '@/data/about-app'
 import AppStatus from '@/variables/app-status'
-import type { StaffMember } from '@/models/about-app'
+import { createStaffMember, type StaffMember } from '@/models/about-app'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -19,56 +19,46 @@ onMounted(async () => {
   }
 })
 
-const members : Record<string, StaffMember> = {
-  infsein: {
-    name: 'InfSein',
-    avatar_url: 'https://avatars.githubusercontent.com/u/54071139?v=4',
-    introductions: [
-      '我问了整个猫小胖，他们都说我是最帅的肥'
-    ],
-    pages: [
-      { name: 'Github', url: 'https://github.com/InfSein' }
+const members = {
+  infsein: createStaffMember(
+    "InfSein",
+    "https://avatars.githubusercontent.com/u/54071139?v=4",
+    ["我问了整个猫小胖，他们都说我是最帅的肥"],
+    [{ name: "Github", url: "https://github.com/InfSein" }]
+  ),
+  nbb: createStaffMember(
+    "N.B.B",
+    "https://avatars.githubusercontent.com/u/7787811?v=4",
+    ["画饼砖家"],
+    [{ name: "nbbjack.com", url: "https://nbbjack.com/" }]
+  ),
+  yakita: createStaffMember(
+    "夜北Yakita",
+    "./image/staff/lt-yakita.jpg",
+    ["简直是世间精品库啵"],
+    [
+      { name: "BiliLive", url: "https://b23.tv/IwuuPBI" },
+      { name: "Weibo", url: "https://weibo.com/n/%E5%A4%9C%E5%8C%97yakita" }
     ]
-  },
-  nbb: {
-    name: 'N.B.B',
-    avatar_url: 'https://avatars.githubusercontent.com/u/7787811?v=4',
-    introductions: [
-      '画饼砖家'
-    ],
-    pages: [
-      { name: 'nbbjack.com', url: 'https://nbbjack.com/' }
-    ]
-  },
-  yakita: {
-    name: '夜北Yakita',
-    avatar_url: './image/staff/lt-yakita.jpg',
-    introductions: [
-      '简直是世间精品库啵'
-    ],
-    pages: [
-      { name: 'BiliLive', url: 'https://b23.tv/IwuuPBI' },
-      { name: 'Weibo', url: 'https://weibo.com/n/%E5%A4%9C%E5%8C%97yakita' }
-    ]
-  },
-  kimuchi: {
-    name: 'Kim',
-    avatar_url: 'https://avatars.githubusercontent.com/u/44747407?v=4',
-    introductions: [],
-    pages: [
-      { name: 'Github', url: 'https://github.com/kimuchidev' }
-    ]
-  },
-  wcy: {
-    name: 'joj',
-    avatar_url: './image/staff/client-wcy.jpg',
-    introductions: [
-      '在线求职'
-    ],
-    pages: [
-      { name: 'Github', url: 'https://github.com/wanchenyang521' }
-    ]
-  }
+  ),
+  kimuchi: createStaffMember(
+    "Kim",
+    "https://avatars.githubusercontent.com/u/44747407?v=4",
+    [],
+    [{ name: "Github", url: "https://github.com/kimuchidev" }]
+  ),
+  wcy: createStaffMember(
+    "joj",
+    "./image/staff/client-wcy.jpg",
+    ["在线求职"],
+    [{ name: "Github", url: "https://github.com/wanchenyang521" }]
+  ),
+  etnatker: createStaffMember(
+    "etnAtker",
+    "https://avatars.githubusercontent.com/u/20952240?v=4",
+    [],
+    [{ name: "Github", url: "https://github.com/etnAtker" }]
+  )
 }
 
 const currentElectronVersion = ref('')
@@ -101,75 +91,17 @@ const cnVersionText = computed(() => {
             <tr>
               <td>{{ t('制作人') }}</td>
               <td>
-                <StaffGroup :group-members="[members.infsein]" />
-                <br>
-                oth...
+                <StaffGroup :group-members="[members.infsein, members.nbb, members.yakita]" />
               </td>
             </tr>
             <tr>
-              <td>{{ t('其他贡献者') }}</td>
+              <td>{{ t('贡献者') }}</td>
               <td>
-                oth...
+                <StaffGroup :group-members="[members.wcy, members.kimuchi, members.etnatker]" />
               </td>
             </tr>
           </tbody>
         </n-table>
-        <div
-          v-for="(group, index) in DataAboutApp.staffs"
-          :key="'staff-group-' + index"
-          class="staff-group"
-        >
-          <div class="group-title">{{ t(group.group_name) }}</div>
-          <div class="group-content">
-            <div
-              v-for="(subgroup, sgIndex) in group.sub_groups"
-              :key="'staff-subgroup-' + index + '-' + sgIndex"
-              class="staff-subgroup"
-            >
-              <div class="subgroup-title">{{ t(subgroup.group_name) }}</div>
-              <div class="subgroup-content">
-                <n-popover :placement="isMobile ? 'bottom' : 'right'" v-for="(member, mIndex) in subgroup.members"
-                :key="'staff-member-' + index + '-' + sgIndex + '-' + mIndex">
-                  <template #trigger>
-                    <div class="subgroup-item">
-                      <div class="member-avatar">
-                        <n-avatar round :size="15" :src="member.avatar_url"
-                          fallback-src="./image/game-job/companion/none.png" />
-                      </div>
-                      <div class="member-name">
-                        <a href="javascript:void(0);">{{ member.name }}</a>
-                      </div>
-                    </div>
-                  </template>
-                  <div class="intro-popover">
-                    <div class="base-info">
-                      <div class="avatar">
-                        <n-avatar round size="medium" :src="member.avatar_url"
-                          fallback-src="./image/game-job/companion/none.png" />
-                      </div>
-                      <div class="name title">{{ member.name }}</div>
-                    </div>
-                    <n-divider />
-                    <div class="intro">
-                      <p v-for="(intro, i) in member.introductions" :key="member.name + '-intro-' + i">
-                        {{ intro }}
-                      </p>
-                    </div>
-                    <div class="tail">
-                      <div class="title">{{ t('个人主页：') }}</div>
-                      <div class="pages">
-                        <a target="_blank" v-for="(page, pIndex) in member.pages"
-                          :key="member.name + '-page-' + pIndex" :href="page.url">
-                          {{ page.name }}
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </n-popover>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
     <n-divider />
@@ -206,12 +138,6 @@ const cnVersionText = computed(() => {
 </template>
 
 <style scoped>
-:deep(.n-tabs-pane-wrapper) {
-  height: 100%;
-  .n-tab-pane {
-    height: 100%;
-  }
-}
 .n-divider {
   margin: 10px 0;
 }
@@ -257,81 +183,22 @@ const cnVersionText = computed(() => {
       margin-top: 0.5rem;
     }
     .staff-table {
+      margin-top: 5px;
+
+      td {
+        padding: 3px 6px;
+      }
       tr td:first-child {
         font-weight: bold;
         background-color: var(--n-th-color);
-        width: 100px;
-      }
-    }
-  }
-
-  #staffs {
-    .content .staff-group {
-      .group-title {
-        font-size: 15px;
-        font-weight: bold;
-      }
-      .group-content {
-        display: flex;
-        flex-direction: column;
-        margin-left: 1em;
-
-        .staff-subgroup {
-          display: flex;
-          align-items: center;
-          gap: 3px;
-
-          .subgroup-title {
-            font-weight: bold;
-          }
-          .subgroup-title::after {
-            content: " -";
-          }
-          .subgroup-content {
-            display: flex;
-            gap: 5px;
-
-            .subgroup-item {
-              display: flex;
-              align-items: center;
-              line-height: 20px;
-              
-              .member-avatar {
-                display: flex;
-                align-items: center;
-              }
-              .member-name {
-                text-indent: initial;
-              }
-            }
-          }
-        }
+        width: fit-content;
+        text-align: center;
       }
     }
   }
 }
 
-.intro-popover {
-  width: 220px;
-  max-width: 98%;
 
-  .base-info {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    line-height: 15px;
-
-    .name {
-      font-size: 20px;
-    }
-  }
-  .tail {
-    margin-top: 5px;
-  }
-  .title {
-    font-weight: bold;
-  }
-}
 
 /* Desktop */
 @media screen and (min-width: 768px) {
