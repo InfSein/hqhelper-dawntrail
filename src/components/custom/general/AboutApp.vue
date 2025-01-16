@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, ref, type Ref } from 'vue'
 import {
-  NAvatar, NButton, NDivider, NFlex, NPopover
+  NAvatar, NButton, NDivider, NFlex, NPopover, NTable
 } from 'naive-ui'
 //import { InfoSharp } from '@vicons/material'
+import StaffGroup from './StaffGroup.vue'
 import { DataAboutApp } from '@/data/about-app'
 import AppStatus from '@/variables/app-status'
+import type { StaffMember } from '@/models/about-app'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -17,6 +19,58 @@ onMounted(async () => {
   }
 })
 
+const members : Record<string, StaffMember> = {
+  infsein: {
+    name: 'InfSein',
+    avatar_url: 'https://avatars.githubusercontent.com/u/54071139?v=4',
+    introductions: [
+      '我问了整个猫小胖，他们都说我是最帅的肥'
+    ],
+    pages: [
+      { name: 'Github', url: 'https://github.com/InfSein' }
+    ]
+  },
+  nbb: {
+    name: 'N.B.B',
+    avatar_url: 'https://avatars.githubusercontent.com/u/7787811?v=4',
+    introductions: [
+      '画饼砖家'
+    ],
+    pages: [
+      { name: 'nbbjack.com', url: 'https://nbbjack.com/' }
+    ]
+  },
+  yakita: {
+    name: '夜北Yakita',
+    avatar_url: './image/staff/lt-yakita.jpg',
+    introductions: [
+      '简直是世间精品库啵'
+    ],
+    pages: [
+      { name: 'BiliLive', url: 'https://b23.tv/IwuuPBI' },
+      { name: 'Weibo', url: 'https://weibo.com/n/%E5%A4%9C%E5%8C%97yakita' }
+    ]
+  },
+  kimuchi: {
+    name: 'Kim',
+    avatar_url: 'https://avatars.githubusercontent.com/u/44747407?v=4',
+    introductions: [],
+    pages: [
+      { name: 'Github', url: 'https://github.com/kimuchidev' }
+    ]
+  },
+  wcy: {
+    name: 'joj',
+    avatar_url: './image/staff/client-wcy.jpg',
+    introductions: [
+      '在线求职'
+    ],
+    pages: [
+      { name: 'Github', url: 'https://github.com/wanchenyang521' }
+    ]
+  }
+}
+
 const currentElectronVersion = ref('')
 
 const cnVersionText = computed(() => {
@@ -26,10 +80,11 @@ const cnVersionText = computed(() => {
 
 <template>
   <div class="wrapper">
-    <div class="title flex">
+    <div class="logo">
       <i class="xiv hq logo-about"></i>
       HqHelper
     </div>
+    <n-divider />
     <div class="version-info">
       <div>{{ t('当前网页版本：{v}', AppStatus.Version) }}</div>
       <div v-if="currentElectronVersion">{{ t('当前客户端版本：{v}', currentElectronVersion) }}</div>
@@ -41,6 +96,24 @@ const cnVersionText = computed(() => {
     <div id="staffs">
       <div class="title">{{ t('创作人员') }}</div>
       <div class="content">
+        <n-table class="staff-table" :single-line="false" size="small">
+          <tbody>
+            <tr>
+              <td>{{ t('制作人') }}</td>
+              <td>
+                <StaffGroup :group-members="[members.infsein]" />
+                <br>
+                oth...
+              </td>
+            </tr>
+            <tr>
+              <td>{{ t('其他贡献者') }}</td>
+              <td>
+                oth...
+              </td>
+            </tr>
+          </tbody>
+        </n-table>
         <div
           v-for="(group, index) in DataAboutApp.staffs"
           :key="'staff-group-' + index"
@@ -148,10 +221,23 @@ const cnVersionText = computed(() => {
   flex-direction: column;
   user-select: text;
   overflow-y: auto;
+  padding-right: 5px;
 
+  .logo {
+    display: flex;
+    align-self: center;
+    text-align: center;
+    user-select: none;
+    font-size: 32px;
+    font-weight: 900;
+    margin: 0.5em 0;
+    padding: 0.1em 0.5em;
+    border-radius: 6px;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  }
   .title {
-    font-size: 16px;
     font-weight: bold;
+    margin-left: 1.2em;
   }
   .version-info {
     line-height: 1.3;
@@ -161,6 +247,7 @@ const cnVersionText = computed(() => {
   .content {
     display: flex;
     flex-direction: column;
+    margin: 0 2.4em;
     text-indent: 1.2em;
 
     .extra {
@@ -168,6 +255,13 @@ const cnVersionText = computed(() => {
       color: gray;
       text-indent: initial;
       margin-top: 0.5rem;
+    }
+    .staff-table {
+      tr td:first-child {
+        font-weight: bold;
+        background-color: var(--n-th-color);
+        width: 100px;
+      }
     }
   }
 
@@ -244,7 +338,7 @@ const cnVersionText = computed(() => {
   .version-info {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 10px;
+    column-gap: 12px;
   }
 }
 
