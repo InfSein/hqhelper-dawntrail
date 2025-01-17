@@ -74,9 +74,8 @@ const getTradeCost = (row: StatementRow) => {
             :src="XivJobs[item.info.craftInfo.jobId].job_icon_url"
             :size="12"
           />
-          <span>{{ getJobName(XivJobs[item.info.craftInfo.jobId]) }}</span>
           <span>
-            {{ t('{lv}级', item.info.craftInfo.craftLevel) }}{{ '★'.repeat(item.info.craftInfo?.starCount || 0) }}
+            {{ getJobName(XivJobs[item.info.craftInfo.jobId]) + ' ' + t('{lv}级', item.info.craftInfo.craftLevel) + '★'.repeat(item.info.craftInfo?.starCount || 0) }}
           </span>
         </div>
         <div v-if="item.info.gatherInfo?.jobId" class="cell gatherer">
