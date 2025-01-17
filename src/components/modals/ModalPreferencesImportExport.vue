@@ -9,7 +9,7 @@ import {
   ContentCopyRound, FileDownloadOutlined
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
-import { CopyToClipboard } from '@/tools'
+import { CopyToClipboard, deepCopy } from '@/tools'
 import { exportPreferences, importPreferences } from '@/tools/preferences'
 import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
@@ -61,6 +61,15 @@ const handleCopy = async () => {
 const handleImport = () => {
   try {
     const { u, f } = importPreferences(importContent.value)
+    const oldu = deepCopy(userConfigModel.value)
+    const oldf = deepCopy(funcConfigModel.value)
+    // 处理一些导入不会有的缓存，这些仍旧使用旧设置
+    u.cache_work_state = oldu.cache_work_state
+    u.fthelper_cache_work_state = oldu.fthelper_cache_work_state
+    u.gatherclock_cache_work_state = oldu.gatherclock_cache_work_state
+    if (f.universalis_server === oldf.universalis_server) {
+      f.cache_item_prices = oldf.cache_item_prices
+    }
     userConfigModel.value = fixUserConfig(u)
     funcConfigModel.value = fixFuncConfig(f)
     handleClose()

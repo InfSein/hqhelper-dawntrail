@@ -1,4 +1,5 @@
 import clipBoard from "vue-clipboard3"
+import * as LzString from 'lz-string'
 
 const Clip = clipBoard
 const { toClipboard } = Clip()
@@ -14,11 +15,11 @@ export const deepCopy = <T>(obj: T): T => {
 
 /** 压缩字符串 */
 export const compressString = (input: string): string => {
-  return btoa(encodeURIComponent(input))
+  return LzString.compressToBase64(input)
 }
 /** 解压缩字符串 */
 export const decompressString = (input: string): string => {
-  return decodeURIComponent(atob(input))
+  return LzString.decompressFromBase64(input)
 }
 
 export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
