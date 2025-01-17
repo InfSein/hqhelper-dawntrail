@@ -25,6 +25,7 @@ import {
 import MyModal from '../templates/MyModal.vue'
 import AboutApp from '../custom/general/AboutApp.vue'
 import SettingItem from '../custom/general/SettingItem.vue'
+import ModalPreferencesImportExport from './ModalPreferencesImportExport.vue'
 import { useStore } from '@/store/index'
 import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { deepCopy } from '@/tools'
@@ -852,6 +853,8 @@ const handleSave = () => {
 
 // #region 导入/导出设置
 
+const showImportExportModal = ref(false)
+const importExportAction = ref<"import" | "export">('import')
 const extraHeaderButtons = computed(() => {
   if (props.appShowUp || props.appShowFp) {
     return [] // 为了避免可能的稀奇古怪的 bug
@@ -861,14 +864,16 @@ const extraHeaderButtons = computed(() => {
       icon: ArchiveSharp,
       text: t('导入'),
       onClick: () => {
-        alert('hao')
+        importExportAction.value = 'import'
+        showImportExportModal.value = true
       }
     },
     {
       icon: UnarchiveSharp,
       text: t('导出'),
       onClick: () => {
-        alert('buhao')
+        importExportAction.value = 'export'
+        showImportExportModal.value = true
       }
     }
   ]
@@ -982,6 +987,13 @@ const containerMaxHeight = computed(() => {
         </div>
       </n-tab-pane>
     </n-tabs>
+
+    <ModalPreferencesImportExport
+      v-model:show="showImportExportModal"
+      v-model:user-config="formUserConfigData"
+      v-model:func-config="formFuncConfigData"
+      :action="importExportAction"
+    />
 
     <template #action>
       <div class="submit-container">

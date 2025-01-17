@@ -13,16 +13,9 @@ export const exportPreferences = (userConfig: UserConfigModel, funcConfig: FuncC
 }
 
 export const importPreferences = (str: string) => {
-  try {
-    const o = JSON.parse(decompressString(str)) as Preferences
-    return {
-      u: fixUserConfig(o.u),
-      f: fixFuncConfig(o.f, o.u)
-    }
-  } catch (e) {
-    return {
-      u: fixUserConfig(),
-      f: fixFuncConfig()
-    }
+  const o = JSON.parse(decompressString(str)) as Preferences
+  return {
+    u: fixUserConfig(o.u),
+    f: fixFuncConfig(o.f, o.u)
   }
 }
