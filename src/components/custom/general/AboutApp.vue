@@ -1,22 +1,58 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, type Ref } from 'vue'
+import { inject, onMounted, ref } from 'vue'
 import {
-  NAvatar, NButton, NDivider, NFlex, NPopover, NTable
+  NAlert, NButton, NDivider, NFlex, NIcon, NSpin, NTable
 } from 'naive-ui'
-//import { InfoSharp } from '@vicons/material'
+import {
+  RefreshOutlined
+} from '@vicons/material'
 import StaffGroup from './StaffGroup.vue'
-import { DataAboutApp } from '@/data/about-app'
 import AppStatus from '@/variables/app-status'
-import { createStaffMember, type StaffMember } from '@/models/about-app'
+import { createStaffMember } from '@/models/about-app'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+// const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+
+const currentElectronVersion = ref('')
+const sponsorsGen1 = ref<string[]>([])
+const sponsorsGen2 = ref<string[]>([])
+const sponsorLoadingStatus = ref<"finished" | "loading" | "error">('loading')
+const sponsorLoadError = ref('')
+
+const loadSponsors = async () => {
+  try {
+    sponsorLoadingStatus.value = 'loading'
+    sponsorLoadError.value = ''
+    sponsorsGen1.value = []
+    sponsorsGen2.value = []
+    let loadSponsorsResponse : string
+    let url = document?.location?.origin + document.location.pathname + 'data/sponsors.json'
+    if (window.electronAPI?.httpGet) {
+      url = 'https://hqhelper.nbb.fan/data/sponsors.json'
+      loadSponsorsResponse = await window.electronAPI.httpGet(url)
+    } else {
+      loadSponsorsResponse = await fetch(url)
+        .then(response => response.text())
+    }
+    const sponsorsContent = JSON.parse(loadSponsorsResponse) as {
+      sponsors_gen1: string[],
+      sponsors_gen2: string[]
+    }
+    sponsorsGen1.value = sponsorsContent.sponsors_gen1
+    sponsorsGen2.value = sponsorsContent.sponsors_gen2
+    sponsorLoadingStatus.value = 'finished'
+  } catch (e: any) {
+    sponsorLoadingStatus.value = 'error'
+    sponsorLoadError.value = e?.message ?? 'UNKNOWN ERROR' + e
+  }
+}
 
 onMounted(async () => {
   if (window.electronAPI?.clientVersion) {
     currentElectronVersion.value = await window.electronAPI?.clientVersion
   }
+  await loadSponsors()
 })
 
 const members = {
@@ -60,12 +96,6 @@ const members = {
     [{ name: "Github", url: "https://github.com/etnAtker" }]
   )
 }
-
-const currentElectronVersion = ref('')
-
-const cnVersionText = computed(() => {
-  return t('国服数据版本：{}', AppStatus.SupportedGameVersion.CN)
-})
 </script>
 
 <template>
@@ -77,9 +107,8 @@ const cnVersionText = computed(() => {
     <n-divider />
     <div class="version-info">
       <div>{{ t('当前网页版本：{v}', AppStatus.Version) }}</div>
-      <div v-if="currentElectronVersion">{{ t('当前客户端版本：{v}', currentElectronVersion) }}</div>
-      <div v-else />
-      <div v-if="cnVersionText">{{ cnVersionText }}</div>
+      <div>{{ currentElectronVersion ? t('当前客户端版本：{v}', currentElectronVersion) : '' }}</div>
+      <div>{{ t('国服数据版本：{}', AppStatus.SupportedGameVersion.CN) }}</div>
       <div>{{ t('国际服数据版本：{}', AppStatus.SupportedGameVersion.GLOBAL) }}</div>
     </div>
     <n-divider />
@@ -105,25 +134,30 @@ const cnVersionText = computed(() => {
       </div>
     </div>
     <n-divider />
-    <div id="copyright">
-      <div class="title">{{ t('版权信息') }}</div>
-      <div class="content">
-        <p v-for="(cr, crIndex) in DataAboutApp.copyrights" :key="'copyright-' + crIndex">{{ t(cr) }}</p>
-        <div class="extra font-small">
-          FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd. <br>
-          Copyrighted Materials are extracted from FINAL FANTASY XIV © 2010 - 2019 SQUARE ENIX CO., LTD. All Rights Reserved.
-        </div>
-      </div>
-    </div>
-    <n-divider />
     <div id="thanks-donate">
       <div class="title">{{ t('致谢：赞助') }}</div>
       <div class="content">
         <p>{{ t('HqHelper的诞生与持续开发离不开用户的支持。') }}</p>
         <p class="bold">{{ t('特别感谢以下用户对前代HqHelper项目的赞助：') }}</p>
-        <n-flex size="small" style="margin: 5px 0 0 2em;">
+        <div v-if="sponsorLoadingStatus === 'loading'" class="sponsor-spin-container">
+          <n-spin size="small" style="text-indent: initial;" />
+          <div>{{ t('正在加载……') }}</div>
+        </div>
+        <n-alert
+          v-else-if="sponsorLoadingStatus === 'error'"
+          type="error"
+          :title="t('加载失败')"
+          class="sponsor-alert-container"
+        >
+          <div>{{ sponsorLoadError }}</div>
+          <a @click="loadSponsors">
+            <n-icon :size="14"><RefreshOutlined /></n-icon>
+            {{ t('重试') }}
+          </a>
+        </n-alert>
+        <n-flex v-else size="small" style="margin: 5px 0 0 2em;">
           <n-button
-            v-for="(sponsor, i) in DataAboutApp.sponsors_gen1"
+            v-for="(sponsor, i) in sponsorsGen1"
             :key="'sponsor-g1-'+i"
             type="warning"
             dashed
@@ -134,12 +168,24 @@ const cnVersionText = computed(() => {
         </n-flex>
       </div>
     </div>
+    <n-divider />
+    <div id="copyright">
+      <div class="content">
+        <div class="extra font-small">
+          FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd. <br>
+          Copyrighted Materials are extracted from FINAL FANTASY XIV © 2010 - 2019 SQUARE ENIX CO., LTD. All Rights Reserved.
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .n-divider {
   margin: 10px 0;
+}
+:deep(.n-spin) {
+  --n-size: 14px !important;
 }
 
 .wrapper {
@@ -192,7 +238,28 @@ const cnVersionText = computed(() => {
         font-weight: bold;
         background-color: var(--n-th-color);
         width: fit-content;
+        min-width: 60px;
         text-align: center;
+      }
+    }
+    .sponsor-spin-container {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      margin: 5px 0 0 2em;
+      text-indent: initial;
+    }
+    .sponsor-alert-container {
+      margin: 5px 2em 0 2em;
+
+      a {
+        padding: 0;
+        margin-left: 3px;
+        display: flex;
+        line-height: 1;
+        cursor: pointer;
+        width: fit-content;
+        text-indent: initial;
       }
     }
   }

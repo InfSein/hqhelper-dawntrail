@@ -21,6 +21,7 @@ onMounted(() => {
   <div class="member-group">
     <n-popover
       :placement="isMobile ? 'bottom' : 'right-start'"
+      :trigger="isMobile ? 'click' : 'hover'"
       v-for="(member, mIndex) in groupMembers"
       :key="'staff-member-' + mIndex"
     >
@@ -47,8 +48,7 @@ onMounted(() => {
         <div class="tail">
           <div class="title">{{ t('个人主页：') }}</div>
           <div class="pages">
-            <a target="_blank" v-for="(page, pIndex) in member.pages"
-              :key="member.name + '-page-' + pIndex" :href="page.url">
+            <a target="_blank" v-for="(page, pIndex) in member.pages" :key="member.name + '-page-' + pIndex" :href="page.url">
               {{ page.name }}
             </a>
           </div>
@@ -64,6 +64,7 @@ onMounted(() => {
 }
 .member-group {
   display: flex;
+  flex-wrap: wrap;
   gap: 1px;
 
   .member {
