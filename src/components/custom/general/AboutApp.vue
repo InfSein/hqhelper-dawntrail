@@ -161,7 +161,7 @@ const members = {
             {{ t('重试') }}
           </a>
         </n-alert>
-        <n-flex v-else size="small" style="margin: 5px 0 0 2em;">
+        <n-flex v-else size="small" style="margin: 5px 0 0 1.2em;">
           <n-button
             v-for="(sponsor, i) in sponsorsGen1"
             :key="'sponsor-g1-'+i"
@@ -226,7 +226,6 @@ const members = {
     display: flex;
     flex-direction: column;
     margin: 0 2.4em;
-    text-indent: 1.2em;
 
     .extra {
       line-height: 1.2;
@@ -252,11 +251,11 @@ const members = {
       display: flex;
       align-items: center;
       gap: 3px;
-      margin: 5px 0 0 2em;
+      margin: 5px 0 0 1.2em;
       text-indent: initial;
     }
     .sponsor-alert-container {
-      margin: 5px 2em 0 2em;
+      margin: 5px 2em 0 1.2em;
 
       a {
         padding: 0;
