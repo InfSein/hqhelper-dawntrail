@@ -37,7 +37,10 @@ onMounted(() => {
             <n-avatar round size="medium" :src="member.avatar_url"
               fallback-src="./image/game-job/companion/none.png" />
           </div>
-          <div class="name title">{{ member.name }}</div>
+          <div class="text">
+            <div class="name">{{ member.name }}</div>
+            <div class="desc">{{ member.desc }}</div>
+          </div>
         </div>
         <n-divider />
         <div class="intro">
@@ -60,7 +63,7 @@ onMounted(() => {
 
 <style scoped>
 .n-divider {
-  margin: 10px 0;
+  margin: 5px 0;
 }
 .member-group {
   display: flex;
@@ -82,15 +85,20 @@ onMounted(() => {
 .intro-popover {
   width: 220px;
   max-width: 98%;
+  user-select: text;
 
   .base-info {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: auto 1fr;
     gap: 5px;
-    line-height: 15px;
+    line-height: 1.2;
 
     .name {
-      font-size: 20px;
+      font-weight: bold;
+      font-size: calc(var(--n-font-size) + 2px);
+    }
+    .desc {
+      font-size: calc(var(--n-font-size) - 2px);
     }
   }
   .tail {

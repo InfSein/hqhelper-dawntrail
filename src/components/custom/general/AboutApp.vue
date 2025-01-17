@@ -59,18 +59,21 @@ const members = {
   infsein: createStaffMember(
     "InfSein",
     "https://avatars.githubusercontent.com/u/54071139?v=4",
+    t('负责全部设计开发工作'),
     ["我问了整个猫小胖，他们都说我是最帅的肥"],
     [{ name: "Github", url: "https://github.com/InfSein" }]
   ),
   nbb: createStaffMember(
     "N.B.B",
     "https://avatars.githubusercontent.com/u/7787811?v=4",
+    t('负责提供游戏数据和托管支持'),
     ["画饼砖家"],
     [{ name: "nbbjack.com", url: "https://nbbjack.com/" }]
   ),
   yakita: createStaffMember(
     "夜北Yakita",
     "./image/staff/lt-yakita.jpg",
+    t('负责UI的日语国际化和前瞻物品名的中文翻译'),
     ["简直是世间精品库啵"],
     [
       { name: "BiliLive", url: "https://b23.tv/IwuuPBI" },
@@ -80,18 +83,21 @@ const members = {
   kimuchi: createStaffMember(
     "Kim",
     "https://avatars.githubusercontent.com/u/44747407?v=4",
+    t('贡献了初期的UI日语国际化'),
     [],
     [{ name: "Github", url: "https://github.com/kimuchidev" }]
   ),
   wcy: createStaffMember(
     "joj",
     "./image/staff/client-wcy.jpg",
+    t('贡献了初版客户端框架'),
     ["在线求职"],
     [{ name: "Github", url: "https://github.com/wanchenyang521" }]
   ),
   etnatker: createStaffMember(
     "etnAtker",
     "https://avatars.githubusercontent.com/u/20952240?v=4",
+    t('贡献了以Teamcraft格式展示材料清单的功能'),
     [],
     [{ name: "Github", url: "https://github.com/etnAtker" }]
   )
