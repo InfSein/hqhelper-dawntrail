@@ -11,7 +11,7 @@ import MyModal from '../templates/MyModal.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'
 import ItemSpan from '../custom/item/ItemSpan.vue'
 import LocationSpan from '../custom/map/LocationSpan.vue'
-import ModalFuncPreferences from './ModalFuncPreferences.vue'
+import ModalPreferences from './ModalPreferences.vue'
 import { type UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
 import { type ItemInfo } from '@/tools/item'
@@ -24,7 +24,7 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
-const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
+// const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const NAIVE_UI_MESSAGE = useMessage()
   
 const showModal = defineModel<boolean>('show', { required: true })
@@ -340,9 +340,9 @@ const isItemGatherableNow = (item: ItemInfo) => {
   return gatherable
 }
 
-const showFuncPreferencesModal = ref(false)
+const showPreferencesModal = ref(false)
 const handleSettingButtonClick = () => {
-  showFuncPreferencesModal.value = true
+  showPreferencesModal.value = true
 }
 </script>
 
@@ -454,10 +454,10 @@ const handleSettingButtonClick = () => {
       </div>
     </template>
     
-    <ModalFuncPreferences
-      v-model:show="showFuncPreferencesModal"
+    <ModalPreferences
+      v-model:show="showPreferencesModal"
       setting-group="recomm_process"
-      @after-submit="appForceUpdate"
+      app-show-fp
     />
   </MyModal>
 </template>

@@ -6,6 +6,7 @@ import {
 } from 'naive-ui'
 import {
   SettingsSharp,
+  SettingsSuggestFilled,
   TravelExploreRound,
   TrendingUpRound,
   ColorLensRound,
@@ -28,7 +29,7 @@ import { useStore } from '@/store/index'
 import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { deepCopy } from '@/tools'
 import type { PreferenceGroup } from '@/models'
-import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
+import { fixFuncConfig, type FuncConfigKey, type FuncConfigModel } from '@/models/config-func'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -38,6 +39,14 @@ const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const showModal = defineModel<boolean>('show', { required: true })
 const emit = defineEmits(['close', 'afterSubmit'])
+interface ModalPreferencesProps {
+  settingGroup?: FuncConfigKey
+  /** (仅限APP使用) 仅展示偏好设置项目 */
+  appShowUp?: boolean
+  /** (仅限APP使用) 仅展示功能设置项目 */
+  appShowFp?: boolean
+}
+const props = defineProps<ModalPreferencesProps>()
 
 // #region data
 const dealSimOptions = (options: string[]) => {
@@ -716,11 +725,29 @@ const preferenceMenuOptions = computed(() => {
     }
   })
 })
+const appPreferenceTabs = computed(() => {
+  let target = preferenceGroups.map(group => group.settings).flat()
+  if (props.appShowUp) {
+    target = preferenceGroups[0].settings
+  } else if (isMobile.value && props.appShowFp) {
+    target = preferenceGroups[1].settings
+  }
+  return target
+})
 const currentUPSettings = computed(() => {
   return preferenceGroups[0].settings.find(setting => setting.key === currentMenuVal.value)?.children ?? []
 })
 const currentFPSettings = computed(() => {
   return preferenceGroups[1].settings.find(setting => setting.key === currentMenuVal.value)?.children ?? []
+})
+const modalTitle = computed(() => {
+  let icon = SettingsSharp
+  let text = t('偏好设置')
+  if (isMobile.value && props.appShowFp) {
+    icon = SettingsSuggestFilled
+    text = t('功能设置')
+  }
+  return { icon, text }
 })
 const currentGroupName = computed(() => {
   return preferenceGroups.map(group => group.settings).flat().find(setting => setting.key === currentMenuVal.value)?.text ?? ''
@@ -732,6 +759,13 @@ const formUserConfigData = ref<UserConfigModel>(deepCopy(fixUserConfig(store.sta
 const formFuncConfigData = ref<FuncConfigModel>(deepCopy(fixFuncConfig(store.state.funcConfig, store.state.userConfig)))
 
 const onLoad = () => {
+  if (props.settingGroup) {
+    currentMenuVal.value = props.settingGroup
+  } else if (props.appShowFp) {
+    currentMenuVal.value = 'copy_macro'
+  } else {
+    currentMenuVal.value = 'general'
+  }
   formUserConfigData.value = deepCopy(fixUserConfig(store.state.userConfig))
   formFuncConfigData.value = deepCopy(fixFuncConfig(store.state.funcConfig, store.state.userConfig))
 }
@@ -819,6 +853,9 @@ const handleSave = () => {
 // #region 导入/导出设置
 
 const extraHeaderButtons = computed(() => {
+  if (props.appShowUp || props.appShowFp) {
+    return [] // 为了避免可能的稀奇古怪的 bug
+  }
   return [
     {
       icon: ArchiveSharp,
@@ -863,8 +900,8 @@ const containerMaxHeight = computed(() => {
   >
     <template #header>
       <div class="card-title">
-        <n-icon><SettingsSharp /></n-icon>
-        <span class="title">{{ t('偏好设置') }}</span>
+        <n-icon :component="modalTitle.icon" />
+        <span class="title">{{ modalTitle.text }}</span>
         <span class="description">[{{ currentGroupName }}]</span>
       </div>
     </template>
@@ -919,7 +956,7 @@ const containerMaxHeight = computed(() => {
       v-model:value="currentMenuVal"
     >
       <n-tab-pane
-        v-for="(group, index) in preferenceMenuOptions.map(option => option.children).flat()"
+        v-for="(group, index) in appPreferenceTabs"
         :key="index"
         :name="group.key"
       >
