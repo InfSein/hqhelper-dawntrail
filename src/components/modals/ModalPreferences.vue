@@ -454,7 +454,7 @@ const preferenceGroups : PreferenceGroup[] = [
             key: 'universalis_server',
             label: t('服务器'),
             descriptions: dealDescriptions([
-              t('适用于“{f}”功能。', t('成本/收益预估')),
+              t('适用于“{f}”功能和物品悬浮窗中的价格模块。', t('成本/收益预估')),
               t('下方的输入框支持通过输入关键词来检索选项。'),
             ]),
             warnings: [
@@ -642,7 +642,7 @@ const preferenceGroups : PreferenceGroup[] = [
             key: 'universalis_expireTime',
             label: t('缓存有效期'),
             descriptions: dealDescriptions([
-              t('适用于“{f}”功能。', t('成本/收益预估')),
+              t('适用于“{f}”功能和物品悬浮窗中的价格模块。', t('成本/收益预估')),
               t('程序会将获取到的物品价格缓存。一旦超出设置的有效期，就需要重新获取价格信息。'),
               t('设定时间过短，会导致计算价格的效率降低；设置时间过长，则会导致结果过时。'),
             ]),
@@ -681,6 +681,9 @@ const preferenceGroups : PreferenceGroup[] = [
           {
             key: 'universalis_showpriceinpop',
             label: t('在物品悬浮窗中显示'),
+            descriptions: dealDescriptions([
+              t('在各个物品按钮/信息图标的悬浮窗中追加“价格”模块。只有可交易的道具才会显示。'),
+            ]),
             type: 'switch'
           },
           {

@@ -91,7 +91,7 @@ const handleImport = () => {
   >
     <div class="wrapper" ref="wrapper">
       <div class="desc">
-        <p v-if="action === 'export'">{{ t('现在你可以将本设备的偏好设置/功能设置导出到其他设备了。') }}</p>
+        <p v-if="action === 'export'">{{ t('现在你可以将本设备的偏好设置/功能设置导出到其他设备了。不包括物品价格等缓存。') }}</p>
         <p v-if="action === 'export'">{{ t('请注意：导出的内容会根据偏好设置窗口的当前设置生成，而非已经保存的设置。') }}</p>
         <p v-if="action === 'import'">{{ t('在这里导入其他设备导出的设置，从而保持同步。') }}</p>
         <p v-if="action === 'import'">{{ t('导入之后请在偏好设置窗口确认更改。直到你点击保存前，实际设置不会变化。') }}</p>

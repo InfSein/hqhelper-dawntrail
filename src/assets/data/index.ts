@@ -73,8 +73,9 @@ export interface XivUnpackedItem {
   hq: boolean
   dye: number
   act: number
-  bon: number
-  reduce: boolean
+  tradable: boolean
+  bon: boolean
+  reduce: number
   elv: number
   jobs: number
   ms: number

@@ -73,10 +73,12 @@ export interface IItem {
     act: number;
     /**  */
     desy?: number;
+    /** 可否交易 */
+    tradable: boolean
     /**  */
-    bon?: number;
+    bon?: boolean;
     /** 可否精选 */
-    reduce: boolean;
+    reduce: number;
     /** 装备等级 */
     elv: number;
     /** 职业组 */

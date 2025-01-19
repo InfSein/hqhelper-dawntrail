@@ -27,7 +27,7 @@ const phItem : XivUnpackedItem = {
   pc: -1,
   mkc: -1,
   rids: [], ilv: -1, sc: 0, hq: false,
-  dye: 0, act: 0, bon: 0, reduce: false,
+  dye: 0, act: 0, tradable: false, bon: false, reduce: 0,
   elv: 0, ms: 0, bpm: [], spm: [], 
   jobs: 0, jd: false, p: '', actParm: []
 }
@@ -83,6 +83,8 @@ export interface ItemInfo {
   uiTypeNameEN: string
   uiTypeNameZH: string
   uiTypeIconUrl: string
+  /** 可否交易 */
+  tradable: boolean
   /** 是否使用了中文暂译 */
   usedZHTemp?: boolean
   /**
@@ -233,6 +235,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.descEN = _item.desc[1]
   itemInfo.descZH = _item.desc[2]
   itemInfo.patch = _item.p || '7.05'
+  itemInfo.tradable = _item.tradable
 
   // * 针对还没有中文名/中文描述的道具，尝试从暂译表中获取暂译
   if (!itemInfo.name_zh) {

@@ -565,7 +565,7 @@ const innerPopTrigger = computed(() => {
             </div>
           </div>
         </div>
-        <div class="description-block" v-if="funcConfig.universalis_showpriceinpop">
+        <div class="description-block" v-if="funcConfig.universalis_showpriceinpop && itemInfo.tradable">
           <div class="title">
             {{ t('价格') }}
             <div class="extra flex">
