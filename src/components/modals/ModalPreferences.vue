@@ -885,7 +885,7 @@ const extraHeaderButtons = computed(() => {
 // #endregion
 
 const pageMaxHeightPx = computed(() => {
-  return isMobile.value ? 460 : 535
+  return isMobile.value ? 400 : 535
 })
 const menuMaxHeight = computed(() => {
   return pageMaxHeightPx.value + 'px'
@@ -900,7 +900,7 @@ const containerMaxHeight = computed(() => {
   <MyModal
     v-model:show="showModal"
     max-width="800px"
-    :height="isMobile ? '650px' : '670px'"
+    :height="isMobile ? '590px' : '670px'"
     header-padding="var(--n-padding-top) var(--n-padding-left) 5px var(--n-padding-left)"
     content-padding="0 var(--n-padding-left) 0 var(--n-padding-left)"
     :extra-header-buttons="extraHeaderButtons"
