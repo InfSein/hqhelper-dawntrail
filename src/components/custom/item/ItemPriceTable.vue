@@ -36,9 +36,13 @@ const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
     }
   } else {
     const p = Math.floor(price)
+    const tooltipForNoPrice = t('没有获取到价格。') + '\n' + t('可能原因：物品未实装/交易数据不足')
+    const styleForNoPrice = 'cursor: help; text-decoration: underline dashed gray;'
     return {
-      price: p,
-      total: p * item.amount
+      price: p ? p : '???',
+      total: p ? p * item.amount : '???',
+      tooltip: p ? '' : tooltipForNoPrice,
+      style: p ? '' : styleForNoPrice
     }
   }
 }
@@ -70,10 +74,14 @@ const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
               {{ item.amount }}
             </td>
             <td>
-              {{ getItemPrice(item, priceType).price }}
+              <span :style="getItemPrice(item, priceType).style" :title="getItemPrice(item, priceType).tooltip">
+                {{ getItemPrice(item, priceType).price }}
+              </span>
             </td>
             <td>
-              {{ getItemPrice(item, priceType).total }}
+              <span :style="getItemPrice(item, priceType).style" :title="getItemPrice(item, priceType).tooltip">
+                {{ getItemPrice(item, priceType).total }}
+              </span>
             </td>
           </tr>
         </tbody>
