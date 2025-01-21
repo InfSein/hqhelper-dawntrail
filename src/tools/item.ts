@@ -27,7 +27,7 @@ const phItem : XivUnpackedItem = {
   pc: -1,
   mkc: -1,
   rids: [], ilv: -1, sc: 0, hq: false,
-  dye: 0, act: 0, tradable: false, bon: false, reduce: 0,
+  dye: 0, act: 0, tradable: false, collectable: false, reduce: false,
   elv: 0, ms: 0, bpm: [], spm: [], 
   jobs: 0, jd: false, p: '', actParm: []
 }

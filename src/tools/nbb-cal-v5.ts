@@ -76,7 +76,7 @@ export interface IItem {
     /** 可否交易 */
     tradable: boolean
     /**  */
-    bon?: boolean;
+    collectable: boolean;
     /** 可否精选 */
     reduce: number;
     /** 装备等级 */
