@@ -239,10 +239,21 @@ const itemPriceInfo = computed(() => {
 
   // 组装各个类型的价格
   const prices = funcConfig.value.universalis_poppricetypes.map(priceType => {
+    const priceNq = Math.floor(priceInfo?.[`${priceType}NQ`] ?? 0) || '???'
+    const priceHq = Math.floor(priceInfo?.[`${priceType}HQ`] ?? 0) || '???'
+    const tooltipForNoPrice = t('没有价格。') + '\n' + t('可能原因：未获取过价格/物品未实装或不存在此品质/交易数据不足')
+    const styleForNoPrice = 'cursor: help; text-decoration: underline dashed gray;'
+    let tipNq = '', tipHq = '', styleNq = '', styleHq = ''
+    if (priceNq === '???') {
+      tipNq = tooltipForNoPrice; styleNq = styleForNoPrice
+    }
+    if (priceHq === '???') {
+      tipHq = tooltipForNoPrice; styleHq = styleForNoPrice
+    }
     return {
       name: getPriceTypeName(priceType),
-      priceNq: Math.floor(priceInfo?.[`${priceType}NQ`] ?? 0) || '???',
-      priceHq: Math.floor(priceInfo?.[`${priceType}HQ`] ?? 0) || '???'
+      priceNq, tipNq, styleNq,
+      priceHq, tipHq, styleHq
     }
     function getPriceTypeName(ptype: ItemPriceType) {
       switch (ptype) {
@@ -590,15 +601,17 @@ const innerPopTrigger = computed(() => {
           <div class="content">
             <div v-if="itemPriceInfo.prices.length" class="content-item-prices">
               <div></div>
-              <div class="bold font-center">NQ</div>
-              <div class="bold font-center">HQ</div>
+              <div class="font-center">[NQ]</div>
+              <div v-if="itemInfo.hqable" class="font-center">[HQ]</div>
+              <div v-else />
               <template
                 v-for="(price, index) in itemPriceInfo.prices"
                 :key="'price-' + index"
               >
                 <div>{{ price.name }}</div>
-                <div class="font-center">{{ price.priceNq }}</div>
-                <div class="font-center">{{ price.priceHq }}</div>
+                <div class="font-center" :style="price.styleNq" :title="price.tipNq">{{ price.priceNq }}</div>
+                <div v-if="itemInfo.hqable" class="font-center" :style="price.styleHq" :title="price.tipHq">{{ price.priceHq }}</div>
+                <div v-else />
               </template>
             </div>
             <div v-else style="text-indent: 1em;">

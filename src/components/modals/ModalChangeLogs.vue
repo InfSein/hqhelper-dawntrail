@@ -81,6 +81,9 @@ const getChanges = (change: PatchChangeGroup) => {
   padding-top: 0 !important;
   padding: 10px 10px 0 15px !important;
 }
+:deep(.n-card__content) {
+  padding: 0 var(--n-padding-left) var(--n-padding-bottom) var(--n-padding-left);
+}
 /* All */
 .wrapper {
   display: flex;

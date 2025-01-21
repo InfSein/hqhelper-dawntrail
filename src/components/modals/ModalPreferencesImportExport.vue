@@ -59,6 +59,9 @@ const handleCopy = async () => {
   NAIVE_UI_MESSAGE.success(t('已复制到剪贴板'))
 }
 const handleImport = () => {
+  if (!importContent.value.length) {
+    NAIVE_UI_MESSAGE.error(t('请输入内容')); return
+  }
   try {
     const { u, f } = importPreferences(importContent.value)
     const oldu = deepCopy(userConfigModel.value)
