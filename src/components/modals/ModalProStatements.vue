@@ -236,7 +236,7 @@ const handleSettingButtonClick = () => {
     @on-setting-button-clicked="handleSettingButtonClick"
   >
     <template #header>
-      <div class="card-title">
+      <div class="card-title no-select">
         <n-icon><TableViewOutlined /></n-icon>
         <span class="title">
           {{ t('制作报表') }}

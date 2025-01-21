@@ -75,7 +75,6 @@ const handleClose = () => {
   <n-modal v-model:show="showModal">
     <n-card
       role="dialog"
-      class="no-select"
       style="width: 98%;"
       :style="containerStyle"
       :content-style="contentStyle"
@@ -84,7 +83,7 @@ const handleClose = () => {
     >
       <template #header>
         <slot name="header">
-          <div class="card-title">
+          <div class="card-title no-select">
             <n-icon v-if="!!icon" :component="icon" />
             <span class="title">{{ title }}</span>
           </div>

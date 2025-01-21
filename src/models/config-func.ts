@@ -23,7 +23,11 @@ export interface FuncConfigModel {
   prostate_concise_mode: boolean
 
   // * 推荐流程
+  /** 推荐流程：显示物品详情 */
   processes_show_item_details: boolean
+  /** 推荐流程：合并采集物品 */
+  processes_merge_gatherings: boolean
+  /** 推荐流程：制作物品排序规则 */
   processes_craftable_item_sortby: "itemId" | "recipeOrder"
 
   // * 物品价格
@@ -55,6 +59,7 @@ const defaultFuncConfig: FuncConfigModel = {
   prostate_concise_mode: false,
   // * 推荐流程
   processes_show_item_details: false,
+  processes_merge_gatherings: false,
   processes_craftable_item_sortby: 'itemId',
   // * 物品价格
   universalis_server: '红玉海',
