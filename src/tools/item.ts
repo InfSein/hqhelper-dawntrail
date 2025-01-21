@@ -27,7 +27,7 @@ const phItem : XivUnpackedItem = {
   pc: -1,
   mkc: -1,
   rids: [], ilv: -1, sc: 0, hq: false,
-  dye: 0, act: 0, bon: 0, reduce: false,
+  dye: 0, act: 0, tradable: false, collectable: false, reduce: false,
   elv: 0, ms: 0, bpm: [], spm: [], 
   jobs: 0, jd: false, p: '', actParm: []
 }
@@ -83,6 +83,10 @@ export interface ItemInfo {
   uiTypeNameEN: string
   uiTypeNameZH: string
   uiTypeIconUrl: string
+  /** 是否有 HQ 版本 */
+  hqable: boolean
+  /** 可否交易 */
+  tradable: boolean
   /** 是否使用了中文暂译 */
   usedZHTemp?: boolean
   /**
@@ -162,6 +166,10 @@ export interface ItemInfo {
     placeNameZH: string,
     placeNameJA: string,
     placeNameEN: string,
+    gntype_zh: string,
+    gntype_en: string,
+    gntype_ja: string,
+    folkloreId?: number,
     posX: number,
     posY: number,
     recommAetheryte?: XivMapAetheryteInfo,
@@ -229,6 +237,8 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.descEN = _item.desc[1]
   itemInfo.descZH = _item.desc[2]
   itemInfo.patch = _item.p || '7.05'
+  itemInfo.hqable = _item.hq
+  itemInfo.tradable = _item.tradable
 
   // * 针对还没有中文名/中文描述的道具，尝试从暂译表中获取暂译
   if (!itemInfo.name_zh) {
@@ -293,8 +303,17 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // * 组装物品采集信息
   const gatherData = XivUnpackedGatheringItems[itemID]
   if (gatherData) {
-    const gatherPointType = gatherData.type
-    const gatherJob = gatherPointType <= 1 ? 16 : 17 // * type 0123 分别是割草，伐木，采矿，碎石 (注：好像反了)
+    const gatherJob = gatherData.type <= 1 ? 16 /*采矿*/ : 17 /*园艺*/
+    let gntype_zh = '???', gntype_en = '???', gntype_ja = '???'
+    switch (gatherData.type) {
+      case 0: gntype_zh = '矿脉'; gntype_en = 'mineral deposit'; gntype_ja = '採掘'; break
+      case 1: gntype_zh = '石场'; gntype_en = 'rocky outcrop'; gntype_ja = '砕岩'; break
+      case 2: gntype_zh = '良材'; gntype_en = 'mature tree'; gntype_ja = '伐採'; break
+      case 3: gntype_zh = '草场'; gntype_en = 'lush vegetation'; gntype_ja = '草刈'; break
+    }
+    gntype_zh = gatherData.level + '级' + gntype_zh
+    gntype_en = 'Lv ' + gatherData.level + ' ' + gntype_en
+    gntype_ja = 'レベル' + gatherData.level + gntype_ja
     const territoryID = gatherData.territory
     if (territoryID && XivUnpackedTerritories[territoryID]) {
       const territoryData = XivUnpackedTerritories[territoryID]
@@ -312,11 +331,15 @@ export const getItemInfo = (item: number | CalculatedItem) => {
           placeNameZH: placeNameZH,
           placeNameJA: gatherPlaceData[0],
           placeNameEN: gatherPlaceData[1],
+          gntype_zh, gntype_en, gntype_ja,
           posX: Number(gatherData!.coords!.x),
           posY: Number(gatherData!.coords!.y),
           timeLimitInfo: [],
           timeLimitDescription: ''
         };
+        if (gatherData.folkloreBook) {
+          itemInfo.gatherInfo.folkloreId = gatherData.folkloreBook
+        }
         if (XivMaps[placeID]) {
           itemInfo.gatherInfo.recommAetheryte = getNearestAetheryte(XivMaps[placeID], itemInfo.gatherInfo.posX, itemInfo.gatherInfo.posY)
         }

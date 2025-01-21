@@ -9,6 +9,8 @@ export interface UserConfigModel {
   language_item: 'auto' | 'zh' | 'en' | 'ja'
   /** 服务器 */
   item_server: 'auto' | 'chs' | 'global'
+  /** 保存偏好设置后执行的操作 */
+  action_after_savesettings: 'ask' | 'reload' | 'none'
   // * appearance
   /** 主题 */
   theme: 'light' | 'dark' | 'system'
@@ -49,6 +51,7 @@ export interface UserConfigModel {
 
   // #region 隐藏的配置项/缓存
   last_triggered_egg: number
+  preference_menu_folded: boolean
   cache_lasttime_version: string
   cache_ui_fold: any
   cache_work_state: any
@@ -62,6 +65,7 @@ const defaultUserConfig: UserConfigModel = {
   language_ui: 'zh',
   language_item: 'auto',
   item_server: 'auto',
+  action_after_savesettings: 'ask',
   // appearance
   theme: 'light',
   custom_font: '',
@@ -85,6 +89,7 @@ const defaultUserConfig: UserConfigModel = {
 
   // hidden options
   last_triggered_egg: 0,
+  preference_menu_folded: false,
   cache_lasttime_version: 'none',
   cache_ui_fold: {}, // active cache, { key:string -> value:boolean }
   cache_work_state: {}, // active cache, view struct in `MainPage.vue` 's `workState`

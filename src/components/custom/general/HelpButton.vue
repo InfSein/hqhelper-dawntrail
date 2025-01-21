@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref, type PropType, type Ref } from 'vue'
+import { inject, ref, type Ref } from 'vue'
 import {
   NIcon, NTooltip
 } from 'naive-ui'
@@ -11,26 +11,19 @@ import {
 
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
-defineProps({
-  icon: {
-    type: String as PropType<"info" | "question" | "warning">,
-    default: 'info'
-  },
-  size: {
-    type: Number,
-    default: 18
-  },
-  descriptions: {
-    type: Array as PropType<string[]>,
-    default: () => []
-  },
-})
+interface HelpButtonProps {
+  icon: "info" | "question" | "warning"
+  color?: string,
+  size?: number,
+  descriptions?: string[]
+}
+defineProps<HelpButtonProps>()
 </script>
 
 <template>
   <n-tooltip :trigger="isMobile ? 'click' : 'hover'" placement="top" :style="isMobile ? 'max-width: 250px;' : ''">
     <template #trigger>
-      <n-icon size="18" style="display: flex;">
+      <n-icon :size="size ?? 18" :color="color" style="display: flex;">
         <InfoOutlined v-if="icon === 'info'" />
         <HelpOutlineRound v-else-if="icon === 'question'" />
         <ErrorOutlineRound v-else-if="icon === 'warning'" />

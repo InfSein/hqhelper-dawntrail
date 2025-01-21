@@ -10,8 +10,13 @@ export interface AppVersionJson {
   dlink_electron: string;
 }
 
+export interface PreferenceGroup {
+  key: "userConfig" | "funcConfig"
+  text: string
+  settings: SettingGroup[]
+}
 export interface SettingGroup {
-  key: UserConfigKey | FuncConfigKey
+  key: UserConfigKey | FuncConfigKey | "about_app"
   icon: Component
   text: string
   children: SettingItem[]
@@ -31,5 +36,7 @@ export interface SettingItem {
     style: string
   }[]
   type: 'radio-group' | 'switch' | 'select' | 'cascader' | 'string'
+  multiple?: boolean
   options?: CascaderOption[]
+  require_reload?: boolean
 }

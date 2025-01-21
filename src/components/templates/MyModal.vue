@@ -19,6 +19,10 @@ interface MyModalProps {
   title?: string
   /** 代表这是一个功能弹窗，并且可以关联到 `功能设置` 中的选项卡。 */
   showSetting?: boolean
+  /** 控制模态框标题的 `padding` 属性。 */
+  headerPadding?: string
+  /** 控制模态框内容的 `padding` 属性。 */
+  contentPadding?: string
   /** 控制模态框容器的最大宽度。默认为 `600px`。 */
   maxWidth?: string
   /** 控制模态框容器的高度。默认为 `auto`。 */
@@ -27,6 +31,12 @@ interface MyModalProps {
   extraStyle?: string
   /** 控制内容样式。 */
   contentStyle?: string
+  /** 控制 `extra-header` 区域的按钮。 */
+  extraHeaderButtons?: {
+    text: string
+    icon: Component
+    onClick: (...args: any[]) => void
+  }[]
 }
 const props = defineProps<MyModalProps>()
 const emit = defineEmits([
@@ -43,7 +53,9 @@ watch(showModal, async (newVal, oldVal) => {
 const containerStyle = computed(() => {
   let builtStyle = [
     'max-width: ' + (props.maxWidth ?? '600px'),
-    'height: ' + (props.height ?? 'auto')
+    'height: ' + (props.height ?? 'auto'),
+    '--header-padding: ' + (props.headerPadding ?? 'var(--n-padding-top) var(--n-padding-left) var(--n-padding-bottom) var(--n-padding-left)'),
+    '--content-padding: ' + (props.contentPadding ?? '0 var(--n-padding-left) var(--n-padding-bottom) var(--n-padding-left)')
   ].join('; ')
   if (props.extraStyle) {
     builtStyle += '; ' + props.extraStyle
@@ -80,10 +92,22 @@ const handleClose = () => {
       </template>
 
       <template #header-extra>
-        <n-button v-if="showSetting" quaternary size="small" class="square-action" @click="handleShowFuncPreference">
-          <n-icon><SettingsSharp /></n-icon>
-          <div class="unshow-text">{{ t('设置') }}</div>
-        </n-button>
+        <div class="extra-header-container">
+          <n-button
+            v-for="(btn, btnIndex) in extraHeaderButtons"
+            :key="btnIndex"
+            quaternary size="small"
+            class="square-action"
+            @click="btn.onClick"
+          >
+            <n-icon :component="btn.icon" />
+            <div class="unshow-text">{{ btn.text }}</div>
+          </n-button>
+          <n-button v-if="showSetting" quaternary size="small" class="square-action" @click="handleShowFuncPreference">
+            <n-icon><SettingsSharp /></n-icon>
+            <div class="unshow-text">{{ t('设置') }}</div>
+          </n-button>
+        </div>
       </template>
 
       <slot />
@@ -97,29 +121,41 @@ const handleClose = () => {
 </template>
 
 <style scoped>
-.square-action {
-  width: 22px;
-  height: 22px;
-  padding: 2px;
-  font-size: 18px;
+:deep(.n-card-header) {
+  padding: var(--header-padding);
+}
+:deep(.n-card__content) {
+  padding: var(--content-padding);
+}
+
+.extra-header-container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  white-space: nowrap;
-  transition: width 0.3s ease;
 
-  .unshow-text {
-    font-size: 16px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  .square-action {
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: width 0.3s ease;
+
+    .unshow-text {
+      font-size: 16px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
   }
-}
-.square-action:hover {
-  width: auto;
-  
-  .unshow-text {
-    opacity: 1;
+  .square-action:hover {
+    width: auto;
+    
+    .unshow-text {
+      opacity: 1;
+    }
   }
 }
 </style>
