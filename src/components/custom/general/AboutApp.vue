@@ -90,7 +90,7 @@ const members = {
   wcy: createStaffMember(
     "joj",
     "./image/staff/client-wcy.jpg",
-    t('贡献了初版客户端框架'),
+    t('贡献了初版Windows客户端框架'),
     ["在线求职"],
     [{ name: "Github", url: "https://github.com/wanchenyang521" }]
   ),
