@@ -121,7 +121,14 @@ const itemGroups = computed(() => {
     description?: string,
     items: ItemInfo[]
   }[] = []
-  const dealGatherings = (gathering: ItemInfo[], groupTitle: string, orderBy?: "map" | "start-time" | undefined) => {
+  const dealGatherings = (
+    gathering: ItemInfo[],
+    groupTitle: string,
+    orderBy?: "map" | "start-time",
+    mergeJobs?: {
+      iconUrl: string
+    }
+  ) => {
     if (!gathering?.length) return
     if (orderBy === 'map') {
       gathering.sort((a, b) => {
@@ -141,42 +148,28 @@ const itemGroups = computed(() => {
         return startA - startB
       })
     }
-    const itemsGatheredByBotanist : ItemInfo[] = []
-    const itemsGatheredByMiner : ItemInfo[] = []
-    const itemsGatheredByFisher : ItemInfo[] = []
-    gathering.forEach(item => {
-      switch(item.gatherInfo.jobId) {
-        case 16: itemsGatheredByMiner.push(item)
-          break
-        case 17: itemsGatheredByBotanist.push(item)
-          break
-        case 18: itemsGatheredByFisher.push(item)
-          break
-      }
-    })
-    if (itemsGatheredByMiner.length) {
-      const jobid = 16
+    if (mergeJobs) {
       groups.push({
-        title: groupTitle.replace('{job}', getJobName(XivJobs[jobid])),
-        icon: XivJobs[jobid].job_icon_url,
-        items: itemsGatheredByMiner
+        title: groupTitle,
+        icon: mergeJobs.iconUrl,
+        items: gathering
       })
-    }
-    if (itemsGatheredByBotanist.length) {
-      const jobid = 17
-      groups.push({
-        title: groupTitle.replace('{job}', getJobName(XivJobs[jobid])),
-        icon: XivJobs[jobid].job_icon_url,
-        items: itemsGatheredByBotanist
-      })
-    }
-    if (itemsGatheredByFisher.length) {
-      const jobid = 18
-      groups.push({
-        title: groupTitle.replace('{job}', getJobName(XivJobs[jobid])),
-        icon: XivJobs[jobid].job_icon_url,
-        items: itemsGatheredByFisher
-      })
+    } else {
+      const itemsGatheredBy = {
+        16: [], 17: [], 18: []
+      } as Record<number, ItemInfo[]>
+      gathering.forEach(item => {
+        itemsGatheredBy[item.gatherInfo.jobId].push(item)
+      });
+      ([16, 17, 18]).forEach(jobid => {
+        if (itemsGatheredBy[jobid].length) {
+          groups.push({
+            title: groupTitle.replace('{job}', getJobName(XivJobs[jobid])),
+            icon: XivJobs[jobid].job_icon_url,
+            items: itemsGatheredBy[jobid]
+          })
+        }
+      });
     }
   }
   const dealCraftings = (craftings: Record<number, ItemInfo[]>, groupTitle: string) => {
@@ -201,8 +194,17 @@ const itemGroups = computed(() => {
     })
   }
 
-  dealGatherings(itemsGatherableCommon, t('使用{job}采集(非限时)'), 'map')
-  dealGatherings(itemsGatherableLimited, t('使用{job}采集(限时)'), 'start-time')
+  if (funcConfig.value.processes_merge_gatherings) {
+    dealGatherings(itemsGatherableCommon, t('采集非限时道具'), 'map', {
+      iconUrl: './ui/gathering.png'
+    })
+    dealGatherings(itemsGatherableLimited, t('采集限时道具'), 'start-time', {
+      iconUrl: './ui/gathering-limited.png'
+    })
+  } else {
+    dealGatherings(itemsGatherableCommon, t('使用{job}采集(非限时)'), 'map')
+    dealGatherings(itemsGatherableLimited, t('使用{job}采集(限时)'), 'start-time')
+  }
   if (aethersands.length) {
     groups.push({
       title: t('筹集灵砂'),
@@ -434,6 +436,24 @@ const handleSettingButtonClick = () => {
                   <span v-if="showItemGatherDetails && item.gatherInfo?.placeID">{{ textsGatherAt.p2 }}</span>
                   <span style="margin-left: 1px;">)</span>
                 </div>
+                <div
+                  class="gather-detail-recomm"
+                  v-if="showItemGatherDetails && item.gatherInfo?.placeID && !completedItems[groupIndex][item.id]"
+                >
+                  <span v-if="funcConfig.processes_merge_gatherings" style="margin-right: 1px;">(</span>
+                  <span v-if="funcConfig.processes_merge_gatherings" class="flex-vac">
+                    <XivFARImage
+                      class="icon no-select"
+                      :src="XivJobs[item.gatherInfo.jobId].job_icon_url"
+                      :size="12"
+                    />
+                    <p>{{ getJobName(XivJobs[item.gatherInfo.jobId]) }}</p>
+                  </span>
+                  <span v-if="funcConfig.processes_merge_gatherings" style="margin: 0 3px 0 1px;">)</span>
+                  <span style="margin-right: 1px;">(</span>
+                  <span>{{ t('推荐传送点') }} - {{ item.gatherInfo.recommAetheryte?.[`name_${itemLanguage}`] }}</span>
+                  <span style="margin-left: 1px;">)</span>
+                </div>
               </div>
             </div>
           </n-collapse-item>
@@ -506,6 +526,7 @@ const handleSettingButtonClick = () => {
         gap: 3px;
       }
       .gather-detail-time,
+      .gather-detail-recomm,
       .gather-detail-position {
         display: flex;
         flex-wrap: wrap;

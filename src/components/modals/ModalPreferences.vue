@@ -431,6 +431,15 @@ const preferenceGroups : PreferenceGroup[] = [
             type: 'switch'
           },
           {
+            key: 'processes_merge_gatherings',
+            label: t('合并采集物品'),
+            type: 'switch',
+            descriptions: dealDescriptions([
+              t('将采矿工采集品和园艺工采集品合并。'),
+              t('例如，合并前为采矿非限时、园艺非限时、采矿限时、园艺限时，合并后为采集非限时、采集限时。'),
+            ])
+          },
+          {
             key: 'processes_craftable_item_sortby',
             label: t('制作物品排序规则'),
             type: 'select',
