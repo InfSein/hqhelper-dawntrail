@@ -4915,9 +4915,9 @@
       "data\\change-logs.ts"
     ]
   },
-  "追加了以下设置选项：[通用]{f1}; [物品价格]{f2}、{f3}。": {
-    "en": "Added the following setting options: [General]{f1}; [Item Prices]{f2}, {f3}.",
-    "ja": "以下の設定オプションを追加しました：[共通]{f1}; [アイテム価格]{f2}、{f3}。",
+  "追加了以下设置选项：[通用]{f1}; [物品价格]{f2}、{f3}; [推荐流程]{f4}。": {
+    "en": "Added the following setting options: [General]{f1}; [Item Prices]{f2}, {f3}; [Recomm. Process]{f4}.",
+    "ja": "以下の設定オプションを追加しました：[共通]{f1}; [アイテム価格]{f2}、{f3}; [推奨の回し]{f4}。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -5373,6 +5373,42 @@
     "ja": "再試行",
     "$files": [
       "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "合并采集物品": {
+    "en": "Merge gatherable items",
+    "ja": "合并采集物品",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "将采矿工采集品和园艺工采集品合并。": {
+    "en": "Merge groups divided by gathering jobs.",
+    "ja": "将采矿工采集品和园艺工采集品合并。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "例如，合并前为采矿非限时、园艺非限时、采矿限时、园艺限时，合并后为采集非限时、采集限时。": {
+    "en": "For example, before merge: MIN(unlimited), BTN(unlimited), MIN(time-limited), BTN(time-limited), after merge: Gather(Unlimited), Gather(Time-Limited).",
+    "ja": "例如，合并前为采矿非限时、园艺非限时、采矿限时、园艺限时，合并后为采集非限时、采集限时。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "采集非限时道具": {
+    "en": "Gather(Unlimited)",
+    "ja": "采集非限时道具",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "采集限时道具": {
+    "en": "Gather(Time-Limited)",
+    "ja": "采集限时道具",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
     ]
   }
 }
