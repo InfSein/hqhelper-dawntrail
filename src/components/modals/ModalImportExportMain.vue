@@ -141,6 +141,7 @@ const onImportConfirmed = () => {
               <div class="flex-center">
                 <div>{{ t('导出成本/收益分析') }}</div>
                 <HelpButton
+                  icon="question"
                   :descriptions="[
                     t('遵循“功能设置”中的“物品价格”设置。'),
                     t('启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。')
