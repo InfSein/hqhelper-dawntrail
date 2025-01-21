@@ -907,7 +907,7 @@ const containerMaxHeight = computed(() => {
     @on-load="onLoad"
   >
     <template #header>
-      <div class="card-title">
+      <div class="card-title no-select">
         <n-icon :component="modalTitle.icon" />
         <span class="title">{{ modalTitle.text }}</span>
         <span class="description">[{{ currentGroupName }}]</span>
