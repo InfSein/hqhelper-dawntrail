@@ -64,7 +64,7 @@ export const getChangelogs = (
   return [
     {
       version: '2.1.7',
-      date: '2025-01-24',
+      date: '2025-01-22',
       changes: [
         {
           name: groupName.breaking,
@@ -78,7 +78,7 @@ export const getChangelogs = (
                 f1: t('保存设置后自动刷新'), f2: t('在物品悬浮窗中显示'), f3: t('在物品悬浮窗中显示的类型'), f4: t('合并采集物品')
               })
               + '<br>' + emBlock + '* ' + t('重做了“{f}”的界面。', t('关于本作'))
-              + tipper + t('移动端因屏幕尺寸限制，将继续沿用旧版设计。')
+              + '<br> ※ ' + t('移动端因屏幕尺寸限制，将继续沿用旧版设计。')
             ,
             t('现在可以在物品悬浮窗中查看和手动刷新价格信息。')
               + tipper + t('需要在物品价格设置中启用“{option}”。', t('在物品悬浮窗中显示'))
