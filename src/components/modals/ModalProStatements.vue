@@ -10,16 +10,16 @@ import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
 import ItemStatementTable from '../custom/item/ItemStatementTable.vue'
 import ModalRecommendedProcesses from './ModalRecommendedProcesses.vue'
+import ModalPreferences from './ModalPreferences.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { deepCopy } from '@/tools'
 import { type FuncConfigModel } from '@/models/config-func'
-import ModalFuncPreferences from './ModalFuncPreferences.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
-const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
+// const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const { getRecipeMap, calItems } = useNbbCal()
 const recipeMap = getRecipeMap()
@@ -220,9 +220,9 @@ const handleShowRecommendedProcesses = () => {
   showRecommendedProcessesModal.value = true
 }
 
-const showFuncPreferencesModal = ref(false)
+const showPreferencesModal = ref(false)
 const handleSettingButtonClick = () => {
-  showFuncPreferencesModal.value = true
+  showPreferencesModal.value = true
 }
 </script>
 
@@ -236,7 +236,7 @@ const handleSettingButtonClick = () => {
     @on-setting-button-clicked="handleSettingButtonClick"
   >
     <template #header>
-      <div class="card-title">
+      <div class="card-title no-select">
         <n-icon><TableViewOutlined /></n-icon>
         <span class="title">
           {{ t('制作报表') }}
@@ -292,10 +292,10 @@ const handleSettingButtonClick = () => {
       v-model:show="showRecommendedProcessesModal"
       v-bind="recommProcessData"
     />
-    <ModalFuncPreferences
-      v-model:show="showFuncPreferencesModal"
+    <ModalPreferences
+      v-model:show="showPreferencesModal"
       setting-group="craft_statement"
-      @after-submit="appForceUpdate"
+      app-show-fp
     />
   </MyModal>
 </template>

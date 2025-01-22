@@ -50,38 +50,10 @@
     ]
   },
   "保存成功！部分改动需要刷新页面才能生效": {
-    "en": "Save Success! Some changes require refreshing.",
+    "en": "Successfully saved! Some changes require refreshing.",
     "ja": "保存しました！一部変更はページ更新後に反映されます。",
     "$files": [
       "App.vue"
-    ]
-  },
-  "版权信息": {
-    "en": "Copyright information",
-    "ja": "著作権について",
-    "$files": [
-      "components\\ModalAboutApp.vue"
-    ]
-  },
-  "本站所引用的《最终幻想XIV》相关资料与图像，其版权均归于SQUARE ENIX所有。": {
-    "en": "The copyright of the materials and images related to Final Fantasy XIV cited on this website belongs to SQUARE ENIX.",
-    "ja": "当サイトに掲載されている『ファイナルファンタジーXIV』関連の資料や画像の著作権は SQUARE ENIX に帰属します。",
-    "$files": [
-      "components\\ModalAboutApp.vue"
-    ]
-  },
-  "本作仅供学习交流使用，不得以任何方式用于商业用途。": {
-    "en": "This work is for learning and communication purposes only and may not be used for commercial purposes in any way.",
-    "ja": "当サイトは学習や交流の目的でのみ使用できます。商業目的での使用は禁止されています。",
-    "$files": [
-      "components\\ModalAboutApp.vue"
-    ]
-  },
-  "转载、搬运须注明作者及出处。": {
-    "en": "Reproduction and handling must indicate the author and source.",
-    "ja": "転載や複製を行う場合は、作者と出典を明記してください。",
-    "$files": [
-      "components\\ModalAboutApp.vue"
     ]
   },
   "HqHelper的诞生与持续开发离不开用户的支持。": {
@@ -103,13 +75,6 @@
     "ja": "当ツールについて",
     "$files": [
       "components\\AppHeader.vue"
-    ]
-  },
-  "本作程序源代码遵循MIT协议开源。": {
-    "en": "The source code of this program follows the MIT protocol for open source.",
-    "ja": "このアプリのソースコードはMITライセンスで公開されていますが。",
-    "$files": [
-      "data\\about-app.ts"
     ]
   },
   "艾欧泽亚时间": {
@@ -823,41 +788,6 @@
   "制作人": {
     "en": "Producers",
     "ja": "プロデューサ",
-    "$files": [
-      "data\\about-app.ts"
-    ]
-  },
-  "主要程序开发": {
-    "en": "Major developer",
-    "ja": "メイン開発者",
-    "$files": [
-      "data\\about-app.ts"
-    ]
-  },
-  "核心算法支持": {
-    "en": "Algorithm supporter",
-    "ja": "コアアルゴリズムのサポート",
-    "$files": [
-      "data\\about-app.ts"
-    ]
-  },
-  "本地化翻译": {
-    "en": "Translators",
-    "ja": "ローカライズ",
-    "$files": [
-      "data\\about-app.ts"
-    ]
-  },
-  "中文(国际服物品)": {
-    "en": "Chinese (Item)",
-    "ja": "中国語(アイテム)",
-    "$files": [
-      "data\\about-app.ts"
-    ]
-  },
-  "日语(UI)": {
-    "en": "Japanese (UI)",
-    "ja": "日本語(UI)",
     "$files": [
       "data\\about-app.ts"
     ]
@@ -2095,13 +2025,6 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "桌面应用开发": {
-    "en": "Desktop developer",
-    "ja": "クライアント版開発",
-    "$files": [
-      "data\\about-app.ts"
-    ]
-  },
   "问题修复": {
     "en": "BUG FIXES",
     "ja": "不具合修正",
@@ -2981,13 +2904,6 @@
   "永不过期": {
     "en": "Never expires",
     "ja": "無期限",
-    "$files": [
-      "components\\modals\\ModalUserPreferences.vue"
-    ]
-  },
-  "由于修改了服务器，将清除已获取的物品价格缓存。": {
-    "en": "Item Price Cache will be cleaned cause you changed the server.",
-    "ja": "サーバーが変更されたため、取得済みのアイテム価格キャッシュをクリアします。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
@@ -4823,13 +4739,6 @@
       "components\\modals\\ModalFuncPreferences.vue"
     ]
   },
-  "修改的部分设置项需要刷新页面才能生效。": {
-    "en": "Some modified settings need to refresh the page to take effect.",
-    "ja": "変更された設定項目はページをリフレッシュする必要があります。",
-    "$files": [
-      "components\\modals\\ModalFuncPreferences.vue"
-    ]
-  },
   "只能导入.xlsx文件": {
     "en": "Only .xlsx files can be imported",
     "ja": ".xlsxファイルのみインポート可能",
@@ -4983,6 +4892,523 @@
     "ja": "残り時間とは、現在採集可能なアイテムの残り採集可能時間 / 採集不可能なアイテムが採集可能になるまでの残り時間を指します。",
     "$files": [
       "data\\change-logs.ts"
+    ]
+  },
+  "重做了“{f1}”功能，将原有的“{f1}”、“{f2}”和“{f3}”整合入同一个窗口。此外，还实装了以下更改：": {
+    "en": "Reworked the '{f1}' feature, integrating the original '{f1}', '{f2}', and '{f3}' into the same window. Additionally, the following changes were implemented:",
+    "ja": "「{f1}」機能をリメイクし、元々の「{f1}」、「{f2}」、「{f3}」を同じウィンドウに統合しました。また、以下の変更を実装しました：",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在可以点击窗口右上角的按钮来导入/导出设置内容。": {
+    "en": "You can now click the button in the top-right corner of the window to import/export settings.",
+    "ja": "右上のボタンをクリックして、設定内容をインポート/エクスポートできるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在仅会在修改了特定设置项后才询问或执行页面刷新。需要刷新才能生效的设置项将在右侧标注警告图标。": {
+    "en": "Now page refresh is only requested or executed after specific settings have been modified. Settings that require refreshing to take effect will be marked with a warning icon on the right.",
+    "ja": "特定の設定項目を変更した場合にのみ、リフレッシュを確認または実行するようになりました。リフレッシュが必要な設定項目には右側に警告アイコンが表示されます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "追加了以下设置选项：[通用]{f1}; [物品价格]{f2}、{f3}; [推荐流程]{f4}。": {
+    "en": "Added the following setting options: [General]{f1}; [Item Prices]{f2}, {f3}; [Recomm. Process]{f4}.",
+    "ja": "以下の設定オプションを追加しました：[共通]{f1}; [アイテム価格]{f2}、{f3}; [推奨の回し]{f4}。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "保存设置后自动刷新": {
+    "en": "Automatically refresh after saving settings",
+    "ja": "セーブ後に自動的にリフレッシュします",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "在物品悬浮窗中显示": {
+    "en": "Show in item pop-ups",
+    "ja": "アイテムのツールチップで表示します",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "在物品悬浮窗中显示的类型": {
+    "en": "Price type displayed in item pop-ups",
+    "ja": "ツールチップで表示するタイプ",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalPreferences.vue",
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "重做了“{f}”的界面。": {
+    "en": "Remade the interface of '{f}'.",
+    "ja": "「{f}」のインターフェースをリメイクしました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "移动端因屏幕尺寸限制，将继续沿用旧版设计。": {
+    "en": "The mobile version will continue using the old design due to screen size limitations.",
+    "ja": "スマホ版は画面サイズの制限により、引き続き旧バージョンのデザインを使用します。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在可以在物品悬浮窗中查看和手动刷新价格信息。": {
+    "en": "You can now view and manually refresh price info in the item pop-ups.",
+    "ja": "アイテムのツールチップで価格情報を確認および手動でリフレッシュできるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "需要在物品价格设置中启用“{option}”。": {
+    "en": "You need to enable '{option}' in the item price settings.",
+    "ja": "「{option}」を有効にする必要があります。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "不可交易的物品不会展示价格模块，没有HQ品质的物品不会展示HQ价格信息。": {
+    "en": "Non-tradeable items will not show the price module, and items without High Quality will not show HQ price info.",
+    "ja": "取引不可のアイテムには価格モジュールが表示されず、HQ品質のないアイテムにはHQ価格情報が表示されません。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "没找到BUG，太棒了": {
+    "en": "No bug was found. Awesome",
+    "ja": "バグはまだ見つかっていません、素晴らしい。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "可采集道具的物品悬浮窗现在还会展示采集点等级和采集所需传承录的信息。": {
+    "en": "The item pop-ups for collectable items now also shows the gather-node level and required tome information.",
+    "ja": "採集可能アイテムのホツールチップには、採集場所のレベルと採集に必要な伝承録の情報も表示されるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "“{f}”弹窗中的表格现在会将未获取到价格的物品价格显示为???，而非0。此外，追加了相应的提示文本。": {
+    "en": "The table in the '{f}' pop-up now displays the price of items that could not retrieve prices as ??? instead of 0. Additionally, a corresponding tooltip has been added.",
+    "ja": "「{f}」ポップアップ内のテーブルでは、価格が取得できなかったアイテムの価格を0ではなく、「???」と表示するようにしました。また、対応する説明文を追加しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "为部分只展示图标而没有名称的物品追加了Tooltip，以提示其物品名称。": {
+    "en": "Added tooltips to some items that only display icons without names, to indicate their item names.",
+    "ja": "一部、アイコンのみが表示されて名前がないアイテムにツールチップを追加し、アイテム名を提示するようにしました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "压缩了部分解包数据文件的体积，以降低更新时需要下载的更新包体积、初次访问页面的加载时长和托管服务器的带宽压力。": {
+    "en": "Compressed some unpacked data files to reduce the update package size needed for downloads, decrease page load time on first visit, and lessen bandwidth pressure on hosting servers.",
+    "ja": "一部の展開データファイルの容量を圧縮し、更新時に必要なアップデートパッケージの容量、初回ページアクセス時のロード時間、およびホスティングサーバーの帯域幅の負担を軽減しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了制作报表中物品制作等级信息在特定场合的显示效果。": {
+    "en": "Optimized the display of item crafting level information in specific cases within crafting reports.",
+    "ja": "製作レポート内のアイテム製作レベル情報の表示を特定の場面で最適化しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "基础设置": {
+    "en": "Basic Preferences",
+    "ja": "基礎設定",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "此设置修改后本次保存便会生效。另外，仅会在需要刷新的时候执行自动刷新。": {
+    "en": "This setting will take effect on this time's saving. Automatic refresh will only be performed when necessary.",
+    "ja": "この設定を変更すると本セーブで有効になります。また、リフレッシュが必要な場合にのみ自動リフレッシュが実行されます。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "每次询问": {
+    "en": "Ask every time",
+    "ja": "毎回確認",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "自动刷新": {
+    "en": "Auto-refresh",
+    "ja": "自動リフレッシュ",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "不刷新": {
+    "en": "Don't refresh",
+    "ja": "リフレッシュしない",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "适用于“{f}”功能和物品悬浮窗中的价格模块。": {
+    "en": "Used in '{f}' and item pop-ups.",
+    "ja": "適用対象：「{f}」機能およびアイテムツールチップの価格モジュール。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "注意：修改此设置将会清除所有已获取的物品价格缓存！": {
+    "en": "CAUTION: Modifying this setting will clear all retrieved item price caches!",
+    "ja": "注意：この設定を変更すると、すべての取得済みアイテム価格キャッシュが削除されます！",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "在各个物品按钮/信息图标的悬浮窗中追加“价格”模块。只有可交易的道具才会显示。": {
+    "en": "Added a 'Price' module to the pop-ups of various item buttons/information icons. Only tradeable items will be displayed.",
+    "ja": "各アイテムボタン/情報アイコンのツールチップに「価格」モジュールを追加しました。取引可能な道具のみ表示されます。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "选择在物品悬浮窗中要显示哪些类型的价格。可以多选。": {
+    "en": "Choose which types of prices to display in the item pop-ups. Multiple selections are allowed.",
+    "ja": "ツールチップで表示する価格の種類を選択します。複数選択可能です。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "其他": {
+    "en": "Other",
+    "ja": "他",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "保存成功": {
+    "en": "Successfully saved",
+    "ja": "セーブ成功",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "导入": {
+    "en": "Import",
+    "ja": "インポート",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue",
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "导入偏好设置": {
+    "en": "Import Preferences",
+    "ja": "設定をインポート",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "导出偏好设置": {
+    "en": "Export Preferences",
+    "ja": "設定をエクスポート",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "请输入内容": {
+    "en": "Please input",
+    "ja": "内容を入力してください",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "导入失败": {
+    "en": "Import failed",
+    "ja": "インポート失敗",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "现在你可以将本设备的偏好设置/功能设置导出到其他设备了。不包括物品价格等缓存。": {
+    "en": "You can now export the preferences/features settings of this device to another device. Excludes item price caches.",
+    "ja": "現在、このデバイスの設定/機能設定を他のデバイスにエクスポートできるようになりました。アイテム価格などのキャッシュは含まれません。",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "请注意：导出的内容会根据偏好设置窗口的当前设置生成，而非已经保存的设置。": {
+    "en": "Please note: The exported content will be generated based on the current settings in the preferences window, not the saved settings.",
+    "ja": "注意：エクスポート内容は設定ウィンドウの現在の設定に基づいて生成され、保存済みの設定ではありません。",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "在这里导入其他设备导出的设置，从而保持同步。": {
+    "en": "Import settings exported from other devices here to keep them synchronized.",
+    "ja": "ここで他のデバイスからエクスポートした設定をインポートし、同期を維持します。",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "导入之后请在偏好设置窗口确认更改。直到你点击保存前，实际设置不会变化。": {
+    "en": "After importing, please confirm the changes in the preferences window. The actual settings will not change until you click save.",
+    "ja": "インポート後は設定ウィンドウで変更を確認してください。保存をクリックするまで実際の設定は変更されません。",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "在此处粘贴从其他HqHelper导出的设置": {
+    "en": "Paste the settings exported from another HqHelper here.",
+    "ja": "ここに他のHqHelperからエクスポートした設定を貼り付けてください。",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "从未": {
+    "en": "Never",
+    "ja": "一度もない",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "刚刚": {
+    "en": "Just now",
+    "ja": "たった今",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "{minutes}分钟前": {
+    "en": "{minutes}m ago",
+    "ja": "{minutes}分前",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "{hours}小时前": {
+    "en": "{hours}h ago",
+    "ja": "{hours}時間前",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "{days}天前": {
+    "en": "{days}d ago",
+    "ja": "{days}日前",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "没有价格。": {
+    "en": "No price.",
+    "ja": "価格がありません。",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "可能原因：未获取过价格/物品未实装或不存在此品质/交易数据不足": {
+    "en": "Possible reasons: Price not retrieved/Item not implemented or does not exist in this quality/Insufficient transaction data.",
+    "ja": "予想の原因：価格が取得されていない/アイテムが実装されていない、またはその品質が存在しない/取引データが不足している",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "没有获取到价格。": {
+    "en": "No price retrieved.",
+    "ja": "価格を取得できませんでした。",
+    "$files": [
+      "components\\custom\\item\\ItemPriceTable.vue"
+    ]
+  },
+  "可能原因：物品未实装/交易数据不足": {
+    "en": "Possible reasons: Item not implemented/Insufficient transaction data.",
+    "ja": "予想の原因：アイテムが実装されていない/取引データが不足している",
+    "$files": [
+      "components\\custom\\item\\ItemPriceTable.vue"
+    ]
+  },
+  "正在刷新价格": {
+    "en": "Refreshing price",
+    "ja": "価格を更新中",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "更新价格成功": {
+    "en": "Price updated",
+    "ja": "価格の更新に成功しました",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "更新价格失败": {
+    "en": "Failed to update price",
+    "ja": "価格の更新に失敗しました",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "采集条件：": {
+    "en": "Gathering conditions:",
+    "ja": "採集条件：",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "价格": {
+    "en": "Price",
+    "ja": "価格",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "上次更新: {}": {
+    "en": "Last update: {}",
+    "ja": "最終更新: {}",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "已过期": {
+    "en": "Expired",
+    "ja": "期限切れ",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "正在刷新...": {
+    "en": "Refreshing...",
+    "ja": "更新中...",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "刷新": {
+    "en": "Refresh",
+    "ja": "リフレッシュ",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "还没有设置要显示哪些价格类型。请在偏好设置的“{option}”设置项中进行配置。": {
+    "en": "No price types set to display yet. Please configure in the '{option}' setting in preferences.",
+    "ja": "表示する価格の種類がまだ設定されていません。「{option}」設定項目で設定してください。",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "负责全部设计开发工作": {
+    "en": "Responsible for all design and development work",
+    "ja": "すべての設計開発作業を担当",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "负责提供游戏数据和托管支持": {
+    "en": "Responsible for providing game data and hosting support",
+    "ja": "ゲームデータの提供とホスティングサポートを担当",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "负责UI的日语国际化和前瞻物品名的中文翻译": {
+    "en": "Responsible for the Japanese UI internationalization and the Chinese translation of upcoming item names",
+    "ja": "UIの日本語と先行アイテム名の中国語翻訳を担当",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "贡献了初期的UI日语国际化": {
+    "en": "Contributed to the initial Japanese UI internationalization",
+    "ja": "初期のUI日本語翻訳に貢献",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "贡献了初版Windows客户端框架": {
+    "en": "Contributed the initial version of Windows client framework",
+    "ja": "初版Windowsクライアントフレームワークに貢献",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "贡献了以Teamcraft格式展示材料清单的功能": {
+    "en": "Contributed to the feature that displays material lists in Teamcraft format",
+    "ja": "Teamcraft形式で素材リストを表示する機能に貢献",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "贡献者": {
+    "en": "Contributors",
+    "ja": "贡献者",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "正在加载……": {
+    "en": "Loading...",
+    "ja": "読み込み中……",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "加载失败": {
+    "en": "Failed to load.",
+    "ja": "読み込み失敗",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "重试": {
+    "en": "Retry",
+    "ja": "再試行",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "合并采集物品": {
+    "en": "Merge gatherable items",
+    "ja": "採集アイテムを統合する",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "将采矿工采集品和园艺工采集品合并。": {
+    "en": "Merge groups divided by gathering jobs.",
+    "ja": "採掘師の採集品と園芸師の採集品を統合する。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "例如，合并前为采矿非限时、园艺非限时、采矿限时、园艺限时，合并后为采集非限时、采集限时。": {
+    "en": "For example, before merge: MIN(unlimited), BTN(unlimited), MIN(time-limited), BTN(time-limited), after merge: Gather(Unlimited), Gather(Time-Limited).",
+    "ja": "例えば、統合前は「採掘（常駐）」、「園芸（常駐）」、「採掘（刻限）」、「園芸（刻限）」でしたが、統合後は「採集（常駐）」、「採集（刻限）」となります。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "采集非限时道具": {
+    "en": "Gather(Unlimited)",
+    "ja": "採集アイテム（常駐）",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "采集限时道具": {
+    "en": "Gather(Time-Limited)",
+    "ja": "採集アイテム（刻限）",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
     ]
   }
 }

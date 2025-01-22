@@ -1,18 +1,23 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NSwitch
+  NSwitch,
+  useMessage
 } from 'naive-ui'
 import GroupBox from '../templates/GroupBox.vue'
 import FoldableCard from '../templates/FoldableCard.vue'
 import ItemList from '../custom/item/ItemList.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import ModalProStatements from '../modals/ModalProStatements.vue'
-import { getItemInfo, getStatementData, type ItemInfo } from '@/tools/item'
+import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
+import { useStore } from '@/store'
+import { getItemInfo, getItemPriceInfo, getStatementData, calCostAndBenefit, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import type { UserConfigModel } from '@/models/config-user'
-import type { FuncConfigModel } from '@/models/config-func'
+import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 
+const store = useStore()
+const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -198,6 +203,44 @@ const showStatement = () => {
 const statementData = computed(() => {
   return getStatementData(props.statistics)
 })
+
+const showCostAndBenefitModal = ref(false)
+const costAndBenefit = computed(() => {
+  return calCostAndBenefit(funcConfig.value, statementData.value)
+})
+const updatingPrice = ref(false)
+const updateItemPrices = async () => {
+  if (costAndBenefit.value.updateRequired) {
+    updatingPrice.value = true
+    try {
+      const items : number[] = []
+      statementData.value.craftTargets.forEach(item => {
+        items.push(item.id)
+      })
+      statementData.value.materialsLvBase.forEach(item => {
+        items.push(item.id)
+      })
+      const itemPrices = await getItemPriceInfo([...new Set(items)], funcConfig.value.universalis_server)
+      const newConfig = funcConfig.value
+      Object.keys(itemPrices).forEach(id => {
+        const itemID = Number(id)
+        newConfig.cache_item_prices[itemID] = itemPrices[itemID]
+      })
+      await store.commit('setFuncConfig', fixFuncConfig(newConfig, store.state.userConfig))
+    } catch (error : any) {
+      console.error(error)
+      alert(t('获取价格失败') + '\n' + (error?.message ?? error))
+    }
+    updatingPrice.value = false
+  }
+}
+const handleAnalysisItemPrices = async () => {
+  if (updatingPrice.value) {
+    NAIVE_UI_MESSAGE.info(t('正在加载……')); return
+  }
+  await updateItemPrices()
+  showCostAndBenefitModal.value = true
+}
 </script>
 
 <template>
@@ -207,6 +250,7 @@ const statementData = computed(() => {
         <i class="xiv square-2"></i>
         <span class="card-title-text">{{ t('查看统计') }}</span>
         <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
+        <a class="card-title-extra" href="javascript:void(0);" :disabled="updatingPrice" :style="updatingPrice ? 'cursor: not-allowed; color: gray;' : 'cursor: pointer;'" @click="handleAnalysisItemPrices">[{{ updatingPrice ? t('正在加载……') : t('成本/收益预估') }}]</a>
       </template>
 
       <div class="pre">
@@ -301,6 +345,13 @@ const statementData = computed(() => {
       <ModalProStatements
         v-model:show="showProStatementModal"
         v-bind="statementData"
+      />
+      <ModalCostAndBenefit
+        v-model:show="showCostAndBenefitModal"
+        :cost-items="statementData.materialsLvBase"
+        :benefit-items="statementData.craftTargets"
+        :cost-info="costAndBenefit.costInfo"
+        :benefit-info="costAndBenefit.benefitInfo"
       />
     </FoldableCard>
   </div>

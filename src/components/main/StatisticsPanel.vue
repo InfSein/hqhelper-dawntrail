@@ -11,7 +11,7 @@ import TomeScriptButton from '../custom/other/TomeScriptButton.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import ModalProStatements from '../modals/ModalProStatements.vue'
 import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
-import { getItemInfo, getItemPriceInfo, getStatementData, ItemPriceApiVersion, type ItemInfo, type ItemPriceInfo, type ItemTradeInfo } from '@/tools/item'
+import { calCostAndBenefit, getItemInfo, getItemPriceInfo, getStatementData, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 import { type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import type { GearSelections } from '@/models/gears'
@@ -262,62 +262,7 @@ const showImportExportModal = ref(false)
 
 const showCostAndBenefitModal = ref(false)
 const costAndBenefit = computed(() => {
-  let updateRequired = false
-  const itemsCost = {} as Record<number, {
-    amount: number,
-    price: ItemPriceInfo
-  }>
-  const itemsBenefit = {} as Record<number, {
-    amount: number,
-    price: ItemPriceInfo
-  }>
-  const priceCache = funcConfig.value.cache_item_prices
-  const expiresAfter = Date.now() - funcConfig.value.universalis_expireTime
-  function cacheNotExpired(item: ItemInfo) {
-    const priceInfo = priceCache[item.id]
-    return priceInfo && priceInfo.updateTime > expiresAfter
-      && priceInfo.v && priceInfo.v >= ItemPriceApiVersion
-  }
-  statementData.value.materialsLvBase.forEach(item => {
-    if (cacheNotExpired(item)) {
-      itemsCost[item.id] = {
-        amount: item.amount,
-        price: priceCache[item.id]
-      }
-    } else {
-      updateRequired = true
-    }
-  })
-  statementData.value.craftTargets.forEach(item => {
-    if (cacheNotExpired(item)) {
-      itemsBenefit[item.id] = {
-        amount: item.amount,
-        price: priceCache[item.id]
-      }
-    } else {
-      updateRequired = true
-    }
-  })
-  let costInfo = '???', benefitInfo = '???'
-  if (!updateRequired) {
-    let costTotal = 0, benefitTotal = 0
-    const priceKey = funcConfig.value.universalis_priceType
-    Object.values(itemsCost).forEach(item => {
-      costTotal += item.amount * (item.price[`${priceKey}NQ`] ?? 0)
-    })
-    Object.values(itemsBenefit).forEach(item => {
-      benefitTotal += item.amount * (item.price[`${priceKey}HQ`] ?? 0)
-    })
-    costInfo = Math.floor(costTotal).toLocaleString()
-    benefitInfo = Math.floor(benefitTotal).toLocaleString()
-  }
-  return {
-    updateRequired,
-    itemsCost,
-    itemsBenefit,
-    costInfo,
-    benefitInfo
-  }
+  return calCostAndBenefit(funcConfig.value, statementData.value)
 })
 const updatingPrice = ref(false)
 const updateItemPrices = async () => {

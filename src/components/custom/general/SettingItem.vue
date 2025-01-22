@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NCascader, NCollapse, NCollapseItem, NIcon, NInput, NPopover, NRadioButton, NRadioGroup, NSelect, NSwitch
+  NCascader, NCollapse, NCollapseItem, NIcon, NInput, NRadioButton, NRadioGroup, NSelect, NSwitch
 } from 'naive-ui'
 import {
-  HelpOutlineRound
+  KeyboardArrowRightOutlined
 } from '@vicons/material'
+import HelpButton from './HelpButton.vue'
 import type { SettingItem } from '@/models'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -15,7 +16,21 @@ const formData = defineModel<any>('formData', { required: true })
 interface SettingItemProps {
   settingItem: SettingItem
 }
-defineProps<SettingItemProps>()
+const props = defineProps<SettingItemProps>()
+
+const warnings = computed(() => {
+  const warns : {
+    value: string; class: string; style: string;
+  }[] = []
+  const oriwarns = props.settingItem.warnings ?? []
+  // if (props.settingItem.require_reload) {
+  //   warns.push({
+  //     value: t('修改此选项的设置后需要刷新一次页面方可生效。'),
+  //     class: '', style: ''
+  //   })
+  // }
+  return [...warns, ...oriwarns]
+})
 </script>
 
 <template>
@@ -24,9 +39,15 @@ defineProps<SettingItemProps>()
       <n-collapse-item>
         <template #header>
           <div class="item-title">{{ settingItem.label }}</div>
+          <HelpButton
+            v-if="settingItem.require_reload"
+            icon="warning"
+            color="#F0A020"
+            :descriptions="[t('修改此选项的设置后需要刷新一次页面方可生效。')]"
+          />
         </template>
         <template #arrow>
-          <n-icon v-if="settingItem.descriptions?.length" :title="t('点击以展开或折叠此设置项的描述')"><HelpOutlineRound /></n-icon>
+          <n-icon v-if="settingItem.descriptions?.length" :title="t('点击以展开或折叠此设置项的描述')"><KeyboardArrowRightOutlined /></n-icon>
           <n-icon v-else></n-icon>
         </template>
 
@@ -42,109 +63,65 @@ defineProps<SettingItemProps>()
         </div>
       </n-collapse-item>
     </n-collapse>
-    <div class="item-input">
-      <n-popover
-        v-if="settingItem.warnings?.length"
-        :trigger="isMobile ? 'click' : 'hover'"
-        placement="bottom"
-        :style="settingItem.type === 'switch' ? 'max-width: 300px;' : ''"
+    <div class="item-descriptions">
+      <p
+        v-for="(warning, index) in warnings"
+        :key="settingItem.key + '-warning-' + index"
+        :class="warning.class"
+        :style="warning.style"
       >
-        <template #trigger>
-          <n-switch
-            v-if="settingItem.type ==='switch'"
-            v-model:value="formData[settingItem.key]"
-          />
-          <n-radio-group
-            v-if="settingItem.type === 'radio-group'"
-            v-model:value="formData[settingItem.key]"
-            :name="settingItem.key"
-          >
-            <n-radio-button
-              v-for="(option, index) in settingItem.options"
-              :key="settingItem.key + '-option-' + index"
-              :value="option.value"
-              :label="option.label"
-            />
-          </n-radio-group>
-          <n-select
-            v-if="settingItem.type === 'select'"
-            v-model:value="formData[settingItem.key]"
-            :options="settingItem.options"
-            :style="{ width: isMobile ? '75%' : '60%' }"
-          />
-          <n-cascader
-            v-if="settingItem.type === 'cascader'"
-            v-model:value="formData[settingItem.key]"
-            :expand-trigger="!isMobile ? 'hover' : 'click'"
-            :options="settingItem.options"
-            check-strategy="child"
-            show-path
-            filterable
-            :style="{ width: isMobile ? '85%' : '70%' }"
-          />
-          <n-input
-            v-if="settingItem.type === 'string'"
-            v-model:value="formData[settingItem.key]"
-            type="text"
-            :style="{ width: isMobile ? '85%' : '70%' }"
-          />
-        </template>
-        <div class="flex-column flex-center">
-          <p
-            v-for="(warning, index) in settingItem.warnings"
-            :key="settingItem.key + '-warning-' + index"
-            :class="warning.class"
-            :style="warning.style"
-          >
-            {{ warning.value }}
-          </p>
-        </div>
-      </n-popover>
-      <div v-else>
-        <n-switch
-          v-if="settingItem.type ==='switch'"
-          v-model:value="formData[settingItem.key]"
+        {{ warning.value }}
+      </p>
+    </div>
+    <div class="item-input">
+      <n-switch
+        v-if="settingItem.type ==='switch'"
+        v-model:value="formData[settingItem.key]"
+      />
+      <n-radio-group
+        v-if="settingItem.type === 'radio-group'"
+        v-model:value="formData[settingItem.key]"
+        :name="settingItem.key"
+      >
+        <n-radio-button
+          v-for="(option, index) in settingItem.options"
+          :key="settingItem.key + '-option-' + index"
+          :value="option.value"
+          :label="option.label"
         />
-        <n-radio-group
-          v-if="settingItem.type === 'radio-group'"
-          v-model:value="formData[settingItem.key]"
-          :name="settingItem.key"
-        >
-          <n-radio-button
-            v-for="(option, index) in settingItem.options"
-            :key="settingItem.key + '-option-' + index"
-            :value="option.value"
-            :label="option.label"
-          />
-        </n-radio-group>
-        <n-select
-          v-if="settingItem.type === 'select'"
-          v-model:value="formData[settingItem.key]"
-          :options="settingItem.options"
-          :style="{ width: isMobile ? '75%' : '60%' }"
-        />
-        <n-cascader
-          v-if="settingItem.type === 'cascader'"
-          v-model:value="formData[settingItem.key]"
-          :expand-trigger="!isMobile ? 'hover' : 'click'"
-          :options="settingItem.options"
-          check-strategy="child"
-          show-path
-          filterable
-          :style="{ width: isMobile ? '85%' : '70%' }"
-        />
-        <n-input
-          v-if="settingItem.type === 'string'"
-          v-model:value="formData[settingItem.key]"
-          type="text"
-          :style="{ width: isMobile ? '85%' : '70%' }"
-        />
-      </div>
+      </n-radio-group>
+      <n-select
+        v-if="settingItem.type === 'select'"
+        v-model:value="formData[settingItem.key]"
+        :multiple="settingItem.multiple"
+        :options="settingItem.options"
+        :style="{ width: isMobile ? '75%' : '60%' }"
+      />
+      <n-cascader
+        v-if="settingItem.type === 'cascader'"
+        v-model:value="formData[settingItem.key]"
+        :expand-trigger="!isMobile ? 'hover' : 'click'"
+        :options="settingItem.options"
+        check-strategy="child"
+        show-path
+        filterable
+        :style="{ width: isMobile ? '85%' : '70%' }"
+      />
+      <n-input
+        v-if="settingItem.type === 'string'"
+        v-model:value="formData[settingItem.key]"
+        type="text"
+        :style="{ width: isMobile ? '85%' : '70%' }"
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
+:deep(.n-collapse-item__content-inner) {
+  padding-top: 0 !important;
+}
+
 .setting-item {
   .item-title {
     font-weight: bold;

@@ -28,11 +28,10 @@ import {
   DarkModeTwotone, LightModeTwotone,
   UpdateSharp
 } from '@vicons/material'
-import ModalUserPreferences from '@/components/modals/ModalUserPreferences.vue'
+import ModalPreferences from '@/components/modals/ModalPreferences.vue'
 import ModalContactUs from '@/components/modals/ModalContactUs.vue'
 import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
-import ModalFuncPreferences from '@/components/modals/ModalFuncPreferences.vue'
 import ModalFestivalEgg from '@/components/modals/ModalFestivalEgg.vue'
 // import ChristmasTree from '@/assets/icons/ChristmasTree.vue'
 import type { AppVersionJson } from '@/models'
@@ -50,7 +49,7 @@ const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh')
 const isChina = computed(() => locale.value === 'zh')
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
 const theme = inject<Ref<"light" | "dark">>('theme') ?? ref('light')
-const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
+// const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const switchTheme = inject<() => void>('switchTheme')!
 const displayCheckUpdatesModal = inject<() => void>('displayCheckUpdatesModal')!
 
@@ -78,8 +77,9 @@ onMounted(() => {
 
 const showMenus = ref(false)
 
-const showUserPreferencesModal = ref(false)
-const showFuncPreferencesModal = ref(false)
+const showPreferencesModal = ref(false)
+const preferenceModalShowUpOnly = ref(false)
+const preferenceModalShowFpOnly = ref(false)
 const showAboutAppModal = ref(false)
 const showContactModal = ref(false)
 const showChangeLogsModal = ref(false)
@@ -98,11 +98,18 @@ const handleRouteBack = () => {
   router.push('/')
 }
 
-const displayUserPreferencesModal = () => {
-  showUserPreferencesModal.value = true
+const displayPreferencesModal = () => {
+  showPreferencesModal.value = true
 }
-const displayFuncPreferencesModal = () => {
-  showFuncPreferencesModal.value = true
+const appShowUserPrefences = () => {
+  preferenceModalShowUpOnly.value = true
+  preferenceModalShowFpOnly.value = false
+  showPreferencesModal.value = true
+}
+const appShowFuncPrefences = () => {
+  preferenceModalShowUpOnly.value = false
+  preferenceModalShowFpOnly.value = true
+  showPreferencesModal.value = true
 }
 const displayAboutAppModal = () => {
   showAboutAppModal.value = true
@@ -170,8 +177,8 @@ const menuItems = computed(() => {
     goHome: { label: t('返回首页'), hide: hideHome, icon: HomeOutlined, click: () => { router.push('/'); } } as MenuItem,
     gatherClock: { label: t('采集时钟'), hide: hideGatherClock, icon: AccessAlarmsOutlined, click: redirectToGatherClockPage } as MenuItem,
     ftHelper: { label: t('食药计算'), hide: hideFTHelper, icon: FastfoodOutlined, click: redirectToFoodAndTincPage } as MenuItem,
-    userPreferences: { label: t('偏好设置'), icon: SettingsSharp, click: displayUserPreferencesModal } as MenuItem,
-    funcPreferences: { label: t('功能设置'), icon: SettingsSuggestFilled, click: displayFuncPreferencesModal } as MenuItem,
+    userPreferences: { label: t('偏好设置'), icon: SettingsSharp, click: appShowUserPrefences } as MenuItem,
+    funcPreferences: { label: t('功能设置'), icon: SettingsSuggestFilled, click: appShowFuncPrefences } as MenuItem,
     checkUpdates: { label: t('检查更新'), icon: UpdateSharp, click: handleCheckUpdates } as MenuItem,
     changelogs: { label: t('更新日志'), icon: EventNoteFilled, click: displayChangeLogsModal } as MenuItem,
     contact: { label: t('联系我们'), icon: ContactlessOutlined, click: displayContactModal } as MenuItem,
@@ -188,7 +195,7 @@ const desktopMenus = computed(() => {
   const gatherClockTooltip = hideGatherClock ? t('您已经处于采集时钟页面。') : t('挖穿艾欧泽亚的好帮手！')
   const gatherClockSWTooltip = t('在新窗口中打开采集时钟。')
   const userPreferenceTooltip = t('以人的意志改变机械的程序。')
-  const funcPreferenceTooltip = t('还好我把魔法人偶的战斗力设置成了最强级别。')
+  // const funcPreferenceTooltip = t('还好我把魔法人偶的战斗力设置成了最强级别。')
   const checkUpdatesTooltip = t('更新目标的战力等级……变更攻击模式……')
   const changelogTooltip = t('修正……改良……开始对循环程序进行更新……')
   const contactTooltip = t('关注我们喵，关注我们谢谢喵。')
@@ -273,8 +280,7 @@ const desktopMenus = computed(() => {
       icon: UpdateOutlined,
       options: [
         { key: 'sau-ct', label: t('切换主题'), icon: renderIcon(changeThemeIcon), description: changeThemeTooltip, click: switchTheme },
-        { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), description: userPreferenceTooltip, click: displayUserPreferencesModal },
-        { key: 'sau-fp', label: t('功能设置'), icon: renderIcon(SettingsSuggestFilled), description: funcPreferenceTooltip, click: displayFuncPreferencesModal },
+        { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), description: userPreferenceTooltip, click: displayPreferencesModal },
         { key: 'sau-cu', label: t('检查更新'), icon: renderIcon(UpdateSharp), description: checkUpdatesTooltip, click: handleCheckUpdates },
         { key: 'sau-cl', label: t('更新日志'), icon: renderIcon(EventNoteFilled), description: changelogTooltip, click: displayChangeLogsModal },
         { key: 'sau-dt', hide:!canOpenDevTools.value, label: t('开发工具'), icon: renderIcon(DevicesOtherOutlined), click: ()=>{ window.electronAPI!.openDevTools() } }
@@ -360,25 +366,6 @@ const handleCheckUpdates = async () => {
       NAIVE_UI_MESSAGE.error(String(err))
     }
   }
-}
-
-const onUserPreferencesSubmitted = () => {
-  showUserPreferencesModal.value = false
-  appForceUpdate()
-  if (window.confirm(
-    t('偏好设置已经保存，不过部分改动需要刷新页面才能生效。')
-    + '\n' + t('要现在刷新吗?')
-  )) {
-    setTimeout(() => {
-      location.reload()
-    }, 100) // 必须设置一个延迟，不然有些设置不会生效
-  } else {
-    NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
-  }
-}
-const onFuncPreferencesSubmitted = () => {
-  appForceUpdate()
-  NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
 }
 </script>
 
@@ -492,13 +479,10 @@ const onFuncPreferencesSubmitted = () => {
       </n-drawer-content>
     </n-drawer>
 
-    <ModalUserPreferences
-      v-model:show="showUserPreferencesModal"
-      @after-submit="onUserPreferencesSubmitted"
-    />
-    <ModalFuncPreferences
-      v-model:show="showFuncPreferencesModal"
-      @after-submit="onFuncPreferencesSubmitted"
+    <ModalPreferences
+      v-model:show="showPreferencesModal"
+      :app-show-up="preferenceModalShowUpOnly"
+      :app-show-fp="preferenceModalShowFpOnly"
     />
     <ModalAboutApp v-model:show="showAboutAppModal" />
     <ModalContactUs v-model:show="showContactModal" />

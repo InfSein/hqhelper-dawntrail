@@ -172,6 +172,7 @@ const handleItemIconClick = async () => {
       class="img no-select"
       :size="imgSize"
       :src="itemInfo.iconUrl"
+      :title="(hideName && hidePopIcon) ? getItemName() : ''"
     />
     <div v-if="!hideName || showAmount">
       {{ hideName ? '' : getItemName() + ' ' }}

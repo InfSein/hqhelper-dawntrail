@@ -30,7 +30,16 @@ export const XivTranslatedPlaces = JsonXivTranslatedPlaces as Record<number, str
 
 import JsonXivUnpackedGatheringItems from './unpacks/gathering-item.json'
 export const XivUnpackedGatheringItems = JsonXivUnpackedGatheringItems as Record<number, {
+  level: number
+  /**
+   * 采集点类型I
+   * * 0=採掘,1=砕岩,2=伐採,3=草刈
+   */
   type: number
+  /**
+   * 采集点类型II
+   * * 1=常规点，2=收藏品，3=工艺馆，4=灵砂，5=传承录
+   */
   pointType?: number
   territory?: number
   place?: number
@@ -44,6 +53,12 @@ export const XivUnpackedGatheringItems = JsonXivUnpackedGatheringItems as Record
     end3: string
   } | false
   coords?: { x: string, y: string }
+  /**
+   * 采集点是否需要习得传承录方可采集
+   * * 为数字时，代表所需传承录的道具ID
+   * * 为 false 或 undefined 时，代表不需要传承录或缺失数据
+   */
+  folkloreBook?: number | false
 }>
 
 import JsonXivUnpackedItems from './unpacks/item.json'
@@ -58,7 +73,8 @@ export interface XivUnpackedItem {
   hq: boolean
   dye: number
   act: number
-  bon: number
+  tradable: boolean
+  collectable: boolean
   reduce: boolean
   elv: number
   jobs: number

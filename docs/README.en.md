@@ -73,7 +73,7 @@ npm run dev
 
 ### Join in development
 
-* **Find Problems**：If you find any errors/problems during use, or have suggestions for optimizing our interface/functionality/logic, please feel free to [new a issue](https://github.com/InfSein/hqhelper-dawntrail/issues/new) 。
+* **Find Problems**：If you find any errors/problems during use, or have suggestions for optimizing our interface/functionality/logic, please feel free to [new a issue](https://github.com/InfSein/hqhelper-dawntrail/issues/new) .
 * **Solve Problems**：If you have front-end programming skills, you can initiate a [Pull Request](https://github.com/InfSein/hqhelper-dawntrail/pulls) to join in the development of `HqHelper` through various means. The code may need to comply with general specifications and some additional rules, please refer to our [Wiki](https://github.com/InfSein/hqhelper-dawntrail/wiki) for more details.
 
 ### Donate us

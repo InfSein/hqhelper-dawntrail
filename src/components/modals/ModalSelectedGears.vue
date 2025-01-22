@@ -127,7 +127,7 @@ const handleSave = () => {
     :title="t('已选部件')"
     max-width="1500px"
     :height="(pageHeight - 80) + 'px'"
-    content-style="overflow-y: auto;"
+    content-extra-style="overflow-y: auto;"
     @on-load="onLoad"
   >
     <div class="wrapper" v-if="!isMobile">

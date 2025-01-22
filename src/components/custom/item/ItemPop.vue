@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NButton, NDivider, NIcon, NPopover
+  NButton, NDivider, NIcon, NPopover,
+  useMessage
 } from 'naive-ui'
 import {
-  OpenInNewFilled
+  OpenInNewFilled,
+  RefreshOutlined
 } from '@vicons/material'
 import ItemSpan from './ItemSpan.vue'
 import ItemRemark from './ItemRemark.vue'
@@ -15,13 +17,18 @@ import {
   XivJobs, type XivJob,
   XivAttributes
 } from '@/assets/data'
-import { getItemInfo, type ItemInfo } from '@/tools/item'
+import { useStore } from '@/store'
+import { getItemInfo, getItemPriceInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/config-user'
+import { fixFuncConfig, type FuncConfigModel, type ItemPriceType } from '@/models/config-func'
 import type EorzeaTime from '@/tools/eorzea-time'
 
+const store = useStore()
+const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
 // const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
@@ -209,6 +216,88 @@ const openInAngler = () => {
   window.open(`${domain}?search=${name}`)
 }
 
+const itemPriceInfo = computed(() => {
+  const priceInfo = funcConfig.value.cache_item_prices[props.itemInfo.id]
+  const havePrice = !!priceInfo
+
+  // 计算上次更新时间
+  let lastUpdate = t('从未'); let priceExpired = false
+  if (priceInfo) {
+    const lastUpdateTS = priceInfo.updateTime
+    const diff = Math.floor((Date.now() - lastUpdateTS) / 1000)
+    if (diff < 60) {
+      lastUpdate = t('刚刚')
+    } else if (diff < 3600) {
+      lastUpdate = t('{minutes}分钟前', Math.floor(diff / 60))
+    } else if (diff < 86400) {
+      lastUpdate = t('{hours}小时前', Math.floor(diff / 3600))
+    } else {
+      lastUpdate = t('{days}天前', Math.floor(diff / 86400))
+    }
+    priceExpired = (Date.now() - lastUpdateTS) > funcConfig.value.universalis_expireTime
+  }
+
+  // 组装各个类型的价格
+  const prices = funcConfig.value.universalis_poppricetypes.map(priceType => {
+    const priceNq = Math.floor(priceInfo?.[`${priceType}NQ`] ?? 0) || '???'
+    const priceHq = Math.floor(priceInfo?.[`${priceType}HQ`] ?? 0) || '???'
+    const tooltipForNoPrice = t('没有价格。') + '\n' + t('可能原因：未获取过价格/物品未实装或不存在此品质/交易数据不足')
+    const styleForNoPrice = 'cursor: help; text-decoration: underline dashed gray;'
+    let tipNq = '', tipHq = '', styleNq = '', styleHq = ''
+    if (priceNq === '???') {
+      tipNq = tooltipForNoPrice; styleNq = styleForNoPrice
+    }
+    if (priceHq === '???') {
+      tipHq = tooltipForNoPrice; styleHq = styleForNoPrice
+    }
+    return {
+      name: getPriceTypeName(priceType),
+      priceNq, tipNq, styleNq,
+      priceHq, tipHq, styleHq
+    }
+    function getPriceTypeName(ptype: ItemPriceType) {
+      switch (ptype) {
+        case 'averagePrice': return t('平均价格')
+        case 'currentAveragePrice': return t('当前平均价格')
+        case 'minPrice': return t('最低价格')
+        case 'maxPrice': return t('最高价格')
+        case 'purchasePrice': return t('近期成交价格')
+        case 'marketLowestPrice': return t('当前寄售最低价')
+        case 'marketPrice': return t('当前寄售平均价')
+        default: return t('未知')
+      }
+    }
+  })
+
+  return {
+    havePrice, lastUpdate, priceExpired, prices
+  }
+})
+const refreshingItemPrice = ref(false)
+const refreshItemPrice = async () => {
+  if (refreshingItemPrice.value) {
+    NAIVE_UI_MESSAGE.info(t('正在刷新价格'))
+    return
+  }
+  refreshingItemPrice.value = true
+  try {
+    const itemPrices = await getItemPriceInfo(props.itemInfo.id, funcConfig.value.universalis_server)
+    const newConfig = funcConfig.value
+    Object.keys(itemPrices).forEach(id => {
+      const itemID = Number(id)
+      newConfig.cache_item_prices[itemID] = itemPrices[itemID]
+    })
+    await store.commit('setFuncConfig', fixFuncConfig(newConfig, store.state.userConfig))
+    funcConfig.value = newConfig
+    NAIVE_UI_MESSAGE.success(t('更新价格成功'))
+  } catch (err: any) {
+    const errMsg = t('更新价格失败') + '\n' + err.message
+    console.error(errMsg, '\n', err)
+    NAIVE_UI_MESSAGE.error(errMsg)
+  }
+  refreshingItemPrice.value = false
+}
+
 const innerPopTrigger = computed(() => {
   if (!isMobile.value && userConfig.value.click_to_show_pop_in_span) {
     return 'click'
@@ -355,6 +444,10 @@ const innerPopTrigger = computed(() => {
               />
               <p>{{ getJobName(XivJobs[18]) }}</p>
             </div>
+            <div v-if="itemInfo.gatherInfo?.[`gntype_${uiLanguage}`]" class="extra">
+              {{ ' - ' }}
+              {{ itemInfo.gatherInfo[`gntype_${uiLanguage}`] }}
+            </div>
           </div>
           <n-divider class="item-divider" />
           <div class="content" v-if="itemInfo.gatherInfo">
@@ -383,6 +476,13 @@ const innerPopTrigger = computed(() => {
             >
               <div>{{ timeLimit.start }} ~ {{ timeLimit.end }}</div>
               <div class="green">{{ timeCanGather(timeLimit) }}</div>
+            </div>
+          </div>
+          <div class="content" v-if="itemInfo.gatherInfo?.folkloreId">
+            <div>{{ t('采集条件：') }}</div>
+            <div class="item small-font" v-if="itemInfo.gatherInfo?.folkloreId">
+              {{ t('需要习得') }}
+              <ItemSpan :img-size="12" :item-info="getItemInfo(itemInfo.gatherInfo.folkloreId)" :container-id="containerId" />
             </div>
           </div>
           <div class="content" v-if="itemInfo.isFishingItem">
@@ -473,6 +573,49 @@ const innerPopTrigger = computed(() => {
             <div class="other-attrs">
               <div v-if="!itemInfo.craftInfo?.qsable" class="red">{{ t('无法进行简易制作') }}</div>
               <div v-if="!itemInfo.craftInfo?.hqable" class="red">{{ t('无法制作优质道具') }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="description-block" v-if="funcConfig.universalis_showpriceinpop && itemInfo.tradable">
+          <div class="title">
+            {{ t('价格') }}
+            <div class="extra flex">
+              <div>
+                {{ t('上次更新: {}', itemPriceInfo.lastUpdate) }}
+              </div>
+              <div v-if="itemPriceInfo.priceExpired" class="red">
+                ({{ t('已过期') }})
+              </div>
+              <a
+                :disabled="refreshingItemPrice"
+                style="padding: 0; margin-left: 3px; display: flex; line-height: 1;"
+                :style="refreshingItemPrice ? 'cursor: not-allowed; color: gray;' : 'cursor: pointer;'"
+                @click="refreshItemPrice"
+              >
+                <n-icon :size="12"><RefreshOutlined /></n-icon>
+                {{ refreshingItemPrice ? t('正在刷新...') : t('刷新') }}
+              </a>
+            </div>
+          </div>
+          <n-divider class="item-divider" />
+          <div class="content">
+            <div v-if="itemPriceInfo.prices.length" class="content-item-prices">
+              <div></div>
+              <div class="font-center">[NQ]</div>
+              <div v-if="itemInfo.hqable" class="font-center">[HQ]</div>
+              <div v-else />
+              <template
+                v-for="(price, index) in itemPriceInfo.prices"
+                :key="'price-' + index"
+              >
+                <div>{{ price.name }}</div>
+                <div class="font-center" :style="price.styleNq" :title="price.tipNq">{{ price.priceNq }}</div>
+                <div v-if="itemInfo.hqable" class="font-center" :style="price.styleHq" :title="price.tipHq">{{ price.priceHq }}</div>
+                <div v-else />
+              </template>
+            </div>
+            <div v-else style="text-indent: 1em;">
+              {{ t('还没有设置要显示哪些价格类型。请在偏好设置的“{option}”设置项中进行配置。', t('在物品悬浮窗中显示的类型')) }}
             </div>
           </div>
         </div>
@@ -621,6 +764,13 @@ const innerPopTrigger = computed(() => {
         display: grid;
         grid-template-columns: repeat(2, minmax(0,1fr));
         column-gap: 5px;
+      }
+      .content .content-item-prices {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        column-gap: 8px;
+        width: fit-content;
+        margin-left: 1em;
       }
       .content .other-attrs,
       .content.extra {

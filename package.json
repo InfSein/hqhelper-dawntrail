@@ -1,6 +1,6 @@
 {
   "name": "hqhelper-dawntrail",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "private": true,
   "type": "module",
   "scripts": {
@@ -18,13 +18,14 @@
   "dependencies": {
     "@voerkai18n/runtime": "^2.1.13",
     "@voerkai18n/vue": "^2.1.13",
-    "xlsx": "^0.17.0",
-    "xlsx-style": "^0.8.13",
     "file-saver": "^2.0.5",
+    "lz-string": "^1.5.0",
     "vue": "^3.4.38",
     "vue-clipboard3": "^2.0.0",
     "vue-router": "^4.4.0",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "xlsx": "^0.17.0",
+    "xlsx-style": "^0.8.13"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.10.4",
