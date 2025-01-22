@@ -5377,7 +5377,7 @@
   },
   "合并采集物品": {
     "en": "Merge gatherable items",
-    "ja": "合并采集物品",
+    "ja": "採集アイテムを統合する",
     "$files": [
       "data\\change-logs.ts",
       "components\\modals\\ModalPreferences.vue"
@@ -5385,28 +5385,28 @@
   },
   "将采矿工采集品和园艺工采集品合并。": {
     "en": "Merge groups divided by gathering jobs.",
-    "ja": "将采矿工采集品和园艺工采集品合并。",
+    "ja": "採掘師の採集品と園芸師の採集品を統合する。",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
   "例如，合并前为采矿非限时、园艺非限时、采矿限时、园艺限时，合并后为采集非限时、采集限时。": {
     "en": "For example, before merge: MIN(unlimited), BTN(unlimited), MIN(time-limited), BTN(time-limited), after merge: Gather(Unlimited), Gather(Time-Limited).",
-    "ja": "例如，合并前为采矿非限时、园艺非限时、采矿限时、园艺限时，合并后为采集非限时、采集限时。",
+    "ja": "例えば、統合前は「採掘（常駐）」、「園芸（常駐）」、「採掘（刻限）」、「園芸（刻限）」でしたが、統合後は「採集（常駐）」、「採集（刻限）」となります。",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
   "采集非限时道具": {
     "en": "Gather(Unlimited)",
-    "ja": "采集非限时道具",
+    "ja": "採集アイテム（常駐）",
     "$files": [
       "components\\modals\\ModalRecommendedProcesses.vue"
     ]
   },
   "采集限时道具": {
     "en": "Gather(Time-Limited)",
-    "ja": "采集限时道具",
+    "ja": "採集アイテム（刻限）",
     "$files": [
       "components\\modals\\ModalRecommendedProcesses.vue"
     ]
