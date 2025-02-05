@@ -57,7 +57,7 @@ const useDesktopUi = computed(() => {
   return !isMobile.value || !!window.electronAPI
 })
 const canUseSubwindow = computed(() => {
-  return !!window.electronAPI?.createNewWindow
+  return !isMobile.value
 })
 const canOpenDevTools = computed(() => {
   return !!window.electronAPI?.openDevTools && userConfig.value.enable_dev_mode
@@ -127,30 +127,41 @@ const redirectToGatherClockPage = () => {
   router.push('/gatherclock')
 }
 const openSubwindowOfGatherClock = () => {
-  if (!window.electronAPI?.createNewWindow) {
-    alert('No api: window.electronAPI.createNewWindow'); return
-  }
   const url = document.location.origin + document.location.pathname + '#/gatherclock?mode=overlay'
-  window.electronAPI.createNewWindow(
-    'gatherclock',
-    url,
-    390,
-    730,
-    t('采集时钟')
-  )
+  if (window.electronAPI?.createNewWindow) {
+    window.electronAPI.createNewWindow(
+      'gatherclock',
+      url,
+      390,
+      730,
+      t('采集时钟')
+    )
+  } else {
+    window.open(
+      url,
+      t('采集时钟'),
+      'height=730, width=390, top=120, left=150'
+    )
+  }
 }
 const openSubwindowOfFtHelper = () => {
-  if (!window.electronAPI?.createNewWindow) {
-    alert('No api: window.electronAPI.createNewWindow'); return
-  }
   const url = document.location.origin + document.location.pathname + '#/fthelper?mode=overlay'
-  window.electronAPI.createNewWindow(
-    'fthelper',
-    url,
-    1600,
-    800,
-    t('食药计算')
-  )
+  if (window.electronAPI?.createNewWindow) {
+    window.electronAPI.createNewWindow(
+      'fthelper',
+      url,
+      1600,
+      800,
+      t('食药计算')
+    )
+  } else {
+    window.open(
+      url,
+      t('食药计算'),
+      'height=800, width=1600, top=120, left=45'
+    )
+  }
+  
 }
 
 interface MenuItem {
