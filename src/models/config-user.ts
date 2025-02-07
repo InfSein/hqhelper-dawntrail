@@ -41,6 +41,10 @@ export interface UserConfigModel {
   // * update
   /** 禁用自动更新 */
   disable_auto_update: boolean
+  /** 使用自定义加速服务 */
+  use_custom_proxy: boolean
+  /** 自定义加速服务地址 */
+  custom_proxy_url: string
   // #endregion
   
   // #region 在其他界面中设置的配置项
@@ -83,6 +87,8 @@ const defaultUserConfig: UserConfigModel = {
   enable_dev_mode: false,
   // update
   disable_auto_update: false,
+  use_custom_proxy: false,
+  custom_proxy_url: '',
   
   // tome-script-button
   tomescript_show_bicolor_items: false,

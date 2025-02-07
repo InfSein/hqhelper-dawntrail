@@ -339,6 +339,18 @@ const preferenceGroups : PreferenceGroup[] = [
               }
             ],
             type: 'switch'
+          },
+          {
+            key: 'use_custom_proxy',
+            label: t('使用自定义加速服务'),
+            type: 'switch',
+            hide: !window.electronAPI
+          },
+          {
+            key: 'custom_proxy_url',
+            label: t('自定义加速服务地址'),
+            type: 'string',
+            hide: !window.electronAPI
           }
         ]
       }

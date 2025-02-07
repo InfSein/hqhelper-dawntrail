@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, reactive, ref } from 'vue'
+import { computed, inject, onMounted, reactive, ref, type Ref } from 'vue'
 import {
-  NAlert, NButton, NCard, NIcon, NRadio
+  NAlert, NButton, NCard, NIcon, NInput, NRadio
 } from 'naive-ui'
 import {
   UpdateSharp,
@@ -13,12 +13,16 @@ import {
 import MyModal from '../templates/MyModal.vue'
 import FoldableCard from '../templates/FoldableCard.vue'
 import type { ProgressData } from 'env.electron'
+import { useStore } from '@/store'
 import AppStatus from '@/variables/app-status'
 import { checkUrlLag } from '@/tools/web-request'
 import type { AppVersionJson } from '@/models'
+import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
 
+const store = useStore()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const showModal = defineModel<boolean>('show', { required: true })
 
@@ -30,6 +34,8 @@ onMounted(() => {
       ver: 'v3'
     })
   }
+  useCustomProxy.value = userConfig.value.use_custom_proxy
+  customProxyUrl.value = userConfig.value.custom_proxy_url
 })
 const onLoad = async () => {
   if (window.electronAPI?.clientVersion) {
@@ -50,12 +56,13 @@ const updateTip = reactive({
 const versionContent = ref<AppVersionJson>()
 const latestHqHelperVersion = ref<string | null>('')
 const latestElectronVersion = ref<string | null>('')
-const proxyValue = ref('https://mirror.ghproxy.com')
+const useCustomProxy = ref(false)
+const customProxyUrl = ref('')
+const proxyValue = ref('https://ghfast.top')
 const proxyPings = ref<Record<string, number | "timeout" | "unknown" | "error">>({})
 const proxyOptions = [
   { label: t('不使用加速服务'), value: '' },
-  { label: 'mirror.ghproxy.com', value: 'https://mirror.ghproxy.com' },
-  { label: 'ghp.ci', value: 'https://ghp.ci' },
+  { label: 'ghfast.top', value: 'https://ghfast.top' },
   { label: 'github.moeyy.xyz', value: 'https://github.moeyy.xyz' },
   { label: 'ghps.cc', value: 'https://ghps.cc' }
   // https://www.cnblogs.com/ting1/p/18356265
@@ -67,7 +74,18 @@ const hqhelperNeedUpdate = computed(() => {
 const electronNeedUpdate = computed(() => {
   return latestElectronVersion.value && latestElectronVersion.value != currentElectronVersion.value
 })
+const proxy = computed(() => {
+  let proxy = proxyValue.value || ''
+  if (useCustomProxy.value) {
+    proxy = customProxyUrl.value || ''
+  }
+  if (proxy) proxy = `${proxy}/`
+  return proxy
+})
 
+const handleShowProxySiteStatus = () => {
+  window.open("https://ghproxy.link/")
+}
 const handleProgress = (progressData: ProgressData) => {
   updateTip.downloaded = progressData.progress?.downloaded ?? "???"
   updateTip.total = progressData.progress?.total ?? "???"
@@ -141,17 +159,24 @@ const getDoUpdateBtnText = (versionNow: string, versionLatest: string | null, do
 }
 
 const handleProxyOptionChange = (e: Event) => {
+  useCustomProxy.value = false
   proxyValue.value = (e.target as HTMLInputElement).value
 }
 const handlePing = async () => {
   proxyPings.value = {}
   const pingFunc = window.electronAPI?.simulatePing || checkUrlLag
-  for (const proxyUrl of proxyOptions.map(o => o.value)) {
+  const doPing = async (proxyUrl: string) => {
     try {
-      proxyPings.value[proxyUrl] = await pingFunc(proxyUrl || 'github.com')
+      return await pingFunc(proxyUrl || 'github.com')
     } catch {
-      proxyPings.value[proxyUrl] = 'error'
+      return 'error'
     }
+  }
+  for (const proxyUrl of proxyOptions.map(o => o.value)) {
+    proxyPings.value[proxyUrl] = await doPing(proxyUrl)
+  }
+  if (useCustomProxy.value && customProxyUrl.value) {
+    proxyPings.value[customProxyUrl.value] = await doPing(customProxyUrl.value)
   }
 }
 const getProxyPingText = (proxy: string) => {
@@ -171,7 +196,7 @@ const getProxyPingText = (proxy: string) => {
 const getProxyPingStyle = (proxy: string) => {
   const ping = proxyPings.value[proxy]
   if (ping === undefined) {
-    return ''
+    return 'display: none;'
   } else if (ping === 'timeout' || ping === 'error') {
     return 'color: red;'
   } else if (ping === 'unknown') {
@@ -185,6 +210,12 @@ const getProxyPingStyle = (proxy: string) => {
   }
 }
 
+const saveUpdateSettings = () => {
+  const newConfig = fixUserConfig(store.state.userConfig)
+  newConfig.use_custom_proxy = useCustomProxy.value
+  newConfig.custom_proxy_url = customProxyUrl.value
+  store.commit('setUserConfig', newConfig)
+}
 const handleDownloadWebPack = async () => {
   if (!window.electronAPI?.downloadUpdatePack) {
     alert('electronAPI.downloadUpdatePack is not defined'); return
@@ -200,15 +231,14 @@ const handleDownloadWebPack = async () => {
   updating.value = true
   updateTip.updating = true
 
-  let proxy = proxyValue.value || ''
-  if (proxy) proxy = `${proxy}/`
+  saveUpdateSettings()
   let url = versionContent.value?.dlink_hqhelper
   if (!url) {
     alert('Update link not given. Server might be undergoing maintenance...')
   } else if (!latestHqHelperVersion.value) {
     alert('latestHqHelperVersion not given, Please retry later.')
   } else {
-    url = url.replace('~PROXY', proxy)
+    url = url.replace('~PROXY', proxy.value)
     url = url.replace('~VERSION', latestHqHelperVersion.value)
     const err = await window.electronAPI.downloadUpdatePack(url)
     if (err) {
@@ -227,16 +257,15 @@ const handleDownloadElectronPack = () => {
   )) {
     return
   }
+  saveUpdateSettings()
   const func = window.electronAPI?.openUrlByBrowser ?? window.open
-  let proxy = proxyValue.value || ''
-  if (proxy) proxy = `${proxy}/`
   let url = versionContent.value?.dlink_electron
   if (!url) {
     alert('Update link not given. Server might be undergoing maintenance...')
   } else if (!latestElectronVersion.value) {
     alert('latestElectronVersion not given, Please retry later.')
   } else {
-    url = url.replace('~PROXY', proxy)
+    url = url.replace('~PROXY', proxy.value)
     url = url.replace('~VERSION', latestElectronVersion.value)
     func(url)
   }
@@ -252,11 +281,14 @@ const handleDownloadElectronPack = () => {
     @on-load="onLoad"
   >
     <div class="wrapper">
-      <FoldableCard class="card proxy" card-key="modal-cu-proxy" card-size="small">
+      <FoldableCard class="card proxy" card-key="modal-cu-proxy" card-size="small" show-card-border>
         <template #header>
           <div class="card-title">
             <n-icon><VpnLockRound /></n-icon>
             <span class="title">{{ t('加速服务') }}</span>
+            <div class="card-title-actions font-small">
+              <a href="javascript:void(0)" @click="handleShowProxySiteStatus">[{{ t('服务站状况') }}]</a>
+            </div>
           </div>
         </template>
 
@@ -274,7 +306,7 @@ const handleDownloadElectronPack = () => {
               <div class="proxy-option">
                 <n-radio
                   name="proxy-option"
-                  :checked="proxyValue === option.value"
+                  :checked="!useCustomProxy && proxyValue === option.value"
                   :value="option.value"
                   @change="handleProxyOptionChange"
                 >
@@ -285,18 +317,42 @@ const handleDownloadElectronPack = () => {
                 {{ getProxyPingText(option.value) }}
               </div>
             </div>
+            <div class="proxy-item">
+              <div class="proxy-option">
+                <n-radio
+                  name="proxy-option"
+                  v-model:checked="useCustomProxy"
+                >
+                  {{ t('自定义加速服务') }}
+                </n-radio>
+              </div>
+              <div class="proxy-ping">
+                <n-input
+                  size="tiny"
+                  v-show="useCustomProxy"
+                  v-model:value="customProxyUrl"
+                  style="width: 250px;"
+                >
+                  <template #suffix>
+                    <div class="proxy-ping" :style="getProxyPingStyle(customProxyUrl)">
+                      ({{ getProxyPingText(customProxyUrl) }})
+                    </div>
+                  </template>
+                </n-input>
+              </div>
+            </div>
           </div>
           <div class="edge-top-right">
             <n-button size="tiny" @click="handlePing">
               <template #icon>
                 <n-icon><SpeedRound /></n-icon>
               </template>
-              {{ t('测速') }}
+              {{ t('连接检测') }}
             </n-button>
           </div>
         </div>
       </FoldableCard>
-      <n-card class="card web-version" size="small" embedded :bordered="false">
+      <n-card class="card web-version" size="small" embedded>
         <template #header>
           <div class="card-title">
             <n-icon><SystemUpdateAltRound /></n-icon>
@@ -334,7 +390,7 @@ const handleDownloadElectronPack = () => {
           </div>
         </div>
       </n-card>
-      <n-card class="card web-version" size="small" embedded :bordered="false">
+      <n-card class="card web-version" size="small" embedded>
         <template #header>
           <div class="card-title">
             <n-icon><BrowserUpdatedRound /></n-icon>
@@ -395,7 +451,7 @@ const handleDownloadElectronPack = () => {
 
     .proxy-item {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 150px 1fr;
       gap: 15px;
     }
   }
