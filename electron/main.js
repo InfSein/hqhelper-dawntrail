@@ -7,6 +7,12 @@ const unzipper = require('unzipper');
 const dns = require('dns');
 const net = require('net');
 const logger = require('electron-log');
+const { exec, spawn } = require('child_process');
+const os = require('os');
+const { promisify } = require('util');
+
+const fsExists = promisify(fs.exists);
+const fsUnlink = promisify(fs.unlink);
 
 logger.transports.console.level = false
 logger.transports.file.level = 'debug'
@@ -19,6 +25,7 @@ logger.transports.file.resolvePath = () => 'log\\' + dateStr + '.log';
 let mainWindow;
 const CLIENT_VERSION = 'v5a'
 
+const EXE_PATH = path.join(app.getPath('userData'), 'temp.exe');
 const ZIP_PATH = path.join(app.getPath('userData'), 'static-pages.zip');
 const TEMP_DIR = path.join(app.getPath('userData'), 'static-pages-temp');
 const WINDOW_SIZES_PATH = path.join(app.getPath('userData'), 'windowSizes.json');
@@ -185,44 +192,48 @@ function createWindow() {
       })
     })
   })
+
+  function sendProgress(event, stage, progress) {
+    event.sender.send('update-progress', { stage, progress });
+  }
+  async function downloadFromUrl(url) {
+    let previousTime = Date.now();
+    let previousDownloaded = 0;
+    const response = await axios.get(url, {
+      responseType: 'stream',
+      onDownloadProgress: (progressEvent) => {
+        const totalBytes = progressEvent.total;
+        const downloadedBytes = progressEvent.loaded;
+
+        // Calculate time difference and bytes difference
+        const currentTime = Date.now();
+        const timeDiff = (currentTime - previousTime) / 1000; // in seconds
+        const bytesDiff = downloadedBytes - previousDownloaded;
+
+        // Calculate current speed in MB/s
+        const speed = (bytesDiff / (1024 * 1024)) / timeDiff;
+
+        // Update previous values
+        previousTime = currentTime;
+        previousDownloaded = downloadedBytes;
+
+        const progress = {
+          total: (totalBytes / (1024 * 1024)).toFixed(2), // MB
+          downloaded: (downloadedBytes / (1024 * 1024)).toFixed(2), // MB
+          speed: speed.toFixed(2) // MB/s (for simplicity)
+        };
+        sendProgress(event, 'downloading', progress);
+      }
+    });
+    return response
+  }
   
   /* 从给定URL下载WEB项目更新包，并在下载成功后自动重启 */
   ipcMain.handle('download-update-pack', async (event, url) => {
-    function sendProgress(event, stage, progress) {
-      event.sender.send('update-progress', { stage, progress });
-    }
-
     try {
       logger.info('[download-update-pack] 下载URL: ' + url)
-      let previousTime = Date.now();
-      let previousDownloaded = 0;
       sendProgress(event, 'requesting', {});
-      const response = await axios.get(url, {
-        responseType: 'stream',
-        onDownloadProgress: (progressEvent) => {
-          const totalBytes = progressEvent.total;
-          const downloadedBytes = progressEvent.loaded;
-
-          // Calculate time difference and bytes difference
-          const currentTime = Date.now();
-          const timeDiff = (currentTime - previousTime) / 1000; // in seconds
-          const bytesDiff = downloadedBytes - previousDownloaded;
-
-          // Calculate current speed in MB/s
-          const speed = (bytesDiff / (1024 * 1024)) / timeDiff;
-
-          // Update previous values
-          previousTime = currentTime;
-          previousDownloaded = downloadedBytes;
-
-          const progress = {
-            total: (totalBytes / (1024 * 1024)).toFixed(2), // MB
-            downloaded: (downloadedBytes / (1024 * 1024)).toFixed(2), // MB
-            speed: speed.toFixed(2) // MB/s (for simplicity)
-          };
-          sendProgress(event, 'downloading', progress);
-        }
-      });
+      const response = await downloadFromUrl(url);
       const writeStream = fs.createWriteStream(ZIP_PATH);
       response.data.pipe(writeStream);
 
@@ -265,6 +276,51 @@ function createWindow() {
       return ''
     } catch (error) {
       logger.error('[download-update-pack] 检查更新时发生错误：' + error)
+      sendProgress(event, 'end', {});
+      throw error
+    }
+  })
+  
+  /* 从给定URL下载EXE文件，并在下载成功后自动打开 */
+  ipcMain.handle('download-and-open', async (event, url) => {
+    try {
+      logger.info('[download-and-open] 开始检查/清理临时文件')
+      const fileExists = await fsExists(EXE_PATH);
+      if (fileExists) {
+        await fsUnlink(EXE_PATH);
+      }
+      logger.info('[download-and-open] 检查/清理临时文件成功')
+
+      logger.info('[download-and-open] 下载URL: ' + url)
+      sendProgress(event, 'requesting', {});
+      const response = await downloadFromUrl(url);
+      const writeStream = fs.createWriteStream(EXE_PATH);
+      response.data.pipe(writeStream);
+
+      writeStream.on('finish', async () => {
+        logger.info('[download-and-open] 下载成功，开始尝试启动安装程序')
+        sendProgress(event, 'opening', {});
+        const adminArgs = ['/c', `runas /user:Administrator "${EXE_PATH}"`];
+        const installProcess = spawn('cmd.exe', adminArgs, { detached: true, stdio: 'ignore' });
+        installProcess.on('error', (err) => {
+          logger.error('启动程序时出错:', err);
+          throw new Error('启动安装程序失败');
+        });
+      });
+
+      writeStream.on('error', (error) => {
+        logger.error('[download-and-open] 下载期间发生错误：' + error)
+        sendProgress(event, 'end', {});
+        throw error
+      });
+
+      writeStream.on('close', () => {
+        logger.info('[download-and-open] 下载完成');
+      });
+
+      return ''
+    } catch (error) {
+      logger.error('[download-and-open] 检查更新时发生错误：' + error)
       sendProgress(event, 'end', {});
       throw error
     }
