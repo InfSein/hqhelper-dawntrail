@@ -347,7 +347,7 @@ const preferenceGroups : PreferenceGroup[] = [
               t('在默认情况下，当您尝试更新客户端版本时，我们会调用系统默认浏览器打开下载链接。'),
               t('启用此选项后，我们会尝试直接用程序本身来下载和打开新版本客户端的安装包。'),
             ]),
-            type: 'string',
+            type: 'switch',
             hide: !window.electronAPI?.downloadAndOpen
           },
           {
