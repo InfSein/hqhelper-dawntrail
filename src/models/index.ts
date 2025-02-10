@@ -11,12 +11,13 @@ export interface AppVersionJson {
 }
 
 export interface PreferenceGroup {
-  key: "userConfig" | "funcConfig"
+  key: "userConfig" | "funcConfig" | "about"
   text: string
   settings: SettingGroup[]
 }
+export type SettingGroupKey = UserConfigKey | FuncConfigKey | "about_app"
 export interface SettingGroup {
-  key: UserConfigKey | FuncConfigKey | "about_app"
+  key: SettingGroupKey
   icon: Component
   text: string
   children: SettingItem[]

@@ -31,6 +31,8 @@ export interface ElectronAPI {
   simulatePing: (domain: string) => Promise<number | "error" | "timeout">;
   /** 从给定URL下载WEB项目更新包，并在下载成功后自动替换-重启 */
   downloadUpdatePack: (url: string) => Promise<string>;
+  /** 从给定URL下载文件，并在下载成功后打开 */
+  downloadAndOpen: (url: string) => Promise<string>;
   /** 下载进度信息回调 */
   onUpdateProgress: (callback: (progressData: ProgressData) => void) => void;
   /** 调用默认浏览器打开给定URL */
@@ -49,7 +51,7 @@ export interface ElectronAPI {
 
 export interface ProgressData {
   /** 当前阶段 */
-  stage: "requesting" | "downloading" | "extracting" | "replacing" | "cleaning" | "relaunching" | "end";
+  stage: "requesting" | "downloading" | "extracting" | "replacing" | "cleaning" | "relaunching" | "opening" | "end";
   progress?: {
     /** 总下载大小 (MB) */
     total: string;

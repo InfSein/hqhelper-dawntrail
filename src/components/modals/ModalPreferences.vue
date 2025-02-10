@@ -29,8 +29,8 @@ import ModalPreferencesImportExport from './ModalPreferencesImportExport.vue'
 import { useStore } from '@/store/index'
 import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { deepCopy } from '@/tools'
-import type { PreferenceGroup } from '@/models'
-import { fixFuncConfig, type FuncConfigKey, type FuncConfigModel } from '@/models/config-func'
+import type { PreferenceGroup, SettingGroupKey } from '@/models'
+import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -41,7 +41,7 @@ const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const showModal = defineModel<boolean>('show', { required: true })
 const emit = defineEmits(['close', 'afterSubmit'])
 interface ModalPreferencesProps {
-  settingGroup?: FuncConfigKey
+  settingGroup?: SettingGroupKey
   /** (仅限APP使用) 仅展示偏好设置项目 */
   appShowUp?: boolean
   /** (仅限APP使用) 仅展示功能设置项目 */
@@ -339,6 +339,16 @@ const preferenceGroups : PreferenceGroup[] = [
               }
             ],
             type: 'switch'
+          },
+          {
+            key: 'update_client_builtin',
+            label: t('使用内置更新功能处理客户端更新'),
+            descriptions: dealDescriptions([
+              t('在默认情况下，当您尝试更新客户端版本时，我们会调用系统默认浏览器打开下载链接。'),
+              t('启用此选项后，我们会尝试直接用程序本身来下载和打开新版本客户端的安装包。'),
+            ]),
+            type: 'string',
+            hide: !window.electronAPI?.downloadAndOpen
           },
           {
             key: 'use_custom_proxy',
@@ -722,7 +732,7 @@ const preferenceGroups : PreferenceGroup[] = [
     ]
   },
   {
-    key: 'userConfig',
+    key: 'about',
     text: t('其他'),
     settings: [
       {

@@ -41,6 +41,8 @@ export interface UserConfigModel {
   // * update
   /** 禁用自动更新 */
   disable_auto_update: boolean
+  /** 使用内置更新功能来进行客户端更新 */
+  update_client_builtin: boolean
   /** 使用自定义加速服务 */
   use_custom_proxy: boolean
   /** 自定义加速服务地址 */
@@ -87,6 +89,7 @@ const defaultUserConfig: UserConfigModel = {
   enable_dev_mode: false,
   // update
   disable_auto_update: false,
+  update_client_builtin: false,
   use_custom_proxy: false,
   custom_proxy_url: '',
   

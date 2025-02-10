@@ -11,6 +11,7 @@ import {
   SpeedRound, RefreshRound
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
+import ModalPreferences from './ModalPreferences.vue'
 import FoldableCard from '../templates/FoldableCard.vue'
 import type { ProgressData } from 'env.electron'
 import { useStore } from '@/store'
@@ -110,6 +111,9 @@ const handleProgress = (progressData: ProgressData) => {
       break
     case 'relaunching':
       updateTip.preText = t('正在重启程序……')
+      break
+    case 'opening':
+      updateTip.preText = t('正在打开安装包……')
       break
     case 'end':
       updateTip.updating = false
@@ -248,27 +252,65 @@ const handleDownloadWebPack = async () => {
   }
   updating.value = false
 }
-const handleDownloadElectronPack = () => {
-  if (!window.confirm(
-    t('即将开始下载客户端更新包。由于客户端体积较大，将调用系统默认浏览器打开下载页。')
-    + '\n' + t('下载成功后，运行下载的安装包即可将客户端更新到新版本。')
-    + '\n' + t('如果下载速度过慢，请尝试取消下载，调整“加速服务”的设置后重试。')
-    + '\n' + t('确认要现在开始更新吗?')
-  )) {
-    return
-  }
-  saveUpdateSettings()
-  const func = window.electronAPI?.openUrlByBrowser ?? window.open
-  let url = versionContent.value?.dlink_electron
-  if (!url) {
-    alert('Update link not given. Server might be undergoing maintenance...')
-  } else if (!latestElectronVersion.value) {
-    alert('latestElectronVersion not given, Please retry later.')
+const handleDownloadElectronPack = async () => {
+  if (userConfig.value.update_client_builtin) {
+    if (!window.electronAPI?.downloadAndOpen) {
+      alert('function downloadAndOpen is not defined.\nPlease check the client version (v6+ is required).'); return
+    }
+    if (!window.confirm(
+      t('即将开始下载新版客户端安装包，可能需要一些时间。')
+      + '\n' + t('更新成功后将自动打开安装包。')
+      + '\n' + t('如果长时间无反应，请尝试关闭程序，重新打开并调整“加速服务”的设置。')
+      + '\n' + t('确认要现在开始更新吗?')
+    )) {
+      return
+    }
+    updating.value = true
+    updateTip.updating = true
+
+    saveUpdateSettings()
+    let url = versionContent.value?.dlink_electron
+    if (!url) {
+      alert('Update link not given. Server might be undergoing maintenance...')
+    } else if (!latestElectronVersion.value) {
+      alert('latestElectronVersion not given, Please retry later.')
+    } else {
+      url = url.replace('~PROXY', proxy.value)
+      url = url.replace('~VERSION', latestElectronVersion.value)
+      const err = await window.electronAPI.downloadAndOpen(url)
+      if (err) {
+        alert(t('下载安装包失败：{errmsg}', err))
+        updateTip.preText = ''
+      }
+    }
+    updating.value = false
   } else {
-    url = url.replace('~PROXY', proxy.value)
-    url = url.replace('~VERSION', latestElectronVersion.value)
-    func(url)
+    if (!window.confirm(
+      t('即将开始下载客户端更新包。由于客户端体积较大，将调用系统默认浏览器打开下载页。')
+      + '\n' + t('下载成功后，运行下载的安装包即可将客户端更新到新版本。')
+      + '\n' + t('如果下载速度过慢，请尝试取消下载，调整“加速服务”的设置后重试。')
+      + '\n' + t('确认要现在开始更新吗?')
+    )) {
+      return
+    }
+    saveUpdateSettings()
+    const func = window.electronAPI?.openUrlByBrowser ?? window.open
+    let url = versionContent.value?.dlink_electron
+    if (!url) {
+      alert('Update link not given. Server might be undergoing maintenance...')
+    } else if (!latestElectronVersion.value) {
+      alert('latestElectronVersion not given, Please retry later.')
+    } else {
+      url = url.replace('~PROXY', proxy.value)
+      url = url.replace('~VERSION', latestElectronVersion.value)
+      func(url)
+    }
   }
+}
+
+const showPreferencesModal = ref(false)
+const handleSettingButtonClick = () => {
+  showPreferencesModal.value = true
 }
 </script>
 
@@ -279,6 +321,8 @@ const handleDownloadElectronPack = () => {
     :title="t('检查更新')"
     height="auto"
     @on-load="onLoad"
+    show-setting
+    @on-setting-button-clicked="handleSettingButtonClick"
   >
     <div class="wrapper">
       <FoldableCard class="card proxy" card-key="modal-cu-proxy" card-size="small" show-card-border>
@@ -431,6 +475,12 @@ const handleDownloadElectronPack = () => {
         {{ updateTip.preText }}
       </n-alert>
     </div>
+
+    <ModalPreferences
+      v-model:show="showPreferencesModal"
+      setting-group="update"
+      app-show-fp
+    />
   </MyModal>
 </template>
 
