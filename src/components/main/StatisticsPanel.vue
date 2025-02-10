@@ -1,63 +1,42 @@
 <script setup lang='ts'>
-import { computed, inject, ref, type Ref } from 'vue'
+import { computed, inject, provide, ref, type Ref } from 'vue'
 import {
   NButton, NCollapse, NCollapseItem
 } from 'naive-ui'
-import FoldableCard from '../custom-controls/FoldableCard.vue'
-import GroupBox from '../custom-controls/GroupBox.vue'
-import ItemButton from '../custom-controls/ItemButton.vue'
-import ItemList from '../custom-controls/ItemList.vue'
-import TomeScriptButton from '../custom-controls/TomeScriptButton.vue'
+import FoldableCard from '../templates/FoldableCard.vue'
+import GroupBox from '../templates/GroupBox.vue'
+import ItemButton from '../custom/item/ItemButton.vue'
+import ItemList from '../custom/item/ItemList.vue'
+import TomeScriptButton from '../custom/other/TomeScriptButton.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
+import ModalProStatements from '../modals/ModalProStatements.vue'
 import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
-import { getItemInfo, getItemPriceInfo, getStatementData, ItemPriceApiVersion, type ItemInfo, type ItemPriceInfo, type ItemTradeInfo } from '@/tools/item'
-import { fixUserConfig, type UserConfigModel } from '@/models/user-config'
-import { export2Excel } from '@/tools/excel'
+import { calCostAndBenefit, getItemInfo, getItemPriceInfo, getStatementData, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
+import { type UserConfigModel } from '@/models/config-user'
+import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import type { GearSelections } from '@/models/gears'
 import { useStore } from '@/store'
+import ModalImportExportMain from '../modals/ModalImportExportMain.vue'
 
 const store = useStore()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
-const props = defineProps({
-  statistics: {
-    type: Object as () => any,
-    required: true
-  },
-  normalGatherings: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  limitedGatherings: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  aethersandGatherings: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  masterCraftings: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  normalCraftings: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  alkahests: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  tradeMap: {
-    type: Object as () => Record<number, ItemTradeInfo>,
-    required: true
-  },
-  gearSelections: {
-    type: Object as () => GearSelections
-  }
-})
+interface StatisticsPanelProps {
+  patchSelected: string,
+  statistics: any,
+  normalGatherings: number[] | undefined,
+  limitedGatherings: number[] | undefined,
+  aethersandGatherings: number[] | undefined,
+  masterCraftings: number[] | undefined,
+  normalCraftings: number[] | undefined,
+  alkahests: number[] | undefined,
+  tradeMap: Record<number, ItemTradeInfo>,
+  gearSelections: GearSelections
+}
+const props = defineProps<StatisticsPanelProps>()
 
 const getTradeCost = (itemTradeInfo: ItemTradeInfo) => {
   let server = userConfig.value.item_server
@@ -74,6 +53,19 @@ const getTradeCost = (itemTradeInfo: ItemTradeInfo) => {
 
 const showBiColorItemsInTomeScriptButton = computed(() => {
   return userConfig.value?.tomescript_show_bicolor_items ?? false
+})
+
+const lvBaseItems = computed(() => {
+  const items = []
+  for (const id in props.statistics.lvBase) {
+    try {
+      const item = getItemInfo(props.statistics.lvBase[id])
+      items.push(item)
+    } catch (error) {
+      console.warn('[compute.lvBaseItems] Error processing item ' + id + ':', error)
+    }
+  }
+  return items
 })
 
 /** 
@@ -131,7 +123,6 @@ const tomeScriptItems = computed(() => {
       }
     })
   }
-  // console.log('tomeScriptItems:', items, '\ntradeMap:', props.tradeMap)
   return items
 })
 
@@ -197,21 +188,12 @@ const aethersands = computed(() => {
  * 表示限时采集品统计。
  */
 const gatheringsTimed = computed(() => {
-  if (!props.limitedGatherings?.length) {
-    return [] as ItemInfo[]
-  }
-  const gathers = []
-  for (const id in props.statistics.lvBase) {
-    try {
-      const _id = parseInt(id)
-      if (props.limitedGatherings.includes(_id) && !props.aethersandGatherings?.includes(_id)) {
-        const item = props.statistics.lvBase[id]
-        gathers.push(getItemInfo(item))
-      }
-    } catch (error) {
-      console.warn('[compute.gatheringsTimed] Error processing item ' + id + ':', error)
+  const gathers : ItemInfo[] = []
+  lvBaseItems.value.forEach(item => {
+    if (item.gatherInfo?.timeLimitInfo?.length) {
+      gathers.push(item)
     }
-  }
+  })
   return gathers
 })
 
@@ -219,21 +201,12 @@ const gatheringsTimed = computed(() => {
  * 表示非限时(常规)采集品统计。
  */
 const gatheringsCommon = computed(() => {
-  if (!props.normalGatherings?.length) {
-    return [] as ItemInfo[]
-  }
-  const gathers = []
-  for (const id in props.statistics.lvBase) {
-    try {
-      const _id = parseInt(id)
-      if (props.normalGatherings.includes(_id)) {
-        const item = props.statistics.lvBase[id]
-        gathers.push(getItemInfo(item))
-      }
-    } catch (error) {
-      console.warn('[compute.gatheringsTimed] Error processing item ' + id + ':', error)
+  const gathers : ItemInfo[] = []
+  lvBaseItems.value.forEach(item => {
+    if (item.gatherInfo?.placeID && !item.gatherInfo.timeLimitInfo?.length) {
+      gathers.push(item)
     }
-  }
+  })
   return gathers
 })
 
@@ -254,96 +227,45 @@ const crystals = computed(() => {
 const reagentsBtnColors = ['#FF8080', '#8080FF', '#FFC080', '#00BFFF', '#40E0D0'] // 刚巧耐智意
 
 const showStatementModal = ref(false)
+const showProStatementModal = ref(false)
 const showStatement = () => {
-  console.log('statistics:', props.statistics)
-  showStatementModal.value = true
+  if (funcConfig.value.use_traditional_statement) {
+    showStatementModal.value = true
+  } else {
+    showProStatementModal.value = true
+  }
 }
 const statementData = computed(() => {
   return getStatementData(props.statistics)
 })
 
-const exportExcel = () => {
-  if (!props.gearSelections) {
-    alert(t('请先选择版本和职业'))
-    return
-  }
-  export2Excel(
-    props.gearSelections,
-    props.statistics,
-    tomeScriptItems.value,
-    gatheringsCommon.value,
-    gatheringsTimed.value,
-    aethersands.value,
-    crystals.value,
-    userConfig.value.language_ui,
-    userConfig.value.language_item === 'auto'
+const importExportData = computed(() => {
+  return {
+    gearSelections: props.gearSelections,
+    statistics: props.statistics,
+    tomeScriptItems: tomeScriptItems.value,
+    normalGathering: gatheringsCommon.value,
+    limitedGathering: gatheringsTimed.value,
+    aethersands: aethersands.value,
+    crystals: crystals.value,
+    ui_lang: userConfig.value.language_ui,
+    item_lang: userConfig.value.language_item === 'auto'
       ? userConfig.value.language_ui
       : userConfig.value.language_item,
-    t
-  )
+    patchSelected: props.patchSelected
+  }
+})
+const handleDisplayImportExportModal = () => {
+  showImportExportModal.value = true
 }
+const showImportExportModal = ref(false)
 
 const showCostAndBenefitModal = ref(false)
 const costAndBenefit = computed(() => {
-  let updateRequired = false
-  const itemsCost = {} as Record<number, {
-    amount: number,
-    price: ItemPriceInfo
-  }>
-  const itemsBenefit = {} as Record<number, {
-    amount: number,
-    price: ItemPriceInfo
-  }>
-  const priceCache = userConfig.value.cache_item_prices
-  const expiresAfter = Date.now() - userConfig.value.universalis_expireTime
-  function cacheNotExpired(item: ItemInfo) {
-    const priceInfo = priceCache[item.id]
-    return priceInfo && priceInfo.updateTime > expiresAfter
-      && priceInfo.v && priceInfo.v >= ItemPriceApiVersion
-  }
-  statementData.value.materialsLvBase.forEach(item => {
-    if (cacheNotExpired(item)) {
-      itemsCost[item.id] = {
-        amount: item.amount,
-        price: priceCache[item.id]
-      }
-    } else {
-      updateRequired = true
-    }
-  })
-  statementData.value.craftTargets.forEach(item => {
-    if (cacheNotExpired(item)) {
-      itemsBenefit[item.id] = {
-        amount: item.amount,
-        price: priceCache[item.id]
-      }
-    } else {
-      updateRequired = true
-    }
-  })
-  let costInfo = '???', benefitInfo = '???'
-  if (!updateRequired) {
-    let costTotal = 0, benefitTotal = 0
-    const priceKey = userConfig.value.universalis_priceType
-    Object.values(itemsCost).forEach(item => {
-      costTotal += item.amount * (item.price[`${priceKey}NQ`] ?? 0)
-    })
-    Object.values(itemsBenefit).forEach(item => {
-      benefitTotal += item.amount * (item.price[`${priceKey}HQ`] ?? 0)
-    })
-    costInfo = Math.floor(costTotal).toLocaleString()
-    benefitInfo = Math.floor(benefitTotal).toLocaleString()
-  }
-  return {
-    updateRequired,
-    itemsCost,
-    itemsBenefit,
-    costInfo,
-    benefitInfo
-  }
+  return calCostAndBenefit(funcConfig.value, statementData.value)
 })
 const updatingPrice = ref(false)
-const handleAnalysisItemPrices = async () => {
+const updateItemPrices = async () => {
   if (costAndBenefit.value.updateRequired) {
     updatingPrice.value = true
     try {
@@ -354,20 +276,23 @@ const handleAnalysisItemPrices = async () => {
       statementData.value.materialsLvBase.forEach(item => {
         items.push(item.id)
       })
-      const itemPrices = await getItemPriceInfo([...new Set(items)], userConfig.value.universalis_server)
-      console.log('itemPrices:', itemPrices)
-      const newConfig = userConfig.value
+      const itemPrices = await getItemPriceInfo([...new Set(items)], funcConfig.value.universalis_server)
+      const newConfig = funcConfig.value
       Object.keys(itemPrices).forEach(id => {
         const itemID = Number(id)
         newConfig.cache_item_prices[itemID] = itemPrices[itemID]
       })
-      await store.commit('setUserConfig', fixUserConfig(newConfig))
+      await store.commit('setFuncConfig', fixFuncConfig(newConfig, store.state.userConfig))
     } catch (error : any) {
       console.error(error)
       alert(t('获取价格失败') + '\n' + (error?.message ?? error))
     }
     updatingPrice.value = false
   }
+}
+provide('updateItemPrices', updateItemPrices)
+const handleAnalysisItemPrices = async () => {
+  await updateItemPrices()
   showCostAndBenefitModal.value = true
 }
 </script>
@@ -378,7 +303,7 @@ const handleAnalysisItemPrices = async () => {
       <i class="xiv square-4"></i>
       <span class="card-title-text">{{ t('查看统计') }}</span>
       <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
-      <a class="card-title-extra" href="javascript:void(0);" @click="exportExcel">{{ t('[导出Excel]') }}</a>
+      <a class="card-title-extra" href="javascript:void(0);" @click="handleDisplayImportExportModal">[{{ t('导入/导出') }}]</a>
     </template>
     <div class="wrapper">
       <GroupBox
@@ -522,6 +447,14 @@ const handleAnalysisItemPrices = async () => {
     <ModalCraftStatements
       v-model:show="showStatementModal"
       v-bind="statementData"
+    />
+    <ModalProStatements
+      v-model:show="showProStatementModal"
+      v-bind="statementData"
+    />
+    <ModalImportExportMain
+      v-model:show="showImportExportModal"
+      v-bind="importExportData"
     />
     <ModalCostAndBenefit
       v-model:show="showCostAndBenefitModal"

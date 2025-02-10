@@ -1,27 +1,62 @@
 // env.electron.d.ts
 export interface ElectronAPI {
+  /**
+   * @deprecated 此接口已被弃用且没有实际效果，请勿使用
+   */
   checkForUpdates: () => void;
+  /**
+   * @deprecated 此接口已被弃用且没有实际效果，请勿使用
+   */
   installUpdate: () => void;
+  /**
+   * @deprecated 此接口已被弃用且没有实际效果，请勿使用
+   */
   onUpdateReady: (callBack: Function) => void;
+
+  /** 令窗口最小化 */
   minimize: () => void;
+  /** 令窗口最大化 */
   maximize: () => void;
+  /** 令窗口取消最大化状态 */
   restore: () => void;
+  /** 令窗口关闭 */
   close: () => void;
+
+  /** 获取客户端的当前版本 (格式如 `v1`, `v5a`, `v6`) */
   clientVersion: Promise<string>;
+
+  /** 向给定URL发送GET请求，成功时返回字符串格式的数据；失败时throw error */
   httpGet: (url: string) => Promise<string>;
+  /** 检查给定域名的延迟，返回延迟时间(ms)或超时信息 */
   simulatePing: (domain: string) => Promise<number | "error" | "timeout">;
+  /** 从给定URL下载WEB项目更新包，并在下载成功后自动替换-重启 */
   downloadUpdatePack: (url: string) => Promise<string>;
+  /** 下载进度信息回调 */
   onUpdateProgress: (callback: (progressData: ProgressData) => void) => void;
+  /** 调用默认浏览器打开给定URL */
   openUrlByBrowser: (url: string) => void;
+  /** 复制给定字符串 */
   copyText: (text: string) => Promise<string>;
+  /** 创建新窗口 */
+  createNewWindow: (id: string, url: string, defaultWidth: number, defaultHeight: number, title: string) => void;
+  /** 切换窗口置顶 */
+  toggleAlwaysOnTop: () => void;
+  /** 更新标题栏操作按钮的主题 */
+  updateTitleBarTheme: (isDarkMode: boolean) => void;
+  /** 打开开发者工具 */
+  openDevTools: () => void;
 }
 
 export interface ProgressData {
-  stage: "requesting" | "downloading" | "extracting" | "replacing" | "cleaning" | "relaunching" | "end"; // 当前阶段
+  /** 当前阶段 */
+  stage: "requesting" | "downloading" | "extracting" | "replacing" | "cleaning" | "relaunching" | "end";
   progress?: {
-    total: string;      // 总下载大小 (MB)
-    downloaded: string; // 已下载大小 (MB)
-    speed: string;      // 下载速度 (MB/s)
+    /** 总下载大小 (MB) */
+    total: string;
+    /** 已下载大小 (MB) */
+    downloaded: string;
+    /** 下载速度 (MB/s) */
+    speed: string;
   };
 }
 

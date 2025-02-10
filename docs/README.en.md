@@ -12,8 +12,9 @@
   <strong>English</strong>
 </p>
 
-![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) <br>
-![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)
+[![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github)](/LICENSE) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) <br>
+[![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github)](https://github.com/InfSein/hqhelper-dawntrail/releases) [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)](https://github.com/InfSein/hqhelper-dawntrail/releases) <br>
+[![Based on Vite](https://img.shields.io/badge/Vite-5.4.2-646CFF?style=flat&logo=vite)](https://github.com/vitejs/vite) [![Based on Vue3](https://img.shields.io/badge/Vue-3.4.38-4FC08D?style=flat&logo=vue.js)](https://github.com/vuejs/core) [![Based on TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-3178C6?style=flat&logo=typescript)](https://github.com/microsoft/TypeScript) [![Based on Naive UI](https://img.shields.io/badge/Naive%20UI-2.39.0-008080?style=flat&logo=npm)](https://github.com/tusen-ai/naive-ui)
 
 Master formula calculator for FFXIV Dawntrail crafters.
 
@@ -22,8 +23,6 @@ We will provide you with information organization and formula calculation servic
 ## How to use
 
 ### Use in browser
-
-Essentially, it is just a static webpage.
 
 #### Formal Sites
 
@@ -44,7 +43,7 @@ We may provide various types of applications, but it is difficult to guarantee t
 
 #### Windows APP
 
-See [Release Electron v3](https://github.com/InfSein/hqhelper-dawntrail/releases/tag/electron.v3)
+See [Release Electron v5a](https://github.com/InfSein/hqhelper-dawntrail/releases/tag/electron.v5a)
 
 #### iOS APP
 
@@ -74,7 +73,7 @@ npm run dev
 
 ### Join in development
 
-* **Find Problems**：If you find any errors/problems during use, or have suggestions for optimizing our interface/functionality/logic, please feel free to [new a issue](https://github.com/InfSein/hqhelper-dawntrail/issues/new) 。
+* **Find Problems**：If you find any errors/problems during use, or have suggestions for optimizing our interface/functionality/logic, please feel free to [new a issue](https://github.com/InfSein/hqhelper-dawntrail/issues/new) .
 * **Solve Problems**：If you have front-end programming skills, you can initiate a [Pull Request](https://github.com/InfSein/hqhelper-dawntrail/pulls) to join in the development of `HqHelper` through various means. The code may need to comply with general specifications and some additional rules, please refer to our [Wiki](https://github.com/InfSein/hqhelper-dawntrail/wiki) for more details.
 
 ### Donate us

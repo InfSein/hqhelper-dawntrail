@@ -1,31 +1,36 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch, type Ref } from 'vue'
+import { computed, h, inject, onBeforeUnmount, onMounted, ref, watch, type Ref, type VNode } from 'vue'
 import {
-  NButton, NCard, NDivider, NDropdown, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch, NTabs, NTabPane
+  NButton, NCard, NDivider, NDropdown, NEl, NEmpty, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch, NTooltip,
+  type SelectOption
 } from 'naive-ui'
 import {
   AccessAlarmsOutlined,
+  NotificationsRound, NotificationsNoneRound,
   StarBorderRound, StarRound,
 } from '@vicons/material'
-import RouterCard from '@/components/subs/RouterCard.vue'
-import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
-import ItemButton from '@/components/custom-controls/ItemButton.vue'
-import XivFARImage from '@/components/custom-controls/XivFARImage.vue'
-import XivMap from '@/components/custom-controls/XivMap.vue'
-import LocationSpan from '@/components/custom-controls/LocationSpan.vue'
-import { XivMaps } from '@/assets/data'
+import FoldableCard from '@/components/templates/FoldableCard.vue'
+import XivFARImage from '@/components/custom/general/XivFARImage.vue'
+import RouterCard from '@/components/custom/general/RouterCard.vue'
+import ItemButton from '@/components/custom/item/ItemButton.vue'
+import XivMap from '@/components/custom/map/XivMap.vue'
+import LocationSpan from '@/components/custom/map/LocationSpan.vue'
+import ModalAlarmMacroExport from '@/components/modals/ModalAlarmMacroExport.vue'
+import { XivMaps, XivJobs, type XivJob } from '@/assets/data'
 import { useStore } from '@/store'
-import { jobMap, type JobInfo } from '@/data'
 import { useNbbCal } from '@/tools/use-nbb-cal'
-import { getNearestAetheryte } from '@/tools/map'
-import type { ItemInfo } from '@/tools/item'
-import type { UserConfigModel } from '@/models/user-config'
-import type EorzeaTime from '@/tools/eorzea-time'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
+import type { ItemGroup } from '@/models/item'
+import type { UserConfigModel } from '@/models/config-user'
+import EorzeaTime from '@/tools/eorzea-time'
+import { playAudio } from '@/tools'
+import { fixAlarmMacroOptions } from '@/models/gather-clock'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
+const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const store = useStore()
 const { getLimitedGatherings } = useNbbCal()
@@ -38,11 +43,7 @@ const gatherData = computed(() => {
     })
   }
 
-  const data : {
-    title: string,
-    key: string,
-    items: ItemInfo[]
-  }[] = []
+  const data : ItemGroup[] = []
 
   // 收藏的物品
   const stars : ItemInfo[] = []
@@ -57,6 +58,21 @@ const gatherData = computed(() => {
     title: t('已收藏'),
     key: 'stars',
     items: stars
+  })
+
+  // 订阅的物品
+  const subscribed : ItemInfo[] = []
+  workState.value.subscribedItems.forEach(itemID => {
+    if (allItems[itemID]) {
+      subscribed.push(allItems[itemID])
+    } else {
+      console.warn(`物品 ${itemID} 在采集时钟数据集中不存在`)
+    }
+  })
+  data.push({
+    title: t('已订阅'),
+    key: 'subscribed',
+    items: subscribed
   })
 
   for (const key in limitedGatherings) {
@@ -82,31 +98,157 @@ const itemLanguage = computed(() => {
   }
   return userConfig.value.language_ui
 })
+const isVerticalOverlay = computed(() => {
+  return isMobile.value && appMode.value === 'overlay'
+})
+const canPinWindow = computed(() => {
+  return appMode.value === 'overlay' && !!window.electronAPI?.toggleAlwaysOnTop
+})
 
 const workState = ref({
   patch: '7.0-710',
+  /** 是否将整个窗口置顶 (限v5及以上的客户端使用) */
+  pinWindow: false,
+  /** 通知方式 */
+  notifyMode: 'none' as "none" | "system_noti" | "audio",
   /** 排序依据 */
-  orderBy: 'itemId' as "itemId" | "gatherStartTimeAsc",
+  orderBy: 'itemId' as "itemId" | "gatherStartTimeAsc" | "remainingTimeAsc",
   /** 是否将目前可以采集的道具置顶 */
   pinGatherableItems: false,
   /** 禁用物品按钮悬浮窗 */
   banItemPop: false,
   /** 是否直接在采集卡片内展示地图 */
   showMap: false,
+  alarmMacroOptions: fixAlarmMacroOptions(),
   starItems: [] as number[],
+  subscribedItems: [] as number[]
+})
+const showAlarmMacroExportModal = ref(false)
+const notifyModeOptions = computed(() => {
+  return [
+    {
+      label: t('禁用'),
+      value: 'none'
+    },
+    {
+      label: t('系统通知'),
+      value: 'system_noti'
+    },
+    {
+      label: t('提示音'),
+      value: 'audio'
+    },
+  ]
 })
 const itemSortOptions = computed(() => {
   return [
     {
-      label: t('物品编号'),
+      label: t('物品ID'),
       value: 'itemId'
     },
     {
       label: t('采集开始时间'),
       value: 'gatherStartTimeAsc'
     },
+    {
+      label: t('剩余时间'),
+      value: 'remainingTimeAsc',
+      description: t('现可采集物品的剩余可采集时间 / 未可采集物品距离得可采集的剩余时间')
+    },
   ]
 })
+const renderOption = ({ node, option }: { node: VNode, option: SelectOption }) => {
+  return option.description ? h(
+    NTooltip,
+    { keepAliveOnHover: false, placement: 'right', style: { width: 'max-content', display: isMobile.value ? 'none' : 'inherit' } },
+    {
+      trigger: () => [node],
+      default: () => option.description
+    }
+  ) : h(
+    node
+  )
+}
+
+watch(
+  () => workState.value.pinWindow,
+  (newVal, oldVal) => {
+    if (window.electronAPI?.toggleAlwaysOnTop) {
+      if ((!oldVal && newVal) || (oldVal && !newVal)) {
+        window.electronAPI!.toggleAlwaysOnTop()
+      }
+    }
+  }
+)
+
+const alarmedET = ref<number>(0)
+const alarmInterval = ref<number | undefined>(undefined)
+onMounted(() => {
+  if (alarmInterval.value === undefined) {
+    alarmInterval.value = setInterval(() => {
+      // 根据当前ET判断是否需要提醒
+      // 浏览器性能限制，最小化之后执行间隔会变长，所以按ET的小时数来判断是否需要提醒
+      const _CurrentET = currentET.value.hour
+      if (
+        _CurrentET !== alarmedET.value
+        && workState.value.subscribedItems?.length
+        && workState.value.notifyMode !== 'none'
+      ) {
+        const itemsNeedAlarm : ItemInfo[] = []
+        workState.value.subscribedItems.forEach(itemId => {
+          const itemInfo = getItemInfo(itemId)
+          let needAlarm = false
+          if (itemInfo.gatherInfo?.timeLimitInfo?.length) {
+            itemInfo.gatherInfo.timeLimitInfo.forEach(timeLimitInfo => {
+              needAlarm = needAlarm || Number(timeLimitInfo.start.split(':')[0]) === _CurrentET
+            })
+          }
+          if (needAlarm) {
+            itemsNeedAlarm.push(itemInfo)
+          }
+        })
+        handleNotify(itemsNeedAlarm)
+      }
+      alarmedET.value = _CurrentET
+    }, 500) // 页面最小化时，浏览器会把1s以上的间隔延长，导致错过ET更新
+  }
+})
+onBeforeUnmount(() => {
+  if (alarmInterval.value !== undefined) {
+    clearInterval(alarmInterval.value)
+  }
+})
+
+const handleCheckNotificationPermission = () => {
+  if (workState.value.notifyMode === 'system_noti') {
+    if (!("Notification" in window)) {
+      alert(t('当前使用的浏览器或客户端不支持系统通知功能。'))
+    } else if (Notification.permission === 'denied') {
+      alert(t('通知权限被拒绝，请检查浏览器的网站权限设置。'))
+    } else if (Notification.permission !== 'granted') {
+      Notification.requestPermission()
+    }
+  } else if (workState.value.notifyMode === 'audio') {
+    playAudio('./audio/FFXIV_Incoming_Tell_2.mp3')
+  }
+}
+const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
+  if (!itemsNeedAlarm.length) return
+  if (workState.value.notifyMode === 'system_noti') {
+    new Notification(t('以下物品已可采集：'), {
+      body: itemsNeedAlarm.map(item => {
+        let text = `${getItemName(item)}: ${getJobName(XivJobs[item.gatherInfo.jobId])} | ${getPlaceName(item)} ${getItemGatherLocation(item)}`
+        if (item.gatherInfo.recommAetheryte) {
+          text += ' | ' + t('推荐传送点') + ' - ' + item.gatherInfo.recommAetheryte?.[`name_${itemLanguage.value}`]
+        }
+        return text
+      }).join('\n'),
+      icon: itemsNeedAlarm[0].iconUrl
+    })
+  } else if (workState.value.notifyMode === 'audio') {
+    playAudio('./audio/FFXIV_Incoming_Tell_2.mp3')
+  }
+}
 
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {
@@ -114,7 +256,10 @@ if (!disable_workstate_cache) {
   if (cachedWorkState && JSON.stringify(cachedWorkState).length > 2) {
     workState.value = cachedWorkState
     // 在这里处理后续添加的成员默认值
+    workState.value.notifyMode ??= 'none'
     workState.value.orderBy ??= 'itemId'
+    workState.value.subscribedItems ??= []
+    workState.value.alarmMacroOptions = fixAlarmMacroOptions(workState.value.alarmMacroOptions)
   }
 
   // todo - 留意性能：深度侦听需要遍历被侦听对象中的所有嵌套的属性，当用于大型数据结构时，开销很大
@@ -137,16 +282,35 @@ const dealTimeLimit = (start: string, end: string) => {
   let progressStatus : 'info' | 'warning' | 'error' = 'info'
   let progressPercentage = 0
   let canGather = false
+  let remainET = 99999
+  let remainLT : string | undefined = undefined
+  let ltClass = 'font-small'
   try {
     const parseTime = (time: string) => time.split(':').reduce((acc, val, idx) => acc + parseInt(val) * [60, 1][idx], 0)
     const s = parseTime(start)
     const e = parseTime(end)
     const c = currentET.value.hour * 60 + currentET.value.minute
-    if (c >= s && c <= e) {
+    if (c >= s && c < e) {
       canGather = true
       progressPercentage = (c - s) / (e - s) * 100
+      remainET = e - c
+      const ls = Math.floor(EorzeaTime.EorzeaMinute2LocalSecond(remainET))
+      if (ls < 30) {
+        ltClass += ' red'
+      } else if (ls < 60) {
+        ltClass += ' color-warning'
+      }
+      remainLT = t('剩余:')
+      if (ls >= 60) {
+        remainLT += t('{minute}分', Math.floor(ls / 60))
+      }
+      remainLT += t('{second}秒', ls % 60)
     } else {
       progressPercentage = 0
+      remainET = s - c
+      if (remainET < 0) {
+        remainET += 1440
+      }
     }
   } catch (err) {
     console.error(err)
@@ -156,48 +320,120 @@ const dealTimeLimit = (start: string, end: string) => {
     canGather: canGather,
     status: progressStatus,
     percentage: progressPercentage,
-    text: '正在进行中'
+    remainLT, ltClass,
+    remainET
   }
 }
 
-const handleStarButtonClick = (itemInfo : ItemInfo) => {
+const handleSubscribeButtonClick = (itemInfo : ItemInfo) => {
+  if (workState.value.subscribedItems.includes(itemInfo.id)) {
+    workState.value.subscribedItems = workState.value.subscribedItems.filter(id => id !== itemInfo.id)
+  } else {
+    workState.value.subscribedItems.push(itemInfo.id)
+  }
+}
+
+const handleQuickOperateButtonClick = (itemInfo : ItemInfo) => {
   if (workState.value.starItems.includes(itemInfo.id)) {
     workState.value.starItems = workState.value.starItems.filter(id => id !== itemInfo.id)
   } else {
     workState.value.starItems.push(itemInfo.id)
   }
 }
-const getBatchStarOptions = () => {
-  return [
-    ...gatherData.value.filter(item => item.key !== 'stars').map(data => {
-      const itemsAllStared = data.items.every(item => workState.value.starItems.includes(item.id))
-      return {
-        label: itemsAllStared ? t('取消收藏“{}”', data.title) : t('收藏“{}”', data.title),
-        key: data.key,
-        click: () => {
-          if (itemsAllStared) {
-            workState.value.starItems = workState.value.starItems.filter(id => !data.items.map(item => item.id).includes(id))
-          } else {
-            data.items.forEach(item => {
-              if (!workState.value.starItems.includes(item.id)) {
-                workState.value.starItems.push(item.id)
-              }
-            })
-          }
+const getQuickOperateOptions = () => {
+  const starOptions = gatherData.value.filter(
+    item => item.key !== 'stars' && item.items.length
+  ).map(data => {
+    const itemsAllStared = data.items.every(item => workState.value.starItems.includes(item.id))
+    return {
+      label: itemsAllStared ? t('取消收藏“{}”', data.title) : t('收藏“{}”', data.title),
+      key: 'star-option-' + data.key,
+      click: () => {
+        if (itemsAllStared) {
+          workState.value.starItems = workState.value.starItems.filter(id => !data.items.map(item => item.id).includes(id))
+        } else {
+          data.items.forEach(item => {
+            if (!workState.value.starItems.includes(item.id)) {
+              workState.value.starItems.push(item.id)
+            }
+          })
         }
       }
-    }),
-    {
-      label: t('全部取消收藏'),
-      key: 'removeAll',
-      disabled: workState.value.starItems.length === 0,
+    }
+  })
+  const subscribeOptions = gatherData.value.filter(
+    item => item.key !== 'subscribed' && item.items.length
+  ).map(data => {
+    const itemsAllAlarmed = data.items.every(item => workState.value.subscribedItems.includes(item.id))
+    return {
+      label: itemsAllAlarmed ? t('取消订阅“{}”', data.title) : t('订阅“{}”', data.title),
+      key: 'subscribe-option-' + data.key,
       click: () => {
-        workState.value.starItems = []
+        if (itemsAllAlarmed) {
+          workState.value.subscribedItems = workState.value.subscribedItems.filter(id => !data.items.map(item => item.id).includes(id))
+        } else {
+          data.items.forEach(item => {
+            if (!workState.value.subscribedItems.includes(item.id)) {
+              workState.value.subscribedItems.push(item.id)
+            }
+          })
+        }
       }
     }
-  ]
+  })
+
+  const optionUnstarAll = {
+    label: t('全部取消收藏'),
+    key: 'star-removeAll',
+    disabled: workState.value.starItems.length === 0,
+    click: () => {
+      workState.value.starItems = []
+    }
+  }
+  const optionUnsubscribeAll = {
+    label: t('全部取消订阅'),
+    key: 'subscribe-removeAll',
+    disabled: workState.value.subscribedItems.length === 0,
+    click: () => {
+      workState.value.subscribedItems = []
+    }
+  }
+
+  const divider = {
+    type: 'divider'
+  }
+
+  if (isMobile.value) {
+    return [
+      ...starOptions,
+      optionUnstarAll,
+      divider,
+      ...subscribeOptions,
+      optionUnsubscribeAll
+    ]
+  } else {
+    return [
+      {
+        label: t('收藏'),
+        key: 'group-star',
+        children: [
+          ...starOptions
+        ]
+      },
+      optionUnstarAll,
+      divider,
+      {
+        label: t('订阅'),
+        key: 'group-subscribe',
+        children: [
+          ...subscribeOptions
+        ]
+      },
+      optionUnsubscribeAll
+    ]
+  }
 }
-const handleBatchStarSelect = (key: string | number, option: any) => {
+const handleQuickOperateOptionSelect = (key: string | number, option: any) => {
   if (option?.click) {
     option.click()
   } else {
@@ -222,6 +458,34 @@ const getSortedItems = (items: ItemInfo[]) => {
         }
         return startA - startB
       })
+    case 'remainingTimeAsc': // 根据剩余时间增序排序
+      return items.sort((a, b) => {
+        let aGatherable = false, bGatherable = false
+        let aRemain = 99999, bRemain = 99999
+        a.gatherInfo.timeLimitInfo.forEach(limit => {
+          const dtResult = dealTimeLimit(limit.start, limit.end)
+          if (dtResult.canGather) {
+            aGatherable = true
+            aRemain = dtResult.remainET
+            return // 道具可采集时置顶
+          } else {
+            aRemain = Math.min(aRemain, dtResult.remainET)
+          }
+        })
+        b.gatherInfo.timeLimitInfo.forEach(limit => {
+          const dtResult = dealTimeLimit(limit.start, limit.end)
+          if (dtResult.canGather) {
+            bGatherable = true
+            bRemain = dtResult.remainET
+            return // 道具可采集时置顶
+          } else {
+            bRemain = Math.min(bRemain, dtResult.remainET)
+          }
+        })
+        if (aGatherable) aRemain -= 99999
+        if (bGatherable) bRemain -= 99999
+        return aRemain - bRemain
+      })
     default: // 默认为itemID增序排序
       return items.sort((a, b) => {
         if (workState.value.pinGatherableItems) {
@@ -243,7 +507,15 @@ const getSortedItems = (items: ItemInfo[]) => {
   }
 }
 
-const getJobName = (jobInfo: JobInfo) => {
+const getItemName = (itemInfo: ItemInfo) => {
+  switch (itemLanguage.value) {
+    case 'zh':
+      return itemInfo.name_zh || '未翻译的物品'
+    default:
+      return itemInfo[`name_${itemLanguage.value}`]
+  }
+}
+const getJobName = (jobInfo: XivJob) => {
   switch (uiLanguage.value) {
     case 'ja':
       return jobInfo?.job_name_ja || t('未知')
@@ -265,11 +537,19 @@ const getPlaceName = (itemInfo : ItemInfo) => {
       return itemInfo.gatherInfo?.placeNameZH
   }
 }
+const getItemGatherLocation = (itemInfo: ItemInfo) => {
+  return t('(X:{x}, Y:{y})', { x: itemInfo.gatherInfo.posX.toFixed(1), y: itemInfo.gatherInfo.posY.toFixed(1) })
+}
+
+const handleShowAlarmMacroExportModal = () => {
+  showAlarmMacroExportModal.value = true
+}
 </script>
 
 <template>
   <div id="main-container">
     <RouterCard
+      v-if="appMode !== 'overlay'"
       id="router-card"
       :page-name="t('采集时钟')"
       :page-icon="AccessAlarmsOutlined"
@@ -289,8 +569,14 @@ const getPlaceName = (itemInfo : ItemInfo) => {
             maxWidth: isMobile ? '100%' : 'fit-content'
           }"
         >
+          <n-form-item :label="t('窗口置顶')" v-show="canPinWindow">
+            <n-switch v-model:value="workState.pinWindow" />
+          </n-form-item>
+          <n-form-item :label="t('提醒方式')" style="min-width: 150px;">
+            <n-select v-model:value="workState.notifyMode" :options="notifyModeOptions" @update:value="handleCheckNotificationPermission" />
+          </n-form-item>
           <n-form-item :label="t('排序依据')" style="min-width: 200px;">
-            <n-select v-model:value="workState.orderBy" :options="itemSortOptions" />
+            <n-select v-model:value="workState.orderBy" :options="itemSortOptions" :render-option="renderOption" />
           </n-form-item>
           <n-form-item :label="t('将现可采集的物品置顶')">
             <n-switch v-model:value="workState.pinGatherableItems" />
@@ -304,142 +590,177 @@ const getPlaceName = (itemInfo : ItemInfo) => {
           <n-form-item :label="t('快速操作')">
             <n-dropdown
               placement="bottom-start"
-              :options="getBatchStarOptions()"
-              @select="handleBatchStarSelect"
+              :options="getQuickOperateOptions()"
+              @select="handleQuickOperateOptionSelect"
             >
               <n-button>{{ t('点此展开菜单') }}</n-button>
             </n-dropdown>
           </n-form-item>
+          <n-form-item :label="t('导出闹钟宏')">
+            <n-button @click="handleShowAlarmMacroExportModal">{{ t('点击此处') }}</n-button>
+          </n-form-item>
         </n-form>
       </div>
     </FoldableCard>
-    <n-card embedded :bordered="false">
-      <n-tabs v-model:value="workState.patch" type="card" animated>
-        <n-tab-pane
+    <n-card embedded :bordered="false" :content-style="isVerticalOverlay ? 'padding: 1em 0.5em;' : undefined">
+      <div class="title-actions">
+        <n-button
           v-for="patch in gatherData"
           :key="patch.key"
-          :name="patch.key"
-          :tab="patch.title"
+          :type="workState.patch === patch.key ? 'primary' : undefined"
+          :size="isVerticalOverlay ? 'tiny' : undefined"
+          @click="workState.patch = patch.key"
         >
-          <template #tab>
-            <div class="tab-title">
-              <span v-if="patch.key === 'stars'">
-                <i class="xiv e05d"></i>
-              </span>
-              <span v-else-if="patch.key.includes('~690')">
-                <i class="xiv collectables"></i>
-              </span>
-              <span v-else>
-                <i class="xiv timer"></i>
-              </span>
-              <span>{{ patch.title }}</span>
+          <div class="tab-title">
+            <span v-if="patch.key === 'stars'">
+              <i class="xiv e05d"></i>
+            </span>
+            <span v-else-if="patch.key === 'subscribed'">
+              <i class="xiv e05f"></i>
+            </span>
+            <span v-else-if="patch.key.includes('~690')">
+              <i class="xiv collectables"></i>
+            </span>
+            <span v-else>
+              <i class="xiv timer"></i>
+            </span>
+            <span>{{ patch.title }}</span>
+          </div>
+        </n-button>
+      </div>
+      <n-divider style="margin-top: 3px; margin-bottom: 12px;" :style="{
+        marginTop: '3px',
+        marginBottom: isVerticalOverlay ? '5px' : '12px'
+      }" />
+      <n-el
+        v-for="patch in gatherData"
+        :key="patch.key"
+        v-show="workState.patch === patch.key"
+      >
+        <div v-if="!patch.items?.length" class="flex-center w-full" :style="isMobile ? 'min-height: 300px;' : ''">
+          <n-empty size="large" :description="t('没有物品')" />
+        </div>
+        <div class="items-container">
+          <div
+            v-for="item in getSortedItems(patch.items)"
+            :key="item.id"
+            class="item-card"
+          >
+            <div class="title">
+              <ItemButton
+                :item-info="item"
+                show-icon show-name
+                btn-extra-style="flex-grow: 1;"
+                :disable-pop="workState.banItemPop"
+              />
+              <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
+                <template #trigger>
+                  <n-button class="btn-alarm" @click="handleSubscribeButtonClick(item)">
+                    <template #icon>
+                      <n-icon v-if="workState.subscribedItems.includes(item.id)" color="#A80ABF">
+                        <NotificationsRound />
+                      </n-icon>
+                      <n-icon v-else color="#A80ABF">
+                        <NotificationsNoneRound />
+                      </n-icon>
+                    </template>
+                  </n-button>
+                </template>
+                <div>{{ t('点击此按钮来订阅/取消订阅这个采集品。') }}</div>
+                <div>{{ t('被订阅的采集品可以采集时，我们会按照您设置的“{setting}”向您发送提醒。', t('提醒方式')) }}</div>
+              </n-popover>
+              <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
+                <template #trigger>
+                  <n-button class="btn-star" @click="handleQuickOperateButtonClick(item)">
+                    <template #icon>
+                      <n-icon v-if="workState.starItems.includes(item.id)" color="#F6CA45">
+                        <StarRound />
+                      </n-icon>
+                      <n-icon v-else color="#F6CA45">
+                        <StarBorderRound />
+                      </n-icon>
+                    </template>
+                  </n-button>
+                </template>
+                <div>{{ t('点击此按钮来收藏/取消收藏这个采集品。') }}</div>
+                <div>{{ t('被收藏的采集品将在“已收藏”栏目单独展示。') }}</div>
+              </n-popover>
             </div>
-          </template>
-          <div class="items-container">
-            <div
-              v-for="item in getSortedItems(patch.items)"
-              :key="item.id"
-              class="item-card"
-            >
-              <div class="title">
-                <ItemButton
-                  :item-info="item"
-                  show-icon show-name
-                  btn-extra-style="flex-grow: 1;"
-                  :disable-pop="workState.banItemPop"
-                />
-                <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
-                  <template #trigger>
-                    <n-button class="btn-star" @click="handleStarButtonClick(item)">
-                      <template #icon>
-                        <n-icon v-if="workState.starItems.includes(item.id)" color="#F6CA45">
-                          <StarRound />
-                        </n-icon>
-                        <n-icon v-else color="#F6CA45">
-                          <StarBorderRound />
-                        </n-icon>
-                      </template>
-                    </n-button>
-                  </template>
-                  <div>{{ t('点击此按钮来收藏/取消收藏这个采集品。') }}</div>
-                  <div>{{ t('被收藏的采集品将在“已收藏”栏目单独展示。') }}</div>
-                </n-popover>
-              </div>
-              <n-divider class="no-margin" />
-              <div class="content">
-                <div class="standard-info">
-                  <div class="gather-job">
-                    <XivFARImage
-                      class="icon"
-                      :src="jobMap[item.gatherInfo.jobId].job_icon_url"
-                    />
-                    <p>{{ getJobName(jobMap[item.gatherInfo.jobId]) }}</p>
-                  </div>
-                  <div class="recommended-aetheryte" v-if="XivMaps[item.gatherInfo.placeID]">
-                    <span>{{ t('推荐') }}</span>
-                    <span style="vertical-align: middle;">
-                      <XivFARImage
-                        :size="14"
-                        src="./ui/aetheryte.png"
-                      />
-                    </span>
-                    <span>
-                      {{
-                        getNearestAetheryte(
-                          XivMaps[item.gatherInfo.placeID],
-                          item.gatherInfo.posX, item.gatherInfo.posY,
-                          itemLanguage
-                        )
-                      }}
-                    </span>
-                  </div>
-                  <div class="gather-place">
-                    <LocationSpan
-                      :place-id="item.gatherInfo.placeID"
-                      :place-name="getPlaceName(item)"
-                      :coordinate-x="item.gatherInfo.posX"
-                      :coordinate-y="item.gatherInfo.posY"
-                      hide-coordinates
-                    />
-                    <div>{{ t('(X:{x}, Y:{y})', { x: item.gatherInfo.posX, y: item.gatherInfo.posY }) }}</div>
-                  </div>
+            <n-divider class="no-margin" />
+            <div class="content">
+              <div class="standard-info">
+                <div class="gather-job">
+                  <XivFARImage
+                    class="icon"
+                    :src="XivJobs[item.gatherInfo.jobId].job_icon_url"
+                  />
+                  <p>{{ getJobName(XivJobs[item.gatherInfo.jobId]) }}</p>
                 </div>
-                <XivMap
-                  v-if="workState.showMap && XivMaps[item.gatherInfo.placeID]"
-                  :map-data="XivMaps[item.gatherInfo.placeID]"
-                  :map-size="isMobile ? 225 : 125"
-                  :flag-x="item.gatherInfo.posX"
-                  :flag-y="item.gatherInfo.posY"
-                  style="justify-content: end;"
-                />
-                <div class="progresses">
-                  <div
-                    v-for="(timelimit, tlIndex) in item.gatherInfo.timeLimitInfo"
-                    :key="item.id + '-' + tlIndex"
-                  >
-                    <div>
-                      {{ timelimit.start }} ~ {{ timelimit.end }}
-                      <span v-if="dealTimeLimit(timelimit.start, timelimit.end).canGather" class="green" style="margin-left: 5px;">
-                        {{ t('现可采集') }}
-                      </span>
-                    </div>
-                    <n-progress
-                      type="line"
-                      processing
-                      :show-indicator="false"
-                      :status="dealTimeLimit(timelimit.start, timelimit.end).status"
-                      :percentage="dealTimeLimit(timelimit.start, timelimit.end).percentage"
-                    >
-                      {{ dealTimeLimit(timelimit.start, timelimit.end).text }}
-                    </n-progress>
+                <div class="recommended-aetheryte" v-if="XivMaps[item.gatherInfo.placeID]">
+                  <span>{{ t('推荐') }}</span>
+                  <span style="vertical-align: middle;">
+                    <XivFARImage
+                      :size="14"
+                      src="./ui/aetheryte.png"
+                    />
+                  </span>
+                  <span>
+                    {{ item.gatherInfo.recommAetheryte?.[`name_${itemLanguage}`] }}
+                  </span>
+                </div>
+                <div class="gather-place">
+                  <LocationSpan
+                    :place-id="item.gatherInfo.placeID"
+                    :place-name="getPlaceName(item)"
+                    :coordinate-x="item.gatherInfo.posX"
+                    :coordinate-y="item.gatherInfo.posY"
+                    hide-coordinates
+                  />
+                  <div>{{ getItemGatherLocation(item) }}</div>
+                </div>
+              </div>
+              <XivMap
+                v-if="workState.showMap && XivMaps[item.gatherInfo.placeID]"
+                :map-data="XivMaps[item.gatherInfo.placeID]"
+                :map-size="isMobile ? 225 : 125"
+                :flag-x="item.gatherInfo.posX"
+                :flag-y="item.gatherInfo.posY"
+                style="justify-content: end;"
+              />
+              <div class="progresses">
+                <div
+                  v-for="(timelimit, tlIndex) in item.gatherInfo.timeLimitInfo"
+                  :key="item.id + '-' + tlIndex"
+                >
+                  <div>
+                    {{ timelimit.start }} ~ {{ timelimit.end }}
+                    <span v-if="dealTimeLimit(timelimit.start, timelimit.end).canGather" class="green" style="margin-left: 5px;">
+                      {{ t('现可采集') }}
+                    </span>
+                    <span v-if="dealTimeLimit(timelimit.start, timelimit.end).remainLT" :class="dealTimeLimit(timelimit.start, timelimit.end).ltClass" style="margin-left: 5px;">
+                      {{ dealTimeLimit(timelimit.start, timelimit.end).remainLT }}
+                    </span>
                   </div>
+                  <n-progress
+                    type="line"
+                    processing
+                    :show-indicator="false"
+                    :status="dealTimeLimit(timelimit.start, timelimit.end).status"
+                    :percentage="dealTimeLimit(timelimit.start, timelimit.end).percentage"
+                  />
                 </div>
               </div>
             </div>
           </div>
-        </n-tab-pane>
-      </n-tabs>
+        </div>
+      </n-el>
     </n-card>
+
+    <ModalAlarmMacroExport
+      v-model:show="showAlarmMacroExportModal"
+      v-model:options="workState.alarmMacroOptions"
+      :item-groups="gatherData"
+    />
   </div>
 </template>
 
@@ -455,27 +776,32 @@ const getPlaceName = (itemInfo : ItemInfo) => {
   width: fit-content;
   border-radius: 5px;
   margin-bottom: 1rem;
-  box-shadow: 0 0 10px var(--n-border-color);
 
   .n-form-item {
     border-radius: 5px;
     padding: 0.5rem 0.6rem;
+    border: 1px solid transparent;
   }
 }
 .tab-title > *:not(:first-child) {
   margin-left: 3px;
+}
+.title-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 5px;
 }
 .items-container {
   gap: 0.3rem;
   padding: 0.5rem;
 
   .item-card:hover {
-    box-shadow: 0 0 10px var(--n-bar-color);
-    border-color: var(--n-bar-color);
+    box-shadow: 0 0 10px var(--primary-color);
+    border-color: var(--primary-color);
   }
   .item-card {
     border-radius: 5px;
-    border: 1px solid var(--n-bar-color);
+    border: 1px solid var(--primary-color);
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
     padding: 0.3rem;
     display: flex;
@@ -488,6 +814,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
       align-items: center;
       gap: 0.2rem;
 
+      .btn-alarm,
       .btn-star {
         padding: 0px 8px;
       }
@@ -537,7 +864,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 /* Desktop */
 @media screen and (min-width: 768px) {
   .query-form .n-form-item:hover {
-    box-shadow: 0 0 10px var(--n-color-target);
+    border: 1px solid var(--n-color-target);
   }
   .items-container {
     display: grid;
@@ -561,6 +888,9 @@ const getPlaceName = (itemInfo : ItemInfo) => {
     .item-card {
       width: 100%;
     }
+  }
+  .env-overlay .items-container {
+    padding: 0;
   }
 }
 </style>

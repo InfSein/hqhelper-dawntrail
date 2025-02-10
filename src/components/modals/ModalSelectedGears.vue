@@ -1,18 +1,23 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch, type PropType, type Ref } from 'vue'
+import { inject, ref, type PropType, type Ref } from 'vue'
 import {
-  NButton, NCard, NIcon, NInputNumber, NModal, NScrollbar, NTable, NTabs, NTabPane
+  NButton, NCard, NIcon, NInputNumber, NScrollbar, NTable, NTabs, NTabPane
 } from 'naive-ui'
-import { CheckroomSharp, SaveOutlined } from '@vicons/material'
+import { 
+  CheckroomSharp, SaveOutlined
+} from '@vicons/material'
+import MyModal from '../templates/MyModal.vue'
+import GroupBox from '../templates/GroupBox.vue'
+import XivFARImage from '../custom/general/XivFARImage.vue'
+import {
+  XivGearAffixes,
+  XivRoles, type XivRole,
+  XivJobs
+} from '@/assets/data'
 import type { GearSelections, AttireAffix, AccessoryAffix } from '@/models/gears'
 import { attireAffixes, accessoryAffixes } from '@/models/gears'
-import { type UserConfigModel } from '@/models/user-config'
+import { type UserConfigModel } from '@/models/config-user'
 import { deepCopy } from '@/tools'
-import XivRoles from '@/assets/data/xiv-roles.json'
-import XivJobs from '@/assets/data/xiv-jobs.json'
-import XivGearAffixes from '@/assets/data/xiv-gear-affixes.json'
-import XivFARImage from '../custom-controls/XivFARImage.vue'
-import GroupBox from '../custom-controls/GroupBox.vue'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -28,7 +33,7 @@ const props = defineProps({
 })
 // const jobIds = Object.keys(XivJobs).map(jobId => parseInt(jobId))
 const getAffixName = (affix: AttireAffix | AccessoryAffix) => {
-  return XivGearAffixes[affix][`affix_name_${uiLanguage}`]
+  return XivGearAffixes[affix][`name_${uiLanguage}`]
 }
 const attireGearSlots = [
   { key: 'HeadAttire', text: t('头部'), icon: './image/game-gear-slot/head.png' },
@@ -49,20 +54,10 @@ const gearSelections = defineModel<GearSelections>('gearSelections', { required:
 
 const pageHeight = ref(window.innerHeight)
 const localSelections = ref<GearSelections>(gearSelections.value)
-watch(showModal, (newVal, oldVal) => {
-  if (newVal && !oldVal) {
-    localSelections.value = deepCopy(gearSelections.value)
-    pageHeight.value = window.innerHeight
-  }
-})
-
-const cardStyle = computed(() => {
-  return [
-    'width: 98%;',
-    'max-width: 1500px;',
-    'max-height: ' + (pageHeight.value - 80) + 'px;',
-  ].join(' ')
-})
+const onLoad = () => {
+  localSelections.value = deepCopy(gearSelections.value)
+  pageHeight.value = window.innerHeight
+}
 
 const getRoleName = (role: any) => {
   switch (uiLanguage) {
@@ -75,7 +70,7 @@ const getRoleName = (role: any) => {
   }
 }
 const getJobName = (jobId: number) => {
-  const _job = (XivJobs as any)[jobId]
+  const _job = XivJobs[jobId]
   switch (uiLanguage) {
     case 'ja':
       return _job.job_name_ja
@@ -84,6 +79,29 @@ const getJobName = (jobId: number) => {
     default:
       return _job.job_name_zh
   }
+}
+
+const getVShowOfMainoffHandGroup = (role: XivRole) => {
+  let show = false
+  role.jobs.forEach(jobId => {
+    if (props.patchData?.jobs?.MainHand?.[jobId]?.[0] || props.patchData?.jobs?.OffHand?.[jobId]?.[0]) {
+      show = true
+    }
+  })
+  return show
+}
+const getVShowOfAttireAffixRow = (attire: AttireAffix) => {
+  return props.patchData?.jobs?.HeadAttire?.[attire]?.[0]
+    || props.patchData?.jobs?.BodyAttire?.[attire]?.[0]
+    || props.patchData?.jobs?.HandsAttire?.[attire]?.[0]
+    || props.patchData?.jobs?.LegsAttire?.[attire]?.[0]
+    || props.patchData?.jobs?.FeetAttire?.[attire]?.[0]
+}
+const getVShowOfAccessoryAffixRow = (accessory: AccessoryAffix) => {
+  return props.patchData?.jobs?.Earrings?.[accessory]?.[0]
+    || props.patchData?.jobs?.Necklace?.[accessory]?.[0]
+    || props.patchData?.jobs?.Wrist?.[accessory]?.[0]
+    || props.patchData?.jobs?.Rings?.[accessory]?.[0]
 }
 
 const handleClose = () => {
@@ -103,408 +121,412 @@ const handleSave = () => {
 </script>
 
 <template>
-  <n-modal v-model:show="showModal">
-    <n-card
-      closable
-      role="dialog"
-      class="no-select"
-      :style="cardStyle"
-      content-style="overflow-y: auto;"
-      @close="handleClose"
-    >
-      <template #header>
-        <div class="card-title">
-          <n-icon><CheckroomSharp /></n-icon>
-          <span class="title">{{ t('已选部件') }}</span>
-        </div>
-      </template>
+  <MyModal
+    v-model:show="showModal"
+    :icon="CheckroomSharp"
+    :title="t('已选部件')"
+    max-width="1500px"
+    :height="(pageHeight - 80) + 'px'"
+    content-extra-style="overflow-y: auto;"
+    @on-load="onLoad"
+  >
+    <div class="wrapper" v-if="!isMobile">
+      <div class="weapons">
+        <n-card size="small" :title="t('主副手')">
+          <div class="weapons-container">
+            <GroupBox
+              class="weapon-group"
+              v-for="(role, roleIndex) in XivRoles"
+              :key="roleIndex"
+              v-show="getVShowOfMainoffHandGroup(role)"
+              :border-color="role.role_color"
+              title-background-color="var(--n-color-modal)"
+              container-extra-style="padding: 8px;"
+            >
+              <template #title>
+                <XivFARImage
+                  :src="role.role_icon_url"
+                  :size="14"
+                />
+                <span>
+                  {{ getRoleName(role) }}
+                </span>
+              </template>
 
-      <div class="wrapper" v-if="!isMobile">
-        <div class="weapons">
-          <n-card size="small" :title="t('主副手')">
-            <div class="weapons-container">
-              <GroupBox
-                class="weapon-group"
-                v-for="(role, roleIndex) in XivRoles"
-                :key="roleIndex"
-                :border-color="role.role_color"
-                title-background-color="var(--n-color-modal)"
-                container-extra-style="padding: 8px;"
-              >
-                <template #title>
-                  <XivFARImage
-                    :src="role.role_icon_url"
-                    :size="14"
-                  />
-                  <span>
-                    {{ getRoleName(role) }}
-                  </span>
-                </template>
-
-                <div class="input-container">
-                  <p v-for="job in role.jobs" :key="'weapon-mainhand-' + job">
-                    <n-input-number
-                      v-model:value="localSelections.MainHand[job]"
-                      :input-props="{ type: 'number' }"
-                      :min="0"
-                      :max="99999"
-                      :precision="0"
-                      :title="getJobName(job)"
-                      :show-button="!isMobile"
-                      :disabled="!patchData?.jobs?.MainHand?.[job]?.[0] && !patchData?.jobs?.OffHand?.[job]?.[0]"
-                    >
-                      <template #prefix>
-                        <XivFARImage 
-                          :src="(XivJobs as any)[job].job_icon_url"
-                          :size="15"
-                        />
-                      </template>
-                    </n-input-number>
-                  </p>
-                </div>
-              </GroupBox>
-            </div>
-          </n-card>
-        </div>
-        <div class="attires">
-          <n-card size="small" :title="t('防具')">
+              <div class="input-container">
+                <p v-for="job in role.jobs" :key="'weapon-mainhand-' + job">
+                  <n-input-number
+                    v-model:value="localSelections.MainHand[job]"
+                    :input-props="{ type: 'number' }"
+                    :min="0"
+                    :max="99999"
+                    :precision="0"
+                    :title="getJobName(job)"
+                    :show-button="!isMobile"
+                    :disabled="!patchData?.jobs?.MainHand?.[job]?.[0] && !patchData?.jobs?.OffHand?.[job]?.[0]"
+                  >
+                    <template #prefix>
+                      <XivFARImage 
+                        :src="XivJobs[job].job_icon_url"
+                        :size="15"
+                      />
+                    </template>
+                  </n-input-number>
+                </p>
+              </div>
+            </GroupBox>
+          </div>
+        </n-card>
+      </div>
+      <div class="attires">
+        <n-card size="small" :title="t('防具')">
+          <n-table class="attires-table" size="small" :single-line="false">
+            <thead>
+              <tr>
+                <th>{{ t('词缀') }}</th>
+                <th>
+                  <div class="th-inner">
+                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/head.png" />
+                    <span>{{ t('头部') }}</span>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-inner">
+                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/body.png" />
+                    <span>{{ t('身体') }}</span>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-inner">
+                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/hands.png" />
+                    <span>{{ t('手部') }}</span>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-inner">
+                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/legs.png" />
+                    <span>{{ t('腿部') }}</span>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-inner">
+                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/feet.png" />
+                    <span>{{ t('脚部') }}</span>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+          </n-table>
+          <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '240px', 'margin-top': '-2px' }">
             <n-table class="attires-table" size="small" :single-line="false">
-              <thead>
-                <tr>
-                  <th>{{ t('词缀') }}</th>
-                  <th>
-                    <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/head.png" />
-                      <span>{{ t('头部') }}</span>
-                    </div>
-                  </th>
-                  <th>
-                    <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/body.png" />
-                      <span>{{ t('身体') }}</span>
-                    </div>
-                  </th>
-                  <th>
-                    <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/hands.png" />
-                      <span>{{ t('手部') }}</span>
-                    </div>
-                  </th>
-                  <th>
-                    <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/legs.png" />
-                      <span>{{ t('腿部') }}</span>
-                    </div>
-                  </th>
-                  <th>
-                    <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/feet.png" />
-                      <span>{{ t('脚部') }}</span>
-                    </div>
-                  </th>
+              <tbody>
+                <tr
+                  v-for="attire in attireAffixes"
+                  :key="'row-attire-' + attire"
+                  v-show="getVShowOfAttireAffixRow(attire)"
+                >
+                  <td>{{ getAffixName(attire) }}</td>
+                  <td>
+                    <n-input-number
+                      v-model:value="localSelections.HeadAttire[attire]"
+                      :disabled="!patchData?.jobs?.HeadAttire?.[attire]?.[0]"
+                      :input-props="{ type: 'number' }"
+                      :min="0"
+                      :max="99999"
+                      :precision="0"
+                      button-placement="both"
+                      :show-button="!isMobile"
+                    />
+                  </td>
+                  <td>
+                    <n-input-number
+                      v-model:value="localSelections.BodyAttire[attire]"
+                      :disabled="!patchData?.jobs?.BodyAttire?.[attire]?.[0]"
+                      :input-props="{ type: 'number' }"
+                      :min="0"
+                      :max="99999"
+                      :precision="0"
+                      button-placement="both"
+                      :show-button="!isMobile"
+                    />
+                  </td>
+                  <td>
+                    <n-input-number
+                      v-model:value="localSelections.HandsAttire[attire]"
+                      :disabled="!patchData?.jobs?.HandsAttire?.[attire]?.[0]"
+                      :input-props="{ type: 'number' }"
+                      :min="0"
+                      :max="99999"
+                      :precision="0"
+                      button-placement="both"
+                      :show-button="!isMobile"
+                    />
+                  </td>
+                  <td>
+                    <n-input-number
+                      v-model:value="localSelections.LegsAttire[attire]"
+                      :disabled="!patchData?.jobs?.LegsAttire?.[attire]?.[0]"
+                      :input-props="{ type: 'number' }"
+                      :min="0"
+                      :max="99999"
+                      :precision="0"
+                      button-placement="both"
+                      :show-button="!isMobile"
+                    />
+                  </td>
+                  <td>
+                    <n-input-number
+                      v-model:value="localSelections.FeetAttire[attire]"
+                      :disabled="!patchData?.jobs?.FeetAttire?.[attire]?.[0]"
+                      :input-props="{ type: 'number' }"
+                      :min="0"
+                      :max="99999"
+                      :precision="0"
+                      button-placement="both"
+                      :show-button="!isMobile"
+                    />
+                  </td>
                 </tr>
-              </thead>
+              </tbody>
             </n-table>
-            <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '240px', 'margin-top': '-2px' }">
-              <n-table class="attires-table" size="small" :single-line="false">
-                <tbody>
-                  <tr v-for="attire in attireAffixes" :key="'row-attire-' + attire">
-                    <td>{{ getAffixName(attire) }}</td>
-                    <td>
-                      <n-input-number
-                        v-model:value="localSelections.HeadAttire[attire]"
-                        :disabled="!patchData?.jobs?.HeadAttire?.[attire]?.[0]"
-                        :input-props="{ type: 'number' }"
-                        :min="0"
-                        :max="99999"
-                        :precision="0"
-                        button-placement="both"
-                        :show-button="!isMobile"
-                      />
-                    </td>
-                    <td>
-                      <n-input-number
-                        v-model:value="localSelections.BodyAttire[attire]"
-                        :disabled="!patchData?.jobs?.BodyAttire?.[attire]?.[0]"
-                        :input-props="{ type: 'number' }"
-                        :min="0"
-                        :max="99999"
-                        :precision="0"
-                        button-placement="both"
-                        :show-button="!isMobile"
-                      />
-                    </td>
-                    <td>
-                      <n-input-number
-                        v-model:value="localSelections.HandsAttire[attire]"
-                        :disabled="!patchData?.jobs?.HandsAttire?.[attire]?.[0]"
-                        :input-props="{ type: 'number' }"
-                        :min="0"
-                        :max="99999"
-                        :precision="0"
-                        button-placement="both"
-                        :show-button="!isMobile"
-                      />
-                    </td>
-                    <td>
-                      <n-input-number
-                        v-model:value="localSelections.LegsAttire[attire]"
-                        :disabled="!patchData?.jobs?.LegsAttire?.[attire]?.[0]"
-                        :input-props="{ type: 'number' }"
-                        :min="0"
-                        :max="99999"
-                        :precision="0"
-                        button-placement="both"
-                        :show-button="!isMobile"
-                      />
-                    </td>
-                    <td>
-                      <n-input-number
-                        v-model:value="localSelections.FeetAttire[attire]"
-                        :disabled="!patchData?.jobs?.FeetAttire?.[attire]?.[0]"
-                        :input-props="{ type: 'number' }"
-                        :min="0"
-                        :max="99999"
-                        :precision="0"
-                        button-placement="both"
-                        :show-button="!isMobile"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </n-table>
-            </n-scrollbar>
-          </n-card>
-        </div>
-        <div class="accessories">
-          <n-card size="small" :title="t('首饰')">
+          </n-scrollbar>
+        </n-card>
+      </div>
+      <div class="accessories">
+        <n-card size="small" :title="t('首饰')">
+          <n-table class="accessories-table" size="small" :single-line="false">
+            <thead>
+              <tr>
+                <th>{{ t('词缀') }}</th>
+                <th>
+                  <div class="th-inner">
+                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/ear.png" />
+                    <span>{{ t('耳坠') }}</span>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-inner">
+                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/neck.png" />
+                    <span>{{ t('项链') }}</span>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-inner">
+                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/wrist.png" />
+                    <span>{{ t('手镯') }}</span>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-inner">
+                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/ring.png" />
+                    <span>{{ t('戒指') }}</span>
+                  </div>
+                </th>
+                <th v-if="!isMobile"></th>
+              </tr>
+            </thead>
+          </n-table>
+          <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '200px', 'margin-top': '-2px' }">
             <n-table class="accessories-table" size="small" :single-line="false">
-              <thead>
-                <tr>
-                  <th>{{ t('词缀') }}</th>
-                  <th>
-                    <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/ear.png" />
-                      <span>{{ t('耳坠') }}</span>
-                    </div>
-                  </th>
-                  <th>
-                    <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/neck.png" />
-                      <span>{{ t('项链') }}</span>
-                    </div>
-                  </th>
-                  <th>
-                    <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/wrist.png" />
-                      <span>{{ t('手镯') }}</span>
-                    </div>
-                  </th>
-                  <th>
-                    <div class="th-inner">
-                      <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/ring.png" />
-                      <span>{{ t('戒指') }}</span>
-                    </div>
-                  </th>
-                  <th v-if="!isMobile"></th>
+              <tbody>
+                <tr
+                  v-for="accessory in accessoryAffixes"
+                  :key="'row-accessory-' + accessory"
+                  v-show="getVShowOfAccessoryAffixRow(accessory)"
+                >
+                  <td>{{ getAffixName(accessory) }}</td>
+                  <td>
+                    <n-input-number
+                      v-model:value="localSelections.Earrings[accessory]"
+                      :disabled="!patchData?.jobs?.Earrings?.[accessory]?.[0]"
+                      :input-props="{ type: 'number' }"
+                      :min="0"
+                      :max="99999"
+                      :precision="0"
+                      button-placement="both"
+                      :show-button="!isMobile"
+                    />
+                  </td>
+                  <td>
+                    <n-input-number
+                      v-model:value="localSelections.Necklace[accessory]"
+                      :disabled="!patchData?.jobs?.Necklace?.[accessory]?.[0]"
+                      :input-props="{ type: 'number' }"
+                      :min="0"
+                      :max="99999"
+                      :precision="0"
+                      button-placement="both"
+                      :show-button="!isMobile"
+                    />
+                  </td>
+                  <td>
+                    <n-input-number
+                      v-model:value="localSelections.Wrist[accessory]"
+                      :disabled="!patchData?.jobs?.Wrist?.[accessory]?.[0]"
+                      :input-props="{ type: 'number' }"
+                      :min="0"
+                      :max="99999"
+                      :precision="0"
+                      button-placement="both"
+                      :show-button="!isMobile"
+                    />
+                  </td>
+                  <td>
+                    <n-input-number
+                      v-model:value="localSelections.Rings[accessory]"
+                      :disabled="!patchData?.jobs?.Rings?.[accessory]?.[0]"
+                      :input-props="{ type: 'number' }"
+                      :min="0"
+                      :max="99999"
+                      :precision="0"
+                      button-placement="both"
+                      :show-button="!isMobile"
+                    />
+                  </td>
+                  <td v-if="!isMobile"></td>
                 </tr>
-              </thead>
+              </tbody>
             </n-table>
-            <n-scrollbar trigger="none" :style="{ height: isMobile ? '90px' : '200px', 'margin-top': '-2px' }">
-              <n-table class="accessories-table" size="small" :single-line="false">
-                <tbody>
-                  <tr v-for="accessory in accessoryAffixes" :key="'row-accessory-' + accessory">
-                    <td>{{ getAffixName(accessory) }}</td>
-                    <td>
-                      <n-input-number
-                        v-model:value="localSelections.Earrings[accessory]"
-                        :disabled="!patchData?.jobs?.Earrings?.[accessory]?.[0]"
-                        :input-props="{ type: 'number' }"
-                        :min="0"
-                        :max="99999"
-                        :precision="0"
-                        button-placement="both"
-                        :show-button="!isMobile"
-                      />
-                    </td>
-                    <td>
-                      <n-input-number
-                        v-model:value="localSelections.Necklace[accessory]"
-                        :disabled="!patchData?.jobs?.Necklace?.[accessory]?.[0]"
-                        :input-props="{ type: 'number' }"
-                        :min="0"
-                        :max="99999"
-                        :precision="0"
-                        button-placement="both"
-                        :show-button="!isMobile"
-                      />
-                    </td>
-                    <td>
-                      <n-input-number
-                        v-model:value="localSelections.Wrist[accessory]"
-                        :disabled="!patchData?.jobs?.Wrist?.[accessory]?.[0]"
-                        :input-props="{ type: 'number' }"
-                        :min="0"
-                        :max="99999"
-                        :precision="0"
-                        button-placement="both"
-                        :show-button="!isMobile"
-                      />
-                    </td>
-                    <td>
-                      <n-input-number
-                        v-model:value="localSelections.Rings[accessory]"
-                        :disabled="!patchData?.jobs?.Rings?.[accessory]?.[0]"
-                        :input-props="{ type: 'number' }"
-                        :min="0"
-                        :max="99999"
-                        :precision="0"
-                        button-placement="both"
-                        :show-button="!isMobile"
-                      />
-                    </td>
-                    <td v-if="!isMobile"></td>
-                  </tr>
-                </tbody>
-              </n-table>
-            </n-scrollbar>
-          </n-card>
-        </div>
+          </n-scrollbar>
+        </n-card>
       </div>
-      <div class="wrapper" v-else>
-        <n-tabs v-if="isMobile" type="segment" animated>
-          <n-tab-pane name="weapon" :tab="t('主副手')">
-            <div class="weapons-container">
-              <GroupBox
-                class="weapon-group"
-                v-for="(role, roleIndex) in XivRoles"
-                :key="'m-'+roleIndex"
-                :border-color="role.role_color"
-                title-background-color="var(--n-color-modal)"
-                container-extra-style="padding: 8px;"
-              >
-                <template #title>
-                  <XivFARImage
-                    :src="role.role_icon_url"
-                    :size="14"
-                  />
-                  <span>
-                    {{ getRoleName(role) }}
-                  </span>
-                </template>
+    </div>
+    <div class="wrapper" v-else>
+      <n-tabs v-if="isMobile" type="segment" animated>
+        <n-tab-pane name="weapon" :tab="t('主副手')">
+          <div class="weapons-container">
+            <GroupBox
+              class="weapon-group"
+              v-for="(role, roleIndex) in XivRoles"
+              :key="'m-'+roleIndex"
+              v-show="getVShowOfMainoffHandGroup(role)"
+              :border-color="role.role_color"
+              title-background-color="var(--n-color-modal)"
+              container-extra-style="padding: 8px;"
+            >
+              <template #title>
+                <XivFARImage
+                  :src="role.role_icon_url"
+                  :size="14"
+                />
+                <span>
+                  {{ getRoleName(role) }}
+                </span>
+              </template>
 
-                <div class="input-container">
-                  <p v-for="job in role.jobs" :key="'m-weapon-mainhand-' + job">
-                    <n-input-number
-                      v-model:value="localSelections.MainHand[job]"
-                      :input-props="{ type: 'number' }"
-                      :min="0"
-                      :max="99999"
-                      :precision="0"
-                      :title="getJobName(job)"
-                      :disabled="!patchData?.jobs?.MainHand?.[job]?.[0] && !patchData?.jobs?.OffHand?.[job]?.[0]"
-                    >
-                      <template #prefix>
-                        <XivFARImage 
-                          :src="(XivJobs as any)[job].job_icon_url"
-                          :size="15"
-                        />
-                      </template>
-                    </n-input-number>
-                  </p>
-                </div>
-              </GroupBox>
-            </div>
-          </n-tab-pane>
-          <n-tab-pane name="attire" :tab="t('防具')">
-            <div class="weapons-container">
-              <GroupBox
-                class="weapon-group"
-                v-for="(attire, attireIndex) in attireAffixes"
-                :key="'m-at'+attireIndex"
-                title-background-color="var(--n-color-modal)"
-                container-extra-style="padding: 8px;"
-              >
-                <template #title>
-                  <span>
-                    {{ getAffixName(attire) }}
-                  </span>
-                </template>
+              <div class="input-container">
+                <p v-for="job in role.jobs" :key="'m-weapon-mainhand-' + job">
+                  <n-input-number
+                    v-model:value="localSelections.MainHand[job]"
+                    :input-props="{ type: 'number' }"
+                    :min="0"
+                    :max="99999"
+                    :precision="0"
+                    :title="getJobName(job)"
+                    :disabled="!patchData?.jobs?.MainHand?.[job]?.[0] && !patchData?.jobs?.OffHand?.[job]?.[0]"
+                  >
+                    <template #prefix>
+                      <XivFARImage 
+                        :src="XivJobs[job].job_icon_url"
+                        :size="15"
+                      />
+                    </template>
+                  </n-input-number>
+                </p>
+              </div>
+            </GroupBox>
+          </div>
+        </n-tab-pane>
+        <n-tab-pane name="attire" :tab="t('防具')">
+          <div class="weapons-container">
+            <GroupBox
+              class="weapon-group"
+              v-for="(attire, attireIndex) in attireAffixes"
+              :key="'m-at'+attireIndex"
+              v-show="getVShowOfAttireAffixRow(attire)"
+              title-background-color="var(--n-color-modal)"
+              container-extra-style="padding: 8px;"
+            >
+              <template #title>
+                <span>
+                  {{ getAffixName(attire) }}
+                </span>
+              </template>
 
-                <div class="input-container">
-                  <p v-for="gear in attireGearSlots" :key="'m-attire' + attireIndex + '-' + gear.key">
-                    <n-input-number
-                      v-model:value="(localSelections as any)[gear.key][attire]"
-                      :input-props="{ type: 'number' }"
-                      :min="0"
-                      :max="99999"
-                      :precision="0"
-                      :title="gear.text"
-                    >
-                      <template #prefix>
-                        <XivFARImage 
-                          :src="gear.icon"
-                          :size="15"
-                        />
-                      </template>
-                    </n-input-number>
-                  </p>
-                </div>
-              </GroupBox>
-            </div>
-          </n-tab-pane>
-          <n-tab-pane name="accessory" :tab="t('首饰')">
-            <div class="weapons-container">
-              <GroupBox
-                class="weapon-group"
-                v-for="(accessory, accessoryIndex) in accessoryAffixes"
-                :key="'m-ac'+accessoryIndex"
-                title-background-color="var(--n-color-modal)"
-                container-extra-style="padding: 8px;"
-              >
-                <template #title>
-                  <span>
-                    {{ getAffixName(accessory) }}
-                  </span>
-                </template>
+              <div class="input-container">
+                <p v-for="gear in attireGearSlots" :key="'m-attire' + attireIndex + '-' + gear.key">
+                  <n-input-number
+                    v-model:value="(localSelections as any)[gear.key][attire]"
+                    :input-props="{ type: 'number' }"
+                    :min="0"
+                    :max="99999"
+                    :precision="0"
+                    :title="gear.text"
+                  >
+                    <template #prefix>
+                      <XivFARImage 
+                        :src="gear.icon"
+                        :size="15"
+                      />
+                    </template>
+                  </n-input-number>
+                </p>
+              </div>
+            </GroupBox>
+          </div>
+        </n-tab-pane>
+        <n-tab-pane name="accessory" :tab="t('首饰')">
+          <div class="weapons-container">
+            <GroupBox
+              class="weapon-group"
+              v-for="(accessory, accessoryIndex) in accessoryAffixes"
+              :key="'m-ac'+accessoryIndex"
+              v-show="getVShowOfAccessoryAffixRow(accessory)"
+              title-background-color="var(--n-color-modal)"
+              container-extra-style="padding: 8px;"
+            >
+              <template #title>
+                <span>
+                  {{ getAffixName(accessory) }}
+                </span>
+              </template>
 
-                <div class="input-container">
-                  <p v-for="gear in accessoryGearSlots" :key="'m-accessory' + accessoryIndex + '-' + gear.key">
-                    <n-input-number
-                      v-model:value="(localSelections as any)[gear.key][accessory]"
-                      :input-props="{ type: 'number' }"
-                      :min="0"
-                      :max="99999"
-                      :precision="0"
-                      :title="gear.text"
-                    >
-                      <template #prefix>
-                        <XivFARImage 
-                          :src="gear.icon"
-                          :size="15"
-                        />
-                      </template>
-                    </n-input-number>
-                  </p>
-                </div>
-              </GroupBox>
-            </div>
-          </n-tab-pane>
-        </n-tabs>
+              <div class="input-container">
+                <p v-for="gear in accessoryGearSlots" :key="'m-accessory' + accessoryIndex + '-' + gear.key">
+                  <n-input-number
+                    v-model:value="(localSelections as any)[gear.key][accessory]"
+                    :input-props="{ type: 'number' }"
+                    :min="0"
+                    :max="99999"
+                    :precision="0"
+                    :title="gear.text"
+                  >
+                    <template #prefix>
+                      <XivFARImage 
+                        :src="gear.icon"
+                        :size="15"
+                      />
+                    </template>
+                  </n-input-number>
+                </p>
+              </div>
+            </GroupBox>
+          </div>
+        </n-tab-pane>
+      </n-tabs>
+    </div>
+    
+    <template #action>
+      <div class="submit-container">
+        <n-button type="primary" size="large" @click="handleSave">
+          <template #icon>
+            <n-icon><SaveOutlined /></n-icon>
+          </template>
+          {{ t('保存') }}
+        </n-button>
       </div>
-      
-      <template #action>
-        <div class="submit-container">
-          <n-button type="primary" size="large" @click="handleSave">
-            <template #icon>
-              <n-icon><SaveOutlined /></n-icon>
-            </template>
-            {{ t('保存') }}
-          </n-button>
-        </div>
-      </template>
-    </n-card>
-  </n-modal>
+    </template>
+  </MyModal>
 </template>
 
 <style scoped>

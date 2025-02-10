@@ -3,15 +3,18 @@ import { ref, inject, type Ref, computed } from 'vue'
 import {
   NButton, NFlex, NPopover
 } from 'naive-ui'
-import { type UserConfigModel } from '@/models/user-config'
-import XivPatches from "@/assets/data/xiv-patches.json"
-import FoldableCard from '../custom-controls/FoldableCard.vue'
+import FoldableCard from '../templates/FoldableCard.vue'
+import { type UserConfigModel } from '@/models/config-user'
+import { XivPatches, type XivPatch } from "@/assets/data"
+import { fixGearSelections, isGearEmpty, type GearSelections } from '@/models/gears'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const patchSelected = defineModel<string>('patchSelected', { required: true })
+const gearsSelected = defineModel<GearSelections>('gearsSelected', { required: true })
+
 const cardDescription = computed(() => {
   if (!patchSelected.value) return t('还未选择')
   else return t('已选择版本: {}', patchSelected.value)
@@ -19,7 +22,20 @@ const cardDescription = computed(() => {
 
 const containerCard = ref<InstanceType<typeof FoldableCard>>()
 
-const handlePatchSelect = (patch: any) => {
+const handlePatchSelect = (patch: XivPatch) => {
+  if (
+    patchSelected.value && patch.v !== patchSelected.value
+    && !isGearEmpty(gearsSelected.value)
+  ) {
+    if (window.confirm(
+      t('切换版本会清空你已选择的装备部件。')
+      + '\n' + t('要继续吗?')
+    )) {
+      gearsSelected.value = fixGearSelections()
+    } else {
+      return
+    }
+  }
   patchSelected.value = patch.v
   const autoFold = !(userConfig.value?.disable_patchcard_autofold ?? false)
   if (isMobile.value && autoFold) {
@@ -27,7 +43,7 @@ const handlePatchSelect = (patch: any) => {
   }
 }
 
-const getPatchName = (patch: any) => {
+const getPatchName = (patch: XivPatch) => {
   const uiLanguage = userConfig.value?.language_ui ?? 'zh'
 
   let patchName = patch.name_zh
@@ -40,7 +56,7 @@ const getPatchName = (patch: any) => {
   return t('版本{v}: {name}', { v: patch.v, name: patchName })
 }
 
-const getPatchBackground = (patch: any) => {
+const getPatchBackground = (patch: XivPatch) => {
   if (patch.v === patchSelected.value) {
     if (patch.background) {
       return patch.background
@@ -123,6 +139,10 @@ const getPatchBackground = (patch: any) => {
   .patch-button.selected {
     border: var(--n-border-pressed);
     color: var(--n-text-color-hover);
+    .patch-button-text {
+      color: white;
+      text-shadow: 2px 2px 4px #000000;
+    }
   }
 }
 .popover-container .sub {

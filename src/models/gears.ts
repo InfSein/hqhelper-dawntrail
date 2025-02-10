@@ -39,7 +39,14 @@ export interface GearSelections {
   Rings: Record<AccessoryAffix, number>;
 }
 
-import XivJobs from '@/assets/data/xiv-jobs.json'
+/** 判断给定已选部件对象是否为空 (即是否还未选择任何部件) */
+export const isGearEmpty = (gearSelections: GearSelections) => {
+  return Object.values(gearSelections).every(obj => Object.values(obj).every(val => val === 0))
+}
+
+import {
+  XivJobs
+} from '@/assets/data'
 export const getDefaultGearSelections = () => {
   const gears = JSON.parse(JSON.stringify({
     MainHand: {} as Record<number, number>,
@@ -59,7 +66,7 @@ export const getDefaultGearSelections = () => {
   fixGearSelections(gears)
   return gears
 }
-export const fixGearSelections = (gears: GearSelections) => {
+export const fixGearSelections = (gears?: GearSelections) => {
   if (!gears) return getDefaultGearSelections()
   const XivJobIds = Object.keys(XivJobs).map(jobId => parseInt(jobId))
   XivJobIds.forEach(jobId => {
@@ -79,4 +86,5 @@ export const fixGearSelections = (gears: GearSelections) => {
     gears.Wrist[affix] |= 0
     gears.Rings[affix] |= 0
   })
+  return gears
 }

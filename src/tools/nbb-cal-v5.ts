@@ -3,6 +3,7 @@
  * 2016-12-10 
  */
 
+import type { XivUnpackedItem } from "@/assets/data";
 import type { AccessoryAffix, AttireAffix } from "@/models/gears";
 
 export interface IHqJobs {
@@ -73,10 +74,12 @@ export interface IItem {
     act: number;
     /**  */
     desy?: number;
+    /** 可否交易 */
+    tradable: boolean
     /**  */
-    bon?: number;
+    collectable: boolean;
     /** 可否精选 */
-    reduce: boolean;
+    reduce: number;
     /** 装备等级 */
     elv: number;
     /** 职业组 */
@@ -130,10 +133,10 @@ export interface IRecipe {
 }
 
 export class Cal {
-    itemData: { [keys: number | string]: IItem };
+    itemData: Record<number, XivUnpackedItem>
     recipeData: { [keys: number | string]: IRecipe };
 
-    constructor(a: { [keys: number | string]: IItem }, b: { [keys: number | string]: IRecipe }) {
+    constructor(a: Record<number, XivUnpackedItem>, b: { [keys: number | string]: IRecipe }) {
         // console.log("Cal init....")
         this.itemData = a;
         this.recipeData = b;
@@ -196,7 +199,7 @@ export class Cal {
             const need = calMap[id][1];// 該素材需要的數量
             let mkc = 0; // 該素材生產次數
             const repice = this.recipeData[calMap[id][2]];
-            const item = this.itemData[id];
+            const item = this.itemData[Number(id)];
 
             if (repice) {
                 const pc = parseInt(repice.bp[1]);

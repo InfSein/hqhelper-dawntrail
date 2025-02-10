@@ -1,18 +1,19 @@
 
-import { ref } from 'vue';
-import item from '@/assets/data/unpacks/item.json'
-import recipe from '@/assets/data/unpacks/recipe.json'
+import { ref } from 'vue'
+import {
+  XivUnpackedGatheringItems,
+  XivUnpackedItems,
+  XivUnpackedRecipes
+} from '@/assets/data'
 import hqConfig from '@/assets/data/unpacks/hq-config.json'
-import gatherData from '@/assets/data/unpacks/gathering-item.json'
 import { Cal, type CostCHS, type IHqConfig } from './nbb-cal-v5'
 import type { GearSelections } from '@/models/gears'
-import { getItemInfo, type ItemInfo, type ItemTradeInfo } from './item';
-
+import { getItemInfo, type ItemInfo, type ItemTradeInfo } from './item'
 
 export function useNbbCal() {
   const langHash: any = { 'lang-zh': 2, 'lang-en': 1, 'lang-ja': 0 };
 
-  const cal = ref(new Cal(item, recipe))
+  const cal = ref(new Cal(XivUnpackedItems, XivUnpackedRecipes))
   const config: IHqConfig = hqConfig
 
   const doCal = (calMap: any[] | { [keys: string]: any }, hideCluster = false, shipArr0: any[] = [], shipArr1: any[] = [], shipArr2: any[] = [], shipArr3: any[] = [], shipArr4: any[] = []) => {
@@ -28,22 +29,32 @@ export function useNbbCal() {
     }
     for (const gearKey in data) {
       const gear = data[gearKey];
-      // console.log('calGearSelections', gearKey);
       for (const jobId in gear) {
         if (gear[jobId] > 0) {
           const hqInfo = job[gearKey][jobId]
-          //console.log('calGearSelections hqInfo=', hqInfo);
           if (hqInfo[0] > 0) {
             out[hqInfo[0]] = [hqInfo[0], gear[jobId], hqInfo[1], false];
           }
         }
       }
     }
-    // console.log('calGearSelections calMap=', out)
     return doCal(out);
   }
 
-  const calFoodAndTincs = (selections: Record<number, number>, recipeMap: any) => {
+  const getRecipeMap = () => {
+    const map : Record<number, number> = {}
+    Object.values(XivUnpackedRecipes).forEach(recipe => {
+      map[recipe.it] = recipe.id
+    })
+    return map
+  }
+  const recipeMap = getRecipeMap()
+
+  /**
+   * 直接通过 itemMap 来计算所需道具
+   * @param selections key:道具id value:数量
+   */
+  const calItems = (selections: Record<number, number>) => {
     const calMap = {} as any // {"39651":[39651,1,35520,false]}
     for (const item in selections) {
       const count = selections[item]
@@ -54,7 +65,7 @@ export function useNbbCal() {
   }
 
   const getItem = (id: string | number) => {
-    return cal.value.itemData[id];
+    return cal.value.itemData[Number(id)];
   }
 
   const getPatchData = (patch: string = '7.0') => {
@@ -79,7 +90,7 @@ export function useNbbCal() {
       if (
         _item.length >= 2
         && !aethersands.includes(_item[0])
-        && (item as any)[_item[0]] // 当前版本用不到的灵砂不会被导入物品表，这里筛掉这些数据
+        && XivUnpackedItems[_item[0]] // 当前版本用不到的灵砂不会被导入物品表，这里筛掉这些数据
       ) {
         aethersands.push(_item[0])
       }
@@ -139,7 +150,7 @@ export function useNbbCal() {
         const idGive = reduceGroup[1]
         if (idGot && idGive) {
           if (!map[idGot]) map[idGot] = []
-          map[idGot].push(idGive)
+          if (!map[idGot].includes(idGive)) map[idGot].push(idGive)
         }
       })
     }
@@ -248,11 +259,10 @@ export function useNbbCal() {
   }
 
   const getLimitedGatherings = () => {
-    const gd = gatherData as any
     const map = {} as Record<string, ItemInfo[]>
-    for (const itemID in gatherData) {
-      if (gd[itemID].popTime) { // 是限时物品
-        const id = Number(itemID)
+    for (const itemID in XivUnpackedGatheringItems) {
+      const id = Number(itemID)
+      if (XivUnpackedGatheringItems[id].popTime) { // 是限时物品
         if (id < 36630) continue // 手动过滤掉7.0之前的
         if (!getItem(id)) continue // 过滤掉没有数据的
         const itemInfo = getItemInfo(id)
@@ -266,8 +276,8 @@ export function useNbbCal() {
   }
 
   return {
-    doCal, getItem, getPatchData, getItemsName, calGearSelections,
-    calFoodAndTincs, getSpecialItems, getTradeMap, getReduceMap, getReduceMapReverted, getFoodAndTincs,
+    doCal, getItem, getPatchData, getItemsName, calGearSelections, getRecipeMap,
+    calItems, getSpecialItems, getTradeMap, getReduceMap, getReduceMapReverted, getFoodAndTincs,
     getFoodAndTincs_v2, getLimitedGatherings
   }
 }

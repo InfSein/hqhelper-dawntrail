@@ -1,4 +1,4 @@
-name: Build 和 Deploy
+name: Build and Deploy
 # 监听 master 分支上的 push 事件
 on:
   push:
@@ -23,10 +23,10 @@ jobs:
           node-version: "20.8.1"
 
       # 下载依赖、打包项目
-      - name: Install 和 Build
+      - name: Install and Build
         run: |
-          yarn install
-          yarn build
+          npm install
+          npm run build
 
       # 部署
       - name: Deploy
@@ -81,7 +81,6 @@ jobs:
     
           if [ "${{ env.exists }}" = "true" ]; then
             gh release upload "v${{ env.VERSION }}" static-pages.zip --clobber
-            gh release edit "v${{ env.VERSION }}" --notes "$RELEASE_NOTES"
           else
             gh release create "v${{ env.VERSION }}" static-pages.zip --title "Release v${{ env.VERSION }}" --notes "$RELEASE_NOTES"
           fi

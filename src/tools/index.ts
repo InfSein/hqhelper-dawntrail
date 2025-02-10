@@ -1,9 +1,28 @@
 import clipBoard from "vue-clipboard3"
+import * as LzString from 'lz-string'
 
 const Clip = clipBoard
 const { toClipboard } = Clip()
 
-export const deepCopy = <T>(obj: T): T => JSON.parse(JSON.stringify(obj))
+export const deepCopy = <T>(obj: T): T => {
+  try {
+    return JSON.parse(JSON.stringify(obj))
+  } catch (e) {
+    console.warn('Deep copy failed due to', e, '\norigin:', obj)
+    return obj
+  }
+}
+
+/** 压缩字符串 */
+export const compressString = (input: string): string => {
+  return LzString.compressToBase64(input)
+}
+/** 解压缩字符串 */
+export const decompressString = (input: string): string => {
+  return LzString.decompressFromBase64(input)
+}
+
+export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 /**
  * 将给定文本复制到设备的剪贴板。
@@ -33,4 +52,25 @@ export const CopyToClipboard = async (text: string, container?: HTMLElement | un
 export const visitUrl = (url: string) => {
   const func = window.electronAPI?.openUrlByBrowser ?? window.open
   func(url)
+}
+
+/**
+ * 播放音频
+ * @param source 音频src
+ */
+export const playAudio = (source: string) => {
+  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
+
+  fetch(source)
+    .then(response => response.arrayBuffer())
+    .then(data => audioContext.decodeAudioData(data))
+    .then(buffer => {
+      const source = audioContext.createBufferSource()
+      source.buffer = buffer
+      source.connect(audioContext.destination)
+      source.start(0)
+    })
+    .catch(error => {
+      alert("播放失败：\n"+ error)
+    })
 }

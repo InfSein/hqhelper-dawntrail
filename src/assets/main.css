@@ -2,6 +2,7 @@
 @import './custom.css';
 @import './font.css';
 @import './font/xiv-axis-font.css';
+@import './scroll-bar.css';
 
 #app {
   width: 100%;

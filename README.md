@@ -12,8 +12,9 @@
   <a href="/docs/README.en.md">English</a>
 </p>
 
-![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) <br>
-![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)
+[![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github)](/LICENSE) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) <br>
+[![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github)](https://github.com/InfSein/hqhelper-dawntrail/releases) [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)](https://github.com/InfSein/hqhelper-dawntrail/releases) <br>
+[![Based on Vite](https://img.shields.io/badge/Vite-5.4.2-646CFF?style=flat&logo=vite)](https://github.com/vitejs/vite) [![Based on Vue3](https://img.shields.io/badge/Vue-3.4.38-4FC08D?style=flat&logo=vue.js)](https://github.com/vuejs/core) [![Based on TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-3178C6?style=flat&logo=typescript)](https://github.com/microsoft/TypeScript) [![Based on Naive UI](https://img.shields.io/badge/Naive%20UI-2.39.0-008080?style=flat&logo=npm)](https://github.com/tusen-ai/naive-ui)
 
 面向生产采集玩家的黄金篇(7.0~7.4)秘籍配方制作计算器。
 
@@ -22,8 +23,6 @@
 ## 使用方法
 
 ### 在浏览器中使用
-
-第二代的 `HqHelper` 本质上只是一个静态网页。
 
 #### 正式环境网站
 
@@ -48,7 +47,7 @@
 
 #### Windows 应用
 
-参见 [Release Electron v3](https://github.com/InfSein/hqhelper-dawntrail/releases/tag/electron.v3)
+参见 [Release Electron v5a](https://github.com/InfSein/hqhelper-dawntrail/releases/tag/electron.v5a)
 
 #### iOS 应用
 

@@ -1,52 +1,62 @@
 {
   "fending": {
-    "affix_name_zh": "御敌",
-    "affix_name_en": "Fending",
-    "affix_name_ja": "ディフェンダー"
+    "key": "fending",
+    "name_zh": "御敌",
+    "name_en": "Fending",
+    "name_ja": "ディフェンダー"
   },
   "healing": {
-    "affix_name_zh": "治愈",
-    "affix_name_en": "Healing",
-    "affix_name_ja": "ヒーラー"
+    "key": "healing",
+    "name_zh": "治愈",
+    "name_en": "Healing",
+    "name_ja": "ヒーラー"
   },
   "maiming": {
-    "affix_name_zh": "制敌",
-    "affix_name_en": "Maiming",
-    "affix_name_ja": "スレイヤー"
+    "key": "maiming",
+    "name_zh": "制敌",
+    "name_en": "Maiming",
+    "name_ja": "スレイヤー"
   },
   "striking": {
-    "affix_name_zh": "强袭",
-    "affix_name_en": "Striking",
-    "affix_name_ja": "ストライカー"
+    "key": "striking",
+    "name_zh": "强袭",
+    "name_en": "Striking",
+    "name_ja": "ストライカー"
   },
   "slaying": {
-    "affix_name_zh": "强攻",
-    "affix_name_en": "Slaying",
-    "affix_name_ja": "アタッカー"
+    "key": "slaying",
+    "name_zh": "强攻",
+    "name_en": "Slaying",
+    "name_ja": "アタッカー"
   },
   "scouting": {
-    "affix_name_zh": "游击",
-    "affix_name_en": "Scouting",
-    "affix_name_ja": "スカウト"
+    "key": "scouting",
+    "name_zh": "游击",
+    "name_en": "Scouting",
+    "name_ja": "スカウト"
   },
   "aiming": {
-    "affix_name_zh": "精准",
-    "affix_name_en": "Aiming",
-    "affix_name_ja": "レンジャー"
+    "key": "aiming",
+    "name_zh": "精准",
+    "name_en": "Aiming",
+    "name_ja": "レンジャー"
   },
   "casting": {
-    "affix_name_zh": "咏咒",
-    "affix_name_en": "Casting",
-    "affix_name_ja": "キャスター"
+    "key": "casting",
+    "name_zh": "咏咒",
+    "name_en": "Casting",
+    "name_ja": "キャスター"
   },
   "gathering": {
-    "affix_name_zh": "大地",
-    "affix_name_en": "Gathering",
-    "affix_name_ja": "ギャザラー"
+    "key": "gathering",
+    "name_zh": "大地",
+    "name_en": "Gathering",
+    "name_ja": "ギャザラー"
   },
   "crafting": {
-    "affix_name_zh": "巧匠",
-    "affix_name_en": "Crafting",
-    "affix_name_ja": "クラフター"
+    "key": "crafting",
+    "name_zh": "巧匠",
+    "name_en": "Crafting",
+    "name_ja": "クラフター"
   }
 }

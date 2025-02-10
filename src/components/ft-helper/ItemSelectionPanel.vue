@@ -6,9 +6,9 @@ import {
 import {
   DeleteSweepRound
 } from '@vicons/material'
-import FoldableCard from '@/components/custom-controls/FoldableCard.vue'
-import XivFARImage from '../custom-controls/XivFARImage.vue'
-import ItemSelector from '../custom-controls/ItemSelector.vue'
+import FoldableCard from '../templates/FoldableCard.vue'
+import XivFARImage from '../custom/general/XivFARImage.vue'
+import ItemSelector from '../custom/item/ItemSelector.vue'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 
@@ -34,11 +34,11 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
   items.forEach(item => {
     let line = ''
     line += `[img]${item.iconUrl}[/img]` + '\t'
-    line += item.nameZH
-    line += `[size=70%][color=gray]${item.nameJA} / ${item.nameEN}[/color][/size]` + '\t'
+    line += item.name_zh
+    line += `[size=70%][color=gray]${item.name_ja} / ${item.name_en}[/color][/size]` + '\t'
     const requires : string[] = []
     item.craftRequires.forEach(require => {
-      const rqItemName = getItemInfo(require.id).nameZH
+      const rqItemName = getItemInfo(require.id).name_zh
       requires.push(`${rqItemName}x${require.count}`)
     })
     line += requires.join('、')

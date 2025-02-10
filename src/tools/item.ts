@@ -16,7 +16,7 @@ export interface CalculatedItem {
   mkc: number
   rid: string[]
 }
-const phItem = {
+const phItem : XivUnpackedItem = {
   id: 0,
   need: 0,
   icon: -1,
@@ -26,18 +26,33 @@ const phItem = {
   uc: -1,
   pc: -1,
   mkc: -1,
-  rid: []
+  rids: [], ilv: -1, sc: 0, hq: false,
+  dye: 0, act: 0, tradable: false, collectable: false, reduce: false,
+  elv: 0, ms: 0, bpm: [], spm: [], 
+  jobs: 0, jd: false, p: '', actParm: []
 }
 
-import XivItems from '@/assets/data/unpacks/item.json'
-import XivItemTypes from '@/assets/data/xiv-item-types.json'
-import XivItemNameZHTemp from '@/assets/data/translations/xiv-item-names.json'
-import XivItemDescZHTemp from '@/assets/data/translations/xiv-item-descriptions.json'
-import XivRecipes from '@/assets/data/unpacks/recipe.json'
-import XivGatheringItems from '@/assets/data/unpacks/gathering-item.json'
-import XivGatherTerrory from '@/assets/data/unpacks/territory.json'
-import XivPlaceNames from '@/assets/data/unpacks/place-name.json'
-import XivPlaceZHTemp from '@/assets/data/translations/xiv-places.json'
+export interface StatementRow {
+  info: ItemInfo,
+  amount: {
+    total: number,
+    prepared: number,
+    remain: number
+  }
+}
+
+import {
+  XivMaps, type XivMapAetheryteInfo,
+  XivTranslatedItemDescriptions,
+  XivTranslatedItemNames,
+  XivTranslatedPlaces,
+  XivUnpackedGatheringItems,
+  XivUnpackedItems, type XivUnpackedItem,
+  XivUnpackedPlaceNames,
+  XivUnpackedRecipes,
+  XivUnpackedTerritories,
+  XivItemTypes
+} from '@/assets/data'
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
@@ -45,9 +60,6 @@ const { getTradeMap, getReduceMap, getReduceMapReverted } = useNbbCal()
 const tradeMap = getTradeMap()
 const reduceMap = getReduceMap()
 const revertedReduceMap = getReduceMapReverted()
-const gatherMap = XivGatheringItems as Record<number, any>
-const territoryMap = XivGatherTerrory as Record<number, number[]>
-const placeMap = XivPlaceNames as Record<number, string[]>
 
 export interface ItemInfo {
   id: number
@@ -55,9 +67,9 @@ export interface ItemInfo {
   patch: string
   /** 物品品级 */
   itemLevel: number
-  nameJA: string
-  nameEN: string
-  nameZH: string
+  name_zh: string
+  name_en: string
+  name_ja: string
   // * icon: 道具图标。需要注意hqIcon指向的文件可能不存在
   iconUrl: string
   hqIconUrl: string
@@ -71,6 +83,10 @@ export interface ItemInfo {
   uiTypeNameEN: string
   uiTypeNameZH: string
   uiTypeIconUrl: string
+  /** 是否有 HQ 版本 */
+  hqable: boolean
+  /** 可否交易 */
+  tradable: boolean
   /** 是否使用了中文暂译 */
   usedZHTemp?: boolean
   /**
@@ -105,6 +121,10 @@ export interface ItemInfo {
   craftInfo: {
     /** 制作职业 */
     jobId: number,
+    /** 配方ID */
+    recipeId: number,
+    /** 配方顺序号 (在制作笔记的顺序) */
+    recipeOrder: number,
     /** 制作等级 */
     craftLevel: number,
     /** 产量 (一次制作可以获得几个成品) */
@@ -117,6 +137,12 @@ export interface ItemInfo {
     qsable: boolean,
     /** 可否搓出HQ */
     hqable: boolean,
+    /** 耐久 */
+    durability: number,
+    /** 难度 */
+    progress: number,
+    /** 品质 */
+    quality: number,
     /** 制作门槛 */
     thresholds: {
       /** 作业精度 */
@@ -124,7 +150,7 @@ export interface ItemInfo {
       /** 加工精度 */
       control: number,
     },
-    /** 简易制作门槛 */
+    /** 简易制作门槛 (目前的解包数据未正确提供,请勿引用) */
     qsThresholds: {
       /** 作业精度 */
       craftsmanship: number,
@@ -140,12 +166,18 @@ export interface ItemInfo {
     placeNameZH: string,
     placeNameJA: string,
     placeNameEN: string,
+    gntype_zh: string,
+    gntype_en: string,
+    gntype_ja: string,
+    folkloreId?: number,
     posX: number,
     posY: number,
+    recommAetheryte?: XivMapAetheryteInfo,
     timeLimitInfo: {
       start: string,
       end: string
-    }[]
+    }[],
+    timeLimitDescription: string
   },
   isFishingItem: boolean,
   tradeInfo: ItemTradeInfo | undefined
@@ -171,21 +203,20 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // * 尝试从items表中获取物品完整信息
   let itemID = 0, itemAmount = 0
   if (typeof item === 'number' || typeof item === 'string') {
-    itemID = item
+    itemID = Number(item)
   } else {
-    itemID = item.id
+    itemID = Number(item.id)
     itemAmount = item.need
   }
 
-  let _item : any
+  let _item : XivUnpackedItem
   if (!itemID) {
     _item = deepCopy(phItem)
   } else {
-    const itemsMap = XivItems as any
-    if (!itemsMap?.[itemID]) {
+    if (!XivUnpackedItems?.[itemID]) {
       console.log('[开发提示] 此物品在items表中缺失:', item)
     }
-    _item = deepCopy(itemsMap?.[itemID] || phItem)
+    _item = deepCopy(XivUnpackedItems?.[itemID] || phItem)
     _item.id = itemID
   }
 
@@ -199,26 +230,28 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     return itemInfo
   }
   itemInfo.itemLevel = _item.ilv
-  itemInfo.nameJA = _item.lang[0]
-  itemInfo.nameEN = _item.lang[1]
-  itemInfo.nameZH = _item.lang[2]
+  itemInfo.name_ja = _item.lang[0]
+  itemInfo.name_en = _item.lang[1]
+  itemInfo.name_zh = _item.lang[2]
   itemInfo.descJA = _item.desc[0]
   itemInfo.descEN = _item.desc[1]
   itemInfo.descZH = _item.desc[2]
   itemInfo.patch = _item.p || '7.05'
+  itemInfo.hqable = _item.hq
+  itemInfo.tradable = _item.tradable
 
   // * 针对还没有中文名/中文描述的道具，尝试从暂译表中获取暂译
-  if (!itemInfo.nameZH) {
-    const tempZhMap = XivItemNameZHTemp as any
+  if (!itemInfo.name_zh) {
+    const tempZhMap = XivTranslatedItemNames
     if (tempZhMap?.[itemInfo.id]) {
-      itemInfo.nameZH = tempZhMap[itemInfo.id]
+      itemInfo.name_zh = tempZhMap[itemInfo.id]
       itemInfo.usedZHTemp = true
-    } else if (itemInfo.nameJA) {
+    } else if (itemInfo.name_ja) {
       console.log('[开发提示] 此物品需要填写中文暂译:', itemInfo)
     }
   }
   if (!itemInfo.descZH) {
-    const tempZhMap = XivItemDescZHTemp as any
+    const tempZhMap = XivTranslatedItemDescriptions
     if (tempZhMap?.[itemInfo.id]) {
       itemInfo.descZH = tempZhMap[itemInfo.id]
       itemInfo.usedZHTemp = true
@@ -233,7 +266,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.hqIconUrl = getImgCdnUrl(_item.icon, true)
 
   // * 尝试根据道具的UI类型ID获取类型名称和图标URL
-  const typeMap = XivItemTypes as any
+  const typeMap = XivItemTypes
   const itemType : number = _item.uc
   if (typeMap?.[itemType]) {
     itemInfo.uiTypeId = itemType
@@ -268,57 +301,75 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   }
 
   // * 组装物品采集信息
-  const gatherData = gatherMap[itemID]
+  const gatherData = XivUnpackedGatheringItems[itemID]
   if (gatherData) {
-    const gatherPointType = gatherData.type
-    const gatherJob = gatherPointType <= 1 ? 16 : 17 // * type 0123 分别是割草，伐木，采矿，碎石 (注：好像反了)
+    const gatherJob = gatherData.type <= 1 ? 16 /*采矿*/ : 17 /*园艺*/
+    let gntype_zh = '???', gntype_en = '???', gntype_ja = '???'
+    switch (gatherData.type) {
+      case 0: gntype_zh = '矿脉'; gntype_en = 'mineral deposit'; gntype_ja = '採掘'; break
+      case 1: gntype_zh = '石场'; gntype_en = 'rocky outcrop'; gntype_ja = '砕岩'; break
+      case 2: gntype_zh = '良材'; gntype_en = 'mature tree'; gntype_ja = '伐採'; break
+      case 3: gntype_zh = '草场'; gntype_en = 'lush vegetation'; gntype_ja = '草刈'; break
+    }
+    gntype_zh = gatherData.level + '级' + gntype_zh
+    gntype_en = 'Lv ' + gatherData.level + ' ' + gntype_en
+    gntype_ja = 'レベル' + gatherData.level + gntype_ja
     const territoryID = gatherData.territory
-    const territoryData = territoryMap[territoryID]
-    if (territoryData) {
+    if (territoryID && XivUnpackedTerritories[territoryID]) {
+      const territoryData = XivUnpackedTerritories[territoryID]
       const placeID = territoryData[2]
-      const gatherPlaceData = placeMap[placeID]
+      const gatherPlaceData = XivUnpackedPlaceNames[placeID]
       if (gatherPlaceData) {
         let placeNameZH = gatherPlaceData[2]
         if (!placeNameZH) {
-          const tempZhMap = XivPlaceZHTemp as Record<number, string>
-          placeNameZH = tempZhMap[placeID] || '未翻译的地点'
+          placeNameZH = XivTranslatedPlaces[placeID] || '未翻译的地点'
         }
+        const timelimitdesc : string[] = []
         itemInfo.gatherInfo = {
           jobId: gatherJob,
           placeID: placeID,
           placeNameZH: placeNameZH,
           placeNameJA: gatherPlaceData[0],
           placeNameEN: gatherPlaceData[1],
-          posX: Number(gatherData.coords.x),
-          posY: Number(gatherData.coords.y),
-          timeLimitInfo: []
+          gntype_zh, gntype_en, gntype_ja,
+          posX: Number(gatherData!.coords!.x),
+          posY: Number(gatherData!.coords!.y),
+          timeLimitInfo: [],
+          timeLimitDescription: ''
         };
+        if (gatherData.folkloreBook) {
+          itemInfo.gatherInfo.folkloreId = gatherData.folkloreBook
+        }
+        if (XivMaps[placeID]) {
+          itemInfo.gatherInfo.recommAetheryte = getNearestAetheryte(XivMaps[placeID], itemInfo.gatherInfo.posX, itemInfo.gatherInfo.posY)
+        }
         [1,2,3].forEach(i => {
           if (gatherData?.popTime) {
-            const start = gatherData.popTime?.['start' + i]
-            let end = gatherData.popTime?.['end' + i]
+            const index = i as 1|2|3
+            const start = gatherData.popTime?.[`start${index}`]
+            let end = gatherData.popTime?.[`end${index}`]
             if (end === '00:00') end = '24:00'
             if (start && end && start !== '--:--' && end !== '--:--') {
               itemInfo.gatherInfo.timeLimitInfo.push({ start, end })
+              timelimitdesc.push(`${start.split(':')[0]}~${end.split(':')[0]}`)
             }
           }
         });
+        if (timelimitdesc.length > 0) {
+          itemInfo.gatherInfo.timeLimitDescription = 'ET ' + timelimitdesc.join('/')
+        }
       }
     }
   }
 
-  // * 处理物品是钓鱼采集品的场合
-  // 目前也没有数据，给个标识让人去饿猫鱼糕找吧！
-  itemInfo.isFishingItem = itemType === 47
-
   // * 组装物品配方
   itemInfo.craftRequires = []
   if (_item.rids?.length) {
-    const recipeID = _item.rids[0]
-    const recipe = (XivRecipes as any)[recipeID]
+    const recipeID = Number(_item.rids[0])
+    const recipe = XivUnpackedRecipes[recipeID]
     if (recipe) {
       // console.log('item:', _item, '\nrecipe:', recipe, '\n')
-      const items = recipe.m as number[]
+      const items = recipe.m
       if (items?.length % 2 === 0) {
         for (let ptr = 0; ptr < items.length; ptr += 2) {
           const requiredItemID = items[ptr]
@@ -331,12 +382,17 @@ export const getItemInfo = (item: number | CalculatedItem) => {
 
       itemInfo.craftInfo = {
         jobId: recipe.job + 8, // 解包配方的jobId是从0开始
+        recipeId: recipeID,
+        recipeOrder: recipe.noteBook[0] * 160 + recipe.noteBook[1],
         craftLevel: recipe.bp?.[2],
         yields: recipe.bp?.[1],
         starCount: recipe.bp?.[3],
         rLv: recipe.rlv,
         qsable: recipe.qs,
         hqable: recipe.hq,
+        durability: recipe.sp1?.[2],
+        progress: recipe.sp1?.[0],
+        quality: recipe.sp1?.[1],
         thresholds: {
           craftsmanship: recipe.sp2?.[0],
           control: recipe.sp2?.[1]
@@ -353,6 +409,11 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // * 组装物品兑换信息
   itemInfo.tradeInfo = tradeMap?.[itemInfo.id]
 
+  // * 处理物品是钓鱼采集品的场合
+  // 目前也没有数据，给个标识让人去饿猫鱼糕找吧！
+  // 如果可以兑换，那一般不是钓鱼采集品(例如 [44174]ロイヤルロブスター)
+  itemInfo.isFishingItem = !itemInfo.tradeInfo && itemType === 47
+
   // * 组装完毕，返回结果
   return itemInfo
 
@@ -364,11 +425,20 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   }
 }
 
+interface StatementData {
+  craftTargets: ItemInfo[];
+  materialsLv1: ItemInfo[];
+  materialsLv2: ItemInfo[];
+  materialsLv3: ItemInfo[];
+  materialsLv4: ItemInfo[];
+  materialsLv5: ItemInfo[];
+  materialsLvBase: ItemInfo[];
+}
 /**
  * 获取 `查看报表` 需要的数据
  * @param statistics 通过 `nbb-cal` 计算获得的统计数据
  */
-export const getStatementData = (statistics: any) => {
+export const getStatementData = (statistics: any) : StatementData => {
   const craftTargets : ItemInfo[] = []
   const materialsLv1 : ItemInfo[] = []
   const materialsLv2 : ItemInfo[] = []
@@ -402,33 +472,64 @@ import {
 } from '@vicons/material'
 import { h, type Component } from 'vue'
 import { NIcon } from 'naive-ui'
+import { getNearestAetheryte } from './map'
+import type { FuncConfigModel } from '@/models/config-func'
 export const getItemContexts = (
   itemInfo: ItemInfo,
+  itemLanguage: "zh" | "en" | "ja",
   t: (text: string, ...args: any[]) => string,
   handleCopy: (content: string, successMessage?: string) => Promise<void>
 ) => {
+  if (!itemInfo.id) {
+    return {
+      options: [],
+      handleKeyEvent: () => {}
+    }
+  }
   const options = [
     {
       label: t('复制道具名'),
       key: 'copy-item-name',
       icon: renderIcon(FileCopyOutlined),
+      click: () => {
+        const copyContent = itemInfo[`name_${itemLanguage}`]
+        handleCopy(copyContent, t('已复制 {content}', copyContent))
+      }
+    },
+    {
+      label: t('复制其他道具名'),
+      key: 'copy-other-names',
+      icon: renderIcon(FileCopyOutlined),
       children: [
         {
           label: t('中文名'),
           key: 'copy-zh',
+          show: itemLanguage !== 'zh',
           icon: renderIcon(LanguageOutlined)
         },
         {
           label: t('日文名'),
           key: 'copy-ja',
+          show: itemLanguage !== 'ja',
           icon: renderIcon(LanguageOutlined)
         },
         {
           label: t('英文名'),
           key: 'copy-en',
+          show: itemLanguage !== 'en',
           icon: renderIcon(LanguageOutlined)
         }
       ]
+    },
+    {
+      label: t('复制物品检索宏'),
+      key: 'copy-isearch-macro',
+      icon: renderIcon(FileCopyOutlined),
+      click: () => {
+        const name = itemInfo[`name_${itemLanguage}`]
+        const copyContent = `/isearch "${name}"`
+        handleCopy(copyContent, t('已复制 {content}', copyContent))
+      }
     },
     {
       type: 'divider',
@@ -439,7 +540,7 @@ export const getItemContexts = (
       key: 'open-in-hjwiki',
       icon: renderIcon(OpenInNewFilled),
       click: () => {
-        window.open(`https://ff14.huijiwiki.com/wiki/物品:${itemInfo.nameZH}`)
+        window.open(`https://ff14.huijiwiki.com/wiki/物品:${itemInfo.name_zh}`)
       }
     },
     {
@@ -455,7 +556,7 @@ export const getItemContexts = (
       key: 'open-in-gamerescape',
       icon: renderIcon(OpenInNewFilled),
       click: () => {
-        window.open(`https://ffxiv.gamerescape.com/wiki/${itemInfo.nameEN.replace(' ', '_')}`)
+        window.open(`https://ffxiv.gamerescape.com/wiki/${itemInfo.name_en.replace(' ', '_')}`)
       }
     },
     {
@@ -464,6 +565,29 @@ export const getItemContexts = (
       icon: renderIcon(OpenInNewFilled),
       click: () => {
         window.open(`https://universalis.app/market/${itemInfo.id}`)
+      }
+    },
+    {
+      type: 'divider',
+      key: 'd2',
+      show: !!itemInfo?.craftInfo?.recipeId
+    },
+    {
+      label: t('在BestCraft中模拟制作'),
+      key: 'open-in-bestcraft',
+      show: !!itemInfo?.craftInfo?.recipeId,
+      icon: renderIcon(OpenInNewFilled),
+      click: () => {
+        window.open(`https://tnze.yyyy.games/#/recipe?recipeId=${itemInfo?.craftInfo?.recipeId}`)
+      }
+    },
+    {
+      label: t('在TeamCraft中模拟制作'),
+      key: 'open-in-teamcraft',
+      show: !!itemInfo?.craftInfo?.recipeId,
+      icon: renderIcon(OpenInNewFilled),
+      click: () => {
+        window.open(`https://ffxivteamcraft.com/simulator/${itemInfo.id}/${itemInfo?.craftInfo?.recipeId}`)
       }
     },
   ]
@@ -478,11 +602,11 @@ export const getItemContexts = (
   const handleKeyEvent = async (key: string | number, option: any) => {
     switch (key) {
       case 'copy-zh':
-        await handleCopy(itemInfo.nameZH); break
+        await handleCopy(itemInfo.name_zh); break
       case 'copy-ja':
-        await handleCopy(itemInfo.nameJA); break
+        await handleCopy(itemInfo.name_ja); break
       case 'copy-en':
-        await handleCopy(itemInfo.nameEN); break
+        await handleCopy(itemInfo.name_en); break
       default:
         console.log('[开发提示] 未分配点击事件', key, option)
     }
@@ -675,4 +799,65 @@ const getMultiItemPrice = async (
     result[item.itemID] = parseApiPriceInfo(item)
   })
   return result
+}
+export const calCostAndBenefit = (
+  funcConfig: FuncConfigModel,
+  statementData: StatementData
+) => {
+  let updateRequired = false
+  const itemsCost = {} as Record<number, {
+    amount: number,
+    price: ItemPriceInfo
+  }>
+  const itemsBenefit = {} as Record<number, {
+    amount: number,
+    price: ItemPriceInfo
+  }>
+  const priceCache = funcConfig.cache_item_prices
+  const expiresAfter = Date.now() - funcConfig.universalis_expireTime
+  function cacheNotExpired(item: ItemInfo) {
+    const priceInfo = priceCache[item.id]
+    return priceInfo && priceInfo.updateTime > expiresAfter
+      && priceInfo.v && priceInfo.v >= ItemPriceApiVersion
+  }
+  statementData.materialsLvBase.forEach(item => {
+    if (cacheNotExpired(item)) {
+      itemsCost[item.id] = {
+        amount: item.amount,
+        price: priceCache[item.id]
+      }
+    } else {
+      updateRequired = true
+    }
+  })
+  statementData.craftTargets.forEach(item => {
+    if (cacheNotExpired(item)) {
+      itemsBenefit[item.id] = {
+        amount: item.amount,
+        price: priceCache[item.id]
+      }
+    } else {
+      updateRequired = true
+    }
+  })
+  let costInfo = '???', benefitInfo = '???'
+  if (!updateRequired) {
+    let costTotal = 0, benefitTotal = 0
+    const priceKey = funcConfig.universalis_priceType
+    Object.values(itemsCost).forEach(item => {
+      costTotal += item.amount * (item.price[`${priceKey}NQ`] ?? 0)
+    })
+    Object.values(itemsBenefit).forEach(item => {
+      benefitTotal += item.amount * (item.price[`${priceKey}HQ`] ?? 0)
+    })
+    costInfo = Math.floor(costTotal).toLocaleString()
+    benefitInfo = Math.floor(benefitTotal).toLocaleString()
+  }
+  return {
+    updateRequired,
+    itemsCost,
+    itemsBenefit,
+    costInfo,
+    benefitInfo
+  }
 }

@@ -50,38 +50,10 @@
     ]
   },
   "保存成功！部分改动需要刷新页面才能生效": {
-    "en": "Save Success! Some changes require refreshing.",
+    "en": "Successfully saved! Some changes require refreshing.",
     "ja": "保存しました！一部変更はページ更新後に反映されます。",
     "$files": [
       "App.vue"
-    ]
-  },
-  "版权信息": {
-    "en": "Copyright information",
-    "ja": "著作権について",
-    "$files": [
-      "components\\ModalAboutApp.vue"
-    ]
-  },
-  "本站所引用的《最终幻想XIV》相关资料与图像，其版权均归于SQUARE ENIX所有。": {
-    "en": "The copyright of the materials and images related to Final Fantasy XIV cited on this website belongs to SQUARE ENIX.",
-    "ja": "当サイトに掲載されている『ファイナルファンタジーXIV』関連の資料や画像の著作権は SQUARE ENIX に帰属します。",
-    "$files": [
-      "components\\ModalAboutApp.vue"
-    ]
-  },
-  "本作仅供学习交流使用，不得以任何方式用于商业用途。": {
-    "en": "This work is for learning and communication purposes only and may not be used for commercial purposes in any way.",
-    "ja": "当サイトは学習や交流の目的でのみ使用できます。商業目的での使用は禁止されています。",
-    "$files": [
-      "components\\ModalAboutApp.vue"
-    ]
-  },
-  "转载、搬运须注明作者及出处。": {
-    "en": "Reproduction and handling must indicate the author and source.",
-    "ja": "転載や複製を行う場合は、作者と出典を明記してください。",
-    "$files": [
-      "components\\ModalAboutApp.vue"
     ]
   },
   "HqHelper的诞生与持续开发离不开用户的支持。": {
@@ -103,13 +75,6 @@
     "ja": "当ツールについて",
     "$files": [
       "components\\AppHeader.vue"
-    ]
-  },
-  "本作程序源代码遵循MIT协议开源。": {
-    "en": "The source code of this program follows the MIT protocol for open source.",
-    "ja": "このアプリのソースコードはMITライセンスで公開されていますが。",
-    "$files": [
-      "data\\about-app.ts"
     ]
   },
   "艾欧泽亚时间": {
@@ -273,27 +238,6 @@
       "components\\QuickOperatePanel.vue"
     ]
   },
-  "战斗职业专用": {
-    "en": "Battle",
-    "ja": "バトルジョブ用",
-    "$files": [
-      "components\\QuickOperatePanel.vue"
-    ]
-  },
-  "选择职类": {
-    "en": "Select Class",
-    "ja": "クラス選択",
-    "$files": [
-      "components\\QuickOperatePanel.vue"
-    ]
-  },
-  "实行操作": {
-    "en": "Resolve",
-    "ja": "実行する",
-    "$files": [
-      "components\\QuickOperatePanel.vue"
-    ]
-  },
   "添加一套防具": {
     "en": "Add 1 set of attire",
     "ja": "防具を１セット追加",
@@ -304,20 +248,6 @@
   "添加一套首饰": {
     "en": "Add 1 set of accessory",
     "ja": "アクセサリを１セット追加",
-    "$files": [
-      "components\\QuickOperatePanel.vue"
-    ]
-  },
-  "添加一套{}防具与首饰": {
-    "en": "Add 1 set of{}attire & accessory",
-    "ja": "{}防具とアクセサリを１セット追加",
-    "$files": [
-      "components\\main\\QuickOperatePanel.vue"
-    ]
-  },
-  "生产采集专用": {
-    "en": "Crafter and Gatherer",
-    "ja": "クラフター＆ギャザラー用",
     "$files": [
       "components\\QuickOperatePanel.vue"
     ]
@@ -416,13 +346,6 @@
   "性能": {
     "en": "Performance",
     "ja": "機能",
-    "$files": [
-      "components\\modals\\ModalUserPreferences.vue"
-    ]
-  },
-  "网络": {
-    "en": "Network",
-    "ja": "ネットワーク",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
@@ -638,7 +561,7 @@
       "components\\modals\\ModalContact.vue"
     ]
   },
-  "点击这里": {
+  "点击此处": {
     "en": "CLICK HERE",
     "ja": "ここをクリックする",
     "$files": [
@@ -869,41 +792,6 @@
       "data\\about-app.ts"
     ]
   },
-  "主要程序开发": {
-    "en": "Major developer",
-    "ja": "メイン開発者",
-    "$files": [
-      "data\\about-app.ts"
-    ]
-  },
-  "核心算法支持": {
-    "en": "Algorithm supporter",
-    "ja": "コアアルゴリズムのサポート",
-    "$files": [
-      "data\\about-app.ts"
-    ]
-  },
-  "本地化翻译": {
-    "en": "Translators",
-    "ja": "ローカライズ",
-    "$files": [
-      "data\\about-app.ts"
-    ]
-  },
-  "中文(国际服物品)": {
-    "en": "Chinese (Item)",
-    "ja": "中国語(アイテム)",
-    "$files": [
-      "data\\about-app.ts"
-    ]
-  },
-  "日语(UI)": {
-    "en": "Japanese (UI)",
-    "ja": "日本語(UI)",
-    "$files": [
-      "data\\about-app.ts"
-    ]
-  },
   "个人主页：": {
     "en": "Personal homepages: ",
     "ja": "個人ホームページ：",
@@ -1037,13 +925,6 @@
       "components\\custom-controls\\ItemList.vue"
     ]
   },
-  "本组没有需要的道具": {
-    "en": "Nothing needed in this group.",
-    "ja": "当グループに該当するアイテムはありません",
-    "$files": [
-      "components\\custom-controls\\ItemList.vue"
-    ]
-  },
   "点数": {
     "en": "TomeScript",
     "ja": "トークン",
@@ -1172,9 +1053,17 @@
   },
   "食药计算": {
     "en": "Food & Tinctures",
-    "ja": "調理品&薬品の计算",
+    "ja": "調理品&薬品",
     "$files": [
       "components\\main\\AppHeader.vue"
+    ]
+  },
+  "食药计算(新窗口)": {
+    "en": "Food & Tinctures (New window)",
+    "ja": "調理品&薬品(別ウィンド)",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "食药计算器": {
@@ -1648,13 +1537,6 @@
   "关于": {
     "en": "About",
     "ja": "他の説明",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
-    ]
-  },
-  "点击此按钮可以返回到上一个页面。": {
-    "en": "Click to go back to previous page.",
-    "ja": "このボタンをクリックすることで、前のページに戻れます。",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
@@ -2143,13 +2025,6 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "桌面应用开发": {
-    "en": "Desktop developer",
-    "ja": "クライアント版開発",
-    "$files": [
-      "data\\about-app.ts"
-    ]
-  },
   "问题修复": {
     "en": "BUG FIXES",
     "ja": "不具合修正",
@@ -2312,7 +2187,7 @@
     ]
   },
   "点击此按钮来收藏/取消收藏这个采集品。": {
-    "en": "Click the button to star/unstar this item.",
+    "en": "Click to star/unstar this item.",
     "ja": "このボタンをクリックして、この採集品をお気に入りに登録/登録解除します。",
     "$files": [
       "views\\GatherClockPage.vue"
@@ -2384,13 +2259,6 @@
   "优化了部分国际化翻译。": {
     "en": "Optimized some of i18n translation.",
     "ja": "一部の翻訳を最適化しました。",
-    "$files": [
-      "data\\change-logs.ts"
-    ]
-  },
-  "国服数据库更新至{ver}。": {
-    "en": "CHS game data updated to {ver}.",
-    "ja": "中国版データベースが{ver}に更新されました。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -2636,13 +2504,6 @@
       "data\\change-logs.ts"
     ]
   },
-  "[导出Excel]": {
-    "en": "[Export Excel]",
-    "ja": "[Excelシートにエクスポート]",
-    "$files": [
-      "components\\main\\StatisticsPanel.vue"
-    ]
-  },
   "特殊": {
     "en": "Special",
     "ja": "特殊",
@@ -2820,7 +2681,7 @@
   },
   "修正了部分物品按钮悬浮窗在移动端的显示效果。": {
     "en": "Fixed display effect of some item buttons on mobile.",
-    "ja": "一部のアイテムボタンのホバーウィンドウのスマホ最適化表示を調整しました。",
+    "ja": "一部のアイテムボタンのツールチップのスマホ最適化表示を調整しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -2860,13 +2721,6 @@
     "ja": "「{f}」が霊砂の集計も同時に出力するようになりました。",
     "$files": [
       "data\\change-logs.ts"
-    ]
-  },
-  "物品编号": {
-    "en": "Item ID",
-    "ja": "アイテム番号",
-    "$files": [
-      "views\\GatherClockPage.vue"
     ]
   },
   "采集开始时间": {
@@ -2970,13 +2824,6 @@
       "components\\modals\\ModalCostAndBenefit.vue"
     ]
   },
-  "物品价格服务器": {
-    "en": "Item Price Server",
-    "ja": "アイテム価格サーバー",
-    "$files": [
-      "components\\modals\\ModalUserPreferences.vue"
-    ]
-  },
   "适用于“{f}”功能。": {
     "en": "Used in \"{f}\".",
     "ja": "「{f}」機能に適用されます。",
@@ -3033,13 +2880,6 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "物品价格有效期": {
-    "en": "Item Price Expires",
-    "ja": "アイテム価格の有効期間",
-    "$files": [
-      "components\\modals\\ModalUserPreferences.vue"
-    ]
-  },
   "设定时间过短，会导致计算价格的效率降低；设置时间过长，则会导致结果过时。": {
     "en": "Too short might cause efficiency decrease; too long might cause outdated result.",
     "ja": "短すぎる設定は価格計算の効率を低下させます。長すぎる設定は結果が古くなる可能性があります。",
@@ -3064,13 +2904,6 @@
   "永不过期": {
     "en": "Never expires",
     "ja": "無期限",
-    "$files": [
-      "components\\modals\\ModalUserPreferences.vue"
-    ]
-  },
-  "由于修改了服务器，将清除已获取的物品价格缓存。": {
-    "en": "Item Price Cache will be cleaned cause you changed the server.",
-    "ja": "サーバーが変更されたため、取得済みのアイテム価格キャッシュをクリアします。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
@@ -3355,6 +3188,2227 @@
     "ja": "アイテムボタンのツールチップで無限ループが発生するのを防ぐため、後者ではツールチップを開けるアイコンは表示されません。",
     "$files": [
       "data\\change-logs.ts"
+    ]
+  },
+  "现在可以在“{f1}”的“{f2}”选项卡中调整程序/网站使用的字体及字体大小。": {
+    "en": "Now you can customize font and font size in \"{f1}\"→\"{f2}\".",
+    "ja": "「{f1}」の「{f2}」タブでクライアント/Webサイトで使用するフォントとフォントのサイズを変更できるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "剩余:": {
+    "en": "Remains:",
+    "ja": "残り:",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "{minute}分": {
+    "en": "{minute}m",
+    "ja": "{minute}分",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "{second}秒": {
+    "en": "{second}s",
+    "ja": "{second}秒",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "字体大小": {
+    "en": "Font size",
+    "ja": "フォントサイズ",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "全局性地修改程序/网站的字体大小。": {
+    "en": "Change the size of text in program/website globally.",
+    "ja": "クライアント/Webサイトのフォントサイズを一括変更。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "部分区域的字体大小不受此设置的影响。此外，还会受到浏览器“最小字号”设置的限制。": {
+    "en": "Some areas do not follow this setting. In addition, it is also limited by the 'Minimum font size' setting of the browser.",
+    "ja": "一部のフォントサイズはこの設定に影響されません。また、ブラウザの「最小サイズ」設定によっても制限されます。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "暂时无法保证“标准”大小之外的显示效果。除非有特殊需要，否则不建议修改。": {
+    "en": "Now we could not guarantee the display effect of sizes other than \"Standard\". Unless there is a special need, we do not recommend modifying.",
+    "ja": "「標準」サイズ以外の表示効果は最適化されていません。特別な必要がない限り、変更は推奨されません。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "更小": {
+    "en": "Tiny",
+    "ja": "さらに小さい",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "较小": {
+    "en": "Small",
+    "ja": "小さい",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "标准": {
+    "en": "Standard",
+    "ja": "標準",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "较大": {
+    "en": "Large",
+    "ja": "大さい",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "更大": {
+    "en": "Huge",
+    "ja": "さらに大きい",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "自定义字体": {
+    "en": "Custom font",
+    "ja": "カスタムフォント",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "全局性地修改程序/网站的字体。": {
+    "en": "Change the font of text in program/website globally.",
+    "ja": "クライアント/Webサイトのフォントを一括変更。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "可以设置多个字体，用英文逗号分隔。当前一个字体字库未包括要显示的文字时，程序会使用下一个字体；如果均不包括，程序会使用设置前的字体。": {
+    "en": "Allow multi fonts, separated by comma. If the font library of the first font does not include the text to be displayed, the program will use the second font; if none of them include the text, the program will use the font before the setting.",
+    "ja": "複数のフォント名を英語のカンマで区切るこで、複数のフォント設定が可能になります。現在のフォントライブラリに表示するテキストが含まれていない場合、次のフォントを使用します。どちらも含まれていない場合は設定前のフォントを使用します。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "字体名称出现空格时，建议用英文的单引号或双引号来将其包裹，例如\"思源黑体 CN Medium\"。": {
+    "en": "Recommends to wrap the font name with single or double quotes, such as \"Source Han Sans Medium\".",
+    "ja": "フォント名にスペースがある場合は、英文の一重引用符または二重引用符で囲むことをお勧めします。例：\"Jupiter Pro\"。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "如果你对CSS有所了解，可以直接参照font-family的语法来填写。": {
+    "en": "If you have knowledge about CSS, you can refer to the syntax of font-family to fill in.",
+    "ja": "CSSに詳しい場合は、font-familyの文法を参照して記入することができます。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "现在“{f}”还会在当前可采集道具的采集卡片中显示现实世界的剩余时间。": {
+    "en": "Now the \"{f}\" will also show the remaining earth time in the item card of the current collectible item.",
+    "ja": "現在採取可能な道具の採取カードには、“{f}”に現実世界の残り時間が表示されるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "总需": {
+    "en": "Total",
+    "ja": "総数",
+    "$files": [
+      "components\\custom-controls\\ItemStatementTable.vue"
+    ]
+  },
+  "已有": {
+    "en": "Prepared",
+    "ja": "既にあり",
+    "$files": [
+      "components\\custom-controls\\ItemStatementTable.vue"
+    ]
+  },
+  "尚需": {
+    "en": "Requires",
+    "ja": "まだ必要",
+    "$files": [
+      "components\\custom-controls\\ItemStatementTable.vue"
+    ]
+  },
+  "已筹备完成": {
+    "en": "Prepared Items",
+    "ja": "準備完了",
+    "$files": [
+      "components\\custom-controls\\ItemStatementTable.vue"
+    ]
+  },
+  "重置已有": {
+    "en": "Reset prepared",
+    "ja": "既存をリセット",
+    "$files": [
+      "components\\modals\\ModalProStatements.vue"
+    ]
+  },
+  "使用旧版本制作报表": {
+    "en": "Use traditional Craft Statement ",
+    "ja": "旧バージョンでリストを作成",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "在2.0.10版本，我们添加了专业版制作报表，提供更详细的物品信息表格，并支持根据已准备素材计算尚需素材。": {
+    "en": "We provides PRO Craft Statement after v2.0.10 to provide more detailed item information table and support to calculate the remaining materials based on the prepared materials.",
+    "ja": "バージョン2.0.10では、プロ版のリスト作成機能を追加し、より詳細なアイテム情報表と、準備済みの素材に基づいて必要な素材を計算するサポートを提供しています。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "如果你并不需要这些功能，或是更喜欢旧版本制作报表的风格，可以考虑打开此选项。": {
+    "en": "If you dont need to use these features, or you prefer the old version of craft statement, you can consider to turn on this option.",
+    "ja": "これらの機能が必要ない場合、または旧バージョンのリスト作成のスタイルを好む場合は、このオプションを有効にすることを検討してください。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "手动控制二级悬浮窗": {
+    "en": "Control sub item popup manually",
+    "ja": "手動で二次ツールチップを制御",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "在物品按钮悬浮窗内可能有一些可以打开子悬浮窗的元素，比如制作素材和地图按钮。": {
+    "en": "Some elements in item popup may have sub popup, such as craft materials and map buttons.",
+    "ja": "アイテムボタンのツールチップ内には、素材作成やマップボタンなど、ツールチップを開くことができる要素がいくつかあります。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "在默认情况下，光标悬停在元素上时就会立即打开子悬浮窗。如果你觉得这样太容易误触，可以打开此选项，只通过左键单击来控制子悬浮窗的显示与否。": {
+    "en": "In default case, the sub popup will be opened immediately when mouse hover on the element. If you think this is too easy to trigger, you can turn on this option to control the sub popup by left click only.",
+    "ja": "デフォルトでは、カーソルを要素にホバーするとすぐにツールチップが開きます。これが誤って操作されやすいと感じる場合は、このオプションを有効にして、左クリックのみでツールチップの表示を制御できるようにします。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "实装了专业版的“{f}”。": {
+    "en": "{f} PRO now available.",
+    "ja": "プロ版の「{f}」が実装されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "专业版制作报表为每个物品提供更详细的信息，包括制作职业、配方等级、采集职业、来源、兑换总价等。": {
+    "en": "Pro statement provides more detailed information for each item, including crafting job, recipe level, gathering job, source, and total exchange price.",
+    "ja": "プロ版のリスト作成では、各アイテムに対して詳細な情報が提供されます。これには、クラフタージョブ、レシピレベル、ギャザラージョブ、入手先、交換総額などが含まれます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "不仅如此，专业版制作报表还允许你填写已经准备的素材数量，并根据输入值动态计算还需要筹备的素材。": {
+    "en": "Not only that, the pro statement also allows you to fill in the number of materials that have already been prepared, and dynamically calculate the materials that still need to be prepared based on the input values.",
+    "ja": "さらに、プロ版のリスト作成では、既に準備済みの素材数を入力し、入力値に基づいてまだ必要な素材を動的に計算することができます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "点击主界面或食药计算器的“{f}”按钮，即可查看专业版制作报表。": {
+    "en": "Click the \"{f}\" button on main page or FT Helper to use Pro statement.",
+    "ja": "メイン画面または調理品&薬品の素材集計の「{f}」ボタンをクリックすることで、プロ版のリストを確認できます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "如果还是更喜欢旧版本的制作报表，可以在“{f1}”的“{f2}”选项卡中勾选“{f3}”。": {
+    "en": "If you still prefer the old version of craft statement, you can turn on the \"{f3}\" option on the \"{f2}\" tab of \"{f1}\".",
+    "ja": "旧バージョンのリスト作成を好む場合は、「{f1}」の「{f2}」タブで「{f3}」にチェックを入れてください。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了采集时钟会将采集时间刚好结束的采集品判断为现可采集的问题。": {
+    "en": "Fixed gather clock considers item gatherable when its gather time is just finished.",
+    "ja": "採集時計が、採集時間がちょうど終了した採集品を現在採集可能と判断してしまう問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "新增了设置项“{f}”。": {
+    "en": "Added new setting option \"{f}\".",
+    "ja": "設定項目「{f}」を新たに追加しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "根据特设站公布的信息，更新了{v}版本的logo与背景图。": {
+    "en": "Updated logo and background image for {v} version.",
+    "ja": "特設サイトで公開された情報に基づき、パッチ{v}のロゴと背景画像を更新しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "相关数据仍须等待版本正式上线后才能更新。": {
+    "en": "Game data still not updated until it's officially released.",
+    "ja": "関連データは、パッチが正式にリリースされた後で更新される予定です。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了选择版本区域按钮文字的显示效果。": {
+    "en": "Optimized the display effect of text in patch buttons.",
+    "ja": "パッチ選択エリアボタンのテキスト表示効果を最適化しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "推荐流程": {
+    "en": "Recomm. Process",
+    "ja": "推奨の回し",
+    "$files": [
+      "components\\modals\\ModalProStatements.vue",
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "筹集灵砂": {
+    "en": "Prepare aethersands",
+    "ja": "霊砂を集める",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "兑换道具": {
+    "en": "Trade items",
+    "ja": "アイテム交換",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "筹集其他需要的道具": {
+    "en": "Prepare other items needed",
+    "ja": "その他必要な道具を集める",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}制作半半半成品": {
+    "en": "Use {job} craft pre-pre-precrafts",
+    "ja": "{job}で準準中間素材を制作",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}制作半半成品": {
+    "en": "Use {job} craft pre-precrafts",
+    "ja": "{job}で準中間素材を制作",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}制作半成品": {
+    "en": "Use {job} craft precrafts",
+    "ja": "{job}で中間素材を制作",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}制作成品": {
+    "en": "Use {job} craft",
+    "ja": "{job}で完成品を制作",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "全部展开": {
+    "en": "Expand all",
+    "ja": "全て展開",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "全部折叠": {
+    "en": "Collapse all",
+    "ja": "全て折りたたむ",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "点击物品信息图标时的行为": {
+    "en": "Action while clicking item info icon",
+    "ja": "アイテム情報アイコンをクリックした際の動作",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "控制点击部分区域物品名称右侧蓝色信息图标时触发的事件。": {
+    "en": "Control the click event while clicking info icon on the right side of item name.",
+    "ja": "アイテム名の右側にある青色の情報アイコンを一部の領域でクリックした際に発生するイベントを制御します。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "“{option}”与此项目的设置可能会有冲突。": {
+    "en": "Setting option \"{option}\" may have conflict with this.",
+    "ja": "「{option}」とこの項目の設定は、矛盾する可能性があります。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "向专业版制作报表追加了“{f}”功能。": {
+    "en": "Added new function \"{f}\" to Pro statement.",
+    "ja": "プロ版のリスト作成に機能「{f}」が追加されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "推荐流程会自动根据报表中填写的已有素材计算仍需准备的素材，并按采集/制作职业、类型等归类，最终总结出素材→半成品→成品的有序步骤。": {
+    "en": "Recomm. Process will automatically calculate the materials needed and classify them according to the type of process and the profession, and finally summarize the steps in an ordered manner.",
+    "ja": "推奨の回しは、リストに入力された既存の素材に基づいて、まだ準備が必要な素材を自動的に計算し、採集/制作ジョブや種類ごとに分類し、最終的に素材→中間素材→完成品の順序をまとめます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了专业版制作报表在特定场合会将不再需要筹备的道具数量标记为NaN的问题。": {
+    "en": "Fixed Pro statement might show items that actually not needed with NaN number.",
+    "ja": "プロ版がリストを生成する時に、用意不要になったアイテムの数にNaNと表示してしまう問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了部分实际上无法通过捕鱼人采集获取的道具会在物品按钮悬浮窗中显示采集提示的问题。": {
+    "en": "Fixed some item that cannot be obtained by Fisher but show the collection prompt in the item button popup.",
+    "ja": "一部、実際には漁師によっては採集できない道具が、アイテムボタンのサブウィンドウに採集のヒントとして表示される問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了专业版制作报表中物品信息的显示逻辑。": {
+    "en": "Optimized the display logic of item info in Pro statement.",
+    "ja": "プロ版リスト作成におけるアイテム情報の表示ロジックを最適化しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了应用标题栏和各个素材统计区域标题/提示图标的显示效果。": {
+    "en": "Optimized the display effect of title bar of app and the title and prompt icons of each material statistics area.",
+    "ja": "アプリのタイトルバーおよび各素材統計エリアのタイトル/ヒントアイコンの表示効果を最適化しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "向采集时钟追加了订阅/提醒功能。": {
+    "en": "Added subscribe/notification function to Gatherclock.",
+    "ja": "採集時計にフォロー/リマインド機能が追加されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在可以订阅采集品，被订阅的采集品将在“{f1}”中集中显示。此外，在“{f2}”区域将“{f3}”设置为“{f4}”后，程序会在采集品可以采集时发送系统级提示。": {
+    "en": "Now you can subscribe gather items, subscribed items will be displayed in \"{f1}\". In addition, after setting \"{f3}\" to \"{f4}\" in \"{f2}\", the program will send a system notification when the gather item can be gathered.",
+    "ja": "フォローした収集品は「{f1}」内に一覧で表示されます。また、「{f2}」エリアで「{f3}」を「{f4}」に設定すると、収集品が採集可能なときにシステム通知が送信されます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "已订阅": {
+    "en": "Subscribed",
+    "ja": "フォロー済み",
+    "$files": [
+      "data\\change-logs.ts",
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "提醒方式": {
+    "en": "Notification way",
+    "ja": "リマインド方式",
+    "$files": [
+      "data\\change-logs.ts",
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "系统通知": {
+    "en": "System notification",
+    "ja": "システム通知",
+    "$files": [
+      "data\\change-logs.ts",
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "可能无法在部分浏览器/设备上正常工作。程序会在您调整“{f}”时检查权限并弹窗提醒。": {
+    "en": "Might cant work in some browser/device. The program will check permission and pop alert when you adjust \"{f}\".",
+    "ja": "一部のブラウザやデバイスでは正常に動作しない可能性があります。「{f}」を調整するときに権限を確認し、ポップアップで通知します。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "HqHelper处于后台时，可能会被浏览器限制性能，导致您收到通知的时间比订阅道具的采集开始时间稍晚。": {
+    "en": "The performance of HqHelper might be restricted by browser when it is in background, which might cause the notification time to be later than the start time of subscribed item.",
+    "ja": "HqHelperがバックグラウンドで動作している場合、ブラウザの性能制限により、収集品の採集開始時間よりも遅れて通知が届く場合があります。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "游戏全屏运行时可能会自动进入勿扰模式、屏蔽所有通知。如果希望在游玩游戏时正常接收到通知，则需要关闭自动勿扰模式或是赋予HqHelper白名单权限。": {
+    "en": "System might enter do not disturb mode automatically and block all notifications when game is running in full screen. If you want to receive notifications normally while playing the game, you need to disable auto do not disturb mode or grant HqHelper white list permission.",
+    "ja": "ゲームをフルスクリーンでプレイ中に自動的に「おやすみモード」に入り、すべての通知がブロックされる場合があります。ゲーム中も通知を受け取るには、オートおやすみモードを無効にするか、HqHelperにホワイトリスト権限を付与する必要があります。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "进一步细化了推荐流程的采集品分组、优化了组内排序逻辑，并可以显示采集详情。": {
+    "en": "Further refined the grouping of gatherings in the Recomm. process, optimized the sorting logic within the group, and enabled the display of collection details.",
+    "ja": "収集品の推奨プロセスがさらに詳細に分類され、グループ内の並び替えロジックが最適化され、採集詳細を表示できるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在会进一步区分限时与非限时的采集品。同一分组内，非限时采集品会按照采集的地图排序，限时采集品会按照开始时间排序。": {
+    "en": "Now the group will be further divided into limited and unlimited gatherings. In the same group, the non-limited gatherings will be sorted according to the map where they are collected, and the limited products will be sorted according to their start time.",
+    "ja": "時間制限のある収集品と時間制限のない収集品がさらに区別されます。同じグループ内で、時間制限のない収集品は収集場所のマップ順に、時間制限のある収集品は開始時間順に並びます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "此外还增加了“{f}”选项，启用后会显示采集品的额外信息，包括限时信息和采集位置信息。": {
+    "en": "In addition, \"{f}\" is added, which will show extra information about gatherings, including limited time and gather location.",
+    "ja": "さらに、「{f}」オプションが追加され、採集品の追加情報（時間制限や採集場所）を表示できるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了移动端无法在偏好设置中启用“{f}”的问题。": {
+    "en": "Fixed issue that mobile device cant enable \"{f}\" in preference settings.",
+    "ja": "モバイル版では、設定で「{f}」を有効にできない問題が修正されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "① 进一步优化了采集时钟选项卡区域的辨识度；": {
+    "en": "① Further optimized the recognizability of the tabs of the Gatherclock;",
+    "ja": "① 採集時計のタブエリアの視認性がさらに向上しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "② 现在物品采集位置的坐标统一精确到1位小数；": {
+    "en": "② Now the coordinate of item gather location is unified to 1 decimal place;",
+    "ja": "② アイテム採集場所の座標が小数点1桁まで正確に表示されるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "③ 优化了一部分UI细节。": {
+    "en": "③ Optimized some UI details.",
+    "ja": "③ 一部のUIの細かい部分が最適化されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在专业版制作报表的数量输入框可以在其值为0时点击减号来将这个道具直接标记为已筹备完成(类似游戏中数量输入框的逻辑)。": {
+    "en": "Now the number input box in the Pro statement can click minus button to mark item prepared directly when its value is 0 (similar to the in-game logic).",
+    "ja": "プロ版の報告書作成の数量入力ボックスでは、値が0のときにマイナスボタンをクリックすると、このアイテムが直接準備完了としてマークされるようになりました（ゲーム内の数量入力ボックスと同様の仕組み）。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "“{f1}”的“{f2}”选项卡中追加了设置项“{f3}”。": {
+    "en": "Added new setting option \"{f3}\" in tab \"{f2}\" of \"{f1}\".",
+    "ja": "「{f1}」の「{f2}」タブに「{f3}」設定項目が追加されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "材料清单格式": {
+    "en": "Item list style",
+    "ja": "素材リスト形式",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "现在还可以选择以Teamcraft格式(如：\"3x 黄金灵砂\")展示材料清单。": {
+    "en": "Now you can choose to display item list in Teamcraft format (e.g.: \"3x Sungilt Aethersand\").",
+    "ja": "现素材リストをTeamcraft形式（例：\"3x 黄金の霊砂\"）で表示するオプションが追加されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "桌面端左上返回按钮的逻辑有所变更：现在总是会返回首页，而非上一个访问的页面。": {
+    "en": "The return button in the upper left corner has changed its logic: it will always return to the home page, instead of the previous page.",
+    "ja": "デスクトップ版の左上の戻るボタンの動作が変更され、常にホームに戻るようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了客户端内置更新功能的逻辑。": {
+    "en": "Optimized client's inner update logic.",
+    "ja": "クライアントの内蔵更新機能の仕組みが最適化されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "禁用": {
+    "en": "Disable",
+    "ja": "無効化にする",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "当前使用的浏览器或客户端不支持系统通知功能。": {
+    "en": "Current browser/device does not support system notification function.",
+    "ja": "現在使用中のブラウザまたはクライアントがシステム通知機能をサポートしていません。",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "通知权限被拒绝，请检查浏览器的网站权限设置。": {
+    "en": "Noitfication permission was rejected, please check browser's website permission setting.",
+    "ja": "リマインド権限が拒否されました。ブラウザのサイト権限設定を確認してください。",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "以下物品已可采集：": {
+    "en": "Following items can be gathered:",
+    "ja": "現在採集可能になったアイテム：",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "推荐传送点": {
+    "en": "Recomm. Aetheryte",
+    "ja": "おすすめのテレポ地点",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "订阅": {
+    "en": "Subscribe",
+    "ja": "フォロー",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "取消订阅“{}”": {
+    "en": "Unsubscribe \"{}\"",
+    "ja": "「{}」のフォローを解除",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "订阅“{}”": {
+    "en": "Subscribe \"{}\"",
+    "ja": "「{}」をフォローする",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "全部取消订阅": {
+    "en": "Unsubscribe all",
+    "ja": "すべてのフォローを解除",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "窗口置顶": {
+    "en": "Window top",
+    "ja": "ウィンドウを最前面に固定",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "没有物品": {
+    "en": "No items here.",
+    "ja": "アイテムがありません",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "点击此按钮来订阅/取消订阅这个采集品。": {
+    "en": "Click to subscribe/unsubscribe this item.",
+    "ja": "このボタンをクリックすると、この採集品をサブスクリプション/サブスクリプション解除できます。",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "被订阅的采集品可以采集时，我们会按照您设置的“{setting}”向您发送提醒。": {
+    "en": "When the subscribed item can be gathered, we will send you a notification according to your setting \"{setting}\".",
+    "ja": "フォローした採集品が採集可能になったら、「{setting}」に従って通知を送信します。",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "点击此按钮可以返回到首页。": {
+    "en": "Click to back to home page.",
+    "ja": "このボタンをクリックするとホームページに戻ります。",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "{lv}级": {
+    "en": "Lv. {lv}",
+    "ja": "レベル{lv}",
+    "$files": [
+      "components\\custom-controls\\ItemCell.vue"
+    ]
+  },
+  "显示采集详情": {
+    "en": "Show gather details",
+    "ja": "採集の詳細を表示",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}采集(非限时)": {
+    "en": "Use {job} gather (Unlimited)",
+    "ja": "{job}で採集（非時間制限）",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "使用{job}采集(限时)": {
+    "en": "Use {job} gather (Time-limited)",
+    "ja": "{job}で採集（時間制限）",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "在{}采集": {
+    "en": "Gather at {}",
+    "ja": "{}で採集",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "限时: {}": {
+    "en": "Time-limit: {}",
+    "ja": "時間制限: {}",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "决定在点击材料区域物品按钮组上方的“清单”按钮后，展示的物品清单格式。": {
+    "en": "Determine the format of the list shown after clicking the \"View list\" button above the item button group.",
+    "ja": "材料エリアのアイテムボタン上部の「リスト」ボタンをクリックすると、アイテムリストの形式が表示されます。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "部分程序可能可以识别并导入特定格式的清单。": {
+    "en": "Some of programs might be able to recognize and import specific format of list.",
+    "ja": "一部のプログラムは特定の形式のリストを識別し、インポートできる可能性があります。",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "标准 (物品名称 x 数量)": {
+    "en": "Standard (Name x Amount)",
+    "ja": "標準（アイテム名 x 数量）",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "Teamcraft风格 (数量x 物品名称)": {
+    "en": "Teamcraft style (Amountx Name)",
+    "ja": "Teamcraft形式（数量x アイテム名）",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "在BestCraft中模拟制作": {
+    "en": "Simulate-craft in BestCraft",
+    "ja": "BestCraftで製作をシミュレーション",
+    "$files": [
+      "tools\\item.ts"
+    ]
+  },
+  "在TeamCraft中模拟制作": {
+    "en": "Simulate-craft in TeamCraft",
+    "ja": "TeamCraftで製作をシミュレーション",
+    "$files": [
+      "tools\\item.ts"
+    ]
+  },
+  "提示音": {
+    "en": "Sound",
+    "ja": "通知音",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "耐久{dur} / 难度{pro} / 品质{qua}": {
+    "en": "Durability {dur} / Progress {pro} / Quality {qua}",
+    "ja": "耐久{dur} / 難易度{pro} / 品質{qua}",
+    "$files": [
+      "components\\custom-controls\\ItemPop.vue"
+    ]
+  },
+  "切换版本会清空你已选择的装备部件。": {
+    "en": "Switch patch would clear all your gear selections.",
+    "ja": "パッチを切り替えると、選択した装備パーツがクリアされます。",
+    "$files": [
+      "components\\main\\PatchPanel.vue"
+    ]
+  },
+  "采集时钟现在还可以将“{f1}”设置为“{f2}”。": {
+    "en": "Now gatherclock could set \"{f1}\" to \"{f2}\".",
+    "ja": "採集タイマーで「{f1}」を「{f2}」に設定できるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "初次设置时会播放一次。": {
+    "en": "Audio would be played once on first setting.",
+    "ja": "初めて設定する際には一度再生されます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在可制作物品的悬浮窗内还会展示配方的耐久/难度/品质信息。": {
+    "en": "Now the popup of craftable items will also show durability/progress/quality info.",
+    "ja": "製作可能なアイテムのツールチップに、レシピの耐久/難易度/品質情報が表示されるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "伴随这一改动，悬浮窗内的配方信息顺序有所调整。": {
+    "en": "With this change, the order of formula information in popup is adjusted.",
+    "ja": "この変更に伴い、ツールチップ内のレシピ情報の順序が変更されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在右键有制作配方的物品按钮时，可以在菜单中选择“{f1}”和“{f2}”。": {
+    "en": "Now the context menu of craftable item will have \"{f1}\" and \"{f2}\" options.",
+    "ja": "レシピのアイテムボタンを右クリックすると、メニューから「{f1}」や「{f2}」を選択できるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "国服数据库更新至{ver}。": {
+    "en": "CHS game data updated to {ver}.",
+    "ja": "中国版データベースが{ver}に更新されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "国际服数据库更新至{ver}。": {
+    "en": "Global game data updated to {ver}.",
+    "ja": "グローバル版のデータベースが{ver}に更新されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了“{f}”区域按钮的部分区域不会触发点击事件的问题。": {
+    "en": "Fixed some area of the button in \"{f}\" could not trigger click event.",
+    "ja": "「{f}」エリアのボタンの一部がクリックイベントをトリガーしない問題が修正されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "在“{f}”中的各个物品前增加了复选框，将其勾选可以临时将物品标记为已完成。": {
+    "en": "Added checkbox before each item in \"{f}\". Check to mark item as completed.",
+    "ja": "「{f}」内の各アイテムにチェックボックスが追加され、そのチェックを入れることでアイテムを一時的に「完了済み」としてマークできます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "当某一组物品全部被标记为已完成时，这一组会自动折叠。": {
+    "en": "Once if all the items in a group are marked as completed, the group will be automatically collapsed.",
+    "ja": "一組のアイテムがすべて「完了済み」としてマークされると、そのグループは自動的に折りたたまれます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "{f}中的标记不会影响制作报表中记录的已有数量。关闭{f}时会自动重置完成状态。": {
+    "en": "Markings in \"{f}\" will not affect the amount recorded in the report. Closing \"{f}\" will automatically reset the completion status.",
+    "ja": "「{f}」内でのマークは、レポート作成時の記録された数量には影響しません。「{f}」を閉じると完了状態は自動的にリセットされます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "调整了竖向使用客户端时，顶部菜单栏的显示效果。": {
+    "en": "Adjusted the display effect of the top menu bar when using the client vertically.",
+    "ja": "縦向きでクライアントを使用した場合、トップメニューの表示効果が調整されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "向采集时钟追加了“{f}”功能。": {
+    "en": "Added new function \"{f}\" to Gatherclock.",
+    "ja": "採集時計に「{f}」機能を追加しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "导出闹钟宏": {
+    "en": "Export alarm macro",
+    "ja": "アラームマクロをエクスポート",
+    "$files": [
+      "data\\change-logs.ts",
+      "views\\GatherClockPage.vue",
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "修复了统计区域的限时采集品未计入7.1新增道具的问题。": {
+    "en": "Fixed statistics of time-limited gatherings not included new items in patch 7.1.",
+    "ja": "集計エリアで、7.1で追加されたアイテムが時限採集品としてカウントされない問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了点数按钮在内容过长时的显示效果。": {
+    "en": "Fixed display effect of tome-script buttons while its content is too long.",
+    "ja": "トークンボタンの内容が長すぎる場合の表示問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了一部分地图数据。": {
+    "en": "Fixed some data of map.",
+    "ja": "一部のマップデータを修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "在推荐流程中，被标记为已完成的物品将自动隐藏采集详情。": {
+    "en": "Gather details of items marked as completed in Recomm. process will be automatically hidden.",
+    "ja": "推奨の流れでは、完了済みとマークされたアイテムの採集詳細が自動的に非表示になります。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在因切换版本等情况导致所选职业在当前版本没有可以添加的装备时，程序会在选择职业区域给出提示。": {
+    "en": "Now the program gives tip when selected job has no equipable item in selected patch.",
+    "ja": "パッチ切り替えなどの状況により、選択したジョブに現在のパッチで追加可能な装備がない場合、ジョブ選択エリアに警告が表示されるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "宏#{index}": {
+    "en": "Macro #{index}",
+    "ja": "マクロ#{index}",
+    "$files": [
+      "components\\custom-controls\\MacroViewer.vue"
+    ]
+  },
+  "无内容": {
+    "en": "No content",
+    "ja": "内容なし",
+    "$files": [
+      "components\\custom-controls\\MacroViewer.vue"
+    ]
+  },
+  "数量使用：": {
+    "en": "Amount use:",
+    "ja": "使用数：",
+    "$files": [
+      "components\\custom-controls\\StatementListPop.vue"
+    ]
+  },
+  "内容": {
+    "en": "Content",
+    "ja": "内容",
+    "$files": [
+      "components\\custom-controls\\StatementListPop.vue"
+    ]
+  },
+  "复制清单": {
+    "en": "Copy List",
+    "ja": "リストをコピー",
+    "$files": [
+      "components\\custom-controls\\StatementListPop.vue"
+    ]
+  },
+  "没有需要的道具": {
+    "en": "Now items required",
+    "ja": "必要なアイテムはありません",
+    "$files": [
+      "components\\custom-controls\\StatementListPop.vue"
+    ]
+  },
+  "所选职业在当前版本不可用，请重新选择。": {
+    "en": "Job selected is not available in current version, please reselect.",
+    "ja": "選択したジョブは現在のパッチで使用できません。再選択してください。",
+    "$files": [
+      "components\\main\\JobPanel.vue"
+    ]
+  },
+  "选择物品": {
+    "en": "Select Items",
+    "ja": "アイテムを選択",
+    "$files": [
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "同时清除此前设置的闹钟": {
+    "en": "Clear old alarms",
+    "ja": "以前設定したアラームを同時にクリア",
+    "$files": [
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "闹钟名包括：": {
+    "en": "Alarm name includes:",
+    "ja": "アラーム名には以下が含まれます：",
+    "$files": [
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "职业": {
+    "en": "Job",
+    "ja": "ジョブ",
+    "$files": [
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "地图": {
+    "en": "Map",
+    "ja": "マップ",
+    "$files": [
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "闹钟名具有20个字的限制，过长的部分会被截断。": {
+    "en": "Alarm name has 20 characters limit, and will be truncated if too long.",
+    "ja": "アラーム名は20文字の制限があり、長すぎる部分は切り捨てられます。",
+    "$files": [
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "不重复提醒": {
+    "en": "No repeat",
+    "ja": "リマインダーの重複通知をオフにする",
+    "$files": [
+      "components\\modals\\ModalAlarmMacroExport.vue"
+    ]
+  },
+  "在新窗口中打开采集时钟。": {
+    "en": "Open gatherclock in a new window.",
+    "ja": "別のウィンドで採集時計を開く。",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "采集时钟(新窗口)": {
+    "en": "Gather Clock (New window)",
+    "ja": "採集時計(別ウィンド)",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "开发工具": {
+    "en": "Dev Tools",
+    "ja": "開発ツール",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "启用开发者模式": {
+    "en": "Enable dev mode",
+    "ja": "開発者モードの有効化",
+    "$files": [
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "仅为信息更新，没有实际更改。": {
+    "en": "No actual changes have been made.",
+    "ja": "情報更新のみで、実際の変更はありません。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "仅限{ver}及更高版本的客户端。": {
+    "en": "Limited to {ver} and higher versions of the client only.",
+    "ja": "バージョン{ver}以上のクライアントのみ有効となります。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了直接框选物品悬浮窗和推荐流程等区域的部分内容并复制时，复制内容中物品名称与数量间会有多余换行的问题。": {
+    "en": "Fixed the issue where there were extra line breaks between item names and quantities when directly selecting in areas like floating window and recomm. process and copying them.",
+    "ja": "直接選択されたアイテムのツールチップや推奨流れなどの内容をコピーした際に、アイテム名と数量の間に余分な改行が含まれる問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "伴随这一改动，子物品名称过长的场合，悬浮窗的显示效果有所变化。": {
+    "en": "With this change, the display effect of the floating window changes when the sub item name is too long.",
+    "ja": "この変更に伴い、サブアイテム名が長すぎる場合のツールチップの表示が一部変更されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了导出闹钟宏生成的宏内容在国服客户端无法执行的问题。": {
+    "en": "Fixed the issue where the macro content generated by Export alarm macro cannot be executed on the CHS client.",
+    "ja": "中国版でエクスポートされたアラームマクロが使えない問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了导出闹钟宏在通过点击复制按钮复制宏时，在游戏内粘贴无法粘贴全部内容的问题。": {
+    "en": "Fixed the issue where Export alarm macro could not paste all the content in game when copying the macro by clicking the copy button.",
+    "ja": "エクスポートされたアラームマクロをコピーする際、ゲーム内に貼り付けると全内容が正しく貼り付けられない問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了部分提示会在不正确的场合展示的问题。": {
+    "en": "Fixed an issue where some prompts displayed in incorrect situations.",
+    "ja": "一部のヒントが誤った場面で表示される問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了{f1}中的{f2}选项在移动端的显示效果。": {
+    "en": "Optimized the display effect of the {f2} option in {f1} on mobile devices.",
+    "ja": "{f1}内の{f2}オプションのモバイルデバイスでの表示を最適化しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "网页版/PWA应用/客户端的主页面标题从“7.0 HQ Helper”变更为“7.x HQ Helper”。": {
+    "en": "The homepage title of the web version/PWA application/client has been changed from \"7.0 HQ Helper\" to \"7.x HQ Helper\".",
+    "ja": "ウェブ版/PWAアプリ/クライアントのメインページタイトルを「7.0 HQ Helper」から「7.x HQ Helper」に変更しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "在新窗口中打开食药计算器。": {
+    "en": "Open FT Helper in a new window.",
+    "ja": "新しいウィンドウで調理品&薬品の计算を開く。",
+    "$files": [
+      "components\\custom-controls\\AppHeader.vue"
+    ]
+  },
+  "为“选择职业”区域的各个职业按钮追加了右键菜单功能。": {
+    "en": "Added context menu to each job button in \"Select Job\".",
+    "ja": "「ジョブ選択」セクションの各ジョブボタンに右クリックメニュー機能を追加しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "在右键菜单中可以快速增加/减少选定职业的已选部件，打开此职业在配装模拟器中的页面，甚至查看推荐配装。": {
+    "en": "You can quickly add/subtract selected parts of the selected job, open the page of the selected job in Gearing simulator, or view recommended gearsets.",
+    "ja": "右クリックメニューでは、選択したジョブの選択済みパーツの増減、該当ジョブのギアセットシミュレーターのページを開く、さらにはおすすめ装備を見ることが可能です。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "为食药计算器的“查看统计”实装了下述改动：": {
+    "en": "Following changes have been implemented for the \"View Statistics\" of FT Helper:",
+    "ja": "調理品&薬品の计算の「集計を見る」機能に以下の変更を実装しました：",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "增加了“{f}”栏目，统计未被其他分组归类的道具；": {
+    "en": "Added a \"{f}\" group to list items that have not been classified by other groups;",
+    "ja": "「{f}」列を追加し、他のグループに分類されないアイテムを集計します。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "其他素材统计": {
+    "en": "Other materials",
+    "ja": "その他素材の集計",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\ft-helper\\StatisticsPanel.vue"
+    ]
+  },
+  "将灵砂统计合并入限时采集品统计，并调整了各栏目的排列顺序；": {
+    "en": "Merge the aethersand statistics into the Limited gathering items statistics and adjust the arrangement order of groups;",
+    "ja": "霊砂の集計を刻限採集品集計に統合し、各列の配置順を調整しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "“{f1}”选项修改为“{f2}”。勾选此项时，除“{f3}”之外的所有栏目都将不再统计食药半成品所需要的素材。": {
+    "en": "Change the \"{f1}\" option to \"{f2}\". When this option is checked, all columns except \"{f3}\" will no longer count the materials required for precrafts.",
+    "ja": "「{f1}」オプションを「{f2}」に変更しました。このオプションを有効にすると、「{f3}」以外のすべての列で調理品&薬品の中間素材に必要な素材を統計しなくなります。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "只显示直接制作素材": {
+    "en": "Only show direct materials",
+    "ja": "直接な素材のみを表示",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\ft-helper\\StatisticsPanel.vue"
+    ]
+  },
+  "修复了采集时钟的提醒方式设置为“提示音”时，程序会在没有订阅道具可采集的时间响铃的问题。": {
+    "en": "Fixed the issue where the program would ring at times when there were no subscribed items to collect when the Notification way was set to \"Sound\".",
+    "ja": "採集時計の通知方法を「アラーム音」に設定した際、採集可能なアイテムがない時間帯にアラームが鳴る問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了将物品语言设定为中文/日文时，钓鱼采集道具悬浮窗中的“{f}”组装出的外部链接可能无法查询到指定道具的问题。": {
+    "en": "Fixed an issue where the external link assembled from the \"{f}\" in the fishing items' popup may not be able to retrieve the specified prop when the language of the item is set to Chinese/Japanese.",
+    "ja": "アイテム言語設定を中国語または日本語にした場合、釣り採集アイテムのツールチップ内にある「{f}」で構成された外部リンクが指定アイテムを正しく検索できない場合がある問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了框选物品悬浮窗中的食物/装备属性复制时，复制内容中属性名称与数额间会有多余换行的问题。": {
+    "en": "Fixed the issue where there were extra line breaks between atrribute names and amounts when directly selecting in items' popup and copying them.",
+    "ja": "フレーム選択したアイテムのツールチップ内で調理品/装備のステータスをコピーした際、ステータス名と数値の間に余計な改行が入る問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了物品右键菜单可以被部分不可操作的物品按钮激活的问题。": {
+    "en": "Fixed the issue where the right-click menu of items could be activated by partially inoperable item buttons.",
+    "ja": "アイテムの右クリックメニューが、一部操作不可能なアイテムボタンで起動可能だった問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了特定场景下物品悬浮窗中食物/装备属性的显示效果。": {
+    "en": "Fixed the display effect of food/equipment attributes in the item popup in specific scenarios.",
+    "ja": "特定の場面で、アイテムツールチップ内の食品/装備ステータスの表示が正しくない問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了点数按钮在显示多种点数时的显示效果。": {
+    "en": "Fixed the display effect of the tome script button when displaying multiple scripts.",
+    "ja": "トークンが複数のポイント種別を表示する場合の表示効果を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了物品按钮的右键菜单中关于复制道具名的排布逻辑，点击“复制道具名”选项会直接复制当前偏好设置下的物品语言，其他语言的物品名则放置在二级菜单。此外，现在还可以复制道具检索宏。": {
+    "en": "Optimized the layout logic of copying item names in the right-click menu of the item button. Clicking on the \"Copy Item Name\" option will directly copy the item language under the current preference settings, while item names in other languages will be placed in the secondary menu. In addition, it is now possible to copy /isearch macros.",
+    "ja": "アイテムボタンの右クリックメニュー内の「アイテム名をコピーする」オプションのレイアウトロジックを最適化しました。現在の言語設定でのアイテム名を直接コピーできるほか、他の言語でのアイテム名はサブメニューに配置されるようになりました。また、「アイテム検索マクロ」をコピーする機能も追加しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "“{f1}”的设置项“{f2}”现在还可以设置为“{f3}”。": {
+    "en": "The setting option \"{f2}\" in \"{f1}\" can now be set to \"{f3}\".",
+    "ja": "「{f1}」の設定項目「{f2}」は「{f3}」に設定することも可能になりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "紧凑 (物品名称x数量)": {
+    "en": "Tight (NamexAmount)",
+    "ja": "コンパクト（アイテム名x数）",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "复制其他道具名": {
+    "en": "Copy item name (other lang)",
+    "ja": "他のアイテム名をコピー",
+    "$files": [
+      "tools\\item.ts"
+    ]
+  },
+  "常规采集品统计": {
+    "en": "Common gatherings",
+    "ja": "一般採集品集計",
+    "$files": [
+      "components\\ft-helper\\StatisticsPanel.vue"
+    ]
+  },
+  "限时采集品&灵砂统计": {
+    "en": "Limited gatherings & Aethersands",
+    "ja": "刻限採集品＆霊砂集計",
+    "$files": [
+      "components\\ft-helper\\StatisticsPanel.vue"
+    ]
+  },
+  "未被其他分组归类的道具。": {
+    "en": "Items that have not been classified by other groups.",
+    "ja": "他のグループに分類されないアイテム",
+    "$files": [
+      "components\\ft-helper\\StatisticsPanel.vue"
+    ]
+  },
+  "已选": {
+    "en": "Selected",
+    "ja": "選択済み",
+    "$files": [
+      "components\\custom\\job\\JobButton.vue"
+    ]
+  },
+  "清空已选": {
+    "en": "Clear selected",
+    "ja": "選択済みをクリア",
+    "$files": [
+      "components\\custom\\job\\JobButton.vue"
+    ]
+  },
+  "配装": {
+    "en": "Gears",
+    "ja": "ギアセット",
+    "$files": [
+      "components\\custom\\job\\JobButton.vue"
+    ]
+  },
+  "模拟配装": {
+    "en": "Gearing simulator",
+    "ja": "ギアセットシミュレーター",
+    "$files": [
+      "components\\custom\\job\\JobButton.vue"
+    ]
+  },
+  "推荐配装": {
+    "en": "Recomm. gear sets",
+    "ja": "推奨ギアセット",
+    "$files": [
+      "components\\custom\\job\\JobButton.vue"
+    ]
+  },
+  "优化了页面滚动条的显示效果。": {
+    "en": "Optimized the display effect of the page scrollbar.",
+    "ja": "ページスクロールバーの表示効果を最適化しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "使用简洁模式展示物品": {
+    "en": "Show item in concise mode",
+    "ja": "簡易モードでアイテムを表示",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "仅在专业版制作报表生效。": {
+    "en": "Only works in Pro statement.",
+    "ja": "プロ版でレポート作成時にのみ有効",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "功能设置": {
+    "en": "Function Preferences",
+    "ja": "機能設定",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue",
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "还好我把魔法人偶的战斗力设置成了最强级别。": {
+    "en": "Change function settings.",
+    "ja": "魔法人形を最強レベルに設定しておいてよかった。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "星芒节快乐": {
+    "en": "Merry Christmas",
+    "ja": "「星芒祭」おめでとうございます",
+    "$files": [
+      "components\\modals\\ModalFestivalEgg.vue"
+    ]
+  },
+  "星芒节快乐！": {
+    "en": "Good day to you, ",
+    "ja": "「星芒祭」おめでとうございます！",
+    "$files": [
+      "components\\modals\\ModalFestivalEgg.vue"
+    ]
+  },
+  "值此佳节，星光分外璀璨，": {
+    "en": "miss/sir.",
+    "ja": "星の輝きが一層美しくなるこの季節、",
+    "$files": [
+      "components\\modals\\ModalFestivalEgg.vue"
+    ]
+  },
+  "你过得开心吗？": {
+    "en": "I trust you've met with no grief during this year's Starlight Celebration?",
+    "ja": "いかがお過ごしですか？",
+    "$files": [
+      "components\\modals\\ModalFestivalEgg.vue"
+    ]
+  },
+  "显示物品详情": {
+    "en": "Show item details",
+    "ja": "アイテム詳細を表示",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "物品价格": {
+    "en": "Item price",
+    "ja": "アイテム価格",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "价格类型": {
+    "en": "Price type",
+    "ja": "価格のタイプ",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "缓存有效期": {
+    "en": "Cache validity period",
+    "ja": "キャッシュの有効期間",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "里程碑": {
+    "en": "Milestone",
+    "ja": "マイルストーン",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "至此，第一代 HqHelper 的所有主要功能均已迁移。": {
+    "en": "At this point, all major functions of the first generation HqHelper have been migrated.",
+    "ja": "これにより、初代HqHelperのすべての主要機能が移行されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "追加了2.0/3.0/4.0/5.0/6.0野外和各版本主城的地图/传送点数据。": {
+    "en": "Added map/aetherytes data for the 2.0/3.0/4.0/5.0/6.0 wilderness and main cities of each patch.",
+    "ja": "2.0/3.0/4.0/5.0/6.0のフィールドマップおよび各パッチの都市マップ/テレポ地点データを追加しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在旧版本的采集道具也可以查看地图与推荐传送点。": {
+    "en": "Now old version gatherable items can also view maps and recommended aetheryte.",
+    "ja": "旧パッチの採集アイテムもマップとおすすめテレポ地点を確認できるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "追加了从已导出 Excel 中导入已选部件的功能。由此，原先的“导出Excel”按钮调整为“导入/导出”。": {
+    "en": "Added the function to import gear selections from exported Excel. Therefore, the original 'Export Excel' button has been changed to 'Import/Export'.",
+    "ja": "エクスポートしたExcelファイルから選択済み部品をインポートする機能を追加しました。このため、従来の「Excelシートにエクスポート」ボタンは「インポート/エクスポート」に変更されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在导出前可以自定义导出文件的名称，并且可以导出成本/收益分析。": {
+    "en": "Now you can customize the name of the export file before exporting, and you can export cost/benefit analysis.",
+    "ja": "エクスポート前にファイル名をカスタマイズできるようになり、さらにコスト/収益分析をエクスポート可能になりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "追加了功能设置窗口，整合各个页面功能的设置选项。除了可以在顶部菜单统一配置之外，也可以点击部分弹窗右上角的设置按钮来单独配置该弹窗的设置项。": {
+    "en": "Added Function Preferences window to integrate the settings options of each page function. In addition to being able to configure uniformly in the top menu, you can also click the settings button in the upper right corner of some pop-ups to configure the settings of the pop-up separately.",
+    "ja": "機能設定ウィンドウが追加され、各ページ機能の設定オプションが統合されました。トップメニューで一元的に設定できるほか、いくつかのポップアップウィンドウの右上にある設定ボタンをクリックして個別に設定することもできます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "伴随这一改动，部分弹窗的快捷操作有所精简。": {
+    "en": "With this change, some quick operations of the pop-up windows have been streamlined.",
+    "ja": "この変更に伴い、一部のポップアップウィンドウのショートカット操作が簡素化されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "“偏好设置”中的部分设置项已经迁移至功能设置中。": {
+    "en": "Some settings in 'User Preferences' have been migrated to Function Preferences.",
+    "ja": "「設定」内の一部の設定項目が機能設定に移行されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "彻底修复了部分物品悬浮窗内的文本无法框选的问题。": {
+    "en": "Thoroughly fixed the issue where text in some item pop-ups could not be selected.",
+    "ja": "一部のアイテムのツールチップ内でテキストを選択できない問題が完全に修正されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在可以将物品价格的缓存有效期设置为1小时。": {
+    "en": "Now you can set the cache validity period of item prices to 1 hour.",
+    "ja": "アイテム価格のキャッシュ有効期限を1時間に設定できるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在客户端和HqHelper同时有新版本可供更新时只会弹窗提醒一次，而非各提醒一次。": {
+    "en": "Now when both the client and HqHelper have new versions available for update, only one pop-up reminder will be shown instead of separate reminders.",
+    "ja": "クライアントとHqHelperの両方に新しいバージョンがある場合、通知は一度だけ表示され、個別には表示されないように改修しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了一部分界面文本的表述。": {
+    "en": "Optimized the expression of some interface texts.",
+    "ja": "一部のインターフェーステキストの表現が最適化されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "成本分析": {
+    "en": "Cost analysis",
+    "ja": "コスト分析",
+    "$files": [
+      "tools\\excel.ts"
+    ]
+  },
+  "收益分析": {
+    "en": "Benefit analysis",
+    "ja": "収益分析",
+    "$files": [
+      "tools\\excel.ts"
+    ]
+  },
+  "导入成功": {
+    "en": "Import succeeded",
+    "ja": "インポート成功",
+    "$files": [
+      "views\\MainPage.vue"
+    ]
+  },
+  "导入/导出": {
+    "en": "Import/Export",
+    "ja": "インポート/エクスポート",
+    "$files": [
+      "components\\main\\StatisticsPanel.vue",
+      "components\\modals\\ModalFuncPreferences.vue",
+      "components\\modals\\ModalImportExportMain.vue"
+    ]
+  },
+  "确认导入内容": {
+    "en": "Confirm import content",
+    "ja": "インポート内容の確認",
+    "$files": [
+      "components\\modals\\ModalConfirmImportMain.vue"
+    ]
+  },
+  "导入部件": {
+    "en": "Import parts",
+    "ja": "部品をインポート",
+    "$files": [
+      "components\\modals\\ModalConfirmImportMain.vue"
+    ]
+  },
+  "选择导入的版本": {
+    "en": "Select the version to import",
+    "ja": "インポートするパッチの選択",
+    "$files": [
+      "components\\modals\\ModalConfirmImportMain.vue"
+    ]
+  },
+  "确认": {
+    "en": "Confirm",
+    "ja": "確認",
+    "$files": [
+      "components\\modals\\ModalConfirmImportMain.vue"
+    ]
+  },
+  "导出成本/收益分析": {
+    "en": "Export cost/benefit analysis",
+    "ja": "コスト/収益分析のエクスポート",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue",
+      "components\\modals\\ModalImportExportMain.vue"
+    ]
+  },
+  "启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。": {
+    "en": "When this option is enabled, if the item price cache has expired, it will take some time to refresh the data.",
+    "ja": "このオプションを有効にすると、アイテム価格のキャッシュが期限切れの場合、データを更新するために一定の時間がかかります。",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue",
+      "components\\modals\\ModalImportExportMain.vue"
+    ]
+  },
+  "修改此选项的设置后需要刷新一次页面方可生效。": {
+    "en": "After changing the settings of this option, you need to refresh the page once to take effect.",
+    "ja": "この設定を変更した後、ページをリフレッシュする必要があります。",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "只能导入.xlsx文件": {
+    "en": "Only .xlsx files can be imported",
+    "ja": ".xlsxファイルのみインポート可能",
+    "$files": [
+      "components\\modals\\ModalImportExportMain.vue"
+    ]
+  },
+  "未获取到文件": {
+    "en": "No file obtained",
+    "ja": "ファイルを取得できませんでした",
+    "$files": [
+      "components\\modals\\ModalImportExportMain.vue"
+    ]
+  },
+  "文件名": {
+    "en": "File name",
+    "ja": "ファイル名",
+    "$files": [
+      "components\\modals\\ModalImportExportMain.vue"
+    ]
+  },
+  "不填则默认以时间命名": {
+    "en": "If not filled, it will be named by time by default",
+    "ja": "入力しない場合はデフォルトで時間で命名されます",
+    "$files": [
+      "components\\modals\\ModalImportExportMain.vue"
+    ]
+  },
+  "遵循“功能设置”中的“物品价格”设置。": {
+    "en": "Follow the 'Item Price' settings in 'Function Preferences'.",
+    "ja": "「機能設定」内の「アイテム価格」設定に従います。",
+    "$files": [
+      "components\\modals\\ModalImportExportMain.vue"
+    ]
+  },
+  "导出成功后打开导出目录": {
+    "en": "Open the export directory after export succeeded.",
+    "ja": "エクスポート後、エクスポートディレクトリを開く",
+    "$files": [
+      "components\\modals\\ModalImportExportMain.vue"
+    ]
+  },
+  "导出": {
+    "en": "Export",
+    "ja": "エクスポート",
+    "$files": [
+      "components\\modals\\ModalImportExportMain.vue"
+    ]
+  },
+  "点击或者拖动文件到该区域来上传": {
+    "en": "Click or drag the file to this area to upload",
+    "ja": "このエリアにファイルをクリックまたはドラッグしてアップロード",
+    "$files": [
+      "components\\modals\\ModalImportExportMain.vue"
+    ]
+  },
+  "需要确保表格的第一个工作表是“已选部件”": {
+    "en": "Make sure the first worksheet of the table is 'View Selected'",
+    "ja": "シート1が「選択した部品」であることを確認してください",
+    "$files": [
+      "components\\modals\\ModalImportExportMain.vue"
+    ]
+  },
+  "设置": {
+    "en": "Settings",
+    "ja": "設定",
+    "$files": [
+      "components\\templates\\MyModal.vue"
+    ]
+  },
+  "物品ID": {
+    "en": "Item ID",
+    "ja": "アイテムID",
+    "$files": [
+      "views\\GatherClockPage.vue",
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "剩余时间": {
+    "en": "Remaining time",
+    "ja": "残り時間",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "现可采集物品的剩余可采集时间 / 未可采集物品距离得可采集的剩余时间": {
+    "en": "Remaining time of the currently gatherable item / Remaining time until the start time of ungatherable item",
+    "ja": "現在採集可能なアイテムの残り採集可能時間 / 採集不可能なアイテムが採集可能になるまでの残り時間",
+    "$files": [
+      "views\\GatherClockPage.vue"
+    ]
+  },
+  "制作物品排序规则": {
+    "en": "Craftable item sorting by",
+    "ja": "製作アイテムの並び替えルール",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "制作笔记顺序": {
+    "en": "Crafting log order",
+    "ja": "製作手帳順",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "如果选择“制作笔记顺序”，将优先按照制作笔记(游戏内按N打开的制作界面)中配方的顺序排列。": {
+    "en": "If you choose 'Crafting log order', the items will be sorted according to the order of the recipes in the crafting log (the crafting interface opened by pressing N in the game).",
+    "ja": "「製作手帳順」を選択すると、製作手帳（ゲーム内でNキーを押して開く製作画面）内のレシピ順に優先的に並べ替えられます。",
+    "$files": [
+      "components\\modals\\ModalFuncPreferences.vue"
+    ]
+  },
+  "修复新用户在特定场景下会遇到页面崩溃的问题。": {
+    "en": "Fixed the issue where new users would encounter page crashes in specific scenarios.",
+    "ja": "新規ユーザーが特定の条件でページがクラッシュする問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复功能设置->制作报表->使用简洁模式展示物品设置项在特定场合无法正确工作的问题。": {
+    "en": "Fixed the issue where the 'Show item in concise mode' setting in Function Preferences->Crafting Statement did not work correctly in specific scenarios.",
+    "ja": "機能設定 -> 製作レポート -> 簡易モードでアイテムを表示する設定が特定の状況で正しく動作しない問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "功能设置->推荐流程追加了设置项“制作物品排序规则”。": {
+    "en": "Added the setting option 'Craftable item sorting by' in Function Preferences->Recommended Process.",
+    "ja": "機能設定 -> 推奨の回しに「製作アイテムの並び替えルール」の設定項目を追加しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "设置为“制作笔记顺序”，即可让推荐流程中的可制作道具按照游戏内制作笔记的顺序排布。": {
+    "en": "Set to 'Crafting log order' to allow the craftable items in the recommended process to be arranged in the order of the recipes in the crafting log in the game.",
+    "ja": "「製作手帳順」に設定することで、推奨の回し内の製作可能なアイテムがゲーム内の製作手帳の順番に並びます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在“采集时钟”的“排序依据”还可以设置为“剩余时间”。": {
+    "en": "Now the 'Sort by' of the 'Gather Clock' can also be set to 'Remaining time'.",
+    "ja": "「採集時計」の「並び替え基準」に「残り時間」を設定できるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "剩余时间指：现可采集物品的剩余可采集时间 / 未可采集物品距离变得可采集的剩余时间。": {
+    "en": "Remaining time refers to the remaining time of the currently gatherable item / the remaining time until the start time of the ungatherable item.",
+    "ja": "残り時間とは、現在採集可能なアイテムの残り採集可能時間 / 採集不可能なアイテムが採集可能になるまでの残り時間を指します。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "重做了“{f1}”功能，将原有的“{f1}”、“{f2}”和“{f3}”整合入同一个窗口。此外，还实装了以下更改：": {
+    "en": "Reworked the '{f1}' feature, integrating the original '{f1}', '{f2}', and '{f3}' into the same window. Additionally, the following changes were implemented:",
+    "ja": "「{f1}」機能をリメイクし、元々の「{f1}」、「{f2}」、「{f3}」を同じウィンドウに統合しました。また、以下の変更を実装しました：",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在可以点击窗口右上角的按钮来导入/导出设置内容。": {
+    "en": "You can now click the button in the top-right corner of the window to import/export settings.",
+    "ja": "右上のボタンをクリックして、設定内容をインポート/エクスポートできるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在仅会在修改了特定设置项后才询问或执行页面刷新。需要刷新才能生效的设置项将在右侧标注警告图标。": {
+    "en": "Now page refresh is only requested or executed after specific settings have been modified. Settings that require refreshing to take effect will be marked with a warning icon on the right.",
+    "ja": "特定の設定項目を変更した場合にのみ、リフレッシュを確認または実行するようになりました。リフレッシュが必要な設定項目には右側に警告アイコンが表示されます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "追加了以下设置选项：[通用]{f1}; [物品价格]{f2}、{f3}; [推荐流程]{f4}。": {
+    "en": "Added the following setting options: [General]{f1}; [Item Prices]{f2}, {f3}; [Recomm. Process]{f4}.",
+    "ja": "以下の設定オプションを追加しました：[共通]{f1}; [アイテム価格]{f2}、{f3}; [推奨の回し]{f4}。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "保存设置后自动刷新": {
+    "en": "Automatically refresh after saving settings",
+    "ja": "セーブ後に自動的にリフレッシュします",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "在物品悬浮窗中显示": {
+    "en": "Show in item pop-ups",
+    "ja": "アイテムのツールチップで表示します",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "在物品悬浮窗中显示的类型": {
+    "en": "Price type displayed in item pop-ups",
+    "ja": "ツールチップで表示するタイプ",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalPreferences.vue",
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "重做了“{f}”的界面。": {
+    "en": "Remade the interface of '{f}'.",
+    "ja": "「{f}」のインターフェースをリメイクしました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "移动端因屏幕尺寸限制，将继续沿用旧版设计。": {
+    "en": "The mobile version will continue using the old design due to screen size limitations.",
+    "ja": "スマホ版は画面サイズの制限により、引き続き旧バージョンのデザインを使用します。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在可以在物品悬浮窗中查看和手动刷新价格信息。": {
+    "en": "You can now view and manually refresh price info in the item pop-ups.",
+    "ja": "アイテムのツールチップで価格情報を確認および手動でリフレッシュできるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "需要在物品价格设置中启用“{option}”。": {
+    "en": "You need to enable '{option}' in the item price settings.",
+    "ja": "「{option}」を有効にする必要があります。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "不可交易的物品不会展示价格模块，没有HQ品质的物品不会展示HQ价格信息。": {
+    "en": "Non-tradeable items will not show the price module, and items without High Quality will not show HQ price info.",
+    "ja": "取引不可のアイテムには価格モジュールが表示されず、HQ品質のないアイテムにはHQ価格情報が表示されません。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "没找到BUG，太棒了": {
+    "en": "No bug was found. Awesome",
+    "ja": "バグはまだ見つかっていません、素晴らしい。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "可采集道具的物品悬浮窗现在还会展示采集点等级和采集所需传承录的信息。": {
+    "en": "The item pop-ups for collectable items now also shows the gather-node level and required tome information.",
+    "ja": "採集可能アイテムのホツールチップには、採集場所のレベルと採集に必要な伝承録の情報も表示されるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "“{f}”弹窗中的表格现在会将未获取到价格的物品价格显示为???，而非0。此外，追加了相应的提示文本。": {
+    "en": "The table in the '{f}' pop-up now displays the price of items that could not retrieve prices as ??? instead of 0. Additionally, a corresponding tooltip has been added.",
+    "ja": "「{f}」ポップアップ内のテーブルでは、価格が取得できなかったアイテムの価格を0ではなく、「???」と表示するようにしました。また、対応する説明文を追加しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "为部分只展示图标而没有名称的物品追加了Tooltip，以提示其物品名称。": {
+    "en": "Added tooltips to some items that only display icons without names, to indicate their item names.",
+    "ja": "一部、アイコンのみが表示されて名前がないアイテムにツールチップを追加し、アイテム名を提示するようにしました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "压缩了部分解包数据文件的体积，以降低更新时需要下载的更新包体积、初次访问页面的加载时长和托管服务器的带宽压力。": {
+    "en": "Compressed some unpacked data files to reduce the update package size needed for downloads, decrease page load time on first visit, and lessen bandwidth pressure on hosting servers.",
+    "ja": "一部の展開データファイルの容量を圧縮し、更新時に必要なアップデートパッケージの容量、初回ページアクセス時のロード時間、およびホスティングサーバーの帯域幅の負担を軽減しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了制作报表中物品制作等级信息在特定场合的显示效果。": {
+    "en": "Optimized the display of item crafting level information in specific cases within crafting reports.",
+    "ja": "製作レポート内のアイテム製作レベル情報の表示を特定の場面で最適化しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "基础设置": {
+    "en": "Basic Preferences",
+    "ja": "基礎設定",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "此设置修改后本次保存便会生效。另外，仅会在需要刷新的时候执行自动刷新。": {
+    "en": "This setting will take effect on this time's saving. Automatic refresh will only be performed when necessary.",
+    "ja": "この設定を変更すると本セーブで有効になります。また、リフレッシュが必要な場合にのみ自動リフレッシュが実行されます。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "每次询问": {
+    "en": "Ask every time",
+    "ja": "毎回確認",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "自动刷新": {
+    "en": "Auto-refresh",
+    "ja": "自動リフレッシュ",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "不刷新": {
+    "en": "Don't refresh",
+    "ja": "リフレッシュしない",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "适用于“{f}”功能和物品悬浮窗中的价格模块。": {
+    "en": "Used in '{f}' and item pop-ups.",
+    "ja": "適用対象：「{f}」機能およびアイテムツールチップの価格モジュール。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "注意：修改此设置将会清除所有已获取的物品价格缓存！": {
+    "en": "CAUTION: Modifying this setting will clear all retrieved item price caches!",
+    "ja": "注意：この設定を変更すると、すべての取得済みアイテム価格キャッシュが削除されます！",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "在各个物品按钮/信息图标的悬浮窗中追加“价格”模块。只有可交易的道具才会显示。": {
+    "en": "Added a 'Price' module to the pop-ups of various item buttons/information icons. Only tradeable items will be displayed.",
+    "ja": "各アイテムボタン/情報アイコンのツールチップに「価格」モジュールを追加しました。取引可能な道具のみ表示されます。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "选择在物品悬浮窗中要显示哪些类型的价格。可以多选。": {
+    "en": "Choose which types of prices to display in the item pop-ups. Multiple selections are allowed.",
+    "ja": "ツールチップで表示する価格の種類を選択します。複数選択可能です。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "其他": {
+    "en": "Other",
+    "ja": "他",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "保存成功": {
+    "en": "Successfully saved",
+    "ja": "セーブ成功",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "导入": {
+    "en": "Import",
+    "ja": "インポート",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue",
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "导入偏好设置": {
+    "en": "Import Preferences",
+    "ja": "設定をインポート",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "导出偏好设置": {
+    "en": "Export Preferences",
+    "ja": "設定をエクスポート",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "请输入内容": {
+    "en": "Please input",
+    "ja": "内容を入力してください",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "导入失败": {
+    "en": "Import failed",
+    "ja": "インポート失敗",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "现在你可以将本设备的偏好设置/功能设置导出到其他设备了。不包括物品价格等缓存。": {
+    "en": "You can now export the preferences/features settings of this device to another device. Excludes item price caches.",
+    "ja": "現在、このデバイスの設定/機能設定を他のデバイスにエクスポートできるようになりました。アイテム価格などのキャッシュは含まれません。",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "请注意：导出的内容会根据偏好设置窗口的当前设置生成，而非已经保存的设置。": {
+    "en": "Please note: The exported content will be generated based on the current settings in the preferences window, not the saved settings.",
+    "ja": "注意：エクスポート内容は設定ウィンドウの現在の設定に基づいて生成され、保存済みの設定ではありません。",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "在这里导入其他设备导出的设置，从而保持同步。": {
+    "en": "Import settings exported from other devices here to keep them synchronized.",
+    "ja": "ここで他のデバイスからエクスポートした設定をインポートし、同期を維持します。",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "导入之后请在偏好设置窗口确认更改。直到你点击保存前，实际设置不会变化。": {
+    "en": "After importing, please confirm the changes in the preferences window. The actual settings will not change until you click save.",
+    "ja": "インポート後は設定ウィンドウで変更を確認してください。保存をクリックするまで実際の設定は変更されません。",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "在此处粘贴从其他HqHelper导出的设置": {
+    "en": "Paste the settings exported from another HqHelper here.",
+    "ja": "ここに他のHqHelperからエクスポートした設定を貼り付けてください。",
+    "$files": [
+      "components\\modals\\ModalPreferencesImportExport.vue"
+    ]
+  },
+  "从未": {
+    "en": "Never",
+    "ja": "一度もない",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "刚刚": {
+    "en": "Just now",
+    "ja": "たった今",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "{minutes}分钟前": {
+    "en": "{minutes}m ago",
+    "ja": "{minutes}分前",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "{hours}小时前": {
+    "en": "{hours}h ago",
+    "ja": "{hours}時間前",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "{days}天前": {
+    "en": "{days}d ago",
+    "ja": "{days}日前",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "没有价格。": {
+    "en": "No price.",
+    "ja": "価格がありません。",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "可能原因：未获取过价格/物品未实装或不存在此品质/交易数据不足": {
+    "en": "Possible reasons: Price not retrieved/Item not implemented or does not exist in this quality/Insufficient transaction data.",
+    "ja": "予想の原因：価格が取得されていない/アイテムが実装されていない、またはその品質が存在しない/取引データが不足している",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "没有获取到价格。": {
+    "en": "No price retrieved.",
+    "ja": "価格を取得できませんでした。",
+    "$files": [
+      "components\\custom\\item\\ItemPriceTable.vue"
+    ]
+  },
+  "可能原因：物品未实装/交易数据不足": {
+    "en": "Possible reasons: Item not implemented/Insufficient transaction data.",
+    "ja": "予想の原因：アイテムが実装されていない/取引データが不足している",
+    "$files": [
+      "components\\custom\\item\\ItemPriceTable.vue"
+    ]
+  },
+  "正在刷新价格": {
+    "en": "Refreshing price",
+    "ja": "価格を更新中",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "更新价格成功": {
+    "en": "Price updated",
+    "ja": "価格の更新に成功しました",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "更新价格失败": {
+    "en": "Failed to update price",
+    "ja": "価格の更新に失敗しました",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "采集条件：": {
+    "en": "Gathering conditions:",
+    "ja": "採集条件：",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "价格": {
+    "en": "Price",
+    "ja": "価格",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "上次更新: {}": {
+    "en": "Last update: {}",
+    "ja": "最終更新: {}",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "已过期": {
+    "en": "Expired",
+    "ja": "期限切れ",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "正在刷新...": {
+    "en": "Refreshing...",
+    "ja": "更新中...",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "刷新": {
+    "en": "Refresh",
+    "ja": "リフレッシュ",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "还没有设置要显示哪些价格类型。请在偏好设置的“{option}”设置项中进行配置。": {
+    "en": "No price types set to display yet. Please configure in the '{option}' setting in preferences.",
+    "ja": "表示する価格の種類がまだ設定されていません。「{option}」設定項目で設定してください。",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "负责全部设计开发工作": {
+    "en": "Responsible for all design and development work",
+    "ja": "すべての設計開発作業を担当",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "负责提供游戏数据和托管支持": {
+    "en": "Responsible for providing game data and hosting support",
+    "ja": "ゲームデータの提供とホスティングサポートを担当",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "负责UI的日语国际化和前瞻物品名的中文翻译": {
+    "en": "Responsible for the Japanese UI internationalization and the Chinese translation of upcoming item names",
+    "ja": "UIの日本語と先行アイテム名の中国語翻訳を担当",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "贡献了初期的UI日语国际化": {
+    "en": "Contributed to the initial Japanese UI internationalization",
+    "ja": "初期のUI日本語翻訳に貢献",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "贡献了初版Windows客户端框架": {
+    "en": "Contributed the initial version of Windows client framework",
+    "ja": "初版Windowsクライアントフレームワークに貢献",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "贡献了以Teamcraft格式展示材料清单的功能": {
+    "en": "Contributed to the feature that displays material lists in Teamcraft format",
+    "ja": "Teamcraft形式で素材リストを表示する機能に貢献",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "贡献者": {
+    "en": "Contributors",
+    "ja": "贡献者",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "正在加载……": {
+    "en": "Loading...",
+    "ja": "読み込み中……",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "加载失败": {
+    "en": "Failed to load.",
+    "ja": "読み込み失敗",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "重试": {
+    "en": "Retry",
+    "ja": "再試行",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "合并采集物品": {
+    "en": "Merge gatherable items",
+    "ja": "採集アイテムを統合する",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "将采矿工采集品和园艺工采集品合并。": {
+    "en": "Merge groups divided by gathering jobs.",
+    "ja": "採掘師の採集品と園芸師の採集品を統合する。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "例如，合并前为采矿非限时、园艺非限时、采矿限时、园艺限时，合并后为采集非限时、采集限时。": {
+    "en": "For example, before merge: MIN(unlimited), BTN(unlimited), MIN(time-limited), BTN(time-limited), after merge: Gather(Unlimited), Gather(Time-Limited).",
+    "ja": "例えば、統合前は「採掘（常駐）」、「園芸（常駐）」、「採掘（刻限）」、「園芸（刻限）」でしたが、統合後は「採集（常駐）」、「採集（刻限）」となります。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "采集非限时道具": {
+    "en": "Gather(Unlimited)",
+    "ja": "採集アイテム（常駐）",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "采集限时道具": {
+    "en": "Gather(Time-Limited)",
+    "ja": "採集アイテム（刻限）",
+    "$files": [
+      "components\\modals\\ModalRecommendedProcesses.vue"
     ]
   }
 }

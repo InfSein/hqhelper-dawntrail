@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import { ref, inject, type Ref, computed, type PropType } from 'vue'
+import { ref, inject, type Ref, computed } from 'vue'
 import {
   NAlert, NFlex
 } from 'naive-ui'
-import { type UserConfigModel } from '@/models/user-config'
-import XivRoles from '@/assets/data/xiv-roles.json'
-import XivJobs from '@/assets/data/xiv-jobs.json'
-import FoldableCard from '../custom-controls/FoldableCard.vue'
-import JobButton from '../custom-controls/JobButton.vue'
-import GroupBox from '../custom-controls/GroupBox.vue'
-import XivFARImage from '../custom-controls/XivFARImage.vue'
+import { type UserConfigModel } from '@/models/config-user'
+import FoldableCard from '../templates/FoldableCard.vue'
+import GroupBox from '../templates/GroupBox.vue'
+import XivFARImage from '../custom/general/XivFARImage.vue'
+import JobButton from '../custom/job/JobButton.vue'
+import {
+  XivJobs,
+  XivRoles
+}from '@/assets/data'
+import type { IHqVer } from '@/tools/nbb-cal-v5'
+import type { GearSelections } from '@/models/gears'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -17,16 +21,12 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const jobSelected = defineModel<number>('jobSelected', { required: true })
 const affixesSelected = defineModel<any>('affixesSelected', { required: true })
-defineProps({
-  patchSelected: {
-    type: String,
-    required: true
-  },
-  mainHandSelections: {
-    type: Object as PropType<Record<number, number>>,
-    required: true
-  }
-})
+const gearsSelected = defineModel<GearSelections>('gearsSelected', { required: true })
+interface JobPanelProps {
+  patchSelected: string
+  patchData?: IHqVer
+}
+const props = defineProps<JobPanelProps>()
 const emit = defineEmits(['onJobButtonDupliClick'])
 
 const cardDescription = computed(() => {
@@ -57,7 +57,7 @@ const getRoleName = (role: any) => {
   }
 }
 const getJobName = (jobId: number) => {
-  const _job = (XivJobs as any)[jobId]
+  const _job = XivJobs[jobId]
   switch (uiLanguage) {
     case 'ja':
       return _job.job_name_ja
@@ -81,6 +81,13 @@ const jobImageSize = computed(() => {
     return 28 // default or 1080p
   }
 })
+
+const isJobAvailable = (jobId: number) => {
+  return props.patchData?.jobs?.MainHand?.[jobId]?.[0]
+}
+const isJobGroupAvailable = (group: number[]) => {
+  return group.some((jobId: number) => isJobAvailable(jobId))
+}
 </script>
 
 <template>
@@ -96,11 +103,19 @@ const jobImageSize = computed(() => {
     >
       {{ t('请先选择版本') }}
     </n-alert>
+    <n-alert
+      v-else-if="jobSelected && !isJobAvailable(jobSelected)"
+      type="info"
+      style="margin-bottom: 15px;"
+    >
+      {{ t('所选职业在当前版本不可用，请重新选择。') }}
+    </n-alert>
 
     <n-flex :size="[8,15]">
       <GroupBox
         v-for="(role, roleIndex) in XivRoles"
         :key="roleIndex"
+        v-show="!patchSelected || isJobGroupAvailable(role.jobs)"
         :border-color="role.role_color"
         title-background-color="var(--n-color-embedded)"
         container-extra-style="padding: 8px 8px 7px 8px;"
@@ -120,15 +135,20 @@ const jobImageSize = computed(() => {
             :key="'job-'+job"
           >
             <JobButton
+              v-model:gears-selected="gearsSelected"
               :selected="jobSelected === job"
               :role="roleIndex"
+              :role-name="getRoleName(role)"
+              :job-id="job"
               :job-name="getJobName(job)"
-              :job-icon="(XivJobs as any)[job].job_icon_url"
+              :job-icon="XivJobs[job].job_icon_url"
               :img-size="jobImageSize"
               :btn-color="role.role_color"
-              :count="mainHandSelections?.[job] || 0"
+              :count="gearsSelected?.MainHand?.[job] || 0"
               :class="{'selected': jobSelected === job}"
-              :disabled="!patchSelected"
+              :disabled="!patchSelected || !isJobAvailable(job)"
+              :patch-selected="patchSelected"
+              :patch-data="patchData"
               @on-btn-clicked="handleJobSelect(job, role)"
             />
           </div>

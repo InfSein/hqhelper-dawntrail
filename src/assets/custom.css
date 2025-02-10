@@ -5,9 +5,17 @@
 .flex {
   display: flex;
 }
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
 .flex-column {
   display: flex;
   flex-direction: column;
+}
+.flex-vac {
+  display: flex;
+  align-items: center;
 }
 .flex-center {
   display: flex;
@@ -52,6 +60,12 @@
 .font-center {
   text-align: center;
 }
+.font-small {
+  font-size: calc(var(--n-font-size) - 2px);
+}
+.font-big {
+  font-size: calc(var(--n-font-size) + 2px);
+}
 .align-left {
   text-align: left;
 }
@@ -83,6 +97,7 @@
 .card-title {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 
   .title {
     margin-left: 5px;
@@ -93,6 +108,13 @@
     margin-bottom: 2px;
     font-size: 14px;
   }
+}
+.card-title-actions {
+  height: 100%;
+  display: flex;
+  align-items: baseline;
+  font-size: var(--n-font-size);
+  margin: 3px 0 0 5px;
 }
 .tab-title {
   display: flex;
