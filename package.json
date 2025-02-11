@@ -4,11 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "tauri-dev": "npx tauri dev",
     "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
     "i18n-extract": "voerkai18n extract",
     "i18n-compile": "voerkai18n compile",
     "update-CHANGELOG": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
     "postinstall": "node scripts/update-version.cjs",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.10.4",
+    "@tauri-apps/cli": "^2.2.7",
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^22.5.1",
     "@vicons/material": "^0.12.0",
