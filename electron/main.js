@@ -7,8 +7,7 @@ const unzipper = require('unzipper');
 const dns = require('dns');
 const net = require('net');
 const logger = require('electron-log');
-const { exec, spawn } = require('child_process');
-const os = require('os');
+const { exec } = require('child_process');
 const { promisify } = require('util');
 
 const fsExists = promisify(fs.exists);
@@ -23,9 +22,8 @@ let dateStr = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getD
 logger.transports.file.resolvePath = () => 'log\\' + dateStr + '.log';
 
 let mainWindow;
-const CLIENT_VERSION = 'v5a'
+const CLIENT_VERSION = 'v6'
 
-const EXE_PATH = path.join(app.getPath('userData'), 'temp.exe');
 const ZIP_PATH = path.join(app.getPath('userData'), 'static-pages.zip');
 const TEMP_DIR = path.join(app.getPath('userData'), 'static-pages-temp');
 const WINDOW_SIZES_PATH = path.join(app.getPath('userData'), 'windowSizes.json');
@@ -196,7 +194,7 @@ function createWindow() {
   function sendProgress(event, stage, progress) {
     event.sender.send('update-progress', { stage, progress });
   }
-  async function downloadFromUrl(url) {
+  async function downloadFromUrl(event, url) {
     let previousTime = Date.now();
     let previousDownloaded = 0;
     const response = await axios.get(url, {
@@ -233,7 +231,7 @@ function createWindow() {
     try {
       logger.info('[download-update-pack] 下载URL: ' + url)
       sendProgress(event, 'requesting', {});
-      const response = await downloadFromUrl(url);
+      const response = await downloadFromUrl(event, url);
       const writeStream = fs.createWriteStream(ZIP_PATH);
       response.data.pipe(writeStream);
 
@@ -282,9 +280,11 @@ function createWindow() {
   })
   
   /* 从给定URL下载EXE文件，并在下载成功后自动打开 */
-  ipcMain.handle('download-and-open', async (event, url) => {
+  ipcMain.handle('download-and-open', async (event, { url, fileName }) => {
     try {
       logger.info('[download-and-open] 开始检查/清理临时文件')
+      const EXE_PATH = path.join(app.getPath('userData'), fileName);
+      logger.info('[download-and-open] EXE_PATH: ' + EXE_PATH)
       const fileExists = await fsExists(EXE_PATH);
       if (fileExists) {
         await fsUnlink(EXE_PATH);
@@ -293,19 +293,20 @@ function createWindow() {
 
       logger.info('[download-and-open] 下载URL: ' + url)
       sendProgress(event, 'requesting', {});
-      const response = await downloadFromUrl(url);
+      const response = await downloadFromUrl(event, url);
       const writeStream = fs.createWriteStream(EXE_PATH);
       response.data.pipe(writeStream);
 
       writeStream.on('finish', async () => {
         logger.info('[download-and-open] 下载成功，开始尝试启动安装程序')
         sendProgress(event, 'opening', {});
-        const adminArgs = ['/c', `runas /user:Administrator "${EXE_PATH}"`];
-        const installProcess = spawn('cmd.exe', adminArgs, { detached: true, stdio: 'ignore' });
-        installProcess.on('error', (err) => {
-          logger.error('启动程序时出错:', err);
-          throw new Error('启动安装程序失败');
+        exec(EXE_PATH, (err, stdout, stderr) => {
+          if (err) {
+            logger.error('[download-and-open] 启动程序时出错:', err);
+            throw new Error('启动安装程序失败');
+          }
         });
+        sendProgress(event, 'end', {});
       });
 
       writeStream.on('error', (error) => {

@@ -12,7 +12,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   httpGet: (url) => ipcRenderer.invoke('http-get', url),
   simulatePing: (domain) => ipcRenderer.invoke('simulate-ping', domain),
   downloadUpdatePack: (url) => ipcRenderer.invoke('download-update-pack', url),
-  downloadAndOpen: (url) => ipcRenderer.invoke('download-and-open', url),
+  downloadAndOpen: (url, fileName) => ipcRenderer.invoke('download-and-open', { url, fileName }),
   onUpdateProgress: (callback) => ipcRenderer.on('update-progress', (event, progressData) => callback(progressData)),
   openUrlByBrowser: (url) => ipcRenderer.send('open-url-by-browser', url),
   copyText: (text) => ipcRenderer.invoke('copy-text', text),
