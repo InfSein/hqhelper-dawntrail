@@ -46,9 +46,11 @@ const onLoad = async () => {
 }
 
 const checkingUpdates = ref(false)
-const updating = ref(false)
+const updatingHqHelper = ref(false)
+const updatingElectron = ref(false)
 const updateTip = reactive({
-  updating: false,
+  updating_hqhelper: false,
+  updating_electron: false,
   preText: '',
   downloaded: '',
   total: '',
@@ -96,7 +98,7 @@ const handleProgress = (progressData: ProgressData) => {
       updateTip.preText = t('正在建立连接……')
       break
     case 'downloading':
-      updateTip.preText = t('正在下载更新包…… 已下载{now}MB，总需下载{total}MB | 当前速度：{speed}MB/s',
+      updateTip.preText = t('正在下载更新包…… 已下载 {now} / {total} MB | 当前速度：{speed}MB/s',
         { now: updateTip.downloaded, total: updateTip.total, speed: updateTip.downloadSpeed }
       )
       break
@@ -116,7 +118,8 @@ const handleProgress = (progressData: ProgressData) => {
       updateTip.preText = t('正在打开安装包……')
       break
     case 'end':
-      updateTip.updating = false
+      updateTip.updating_hqhelper = false
+      updateTip.updating_electron = false
       break
     default:
       updateTip.preText = ''
@@ -148,19 +151,31 @@ const handleCheckUpdates = async () => {
   }
 }
 
-const getDoUpdateBtnText = (versionNow: string, versionLatest: string | null, dontshowUpdating = false) => {
+const getDoUpdateBtnText = (versionNow: string, versionLatest: string | null) => {
   if (versionLatest === '') {
     return t('检测中……')
   } else if (versionLatest === null) {
     return t('检测失败')
   } else if (versionNow === versionLatest) {
     return t('已是最新版本')
-  } else if (!dontshowUpdating && (updateTip.updating || updating.value)) {
-    return t('正在更新')
   } else {
     return t('立即更新', versionLatest)
   }
 }
+const hqHelperUpdateBtnText = computed(() => {
+  if (updatingHqHelper.value || updateTip.updating_hqhelper) {
+    return t('正在更新')
+  } else {
+    return getDoUpdateBtnText(AppStatus.Version, latestHqHelperVersion.value)
+  }
+})
+const electronUpdateBtnText = computed(() => {
+  if (updatingElectron.value || updateTip.updating_electron) {
+    return t('正在更新')
+  } else {
+    return getDoUpdateBtnText(currentElectronVersion.value, latestElectronVersion.value)
+  }
+})
 
 const handleProxyOptionChange = (e: Event) => {
   useCustomProxy.value = false
@@ -232,8 +247,8 @@ const handleDownloadWebPack = async () => {
   )) {
     return
   }
-  updating.value = true
-  updateTip.updating = true
+  updatingHqHelper.value = true
+  updateTip.updating_hqhelper = true
 
   saveUpdateSettings()
   let url = versionContent.value?.dlink_hqhelper
@@ -250,7 +265,7 @@ const handleDownloadWebPack = async () => {
       updateTip.preText = ''
     }
   }
-  updating.value = false
+  updatingHqHelper.value = false
 }
 const handleDownloadElectronPack = async () => {
   if (userConfig.value.update_client_builtin) {
@@ -265,8 +280,8 @@ const handleDownloadElectronPack = async () => {
     )) {
       return
     }
-    updating.value = true
-    updateTip.updating = true
+    updatingElectron.value = true
+    updateTip.updating_electron = true
 
     saveUpdateSettings()
     let url = versionContent.value?.dlink_electron
@@ -277,13 +292,13 @@ const handleDownloadElectronPack = async () => {
     } else {
       url = url.replace('~PROXY', proxy.value)
       url = url.replace('~VERSION', latestElectronVersion.value)
-      const err = await window.electronAPI.downloadAndOpen(url)
+      const err = await window.electronAPI.downloadAndOpen(url, t('客户端更新程序') + '.exe')
       if (err) {
         alert(t('下载安装包失败：{errmsg}', err))
         updateTip.preText = ''
       }
     }
-    updating.value = false
+    updatingElectron.value = false
   } else {
     if (!window.confirm(
       t('即将开始下载客户端更新包。由于客户端体积较大，将调用系统默认浏览器打开下载页。')
@@ -425,11 +440,11 @@ const handleSettingButtonClick = () => {
           <div class="action">
             <n-button
               class="btn-do-update"
-              :loading="updating || updateTip.updating"
-              :disabled="!hqhelperNeedUpdate || updating || updateTip.updating"
+              :loading="updatingHqHelper || updateTip.updating_hqhelper"
+              :disabled="!hqhelperNeedUpdate || updatingHqHelper || updateTip.updating_hqhelper"
               @click="handleDownloadWebPack"
             >
-              {{ getDoUpdateBtnText(AppStatus.Version, latestHqHelperVersion) }}
+              {{ hqHelperUpdateBtnText }}
             </n-button>
           </div>
         </div>
@@ -463,10 +478,11 @@ const handleSettingButtonClick = () => {
           <div class="action">
             <n-button
               class="btn-do-update"
-              :disabled="!electronNeedUpdate"
+              :loading="updatingElectron || updateTip.updating_hqhelper"
+              :disabled="!electronNeedUpdate || updatingElectron || updateTip.updating_hqhelper"
               @click="handleDownloadElectronPack"
             >
-              {{ getDoUpdateBtnText(currentElectronVersion, latestElectronVersion, true) }}
+              {{ electronUpdateBtnText }}
             </n-button>
           </div>
         </div>

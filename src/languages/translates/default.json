@@ -2319,8 +2319,8 @@
       "components\\modals\\ModalCheckUpdates.vue"
     ]
   },
-  "正在下载更新包…… 已下载{now}MB，总需下载{total}MB | 当前速度：{speed}MB/s": {
-    "en": "Downloading... Downloaded:{now}MB / Total:{total}MB / Speed:{speed}MB/s",
+  "正在下载更新包…… 已下载 {now} / {total} MB | 当前速度：{speed}MB/s": {
+    "en": "Downloading... Downloaded: {now} / {total} MB / Speed:{speed}MB/s",
     "ja": "更新パッケージをダウンロード中…… {now}MBをダウンロード済み、総ダウンロードサイズ：{total}MB | 現在の速度：{speed}MB/s",
     "$files": [
       "components\\modals\\ModalCheckUpdates.vue"
