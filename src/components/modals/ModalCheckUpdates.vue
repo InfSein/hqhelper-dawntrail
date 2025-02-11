@@ -478,8 +478,8 @@ const handleSettingButtonClick = () => {
           <div class="action">
             <n-button
               class="btn-do-update"
-              :loading="updatingElectron || updateTip.updating_hqhelper"
-              :disabled="!electronNeedUpdate || updatingElectron || updateTip.updating_hqhelper"
+              :loading="updatingElectron || updateTip.updating_electron"
+              :disabled="!electronNeedUpdate || updatingElectron || updateTip.updating_electron"
               @click="handleDownloadElectronPack"
             >
               {{ electronUpdateBtnText }}
