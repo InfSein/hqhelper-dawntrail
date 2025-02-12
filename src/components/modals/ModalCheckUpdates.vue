@@ -46,8 +46,6 @@ const onLoad = async () => {
 }
 
 const checkingUpdates = ref(false)
-const updatingHqHelper = ref(false)
-const updatingElectron = ref(false)
 const updateTip = reactive({
   updating_hqhelper: false,
   updating_electron: false,
@@ -163,14 +161,14 @@ const getDoUpdateBtnText = (versionNow: string, versionLatest: string | null) =>
   }
 }
 const hqHelperUpdateBtnText = computed(() => {
-  if (updatingHqHelper.value || updateTip.updating_hqhelper) {
+  if (updateTip.updating_hqhelper) {
     return t('正在更新')
   } else {
     return getDoUpdateBtnText(AppStatus.Version, latestHqHelperVersion.value)
   }
 })
 const electronUpdateBtnText = computed(() => {
-  if (updatingElectron.value || updateTip.updating_electron) {
+  if (updateTip.updating_electron) {
     return t('正在更新')
   } else {
     return getDoUpdateBtnText(currentElectronVersion.value, latestElectronVersion.value)
@@ -247,7 +245,6 @@ const handleDownloadWebPack = async () => {
   )) {
     return
   }
-  updatingHqHelper.value = true
   updateTip.updating_hqhelper = true
 
   saveUpdateSettings()
@@ -265,7 +262,6 @@ const handleDownloadWebPack = async () => {
       updateTip.preText = ''
     }
   }
-  updatingHqHelper.value = false
 }
 const handleDownloadElectronPack = async () => {
   if (userConfig.value.update_client_builtin) {
@@ -280,7 +276,6 @@ const handleDownloadElectronPack = async () => {
     )) {
       return
     }
-    updatingElectron.value = true
     updateTip.updating_electron = true
 
     saveUpdateSettings()
@@ -298,7 +293,6 @@ const handleDownloadElectronPack = async () => {
         updateTip.preText = ''
       }
     }
-    updatingElectron.value = false
   } else {
     if (!window.confirm(
       t('即将开始下载客户端更新包。由于客户端体积较大，将调用系统默认浏览器打开下载页。')
@@ -440,8 +434,8 @@ const handleSettingButtonClick = () => {
           <div class="action">
             <n-button
               class="btn-do-update"
-              :loading="updatingHqHelper || updateTip.updating_hqhelper"
-              :disabled="!hqhelperNeedUpdate || updatingHqHelper || updateTip.updating_hqhelper"
+              :loading="updateTip.updating_hqhelper"
+              :disabled="!hqhelperNeedUpdate || updateTip.updating_hqhelper"
               @click="handleDownloadWebPack"
             >
               {{ hqHelperUpdateBtnText }}
@@ -478,8 +472,8 @@ const handleSettingButtonClick = () => {
           <div class="action">
             <n-button
               class="btn-do-update"
-              :loading="updatingElectron || updateTip.updating_electron"
-              :disabled="!electronNeedUpdate || updatingElectron || updateTip.updating_electron"
+              :loading="updateTip.updating_electron"
+              :disabled="!electronNeedUpdate || updateTip.updating_electron"
               @click="handleDownloadElectronPack"
             >
               {{ electronUpdateBtnText }}
