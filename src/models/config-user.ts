@@ -32,7 +32,7 @@ export interface UserConfigModel {
   /** 点击物品信息图标时的行为 */
   item_info_icon_click_event: 'none' | 'copy_name' | 'copy_isearch'
   /** 材料清单格式 */
-  item_list_style: 'standard' | 'tight' | 'teamcraft'
+  item_list_style: 'standard' | 'tight' | 'modern' | 'teamcraft'
   // * performance
   /** 禁用工作状态记忆 */
   disable_workstate_cache: boolean
