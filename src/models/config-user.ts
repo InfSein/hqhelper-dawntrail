@@ -1,3 +1,7 @@
+import {
+  assignDefaults
+} from '@/tools'
+
 export type UserConfigKey = "general" | "appearance" | "enhancements" | "performance" | "special" | "update"
 
 export interface UserConfigModel {
@@ -129,17 +133,4 @@ export const fixUserConfig = (config?: UserConfigModel) => {
   
   // 处理其他的设置项
   return assignDefaults(defaultUserConfig, config || {}) as UserConfigModel
-
-  function assignDefaults(defaultConfig: any, currentConfig: any): any {
-    for (const key in defaultConfig) {
-      if (Object.prototype.hasOwnProperty.call(defaultConfig, key)) {
-        if (typeof defaultConfig[key] === 'object' && !Array.isArray(defaultConfig[key]) && defaultConfig[key] !== null) {
-          currentConfig[key] = assignDefaults(defaultConfig[key], currentConfig[key] || {});
-        } else {
-          currentConfig[key] = currentConfig[key] !== undefined ? currentConfig[key] : defaultConfig[key];
-        }
-      }
-    }
-    return currentConfig;
-  }
 }

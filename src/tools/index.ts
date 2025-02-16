@@ -12,6 +12,18 @@ export const deepCopy = <T>(obj: T): T => {
     return obj
   }
 }
+export const assignDefaults = (defaultVal: any, currentVal: any) => {
+  for (const key in defaultVal) {
+    if (Object.prototype.hasOwnProperty.call(defaultVal, key)) {
+      if (typeof defaultVal[key] === 'object' && !Array.isArray(defaultVal[key]) && defaultVal[key] !== null) {
+        currentVal[key] = assignDefaults(defaultVal[key], currentVal[key] || {});
+      } else {
+        currentVal[key] = currentVal[key] !== undefined ? currentVal[key] : defaultVal[key];
+      }
+    }
+  }
+  return currentVal;
+}
 
 /** 压缩字符串 */
 export const compressString = (input: string): string => {
