@@ -67,6 +67,7 @@ export interface UserConfigModel {
   cache_work_state: any
   fthelper_cache_work_state: any
   gatherclock_cache_work_state: any
+  workflow_cache_work_state: any
   // #endregion
 }
 
@@ -107,7 +108,8 @@ const defaultUserConfig: UserConfigModel = {
   cache_ui_fold: {}, // active cache, { key:string -> value:boolean }
   cache_work_state: {}, // active cache, view struct in `MainPage.vue` 's `workState`
   fthelper_cache_work_state: {},
-  gatherclock_cache_work_state: {}
+  gatherclock_cache_work_state: {},
+  workflow_cache_work_state: {},
 }
 
 /**

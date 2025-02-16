@@ -84,6 +84,12 @@
   height: 100%;
 }
 
+/* Deal Ui */
+.n-square-button {
+  width: var(--n-height);
+  padding: 0;
+}
+
 /* Ui-lib Customs */
 .card-title-text {
   margin-left: 3px;
