@@ -13,6 +13,7 @@ export const defaultWorkflow: Workflow = {
   targetItems: {},
   preparedItems: {}
 }
+export const _VAR_MAX_WORKFLOW = 5;
 
 export interface WorkState {
   currentWorkflow: number;
@@ -20,12 +21,9 @@ export interface WorkState {
 }
 export const defaultWorkState: WorkState = {
   currentWorkflow: 0,
-  workflows: []
+  workflows: [defaultWorkflow]
 }
 
 export const fixWorkState = (state?: WorkState) : WorkState => {
-  if (!state) {
-    return defaultWorkState;
-  }
   return assignDefaults(defaultWorkState, state || {}) as WorkState
 }
