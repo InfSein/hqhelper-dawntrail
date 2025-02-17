@@ -1815,13 +1815,6 @@
       "components\\modals\\ModalCheckUpdates.vue"
     ]
   },
-  "测速": {
-    "en": "Speed test",
-    "ja": "回線テスト",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
   "检测到客户端有新版本({v})。": {
     "en": "New version ({v}) of client detected.",
     "ja": "新しいバーションのクライアントがありました({v})。",
@@ -5409,6 +5402,293 @@
     "ja": "採集アイテム（刻限）",
     "$files": [
       "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "最多只能添加{num}条工作流": {
+    "en": "最多只能添加{num}条工作流",
+    "ja": "最多只能添加{num}条工作流",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "已有该物品": {
+    "en": "已有该物品",
+    "ja": "已有该物品",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "已清空": {
+    "en": "已清空",
+    "ja": "已清空",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "配置工作流": {
+    "en": "配置工作流",
+    "ja": "配置工作流",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "切换工作流：": {
+    "en": "切换工作流：",
+    "ja": "切换工作流：",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "工作流{index}": {
+    "en": "工作流{index}",
+    "ja": "工作流{index}",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "挑选物品": {
+    "en": "挑选物品",
+    "ja": "挑选物品",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "添加物品": {
+    "en": "添加物品",
+    "ja": "添加物品",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "支持按物品名/ID/品级/版本搜索": {
+    "en": "支持按物品名/ID/品级/版本搜索",
+    "ja": "支持按物品名/ID/品级/版本搜索",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "清空当前工作流的已选物品": {
+    "en": "清空当前工作流的已选物品",
+    "ja": "清空当前工作流的已选物品",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "查看分析": {
+    "en": "查看分析",
+    "ja": "查看分析",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "统计": {
+    "en": "统计",
+    "ja": "统计",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "报表": {
+    "en": "报表",
+    "ja": "报表",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "流程": {
+    "en": "流程",
+    "ja": "流程",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "{patch}版本会追加生产采集职业的{ilv}品级白装HQ；": {
+    "en": "{patch}版本会追加生产采集职业的{ilv}品级白装HQ；",
+    "ja": "{patch}版本会追加生产采集职业的{ilv}品级白装HQ；",
+    "$files": [
+      "components\\main\\PatchPanel.vue"
+    ]
+  },
+  "{patch}版本会追加战斗职业的{ilv}品级绿装HQ，以及同品级的秘籍食物/爆发药；": {
+    "en": "{patch}版本会追加战斗职业的{ilv}品级绿装HQ，以及同品级的秘籍食物/爆发药；",
+    "ja": "{patch}版本会追加战斗职业的{ilv}品级绿装HQ，以及同品级的秘籍食物/爆发药；",
+    "$files": [
+      "components\\main\\PatchPanel.vue"
+    ]
+  },
+  "{patch}版本会追加生产采集职业的{ilv}品级白装HQ (不包括首饰)；": {
+    "en": "{patch}版本会追加生产采集职业的{ilv}品级白装HQ (不包括首饰)；",
+    "ja": "{patch}版本会追加生产采集职业的{ilv}品级白装HQ (不包括首饰)；",
+    "$files": [
+      "components\\main\\PatchPanel.vue"
+    ]
+  },
+  "{patch}版本会追加生产采集职业的{ilv}品级绿装HQ，这也是整个大版本的生产采集毕业装；": {
+    "en": "{patch}版本会追加生产采集职业的{ilv}品级绿装HQ，这也是整个大版本的生产采集毕业装；",
+    "ja": "{patch}版本会追加生产采集职业的{ilv}品级绿装HQ，这也是整个大版本的生产采集毕业装；",
+    "$files": [
+      "components\\main\\PatchPanel.vue"
+    ]
+  },
+  "FFXIV的制作装备更新规律较为稳定，这使得我们可以预判各小版本的更新内容。": {
+    "en": "FFXIV的制作装备更新规律较为稳定，这使得我们可以预判各小版本的更新内容。",
+    "ja": "FFXIV的制作装备更新规律较为稳定，这使得我们可以预判各小版本的更新内容。",
+    "$files": [
+      "components\\main\\PatchPanel.vue"
+    ]
+  },
+  "正在打开安装包……": {
+    "en": "正在打开安装包……",
+    "ja": "正在打开安装包……",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "即将开始下载新版客户端安装包，可能需要一些时间。": {
+    "en": "即将开始下载新版客户端安装包，可能需要一些时间。",
+    "ja": "即将开始下载新版客户端安装包，可能需要一些时间。",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "更新成功后将自动打开安装包。": {
+    "en": "更新成功后将自动打开安装包。",
+    "ja": "更新成功后将自动打开安装包。",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "客户端更新程序": {
+    "en": "客户端更新程序",
+    "ja": "客户端更新程序",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "下载安装包失败：{errmsg}": {
+    "en": "下载安装包失败：{errmsg}",
+    "ja": "下载安装包失败：{errmsg}",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "服务站状况": {
+    "en": "服务站状况",
+    "ja": "服务站状况",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "自定义加速服务": {
+    "en": "自定义加速服务",
+    "ja": "自定义加速服务",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "连接检测": {
+    "en": "连接检测",
+    "ja": "连接检测",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "现代 (物品名称 x数量)": {
+    "en": "现代 (物品名称 x数量)",
+    "ja": "现代 (物品名称 x数量)",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "使用内置更新功能处理客户端更新": {
+    "en": "使用内置更新功能处理客户端更新",
+    "ja": "使用内置更新功能处理客户端更新",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "在默认情况下，当您尝试更新客户端版本时，程序会通过系统默认浏览器打开下载链接。": {
+    "en": "在默认情况下，当您尝试更新客户端版本时，程序会通过系统默认浏览器打开下载链接。",
+    "ja": "在默认情况下，当您尝试更新客户端版本时，程序会通过系统默认浏览器打开下载链接。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "启用此选项后，将直接在程序内下载并打开新版本客户端的安装包。": {
+    "en": "启用此选项后，将直接在程序内下载并打开新版本客户端的安装包。",
+    "ja": "启用此选项后，将直接在程序内下载并打开新版本客户端的安装包。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "使用自定义加速服务": {
+    "en": "使用自定义加速服务",
+    "ja": "使用自定义加速服务",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "自定义加速服务地址": {
+    "en": "自定义加速服务地址",
+    "ja": "自定义加速服务地址",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "您已经处于工作流页面。": {
+    "en": "您已经处于工作流页面。",
+    "ja": "您已经处于工作流页面。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "众生如归流。": {
+    "en": "众生如归流。",
+    "ja": "众生如归流。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "工作流": {
+    "en": "工作流",
+    "ja": "工作流",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "追加了“{f}”功能。": {
+    "en": "追加了“{f}”功能。",
+    "ja": "追加了“{f}”功能。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在可以长按标题来拖拽弹窗。": {
+    "en": "现在可以长按标题来拖拽弹窗。",
+    "ja": "现在可以长按标题来拖拽弹窗。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "在选择版本模块增加了一个信息图标，提示各个版本的更新规律。": {
+    "en": "在选择版本模块增加了一个信息图标，提示各个版本的更新规律。",
+    "ja": "在选择版本模块增加了一个信息图标，提示各个版本的更新规律。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在电脑端浏览器也可以用新窗口打开采集时钟和食药计算器。": {
+    "en": "现在电脑端浏览器也可以用新窗口打开采集时钟和食药计算器。",
+    "ja": "现在电脑端浏览器也可以用新窗口打开采集时钟和食药计算器。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "调整了客户端检查更新弹窗的加速服务列表，并且允许查看服务站和自定义加速服务。此外，优化了弹窗内容在深色模式下的显示效果。": {
+    "en": "调整了客户端检查更新弹窗的加速服务列表，并且允许查看服务站和自定义加速服务。此外，优化了弹窗内容在深色模式下的显示效果。",
+    "ja": "调整了客户端检查更新弹窗的加速服务列表，并且允许查看服务站和自定义加速服务。此外，优化了弹窗内容在深色模式下的显示效果。",
+    "$files": [
+      "data\\change-logs.ts"
     ]
   }
 }
