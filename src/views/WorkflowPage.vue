@@ -172,9 +172,6 @@ const statementData = computed(() => {
 const proStatementData = computed(() => {
   return getProStatementData(craftTargetsArray.value, currentWorkflow.value.preparedItems, t)
 })
-const statementBlocks = computed(() => {
-  return proStatementData.value.statementBlocks.filter(block => block.id !== 'craft-target')
-})
 const recommProcessData = computed(() => {
   return calRecommProcessData(proStatementData.value.targetItemsForCal, proStatementData.value.lv1ItemsForCal, proStatementData.value.baseItemsForCal)
 })
@@ -288,7 +285,7 @@ fixRecommMaps()
       <FoldableCard unfoldable card-key="workflow-content-statistics" class="statistics-wrapper">
         <template #header>
           <i class="xiv square-2"></i>
-          <span class="card-title-text">{{ t('查看统计') }}</span>
+          <span class="card-title-text">{{ t('查看分析') }}</span>
         </template>
         <div class="block">
           <n-tabs type="segment" animated>
@@ -370,7 +367,7 @@ fixRecommMaps()
   .content-block {
     flex: 1;
     display: grid;
-    grid-template-columns: 535px 1fr;
+    grid-template-columns: 500px 1fr;
     gap: 8px;
 
     .block {

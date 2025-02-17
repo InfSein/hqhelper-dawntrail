@@ -105,10 +105,10 @@ const handleDealNumInputEdge = (row: StatementRow) => {
     font-weight: bold;
   }
   th:first-child, td:first-child {
-    width: 76%;
+    width: 70%;
   }
   th:nth-child(2), td:nth-child(2) {
-    width: 24%;
+    width: 30%;
     text-align: center;
     .n-input-number {
       display: flex;
