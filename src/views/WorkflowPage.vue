@@ -1,31 +1,44 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, ref, watch, h, type Ref } from 'vue'
 import {
-  NButton, NIcon, NInputGroup, NInputGroupLabel, NSelect, 
+  NButton, NIcon, NInputGroup, NInputGroupLabel, NSelect, NTabs, NTabPane,
   type SelectOption, type SelectRenderLabel,
   useMessage
 } from 'naive-ui'
 import {
   AddSharp,
   DeleteSweepRound,
+  QueryStatsFilled,
+  TableViewOutlined,
+  AllInclusiveSharp,
 } from '@vicons/material'
 import FoldableCard from '@/components/templates/FoldableCard.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
-import ItemStatementTable from '@/components/custom/item/ItemStatementTable.vue'
+import ItemSelectTable from '@/components/custom/item/ItemSelectTable.vue'
+import CraftStatistics from '@/components/custom/general/CraftStatistics.vue'
+import CraftStatements from '@/components/custom/general/CraftStatements.vue'
+import CraftStatementsPro from '@/components/custom/general/CraftStatementsPro.vue'
 import { useStore } from '@/store'
+import { XivUnpackedItems } from '@/assets/data'
 import {
   defaultWorkflow, fixWorkState, _VAR_MAX_WORKFLOW
 } from '@/models/workflow'
-import { type UserConfigModel } from '@/models/config-user'
+import type { UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
 import { deepCopy } from '@/tools'
-import { XivUnpackedItems } from '@/assets/data'
-import { getItemInfo } from '@/tools/item'
+import { getItemInfo, getProStatementData, getStatementData, type ItemInfo } from '@/tools/item'
+import { useNbbCal } from '@/tools/use-nbb-cal'
+import { useFufuCal } from '@/tools/use-fufu-cal'
+import CraftRecommProcess from '@/components/custom/general/CraftRecommProcess.vue'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
+const { calItems } = useNbbCal()
+const { calRecommProcessData, calRecommProcessGroups } = useFufuCal()
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
 const workState = ref(fixWorkState())
 
@@ -120,15 +133,88 @@ const handleItemInputValueUpdate = (value: number) => {
     NAIVE_UI_MESSAGE.info(t('已有该物品'))
   } else {
     currentWorkflow.value.targetItems[value] = 1
-    currentWorkflow.value.preparedItems[value] = 0
+    currentWorkflow.value.preparedItems.craftTarget[value] = 0
   }
   itemInputVal.value = null
 }
 const handleClearCurrentWorkflow = () => {
   currentWorkflow.value.targetItems = {}
-  currentWorkflow.value.preparedItems = {}
+  currentWorkflow.value.preparedItems = {
+    craftTarget: {},
+    materialsLv1: {},
+    materialsLvBase: {},
+  }
   NAIVE_UI_MESSAGE.success(t('已清空'))
 }
+// #endregion
+
+// #region content-statistics
+const craftTargetsArray = computed(() => {
+  const items : ItemInfo[] = []
+  for (const _id in currentWorkflow.value.targetItems) {
+    const id = Number(_id)
+    let count = currentWorkflow.value.targetItems[id]
+    if (count > 0) {
+      const itemInfo = getItemInfo(id)
+      itemInfo.amount = count
+      items.push(itemInfo)
+    }
+  }
+  return items
+})
+const statistics = computed(() => {
+  const value = calItems(currentWorkflow.value.targetItems)
+  return value
+})
+const statementData = computed(() => {
+  return getStatementData(statistics.value)
+})
+const proStatementData = computed(() => {
+  return getProStatementData(craftTargetsArray.value, currentWorkflow.value.preparedItems, t)
+})
+const statementBlocks = computed(() => {
+  return proStatementData.value.statementBlocks.filter(block => block.id !== 'craft-target')
+})
+const recommProcessData = computed(() => {
+  return calRecommProcessData(proStatementData.value.targetItemsForCal, proStatementData.value.lv1ItemsForCal, proStatementData.value.baseItemsForCal)
+})
+const recommProcessGroups = computed(() => {
+  const {
+    craftTargets,
+    lv1Items, lv2Items, lv3Items,
+    lvBaseItems
+  } = recommProcessData.value
+  return calRecommProcessGroups(
+    craftTargets,
+    lv1Items,
+    lv2Items,
+    lv3Items,
+    lvBaseItems,
+    funcConfig.value.processes_craftable_item_sortby,
+    funcConfig.value.processes_merge_gatherings,
+    userConfig.value.language_ui,
+    t
+  )
+})
+
+const expandedBlocks = ref<Record<number, string[]>>({})
+/** (groupId, (itemId, checked)) */
+const completedItems = ref<Record<number, Record<number, boolean>>>({})
+const fixRecommMaps = () => {
+  for (let i = 0; i < recommProcessGroups.value.length; i++) {
+    if (!expandedBlocks.value[i]) expandedBlocks.value[i] = ['1']
+    if (!completedItems.value[i]) completedItems.value[i] = {}
+    recommProcessGroups.value[i].items.forEach(item => {
+      if (!completedItems.value[i][item.id]) {
+        completedItems.value[i][item.id] = false
+      }
+    })
+  }
+}
+watch(recommProcessGroups, async () => {
+  fixRecommMaps()
+})
+fixRecommMaps()
 // #endregion
 </script>
 
@@ -182,9 +268,8 @@ const handleClearCurrentWorkflow = () => {
             </n-input-group>
           </div>
           <div class="content-table">
-            <ItemStatementTable
-              v-model:items-prepared="currentWorkflow.preparedItems"
-              :items-total="currentWorkflow.targetItems"
+            <ItemSelectTable
+              v-model:items="currentWorkflow.targetItems"
               show-item-details
               content-height="350px"
             />
@@ -205,13 +290,66 @@ const handleClearCurrentWorkflow = () => {
           <i class="xiv square-2"></i>
           <span class="card-title-text">{{ t('查看统计') }}</span>
         </template>
-        <div class="block">Flow Act</div>
+        <div class="block">
+          <n-tabs type="segment" animated>
+            <n-tab-pane name="statistics">
+              <template #tab>
+                <div class="tab-title">
+                  <n-icon :size="16"><QueryStatsFilled /></n-icon>
+                  <div>{{ t('统计') }}</div>
+                </div>
+              </template>
+              <CraftStatistics
+                :item-selected="currentWorkflow.targetItems"
+                :list-height="210"
+              />
+            </n-tab-pane>
+            <n-tab-pane name="statements">
+              <template #tab>
+                <div class="tab-title">
+                  <n-icon :size="16"><TableViewOutlined /></n-icon>
+                  <div>{{ t('报表') }}</div>
+                </div>
+              </template>
+              <CraftStatements
+                v-if="funcConfig.use_traditional_statement"
+                v-bind="statementData"
+              />
+              <CraftStatementsPro
+                v-else
+                v-model:items-prepared="currentWorkflow.preparedItems"
+                :craft-targets="craftTargetsArray"
+                :statement-blocks="proStatementData.statementBlocks"
+              />
+            </n-tab-pane>
+            <n-tab-pane name="processes">
+              <template #tab>
+                <div class="tab-title">
+                  <n-icon :size="16"><AllInclusiveSharp /></n-icon>
+                  <div>{{ t('流程') }}</div>
+                </div>
+              </template>
+              <CraftRecommProcess
+                v-model:expanded-blocks="expandedBlocks"
+                v-model:completed-items="completedItems"
+                :item-groups="recommProcessGroups"
+                content-max-height="520px"
+              />
+            </n-tab-pane>
+          </n-tabs>
+        </div>
       </FoldableCard>
     </div>
   </div>
 </template>
 
 <style scoped>
+.tab-title {
+  display: flex;
+  line-height: 1;
+  align-items: center;
+  gap: 3px;
+}
 .wrapper {
   width: 100%;
   height: 100%;
@@ -232,11 +370,11 @@ const handleClearCurrentWorkflow = () => {
   .content-block {
     flex: 1;
     display: grid;
-    grid-template-columns: 450px 1fr;
+    grid-template-columns: 535px 1fr;
     gap: 8px;
 
     .block {
-      padding: 0 12px;
+      padding: 0 4px;
     }
     .items-block {
       height: 100%;

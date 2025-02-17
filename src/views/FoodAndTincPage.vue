@@ -15,7 +15,7 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const store = useStore()
-const { calItems, getFoodAndTincs, getSpecialItems } = useNbbCal()
+const { calItems, getFoodAndTincs } = useNbbCal()
 
 const workState = ref({
   patch: '7.0',
@@ -69,11 +69,6 @@ const statistics = computed(() => {
   const value = calItems(workState.value.itemSelected)
   return value
 })
-const specialItems = computed(() => {
-  let patch = workState.value.patch
-  if (['7.05'].includes(patch) || patch.includes('LEVELING')) patch = '7.0'
-  return getSpecialItems(patch || '7.0')
-})
 </script>
 
 <template>
@@ -94,12 +89,7 @@ const specialItems = computed(() => {
       <StatisticsPanel
         v-model:hide-precraft-materials="workState.hidePrecraftMaterials"
         :statistics="statistics"
-        :normal-gatherings="specialItems.normalGathering"
-        :limited-gatherings="specialItems.limitedGathering"
-        :aethersand-gatherings="specialItems.aethersands"
-        :master-craftings="specialItems.masterCrafting"
-        :normal-craftings="specialItems.normalCrafting"
-        :alkahests="specialItems.alkahests"
+        :item-selected="workState.itemSelected"
       />
     </div>
   </div>

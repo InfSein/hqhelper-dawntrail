@@ -7,11 +7,19 @@ export interface Workflow {
   /** 制作目标; key:item-id, value:amount */
   targetItems: Record<number, number>;
   /** 已有道具; key:item-id, value:amount */
-  preparedItems: Record<number, number>;
+  preparedItems: {
+    craftTarget: Record<number, number>,
+    materialsLv1: Record<number, number>,
+    materialsLvBase: Record<number, number>
+  }
 }
 export const defaultWorkflow: Workflow = {
   targetItems: {},
-  preparedItems: {}
+  preparedItems: {
+    craftTarget: {},
+    materialsLv1: {},
+    materialsLvBase: {},
+  }
 }
 export const _VAR_MAX_WORKFLOW = 5;
 
