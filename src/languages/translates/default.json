@@ -4924,7 +4924,7 @@
   },
   "保存设置后自动刷新": {
     "en": "Automatically refresh after saving settings",
-    "ja": "セーブ後に自動的にリフレッシュします。",
+    "ja": "セーブ後に自動的にリフレッシュします",
     "$files": [
       "data\\change-logs.ts",
       "components\\modals\\ModalPreferences.vue"
@@ -4932,7 +4932,7 @@
   },
   "在物品悬浮窗中显示": {
     "en": "Show in item pop-ups",
-    "ja": "アイテムのツールチップで表示します。",
+    "ja": "アイテムのツールチップで表示します",
     "$files": [
       "data\\change-logs.ts",
       "components\\modals\\ModalPreferences.vue"
@@ -4940,7 +4940,7 @@
   },
   "在物品悬浮窗中显示的类型": {
     "en": "Price type displayed in item pop-ups",
-    "ja": "ツールチップで表示するタイプ。",
+    "ja": "ツールチップで表示するタイプ",
     "$files": [
       "data\\change-logs.ts",
       "components\\modals\\ModalPreferences.vue",
@@ -5060,7 +5060,7 @@
     ]
   },
   "适用于“{f}”功能和物品悬浮窗中的价格模块。": {
-    "en": "Applies to the '{f}' feature and price module in item hover windows.",
+    "en": "Used in '{f}' and item pop-ups.",
     "ja": "適用対象：「{f}」機能およびアイテムツールチップの価格モジュール。",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
@@ -5074,14 +5074,14 @@
     ]
   },
   "在各个物品按钮/信息图标的悬浮窗中追加“价格”模块。只有可交易的道具才会显示。": {
-    "en": "Added a 'Price' module to the hover windows of various item buttons/information icons. Only tradeable items will be displayed.",
+    "en": "Added a 'Price' module to the pop-ups of various item buttons/information icons. Only tradeable items will be displayed.",
     "ja": "各アイテムボタン/情報アイコンのツールチップに「価格」モジュールを追加しました。取引可能な道具のみ表示されます。",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
   "选择在物品悬浮窗中要显示哪些类型的价格。可以多选。": {
-    "en": "Choose which types of prices to display in the item hover window. Multiple selections are allowed.",
+    "en": "Choose which types of prices to display in the item pop-ups. Multiple selections are allowed.",
     "ja": "ツールチップで表示する価格の種類を選択します。複数選択可能です。",
     "$files": [
       "components\\modals\\ModalPreferences.vue"

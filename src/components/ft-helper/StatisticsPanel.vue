@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NSwitch
+  NSwitch,
+  useMessage
 } from 'naive-ui'
 import GroupBox from '../templates/GroupBox.vue'
 import FoldableCard from '../templates/FoldableCard.vue'
@@ -16,6 +17,7 @@ import type { UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 
 const store = useStore()
+const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -233,6 +235,9 @@ const updateItemPrices = async () => {
   }
 }
 const handleAnalysisItemPrices = async () => {
+  if (updatingPrice.value) {
+    NAIVE_UI_MESSAGE.info(t('正在加载……')); return
+  }
   await updateItemPrices()
   showCostAndBenefitModal.value = true
 }
@@ -245,7 +250,7 @@ const handleAnalysisItemPrices = async () => {
         <i class="xiv square-2"></i>
         <span class="card-title-text">{{ t('查看统计') }}</span>
         <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
-        <a class="card-title-extra" href="javascript:void(0);" @click="handleAnalysisItemPrices">[{{ t('成本/收益预估') }}]</a>
+        <a class="card-title-extra" href="javascript:void(0);" :disabled="updatingPrice" :style="updatingPrice ? 'cursor: not-allowed; color: gray;' : 'cursor: pointer;'" @click="handleAnalysisItemPrices">[{{ updatingPrice ? t('正在加载……') : t('成本/收益预估') }}]</a>
       </template>
 
       <div class="pre">

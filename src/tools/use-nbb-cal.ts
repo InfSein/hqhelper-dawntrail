@@ -65,7 +65,7 @@ export function useNbbCal() {
   }
 
   const getItem = (id: string | number) => {
-    return cal.value.itemData[id];
+    return cal.value.itemData[Number(id)];
   }
 
   const getPatchData = (patch: string = '7.0') => {

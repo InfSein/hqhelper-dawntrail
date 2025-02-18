@@ -30,7 +30,7 @@ interface MyModalProps {
   /** 控制模态框容器的额外样式。 */
   extraStyle?: string
   /** 控制内容样式。 */
-  contentStyle?: string
+  contentExtraStyle?: string
   /** 控制 `extra-header` 区域的按钮。 */
   extraHeaderButtons?: {
     text: string
@@ -53,12 +53,24 @@ watch(showModal, async (newVal, oldVal) => {
 const containerStyle = computed(() => {
   let builtStyle = [
     'max-width: ' + (props.maxWidth ?? '600px'),
-    'height: ' + (props.height ?? 'auto'),
-    '--header-padding: ' + (props.headerPadding ?? 'var(--n-padding-top) var(--n-padding-left) var(--n-padding-bottom) var(--n-padding-left)'),
-    '--content-padding: ' + (props.contentPadding ?? '0 var(--n-padding-left) var(--n-padding-bottom) var(--n-padding-left)')
+    'height: ' + (props.height ?? 'auto')
   ].join('; ')
   if (props.extraStyle) {
     builtStyle += '; ' + props.extraStyle
+  }
+  return builtStyle
+})
+const headerStyle = computed(() => {
+  return [
+    props.headerPadding ? `padding: ${props.headerPadding}` : ''
+  ].join('; ')
+})
+const contentStyle = computed(() => {
+  let builtStyle = [
+    props.contentPadding ? `padding: ${props.contentPadding}` : ''
+  ].join('; ')
+  if (props.contentExtraStyle) {
+    builtStyle += '; ' + props.contentExtraStyle
   }
   return builtStyle
 })
@@ -77,6 +89,7 @@ const handleClose = () => {
       role="dialog"
       style="width: 98%;"
       :style="containerStyle"
+      :header-style="headerStyle"
       :content-style="contentStyle"
       closable
       @close="handleClose"
@@ -120,13 +133,6 @@ const handleClose = () => {
 </template>
 
 <style scoped>
-:deep(.n-card-header) {
-  padding: var(--header-padding);
-}
-:deep(.n-card__content) {
-  padding: var(--content-padding);
-}
-
 .extra-header-container {
   display: flex;
   align-items: center;
