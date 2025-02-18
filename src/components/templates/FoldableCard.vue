@@ -23,6 +23,14 @@ const props = defineProps({
     type: String as () => "medium" | "small" | "large" | "huge" | undefined,
     default: 'medium'
   },
+  showCardBorder: {
+    type: Boolean,
+    default: false
+  },
+  unfoldable: {
+    type: Boolean,
+    default: false
+  },
   title: {
     type: String,
     default: ''
@@ -77,13 +85,13 @@ defineExpose({
 </script>
 
 <template>
-  <n-card :id="'card-'+cardKey" :size="cardSize" :title="title" :content-style="cardContentStyle" embedded :bordered="false">
+  <n-card :id="'card-'+cardKey" :size="cardSize" :title="title" :content-style="cardContentStyle" embedded :bordered="showCardBorder">
     <template #header>
       <slot name="header" />
       <span v-if="description" class="description">{{ description }}</span>
     </template>
     <template #header-extra>
-      <n-button text style="font-size: calc(var(--n-title-font-size) - 2px);" @click="handleFoldOrExpand">
+      <n-button v-if="!unfoldable" text style="font-size: calc(var(--n-title-font-size) - 2px);" @click="handleFoldOrExpand">
         <span>{{ folderText }}</span>
         <n-icon size="16">
           <component :is="folderIcon" />

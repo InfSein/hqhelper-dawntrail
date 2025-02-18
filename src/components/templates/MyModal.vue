@@ -84,51 +84,49 @@ const handleClose = () => {
 </script>
 
 <template>
-  <n-modal v-model:show="showModal">
-    <n-card
-      role="dialog"
-      style="width: 98%;"
-      :style="containerStyle"
-      :header-style="headerStyle"
-      :content-style="contentStyle"
-      closable
-      @close="handleClose"
-    >
-      <template #header>
-        <slot name="header">
-          <div class="card-title no-select">
-            <n-icon v-if="!!icon" :component="icon" />
-            <span class="title">{{ title }}</span>
-          </div>
-        </slot>
-      </template>
-
-      <template #header-extra>
-        <div class="extra-header-container">
-          <n-button
-            v-for="(btn, btnIndex) in extraHeaderButtons"
-            :key="btnIndex"
-            quaternary size="small"
-            class="square-action"
-            @click="btn.onClick"
-          >
-            <n-icon :component="btn.icon" />
-            <div class="unshow-text">{{ btn.text }}</div>
-          </n-button>
-          <n-button v-if="showSetting" quaternary size="small" class="square-action" @click="handleShowFuncPreference">
-            <n-icon><SettingsSharp /></n-icon>
-            <div class="unshow-text">{{ t('设置') }}</div>
-          </n-button>
+  <n-modal
+    v-model:show="showModal"
+    draggable
+    preset="card"
+    style="width: 98%;"
+    :style="containerStyle"
+    :header-style="headerStyle"
+    :content-style="contentStyle"
+  >
+    <template #header>
+      <slot name="header">
+        <div class="card-title no-select">
+          <n-icon v-if="!!icon" :component="icon" />
+          <span class="title">{{ title }}</span>
         </div>
-      </template>
+      </slot>
+    </template>
 
-      <slot />
+    <template #header-extra>
+      <div class="extra-header-container">
+        <n-button
+          v-for="(btn, btnIndex) in extraHeaderButtons"
+          :key="btnIndex"
+          quaternary size="small"
+          class="square-action"
+          @click="btn.onClick"
+        >
+          <n-icon :component="btn.icon" />
+          <div class="unshow-text">{{ btn.text }}</div>
+        </n-button>
+        <n-button v-if="showSetting" quaternary size="small" class="square-action" @click="handleShowFuncPreference">
+          <n-icon><SettingsSharp /></n-icon>
+          <div class="unshow-text">{{ t('设置') }}</div>
+        </n-button>
+      </div>
+    </template>
 
-      <template #action>
-        <slot name="action">
-        </slot>
-      </template>
-    </n-card>
+    <slot />
+
+    <template #action>
+      <slot name="action">
+      </slot>
+    </template>
   </n-modal>
 </template>
 
