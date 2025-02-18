@@ -126,6 +126,7 @@ const onImportConfirmed = () => {
   >
     <n-tabs type="segment" animated>
       <n-tab-pane name="export">
+        <!-- @vue-ignore -->
         <template #tab>
           <n-icon><ArrowDownwardOutlined /></n-icon>
           {{ t('导出为Excel') }}
@@ -164,6 +165,7 @@ const onImportConfirmed = () => {
         </div>
       </n-tab-pane>
       <n-tab-pane name="import">
+        <!-- @vue-ignore -->
         <template #tab>
           <n-icon><ArrowUpwardOutlined /></n-icon>
           {{ t('从Excel导入') }}

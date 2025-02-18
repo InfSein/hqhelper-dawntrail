@@ -1002,6 +1002,7 @@ const containerMaxHeight = computed(() => {
         :key="index"
         :name="group.key"
       >
+        <!-- @vue-ignore -->
         <template #tab>
           <div class="tab-title">
             <n-icon :size="20"><component :is="group.icon" /></n-icon>

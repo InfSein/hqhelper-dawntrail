@@ -321,6 +321,7 @@ fixPreparedItems()
         <div class="block">
           <n-tabs type="segment" animated>
             <n-tab-pane name="statistics">
+              <!-- @vue-ignore -->
               <template #tab>
                 <div class="tab-title">
                   <n-icon :size="16"><QueryStatsFilled /></n-icon>
@@ -333,6 +334,7 @@ fixPreparedItems()
               />
             </n-tab-pane>
             <n-tab-pane name="statements">
+              <!-- @vue-ignore -->
               <template #tab>
                 <div class="tab-title">
                   <n-icon :size="16"><TableViewOutlined /></n-icon>
@@ -352,6 +354,7 @@ fixPreparedItems()
               />
             </n-tab-pane>
             <n-tab-pane name="processes">
+              <!-- @vue-ignore -->
               <template #tab>
                 <div class="tab-title">
                   <n-icon :size="16"><AllInclusiveSharp /></n-icon>
