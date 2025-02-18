@@ -1,6 +1,7 @@
 [
   {
     "v": "7.0",
+    "v_sub": "7.05",
     "name_zh": "金曦之遗辉",
     "name_en": "DAWNTRAIL",
     "name_ja": "黄金のレガシー",
@@ -12,7 +13,7 @@
   },
   {
     "v": "7.1",
-    "name_zh": "邂逅未知",
+    "name_zh": "与未知邂逅",
     "name_en": "Crossroads",
     "name_ja": "未知との邂逅",
     "updated": true,
@@ -22,9 +23,9 @@
   },
   {
     "v": "7.2",
-    "name_zh": "???",
-    "name_en": "???",
-    "name_ja": "???",
+    "name_zh": "永恒探求者",
+    "name_en": "Seekers of Eternity",
+    "name_ja": "永久の探求者",
     "updated": false,
     "combat_hq_il": 740,
     "logo": "./image/game-patch/patch-7.0.png"

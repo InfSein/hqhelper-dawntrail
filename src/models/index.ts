@@ -11,12 +11,13 @@ export interface AppVersionJson {
 }
 
 export interface PreferenceGroup {
-  key: "userConfig" | "funcConfig"
+  key: "userConfig" | "funcConfig" | "about"
   text: string
   settings: SettingGroup[]
 }
+export type SettingGroupKey = UserConfigKey | FuncConfigKey | "about_app"
 export interface SettingGroup {
-  key: UserConfigKey | FuncConfigKey | "about_app"
+  key: SettingGroupKey
   icon: Component
   text: string
   children: SettingItem[]
@@ -35,8 +36,14 @@ export interface SettingItem {
     class: string
     style: string
   }[]
-  type: 'radio-group' | 'switch' | 'select' | 'cascader' | 'string'
+  type: 'radio-group' | 'switch' | 'select' | 'cascader' | 'string' | 'button'
   multiple?: boolean
   options?: CascaderOption[]
+  buttonProps?: {
+    text: string
+    type?: 'default' | 'tertiary' | 'primary' | 'success' | 'info' | 'warning' | 'error'
+    icon?: Component
+    onClick: () => void
+  }
   require_reload?: boolean
 }

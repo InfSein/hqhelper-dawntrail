@@ -4,192 +4,29 @@ import {
   NSwitch,
   useMessage
 } from 'naive-ui'
-import GroupBox from '../templates/GroupBox.vue'
+import CraftStatistics from '../custom/general/CraftStatistics.vue'
 import FoldableCard from '../templates/FoldableCard.vue'
-import ItemList from '../custom/item/ItemList.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import ModalProStatements from '../modals/ModalProStatements.vue'
 import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
 import { useStore } from '@/store'
-import { getItemInfo, getItemPriceInfo, getStatementData, calCostAndBenefit, type ItemInfo } from '@/tools/item'
-import { useNbbCal } from '@/tools/use-nbb-cal'
-import type { UserConfigModel } from '@/models/config-user'
+import { getItemPriceInfo, getStatementData, calCostAndBenefit } from '@/tools/item'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+// const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+// const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
-const props = defineProps({
-  statistics: {
-    type: Object as () => any,
-    required: true
-  },
-  normalGatherings: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  limitedGatherings: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  aethersandGatherings: {
-    type: Array as () => number[] | undefined,
-    required: true
-  },
-  normalCraftings: {
-    type: Array as () => number[] | undefined,
-    required: true
-  }
-})
+interface StatisticsPanelProps {
+  itemSelected: Record<number, number>
+  statistics: any
+}
+const props = defineProps<StatisticsPanelProps>()
 
 const hidePrecraftMaterials = defineModel<boolean | undefined>('hidePrecraftMaterials', { required: true })
-
-const { getTradeMap } = useNbbCal()
-const tradeMap = getTradeMap()
-
-const lv1Items = computed(() => {
-  const items = []
-  for (const id in props.statistics.lv1) {
-    try {
-      const item = getItemInfo(props.statistics.lv1[id])
-      items.push(item)
-    } catch (error) {
-      console.warn('[compute.lv1Items] Error processing item ' + id + ':', error)
-    }
-  }
-  return items
-})
-const lvBaseItems = computed(() => {
-  const items = []
-  for (const id in props.statistics.lvBase) {
-    try {
-      const item = getItemInfo(props.statistics.lvBase[id])
-      items.push(item)
-    } catch (error) {
-      console.warn('[compute.lvBaseItems] Error processing item ' + id + ':', error)
-    }
-  }
-  return items
-})
-
-const materialTarget = computed(() => {
-  if (hidePrecraftMaterials.value) {
-    return lv1Items.value
-  } else {
-    return lvBaseItems.value
-  }
-})
-const materialTargetDescription = computed(() => {
-  return [
-    hidePrecraftMaterials.value
-      ? t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
-      : t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
-  ]
-})
-
-/**
- * 表示要展示的普通半成品。
- */
-const commonPrecrafts = computed(() => {
-  if (!props.normalCraftings?.length) {
-    return [] as ItemInfo[]
-  }
-  const crafts = []
-  for (const id in props.statistics.lv1) {
-    try {
-      const _id = parseInt(id)
-      if (props.normalCraftings.includes(_id)) {
-        const item = props.statistics.lv1[id]
-        crafts.push(getItemInfo(item))
-      }
-    } catch (error) {
-      console.warn('[compute.commonPrecrafts] Error processing item ' + id + ':', error)
-    }
-  }
-  return crafts
-})
-
-/**
- * 表示需要用亚拉戈神典石或工票兑换的道具。
- */
-const tomeScriptItems = computed(() => {
-  const items : ItemInfo[] = []
-  materialTarget.value.forEach(material => {
-    if (props.aethersandGatherings?.includes(material.id)) return
-    if (!tradeMap[material.id]) return
-    items.push(material)
-  })
-  return items
-})
-
-/**
- * 表示碎晶/水晶/晶簇统计。
- */
-const crystals = computed(() => {
-  const _crystals : ItemInfo[] = []
-  materialTarget.value.forEach(material => {
-    if (material.uiTypeId === 59) {
-      _crystals.push(material)
-    }
-  })
-  return _crystals
-})
-
-/**
- * 表示限时采集品统计。
- * 包括灵砂。
- */
-const gatheringsTimed = computed(() => {
-  const aethersands : ItemInfo[] = []
-  const gathers : ItemInfo[] = []
-
-  materialTarget.value.forEach(material => {
-    if (props.aethersandGatherings?.includes(material.id)) {
-      aethersands.push(material)
-    }
-    if (material.gatherInfo?.timeLimitInfo?.length) {
-      gathers.push(material)
-    }
-  })
-
-  return [...aethersands, ...gathers]
-})
-
-/**
- * 表示非限时(常规)采集品统计。
- */
-const gatheringsCommon = computed(() => {
-  const gathers : ItemInfo[] = []
-  materialTarget.value.forEach(material => {
-    if (material.gatherInfo?.placeID && !material.gatherInfo.timeLimitInfo?.length) {
-      gathers.push(material)
-    }
-  })
-  return gathers
-})
-
-/**
- * 表示其他道具统计。
- */
-const otherMaterials = computed(() => {
-  const items : ItemInfo[] = []
-  materialTarget.value.forEach(material => {
-    const _id = material.id
-    if (props.aethersandGatherings?.includes(_id)) return
-    if (props.normalCraftings?.includes(_id)) return
-    if (props.limitedGatherings?.includes(_id)) return
-    if (props.normalGatherings?.includes(_id)) return
-    if (tradeMap[_id]) return
-    if (material.uiTypeId === 59) return
-    if (material.gatherInfo) return
-    items.push(material)
-  })
-  return items
-})
 
 const showStatementModal = ref(false)
 const showProStatementModal = ref(false)
@@ -259,84 +96,10 @@ const handleAnalysisItemPrices = async () => {
           <div>{{ t('只显示直接制作素材') }}</div>
         </div>
       </div>
-      <div class="wrapper">
-        <GroupBox id="common-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
-          <template #title>{{ t('半成品统计') }}</template>
-          <div class="container">
-            <ItemList
-              :items="commonPrecrafts"
-              :list-height="isMobile ? undefined : 245"
-              :show-collector-icon="!userConfig.hide_collector_icons"
-            />
-          </div>
-        </GroupBox>
-        <GroupBox
-          id="tome-script-group" class="group" title-background-color="var(--n-color-embedded)"
-          :title="t('兑换道具统计')"
-          :descriptions="materialTargetDescription"
-        >
-          <div class="container">
-            <ItemList
-              :items="tomeScriptItems"
-              :list-height="isMobile ? undefined : 245"
-            />
-          </div>
-        </GroupBox>
-        <GroupBox
-          id="crystals-group" class="group" title-background-color="var(--n-color-embedded)"
-          :title="t('水晶统计')"
-          :descriptions="materialTargetDescription"
-        >
-          <div class="container">
-            <ItemList
-              :items="crystals"
-              :list-height="isMobile ? undefined : 245"
-            />
-          </div>
-        </GroupBox>
-        <GroupBox
-          id="common-gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
-          :title="t('常规采集品统计')"
-          :descriptions="materialTargetDescription"
-        >
-          <div class="container">
-            <ItemList
-              :items="gatheringsCommon"
-              :list-height="isMobile ? undefined : 245"
-              :show-collector-icon="!userConfig.hide_collector_icons"
-            />
-          </div>
-        </GroupBox>
-        <GroupBox
-          id="timed-gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
-          :title="t('限时采集品&灵砂统计')"
-          :descriptions="materialTargetDescription"
-        >
-          <div class="container">
-            <ItemList
-              :items="gatheringsTimed"
-              :list-height="isMobile ? undefined : 245"
-              :show-collector-icon="!userConfig.hide_collector_icons"
-            />
-          </div>
-        </GroupBox>
-        <GroupBox
-          id="other-materials-group" class="group" title-background-color="var(--n-color-embedded)"
-          :title="t('其他素材统计')"
-          :descriptions="[
-            t('未被其他分组归类的道具。'),
-            ...materialTargetDescription
-          ]"
-        >
-          <div class="container">
-            <ItemList
-              :items="otherMaterials"
-              :list-height="isMobile ? undefined : 245"
-              :show-collector-icon="!userConfig.hide_collector_icons"
-            />
-          </div>
-        </GroupBox>
-      </div>
+      <CraftStatistics
+        :item-selected="itemSelected"
+        :hide-precraft-materials="hidePrecraftMaterials"
+      />
       
       <ModalCraftStatements
         v-model:show="showStatementModal"
@@ -370,26 +133,6 @@ const handleAnalysisItemPrices = async () => {
     padding: 3px;
     border: 1px solid var(--n-color-target);
     border-radius: var(--n-border-radius);
-  }
-}
-.wrapper {
-  row-gap: 15px;
-  column-gap: 10px;
-}
-/* Desktop */
-@media screen and (min-width: 768px) {
-  .wrapper {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-auto-flow: row;
-  }
-}
-
-/* Mobile */
-@media screen and (max-width: 767px) {
-  .wrapper {
-    display: flex;
-    flex-direction: column;
   }
 }
 </style>

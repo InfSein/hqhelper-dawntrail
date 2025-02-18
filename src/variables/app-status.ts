@@ -6,7 +6,7 @@ class AppStatus {
   }
   static get SupportedGameVersion() {
     return {
-      CN: '7.05',
+      CN: '7.1',
       GLOBAL: '7.15'
     }
   }

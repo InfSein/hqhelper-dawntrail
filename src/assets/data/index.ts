@@ -210,6 +210,7 @@ export const XivMaps = parseUnpackedMapData(XivUnpackedMaps)
 import JsonXivPatches from './xiv-patches.json'
 export interface XivPatch {
   v: string
+  v_sub?: string
   name_zh: string
   name_en: string
   name_ja: string

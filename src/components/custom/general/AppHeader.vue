@@ -15,6 +15,7 @@ import {
   ArrowDownwardOutlined,
   AccessAlarmsOutlined,
   FastfoodOutlined,
+  WavesOutlined,
   HomeOutlined,
   HelpOutlineOutlined,
   MenuFilled,
@@ -57,7 +58,7 @@ const useDesktopUi = computed(() => {
   return !isMobile.value || !!window.electronAPI
 })
 const canUseSubwindow = computed(() => {
-  return !!window.electronAPI?.createNewWindow
+  return !isMobile.value
 })
 const canOpenDevTools = computed(() => {
   return !!window.electronAPI?.openDevTools && userConfig.value.enable_dev_mode
@@ -123,34 +124,48 @@ const displayChangeLogsModal = () => {
 const redirectToFoodAndTincPage = () => {
   router.push('/fthelper')
 }
+const redirectToWorkflowPage = () => {
+  router.push('/workflow')
+}
 const redirectToGatherClockPage = () => {
   router.push('/gatherclock')
 }
 const openSubwindowOfGatherClock = () => {
-  if (!window.electronAPI?.createNewWindow) {
-    alert('No api: window.electronAPI.createNewWindow'); return
-  }
   const url = document.location.origin + document.location.pathname + '#/gatherclock?mode=overlay'
-  window.electronAPI.createNewWindow(
-    'gatherclock',
-    url,
-    390,
-    730,
-    t('采集时钟')
-  )
+  if (window.electronAPI?.createNewWindow) {
+    window.electronAPI.createNewWindow(
+      'gatherclock',
+      url,
+      390,
+      730,
+      t('采集时钟')
+    )
+  } else {
+    window.open(
+      url,
+      t('采集时钟'),
+      'height=730, width=390, top=120, left=150'
+    )
+  }
 }
 const openSubwindowOfFtHelper = () => {
-  if (!window.electronAPI?.createNewWindow) {
-    alert('No api: window.electronAPI.createNewWindow'); return
-  }
   const url = document.location.origin + document.location.pathname + '#/fthelper?mode=overlay'
-  window.electronAPI.createNewWindow(
-    'fthelper',
-    url,
-    1600,
-    800,
-    t('食药计算')
-  )
+  if (window.electronAPI?.createNewWindow) {
+    window.electronAPI.createNewWindow(
+      'fthelper',
+      url,
+      1600,
+      800,
+      t('食药计算')
+    )
+  } else {
+    window.open(
+      url,
+      t('食药计算'),
+      'height=800, width=1600, top=120, left=45'
+    )
+  }
+  
 }
 
 interface MenuItem {
@@ -188,12 +203,14 @@ const menuItems = computed(() => {
 const desktopMenus = computed(() => {
   const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
   const hideGatherClock = router.currentRoute.value.path.startsWith('/gatherclock')
+  const hideWorkflow = router.currentRoute.value.path.startsWith('/workflow')
   const changeThemeIcon = theme.value === 'light' ? DarkModeTwotone : LightModeTwotone
   const changeThemeTooltip = theme.value === 'light' ? t('为这个世界带回黑暗。') : t('静待黎明天光来。')
   const ftHelperTooltip = hideFTHelper ? t('您已经处于食药计算器的页面。') : t('帮助你制作食物与爆发药。能帮到就好。')
   const ftHelperSWTooltip = t('在新窗口中打开食药计算器。')
   const gatherClockTooltip = hideGatherClock ? t('您已经处于采集时钟页面。') : t('挖穿艾欧泽亚的好帮手！')
   const gatherClockSWTooltip = t('在新窗口中打开采集时钟。')
+  const workflowTooltip = hideWorkflow ? t('您已经处于工作流页面。') : t('众生如归流。')
   const userPreferenceTooltip = t('以人的意志改变机械的程序。')
   // const funcPreferenceTooltip = t('还好我把魔法人偶的战斗力设置成了最强级别。')
   const checkUpdatesTooltip = t('更新目标的战力等级……变更攻击模式……')
@@ -258,6 +275,7 @@ const desktopMenus = computed(() => {
       options: [
         { key: 'tool-gatherclock', label: t('采集时钟'), disabled: hideGatherClock, icon: renderIcon(AccessAlarmsOutlined), description: gatherClockTooltip, click: redirectToGatherClockPage },
         { key: 'tool-fthelper', label: t('食药计算'), disabled: hideFTHelper, icon: renderIcon(FastfoodOutlined), description: ftHelperTooltip, click: redirectToFoodAndTincPage },
+        { key: 'tool-workflow', label: t('工作流'), disabled: hideWorkflow, icon: renderIcon(WavesOutlined), description: workflowTooltip, click: redirectToWorkflowPage },
         { key: 'tool-divider-1', hide: !canUseSubwindow.value, type: 'divider' },
         { key: 'tool-gatherclock-subwindow', hide: !canUseSubwindow.value, label: t('采集时钟(新窗口)'), icon: renderIcon(AccessAlarmsOutlined), description: gatherClockSWTooltip, click: openSubwindowOfGatherClock },
         { key: 'tool-fthelper-subwindow', hide: !canUseSubwindow.value, label: t('食药计算(新窗口)'), icon: renderIcon(FastfoodOutlined), description: ftHelperSWTooltip, click: openSubwindowOfFtHelper },

@@ -1,6 +1,6 @@
 {
   "name": "hqhelper-dawntrail",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "private": true,
   "type": "module",
   "scripts": {
@@ -38,7 +38,7 @@
     "@vue/tsconfig": "^0.5.1",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.17.0",
-    "naive-ui": "^2.39.0",
+    "naive-ui": "^2.41.0",
     "npm-run-all2": "^6.1.2",
     "typescript": "~5.5.4",
     "vite": "^5.4.2",

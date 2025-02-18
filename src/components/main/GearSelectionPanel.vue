@@ -2,10 +2,11 @@
 import { ref, computed, inject, h, watch,  } from 'vue'
 import type { Ref, VNode } from 'vue'
 import {
-  NAlert, NButton, NDropdown, NDivider, NFlex, NIcon, NPopover, NTooltip,
+  NAlert, NButton, NButtonGroup, NDropdown, NDivider, NFlex, NIcon, NPopover, NTooltip,
   useMessage, type DropdownGroupOption, type DropdownOption
 } from 'naive-ui'
 import { 
+  JoinLeftOutlined,
   KeyboardArrowDownRound
 } from '@vicons/material'
 import FoldableCard from '../templates/FoldableCard.vue'
@@ -29,7 +30,7 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const NAIVE_UI_MESSAGE = useMessage()
 
 const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
-interface GearSelectionPanelProps {
+export interface GearSelectionPanelProps {
   patchSelected: string
   jobId: number
   patchData?: IHqVer
@@ -37,6 +38,7 @@ interface GearSelectionPanelProps {
   accessoryAffix: AccessoryAffix
 }
 const props = defineProps<GearSelectionPanelProps>()
+const emits = defineEmits(['joinWorkflow'])
 
 const showSelectedGears = ref(false)
 
@@ -180,6 +182,9 @@ const addAll = () => {
   }
   addCurrMainOffHand()
   addAttireAndAccessory()
+}
+const handleJoinWorkflow = () => {
+  emits('joinWorkflow')
 }
 // #endregion
 
@@ -475,13 +480,28 @@ defineExpose({
 
       <div class="bottom-buttons">
         <div class="content">
-          <n-button
-            class="end"
-            :disabled="jobNotSelected"
-            @click="showSelectedGears = true"
-          >
-            {{ t('已选部件') }}
-          </n-button>
+          <n-button-group class="end">
+            <n-button
+              :disabled="jobNotSelected"
+              @click="showSelectedGears = true"
+            >
+              {{ t('已选部件') }}
+            </n-button>
+            <n-popover :trigger="isMobile ? 'manual' : 'hover'" placement="top">
+              <template #trigger>
+                <n-button
+                  class="n-square-button"
+                  :disabled="jobNotSelected"
+                  @click="handleJoinWorkflow"
+                >
+                  <n-icon :size="16"><JoinLeftOutlined /></n-icon>
+                </n-button>
+              </template>
+              <div class="descriptions">
+                <div>{{ t('将已选的装备加入到某条工作流') }}</div>
+              </div>
+            </n-popover>
+          </n-button-group>
         </div>
         <n-divider dashed />
         <n-flex class="foot" justify="end">

@@ -29,8 +29,9 @@ import ModalPreferencesImportExport from './ModalPreferencesImportExport.vue'
 import { useStore } from '@/store/index'
 import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { deepCopy } from '@/tools'
-import type { PreferenceGroup } from '@/models'
-import { fixFuncConfig, type FuncConfigKey, type FuncConfigModel } from '@/models/config-func'
+import type { PreferenceGroup, SettingGroupKey } from '@/models'
+import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
+import { fixWorkState } from '@/models/workflow'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -41,7 +42,7 @@ const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const showModal = defineModel<boolean>('show', { required: true })
 const emit = defineEmits(['close', 'afterSubmit'])
 interface ModalPreferencesProps {
-  settingGroup?: FuncConfigKey
+  settingGroup?: SettingGroupKey
   /** (仅限APP使用) 仅展示偏好设置项目 */
   appShowUp?: boolean
   /** (仅限APP使用) 仅展示功能设置项目 */
@@ -281,6 +282,7 @@ const preferenceGroups : PreferenceGroup[] = [
             options: [
               { value: 'standard', label: t('标准 (物品名称 x 数量)') },
               { value: 'tight', label: t('紧凑 (物品名称x数量)') },
+              { value: 'modern', label: t('现代 (物品名称 x数量)') },
               { value: 'teamcraft', label: t('Teamcraft风格 (数量x 物品名称)') },
             ]
           },
@@ -339,6 +341,28 @@ const preferenceGroups : PreferenceGroup[] = [
               }
             ],
             type: 'switch'
+          },
+          {
+            key: 'update_client_builtin',
+            label: t('使用内置更新功能处理客户端更新'),
+            descriptions: dealDescriptions([
+              t('在默认情况下，当您尝试更新客户端版本时，程序会通过系统默认浏览器打开下载链接。'),
+              t('启用此选项后，将直接在程序内下载并打开新版本客户端的安装包。'),
+            ]),
+            type: 'switch',
+            hide: !window.electronAPI?.downloadAndOpen
+          },
+          {
+            key: 'use_custom_proxy',
+            label: t('使用自定义加速服务'),
+            type: 'switch',
+            hide: !window.electronAPI
+          },
+          {
+            key: 'custom_proxy_url',
+            label: t('自定义加速服务地址'),
+            type: 'string',
+            hide: !window.electronAPI
           }
         ]
       }
@@ -710,7 +734,7 @@ const preferenceGroups : PreferenceGroup[] = [
     ]
   },
   {
-    key: 'userConfig',
+    key: 'about',
     text: t('其他'),
     settings: [
       {
@@ -794,6 +818,7 @@ const handleSave = () => {
     formUserConfigData.value.cache_work_state = {}
     formUserConfigData.value.fthelper_cache_work_state = {}
     formUserConfigData.value.gatherclock_cache_work_state = {}
+    formUserConfigData.value.workflow_cache_work_state = fixWorkState()
   }
   const newUserConfig = fixUserConfig(formUserConfigData.value)
   store.commit('setUserConfig', newUserConfig)
@@ -977,6 +1002,7 @@ const containerMaxHeight = computed(() => {
         :key="index"
         :name="group.key"
       >
+        <!-- @vue-ignore -->
         <template #tab>
           <div class="tab-title">
             <n-icon :size="20"><component :is="group.icon" /></n-icon>

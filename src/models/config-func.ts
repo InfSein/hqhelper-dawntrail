@@ -1,6 +1,6 @@
 import type { ItemPriceInfo } from "@/tools/item"
 import type { UserConfigModel } from "./config-user"
-import { deepCopy } from "@/tools"
+import { deepCopy, assignDefaults } from "@/tools"
 
 export type FuncConfigKey = "copy_macro" | "import_export" | "craft_statement" | "recomm_process" | "cost_benefit"
 export type ItemPriceType = 'averagePrice' | 'currentAveragePrice' | 'minPrice' | 'maxPrice' | 'marketLowestPrice' | 'marketPrice' | 'purchasePrice'
@@ -95,17 +95,4 @@ export const fixFuncConfig = (config?: FuncConfigModel, userConfig?: UserConfigM
 
   // 处理其他的设置项
   return assignDefaults(defaultFuncConfig, config || {}) as FuncConfigModel
-
-  function assignDefaults(defaultConfig: any, currentConfig: any): any {
-    for (const key in defaultConfig) {
-      if (Object.prototype.hasOwnProperty.call(defaultConfig, key) && key !== '__proto__' && key !== 'constructor') {
-        if (typeof defaultConfig[key] === 'object' && !Array.isArray(defaultConfig[key]) && defaultConfig[key] !== null) {
-          currentConfig[key] = assignDefaults(defaultConfig[key], currentConfig[key] || {});
-        } else {
-          currentConfig[key] = currentConfig[key] !== undefined ? currentConfig[key] : defaultConfig[key];
-        }
-      }
-    }
-    return currentConfig;
-  }
 }
