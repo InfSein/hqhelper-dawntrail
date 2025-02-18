@@ -5690,5 +5690,68 @@
     "$files": [
       "data\\change-logs.ts"
     ]
+  },
+  "还未选择任何装备": {
+    "en": "还未选择任何装备",
+    "ja": "还未选择任何装备",
+    "$files": [
+      "views\\MainPage.vue"
+    ]
+  },
+  "将已选的装备加入到某条工作流": {
+    "en": "将已选的装备加入到某条工作流",
+    "ja": "将已选的装备加入到某条工作流",
+    "$files": [
+      "components\\main\\GearSelectionPanel.vue"
+    ]
+  },
+  "新建工作流": {
+    "en": "新建工作流",
+    "ja": "新建工作流",
+    "$files": [
+      "components\\modals\\ModalJoinInWorkflow.vue"
+    ]
+  },
+  "加入成功": {
+    "en": "加入成功",
+    "ja": "加入成功",
+    "$files": [
+      "components\\modals\\ModalJoinInWorkflow.vue"
+    ]
+  },
+  "加入工作流": {
+    "en": "加入工作流",
+    "ja": "加入工作流",
+    "$files": [
+      "components\\modals\\ModalJoinInWorkflow.vue"
+    ]
+  },
+  "加入到": {
+    "en": "加入到",
+    "ja": "加入到",
+    "$files": [
+      "components\\modals\\ModalJoinInWorkflow.vue"
+    ]
+  },
+  "在这里选择要加入到哪条工作流": {
+    "en": "在这里选择要加入到哪条工作流",
+    "ja": "在这里选择要加入到哪条工作流",
+    "$files": [
+      "components\\modals\\ModalJoinInWorkflow.vue"
+    ]
+  },
+  "下述表格中的物品将被加入到选定的工作流。": {
+    "en": "下述表格中的物品将被加入到选定的工作流。",
+    "ja": "下述表格中的物品将被加入到选定的工作流。",
+    "$files": [
+      "components\\modals\\ModalJoinInWorkflow.vue"
+    ]
+  },
+  "若物品已经存在于工作流中，则数量会累加。": {
+    "en": "若物品已经存在于工作流中，则数量会累加。",
+    "ja": "若物品已经存在于工作流中，则数量会累加。",
+    "$files": [
+      "components\\modals\\ModalJoinInWorkflow.vue"
+    ]
   }
 }
