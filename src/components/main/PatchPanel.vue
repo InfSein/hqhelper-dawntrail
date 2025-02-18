@@ -100,7 +100,7 @@ const patchPatterns = computed(() => {
         <i class="xiv square-1"></i>
         <span class="card-title-text">{{ t('选择版本') }}</span>
         <div style="margin-left: 1px;">
-          <HelpButton icon="info" :size="22" placement="right-start" pop-type="popover" style="margin-left: 0.5em;">
+          <HelpButton icon="info" :size="22" :placement="isMobile ? 'bottom' : 'right-start'" pop-type="popover" style="margin-left: 0.5em;">
             <div class="pop-wrapper">
               <div>{{ t('FFXIV的制作装备更新规律较为稳定，这使得我们可以预判各小版本的更新内容。') }}</div>
               <n-divider style="margin: 1px 5px 3px 5px" />

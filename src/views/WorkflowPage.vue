@@ -329,7 +329,7 @@ fixPreparedItems()
               </template>
               <CraftStatistics
                 :item-selected="currentWorkflow.targetItems"
-                :list-height="210"
+                :list-height="175"
               />
             </n-tab-pane>
             <n-tab-pane name="statements">
@@ -348,6 +348,7 @@ fixPreparedItems()
                 v-model:items-prepared="currentWorkflow.preparedItems"
                 :craft-targets="craftTargetsArray"
                 :statement-blocks="proStatementData.statementBlocks"
+                content-height="390px"
               />
             </n-tab-pane>
             <n-tab-pane name="processes">
@@ -361,7 +362,7 @@ fixPreparedItems()
                 v-model:expanded-blocks="expandedBlocks"
                 v-model:completed-items="completedItems"
                 :item-groups="recommProcessGroups"
-                content-max-height="520px"
+                content-max-height="440px"
               />
             </n-tab-pane>
           </n-tabs>

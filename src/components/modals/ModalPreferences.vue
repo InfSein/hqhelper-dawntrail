@@ -31,6 +31,7 @@ import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { deepCopy } from '@/tools'
 import type { PreferenceGroup, SettingGroupKey } from '@/models'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
+import { fixWorkState } from '@/models/workflow'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -817,7 +818,7 @@ const handleSave = () => {
     formUserConfigData.value.cache_work_state = {}
     formUserConfigData.value.fthelper_cache_work_state = {}
     formUserConfigData.value.gatherclock_cache_work_state = {}
-    formUserConfigData.value.workflow_cache_work_state = {}
+    formUserConfigData.value.workflow_cache_work_state = fixWorkState()
   }
   const newUserConfig = fixUserConfig(formUserConfigData.value)
   store.commit('setUserConfig', newUserConfig)

@@ -24,7 +24,8 @@ const itemsPrepared = defineModel<{
 
 interface CraftStatementsProProps {
   craftTargets: ItemInfo[],
-  statementBlocks: ProStatementBlock[]
+  statementBlocks: ProStatementBlock[],
+  contentHeight?: string
 }
 defineProps<CraftStatementsProProps>()
 
@@ -47,6 +48,7 @@ const showItemDetails = computed(() => {
           :items-total="block.items"
           :show-item-details="showItemDetails"
           container-id="modal-pro-statements"
+          :content-height="contentHeight"
         />
       </div>
     </n-tab-pane>
@@ -66,6 +68,7 @@ const showItemDetails = computed(() => {
           :items-total="block.items"
           :show-item-details="showItemDetails"
           container-id="modal-pro-statements"
+          :content-height="contentHeight"
         />
       </div>
     </GroupBox>

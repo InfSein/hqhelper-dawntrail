@@ -8,6 +8,7 @@ import PatchPanel from '@/components/main/PatchPanel.vue'
 import JobPanel from '@/components/main/JobPanel.vue'
 import GearSelectionPanel from '@/components/main/GearSelectionPanel.vue'
 import StatisticsPanel from '@/components/main/StatisticsPanel.vue'
+import ModalJoinInWorkflow from '@/components/modals/ModalJoinInWorkflow.vue'
 import { type UserConfigModel } from '@/models/config-user'
 import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears'
 import { getDefaultGearSelections, fixGearSelections } from '@/models/gears'
@@ -66,6 +67,21 @@ const handleJobButtonDupliClick = () => {
   }
 }
 
+const showModalJoinInWorkflow = ref(false)
+const workflowItems = computed(() => {
+  const items : Record<number, number> = {}
+  Object.values(statistics.value.ls).forEach((stat: any) => {
+    items[stat.id] = stat.need
+  })
+  return items
+})
+const handleJoinWorkflow = () => {
+  if (!Object.values(workflowItems.value).length) {
+    NAIVE_UI_MESSAGE.error(t('还未选择任何装备')); return
+  }
+  showModalJoinInWorkflow.value = true
+}
+
 const handleImportState = (patch: string, gearSelections?: GearSelections) => {
   workState.value.patch = patch
   workState.value.gears = fixGearSelections(gearSelections)
@@ -118,8 +134,9 @@ const tradeMap = computed(() => {
           :patch-selected="workState.patch"
           :job-id="workState.job"
           :patch-data="patchData"
-          :attire-affix="workState.affixes?.attire as AttireAffix"
-          :accessory-affix="workState.affixes?.accessory as AccessoryAffix"
+          :attire-affix="(workState.affixes?.attire as AttireAffix)"
+          :accessory-affix="(workState.affixes?.accessory as AccessoryAffix)"
+          @join-workflow="handleJoinWorkflow"
         />
       </div>
       <div vertical id="right-layout">
@@ -138,6 +155,11 @@ const tradeMap = computed(() => {
         />
       </div>
     </div>
+
+    <ModalJoinInWorkflow
+      v-model:show="showModalJoinInWorkflow"
+      :items="workflowItems"
+    />
 
     <n-back-top />
   </div>

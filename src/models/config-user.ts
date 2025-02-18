@@ -1,6 +1,7 @@
 import {
   assignDefaults
 } from '@/tools'
+import { fixWorkState, type WorkState } from '@/models/workflow'
 
 export type UserConfigKey = "general" | "appearance" | "enhancements" | "performance" | "special" | "update"
 
@@ -67,7 +68,7 @@ export interface UserConfigModel {
   cache_work_state: any
   fthelper_cache_work_state: any
   gatherclock_cache_work_state: any
-  workflow_cache_work_state: any
+  workflow_cache_work_state: WorkState
   // #endregion
 }
 
@@ -109,7 +110,7 @@ const defaultUserConfig: UserConfigModel = {
   cache_work_state: {}, // active cache, view struct in `MainPage.vue` 's `workState`
   fthelper_cache_work_state: {},
   gatherclock_cache_work_state: {},
-  workflow_cache_work_state: {},
+  workflow_cache_work_state: fixWorkState(),
 }
 
 /**
