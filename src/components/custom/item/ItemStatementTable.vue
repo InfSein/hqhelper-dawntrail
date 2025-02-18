@@ -16,6 +16,7 @@ interface ItemStatementTableProps {
   itemsTotal: Record<number, number>,
   showItemDetails: boolean,
   containerId?: string
+  contentHeight?: string
 }
 const props = defineProps<ItemStatementTableProps>()
 
@@ -82,7 +83,7 @@ const handleNumInputLoop = (row: StatementRow) => {
         </tr>
       </thead>
     </n-table>
-    <n-scrollbar trigger="none" :style="{ height: '450px', 'margin-top': '-2px' }">
+    <n-scrollbar trigger="none" :style="{ height: contentHeight ?? '450px', 'margin-top': '-2px' }">
       <n-table class="table" size="small" :single-line="false">
         <tbody>
           <tr v-for="item in rows.remaining" :key="'item-remaining-' + item.info.id">
@@ -105,6 +106,7 @@ const handleNumInputLoop = (row: StatementRow) => {
                 :size="showItemDetails ? 'small' : 'tiny'"
                 button-placement="both"
                 :show-button="!isMobile"
+                placeholder="0"
                 @update:value="handleNumInputLoop(item)"
               />
             </td>
@@ -151,6 +153,9 @@ const handleNumInputLoop = (row: StatementRow) => {
 
 <style scoped>
 /* All */
+:deep(.n-scrollbar-container) {
+  padding: inherit !important;
+}
 .table {
   width: 100%;
 

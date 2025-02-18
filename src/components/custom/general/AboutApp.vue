@@ -60,7 +60,7 @@ const members = {
     "InfSein",
     "https://avatars.githubusercontent.com/u/54071139?v=4",
     t('负责全部设计开发工作'),
-    ["我问了整个猫小胖，他们都说我是最帅的肥"],
+    ["我问遍了整个猫区，他们都说我是最帅的肥"],
     [{ name: "Github", url: "https://github.com/InfSein" }]
   ),
   nbb: createStaffMember(

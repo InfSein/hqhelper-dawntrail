@@ -1,3 +1,7 @@
+import {
+  assignDefaults
+} from '@/tools'
+
 export type UserConfigKey = "general" | "appearance" | "enhancements" | "performance" | "special" | "update"
 
 export interface UserConfigModel {
@@ -32,7 +36,7 @@ export interface UserConfigModel {
   /** 点击物品信息图标时的行为 */
   item_info_icon_click_event: 'none' | 'copy_name' | 'copy_isearch'
   /** 材料清单格式 */
-  item_list_style: 'standard' | 'tight' | 'teamcraft'
+  item_list_style: 'standard' | 'tight' | 'modern' | 'teamcraft'
   // * performance
   /** 禁用工作状态记忆 */
   disable_workstate_cache: boolean
@@ -41,6 +45,12 @@ export interface UserConfigModel {
   // * update
   /** 禁用自动更新 */
   disable_auto_update: boolean
+  /** 使用内置更新功能来进行客户端更新 */
+  update_client_builtin: boolean
+  /** 使用自定义加速服务 */
+  use_custom_proxy: boolean
+  /** 自定义加速服务地址 */
+  custom_proxy_url: string
   // #endregion
   
   // #region 在其他界面中设置的配置项
@@ -57,6 +67,7 @@ export interface UserConfigModel {
   cache_work_state: any
   fthelper_cache_work_state: any
   gatherclock_cache_work_state: any
+  workflow_cache_work_state: any
   // #endregion
 }
 
@@ -83,6 +94,9 @@ const defaultUserConfig: UserConfigModel = {
   enable_dev_mode: false,
   // update
   disable_auto_update: false,
+  update_client_builtin: false,
+  use_custom_proxy: false,
+  custom_proxy_url: '',
   
   // tome-script-button
   tomescript_show_bicolor_items: false,
@@ -94,7 +108,8 @@ const defaultUserConfig: UserConfigModel = {
   cache_ui_fold: {}, // active cache, { key:string -> value:boolean }
   cache_work_state: {}, // active cache, view struct in `MainPage.vue` 's `workState`
   fthelper_cache_work_state: {},
-  gatherclock_cache_work_state: {}
+  gatherclock_cache_work_state: {},
+  workflow_cache_work_state: {},
 }
 
 /**
@@ -120,17 +135,4 @@ export const fixUserConfig = (config?: UserConfigModel) => {
   
   // 处理其他的设置项
   return assignDefaults(defaultUserConfig, config || {}) as UserConfigModel
-
-  function assignDefaults(defaultConfig: any, currentConfig: any): any {
-    for (const key in defaultConfig) {
-      if (Object.prototype.hasOwnProperty.call(defaultConfig, key)) {
-        if (typeof defaultConfig[key] === 'object' && !Array.isArray(defaultConfig[key]) && defaultConfig[key] !== null) {
-          currentConfig[key] = assignDefaults(defaultConfig[key], currentConfig[key] || {});
-        } else {
-          currentConfig[key] = currentConfig[key] !== undefined ? currentConfig[key] : defaultConfig[key];
-        }
-      }
-    }
-    return currentConfig;
-  }
 }

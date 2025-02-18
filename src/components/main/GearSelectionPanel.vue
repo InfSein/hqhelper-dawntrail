@@ -29,7 +29,7 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const NAIVE_UI_MESSAGE = useMessage()
 
 const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
-interface GearSelectionPanelProps {
+export interface GearSelectionPanelProps {
   patchSelected: string
   jobId: number
   patchData?: IHqVer

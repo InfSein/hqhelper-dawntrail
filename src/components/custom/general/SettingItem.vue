@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NCascader, NCollapse, NCollapseItem, NIcon, NInput, NRadioButton, NRadioGroup, NSelect, NSwitch
+  NButton, NCascader, NCollapse, NCollapseItem, NIcon, NInput, NRadioButton, NRadioGroup, NSelect, NSwitch
 } from 'naive-ui'
 import {
   KeyboardArrowRightOutlined
@@ -113,6 +113,16 @@ const warnings = computed(() => {
         type="text"
         :style="{ width: isMobile ? '85%' : '70%' }"
       />
+      <n-button
+        v-if="settingItem.type === 'button'"
+        :type="settingItem.buttonProps?.type ?? 'default'"
+        @click="settingItem.buttonProps?.onClick"
+      >
+        <template #icon>
+          <n-icon v-if="settingItem.buttonProps?.icon" :component="settingItem.buttonProps!.icon" />
+        </template>
+        {{ settingItem.buttonProps?.text }}
+      </n-button>
     </div>
   </div>
 </template>

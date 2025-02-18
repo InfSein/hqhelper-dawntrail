@@ -1,31 +1,28 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCheckbox, NCollapse, NCollapseItem, NIcon,
+  NButton, NIcon,
   useMessage
 } from 'naive-ui'
 import { 
   AllInclusiveSharp, CopyAllOutlined
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
-import XivFARImage from '../custom/general/XivFARImage.vue'
-import ItemSpan from '../custom/item/ItemSpan.vue'
-import LocationSpan from '../custom/map/LocationSpan.vue'
+import CraftRecommProcess from '../custom/general/CraftRecommProcess.vue'
 import ModalPreferences from './ModalPreferences.vue'
 import { type UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
 import { type ItemInfo } from '@/tools/item'
-import { XivJobs, type XivJob } from '@/assets/data'
 import { CopyToClipboard } from '@/tools'
-import type EorzeaTime from '@/tools/eorzea-time'
+import { useFufuCal } from '@/tools/use-fufu-cal'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-const currentET = inject<Ref<EorzeaTime>>('currentET')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 // const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const NAIVE_UI_MESSAGE = useMessage()
+const { calRecommProcessGroups } = useFufuCal()
   
 const showModal = defineModel<boolean>('show', { required: true })
 const expandedBlocks = ref<Record<number, string[]>>({})
@@ -54,195 +51,18 @@ interface RecommendedProcessesProps {
 }
 const props = defineProps<RecommendedProcessesProps>()
 
-const showItemGatherDetails = computed(() => {
-  return funcConfig.value.processes_show_item_details
-})
-
 const itemGroups = computed(() => {
-  const itemsGatherableCommon : ItemInfo[] = []
-  const itemsGatherableLimited : ItemInfo[] = []
-  const aethersands : ItemInfo[] = []
-  const itemsTradable : ItemInfo[] = []
-  const itemsOtherCollectable : ItemInfo[] = []
-  const itemsPrePrePrecraft : Record<number, ItemInfo[]> = {}
-  const itemsPrePrecraft : Record<number, ItemInfo[]> = {}
-  const itemsPrecraft : Record<number, ItemInfo[]> = {}
-  const itemsTarget : Record<number, ItemInfo[]> = {}
-
-  // 从基础素材中检索分类
-  props.lvBaseItems.forEach(item => {
-    if (item.gatherInfo?.jobId) {
-      if (item.gatherInfo.timeLimitInfo?.length) {
-        itemsGatherableLimited.push(item)
-      } else {
-        itemsGatherableCommon.push(item)
-      }
-    } else if (item.canReduceFrom?.length) {
-      aethersands.push(item)
-    } else if (item.tradeInfo?.costGlobal) {
-      // 部分道具同时具备可采集/精选和可兑换的属性，需要注意区分
-      itemsTradable.push(item)
-    } else {
-      if (item.uiTypeId !== 59) {
-        // 忽略水晶
-        itemsOtherCollectable.push(item)
-      }
-    }
-  })
-
-  // 逐级遍历半成品
-  props.lv1Items.forEach(item => {
-    if (item.craftInfo?.jobId) {
-      dealCraftableItem(itemsPrecraft, item)
-    }
-  })
-  props.lv2Items.forEach(item => {
-    if (item.craftInfo?.jobId) {
-      dealCraftableItem(itemsPrePrecraft, item)
-    }
-  })
-  props.lv3Items.forEach(item => {
-    if (item.craftInfo?.jobId) {
-      dealCraftableItem(itemsPrePrePrecraft, item)
-    }
-  })
-
-  // 最终处理成品
-  props.craftTargets.forEach(item => {
-    if (item.craftInfo?.jobId) {
-      dealCraftableItem(itemsTarget, item)
-    }
-  })
-
-  // 根据处理后的物品列表组装各个分组
-  const groups : {
-    title: string,
-    icon: string,
-    description?: string,
-    items: ItemInfo[]
-  }[] = []
-  const dealGatherings = (
-    gathering: ItemInfo[],
-    groupTitle: string,
-    orderBy?: "map" | "start-time",
-    mergeJobs?: {
-      iconUrl: string
-    }
-  ) => {
-    if (!gathering?.length) return
-    if (orderBy === 'map') {
-      gathering.sort((a, b) => {
-        const aMap = a.gatherInfo.placeID
-        const bMap = b.gatherInfo.placeID
-        return aMap - bMap
-      })
-    } else if (orderBy === 'start-time') {
-      gathering.sort((a, b) => {
-        let startA = 99, startB = 99
-        a.gatherInfo.timeLimitInfo.forEach(limit => {
-          startA = Math.min(startA, Number(limit.start.split(':')[0]))
-        })
-        b.gatherInfo.timeLimitInfo.forEach(limit => {
-          startB = Math.min(startB, Number(limit.start.split(':')[0]))
-        })
-        return startA - startB
-      })
-    }
-    if (mergeJobs) {
-      groups.push({
-        title: groupTitle,
-        icon: mergeJobs.iconUrl,
-        items: gathering
-      })
-    } else {
-      const itemsGatheredBy = {
-        16: [], 17: [], 18: []
-      } as Record<number, ItemInfo[]>
-      gathering.forEach(item => {
-        itemsGatheredBy[item.gatherInfo.jobId].push(item)
-      });
-      ([16, 17, 18]).forEach(jobid => {
-        if (itemsGatheredBy[jobid].length) {
-          groups.push({
-            title: groupTitle.replace('{job}', getJobName(XivJobs[jobid])),
-            icon: XivJobs[jobid].job_icon_url,
-            items: itemsGatheredBy[jobid]
-          })
-        }
-      });
-    }
-  }
-  const dealCraftings = (craftings: Record<number, ItemInfo[]>, groupTitle: string) => {
-    Object.keys(craftings).forEach(_jobID => {
-      const jobId = Number(_jobID)
-      const job = XivJobs[jobId]
-      const items = craftings[jobId]
-      if (funcConfig.value.processes_craftable_item_sortby === 'recipeOrder') {
-        items.sort((a, b) => {
-          if (a.craftInfo?.recipeOrder && b.craftInfo?.recipeOrder) {
-            return a.craftInfo.recipeOrder - b.craftInfo.recipeOrder
-          } else {
-            return a.id - b.id
-          }
-        })
-      }
-      groups.push({
-        title: groupTitle.replace('{job}', getJobName(job)),
-        icon: job.job_icon_url,
-        items: items
-      })
-    })
-  }
-
-  if (funcConfig.value.processes_merge_gatherings) {
-    dealGatherings(itemsGatherableCommon, t('采集非限时道具'), 'map', {
-      iconUrl: './ui/gathering.png'
-    })
-    dealGatherings(itemsGatherableLimited, t('采集限时道具'), 'start-time', {
-      iconUrl: './ui/gathering-limited.png'
-    })
-  } else {
-    dealGatherings(itemsGatherableCommon, t('使用{job}采集(非限时)'), 'map')
-    dealGatherings(itemsGatherableLimited, t('使用{job}采集(限时)'), 'start-time')
-  }
-  if (aethersands.length) {
-    groups.push({
-      title: t('筹集灵砂'),
-      icon: './ui/reduce.png',
-      items: aethersands
-    })
-  }
-  if (itemsTradable.length) {
-    groups.push({
-      title: t('兑换道具'),
-      icon: './ui/important-item.png',
-      items: itemsTradable
-    })
-  }
-  if (itemsOtherCollectable.length) {
-    groups.push({
-      title: t('筹集其他需要的道具'),
-      icon: './ui/bag.png',
-      items: itemsOtherCollectable
-    })
-  }
-  dealCraftings(itemsPrePrePrecraft, t('使用{job}制作半半半成品'))
-  dealCraftings(itemsPrePrecraft, t('使用{job}制作半半成品'))
-  dealCraftings(itemsPrecraft, t('使用{job}制作半成品'))
-  dealCraftings(itemsTarget, t('使用{job}制作成品'))
-
-  return groups
-
-  function dealCraftableItem(target: Record<number, ItemInfo[]>, item: ItemInfo) {
-    const jobId = item.craftInfo!.jobId
-    target[jobId] ??= []
-    const existing = target[jobId].find(_item => item.id === _item.id)
-    if (existing) {
-      existing.amount += item.amount
-    } else {
-      target[jobId].push(item)
-    }
-  }
+  return calRecommProcessGroups(
+    props.craftTargets,
+    props.lv1Items,
+    props.lv2Items,
+    props.lv3Items,
+    props.lvBaseItems,
+    funcConfig.value.processes_craftable_item_sortby,
+    funcConfig.value.processes_merge_gatherings,
+    userConfig.value.language_ui,
+    t
+  )
 })
 
 const itemLanguage = computed(() => {
@@ -259,31 +79,6 @@ const getItemName = (itemInfo: ItemInfo) => {
       return itemInfo[`name_${itemLanguage.value}`]
   }
 }
-const getJobName = (jobInfo: XivJob) => {
-  switch (userConfig.value.language_ui) {
-    case 'ja':
-      return jobInfo?.job_name_ja || t('未知')
-    case 'en':
-      return jobInfo?.job_name_en || t('未知')
-    default:
-      return jobInfo?.job_name_zh || t('未知')
-  }
-}
-const getPlaceName = (itemInfo : ItemInfo) => {
-  switch (itemLanguage.value) {
-    case 'ja':
-      return itemInfo.gatherInfo?.placeNameJA
-    case 'en':
-      return itemInfo.gatherInfo?.placeNameEN
-    case 'zh':
-    default:
-      return itemInfo.gatherInfo?.placeNameZH
-  }
-}
-const textsGatherAt = computed(() => {
-  const [p1, p2] = t('在{}采集').split('{}')
-  return { p1, p2 }
-})
 
 const handleCopy = async (content: string, successMessage?: string) => {
   const container = document.getElementById('modal-recomm-process')
@@ -318,29 +113,6 @@ const handleCopyProcesses = () => {
   }).join('\n\n')
   handleCopy(text)
 }
-const handleItemCompletionChange = (groupIndex: number) => {
-  let needToCollapseGroup = true
-  Object.values(completedItems.value[groupIndex]).forEach(completed => {
-    needToCollapseGroup = needToCollapseGroup && completed
-  })
-  if (needToCollapseGroup) {
-    expandedBlocks.value[groupIndex] = []
-  }
-}
-
-const isItemGatherableNow = (item: ItemInfo) => {
-  let gatherable = false
-  item.gatherInfo.timeLimitInfo?.forEach(info => {
-    const parseTime = (time: string) => time.split(':').reduce((acc, val, idx) => acc + parseInt(val) * [60, 1][idx], 0)
-    const s = parseTime(info.start)
-    const e = parseTime(info.end)
-    const c = currentET.value.hour * 60 + currentET.value.minute
-    if (c >= s && c < e) {
-      gatherable = true
-    }
-  })
-  return gatherable
-}
 
 const showPreferencesModal = ref(false)
 const handleSettingButtonClick = () => {
@@ -366,102 +138,11 @@ const handleSettingButtonClick = () => {
       </div>
     </template>
 
-    <div class="wrapper">
-      <div
-        class="block"
-        v-for="(group, groupIndex) in itemGroups"
-        :key="'group-' + groupIndex"
-      >
-        <n-collapse arrow-placement="right" v-model:expanded-names="expandedBlocks[groupIndex]">
-          <n-collapse-item name="1">
-            <template #header>
-              <div class="title">
-                <span class="icon">
-                  <XivFARImage
-                    :size="14"
-                    :src="group.icon"
-                    class="no-select"
-                  />
-                </span>
-                <span>
-                  {{ groupIndex + 1 }}. {{ group.title }}
-                </span>
-              </div>
-            </template>
-
-            <div class="description" v-if="group.description">{{ group.description }}</div>
-            <div class="items">
-              <div
-                v-for="item in group.items"
-                :key="'item-' + item.id"
-                style=""
-              >
-                <div class="item-container">
-                  <n-checkbox
-                    size="small"
-                    v-model:checked="completedItems[groupIndex][item.id]"
-                    @update:checked="handleItemCompletionChange(groupIndex)"
-                  />
-                  <ItemSpan
-                    :item-info="item"
-                    :amount="item.amount"
-                    show-amount
-                    container-id="modal-recomm-process"
-                  />
-                </div>
-                <div
-                  class="gather-detail-time"
-                  v-if="showItemGatherDetails && item.gatherInfo?.timeLimitDescription && !completedItems[groupIndex][item.id]"
-                >
-                  <span style="margin-right: 1px;">(</span>
-                  <span>{{ t('限时: {}', item.gatherInfo.timeLimitDescription) }}</span>
-                  <span v-if="isItemGatherableNow(item)" class="green" style="margin-left: 3px;">{{ t('现可采集') }}</span>
-                  <span style="margin-left: 1px;">)</span>
-                </div>
-                <div
-                  class="gather-detail-position"
-                  v-if="showItemGatherDetails && item.gatherInfo?.placeID && !completedItems[groupIndex][item.id]"
-                >
-                  <span style="margin-right: 1px;">(</span>
-                  <span v-if="showItemGatherDetails && item.gatherInfo?.placeID">{{ textsGatherAt.p1 }}</span>
-                  <LocationSpan
-                    v-if="showItemGatherDetails && item.gatherInfo?.placeID"
-                    :place-id="item.gatherInfo.placeID"
-                    :place-name="getPlaceName(item)"
-                    :coordinate-x="item.gatherInfo.posX"
-                    :coordinate-y="item.gatherInfo.posY"
-                    :size="12"
-                    style="margin: 0 2px 0 1px; "
-                  />
-                  <span v-if="showItemGatherDetails && item.gatherInfo?.placeID">{{ textsGatherAt.p2 }}</span>
-                  <span style="margin-left: 1px;">)</span>
-                </div>
-                <div
-                  class="gather-detail-recomm"
-                  v-if="showItemGatherDetails && item.gatherInfo?.placeID && !completedItems[groupIndex][item.id]"
-                >
-                  <span v-if="funcConfig.processes_merge_gatherings" style="margin-right: 1px;">(</span>
-                  <span v-if="funcConfig.processes_merge_gatherings" class="flex-vac">
-                    <XivFARImage
-                      class="icon no-select"
-                      :src="XivJobs[item.gatherInfo.jobId].job_icon_url"
-                      :size="12"
-                    />
-                    <p>{{ getJobName(XivJobs[item.gatherInfo.jobId]) }}</p>
-                  </span>
-                  <span v-if="funcConfig.processes_merge_gatherings" style="margin: 0 3px 0 1px;">)</span>
-                  <span style="margin-right: 1px;">(</span>
-                  <span>{{ t('推荐传送点') }} - {{ item.gatherInfo.recommAetheryte?.[`name_${itemLanguage}`] }}</span>
-                  <span style="margin-left: 1px;">)</span>
-                </div>
-              </div>
-            </div>
-          </n-collapse-item>
-        </n-collapse>
-        
-        
-      </div>
-    </div>
+    <CraftRecommProcess
+      v-model:expanded-blocks="expandedBlocks"
+      v-model:completed-items="completedItems"
+      :item-groups="itemGroups"
+    />
 
     <template #action>
       <div class="submit-container">
