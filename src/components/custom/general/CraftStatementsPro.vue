@@ -24,7 +24,8 @@ const itemsPrepared = defineModel<{
 
 interface CraftStatementsProProps {
   craftTargets: ItemInfo[],
-  statementBlocks: ProStatementBlock[]
+  statementBlocks: ProStatementBlock[],
+  contentHeight?: string
 }
 defineProps<CraftStatementsProProps>()
 
@@ -47,11 +48,12 @@ const showItemDetails = computed(() => {
           :items-total="block.items"
           :show-item-details="showItemDetails"
           container-id="modal-pro-statements"
+          :content-height="contentHeight"
         />
       </div>
     </n-tab-pane>
   </n-tabs>
-  <div v-else class="wrapper desktop" :style="`grid-template-columns: repeat(${statementBlocks.length}, minmax(0, 1fr));`">
+  <div v-else class="csp-wrapper desktop" :style="`grid-template-columns: repeat(${statementBlocks.length}, minmax(0, 1fr));`">
     <GroupBox
       v-for="block in statementBlocks"
       :key="block.id"
@@ -66,6 +68,7 @@ const showItemDetails = computed(() => {
           :items-total="block.items"
           :show-item-details="showItemDetails"
           container-id="modal-pro-statements"
+          :content-height="contentHeight"
         />
       </div>
     </GroupBox>
@@ -74,10 +77,10 @@ const showItemDetails = computed(() => {
 
 <style scoped>
 /* All */
-.wrapper {
+.csp-wrapper {
   user-select: text;
 }
-.wrapper.desktop {
+.csp-wrapper.desktop {
   display: grid;
   gap: 10px;
 }

@@ -1,5 +1,6 @@
 import {
-  assignDefaults
+  assignDefaults,
+  deepCopy
 } from '@/tools'
 
 export interface Workflow {
@@ -13,7 +14,7 @@ export interface Workflow {
     materialsLvBase: Record<number, number>
   }
 }
-export const defaultWorkflow: Workflow = {
+const defaultWorkflow: Workflow = {
   targetItems: {},
   preparedItems: {
     craftTarget: {},
@@ -21,6 +22,7 @@ export const defaultWorkflow: Workflow = {
     materialsLvBase: {},
   }
 }
+export const getDefaultWorkflow = () => deepCopy(defaultWorkflow)
 export const _VAR_MAX_WORKFLOW = 5;
 
 export interface WorkState {
@@ -29,7 +31,7 @@ export interface WorkState {
 }
 export const defaultWorkState: WorkState = {
   currentWorkflow: 0,
-  workflows: [defaultWorkflow]
+  workflows: [getDefaultWorkflow()]
 }
 
 export const fixWorkState = (state?: WorkState) : WorkState => {
