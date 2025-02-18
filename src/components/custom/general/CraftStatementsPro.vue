@@ -51,7 +51,7 @@ const showItemDetails = computed(() => {
       </div>
     </n-tab-pane>
   </n-tabs>
-  <div v-else class="wrapper desktop" :style="`grid-template-columns: repeat(${statementBlocks.length}, minmax(0, 1fr));`">
+  <div v-else class="csp-wrapper desktop" :style="`grid-template-columns: repeat(${statementBlocks.length}, minmax(0, 1fr));`">
     <GroupBox
       v-for="block in statementBlocks"
       :key="block.id"
@@ -74,10 +74,10 @@ const showItemDetails = computed(() => {
 
 <style scoped>
 /* All */
-.wrapper {
+.csp-wrapper {
   user-select: text;
 }
-.wrapper.desktop {
+.csp-wrapper.desktop {
   display: grid;
   gap: 10px;
 }

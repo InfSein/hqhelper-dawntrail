@@ -817,6 +817,7 @@ const handleSave = () => {
     formUserConfigData.value.cache_work_state = {}
     formUserConfigData.value.fthelper_cache_work_state = {}
     formUserConfigData.value.gatherclock_cache_work_state = {}
+    formUserConfigData.value.workflow_cache_work_state = {}
   }
   const newUserConfig = fixUserConfig(formUserConfigData.value)
   store.commit('setUserConfig', newUserConfig)

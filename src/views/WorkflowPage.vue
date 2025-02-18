@@ -21,11 +21,10 @@ import CraftStatementsPro from '@/components/custom/general/CraftStatementsPro.v
 import { useStore } from '@/store'
 import { XivUnpackedItems } from '@/assets/data'
 import {
-  defaultWorkflow, fixWorkState, _VAR_MAX_WORKFLOW
+  getDefaultWorkflow, fixWorkState, _VAR_MAX_WORKFLOW
 } from '@/models/workflow'
 import type { UserConfigModel } from '@/models/config-user'
 import type { FuncConfigModel } from '@/models/config-func'
-import { deepCopy } from '@/tools'
 import { getItemInfo, getProStatementData, getStatementData, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { useFufuCal } from '@/tools/use-fufu-cal'
@@ -79,7 +78,7 @@ const handleAddWorkflow = () => {
     NAIVE_UI_MESSAGE.warning(t('最多只能添加{num}条工作流', _VAR_MAX_WORKFLOW))
     return
   }
-  workState.value.workflows.push(deepCopy(defaultWorkflow))
+  workState.value.workflows.push(getDefaultWorkflow())
 }
 // #endregion
 
@@ -197,6 +196,36 @@ const recommProcessGroups = computed(() => {
 const expandedBlocks = ref<Record<number, string[]>>({})
 /** (groupId, (itemId, checked)) */
 const completedItems = ref<Record<number, Record<number, boolean>>>({})
+
+const fixPreparedItems = () => {
+  const {
+    craftTargets, lv1Items, lvBaseItems
+  } = recommProcessData.value
+  craftTargets.forEach(item => {
+    const val = currentWorkflow.value.preparedItems.craftTarget[item.id]
+    if (!val) {
+      currentWorkflow.value.preparedItems.craftTarget[item.id] = 0
+    } else if (val > item.amount) {
+      currentWorkflow.value.preparedItems.craftTarget[item.id] = item.amount
+    }
+  })
+  lv1Items.forEach(item => {
+    const val = currentWorkflow.value.preparedItems.materialsLv1[item.id]
+    if (!val) {
+      currentWorkflow.value.preparedItems.materialsLv1[item.id] = 0
+    } else if (val > item.amount) {
+      currentWorkflow.value.preparedItems.materialsLv1[item.id] = item.amount
+    }
+  })
+  lvBaseItems.forEach(item => {
+    const val = currentWorkflow.value.preparedItems.materialsLvBase[item.id]
+    if (!val) {
+      currentWorkflow.value.preparedItems.materialsLvBase[item.id] = 0
+    } else if (val > item.amount) {
+      currentWorkflow.value.preparedItems.materialsLvBase[item.id] = item.amount
+    }
+  })
+}
 const fixRecommMaps = () => {
   for (let i = 0; i < recommProcessGroups.value.length; i++) {
     if (!expandedBlocks.value[i]) expandedBlocks.value[i] = ['1']
@@ -210,8 +239,10 @@ const fixRecommMaps = () => {
 }
 watch(recommProcessGroups, async () => {
   fixRecommMaps()
+  fixPreparedItems()
 })
 fixRecommMaps()
+fixPreparedItems()
 // #endregion
 </script>
 
@@ -351,7 +382,6 @@ fixRecommMaps()
   width: 100%;
   height: 100%;
   position: relative;
-  padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -367,7 +397,7 @@ fixRecommMaps()
   .content-block {
     flex: 1;
     display: grid;
-    grid-template-columns: 500px 1fr;
+    grid-template-columns: 450px 1fr;
     gap: 8px;
 
     .block {
