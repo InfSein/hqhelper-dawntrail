@@ -300,7 +300,7 @@ function createWindow() {
       writeStream.on('finish', async () => {
         logger.info('[download-and-open] 下载成功，开始尝试启动安装程序')
         sendProgress(event, 'opening', {});
-        exec(EXE_PATH, (err, stdout, stderr) => {
+        exec(`"${EXE_PATH}"`, (err, stdout, stderr) => {
           if (err) {
             logger.error('[download-and-open] 启动程序时出错:', err);
             throw new Error('启动安装程序失败');
