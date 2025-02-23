@@ -199,8 +199,8 @@ const completedItems = ref<Record<number, Record<number, boolean>>>({})
 
 const fixPreparedItems = () => {
   const {
-    craftTargets, lv1Items, lvBaseItems
-  } = recommProcessData.value
+    craftTargets, materialsLv1, materialsLvBase
+  } = statementData.value
   craftTargets.forEach(item => {
     const val = currentWorkflow.value.preparedItems.craftTarget[item.id]
     if (!val) {
@@ -209,7 +209,7 @@ const fixPreparedItems = () => {
       currentWorkflow.value.preparedItems.craftTarget[item.id] = item.amount
     }
   })
-  lv1Items.forEach(item => {
+  materialsLv1.forEach(item => {
     const val = currentWorkflow.value.preparedItems.materialsLv1[item.id]
     if (!val) {
       currentWorkflow.value.preparedItems.materialsLv1[item.id] = 0
@@ -217,7 +217,7 @@ const fixPreparedItems = () => {
       currentWorkflow.value.preparedItems.materialsLv1[item.id] = item.amount
     }
   })
-  lvBaseItems.forEach(item => {
+  materialsLvBase.forEach(item => {
     const val = currentWorkflow.value.preparedItems.materialsLvBase[item.id]
     if (!val) {
       currentWorkflow.value.preparedItems.materialsLvBase[item.id] = 0
