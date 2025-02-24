@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, onBeforeUnmount, ref, watch, h, type Ref } from 'vue'
 import {
-  NBackTop, NButton, NIcon, NInputGroup, NInputGroupLabel, NSelect, NTabs, NTabPane,
+  NBackTop, NButton, NButtonGroup, NIcon, NInputGroup, NInputGroupLabel, NSelect, NTabs, NTabPane,
   type SelectOption, type SelectRenderLabel,
   useMessage
 } from 'naive-ui'
 import {
   AddSharp,
+  ModeEditFilled, DeleteFilled,
   DeleteSweepRound,
   QueryStatsFilled,
   TableViewOutlined,
@@ -93,6 +94,31 @@ onBeforeUnmount(() => {
 })
 
 // #region header
+const handleEditWorkflow = (flowIndex: number) => {
+  const flow = workState.value.workflows[flowIndex]
+  const oldName = flow.name || t('工作流{index}', flowIndex + 1)
+  // todo Electron 不支持 prompt()。等待后续替换为组件对话框。
+  const newName = prompt(t('将这条工作流重命名为：'), oldName)
+  if (newName) {
+    flow.name = newName
+  }
+}
+const handleDeleteWorkflow = (flowIndex: number) => {
+  if (workState.value.workflows.length <= 1) {
+    NAIVE_UI_MESSAGE.warning(t('需要保留至少1条工作流'))
+    return
+  }
+  if (!confirm(t('确认要删除这条工作流吗?'))) {
+    return
+  }
+  workState.value.workflows.splice(flowIndex, 1)
+  if (workState.value.currentWorkflow >= flowIndex) {
+    workState.value.currentWorkflow--
+    if (workState.value.currentWorkflow < 0) {
+      workState.value.currentWorkflow = 0
+    }
+  }
+}
 const handleAddWorkflow = () => {
   if (workState.value.workflows.length >= _VAR_MAX_WORKFLOW) {
     NAIVE_UI_MESSAGE.warning(t('最多只能添加{num}条工作流', _VAR_MAX_WORKFLOW))
@@ -297,15 +323,21 @@ fixPreparedItems()
         <div class="action">
           <p>{{ t('切换工作流：') }}</p>
           <div class="flex" style="gap: 5px;">
-            <n-button
+            <n-button-group
               v-for="(flow, flowIndex) in workState.workflows"
               :key="flowIndex"
               size="tiny"
-              :type="flowIndex === workState.currentWorkflow ? 'primary' : 'default'"
-              @click="workState.currentWorkflow = flowIndex"
             >
-              {{ flow.name || t('工作流{index}', flowIndex + 1) }}
-            </n-button>
+              <n-button :type="flowIndex === workState.currentWorkflow ? 'primary' : 'default'" @click="workState.currentWorkflow = flowIndex">
+                {{ flow.name || t('工作流{index}', flowIndex + 1) }}
+              </n-button>
+              <n-button size="tiny" class="n-square-button" :title="t('重命名这条工作流')" @click="handleEditWorkflow(flowIndex)">
+                <n-icon :size="16"><ModeEditFilled /></n-icon>
+              </n-button>
+              <n-button size="tiny" class="n-square-button" :title="t('删除这条工作流')" @click="handleDeleteWorkflow(flowIndex)">
+                <n-icon :size="16"><DeleteFilled /></n-icon>
+              </n-button>
+            </n-button-group>
             <n-button size="tiny" class="n-square-button" @click="handleAddWorkflow">
               <n-icon :size="16"><AddSharp /></n-icon>
             </n-button>
