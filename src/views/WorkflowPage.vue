@@ -107,10 +107,10 @@ const pageHeightVals = computed(() => {
   const contentHeight = pageHeight - headerHeight.value
   if (isMobile.value) {
     return {
-      itemSelectTable: undefined,
+      itemSelectTable: 'auto',
       statisticsBlock: undefined,
-      statementsBlock: undefined,
-      recommProcess: undefined,
+      statementsBlock: 'auto',
+      recommProcess: 'auto',
     }
   } else {
     return {
