@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, watch, h, type Ref } from 'vue'
+import { computed, inject, onMounted, onBeforeUnmount, ref, watch, h, type Ref } from 'vue'
 import {
   NButton, NIcon, NInputGroup, NInputGroupLabel, NSelect, NTabs, NTabPane,
   type SelectOption, type SelectRenderLabel,
@@ -68,8 +68,27 @@ if (!disable_workstate_cache) {
     }
   }, {deep: true})
 }
-onMounted(() => {
 
+const headerBlock = ref<HTMLElement>()
+const windowHeight = ref(window.innerHeight)
+const headerHeight = ref(0)
+const updateHeights = () => {
+  windowHeight.value = window.innerHeight
+  if (headerBlock.value?.offsetHeight) {
+    headerHeight.value = headerBlock.value.offsetHeight + 20 // 考虑padding
+  } else {
+    headerHeight.value = 0
+  }
+}
+const handleUpdateHeights = () => {
+  setTimeout(updateHeights, 10)
+}
+onMounted(() => {
+  updateHeights()
+  window.addEventListener('resize', updateHeights)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateHeights)
 })
 
 // #region header
@@ -81,6 +100,17 @@ const handleAddWorkflow = () => {
   workState.value.workflows.push(getDefaultWorkflow())
 }
 // #endregion
+
+const pageHeightVals = computed(() => {
+  const pageHeight = windowHeight.value - 320
+  const contentHeight = pageHeight - headerHeight.value
+  return {
+    itemSelectTable: (contentHeight - 65) + 'px',
+    statisticsBlock: (contentHeight / 2 - 45),
+    statementsBlock: (contentHeight - 50) + 'px',
+    recommProcess: contentHeight + 'px',
+  }
+})
 
 // #region content-items
 const itemOptions = computed(() => {
@@ -248,12 +278,12 @@ fixPreparedItems()
 
 <template>
   <div id="main-container" class="wrapper">
-    <FoldableCard card-key="workflow-header" class="header-block">
+    <FoldableCard card-key="workflow-header" class="header-block" @onCardFoldStatusChanged="handleUpdateHeights">
       <template #header>
         <i class="xiv sync-invert"></i>	
         <span class="card-title-text">{{ t('配置工作流') }}</span>
       </template>
-      <div class="block">
+      <div class="block" ref="headerBlock">
         <div class="action">
           <p>{{ t('切换工作流：') }}</p>
           <div class="flex" style="gap: 5px;">
@@ -299,7 +329,7 @@ fixPreparedItems()
             <ItemSelectTable
               v-model:items="currentWorkflow.targetItems"
               show-item-details
-              content-height="350px"
+              :content-height="pageHeightVals.itemSelectTable"
             />
           </div>
           <div class="bottom-actions">
@@ -330,7 +360,7 @@ fixPreparedItems()
               </template>
               <CraftStatistics
                 :item-selected="currentWorkflow.targetItems"
-                :list-height="175"
+                :list-height="pageHeightVals.statisticsBlock"
               />
             </n-tab-pane>
             <n-tab-pane name="statements">
@@ -350,7 +380,7 @@ fixPreparedItems()
                 v-model:items-prepared="currentWorkflow.preparedItems"
                 :craft-targets="craftTargetsArray"
                 :statement-blocks="proStatementData.statementBlocks"
-                content-height="390px"
+                :content-height="pageHeightVals.statementsBlock"
               />
             </n-tab-pane>
             <n-tab-pane name="processes">
@@ -365,7 +395,7 @@ fixPreparedItems()
                 v-model:expanded-blocks="expandedBlocks"
                 v-model:completed-items="completedItems"
                 :item-groups="recommProcessGroups"
-                content-max-height="440px"
+                :content-max-height="pageHeightVals.recommProcess"
               />
             </n-tab-pane>
           </n-tabs>
