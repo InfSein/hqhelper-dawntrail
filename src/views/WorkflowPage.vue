@@ -36,6 +36,7 @@ const { calItems } = useNbbCal()
 const { calRecommProcessData, calRecommProcessGroups } = useFufuCal()
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
@@ -104,11 +105,20 @@ const handleAddWorkflow = () => {
 const pageHeightVals = computed(() => {
   const pageHeight = windowHeight.value - 320
   const contentHeight = pageHeight - headerHeight.value
-  return {
-    itemSelectTable: (contentHeight - 65) + 'px',
-    statisticsBlock: (contentHeight / 2 - 45),
-    statementsBlock: (contentHeight - 50) + 'px',
-    recommProcess: contentHeight + 'px',
+  if (isMobile.value) {
+    return {
+      itemSelectTable: undefined,
+      statisticsBlock: undefined,
+      statementsBlock: undefined,
+      recommProcess: undefined,
+    }
+  } else {
+    return {
+      itemSelectTable: (contentHeight - 65) + 'px',
+      statisticsBlock: (contentHeight / 2 - 45),
+      statementsBlock: (contentHeight - 50) + 'px',
+      recommProcess: contentHeight + 'px',
+    }
   }
 })
 
@@ -304,7 +314,7 @@ fixPreparedItems()
       </div>
     </FoldableCard>
     <div class="content-block">
-      <FoldableCard unfoldable card-key="workflow-content-items" class="items-wrapper">
+      <FoldableCard :unfoldable="!isMobile" card-key="workflow-content-items" class="items-wrapper">
         <template #header>
           <i class="xiv square-1"></i>
           <span class="card-title-text">{{ t('挑选物品') }}</span>
@@ -343,7 +353,7 @@ fixPreparedItems()
         </div>
         
       </FoldableCard>
-      <FoldableCard unfoldable card-key="workflow-content-statistics" class="statistics-wrapper">
+      <FoldableCard :unfoldable="!isMobile" card-key="workflow-content-statistics" class="statistics-wrapper">
         <template #header>
           <i class="xiv square-2"></i>
           <span class="card-title-text">{{ t('查看分析') }}</span>
@@ -464,6 +474,21 @@ fixPreparedItems()
         display: flex;
         justify-content: end;
       }
+    }
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .wrapper {
+    .header-block .action {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: start;
+    }
+    .content-block {
+      display: flex;
+      flex-direction: column;
     }
   }
 }
