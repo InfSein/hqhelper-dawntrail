@@ -158,7 +158,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
     :id="modalId"
     :icon="CodeSharp"
     :title="t('导出闹钟宏')"
-    max-width="700px"
+    max-width="730px"
   >
     <div class="wrapper" ref="wrapper">
       <GroupBox id="select-items" title-background-color="var(--n-color-modal)">
@@ -247,7 +247,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 /* All */
 .wrapper {
   display: grid;
-  grid-template-columns: 235px 1fr;
+  grid-template-columns: 265px 1fr;
   gap: 10px;
   user-select: text;
 
