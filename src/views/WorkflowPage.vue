@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, onBeforeUnmount, ref, watch, h, type Ref } from 'vue'
 import {
-  NButton, NIcon, NInputGroup, NInputGroupLabel, NSelect, NTabs, NTabPane,
+  NBackTop, NButton, NIcon, NInputGroup, NInputGroupLabel, NSelect, NTabs, NTabPane,
   type SelectOption, type SelectRenderLabel,
   useMessage
 } from 'naive-ui'
@@ -402,6 +402,8 @@ fixPreparedItems()
         </div>
       </FoldableCard>
     </div>
+
+    <n-back-top />
   </div>
 </template>
 

@@ -1,6 +1,7 @@
 <script setup lang="ts" name="FT Helper">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
+  NBackTop,
   useMessage
 } from 'naive-ui'
 import {
@@ -118,6 +119,8 @@ const handleJoinWorkflow = () => {
       v-model:show="showModalJoinInWorkflow"
       :items="workflowItems"
     />
+
+    <n-back-top />
   </div>
 </template>
 
