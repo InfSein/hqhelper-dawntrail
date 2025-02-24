@@ -1,11 +1,15 @@
 <script setup lang="ts" name="FT Helper">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
+  useMessage
+} from 'naive-ui'
+import {
   FastfoodOutlined
 } from '@vicons/material'
 import RouterCard from '@/components/custom/general/RouterCard.vue'
 import ItemSelectionPanel from '@/components/ft-helper/ItemSelectionPanel.vue'
 import StatisticsPanel from '@/components/ft-helper/StatisticsPanel.vue'
+import ModalJoinInWorkflow from '@/components/modals/ModalJoinInWorkflow.vue'
 import { useStore } from '@/store'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import type { UserConfigModel } from '@/models/config-user'
@@ -15,6 +19,7 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const store = useStore()
+const NAIVE_UI_MESSAGE = useMessage()
 const { calItems, getFoodAndTincs } = useNbbCal()
 
 const workState = ref({
@@ -69,6 +74,21 @@ const statistics = computed(() => {
   const value = calItems(workState.value.itemSelected)
   return value
 })
+
+const showModalJoinInWorkflow = ref(false)
+const workflowItems = computed(() => {
+  const items : Record<number, number> = {}
+  Object.values(statistics.value.ls).forEach((stat: any) => {
+    items[stat.id] = stat.need
+  })
+  return items
+})
+const handleJoinWorkflow = () => {
+  if (!Object.values(workflowItems.value).length) {
+    NAIVE_UI_MESSAGE.error(t('还未选择任何食物/爆发药')); return
+  }
+  showModalJoinInWorkflow.value = true
+}
 </script>
 
 <template>
@@ -83,6 +103,7 @@ const statistics = computed(() => {
       <ItemSelectionPanel
         v-model:patch="workState.patch"
         v-model:item-selected="workState.itemSelected"
+        @join-workflow="handleJoinWorkflow"
       />
     </div>
     <div id="right-layout">
@@ -92,6 +113,11 @@ const statistics = computed(() => {
         :item-selected="workState.itemSelected"
       />
     </div>
+    
+    <ModalJoinInWorkflow
+      v-model:show="showModalJoinInWorkflow"
+      :items="workflowItems"
+    />
   </div>
 </template>
 
