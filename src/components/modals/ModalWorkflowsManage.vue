@@ -11,6 +11,7 @@ import {
   SaveOutlined
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
+import HelpButton from '../custom/general/HelpButton.vue'
 import { _VAR_MAX_WORKFLOW, getDefaultWorkflow, type Workflow } from '@/models/workflow'
 import { deepCopy } from '@/tools'
 
@@ -38,6 +39,10 @@ const handleAddWorkflow = () => {
 }
 
 const handleSave = () => {
+  if (!formDataWorkflows.value.length) {
+    NAIVE_UI_MESSAGE.warning(t('需要保留至少1条工作流'))
+    return
+  }
   workflows.value = deepCopy(formDataWorkflows.value)
   showModal.value = false
   NAIVE_UI_MESSAGE.success(t('保存成功'))
@@ -58,7 +63,20 @@ const handleSave = () => {
       <n-table class="workflows-table" :single-line="false">
         <thead>
           <tr>
-            <th>{{ t('工作流名称') }}</th>
+            <th>
+              <div class="flex-vac">
+                <div class="bold">{{ t('工作流名称') }}</div>
+                <div>
+                  <HelpButton
+                    icon="question"
+                    :descriptions="[
+                      t('如果没有为工作流设置名称，则排列顺序自动显示为「工作流1~{maxlen}」。', _VAR_MAX_WORKFLOW),
+                      t('删除某一工作流时，其后的所有未命名工作流名称将自动重新编号。')
+                    ]"
+                  />
+                </div>
+              </div>
+            </th>
             <th>{{ t('管理') }}</th>
           </tr>
         </thead>
