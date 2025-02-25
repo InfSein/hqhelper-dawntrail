@@ -70,7 +70,7 @@ const handleSave = () => {
                   <HelpButton
                     icon="question"
                     :descriptions="[
-                      t('如果没有为工作流设置名称，则排列顺序自动显示为「工作流1~{maxlen}」。', _VAR_MAX_WORKFLOW),
+                      t('如果没有为工作流设置名称，则按顺序自动显示为「工作流1~{maxlen}」。', _VAR_MAX_WORKFLOW),
                       t('删除某一工作流时，其后的所有未命名工作流名称将自动重新编号。')
                     ]"
                   />
