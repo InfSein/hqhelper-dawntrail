@@ -8,7 +8,10 @@ import {
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 interface TooltipButtonProps {
+  size?: "tiny" | "small" | "medium" | "large",
+  square?: boolean,
   icon?: Component,
+  iconSize?: number,
   text?: string,
   tip?: string | string[],
   placement?: import("vueuc/lib/binder/src/interface").Placement,
@@ -17,6 +20,11 @@ interface TooltipButtonProps {
 const props = defineProps<TooltipButtonProps>()
 const emits = defineEmits(['click'])
 
+const btnClass = computed(() => {
+  return [
+    props.square ? 'n-square-button' : ''
+  ].join(' ')
+})
 const tips = computed(() => {
   if (!props.tip) {
     return []
@@ -36,13 +44,14 @@ const handleButtonClick = () => {
 <template>
   <n-popover :trigger="popTrigger" :placement="placement">
     <template #trigger>
-      <n-button @click="handleButtonClick">
+      <n-button :size="size" :class="btnClass" @click="handleButtonClick">
         <template #icon>
           <slot name="icon">
-            <n-icon v-if="icon" :component="icon" />
+            <n-icon v-if="icon && !square" :size="iconSize" :component="icon" />
           </slot>
         </template>
         <slot>
+          <n-icon v-if="square && icon" :size="iconSize" :component="icon" />
           {{ text }}
         </slot>
       </n-button>

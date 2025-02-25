@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, onBeforeUnmount, ref, watch, h, type Ref } from 'vue'
 import {
-  NBackTop, NButton, NButtonGroup, NIcon, NInputGroup, NInputGroupLabel, NSelect, NTabs, NTabPane,
+  NBackTop, NButton, NIcon, NInputGroup, NInputGroupLabel, NSelect, NTabs, NTabPane,
   type SelectOption, type SelectRenderLabel,
   useMessage
 } from 'naive-ui'
 import {
-  AddSharp,
-  ModeEditFilled, DeleteFilled,
+  AddSharp, SettingsSharp,
+  // ModeEditFilled, DeleteFilled,
   DeleteSweepRound,
   QueryStatsFilled,
   TableViewOutlined,
@@ -30,6 +30,8 @@ import { getItemInfo, getProStatementData, getStatementData, type ItemInfo } fro
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { useFufuCal } from '@/tools/use-fufu-cal'
 import CraftRecommProcess from '@/components/custom/general/CraftRecommProcess.vue'
+import TooltipButton from '@/components/custom/general/TooltipButton.vue'
+import ModalWorkflowsManage from '@/components/modals/ModalWorkflowsManage.vue'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -94,6 +96,7 @@ onBeforeUnmount(() => {
 })
 
 // #region header
+/*
 const handleEditWorkflow = (flowIndex: number) => {
   const flow = workState.value.workflows[flowIndex]
   const oldName = flow.name || t('工作流{index}', flowIndex + 1)
@@ -119,12 +122,22 @@ const handleDeleteWorkflow = (flowIndex: number) => {
     }
   }
 }
+*/
 const handleAddWorkflow = () => {
   if (workState.value.workflows.length >= _VAR_MAX_WORKFLOW) {
     NAIVE_UI_MESSAGE.warning(t('最多只能添加{num}条工作流', _VAR_MAX_WORKFLOW))
     return
   }
   workState.value.workflows.push(getDefaultWorkflow())
+}
+const showWorkflowsManageModal = ref(false)
+const handleManageWorkflows = () => {
+  showWorkflowsManageModal.value = true
+}
+const handleFixWorkStateAfterWorkflowsManaged = () => {
+  if (workState.value.currentWorkflow >= workState.value.workflows.length) {
+    workState.value.currentWorkflow = workState.value.workflows.length - 1
+  }
 }
 // #endregion
 
@@ -323,24 +336,40 @@ fixPreparedItems()
         <div class="action">
           <p>{{ t('切换工作流：') }}</p>
           <div class="flex" style="gap: 5px;">
-            <n-button-group
+            <!-- <n-button-group
+            >
+              <n-button v-show="false" size="tiny" class="n-square-button" :title="t('重命名这条工作流')" @click="handleEditWorkflow(flowIndex)">
+                <n-icon :size="16"><ModeEditFilled /></n-icon>
+              </n-button>
+              <n-button v-show="false" size="tiny" class="n-square-button" :title="t('删除这条工作流')" @click="handleDeleteWorkflow(flowIndex)">
+                <n-icon :size="16"><DeleteFilled /></n-icon>
+              </n-button>
+            </n-button-group> -->
+            <n-button
               v-for="(flow, flowIndex) in workState.workflows"
               :key="flowIndex"
               size="tiny"
+              :type="flowIndex === workState.currentWorkflow ? 'primary' : 'default'"
+              @click="workState.currentWorkflow = flowIndex"
             >
-              <n-button :type="flowIndex === workState.currentWorkflow ? 'primary' : 'default'" @click="workState.currentWorkflow = flowIndex">
-                {{ flow.name || t('工作流{index}', flowIndex + 1) }}
-              </n-button>
-              <n-button size="tiny" class="n-square-button" :title="t('重命名这条工作流')" @click="handleEditWorkflow(flowIndex)">
-                <n-icon :size="16"><ModeEditFilled /></n-icon>
-              </n-button>
-              <n-button size="tiny" class="n-square-button" :title="t('删除这条工作流')" @click="handleDeleteWorkflow(flowIndex)">
-                <n-icon :size="16"><DeleteFilled /></n-icon>
-              </n-button>
-            </n-button-group>
-            <n-button size="tiny" class="n-square-button" @click="handleAddWorkflow">
-              <n-icon :size="16"><AddSharp /></n-icon>
+              {{ flow.name || t('工作流{index}', flowIndex + 1) }}
             </n-button>
+            <TooltipButton
+              size="tiny"
+              square
+              :icon="AddSharp"
+              :icon-size="16"
+              :tip="t('添加一条工作流')"
+              @click="handleAddWorkflow"
+            />
+            <TooltipButton
+              size="tiny"
+              square
+              :icon="SettingsSharp"
+              :icon-size="14"
+              :tip="t('管理已有工作流')"
+              @click="handleManageWorkflows"
+            />
           </div>
         </div>
       </div>
@@ -375,12 +404,12 @@ fixPreparedItems()
             />
           </div>
           <div class="bottom-actions">
-            <n-button :title="t('清空当前工作流的已选物品')" @click="handleClearCurrentWorkflow">
-              <template #icon>
-                <n-icon><DeleteSweepRound /></n-icon>
-              </template>
-              {{ t('清空') }}
-            </n-button>
+            <TooltipButton
+              :icon="DeleteSweepRound"
+              :text="t('清空')"
+              :tip="t('清空当前工作流的已选物品')"
+              @click="handleClearCurrentWorkflow"
+            />
           </div>
         </div>
         
@@ -444,6 +473,12 @@ fixPreparedItems()
         </div>
       </FoldableCard>
     </div>
+
+    <ModalWorkflowsManage
+      v-model:show="showWorkflowsManageModal"
+      v-model:workflows="workState.workflows"
+      @after-save="handleFixWorkStateAfterWorkflowsManaged"
+    />
 
     <n-back-top />
   </div>
