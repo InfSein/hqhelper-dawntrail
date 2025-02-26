@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 import {
-  NButton, NCard, NIcon, NTabs, NTabPane
+  NCard, NTabs, NTabPane
 } from 'naive-ui'
 import {
+  JoinLeftOutlined,
   DeleteSweepRound
 } from '@vicons/material'
 import FoldableCard from '../templates/FoldableCard.vue'
@@ -11,11 +12,14 @@ import XivFARImage from '../custom/general/XivFARImage.vue'
 import ItemSelector from '../custom/item/ItemSelector.vue'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
+import TooltipButton from '../custom/general/TooltipButton.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 
 const patchModel = defineModel<string>('patch', { required: true })
 const itemSelected = defineModel<Record<number, number>>('itemSelected', { required: true })
+
+const emits = defineEmits(['joinWorkflow'])
 
 const { getFoodAndTincs_v2 } = useNbbCal()
 const foodAndTincs = computed(() => getFoodAndTincs_v2())
@@ -27,6 +31,10 @@ const handleClearSelections = () => {
 }
 const fixPatch = (patch: string) => {
   return patch.replace('LEVELING', t('(练级)'))
+}
+
+const handleJoinWorkflow = () => {
+  emits('joinWorkflow')
 }
 
 const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
@@ -114,12 +122,18 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
       </n-tabs>
 
       <div class="actions">
-        <n-button :title="t('清空已选择的食物和爆发药')" @click="handleClearSelections">
-          <template #icon>
-            <n-icon><DeleteSweepRound /></n-icon>
-          </template>
-          {{ t('清空') }}
-        </n-button>
+        <TooltipButton
+          :icon="JoinLeftOutlined"
+          :text="t('加入到工作流')"
+          :tip="t('将已选的食物和爆发药加入到某条工作流')"
+          @click="handleJoinWorkflow"
+        />
+        <TooltipButton
+          :icon="DeleteSweepRound"
+          :text="t('清空')"
+          :tip="t('清空已选择的食物和爆发药')"
+          @click="handleClearSelections"
+        />
       </div>
       
     </FoldableCard>
@@ -140,11 +154,9 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
 }
 .actions {
   display: flex;
+  justify-content: end;
   margin-top: 1em;
-
-  button {
-    margin-left: auto;
-  }
+  gap: 5px;
 }
 
 /* PC only */

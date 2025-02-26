@@ -5510,7 +5510,7 @@
     ]
   },
   "{patch}版本会追加战斗职业的{ilv}品级绿装HQ，以及同品级的秘籍食物/爆发药；": {
-    "en": "{patch} version will add HQ green gear of item level {ilv} for combat jobs, as well as corresponding secret food/explosion potions of the same item level;",
+    "en": "{patch} version will add HQ green gear of item level {ilv} for combat jobs, as well as corresponding secret food/medicine of the same item level;",
     "ja": "パッチ{patch}でバトルジョブ用アイテムレベル{ilv}HQと同じレベルの秘伝書/料理/強化薬を追加；",
     "$files": [
       "components\\main\\PatchPanel.vue"
@@ -5752,6 +5752,203 @@
     "ja": "すでにワークフローに存在する場合は、数量が加算されます。",
     "$files": [
       "components\\modals\\ModalJoinInWorkflow.vue"
+    ]
+  },
+  "修复工作流的报表无法将“已有”数量设置为「总需数量×0.5+1」至「总需数量-1」区间值的问题。": {
+    "en": "Fixed the issue where the workflow statement could not set the 'Prepared' quantity within the range of 'Total required quantity × 0.5 + 1' to 'Total required quantity - 1'.",
+    "ja": "修复工作流的报表无法将“已有”数量设置为「总需数量×0.5+1」至「总需数量-1」区间值的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了工作流各区域的高度，以适配不同的显示设备。": {
+    "en": "Fixed the heights of various areas in the workflow to fit different display devices.",
+    "ja": "修正了工作流各区域的高度，以适配不同的显示设备。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复部分可滚动组件没有展示滚动条的问题。": {
+    "en": "Fixed the issue where some scrollable components did not display scrollbars.",
+    "ja": "修复部分可滚动组件没有展示滚动条的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "向工作流界面追加了“管理已有工作流”的按钮和弹窗，通过此弹窗可以重命名和删除已有的工作流了。": {
+    "en": "Added a 'Manage Existing Workflows' button and popup to the workflow interface, allowing users to rename and delete existing workflows.",
+    "ja": "向工作流界面追加了“管理已有工作流”的按钮和弹窗，通过此弹窗可以重命名和删除已有的工作流了。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现可在食药计算器页面中将已选的食物/爆发药添加到工作流。": {
+    "en": "You can now add selected food/medicine items to the workflow on the FT Helper page.",
+    "ja": "现可在食药计算器页面中将已选的食物/爆发药添加到工作流。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "移动端现在也可以使用工作流功能。": {
+    "en": "Workflow functionality is now available on mobile devices.",
+    "ja": "移动端现在也可以使用工作流功能。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "向可制作物品的悬浮窗的“制作”模块追加了“模拟制作”按钮，点击即可快速打开BestCraft进行模拟。": {
+    "en": "Added a 'Simulate' button to the 'Crafting' module in the floating window for craftable items. Click it to quickly open BestCraft for simulation.",
+    "ja": "向可制作物品的悬浮窗的“制作”模块追加了“模拟制作”按钮，点击即可快速打开BestCraft进行模拟。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "为食药计算器、采集时钟和工作流页面添加了返回顶部按钮。": {
+    "en": "Added a 'Back to Top' button to the FT Helper, Gatherclock, and Workflow pages.",
+    "ja": "为食药计算器、采集时钟和工作流页面添加了返回顶部按钮。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了”{f}”功能在电脑端的显示效果。": {
+    "en": "Optimized the display of the '{f}' feature on the desktop version.",
+    "ja": "优化了”{f}”功能在电脑端的显示效果。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "还未选择任何食物/爆发药": {
+    "en": "No food/medicine selected yet.",
+    "ja": "还未选择任何食物/爆发药",
+    "$files": [
+      "views\\FoodAndTincPage.vue"
+    ]
+  },
+  "将这条工作流重命名为：": {
+    "en": "Rename this workflow to:",
+    "ja": "将这条工作流重命名为：",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "需要保留至少1条工作流": {
+    "en": "You must keep at least one workflow.",
+    "ja": "需要保留至少1条工作流",
+    "$files": [
+      "views\\WorkflowPage.vue",
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "确认要删除这条工作流吗?": {
+    "en": "Delete this workflow?",
+    "ja": "确认要删除这条工作流吗?",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "重命名这条工作流": {
+    "en": "Rename this workflow",
+    "ja": "重命名这条工作流",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "删除这条工作流": {
+    "en": "Delete this workflow",
+    "ja": "删除这条工作流",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "添加一条工作流": {
+    "en": "Add a workflow",
+    "ja": "添加一条工作流",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "管理已有工作流": {
+    "en": "Manage existing workflows",
+    "ja": "管理已有工作流",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "管理工作流": {
+    "en": "Manage workflows",
+    "ja": "管理工作流",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "在这里可以修改各个工作流的名称，或是直接删除工作流。": {
+    "en": "Here you can modify the names of each workflow or delete them directly.",
+    "ja": "在这里可以修改各个工作流的名称，或是直接删除工作流。",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "工作流名称": {
+    "en": "Workflow name",
+    "ja": "工作流名称",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "如果没有为工作流设置名称，则按顺序自动显示为「工作流1~{maxlen}」。": {
+    "en": "If no name was set for a workflow, it would automatically display as 'Workflow 1~{maxlen}' in order.",
+    "ja": "如果没有为工作流设置名称，则按顺序自动显示为「工作流1~{maxlen}」。",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "删除某一工作流时，其后的所有未命名工作流将重新编号。": {
+    "en": "When a workflow is deleted, all subsequent unnamed workflows would be renumbered.",
+    "ja": "删除某一工作流时，其后的所有未命名工作流将重新编号。",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "管理": {
+    "en": "Manage",
+    "ja": "管理",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "删除": {
+    "en": "Delete",
+    "ja": "删除",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "所有修改都只在点击保存之后才会生效。": {
+    "en": "All changes will only take effect after clicking save.",
+    "ja": "所有修改都只在点击保存之后才会生效。",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "加入到工作流": {
+    "en": "Add to workflow",
+    "ja": "加入到工作流",
+    "$files": [
+      "components\\ft-helper\\ItemSelectionPanel.vue"
+    ]
+  },
+  "将已选的食物和爆发药加入到某条工作流": {
+    "en": "Add the selected food and medicine to a workflow",
+    "ja": "将已选的食物和爆发药加入到某条工作流",
+    "$files": [
+      "components\\ft-helper\\ItemSelectionPanel.vue"
+    ]
+  },
+  "模拟制作": {
+    "en": "Simulate",
+    "ja": "模拟制作",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
     ]
   }
 }

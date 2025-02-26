@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, h, inject, onBeforeUnmount, onMounted, ref, watch, type Ref, type VNode } from 'vue'
 import {
-  NButton, NCard, NDivider, NDropdown, NEl, NEmpty, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch, NTooltip,
+  NBackTop, NButton, NCard, NDivider, NDropdown, NEl, NEmpty, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch, NTooltip,
   type SelectOption
 } from 'naive-ui'
 import {
@@ -761,6 +761,8 @@ const handleShowAlarmMacroExportModal = () => {
       v-model:options="workState.alarmMacroOptions"
       :item-groups="gatherData"
     />
+
+    <n-back-top />
   </div>
 </template>
 
