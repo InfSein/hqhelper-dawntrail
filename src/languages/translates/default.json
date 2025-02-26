@@ -5810,7 +5810,7 @@
       "data\\change-logs.ts"
     ]
   },
-  "优化了”{f}”功能在电脑端的显示效果。": {
+  "优化了“{f}”功能在电脑端的显示效果。": {
     "en": "Optimized the display of the '{f}' feature on the desktop version.",
     "ja": "「{f}」機能のPC端末表示効果を最適化。",
     "$files": [
