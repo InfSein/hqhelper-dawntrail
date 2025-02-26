@@ -55,9 +55,7 @@ const handleDealNumInputEdge = (row: StatementRow) => {
     <n-table class="table" size="small" :single-line="false">
       <thead>
         <tr>
-          <th>
-            {{ t('物品') }}
-          </th>
+          <th>{{ t('物品') }}</th>
           <th>{{ t('数量') }}</th>
         </tr>
       </thead>
