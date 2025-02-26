@@ -34,7 +34,7 @@ const tips = computed(() => {
     return [props.tip]
   }
 })
-const popTrigger = computed(() => props.popTrigger ?? (isMobile.value ? 'click' : 'hover'))
+const popTrigger = computed(() => props.popTrigger ?? (isMobile.value ? 'manual' : 'hover'))
 
 const handleButtonClick = () => {
   emits('click')
