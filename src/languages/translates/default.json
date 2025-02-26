@@ -5753,5 +5753,202 @@
     "$files": [
       "components\\modals\\ModalJoinInWorkflow.vue"
     ]
+  },
+  "修复工作流的报表无法将“已有”数量设置为「总需数量×0.5+1」至「总需数量-1」区间值的问题。": {
+    "en": "修复工作流的报表无法将“已有”数量设置为「总需数量×0.5+1」至「总需数量-1」区间值的问题。",
+    "ja": "修复工作流的报表无法将“已有”数量设置为「总需数量×0.5+1」至「总需数量-1」区间值的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了工作流各区域的高度，以适配不同的显示设备。": {
+    "en": "修正了工作流各区域的高度，以适配不同的显示设备。",
+    "ja": "修正了工作流各区域的高度，以适配不同的显示设备。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复部分可滚动组件没有展示滚动条的问题。": {
+    "en": "修复部分可滚动组件没有展示滚动条的问题。",
+    "ja": "修复部分可滚动组件没有展示滚动条的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "向工作流界面追加了“管理已有工作流”的按钮和弹窗，通过此弹窗可以重命名和删除已有的工作流了。": {
+    "en": "向工作流界面追加了“管理已有工作流”的按钮和弹窗，通过此弹窗可以重命名和删除已有的工作流了。",
+    "ja": "向工作流界面追加了“管理已有工作流”的按钮和弹窗，通过此弹窗可以重命名和删除已有的工作流了。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现可在食药计算器页面中将已选的食物/爆发药添加到工作流。": {
+    "en": "现可在食药计算器页面中将已选的食物/爆发药添加到工作流。",
+    "ja": "现可在食药计算器页面中将已选的食物/爆发药添加到工作流。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "移动端现在也可以使用工作流功能。": {
+    "en": "移动端现在也可以使用工作流功能。",
+    "ja": "移动端现在也可以使用工作流功能。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "向可制作物品的悬浮窗的“制作”模块追加了“模拟制作”按钮，点击即可快速打开BestCraft进行模拟。": {
+    "en": "向可制作物品的悬浮窗的“制作”模块追加了“模拟制作”按钮，点击即可快速打开BestCraft进行模拟。",
+    "ja": "向可制作物品的悬浮窗的“制作”模块追加了“模拟制作”按钮，点击即可快速打开BestCraft进行模拟。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "为食药计算器、采集时钟和工作流页面添加了返回顶部按钮。": {
+    "en": "为食药计算器、采集时钟和工作流页面添加了返回顶部按钮。",
+    "ja": "为食药计算器、采集时钟和工作流页面添加了返回顶部按钮。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了”{f}”功能在电脑端的显示效果。": {
+    "en": "优化了”{f}”功能在电脑端的显示效果。",
+    "ja": "优化了”{f}”功能在电脑端的显示效果。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "还未选择任何食物/爆发药": {
+    "en": "还未选择任何食物/爆发药",
+    "ja": "还未选择任何食物/爆发药",
+    "$files": [
+      "views\\FoodAndTincPage.vue"
+    ]
+  },
+  "将这条工作流重命名为：": {
+    "en": "将这条工作流重命名为：",
+    "ja": "将这条工作流重命名为：",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "需要保留至少1条工作流": {
+    "en": "需要保留至少1条工作流",
+    "ja": "需要保留至少1条工作流",
+    "$files": [
+      "views\\WorkflowPage.vue",
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "确认要删除这条工作流吗?": {
+    "en": "确认要删除这条工作流吗?",
+    "ja": "确认要删除这条工作流吗?",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "重命名这条工作流": {
+    "en": "重命名这条工作流",
+    "ja": "重命名这条工作流",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "删除这条工作流": {
+    "en": "删除这条工作流",
+    "ja": "删除这条工作流",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "添加一条工作流": {
+    "en": "添加一条工作流",
+    "ja": "添加一条工作流",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "管理已有工作流": {
+    "en": "管理已有工作流",
+    "ja": "管理已有工作流",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "管理工作流": {
+    "en": "管理工作流",
+    "ja": "管理工作流",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "在这里可以修改各个工作流的名称，或是直接删除工作流。": {
+    "en": "在这里可以修改各个工作流的名称，或是直接删除工作流。",
+    "ja": "在这里可以修改各个工作流的名称，或是直接删除工作流。",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "工作流名称": {
+    "en": "工作流名称",
+    "ja": "工作流名称",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "如果没有为工作流设置名称，则按顺序自动显示为「工作流1~{maxlen}」。": {
+    "en": "如果没有为工作流设置名称，则按顺序自动显示为「工作流1~{maxlen}」。",
+    "ja": "如果没有为工作流设置名称，则按顺序自动显示为「工作流1~{maxlen}」。",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "删除某一工作流时，其后的所有未命名工作流将重新编号。": {
+    "en": "删除某一工作流时，其后的所有未命名工作流将重新编号。",
+    "ja": "删除某一工作流时，其后的所有未命名工作流将重新编号。",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "管理": {
+    "en": "管理",
+    "ja": "管理",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "删除": {
+    "en": "删除",
+    "ja": "删除",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "所有修改都只在点击保存之后才会生效。": {
+    "en": "所有修改都只在点击保存之后才会生效。",
+    "ja": "所有修改都只在点击保存之后才会生效。",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "加入到工作流": {
+    "en": "加入到工作流",
+    "ja": "加入到工作流",
+    "$files": [
+      "components\\ft-helper\\ItemSelectionPanel.vue"
+    ]
+  },
+  "将已选的食物和爆发药加入到某条工作流": {
+    "en": "将已选的食物和爆发药加入到某条工作流",
+    "ja": "将已选的食物和爆发药加入到某条工作流",
+    "$files": [
+      "components\\ft-helper\\ItemSelectionPanel.vue"
+    ]
+  },
+  "模拟制作": {
+    "en": "模拟制作",
+    "ja": "模拟制作",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
+    ]
   }
 }
