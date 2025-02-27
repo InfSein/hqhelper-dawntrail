@@ -16,36 +16,18 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
-const props = defineProps({
-  craftTargets: {
-    type: Array as () => ItemInfo[],
-    required: true
-  },
-  materialsLv1: {
-    type: Array as () => ItemInfo[],
-    required: true
-  },
-  materialsLv2: {
-    type: Array as () => ItemInfo[],
-    required: true
-  },
-  materialsLv3: {
-    type: Array as () => ItemInfo[],
-    required: true
-  },
-  materialsLv4: {
-    type: Array as () => ItemInfo[],
-    required: true
-  },
-  materialsLv5: {
-    type: Array as () => ItemInfo[],
-    required: true
-  },
-  materialsLvBase: {
-    type: Array as () => ItemInfo[],
-    required: true
-  }
-})
+interface CraftStatementsProps {
+  craftTargets: ItemInfo[],
+  materialsLv1: ItemInfo[],
+  materialsLv2: ItemInfo[],
+  materialsLv3: ItemInfo[],
+  materialsLv4: ItemInfo[],
+  materialsLv5: ItemInfo[],
+  materialsLvBase: ItemInfo[],
+  /** 是否处于模态框内。此参数会影响一些UI效果。 */
+  insideModal?: boolean,
+}
+const props = defineProps<CraftStatementsProps>()
 
 const statementBlocks = computed(() => {
   return [
@@ -76,6 +58,9 @@ const statementBlocks = computed(() => {
     },
   ]
 })
+const groupBoxTitleBackground = computed(() => {
+  return props.insideModal ? 'var(--n-color-modal)' : undefined
+})
 </script>
 
 <template>
@@ -102,7 +87,7 @@ const statementBlocks = computed(() => {
       :key="block.id"
       :id="block.id"
       class="group"
-      title-background-color="var(--n-color-modal)"
+      :title-background-color="groupBoxTitleBackground"
     >
       <template #title>{{ block.name }}</template>
       <div class="container">

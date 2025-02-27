@@ -66,6 +66,7 @@ const handleSettingButtonClick = () => {
     @on-setting-button-clicked="handleSettingButtonClick"
   >
     <CraftStatements
+      inside-modal
       :craft-targets="props.craftTargets"
       :materials-lv1="props.materialsLv1"
       :materials-lv2="props.materialsLv2"

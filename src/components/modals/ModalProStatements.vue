@@ -104,6 +104,7 @@ const handleSettingButtonClick = () => {
 
     <CraftStatementsPro
       v-model:items-prepared="itemsPrepared"
+      inside-modal
       :craft-targets="props.craftTargets"
       :statement-blocks="proStatementData.statementBlocks"
     />

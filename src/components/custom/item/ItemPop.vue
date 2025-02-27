@@ -216,6 +216,10 @@ const openInAngler = () => {
   window.open(`${domain}?search=${name}`)
 }
 
+const openInBestCraft = () => {
+  window.open(`https://tnze.yyyy.games/#/recipe?recipeId=${props.itemInfo?.craftInfo?.recipeId}`)
+}
+
 const itemPriceInfo = computed(() => {
   const priceInfo = funcConfig.value.cache_item_prices[props.itemInfo.id]
   const havePrice = !!priceInfo
@@ -544,6 +548,15 @@ const innerPopTrigger = computed(() => {
                 pro: itemInfo.craftInfo?.progress,
                 qua: itemInfo.craftInfo?.quality
               }) }}
+              <a
+                v-if="itemInfo?.craftInfo?.recipeId"
+                style="padding: 0; display: flex; align-items: center; line-height: 1.2; cursor: pointer;"
+                :title="t('在BestCraft中模拟制作')"
+                @click="openInBestCraft"
+              >
+                <n-icon :size="12"><OpenInNewFilled /></n-icon>
+                {{ t('模拟制作') }}
+              </a>
             </div>
             <div
               class="item"

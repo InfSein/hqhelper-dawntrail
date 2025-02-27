@@ -185,6 +185,7 @@ interface DesktopMenuItem {
 const menuItems = computed(() => {
   const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
   const hideGatherClock = router.currentRoute.value.path.startsWith('/gatherclock')
+  const hideWorkflow = router.currentRoute.value.path.startsWith('/workflow')
   const hideHome = router.currentRoute.value.path === '/'
   const changeThemeIcon = theme.value === 'light' ? DarkModeTwotone : LightModeTwotone
   return {
@@ -192,6 +193,7 @@ const menuItems = computed(() => {
     goHome: { label: t('返回首页'), hide: hideHome, icon: HomeOutlined, click: () => { router.push('/'); } } as MenuItem,
     gatherClock: { label: t('采集时钟'), hide: hideGatherClock, icon: AccessAlarmsOutlined, click: redirectToGatherClockPage } as MenuItem,
     ftHelper: { label: t('食药计算'), hide: hideFTHelper, icon: FastfoodOutlined, click: redirectToFoodAndTincPage } as MenuItem,
+    workflow: { label: t('工作流'), hide: hideWorkflow, icon: WavesOutlined, click: redirectToWorkflowPage } as MenuItem,
     userPreferences: { label: t('偏好设置'), icon: SettingsSharp, click: appShowUserPrefences } as MenuItem,
     funcPreferences: { label: t('功能设置'), icon: SettingsSuggestFilled, click: appShowFuncPrefences } as MenuItem,
     checkUpdates: { label: t('检查更新'), icon: UpdateSharp, click: handleCheckUpdates } as MenuItem,

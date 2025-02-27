@@ -287,9 +287,6 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
 :deep(#main-content .n-scrollbar-container) {
   padding: 1rem;
 }
-:deep(#main-content .n-scrollbar-container .n-scrollbar-content){
-  height: 100%;
-}
 .n-layout-header {
   height: 70px;
   padding: 10px 20px;
