@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NCard, NCollapse, NCollapseItem
+  NButton, NCard, NCollapse, NCollapseItem, NDivider, NH1, NIcon, NText,
 } from 'naive-ui'
 import {
-  EventNoteFilled
+  EventNoteFilled,
+  HistoryOutlined, StickyNote2Outlined,
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 import { getChangelogs, type PatchChangeGroup } from '@/data/change-logs'
@@ -16,12 +17,31 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const showModal = defineModel<boolean>('show', { required: true })
 
-const changelog = computed(() => {
-  return getChangelogs(userConfig.value.language_ui)
+const showHistory = ref(false)
+
+const wrapperStyle = computed(() => {
+  return {
+    height: isMobile.value ? '550px' : '450px'
+  }
+})
+const latestPatchNote = computed(() => {
+  return getChangelogs(userConfig.value.language_ui)[0]
+})
+const historyChangelogs = computed(() => {
+  return getChangelogs(userConfig.value.language_ui).slice(1)
+})
+const btnSwitchShowHistoryInfo = computed(() => {
+  const icon = showHistory.value ? StickyNote2Outlined : HistoryOutlined
+  const text = showHistory.value ? t('查看最新日志') : t('查看历史日志')
+  return { icon, text }
 })
 
 const getChanges = (change: PatchChangeGroup) => {
   return change.changes.filter(str => str !== '')
+}
+
+const handleSwitchShowHistory = () => {
+  showHistory.value = !showHistory.value
 }
 </script>
 
@@ -31,11 +51,41 @@ const getChanges = (change: PatchChangeGroup) => {
     :icon="EventNoteFilled"
     :title="t('更新日志')"
     max-width="650px"
-    :height="isMobile ? '650px' : '700px'"
+    :height="isMobile ? '650px' : '550px'"
   >
-    <div class="wrapper" :style="{ height: isMobile ? '550px' : '600px' }">
+    <div v-if="!showHistory" class="wrapper wrapper-latest-update" :style="wrapperStyle">
+      <n-card embedded size="small" class="h-full">
+        <div class="latest-update-baseinfo">
+          <n-h1 prefix="bar">v{{ latestPatchNote.version }}</n-h1>
+          <n-text depth="3" class="date">{{ latestPatchNote.date }}</n-text>
+        </div>
+        <n-divider style="margin: 8px 0 12px 0;" />
+        <div class="latest-update-content">
+          <div
+            v-for="(change, changeIndex) in latestPatchNote.changes"
+            :key="'latest-' + changeIndex"
+            class="item"
+          >
+            <div class="change-group-title">{{ t(change.name) }}</div>
+            <div class="change-group-content">
+              <div
+                v-for="(changeContent, changeContentIndex) in getChanges(change)"
+                :key="'latest-' + changeIndex + '-' + changeContentIndex"
+                class="content-line"
+              >
+                <span class="line-index">
+                  {{ getChanges(change).length > 1 ? ((changeContentIndex + 1) + '. ') : '' }}
+                </span>
+                <span v-html="changeContent"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </n-card>
+    </div>
+    <div v-else class="wrapper flex" :style="wrapperStyle">
       <n-card
-        v-for="(patchlog, logIndex) in changelog"
+        v-for="(patchlog, logIndex) in historyChangelogs"
         :key="patchlog.version"
         embedded
         size="small"
@@ -69,6 +119,17 @@ const getChanges = (change: PatchChangeGroup) => {
         </n-collapse>
       </n-card>
     </div>
+
+    <template #action>
+      <div class="submit-container">
+        <n-button type="primary" @click="handleSwitchShowHistory">
+          <template #icon>
+            <n-icon :component="btnSwitchShowHistoryInfo.icon" />
+          </template>
+          {{ btnSwitchShowHistoryInfo.text }}
+        </n-button>
+      </div>
+    </template>
   </MyModal>
 </template>
 
@@ -92,6 +153,43 @@ const getChanges = (change: PatchChangeGroup) => {
   user-select: text;
   overflow-y: auto;
 }
+.wrapper-latest-update {
+  .latest-update-baseinfo {
+    line-height: 1.2;
+    h1 {
+      margin-bottom: 0;
+    }
+    .date {
+      padding-left: 20px;
+    }
+  }
+  .latest-update-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    .item {
+      margin-left: 1.5em;
+
+      .change-group-title {
+        font-weight: bold;
+      }
+      .change-group-content {
+        margin-left: 1em;
+
+        .content-line {
+          display: grid;
+          grid-template-columns: 16px 1fr;
+          column-gap: 3px;
+
+          .line-index {
+            user-select: none;
+          }
+        }
+      }
+    }
+  }
+}
 .patchnote-container {
   display: flex;
   flex-direction: column;
@@ -99,6 +197,10 @@ const getChanges = (change: PatchChangeGroup) => {
   .item .change-group-title {
     font-weight: bold;
   }
+}
+.submit-container {
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* Desktop */
