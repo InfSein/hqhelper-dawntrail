@@ -55,10 +55,10 @@ const handleSwitchShowHistory = () => {
   >
     <div v-if="!showHistory" class="wrapper wrapper-latest-update" :style="wrapperStyle">
       <n-card embedded size="small" class="h-full">
-        <div class="latest-update-baseinfo">
-          <n-h1 prefix="bar">v{{ latestPatchNote.version }}</n-h1>
+        <n-h1 prefix="bar" class="latest-update-baseinfo">
+          <n-text>v{{ latestPatchNote.version }}</n-text>
           <n-text depth="3" class="date">{{ latestPatchNote.date }}</n-text>
-        </div>
+        </n-h1>
         <n-divider style="margin: 8px 0 12px 0;" />
         <div class="latest-update-content">
           <div
@@ -156,11 +156,11 @@ const handleSwitchShowHistory = () => {
 .wrapper-latest-update {
   .latest-update-baseinfo {
     line-height: 1.2;
-    h1 {
-      margin-bottom: 0;
-    }
+    margin-bottom: 0;
+
     .date {
-      padding-left: 20px;
+      padding-left: 8px;
+      font-size: 14px;
     }
   }
   .latest-update-content {
