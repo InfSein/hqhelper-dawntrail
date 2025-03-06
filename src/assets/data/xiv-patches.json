@@ -23,12 +23,13 @@
   },
   {
     "v": "7.2",
-    "name_zh": "永恒探求者",
+    "name_zh": "追求永恒之人",
     "name_en": "Seekers of Eternity",
     "name_ja": "永久の探求者",
     "updated": false,
     "combat_hq_il": 740,
-    "logo": "./image/game-patch/patch-7.0.png"
+    "logo": "./image/game-patch/patch-7.2.png",
+    "background": "./image/game-patch/patch-7.2-background.jpg"
   },
   {
     "v": "7.3",
