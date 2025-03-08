@@ -225,6 +225,14 @@ const handleClearCurrentWorkflow = () => {
   }
   NAIVE_UI_MESSAGE.success(t('已清空'))
 }
+const selectCardWidth = ref('450px')
+const handleSelectCardFoldStatusChanged = (folded: boolean) => {
+  if (folded) {
+    selectCardWidth.value = '200px'
+  } else {
+    selectCardWidth.value = '450px'
+  }
+}
 // #endregion
 
 // #region content-statistics
@@ -413,8 +421,18 @@ const handleAnalysisItemPrices = async () => {
         </div>
       </div>
     </FoldableCard>
-    <div class="content-block">
-      <FoldableCard :unfoldable="!isMobile" card-key="workflow-content-items" class="items-wrapper">
+    <div
+      class="content-block"
+      :style="{
+        '--select-card-width': selectCardWidth,
+      }"
+    >
+      <FoldableCard
+        card-key="workflow-content-items"
+        class="items-wrapper"
+        :fold-direction="isMobile ? 'vertical' : 'horizontal'"
+        @on-card-fold-status-changed="handleSelectCardFoldStatusChanged"
+      >
         <template #header>
           <i class="xiv square-1"></i>
           <span class="card-title-text">{{ t('挑选物品') }}</span>
@@ -557,7 +575,7 @@ const handleAnalysisItemPrices = async () => {
   .content-block {
     flex: 1;
     display: grid;
-    grid-template-columns: 450px 1fr;
+    grid-template-columns: var(--select-card-width) 1fr;
     gap: 8px;
 
     .block {
