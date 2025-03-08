@@ -43,7 +43,7 @@ export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, 
 export const checkAppUpdates = async () : Promise<CallResult<AppVersionJson>> => {
   try {
     let url = document?.location?.origin + document.location.pathname + 'version.json'
-    if (window.electronAPI || url.includes('localhost')) {
+    if (window.electronAPI/* || url.includes('localhost')*/) {
       url = 'https://hqhelper.nbb.fan/version.json'
     }
 

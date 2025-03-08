@@ -22,6 +22,12 @@
   justify-content: center;
   align-items: center;
 }
+.gap-4 {
+  gap: 4px;
+}
+.gap-8 {
+  gap: 8px;
+}
 .edge-top-right {
   position: absolute;
   top: 0;
@@ -88,6 +94,11 @@
 .n-square-button {
   width: var(--n-height);
   padding: 0;
+}
+.spin-container {
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }
 
 /* Ui-lib Customs */
