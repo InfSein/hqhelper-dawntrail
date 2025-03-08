@@ -14,6 +14,10 @@ export interface AppVersionJson {
   electron: string;
   dlink_hqhelper: string;
   dlink_electron: string;
+  client_info: {
+    recomm_proxy: string;
+    cn_sub_links: string[];
+  }
 }
 
 export interface PreferenceGroup {
