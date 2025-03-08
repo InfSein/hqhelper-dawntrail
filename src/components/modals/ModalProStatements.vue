@@ -80,6 +80,7 @@ const handleSettingButtonClick = () => {
 <template>
   <MyModal
     v-model:show="showModal"
+    id="modal-pro-statements"
     max-width="1500px"
     :height="isMobile ? '650px' : '600px'"
     @on-load="onLoad"
@@ -105,6 +106,7 @@ const handleSettingButtonClick = () => {
     <CraftStatementsPro
       v-model:items-prepared="itemsPrepared"
       inside-modal
+      container-id="modal-pro-statements"
       :craft-targets="props.craftTargets"
       :statement-blocks="proStatementData.statementBlocks"
     />
