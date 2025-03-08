@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, type Component } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import {
   NBackTop, NButton, NDivider, NIcon, NSpin,
   useMessage
@@ -17,7 +17,6 @@ const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 
 const loading = ref(false)
-const version = ref<string | undefined>(undefined)
 const appVersionInfo = ref<AppVersionJson | undefined>(undefined)
 
 onMounted(async () => {
@@ -95,9 +94,6 @@ const winAppBtns = computed(() => {
 const handleDownloadBtnClick = (link: string) => {
   window.open(link, '_blank')
 }
-const downloadBtnText = computed(() => {
-  return loading.value ? t('正在检测') : t('点击下载')
-})
 </script>
 
 <template>
@@ -136,7 +132,7 @@ const downloadBtnText = computed(() => {
         <div v-else class="flex-column gap-4">
           <p>{{ t('当前最新版本：{ver}', appVersionInfo?.electron) }}</p>
           <p>{{ t('点击下方按钮来进行下载。') }}</p>
-          <div class="flex gap-8">
+          <div class="flex-wrap gap-8">
             <n-button
               v-for="(btn, btnIndex) in winAppBtns"
               :key="'win-app-btn-' + btnIndex"
