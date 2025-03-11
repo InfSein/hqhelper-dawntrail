@@ -121,7 +121,7 @@ const handleDownloadBtnClick = (link: string) => {
     <FoldableCard card-key="download-windows">
       <template #header>
         <i class="xiv square-1"></i>
-        <span class="card-title-text">{{ t('Windows 客户端') }}</span>
+        <span class="card-title-text">{{ t('{platform} 客户端', 'Windows') }}</span>
       </template>
       <div
         class="content-block"
