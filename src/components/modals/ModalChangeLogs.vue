@@ -23,7 +23,7 @@ const showHistory = ref(false)
 
 const wrapperStyle = computed(() => {
   return {
-    height: isMobile.value ? '550px' : '450px'
+    height: isMobile.value ? '480px' : '450px'
   }
 })
 const latestPatchNote = computed(() => {
@@ -83,7 +83,7 @@ const handleSwitchShowHistory = () => {
     :icon="EventNoteFilled"
     :title="t('更新日志')"
     max-width="650px"
-    :height="isMobile ? '650px' : '550px'"
+    :height="isMobile ? '650px' : '620px'"
   >
     <div v-if="!showHistory" class="wrapper " :style="wrapperStyle">
       <n-card embedded size="small" class="h-full" content-style="height: 100%;">
@@ -159,13 +159,13 @@ const handleSwitchShowHistory = () => {
 
     <template #action>
       <div class="submit-container">
-        <n-button v-if="!showHistory && devMode" type="info" @click="handleCopyLatestPatchNode">
+        <n-button v-if="!showHistory && !isMobile && devMode" type="info" @click="handleCopyLatestPatchNode">
           <template #icon>
             <n-icon :component="CopyAllOutlined" />
           </template>
           复制
         </n-button>
-        <n-button v-if="!showHistory && devMode" type="info" ghost @click="handleCopyLatestPatchNodeMarkdown">
+        <n-button v-if="!showHistory && !isMobile && devMode" type="info" ghost @click="handleCopyLatestPatchNodeMarkdown">
           <template #icon>
             <n-icon :component="CopyAllOutlined" />
           </template>
