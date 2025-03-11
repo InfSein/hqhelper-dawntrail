@@ -3994,6 +3994,13 @@
       "data\\change-logs.ts"
     ]
   },
+  "国服数据库更新至{ver}，": {
+    "en": "CHS game data updated to {ver}, ",
+    "ja": "中国版データベースが{ver}に更新されました、",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
   "国际服数据库更新至{ver}。": {
     "en": "Global game data updated to {ver}.",
     "ja": "グローバル版のデータベースが{ver}に更新されました。",

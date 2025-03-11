@@ -48,7 +48,7 @@ const handleCopyLatestPatchNode = () => {
   latestPatchNote.value.changes.forEach(change => {
     content += `${change.name}：${br}`
     change.changes.forEach((str, strIndex) => {
-      const cleanedStr = str.replace(/<[^>]+>/g, '')
+      const cleanedStr = str.replace('<br>', br).replace(/<[^>]+>/g, '')
       content += `${strIndex+1}. ${cleanedStr}${br}`
     })
     content += br
@@ -65,7 +65,7 @@ const handleCopyLatestPatchNodeMarkdown = () => {
   latestPatchNote.value.changes.forEach(change => {
     content += `### ${change.name}${br}`
     change.changes.forEach((str, strIndex) => {
-      const cleanedStr = str.replace(/<[^>]+>/g, '')
+      const cleanedStr = str.replace('<br>', br).replace(/<[^>]+>/g, '')
       content += `${strIndex+1}. ${cleanedStr}${br}`
     })
     content += br
