@@ -3994,6 +3994,13 @@
       "data\\change-logs.ts"
     ]
   },
+  "国服数据库更新至{ver}，": {
+    "en": "CHS game data updated to {ver}, ",
+    "ja": "中国版データベースが{ver}に更新されました、",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
   "国际服数据库更新至{ver}。": {
     "en": "Global game data updated to {ver}.",
     "ja": "グローバル版のデータベースが{ver}に更新されました。",
@@ -5810,7 +5817,7 @@
       "data\\change-logs.ts"
     ]
   },
-  "优化了”{f}”功能在电脑端的显示效果。": {
+  "优化了“{f}”功能在电脑端的显示效果。": {
     "en": "Optimized the display of the '{f}' feature on the desktop version.",
     "ja": "「{f}」機能のPC端末表示効果を最適化。",
     "$files": [
@@ -5949,6 +5956,174 @@
     "ja": "製作をシミュレーション",
     "$files": [
       "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "修复了专业版制作报表中物品信息图标的复制功能没有正常工作的问题。": {
+    "en": "Fixed the issue where the copy function of item info icons in the Pro Craft Statements did not work properly.",
+    "ja": "修复了专业版制作报表中物品信息图标的复制功能没有正常工作的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了旧版本制作报表中物品按钮的复制功能没有正常工作的问题。": {
+    "en": "Fixed the issue where the copy function of item buttons in the old version craft statements did not work properly.",
+    "ja": "修复了旧版本制作报表中物品按钮的复制功能没有正常工作的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "工作流现已可进行成本/收益分析。": {
+    "en": "Workflows can now perform cost/profit analysis.",
+    "ja": "工作流现已可进行成本/收益分析。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "电脑端的工作流现在可以将“挑选物品”面板向左折叠，从而给右侧统计区域腾出更多空间。": {
+    "en": "On the desktop version, the 'Select Items' panel in workflows can now be collapsed to the left to free up more space for the statistics area.",
+    "ja": "电脑端的工作流现在可以将“挑选物品”面板向左折叠，从而给右侧统计区域腾出更多空间。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了“{f}”弹窗的显示效果。": {
+    "en": "Optimized the display of the '{f}' popup.",
+    "ja": "优化了“{f}”弹窗的显示效果。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "HqHelper 的大多数功能在网页端即可完成。": {
+    "en": "Most of HqHelper's features can be used directly on the web.",
+    "ja": "HqHelper 的大多数功能在网页端即可完成。",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "不过，为了满足部分用户的习惯和实现一些浏览器无法完成的功能，我们也提供客户端服务。": {
+    "en": "However, to accommodate user preferences and enable features that browsers cannot support, we also provide a client version.",
+    "ja": "不过，为了满足部分用户的习惯和实现一些浏览器无法完成的功能，我们也提供客户端服务。",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "有什么特别功能吗？": {
+    "en": "Are there any special features?",
+    "ja": "有什么特别功能吗？",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "即使网络不佳或远程服务器崩溃，客户端也能正常提供基础的计算服务。": {
+    "en": "Even if the network is poor or the remote server crashes, the client can still provide basic calculation services.",
+    "ja": "即使网络不佳或远程服务器崩溃，客户端也能正常提供基础的计算服务。",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "客户端允许你在使用新窗口打开采集时钟期间将其置顶，从而达成类似悬浮窗的效果。": {
+    "en": "The client allows you to pin the gathering timer when opened in a new window like overlay.",
+    "ja": "客户端允许你在使用新窗口打开采集时钟期间将其置顶，从而达成类似悬浮窗的效果。",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "特别提醒": {
+    "en": "Special Reminder",
+    "ja": "特别提醒",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "您可以收藏此页面，从而在未来方便地下载到最新版本的客户端。": {
+    "en": "You can bookmark this page to easily download the latest version of the client in the future.",
+    "ja": "您可以收藏此页面，从而在未来方便地下载到最新版本的客户端。",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "客户端仅是搭载 HqHelper 的“容器”，下载最新版本的客户端后可能仍需要更新一次 HqHelper 的版本。": {
+    "en": "The client is merely a container for HqHelper. After downloading the latest client version, you may still need to update HqHelper separately.",
+    "ja": "客户端仅是搭载 HqHelper 的“容器”，下载最新版本的客户端后可能仍需要更新一次 HqHelper 的版本。",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "国内下载链接{index}": {
+    "en": "CN Users' download link {index}",
+    "ja": "国内下载链接{index}",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "国际下载链接": {
+    "en": "International download link",
+    "ja": "国际下载链接",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "简介": {
+    "en": "Introduction",
+    "ja": "简介",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "当前最新版本：{ver}": {
+    "en": "Current latest version: {ver}",
+    "ja": "当前最新版本：{ver}",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "点击下方按钮来进行下载。": {
+    "en": "Click the button below to download.",
+    "ja": "点击下方按钮来进行下载。",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "※仅适用于 Windows 7 或更高版本": {
+    "en": "※ Only compatible with Windows 7 or later",
+    "ja": "※仅适用于 Windows 7 或更高版本",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "{platform} 客户端": {
+    "en": "{platform} Client",
+    "ja": "{platform} 客户端",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "开发中": {
+    "en": "Under development",
+    "ja": "开发中",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "暂无计划": {
+    "en": "No plans yet",
+    "ja": "暂无计划",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "查看最新日志": {
+    "en": "View latest logs",
+    "ja": "查看最新日志",
+    "$files": [
+      "components\\modals\\ModalChangeLogs.vue"
+    ]
+  },
+  "查看历史日志": {
+    "en": "View history",
+    "ja": "查看历史日志",
+    "$files": [
+      "components\\modals\\ModalChangeLogs.vue"
     ]
   }
 }

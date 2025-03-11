@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, type Ref, shallowRef, inject } from 'vue'
+import { ref, computed, type Ref, shallowRef, inject } from 'vue'
 import {
   NButton, NCard, NIcon
 } from 'naive-ui'
 import {
-  KeyboardArrowUpRound, KeyboardArrowDownRound
+  KeyboardArrowUpRound, KeyboardArrowDownRound,
+  KeyboardArrowLeftRound, KeyboardArrowRightRound
 } from '@vicons/material'
 import { useStore } from '@/store/index'
 import { type UserConfigModel } from '@/models/config-user'
@@ -14,32 +15,16 @@ const store = useStore()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
-const props = defineProps({
-  cardKey: {
-    type: String,
-    required: true
-  },
-  cardSize: {
-    type: String as () => "medium" | "small" | "large" | "huge" | undefined,
-    default: 'medium'
-  },
-  showCardBorder: {
-    type: Boolean,
-    default: false
-  },
-  unfoldable: {
-    type: Boolean,
-    default: false
-  },
-  title: {
-    type: String,
-    default: ''
-  },
-  description: {
-    type: String,
-    default: ''
-  }
-})
+interface FoldableCardProps {
+  cardKey: string
+  cardSize?: 'medium' | 'small' | 'large' | 'huge'
+  showCardBorder?: boolean
+  unfoldable?: boolean
+  foldDirection?: 'horizontal' | 'vertical'
+  title?: string
+  description?: string
+}
+const props = defineProps<FoldableCardProps>()
 const emit = defineEmits([
   'onCardFoldStatusChanged'
 ])
@@ -52,18 +37,32 @@ const folderText = ref('')
 const folderIcon = shallowRef(KeyboardArrowUpRound)
 const cardContentStyle = ref('')
 
+const cardSize = computed(() => {
+  return props.cardSize ?? 'medium'
+})
+const foldDirection = computed(() => {
+  return props.foldDirection ?? 'vertical'
+})
+const foldIcon = computed(() => {
+  return foldDirection.value === 'vertical' ? KeyboardArrowUpRound : KeyboardArrowLeftRound
+})
+const expandIcon = computed(() => {
+  return foldDirection.value === 'vertical' ? KeyboardArrowDownRound : KeyboardArrowRightRound
+})
+
 const updateUi = () => {
   if (folded.value) {
     folderText.value = t('展开')
-    folderIcon.value = KeyboardArrowDownRound
+    folderIcon.value = expandIcon.value
     cardContentStyle.value = 'padding: 0;'
   } else {
     folderText.value = t('折叠')
-    folderIcon.value = KeyboardArrowUpRound
+    folderIcon.value = foldIcon.value
     cardContentStyle.value = ''
   }
 }
 updateUi()
+emit('onCardFoldStatusChanged', folded.value)
 
 const updateCache = () => {
   const _ui_fold_cache = userConfig.value.cache_ui_fold ?? {} // refresh to avoid mutation

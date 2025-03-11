@@ -23,14 +23,20 @@ const itemsPrepared = defineModel<{
 }>('itemsPrepared', { required: true })
 
 interface CraftStatementsProProps {
+  /** 是否处于模态框内。此参数会影响一些UI效果。 */
+  insideModal?: boolean,
   craftTargets: ItemInfo[],
   statementBlocks: ProStatementBlock[],
   contentHeight?: string
+  containerId?: string
 }
-defineProps<CraftStatementsProProps>()
+const props = defineProps<CraftStatementsProProps>()
 
 const showItemDetails = computed(() => {
   return !funcConfig.value.prostate_concise_mode
+})
+const groupBoxTitleBackground = computed(() => {
+  return props.insideModal ? 'var(--n-color-modal)' : undefined
 })
 </script>
 
@@ -47,7 +53,7 @@ const showItemDetails = computed(() => {
           v-model:items-prepared="itemsPrepared[block.preparedKey]"
           :items-total="block.items"
           :show-item-details="showItemDetails"
-          container-id="modal-pro-statements"
+          :container-id="containerId"
           :content-height="contentHeight"
         />
       </div>
@@ -59,7 +65,7 @@ const showItemDetails = computed(() => {
       :key="block.id"
       :id="block.id"
       class="group"
-      title-background-color="var(--n-color-modal)"
+      :title-background-color="groupBoxTitleBackground"
     >
       <template #title>{{ block.name }}</template>
       <div class="container">
@@ -67,7 +73,7 @@ const showItemDetails = computed(() => {
           v-model:items-prepared="itemsPrepared[block.preparedKey]"
           :items-total="block.items"
           :show-item-details="showItemDetails"
-          container-id="modal-pro-statements"
+          :container-id="containerId"
           :content-height="contentHeight"
         />
       </div>
