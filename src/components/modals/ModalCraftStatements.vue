@@ -58,6 +58,7 @@ const handleSettingButtonClick = () => {
 <template>
   <MyModal
     v-model:show="showModal"
+    id="modal-pro-statements"
     :icon="TableViewOutlined"
     :title="t('制作报表')"
     max-width="1500px"
@@ -67,6 +68,7 @@ const handleSettingButtonClick = () => {
   >
     <CraftStatements
       inside-modal
+      container-id="modal-pro-statements"
       :craft-targets="props.craftTargets"
       :materials-lv1="props.materialsLv1"
       :materials-lv2="props.materialsLv2"

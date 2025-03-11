@@ -54,6 +54,7 @@ const gearSelections = defineModel<GearSelections>('gearSelections', { required:
 
 const pageHeight = ref(window.innerHeight)
 const localSelections = ref<GearSelections>(gearSelections.value)
+
 const onLoad = () => {
   localSelections.value = deepCopy(gearSelections.value)
   pageHeight.value = window.innerHeight
@@ -82,13 +83,7 @@ const getJobName = (jobId: number) => {
 }
 
 const getVShowOfMainoffHandGroup = (role: XivRole) => {
-  let show = false
-  role.jobs.forEach(jobId => {
-    if (props.patchData?.jobs?.MainHand?.[jobId]?.[0] || props.patchData?.jobs?.OffHand?.[jobId]?.[0]) {
-      show = true
-    }
-  })
-  return show
+  return role.jobs.some(jobId => props.patchData?.jobs?.MainHand?.[jobId]?.[0] || props.patchData?.jobs?.OffHand?.[jobId]?.[0])
 }
 const getVShowOfAttireAffixRow = (attire: AttireAffix) => {
   return props.patchData?.jobs?.HeadAttire?.[attire]?.[0]

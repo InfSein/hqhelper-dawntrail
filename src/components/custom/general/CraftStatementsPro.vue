@@ -28,6 +28,7 @@ interface CraftStatementsProProps {
   craftTargets: ItemInfo[],
   statementBlocks: ProStatementBlock[],
   contentHeight?: string
+  containerId?: string
 }
 const props = defineProps<CraftStatementsProProps>()
 
@@ -52,7 +53,7 @@ const groupBoxTitleBackground = computed(() => {
           v-model:items-prepared="itemsPrepared[block.preparedKey]"
           :items-total="block.items"
           :show-item-details="showItemDetails"
-          container-id="modal-pro-statements"
+          :container-id="containerId"
           :content-height="contentHeight"
         />
       </div>
@@ -72,7 +73,7 @@ const groupBoxTitleBackground = computed(() => {
           v-model:items-prepared="itemsPrepared[block.preparedKey]"
           :items-total="block.items"
           :show-item-details="showItemDetails"
-          container-id="modal-pro-statements"
+          :container-id="containerId"
           :content-height="contentHeight"
         />
       </div>

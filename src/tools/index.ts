@@ -1,5 +1,6 @@
 import clipBoard from "vue-clipboard3"
 import * as LzString from 'lz-string'
+import type { AppVersionJson, CallResult } from "@/models"
 
 const Clip = clipBoard
 const { toClipboard } = Clip()
@@ -38,6 +39,32 @@ export const decompressString = (input: string): string => {
 }
 
 export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+export const checkAppUpdates = async () : Promise<CallResult<AppVersionJson>> => {
+  try {
+    let url = document?.location?.origin + document.location.pathname + 'version.json'
+    if (window.electronAPI/* || url.includes('localhost')*/) {
+      url = 'https://hqhelper.nbb.fan/version.json'
+    }
+
+    let versionResponse = ''
+    if (window.electronAPI?.httpGet) {
+      versionResponse = await window.electronAPI.httpGet(url)
+    } else {
+      versionResponse = await fetch(url).then(response => response.text())
+    }
+    const versionContent = JSON.parse(versionResponse) as AppVersionJson
+    return {
+      success: true, message: '',
+      data: versionContent
+    }
+  } catch (e: any) {
+    console.error(e)
+    return {
+      success: false, message: e?.message || 'UNKNOWN ERROR' + e
+    }
+  }
+}
 
 /**
  * 将给定文本复制到设备的剪贴板。
