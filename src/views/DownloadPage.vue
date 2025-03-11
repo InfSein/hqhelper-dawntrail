@@ -48,6 +48,7 @@ const introData = computed(() => {
       title: t('特别提醒'),
       contents: [
         t('您可以收藏此页面，从而在未来方便地下载到最新版本的客户端。'),
+        t('客户端仅是搭载 HqHelper 的“容器”，下载最新版本的客户端后可能仍需要更新一次 HqHelper 的版本。')
       ]
     }
   ]
@@ -132,7 +133,7 @@ const handleDownloadBtnClick = (link: string) => {
         <div v-else class="flex-column gap-4">
           <p>{{ t('当前最新版本：{ver}', appVersionInfo?.electron) }}</p>
           <p>{{ t('点击下方按钮来进行下载。') }}</p>
-          <div class="flex-wrap gap-8">
+          <div class="download-btn-container">
             <n-button
               v-for="(btn, btnIndex) in winAppBtns"
               :key="'win-app-btn-' + btnIndex"
@@ -154,21 +155,21 @@ const handleDownloadBtnClick = (link: string) => {
     <FoldableCard card-key="download-mac">
       <template #header>
         <i class="xiv square-2"></i>
-        <span class="card-title-text">{{ t('Mac 客户端') }}</span>
+        <span class="card-title-text">{{ t('{platform} 客户端', 'Mac') }}</span>
       </template>
       <div class="content-block">{{ t('开发中') }}</div>
     </FoldableCard>
     <FoldableCard card-key="download-ios">
       <template #header>
         <i class="xiv square-3"></i>
-        <span class="card-title-text">{{ t('iOS 客户端') }}</span>
+        <span class="card-title-text">{{ t('{platform} 客户端', 'iOS') }}</span>
       </template>
       <div class="content-block">{{ t('暂无计划') }}</div>
     </FoldableCard>
     <FoldableCard card-key="download-android">
       <template #header>
         <i class="xiv square-4"></i>
-        <span class="card-title-text">{{ t('Android 客户端') }}</span>
+        <span class="card-title-text">{{ t('{platform} 客户端', 'Android') }}</span>
       </template>
       <div class="content-block">{{ t('开发中') }}</div>
     </FoldableCard>
@@ -192,6 +193,12 @@ const handleDownloadBtnClick = (link: string) => {
   .content-block {
     line-height: 1.2;
     padding: 0 1.5em;
+
+    .download-btn-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
   }
 
   .intro {
@@ -202,6 +209,13 @@ const handleDownloadBtnClick = (link: string) => {
     ul {
       padding-left: 1.5em;
     }
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .download-btn-container {
+    flex-direction: column;
   }
 }
 </style>

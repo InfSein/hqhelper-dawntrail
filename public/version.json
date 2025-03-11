@@ -4,7 +4,7 @@
   "dlink_hqhelper": "~PROXYhttps://github.com/InfSein/hqhelper-dawntrail/releases/download/v~VERSION/static-pages.zip",
   "dlink_electron": "~PROXYhttps://github.com/InfSein/hqhelper-dawntrail/releases/download/electron.~VERSION/HqHelper.Setup.exe",
   "client_info": {
-    "recomm_proxy": "https://ghfast.top",
+    "recomm_proxy": "https://ghfast.top/",
     "cn_sub_links": [
       "https://share.weiyun.com/KksmEBgI"
     ]
