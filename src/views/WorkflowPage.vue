@@ -281,10 +281,6 @@ const recommProcessGroups = computed(() => {
   )
 })
 
-const expandedBlocks = ref<Record<number, string[]>>({})
-/** (groupId, (itemId, checked)) */
-const completedItems = ref<Record<number, Record<number, boolean>>>({})
-
 const fixPreparedItems = () => {
   const {
     craftTargets, materialsLv1, materialsLvBase
@@ -316,11 +312,11 @@ const fixPreparedItems = () => {
 }
 const fixRecommMaps = () => {
   for (let i = 0; i < recommProcessGroups.value.length; i++) {
-    if (!expandedBlocks.value[i]) expandedBlocks.value[i] = ['1']
-    if (!completedItems.value[i]) completedItems.value[i] = {}
+    if (!currentWorkflow.value.recommData.expandedBlocks[i]) currentWorkflow.value.recommData.expandedBlocks[i] = ['1']
+    if (!currentWorkflow.value.recommData.completedItems[i]) currentWorkflow.value.recommData.completedItems[i] = {}
     recommProcessGroups.value[i].items.forEach(item => {
-      if (!completedItems.value[i][item.id]) {
-        completedItems.value[i][item.id] = false
+      if (!currentWorkflow.value.recommData.completedItems[i][item.id]) {
+        currentWorkflow.value.recommData.completedItems[i][item.id] = false
       }
     })
   }
@@ -521,8 +517,8 @@ const handleAnalysisItemPrices = async () => {
                 </div>
               </template>
               <CraftRecommProcess
-                v-model:expanded-blocks="expandedBlocks"
-                v-model:completed-items="completedItems"
+                v-model:expanded-blocks="currentWorkflow.recommData.expandedBlocks"
+                v-model:completed-items="currentWorkflow.recommData.completedItems"
                 :item-groups="recommProcessGroups"
                 :content-max-height="pageHeightVals.recommProcess"
               />
