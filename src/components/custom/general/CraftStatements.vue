@@ -26,6 +26,7 @@ interface CraftStatementsProps {
   materialsLvBase: ItemInfo[],
   /** 是否处于模态框内。此参数会影响一些UI效果。 */
   insideModal?: boolean,
+  containerId?: string,
 }
 const props = defineProps<CraftStatementsProps>()
 
@@ -76,7 +77,7 @@ const groupBoxTitleBackground = computed(() => {
           :items="block.items"
           :list-height="480"
           :show-collector-icon="!userConfig.hide_collector_icons"
-          container-id="modal-craft-statements"
+          :container-id="containerId"
         />
       </div>
     </n-tab-pane>
@@ -96,7 +97,7 @@ const groupBoxTitleBackground = computed(() => {
           :list-height="480"
           btn-pop-max-width="300px"
           :show-collector-icon="!userConfig.hide_collector_icons"
-          container-id="modal-craft-statements"
+          :container-id="containerId"
         />
       </div>
     </GroupBox>
