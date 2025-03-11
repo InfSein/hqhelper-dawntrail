@@ -5,6 +5,7 @@ import {
 } from 'naive-ui'
 import {
   EventNoteFilled,
+  CopyAllOutlined,
   HistoryOutlined, StickyNote2Outlined,
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
@@ -14,6 +15,7 @@ import type { UserConfigModel } from '@/models/config-user'
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const devMode = import.meta.env.DEV
 
 const showModal = defineModel<boolean>('show', { required: true })
 
@@ -30,16 +32,46 @@ const latestPatchNote = computed(() => {
 const historyChangelogs = computed(() => {
   return getChangelogs(userConfig.value.language_ui).slice(1)
 })
-const btnSwitchShowHistoryInfo = computed(() => {
-  const icon = showHistory.value ? StickyNote2Outlined : HistoryOutlined
-  const text = showHistory.value ? t('查看最新日志') : t('查看历史日志')
-  return { icon, text }
+const latestPatchNoteNumWidth = computed(() => {
+  const maxLengthOfNote = latestPatchNote.value.changes.map(change => change.changes.length).reduce((a, b) => Math.max(a, b), 0)
+  console.log('maxLengthOfNote:', maxLengthOfNote)
+  return maxLengthOfNote > 9 ? '24px' : '16px'
 })
 
 const getChanges = (change: PatchChangeGroup) => {
   return change.changes.filter(str => str !== '')
 }
 
+const handleCopyLatestPatchNode = () => {
+  const br = '\r\n'
+  let content = `我们刚刚发布了版本${latestPatchNote.value.version}。${br}${br}`
+  latestPatchNote.value.changes.forEach(change => {
+    content += `${change.name}：${br}`
+    change.changes.forEach((str, strIndex) => {
+      const cleanedStr = str.replace(/<[^>]+>/g, '')
+      content += `${strIndex+1}. ${cleanedStr}${br}`
+    })
+    content += br
+  })
+  content += `更新说明：
+请在主界面左上方“HqHelper”的右侧检查您所在的版本。
+刷新网站即可更新。如果刷新之后也没有更新到最新版本，请考虑使用Ctrl+F5等方法清除页面缓存。
+如果您正在使用客户端，请点击左上方菜单“设置与更新”->“检查更新”来更新HqHelper版本。`
+  navigator.clipboard.writeText(content)
+}
+const handleCopyLatestPatchNodeMarkdown = () => {
+  const br = '\r\n'
+  let content = ``
+  latestPatchNote.value.changes.forEach(change => {
+    content += `### ${change.name}${br}`
+    change.changes.forEach((str, strIndex) => {
+      const cleanedStr = str.replace(/<[^>]+>/g, '')
+      content += `${strIndex+1}. ${cleanedStr}${br}`
+    })
+    content += br
+  })
+  navigator.clipboard.writeText(content)
+}
 const handleSwitchShowHistory = () => {
   showHistory.value = !showHistory.value
 }
@@ -53,30 +85,35 @@ const handleSwitchShowHistory = () => {
     max-width="650px"
     :height="isMobile ? '650px' : '550px'"
   >
-    <div v-if="!showHistory" class="wrapper wrapper-latest-update" :style="wrapperStyle">
-      <n-card embedded size="small" class="h-full">
-        <n-h1 prefix="bar" class="latest-update-baseinfo">
-          <n-text>v{{ latestPatchNote.version }}</n-text>
-          <n-text depth="3" class="date">{{ latestPatchNote.date }}</n-text>
-        </n-h1>
-        <n-divider style="margin: 8px 0 12px 0;" />
-        <div class="latest-update-content">
-          <div
-            v-for="(change, changeIndex) in latestPatchNote.changes"
-            :key="'latest-' + changeIndex"
-            class="item"
-          >
-            <div class="change-group-title">{{ t(change.name) }}</div>
-            <div class="change-group-content">
-              <div
-                v-for="(changeContent, changeContentIndex) in getChanges(change)"
-                :key="'latest-' + changeIndex + '-' + changeContentIndex"
-                class="content-line"
-              >
-                <span class="line-index">
-                  {{ getChanges(change).length > 1 ? ((changeContentIndex + 1) + '. ') : '' }}
-                </span>
-                <span v-html="changeContent"></span>
+    <div v-if="!showHistory" class="wrapper " :style="wrapperStyle">
+      <n-card embedded size="small" class="h-full" content-style="height: 100%;">
+        <div class="wrapper-latest-update">
+          <n-h1 prefix="bar" class="latest-update-baseinfo">
+            <n-text>v{{ latestPatchNote.version }}</n-text>
+            <n-text depth="3" class="date">{{ latestPatchNote.date }}</n-text>
+          </n-h1>
+          <n-divider style="margin: 8px 0 12px 0;" />
+          <div class="latest-update-content">
+            <div
+              v-for="(change, changeIndex) in latestPatchNote.changes"
+              :key="'latest-' + changeIndex"
+              class="item"
+            >
+              <div class="change-group-title">{{ t(change.name) }}</div>
+              <div class="change-group-content">
+                <div
+                  v-for="(changeContent, changeContentIndex) in getChanges(change)"
+                  :key="'latest-' + changeIndex + '-' + changeContentIndex"
+                  class="content-line"
+                  :style="{
+                    '--line-num-width': latestPatchNoteNumWidth
+                  }"
+                >
+                  <span class="line-index">
+                    {{ getChanges(change).length > 1 ? ((changeContentIndex + 1) + '. ') : '' }}
+                  </span>
+                  <span v-html="changeContent"></span>
+                </div>
               </div>
             </div>
           </div>
@@ -122,11 +159,23 @@ const handleSwitchShowHistory = () => {
 
     <template #action>
       <div class="submit-container">
+        <n-button v-if="!showHistory && devMode" type="info" @click="handleCopyLatestPatchNode">
+          <template #icon>
+            <n-icon :component="CopyAllOutlined" />
+          </template>
+          复制
+        </n-button>
+        <n-button v-if="!showHistory && devMode" type="info" ghost @click="handleCopyLatestPatchNodeMarkdown">
+          <template #icon>
+            <n-icon :component="CopyAllOutlined" />
+          </template>
+          复制(Markdown)
+        </n-button>
         <n-button type="primary" @click="handleSwitchShowHistory">
           <template #icon>
-            <n-icon :component="btnSwitchShowHistoryInfo.icon" />
+            <n-icon :component="showHistory ? StickyNote2Outlined : HistoryOutlined" />
           </template>
-          {{ btnSwitchShowHistoryInfo.text }}
+          {{ showHistory ? t('查看最新日志') : t('查看历史日志') }}
         </n-button>
       </div>
     </template>
@@ -154,6 +203,10 @@ const handleSwitchShowHistory = () => {
   overflow-y: auto;
 }
 .wrapper-latest-update {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  
   .latest-update-baseinfo {
     line-height: 1.2;
     margin-bottom: 0;
@@ -167,6 +220,8 @@ const handleSwitchShowHistory = () => {
     display: flex;
     flex-direction: column;
     gap: 3px;
+    flex: 1;
+    overflow-y: auto;
 
     .item {
       margin-left: 1.5em;
@@ -179,11 +234,12 @@ const handleSwitchShowHistory = () => {
 
         .content-line {
           display: grid;
-          grid-template-columns: 16px 1fr;
-          column-gap: 3px;
+          grid-template-columns: var(--line-num-width) 1fr;
+          column-gap: 5px;
 
           .line-index {
             user-select: none;
+            text-align: right;
           }
         }
       }
@@ -200,6 +256,7 @@ const handleSwitchShowHistory = () => {
 }
 .submit-container {
   display: flex;
+  gap: 8px;
   justify-content: flex-end;
 }
 

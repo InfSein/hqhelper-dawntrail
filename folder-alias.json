@@ -1,0 +1,8 @@
+{
+    "src/components/modals": {
+        "description": "模态框"
+    },
+    "src/components/main": {
+        "description": "主界面下属组件"
+    }
+}
