@@ -15,6 +15,7 @@ import { type FuncConfigModel } from '@/models/config-func'
 import { type ItemInfo } from '@/tools/item'
 import { XivJobs, type XivJob } from '@/assets/data'
 import type EorzeaTime from '@/tools/eorzea-time'
+import type { RecommItemGroup } from '@/models/item'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -29,12 +30,7 @@ const completedItems = defineModel<Record<number, Record<number, boolean>>>('com
 
 export interface CraftRecommProcessesProps {
   contentMaxHeight?: string;
-  itemGroups: {
-    title: string;
-    icon: string;
-    description?: string;
-    items: ItemInfo[];
-  }[];
+  itemGroups: RecommItemGroup[];
 }
 defineProps<CraftRecommProcessesProps>()
 
@@ -120,6 +116,7 @@ const isItemGatherableNow = (item: ItemInfo) => {
               <span>
                 {{ groupIndex + 1 }}. {{ group.title }}
               </span>
+              <component v-if="group.subtitle" :is="group.subtitle"></component>
             </div>
           </template>
 

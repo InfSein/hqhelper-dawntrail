@@ -1,6 +1,7 @@
 import { XivJobs } from '@/assets/data'
 import { getItemInfo, type ItemInfo } from "./item"
 import { useNbbCal } from "./use-nbb-cal"
+import type { RecommItemGroup } from '@/models/item'
 
 export function useFufuCal() {
   const calItems = (selections: Record<number, number>) => {
@@ -124,12 +125,7 @@ export function useFufuCal() {
     })
   
     // 根据处理后的物品列表组装各个分组
-    const groups : {
-      title: string,
-      icon: string,
-      description?: string,
-      items: ItemInfo[]
-    }[] = []
+    const groups : RecommItemGroup[] = []
     const dealGatherings = (
       gathering: ItemInfo[],
       groupTitle: string,
