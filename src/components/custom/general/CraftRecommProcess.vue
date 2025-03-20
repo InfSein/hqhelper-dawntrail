@@ -137,7 +137,7 @@ const isItemGatherableNow = (item: ItemInfo) => {
                   :item-info="item"
                   :amount="item.amount"
                   show-amount
-                  container-id="modal-recomm-process"
+                  :container-id="containerId"
                 />
               </div>
               <div

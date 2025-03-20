@@ -51,6 +51,8 @@ interface RecommendedProcessesProps {
 }
 const props = defineProps<RecommendedProcessesProps>()
 
+const modalId = 'modal-recomm-process'
+
 const itemGroups = computed(() => {
   return calRecommProcessGroups(
     props.craftTargets,
@@ -123,6 +125,7 @@ const handleSettingButtonClick = () => {
 <template>
   <MyModal
     v-model:show="showModal"
+    :id="modalId"
     max-width="350px"
     extra-style="--n-padding-bottom: 10px;"
     show-setting
@@ -142,6 +145,7 @@ const handleSettingButtonClick = () => {
       v-model:expanded-blocks="expandedBlocks"
       v-model:completed-items="completedItems"
       :item-groups="itemGroups"
+      :container-id="modalId"
     />
 
     <template #action>
