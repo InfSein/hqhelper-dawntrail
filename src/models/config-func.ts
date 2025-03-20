@@ -37,6 +37,8 @@ export interface FuncConfigModel {
   universalis_priceType: ItemPriceType
   /** 物品价格有效期 */
   universalis_expireTime: number
+  /** 成本/收益分析：显示物品详情 */
+  costandbenefit_show_item_details: boolean
   /** 在物品悬浮窗中展示物品价格 */
   universalis_showpriceinpop: boolean
   /** 在物品悬浮窗中展示的物品价格类型 */
@@ -65,6 +67,7 @@ const defaultFuncConfig: FuncConfigModel = {
   universalis_server: '红玉海',
   universalis_priceType: 'averagePrice',
   universalis_expireTime: 6 * 60 * 60 * 1000, // 默认6小时
+  costandbenefit_show_item_details: false,
   universalis_showpriceinpop: false,
   universalis_poppricetypes: [],
   // * 缓存
