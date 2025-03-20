@@ -12,7 +12,7 @@ import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import LocationSpan from '@/components/custom/map/LocationSpan.vue'
 import { type UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
-import { type ItemInfo } from '@/tools/item'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
 import { XivJobs, type XivJob } from '@/assets/data'
 import type EorzeaTime from '@/tools/eorzea-time'
 import type { RecommItemGroup } from '@/models/item'
@@ -31,6 +31,7 @@ const completedItems = defineModel<Record<number, Record<number, boolean>>>('com
 export interface CraftRecommProcessesProps {
   contentMaxHeight?: string;
   itemGroups: RecommItemGroup[];
+  containerId?: string;
 }
 defineProps<CraftRecommProcessesProps>()
 
@@ -38,6 +39,18 @@ const showItemGatherDetails = computed(() => {
   return funcConfig.value.processes_show_item_details
 })
 
+const itemServer = computed(() => {
+  let server = userConfig.value.item_server
+  if (!server || server === 'auto') {
+    const lang = userConfig.value.language_ui
+    if (lang === 'zh') {
+      server = 'chs'
+    } else {
+      server = 'global'
+    }
+  }
+  return server
+})
 const itemLanguage = computed(() => {
   if (userConfig.value.language_item !== 'auto') {
     return userConfig.value.language_item
@@ -69,6 +82,29 @@ const textsGatherAt = computed(() => {
   const [p1, p2] = t('在{}采集').split('{}')
   return { p1, p2 }
 })
+
+const getTomeScripts = (groupIndex: number, items: ItemInfo[]) => {
+  const tradeMap: Record<number, number> = {}
+  items.forEach(item => {
+    if (completedItems.value[groupIndex][item.id]) return
+    const cost = itemServer.value === 'chs' ? item.tradeInfo?.costCHS : item.tradeInfo?.costGlobal
+    if (cost) {
+      const tradeprice = cost.costCount * item.amount
+      if (tradeMap[cost.costId]) {
+        tradeMap[cost.costId] += tradeprice
+      } else {
+        tradeMap[cost.costId] = tradeprice
+      }
+    }
+  })
+  const tomeScripts : ItemInfo[] = []
+  Object.keys(tradeMap).forEach(costId => {
+    const tomeScript = getItemInfo(Number(costId))
+    tomeScript.amount = tradeMap[Number(costId)]
+    tomeScripts.push(tomeScript)
+  })
+  return tomeScripts
+}
 
 const handleItemCompletionChange = (groupIndex: number) => {
   let needToCollapseGroup = true
@@ -117,6 +153,19 @@ const isItemGatherableNow = (item: ItemInfo) => {
                 {{ groupIndex + 1 }}. {{ group.title }}
               </span>
               <component v-if="group.subtitle" :is="group.subtitle"></component>
+              <div v-else-if="group.type === 'trade-tomescript'" class="flex-vac gap-2" style="margin-left: 0.5em;">
+                <p>{{ t('尚需') }}</p>
+                <ItemSpan
+                  v-for="item in getTomeScripts(groupIndex, group.items)"
+                  :key="'ts-' + item.id"
+                  :item-info="item"
+                  :amount="item.amount"
+                  show-amount
+                  hide-name hide-pop-icon
+                  :container-id="containerId"
+                  container-style="gap: 0;"
+                />
+              </div>
             </div>
           </template>
 

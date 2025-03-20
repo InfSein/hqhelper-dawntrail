@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, nextTick, ref, type PropType, type Ref } from 'vue'
+import { computed, inject, nextTick, ref, type Ref } from 'vue'
 import {
   NDropdown, NIcon,
   useMessage
@@ -26,40 +26,18 @@ const itemLanguage = computed(() => {
   return userConfig.value.language_ui
 })
 
-const props = defineProps({
-  itemInfo: {
-    type: Object as PropType<ItemInfo>,
-    required: true
-  },
-  amount: {
-    type: Number,
-    default: 0
-  },
-  showAmount: {
-    type: Boolean,
-    default: false
-  },
-  imgSize: {
-    type: Number,
-    default: 14
-  },
-  hideIcon: {
-    type: Boolean,
-    default: false
-  },
-  hideName: {
-    type: Boolean,
-    default: false
-  },
-  hidePopIcon: {
-    type: Boolean,
-    default: false
-  },
-  containerId: {
-    type: String,
-    default: ''
-  }
-})
+interface ItemSpanProps {
+  itemInfo: ItemInfo
+  amount?: number
+  showAmount?: boolean
+  imgSize?: number
+  hideIcon?: boolean
+  hideName?: boolean
+  hidePopIcon?: boolean
+  containerId?: string
+  containerStyle?: string
+}
+const props = defineProps<ItemSpanProps>()
 
 const getItemName = () => {
   switch (itemLanguage.value) {
@@ -166,17 +144,17 @@ const handleItemIconClick = async () => {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container" :style="containerStyle">
     <XivFARImage
       v-show="!hideIcon"
       class="img no-select"
-      :size="imgSize"
+      :size="imgSize ?? 14"
       :src="itemInfo.iconUrl"
       :title="(hideName && hidePopIcon) ? getItemName() : ''"
     />
     <div v-if="!hideName || showAmount">
       {{ hideName ? '' : getItemName() + ' ' }}
-      {{ showAmount ? 'x' + amount : '' }}
+      {{ showAmount ? 'x' + (amount ?? 0) : '' }}
     </div>
     <ItemPop
       v-if="!hidePopIcon"
