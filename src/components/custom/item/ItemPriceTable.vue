@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, type PropType, type Ref } from 'vue'
+import { inject, type Ref } from 'vue'
 import {
   NScrollbar, NTable
 } from 'naive-ui'
