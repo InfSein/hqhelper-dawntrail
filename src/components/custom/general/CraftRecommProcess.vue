@@ -35,7 +35,7 @@ export interface CraftRecommProcessesProps {
   itemGroups: RecommItemGroup[];
   containerId?: string;
 }
-defineProps<CraftRecommProcessesProps>()
+const props = defineProps<CraftRecommProcessesProps>()
 
 const showItemGatherDetails = computed(() => {
   return funcConfig.value.processes_show_item_details
@@ -85,9 +85,13 @@ const textsGatherAt = computed(() => {
   return { p1, p2 }
 })
 
-const getTomeScripts = (groupIndex: number, items: ItemInfo[]) => {
+const tomeScripts = computed(() : ItemInfo[] => {
+  const group = props.itemGroups.find(group => group.type === 'trade-tomescript')
+  if (!group) return []
+  const groupIndex = props.itemGroups.indexOf(group)
+
   const tradeMap: Record<number, number> = {}
-  items.forEach(item => {
+    group.items.forEach(item => {
     if (completedItems.value[groupIndex][item.id]) return
     const cost = itemServer.value === 'chs' ? item.tradeInfo?.costCHS : item.tradeInfo?.costGlobal
     if (cost) {
@@ -106,7 +110,7 @@ const getTomeScripts = (groupIndex: number, items: ItemInfo[]) => {
     tomeScripts.push(tomeScript)
   })
   return tomeScripts
-}
+})
 
 const handleItemCompletionChange = (groupIndex: number) => {
   let needToCollapseGroup = true
@@ -162,9 +166,9 @@ const isItemGatherableNow = (item: ItemInfo) => {
               </span>
               <component v-if="group.subtitle" :is="group.subtitle"></component>
               <div v-else-if="group.type === 'trade-tomescript'" class="flex-vac gap-2" style="margin-left: 0.5em;">
-                <p>{{ t('尚需') }}</p>
+                <p v-show="tomeScripts.length">{{ t('尚需') }}</p>
                 <ItemSpan
-                  v-for="item in getTomeScripts(groupIndex, group.items)"
+                  v-for="item in tomeScripts"
                   :key="'ts-' + item.id"
                   :item-info="item"
                   :amount="item.amount"
