@@ -132,7 +132,10 @@ const isItemGatherableNow = (item: ItemInfo) => {
 </script>
 
 <template>
-  <div class="wrapper" :style="{ maxHeight: contentMaxHeight ?? '375px' }">
+  <div class="wrapper" :style="{
+    maxHeight: contentMaxHeight ?? '375px',
+    overflowY: contentMaxHeight === 'auto' ? 'hidden' : 'auto'
+  }">
     <div
       class="block"
       v-for="(group, groupIndex) in itemGroups"
