@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, inject, type Ref } from 'vue'
 import {
-  NCheckbox, NCollapse, NCollapseItem,
+  NCheckbox, NCollapse, NCollapseItem, 
   // useMessage
 } from 'naive-ui'
 // import { 
-//   AllInclusiveSharp, CopyAllOutlined
+//   SettingsSharp,
+//   UnfoldMoreSharp, UnfoldLessSharp,
 // } from '@vicons/material'
 import XivFARImage from '@/components/custom/general/XivFARImage.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
@@ -29,6 +30,7 @@ const expandedBlocks = defineModel<Record<number, string[]>>('expandedBlocks', {
 const completedItems = defineModel<Record<number, Record<number, boolean>>>('completedItems', { required: true })
 
 export interface CraftRecommProcessesProps {
+  contentMaxWidth?: string;
   contentMaxHeight?: string;
   itemGroups: RecommItemGroup[];
   containerId?: string;
@@ -140,6 +142,9 @@ const isItemGatherableNow = (item: ItemInfo) => {
       class="block"
       v-for="(group, groupIndex) in itemGroups"
       :key="'group-' + groupIndex"
+      :style="{
+        maxWidth: contentMaxWidth,
+      }"
     >
       <n-collapse arrow-placement="right" v-model:expanded-names="expandedBlocks[groupIndex]">
         <n-collapse-item name="1">
@@ -302,7 +307,4 @@ const isItemGatherableNow = (item: ItemInfo) => {
   display: flex;
   justify-content: flex-end;
 }
-
-/* Mobile only */
-/* @media (max-width: 768px)*/
 </style>
