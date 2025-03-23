@@ -6125,5 +6125,54 @@
     "$files": [
       "components\\modals\\ModalChangeLogs.vue"
     ]
+  },
+  "修复了推荐流程(弹窗)中物品信息图标的复制功能没有正常工作的问题。": {
+    "en": "Fixed the issue where the copy function of item info icons in the Recomm. Process (modal) did not work properly.",
+    "ja": "修复了推荐流程(弹窗)中物品信息图标的复制功能没有正常工作的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了移动端工作流中“流程”区域的显示效果。": {
+    "en": "Fixed display effect of Processes area in workflow on mobile devices.",
+    "ja": "修正了移动端工作流中“流程”区域的显示效果。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "工作流中的“流程”现在也会自动记忆。折叠流程分组和标记筹备项为已完成后，即使重启页面或是切换到其他工作流，这些更改也将保留。": {
+    "en": "Processes in the workflow now automatically remember. After collapsing process groups and marking preparation items as completed, these changes will be retained even after refresh the page or switching to other workflows.",
+    "ja": "工作流中的“流程”现在也会自动记忆。折叠流程分组和标记筹备项为已完成后，即使重启页面或是切换到其他工作流，这些更改也将保留。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "推荐流程中的兑换道具栏目现在会显示剩余材料所需的点数。": {
+    "en": "The exchange item column in the recommended process will now display the points required for the remaining materials.",
+    "ja": "推荐流程中的兑换道具栏目现在会显示剩余材料所需的点数。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "为电脑端工作流的“流程”区域追加了浮动按钮，以便快捷控制各流程的展开折叠或是进入功能设置。": {
+    "en": "Added a floating button to the 'Processes' area of the workflow on the desktop version for quick control of expanding/collapsing each process or entering function settings.",
+    "ja": "为电脑端工作流的“流程”区域追加了浮动按钮，以便快捷控制各流程的展开折叠或是进入功能设置。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现可设置让成本/收益分析的表格中显示物品详情。": {
+    "en": "You can now set the cost/benefit analysis table to display item details.",
+    "ja": "现可设置让成本/收益分析的表格中显示物品详情。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "成本/收益分析中显示物品详情": {
+    "en": "Display item details in cost/benefit analysis",
+    "ja": "成本/收益分析中显示物品详情",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
   }
 }
