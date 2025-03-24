@@ -7,14 +7,15 @@ import XivFARImage from '../general/XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
 import type { UserConfigModel } from '@/models/config-user'
 import { XivJobs, type XivJob } from '@/assets/data'
-import { getItemInfo, type StatementRow } from '@/tools/item'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 interface ItemCellProps {
-  item: StatementRow
+  itemInfo: ItemInfo
+  amount: number
   showItemDetails: boolean
   containerId?: string
 }
@@ -43,8 +44,7 @@ const getJobName = (jobInfo: XivJob) => {
       return jobInfo?.job_name_zh || t('未知')
   }
 }
-const getTradeCost = (row: StatementRow) => {
-  const itemInfo = row.info; const amount = row.amount.remain
+const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
   if (!itemInfo.tradeInfo) return undefined
   const cost = itemServer.value === 'chs' ? itemInfo.tradeInfo.costCHS : itemInfo.tradeInfo.costGlobal
   const receive = itemInfo.tradeInfo.receiveCount || 1
@@ -61,53 +61,53 @@ const getTradeCost = (row: StatementRow) => {
     <div class="item-icon">
       <XivFARImage
         :size="26"
-        :src="item.info.iconUrl"
+        :src="itemInfo.iconUrl"
       />
     </div>
     <div class="item-info">
       <div class="item-name">
-        <ItemSpan hide-icon :item-info="item.info" :container-id="containerId" />
+        <ItemSpan hide-icon :item-info="itemInfo" :container-id="containerId" />
       </div>
       <div class="item-details">
-        <div v-if="item.info.craftInfo?.jobId" class="cell crafter">
+        <div v-if="itemInfo.craftInfo?.jobId" class="cell crafter">
           <XivFARImage
-            :src="XivJobs[item.info.craftInfo.jobId].job_icon_url"
+            :src="XivJobs[itemInfo.craftInfo.jobId].job_icon_url"
             :size="12"
           />
           <span>
-            {{ getJobName(XivJobs[item.info.craftInfo.jobId]) + ' ' + t('{lv}级', item.info.craftInfo.craftLevel) + '★'.repeat(item.info.craftInfo?.starCount || 0) }}
+            {{ getJobName(XivJobs[itemInfo.craftInfo.jobId]) + ' ' + t('{lv}级', itemInfo.craftInfo.craftLevel) + '★'.repeat(itemInfo.craftInfo?.starCount || 0) }}
           </span>
         </div>
-        <div v-if="item.info.gatherInfo?.jobId" class="cell gatherer">
+        <div v-if="itemInfo.gatherInfo?.jobId" class="cell gatherer">
           <XivFARImage
-            :src="XivJobs[item.info.gatherInfo.jobId].job_icon_url"
+            :src="XivJobs[itemInfo.gatherInfo.jobId].job_icon_url"
             :size="12"
           />
-          <span>{{ getJobName(XivJobs[item.info.gatherInfo.jobId]) }}</span>
+          <span>{{ getJobName(XivJobs[itemInfo.gatherInfo.jobId]) }}</span>
         </div>
-        <div v-else-if="item.info.canReduceFrom?.length">{{ t('精选') }}</div>
-        <div v-else-if="getTradeCost(item)">
+        <div v-else-if="itemInfo.canReduceFrom?.length">{{ t('精选') }}</div>
+        <div v-else-if="getTradeCost(itemInfo, amount)">
           <ItemSpan
-            :item-info="getItemInfo(getTradeCost(item)!.costItem)"
+            :item-info="getItemInfo(getTradeCost(itemInfo, amount)!.costItem)"
             :img-size="12"
-            :amount="getTradeCost(item)!.costCount"
+            :amount="getTradeCost(itemInfo, amount)!.costCount"
             hide-pop-icon hide-name show-amount
           />
         </div>
-        <div v-else-if="item.info.isFishingItem">
+        <div v-else-if="itemInfo.isFishingItem">
           <XivFARImage
             :src="XivJobs[18].job_icon_url"
             :size="12"
           />
           <span>{{ getJobName(XivJobs[18]) }}</span>
         </div>
-        <div v-if="item.info.uiTypeId === 59">{{ t('水晶') }}</div>
+        <div v-if="itemInfo.uiTypeId === 59">{{ t('水晶') }}</div>
       </div>
     </div>
   </div>
   <ItemSpan
     v-else
-    :item-info="item.info"
+    :item-info="itemInfo"
     :container-id="containerId"
   />
 </template>

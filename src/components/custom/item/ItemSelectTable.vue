@@ -66,7 +66,8 @@ const handleDealNumInputEdge = (row: StatementRow) => {
           <tr v-for="item in rows" :key="'item-' + item.info.id">
             <td>
               <ItemCell
-                :item="item"
+                :item-info="item.info"
+                :amount="item.amount.remain"
                 :show-item-details="showItemDetails"
                 :container-id="containerId"
               />

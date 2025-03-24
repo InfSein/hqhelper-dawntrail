@@ -89,7 +89,8 @@ const handleNumInputLoop = (row: StatementRow) => {
           <tr v-for="item in rows.remaining" :key="'item-remaining-' + item.info.id">
             <td>
               <ItemCell
-                :item="item"
+                :item-info="item.info"
+                :amount="item.amount.remain"
                 :show-item-details="showItemDetails"
                 :container-id="containerId"
               />
@@ -123,7 +124,8 @@ const handleNumInputLoop = (row: StatementRow) => {
           <tr v-for="item in rows.cleaned" :key="'item-cleaned-' + item.info.id" class="prepared">
             <td>
               <ItemCell
-                :item="item"
+                :item-info="item.info"
+                :amount="item.amount.remain"
                 :show-item-details="showItemDetails"
                 :container-id="containerId"
               />

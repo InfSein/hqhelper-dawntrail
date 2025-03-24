@@ -712,6 +712,11 @@ const preferenceGroups : PreferenceGroup[] = [
             ]
           },
           {
+            key: 'costandbenefit_show_item_details',
+            label: t('成本/收益分析中显示物品详情'),
+            type: 'switch'
+          },
+          {
             key: 'universalis_showpriceinpop',
             label: t('在物品悬浮窗中显示'),
             descriptions: dealDescriptions([
