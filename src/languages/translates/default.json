@@ -6128,49 +6128,49 @@
   },
   "修复了推荐流程(弹窗)中物品信息图标的复制功能没有正常工作的问题。": {
     "en": "Fixed the issue where the copy function of item info icons in the Recomm. Process (modal) did not work properly.",
-    "ja": "修复了推荐流程(弹窗)中物品信息图标的复制功能没有正常工作的问题。",
+    "ja": "推奨の回し（ツールチップ）内のアイテム情報アイコンのコピー機能が正常に動作していなかった問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修正了移动端工作流中“流程”区域的显示效果。": {
     "en": "Fixed display effect of Processes area in workflow on mobile devices.",
-    "ja": "修正了移动端工作流中“流程”区域的显示效果。",
+    "ja": "スマホ版ワークフローにおける「プロセス」領域の表示効果を改善しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "工作流中的“流程”现在也会自动记忆。折叠流程分组和标记筹备项为已完成后，即使重启页面或是切换到其他工作流，这些更改也将保留。": {
     "en": "Processes in the workflow now automatically remember. After collapsing process groups and marking preparation items as completed, these changes will be retained even after refresh the page or switching to other workflows.",
-    "ja": "工作流中的“流程”现在也会自动记忆。折叠流程分组和标记筹备项为已完成后，即使重启页面或是切换到其他工作流，这些更改也将保留。",
+    "ja": "ワークフロー内の「プロセス」が自動的に記憶されるようになりました。折りたたんだプロセスグループや完了済みマークを付けた準備項目について、ページを再読み込みしたり他のワークフローに切り替えたりしても変更が保持されるようになります。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "推荐流程中的兑换道具栏目现在会显示剩余材料所需的点数。": {
     "en": "The exchange item column in the recommended process will now display the points required for the remaining materials.",
-    "ja": "推荐流程中的兑换道具栏目现在会显示剩余材料所需的点数。",
+    "ja": "推奨の回しの交換アイテム欄に、残り材料に必要なトークン数が表示されるようになりました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "为电脑端工作流的“流程”区域追加了浮动按钮，以便快捷控制各流程的展开折叠或是进入功能设置。": {
     "en": "Added a floating button to the 'Processes' area of the workflow on the desktop version for quick control of expanding/collapsing each process or entering function settings.",
-    "ja": "为电脑端工作流的“流程”区域追加了浮动按钮，以便快捷控制各流程的展开折叠或是进入功能设置。",
+    "ja": "PC版ワークフローの「プロセス」領域にフローティングボタンを追加し、各プロセスの展開/折りたたみや機能設定への迅速なアクセスを可能にしました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "现可设置让成本/收益分析的表格中显示物品详情。": {
     "en": "You can now set the cost/benefit analysis table to display item details.",
-    "ja": "现可设置让成本/收益分析的表格中显示物品详情。",
+    "ja": "コスト/収益分析テーブルにアイテム詳細を表示する設定が可能になりました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "成本/收益分析中显示物品详情": {
     "en": "Display item details in cost/benefit analysis",
-    "ja": "成本/收益分析中显示物品详情",
+    "ja": "コスト/収益分析におけるアイテム詳細の表示機能を追加しました",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
