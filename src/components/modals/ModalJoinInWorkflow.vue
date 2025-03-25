@@ -13,7 +13,7 @@ import GroupBox from '../templates/GroupBox.vue'
 import { deepCopy } from '@/tools'
 import { useStore } from '@/store'
 import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
-import { _VAR_MAX_WORKFLOW } from '@/models/workflow'
+import { _VAR_MAX_WORKFLOW, getDefaultWorkflow } from '@/models/workflow'
 import ItemSelectTable from '../custom/item/ItemSelectTable.vue'
 
 const store = useStore()
@@ -65,14 +65,9 @@ const handleSubmit = () => {
       NAIVE_UI_MESSAGE.warning(t('最多只能添加{num}条工作流', _VAR_MAX_WORKFLOW))
       return
     }
-    newConfig.workflow_cache_work_state.workflows.push({
-      targetItems: itemsToAdd.value,
-      preparedItems: {
-        craftTarget: {},
-        materialsLv1: {},
-        materialsLvBase: {},
-      }
-    })
+    const workflow = getDefaultWorkflow()
+    workflow.targetItems = itemsToAdd.value
+    newConfig.workflow_cache_work_state.workflows.push(workflow)
   } else {
     const workflow = newConfig.workflow_cache_work_state.workflows[targetWorkflow.value]
     for (const _id in itemsToAdd.value) {
