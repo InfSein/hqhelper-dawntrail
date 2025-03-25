@@ -1,20 +1,22 @@
 <script setup lang="ts">
 import { computed, inject, type Ref } from 'vue'
 import {
-  NCheckbox, NCollapse, NCollapseItem,
+  NCheckbox, NCollapse, NCollapseItem, 
   // useMessage
 } from 'naive-ui'
 // import { 
-//   AllInclusiveSharp, CopyAllOutlined
+//   SettingsSharp,
+//   UnfoldMoreSharp, UnfoldLessSharp,
 // } from '@vicons/material'
 import XivFARImage from '@/components/custom/general/XivFARImage.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import LocationSpan from '@/components/custom/map/LocationSpan.vue'
 import { type UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
-import { type ItemInfo } from '@/tools/item'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
 import { XivJobs, type XivJob } from '@/assets/data'
 import type EorzeaTime from '@/tools/eorzea-time'
+import type { RecommItemGroup } from '@/models/item'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -28,20 +30,29 @@ const expandedBlocks = defineModel<Record<number, string[]>>('expandedBlocks', {
 const completedItems = defineModel<Record<number, Record<number, boolean>>>('completedItems', { required: true })
 
 export interface CraftRecommProcessesProps {
+  contentMaxWidth?: string;
   contentMaxHeight?: string;
-  itemGroups: {
-    title: string;
-    icon: string;
-    description?: string;
-    items: ItemInfo[];
-  }[];
+  itemGroups: RecommItemGroup[];
+  containerId?: string;
 }
-defineProps<CraftRecommProcessesProps>()
+const props = defineProps<CraftRecommProcessesProps>()
 
 const showItemGatherDetails = computed(() => {
   return funcConfig.value.processes_show_item_details
 })
 
+const itemServer = computed(() => {
+  let server = userConfig.value.item_server
+  if (!server || server === 'auto') {
+    const lang = userConfig.value.language_ui
+    if (lang === 'zh') {
+      server = 'chs'
+    } else {
+      server = 'global'
+    }
+  }
+  return server
+})
 const itemLanguage = computed(() => {
   if (userConfig.value.language_item !== 'auto') {
     return userConfig.value.language_item
@@ -74,6 +85,33 @@ const textsGatherAt = computed(() => {
   return { p1, p2 }
 })
 
+const tomeScripts = computed(() : ItemInfo[] => {
+  const group = props.itemGroups.find(group => group.type === 'trade-tomescript')
+  if (!group) return []
+  const groupIndex = props.itemGroups.indexOf(group)
+
+  const tradeMap: Record<number, number> = {}
+    group.items.forEach(item => {
+    if (completedItems.value[groupIndex][item.id]) return
+    const cost = itemServer.value === 'chs' ? item.tradeInfo?.costCHS : item.tradeInfo?.costGlobal
+    if (cost) {
+      const tradeprice = cost.costCount * item.amount
+      if (tradeMap[cost.costId]) {
+        tradeMap[cost.costId] += tradeprice
+      } else {
+        tradeMap[cost.costId] = tradeprice
+      }
+    }
+  })
+  const tomeScripts : ItemInfo[] = []
+  Object.keys(tradeMap).forEach(costId => {
+    const tomeScript = getItemInfo(Number(costId))
+    tomeScript.amount = tradeMap[Number(costId)]
+    tomeScripts.push(tomeScript)
+  })
+  return tomeScripts
+})
+
 const handleItemCompletionChange = (groupIndex: number) => {
   let needToCollapseGroup = true
   Object.values(completedItems.value[groupIndex]).forEach(completed => {
@@ -100,11 +138,17 @@ const isItemGatherableNow = (item: ItemInfo) => {
 </script>
 
 <template>
-  <div class="wrapper" :style="{ maxHeight: contentMaxHeight ?? '375px' }">
+  <div class="wrapper" :style="{
+    maxHeight: contentMaxHeight ?? '375px',
+    overflowY: contentMaxHeight === 'auto' ? 'hidden' : 'auto'
+  }">
     <div
       class="block"
       v-for="(group, groupIndex) in itemGroups"
       :key="'group-' + groupIndex"
+      :style="{
+        maxWidth: contentMaxWidth,
+      }"
     >
       <n-collapse arrow-placement="right" v-model:expanded-names="expandedBlocks[groupIndex]">
         <n-collapse-item name="1">
@@ -120,6 +164,20 @@ const isItemGatherableNow = (item: ItemInfo) => {
               <span>
                 {{ groupIndex + 1 }}. {{ group.title }}
               </span>
+              <component v-if="group.subtitle" :is="group.subtitle"></component>
+              <div v-else-if="group.type === 'trade-tomescript'" class="flex-vac gap-2" style="margin-left: 0.5em;">
+                <p v-show="tomeScripts.length">{{ t('尚需') }}</p>
+                <ItemSpan
+                  v-for="item in tomeScripts"
+                  :key="'ts-' + item.id"
+                  :item-info="item"
+                  :amount="item.amount"
+                  show-amount
+                  hide-name hide-pop-icon
+                  :container-id="containerId"
+                  container-style="gap: 0;"
+                />
+              </div>
             </div>
           </template>
 
@@ -140,7 +198,7 @@ const isItemGatherableNow = (item: ItemInfo) => {
                   :item-info="item"
                   :amount="item.amount"
                   show-amount
-                  container-id="modal-recomm-process"
+                  :container-id="containerId"
                 />
               </div>
               <div
@@ -253,7 +311,4 @@ const isItemGatherableNow = (item: ItemInfo) => {
   display: flex;
   justify-content: flex-end;
 }
-
-/* Mobile only */
-/* @media (max-width: 768px)*/
 </style>

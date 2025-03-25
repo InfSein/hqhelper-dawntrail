@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, onBeforeUnmount, ref, watch, h, type Ref } from 'vue'
 import {
-  NBackTop, NButton, NIcon, NInputGroup, NInputGroupLabel, NSelect, NTabs, NTabPane,
+  NBackTop, NButton, NFloatButton, NFloatButtonGroup, NIcon, NInputGroup, NInputGroupLabel, NSelect, NTabs, NTabPane, NTooltip, 
   type SelectOption, type SelectRenderLabel,
   useMessage
 } from 'naive-ui'
@@ -12,6 +12,7 @@ import {
   QueryStatsFilled,
   TableViewOutlined,
   AllInclusiveSharp,
+  UnfoldMoreSharp, UnfoldLessSharp,
 } from '@vicons/material'
 import FoldableCard from '@/components/templates/FoldableCard.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
@@ -20,6 +21,7 @@ import CraftStatistics from '@/components/custom/general/CraftStatistics.vue'
 import CraftStatements from '@/components/custom/general/CraftStatements.vue'
 import CraftStatementsPro from '@/components/custom/general/CraftStatementsPro.vue'
 import ModalCostAndBenefit from '@/components/modals/ModalCostAndBenefit.vue'
+import ModalPreferences from '@/components/modals/ModalPreferences.vue'
 import { useStore } from '@/store'
 import { XivUnpackedItems } from '@/assets/data'
 import {
@@ -33,6 +35,7 @@ import { useFufuCal } from '@/tools/use-fufu-cal'
 import CraftRecommProcess from '@/components/custom/general/CraftRecommProcess.vue'
 import TooltipButton from '@/components/custom/general/TooltipButton.vue'
 import ModalWorkflowsManage from '@/components/modals/ModalWorkflowsManage.vue'
+import type { SettingGroupKey } from '@/models'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -73,6 +76,11 @@ if (!disable_workstate_cache) {
     }
   }, {deep: true})
 }
+
+const showPreferencesModal = ref(false)
+const preferenceSettingGroup = ref<SettingGroupKey | undefined>(undefined)
+const preferenceAppShowUP = ref(false)
+const preferenceAppShowFP = ref(false)
 
 const headerBlock = ref<HTMLElement>()
 const windowHeight = ref(window.innerHeight)
@@ -151,6 +159,7 @@ const pageHeightVals = computed(() => {
       statisticsBlock: undefined,
       statementsBlock: 'auto',
       recommProcess: 'auto',
+      recommProcessContainer: '60px',
     }
   } else {
     return {
@@ -158,6 +167,7 @@ const pageHeightVals = computed(() => {
       statisticsBlock: (contentHeight / 2 - 45),
       statementsBlock: (contentHeight - 50) + 'px',
       recommProcess: contentHeight + 'px',
+      recommProcessContainer: (contentHeight + 12) + 'px', // tabpane 有 12px 的 padding-top
     }
   }
 })
@@ -281,10 +291,6 @@ const recommProcessGroups = computed(() => {
   )
 })
 
-const expandedBlocks = ref<Record<number, string[]>>({})
-/** (groupId, (itemId, checked)) */
-const completedItems = ref<Record<number, Record<number, boolean>>>({})
-
 const fixPreparedItems = () => {
   const {
     craftTargets, materialsLv1, materialsLvBase
@@ -316,11 +322,11 @@ const fixPreparedItems = () => {
 }
 const fixRecommMaps = () => {
   for (let i = 0; i < recommProcessGroups.value.length; i++) {
-    if (!expandedBlocks.value[i]) expandedBlocks.value[i] = ['1']
-    if (!completedItems.value[i]) completedItems.value[i] = {}
+    if (!currentWorkflow.value.recommData.expandedBlocks[i]) currentWorkflow.value.recommData.expandedBlocks[i] = ['1']
+    if (!currentWorkflow.value.recommData.completedItems[i]) currentWorkflow.value.recommData.completedItems[i] = {}
     recommProcessGroups.value[i].items.forEach(item => {
-      if (!completedItems.value[i][item.id]) {
-        completedItems.value[i][item.id] = false
+      if (!currentWorkflow.value.recommData.completedItems[i][item.id]) {
+        currentWorkflow.value.recommData.completedItems[i][item.id] = false
       }
     })
   }
@@ -331,6 +337,29 @@ watch(recommProcessGroups, async () => {
 })
 fixRecommMaps()
 fixPreparedItems()
+
+const recommGroupAllCollapsed = computed(() => {
+  let allCollapsed = true
+  for (let i = 0; i < recommProcessGroups.value.length; i++) {
+    if (currentWorkflow.value.recommData.expandedBlocks[i] && currentWorkflow.value.recommData.expandedBlocks[i].length > 0) {
+      allCollapsed = false
+    }
+  }
+  return allCollapsed
+})
+const handleCollapseOrUncollapseAllRecommGroupBlocks = () => {
+  const cacheRecommGroupAllCollapsed = recommGroupAllCollapsed.value
+  // 这里不能直接引用 computed 的值，因为它会在折叠/展开过程中变化
+  for (let i = 0; i < recommProcessGroups.value.length; i++) {
+    currentWorkflow.value.recommData.expandedBlocks[i] = cacheRecommGroupAllCollapsed ? ['1'] : []
+  }
+}
+const handleRecommSettingButtonClick = () => {
+  preferenceAppShowUP.value = false
+  preferenceAppShowFP.value = true
+  preferenceSettingGroup.value = 'recomm_process'
+  showPreferencesModal.value = true
+}
 
 const showCostAndBenefitModal = ref(false)
 const costAndBenefit = computed(() => {
@@ -478,7 +507,7 @@ const handleAnalysisItemPrices = async () => {
           <a class="card-title-extra" href="javascript:void(0);" :disabled="updatingPrice" :style="updatingPrice ? 'cursor: not-allowed; color: gray;' : 'cursor: pointer;'" @click="handleAnalysisItemPrices">[{{ updatingPrice ? t('正在加载……') : t('成本/收益预估') }}]</a>
         </template>
         <div class="block">
-          <n-tabs type="segment" animated>
+          <n-tabs type="segment" animated class="h-full">
             <n-tab-pane name="statistics">
               <!-- @vue-ignore -->
               <template #tab>
@@ -512,7 +541,10 @@ const handleAnalysisItemPrices = async () => {
                 :content-height="pageHeightVals.statementsBlock"
               />
             </n-tab-pane>
-            <n-tab-pane name="processes">
+            <n-tab-pane name="processes" :style="{
+              transform: 'translate(0)',
+              minHeight: pageHeightVals.recommProcessContainer,
+            }">
               <!-- @vue-ignore -->
               <template #tab>
                 <div class="tab-title">
@@ -521,11 +553,36 @@ const handleAnalysisItemPrices = async () => {
                 </div>
               </template>
               <CraftRecommProcess
-                v-model:expanded-blocks="expandedBlocks"
-                v-model:completed-items="completedItems"
+                v-model:expanded-blocks="currentWorkflow.recommData.expandedBlocks"
+                v-model:completed-items="currentWorkflow.recommData.completedItems"
                 :item-groups="recommProcessGroups"
                 :content-max-height="pageHeightVals.recommProcess"
+                content-max-width="1080px"
               />
+
+              <n-float-button-group v-if="!isMobile" right="20px" bottom="5px">
+                <n-tooltip v-if="recommProcessGroups.length" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
+                  <template #trigger>
+                    <n-float-button @click="handleCollapseOrUncollapseAllRecommGroupBlocks">
+                      <n-icon>
+                        <UnfoldMoreSharp v-if="recommGroupAllCollapsed" />
+                        <UnfoldLessSharp v-else />
+                      </n-icon>
+                    </n-float-button>
+                  </template>
+                  {{ recommGroupAllCollapsed ? t('全部展开') : t('全部折叠') }}
+                </n-tooltip>
+                <n-tooltip :trigger="isMobile ? 'manual' : 'hover'" placement="left">
+                  <template #trigger>
+                    <n-float-button @click="handleRecommSettingButtonClick">
+                      <n-icon>
+                        <SettingsSharp />
+                      </n-icon>
+                    </n-float-button>
+                  </template>
+                  {{ t('设置') }}
+                </n-tooltip>
+              </n-float-button-group>
             </n-tab-pane>
           </n-tabs>
         </div>
@@ -543,6 +600,12 @@ const handleAnalysisItemPrices = async () => {
       :benefit-items="statementData.craftTargets"
       :cost-info="costAndBenefit.costInfo"
       :benefit-info="costAndBenefit.benefitInfo"
+    />
+    <ModalPreferences
+      v-model:show="showPreferencesModal"
+      :setting-group="preferenceSettingGroup"
+      :app-show-up="preferenceAppShowUP"
+      :app-show-fp="preferenceAppShowFP"
     />
 
     <n-back-top />
@@ -580,6 +643,7 @@ const handleAnalysisItemPrices = async () => {
 
     .block {
       padding: 0 4px;
+      height: 100%;
     }
     .items-block {
       height: 100%;

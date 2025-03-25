@@ -63,6 +63,36 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.2.0',
+      date: '2025-03-25',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('国际服数据库更新至{ver}。', {
+              ver: '7.2'
+            })
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('修复了推荐流程(弹窗)中物品信息图标的复制功能没有正常工作的问题。'),
+            t('修正了移动端工作流中“流程”区域的显示效果。'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('工作流中的“流程”现在也会自动记忆。折叠流程分组和标记筹备项为已完成后，即使重启页面或是切换到其他工作流，这些更改也将保留。'),
+            t('推荐流程中的兑换道具栏目现在会显示剩余材料所需的点数。'),
+            t('为电脑端工作流的“流程”区域追加了浮动按钮，以便快捷控制各流程的展开折叠或是进入功能设置。'),
+            t('现可设置让成本/收益分析的表格中显示物品详情。'),
+          ]
+        }
+      ]
+    },
+    {
       version: '2.1.10',
       date: '2025-03-11',
       changes: [

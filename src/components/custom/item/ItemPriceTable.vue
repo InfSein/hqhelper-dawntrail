@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { inject, type PropType, type Ref } from 'vue'
+import { inject, type Ref } from 'vue'
 import {
   NScrollbar, NTable
 } from 'naive-ui'
-import ItemSpan from './ItemSpan.vue'
+import ItemCell from './ItemCell.vue'
 import type { ItemInfo } from '@/tools/item'
 import type { FuncConfigModel } from '@/models/config-func'
 
@@ -11,21 +11,13 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
-defineProps({
-  items: {
-    type: Array as PropType<ItemInfo[]>,
-    required: true
-  },
-  priceType: {
-    type: String as PropType<'NQ' | 'HQ'>,
-    required: true
-  },
-  /** 所处容器的ID，在模态框等场景时必须传递，否则无法正常复制物品名 */
-  containerId: {
-    type: String,
-    default: ''
-  }
-})
+interface ItemPriceTableProps {
+  items: ItemInfo[],
+  showItemDetails: boolean,
+  priceType: 'NQ' | 'HQ',
+  containerId?: string,
+}
+defineProps<ItemPriceTableProps>()
 
 const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
   const price = funcConfig.value.cache_item_prices[item.id]?.[`${funcConfig.value.universalis_priceType}${type}`]
@@ -65,8 +57,10 @@ const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
         <tbody>
           <tr v-for="(item, index) in items" :key="'item-' + index">
             <td>
-              <ItemSpan
+              <ItemCell
                 :item-info="item"
+                :amount="item.amount"
+                :show-item-details="showItemDetails"
                 :container-id="containerId"
               />
             </td>

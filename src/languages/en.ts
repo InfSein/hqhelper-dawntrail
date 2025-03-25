@@ -867,5 +867,12 @@ export default {
     "866": "Under development",
     "867": "No plans yet",
     "868": "View latest logs",
-    "869": "View history"
+    "869": "View history",
+    "870": "Fixed the issue where the copy function of item info icons in the Recomm. Process (modal) did not work properly.",
+    "871": "Fixed display effect of Processes area in workflow on mobile devices.",
+    "872": "Processes in the workflow now automatically remember. After collapsing process groups and marking preparation items as completed, these changes will be retained even after refresh the page or switching to other workflows.",
+    "873": "The exchange item column in the recommended process will now display the points required for the remaining materials.",
+    "874": "Added a floating button to the 'Processes' area of the workflow on the desktop version for quick control of expanding/collapsing each process or entering function settings.",
+    "875": "You can now set the cost/benefit analysis table to display item details.",
+    "876": "Display item details in cost/benefit analysis"
 }
