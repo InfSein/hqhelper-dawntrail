@@ -874,5 +874,7 @@ export default {
     "873": "The exchange item column in the recommended process will now display the points required for the remaining materials.",
     "874": "Added a floating button to the 'Processes' area of the workflow on the desktop version for quick control of expanding/collapsing each process or entering function settings.",
     "875": "You can now set the cost/benefit analysis table to display item details.",
-    "876": "Display item details in cost/benefit analysis"
+    "876": "Display item details in cost/benefit analysis",
+    "877": "Fixed version text of database not updated.",
+    "878": "Added Chinese translations for the names and descriptions of various items added in Patch {patch}."
 }

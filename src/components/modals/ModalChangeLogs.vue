@@ -56,7 +56,7 @@ const handleCopyLatestPatchNode = () => {
   content += `更新说明：
 请在主界面左上方“HqHelper”的右侧检查您所在的版本。
 刷新网站即可更新。如果刷新之后也没有更新到最新版本，请考虑使用Ctrl+F5等方法清除页面缓存。
-如果您正在使用客户端，请点击左上方菜单“设置与更新”->“检查更新”来更新HqHelper版本。`
+如果您正在使用客户端，请点击左上方菜单“设置与更新”->“检查更新”来更新HqHelper版本。如果更新缓慢或是长时间卡在同一阶段，请重启程序并调整“加速服务”中的设置。`
   navigator.clipboard.writeText(content)
 }
 const handleCopyLatestPatchNodeMarkdown = () => {
