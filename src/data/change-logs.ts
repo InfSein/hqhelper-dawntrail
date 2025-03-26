@@ -63,8 +63,27 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.2.1',
+      date: '2025-03-26',
+      changes: [
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('修复了数据库版本号文本没有更新的问题。')
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('追加了{patch}版本追加的各个道具名称与描述的中文翻译。', '7.2'),
+            isZh ? '追加和修订了部分物品的笔记 (仅在界面语言设置为简体中文时显示)。' : '',
+          ]
+        }
+      ]
+    },
+    {
       version: '2.2.0',
-      date: '2025-03-25',
+      date: '2025-03-26',
       changes: [
         {
           name: groupName.breaking,

@@ -6174,5 +6174,19 @@
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
+  },
+  "修复了数据库版本号文本没有更新的问题。": {
+    "en": "Fixed version text of database not updated.",
+    "ja": "修复了数据库版本号文本没有更新的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "追加了{patch}版本追加的各个道具名称与描述的中文翻译。": {
+    "en": "Added Chinese translations for the names and descriptions of various items added in Patch {patch}.",
+    "ja": "追加了{patch}版本追加的各个道具名称与描述的中文翻译。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
   }
 }
