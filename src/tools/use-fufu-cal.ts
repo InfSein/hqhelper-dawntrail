@@ -67,6 +67,7 @@ export function useFufuCal() {
     processes_craftable_item_sortby: string,
     processes_merge_gatherings: boolean,
     language_ui: "zh" | "en" | "ja",
+    item_server: 'chs' | 'global',
     t: (text: string, ...args: any[]) => string
   ) => {
     const itemsGatherableCommon : ItemInfo[] = []
@@ -200,10 +201,11 @@ export function useFufuCal() {
         const jobId = Number(_jobID)
         const job = XivJobs[jobId]
         const items = craftings[jobId]
+        const rokey = item_server === 'chs' ? 'recipeOrderCHS' : 'recipeOrder'
         if (processes_craftable_item_sortby === 'recipeOrder') {
           items.sort((a, b) => {
-            if (a.craftInfo?.recipeOrder && b.craftInfo?.recipeOrder) {
-              return a.craftInfo.recipeOrder - b.craftInfo.recipeOrder
+            if (a.craftInfo?.[rokey] && b.craftInfo?.[rokey]) {
+              return a.craftInfo[rokey] - b.craftInfo[rokey]
             } else {
               return a.id - b.id
             }
