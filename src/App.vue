@@ -261,6 +261,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
         <n-layout id="main-layout" position="absolute" :native-scrollbar="false">
           <n-layout-header v-if="appMode !== 'overlay'" bordered position="absolute">
             <AppHeader />
+            <div class="draggable-view" />
           </n-layout-header>
 
           <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
@@ -280,8 +281,15 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
 </template>
 
 <style scoped>
-.env-electron :deep(.n-layout-header) {
+.draggable-view {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   -webkit-app-region: drag;
+  pointer-events: none;
 }
 
 :deep(#main-content .n-scrollbar-container) {
