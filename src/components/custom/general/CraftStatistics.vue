@@ -90,6 +90,7 @@ const tomeScriptItems = computed(() => {
   const items : ItemInfo[] = []
   materialTarget.value.forEach(material => {
     if (material.isAethersand) return
+    if (material.gatherInfo?.jobId) return
     if (!material.tradeInfo) return
     items.push(material)
   })
