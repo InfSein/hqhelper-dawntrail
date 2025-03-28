@@ -122,7 +122,6 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: 'en', label: 'English' },
               { value: 'ja', label: '日本語' }
             ],
-            require_reload: true
           },
           {
             key: 'item_server',
@@ -137,7 +136,6 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: 'chs', label: t('国服') },
               { value: 'global', label: t('国际服') }
             ],
-            require_reload: true
           },
           {
             key: 'action_after_savesettings',
@@ -186,7 +184,6 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: '15px', label: t('较大') },
               { value: '16px', label: t('更大') },
             ],
-            require_reload: true
           },
           {
             key: 'custom_font',
@@ -198,7 +195,6 @@ const preferenceGroups : PreferenceGroup[] = [
               t('如果你对CSS有所了解，可以直接参照font-family的语法来填写。'),
             ]),
             type: 'string',
-            require_reload: true
           },
           {
             key: 'hide_collector_icons',
