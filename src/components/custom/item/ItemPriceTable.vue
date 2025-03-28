@@ -31,8 +31,8 @@ const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
     const tooltipForNoPrice = t('没有获取到价格。') + '\n' + t('可能原因：物品未实装/交易数据不足')
     const styleForNoPrice = 'cursor: help; text-decoration: underline dashed gray;'
     return {
-      price: p ? p : '???',
-      total: p ? p * item.amount : '???',
+      price: p ? p.toLocaleString() : '???',
+      total: p ? (p * item.amount).toLocaleString() : '???',
       tooltip: p ? '' : tooltipForNoPrice,
       style: p ? '' : styleForNoPrice
     }
