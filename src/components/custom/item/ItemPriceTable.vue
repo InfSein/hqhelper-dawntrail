@@ -5,10 +5,12 @@ import {
 } from 'naive-ui'
 import ItemCell from './ItemCell.vue'
 import type { ItemInfo } from '@/tools/item'
+import type { UserConfigModel } from '@/models/config-user'
 import type { FuncConfigModel } from '@/models/config-func'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
 interface ItemPriceTableProps {
@@ -38,6 +40,12 @@ const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
     }
   }
 }
+
+const getItemAmount = (amount: number) => {
+  return userConfig.value.item_amount_use_comma
+    ? amount.toLocaleString()
+    : amount
+}
 </script>
 
 <template>
@@ -65,7 +73,7 @@ const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
               />
             </td>
             <td>
-              {{ item.amount }}
+              {{ getItemAmount(item.amount) }}
             </td>
             <td>
               <span :style="getItemPrice(item, priceType).style" :title="getItemPrice(item, priceType).tooltip">
@@ -93,12 +101,12 @@ const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
     font-weight: bold;
   }
   th:first-child, td:first-child {
-    width: 55%;
+    width: 49%;
   }
   th:nth-child(2), td:nth-child(2),
   th:nth-child(3), td:nth-child(3),
   th:nth-child(4), td:nth-child(4) {
-    width: 15%;
+    width: 17%;
     text-align: center;
   }
 }

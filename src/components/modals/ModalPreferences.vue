@@ -244,6 +244,15 @@ const preferenceGroups : PreferenceGroup[] = [
             type: 'switch'
           },
           {
+            key: 'item_amount_use_comma',
+            label: t('物品数量按千分号格式化'),
+            descriptions: dealDescriptions([
+              t('开启此选项时，物品数量将按千分号格式化(如 12,345)。'),
+              t('此选项适用于所有表格、物品按钮和物品信息。'),
+            ]),
+            type: 'switch',
+          },
+          {
             key: 'item_button_click_event',
             label: t('点击物品按钮时的行为'),
             type: 'select',
