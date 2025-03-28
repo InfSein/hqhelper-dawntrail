@@ -66,14 +66,34 @@ const getAffixesName = () => {
 const jobNotSelected = computed(() => {
   return !XivJobs?.[props.jobId]
 })
-const disableWeapon = computed(() => {
-  return jobNotSelected.value
+const disableMainhand = computed(() => {
+  return jobNotSelected.value || !props.patchData?.jobs?.MainHand?.[props.jobId]?.[0]
+})
+const disableOffhand = computed(() => {
+  return jobNotSelected.value || !props.patchData?.jobs?.OffHand?.[props.jobId]?.[0]
 })
 const disableAttire = computed(() => {
   return !XivGearAffixes?.[props.attireAffix]
 })
 const disableAccessory = computed(() => {
   return !XivGearAffixes?.[props.accessoryAffix]
+})
+const disableAllAttires = computed(() => {
+  return disableAttire.value || (
+    !props.patchData?.jobs?.HeadAttire?.[props.attireAffix]?.[0]
+    && !props.patchData?.jobs?.BodyAttire?.[props.attireAffix]?.[0]
+    && !props.patchData?.jobs?.HandsAttire?.[props.attireAffix]?.[0]
+    && !props.patchData?.jobs?.LegsAttire?.[props.attireAffix]?.[0]
+    && !props.patchData?.jobs?.FeetAttire?.[props.attireAffix]?.[0]
+  )
+})
+const disableAllAccessories = computed(() => {
+  return disableAccessory.value || (
+    !props.patchData?.jobs?.Earrings?.[props.accessoryAffix]?.[0]
+    && !props.patchData?.jobs?.Necklace?.[props.accessoryAffix]?.[0]
+    && !props.patchData?.jobs?.Wrist?.[props.accessoryAffix]?.[0]
+    && !props.patchData?.jobs?.Rings?.[props.accessoryAffix]?.[0]
+  )
 })
 
 // #region Slot Computeds
@@ -202,6 +222,10 @@ const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | 
   )
 }
 
+const displayQuickOperates = computed(() => {
+  // * 简单算法，有刻木主手代表是有生产采集新装的版本
+  return !!props.patchData?.jobs?.MainHand?.[8]?.[0]
+})
 const showQuickOperatesOptions = ref(false)
 const handleQuickOperatesDropdownMouseEnter = (event: MouseEvent) => {
   if (isMobile.value) return
@@ -285,14 +309,35 @@ const handleAddsuitDropdownMouseLeave = (event: MouseEvent) => {
 const handleCloseAddsuitOptions = () => {
   showAddsuitOptions.value = false
 }
-const addsuitOptions: DropdownOption[] = [
-  { key: 'add-weapon', label: t('添加一套主副手') },
-  { key: 'add-attire', label: t('添加一套防具') },
-  { key: 'add-accessory', label: t('添加一套首饰') },
-  { key: 'add-attire-and-accessory', label: t('添加一套防具和首饰') },
-  { key: 'add-suit', label: t('添加整套') },
-  // { key: 'add-selfdef', label: t('添加(自定义)'), description: t('打开单独的窗口，自定义地添加套装') },
-]
+const addsuitOptions = computed(() : DropdownOption[] => {
+  return [
+    {
+      key: 'add-weapon',
+      label: t('添加一套主副手'),
+      disabled: disableMainhand.value && disableOffhand.value
+    },
+    {
+      key: 'add-attire',
+      label: t('添加一套防具'),
+      disabled: disableAllAttires.value
+    },
+    {
+      key: 'add-accessory',
+      label: t('添加一套首饰'),
+      disabled: disableAllAccessories.value
+    },
+    {
+      key: 'add-attire-and-accessory',
+      label: t('添加一套防具和首饰'),
+      disabled: disableAllAttires.value || disableAllAccessories.value
+    },
+    {
+      key: 'add-suit',
+      label: t('添加整套'),
+      disabled: disableMainhand.value && disableOffhand.value && disableAllAttires.value && disableAllAccessories.value
+    },
+  ]
+})
 const handleAddsuitSelect = (key: string) => {
   if (key === 'add-weapon') {
     addCurrMainOffHand()
@@ -372,7 +417,7 @@ defineExpose({
                 :related-item="patchData?.jobs.MainHand?.[jobId]?.[0] ?? 0"
               />
             </td>
-            <td><Stepper v-model:value="MainHand" :disabled="disableWeapon || !patchData?.jobs?.MainHand?.[jobId]?.[0]" /></td>
+            <td><Stepper v-model:value="MainHand" :disabled="disableMainhand" /></td>
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/offhand.png"
@@ -380,7 +425,7 @@ defineExpose({
                 :related-item="patchData?.jobs.OffHand?.[jobId]?.[0] ?? 0"
               />
             </td>
-            <td><Stepper v-model:value="OffHand" :disabled="disableWeapon || !patchData?.jobs?.OffHand?.[jobId]?.[0]" /></td>
+            <td><Stepper v-model:value="OffHand" :disabled="disableOffhand" /></td>
           </tr>
 
           <tr class="divider">
@@ -506,6 +551,7 @@ defineExpose({
         <n-divider dashed />
         <n-flex class="foot" justify="end">
           <n-dropdown
+            v-if="displayQuickOperates"
             :show="showQuickOperatesOptions"
             :options="quickOperatesOptions"
             :render-option="renderOption"
