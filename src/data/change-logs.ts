@@ -78,6 +78,7 @@ export const getChangelogs = (
         {
           name: groupName.feature,
           changes: [
+            t('为工作流管理界面的表格增加了拖拽按钮，拖动即可为已有工作流排序。'),
             t('“{f1}”的“{f2}”选项卡中追加了设置项“{f3}”。', {
               f1: t('偏好设置'),
               f2: t('增强'),

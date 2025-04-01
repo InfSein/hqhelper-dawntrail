@@ -6245,5 +6245,19 @@
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
+  },
+  "为工作流管理界面的表格增加了拖拽按钮，拖动即可为已有工作流排序。": {
+    "en": "Added drag-and-drop buttons to the workflow management interface table, allowing users to sort existing workflows by dragging.",
+    "ja": "为工作流管理界面的表格增加了拖拽按钮，拖动即可为已有工作流排序。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "拖动以排序": {
+    "en": "Drag to sort",
+    "ja": "拖动以排序",
+    "$files": [
+      "components\\modals\\ModalWorkflowsManage.vue"
+    ]
   }
 }
