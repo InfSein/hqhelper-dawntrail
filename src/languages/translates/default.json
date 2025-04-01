@@ -483,20 +483,6 @@
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "添加(自定义)": {
-    "en": "Add (custom)",
-    "ja": "追加(カスタマイズ)",
-    "$files": [
-      "components\\main\\GearSelectionPanel.vue"
-    ]
-  },
-  "打开单独的窗口，自定义地添加套装": {
-    "en": "Open a separate window to add gear sets customly",
-    "ja": "別画面で部位セットをカスタマイズする",
-    "$files": [
-      "components\\main\\GearSelectionPanel.vue"
-    ]
-  },
   "清空": {
     "en": "Clear",
     "ja": "クリア",
@@ -6187,6 +6173,77 @@
     "ja": "パッチ{patch}で追加された各種アイテムの名称および説明の中国語翻訳を追加しました。",
     "$files": [
       "data\\change-logs.ts"
+    ]
+  },
+  "修复食药计算与工作流的统计中，部分道具会在采集统计和点数兑换统计中重复出现的问题。": {
+    "en": "Fixed the issue where some items appeared multiple times in the collection statistics and tome-script exchange statistics in the FT Helper and workflow.",
+    "ja": "修复食药计算与工作流的统计中，部分道具会在采集统计和点数兑换统计中重复出现的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了工作流报表中子标题的背景色。": {
+    "en": "Fixed the background color of subtitles in workflow statements.",
+    "ja": "修正了工作流报表中子标题的背景色。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正主界面选择部件区域操作按钮的显示逻辑。": {
+    "en": "Fixed the display logic of operation buttons in the main page Gear Selection area.",
+    "ja": "修正主界面选择部件区域操作按钮的显示逻辑。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "物品数量按千分号格式化": {
+    "en": "Format item quantity with thousands separator",
+    "ja": "物品数量按千分号格式化",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "各个功能的默认设置有所调整。": {
+    "en": "Default settings for various features have been adjusted.",
+    "ja": "各个功能的默认设置有所调整。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "※ 仅对第一次使用HqHelper的用户生效。": {
+    "en": "※ Only effective for users using HqHelper for the first time.",
+    "ja": "※ 仅对第一次使用HqHelper的用户生效。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "偏好设置中，部分设置项修改之后不再需要刷新页面才能生效。": {
+    "en": "In User Preferences, some settings no longer require a page refresh to take effect after modification.",
+    "ja": "偏好设置中，部分设置项修改之后不再需要刷新页面才能生效。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了主界面右键职业按钮的展开菜单的显示效果。": {
+    "en": "Optimized the display effect of the expanded menu of the right-click profession button on the main page.",
+    "ja": "优化了主界面右键职业按钮的展开菜单的显示效果。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "开启此选项时，物品数量将按千分号格式化(如 12,345)。": {
+    "en": "When this option is enabled, item quantities will be formatted with thousands separators (e.g., 12,345).",
+    "ja": "开启此选项时，物品数量将按千分号格式化(如 12,345)。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "此选项适用于所有表格、物品按钮和物品信息。": {
+    "en": "This option applies to all tables, item buttons, and item info.",
+    "ja": "此选项适用于所有表格、物品按钮和物品信息。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
     ]
   }
 }
