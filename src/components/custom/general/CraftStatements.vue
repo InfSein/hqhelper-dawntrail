@@ -60,7 +60,7 @@ const statementBlocks = computed(() => {
   ]
 })
 const groupBoxTitleBackground = computed(() => {
-  return props.insideModal ? 'var(--n-color-modal)' : undefined
+  return props.insideModal ? 'var(--n-color-modal)' : 'var(--n-color-embedded)'
 })
 </script>
 

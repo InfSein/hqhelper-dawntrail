@@ -36,7 +36,7 @@ const showItemDetails = computed(() => {
   return !funcConfig.value.prostate_concise_mode
 })
 const groupBoxTitleBackground = computed(() => {
-  return props.insideModal ? 'var(--n-color-modal)' : undefined
+  return props.insideModal ? 'var(--n-color-modal)' : 'var(--n-color-embedded)'
 })
 </script>
 

@@ -32,6 +32,8 @@ export interface UserConfigModel {
   disable_jobbtn_doubleclick: boolean
   /** 手动控制二级悬浮窗 */
   click_to_show_pop_in_span: boolean
+  /** 物品数量按千分号格式化 */
+  item_amount_use_comma: boolean
   /** 点击物品按钮时的行为 */
   item_button_click_event: 'none' | 'copy_name' | 'copy_isearch'
   /** 点击物品信息图标时的行为 */
@@ -87,6 +89,7 @@ const defaultUserConfig: UserConfigModel = {
   disable_patchcard_autofold: false,
   disable_jobbtn_doubleclick: false,
   click_to_show_pop_in_span: false,
+  item_amount_use_comma: false,
   item_button_click_event: 'none',
   item_info_icon_click_event: 'none',
   item_list_style: 'standard',

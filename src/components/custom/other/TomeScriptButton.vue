@@ -90,6 +90,11 @@ const getItemName = (itemInfo: ItemInfo) => {
       return itemInfo[`name_${itemLanguage.value}`]
   }
 }
+const getItemAmount = (amount: number) => {
+  return userConfig.value.item_amount_use_comma
+    ? amount.toLocaleString()
+    : amount
+}
 const macroValue = computed(() => {
   let result = ''
   for (const _tomeScriptID in props.items) {
@@ -138,7 +143,7 @@ const handleCopyAsMacro = async () => {
           <p class="text">{{ t('点数') }}</p>
           <div class="tome-scripts">
               <div class="tome-script" v-for="(totalAmount, scriptID) in tomeScripts" :key="'tome-script-' + scriptID">
-                <span class="amount">{{ totalAmount }}</span>
+                <span class="amount">{{ getItemAmount(totalAmount) }}</span>
                 <ItemSpan hide-name hide-pop-icon :item-info="getItemInfo(scriptID)" />
               </div>
               <div class="tome-script" v-if="!Object.keys(tomeScripts).length">

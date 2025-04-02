@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { inject, ref } from 'vue'
 import {
-  NButton, NIcon, NInput, NTable,
+  NButton, NIcon, NInput, NInputGroup, NInputGroupLabel, NTable,
   useMessage
 } from 'naive-ui'
 import { 
   SettingsSharp,
+  ListFilled,
   DeleteFilled,
   AddSharp,
   SaveOutlined
 } from '@vicons/material'
+import { VueDraggable } from 'vue-draggable-plus'
 import MyModal from '../templates/MyModal.vue'
 import HelpButton from '../custom/general/HelpButton.vue'
 import { _VAR_MAX_WORKFLOW, getDefaultWorkflow, type Workflow } from '@/models/workflow'
@@ -60,53 +62,65 @@ const handleSave = () => {
   >
     <div class="wrapper">
       <p>{{ t('在这里可以修改各个工作流的名称，或是直接删除工作流。') }}</p>
-      <n-table class="workflows-table" :single-line="false">
-        <thead>
-          <tr>
-            <th>
-              <div class="flex-vac">
-                <div class="bold">{{ t('工作流名称') }}</div>
-                <div>
-                  <HelpButton
-                    icon="question"
-                    :descriptions="[
-                      t('如果没有为工作流设置名称，则按顺序自动显示为「工作流1~{maxlen}」。', _VAR_MAX_WORKFLOW),
-                      t('删除某一工作流时，其后的所有未命名工作流将重新编号。')
-                    ]"
-                  />
+      <VueDraggable
+        v-model="formDataWorkflows"
+        target=".sort-target"
+        handle=".draggable-box"
+        :animation="150"
+      >
+        <n-table class="workflows-table" :single-line="false">
+          <thead>
+            <tr>
+              <th>
+                <div class="flex-vac">
+                  <div class="bold">{{ t('工作流名称') }}</div>
+                  <div>
+                    <HelpButton
+                      icon="question"
+                      :descriptions="[
+                        t('如果没有为工作流设置名称，则按顺序自动显示为「工作流1~{maxlen}」。', _VAR_MAX_WORKFLOW),
+                        t('删除某一工作流时，其后的所有未命名工作流将重新编号。')
+                      ]"
+                    />
+                  </div>
                 </div>
-              </div>
-            </th>
-            <th>{{ t('管理') }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(workflow, flowIndex) in formDataWorkflows" :key="flowIndex">
-            <td>
-              <n-input v-model:value="workflow.name" type="text" :placeholder="t('工作流{index}', flowIndex + 1)" />
-            </td>
-            <td>
-              <n-button ghost type="error" size="small" @click="() => formDataWorkflows.splice(flowIndex, 1)">
-                <template #icon>
-                  <n-icon><DeleteFilled /></n-icon>
-                </template>
-                {{ t('删除') }}
-              </n-button>
-            </td>
-          </tr>
-          <tr v-if="formDataWorkflows.length < _VAR_MAX_WORKFLOW">
-            <td></td>
-            <td>
-              <n-button ghost type="info" size="small" @click="handleAddWorkflow">
-                <template #icon>
-                  <n-icon><AddSharp /></n-icon>
-                </template>
-                {{ t('添加') }}
-              </n-button>
-            </td>
-          </tr>
-        </tbody>
-      </n-table>
+              </th>
+              <th>{{ t('管理') }}</th>
+            </tr>
+          </thead>
+          <tbody class="sort-target">
+            <tr v-for="(workflow, flowIndex) in formDataWorkflows" :key="flowIndex">
+              <td>
+                <n-input-group>
+                  <n-input-group-label class="draggable-box" :title="t('拖动以排序')">
+                    <n-icon :size="18"><ListFilled /></n-icon>
+                  </n-input-group-label>
+                  <n-input v-model:value="workflow.name" type="text" :placeholder="t('工作流{index}', flowIndex + 1)" />
+                </n-input-group>
+              </td>
+              <td>
+                <n-button ghost type="error" size="small" @click="() => formDataWorkflows.splice(flowIndex, 1)">
+                  <template #icon>
+                    <n-icon><DeleteFilled /></n-icon>
+                  </template>
+                  {{ t('删除') }}
+                </n-button>
+              </td>
+            </tr>
+            <tr v-if="formDataWorkflows.length < _VAR_MAX_WORKFLOW">
+              <td></td>
+              <td>
+                <n-button ghost type="info" size="small" @click="handleAddWorkflow">
+                  <template #icon>
+                    <n-icon><AddSharp /></n-icon>
+                  </template>
+                  {{ t('添加') }}
+                </n-button>
+              </td>
+            </tr>
+          </tbody>
+        </n-table>
+      </VueDraggable>
       <p>{{ t('所有修改都只在点击保存之后才会生效。') }}</p>
     </div>
 
@@ -139,6 +153,12 @@ const handleSave = () => {
     th:nth-child(2), td:nth-child(2) {
       width: 15%;
       text-align: center;
+    }
+
+    .draggable-box {
+      display: flex;
+      align-items: center;
+      cursor: move;
     }
   }
 }

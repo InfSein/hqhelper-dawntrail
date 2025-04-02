@@ -78,6 +78,11 @@ const getItemName = () => {
       return props.itemInfo[`name_${itemLanguage.value}`]
   }
 }
+const itemAmount = computed(() => {
+  return userConfig.value.item_amount_use_comma
+    ? props.itemInfo.amount.toLocaleString()
+    : props.itemInfo.amount
+})
 
 const iconSize = computed(() => {
   return (props.btnHeight || 34) - 7
@@ -229,7 +234,7 @@ const handleItemButtonClick = async () => {
               </div>
             </div>
             <div v-if="showAmount" class="item-amount">
-              x {{ itemInfo.amount }}
+              x {{ itemAmount }}
             </div>
           </div>
         </div>
