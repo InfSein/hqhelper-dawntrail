@@ -6211,9 +6211,9 @@
       "data\\change-logs.ts"
     ]
   },
-  "※ 仅对第一次使用HqHelper的用户生效。": {
-    "en": "※ Only effective for users using HqHelper for the first time.",
-    "ja": "※HQHelperを初めて利用するユーザーのみ有効",
+  "仅对第一次使用HqHelper的用户生效。": {
+    "en": "Only effective for users using HqHelper for the first time.",
+    "ja": "HqHelperを初めて利用するユーザーのみ有効",
     "$files": [
       "data\\change-logs.ts"
     ]
