@@ -53,6 +53,19 @@ const currentWorkflow = computed(() => {
   return workState.value.workflows[workState.value.currentWorkflow]
 })
 
+const itemServer = computed(() => {
+  let server = userConfig.value.item_server
+  if (!server || server === 'auto') {
+    const lang = userConfig.value.language_ui
+    if (lang === 'zh') {
+      server = 'chs'
+    } else {
+      server = 'global'
+    }
+  }
+  return server
+})
+
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {
   const cachedWorkState = userConfig.value.workflow_cache_work_state
@@ -287,6 +300,7 @@ const recommProcessGroups = computed(() => {
     funcConfig.value.processes_craftable_item_sortby,
     funcConfig.value.processes_merge_gatherings,
     userConfig.value.language_ui,
+    itemServer.value,
     t
   )
 })

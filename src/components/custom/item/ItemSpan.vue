@@ -47,6 +47,12 @@ const getItemName = () => {
       return props.itemInfo[`name_${itemLanguage.value}`]
   }
 }
+const itemAmount = computed(() => {
+  const _amount = props.amount ?? 0
+  return userConfig.value.item_amount_use_comma
+    ? _amount.toLocaleString()
+    : _amount
+})
 
 // #region 右键菜单相关
 
@@ -154,7 +160,7 @@ const handleItemIconClick = async () => {
     />
     <div v-if="!hideName || showAmount">
       {{ hideName ? '' : getItemName() + ' ' }}
-      {{ showAmount ? 'x' + (amount ?? 0) : '' }}
+      {{ showAmount ? ('x' + itemAmount) : '' }}
     </div>
     <ItemPop
       v-if="!hidePopIcon"

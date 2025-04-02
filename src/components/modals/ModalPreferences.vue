@@ -122,7 +122,6 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: 'en', label: 'English' },
               { value: 'ja', label: '日本語' }
             ],
-            require_reload: true
           },
           {
             key: 'item_server',
@@ -137,7 +136,6 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: 'chs', label: t('国服') },
               { value: 'global', label: t('国际服') }
             ],
-            require_reload: true
           },
           {
             key: 'action_after_savesettings',
@@ -186,7 +184,6 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: '15px', label: t('较大') },
               { value: '16px', label: t('更大') },
             ],
-            require_reload: true
           },
           {
             key: 'custom_font',
@@ -198,7 +195,6 @@ const preferenceGroups : PreferenceGroup[] = [
               t('如果你对CSS有所了解，可以直接参照font-family的语法来填写。'),
             ]),
             type: 'string',
-            require_reload: true
           },
           {
             key: 'hide_collector_icons',
@@ -246,6 +242,15 @@ const preferenceGroups : PreferenceGroup[] = [
               t('在默认情况下，光标悬停在元素上时就会立即打开子悬浮窗。如果你觉得这样太容易误触，可以打开此选项，只通过左键单击来控制子悬浮窗的显示与否。'),
             ]),
             type: 'switch'
+          },
+          {
+            key: 'item_amount_use_comma',
+            label: t('物品数量按千分号格式化'),
+            descriptions: dealDescriptions([
+              t('开启此选项时，物品数量将按千分号格式化(如 12,345)。'),
+              t('此选项适用于所有表格、物品按钮和物品信息。'),
+            ]),
+            type: 'switch',
           },
           {
             key: 'item_button_click_event',

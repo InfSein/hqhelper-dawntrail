@@ -24,7 +24,7 @@ const NAIVE_UI_MESSAGE = useMessage()
 const { calItems, getFoodAndTincs } = useNbbCal()
 
 const workState = ref({
-  patch: '7.0',
+  patch: '7.2',
   hidePrecraftMaterials: false,
   itemSelected: {} as Record<number, number>
 })

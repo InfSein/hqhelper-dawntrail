@@ -333,7 +333,7 @@ const renderJobContextHeader = () => {
     'div',
     {
       class: 'flex',
-      style: 'gap: 5px; padding: 0.2em 0.5em; min-width: 150px;'
+      style: 'gap: 5px; padding: 0.2em 0.5em; width: 150px;'
     },
     [
       h(

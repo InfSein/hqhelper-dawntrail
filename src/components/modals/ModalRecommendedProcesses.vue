@@ -63,6 +63,7 @@ const itemGroups = computed(() => {
     funcConfig.value.processes_craftable_item_sortby,
     funcConfig.value.processes_merge_gatherings,
     userConfig.value.language_ui,
+    itemServer.value,
     t
   )
 })
@@ -72,6 +73,18 @@ const itemLanguage = computed(() => {
     return userConfig.value.language_item
   }
   return userConfig.value.language_ui
+})
+const itemServer = computed(() => {
+  let server = userConfig.value.item_server
+  if (!server || server === 'auto') {
+    const lang = userConfig.value.language_ui
+    if (lang === 'zh') {
+      server = 'chs'
+    } else {
+      server = 'global'
+    }
+  }
+  return server
 })
 const getItemName = (itemInfo: ItemInfo) => {
   switch (itemLanguage.value) {

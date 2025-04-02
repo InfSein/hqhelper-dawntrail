@@ -106,13 +106,13 @@ const canPinWindow = computed(() => {
 })
 
 const workState = ref({
-  patch: '7.0-710',
+  patch: '7.2-740',
   /** 是否将整个窗口置顶 (限v5及以上的客户端使用) */
   pinWindow: false,
   /** 通知方式 */
   notifyMode: 'none' as "none" | "system_noti" | "audio",
   /** 排序依据 */
-  orderBy: 'itemId' as "itemId" | "gatherStartTimeAsc" | "remainingTimeAsc",
+  orderBy: 'gatherStartTimeAsc' as "itemId" | "gatherStartTimeAsc" | "remainingTimeAsc",
   /** 是否将目前可以采集的道具置顶 */
   pinGatherableItems: false,
   /** 禁用物品按钮悬浮窗 */
