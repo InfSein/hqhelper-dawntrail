@@ -6177,28 +6177,28 @@
   },
   "修复食药计算与工作流的统计中，部分道具会在采集统计和点数兑换统计中重复出现的问题。": {
     "en": "Fixed the issue where some items appeared multiple times in the collection statistics and tome-script exchange statistics in the FT Helper and workflow.",
-    "ja": "修复食药计算与工作流的统计中，部分道具会在采集统计和点数兑换统计中重复出现的问题。",
+    "ja": "調理品&薬品計算とワークフローの集計において、特定のアイテムが採取集計とトークン交換集計で重複して表示される問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修正了工作流报表中子标题的背景色。": {
     "en": "Fixed the background color of subtitles in workflow statements.",
-    "ja": "修正了工作流报表中子标题的背景色。",
+    "ja": "ワークフローレポートのサブタイトル背景色を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "修正主界面选择部件区域操作按钮的显示逻辑。": {
     "en": "Fixed the display logic of operation buttons in the main page Gear Selection area.",
-    "ja": "修正主界面选择部件区域操作按钮的显示逻辑。",
+    "ja": "メイン画面のパーツ選択エリア操作ボタンの表示方を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "物品数量按千分号格式化": {
     "en": "Format item quantity with thousands separator",
-    "ja": "物品数量按千分号格式化",
+    "ja": "アイテム数量をカンマ区切りで表示する機能を追加（例：12,345）",
     "$files": [
       "data\\change-logs.ts",
       "components\\modals\\ModalPreferences.vue"
@@ -6206,56 +6206,56 @@
   },
   "各个功能的默认设置有所调整。": {
     "en": "Default settings for various features have been adjusted.",
-    "ja": "各个功能的默认设置有所调整。",
+    "ja": "各機能のデフォルト設定を調整しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "※ 仅对第一次使用HqHelper的用户生效。": {
     "en": "※ Only effective for users using HqHelper for the first time.",
-    "ja": "※ 仅对第一次使用HqHelper的用户生效。",
+    "ja": "※HQHelperを初めて利用するユーザーのみ有効",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "偏好设置中，部分设置项修改之后不再需要刷新页面才能生效。": {
     "en": "In User Preferences, some settings no longer require a page refresh to take effect after modification.",
-    "ja": "偏好设置中，部分设置项修改之后不再需要刷新页面才能生效。",
+    "ja": "環境設定において、一部設定項目の変更後にページリロードが不要になりました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "优化了主界面右键职业按钮的展开菜单的显示效果。": {
     "en": "Optimized the display effect of the expanded menu of the right-click profession button on the main page.",
-    "ja": "优化了主界面右键职业按钮的展开菜单的显示效果。",
+    "ja": "メイン画面の右クリックジョブボタン展開メニューの表示効果を最適化しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "开启此选项时，物品数量将按千分号格式化(如 12,345)。": {
     "en": "When this option is enabled, item quantities will be formatted with thousands separators (e.g., 12,345).",
-    "ja": "开启此选项时，物品数量将按千分号格式化(如 12,345)。",
+    "ja": "このオプションを有効にすると、アイテム数量がカンマ区切りで表示されます（例：12,345）。",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
   "此选项适用于所有表格、物品按钮和物品信息。": {
     "en": "This option applies to all tables, item buttons, and item info.",
-    "ja": "此选项适用于所有表格、物品按钮和物品信息。",
+    "ja": "この設定はすべてのテーブル、アイテムボタン、アイテム情報に適用されます。",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
   "为工作流管理界面的表格增加了拖拽按钮，拖动即可为已有工作流排序。": {
     "en": "Added drag-and-drop buttons to the workflow management interface table, allowing users to sort existing workflows by dragging.",
-    "ja": "为工作流管理界面的表格增加了拖拽按钮，拖动即可为已有工作流排序。",
+    "ja": "ワークフロー管理画面のテーブルにドラッグボタンを追加し、既存ワークフローの順序変更を可能にしました",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "拖动以排序": {
     "en": "Drag to sort",
-    "ja": "拖动以排序",
+    "ja": "ドラッグで並べ替え",
     "$files": [
       "components\\modals\\ModalWorkflowsManage.vue"
     ]
