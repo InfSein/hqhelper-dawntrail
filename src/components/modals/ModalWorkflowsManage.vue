@@ -27,9 +27,13 @@ const workflows = defineModel<Workflow[]>('workflows', { required: true })
 const emits = defineEmits(['afterSave'])
 
 const formDataWorkflows = ref<Workflow[]>([])
+const workflowIdCounter = ref(0)
 
 const onLoad = () => {
   formDataWorkflows.value = deepCopy(workflows.value)
+  formDataWorkflows.value.forEach(workflow => {
+    workflow.tempId = workflowIdCounter.value++
+  })
 }
 
 const handleAddWorkflow = () => {
@@ -37,7 +41,9 @@ const handleAddWorkflow = () => {
     NAIVE_UI_MESSAGE.warning(t('最多只能添加{num}条工作流', _VAR_MAX_WORKFLOW))
     return
   }
-  formDataWorkflows.value.push(getDefaultWorkflow())
+  const newWorkflow = getDefaultWorkflow()
+  newWorkflow.tempId = workflowIdCounter.value++
+  formDataWorkflows.value.push(newWorkflow)
 }
 
 const handleSave = () => {
@@ -107,6 +113,8 @@ const handleSave = () => {
                 </n-button>
               </td>
             </tr>
+          </tbody>
+          <tbody>
             <tr v-if="formDataWorkflows.length < _VAR_MAX_WORKFLOW">
               <td></td>
               <td>
