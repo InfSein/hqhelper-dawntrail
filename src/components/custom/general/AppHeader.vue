@@ -26,6 +26,7 @@ import {
   InfoFilled, InfoOutlined,
   DevicesOtherOutlined,
   ContactlessOutlined,
+  HandshakeOutlined,
   DarkModeTwotone, LightModeTwotone,
   UpdateSharp
 } from '@vicons/material'
@@ -34,6 +35,7 @@ import ModalContactUs from '@/components/modals/ModalContactUs.vue'
 import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import ModalFestivalEgg from '@/components/modals/ModalFestivalEgg.vue'
+import ModalDonate from '@/components/modals/ModalDonate.vue'
 // import ChristmasTree from '@/assets/icons/ChristmasTree.vue'
 import type { AppVersionJson } from '@/models'
 import { visitUrl } from '@/tools'
@@ -85,6 +87,7 @@ const showAboutAppModal = ref(false)
 const showContactModal = ref(false)
 const showChangeLogsModal = ref(false)
 const showFestivalEggModal = ref(false)
+const showDonateModal = ref(false)
 
 // const showFestivalEgg = computed(() => {
 //   const now = new Date()
@@ -120,6 +123,9 @@ const displayContactModal = () => {
 }
 const displayChangeLogsModal = () => {
   showChangeLogsModal.value = true
+}
+const displayDonateModal = () => {
+  showDonateModal.value = true
 }
 const redirectToFoodAndTincPage = () => {
   router.push('/fthelper')
@@ -199,6 +205,7 @@ const menuItems = computed(() => {
     checkUpdates: { label: t('检查更新'), icon: UpdateSharp, click: handleCheckUpdates } as MenuItem,
     changelogs: { label: t('更新日志'), icon: EventNoteFilled, click: displayChangeLogsModal } as MenuItem,
     contact: { label: t('联系我们'), icon: ContactlessOutlined, click: displayContactModal } as MenuItem,
+    donate: { label: t('赞助我们'), icon: HandshakeOutlined, click: displayDonateModal } as MenuItem,
     aboutApp: { label: t('关于本作'), icon: InfoOutlined, click: displayAboutAppModal } as MenuItem
   }
 })
@@ -218,6 +225,7 @@ const desktopMenus = computed(() => {
   const checkUpdatesTooltip = t('更新目标的战力等级……变更攻击模式……')
   const changelogTooltip = t('修正……改良……开始对循环程序进行更新……')
   const contactTooltip = t('关注我们喵，关注我们谢谢喵。')
+  const donateTooltip = t('助力程序肥多玩肥肥14！')
   const aboutTooltip = t('重新自我介绍一下库啵。')
 
   const buildOuterlinkOption = (key: string, label: string, url: string, icon: Component, description?: string) => {
@@ -313,6 +321,7 @@ const desktopMenus = computed(() => {
       options: [
         { key: 'ab-faq', label: '常见问题', hide: userConfig.value.language_ui !== 'zh', icon: renderIcon(HelpOutlineOutlined), description: '也有不常见的。', click: ()=>{ visitUrl('https://docs.qq.com/doc/DY3pPZmRGRHpubEFi') } },
         { key: 'ab-contact', label: t('联系我们'), icon: renderIcon(ContactlessOutlined), description: contactTooltip, click: displayContactModal },
+        { key: 'ab-donate', label: t('赞助我们'), icon: renderIcon(HandshakeOutlined), description: donateTooltip, click: displayDonateModal },
         { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoOutlined), description: aboutTooltip, click: displayAboutAppModal },
       ],
     }
@@ -508,6 +517,7 @@ const handleCheckUpdates = async () => {
     <ModalContactUs v-model:show="showContactModal" />
     <ModalChangeLogs v-model:show="showChangeLogsModal" />
     <ModalFestivalEgg v-model:show="showFestivalEggModal" />
+    <ModalDonate v-model:show="showDonateModal" />
   </div>
 </template>
 
