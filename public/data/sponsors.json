@@ -12,5 +12,78 @@
     "江月渔火",
     "湿宝"
   ],
-  "sponsors_gen2": []
+  "sponsors_gen2": [],
+  "sponsors": [
+    {
+      "name": "test1",
+      "date": "2025-04-09",
+      "word": "32g4rftbvh 5h4tergfd"
+    },
+    {
+      "name": "小密峰",
+      "date": "",
+      "word": "",
+      "isGen1Sponsor": true
+    },
+    {
+      "name": "宁无恨",
+      "date": "",
+      "word": "",
+      "isGen1Sponsor": true
+    },
+    {
+      "name": "四期重建用的翻车鱼",
+      "date": "",
+      "word": "",
+      "isGen1Sponsor": true
+    },
+    {
+      "name": "·无言·",
+      "date": "",
+      "word": "",
+      "isGen1Sponsor": true
+    },
+    {
+      "name": "漫才",
+      "date": "",
+      "word": "",
+      "isGen1Sponsor": true
+    },
+    {
+      "name": "Sui",
+      "date": "",
+      "word": "",
+      "isGen1Sponsor": true
+    },
+    {
+      "name": "被joker偷心了",
+      "date": "",
+      "word": "",
+      "isGen1Sponsor": true
+    },
+    {
+      "name": "临渊羡鱼",
+      "date": "",
+      "word": "",
+      "isGen1Sponsor": true
+    },
+    {
+      "name": "聪明",
+      "date": "",
+      "word": "",
+      "isGen1Sponsor": true
+    },
+    {
+      "name": "江月渔火",
+      "date": "",
+      "word": "",
+      "isGen1Sponsor": true
+    },
+    {
+      "name": "湿宝",
+      "date": "",
+      "word": "",
+      "isGen1Sponsor": true
+    }
+  ]
 }
