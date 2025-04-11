@@ -7,6 +7,7 @@ import {
   RefreshOutlined
 } from '@vicons/material'
 import StaffGroup from './StaffGroup.vue'
+import ModalSponsorsList from '@/components/modals/ModalSponsorsList.vue'
 import AppStatus from '@/variables/app-status'
 import { createStaffMember } from '@/models/about-app'
 
@@ -102,6 +103,11 @@ const members = {
     [{ name: "Github", url: "https://github.com/etnAtker" }]
   )
 }
+
+const showSponsors = ref(false)
+const viewSponsors = () => {
+  showSponsors.value = true
+}
 </script>
 
 <template>
@@ -144,6 +150,11 @@ const members = {
       <div class="title">{{ t('致谢：赞助') }}</div>
       <div class="content">
         <p>{{ t('HqHelper的诞生与持续开发离不开用户的支持。') }}</p>
+        <p>
+          <span>{{ t('点击') }}</span>
+          <a @click="viewSponsors">{{ t('这里') }}</a>
+          <span>{{ t('来查看致谢名单。') }}</span>
+        </p>
         <p class="bold">{{ t('特别感谢以下用户对前代HqHelper项目的赞助：') }}</p>
         <div v-if="sponsorLoadingStatus === 'loading'" class="sponsor-spin-container">
           <n-spin size="small" style="text-indent: initial;" />
@@ -183,6 +194,10 @@ const members = {
         </div>
       </div>
     </div>
+
+    <ModalSponsorsList
+      v-model:show="showSponsors"
+    />
   </div>
 </template>
 

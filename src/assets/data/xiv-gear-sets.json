@@ -226,5 +226,258 @@
     "title_ja": "690HQ禁断ギアセット（経済版）（全クラフター通用）（未来パッチの難易度は未知なので足りない場合は自己責任）",
     "author": "月下独翼",
     "set_no": "OD0XO70zvsnZ9g8uYC4lyJHplzFegyMvNRpOV7QNTLQfqbyEmjlOTTgUUEgP3CjGLc"
+  },
+  "29": {
+    "title_zh": "720HQ中产禁断配装 (全生产通用)",
+    "title_en": "720HQ Recommended (For all DoH)",
+    "title_ja": "720HQ禁断ギアセット（一押し）（全クラフター通用）",
+    "author": "竹笙微凉_",
+    "set_no": "2TFFdaefE3NuMfQF9Dx6Dsxd1L0n3Z9k5gd2OwantWBSgrjCG4Y0cjlQN6e5j7sgal5"
+  },
+  "30": {
+    "title_zh": "720HQ丐版禁断配装 (全生产通用)",
+    "title_en": "720HQ Budget (For all DoH)",
+    "title_ja": "720HQ禁断ギアセット（貧乏版）（全クラフター通用）",
+    "author": "竹笙微凉_",
+    "set_no": "1izGgjUw5991OrA79oEpuevrpwGtFqcXDxGEO095rE2HxmXn2VDXIlFax030nlBN"
+  },
+  "31": {
+    "title_zh": "720HQ豪华禁断配装 (全生产通用)",
+    "title_en": "720HQ Best (For all DoH)",
+    "title_ja": "720HQ禁断ギアセット（最強版）（全クラフター通用）",
+    "author": "竹笙微凉_",
+    "set_no": "1kMSKb8WemAc97UJP2ego8imCxlOaygWY6KbQ5zzC2uz79WBhamjion2WDF"
+  },
+  "32": {
+    "title_zh": "坦克通用开荒配装1",
+    "title_en": "Tank General Starter I",
+    "title_ja": "",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "GMYkjYhPlGXVR2dmjLGJxcStF7yJqHUVTZVPKmTtUWtPS"
+  },
+  "33": {
+    "title_zh": "坦克通用开荒配装2",
+    "title_en": "Class-Specific Starter II",
+    "title_ja": "",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "1U8Xl7nOmpw9tNbG4iErzPTZNL9b1GL9EcBEOLlOgrXL0RC"
+  },
+  "34": {
+    "title_zh": "学者开荒配装",
+    "title_en": "SCH Class-Specific Starter",
+    "title_ja": "",
+    "gcd": 2.31,
+    "author": "孤风行",
+    "set_no": "823HkQfdbALXPczNNrTknbt0o3YHQm4j6Xop6VtPIgI7wAEFK"
+  },
+  "35": {
+    "title_zh": "白魔&贤者开荒配装",
+    "title_en": "WHM & SGE Class-Specific Starter",
+    "title_ja": "",
+    "gcd": 2.45,
+    "author": "孤风行",
+    "set_no": "5zjURlmi2DeuQfwGdwU42MV125vXtjBjh8LSs3jqFZ5B2Xeb"
+  },
+  "36": {
+    "title_zh": "治疗通用开荒配装",
+    "title_en": "Healer General Starter",
+    "title_ja": "",
+    "gcd": 2.4,
+    "author": "孤风行",
+    "set_no": "7VlQFIczYgjoApsCVckV4Epw3adyrg3eK95bHyBMQtefrOXiQ"
+  },
+  "37": {
+    "title_zh": "龙骑开荒配装1",
+    "title_en": "DRG Class-Specific Starter I",
+    "title_ja": "",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "9cOWzhanTQtW6BacFkMkklFCCZNgSsh6iOIiWvXi61sWcyny"
+  },
+  "38": {
+    "title_zh": "龙骑开荒配装2",
+    "title_en": "DRG Class-Specific Starter II",
+    "title_ja": "",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "JCOFvJEhImYRFlQlnGdJ7aPPiWQmYglRLz9Rwb5F7CUkqRkyU"
+  },
+  "39": {
+    "title_zh": "镰刀开荒配装1",
+    "title_en": "RPR Class-Specific Starter I",
+    "title_ja": "",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "9cO4DCmJWI0seE8Otr5tOdyqEI3YrtxQTHlNoPJhwntvLHEL"
+  },
+  "40": {
+    "title_zh": "镰刀开荒配装2",
+    "title_en": "RPR Class-Specific Starter II",
+    "title_ja": "",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "18fyrVF7TrhFFLhqoMarxLuy7nfzjKwqATL6vztCoq3zV9JZVp"
+  },
+  "41": {
+    "title_zh": "武僧开荒配装1",
+    "title_en": "MNK Class-Specific Starter I",
+    "title_ja": "",
+    "gcd": 1.94,
+    "author": "孤风行",
+    "set_no": "hL00QMCxQRa7G5TIrcqWp7tdYicY63ZN21t4u4SI3TdhKqm9R9l"
+  },
+  "42": {
+    "title_zh": "武僧开荒配装2",
+    "title_en": "MNK Class-Specific Starter II",
+    "title_ja": "",
+    "gcd": 1.94,
+    "author": "孤风行",
+    "set_no": "c5WR2B1aR9w6RgJVh0IlnNwhWShv6dgh5mX3W2Zjbus21hGAPcBxd"
+  },
+  "43": {
+    "title_zh": "武士开荒配装1",
+    "title_en": "SAM Class-Specific Starter I",
+    "title_ja": "",
+    "gcd": 2.14,
+    "author": "孤风行",
+    "set_no": "288fJRSeYYYNksoP7Yl7Z3Y6wsDiIAoIiVIBXQrjbvXNi7N88Tqp1R4"
+  },
+  "44": {
+    "title_zh": "武士开荒配装2",
+    "title_en": "SAM Class-Specific Starter II",
+    "title_ja": "",
+    "gcd": 2.14,
+    "author": "孤风行",
+    "set_no": "6xK9wg0vvYN25vQa66BeGL43ZAPj11CoWKadqLszxYuK2Ir6G9v10LI"
+  },
+  "45": {
+    "title_zh": "蝰蛇开荒配装1",
+    "title_en": "VPR Class-Specific Starter I",
+    "title_ja": "",
+    "gcd": 2.12,
+    "author": "孤风行",
+    "set_no": "1oST0hKYQZZsbVDkcYeB7EUW6lAtFddad8rFDR7JtmgdDPN8U"
+  },
+  "46": {
+    "title_zh": "蝰蛇开荒配装2",
+    "title_en": "VPR Class-Specific Starter II",
+    "title_ja": "",
+    "gcd": 2.12,
+    "author": "孤风行",
+    "set_no": "gjw9AZ3wugmqOCWHEGNf5R0iYHjJ0EttO8r856SbK8HgjzEuaM"
+  },
+  "47": {
+    "title_zh": "蝰蛇开荒配装3",
+    "title_en": "VPR Class-Specific Starter III",
+    "title_ja": "",
+    "gcd": 2.08,
+    "author": "孤风行",
+    "set_no": "58VgqJWn5EGtPWs95uIehEb0a3UZ8dVi3RCFG2STBRqfK7lj5jaOk"
+  },
+  "48": {
+    "title_zh": "蝰蛇开荒配装4",
+    "title_en": "VPR Class-Specific Starter IV",
+    "title_ja": "",
+    "gcd": 2.08,
+    "author": "孤风行",
+    "set_no": "9XNwMr2ZPuqKJSaJg4dn5gTbB5puUQyYIdnV3v7pzVtHKsGypEnlpRK"
+  },
+  "49": {
+    "title_zh": "忍者开荒配装1",
+    "title_en": "NIN Class-Specific Starter I",
+    "title_ja": "",
+    "gcd": 2.12,
+    "author": "孤风行",
+    "set_no": "1oSYHmxW0TxO2nEAeg43y9yRCnqKu5FeUvFcRfOzhA6URkMGx"
+  },
+  "50": {
+    "title_zh": "忍者开荒配装2",
+    "title_en": "NIN Class-Specific Starter II",
+    "title_ja": "",
+    "gcd": 2.12,
+    "author": "孤风行",
+    "set_no": "c1rfKjbWs0pGqMod4NHi3I3KldJSH5ACJHBc2KU7K2bbbvcEln"
+  },
+  "51": {
+    "title_zh": "机工开荒配装",
+    "title_en": "MCH Class-Specific Starter",
+    "title_ja": "",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "3DzHPpWnNSa3wYryVPVDFprgS8KZGBlsL9oUUMH3CGH5nWe"
+  },
+  "52": {
+    "title_zh": "诗人开荒配装",
+    "title_en": "BRD Class-Specific Starter",
+    "title_ja": "",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "3DzSfOoAaDz8pIDO99ogS2gB5ppmHO6IbARrzMgKHmjtBYd"
+  },
+  "53": {
+    "title_zh": "舞者开荒配装",
+    "title_en": "DNC Class-Specific Starter",
+    "title_ja": "",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "3DzAnHTXfTJhL0SfcTK2O6yTzO0rwSNIjpdoJdzh8MowmMj"
+  },
+  "54": {
+    "title_zh": "画家开荒配装1",
+    "title_en": "PCT Class-Specific Starter I",
+    "title_ja": "",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "2uPh4cmx1L8BNnqi7PjvkybItHieqNq4dzrd1oq9G4Pipldiaf"
+  },
+  "55": {
+    "title_zh": "画家开荒配装2",
+    "title_en": "PCT Class-Specific Starter II",
+    "title_ja": "",
+    "gcd": 2.48,
+    "author": "孤风行",
+    "set_no": "MbStYN02DbCWsEtCAnO6SAA8YizsAwP0DmVa412ouIq1l8YNCcj"
+  },
+  "56": {
+    "title_zh": "赤魔开荒配装1",
+    "title_en": "RDM Class-Specific Starter I",
+    "title_ja": "",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "28xq9hZ8Cx2zsUQH7lCkpBQnFTL3L4Q638qt87zHBma1cW79sG"
+  },
+  "57": {
+    "title_zh": "赤魔开荒配装2",
+    "title_en": "RDM Class-Specific Starter II",
+    "title_ja": "",
+    "gcd": 2.48,
+    "author": "孤风行",
+    "set_no": "FfKIpxKVSab32ajwz1Qpyc2y6RsFbCUdQQDeec4vFhhUfOryUhw"
+  },
+  "58": {
+    "title_zh": "召唤开荒配装",
+    "title_en": "SMN Class-Specific Starter",
+    "title_ja": "",
+    "gcd": 2.48,
+    "author": "孤风行",
+    "set_no": "yiVXX8pgsEfPYB05EbXzO4GDps21przzRGRfgbpOYtqTjaffkWt"
+  },
+  "59": {
+    "title_zh": "黑魔开荒配装1",
+    "title_en": "BLM Class-Specific Starter I",
+    "title_ja": "",
+    "gcd": 2.42,
+    "author": "孤风行",
+    "set_no": "xpdPV9jNafHAxK4NJLrIMSr78BXiVsG3nlx8tfq30HgbiNLLIna"
+  },
+  "60": {
+    "title_zh": "黑魔开荒配装2",
+    "title_en": "BLM Class-Specific Starter II",
+    "title_ja": "",
+    "gcd": 2.18,
+    "author": "孤风行",
+    "set_no": "uGokejuULO5Js21uYqS8rPPAEch0UTzmVJHl1XodfaokcI"
   }
 }
