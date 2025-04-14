@@ -59,7 +59,7 @@ onMounted(async () => {
 const members = {
   infsein: createStaffMember(
     "InfSein",
-    "https://avatars.githubusercontent.com/u/54071139?v=4",
+    "./image/staff/all-infsein.jpg",
     t('负责全部设计开发工作'),
     ["我问遍了整个猫区，他们都说我是最帅的肥"],
     [{ name: "Github", url: "https://github.com/InfSein" }]
