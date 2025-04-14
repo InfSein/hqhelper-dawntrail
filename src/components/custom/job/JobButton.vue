@@ -204,77 +204,80 @@ const contextOptions = computed(() => {
         },
         {
           key: 'selected-add',
-          label: t('添加'),
-          icon: renderIcon(AddOutlined),
-          children: [
-            {
-              key: 'selected-add-weapon',
-              label: t('添加一套主副手'),
-              icon: renderIcon(AddCircleOutlineOutlined),
-              click: () => {
-                addMainOffHand(gearsSelected, props.patchData, props.jobId)
-              }
-            },
-            {
-              key: 'selected-add-attire',
-              label: t('添加一套防具'),
-              icon: renderIcon(AddCircleOutlineOutlined),
-              click: () => {
-                if (roleInfo.value?.attire) {
-                  addAttire(gearsSelected, props.patchData, roleInfo.value.attire)
-                } else {
-                  console.error('No attire-affix:', roleInfo.value)
-                }
-              }
-            },
-            {
-              key: 'selected-add-accessory',
-              label: t('添加一套首饰'),
-              icon: renderIcon(AddCircleOutlineOutlined),
-              click: () => {
-                if (roleInfo.value?.accessory) {
-                  addAccessory(gearsSelected, props.patchData, roleInfo.value.accessory)
-                } else {
-                  console.error('No accessory-affix:', roleInfo.value)
-                }
-              }
-            },
-            {
-              key: 'selected-add-attire-and-accessory',
-              label: t('添加一套防具和首饰'),
-              icon: renderIcon(AddCircleOutlineOutlined),
-              click: () => {
-                if (roleInfo.value?.attire) {
-                  addAttire(gearsSelected, props.patchData, roleInfo.value.attire)
-                } else {
-                  console.error('No attire-affix:', roleInfo.value)
-                }
-                if (roleInfo.value?.accessory) {
-                  addAccessory(gearsSelected, props.patchData, roleInfo.value.accessory)
-                } else {
-                  console.error('No accessory-affix:', roleInfo.value)
-                }
-              }
-            },
-            {
-              key: 'selected-add-suit',
-              label: t('添加整套'),
-              icon: renderIcon(AddCircleOutlined),
-              click: () => {
-                addMainOffHand(gearsSelected, props.patchData, props.jobId)
-                if (roleInfo.value?.attire) {
-                  addAttire(gearsSelected, props.patchData, roleInfo.value.attire)
-                } else {
-                  console.error('No attire-affix:', roleInfo.value)
-                }
-                if (roleInfo.value?.accessory) {
-                  addAccessory(gearsSelected, props.patchData, roleInfo.value.accessory)
-                } else {
-                  console.error('No accessory-affix:', roleInfo.value)
-                }
-              }
+          type: 'render',
+          render: renderGroupTitle(t('添加'))
+        },
+        {
+          key: 'selected-add-weapon',
+          label: t('添加一套主副手'),
+          icon: renderIcon(AddCircleOutlineOutlined),
+          click: () => {
+            addMainOffHand(gearsSelected, props.patchData, props.jobId)
+          }
+        },
+        {
+          key: 'selected-add-attire',
+          label: t('添加一套防具'),
+          icon: renderIcon(AddCircleOutlineOutlined),
+          click: () => {
+            if (roleInfo.value?.attire) {
+              addAttire(gearsSelected, props.patchData, roleInfo.value.attire)
+            } else {
+              console.error('No attire-affix:', roleInfo.value)
             }
-          ]
+          }
+        },
+        {
+          key: 'selected-add-accessory',
+          label: t('添加一套首饰'),
+          icon: renderIcon(AddCircleOutlineOutlined),
+          click: () => {
+            if (roleInfo.value?.accessory) {
+              addAccessory(gearsSelected, props.patchData, roleInfo.value.accessory)
+            } else {
+              console.error('No accessory-affix:', roleInfo.value)
+            }
+          }
+        },
+        {
+          key: 'selected-add-attire-and-accessory',
+          label: t('添加一套防具和首饰'),
+          icon: renderIcon(AddCircleOutlineOutlined),
+          click: () => {
+            if (roleInfo.value?.attire) {
+              addAttire(gearsSelected, props.patchData, roleInfo.value.attire)
+            } else {
+              console.error('No attire-affix:', roleInfo.value)
+            }
+            if (roleInfo.value?.accessory) {
+              addAccessory(gearsSelected, props.patchData, roleInfo.value.accessory)
+            } else {
+              console.error('No accessory-affix:', roleInfo.value)
+            }
+          }
+        },
+        {
+          key: 'selected-add-suit',
+          label: t('添加整套'),
+          icon: renderIcon(AddCircleOutlined),
+          click: () => {
+            addMainOffHand(gearsSelected, props.patchData, props.jobId)
+            if (roleInfo.value?.attire) {
+              addAttire(gearsSelected, props.patchData, roleInfo.value.attire)
+            } else {
+              console.error('No attire-affix:', roleInfo.value)
+            }
+            if (roleInfo.value?.accessory) {
+              addAccessory(gearsSelected, props.patchData, roleInfo.value.accessory)
+            } else {
+              console.error('No accessory-affix:', roleInfo.value)
+            }
+          }
+        },
+        {
+          key: 'selected-manage',
+          type: 'render',
+          render: renderGroupTitle(t('管理'))
         },
         {
           key: 'selected-clear',
@@ -309,6 +312,11 @@ const contextOptions = computed(() => {
       icon: renderIcon(AccessibilityNewOutlined),
       children: [
         {
+          key: 'gearing-tools',
+          type: 'render',
+          render: renderGroupTitle(t('辅助工具'))
+        },
+        {
           label: t('模拟配装'),
           key: 'gearing-open-simulator',
           icon: renderIcon(AccessibilityNewOutlined),
@@ -318,17 +326,16 @@ const contextOptions = computed(() => {
           }
         },
         {
-          label: t('推荐配装'),
-          key: 'gearing-recomm',
-          icon: renderIcon(AccessibilityNewOutlined),
-          children: dealGearingRecomm()
-        }
+          key: 'selected-add',
+          type: 'render',
+          render: renderGroupTitle(t('推荐配装'))
+        },
+        ...dealGearingRecomm(),
       ]
     }
   ]
 })
 const renderJobContextHeader = () => {
-
   return h(
     'div',
     {
@@ -441,6 +448,19 @@ const renderGearsSelectedHeader = () => {
     }
   }
 }
+const renderGroupTitle = (title: string) => {
+  return () => h(
+    'div',
+    {
+      class: 'no-select',
+      style: 'padding: 0.2em 1em;'
+    },
+    [
+      h('p', { class: 'bold' }, title),
+    ]
+  )
+}
+const groupOptionStyle = 'margin: 0 1em;'
 function renderIcon(icon: Component, props?: any) {
   return () => {
     return h(NIcon, props, {
