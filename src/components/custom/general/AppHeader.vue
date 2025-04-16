@@ -40,6 +40,7 @@ import ModalDonate from '@/components/modals/ModalDonate.vue'
 import type { AppVersionJson } from '@/models'
 import { visitUrl } from '@/tools'
 import EorzeaTime from '@/tools/eorzea-time'
+import useUiTools from '@/tools/ui'
 import AppStatus from '@/variables/app-status'
 import router from '@/router'
 import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
@@ -68,6 +69,7 @@ const canOpenDevTools = computed(() => {
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
+const { dropdownOptionsRenderer } = useUiTools(isMobile)
 
 onMounted(() => {
   if (userConfig.value.cache_lasttime_version !== AppStatus.Version) {
@@ -334,25 +336,6 @@ function renderIcon(icon: Component) {
     })
   }
 }
-const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | DropdownGroupOption }) => {
-  return option.description ? h(
-    NTooltip,
-    {
-      keepAliveOnHover: false,
-      placement: 'right',
-      style: {
-        width: 'max-content',
-        display: isMobile.value ? 'none' : 'inherit',
-      }
-    },
-    {
-      trigger: () => [node],
-      default: () => option.description
-    }
-  ) : h(
-    node
-  )
-}
 const handleDesktopMenuOptionSelect = (key: string, option: any) => {
   if (option?.click) {
     option.click()
@@ -464,7 +447,7 @@ const handleCheckUpdates = async () => {
           v-for="(item, key) in desktopMenus"
           :key="'desktop-menu-' + key"
           :options="item.options?.filter(o => !o.hide)"
-          :render-option="renderOption"
+          :render-option="dropdownOptionsRenderer"
           :trigger="item.options?.length ? 'hover' : 'manual'"
           @select="handleDesktopMenuOptionSelect"
         >

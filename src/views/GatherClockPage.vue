@@ -20,6 +20,7 @@ import { XivMaps, XivJobs, type XivJob } from '@/assets/data'
 import { useStore } from '@/store'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
+import useUiTools from '@/tools/ui'
 import type { ItemGroup } from '@/models/item'
 import type { UserConfigModel } from '@/models/config-user'
 import EorzeaTime from '@/tools/eorzea-time'
@@ -34,6 +35,7 @@ const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const store = useStore()
 const { getLimitedGatherings } = useNbbCal()
+const { dropdownOptionsRenderer } = useUiTools(isMobile)
 const gatherData = computed(() => {
   const limitedGatherings = getLimitedGatherings()
   const allItems : Record<number, ItemInfo> = {}
@@ -157,18 +159,6 @@ const itemSortOptions = computed(() => {
     },
   ]
 })
-const renderOption = ({ node, option }: { node: VNode, option: SelectOption }) => {
-  return option.description ? h(
-    NTooltip,
-    { keepAliveOnHover: false, placement: 'right', style: { width: 'max-content', display: isMobile.value ? 'none' : 'inherit' } },
-    {
-      trigger: () => [node],
-      default: () => option.description
-    }
-  ) : h(
-    node
-  )
-}
 
 watch(
   () => workState.value.pinWindow,
@@ -576,7 +566,7 @@ const handleShowAlarmMacroExportModal = () => {
             <n-select v-model:value="workState.notifyMode" :options="notifyModeOptions" @update:value="handleCheckNotificationPermission" />
           </n-form-item>
           <n-form-item :label="t('排序依据')" style="min-width: 200px;">
-            <n-select v-model:value="workState.orderBy" :options="itemSortOptions" :render-option="renderOption" />
+            <n-select v-model:value="workState.orderBy" :options="itemSortOptions" :render-option="dropdownOptionsRenderer" />
           </n-form-item>
           <n-form-item :label="t('将现可采集的物品置顶')">
             <n-switch v-model:value="workState.pinGatherableItems" />
