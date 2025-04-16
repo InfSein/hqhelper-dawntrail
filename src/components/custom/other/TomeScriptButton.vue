@@ -10,11 +10,13 @@ import {
 import ItemSpan from '../item/ItemSpan.vue'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
 import { useStore } from '@/store'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const copyAsMacro = inject<(macroContent: string, container?: HTMLElement | undefined) => Promise<{
   result: "success" | "info" | "error";
   msg: string;
@@ -96,7 +98,15 @@ const getItemAmount = (amount: number) => {
     : amount
 }
 const macroValue = computed(() => {
+  // todo refactor required!
+  let itemDivider = ', ', groupDivider = '; '
+  if (funcConfig.value.macro_generate_mode === 'multiLine') {
+    itemDivider = '\n'
+    groupDivider = '\n-------------\n'
+  }
+
   let result = ''
+  const groups : string[] = []
   for (const _tomeScriptID in props.items) {
     const tomeScriptID = Number(_tomeScriptID)
     let tomeScriptName = getItemName(getItemInfo(tomeScriptID))
@@ -114,10 +124,10 @@ const macroValue = computed(() => {
         items.push(`${itemName}x${item.amount}`)
       }
     })
-    result += items.join(', ') + '; '
+    groups.push(items.join(itemDivider))
   }
 
-  return result
+  return groups.join(groupDivider)
 })
 
 const copyBtnLoading = ref(false)

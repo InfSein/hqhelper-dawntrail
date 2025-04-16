@@ -9,9 +9,10 @@ import {
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
+import ModalPreferences from './ModalPreferences.vue'
 import { CopyToClipboard } from '@/tools'
 import { useStore } from '@/store'
-import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
+import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from '@/models/config-func'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -22,12 +23,10 @@ const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
   
 const showModal = defineModel<boolean>('show', { required: true })
 
-const props = defineProps({
-  macroContent: {
-    type: String,
-    required: true
-  }
-})
+interface ModalCopyAsMacroProps {
+  macroMap: Record<MacroGenerateMode, string>;
+}
+const props = defineProps<ModalCopyAsMacroProps>()
 
 const wrapper = ref<HTMLElement>()
 const macroPrefix = ref('')
@@ -45,8 +44,14 @@ const onLoad = () => {
   macroPrefix.value = funcConfig.value.macro_copy_prefix
 }
 
+const macroContent = computed(() => {
+  return props.macroMap[funcConfig.value.macro_generate_mode]
+})
 const macro = computed(() => {
-  return macroPrefix.value + props.macroContent
+  return macroContent.value.split('\n').map(line => macroPrefix.value + line).join('\n')
+})
+const macroHtml = computed(() => {
+  return macro.value.split('\n').map(line => `<div>${line}</div>`).join('')
 })
 const macroColor = computed(() => {
   switch (macroPrefix.value) {
@@ -87,6 +92,11 @@ const handleCopy = async () => {
 const handleClose = () => {
   showModal.value = false
 }
+
+const showPreferencesModal = ref(false)
+const handleSettingButtonClick = () => {
+  showPreferencesModal.value = true
+}
 </script>
 
 <template>
@@ -96,13 +106,15 @@ const handleClose = () => {
     :title="t('复制宏')"
     max-width="350px"
     @on-load="onLoad"
+    show-setting
+    @on-setting-button-clicked="handleSettingButtonClick"
   >
     <div class="wrapper" ref="wrapper">
       <GroupBox id="marco-preview" title-background-color="var(--n-color-modal)" :content-style="macroContentStyle">
         <template #title>
           <span class="title">{{ t('预览') }}</span>
         </template>
-        {{ macro }}
+        <div v-html="macroHtml" />
       </GroupBox>
       <GroupBox id="marco-settings" title-background-color="var(--n-color-modal)">
         <template #title>
@@ -133,6 +145,12 @@ const handleClose = () => {
         </n-button>
       </div>
     </template>
+
+    <ModalPreferences
+      v-model:show="showPreferencesModal"
+      setting-group="copy_macro"
+      app-show-fp
+    />
   </MyModal>
 </template>
 
