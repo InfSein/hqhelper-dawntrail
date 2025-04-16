@@ -13,18 +13,20 @@ import { XivJobs, XivGearSlots, XivRoles, type XivRole } from '@/assets/data'
 import type { GearSelections } from '@/models/gears'
 import { getGearRecomm, useGearAdder } from '@/tools/gears'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
+import useUiTools from '@/tools/ui'
 import { visitUrl } from '@/tools'
 import type { UserConfigModel } from '@/models/config-user'
+
+const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const {
   addMainOffHand,
   addAttire,
   addAccessory
 } = useGearAdder()
-
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const { dropdownOptionsRenderer } = useUiTools(isMobile)
 
 const uiLanguage = userConfig.value?.language_ui ?? 'zh'
 
@@ -162,6 +164,11 @@ const contextOptions = computed(() => {
         key: `rg-${props.jobId}-${index}`,
         label: title,
         icon: renderIcon(AccessibilityNewOutlined),
+        props: {
+          class: 'n-option-hideoverflow',
+          style: 'max-width: 175px;' + groupOptionStyle
+        },
+        description: title,
         click: () => {
           visitUrl(`https://asvel.github.io/ffxiv-gearing/?${gear.set_no}`)
           showDropdownRef.value = false
@@ -211,6 +218,7 @@ const contextOptions = computed(() => {
           key: 'selected-add-weapon',
           label: t('添加一套主副手'),
           icon: renderIcon(AddCircleOutlineOutlined),
+          props: { style: groupOptionStyle },
           click: () => {
             addMainOffHand(gearsSelected, props.patchData, props.jobId)
           }
@@ -219,6 +227,7 @@ const contextOptions = computed(() => {
           key: 'selected-add-attire',
           label: t('添加一套防具'),
           icon: renderIcon(AddCircleOutlineOutlined),
+          props: { style: groupOptionStyle },
           click: () => {
             if (roleInfo.value?.attire) {
               addAttire(gearsSelected, props.patchData, roleInfo.value.attire)
@@ -231,6 +240,7 @@ const contextOptions = computed(() => {
           key: 'selected-add-accessory',
           label: t('添加一套首饰'),
           icon: renderIcon(AddCircleOutlineOutlined),
+          props: { style: groupOptionStyle },
           click: () => {
             if (roleInfo.value?.accessory) {
               addAccessory(gearsSelected, props.patchData, roleInfo.value.accessory)
@@ -243,6 +253,7 @@ const contextOptions = computed(() => {
           key: 'selected-add-attire-and-accessory',
           label: t('添加一套防具和首饰'),
           icon: renderIcon(AddCircleOutlineOutlined),
+          props: { style: groupOptionStyle },
           click: () => {
             if (roleInfo.value?.attire) {
               addAttire(gearsSelected, props.patchData, roleInfo.value.attire)
@@ -260,6 +271,7 @@ const contextOptions = computed(() => {
           key: 'selected-add-suit',
           label: t('添加整套'),
           icon: renderIcon(AddCircleOutlined),
+          props: { style: groupOptionStyle },
           click: () => {
             addMainOffHand(gearsSelected, props.patchData, props.jobId)
             if (roleInfo.value?.attire) {
@@ -283,7 +295,7 @@ const contextOptions = computed(() => {
           key: 'selected-clear',
           label: t('清空已选'),
           props: {
-            style: 'color: red;'
+            style: 'color: red;' + groupOptionStyle
           },
           icon: renderIcon(ClearAllOutlined, { color: 'red' }),
           click: () => {
@@ -320,6 +332,7 @@ const contextOptions = computed(() => {
           label: t('模拟配装'),
           key: 'gearing-open-simulator',
           icon: renderIcon(AccessibilityNewOutlined),
+          props: { style: groupOptionStyle },
           click: () => {
             visitUrl(`https://asvel.github.io/ffxiv-gearing/?${jobInfo.value?.short_name}`)
             showDropdownRef.value = false
@@ -518,6 +531,7 @@ const onClickoutside = () => {
             :x="xRef"
             :y="yRef"
             :options="contextOptions"
+            :render-option="dropdownOptionsRenderer"
             :show="showDropdownRef"
             :on-clickoutside="onClickoutside"
             @select="handleSelect"
