@@ -856,13 +856,16 @@ const handleSave = () => {
   store.commit('setFuncConfig', newFuncConfig)
 
   // * 判断是否需要刷新
-  let needReload = false
+  let needReload = false, reloadTimeout = 100
   preferenceGroups[0].settings.forEach(setting => {
     setting.children.forEach(item => {
       if (item.require_reload) {
         const key = item.key as keyof UserConfigModel
         if (formUserConfigData.value[key] !== oldUserConfig?.[key]) {
           needReload = true
+          if (key === 'language_ui') {
+            reloadTimeout = 500
+          }
         }
       }
     })
@@ -883,7 +886,7 @@ const handleSave = () => {
     const dealReload = () => {
       setTimeout(() => {
         location.reload()
-      }, 100) // 必须设置一个延迟，不然有些设置不会生效
+      }, reloadTimeout) // 必须设置一个延迟，不然有些设置不会生效
     }
     const dealTip = () => {
       NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
