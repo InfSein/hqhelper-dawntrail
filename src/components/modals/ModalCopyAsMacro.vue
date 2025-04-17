@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NButton, NCheckbox, NIcon, NSelect,
+  NButton, NCheckbox, NIcon, NInputGroup, NInputGroupLabel, NSelect,
   useMessage
 } from 'naive-ui'
 import { 
@@ -9,7 +9,8 @@ import {
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
-import ModalPreferences from './ModalPreferences.vue'
+import MacroViewer from '../custom/macro/MacroViewer.vue'
+// import ModalPreferences from './ModalPreferences.vue'
 import { CopyToClipboard } from '@/tools'
 import { useStore } from '@/store'
 import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from '@/models/config-func'
@@ -30,6 +31,7 @@ const props = defineProps<ModalCopyAsMacroProps>()
 
 const wrapper = ref<HTMLElement>()
 const macroPrefix = ref('')
+const macroMode = ref<MacroGenerateMode>('singleLine')
 const noMoreInquiries = ref(false)
 
 const prefixOptions = [
@@ -39,19 +41,24 @@ const prefixOptions = [
   { value: '/fc ', label: t('部队宏(/fc)') },
   { value: '/b ', label: t('新频宏(/b)') },
 ]
+const modeOptions = [
+  { value: 'singleLine', label: t('单行模式') },
+  { value: 'multiLine', label: t('多行模式') },
+]
 
 const onLoad = () => {
   macroPrefix.value = funcConfig.value.macro_copy_prefix
+  macroMode.value = funcConfig.value.macro_generate_mode
 }
 
 const macroContent = computed(() => {
-  return props.macroMap[funcConfig.value.macro_generate_mode]
+  return props.macroMap[macroMode.value]
+})
+const macroLines = computed(() => {
+  return macroContent.value.split('\n').map(line => macroPrefix.value + line)
 })
 const macro = computed(() => {
-  return macroContent.value.split('\n').map(line => macroPrefix.value + line).join('\n')
-})
-const macroHtml = computed(() => {
-  return macro.value.split('\n').map(line => `<div>${line}</div>`).join('')
+  return macroLines.value.join('\n')
 })
 const macroColor = computed(() => {
   switch (macroPrefix.value) {
@@ -84,6 +91,7 @@ const handleCopy = async () => {
     const newConfig = fixFuncConfig(store.state.funcConfig, store.state.userConfig)
     newConfig.macro_direct_copy = true
     newConfig.macro_copy_prefix = macroPrefix.value
+    newConfig.macro_generate_mode = macroMode.value
     store.commit('setFuncConfig', newConfig)
   }
   handleClose()
@@ -91,11 +99,6 @@ const handleCopy = async () => {
 }
 const handleClose = () => {
   showModal.value = false
-}
-
-const showPreferencesModal = ref(false)
-const handleSettingButtonClick = () => {
-  showPreferencesModal.value = true
 }
 </script>
 
@@ -106,28 +109,41 @@ const handleSettingButtonClick = () => {
     :title="t('复制宏')"
     max-width="350px"
     @on-load="onLoad"
-    show-setting
-    @on-setting-button-clicked="handleSettingButtonClick"
   >
     <div class="wrapper" ref="wrapper">
       <GroupBox id="marco-preview" title-background-color="var(--n-color-modal)" :content-style="macroContentStyle">
         <template #title>
           <span class="title">{{ t('预览') }}</span>
         </template>
-        <div v-html="macroHtml" />
+        <div v-if="macroMode === 'singleLine'">{{ macro }}</div>
+        <MacroViewer
+          v-else
+          :macro-lines="macroLines"
+          hide-tabs
+          hide-copy-button
+        />
       </GroupBox>
       <GroupBox id="marco-settings" title-background-color="var(--n-color-modal)">
         <template #title>
           <span class="title">{{ t('选项') }}</span>
         </template>
         <div class="settings-container">
-          <n-select
-            size="small"
-            v-model:value="macroPrefix"
-            :options="prefixOptions"
-            :style="{ width: '100%' }"
-            placeholder="请选择宏前缀"
-          />
+          <n-input-group>
+            <n-input-group-label size="small">{{ t('前缀') }}</n-input-group-label>
+            <n-select size="small"
+              v-model:value="macroPrefix"
+              :options="prefixOptions"
+              placeholder="请选择宏前缀"
+            />
+          </n-input-group>
+          <n-input-group>
+            <n-input-group-label size="small">{{ t('模式') }}</n-input-group-label>
+            <n-select size="small"
+              v-model:value="macroMode"
+              :options="modeOptions"
+              placeholder="请选择宏生成模式"
+            />
+          </n-input-group>
           <n-checkbox v-model:checked="noMoreInquiries">
             {{ t('以后不再询问，直接复制') }}
           </n-checkbox>
@@ -146,11 +162,11 @@ const handleSettingButtonClick = () => {
       </div>
     </template>
 
-    <ModalPreferences
+    <!-- <ModalPreferences
       v-model:show="showPreferencesModal"
       setting-group="copy_macro"
       app-show-fp
-    />
+    /> -->
   </MyModal>
 </template>
 

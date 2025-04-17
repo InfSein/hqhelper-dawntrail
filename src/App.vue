@@ -115,7 +115,9 @@ setInterval(() => {
 provide('currentET', currentET)
 
 const showCopyMacroModal = ref(false)
-const macroMap = ref<Record<MacroGenerateMode, string>>({})
+const macroMapValue = ref<Record<MacroGenerateMode, string>>({
+  singleLine: '', multiLine: ''
+})
 const copyAsMacro = async (macroMap: Record<MacroGenerateMode, string>, container?: HTMLElement | undefined) : Promise<{
   result: "success" | "info" | "error"
   msg: string
@@ -131,7 +133,7 @@ const copyAsMacro = async (macroMap: Record<MacroGenerateMode, string>, containe
     }
     return { result: 'success', msg: t('已复制到剪贴板') }
   } else {
-    macroMap.value = macroMap
+    macroMapValue.value = macroMap
     showCopyMacroModal.value = true
   }
 }
@@ -272,7 +274,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
         
         <ModalCopyAsMacro
           v-model:show="showCopyMacroModal"
-          :macro-map="macroMap"
+          :macro-map="macroMapValue"
         />
         <ModalCheckUpdates v-model:show="showCheckUpdatesModal" />
         <ModalFestivalEgg v-model:show="showFestivalEgg" />
