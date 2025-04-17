@@ -18,7 +18,7 @@ import { CopyToClipboard, sleep } from './tools'
 import EorzeaTime from './tools/eorzea-time'
 import type { AppVersionJson } from './models'
 import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
-import { fixFuncConfig, type FuncConfigModel } from './models/config-func'
+import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from './models/config-func'
 import AppStatus from './variables/app-status'
 import ModalFestivalEgg from './components/modals/ModalFestivalEgg.vue'
 
@@ -115,11 +115,14 @@ setInterval(() => {
 provide('currentET', currentET)
 
 const showCopyMacroModal = ref(false)
-const macroValue = ref('')
-const copyAsMacro = async (macroContent: string, container?: HTMLElement | undefined) : Promise<{
+const macroMapValue = ref<Record<MacroGenerateMode, string>>({
+  singleLine: '', multiLine: ''
+})
+const copyAsMacro = async (macroMap: Record<MacroGenerateMode, string>, container?: HTMLElement | undefined) : Promise<{
   result: "success" | "info" | "error"
   msg: string
 } | undefined> => {
+  const macroContent = macroMap[funcConfig.value.macro_generate_mode]
   if (!macroContent) {
     return { result: 'info', msg: t('没有需要复制的内容') }
   }
@@ -130,7 +133,7 @@ const copyAsMacro = async (macroContent: string, container?: HTMLElement | undef
     }
     return { result: 'success', msg: t('已复制到剪贴板') }
   } else {
-    macroValue.value = macroContent
+    macroMapValue.value = macroMap
     showCopyMacroModal.value = true
   }
 }
@@ -271,7 +274,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
         
         <ModalCopyAsMacro
           v-model:show="showCopyMacroModal"
-          :macro-content="macroValue"
+          :macro-map="macroMapValue"
         />
         <ModalCheckUpdates v-model:show="showCheckUpdatesModal" />
         <ModalFestivalEgg v-model:show="showFestivalEgg" />

@@ -154,6 +154,12 @@
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
+.n-option-hideoverflow {
+  .n-dropdown-option-body__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 .n-timeline-item-content__title {
   text-decoration-line: underline;
   --n-title-margin: -2px 0 3px 0;

@@ -23,3 +23,7 @@
 要启用此脚本，则需确保 `package.json` 中配置了 `postinstall`，配置内容应包括 `node scripts/update-version.cjs`。
 
 部分分支可能不会执行此脚本。
+
+### gearset-importer.cjs
+
+此脚本用于将配装表格转化成 `src\assets\data\xiv-gear-sets.json` 需要的 JSON 文本。

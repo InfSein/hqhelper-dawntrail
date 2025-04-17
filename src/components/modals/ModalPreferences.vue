@@ -403,7 +403,21 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: '/fc ', label: t('部队宏(/fc)') },
               { value: '/b ', label: t('新频宏(/b)') },
             ]
-          }
+          },
+          {
+            key: 'macro_generate_mode',
+            label: t('宏生成模式'),
+            descriptions: dealDescriptions([
+              t('决定要以何种格式生成宏。'),
+              t('单行模式会将所有材料合并入一行，以允许你直接在游戏内聊天框中粘贴发送；'),
+              t('多行模式会分行展示材料，以获得更好的排版，不过这样就必须在游戏内的用户宏界面中粘贴执行才能发送。'),
+            ]),
+            type: 'select',
+            options: [
+              { value: 'singleLine', label: t('单行模式') },
+              { value: 'multiLine', label: t('多行模式') },
+            ]
+          },
         ]
       },
       /* 导入/导出 */
@@ -842,13 +856,16 @@ const handleSave = () => {
   store.commit('setFuncConfig', newFuncConfig)
 
   // * 判断是否需要刷新
-  let needReload = false
+  let needReload = false, reloadTimeout = 100
   preferenceGroups[0].settings.forEach(setting => {
     setting.children.forEach(item => {
       if (item.require_reload) {
         const key = item.key as keyof UserConfigModel
         if (formUserConfigData.value[key] !== oldUserConfig?.[key]) {
           needReload = true
+          if (key === 'language_ui') {
+            reloadTimeout = 500
+          }
         }
       }
     })
@@ -869,7 +886,7 @@ const handleSave = () => {
     const dealReload = () => {
       setTimeout(() => {
         location.reload()
-      }, 100) // 必须设置一个延迟，不然有些设置不会生效
+      }, reloadTimeout) // 必须设置一个延迟，不然有些设置不会生效
     }
     const dealTip = () => {
       NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))

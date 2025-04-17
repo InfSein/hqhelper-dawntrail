@@ -51,7 +51,7 @@ const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
   const totalCost = amount * cost.costCount / receive
   return {
     costItem: cost.costId,
-    costCount: totalCost
+    costCount: (totalCost < 0) ? 0 : totalCost
   }
 }
 </script>

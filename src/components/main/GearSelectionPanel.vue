@@ -23,11 +23,13 @@ import { getDefaultGearSelections } from '@/models/gears'
 import { type UserConfigModel } from '@/models/config-user'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 import { useGearAdder } from '@/tools/gears'
+import useUiTools from '@/tools/ui'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const NAIVE_UI_MESSAGE = useMessage()
+const { dropdownOptionsRenderer } = useUiTools(isMobile)
 
 const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
 export interface GearSelectionPanelProps {
@@ -209,19 +211,6 @@ const handleJoinWorkflow = () => {
 // #endregion
 
 // #region Dropdown Options
-const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | DropdownGroupOption }) => {
-  return option.description ? h(
-    NTooltip,
-    { keepAliveOnHover: false, placement: 'right', style: { width: 'max-content', display: isMobile.value ? 'none' : 'inherit' } },
-    {
-      trigger: () => [node],
-      default: () => option.description
-    }
-  ) : h(
-    node
-  )
-}
-
 const displayQuickOperates = computed(() => {
   // * 简单算法，有刻木主手代表是有生产采集新装的版本
   return !!props.patchData?.jobs?.MainHand?.[8]?.[0]
@@ -554,7 +543,7 @@ defineExpose({
             v-if="displayQuickOperates"
             :show="showQuickOperatesOptions"
             :options="quickOperatesOptions"
-            :render-option="renderOption"
+            :render-option="dropdownOptionsRenderer"
             class="no-select"
             placement="bottom"
             @select="handleQuickOperatesSelect"
@@ -578,7 +567,7 @@ defineExpose({
           <n-dropdown
             :show="showClearOptions"
             :options="clearOptions"
-            :render-option="renderOption"
+            :render-option="dropdownOptionsRenderer"
             class="no-select"
             placement="bottom"
             @select="handleClearSelect"
@@ -602,7 +591,7 @@ defineExpose({
           <n-dropdown
             :show="showAddsuitOptions"
             :options="addsuitOptions"
-            :render-option="renderOption"
+            :render-option="dropdownOptionsRenderer"
             class="no-select"
             placement="bottom"
             @select="handleAddsuitSelect"

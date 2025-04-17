@@ -10,12 +10,14 @@ import {
 import ItemSpan from '../item/ItemSpan.vue'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
+import type { MacroGenerateMode } from '@/models/config-func'
 import { useStore } from '@/store'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
-const copyAsMacro = inject<(macroContent: string, container?: HTMLElement | undefined) => Promise<{
+// const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+const copyAsMacro = inject<(macroMap: Record<MacroGenerateMode, string>, container?: HTMLElement | undefined) => Promise<{
   result: "success" | "info" | "error";
   msg: string;
 } | undefined>>('copyAsMacro')!
@@ -95,35 +97,48 @@ const getItemAmount = (amount: number) => {
     ? amount.toLocaleString()
     : amount
 }
-const macroValue = computed(() => {
-  let result = ''
+
+const macroMap = computed(() : Record<MacroGenerateMode, string> => {
+  const result: Record<MacroGenerateMode, string> = {
+    singleLine: '',
+    multiLine: ''
+  }
+
   for (const _tomeScriptID in props.items) {
     const tomeScriptID = Number(_tomeScriptID)
     let tomeScriptName = getItemName(getItemInfo(tomeScriptID))
     if (itemLanguage.value === 'en') {
       tomeScriptName = `"${tomeScriptName}"`
     }
-    result += `[${tomeScriptName}x${tomeScripts.value[tomeScriptID]}] `
-    const items : string[] = []
+
+    // Group Title
+    result.singleLine += `[${tomeScriptName}x${tomeScripts.value[tomeScriptID]}] `
+    result.multiLine += `【${tomeScriptName} Ｘ ${tomeScripts.value[tomeScriptID]}】\n`
+
+    const slItems : string[] = []
+    const mlItems : string[] = []
     props.items[tomeScriptID].forEach(item => {
       if (item.amount) {
         let itemName = getItemName(item)
         if (itemLanguage.value === 'en') {
           itemName = `"${itemName}"`
         }
-        items.push(`${itemName}x${item.amount}`)
+        slItems.push(`${itemName}x${item.amount}`)
+        mlItems.push(`・${itemName} x${item.amount}`)
       }
     })
-    result += items.join(', ') + '; '
+    result.singleLine += slItems.join(', ') + '; '
+    result.multiLine += mlItems.join('\n') + '\n'
   }
 
+  result.multiLine = result.multiLine.trim()
   return result
 })
 
 const copyBtnLoading = ref(false)
 const handleCopyAsMacro = async () => {
   copyBtnLoading.value = true
-  const response = await copyAsMacro(macroValue.value)
+  const response = await copyAsMacro(macroMap.value)
   if (response) {
     NAIVE_UI_MESSAGE[response.result](response.msg)
   }
