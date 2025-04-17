@@ -403,7 +403,21 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: '/fc ', label: t('部队宏(/fc)') },
               { value: '/b ', label: t('新频宏(/b)') },
             ]
-          }
+          },
+          {
+            key: 'macro_generate_mode',
+            label: t('宏生成模式'),
+            descriptions: dealDescriptions([
+              t('决定要以何种格式生成宏。'),
+              t('单行模式会将所有材料合并入一行，以允许你直接在游戏内聊天框中粘贴发送；'),
+              t('多行模式会分行展示材料，以获得更好的排版，不过这样就必须在游戏内的用户宏界面中粘贴执行才能发送。'),
+            ]),
+            type: 'select',
+            options: [
+              { value: 'singleLine', label: t('单行模式') },
+              { value: 'multiLine', label: t('多行模式') },
+            ]
+          },
         ]
       },
       /* 导入/导出 */
