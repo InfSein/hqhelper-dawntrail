@@ -33,11 +33,12 @@ import type { PreferenceGroup, SettingGroupKey } from '@/models'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { fixWorkState } from '@/models/workflow'
 
-const store = useStore()
-const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
+
+const store = useStore()
+const NAIVE_UI_MESSAGE = useMessage()
 
 const showModal = defineModel<boolean>('show', { required: true })
 const emit = defineEmits(['close', 'afterSubmit'])
@@ -81,9 +82,9 @@ const getPriceTypeOptions = () => {
     { value: 'currentAveragePrice', label: t('当前平均价格') },
     { value: 'minPrice', label: t('最低价格') },
     { value: 'maxPrice', label: t('最高价格') },
-    { value: 'purchasePrice', label: t('近期成交价格') },
-    { value: 'marketLowestPrice', label: t('当前寄售最低价') },
-    { value: 'marketPrice', label: t('当前寄售平均价') }
+    { value: 'purchasePrice', label: t('近期成交价格'), description: t('选取最近5条成交记录计算平均价格') },
+    { value: 'marketLowestPrice', label: t('当前寄售最低价'), description: t('选取交易板前10条在售记录中的最低价格') },
+    { value: 'marketPrice', label: t('当前寄售平均价'), description: t('选取交易板前10条在售记录计算平均价格') }
   ]
 }
 const preferenceGroups : PreferenceGroup[] = [

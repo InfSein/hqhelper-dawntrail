@@ -8,9 +8,12 @@ import {
 } from '@vicons/material'
 import HelpButton from './HelpButton.vue'
 import type { SettingItem } from '@/models'
+import useUiTools from '@/tools/ui'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+
+const { dropdownOptionsRenderer } = useUiTools(isMobile)
 
 const formData = defineModel<any>('formData', { required: true })
 interface SettingItemProps {
@@ -95,6 +98,7 @@ const warnings = computed(() => {
         v-model:value="formData[settingItem.key]"
         :multiple="settingItem.multiple"
         :options="settingItem.options"
+        :render-option="dropdownOptionsRenderer"
         :style="{ width: isMobile ? '75%' : '60%' }"
       />
       <n-cascader
