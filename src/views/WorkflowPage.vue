@@ -416,7 +416,7 @@ const handleAnalysisItemPrices = async () => {
       <div class="block" ref="headerBlock">
         <div class="action">
           <p>{{ t('切换工作流：') }}</p>
-          <div class="flex" style="gap: 5px;">
+          <div class="flex-wrap" style="gap: 5px;">
             <!-- <n-button-group
             >
               <n-button v-show="false" size="tiny" class="n-square-button" :title="t('重命名这条工作流')" @click="handleEditWorkflow(flowIndex)">
@@ -686,6 +686,7 @@ const handleAnalysisItemPrices = async () => {
       flex-direction: column;
       align-items: flex-start;
       justify-content: start;
+      gap: 5px;
     }
     .content-block {
       display: flex;
