@@ -639,6 +639,8 @@ const handleShowAlarmMacroExportModal = () => {
                 show-icon show-name
                 btn-extra-style="flex-grow: 1;"
                 :disable-pop="workState.banItemPop"
+                pop-use-custom-width
+                :pop-custom-width="isMobile ? 300 : undefined"
               />
               <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
                 <template #trigger>
