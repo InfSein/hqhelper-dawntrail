@@ -10,27 +10,25 @@ import {
 import ItemSpan from '../item/ItemSpan.vue'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
 import type { MacroGenerateMode } from '@/models/config-func'
 import { useStore } from '@/store'
+import UseConfig from '@/tools/use-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
-// const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const copyAsMacro = inject<(macroMap: Record<MacroGenerateMode, string>, container?: HTMLElement | undefined) => Promise<{
   result: "success" | "info" | "error";
   msg: string;
 } | undefined>>('copyAsMacro')!
+
 const store = useStore()
-
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
-
 const NAIVE_UI_MESSAGE = useMessage()
+const {
+  itemLanguage,
+} = UseConfig(userConfig, funcConfig)
 
 const props = defineProps({
   /**

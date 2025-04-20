@@ -7,17 +7,23 @@ import {
 import {
   CodeSharp
 } from '@vicons/material'
+import UseConfig from '@/tools/use-config'
 import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/config-user'
-import type { MacroGenerateMode } from '@/models/config-func'
+import type { FuncConfigModel, MacroGenerateMode } from '@/models/config-func'
 
 const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const copyAsMacro = inject<(macroMap: Record<MacroGenerateMode, string>, container?: HTMLElement | undefined) => Promise<{
   result: "success" | "info" | "error";
   msg: string;
 } | undefined>>('copyAsMacro')!
+
+const {
+  itemLanguage,
+} = UseConfig(userConfig, funcConfig)
 
 interface ButtonCopyAsMacroProps {
   items: ItemInfo[],
@@ -28,12 +34,6 @@ const props = defineProps<ButtonCopyAsMacroProps>()
 
 const copyBtnLoading = ref(false)
 
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
 const getItemName = (itemInfo: ItemInfo) => {
   switch (itemLanguage.value) {
     case 'zh':

@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, h, inject, onBeforeUnmount, onMounted, ref, watch, type Ref, type VNode } from 'vue'
+import { computed, inject, onBeforeUnmount, onMounted, ref, watch, type Ref } from 'vue'
 import {
-  NBackTop, NButton, NCard, NDivider, NDropdown, NEl, NEmpty, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch, NTooltip,
-  type SelectOption
+  NBackTop, NButton, NCard, NDivider, NDropdown, NEl, NEmpty, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch,
 } from 'naive-ui'
 import {
   AccessAlarmsOutlined,
@@ -23,6 +22,8 @@ import { getItemInfo, type ItemInfo } from '@/tools/item'
 import useUiTools from '@/tools/ui'
 import type { ItemGroup } from '@/models/item'
 import type { UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
+import UseConfig from '@/tools/use-config'
 import EorzeaTime from '@/tools/eorzea-time'
 import { playAudio } from '@/tools'
 import { fixAlarmMacroOptions } from '@/models/gather-clock'
@@ -30,12 +31,17 @@ import { fixAlarmMacroOptions } from '@/models/gather-clock'
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
 const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const store = useStore()
 const { getLimitedGatherings } = useNbbCal()
 const { dropdownOptionsRenderer } = useUiTools(isMobile)
+const {
+  uiLanguage, itemLanguage,
+} = UseConfig(userConfig, funcConfig)
+
 const gatherData = computed(() => {
   const limitedGatherings = getLimitedGatherings()
   const allItems : Record<number, ItemInfo> = {}
@@ -90,15 +96,6 @@ const gatherData = computed(() => {
   }
 
   return data
-})
-const uiLanguage = computed(() => {
-  return userConfig.value.language_ui
-})
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
 })
 const isVerticalOverlay = computed(() => {
   return isMobile.value && appMode.value === 'overlay'

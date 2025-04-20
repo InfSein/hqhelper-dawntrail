@@ -10,21 +10,20 @@ import {
 import ItemPop from './ItemPop.vue'
 import XivFARImage from '../general/XivFARImage.vue'
 import type { UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
 import { CopyToClipboard } from '@/tools'
 import { getItemContexts, type ItemInfo } from '@/tools/item'
+import UseConfig from '@/tools/use-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 const NAIVE_UI_MESSAGE = useMessage()
-
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
+const {
+  itemLanguage,
+} = UseConfig(userConfig, funcConfig)
 
 interface ItemSpanProps {
   itemInfo: ItemInfo

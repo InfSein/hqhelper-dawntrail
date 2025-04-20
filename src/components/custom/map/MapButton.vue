@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
+import { inject, ref, type Ref } from 'vue'
 import {
   NButton, NIcon, NPopover
 } from 'naive-ui'
@@ -10,17 +10,17 @@ import XivFARImage from '../general/XivFARImage.vue'
 import XivMap from './XivMap.vue'
 import type { XivMapInfo } from '@/assets/data'
 import type { UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
+import UseConfig from '@/tools/use-config'
 import { getNearestAetheryte } from '@/tools/map'
 
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
-const itemLanguage = computed(() : "zh" | "en" | "ja" => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
+const {
+  itemLanguage,
+} = UseConfig(userConfig, funcConfig)
 
 interface MapButtonProps {
   size: number,

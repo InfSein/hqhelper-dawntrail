@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, h, inject, onMounted, ref, type Component, type Ref, type VNode } from 'vue'
+import { computed, h, inject, onMounted, ref, type Component, type Ref } from 'vue'
 import {
-  NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover, NTooltip,
+  NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover,
   useMessage,
-  type DropdownOption, type DropdownGroupOption
+  type DropdownOption,
 } from 'naive-ui'
 import {
   ArrowCircleLeftOutlined,

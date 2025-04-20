@@ -6,7 +6,7 @@ import {
 import {
   FileDownloadDoneOutlined,
   AccessibilityNewOutlined,
-  AddOutlined, AddCircleOutlineOutlined, AddCircleOutlined, ClearAllOutlined
+  AddCircleOutlineOutlined, AddCircleOutlined, ClearAllOutlined
 } from '@vicons/material'
 import XivFARImage from '../general/XivFARImage.vue'
 import { XivJobs, XivGearSlots, XivRoles, type XivRole } from '@/assets/data'
@@ -16,10 +16,13 @@ import type { IHqVer } from '@/tools/nbb-cal-v5'
 import useUiTools from '@/tools/ui'
 import { visitUrl } from '@/tools'
 import type { UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
+import UseConfig from '@/tools/use-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
 const {
   addMainOffHand,
@@ -27,8 +30,9 @@ const {
   addAccessory
 } = useGearAdder()
 const { dropdownOptionsRenderer } = useUiTools(isMobile)
-
-const uiLanguage = userConfig.value?.language_ui ?? 'zh'
+const {
+  uiLanguage,
+} = UseConfig(userConfig, funcConfig)
 
 const gearsSelected = defineModel<GearSelections>('gearsSelected', { required: true })
 interface JobButtonProps {
@@ -72,7 +76,7 @@ const jobInfo = computed(() => {
   return XivJobs[props.jobId]
 })
 const jobSubName = computed(() => {
-  switch (uiLanguage) {
+  switch (uiLanguage.value) {
     case 'ja':
       return jobInfo.value.job_name_en
     case 'en':
@@ -153,7 +157,7 @@ const contextOptions = computed(() => {
     const recommGears = getGearRecomm(props.patchSelected, props.jobId)
     const rgContents : any[] = []
     recommGears.forEach((gear, index) => {
-      let title = gear[`title_${uiLanguage}`] || gear.title_zh
+      let title = gear[`title_${uiLanguage.value}`] || gear.title_zh
       if (gear.gcd) {
         title = `${gear.gcd.toFixed(2)}GCD/ ${title}`
       }

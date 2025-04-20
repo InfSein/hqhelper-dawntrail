@@ -32,38 +32,29 @@ import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { calCostAndBenefit, getItemInfo, getItemPriceInfo, getProStatementData, getStatementData, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { useFufuCal } from '@/tools/use-fufu-cal'
+import UseConfig from '@/tools/use-config'
 import CraftRecommProcess from '@/components/custom/general/CraftRecommProcess.vue'
 import TooltipButton from '@/components/custom/general/TooltipButton.vue'
 import ModalWorkflowsManage from '@/components/modals/ModalWorkflowsManage.vue'
 import type { SettingGroupKey } from '@/models'
-
-const store = useStore()
-const NAIVE_UI_MESSAGE = useMessage()
-const { calItems } = useNbbCal()
-const { calRecommProcessData, calRecommProcessGroups } = useFufuCal()
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
+const store = useStore()
+const NAIVE_UI_MESSAGE = useMessage()
+const { calItems } = useNbbCal()
+const { calRecommProcessData, calRecommProcessGroups } = useFufuCal()
+const {
+  itemServer,
+} = UseConfig(userConfig, funcConfig)
+
 const workState = ref(fixWorkState())
 
 const currentWorkflow = computed(() => {
   return workState.value.workflows[workState.value.currentWorkflow]
-})
-
-const itemServer = computed(() => {
-  let server = userConfig.value.item_server
-  if (!server || server === 'auto') {
-    const lang = userConfig.value.language_ui
-    if (lang === 'zh') {
-      server = 'chs'
-    } else {
-      server = 'global'
-    }
-  }
-  return server
 })
 
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
