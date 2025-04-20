@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NButton, NCheckbox, NIcon, NInputGroup, NInputGroupLabel, NSelect,
+  NCheckbox, NInputGroup, NInputGroupLabel, NSelect,
   useMessage
 } from 'naive-ui'
 import { 
@@ -10,6 +10,7 @@ import {
 import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
 import MacroViewer from '../custom/macro/MacroViewer.vue'
+import TooltipButton from '@/components/custom/general/TooltipButton.vue'
 // import ModalPreferences from './ModalPreferences.vue'
 import { CopyToClipboard } from '@/tools'
 import { useStore } from '@/store'
@@ -81,6 +82,19 @@ const macroContentStyle = computed(() => {
   return styles.join(' ')
 })
 
+const copyBtnTooltip = computed(() => {
+  if (macroMode.value === 'singleLine') {
+    return [
+      t('目前为单行模式'),
+      t('复制的宏可以直接粘贴在游戏内聊天框中发送'),
+    ]
+  } else {
+    return [
+      t('目前为多行模式'),
+      t('复制的宏需要粘贴在用户宏中执行方可发送'),
+    ]
+  }
+})
 const handleCopy = async () => {
   const errored = await CopyToClipboard(macro.value, wrapper.value)
   if (errored) {
@@ -153,12 +167,14 @@ const handleClose = () => {
 
     <template #action>
       <div class="submit-container">
-        <n-button type="primary" @click="handleCopy">
-          <template #icon>
-            <n-icon><ContentCopyRound /></n-icon>
-          </template>
-          {{ t('复制') }}
-        </n-button>
+        <TooltipButton
+          type="primary"
+          :icon="ContentCopyRound"
+          :text="t('复制')"
+          :tip="copyBtnTooltip"
+          placement="bottom"
+          @click="handleCopy"
+        />
       </div>
     </template>
 

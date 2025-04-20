@@ -4,11 +4,13 @@ import {
   NButton, NIcon, NPopover,
   type PopoverTrigger
 } from 'naive-ui'
+import type { Type } from 'naive-ui/es/button/src/interface'
 
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 interface TooltipButtonProps {
   size?: "tiny" | "small" | "medium" | "large",
+  type?: Type,
   square?: boolean,
   icon?: Component,
   iconSize?: number,
