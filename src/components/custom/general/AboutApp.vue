@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { inject, onMounted, ref } from 'vue'
 import {
-  NAlert, NButton, NDivider, NFlex, NIcon, NSpin, NTable
+  NDivider, NTable
 } from 'naive-ui'
-import {
-  RefreshOutlined
-} from '@vicons/material'
+// import {
+//   RefreshOutlined
+// } from '@vicons/material'
 import StaffGroup from './StaffGroup.vue'
 import ModalSponsorsList from '@/components/modals/ModalSponsorsList.vue'
 import AppStatus from '@/variables/app-status'
@@ -152,37 +152,9 @@ const viewSponsors = () => {
         <p>{{ t('HqHelper的诞生与持续开发离不开用户的支持。') }}</p>
         <p>
           <span>{{ t('点击') }}</span>
-          <a @click="viewSponsors">{{ t('这里') }}</a>
+          <a href="javascript:void(0);" @click="viewSponsors">{{ t('这里') }}</a>
           <span>{{ t('来查看致谢名单。') }}</span>
         </p>
-        <p class="bold">{{ t('特别感谢以下用户对前代HqHelper项目的赞助：') }}</p>
-        <div v-if="sponsorLoadingStatus === 'loading'" class="sponsor-spin-container">
-          <n-spin size="small" style="text-indent: initial;" />
-          <div>{{ t('正在加载……') }}</div>
-        </div>
-        <n-alert
-          v-else-if="sponsorLoadingStatus === 'error'"
-          type="error"
-          :title="t('加载失败')"
-          class="sponsor-alert-container"
-        >
-          <div>{{ sponsorLoadError }}</div>
-          <a @click="loadSponsors">
-            <n-icon :size="14"><RefreshOutlined /></n-icon>
-            {{ t('重试') }}
-          </a>
-        </n-alert>
-        <n-flex v-else size="small" style="margin: 5px 0 0 1.2em;">
-          <n-button
-            v-for="(sponsor, i) in sponsorsGen1"
-            :key="'sponsor-g1-'+i"
-            type="warning"
-            dashed
-            size="tiny"
-          >
-            {{ sponsor }}
-          </n-button>
-        </n-flex>
       </div>
     </div>
     <n-divider />
