@@ -8,9 +8,12 @@ import {
   DoneOutlined, SettingsBackupRestoreSharp,
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
+import { getStaffMebers } from '@/models/about-app'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+
+const members = getStaffMebers(t)
 
 const showModal = defineModel<boolean>('show', { required: true })
 interface ModalFestivalEggProps {
