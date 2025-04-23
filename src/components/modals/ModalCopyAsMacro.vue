@@ -147,7 +147,7 @@ const handleClose = () => {
             <n-select size="small"
               v-model:value="macroPrefix"
               :options="prefixOptions"
-              placeholder="请选择宏前缀"
+              :placeholder="t('请选择宏前缀')"
             />
           </n-input-group>
           <n-input-group>
@@ -155,7 +155,7 @@ const handleClose = () => {
             <n-select size="small"
               v-model:value="macroMode"
               :options="modeOptions"
-              placeholder="请选择宏生成模式"
+              :placeholder="t('请选择宏生成模式')"
             />
           </n-input-group>
           <n-checkbox v-model:checked="noMoreInquiries">
