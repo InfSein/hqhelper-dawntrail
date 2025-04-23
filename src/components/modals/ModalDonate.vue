@@ -2,7 +2,7 @@
 import { computed, h, inject, ref } from 'vue'
 import {
   NAlert, NButton, NDivider, NIcon, NInputGroup, NInputGroupLabel, NGradientText, NQrCode, NSelect,
-type SelectRenderLabel, 
+  type SelectRenderLabel, 
 } from 'naive-ui'
 import { 
   HandshakeOutlined,
@@ -19,9 +19,6 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const members = getStaffMebers(t)
 
 const showModal = defineModel<boolean>('show', { required: true })
-interface ModalFestivalEggProps {
-}
-defineProps<ModalFestivalEggProps>()
 
 const cautionsConfirmed = ref(false)
 const selectedStaff = ref(0)
@@ -32,15 +29,15 @@ const onLoad = () => {
 }
 
 const pageData = {
-  qqDonateUrl: 'https://i.qianbao.qq.com/wallet/sqrcode.htm?m=tenpay&f=wallet&a=1&ac=CAEQlJC58QoYw9aqoAZCIDNmNDlkNDI3ZmI2ZjY2Yjg2ZGJmNGQ2YTk2MjA5ZDFl_xxx_sign&u=2922268692&n=float',
   qGroupInfo: {
     groupNumber: '721051298',
     groupUrl: 'https://jq.qq.com/?_wv=1027&k=LIfWPbZg',
   }
 }
+
 const donatableStaffs = computed(() => {
   return Object.values(members.value).filter((member) => {
-    return member.donate_ways?.length
+    return member.donate_info?.donate_ways?.length
   }).map((data, index) => {
     return {
       label: data.name,
@@ -50,7 +47,7 @@ const donatableStaffs = computed(() => {
   })
 })
 const availableDonateWays = computed(() => {
-  return donatableStaffs.value[selectedStaff.value].data.donate_ways!.map((data, index) => {
+  return currentDonateStaff.value.donate_info!.donate_ways!.map((data, index) => {
     let donateWayLabel = ''
     switch (data.type) {
       case 'afd':
@@ -69,6 +66,12 @@ const availableDonateWays = computed(() => {
     }
   })
 })
+const currentDonateStaff = computed(() => {
+  return donatableStaffs.value[selectedStaff.value].data
+})
+const currentDonateWay = computed(() => {
+  return availableDonateWays.value[selectedDonateWay.value].data
+})
 
 const handleStaffSelectionUpdate = () => {
   selectedDonateWay.value = 0
@@ -84,7 +87,7 @@ const handleStaffSelectionUpdate = () => {
     @on-load="onLoad"
   >
     <div class="wrapper">
-      <div v-if="cautionsConfirmed" class="qrcode-container">
+      <div v-if="cautionsConfirmed" class="donate-container">
         <GroupBox :title="t('选项')" title-background-color="var(--n-color-modal)">
           <n-input-group>
             <n-input-group-label size="small">{{ t('赞助目标') }}</n-input-group-label>
@@ -95,7 +98,7 @@ const handleStaffSelectionUpdate = () => {
               @update:value="handleStaffSelectionUpdate"
             />
           </n-input-group>
-          <n-input-group>
+          <n-input-group style="margin-top: -1px;">
             <n-input-group-label size="small">{{ t('赞助方式') }}</n-input-group-label>
             <n-select size="small"
               v-model:value="selectedDonateWay"
@@ -104,8 +107,26 @@ const handleStaffSelectionUpdate = () => {
             />
           </n-input-group>
         </GroupBox>
-        <p class="bold">{{ t('请使用移动端的QQ或TIM扫描下方二维码：') }}</p>
-        <n-qr-code :value="pageData.qqDonateUrl" :size="120" :padding="4" />
+        <GroupBox :title="t('最终确认')" title-background-color="var(--n-color-modal)">
+          <div class="flex-vac flex-wrap">
+            <p>{{ t('您将开始赞助') }}</p>
+            <StaffGroup :group-members="[currentDonateStaff]" />
+            <p>{{ t('，以支持HqHelper的{contents}。', currentDonateStaff.donate_info!.donate_desc) }}</p>
+          </div>
+          <p v-if="!currentDonateStaff.donate_info!.self" class="color-warning">
+            {{ t('请在赞助留言中注明您是因HqHelper而进行了赞助。') }}
+          </p>
+        </GroupBox>
+        <GroupBox :title="t('开始赞助')" title-background-color="var(--n-color-modal)">
+          <div v-if="currentDonateWay.data_type === 'url'">
+            <p>{{ t('请点击下方链接进行赞助：') }}</p>
+            <a :href="currentDonateWay.data" target="_blank">{{ currentDonateWay.data }}</a>
+          </div>
+          <div v-else-if="currentDonateWay.data_type === 'qrcode'">
+            <p v-if="currentDonateWay.type === 'qq'">{{ t('请使用移动端的QQ或TIM扫描下方二维码：') }}</p>
+            <n-qr-code :value="currentDonateWay.data" :size="80" :padding="4" />
+          </div>
+        </GroupBox>
       </div>
       <div v-else class="cautions-container">
         <p class="bold">{{ t('万分感谢您对HqHelper的支持。') }}</p>
@@ -150,13 +171,24 @@ const handleStaffSelectionUpdate = () => {
 </template>
 
 <style scoped>
+:deep(.group-box-content) {
+  padding: 0 4px;
+}
 .wrapper {
   height: 250px;
-  line-height: 1.2;
   display: flex;
   flex-direction: column;
 
-  .qrcode-container,
+  p, li {
+    line-height: 1.2;
+  }
+
+  .donate-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
   .cautions-container {
     height: 100%;
   }

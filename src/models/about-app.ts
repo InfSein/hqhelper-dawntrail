@@ -1,10 +1,5 @@
 import { computed } from "vue"
 
-interface DonateWay {
-  type: "qq" | "afd"
-  data_type: "url" | "qrcode"
-  data: string
-}
 export interface StaffMember {
   name: string
   avatar_url: string
@@ -14,7 +9,17 @@ export interface StaffMember {
     name: string
     url: string
   }[]
-  donate_ways?: DonateWay[]
+  donate_info?: DonateInfo
+}
+interface DonateInfo {
+  self?: boolean
+  donate_desc: string
+  donate_ways: DonateWay[]
+}
+interface DonateWay {
+  type: "qq" | "afd"
+  data_type: "url" | "qrcode"
+  data: string
 }
 
 export const createStaffMember = (
@@ -23,7 +28,7 @@ export const createStaffMember = (
   desc: string,
   introductions: string[],
   pages: { name: string; url: string }[],
-  donate_ways?: DonateWay[],
+  donate_info?: DonateInfo,
 ) : StaffMember => {
   return {
     name,
@@ -31,7 +36,7 @@ export const createStaffMember = (
     desc,
     introductions,
     pages,
-    donate_ways,
+    donate_info,
   }
 }
 
@@ -46,10 +51,14 @@ export const getStaffMebers = (
         t('负责全部设计开发工作'),
         ["我问遍了整个猫区，他们都说我是最帅的肥"],
         [{ name: "Github", url: "https://github.com/InfSein" }],
-        [
-          { type: 'qq', data_type: 'qrcode', data: 'https://i.qianbao.qq.com/wallet/sqrcode.htm?m=tenpay&f=wallet&a=1&ac=CAEQlJC58QoYw9aqoAZCIDNmNDlkNDI3ZmI2ZjY2Yjg2ZGJmNGQ2YTk2MjA5ZDFl_xxx_sign&u=2922268692&n=float' },
-          { type: 'afd', data_type: 'url', data: 'https://afdian.com/a/infseins' },
-        ],
+        {
+          self: true,
+          donate_desc: t('开发事业'),
+          donate_ways: [
+            { type: 'qq', data_type: 'qrcode', data: 'https://i.qianbao.qq.com/wallet/sqrcode.htm?m=tenpay&f=wallet&a=1&ac=CAEQlJC58QoYw9aqoAZCIDNmNDlkNDI3ZmI2ZjY2Yjg2ZGJmNGQ2YTk2MjA5ZDFl_xxx_sign&u=2922268692&n=float' },
+            { type: 'afd', data_type: 'url', data: 'https://afdian.com/a/infseins' },
+          ]
+        },
       ),
       nbb: createStaffMember(
         "N.B.B",
@@ -57,9 +66,12 @@ export const getStaffMebers = (
         t('负责提供游戏数据和托管支持'),
         ["画饼砖家"],
         [{ name: "nbbjack.com", url: "https://nbbjack.com/" }],
-        [
-          { type: 'afd', data_type: 'url', data: 'https://afdian.com/a/nbb-box' },
-        ],
+        {
+          donate_desc: t('数据更新，以及平衡托管服务器(nbb.fan)开支'),
+          donate_ways: [
+            { type: 'afd', data_type: 'url', data: 'https://afdian.com/a/nbb-box' },
+          ]
+        },
       ),
       yakita: createStaffMember(
         "夜北Yakita",
