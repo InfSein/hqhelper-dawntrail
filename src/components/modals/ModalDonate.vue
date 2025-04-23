@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { computed, h, inject, ref } from 'vue'
 import {
-  NAlert, NButton, NDivider, NIcon, NGradientText, NQrCode
+  NAlert, NButton, NDivider, NIcon, NInputGroup, NInputGroupLabel, NGradientText, NQrCode, NSelect,
+type SelectRenderLabel, 
 } from 'naive-ui'
 import { 
   HandshakeOutlined,
   DoneOutlined, SettingsBackupRestoreSharp,
 } from '@vicons/material'
+import StaffGroup from '../custom/general/StaffGroup.vue'
 import MyModal from '../templates/MyModal.vue'
-import { getStaffMebers } from '@/models/about-app'
+import GroupBox from '../templates/GroupBox.vue'
+import { getStaffMebers, type StaffMember } from '@/models/about-app'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -21,6 +24,8 @@ interface ModalFestivalEggProps {
 defineProps<ModalFestivalEggProps>()
 
 const cautionsConfirmed = ref(false)
+const selectedStaff = ref(0)
+const selectedDonateWay = ref(0)
 
 const onLoad = () => {
   cautionsConfirmed.value = false
@@ -32,6 +37,41 @@ const pageData = {
     groupNumber: '721051298',
     groupUrl: 'https://jq.qq.com/?_wv=1027&k=LIfWPbZg',
   }
+}
+const donatableStaffs = computed(() => {
+  return Object.values(members.value).filter((member) => {
+    return member.donate_ways?.length
+  }).map((data, index) => {
+    return {
+      label: data.name,
+      value: index,
+      data: data,
+    }
+  })
+})
+const availableDonateWays = computed(() => {
+  return donatableStaffs.value[selectedStaff.value].data.donate_ways!.map((data, index) => {
+    let donateWayLabel = ''
+    switch (data.type) {
+      case 'afd':
+        donateWayLabel = t('爱发电')
+        break
+      case 'qq':
+        donateWayLabel = 'QQ'
+        break
+      default:
+        donateWayLabel = data.type
+    }
+    return {
+      label: donateWayLabel,
+      value: index,
+      data: data,
+    }
+  })
+})
+
+const handleStaffSelectionUpdate = () => {
+  selectedDonateWay.value = 0
 }
 </script>
 
@@ -45,6 +85,25 @@ const pageData = {
   >
     <div class="wrapper">
       <div v-if="cautionsConfirmed" class="qrcode-container">
+        <GroupBox :title="t('选项')" title-background-color="var(--n-color-modal)">
+          <n-input-group>
+            <n-input-group-label size="small">{{ t('赞助目标') }}</n-input-group-label>
+            <n-select size="small"
+              v-model:value="selectedStaff"
+              :options="donatableStaffs"
+              :placeholder="t('请选择要赞助的创作人员')"
+              @update:value="handleStaffSelectionUpdate"
+            />
+          </n-input-group>
+          <n-input-group>
+            <n-input-group-label size="small">{{ t('赞助方式') }}</n-input-group-label>
+            <n-select size="small"
+              v-model:value="selectedDonateWay"
+              :options="availableDonateWays"
+              :placeholder="t('请选择赞助方式')"
+            />
+          </n-input-group>
+        </GroupBox>
         <p class="bold">{{ t('请使用移动端的QQ或TIM扫描下方二维码：') }}</p>
         <n-qr-code :value="pageData.qqDonateUrl" :size="120" :padding="4" />
       </div>
@@ -58,19 +117,19 @@ const pageData = {
           <li>{{ t('加入致谢名单后也可以修改自己的名称。不过这需要人工录入，因此无法频繁地修改。') }}</li>
           <li class="color-info">{{ t('赞助行为重在心意，不求数额，但也没有回报。请务必量力而行。') }}</li>
         </ul>
+        <n-alert :title="t('如果遇到任何问题，请在Q群中联系我们。')" type="info" style="margin-top: 8px; line-height: 1.2;">
+          <p>
+            <span>{{ t('如果你已经登录了QQ，那么') }}</span>
+            <a :href="pageData.qGroupInfo.groupUrl" target="_blank">{{ t('点击此处') }}</a>
+            <span>{{ t('就可以直接加入QQ群。') }}</span>
+          </p>
+          <p>
+            <span>{{ t('你也可以搜索群号') }}</span>
+            <n-gradient-text type="info" style="padding: 0 5px;">{{ pageData.qGroupInfo.groupNumber }}</n-gradient-text>
+            <span>{{ t('来加入群聊。') }}</span>
+          </p>
+        </n-alert>
       </div>
-      <n-alert :title="t('如果遇到任何问题，请在Q群中联系我们。')" type="info" style="line-height: 1.2;">
-        <p>
-          <span>{{ t('如果你已经登录了QQ，那么') }}</span>
-          <a :href="pageData.qGroupInfo.groupUrl" target="_blank">{{ t('点击此处') }}</a>
-          <span>{{ t('就可以直接加入QQ群。') }}</span>
-        </p>
-        <p>
-          <span>{{ t('你也可以搜索群号') }}</span>
-          <n-gradient-text type="info" style="padding: 0 5px;">{{ pageData.qGroupInfo.groupNumber }}</n-gradient-text>
-          <span>{{ t('来加入群聊。') }}</span>
-        </p>
-      </n-alert>
     </div>
     
     <template #action>
@@ -99,7 +158,7 @@ const pageData = {
 
   .qrcode-container,
   .cautions-container {
-    flex: 1;
+    height: 100%;
   }
 
   ul {

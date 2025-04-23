@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, onMounted, ref, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import {
   NAvatar, NDivider, NPopover
 } from 'naive-ui'
@@ -9,11 +9,12 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 interface StaffGroupProps {
   groupMembers: StaffMember[]
+  popTrigger?: 'hover' | 'click' | 'manual'
 }
 const props = defineProps<StaffGroupProps>()
 
-onMounted(() => {
-  console.log('staff group mounted:', props.groupMembers)
+const popTrigger = computed(() => {
+  return props.popTrigger ?? (isMobile.value ? 'click' : 'hover')
 })
 </script>
 
@@ -21,7 +22,7 @@ onMounted(() => {
   <div class="member-group">
     <n-popover
       :placement="isMobile ? 'bottom' : 'right-start'"
-      :trigger="isMobile ? 'click' : 'hover'"
+      :trigger="popTrigger"
       v-for="(member, mIndex) in groupMembers"
       :key="'staff-member-' + mIndex"
     >
