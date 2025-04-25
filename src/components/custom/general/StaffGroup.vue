@@ -23,8 +23,8 @@ const popTrigger = computed(() => {
     <n-popover
       :placement="isMobile ? 'bottom' : 'right-start'"
       :trigger="popTrigger"
-      v-for="(member, mIndex) in groupMembers"
-      :key="'staff-member-' + mIndex"
+      v-for="member in groupMembers"
+      :key="'staff-member-' + member.name"
     >
       <template #trigger>
         <a href="javascript:void(0);" class="member">

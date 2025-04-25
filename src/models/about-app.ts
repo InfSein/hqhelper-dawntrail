@@ -67,7 +67,7 @@ export const getStaffMebers = (
         ["画饼砖家"],
         [{ name: "nbbjack.com", url: "https://nbbjack.com/" }],
         {
-          donate_desc: t('数据更新，以及平衡托管服务器(nbb.fan)开支'),
+          donate_desc: t('数据更新，并平衡托管服务器(nbb.fan)的开支'),
           donate_ways: [
             { type: 'afd', data_type: 'url', data: 'https://afdian.com/a/nbb-box' },
           ]

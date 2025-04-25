@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, h, inject, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
 import {
   NAlert, NButton, NDivider, NIcon, NInputGroup, NInputGroupLabel, NGradientText, NQrCode, NSelect,
-  type SelectRenderLabel, 
 } from 'naive-ui'
 import { 
   HandshakeOutlined,
@@ -11,7 +10,7 @@ import {
 import StaffGroup from '../custom/general/StaffGroup.vue'
 import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
-import { getStaffMebers, type StaffMember } from '@/models/about-app'
+import { getStaffMebers } from '@/models/about-app'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -108,14 +107,14 @@ const handleStaffSelectionUpdate = () => {
           </n-input-group>
         </GroupBox>
         <GroupBox :title="t('最终确认')" title-background-color="var(--n-color-modal)">
-          <div class="flex-vac flex-wrap">
-            <p>{{ t('您将开始赞助') }}</p>
-            <StaffGroup :group-members="[currentDonateStaff]" />
-            <p>{{ t('，以支持HqHelper的{contents}。', currentDonateStaff.donate_info!.donate_desc) }}</p>
+          <div>
+            <div style="float: left;">{{ t('您将开始赞助') }}</div>
+            <StaffGroup :group-members="[currentDonateStaff]" style="float: left;" />
+            <span>{{ t('，以支持HqHelper的{contents}。', currentDonateStaff.donate_info!.donate_desc) }}</span>
           </div>
-          <p v-if="!currentDonateStaff.donate_info!.self" class="color-warning">
-            {{ t('请在赞助留言中注明您是因HqHelper而进行了赞助。') }}
-          </p>
+          <div v-if="!currentDonateStaff.donate_info!.self" class="color-info">
+            {{ t('※请在赞助留言中注明您是因HqHelper而进行了赞助。') }}
+          </div>
         </GroupBox>
         <GroupBox :title="t('开始赞助')" title-background-color="var(--n-color-modal)">
           <div v-if="currentDonateWay.data_type === 'url'">
