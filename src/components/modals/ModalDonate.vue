@@ -5,11 +5,14 @@ import {
 } from 'naive-ui'
 import { 
   HandshakeOutlined,
+  ChecklistRtlSharp,
   DoneOutlined, SettingsBackupRestoreSharp,
 } from '@vicons/material'
+import HelpButton from '../custom/general/HelpButton.vue'
 import StaffGroup from '../custom/general/StaffGroup.vue'
 import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
+import ModalSponsorsList from './ModalSponsorsList.vue'
 import { getStaffMebers } from '@/models/about-app'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -22,6 +25,7 @@ const showModal = defineModel<boolean>('show', { required: true })
 const cautionsConfirmed = ref(false)
 const selectedStaff = ref(0)
 const selectedDonateWay = ref(0)
+const showSponsorsList = ref(false)
 
 const onLoad = () => {
   cautionsConfirmed.value = false
@@ -72,6 +76,18 @@ const currentDonateWay = computed(() => {
   return availableDonateWays.value[selectedDonateWay.value].data
 })
 
+const extraHeaderButtons = computed(() => {
+  return [
+    {
+      icon: ChecklistRtlSharp,
+      text: t('致谢名单'),
+      onClick: () => {
+        showSponsorsList.value = true
+      }
+    },
+  ]
+})
+
 const handleStaffSelectionUpdate = () => {
   selectedDonateWay.value = 0
 }
@@ -83,6 +99,7 @@ const handleStaffSelectionUpdate = () => {
     :icon="HandshakeOutlined"
     :title="t('赞助我们')"
     max-width="500px"
+    :extra-header-buttons="extraHeaderButtons"
     @on-load="onLoad"
   >
     <div class="wrapper">
@@ -112,8 +129,17 @@ const handleStaffSelectionUpdate = () => {
             <StaffGroup :group-members="[currentDonateStaff]" style="float: left;" />
             <span>{{ t('，以支持HqHelper的{contents}。', currentDonateStaff.donate_info!.donate_desc) }}</span>
           </div>
-          <div v-if="!currentDonateStaff.donate_info!.self" class="color-info">
-            {{ t('※请在赞助留言中注明您是因HqHelper而进行了赞助。') }}
+          <div v-if="!currentDonateStaff.donate_info!.self" class="orangered flex-vac flex-wrap">
+            <span>{{ t('※请在赞助留言中注明您是因HqHelper而进行了赞助。') }}</span>
+            <HelpButton
+              icon="question"
+              placement="bottom"
+              :size="16"
+              :descriptions="[
+                t('该成员还有其他的项目正接受赞助。'),
+                t('如果您不特意注明，则我们在统计致谢名单时可能会忽略您。')
+              ]"
+            />
           </div>
         </GroupBox>
         <GroupBox :title="t('开始赞助')" title-background-color="var(--n-color-modal)">
@@ -133,11 +159,10 @@ const handleStaffSelectionUpdate = () => {
         <n-divider style="margin: 1px 5px 3px 5px" />
         <ul>
           <li>{{ t('进行赞助之后，您的ID与留言会更新入致谢名单。致谢名单为人工统计、可能有数日延迟。') }}</li>
-          <li>{{ t('您可以在转账备注中说明您希望显示的赞助者ID名和留言。') }}</li>
-          <li>{{ t('加入致谢名单后也可以修改自己的名称。不过这需要人工录入，因此无法频繁地修改。') }}</li>
+          <li>{{ t('您可以在转账备注/赞助留言中说明您希望显示的赞助者ID和留言。') }}</li>
           <li class="color-info">{{ t('赞助行为重在心意，不求数额，但也没有回报。请务必量力而行。') }}</li>
         </ul>
-        <n-alert :title="t('如果遇到任何问题，请在Q群中联系我们。')" type="info" style="margin-top: 8px; line-height: 1.2;">
+        <n-alert :title="t('如果遇到任何问题，请在Q群中联系我们。')" type="info" style="margin-top: auto; line-height: 1.2;">
           <p>
             <span>{{ t('如果你已经登录了QQ，那么') }}</span>
             <a :href="pageData.qGroupInfo.groupUrl" target="_blank">{{ t('点击此处') }}</a>
@@ -166,6 +191,10 @@ const handleStaffSelectionUpdate = () => {
         </n-button>
       </div>
     </template>
+
+    <ModalSponsorsList
+      v-model:show="showSponsorsList"
+    />
   </MyModal>
 </template>
 
@@ -190,6 +219,8 @@ const handleStaffSelectionUpdate = () => {
   }
   .cautions-container {
     height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   ul {
