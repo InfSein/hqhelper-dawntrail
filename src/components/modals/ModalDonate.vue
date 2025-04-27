@@ -231,4 +231,11 @@ const handleStaffSelectionUpdate = () => {
   display: flex;
   justify-content: flex-end;
 }
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .wrapper {
+    height: 300px;
+  }
+}
 </style>

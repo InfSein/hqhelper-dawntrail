@@ -185,21 +185,22 @@ const getSponsorGenContent = (gen: number) => {
       th:nth-child(3), td:nth-child(3) {
         width: 40%;
       }
+      th:nth-child(2), td:nth-child(2) {
+        width: 20%;
+      }
       th:nth-child(2), td:nth-child(2),
       th:nth-child(3), td:nth-child(3) {
         text-align: center;
       }
       .sponsor-cell {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
         padding-left: 6px;
-        gap: 2px;
 
         .sponsor-name {
           margin-right: 2px;
         }
         .sponsor-gen {
+          display: inline-block;
+          margin-left: 2px;
           font-size: 12px;
           width: 19.2px;
           text-align: center;
@@ -215,6 +216,23 @@ const getSponsorGenContent = (gen: number) => {
           &:active {
             transform: scale(1.1);
           }
+        }
+      }
+    }
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .wrapper {
+    .table-container {
+      table {
+        th:first-child, td:first-child,
+        th:nth-child(3), td:nth-child(3) {
+          width: 50%;
+        }
+        th:nth-child(2), td:nth-child(2) {
+          display: none;
         }
       }
     }
