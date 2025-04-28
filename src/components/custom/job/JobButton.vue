@@ -477,7 +477,7 @@ const renderGroupTitle = (title: string) => {
     ]
   )
 }
-const groupOptionStyle = 'margin: 0 1em;'
+const groupOptionStyle = 'margin: 0 1em; user-select: none;'
 function renderIcon(icon: Component, props?: any) {
   return () => {
     return h(NIcon, props, {
