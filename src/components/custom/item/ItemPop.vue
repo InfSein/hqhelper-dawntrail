@@ -479,7 +479,7 @@ const innerPopTrigger = computed(() => {
                 <template #icon>
                   <n-icon><OpenInNewFilled /></n-icon>
                 </template>
-                {{ t('在饥饿的猫中打开') }}
+                {{ t('在饥饿的猫中搜索') }}
               </n-button>
               <n-button v-show="false" size="small" @click="openInMomola">
                 <template #icon>
@@ -744,6 +744,7 @@ const innerPopTrigger = computed(() => {
       .content .item {
         margin-left: 1em;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         gap: 3px;
       }
