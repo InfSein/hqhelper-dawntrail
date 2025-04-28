@@ -129,7 +129,7 @@ const preferenceGroups : PreferenceGroup[] = [
             label: t('服务器'),
             descriptions: dealDescriptions([
               t('选择您游戏账号所属的服务器。此设置还会影响一部分统计数据(例如点数道具的兑换价格)的计算方式。'),
-              t('如果选择“自动”，程序会根据您在“界面语言”的设置自动判断。'),
+              t('如果选择“自动”，程序会根据您在“物品语言”的设置自动判断。'),
             ]),
             type: 'radio-group',
             options: [

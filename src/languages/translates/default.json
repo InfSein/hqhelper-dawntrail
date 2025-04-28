@@ -1178,9 +1178,9 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "如果选择“自动”，程序会根据您在“界面语言”的设置自动判断。": {
-    "en": "It would automatically determine by the setting of \"UI Language\" if you select \"Auto\".",
-    "ja": "“オート”を選択した場合，“インタフェース言語”の設定に応じて自動判断します。",
+  "如果选择“自动”，程序会根据您在“物品语言”的设置自动判断。": {
+    "en": "It would automatically determine by the setting of \"Item Language\" if you select \"Auto\".",
+    "ja": "“オート”を選択した場合，“アイテム言語”の設定に応じて自動判断します。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
