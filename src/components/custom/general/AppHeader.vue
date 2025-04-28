@@ -7,7 +7,7 @@ import {
 } from 'naive-ui'
 import {
   ArrowCircleLeftOutlined,
-  FileCopyFilled, FileCopyOutlined, FilePresentOutlined,
+  FileCopyFilled, FilePresentOutlined,
   OpenInNewOutlined,
   CasesRound, CasesOutlined,
   ImportExportOutlined,
@@ -230,14 +230,24 @@ const desktopMenus = computed(() => {
   const donateTooltip = t('助力程序肥多玩肥肥14！')
   const aboutTooltip = t('重新自我介绍一下库啵。')
 
-  const buildOuterlinkOption = (key: string, label: string, url: string, icon: Component, description?: string) => {
-    return {
-      key, label, icon: renderIcon(icon),
-      click: () => {
-        visitUrl(url)
-      },
-      description: description ?? url
-    }
+  const buildOuterlinkOptions = (
+    options: {
+      url: string, label: string, description?: string
+    }[],
+    key: string,
+    icon?: Component
+  ) => {
+    return options.map((option, index) => {
+      return {
+        key: `${key}-${index}`,
+        label: option.label,
+        icon: renderIcon(icon ?? OpenInNewOutlined),
+        click: () => {
+          visitUrl(option.url)
+        },
+        description: option.description ?? option.url
+      }
+    })
   }
 
   return [
@@ -248,35 +258,27 @@ const desktopMenus = computed(() => {
       hide: userConfig.value.language_ui !== 'zh', // 这里的内容仅限中文用户可见，不做国际化
       options: [
         {
-          key: 'ref-self',
-          label: '自撰攻略',
-          icon: renderIcon(FileCopyOutlined),
-          children: [
-            buildOuterlinkOption('ref-self-1', 'DawnCrafter I: 版本7.0&7.05生产采集准备工作', 'https://bbs.nga.cn/read.php?tid=41573697', OpenInNewOutlined),
-            buildOuterlinkOption('ref-self-2', 'DawnCrafter II: 版本7.1生产采集准备工作', 'https://bbs.nga.cn/read.php?tid=42486060', OpenInNewOutlined),
-          ]
-        },
-        {
           key: 'ref-oth-book',
-          label: '其他推荐攻略',
+          label: '推荐攻略',
           icon: renderIcon(FilePresentOutlined),
-          children: [
-            buildOuterlinkOption('ref-oth-book-1', '7.0装备箱羊毛指南 by天然呆树歌', 'https://bbs.nga.cn/read.php?tid=40686962', OpenInNewOutlined),
-            buildOuterlinkOption('ref-oth-book-2', '生产职业90-100练级攻略 by竹笙微凉_', 'https://bbs.nga.cn/read.php?tid=41158426', OpenInNewOutlined),
-            buildOuterlinkOption('ref-oth-book-3', '7.x星级配方制作攻略 by月下独翼', 'https://bbs.nga.cn/read.php?tid=40690311', OpenInNewOutlined),
-            buildOuterlinkOption('ref-oth-book-4', '7.0捕鱼人大地票据指南 by f(x)=kx+b', 'https://bbs.nga.cn/read.php?tid=42046664', OpenInNewOutlined),
-            buildOuterlinkOption('ref-oth-book-5', '7.0灵砂/工票鱼信息整理 by plas_g', 'https://bbs.nga.cn/read.php?tid=41277468', OpenInNewOutlined),
-            buildOuterlinkOption('ref-oth-book-6', '全战职开荒/毕业配装 by 孤风行', 'https://www.kdocs.cn/l/ceEcTzlFQBUy', OpenInNewOutlined),
-          ]
+          children: buildOuterlinkOptions([
+            { url: 'https://bbs.nga.cn/read.php?tid=41158426', label: '生产职业90-100练级攻略 by竹笙微凉_' },
+            { url: 'https://bbs.nga.cn/read.php?tid=40690311', label: '7.x星级配方制作攻略 by月下独翼' },
+            { url: 'https://bbs.nga.cn/read.php?tid=41258536', label: '7.x秘籍配方采集制作攻略 by竹笙微凉_' },
+            { url: 'https://bbs.nga.cn/read.php?tid=41277468', label: '7.0灵砂/工票鱼信息整理 by plas_g' },
+            { url: 'https://bbs.nga.cn/read.php?tid=42046664', label: '7.0捕鱼人大地票据指南 by f(x)=kx+b' },
+            { url: 'https://bbs.nga.cn/read.php?tid=43895399', label: '宇宙探索攻略 by 天然呆树歌' },
+            { url: 'https://www.kdocs.cn/l/ceEcTzlFQBUy', label: '全战职开荒/毕业配装 by 孤风行' }
+          ], 'ref-oth-book'),
         },
         {
           key: 'ref-oth-tool',
-          label: '其他实用工具',
+          label: '实用工具',
           icon: renderIcon(CasesOutlined),
-          children: [
-            buildOuterlinkOption('ref-oth-tool-1', '制作模拟器 by Tnze', 'https://tnze.yyyy.games/#/', OpenInNewOutlined),
-            buildOuterlinkOption('ref-oth-tool-2', '配装模拟器 by Asvel', 'https://asvel.github.io/ffxiv-gearing/', OpenInNewOutlined),
-          ]
+          children: buildOuterlinkOptions([
+            { url: 'https://tnze.yyyy.games/#/', label: '制作模拟器 by Tnze' },
+            { url: 'https://asvel.github.io/ffxiv-gearing/', label: '配装模拟器 by Asvel' },
+          ], 'ref-oth-tool'),
         }
       ]
     },
