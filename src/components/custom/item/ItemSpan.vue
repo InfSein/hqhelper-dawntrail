@@ -30,6 +30,7 @@ interface ItemSpanProps {
   amount?: number
   showAmount?: boolean
   imgSize?: number
+  spanMaxWidth?: string
   hideIcon?: boolean
   hideName?: boolean
   hidePopIcon?: boolean
@@ -129,6 +130,9 @@ const popTrigger = computed(() => {
     return undefined
   }
 })
+const containerStyle = computed(() => {
+  return (props.containerStyle ?? '') + ` max-width: ${props.spanMaxWidth ?? 'auto'};`
+})
 
 const handleItemIconClick = async () => {
   const action = userConfig.value.item_info_icon_click_event
@@ -157,9 +161,11 @@ const handleItemIconClick = async () => {
       :src="itemInfo.iconUrl"
       :title="(hideName && hidePopIcon) ? getItemName() : ''"
     />
-    <div v-if="!hideName || showAmount">
-      {{ hideName ? '' : getItemName() + ' ' }}
-      {{ showAmount ? ('x' + itemAmount) : '' }}
+    <div v-if="!hideName || showAmount" class="item-name-container">
+      <div class="item-name">
+        {{ hideName ? '' : getItemName() + ' ' }}
+        {{ showAmount ? ('x' + itemAmount) : '' }}
+      </div>
     </div>
     <ItemPop
       v-if="!hidePopIcon"
@@ -197,5 +203,16 @@ const handleItemIconClick = async () => {
   display: flex;
   align-items: center;
   gap: 3px;
+
+  .item-name-container {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    .item-name {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
 }
 </style>

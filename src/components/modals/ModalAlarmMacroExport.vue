@@ -64,7 +64,8 @@ const itemTreeData = computed(() => {
       const itemKey = item.id
       const itemSpan = () => h(ItemSpan, {
         itemInfo: item,
-        containerId: modalId
+        containerId: modalId,
+        spanMaxWidth: '160px',
       })
       subTreeOption.push({
         key: itemKey,
