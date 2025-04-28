@@ -263,6 +263,7 @@ const isItemGatherableNow = (item: ItemInfo) => {
 
     .title {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       span {
         font-weight: bold;
