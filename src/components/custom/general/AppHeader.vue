@@ -278,6 +278,8 @@ const desktopMenus = computed(() => {
           children: buildOuterlinkOptions([
             { url: 'https://tnze.yyyy.games/#/', label: '制作模拟器 by Tnze' },
             { url: 'https://asvel.github.io/ffxiv-gearing/', label: '配装模拟器 by Asvel' },
+            { url: 'https://fish.ffmomola.com/#/', label: '鱼糕 by 红豆年糕' },
+            { url: 'https://cn.ff14angler.com/', label: '饥饿的猫' },
           ], 'ref-oth-tool'),
         }
       ]
