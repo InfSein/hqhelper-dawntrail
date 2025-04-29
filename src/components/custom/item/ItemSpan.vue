@@ -39,6 +39,8 @@ interface ItemSpanProps {
 }
 const props = defineProps<ItemSpanProps>()
 
+const itemAmountNode = ref<HTMLElement>()
+
 const getItemName = () => {
   switch (itemLanguage.value) {
     case 'zh':
@@ -131,7 +133,16 @@ const popTrigger = computed(() => {
   }
 })
 const containerStyle = computed(() => {
-  return (props.containerStyle ?? '') + ` max-width: ${props.spanMaxWidth ?? 'auto'};`
+  let itemAmountwidth = 0
+  if (props.showAmount && !!itemAmountNode.value) {
+    const itemAmountWidth = itemAmountNode.value.getBoundingClientRect().width
+    itemAmountwidth = Math.ceil(itemAmountWidth) + 8
+  }
+  return [
+    (props.containerStyle ?? ''),
+    `max-width: ${props.spanMaxWidth ?? 'unset'}`,
+    props.spanMaxWidth ? `--item-name-maxwidth: calc(100% - ${itemAmountwidth}px)` : '--item-name-maxwidth: unset',
+  ].join('; ')
 })
 
 const handleItemIconClick = async () => {
@@ -161,11 +172,14 @@ const handleItemIconClick = async () => {
       :src="itemInfo.iconUrl"
       :title="(hideName && hidePopIcon) ? getItemName() : ''"
     />
-    <div v-if="!hideName || showAmount" class="item-name-container">
-      <div class="item-name">
-        {{ hideName ? '' : getItemName() + ' ' }}
-        {{ showAmount ? ('x' + itemAmount) : '' }}
-      </div>
+    <div class="item-text-container">
+      <span v-show="!hideName" class="item-name">
+        {{ hideName ? '' : getItemName() }}
+      </span>
+      <span v-if="!hideName && showAmount">&nbsp;</span>
+      <span v-show="showAmount" ref="itemAmountNode" class="item-amount">
+        {{ showAmount ? (' x' + itemAmount) : '' }}
+      </span>
     </div>
     <ItemPop
       v-if="!hidePopIcon"
@@ -204,14 +218,24 @@ const handleItemIconClick = async () => {
   align-items: center;
   gap: 3px;
 
-  .item-name-container {
+  .item-text-container {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
     .item-name {
+      display: inline-block;
+      max-width: var(--item-name-maxwidth);
+      vertical-align: top;
       overflow: hidden;
-      white-space: nowrap;
       text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .item-amount {
+      display: inline-block;
+      vertical-align: top;
+      white-space: nowrap;
     }
   }
 }
