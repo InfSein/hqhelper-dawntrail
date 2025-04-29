@@ -74,7 +74,9 @@ export const getChangelogs = (
               + '<br>' + t('挑选任意的创作者进行赞助，以提升其开发热情、或是降低其开支压力。')
               + '<br>' + t('进行赞助之后可以加入“致谢名单”。')
               + '<br><span class="orangered">※ ' + t('赞助行为重在心意，不求数额，但也没有回报。请务必量力而行。') + '</span>'
-              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/04/29/68108efa71b0a.png')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/04/29/68108efa71b0a.png'),
+            t('追加了下载客户端的专用页面。')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/04/29/681097a07898f.png'),
           ]
         },
         {
