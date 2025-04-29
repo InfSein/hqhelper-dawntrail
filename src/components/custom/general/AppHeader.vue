@@ -227,7 +227,7 @@ const desktopMenus = computed(() => {
   const checkUpdatesTooltip = t('更新目标的战力等级……变更攻击模式……')
   const changelogTooltip = t('修正……改良……开始对循环程序进行更新……')
   const contactTooltip = t('关注我们喵，关注我们谢谢喵。')
-  const donateTooltip = t('助力程序肥多玩肥肥14！')
+  const donateTooltip = t('让程序肥多玩会肥肥14。')
   const aboutTooltip = t('重新自我介绍一下库啵。')
 
   const buildOuterlinkOptions = (

@@ -160,7 +160,7 @@ const handleStaffSelectionUpdate = () => {
         <ul>
           <li>{{ t('进行赞助之后，您的ID与留言会更新入致谢名单。致谢名单为人工统计、可能有数日延迟。') }}</li>
           <li>{{ t('您可以在转账备注/赞助留言中说明您希望显示的赞助者ID和留言。') }}</li>
-          <li class="color-info">{{ t('赞助行为重在心意，不求数额，但也没有回报。请务必量力而行。') }}</li>
+          <li class="orangered">{{ t('赞助行为重在心意，不求数额，但也没有回报。请务必量力而行。') }}</li>
         </ul>
         <n-alert :title="t('如果遇到任何问题，请在Q群中联系我们。')" type="info" style="margin-top: auto; line-height: 1.2;">
           <p>
