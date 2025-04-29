@@ -49,6 +49,9 @@
 .red {
   color: red;
 }
+.orangered {
+  color: orangered;
+}
 .green {
   color: green;
 }
@@ -153,6 +156,12 @@
 .n-dropdown-menu {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
+}
+.n-option-hideoverflow {
+  .n-dropdown-option-body__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 .n-timeline-item-content__title {
   text-decoration-line: underline;

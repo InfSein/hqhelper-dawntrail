@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { inject, ref, type Ref } from 'vue'
 import {
-  NBadge, NIcon, NTable, NScrollbar, NSpin, NTooltip,
+  NAlert, NIcon, NScrollbar, NSpin, NTable, NTooltip,
 } from 'naive-ui'
 import {
-  ChecklistRtlSharp
+  ChecklistRtlSharp,
+  RefreshOutlined,
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 
@@ -17,7 +18,7 @@ interface SponsorInfo {
   name: string;
   date: string;
   word: string;
-  isGen1Sponsor?: boolean;
+  sponsored: number[];
 }
 
 const sponsorLoadingStatus = ref<"finished" | "loading" | "error">('loading')
@@ -48,15 +49,44 @@ const loadSponsors = async () => {
     sponsorLoadError.value = e?.message ?? 'UNKNOWN ERROR' + e
   }
 }
+
+const showRules = () => {
+  const msg = [
+    t('进行赞助之后，您的ID与留言会更新入致谢名单。致谢名单为人工统计、可能有数日延迟。'),
+    t('加入致谢名单后也可以修改自己的名称。不过这需要人工录入，因此无法频繁地修改。'),
+  ].join('\n')
+  alert(msg)
+}
+
+const getSponsorGenStyle = (gen: number) => {
+  const genColors = ['#DC143C', '#FF4500', '#F4A460', '#2E8B57', '#008080', '#4169E1', '#800080']
+  return [
+    '--gen-bg-color: ' + (genColors[gen] ?? 'black'),
+  ]
+}
+const getSponsorGenContent = (gen: number) => {
+  const genContent = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII']
+  return genContent[gen - 1] ?? '?' // 12年，够用到我弃坑了
+}
 </script>
 
 <template>
   <MyModal
     v-model:show="showModal"
-    :icon="ChecklistRtlSharp"
-    :title="t('致谢名单')"
     @on-load="loadSponsors"
   >
+    <template #header>
+      <div class="card-title no-select">
+        <n-icon><ChecklistRtlSharp /></n-icon>
+        <span class="title">
+          {{ t('致谢名单') }}
+        </span>
+        <div class="card-title-actions">
+          <a href="javascript:void(0);" @click="showRules">[{{ t('规则') }}]</a>
+        </div>
+      </div>
+    </template>
+
     <div class="wrapper">
       <div v-if="sponsorLoadingStatus === 'loading'" class="spin-container">
         <n-spin size="small" style="text-indent: initial;" />
@@ -79,7 +109,7 @@ const loadSponsors = async () => {
           <thead>
             <tr>
               <th>{{ t('赞助者') }}</th>
-              <th>{{ t('日期') }}</th>
+              <th>{{ t('上次赞助') }}</th>
               <th>{{ t('留言') }}</th>
             </tr>
           </thead>
@@ -90,12 +120,18 @@ const loadSponsors = async () => {
               <tr v-for="(sponsor, index) in sponsors" :key="'sponsor-' + index">
                 <td>
                   <div class="sponsor-cell">
-                    <span>{{ sponsor.name }}</span>
-                    <n-tooltip v-if="sponsor.isGen1Sponsor" :trigger="isMobile ? 'click' : 'hover'">
+                    <span class="sponsor-name">{{ sponsor.name }}</span>
+                    <n-tooltip
+                      v-for="sponsoredGen in sponsor.sponsored"
+                      :key="'sponsor-' + sponsoredGen + '-badge'"
+                      :trigger="isMobile ? 'click' : 'hover'"
+                    >
                       <template #trigger>
-                        <n-badge type="warning" value="Gen1" />
+                        <div class="sponsor-gen" :style="getSponsorGenStyle(sponsoredGen)">
+                          {{ getSponsorGenContent(sponsoredGen) }}
+                        </div>
                       </template>
-                      {{ t('前代HqHelper的赞助者') }}
+                      {{ t('赞助了第{gen}代的HqHelper', sponsoredGen) }}
                     </n-tooltip>
                   </div>
                 </td>
@@ -149,14 +185,55 @@ const loadSponsors = async () => {
       th:nth-child(3), td:nth-child(3) {
         width: 40%;
       }
+      th:nth-child(2), td:nth-child(2) {
+        width: 20%;
+      }
       th:nth-child(2), td:nth-child(2),
       th:nth-child(3), td:nth-child(3) {
         text-align: center;
       }
       .sponsor-cell {
-        display: flex;
-        align-items: center;
         padding-left: 6px;
+
+        .sponsor-name {
+          margin-right: 2px;
+        }
+        .sponsor-gen {
+          display: inline-block;
+          margin-left: 2px;
+          font-size: 12px;
+          width: 19.2px;
+          text-align: center;
+          border-radius: 4px;
+          color: white;
+          background-color: var(--gen-bg-color);
+          transition: all 0.2s ease-in-out;
+          cursor: pointer;
+          user-select: none;
+          &:hover {
+            transform: scale(1.2);
+          }
+          &:active {
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .wrapper {
+    .table-container {
+      table {
+        th:first-child, td:first-child,
+        th:nth-child(3), td:nth-child(3) {
+          width: 50%;
+        }
+        th:nth-child(2), td:nth-child(2) {
+          display: none;
+        }
       }
     }
   }

@@ -15,7 +15,10 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 interface MacroViewerProps {
   macroLines: string[]
   contentHeight?: string
+  contentExtraStyle?: string
   containerId?: string
+  hideTabs?: boolean
+  hideCopyButton?: boolean
 }
 const props = defineProps<MacroViewerProps>()
 
@@ -48,7 +51,7 @@ const handleCopy = async (text: string) => {
 
 <template>
   <div class="ame-wrapper">
-    <div class="group-btns">
+    <div v-if="!hideTabs" class="group-btns">
       <n-button
         size="small"
         v-for="(group, groupIndex) in macroGroups"
@@ -59,8 +62,9 @@ const handleCopy = async (text: string) => {
         {{ t('宏#{index}', groupIndex + 1) }}
       </n-button>
     </div>
-    <n-divider style="margin-top: 3px; margin-bottom: 2px;" />
+    <n-divider v-if="!hideTabs" style="margin-top: 3px; margin-bottom: 2px;" />
     <n-button
+      v-if="!hideCopyButton"
       size="tiny"
       style="width: fit-content;"
       :disabled="!macroGroups?.[selectedGroupIndex]"
@@ -99,7 +103,7 @@ const handleCopy = async (text: string) => {
           :key="`${groupIndex}-macro-line-${lineIndex}`"
         >
           <div class="line-num">{{ lineIndex + 1 }}</div>
-          <div class="line-content">{{ line }}</div>
+          <div class="line-content" :style="contentExtraStyle">{{ line }}</div>
         </div>
       </div>
     </div>

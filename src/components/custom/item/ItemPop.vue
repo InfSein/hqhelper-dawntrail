@@ -22,6 +22,7 @@ import { getItemInfo, getItemPriceInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel, type ItemPriceType } from '@/models/config-func'
 import type EorzeaTime from '@/tools/eorzea-time'
+import UseConfig from '@/tools/use-config'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -32,15 +33,9 @@ const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
 // const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
-const uiLanguage = computed(() => {
-  return userConfig.value.language_ui
-})
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
+const {
+  uiLanguage, itemLanguage, itemServer,
+} = UseConfig(userConfig, funcConfig)
 
 interface ItemPopProps {
   /** 道具信息 */
@@ -167,18 +162,6 @@ const itemTailDescriptions = computed(() => {
     descriptions.push(t('该物品国服尚未实装，中文名为临时译名。'))
   }
   return descriptions
-})
-const itemServer = computed(() => {
-  let server = userConfig.value.item_server
-  if (!server || server === 'auto') {
-    const lang = userConfig.value.language_ui
-    if (lang === 'zh') {
-      server = 'chs'
-    } else {
-      server = 'global'
-    }
-  }
-  return server
 })
 const itemTradeCost = computed(() => {
   return itemServer.value === 'chs' ? props.itemInfo.tradeInfo?.costCHS : props.itemInfo.tradeInfo?.costGlobal
@@ -496,7 +479,7 @@ const innerPopTrigger = computed(() => {
                 <template #icon>
                   <n-icon><OpenInNewFilled /></n-icon>
                 </template>
-                {{ t('在饥饿的猫中打开') }}
+                {{ t('在饥饿的猫中搜索') }}
               </n-button>
               <n-button v-show="false" size="small" @click="openInMomola">
                 <template #icon>
@@ -761,6 +744,7 @@ const innerPopTrigger = computed(() => {
       .content .item {
         margin-left: 1em;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         gap: 3px;
       }

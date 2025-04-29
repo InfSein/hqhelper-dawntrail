@@ -110,7 +110,7 @@ const handleSwitchShowHistory = () => {
                   }"
                 >
                   <span class="line-index">
-                    {{ getChanges(change).length > 1 ? ((changeContentIndex + 1) + '. ') : '' }}
+                    {{ (changeContentIndex + 1) + '. ' }}
                   </span>
                   <span v-html="changeContent"></span>
                 </div>
@@ -224,13 +224,13 @@ const handleSwitchShowHistory = () => {
     overflow-y: auto;
 
     .item {
-      margin-left: 1.5em;
+      margin-left: 1em;
 
       .change-group-title {
         font-weight: bold;
       }
       .change-group-content {
-        margin-left: 1em;
+        margin-left: 0.5em;
 
         .content-line {
           display: grid;

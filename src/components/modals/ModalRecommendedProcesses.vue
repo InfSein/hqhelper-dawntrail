@@ -15,14 +15,19 @@ import { type FuncConfigModel } from '@/models/config-func'
 import { type ItemInfo } from '@/tools/item'
 import { CopyToClipboard } from '@/tools'
 import { useFufuCal } from '@/tools/use-fufu-cal'
+import UseConfig from '@/tools/use-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 // const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
+
 const NAIVE_UI_MESSAGE = useMessage()
 const { calRecommProcessGroups } = useFufuCal()
+const {
+  itemLanguage, itemServer,
+} = UseConfig(userConfig, funcConfig)
   
 const showModal = defineModel<boolean>('show', { required: true })
 const expandedBlocks = ref<Record<number, string[]>>({})
@@ -68,24 +73,6 @@ const itemGroups = computed(() => {
   )
 })
 
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
-const itemServer = computed(() => {
-  let server = userConfig.value.item_server
-  if (!server || server === 'auto') {
-    const lang = userConfig.value.language_ui
-    if (lang === 'zh') {
-      server = 'chs'
-    } else {
-      server = 'global'
-    }
-  }
-  return server
-})
 const getItemName = (itemInfo: ItemInfo) => {
   switch (itemLanguage.value) {
     case 'zh':

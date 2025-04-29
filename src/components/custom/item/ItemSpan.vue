@@ -10,27 +10,27 @@ import {
 import ItemPop from './ItemPop.vue'
 import XivFARImage from '../general/XivFARImage.vue'
 import type { UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
 import { CopyToClipboard } from '@/tools'
 import { getItemContexts, type ItemInfo } from '@/tools/item'
+import UseConfig from '@/tools/use-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 const NAIVE_UI_MESSAGE = useMessage()
-
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
+const {
+  itemLanguage,
+} = UseConfig(userConfig, funcConfig)
 
 interface ItemSpanProps {
   itemInfo: ItemInfo
   amount?: number
   showAmount?: boolean
   imgSize?: number
+  spanMaxWidth?: string
   hideIcon?: boolean
   hideName?: boolean
   hidePopIcon?: boolean
@@ -130,6 +130,9 @@ const popTrigger = computed(() => {
     return undefined
   }
 })
+const containerStyle = computed(() => {
+  return (props.containerStyle ?? '') + ` max-width: ${props.spanMaxWidth ?? 'auto'};`
+})
 
 const handleItemIconClick = async () => {
   const action = userConfig.value.item_info_icon_click_event
@@ -158,9 +161,11 @@ const handleItemIconClick = async () => {
       :src="itemInfo.iconUrl"
       :title="(hideName && hidePopIcon) ? getItemName() : ''"
     />
-    <div v-if="!hideName || showAmount">
-      {{ hideName ? '' : getItemName() + ' ' }}
-      {{ showAmount ? ('x' + itemAmount) : '' }}
+    <div v-if="!hideName || showAmount" class="item-name-container">
+      <div class="item-name">
+        {{ hideName ? '' : getItemName() + ' ' }}
+        {{ showAmount ? ('x' + itemAmount) : '' }}
+      </div>
     </div>
     <ItemPop
       v-if="!hidePopIcon"
@@ -198,5 +203,16 @@ const handleItemIconClick = async () => {
   display: flex;
   align-items: center;
   gap: 3px;
+
+  .item-name-container {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    .item-name {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
 }
 </style>

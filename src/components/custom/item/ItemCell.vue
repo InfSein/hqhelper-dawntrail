@@ -1,17 +1,24 @@
 <script setup lang="ts">
-import { computed, inject, type Ref } from 'vue'
+import { inject, type Ref } from 'vue'
 // import {
 //   NInputNumber, NScrollbar, NTable
 // } from 'naive-ui'
 import XivFARImage from '../general/XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
 import type { UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
 import { XivJobs, type XivJob } from '@/assets/data'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
+import UseConfig from '@/tools/use-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+
+const {
+  itemServer,
+} = UseConfig(userConfig, funcConfig)
 
 interface ItemCellProps {
   itemInfo: ItemInfo
@@ -20,19 +27,6 @@ interface ItemCellProps {
   containerId?: string
 }
 defineProps<ItemCellProps>()
-
-const itemServer = computed(() => {
-  let server = userConfig.value.item_server
-  if (!server || server === 'auto') {
-    const lang = userConfig.value.language_ui
-    if (lang === 'zh') {
-      server = 'chs'
-    } else {
-      server = 'global'
-    }
-  }
-  return server
-})
 
 const getJobName = (jobInfo: XivJob) => {
   switch (userConfig.value.language_ui) {
