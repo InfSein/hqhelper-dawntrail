@@ -50,3 +50,4 @@
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.0/static-pages.zip)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.1/static-pages.zip)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.2/static-pages.zip)
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.3/static-pages.zip)
