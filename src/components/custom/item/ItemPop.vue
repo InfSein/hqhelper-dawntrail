@@ -469,7 +469,7 @@ const innerPopTrigger = computed(() => {
             <div>{{ t('采集条件：') }}</div>
             <div class="item small-font" v-if="itemInfo.gatherInfo?.folkloreId">
               {{ t('需要习得') }}
-              <ItemSpan :img-size="12" :item-info="getItemInfo(itemInfo.gatherInfo.folkloreId)" :container-id="containerId" />
+              <ItemSpan span-max-width="180px" :img-size="12" :item-info="getItemInfo(itemInfo.gatherInfo.folkloreId)" :container-id="containerId" />
             </div>
           </div>
           <div class="content" v-if="itemInfo.isFishingItem">
@@ -499,7 +499,7 @@ const innerPopTrigger = computed(() => {
           <div class="content">
             <div>{{ t('该物品可以通过兑换获得：') }}</div>
             <div class="item">
-              <ItemSpan :item-info="getItemInfo(itemTradeCost.costId)" :amount="itemTradeCost.costCount" show-amount :container-id="containerId" />
+              <ItemSpan span-max-width="230px" :item-info="getItemInfo(itemTradeCost.costId)" :amount="itemTradeCost.costCount" show-amount :container-id="containerId" />
             </div>
             <div class="item" v-if="itemInfo.tradeInfo.receiveCount > 1">
               {{ t('每次兑换可获得{receive}个', itemInfo.tradeInfo.receiveCount) }}
@@ -563,7 +563,7 @@ const innerPopTrigger = computed(() => {
               </div>
               <div class="item small-font" v-if="itemInfo.craftInfo?.masterRecipeId">
                 {{ t('需要习得') }}
-                <ItemSpan :img-size="12" :item-info="getItemInfo(itemInfo.craftInfo.masterRecipeId)" :container-id="containerId" />
+                <ItemSpan span-max-width="180px" :img-size="12" :item-info="getItemInfo(itemInfo.craftInfo.masterRecipeId)" :container-id="containerId" />
               </div>
             </div>
             <div class="other-attrs">

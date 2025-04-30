@@ -39,6 +39,8 @@ interface ItemSpanProps {
 }
 const props = defineProps<ItemSpanProps>()
 
+const itemAmountNode = ref<HTMLElement>()
+
 const getItemName = () => {
   switch (itemLanguage.value) {
     case 'zh':
@@ -131,7 +133,17 @@ const popTrigger = computed(() => {
   }
 })
 const containerStyle = computed(() => {
-  return (props.containerStyle ?? '') + ` max-width: ${props.spanMaxWidth ?? 'auto'};`
+  let itemAmountwidth = 0
+  if (props.showAmount && !!itemAmountNode.value) {
+    const itemAmountWidth = itemAmountNode.value.offsetWidth
+    const offset = itemLanguage.value === 'zh' ? 3 : 6 
+    itemAmountwidth = Math.ceil(itemAmountWidth) + offset
+  }
+  return [
+    (props.containerStyle ?? ''),
+    `max-width: ${props.spanMaxWidth ?? 'unset'}`,
+    props.spanMaxWidth ? `--item-name-maxwidth: calc(100% - ${itemAmountwidth}px)` : '--item-name-maxwidth: unset',
+  ].join('; ')
 })
 
 const handleItemIconClick = async () => {
@@ -156,16 +168,19 @@ const handleItemIconClick = async () => {
   <div class="container" :style="containerStyle">
     <XivFARImage
       v-show="!hideIcon"
-      class="img no-select"
+      class="no-select"
       :size="imgSize ?? 14"
       :src="itemInfo.iconUrl"
       :title="(hideName && hidePopIcon) ? getItemName() : ''"
     />
-    <div v-if="!hideName || showAmount" class="item-name-container">
-      <div class="item-name">
-        {{ hideName ? '' : getItemName() + ' ' }}
-        {{ showAmount ? ('x' + itemAmount) : '' }}
-      </div>
+    <div class="item-text-container">
+      <span v-show="!hideName" class="item-name">
+        {{ hideName ? '' : getItemName() }}
+      </span>
+      <span v-if="!hideName && showAmount">&nbsp;</span>
+      <span v-show="showAmount" ref="itemAmountNode" class="item-amount">
+        {{ showAmount ? (' x' + itemAmount) : '' }}
+      </span>
     </div>
     <ItemPop
       v-if="!hidePopIcon"
@@ -174,7 +189,7 @@ const handleItemIconClick = async () => {
       :pop-custom-width="275"
       :pop-trigger="popTrigger"
     >
-      <n-icon v-if="!hidePopIcon" class="pop-icon" size="14" color="#3b7fef"
+      <n-icon v-if="!hidePopIcon" class="item-popicon" size="14" color="#3b7fef"
         @contextmenu="handleContextMenu"
         @touchstart.passive="handleItemButtonTouchStart" 
         @touchmove.passive="handleItemButtonTouchMove" 
@@ -204,15 +219,29 @@ const handleItemIconClick = async () => {
   align-items: center;
   gap: 3px;
 
-  .item-name-container {
+  .item-text-container {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
     .item-name {
+      display: inline-block;
+      max-width: var(--item-name-maxwidth);
+      vertical-align: top;
       overflow: hidden;
-      white-space: nowrap;
       text-overflow: ellipsis;
+      white-space: nowrap;
     }
+
+    .item-amount {
+      display: inline-block;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+  }
+
+  .item-popicon {
+    cursor: pointer;
   }
 }
 </style>

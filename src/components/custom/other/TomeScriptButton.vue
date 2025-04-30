@@ -105,24 +105,24 @@ const macroMap = computed(() : Record<MacroGenerateMode, string> => {
   for (const _tomeScriptID in props.items) {
     const tomeScriptID = Number(_tomeScriptID)
     let tomeScriptName = getItemName(getItemInfo(tomeScriptID))
+
+    // Group Title
+    result.multiLine += `【${tomeScriptName}】x${tomeScripts.value[tomeScriptID]}\n`
     if (itemLanguage.value === 'en') {
       tomeScriptName = `"${tomeScriptName}"`
     }
-
-    // Group Title
     result.singleLine += `[${tomeScriptName}x${tomeScripts.value[tomeScriptID]}] `
-    result.multiLine += `【${tomeScriptName} Ｘ ${tomeScripts.value[tomeScriptID]}】\n`
 
     const slItems : string[] = []
     const mlItems : string[] = []
     props.items[tomeScriptID].forEach(item => {
       if (item.amount) {
         let itemName = getItemName(item)
+        mlItems.push(`・${itemName} x${item.amount}`)
         if (itemLanguage.value === 'en') {
           itemName = `"${itemName}"`
         }
         slItems.push(`${itemName}x${item.amount}`)
-        mlItems.push(`・${itemName} x${item.amount}`)
       }
     })
     result.singleLine += slItems.join(', ') + '; '

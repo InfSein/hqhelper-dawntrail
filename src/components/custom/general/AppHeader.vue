@@ -27,6 +27,7 @@ import {
   DevicesOtherOutlined,
   ContactlessOutlined,
   HandshakeOutlined,
+  DevicesOutlined,
   DarkModeTwotone, LightModeTwotone,
   UpdateSharp
 } from '@vicons/material'
@@ -138,6 +139,9 @@ const redirectToWorkflowPage = () => {
 const redirectToGatherClockPage = () => {
   router.push('/gatherclock')
 }
+const redirectToDownloadPage = () => {
+  router.push('/download')
+}
 const openSubwindowOfGatherClock = () => {
   const url = document.location.origin + document.location.pathname + '#/gatherclock?mode=overlay'
   if (window.electronAPI?.createNewWindow) {
@@ -215,6 +219,7 @@ const desktopMenus = computed(() => {
   const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
   const hideGatherClock = router.currentRoute.value.path.startsWith('/gatherclock')
   const hideWorkflow = router.currentRoute.value.path.startsWith('/workflow')
+  const hideDownload = router.currentRoute.value.path.startsWith('/download')
   const changeThemeIcon = theme.value === 'light' ? DarkModeTwotone : LightModeTwotone
   const changeThemeTooltip = theme.value === 'light' ? t('为这个世界带回黑暗。') : t('静待黎明天光来。')
   const ftHelperTooltip = hideFTHelper ? t('您已经处于食药计算器的页面。') : t('帮助你制作食物与爆发药。能帮到就好。')
@@ -222,6 +227,7 @@ const desktopMenus = computed(() => {
   const gatherClockTooltip = hideGatherClock ? t('您已经处于采集时钟页面。') : t('挖穿艾欧泽亚的好帮手！')
   const gatherClockSWTooltip = t('在新窗口中打开采集时钟。')
   const workflowTooltip = hideWorkflow ? t('您已经处于工作流页面。') : t('众生如归流。')
+  const downloadClientTooltip = hideDownload ? t('您已经处于下载客户端页面。') : t('目前客户满足度达到124%。')
   const userPreferenceTooltip = t('以人的意志改变机械的程序。')
   // const funcPreferenceTooltip = t('还好我把魔法人偶的战斗力设置成了最强级别。')
   const checkUpdatesTooltip = t('更新目标的战力等级……变更攻击模式……')
@@ -295,6 +301,8 @@ const desktopMenus = computed(() => {
         { key: 'tool-divider-1', hide: !canUseSubwindow.value, type: 'divider' },
         { key: 'tool-gatherclock-subwindow', hide: !canUseSubwindow.value, label: t('采集时钟(新窗口)'), icon: renderIcon(AccessAlarmsOutlined), description: gatherClockSWTooltip, click: openSubwindowOfGatherClock },
         { key: 'tool-fthelper-subwindow', hide: !canUseSubwindow.value, label: t('食药计算(新窗口)'), icon: renderIcon(FastfoodOutlined), description: ftHelperSWTooltip, click: openSubwindowOfFtHelper },
+        { key: 'tool-divider-2', hide: !!window.electronAPI, type: 'divider' },
+        { key: 'tool-download', label: t('下载客户端'), disabled: hideDownload, hide: !!window.electronAPI, icon: renderIcon(DevicesOutlined), description: downloadClientTooltip, click: redirectToDownloadPage },
       ]
     },
     /* 导入导出 */
