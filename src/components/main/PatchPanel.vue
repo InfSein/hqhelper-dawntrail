@@ -158,6 +158,7 @@ const patchPatterns = computed(() => {
 }
 .pop-wrapper {
   padding: 0.5em;
+  max-width: 520px;
 
   ul {
     padding-left: 1.5em;

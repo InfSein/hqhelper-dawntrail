@@ -6381,7 +6381,7 @@
     ]
   },
   "专业版制作报表中，点数道具因上级制作素材变动而导致已有数量大于总需数量的场合，尚需点数统计不再显示为负数。": {
-    "en": "In the Pro Craft Statements, if the number of points items exceeds the total required quantity due to changes in the materials for higher-level crafting, the remaining points statistics will no longer be displayed as negative numbers.",
+    "en": "In the Pro Craft Statements, if the number of tomescript items exceeds the total required quantity due to changes in the materials for higher-level crafting, the remaining tomescript statistics will no longer be displayed as negative numbers.",
     "ja": "プロ版レポート作成において、上位制作素材の変更により既存数量が総必要数を超えた場合、不足トークン集計がマイナス表示されなくなりました。",
     "$files": [
       "data\\change-logs.ts"
@@ -6693,7 +6693,7 @@
       "components\\modals\\ModalSponsorsList.vue"
     ]
   },
-  "如果遇到任何问题，请在Q群中联系我们。": {
+  "如果遇到问题，请在Q群中联系我们。": {
     "en": "If you encounter any problems, please contact us in the QQ group.",
     "ja": "問題発生時はQQグループまでご連絡ください",
     "$files": [

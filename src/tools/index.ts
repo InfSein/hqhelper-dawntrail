@@ -46,6 +46,7 @@ export const checkAppUpdates = async () : Promise<CallResult<AppVersionJson>> =>
     if (window.electronAPI/* || url.includes('localhost')*/) {
       url = 'https://hqhelper.nbb.fan/version.json'
     }
+    url += `?t=${new Date().getTime()}`
 
     let versionResponse = ''
     if (window.electronAPI?.httpGet) {
