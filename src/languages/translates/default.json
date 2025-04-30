@@ -6772,28 +6772,28 @@
   },
   "追加了下载客户端的专用页面。": {
     "en": "Added a dedicated page for downloading the client.",
-    "ja": "追加了下载客户端的专用页面。",
+    "ja": "クライアントの専用ダウンロードページを追加しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "您已经处于下载客户端页面。": {
     "en": "You are already on the download client page.",
-    "ja": "您已经处于下载客户端页面。",
+    "ja": "すでにクライアントのダウンロードページを開いています。",
     "$files": [
       "components\\custom\\general\\AppHeader.vue"
     ]
   },
   "目前客户满足度达到124%。": {
     "en": "Download the client of HqHelper.",
-    "ja": "カレルアンへの提供満足度は、124％を計測したメニューです。",
+    "ja": "利用者の満足度は、124％に達しました。",
     "$files": [
       "components\\custom\\general\\AppHeader.vue"
     ]
   },
   "下载客户端": {
     "en": "Download client",
-    "ja": "下载客户端",
+    "ja": "クライアントをダウンロードする",
     "$files": [
       "components\\custom\\general\\AppHeader.vue"
     ]
