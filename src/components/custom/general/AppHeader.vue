@@ -38,8 +38,7 @@ import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import ModalFestivalEgg from '@/components/modals/ModalFestivalEgg.vue'
 import ModalDonate from '@/components/modals/ModalDonate.vue'
 // import ChristmasTree from '@/assets/icons/ChristmasTree.vue'
-import type { AppVersionJson } from '@/models'
-import { visitUrl } from '@/tools'
+import { checkAppUpdates, visitUrl } from '@/tools'
 import EorzeaTime from '@/tools/eorzea-time'
 import useUiTools from '@/tools/ui'
 import AppStatus from '@/variables/app-status'
@@ -374,16 +373,19 @@ const handleCheckUpdates = async () => {
   } else {
     // Mobile or PWA
     try {
-      const versionUrl = document.location.origin + document.location.pathname + 'version.json'
-      const versionResponse = await fetch(versionUrl)
-      const versionContent = await versionResponse.json() as AppVersionJson
-      const currentVersion = AppStatus.Version
-      if (currentVersion !== versionContent.hqhelper) {
-        if (window.confirm(t('检测到新版本{v}，是否更新?', { v: versionContent.hqhelper }))) {
-          window.location.reload()
+      const checkUpdateResponse = await checkAppUpdates()
+      if (checkUpdateResponse.success) {
+        const versionContent = checkUpdateResponse.data!
+        const currentVersion = AppStatus.Version
+        if (currentVersion !== versionContent.hqhelper) {
+          if (window.confirm(t('检测到新版本{v}，是否更新?', { v: versionContent.hqhelper }))) {
+            window.location.reload()
+          }
+        } else {
+          NAIVE_UI_MESSAGE.success(t('已是最新版本'))
         }
       } else {
-        NAIVE_UI_MESSAGE.success(t('已是最新版本'))
+        NAIVE_UI_MESSAGE.error(checkUpdateResponse.message)
       }
     } catch (err) {
       NAIVE_UI_MESSAGE.error(t('检查更新失败，请稍后再试'))
