@@ -6693,7 +6693,7 @@
       "components\\modals\\ModalSponsorsList.vue"
     ]
   },
-  "如果遇到任何问题，请在Q群中联系我们。": {
+  "如果遇到问题，请在Q群中联系我们。": {
     "en": "If you encounter any problems, please contact us in the QQ group.",
     "ja": "問題発生時はQQグループまでご連絡ください",
     "$files": [

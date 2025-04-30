@@ -129,7 +129,7 @@ const handleStaffSelectionUpdate = () => {
             <StaffGroup :group-members="[currentDonateStaff]" style="float: left;" />
             <span>{{ t('，以支持HqHelper的{contents}。', currentDonateStaff.donate_info!.donate_desc) }}</span>
           </div>
-          <div v-if="!currentDonateStaff.donate_info!.self" class="orangered flex-vac flex-wrap">
+          <div v-if="!currentDonateStaff.donate_info!.self" class="donate-warn-container">
             <span>{{ t('※请在赞助留言中注明您是因HqHelper而进行了赞助。') }}</span>
             <HelpButton
               icon="question"
@@ -162,7 +162,7 @@ const handleStaffSelectionUpdate = () => {
           <li>{{ t('您可以在转账备注/赞助留言中说明您希望显示的赞助者ID和留言。') }}</li>
           <li class="orangered">{{ t('赞助行为重在心意，不求数额，但也没有回报。请务必量力而行。') }}</li>
         </ul>
-        <n-alert :title="t('如果遇到任何问题，请在Q群中联系我们。')" type="info" style="margin-top: auto; line-height: 1.2;">
+        <n-alert :title="t('如果遇到问题，请在Q群中联系我们。')" type="info" style="margin-top: auto; line-height: 1.2;">
           <p>
             <span>{{ t('如果你已经登录了QQ，那么') }}</span>
             <a :href="pageData.qGroupInfo.groupUrl" target="_blank">{{ t('点击此处') }}</a>
@@ -202,6 +202,10 @@ const handleStaffSelectionUpdate = () => {
 :deep(.group-box-content) {
   padding: 0 4px;
 }
+.donate-warn-container :deep(.n-icon) {
+  display: inline-block !important;
+  vertical-align: text-top;
+}
 .wrapper {
   height: 250px;
   display: flex;
@@ -216,6 +220,10 @@ const handleStaffSelectionUpdate = () => {
     display: flex;
     flex-direction: column;
     gap: 15px;
+
+    .donate-warn-container {
+      color: orangered;
+    }
   }
   .cautions-container {
     height: 100%;
