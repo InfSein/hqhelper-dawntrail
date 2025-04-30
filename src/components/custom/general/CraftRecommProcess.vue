@@ -14,6 +14,7 @@ import LocationSpan from '@/components/custom/map/LocationSpan.vue'
 import { type UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
+import UseConfig from '@/tools/use-config'
 import { XivJobs, type XivJob } from '@/assets/data'
 import type EorzeaTime from '@/tools/eorzea-time'
 import type { RecommItemGroup } from '@/models/item'
@@ -25,6 +26,10 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 // const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 // const NAIVE_UI_MESSAGE = useMessage()
+
+const {
+  itemLanguage, itemServer,
+} = UseConfig(userConfig, funcConfig)
 
 const expandedBlocks = defineModel<Record<number, string[]>>('expandedBlocks', { required: true })
 const completedItems = defineModel<Record<number, Record<number, boolean>>>('completedItems', { required: true })
@@ -41,24 +46,6 @@ const showItemGatherDetails = computed(() => {
   return funcConfig.value.processes_show_item_details
 })
 
-const itemServer = computed(() => {
-  let server = userConfig.value.item_server
-  if (!server || server === 'auto') {
-    const lang = userConfig.value.language_ui
-    if (lang === 'zh') {
-      server = 'chs'
-    } else {
-      server = 'global'
-    }
-  }
-  return server
-})
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
 const getJobName = (jobInfo: XivJob) => {
   switch (userConfig.value.language_ui) {
     case 'ja':
@@ -276,6 +263,7 @@ const isItemGatherableNow = (item: ItemInfo) => {
 
     .title {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       span {
         font-weight: bold;

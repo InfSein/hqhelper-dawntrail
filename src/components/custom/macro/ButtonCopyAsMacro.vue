@@ -7,31 +7,23 @@ import {
 import {
   CodeSharp
 } from '@vicons/material'
+import UseConfig from '@/tools/use-config'
 import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel, MacroGenerateMode } from '@/models/config-func'
 
 const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
-const copyAsMacro = inject<(macroContent: string, container?: HTMLElement | undefined) => Promise<{
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+const copyAsMacro = inject<(macroMap: Record<MacroGenerateMode, string>, container?: HTMLElement | undefined) => Promise<{
   result: "success" | "info" | "error";
   msg: string;
 } | undefined>>('copyAsMacro')!
 
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
-const getItemName = (itemInfo: ItemInfo) => {
-  switch (itemLanguage.value) {
-    case 'zh':
-      return itemInfo.name_zh || '未翻译的物品'
-    default:
-      return itemInfo[`name_${itemLanguage.value}`]
-  }
-}
+const {
+  itemLanguage,
+} = UseConfig(userConfig, funcConfig)
 
 interface ButtonCopyAsMacroProps {
   items: ItemInfo[],
@@ -42,18 +34,51 @@ const props = defineProps<ButtonCopyAsMacroProps>()
 
 const copyBtnLoading = ref(false)
 
-const macroValue = computed(() => {
-  const result : string[] = []
+const getItemName = (itemInfo: ItemInfo) => {
+  switch (itemLanguage.value) {
+    case 'zh':
+      return itemInfo.name_zh || '未翻译的物品'
+    default:
+      return itemInfo[`name_${itemLanguage.value}`]
+  }
+}
+
+const macroMap = computed(() : Record<MacroGenerateMode, string> => {
+  const result: Record<MacroGenerateMode, string> = {
+    singleLine: '',
+    multiLine: ''
+  }
+  const totalItems = props.items.filter(item => item.amount).length
+  const maxLines = 15
+  const itemsPerLine = Math.ceil(totalItems / maxLines)
+
+  let currentLine: string[] = []
+  let itemCount = 0
+
   props.items.forEach(item => {
     if (item.amount) {
       let itemName = getItemName(item)
       if (itemLanguage.value === 'en') {
         itemName = `"${itemName}"`
       }
-      result.push(`${itemName}x${item.amount}`)
+      result.singleLine += `${itemName}x${item.amount}; `
+
+      currentLine.push(`${itemName} x${item.amount}`)
+      itemCount++
+
+      if (itemCount >= itemsPerLine) {
+        result.multiLine += '・' + currentLine.join(', ') + '\n'
+        currentLine = []
+        itemCount = 0
+      }
     }
   })
-  return result.join('; ')
+  if (currentLine.length) {
+    result.multiLine += '・' + currentLine.join(', ') + '\n'
+  }
+
+  result.multiLine = result.multiLine.trim()
+  return result
 })
 const handleCopyAsMacro = async () => {
   copyBtnLoading.value = true
@@ -61,7 +86,7 @@ const handleCopyAsMacro = async () => {
   if (props.containerId) {
     container = document.getElementById(props.containerId) ?? undefined
   }
-  const response = await copyAsMacro(macroValue.value, container)
+  const response = await copyAsMacro(macroMap.value, container)
   if (response) {
     NAIVE_UI_MESSAGE[response.result](response.msg)
   }

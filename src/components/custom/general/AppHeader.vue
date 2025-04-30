@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, h, inject, onMounted, ref, type Component, type Ref, type VNode } from 'vue'
+import { computed, h, inject, onMounted, ref, type Component, type Ref } from 'vue'
 import {
-  NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover, NTooltip,
+  NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover,
   useMessage,
-  type DropdownOption, type DropdownGroupOption
+  type DropdownOption,
 } from 'naive-ui'
 import {
   ArrowCircleLeftOutlined,
-  FileCopyFilled, FileCopyOutlined, FilePresentOutlined,
+  FileCopyFilled, FilePresentOutlined,
   OpenInNewOutlined,
   CasesRound, CasesOutlined,
   ImportExportOutlined,
@@ -26,6 +26,8 @@ import {
   InfoFilled, InfoOutlined,
   DevicesOtherOutlined,
   ContactlessOutlined,
+  HandshakeOutlined,
+  DevicesOutlined,
   DarkModeTwotone, LightModeTwotone,
   UpdateSharp
 } from '@vicons/material'
@@ -34,10 +36,11 @@ import ModalContactUs from '@/components/modals/ModalContactUs.vue'
 import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import ModalFestivalEgg from '@/components/modals/ModalFestivalEgg.vue'
+import ModalDonate from '@/components/modals/ModalDonate.vue'
 // import ChristmasTree from '@/assets/icons/ChristmasTree.vue'
-import type { AppVersionJson } from '@/models'
-import { visitUrl } from '@/tools'
+import { checkAppUpdates, visitUrl } from '@/tools'
 import EorzeaTime from '@/tools/eorzea-time'
+import useUiTools from '@/tools/ui'
 import AppStatus from '@/variables/app-status'
 import router from '@/router'
 import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
@@ -66,6 +69,7 @@ const canOpenDevTools = computed(() => {
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
+const { dropdownOptionsRenderer } = useUiTools(isMobile)
 
 onMounted(() => {
   if (userConfig.value.cache_lasttime_version !== AppStatus.Version) {
@@ -85,6 +89,7 @@ const showAboutAppModal = ref(false)
 const showContactModal = ref(false)
 const showChangeLogsModal = ref(false)
 const showFestivalEggModal = ref(false)
+const showDonateModal = ref(false)
 
 // const showFestivalEgg = computed(() => {
 //   const now = new Date()
@@ -121,6 +126,9 @@ const displayContactModal = () => {
 const displayChangeLogsModal = () => {
   showChangeLogsModal.value = true
 }
+const displayDonateModal = () => {
+  showDonateModal.value = true
+}
 const redirectToFoodAndTincPage = () => {
   router.push('/fthelper')
 }
@@ -129,6 +137,9 @@ const redirectToWorkflowPage = () => {
 }
 const redirectToGatherClockPage = () => {
   router.push('/gatherclock')
+}
+const redirectToDownloadPage = () => {
+  router.push('/download')
 }
 const openSubwindowOfGatherClock = () => {
   const url = document.location.origin + document.location.pathname + '#/gatherclock?mode=overlay'
@@ -199,6 +210,7 @@ const menuItems = computed(() => {
     checkUpdates: { label: t('检查更新'), icon: UpdateSharp, click: handleCheckUpdates } as MenuItem,
     changelogs: { label: t('更新日志'), icon: EventNoteFilled, click: displayChangeLogsModal } as MenuItem,
     contact: { label: t('联系我们'), icon: ContactlessOutlined, click: displayContactModal } as MenuItem,
+    donate: { label: t('赞助我们'), icon: HandshakeOutlined, click: displayDonateModal } as MenuItem,
     aboutApp: { label: t('关于本作'), icon: InfoOutlined, click: displayAboutAppModal } as MenuItem
   }
 })
@@ -206,6 +218,7 @@ const desktopMenus = computed(() => {
   const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
   const hideGatherClock = router.currentRoute.value.path.startsWith('/gatherclock')
   const hideWorkflow = router.currentRoute.value.path.startsWith('/workflow')
+  const hideDownload = router.currentRoute.value.path.startsWith('/download')
   const changeThemeIcon = theme.value === 'light' ? DarkModeTwotone : LightModeTwotone
   const changeThemeTooltip = theme.value === 'light' ? t('为这个世界带回黑暗。') : t('静待黎明天光来。')
   const ftHelperTooltip = hideFTHelper ? t('您已经处于食药计算器的页面。') : t('帮助你制作食物与爆发药。能帮到就好。')
@@ -213,21 +226,33 @@ const desktopMenus = computed(() => {
   const gatherClockTooltip = hideGatherClock ? t('您已经处于采集时钟页面。') : t('挖穿艾欧泽亚的好帮手！')
   const gatherClockSWTooltip = t('在新窗口中打开采集时钟。')
   const workflowTooltip = hideWorkflow ? t('您已经处于工作流页面。') : t('众生如归流。')
+  const downloadClientTooltip = hideDownload ? t('您已经处于下载客户端页面。') : t('目前客户满足度达到124%。')
   const userPreferenceTooltip = t('以人的意志改变机械的程序。')
   // const funcPreferenceTooltip = t('还好我把魔法人偶的战斗力设置成了最强级别。')
   const checkUpdatesTooltip = t('更新目标的战力等级……变更攻击模式……')
   const changelogTooltip = t('修正……改良……开始对循环程序进行更新……')
   const contactTooltip = t('关注我们喵，关注我们谢谢喵。')
+  const donateTooltip = t('让程序肥多玩会肥肥14。')
   const aboutTooltip = t('重新自我介绍一下库啵。')
 
-  const buildOuterlinkOption = (key: string, label: string, url: string, icon: Component, description?: string) => {
-    return {
-      key, label, icon: renderIcon(icon),
-      click: () => {
-        visitUrl(url)
-      },
-      description: description ?? url
-    }
+  const buildOuterlinkOptions = (
+    options: {
+      url: string, label: string, description?: string
+    }[],
+    key: string,
+    icon?: Component
+  ) => {
+    return options.map((option, index) => {
+      return {
+        key: `${key}-${index}`,
+        label: option.label,
+        icon: renderIcon(icon ?? OpenInNewOutlined),
+        click: () => {
+          visitUrl(option.url)
+        },
+        description: option.description ?? option.url
+      }
+    })
   }
 
   return [
@@ -238,35 +263,29 @@ const desktopMenus = computed(() => {
       hide: userConfig.value.language_ui !== 'zh', // 这里的内容仅限中文用户可见，不做国际化
       options: [
         {
-          key: 'ref-self',
-          label: '自撰攻略',
-          icon: renderIcon(FileCopyOutlined),
-          children: [
-            buildOuterlinkOption('ref-self-1', 'DawnCrafter I: 版本7.0&7.05生产采集准备工作', 'https://bbs.nga.cn/read.php?tid=41573697', OpenInNewOutlined),
-            buildOuterlinkOption('ref-self-2', 'DawnCrafter II: 版本7.1生产采集准备工作', 'https://bbs.nga.cn/read.php?tid=42486060', OpenInNewOutlined),
-          ]
-        },
-        {
           key: 'ref-oth-book',
-          label: '其他推荐攻略',
+          label: '推荐攻略',
           icon: renderIcon(FilePresentOutlined),
-          children: [
-            buildOuterlinkOption('ref-oth-book-1', '7.0装备箱羊毛指南 by天然呆树歌', 'https://bbs.nga.cn/read.php?tid=40686962', OpenInNewOutlined),
-            buildOuterlinkOption('ref-oth-book-2', '生产职业90-100练级攻略 by竹笙微凉_', 'https://bbs.nga.cn/read.php?tid=41158426', OpenInNewOutlined),
-            buildOuterlinkOption('ref-oth-book-3', '7.x星级配方制作攻略 by月下独翼', 'https://bbs.nga.cn/read.php?tid=40690311', OpenInNewOutlined),
-            buildOuterlinkOption('ref-oth-book-4', '7.0捕鱼人大地票据指南 by f(x)=kx+b', 'https://bbs.nga.cn/read.php?tid=42046664', OpenInNewOutlined),
-            buildOuterlinkOption('ref-oth-book-5', '7.0灵砂/工票鱼信息整理 by plas_g', 'https://bbs.nga.cn/read.php?tid=41277468', OpenInNewOutlined),
-            buildOuterlinkOption('ref-oth-book-6', '全战职开荒/毕业配装 by 孤风行', 'https://www.kdocs.cn/l/ceEcTzlFQBUy', OpenInNewOutlined),
-          ]
+          children: buildOuterlinkOptions([
+            { url: 'https://bbs.nga.cn/read.php?tid=41158426', label: '生产职业90-100练级攻略 by竹笙微凉_' },
+            { url: 'https://bbs.nga.cn/read.php?tid=40690311', label: '7.x星级配方制作攻略 by月下独翼' },
+            { url: 'https://bbs.nga.cn/read.php?tid=41258536', label: '7.x秘籍配方采集制作攻略 by竹笙微凉_' },
+            { url: 'https://bbs.nga.cn/read.php?tid=41277468', label: '7.0灵砂/工票鱼信息整理 by plas_g' },
+            { url: 'https://bbs.nga.cn/read.php?tid=42046664', label: '7.0捕鱼人大地票据指南 by f(x)=kx+b' },
+            { url: 'https://bbs.nga.cn/read.php?tid=43895399', label: '宇宙探索攻略 by 天然呆树歌' },
+            { url: 'https://www.kdocs.cn/l/ceEcTzlFQBUy', label: '全战职开荒/毕业配装 by 孤风行' }
+          ], 'ref-oth-book'),
         },
         {
           key: 'ref-oth-tool',
-          label: '其他实用工具',
+          label: '实用工具',
           icon: renderIcon(CasesOutlined),
-          children: [
-            buildOuterlinkOption('ref-oth-tool-1', '制作模拟器 by Tnze', 'https://tnze.yyyy.games/#/', OpenInNewOutlined),
-            buildOuterlinkOption('ref-oth-tool-2', '配装模拟器 by Asvel', 'https://asvel.github.io/ffxiv-gearing/', OpenInNewOutlined),
-          ]
+          children: buildOuterlinkOptions([
+            { url: 'https://tnze.yyyy.games/#/', label: '制作模拟器 by Tnze' },
+            { url: 'https://asvel.github.io/ffxiv-gearing/', label: '配装模拟器 by Asvel' },
+            { url: 'https://fish.ffmomola.com/#/', label: '鱼糕 by 红豆年糕' },
+            { url: 'https://cn.ff14angler.com/', label: '饥饿的猫' },
+          ], 'ref-oth-tool'),
         }
       ]
     },
@@ -281,6 +300,8 @@ const desktopMenus = computed(() => {
         { key: 'tool-divider-1', hide: !canUseSubwindow.value, type: 'divider' },
         { key: 'tool-gatherclock-subwindow', hide: !canUseSubwindow.value, label: t('采集时钟(新窗口)'), icon: renderIcon(AccessAlarmsOutlined), description: gatherClockSWTooltip, click: openSubwindowOfGatherClock },
         { key: 'tool-fthelper-subwindow', hide: !canUseSubwindow.value, label: t('食药计算(新窗口)'), icon: renderIcon(FastfoodOutlined), description: ftHelperSWTooltip, click: openSubwindowOfFtHelper },
+        { key: 'tool-divider-2', hide: !!window.electronAPI, type: 'divider' },
+        { key: 'tool-download', label: t('下载客户端'), disabled: hideDownload, hide: !!window.electronAPI, icon: renderIcon(DevicesOutlined), description: downloadClientTooltip, click: redirectToDownloadPage },
       ]
     },
     /* 导入导出 */
@@ -313,6 +334,7 @@ const desktopMenus = computed(() => {
       options: [
         { key: 'ab-faq', label: '常见问题', hide: userConfig.value.language_ui !== 'zh', icon: renderIcon(HelpOutlineOutlined), description: '也有不常见的。', click: ()=>{ visitUrl('https://docs.qq.com/doc/DY3pPZmRGRHpubEFi') } },
         { key: 'ab-contact', label: t('联系我们'), icon: renderIcon(ContactlessOutlined), description: contactTooltip, click: displayContactModal },
+        { key: 'ab-donate', label: t('赞助我们'), icon: renderIcon(HandshakeOutlined), description: donateTooltip, click: displayDonateModal },
         { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoOutlined), description: aboutTooltip, click: displayAboutAppModal },
       ],
     }
@@ -324,25 +346,6 @@ function renderIcon(icon: Component) {
       default: () => h(icon)
     })
   }
-}
-const renderOption = ({ node, option }: { node: VNode, option: DropdownOption | DropdownGroupOption }) => {
-  return option.description ? h(
-    NTooltip,
-    {
-      keepAliveOnHover: false,
-      placement: 'right',
-      style: {
-        width: 'max-content',
-        display: isMobile.value ? 'none' : 'inherit',
-      }
-    },
-    {
-      trigger: () => [node],
-      default: () => option.description
-    }
-  ) : h(
-    node
-  )
 }
 const handleDesktopMenuOptionSelect = (key: string, option: any) => {
   if (option?.click) {
@@ -370,16 +373,19 @@ const handleCheckUpdates = async () => {
   } else {
     // Mobile or PWA
     try {
-      const versionUrl = document.location.origin + document.location.pathname + 'version.json'
-      const versionResponse = await fetch(versionUrl)
-      const versionContent = await versionResponse.json() as AppVersionJson
-      const currentVersion = AppStatus.Version
-      if (currentVersion !== versionContent.hqhelper) {
-        if (window.confirm(t('检测到新版本{v}，是否更新?', { v: versionContent.hqhelper }))) {
-          window.location.reload()
+      const checkUpdateResponse = await checkAppUpdates()
+      if (checkUpdateResponse.success) {
+        const versionContent = checkUpdateResponse.data!
+        const currentVersion = AppStatus.Version
+        if (currentVersion !== versionContent.hqhelper) {
+          if (window.confirm(t('检测到新版本{v}，是否更新?', { v: versionContent.hqhelper }))) {
+            window.location.reload()
+          }
+        } else {
+          NAIVE_UI_MESSAGE.success(t('已是最新版本'))
         }
       } else {
-        NAIVE_UI_MESSAGE.success(t('已是最新版本'))
+        NAIVE_UI_MESSAGE.error(checkUpdateResponse.message)
       }
     } catch (err) {
       NAIVE_UI_MESSAGE.error(t('检查更新失败，请稍后再试'))
@@ -455,7 +461,7 @@ const handleCheckUpdates = async () => {
           v-for="(item, key) in desktopMenus"
           :key="'desktop-menu-' + key"
           :options="item.options?.filter(o => !o.hide)"
-          :render-option="renderOption"
+          :render-option="dropdownOptionsRenderer"
           :trigger="item.options?.length ? 'hover' : 'manual'"
           @select="handleDesktopMenuOptionSelect"
         >
@@ -508,6 +514,7 @@ const handleCheckUpdates = async () => {
     <ModalContactUs v-model:show="showContactModal" />
     <ModalChangeLogs v-model:show="showChangeLogsModal" />
     <ModalFestivalEgg v-model:show="showFestivalEggModal" />
+    <ModalDonate v-model:show="showDonateModal" />
   </div>
 </template>
 

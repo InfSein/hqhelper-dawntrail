@@ -5,6 +5,8 @@ import {
 
 export interface Workflow {
   name?: string;
+  /** 临时ID, 目前只用于 vue-draggable 渲染 */
+  tempId?: number;
   /** 制作目标; key:item-id, value:amount */
   targetItems: Record<number, number>;
   /** 已有道具; key:item-id, value:amount */

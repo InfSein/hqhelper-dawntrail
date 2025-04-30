@@ -14,11 +14,10 @@ import { useRoute } from 'vue-router'
 import { useStore } from '@/store/index'
 import { t } from '@/languages'
 import { injectVoerkaI18n } from "@voerkai18n/vue"
-import { CopyToClipboard, sleep } from './tools'
+import { checkAppUpdates, CopyToClipboard, sleep } from './tools'
 import EorzeaTime from './tools/eorzea-time'
-import type { AppVersionJson } from './models'
 import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
-import { fixFuncConfig, type FuncConfigModel } from './models/config-func'
+import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from './models/config-func'
 import AppStatus from './variables/app-status'
 import ModalFestivalEgg from './components/modals/ModalFestivalEgg.vue'
 
@@ -115,11 +114,14 @@ setInterval(() => {
 provide('currentET', currentET)
 
 const showCopyMacroModal = ref(false)
-const macroValue = ref('')
-const copyAsMacro = async (macroContent: string, container?: HTMLElement | undefined) : Promise<{
+const macroMapValue = ref<Record<MacroGenerateMode, string>>({
+  singleLine: '', multiLine: ''
+})
+const copyAsMacro = async (macroMap: Record<MacroGenerateMode, string>, container?: HTMLElement | undefined) : Promise<{
   result: "success" | "info" | "error"
   msg: string
 } | undefined> => {
+  const macroContent = macroMap[funcConfig.value.macro_generate_mode]
   if (!macroContent) {
     return { result: 'info', msg: t('没有需要复制的内容') }
   }
@@ -130,7 +132,7 @@ const copyAsMacro = async (macroContent: string, container?: HTMLElement | undef
     }
     return { result: 'success', msg: t('已复制到剪贴板') }
   } else {
-    macroValue.value = macroContent
+    macroMapValue.value = macroMap
     showCopyMacroModal.value = true
   }
 }
@@ -161,43 +163,39 @@ onMounted(async () => {
   // 处理自动更新
   if (!userConfig.value.disable_auto_update && appMode.value !== 'overlay') {
     try {
-      let checkVersionResponse : string
-      let url = document?.location?.origin + document.location.pathname + 'version.json'
-      if (window.electronAPI?.httpGet) {
-        url = 'https://hqhelper.nbb.fan/version.json'
-        checkVersionResponse = await window.electronAPI.httpGet(url)
-      } else {
-        checkVersionResponse = await fetch(url)
-          .then(response => response.text())
-      }
-      const versionContent = JSON.parse(checkVersionResponse) as AppVersionJson
-
-      let needUpdateElectron = false, needUpdateHqHelper = false
-      if (window.electronAPI) {
-        const currentElectronVersion = await window.electronAPI.clientVersion
-        needUpdateElectron = currentElectronVersion !== versionContent.electron
-      }
-      needUpdateHqHelper = AppStatus.Version !== versionContent.hqhelper
-
-      if (needUpdateElectron) {
-        if (window.confirm(
-          t('检测到客户端有新版本({v})。', versionContent.electron)
-          + (needUpdateHqHelper ? ('\n' + t('检测到HqHelper有新版本({v})。', versionContent.hqhelper)) : '')
-          + '\n' + t('要现在更新吗?')
-        )) {
-          displayCheckUpdatesModal()
+      const checkUpdateResponse = await checkAppUpdates()
+      if (checkUpdateResponse.success) {
+        const versionContent = checkUpdateResponse.data!
+        
+        let needUpdateElectron = false, needUpdateHqHelper = false
+        if (window.electronAPI) {
+          const currentElectronVersion = await window.electronAPI.clientVersion
+          needUpdateElectron = currentElectronVersion !== versionContent.electron
         }
-      } else if (needUpdateHqHelper) {
-        if (window.confirm(
-          t('检测到HqHelper有新版本({v})。', versionContent.hqhelper)
-          + '\n' + t('要现在更新吗?')
-        )) {
-          if (window.electronAPI) {
+        needUpdateHqHelper = AppStatus.Version !== versionContent.hqhelper
+
+        if (needUpdateElectron) {
+          if (window.confirm(
+            t('检测到客户端有新版本({v})。', versionContent.electron)
+            + (needUpdateHqHelper ? ('\n' + t('检测到HqHelper有新版本({v})。', versionContent.hqhelper)) : '')
+            + '\n' + t('要现在更新吗?')
+          )) {
             displayCheckUpdatesModal()
-          } else {
-            window.location.reload()
+          }
+        } else if (needUpdateHqHelper) {
+          if (window.confirm(
+            t('检测到HqHelper有新版本({v})。', versionContent.hqhelper)
+            + '\n' + t('要现在更新吗?')
+          )) {
+            if (window.electronAPI) {
+              displayCheckUpdatesModal()
+            } else {
+              window.location.reload()
+            }
           }
         }
+      } else {
+        console.error('自动更新失败:', checkUpdateResponse.message, '\n', checkUpdateResponse)
       }
     } catch (err) {
       console.error('自动更新发生错误', err)
@@ -271,7 +269,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
         
         <ModalCopyAsMacro
           v-model:show="showCopyMacroModal"
-          :macro-content="macroValue"
+          :macro-map="macroMapValue"
         />
         <ModalCheckUpdates v-model:show="showCheckUpdatesModal" />
         <ModalFestivalEgg v-model:show="showFestivalEgg" />

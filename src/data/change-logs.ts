@@ -25,8 +25,8 @@ export interface PatchChangeGroup {
 
 /*
     {
-      version: '2.1.7',
-      date: '2025-01-24',
+      version: '2.2.3',
+      date: '2025-05-01',
       changes: [
         {
           name: groupName.breaking,
@@ -50,6 +50,7 @@ export interface PatchChangeGroup {
 import { t } from '@/languages'
 const emBlock = '<span style="display:inline-block;width:1em;"></span>'
 const tipper = '<br>' +  emBlock + ' ※ '
+const renderImg = (url: string) => `<img src="${url}" style="max-width: 70%;" />`
 // const refer = (text: string) => `<span class="font-small" style="font-style: italic;">${text}</span>`
 export const getChangelogs = (
   ui_lang: 'zh' | 'ja' | 'en'
@@ -62,6 +63,61 @@ export const getChangelogs = (
   }
   const isZh = ui_lang === 'zh'
   return [
+    {
+      version: '2.2.3',
+      date: '2025-05-01',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('实装了赞助功能。')
+              + '<br>' + t('挑选任意的创作者进行赞助，以提升其开发热情、或是降低其开支压力。')
+              + '<br>' + t('进行赞助之后可以加入“致谢名单”。')
+              + '<br><span class="orangered">※ ' + t('赞助行为重在心意，不求数额，但也没有回报。请务必量力而行。') + '</span>'
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/04/30/6811e7604ed1e.png')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/04/30/6811e7a50b146.png'),
+            t('追加了下载客户端的专用页面。')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/04/30/6811e7f37662e.png'),
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('修正了管理工作流弹窗中一些内容组件的渲染问题。'),
+            t('修复了调整偏好设置中的界面语言设置后，程序的自动刷新不会让设置立即生效的问题。'),
+            t('修复了部分区域的文本未遵循用户界面语言设置的问题。'),
+            t('修正了“{f1}”->“{f2}”中“{f3}”的自动判断逻辑。', {
+              f1: t('偏好设置'),
+              f2: t('通用'),
+              f3: t('服务器')
+            }) + '<br>' + t('现在设为自动时会跟随物品语言的设置，而非界面语言。'),
+            t('修正了切换工作流区域在移动端的显示效果。'),
+            t('修正了推荐流程中点数需求过长时流程标题的显示效果。'),
+            t('修正了导出闹钟宏界面在物品语言设为日/英语时的显示效果。'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            isZh ? (
+              '更新了桌面端顶部菜单项“参考资料”的推荐攻略/工具列表 (仅在界面语言设置为简体中文时显示)。'
+              + '<br>※ ' + '因作者弃坑，“自撰攻略”栏目移除。相应的，各子菜单的文本进行调整。'
+            ) : '',
+            t('复制宏时支持调整宏的生成模式，可以以多行方式输出宏。')
+              + '<br>※ ' + t('以多行模式输出时，复制的宏需要粘贴在用户宏中执行方可发送。')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/04/30/6811e6aeb8dda.png'),
+            t('专业版制作报表中，点数道具因上级制作素材变动而导致已有数量大于总需数量的场合，尚需点数统计不再显示为负数。'),
+            t('优化了职业按钮右键菜单的显示效果。')
+              + '<br>' +  renderImg('http://lsky.nbb.fan/i/2025/04/29/68108e10c8065.png'),
+            t('更新了720HQ/740HQ的推荐配装。')
+              + '<br>' +  renderImg('http://lsky.nbb.fan/i/2025/04/30/6811e844191a3.png'),
+            t('偏好设置中，部分设置项的下拉框选项添加描述文本。'),
+            t('优化了采集时钟页面物品按钮悬浮窗在移动端的显示效果。'),
+            t('优化了部分区域的文本描述。'),
+          ]
+        }
+      ]
+    },
     {
       version: '2.2.2',
       date: '2025-04-01',

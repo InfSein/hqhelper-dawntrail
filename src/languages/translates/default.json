@@ -63,13 +63,6 @@
       "components\\ModalAboutApp.vue"
     ]
   },
-  "特别感谢以下用户对前代HqHelper项目的赞助：": {
-    "en": "Special thanks to the following users for sponsoring the previous generation HqHelper project:",
-    "ja": "特に、前世代のHqHelperプロジェクトにご支援いただいた下記ユーザー様に心より感謝申し上げます。",
-    "$files": [
-      "components\\ModalAboutApp.vue"
-    ]
-  },
   "关于本作": {
     "en": "About us",
     "ja": "当ツールについて",
@@ -1178,9 +1171,9 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "如果选择“自动”，程序会根据您在“界面语言”的设置自动判断。": {
-    "en": "It would automatically determine by the setting of \"UI Language\" if you select \"Auto\".",
-    "ja": "“オート”を選択した場合，“インタフェース言語”の設定に応じて自動判断します。",
+  "如果选择“自动”，程序会根据您在“物品语言”的设置自动判断。": {
+    "en": "It would automatically determine by the setting of \"Item Language\" if you select \"Auto\".",
+    "ja": "“オート”を選択した場合，“アイテム言語”の設定に応じて自動判断します。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
     ]
@@ -1714,6 +1707,13 @@
     "ja": "猫はお腹がすいた で検索",
     "$files": [
       "components\\custom-controls\\ItemPop.vue"
+    ]
+  },
+  "在饥饿的猫中搜索": {
+    "en": "Search in ff14angler",
+    "ja": "猫はお腹がすいた で検索",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
     ]
   },
   "在鱼糕中打开": {
@@ -3026,6 +3026,27 @@
     "ja": "現在の平均出品価格：マーケットボードの最初の10件の出品から算出した平均価格。",
     "$files": [
       "components\\modals\\ModalUserPreferences.vue"
+    ]
+  },
+  "选取最近5条成交记录计算平均价格": {
+    "en": "calculate average by latest 5 market record",
+    "ja": "直近5件の取引履歴を元に算出した平均価格",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "选取交易板前10条在售记录中的最低价格": {
+    "en": "calculate by lowest price in top 10 market record",
+    "ja": "マーケットボードの最初の10件の出品から算出した最低価格",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "选取交易板前10条在售记录计算平均价格": {
+    "en": "calculate average by top 10 market record",
+    "ja": "マーケットボードの最初の10件の出品から算出した平均価格",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
     ]
   },
   "实装了7.0的采集地图。": {
@@ -6258,6 +6279,523 @@
     "ja": "ドラッグで並べ替え",
     "$files": [
       "components\\modals\\ModalWorkflowsManage.vue"
+    ]
+  },
+  "实装了赞助功能。": {
+    "en": "Implemented the sponsorship feature.",
+    "ja": "スポンサー機能を実装しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "挑选任意的创作者进行赞助，以提升其开发热情、或是降低其开支压力。": {
+    "en": "Pick any creator to sponsor, to boost their development enthusiasm or reduce their financial pressure.",
+    "ja": "任意のクリエイターを選択してスポンサーになり、開発意欲の向上や経費負担の軽減ができます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "进行赞助之后可以加入“致谢名单”。": {
+    "en": "After sponsoring, you can join the 'Thankyou List'.",
+    "ja": "スポンサーは「特別感謝」に掲載されます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "赞助行为重在心意，不求数额，但也没有回报。请务必量力而行。": {
+    "en": "Sponsorship is about the intention, not the amount, and there are no returns. Please act within your means.",
+    "ja": "スポンサーは金額ではなく気持ちが大切です。見返りはありませんので、無理のない範囲でご協力ください。",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "修正了管理工作流弹窗中一些内容组件的渲染问题。": {
+    "en": "Fixed rendering issues of some content components in the Manage Workflows popup.",
+    "ja": "管理ワークフローポップアップのコンテンツコンポーネントのレンダリング問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了调整偏好设置中的界面语言设置后，程序的自动刷新不会让设置立即生效的问题。": {
+    "en": "Fixed the issue where the automatic refresh of the program after changing the UI language setting in preferences did not take effect immediately.",
+    "ja": "設定＞インターフェース言語の調整後に自動リフレッシュが即時反映されない問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了部分区域的文本未遵循用户界面语言设置的问题。": {
+    "en": "Fixed the issue where some texts did not follow the UI language setting.",
+    "ja": "一部地域のテキストがユーザーインターフェース言語設定に従っていない問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了“{f1}”->“{f2}”中“{f3}”的自动判断逻辑。": {
+    "en": "Fixed the automatic judgment logic of '{f3}' in '{f1}'->'{f2}'.",
+    "ja": "「{f1}」→「{f2}」における「{f3}」の自動判定ロジックを修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在设为自动时会跟随物品语言的设置，而非界面语言。": {
+    "en": "Now set to automatic will follow the item language setting, not the ui language.",
+    "ja": "自動設定時、インターフェース言語ではなくアイテム言語の設定に従うようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了切换工作流区域在移动端的显示效果。": {
+    "en": "Fixed the display effect of the workflow switching area on mobile devices.",
+    "ja": "スマホ端末でのワークフローエリア切り替え表示を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了推荐流程中点数需求过长时流程标题的显示效果。": {
+    "en": "Fixed the display effect of the process title in the recommended process when the tomescript requirements is too long.",
+    "ja": "推奨フローでトークン要求が長い場合のフロータイトル表示を改善しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了导出闹钟宏界面在物品语言设为日/英语时的显示效果。": {
+    "en": "Fixed the display effect of the export alarm macro interface when the item language is set to Japanese/English.",
+    "ja": "アイテム言語が日本語/英語設定時のエクスポートアラームマクロ画面表示を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "复制宏时支持调整宏的生成模式，可以以多行方式输出宏。": {
+    "en": "Copying macros now supports adjusting the macro generation mode, allowing for multi-line output.",
+    "ja": "マクロコピー時に生成モードを調整できるようになり、複数行形式でマクロを出力できます。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "以多行模式输出时，复制的宏需要粘贴在用户宏中执行方可发送。": {
+    "en": "In multi-line mode, the copied macro needs to be pasted into the user macro to be executed and sent.",
+    "ja": "複数行モードで出力したマクロは、ユーザーマクロに貼り付けて実行する必要があります。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "专业版制作报表中，点数道具因上级制作素材变动而导致已有数量大于总需数量的场合，尚需点数统计不再显示为负数。": {
+    "en": "In the Pro Craft Statements, if the number of tomescript items exceeds the total required quantity due to changes in the materials for higher-level crafting, the remaining tomescript statistics will no longer be displayed as negative numbers.",
+    "ja": "プロ版レポート作成において、上位制作素材の変更により既存数量が総必要数を超えた場合、不足トークン集計がマイナス表示されなくなりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了职业按钮右键菜单的显示效果。": {
+    "en": "Optimized the display effect of the right-click menu on the job button.",
+    "ja": "ジョブボタンの右クリックメニューの表示効果を最適化しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "更新了720HQ/740HQ的推荐配装。": {
+    "en": "Updated the recommended gear for 720HQ/740HQ.",
+    "ja": "720HQ/740HQ推奨装備を更新しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "偏好设置中，部分设置项的下拉框选项添加描述文本。": {
+    "en": "In the preferences, some dropdown options have added description text.",
+    "ja": "設定＞一部項目のプルダウンオプションに説明文を追加しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了采集时钟页面物品按钮悬浮窗在移动端的显示效果。": {
+    "en": "Optimized the display effect of the item button tooltip on the gathering clock page on mobile devices.",
+    "ja": "採集時計ページのアイコンボタンホバー表示（モバイル）を最適化しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了部分区域的文本描述。": {
+    "en": "Optimized the text description in some areas.",
+    "ja": "一部テキスト説明の表現を改善しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "开发事业": {
+    "en": "developments",
+    "ja": "開発事業",
+    "$files": [
+      "models\\about-app.ts"
+    ]
+  },
+  "数据更新，并平衡托管服务器(nbb.fan)的开支": {
+    "en": "data update and balance the expenses of the hosting server (nbb.fan)",
+    "ja": "データ更新とホスティングサーバー(nbb.fan)の経費バランス調整",
+    "$files": [
+      "models\\about-app.ts"
+    ]
+  },
+  "{patch}版本不会追加新HQ装备。": {
+    "en": "Patch {patch} will not add new HQ gear.",
+    "ja": "パッチ{patch}では新HQ装備は追加されません",
+    "$files": [
+      "components\\main\\PatchPanel.vue"
+    ]
+  },
+  "单行模式": {
+    "en": "Single-line mode",
+    "ja": "シングルラインモード",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue",
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "多行模式": {
+    "en": "Multi-line mode",
+    "ja": "マルチラインモード",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue",
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "目前为单行模式": {
+    "en": "Currently in single-line mode",
+    "ja": "現在はシングルラインモード",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue"
+    ]
+  },
+  "复制的宏可以直接粘贴在游戏内聊天框中发送": {
+    "en": "The copied macro can be pasted directly into the in-game chat box to send",
+    "ja": "コピーしたマクロはゲーム内チャットボックスに直接貼り付け可能",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue"
+    ]
+  },
+  "目前为多行模式": {
+    "en": "Currently in multi-line mode",
+    "ja": "現在はマルチラインモード",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue"
+    ]
+  },
+  "复制的宏需要粘贴在用户宏中执行方可发送": {
+    "en": "The copied macro needs to be pasted into the user macro to be executed and sent",
+    "ja": "コピーしたマクロはユーザーマクロに貼り付けて実行する必要があります",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue"
+    ]
+  },
+  "前缀": {
+    "en": "Prefix",
+    "ja": "プレフィックス",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue"
+    ]
+  },
+  "请选择宏前缀": {
+    "en": "Please select macro prefix",
+    "ja": "マクロプレフィックスを選択",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue"
+    ]
+  },
+  "模式": {
+    "en": "Mode",
+    "ja": "モード",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue"
+    ]
+  },
+  "请选择宏生成模式": {
+    "en": "Please select macro mode",
+    "ja": "マクロ生成モードを選択",
+    "$files": [
+      "components\\modals\\ModalCopyAsMacro.vue"
+    ]
+  },
+  "宏生成模式": {
+    "en": "Macro generation mode",
+    "ja": "マクロ生成モード",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "决定要以何种格式生成宏。": {
+    "en": "Decide how to generate macros.",
+    "ja": "マクロ生成フォーマットを決定します",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "单行模式会将所有材料合并入一行，以允许你直接在游戏内聊天框中粘贴发送；": {
+    "en": "Single-line mode will merge all materials into one line, allowing you to paste and send directly in the in-game chat box;",
+    "ja": "シングルラインモードは全素材を1行にまとめ、ゲーム内チャットボックス直接貼り付けを可能にします",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "多行模式会分行展示材料，以获得更好的排版，不过这样就必须在游戏内的用户宏界面中粘贴执行才能发送。": {
+    "en": "Multi-line mode will display materials in separate lines for better formatting, but this requires pasting and executing in the user macro interface in the game to send.",
+    "ja": "マルチラインモードは改行で整形表示しますが、ユーザーマクロ画面での貼り付け実行が必要です",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "爱发电": {
+    "en": "Aifadian",
+    "ja": "Afdian（愛発電）",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "致谢名单": {
+    "en": "Thankyou List",
+    "ja": "特別感謝",
+    "$files": [
+      "components\\modals\\ModalDonate.vue",
+      "components\\modals\\ModalSponsorsList.vue"
+    ]
+  },
+  "赞助我们": {
+    "en": "Donate us",
+    "ja": "スポンサーになる",
+    "$files": [
+      "components\\modals\\ModalDonate.vue",
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "赞助目标": {
+    "en": "Sponsorship target",
+    "ja": "スポンサーになる開発者",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "请选择要赞助的创作人员": {
+    "en": "Please select staff to sponsor",
+    "ja": "スポンサーになりたいクリエイターを選択",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "赞助方式": {
+    "en": "Sponsorship method",
+    "ja": "スポンサーになる方法",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "请选择赞助方式": {
+    "en": "Please select sponsorship method",
+    "ja": "スポンサーになる方法を選択",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "最终确认": {
+    "en": "Final confirmation",
+    "ja": "最終確認",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "您将开始赞助": {
+    "en": "You will start sponsoring",
+    "ja": "この開発者のスポンサーになります：",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "，以支持HqHelper的{contents}。": {
+    "en": "，to support HqHelper's {contents}.",
+    "ja": "、これでHqHelperの{contents}が支援されます。",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "※请在赞助留言中注明您是因HqHelper而进行了赞助。": {
+    "en": "※Please indicate in the sponsorship message that you are sponsoring because of HqHelper.",
+    "ja": "※コメントにHqHelper経由でのスポンサーにいなることをご明記してください。",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "该成员还有其他的项目正接受赞助。": {
+    "en": "This member has other projects that are also accepting sponsorship.",
+    "ja": "該当メンバーは他プロジェクトでも支援を受け付けています。",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "如果您不特意注明，我们在统计致谢名单时可能会忽略您。": {
+    "en": "If you do not specify, we may ignore you when counting the thankyou list.",
+    "ja": "特に明記しない場合、特別感謝に反映されない可能性があります",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "开始赞助": {
+    "en": "Start sponsoring",
+    "ja": "スポンサーになる",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "请点击下方链接进行赞助：": {
+    "en": "Please click the link below to sponsor:",
+    "ja": "下記リンクからスポンサーになる：",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "请使用移动端的QQ或TIM扫描下方二维码：": {
+    "en": "Please use the mobile QQ or TIM to scan the QR code below:",
+    "ja": "モバイル版のQQ/TIMでQRコードをスキャン：",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "万分感谢您对HqHelper的支持。": {
+    "en": "Thanks for your support for HqHelper.",
+    "ja": "HqHelperへのご支援に心より感謝申し上げます",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "不过在开始赞助之前，请先阅读以下注意事项：": {
+    "en": "However, please read the following notes before starting the sponsorship:",
+    "ja": "スポンサーになる前に以下の注意事項をご確認ください：",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "进行赞助之后，您的ID与留言会更新入致谢名单。致谢名单为人工统计、可能有数日延迟。": {
+    "en": "After sponsoring, your ID and message will be updated to the thankyou list. The thankyou list is manually counted and may have a delay of several days.",
+    "ja": "スポンサーになった後、IDとコメントが特別感謝に反映されます（手動更新のため数日遅延あり）",
+    "$files": [
+      "components\\modals\\ModalDonate.vue",
+      "components\\modals\\ModalSponsorsList.vue"
+    ]
+  },
+  "您可以在转账备注/赞助留言中说明您希望显示的赞助者ID和留言。": {
+    "en": "You can specify the sponsor ID and message you want to display in the transfer note/sponsorship message.",
+    "ja": "振込備考欄/コメント欄に表示希望のIDとメッセージを記載可能",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "加入致谢名单后也可以修改自己的名称。不过这需要人工录入，因此无法频繁地修改。": {
+    "en": "After joining the thankyou list, you can also modify your name. However, this requires manual entry, so it cannot be changed frequently.",
+    "ja": "掲載後の名前変更も可能ですが、手動処理のため頻繁な変更はできません",
+    "$files": [
+      "components\\modals\\ModalSponsorsList.vue"
+    ]
+  },
+  "如果遇到问题，请在Q群中联系我们。": {
+    "en": "If you encounter any problems, please contact us in the QQ group.",
+    "ja": "問題発生時はQQグループまでご連絡ください",
+    "$files": [
+      "components\\modals\\ModalDonate.vue"
+    ]
+  },
+  "规则": {
+    "en": "Rules",
+    "ja": "ルール",
+    "$files": [
+      "components\\modals\\ModalSponsorsList.vue"
+    ]
+  },
+  "赞助者": {
+    "en": "Sponsor",
+    "ja": "スポンサー",
+    "$files": [
+      "components\\modals\\ModalSponsorsList.vue"
+    ]
+  },
+  "上次赞助": {
+    "en": "Last sponsorship",
+    "ja": "前回のスポンサー",
+    "$files": [
+      "components\\modals\\ModalSponsorsList.vue"
+    ]
+  },
+  "留言": {
+    "en": "Message",
+    "ja": "コメント",
+    "$files": [
+      "components\\modals\\ModalSponsorsList.vue"
+    ]
+  },
+  "赞助了第{gen}代的HqHelper": {
+    "en": "Sponsored 'Generation {gen}' of HqHelper",
+    "ja": "第{gen}世代HqHelperのスポンサーになりました",
+    "$files": [
+      "components\\modals\\ModalSponsorsList.vue"
+    ]
+  },
+  "点击": {
+    "en": "Click",
+    "ja": "クリック",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "这里": {
+    "en": "HERE",
+    "ja": "ここ",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "来查看致谢名单。": {
+    "en": "to view the thankyou list.",
+    "ja": "特別感謝を見る。",
+    "$files": [
+      "components\\custom\\general\\AboutApp.vue"
+    ]
+  },
+  "让程序肥多玩会肥肥14。": {
+    "en": "Donate to boost development enthusiasm or reduce financial pressure.",
+    "ja": "「FF14でもっと遊べるようにツールを育てよう」",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "辅助工具": {
+    "en": "Tools",
+    "ja": "サポートツール",
+    "$files": [
+      "components\\custom\\job\\JobButton.vue"
+    ]
+  },
+  "追加了下载客户端的专用页面。": {
+    "en": "Added a dedicated page for downloading the client.",
+    "ja": "クライアントの専用ダウンロードページを追加しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "您已经处于下载客户端页面。": {
+    "en": "You are already on the download client page.",
+    "ja": "すでにクライアントのダウンロードページを開いています。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "目前客户满足度达到124%。": {
+    "en": "Download the client of HqHelper.",
+    "ja": "利用者の満足度は、124％に達しました。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "下载客户端": {
+    "en": "Download client",
+    "ja": "クライアントをダウンロードする",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
     ]
   }
 }
