@@ -5,6 +5,8 @@ import { deepCopy, assignDefaults } from "@/tools"
 export type FuncConfigKey = "copy_macro" | "import_export" | "craft_statement" | "recomm_process" | "cost_benefit"
 export type ItemPriceType = 'averagePrice' | 'currentAveragePrice' | 'minPrice' | 'maxPrice' | 'marketLowestPrice' | 'marketPrice' | 'purchasePrice'
 
+export type MacroGenerateMode = 'singleLine' | 'multiLine'
+
 export interface FuncConfigModel {
   // #region 在偏好设置弹窗中设置的配置项
   // * 复制宏
@@ -12,6 +14,8 @@ export interface FuncConfigModel {
   macro_direct_copy: boolean
   /** 默认宏前缀 */
   macro_copy_prefix: string
+  /** 宏生成模式 */
+  macro_generate_mode: MacroGenerateMode
 
   // * 导入/导出
   export_item_price: boolean
@@ -37,6 +41,8 @@ export interface FuncConfigModel {
   universalis_priceType: ItemPriceType
   /** 物品价格有效期 */
   universalis_expireTime: number
+  /** 成本/收益分析：显示物品详情 */
+  costandbenefit_show_item_details: boolean
   /** 在物品悬浮窗中展示物品价格 */
   universalis_showpriceinpop: boolean
   /** 在物品悬浮窗中展示的物品价格类型 */
@@ -52,6 +58,7 @@ const defaultFuncConfig: FuncConfigModel = {
   // * 复制宏
   macro_direct_copy: false,
   macro_copy_prefix: '',
+  macro_generate_mode: 'singleLine',
   // * 导入/导出
   export_item_price: false,
   // * 制作报表
@@ -65,6 +72,7 @@ const defaultFuncConfig: FuncConfigModel = {
   universalis_server: '红玉海',
   universalis_priceType: 'averagePrice',
   universalis_expireTime: 6 * 60 * 60 * 1000, // 默认6小时
+  costandbenefit_show_item_details: false,
   universalis_showpriceinpop: false,
   universalis_poppricetypes: [],
   // * 缓存
@@ -82,6 +90,7 @@ export const fixFuncConfig = (config?: FuncConfigModel, userConfig?: UserConfigM
     const _userConfig = userConfig as any
     config.macro_direct_copy ??= _userConfig.macro_direct_copy || defaultFuncConfig.macro_direct_copy
     config.macro_copy_prefix ??= _userConfig.macro_copy_prefix || defaultFuncConfig.macro_copy_prefix
+    config.macro_generate_mode ??= _userConfig.macro_generate_mode || defaultFuncConfig.macro_generate_mode
     config.use_traditional_statement ??= _userConfig.use_traditional_statement || defaultFuncConfig.use_traditional_statement
     if (_userConfig.statement_show_item_details === false) {
       config.prostate_concise_mode ??= true

@@ -56,6 +56,69 @@ https://thewakingsands.github.io/ffxiv-axis-font-icons/
 </style>
 ```
 
+### 模态框 (Modal) 模板
+
+```vue
+<script setup lang="ts">
+import { computed, inject, ref, type Ref } from 'vue'
+import {
+  NButton,
+} from 'naive-ui'
+import { 
+  CodeSharp, SaveOutlined
+} from '@vicons/material'
+import MyModal from '../templates/MyModal.vue'
+
+const showModal = defineModel<boolean>('show', { required: true })
+
+interface ModalProps {
+}
+const props = defineProps<ModalProps>()
+
+const wrapper = ref<HTMLElement>()
+
+const onLoad = () => {
+}
+
+const handleClose = () => {
+  showModal.value = false
+}
+</script>
+
+<template>
+  <MyModal
+    v-model:show="showModal"
+    :icon="CodeSharp"
+    :title="t('复制宏')"
+    max-width="350px"
+    @on-load="onLoad"
+  >
+    <div class="wrapper" ref="wrapper">
+    </div>
+
+    <template #action>
+      <div class="submit-container">
+        <n-button type="primary" size="large">
+          <template #icon>
+            <n-icon><SaveOutlined /></n-icon>
+          </template>
+          {{ t('保存') }}
+        </n-button>
+      </div>
+    </template>
+  </MyModal>
+</template>
+
+<style scoped>
+.wrapper {
+}
+.submit-container {
+  display: flex;
+  justify-content: flex-end;
+}
+</style>
+```
+
 ## 获取职业ID的方法 / Ways to get xiv job ID
 
 从[XivApi:ClassJob](https://xivapi.com/classjob)可以获取到所有的职业。

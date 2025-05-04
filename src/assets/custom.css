@@ -22,6 +22,15 @@
   justify-content: center;
   align-items: center;
 }
+.gap-2 {
+  gap: 2px;
+}
+.gap-4 {
+  gap: 4px;
+}
+.gap-8 {
+  gap: 8px;
+}
 .edge-top-right {
   position: absolute;
   top: 0;
@@ -39,6 +48,9 @@
 /* Color */
 .red {
   color: red;
+}
+.orangered {
+  color: orangered;
 }
 .green {
   color: green;
@@ -88,6 +100,11 @@
 .n-square-button {
   width: var(--n-height);
   padding: 0;
+}
+.spin-container {
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }
 
 /* Ui-lib Customs */
@@ -139,6 +156,12 @@
 .n-dropdown-menu {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
+}
+.n-option-hideoverflow {
+  .n-dropdown-option-body__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 .n-timeline-item-content__title {
   text-decoration-line: underline;

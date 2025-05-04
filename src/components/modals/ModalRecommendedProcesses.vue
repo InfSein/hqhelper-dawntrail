@@ -15,14 +15,19 @@ import { type FuncConfigModel } from '@/models/config-func'
 import { type ItemInfo } from '@/tools/item'
 import { CopyToClipboard } from '@/tools'
 import { useFufuCal } from '@/tools/use-fufu-cal'
+import UseConfig from '@/tools/use-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 // const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
+
 const NAIVE_UI_MESSAGE = useMessage()
 const { calRecommProcessGroups } = useFufuCal()
+const {
+  itemLanguage, itemServer,
+} = UseConfig(userConfig, funcConfig)
   
 const showModal = defineModel<boolean>('show', { required: true })
 const expandedBlocks = ref<Record<number, string[]>>({})
@@ -51,6 +56,8 @@ interface RecommendedProcessesProps {
 }
 const props = defineProps<RecommendedProcessesProps>()
 
+const modalId = 'modal-recomm-process'
+
 const itemGroups = computed(() => {
   return calRecommProcessGroups(
     props.craftTargets,
@@ -61,16 +68,11 @@ const itemGroups = computed(() => {
     funcConfig.value.processes_craftable_item_sortby,
     funcConfig.value.processes_merge_gatherings,
     userConfig.value.language_ui,
+    itemServer.value,
     t
   )
 })
 
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
 const getItemName = (itemInfo: ItemInfo) => {
   switch (itemLanguage.value) {
     case 'zh':
@@ -123,6 +125,7 @@ const handleSettingButtonClick = () => {
 <template>
   <MyModal
     v-model:show="showModal"
+    :id="modalId"
     max-width="350px"
     extra-style="--n-padding-bottom: 10px;"
     show-setting
@@ -142,6 +145,7 @@ const handleSettingButtonClick = () => {
       v-model:expanded-blocks="expandedBlocks"
       v-model:completed-items="completedItems"
       :item-groups="itemGroups"
+      :container-id="modalId"
     />
 
     <template #action>

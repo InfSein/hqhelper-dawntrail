@@ -12,16 +12,20 @@ import GroupBox from '../templates/GroupBox.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'
 import { XivGearAffixes, XivJobs, XivPatches } from '@/assets/data'
 import type { UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
+import UseConfig from '@/tools/use-config'
 import { accessoryAffixes, attireAffixes, fixGearSelections, type AccessoryAffix, type AttireAffix, type GearSelections } from '@/models/gears'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const handleImportState = inject<(patch: string, gearSelections?: GearSelections) => void>('handleImportState')!
 
-const uiLanguage = computed(() => {
-  return userConfig.value.language_ui
-})
+const {
+  uiLanguage,
+} = UseConfig(userConfig, funcConfig)
+
 const modalMaxWidth = computed(() => {
   switch (userConfig.value.language_ui) {
     case 'en': return '1300px'

@@ -9,17 +9,18 @@ import {
 import ItemButton from './ItemButton.vue'
 import ButtonCopyAsMacro from '../macro/ButtonCopyAsMacro.vue'
 import { type ItemInfo } from '@/tools/item'
+import UseConfig from '@/tools/use-config'
 import type { UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
-  
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+
+const {
+  itemLanguage,
+} = UseConfig(userConfig, funcConfig)
+
 const getItemName = (itemInfo: ItemInfo) => {
   switch (itemLanguage.value) {
     case 'zh':

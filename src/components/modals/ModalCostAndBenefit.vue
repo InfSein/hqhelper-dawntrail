@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { inject, ref, type PropType, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import {
   NTabs, NTabPane
 } from 'naive-ui'
@@ -11,30 +11,26 @@ import GroupBox from '../templates/GroupBox.vue'
 import ItemPriceTable from '../custom/item/ItemPriceTable.vue'
 import ModalPreferences from './ModalPreferences.vue'
 import type { ItemInfo } from '@/tools/item'
+import type { FuncConfigModel } from '@/models/config-func'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 // const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const showModal = defineModel<boolean>('show', { required: true })
-defineProps({
-  costItems: {
-    type: Array as PropType<ItemInfo[]>,
-    required: true
-  },
-  benefitItems: {
-    type: Array as PropType<ItemInfo[]>,
-    required: true
-  },
-  costInfo: {
-    type: String,
-    default: ''
-  },
-  benefitInfo: {
-    type: String,
-    default: ''
-  }
+
+interface ModalCostAndBenefitProps {
+  costItems: ItemInfo[],
+  benefitItems: ItemInfo[],
+  costInfo?: string,
+  benefitInfo?: string
+}
+defineProps<ModalCostAndBenefitProps>()
+
+const showItemDetails = computed(() => {
+  return funcConfig.value.costandbenefit_show_item_details
 })
 
 const showPreferencesModal = ref(false)
@@ -63,6 +59,7 @@ const handleSettingButtonClick = () => {
           <ItemPriceTable
             price-type="NQ"
             :items="costItems"
+            :show-item-details="showItemDetails"
             container-id="modal-cost-and-benefits"
           />
         </div>
@@ -76,6 +73,7 @@ const handleSettingButtonClick = () => {
           <ItemPriceTable
             price-type="HQ"
             :items="benefitItems"
+            :show-item-details="showItemDetails"
             container-id="modal-cost-and-benefits"
           />
         </div>
@@ -92,6 +90,7 @@ const handleSettingButtonClick = () => {
         <ItemPriceTable
           price-type="NQ"
           :items="costItems"
+          :show-item-details="showItemDetails"
           container-id="modal-cost-and-benefits"
         />
       </GroupBox>
@@ -105,6 +104,7 @@ const handleSettingButtonClick = () => {
         <ItemPriceTable
           price-type="HQ"
           :items="benefitItems"
+          :show-item-details="showItemDetails"
           container-id="modal-cost-and-benefits"
         />
       </GroupBox>

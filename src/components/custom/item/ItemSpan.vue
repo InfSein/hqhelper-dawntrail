@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, nextTick, ref, type PropType, type Ref } from 'vue'
+import { computed, inject, nextTick, ref, type Ref } from 'vue'
 import {
   NDropdown, NIcon,
   useMessage
@@ -10,56 +10,36 @@ import {
 import ItemPop from './ItemPop.vue'
 import XivFARImage from '../general/XivFARImage.vue'
 import type { UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
 import { CopyToClipboard } from '@/tools'
 import { getItemContexts, type ItemInfo } from '@/tools/item'
+import UseConfig from '@/tools/use-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 const NAIVE_UI_MESSAGE = useMessage()
+const {
+  itemLanguage,
+} = UseConfig(userConfig, funcConfig)
 
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
+interface ItemSpanProps {
+  itemInfo: ItemInfo
+  amount?: number
+  showAmount?: boolean
+  imgSize?: number
+  spanMaxWidth?: string
+  hideIcon?: boolean
+  hideName?: boolean
+  hidePopIcon?: boolean
+  containerId?: string
+  containerStyle?: string
+}
+const props = defineProps<ItemSpanProps>()
 
-const props = defineProps({
-  itemInfo: {
-    type: Object as PropType<ItemInfo>,
-    required: true
-  },
-  amount: {
-    type: Number,
-    default: 0
-  },
-  showAmount: {
-    type: Boolean,
-    default: false
-  },
-  imgSize: {
-    type: Number,
-    default: 14
-  },
-  hideIcon: {
-    type: Boolean,
-    default: false
-  },
-  hideName: {
-    type: Boolean,
-    default: false
-  },
-  hidePopIcon: {
-    type: Boolean,
-    default: false
-  },
-  containerId: {
-    type: String,
-    default: ''
-  }
-})
+const itemAmountNode = ref<HTMLElement>()
 
 const getItemName = () => {
   switch (itemLanguage.value) {
@@ -69,6 +49,12 @@ const getItemName = () => {
       return props.itemInfo[`name_${itemLanguage.value}`]
   }
 }
+const itemAmount = computed(() => {
+  const _amount = props.amount ?? 0
+  return userConfig.value.item_amount_use_comma
+    ? _amount.toLocaleString()
+    : _amount
+})
 
 // #region 右键菜单相关
 
@@ -146,6 +132,19 @@ const popTrigger = computed(() => {
     return undefined
   }
 })
+const containerStyle = computed(() => {
+  let itemAmountwidth = 0
+  if (props.showAmount && !!itemAmountNode.value) {
+    const itemAmountWidth = itemAmountNode.value.offsetWidth
+    const offset = itemLanguage.value === 'zh' ? 3 : 6 
+    itemAmountwidth = Math.ceil(itemAmountWidth) + offset
+  }
+  return [
+    (props.containerStyle ?? ''),
+    `max-width: ${props.spanMaxWidth ?? 'unset'}`,
+    props.spanMaxWidth ? `--item-name-maxwidth: calc(100% - ${itemAmountwidth}px)` : '--item-name-maxwidth: unset',
+  ].join('; ')
+})
 
 const handleItemIconClick = async () => {
   const action = userConfig.value.item_info_icon_click_event
@@ -166,17 +165,22 @@ const handleItemIconClick = async () => {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container" :style="containerStyle">
     <XivFARImage
       v-show="!hideIcon"
-      class="img no-select"
-      :size="imgSize"
+      class="no-select"
+      :size="imgSize ?? 14"
       :src="itemInfo.iconUrl"
       :title="(hideName && hidePopIcon) ? getItemName() : ''"
     />
-    <div v-if="!hideName || showAmount">
-      {{ hideName ? '' : getItemName() + ' ' }}
-      {{ showAmount ? 'x' + amount : '' }}
+    <div class="item-text-container">
+      <span v-show="!hideName" class="item-name">
+        {{ hideName ? '' : getItemName() }}
+      </span>
+      <span v-if="!hideName && showAmount">&nbsp;</span>
+      <span v-show="showAmount" ref="itemAmountNode" class="item-amount">
+        {{ showAmount ? (' x' + itemAmount) : '' }}
+      </span>
     </div>
     <ItemPop
       v-if="!hidePopIcon"
@@ -185,7 +189,7 @@ const handleItemIconClick = async () => {
       :pop-custom-width="275"
       :pop-trigger="popTrigger"
     >
-      <n-icon v-if="!hidePopIcon" class="pop-icon" size="14" color="#3b7fef"
+      <n-icon v-if="!hidePopIcon" class="item-popicon" size="14" color="#3b7fef"
         @contextmenu="handleContextMenu"
         @touchstart.passive="handleItemButtonTouchStart" 
         @touchmove.passive="handleItemButtonTouchMove" 
@@ -214,5 +218,30 @@ const handleItemIconClick = async () => {
   display: flex;
   align-items: center;
   gap: 3px;
+
+  .item-text-container {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .item-name {
+      display: inline-block;
+      max-width: var(--item-name-maxwidth);
+      vertical-align: top;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .item-amount {
+      display: inline-block;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+  }
+
+  .item-popicon {
+    cursor: pointer;
+  }
 }
 </style>

@@ -8,9 +8,6 @@
   // https://vitejs.dev/config/
   export default defineConfig({
     base: './',
-    build: {
-      outDir: './electron/static-pages'
-    },
     plugins: [
       vue(),
       VueDevTools(),
@@ -30,4 +27,15 @@
         ignored: ["**/src-tauri/**"],
       },
     },
+  build: {
+    outDir: './electron/static-pages',
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js',
+        assetFileNames: 'assets/[name].[hash].[ext]',
+      }
+    }
+  },
   })

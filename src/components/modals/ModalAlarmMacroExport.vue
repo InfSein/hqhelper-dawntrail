@@ -14,6 +14,8 @@ import ItemSpan from '../custom/item/ItemSpan.vue'
 import MacroViewer from '../custom/macro/MacroViewer.vue'
 import { XivJobs, type XivJob } from '@/assets/data'
 import { type UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
+import UseConfig from '@/tools/use-config'
 import type { ItemGroup } from '@/models/item'
 import type { AlarmMacroOptions } from '@/models/gather-clock'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
@@ -21,16 +23,12 @@ import { getItemInfo, type ItemInfo } from '@/tools/item'
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
-const uiLanguage = computed(() => {
-  return userConfig.value.language_ui
-})
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
-  
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+
+const {
+  uiLanguage, itemLanguage,
+} = UseConfig(userConfig, funcConfig)
+
 const showModal = defineModel<boolean>('show', { required: true })
 const alarmMacroOptions = defineModel<AlarmMacroOptions>('options', { required: true })
 const modalId = 'modal-alarm-macro-export'
@@ -66,7 +64,8 @@ const itemTreeData = computed(() => {
       const itemKey = item.id
       const itemSpan = () => h(ItemSpan, {
         itemInfo: item,
-        containerId: modalId
+        containerId: modalId,
+        spanMaxWidth: '160px',
       })
       subTreeOption.push({
         key: itemKey,
@@ -158,7 +157,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
     :id="modalId"
     :icon="CodeSharp"
     :title="t('导出闹钟宏')"
-    max-width="700px"
+    max-width="730px"
   >
     <div class="wrapper" ref="wrapper">
       <GroupBox id="select-items" title-background-color="var(--n-color-modal)">
@@ -247,7 +246,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 /* All */
 .wrapper {
   display: grid;
-  grid-template-columns: 235px 1fr;
+  grid-template-columns: 265px 1fr;
   gap: 10px;
   user-select: text;
 

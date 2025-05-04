@@ -33,11 +33,12 @@ import type { PreferenceGroup, SettingGroupKey } from '@/models'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { fixWorkState } from '@/models/workflow'
 
-const store = useStore()
-const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
+
+const store = useStore()
+const NAIVE_UI_MESSAGE = useMessage()
 
 const showModal = defineModel<boolean>('show', { required: true })
 const emit = defineEmits(['close', 'afterSubmit'])
@@ -81,9 +82,9 @@ const getPriceTypeOptions = () => {
     { value: 'currentAveragePrice', label: t('当前平均价格') },
     { value: 'minPrice', label: t('最低价格') },
     { value: 'maxPrice', label: t('最高价格') },
-    { value: 'purchasePrice', label: t('近期成交价格') },
-    { value: 'marketLowestPrice', label: t('当前寄售最低价') },
-    { value: 'marketPrice', label: t('当前寄售平均价') }
+    { value: 'purchasePrice', label: t('近期成交价格'), description: t('选取最近5条成交记录计算平均价格') },
+    { value: 'marketLowestPrice', label: t('当前寄售最低价'), description: t('选取交易板前10条在售记录中的最低价格') },
+    { value: 'marketPrice', label: t('当前寄售平均价'), description: t('选取交易板前10条在售记录计算平均价格') }
   ]
 }
 const preferenceGroups : PreferenceGroup[] = [
@@ -122,14 +123,13 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: 'en', label: 'English' },
               { value: 'ja', label: '日本語' }
             ],
-            require_reload: true
           },
           {
             key: 'item_server',
             label: t('服务器'),
             descriptions: dealDescriptions([
               t('选择您游戏账号所属的服务器。此设置还会影响一部分统计数据(例如点数道具的兑换价格)的计算方式。'),
-              t('如果选择“自动”，程序会根据您在“界面语言”的设置自动判断。'),
+              t('如果选择“自动”，程序会根据您在“物品语言”的设置自动判断。'),
             ]),
             type: 'radio-group',
             options: [
@@ -137,7 +137,6 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: 'chs', label: t('国服') },
               { value: 'global', label: t('国际服') }
             ],
-            require_reload: true
           },
           {
             key: 'action_after_savesettings',
@@ -186,7 +185,6 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: '15px', label: t('较大') },
               { value: '16px', label: t('更大') },
             ],
-            require_reload: true
           },
           {
             key: 'custom_font',
@@ -198,7 +196,6 @@ const preferenceGroups : PreferenceGroup[] = [
               t('如果你对CSS有所了解，可以直接参照font-family的语法来填写。'),
             ]),
             type: 'string',
-            require_reload: true
           },
           {
             key: 'hide_collector_icons',
@@ -246,6 +243,15 @@ const preferenceGroups : PreferenceGroup[] = [
               t('在默认情况下，光标悬停在元素上时就会立即打开子悬浮窗。如果你觉得这样太容易误触，可以打开此选项，只通过左键单击来控制子悬浮窗的显示与否。'),
             ]),
             type: 'switch'
+          },
+          {
+            key: 'item_amount_use_comma',
+            label: t('物品数量按千分号格式化'),
+            descriptions: dealDescriptions([
+              t('开启此选项时，物品数量将按千分号格式化(如 12,345)。'),
+              t('此选项适用于所有表格、物品按钮和物品信息。'),
+            ]),
+            type: 'switch',
           },
           {
             key: 'item_button_click_event',
@@ -398,7 +404,21 @@ const preferenceGroups : PreferenceGroup[] = [
               { value: '/fc ', label: t('部队宏(/fc)') },
               { value: '/b ', label: t('新频宏(/b)') },
             ]
-          }
+          },
+          {
+            key: 'macro_generate_mode',
+            label: t('宏生成模式'),
+            descriptions: dealDescriptions([
+              t('决定要以何种格式生成宏。'),
+              t('单行模式会将所有材料合并入一行，以允许你直接在游戏内聊天框中粘贴发送；'),
+              t('多行模式会分行展示材料，以获得更好的排版，不过这样就必须在游戏内的用户宏界面中粘贴执行才能发送。'),
+            ]),
+            type: 'select',
+            options: [
+              { value: 'singleLine', label: t('单行模式') },
+              { value: 'multiLine', label: t('多行模式') },
+            ]
+          },
         ]
       },
       /* 导入/导出 */
@@ -712,6 +732,11 @@ const preferenceGroups : PreferenceGroup[] = [
             ]
           },
           {
+            key: 'costandbenefit_show_item_details',
+            label: t('成本/收益分析中显示物品详情'),
+            type: 'switch'
+          },
+          {
             key: 'universalis_showpriceinpop',
             label: t('在物品悬浮窗中显示'),
             descriptions: dealDescriptions([
@@ -832,13 +857,16 @@ const handleSave = () => {
   store.commit('setFuncConfig', newFuncConfig)
 
   // * 判断是否需要刷新
-  let needReload = false
+  let needReload = false, reloadTimeout = 100
   preferenceGroups[0].settings.forEach(setting => {
     setting.children.forEach(item => {
       if (item.require_reload) {
         const key = item.key as keyof UserConfigModel
         if (formUserConfigData.value[key] !== oldUserConfig?.[key]) {
           needReload = true
+          if (key === 'language_ui') {
+            reloadTimeout = 500
+          }
         }
       }
     })
@@ -859,7 +887,7 @@ const handleSave = () => {
     const dealReload = () => {
       setTimeout(() => {
         location.reload()
-      }, 100) // 必须设置一个延迟，不然有些设置不会生效
+      }, reloadTimeout) // 必须设置一个延迟，不然有些设置不会生效
     }
     const dealTip = () => {
       NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))

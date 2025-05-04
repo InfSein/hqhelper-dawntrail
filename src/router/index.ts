@@ -3,6 +3,7 @@ import MainPage from '@/views/MainPage.vue'
 import FoodAndTincPage from '@/views/FoodAndTincPage.vue'
 import GatherClockPage from '@/views/GatherClockPage.vue'
 import WorkflowPage from '@/views/WorkflowPage.vue'
+import DownloadPage from '@/views/DownloadPage.vue'
 import ErrorPage404 from '@/views/ErrorPage404.vue'
 
 /* 
@@ -15,6 +16,7 @@ const routes = [
   { path: '/fthelper', component: FoodAndTincPage },
   { path: '/gatherclock', component: GatherClockPage },
   { path: '/workflow', component: WorkflowPage },
+  { path: '/download', component: DownloadPage },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',

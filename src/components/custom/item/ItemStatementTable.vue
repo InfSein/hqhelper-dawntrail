@@ -6,10 +6,11 @@ import {
 import ItemCell from './ItemCell.vue'
 import StatementListPop from './StatementListPop.vue'
 import { getItemInfo, type StatementRow } from '@/tools/item'
+import type { UserConfigModel } from '@/models/config-user'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-// const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const itemsPrepared = defineModel<Record<number, number>>('itemsPrepared', { required: true })
 interface ItemStatementTableProps {
@@ -53,6 +54,12 @@ const rows = computed(() => {
   }
 })
 
+const getItemAmount = (amount: number) => {
+  return userConfig.value.item_amount_use_comma
+    ? amount.toLocaleString()
+    : amount
+}
+
 const handleNumInputLoop = (row: StatementRow) => {
   const itemId = row.info.id
   if (itemsPrepared.value[itemId] < 0) {
@@ -89,13 +96,14 @@ const handleNumInputLoop = (row: StatementRow) => {
           <tr v-for="item in rows.remaining" :key="'item-remaining-' + item.info.id">
             <td>
               <ItemCell
-                :item="item"
+                :item-info="item.info"
+                :amount="item.amount.remain"
                 :show-item-details="showItemDetails"
                 :container-id="containerId"
               />
             </td>
             <td>
-              {{ item.amount.total }}
+              {{ getItemAmount(item.amount.total) }}
             </td>
             <td>
               <n-input-number
@@ -111,7 +119,7 @@ const handleNumInputLoop = (row: StatementRow) => {
               />
             </td>
             <td>
-              {{ item.amount.remain }}
+              {{ getItemAmount(item.amount.remain) }}
             </td>
           </tr>
           <tr v-if="rows.cleaned?.length" class="prepared">
@@ -123,13 +131,14 @@ const handleNumInputLoop = (row: StatementRow) => {
           <tr v-for="item in rows.cleaned" :key="'item-cleaned-' + item.info.id" class="prepared">
             <td>
               <ItemCell
-                :item="item"
+                :item-info="item.info"
+                :amount="item.amount.remain"
                 :show-item-details="showItemDetails"
                 :container-id="containerId"
               />
             </td>
             <td>
-              {{ item.amount.total }}
+              {{ getItemAmount(item.amount.total) }}
             </td>
             <td>
               <n-input-number
@@ -142,7 +151,7 @@ const handleNumInputLoop = (row: StatementRow) => {
               />
             </td>
             <td>
-              {{ item.amount.remain }}
+              {{ getItemAmount(item.amount.remain) }}
             </td>
           </tr>
         </tbody>

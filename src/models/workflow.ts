@@ -5,6 +5,8 @@ import {
 
 export interface Workflow {
   name?: string;
+  /** 临时ID, 目前只用于 vue-draggable 渲染 */
+  tempId?: number;
   /** 制作目标; key:item-id, value:amount */
   targetItems: Record<number, number>;
   /** 已有道具; key:item-id, value:amount */
@@ -12,6 +14,11 @@ export interface Workflow {
     craftTarget: Record<number, number>,
     materialsLv1: Record<number, number>,
     materialsLvBase: Record<number, number>
+  },
+  recommData: {
+    expandedBlocks: Record<number, string[]>,
+    /** (groupId, (itemId, checked)) */
+    completedItems: Record<number, Record<number, boolean>>
   }
 }
 const defaultWorkflow: Workflow = {
@@ -20,6 +27,10 @@ const defaultWorkflow: Workflow = {
     craftTarget: {},
     materialsLv1: {},
     materialsLvBase: {},
+  },
+  recommData: {
+    expandedBlocks: {},
+    completedItems: {}
   }
 }
 export const getDefaultWorkflow = () => deepCopy(defaultWorkflow)
@@ -35,5 +46,11 @@ export const defaultWorkState: WorkState = {
 }
 
 export const fixWorkState = (state?: WorkState) : WorkState => {
-  return assignDefaults(defaultWorkState, state || {}) as WorkState
+  const _state = assignDefaults(defaultWorkState, state || {}) as WorkState
+  _state.workflows.forEach(workflow => {
+    if (!workflow.recommData) {
+      workflow.recommData = deepCopy(defaultWorkflow.recommData)
+    }
+  })
+  return _state
 }

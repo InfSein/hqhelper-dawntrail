@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, h, inject, onBeforeUnmount, onMounted, ref, watch, type Ref, type VNode } from 'vue'
+import { computed, inject, onBeforeUnmount, onMounted, ref, watch, type Ref } from 'vue'
 import {
-  NButton, NCard, NDivider, NDropdown, NEl, NEmpty, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch, NTooltip,
-  type SelectOption
+  NBackTop, NButton, NCard, NDivider, NDropdown, NEl, NEmpty, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch,
 } from 'naive-ui'
 import {
   AccessAlarmsOutlined,
@@ -20,8 +19,11 @@ import { XivMaps, XivJobs, type XivJob } from '@/assets/data'
 import { useStore } from '@/store'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
+import useUiTools from '@/tools/ui'
 import type { ItemGroup } from '@/models/item'
 import type { UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
+import UseConfig from '@/tools/use-config'
 import EorzeaTime from '@/tools/eorzea-time'
 import { playAudio } from '@/tools'
 import { fixAlarmMacroOptions } from '@/models/gather-clock'
@@ -29,11 +31,17 @@ import { fixAlarmMacroOptions } from '@/models/gather-clock'
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
 const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const store = useStore()
 const { getLimitedGatherings } = useNbbCal()
+const { dropdownOptionsRenderer } = useUiTools(isMobile)
+const {
+  uiLanguage, itemLanguage,
+} = UseConfig(userConfig, funcConfig)
+
 const gatherData = computed(() => {
   const limitedGatherings = getLimitedGatherings()
   const allItems : Record<number, ItemInfo> = {}
@@ -89,15 +97,6 @@ const gatherData = computed(() => {
 
   return data
 })
-const uiLanguage = computed(() => {
-  return userConfig.value.language_ui
-})
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
 const isVerticalOverlay = computed(() => {
   return isMobile.value && appMode.value === 'overlay'
 })
@@ -106,13 +105,13 @@ const canPinWindow = computed(() => {
 })
 
 const workState = ref({
-  patch: '7.0-710',
+  patch: '7.2-740',
   /** 是否将整个窗口置顶 (限v5及以上的客户端使用) */
   pinWindow: false,
   /** 通知方式 */
   notifyMode: 'none' as "none" | "system_noti" | "audio",
   /** 排序依据 */
-  orderBy: 'itemId' as "itemId" | "gatherStartTimeAsc" | "remainingTimeAsc",
+  orderBy: 'gatherStartTimeAsc' as "itemId" | "gatherStartTimeAsc" | "remainingTimeAsc",
   /** 是否将目前可以采集的道具置顶 */
   pinGatherableItems: false,
   /** 禁用物品按钮悬浮窗 */
@@ -157,18 +156,6 @@ const itemSortOptions = computed(() => {
     },
   ]
 })
-const renderOption = ({ node, option }: { node: VNode, option: SelectOption }) => {
-  return option.description ? h(
-    NTooltip,
-    { keepAliveOnHover: false, placement: 'right', style: { width: 'max-content', display: isMobile.value ? 'none' : 'inherit' } },
-    {
-      trigger: () => [node],
-      default: () => option.description
-    }
-  ) : h(
-    node
-  )
-}
 
 watch(
   () => workState.value.pinWindow,
@@ -576,7 +563,7 @@ const handleShowAlarmMacroExportModal = () => {
             <n-select v-model:value="workState.notifyMode" :options="notifyModeOptions" @update:value="handleCheckNotificationPermission" />
           </n-form-item>
           <n-form-item :label="t('排序依据')" style="min-width: 200px;">
-            <n-select v-model:value="workState.orderBy" :options="itemSortOptions" :render-option="renderOption" />
+            <n-select v-model:value="workState.orderBy" :options="itemSortOptions" :render-option="dropdownOptionsRenderer" />
           </n-form-item>
           <n-form-item :label="t('将现可采集的物品置顶')">
             <n-switch v-model:value="workState.pinGatherableItems" />
@@ -652,6 +639,8 @@ const handleShowAlarmMacroExportModal = () => {
                 show-icon show-name
                 btn-extra-style="flex-grow: 1;"
                 :disable-pop="workState.banItemPop"
+                pop-use-custom-width
+                :pop-custom-width="isMobile ? 300 : undefined"
               />
               <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
                 <template #trigger>
@@ -761,6 +750,8 @@ const handleShowAlarmMacroExportModal = () => {
       v-model:options="workState.alarmMacroOptions"
       :item-groups="gatherData"
     />
+
+    <n-back-top />
   </div>
 </template>
 

@@ -3,11 +3,21 @@ import type { CascaderOption } from "naive-ui"
 import type { UserConfigKey } from "./config-user"
 import type { FuncConfigKey } from "./config-func"
 
+export interface CallResult <T = string> {
+  success: boolean
+  message: string
+  data?: T
+}
+
 export interface AppVersionJson {
   hqhelper: string;
   electron: string;
   dlink_hqhelper: string;
   dlink_electron: string;
+  client_info: {
+    recomm_proxy: string;
+    cn_sub_links: string[];
+  }
 }
 
 export interface PreferenceGroup {

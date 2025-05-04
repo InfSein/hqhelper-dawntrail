@@ -1,25 +1,17 @@
 <script setup lang="ts">
 import { computed, inject, type Ref } from 'vue'
 import XivFARImage from '../general/XivFARImage.vue'
-import { XivJobs } from '@/assets/data'
+import { XivJobs, type XivJob } from '@/assets/data'
 import type { UserConfigModel } from '@/models/config-user'
-
-interface JobInfo {
-  job_id: number,
-  job_name_en: string,
-  job_name_zh: string,
-  job_name_ja: string,
-  job_icon_url: string
-}
+import type { FuncConfigModel } from '@/models/config-func'
+import UseConfig from '@/tools/use-config'
 
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
+const {
+  itemLanguage,
+} = UseConfig(userConfig, funcConfig)
 
 const props = defineProps({
   jobId: {
@@ -40,17 +32,18 @@ const props = defineProps({
   }
 })
 
-const jobInfo = computed(() => {
+const jobInfo = computed(() : XivJob => {
   if (XivJobs[props.jobId]) {
     return XivJobs[props.jobId]
   } else {
     return {
       job_id: 0,
+      short_name: 'NON',
       job_name_en: 'Unknown',
       job_name_zh: '未知',
       job_name_ja: '未知',
       job_icon_url: './image/game-job/companion/none.png'
-    } as JobInfo
+    }
   }
 })
 

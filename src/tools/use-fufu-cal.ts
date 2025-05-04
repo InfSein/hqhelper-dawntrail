@@ -1,6 +1,7 @@
 import { XivJobs } from '@/assets/data'
 import { getItemInfo, type ItemInfo } from "./item"
 import { useNbbCal } from "./use-nbb-cal"
+import type { RecommItemGroup } from '@/models/item'
 
 export function useFufuCal() {
   const calItems = (selections: Record<number, number>) => {
@@ -66,6 +67,7 @@ export function useFufuCal() {
     processes_craftable_item_sortby: string,
     processes_merge_gatherings: boolean,
     language_ui: "zh" | "en" | "ja",
+    item_server: 'chs' | 'global',
     t: (text: string, ...args: any[]) => string
   ) => {
     const itemsGatherableCommon : ItemInfo[] = []
@@ -123,15 +125,22 @@ export function useFufuCal() {
       }
     })
   
+    function dealCraftableItem(target: Record<number, ItemInfo[]>, item: ItemInfo) {
+      const jobId = item.craftInfo!.jobId
+      target[jobId] ??= []
+      const existing = target[jobId].find(_item => item.id === _item.id)
+      if (existing) {
+        existing.amount += item.amount
+      } else {
+        target[jobId].push(item)
+      }
+    }
+  
     // 根据处理后的物品列表组装各个分组
-    const groups : {
-      title: string,
-      icon: string,
-      description?: string,
-      items: ItemInfo[]
-    }[] = []
+    const groups : RecommItemGroup[] = []
     const dealGatherings = (
       gathering: ItemInfo[],
+      type: "common" | "limited",
       groupTitle: string,
       orderBy?: "map" | "start-time",
       mergeJobs?: {
@@ -159,6 +168,7 @@ export function useFufuCal() {
       }
       if (mergeJobs) {
         groups.push({
+          type: `gather-${type}`,
           title: groupTitle,
           icon: mergeJobs.iconUrl,
           items: gathering
@@ -173,6 +183,7 @@ export function useFufuCal() {
         ([16, 17, 18]).forEach(jobid => {
           if (itemsGatheredBy[jobid].length) {
             groups.push({
+              type: `gather-${type}`,
               title: groupTitle.replace('{job}', XivJobs[jobid][`job_name_${language_ui}`]),
               icon: XivJobs[jobid].job_icon_url,
               items: itemsGatheredBy[jobid]
@@ -181,21 +192,27 @@ export function useFufuCal() {
         });
       }
     }
-    const dealCraftings = (craftings: Record<number, ItemInfo[]>, groupTitle: string) => {
+    const dealCraftings = (
+      craftings: Record<number, ItemInfo[]>,
+      type: "target" | "precraft" | "preprecraft" | "prepreprecraft",
+      groupTitle: string
+    ) => {
       Object.keys(craftings).forEach(_jobID => {
         const jobId = Number(_jobID)
         const job = XivJobs[jobId]
         const items = craftings[jobId]
+        const rokey = item_server === 'chs' ? 'recipeOrderCHS' : 'recipeOrder'
         if (processes_craftable_item_sortby === 'recipeOrder') {
           items.sort((a, b) => {
-            if (a.craftInfo?.recipeOrder && b.craftInfo?.recipeOrder) {
-              return a.craftInfo.recipeOrder - b.craftInfo.recipeOrder
+            if (a.craftInfo?.[rokey] && b.craftInfo?.[rokey]) {
+              return a.craftInfo[rokey] - b.craftInfo[rokey]
             } else {
               return a.id - b.id
             }
           })
         }
         groups.push({
+          type: `craft-${type}`,
           title: groupTitle.replace('{job}', job[`job_name_${language_ui}`]),
           icon: job.job_icon_url,
           items: items
@@ -204,18 +221,19 @@ export function useFufuCal() {
     }
   
     if (processes_merge_gatherings) {
-      dealGatherings(itemsGatherableCommon, t('采集非限时道具'), 'map', {
+      dealGatherings(itemsGatherableCommon, 'common', t('采集非限时道具'), 'map', {
         iconUrl: './ui/gathering.png'
       })
-      dealGatherings(itemsGatherableLimited, t('采集限时道具'), 'start-time', {
+      dealGatherings(itemsGatherableLimited, 'limited', t('采集限时道具'), 'start-time', {
         iconUrl: './ui/gathering-limited.png'
       })
     } else {
-      dealGatherings(itemsGatherableCommon, t('使用{job}采集(非限时)'), 'map')
-      dealGatherings(itemsGatherableLimited, t('使用{job}采集(限时)'), 'start-time')
+      dealGatherings(itemsGatherableCommon, 'common', t('使用{job}采集(非限时)'), 'map')
+      dealGatherings(itemsGatherableLimited, 'limited', t('使用{job}采集(限时)'), 'start-time')
     }
     if (aethersands.length) {
       groups.push({
+        type: 'aethersand',
         title: t('筹集灵砂'),
         icon: './ui/reduce.png',
         items: aethersands
@@ -223,6 +241,7 @@ export function useFufuCal() {
     }
     if (itemsTradable.length) {
       groups.push({
+        type: 'trade-tomescript',
         title: t('兑换道具'),
         icon: './ui/important-item.png',
         items: itemsTradable
@@ -230,28 +249,18 @@ export function useFufuCal() {
     }
     if (itemsOtherCollectable.length) {
       groups.push({
+        type: 'other',
         title: t('筹集其他需要的道具'),
         icon: './ui/bag.png',
         items: itemsOtherCollectable
       })
     }
-    dealCraftings(itemsPrePrePrecraft, t('使用{job}制作半半半成品'))
-    dealCraftings(itemsPrePrecraft, t('使用{job}制作半半成品'))
-    dealCraftings(itemsPrecraft, t('使用{job}制作半成品'))
-    dealCraftings(itemsTarget, t('使用{job}制作成品'))
+    dealCraftings(itemsPrePrePrecraft, 'prepreprecraft', t('使用{job}制作半半半成品'))
+    dealCraftings(itemsPrePrecraft, 'preprecraft', t('使用{job}制作半半成品'))
+    dealCraftings(itemsPrecraft, 'precraft', t('使用{job}制作半成品'))
+    dealCraftings(itemsTarget, 'target', t('使用{job}制作成品'))
   
     return groups
-  
-    function dealCraftableItem(target: Record<number, ItemInfo[]>, item: ItemInfo) {
-      const jobId = item.craftInfo!.jobId
-      target[jobId] ??= []
-      const existing = target[jobId].find(_item => item.id === _item.id)
-      if (existing) {
-        existing.amount += item.amount
-      } else {
-        target[jobId].push(item)
-      }
-    }
   }
 
   return {

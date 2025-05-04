@@ -10,25 +10,25 @@ import {
 import ItemSpan from '../item/ItemSpan.vue'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
+import type { MacroGenerateMode } from '@/models/config-func'
 import { useStore } from '@/store'
+import UseConfig from '@/tools/use-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
-const copyAsMacro = inject<(macroContent: string, container?: HTMLElement | undefined) => Promise<{
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+const copyAsMacro = inject<(macroMap: Record<MacroGenerateMode, string>, container?: HTMLElement | undefined) => Promise<{
   result: "success" | "info" | "error";
   msg: string;
 } | undefined>>('copyAsMacro')!
+
 const store = useStore()
-
-const itemLanguage = computed(() => {
-  if (userConfig.value.language_item !== 'auto') {
-    return userConfig.value.language_item
-  }
-  return userConfig.value.language_ui
-})
-
 const NAIVE_UI_MESSAGE = useMessage()
+const {
+  itemLanguage,
+} = UseConfig(userConfig, funcConfig)
 
 const props = defineProps({
   /**
@@ -90,35 +90,53 @@ const getItemName = (itemInfo: ItemInfo) => {
       return itemInfo[`name_${itemLanguage.value}`]
   }
 }
-const macroValue = computed(() => {
-  let result = ''
+const getItemAmount = (amount: number) => {
+  return userConfig.value.item_amount_use_comma
+    ? amount.toLocaleString()
+    : amount
+}
+
+const macroMap = computed(() : Record<MacroGenerateMode, string> => {
+  const result: Record<MacroGenerateMode, string> = {
+    singleLine: '',
+    multiLine: ''
+  }
+
   for (const _tomeScriptID in props.items) {
     const tomeScriptID = Number(_tomeScriptID)
     let tomeScriptName = getItemName(getItemInfo(tomeScriptID))
+
+    // Group Title
+    result.multiLine += `【${tomeScriptName}】x${tomeScripts.value[tomeScriptID]}\n`
     if (itemLanguage.value === 'en') {
       tomeScriptName = `"${tomeScriptName}"`
     }
-    result += `[${tomeScriptName}x${tomeScripts.value[tomeScriptID]}] `
-    const items : string[] = []
+    result.singleLine += `[${tomeScriptName}x${tomeScripts.value[tomeScriptID]}] `
+
+    const slItems : string[] = []
+    const mlItems : string[] = []
     props.items[tomeScriptID].forEach(item => {
       if (item.amount) {
         let itemName = getItemName(item)
+        mlItems.push(`・${itemName} x${item.amount}`)
         if (itemLanguage.value === 'en') {
           itemName = `"${itemName}"`
         }
-        items.push(`${itemName}x${item.amount}`)
+        slItems.push(`${itemName}x${item.amount}`)
       }
     })
-    result += items.join(', ') + '; '
+    result.singleLine += slItems.join(', ') + '; '
+    result.multiLine += mlItems.join('\n') + '\n'
   }
 
+  result.multiLine = result.multiLine.trim()
   return result
 })
 
 const copyBtnLoading = ref(false)
 const handleCopyAsMacro = async () => {
   copyBtnLoading.value = true
-  const response = await copyAsMacro(macroValue.value)
+  const response = await copyAsMacro(macroMap.value)
   if (response) {
     NAIVE_UI_MESSAGE[response.result](response.msg)
   }
@@ -138,7 +156,7 @@ const handleCopyAsMacro = async () => {
           <p class="text">{{ t('点数') }}</p>
           <div class="tome-scripts">
               <div class="tome-script" v-for="(totalAmount, scriptID) in tomeScripts" :key="'tome-script-' + scriptID">
-                <span class="amount">{{ totalAmount }}</span>
+                <span class="amount">{{ getItemAmount(totalAmount) }}</span>
                 <ItemSpan hide-name hide-pop-icon :item-info="getItemInfo(scriptID)" />
               </div>
               <div class="tome-script" v-if="!Object.keys(tomeScripts).length">

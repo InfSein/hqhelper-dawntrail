@@ -19,6 +19,7 @@ import AppStatus from '@/variables/app-status'
 import { checkUrlLag } from '@/tools/web-request'
 import type { AppVersionJson } from '@/models'
 import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
+import { checkAppUpdates } from '@/tools'
 
 const store = useStore()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -131,21 +132,25 @@ const handleCheckUpdates = async () => {
   latestHqHelperVersion.value = ''
   latestElectronVersion.value = ''
   try {
-    let url = document?.location?.origin + document.location.pathname + 'version.json'
-    if (window.electronAPI || url.includes('localhost')) {
-      url = 'https://hqhelper.nbb.fan/version.json'
+    const checkUpdateResponse = await checkAppUpdates()
+    if (checkUpdateResponse.success) {
+      versionContent.value = checkUpdateResponse.data!
+      latestHqHelperVersion.value = versionContent.value.hqhelper
+      latestElectronVersion.value = versionContent.value.electron
+    } else {
+      dealFailure(checkUpdateResponse.message, checkUpdateResponse)
     }
-    const versionResponse = await window.electronAPI.httpGet(url)
-    versionContent.value = JSON.parse(versionResponse) as AppVersionJson
-    latestHqHelperVersion.value = versionContent.value.hqhelper
-    latestElectronVersion.value = versionContent.value.electron
   } catch (e: any) {
-    console.error(e)
-    alert(t('检查更新失败：{error}', e?.message || 'UNKNOWN ERROR' + e))
-    latestHqHelperVersion.value = null
-    latestElectronVersion.value = null
+    dealFailure(e?.message || 'UNKNOWN ERROR', e)
   } finally {
     checkingUpdates.value = false
+  }
+
+  function dealFailure(msg: string, errdata: any) {
+    console.error(errdata)
+    alert(t('检查更新失败：{error}', msg))
+    latestHqHelperVersion.value = null
+    latestElectronVersion.value = null
   }
 }
 

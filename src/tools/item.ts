@@ -123,8 +123,10 @@ export interface ItemInfo {
     jobId: number,
     /** 配方ID */
     recipeId: number,
-    /** 配方顺序号 (在制作笔记的顺序) */
+    /** 国际服配方顺序号 */
     recipeOrder: number,
+    /** 国服配方顺序号 (国服未实装道具会使用国际服的) */
+    recipeOrderCHS: number,
     /** 制作等级 */
     craftLevel: number,
     /** 产量 (一次制作可以获得几个成品) */
@@ -381,10 +383,14 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         }
       }
 
+      const noteBookCHS = recipe.noteBookCHS || recipe.noteBook
+      const recipeOrderCHS = noteBookCHS[0] * 160 + noteBookCHS[1]
+
       itemInfo.craftInfo = {
         jobId: recipe.job + 8, // 解包配方的jobId是从0开始
         recipeId: recipeID,
         recipeOrder: recipe.noteBook[0] * 160 + recipe.noteBook[1],
+        recipeOrderCHS: recipeOrderCHS,
         craftLevel: recipe.bp?.[2],
         yields: recipe.bp?.[1],
         starCount: recipe.bp?.[3],

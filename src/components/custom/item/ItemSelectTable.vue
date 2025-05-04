@@ -55,9 +55,7 @@ const handleDealNumInputEdge = (row: StatementRow) => {
     <n-table class="table" size="small" :single-line="false">
       <thead>
         <tr>
-          <th>
-            {{ t('物品') }}
-          </th>
+          <th>{{ t('物品') }}</th>
           <th>{{ t('数量') }}</th>
         </tr>
       </thead>
@@ -68,7 +66,8 @@ const handleDealNumInputEdge = (row: StatementRow) => {
           <tr v-for="item in rows" :key="'item-' + item.info.id">
             <td>
               <ItemCell
-                :item="item"
+                :item-info="item.info"
+                :amount="item.amount.remain"
                 :show-item-details="showItemDetails"
                 :container-id="containerId"
               />

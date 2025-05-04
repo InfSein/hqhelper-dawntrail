@@ -88,7 +88,10 @@ const patchPatterns = computed(() => {
     }),
     t('{patch}版本会追加战斗职业的{ilv}品级绿装HQ，以及同品级的秘籍食物/爆发药；', {
       patch: XivPatches[4].v, ilv: XivPatches[4].combat_hq_il
-    })
+    }),
+    t('{patch}版本不会追加新HQ装备。', {
+      patch: '7.5',
+    }),
   ]
 })
 </script>
@@ -155,6 +158,7 @@ const patchPatterns = computed(() => {
 }
 .pop-wrapper {
   padding: 0.5em;
+  max-width: 520px;
 
   ul {
     padding-left: 1.5em;
