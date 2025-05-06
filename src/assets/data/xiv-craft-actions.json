@@ -1,0 +1,421 @@
+[
+  {
+    "key": "muscleMemory",
+    "name_zh": "坚信",
+    "name_ja": "確信",
+    "name_en": "Muscle Memory",
+    "wait_time": 3,
+    "simulator_keys": [
+      "muscleMemory",
+      "muscle_memory"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "reflect",
+    "name_zh": "闲静",
+    "name_ja": "真価",
+    "name_en": "Reflect",
+    "wait_time": 3,
+    "simulator_keys": [
+      "reflect"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "trainedEye",
+    "name_zh": "工匠的神速技巧",
+    "name_ja": "匠の早業",
+    "name_en": "Trained Eye",
+    "wait_time": 3,
+    "simulator_keys": [
+      "trainedEye",
+      "trained_eye"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "basicSynth",
+    "name_zh": "制作",
+    "name_ja": "作業",
+    "name_en": "Basic Synthesis",
+    "wait_time": 3,
+    "simulator_keys": [
+      "basicSynth",
+      "basicSynth2",
+      "basic_synthesis"
+    ],
+    "icon": 1501
+  },
+  {
+    "key": "carefulSynthesis",
+    "name_zh": "模范制作",
+    "name_ja": "模範作業",
+    "name_en": "Careful Synthesis",
+    "wait_time": 3,
+    "simulator_keys": [
+      "carefulSynthesis",
+      "carefulSynthesis2",
+      "careful_synthesis"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "rapidSynthesis",
+    "name_zh": "高速制作",
+    "name_ja": "突貫作業",
+    "name_en": "Rapid Synthesis",
+    "wait_time": 3,
+    "simulator_keys": [
+      "rapidSynthesis",
+      "rapidSynthesis2",
+      "rapid_synthesis"
+    ],
+    "icon": 1619
+  },
+  {
+    "key": "groundwork",
+    "name_zh": "坯料制作",
+    "name_ja": "下地作業",
+    "name_en": "Groundwork",
+    "wait_time": 3,
+    "simulator_keys": [
+      "groundwork",
+      "groundwork2"
+    ],
+    "icon": 1518
+  },
+  {
+    "key": "intensiveSynthesis",
+    "name_zh": "集中制作",
+    "name_ja": "集中作業",
+    "name_en": "Intensive Synthesis",
+    "wait_time": 3,
+    "simulator_keys": [
+      "intensiveSynthesis",
+      "intensive_synthesis"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "prudentSynthesis",
+    "name_zh": "俭约制作",
+    "name_ja": "倹約作業",
+    "name_en": "Prudent Synthesis",
+    "wait_time": 3,
+    "simulator_keys": [
+      "prudentSynthesis",
+      "prudent_synthesis"
+    ],
+    "icon": 1520
+  },
+  {
+    "key": "delicateSynthesis",
+    "name_zh": "精密制作",
+    "name_ja": "精密作業",
+    "name_en": "Delicate Synthesis",
+    "wait_time": 3,
+    "simulator_keys": [
+      "delicateSynthesis",
+      "delicateSynthesis2",
+      "delicate_synthesis"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "basicTouch",
+    "name_zh": "加工",
+    "name_ja": "加工",
+    "name_en": "Basic Touch",
+    "wait_time": 3,
+    "simulator_keys": [
+      "basicTouch",
+      "basic_touch"
+    ],
+    "icon": 1502
+  },
+  {
+    "key": "hastyTouch",
+    "name_zh": "仓促",
+    "name_ja": "ヘイスティタッチ",
+    "name_en": "Hasty Touch",
+    "wait_time": 3,
+    "simulator_keys": [
+      "hastyTouch",
+      "hasty_touch"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "standardTouch",
+    "name_zh": "中级加工",
+    "name_ja": "中級加工",
+    "name_en": "Standard Touch",
+    "wait_time": 3,
+    "simulator_keys": [
+      "standardTouch",
+      "standard_touch"
+    ],
+    "icon": 1516
+  },
+  {
+    "key": "byregotsBlessing",
+    "name_zh": "比尔格的祝福",
+    "name_ja": "ビエルゴの祝福",
+    "name_en": "Byregot's Blessing",
+    "wait_time": 3,
+    "simulator_keys": [
+      "byregotsBlessing",
+      "byregot_s_blessing"
+    ],
+    "icon": 1521
+  },
+  {
+    "key": "preciseTouch",
+    "name_zh": "集中加工",
+    "name_ja": "集中加工",
+    "name_en": "Precise Touch",
+    "wait_time": 3,
+    "simulator_keys": [
+      "preciseTouch",
+      "precise_touch"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "prudentTouch",
+    "name_zh": "俭约加工",
+    "name_ja": "倹約加工",
+    "name_en": "Prudent Touch",
+    "wait_time": 3,
+    "simulator_keys": [
+      "prudentTouch",
+      "prudent_touch"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "preparatoryTouch",
+    "name_zh": "坯料加工",
+    "name_ja": "下地加工",
+    "name_en": "Preparatory Touch",
+    "wait_time": 3,
+    "simulator_keys": [
+      "preparatoryTouch",
+      "preparatory_touch"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "advancedTouch",
+    "name_zh": "上级加工",
+    "name_ja": "上級加工",
+    "name_en": "Advanced Touch",
+    "wait_time": 3,
+    "simulator_keys": [
+      "advancedTouch",
+      "advanced_touch"
+    ],
+    "icon": 1517
+  },
+  {
+    "key": "trainedFinesse",
+    "name_zh": "工匠的神技",
+    "name_ja": "匠の神業",
+    "name_en": "Trained Finesse",
+    "wait_time": 3,
+    "simulator_keys": [
+      "trainedFinesse",
+      "trained_finesse"
+    ],
+    "icon": 1997
+  },
+  {
+    "key": "mastersMend",
+    "name_zh": "精修",
+    "name_ja": "マスターズメンド",
+    "name_en": "Master's Mend",
+    "wait_time": 3,
+    "simulator_keys": [
+      "mastersMend",
+      "masters_mend"
+    ],
+    "icon": 1952
+  },
+  {
+    "key": "wasteNot",
+    "name_zh": "俭约",
+    "name_ja": "倹約",
+    "name_en": "Waste Not",
+    "wait_time": 2,
+    "simulator_keys": [
+      "wasteNot",
+      "waste_not"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "wasteNot2",
+    "name_zh": "长期俭约",
+    "name_ja": "長期倹約",
+    "name_en": "Waste Not II",
+    "wait_time": 2,
+    "simulator_keys": [
+      "wasteNot2",
+      "waste_not_ii"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "manipulation",
+    "name_zh": "掌握",
+    "name_ja": "マニピュレーション",
+    "name_en": "Manipulation",
+    "wait_time": 2,
+    "simulator_keys": [
+      "manipulation"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "veneration",
+    "name_zh": "崇敬",
+    "name_ja": "ヴェネレーション",
+    "name_en": "Veneration",
+    "wait_time": 2,
+    "simulator_keys": [
+      "veneration"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "greatStrides",
+    "name_zh": "阔步",
+    "name_ja": "グレートストライド",
+    "name_en": "Great Strides",
+    "wait_time": 2,
+    "simulator_keys": [
+      "greatStrides",
+      "great_strides"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "innovation",
+    "name_zh": "改革",
+    "name_ja": "イノベーション",
+    "name_en": "Innovation",
+    "wait_time": 2,
+    "simulator_keys": [
+      "innovation"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "observe",
+    "name_zh": "观察",
+    "name_ja": "経過観察",
+    "name_en": "Observe",
+    "wait_time": 3,
+    "simulator_keys": [
+      "observe"
+    ],
+    "icon": 1954
+  },
+  {
+    "key": "tricksOfTheTrade",
+    "name_zh": "秘诀",
+    "name_ja": "秘訣",
+    "name_en": "Tricks of the Trade",
+    "wait_time": 3,
+    "simulator_keys": [
+      "tricksOfTheTrade",
+      "tricks_of_the_trade"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "finalAppraisal",
+    "name_zh": "最终确认",
+    "name_ja": "最終確認",
+    "name_en": "Final Appraisal",
+    "wait_time": 2,
+    "simulator_keys": [
+      "finalAppraisal",
+      "final_appraisal"
+    ],
+    "icon": 66666
+  },
+  {
+    "key": "heartAndSoul",
+    "name_zh": "专心致志",
+    "name_ja": "一心不乱",
+    "name_en": "Heart and Soul",
+    "wait_time": 3,
+    "simulator_keys": [
+      "heartAndSoul",
+      "heart_and_soul"
+    ],
+    "icon": 1996
+  },
+  {
+    "key": "refinedTouch",
+    "name_zh": "精炼加工",
+    "name_ja": "洗練加工",
+    "name_en": "Refined Touch",
+    "wait_time": 3,
+    "simulator_keys": [
+      "refinedTouch",
+      "refined_touch"
+    ],
+    "icon": 1873
+  },
+  {
+    "key": "daringTouch",
+    "name_zh": "冒进",
+    "name_ja": "デアリングタッチ",
+    "name_en": "Daring Touch",
+    "wait_time": 3,
+    "simulator_keys": [
+      "daringTouch",
+      "daring_touch"
+    ],
+    "icon": 1998
+  },
+  {
+    "key": "immaculateMend",
+    "name_zh": "巧夺天工",
+    "name_ja": "パーフェクトメンド",
+    "name_en": "Immaculate Mend",
+    "wait_time": 3,
+    "simulator_keys": [
+      "immaculateMend",
+      "immaculate_mend"
+    ],
+    "icon": 1950
+  },
+  {
+    "key": "quickInnovation",
+    "name_zh": "快速改革",
+    "name_ja": "クイックイノベーション",
+    "name_en": "Quick Innovation",
+    "wait_time": 3,
+    "simulator_keys": [
+      "quickInnovation",
+      "quick_innovation"
+    ],
+    "icon": 1999
+  },
+  {
+    "key": "trainedPerfection",
+    "name_zh": "工匠的绝技",
+    "name_ja": "匠の絶技",
+    "name_en": "Trained Perfection",
+    "wait_time": 3,
+    "simulator_keys": [
+      "trainedPerfection",
+      "trained_perfection"
+    ],
+    "icon": 1926
+  }
+]
