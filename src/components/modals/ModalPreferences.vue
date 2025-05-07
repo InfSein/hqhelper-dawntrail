@@ -13,7 +13,7 @@ import {
   MemoryRound,
   UpdateRound,
   CodeSharp,
-  ImportExportOutlined,
+  DiscountOutlined,
   TableViewOutlined,
   AllInclusiveSharp,
   AttachMoneyOutlined,
@@ -421,20 +421,41 @@ const preferenceGroups : PreferenceGroup[] = [
           },
         ]
       },
-      /* 导入/导出 */
+      /* 生产宏 */
       {
-        key: 'import_export',
-        icon: ImportExportOutlined,
-        text: t('导入/导出'),
+        key: 'craft_macro',
+        icon: DiscountOutlined,
+        text: t('生产宏'),
         children: [
           {
-            key: 'export_item_price',
-            label: t('导出成本/收益分析'),
+            key: 'cmacro_use_macrolock',
+            label: t('在每个生产宏的开头使用/macrolock'),
             descriptions: dealDescriptions([
-              t('启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。'),
+              t('开启此项后生成的生产宏在执行期间不会被其他宏打断，不过每个宏能执行的技能数也会减少。'),
             ]),
             type: 'switch'
-          }
+          },
+          {
+            key: 'cmacro_remove_quotes',
+            label: t('移除生产宏技能名两端的双引号'),
+            descriptions: dealDescriptions([
+              t('部分语言游戏端的技能名内含有空格，对于这些技能必须使用双引号或定型文，否则执行时会报错。'),
+            ]),
+            type: 'switch'
+          },
+          {
+            key: 'cmacro_transition_tipper_content',
+            label: t('过渡生产宏执行结束后要提醒的内容'),
+            descriptions: dealDescriptions([
+              t('过渡生产宏指最后一个宏之外的生产宏。'),
+            ]),
+            type: 'string',
+          },
+          {
+            key: 'cmacro_end_tipper_content',
+            label: t('所有生产宏执行结束后要提醒的内容'),
+            type: 'string',
+          },
         ]
       },
       /* 制作报表 */
@@ -732,6 +753,14 @@ const preferenceGroups : PreferenceGroup[] = [
             ]
           },
           {
+            key: 'export_item_price',
+            label: t('导出Excel时导出成本/收益分析'),
+            descriptions: dealDescriptions([
+              t('启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。'),
+            ]),
+            type: 'switch'
+          },
+          {
             key: 'costandbenefit_show_item_details',
             label: t('成本/收益分析中显示物品详情'),
             type: 'switch'
@@ -832,7 +861,28 @@ const onLoad = () => {
   formFuncConfigData.value = deepCopy(fixFuncConfig(store.state.funcConfig, store.state.userConfig))
 }
 
+const handleCheck = () => {
+  if (!formFuncConfigData.value.cmacro_transition_tipper_content) {
+    return t('「{group}」的「{item}」不能为空', {
+      group: t('生产宏'),
+      item: t('过渡生产宏执行结束后要提醒的内容')
+    })
+  }
+  if (!formFuncConfigData.value.cmacro_end_tipper_content) {
+    return t('「{group}」的「{item}」不能为空', {
+      group: t('生产宏'),
+      item: t('所有生产宏执行结束后要提醒的内容')
+    })
+  }
+  return ''
+}
 const handleSave = () => {
+  // * 检查设置合法性
+  const checkError = handleCheck()
+  if (checkError) {
+    NAIVE_UI_MESSAGE.error(checkError); return
+  }
+
   // * 处理偏好设置
   const oldUserConfig = deepCopy(fixUserConfig(store.state.userConfig))
   formUserConfigData.value.theme ??= 'system'
