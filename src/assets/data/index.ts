@@ -147,6 +147,21 @@ export const XivAttributes = JsonXivAttributes as Record<number, {
   name_fr: string
 }>
 
+import JsonXivCraftActions from './xiv-craft-actions.json'
+export interface XivCraftAction {
+  key: string
+  name_zh: string
+  name_ja: string
+  name_en: string
+  wait_time: number
+  /** 该制作技能在制作模拟器工序中的键 */
+  simulator_keys: string[]
+  /** 该制作技能是否在 `Action` 表中 */
+  from_action_sheet?: boolean
+  icon: number
+}
+export const XivCraftActions = JsonXivCraftActions as Record<number, XivCraftAction>
+
 import JsonXivGearAffixes from './xiv-gear-affixes.json'
 export const XivGearAffixes = JsonXivGearAffixes as Record<AttireAffix | AccessoryAffix, {
   key: AttireAffix | AccessoryAffix,
