@@ -100,6 +100,7 @@ const warnings = computed(() => {
         :options="settingItem.options"
         :render-option="dropdownOptionsRenderer"
         :style="{ width: isMobile ? '75%' : '60%' }"
+        :placeholder="settingItem.placeholder"
       />
       <n-cascader
         v-if="settingItem.type === 'cascader'"
@@ -110,12 +111,14 @@ const warnings = computed(() => {
         show-path
         filterable
         :style="{ width: isMobile ? '85%' : '70%' }"
+        :placeholder="settingItem.placeholder"
       />
       <n-input
         v-if="settingItem.type === 'string'"
         v-model:value="formData[settingItem.key]"
         type="text"
         :style="{ width: isMobile ? '85%' : '70%' }"
+        :placeholder="settingItem.placeholder"
       />
       <n-button
         v-if="settingItem.type === 'button'"
