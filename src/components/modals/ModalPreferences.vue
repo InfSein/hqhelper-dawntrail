@@ -431,30 +431,37 @@ const preferenceGroups : PreferenceGroup[] = [
             key: 'cmacro_use_macrolock',
             label: t('在每个生产宏的开头使用/macrolock'),
             descriptions: dealDescriptions([
-              t('开启此项后生成的生产宏在执行期间不会被其他宏打断，不过每个宏能执行的技能数也会减少。'),
+              t('启用后生成的生产宏在执行期间不会被其他宏打断，不过各宏的技能容量也会减少。'),
             ]),
             type: 'switch'
           },
           {
             key: 'cmacro_remove_quotes',
-            label: t('移除生产宏技能名两端的双引号'),
+            label: t('移除生产宏技能名的双引号'),
             descriptions: dealDescriptions([
-              t('部分语言游戏端的技能名内含有空格，对于这些技能必须使用双引号或定型文，否则执行时会报错。'),
+              t('含有空格的技能名仍需使用双引号或是转换为定型文，否则执行时会报错。'),
             ]),
             type: 'switch'
           },
           {
             key: 'cmacro_transition_tipper_content',
-            label: t('过渡生产宏执行结束后要提醒的内容'),
+            label: t('过渡生产宏的执行结束提醒'),
             descriptions: dealDescriptions([
               t('过渡生产宏指最后一个宏之外的生产宏。'),
+              t('提醒内容中的「~INDEX」将被替换为宏的顺序号。'),
+              t('此项未填写任何内容时会使用默认值：{val}', '/e Macro #~INDEX completed. <se.1>'),
             ]),
             type: 'string',
+            placeholder: '/e Macro #~INDEX completed. <se.1>',
           },
           {
             key: 'cmacro_end_tipper_content',
-            label: t('所有生产宏执行结束后要提醒的内容'),
+            label: t('最终生产宏的执行结束提醒'),
+            descriptions: dealDescriptions([
+              t('此项未填写任何内容时会使用默认值：{val}', '/e Craft done! <se.14>'),
+            ]),
             type: 'string',
+            placeholder: '/e Craft done! <se.14>',
           },
         ]
       },
@@ -862,18 +869,6 @@ const onLoad = () => {
 }
 
 const handleCheck = () => {
-  if (!formFuncConfigData.value.cmacro_transition_tipper_content) {
-    return t('「{group}」的「{item}」不能为空', {
-      group: t('生产宏'),
-      item: t('过渡生产宏执行结束后要提醒的内容')
-    })
-  }
-  if (!formFuncConfigData.value.cmacro_end_tipper_content) {
-    return t('「{group}」的「{item}」不能为空', {
-      group: t('生产宏'),
-      item: t('所有生产宏执行结束后要提醒的内容')
-    })
-  }
   return ''
 }
 const handleSave = () => {

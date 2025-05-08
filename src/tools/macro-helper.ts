@@ -66,6 +66,10 @@ const useMacroHelper = (
       }
     }
 
+    // 处理一些设置项的默认值
+    const cmacro_transition_tipper_content = funcConfig.value.cmacro_transition_tipper_content || '/e Macro #~INDEX completed. <se.1>'
+    const cmacro_end_tipper_content = funcConfig.value.cmacro_end_tipper_content || '/e Craft done! <se.14>'
+
     const result = {
       macros_zh: [] as string[],
       macros_en: [] as string[],
@@ -92,8 +96,10 @@ const useMacroHelper = (
           }
           macro[`macro_${lang}`] += `/ac ${actionName} <wait.${action.wait_time}>${linebreak}`
         })
-        if (column.length < 15) {
-          macro[`macro_${lang}`] += funcConfig.value.cmacro_end_tipper_content.replace('~INDEX', `${index + 1}`) + linebreak
+        if (column.length <= pushLines) {
+          macro[`macro_${lang}`] += cmacro_end_tipper_content + linebreak
+        } else {
+          macro[`macro_${lang}`] += cmacro_transition_tipper_content.replace('~INDEX', `${index + 1}`) + linebreak
         }
         macro[`macro_${lang}`] = macro[`macro_${lang}`].slice(0, linebreak.length * -1)
         

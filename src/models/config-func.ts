@@ -71,8 +71,8 @@ const defaultFuncConfig: FuncConfigModel = {
   // * 生产宏
   cmacro_use_macrolock: false,
   cmacro_remove_quotes: false,
-  cmacro_transition_tipper_content: '/e Macro #~INDEX completed. <se.1>',
-  cmacro_end_tipper_content: '/e Craft done! <se.14>',
+  cmacro_transition_tipper_content: '',
+  cmacro_end_tipper_content: '',
   // * 制作报表
   use_traditional_statement: false,
   prostate_concise_mode: false,
