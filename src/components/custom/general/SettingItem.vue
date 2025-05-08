@@ -13,7 +13,7 @@ import useUiTools from '@/tools/ui'
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
-const { dropdownOptionsRenderer } = useUiTools(isMobile)
+const { optionsRenderer } = useUiTools(isMobile)
 
 const formData = defineModel<any>('formData', { required: true })
 interface SettingItemProps {
@@ -98,7 +98,7 @@ const warnings = computed(() => {
         v-model:value="formData[settingItem.key]"
         :multiple="settingItem.multiple"
         :options="settingItem.options"
-        :render-option="dropdownOptionsRenderer"
+        :render-option="optionsRenderer"
         :style="{ width: isMobile ? '75%' : '60%' }"
         :placeholder="settingItem.placeholder"
       />

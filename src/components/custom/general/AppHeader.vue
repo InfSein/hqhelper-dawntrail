@@ -69,7 +69,7 @@ const canOpenDevTools = computed(() => {
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
-const { dropdownOptionsRenderer } = useUiTools(isMobile)
+const { optionsRenderer } = useUiTools(isMobile)
 
 onMounted(() => {
   if (userConfig.value.cache_lasttime_version !== AppStatus.Version) {
@@ -461,7 +461,7 @@ const handleCheckUpdates = async () => {
           v-for="(item, key) in desktopMenus"
           :key="'desktop-menu-' + key"
           :options="item.options?.filter(o => !o.hide)"
-          :render-option="dropdownOptionsRenderer"
+          :render-option="optionsRenderer"
           :trigger="item.options?.length ? 'hover' : 'manual'"
           @select="handleDesktopMenuOptionSelect"
         >

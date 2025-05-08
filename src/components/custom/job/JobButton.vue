@@ -29,7 +29,7 @@ const {
   addAttire,
   addAccessory
 } = useGearAdder()
-const { dropdownOptionsRenderer } = useUiTools(isMobile)
+const { optionsRenderer } = useUiTools(isMobile)
 const {
   uiLanguage,
 } = UseConfig(userConfig, funcConfig)
@@ -535,7 +535,7 @@ const onClickoutside = () => {
             :x="xRef"
             :y="yRef"
             :options="contextOptions"
-            :render-option="dropdownOptionsRenderer"
+            :render-option="optionsRenderer"
             :show="showDropdownRef"
             :on-clickoutside="onClickoutside"
             @select="handleSelect"
