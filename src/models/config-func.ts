@@ -6,6 +6,7 @@ export type FuncConfigKey = "copy_macro" | "craft_macro" | "craft_statement" | "
 export type ItemPriceType = 'averagePrice' | 'currentAveragePrice' | 'minPrice' | 'maxPrice' | 'marketLowestPrice' | 'marketPrice' | 'purchasePrice'
 
 export type MacroGenerateMode = 'singleLine' | 'multiLine'
+export type WorkflowJoinMode = "accumulation" | "cover" | "overwrite"
 
 export interface FuncConfigModel {
   // #region 在偏好设置弹窗中设置的配置项
@@ -58,7 +59,11 @@ export interface FuncConfigModel {
   universalis_poppricetypes: ItemPriceType[]
   // #endregion
 
-  // #region 隐藏的配置项/缓存
+  // #region 隐藏的配置项
+  workflow_default_join_mode: WorkflowJoinMode
+  // #endregion
+
+  // #region 缓存
   cache_item_prices: Record<number, ItemPriceInfo>
   // #endregion
 }
@@ -88,6 +93,8 @@ const defaultFuncConfig: FuncConfigModel = {
   costandbenefit_show_item_details: false,
   universalis_showpriceinpop: false,
   universalis_poppricetypes: [],
+  // * 隐藏的配置项
+  workflow_default_join_mode: 'accumulation',
   // * 缓存
   cache_item_prices: {},
 }
