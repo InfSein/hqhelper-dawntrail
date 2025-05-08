@@ -1,4 +1,4 @@
-import { computed, type Ref } from "vue"
+import { type Ref } from "vue"
 import type { UserConfigModel } from "@/models/config-user"
 import type { FuncConfigModel } from "@/models/config-func"
 import { XivCraftActions, type XivCraftAction } from '@/assets/data'
