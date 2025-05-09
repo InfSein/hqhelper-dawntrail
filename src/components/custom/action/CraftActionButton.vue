@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, ref, computed, type Ref } from 'vue'
 import {
-  NButton, NIcon, NPopover,
+  NButton, NPopover,
   type PopoverTrigger
 } from 'naive-ui'
 import XivFARImage from '../general/XivFARImage.vue'
