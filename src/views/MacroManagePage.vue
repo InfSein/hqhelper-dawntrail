@@ -169,18 +169,20 @@ const tableColumns = computed(() => {
         <span class="card-title-text">{{ t('筛选/管理') }}</span>
       </template>
       <div class="query-form">
-        <n-input-group>
-          <n-input-group-label>{{ t('筛选') }}</n-input-group-label>
-          <n-input
-            v-model:value="workState.searchKeyword"
-            :placeholder="t('支持按宏名称/备注/标签以及关联物品的名称/ID/品级/版本进行检索')"
-            style="max-width: 600px;"
-          >
-            <template #suffix>
-              <n-icon :component="SearchOutlined" />
-            </template>
-          </n-input>
-        </n-input-group>
+        <div id="query-filter" class="form-item">
+          <div class="form-title">{{ t('筛选') }}</div>
+          <n-input-group>
+            <n-input
+              v-model:value="workState.searchKeyword"
+              :placeholder="t('支持按宏名称/备注/标签以及关联物品的名称/ID/品级/版本进行检索')"
+              style="max-width: 600px;"
+            >
+              <template #suffix>
+                <n-icon :component="SearchOutlined" />
+              </template>
+            </n-input>
+          </n-input-group>
+        </div>
       </div>
     </FoldableCard>
     <FoldableCard card-key="macromanage-table">
@@ -209,14 +211,37 @@ const tableColumns = computed(() => {
   flex-direction: column;
 }
 .query-form {
-  padding: 0 1.5em;
+  padding: 0 0.8em;
+  gap: 4px;
+  display: flex;
+
+  .form-item {
+    border-radius: 5px;
+    padding: 0.5rem 0.6rem;
+    border: 1px solid transparent;
+
+    .form-title {
+      padding: 0 0 6px 2px;
+    }
+  }
 }
 
 /* Desktop */
 @media screen and (min-width: 768px) {
+  .query-form {
+    .form-item:hover {
+      border: 1px solid var(--n-color-target);
+    }
+    #query-filter {
+      width: 510px;
+    }
+  }
 }
 
 /* Mobile */
 @media screen and (max-width: 767px) {
+  .query-form {
+    flex-direction: column;
+  }
 }
 </style>
