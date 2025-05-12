@@ -50,6 +50,20 @@ const useMacroHelper = (
     return result
   }
 
+  /** 计算生产宏消耗的CP */
+  const calMacroCpCost = (actions: XivCraftAction[]) => {
+    return actions.reduce((total, action, index) => {
+      if (action.combo_actions && action.combo_cost_cp) {
+        const in_combo = action.combo_actions.some(comboLink => {
+          return comboLink.every((comboId, i) => actions[index - (comboLink.length - 1 - i)]?.id === comboId)
+        })
+        return total + (in_combo ? action.combo_cost_cp : action.cost_cp)
+      } else {
+        return total + action.cost_cp
+      }
+    }, 0)
+  }
+
   /** 将技能列表按用户设置组装为宏 */
   const exportCraftMacroText = (actions: XivCraftAction[]) => {
     let threshold = 15, pushLines = 14
@@ -116,6 +130,8 @@ const useMacroHelper = (
     parseCraftMacroText,
     /** 将生产模拟器导出的工序转换为技能列表 */
     parseCraftProcedure,
+    /** 计算生产宏消耗的CP */
+    calMacroCpCost,
     /** 将技能列表按用户设置组装为宏 */
     exportCraftMacroText,
   }

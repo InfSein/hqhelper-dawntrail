@@ -21,7 +21,7 @@ export interface RecordedCraftMacro {
     /** 制作力 */
     cp?: number,
   },
-  craftActions: XivCraftAction[],
+  craftActions: number[],
 }
 const defaultCraftMacro: RecordedCraftMacro = {
   id: -1,

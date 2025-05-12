@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, watch, type Ref } from 'vue'
+import { computed, h, inject, onMounted, ref, watch, type Ref } from 'vue'
 import {
-  NBackTop, NButton, NForm, NFormItem, NIcon, NInput, NInputGroup, NInputGroupLabel, NSelect, NSwitch,
-  useMessage
+  NBackTop, NButton, NDataTable, NForm, NFormItem, NIcon, NInput, NInputGroup, NInputGroupLabel, NSelect, NSwitch, NTag,
+  useMessage,
+  type DataTableColumns,
 } from 'naive-ui'
 import {
   SearchOutlined
 } from '@vicons/material'
 import FoldableCard from '@/components/templates/FoldableCard.vue'
+import ItemSpan from '@/components/custom/item/ItemSpan.vue'
+import { XivCraftActions, type XivCraftAction } from '@/assets/data'
 import { useStore } from '@/store'
-import { fixWorkState, type WorkState } from '@/models/macromanage'
+import { fixWorkState, type WorkState, type RecordedCraftMacro } from '@/models/macromanage'
 import type { UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
+import useMacroHelper from '@/tools/macro-helper'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -20,6 +25,9 @@ const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
+const {
+  calMacroCpCost,
+} = useMacroHelper(userConfig, funcConfig)
 
 const workState = ref(fixWorkState())
 
@@ -45,6 +53,110 @@ watch(workState, async () => {
 }, {deep: true})
 
 onMounted(async () => {
+})
+
+interface CraftMacroRow {
+  id: number,
+  name: string,
+  remark: string,
+  /** 关联的物品 */
+  relateItems: (ItemInfo|string)[],
+  /** 用户自定义标签 */
+  tags: string[],
+  /** 此生产宏的属性要求 */
+  requirements: {
+    /** 作业精度 */
+    craftsmanship?: number,
+    /** 加工精度 */
+    control?: number,
+    /** 制作力 */
+    cp: number,
+  },
+  craftActions: XivCraftAction[],
+}
+const tableData = computed(() => {
+  return workState.value.recordedCraftMacros.map(macro => {
+    const relateItems = macro.relateItems.map(item => {
+      if (typeof item === 'number') {
+        return getItemInfo(item)
+      } else {
+        return item
+      }
+    })
+    const craftActions = macro.craftActions.map(actionid => XivCraftActions[actionid])
+    const cpRequirement = calMacroCpCost(craftActions)
+
+    return {
+      id: macro.id,
+      name: macro.name,
+      remark: macro.remark,
+      relateItems: relateItems,
+      tags: macro.tags,
+      requirements: {
+        craftsmanship: macro.requirements?.craftsmanship,
+        control: macro.requirements?.control,
+        cp: macro.requirements?.cp ?? cpRequirement,
+      },
+      craftActions: craftActions,
+    } as CraftMacroRow
+  })
+})
+const tableColumns = computed(() => {
+  const columns: DataTableColumns<CraftMacroRow> = [
+    {
+      title: t('宏名称'),
+      key: 'name',
+      className: '',
+      render(row) {
+        return row.name
+      }
+    },
+    {
+      title: t('备注'),
+      key: 'remark',
+      className: '',
+      render(row) {
+        return row.remark
+      }
+    },
+    {
+      title: t('标签'),
+      key: 'tags',
+      className: '',
+      render(row) {
+        return h(
+          'div',
+          { class: 'flex-wrap gap-2' },
+          row.tags.map(tag => h(NTag, {
+            size: 'small',
+          }, tag))
+        )
+      }
+    },
+    {
+      title: t('关联物品'),
+      key: 'itemId',
+      className: '',
+      render(row) {
+        return h(
+          'div',
+          { class: 'flex-col' },
+          row.relateItems.slice(0, 3).map(item => {
+            if (typeof item === 'string') {
+              return h(NTag, {
+                size: 'small',
+              }, item)
+            } else {
+              return h(ItemSpan, {
+                itemInfo: item
+              }, [])
+            }
+          })
+        )
+      }
+    },
+  ]
+  return columns
 })
 
 </script>
@@ -77,7 +189,11 @@ onMounted(async () => {
         <span class="card-title-text">{{ t('数据') }}</span>
       </template>
       <div class="content-block">
-        test222
+        <n-data-table
+          :columns="tableColumns"
+          :data="tableData"
+          :pagination="false"
+        />
       </div>
     </FoldableCard>
     
