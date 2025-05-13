@@ -1,4 +1,3 @@
-import type { XivCraftAction } from '@/assets/data'
 import {
   assignDefaults,
   deepCopy

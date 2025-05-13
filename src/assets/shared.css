@@ -1,0 +1,19 @@
+.macro-name-container {
+  line-height: 1.2;
+
+  .macro-name {
+    font-size: 16px;
+  }
+  .macro-tags-container {
+    font-size: 12px;
+    display: flex;
+    gap: 2px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .macro-remark {
+    font-size: 12px;
+  }
+}

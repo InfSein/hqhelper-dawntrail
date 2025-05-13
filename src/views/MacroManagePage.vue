@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, h, inject, onMounted, ref, watch, type Ref } from 'vue'
 import {
-  NBackTop, NButton, NDataTable, NForm, NFormItem, NIcon, NInput, NInputGroup, NInputGroupLabel, NSelect, NSwitch, NTag,
+  NBackTop, NButton, NDataTable, NIcon, NInput, NInputGroup, NTag,
   useMessage,
   type DataTableColumns,
 } from 'naive-ui'
@@ -10,16 +10,16 @@ import {
 } from '@vicons/material'
 import FoldableCard from '@/components/templates/FoldableCard.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
-import { XivCraftActions, type XivCraftAction } from '@/assets/data'
+import { XivUnpackedItems, XivCraftActions, type XivCraftAction } from '@/assets/data'
 import { useStore } from '@/store'
 import { fixWorkState, type WorkState, type RecordedCraftMacro } from '@/models/macromanage'
 import type { UserConfigModel } from '@/models/config-user'
-import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
+import { type FuncConfigModel } from '@/models/config-func'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import useMacroHelper from '@/tools/macro-helper'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+// const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
@@ -29,7 +29,7 @@ const {
   calMacroCpCost,
 } = useMacroHelper(userConfig, funcConfig)
 
-const workState = ref(fixWorkState())
+const workState = ref<WorkState>(fixWorkState())
 
 const cachedWorkState = userConfig.value.macromanage_cache_work_state
 if (cachedWorkState && JSON.stringify(cachedWorkState).length > 2) {
@@ -74,6 +74,28 @@ interface CraftMacroRow {
   },
   craftActions: XivCraftAction[],
 }
+const archiveMacroRow = (row: CraftMacroRow, customCpRequirement?: number) : RecordedCraftMacro => {
+  const { id, name, remark, relateItems, tags, requirements, craftActions } = row
+  return {
+    id,
+    name,
+    remark,
+    relateItems: relateItems.map(item => {
+      if (typeof item === 'string') {
+        return item
+      } else {
+        return item.id
+      }
+    }),
+    tags,
+    requirements: {
+      craftsmanship: requirements.craftsmanship,
+      control: requirements.control,
+      cp: customCpRequirement ?? calMacroCpCost(craftActions),
+    },
+    craftActions: craftActions.map(action => action.id),
+  }
+}
 const tableData = computed(() => {
   return workState.value.recordedCraftMacros.map(macro => {
     const relateItems = macro.relateItems.map(item => {
@@ -104,32 +126,40 @@ const tableData = computed(() => {
 const tableColumns = computed(() => {
   const columns: DataTableColumns<CraftMacroRow> = [
     {
+      title: t('编号'),
+      key: 'id',
+      className: '',
+      width: 60,
+      minWidth: 60,
+      resizable: true,
+      align: 'center',
+    },
+    {
       title: t('宏名称'),
       key: 'name',
       className: '',
-      render(row) {
-        return row.name
-      }
-    },
-    {
-      title: t('备注'),
-      key: 'remark',
-      className: '',
-      render(row) {
-        return row.remark
-      }
-    },
-    {
-      title: t('标签'),
-      key: 'tags',
-      className: '',
+      resizable: true,
+      width: 300,
+      minWidth: 150,
+      maxWidth: 500,
       render(row) {
         return h(
           'div',
-          { class: 'flex-wrap gap-2' },
-          row.tags.map(tag => h(NTag, {
-            size: 'small',
-          }, tag))
+          { class: 'macro-name-container' },
+          [
+            h('div', { class: 'macro-name' }, row.name),
+            h(
+              'div',
+              { class: 'macro-tags-container' },
+              [
+                t('标签：'),
+                row.tags.length ? row.tags.map(tag => h(NTag, {
+                  size: 'small',
+                }, () => tag)) : t('无'),
+              ]
+            ),
+            h('div', { class: 'macro-remark' }, row.remark),
+          ],
         )
       }
     },
@@ -137,6 +167,10 @@ const tableColumns = computed(() => {
       title: t('关联物品'),
       key: 'itemId',
       className: '',
+      resizable: true,
+      width: 300,
+      minWidth: 150,
+      maxWidth: 500,
       render(row) {
         return h(
           'div',
@@ -145,20 +179,122 @@ const tableColumns = computed(() => {
             if (typeof item === 'string') {
               return h(NTag, {
                 size: 'small',
-              }, item)
+              }, () => item)
             } else {
               return h(ItemSpan, {
                 itemInfo: item
-              }, [])
+              }, () => [])
             }
           })
         )
       }
     },
+    {
+      title: '管理',
+      key: 'manage',
+      render(row) {
+        return h(
+          'div',
+          { class: 'flex-vac gap-4' },
+          [
+            h(
+              NButton,
+              {
+                strong: true,
+                tertiary: true,
+                size: 'small',
+                onClick: () => handleEditRow(row)
+              },
+              { default: () => t('编辑') }
+            ),
+            h(
+              NButton,
+              {
+                strong: true,
+                tertiary: true,
+                size: 'small',
+                onClick: () => handleDeleteRow(row)
+              },
+              { default: () => t('删除') }
+            ),
+          ]
+        )
+      }
+    }
   ]
   return columns
 })
 
+const handleEditRow = (row: CraftMacroRow) => {
+  const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)
+  if (index !== -1) {
+    // todo
+  } else {
+    NAIVE_UI_MESSAGE.error(t('未找到该宏'))
+  }
+}
+const handleDeleteRow = (row: CraftMacroRow) => {
+  const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)
+  if (index !== -1) {
+    workState.value.recordedCraftMacros.splice(index, 1)
+    NAIVE_UI_MESSAGE.success(t('已删除'))
+  } else {
+    NAIVE_UI_MESSAGE.error(t('未找到该宏'))
+  }
+}
+
+const handleRowEditComplete = (macroid: number, editedData: CraftMacroRow, customCpRequirement?: number) => {
+  const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === macroid)
+  if (index !== -1) {
+    const editedMacro = archiveMacroRow(editedData, customCpRequirement)
+    workState.value.recordedCraftMacros[index] = editedMacro
+    NAIVE_UI_MESSAGE.success(t('已保存'))
+  } else {
+    NAIVE_UI_MESSAGE.error(t('未找到该宏'))
+  }
+}
+
+const handleDebug = () => {
+  const itemIds = Object.keys(XivUnpackedItems)
+  const actionIds = Object.keys(XivCraftActions)
+
+  const records : RecordedCraftMacro[] = []
+  let id = 1
+  while (id < 499) {
+    const name = `测试宏 #${id}`
+
+    // 关联物品
+    const itemAmount = Math.floor(Math.random() * 5)
+    const relateItems: (number|string)[] = []
+    for (let i = 0; i < itemAmount; i++) {
+      const itemIdIndex = Math.floor(Math.random() * itemIds.length)
+      const itemId = itemIds[itemIdIndex]
+      relateItems.push(Number(itemId))
+    }
+
+    // 技能
+    const actionAmount = Math.floor(Math.random() * 30) + 1
+    const craftActions: number[] = []
+    for (let i = 0; i < actionAmount; i++) {
+      const actionIdIndex = Math.floor(Math.random() * actionIds.length)
+      const actionId = actionIds[actionIdIndex]
+      craftActions.push(Number(actionId))
+    }
+
+    records.push({
+      id: id++,
+      name,
+      remark: '',
+      relateItems,
+      tags: [],
+      requirements: {},
+      craftActions,
+    })
+  }
+
+  workState.value.recordedCraftMacros = records
+  alert('done!')
+}
 </script>
 
 <template>
@@ -166,7 +302,7 @@ const tableColumns = computed(() => {
     <FoldableCard card-key="macromanage-queryoptions">
       <template #header>
         <i class="xiv square-1"></i>
-        <span class="card-title-text">{{ t('筛选/管理') }}</span>
+        <span class="card-title-text">{{ t('筛选／设置') }}</span>
       </template>
       <div class="query-form">
         <div id="query-filter" class="form-item">
@@ -183,6 +319,12 @@ const tableColumns = computed(() => {
             </n-input>
           </n-input-group>
         </div>
+        <div class="form-item">
+          <div class="form-title">{{ t('调试') }}</div>
+          <n-button @click="handleDebug">
+            {{ t('点击此处') }}
+          </n-button>
+        </div>
       </div>
     </FoldableCard>
     <FoldableCard card-key="macromanage-table">
@@ -192,9 +334,12 @@ const tableColumns = computed(() => {
       </template>
       <div class="content-block">
         <n-data-table
+          bordered
           :columns="tableColumns"
           :data="tableData"
           :pagination="false"
+          :max-height="500"
+          :virtual-scroll="tableData.length > 200"
         />
       </div>
     </FoldableCard>
