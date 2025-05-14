@@ -234,6 +234,9 @@ const handleEditRow = (row: CraftMacroRow) => {
   }
 }
 const handleDeleteRow = (row: CraftMacroRow) => {
+  if (!window.confirm(t('确定要删除 {name} 吗?', row.name) + '\n' + t('此操作不可逆。'))){
+    return
+  }
   const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)
   if (index !== -1) {
     workState.value.recordedCraftMacros.splice(index, 1)
