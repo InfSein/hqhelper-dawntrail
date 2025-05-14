@@ -10,9 +10,10 @@ import {
 } from '@vicons/material'
 import FoldableCard from '@/components/templates/FoldableCard.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
+import ModalCraftMacroEdit from '@/components/modals/ModalCraftMacroEdit.vue'
 import { XivUnpackedItems, XivCraftActions, type XivCraftAction } from '@/assets/data'
 import { useStore } from '@/store'
-import { fixWorkState, type WorkState, type RecordedCraftMacro } from '@/models/macromanage'
+import { fixWorkState, type WorkState, type RecordedCraftMacro, getDefaultCraftMacro } from '@/models/macromanage'
 import type { UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
@@ -30,6 +31,9 @@ const {
 } = useMacroHelper(userConfig, funcConfig)
 
 const workState = ref<WorkState>(fixWorkState())
+const showModalCraftMacroEdit = ref(false)
+const macroEditTarget = ref(getDefaultCraftMacro(-1))
+const macroEditAction = ref<"add" | "edit">('add')
 
 const cachedWorkState = userConfig.value.macromanage_cache_work_state
 if (cachedWorkState && JSON.stringify(cachedWorkState).length > 2) {
@@ -257,6 +261,17 @@ const handleRowEditComplete = (macroid: number, editedData: CraftMacroRow, custo
   }
 }
 
+const getMacroId = () => {
+  let macroid = workState.value.recordIndex
+  while (workState.value.recordedCraftMacros.find(macro => macro.id === macroid)) {
+    macroid++
+  }
+  if (workState.value.recordIndex !== macroid) {
+    workState.value.recordIndex = macroid
+  }
+  return macroid
+}
+
 const handleDebug = () => {
   const itemIds = Object.keys(XivUnpackedItems)
   const actionIds = Object.keys(XivCraftActions)
@@ -298,6 +313,12 @@ const handleDebug = () => {
   workState.value.recordedCraftMacros = records
   alert('done!')
 }
+const handleAddMacro = () => {
+  const macroid = getMacroId()
+  macroEditTarget.value = getDefaultCraftMacro(macroid)
+  macroEditAction.value = 'add'
+  showModalCraftMacroEdit.value = true
+}
 </script>
 
 <template>
@@ -328,6 +349,12 @@ const handleDebug = () => {
             {{ t('点击此处') }}
           </n-button>
         </div>
+        <div class="form-item">
+          <div class="form-title">{{ t('添加') }}</div>
+          <n-button @click="handleAddMacro">
+            {{ t('点击此处') }}
+          </n-button>
+        </div>
       </div>
     </FoldableCard>
     <FoldableCard card-key="macromanage-table">
@@ -348,6 +375,12 @@ const handleDebug = () => {
     </FoldableCard>
     
     <n-back-top />
+
+    <ModalCraftMacroEdit
+      v-model:show="showModalCraftMacroEdit"
+      v-model:macro="macroEditTarget"
+      :action="macroEditAction"
+    />
   </div>
 </template>
 
