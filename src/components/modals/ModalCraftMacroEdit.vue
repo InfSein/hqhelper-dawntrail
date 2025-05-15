@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NButton, NDynamicTags, NIcon, NInput, NInputNumber, NInputGroup, NInputGroupLabel, NTable, NTabs, NTabPane,
+  NButton, NDynamicTags, NEmpty, NIcon, NInput, NInputNumber, NInputGroup, NInputGroupLabel, NTable, NTabs, NTabPane,
   useMessage
 } from 'naive-ui'
 import { 
@@ -29,6 +29,8 @@ const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+
+const modalId = 'modal-craft-macro-edit'
 
 const showModal = defineModel<boolean>('show', { required: true })
 const macro = defineModel<RecordedCraftMacro>('macro', { required: true })
@@ -99,6 +101,7 @@ const handleSave = async () => {
   // 进行校验
 
   // 处理一些属性
+  if (!formData.value.name) formData.value.name = t('{id}号宏', formData.value.id)
   if (!formData.value.requirements.craftsmanship) delete formData.value.requirements.craftsmanship
   if (!formData.value.requirements.control) delete formData.value.requirements.control
   if (!formData.value.requirements.cp) delete formData.value.requirements.cp
@@ -111,6 +114,7 @@ const handleSave = async () => {
 <template>
   <MyModal
     v-model:show="showModal"
+    :id="modalId"
     :icon="CodeSharp"
     :title="modalTitle"
     max-width="600px"
@@ -161,14 +165,16 @@ const handleSave = async () => {
                       <th>{{ t('加工精度') }}</th>
                       <th>
                         <div class="flex-center">
-                          <p class="bold">{{ t('制作力') }}</p>
-                          <HelpButton
-                            icon="info"
-                            :descriptions="[
-                              t('不填或填0时会根据宏内容自动计算。'),
-                              t('相应的，一旦填写就会覆盖掉自动计算的制作力消耗。'),
-                            ]"
-                          />
+                          <div class="bold">{{ t('制作力') }}</div>
+                          <div>
+                            <HelpButton
+                              icon="info"
+                              :descriptions="[
+                                t('不填或填0时会根据宏内容自动计算。'),
+                                t('相应的，一旦填写就会覆盖掉自动计算的制作力消耗。'),
+                              ]"
+                            />
+                          </div>
                         </div>
                       </th>
                     </tr>
@@ -214,15 +220,11 @@ const handleSave = async () => {
               <div class="form-input">
                 <n-input-group style="margin-top: 2px;">
                   <n-input-group-label style="width: 25%; text-align: center;">{{ t('从数据库中选择') }}</n-input-group-label>
-                  <ItemSelector
-                    @on-item-selected="handleAddRelateItem"
-                  />
+                  <ItemSelector :container-id="modalId" @on-item-selected="handleAddRelateItem"/>
                 </n-input-group>
                 <n-input-group>
                   <n-input-group-label style="width: 25%; text-align: center;">{{ t('自行输入物品名') }}</n-input-group-label>
-                  <n-input
-                    v-model:value="relateItemName"
-                  />
+                  <n-input v-model:value="relateItemName" />
                   <n-button type="primary" @click="handleAddRelateItemStr">
                     {{ t('添加') }}
                   </n-button>
@@ -261,8 +263,10 @@ const handleSave = async () => {
                             </n-input-group-label>
                             <n-button
                               v-if="typeof item.val === 'number'"
+                              class="flex-1"
+                              style="justify-content: flex-start;"
                             >
-                              <ItemSpan :item-info="getItemInfo(item.val)" />
+                              <ItemSpan :item-info="getItemInfo(item.val)" :container-id="modalId" />
                             </n-button>
                             <n-input
                               v-else
@@ -278,6 +282,13 @@ const handleSave = async () => {
                             </template>
                             {{ t('删除') }}
                           </n-button>
+                        </td>
+                      </tr>
+                      <tr v-if="!formRelateItems.length">
+                        <td colspan="2">
+                          <div class="flex-center">
+                            <n-empty :description="t('还未设置任何关联物品')" />
+                          </div>
                         </td>
                       </tr>
                     </tbody>
@@ -356,10 +367,10 @@ table {
   margin: 10px 0;
 
   th:first-child, td:first-child {
-    width: 60%;
+    width: 80%;
   }
   th:nth-child(2), td:nth-child(2) {
-    width: 15%;
+    width: 20%;
     text-align: center;
   }
 

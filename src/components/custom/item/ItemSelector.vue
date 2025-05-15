@@ -8,6 +8,10 @@ import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import { getItemInfo } from '@/tools/item'
 import { XivUnpackedItems } from '@/assets/data'
 
+interface ItemSelectorProps {
+  containerId?: string
+}
+const props = defineProps<ItemSelectorProps>()
 const emits = defineEmits(['onItemSelected'])
 
 const itemInputVal = ref<number | null>(null)
@@ -26,6 +30,7 @@ const renderItemLabel : SelectRenderLabel = (option) => {
   }
   return h(ItemSpan, {
     itemInfo: getItemInfo(option.value),
+    containerId: props.containerId,
   })
 }
 const filterItem = (pattern: string, option: SelectOption) => {
