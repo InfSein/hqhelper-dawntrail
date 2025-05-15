@@ -78,6 +78,7 @@ interface CraftMacroRow {
   },
   craftActions: XivCraftAction[],
 }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const archiveMacroRow = (row: CraftMacroRow, customCpRequirement?: number) : RecordedCraftMacro => {
   const { id, name, remark, relateItems, tags, requirements, craftActions } = row
   return {
@@ -100,32 +101,33 @@ const archiveMacroRow = (row: CraftMacroRow, customCpRequirement?: number) : Rec
     craftActions: craftActions.map(action => action.id),
   }
 }
-const tableData = computed(() => {
-  return workState.value.recordedCraftMacros.map(macro => {
-    const relateItems = macro.relateItems.map(item => {
-      if (typeof item === 'number') {
-        return getItemInfo(item)
-      } else {
-        return item
-      }
-    })
-    const craftActions = macro.craftActions.map(actionid => XivCraftActions[actionid])
-    const cpRequirement = calMacroCpCost(craftActions)
-
-    return {
-      id: macro.id,
-      name: macro.name,
-      remark: macro.remark,
-      relateItems: relateItems,
-      tags: macro.tags,
-      requirements: {
-        craftsmanship: macro.requirements?.craftsmanship,
-        control: macro.requirements?.control,
-        cp: macro.requirements?.cp ?? cpRequirement,
-      },
-      craftActions: craftActions,
-    } as CraftMacroRow
+const unarchiveMacroRow = (macro: RecordedCraftMacro) : CraftMacroRow => {
+  const relateItems = macro.relateItems.map(item => {
+    if (typeof item === 'number') {
+      return getItemInfo(item)
+    } else {
+      return item
+    }
   })
+  const craftActions = macro.craftActions.map(actionid => XivCraftActions[actionid])
+  const cpRequirement = calMacroCpCost(craftActions)
+
+  return {
+    id: macro.id,
+    name: macro.name,
+    remark: macro.remark,
+    relateItems: relateItems,
+    tags: macro.tags,
+    requirements: {
+      craftsmanship: macro.requirements?.craftsmanship,
+      control: macro.requirements?.control,
+      cp: macro.requirements?.cp ?? cpRequirement,
+    },
+    craftActions: craftActions,
+  }
+}
+const tableData = computed(() => {
+  return workState.value.recordedCraftMacros.map(macro => unarchiveMacroRow(macro))
 })
 const tableColumns = computed(() => {
   const columns: DataTableColumns<CraftMacroRow> = [
@@ -229,36 +231,14 @@ const tableColumns = computed(() => {
   return columns
 })
 
-const handleEditRow = (row: CraftMacroRow) => {
-  const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)
-  if (index !== -1) {
-    // todo
-  } else {
-    NAIVE_UI_MESSAGE.error(t('未找到该宏'))
-  }
-}
-const handleDeleteRow = (row: CraftMacroRow) => {
-  if (!window.confirm(t('确定要删除 {name} 吗?', row.name) + '\n' + t('此操作不可逆。'))){
-    return
-  }
-  const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)
-  if (index !== -1) {
-    workState.value.recordedCraftMacros.splice(index, 1)
-    NAIVE_UI_MESSAGE.success(t('已删除'))
-  } else {
-    NAIVE_UI_MESSAGE.error(t('未找到该宏'))
-  }
-}
-
-const handleRowEditComplete = (macroid: number, editedData: CraftMacroRow, customCpRequirement?: number) => {
-  const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === macroid)
-  if (index !== -1) {
-    const editedMacro = archiveMacroRow(editedData, customCpRequirement)
-    workState.value.recordedCraftMacros[index] = editedMacro
-    NAIVE_UI_MESSAGE.success(t('已保存'))
-  } else {
-    NAIVE_UI_MESSAGE.error(t('未找到该宏'))
-  }
+const handleReportDataMissing = (macro: RecordedCraftMacro | number) => {
+  NAIVE_UI_MESSAGE.error(t('数据丢失'))
+  console.error(
+    'edited macro not found! \nmacro:',
+    macro,
+    '\nrecordedCraftMacros:',
+    workState.value.recordedCraftMacros
+  )
 }
 
 const getMacroId = () => {
@@ -313,11 +293,53 @@ const handleDebug = () => {
   workState.value.recordedCraftMacros = records
   alert('done!')
 }
-const handleAddMacro = () => {
+
+const handleAddRow = () => {
   const macroid = getMacroId()
   macroEditTarget.value = getDefaultCraftMacro(macroid)
   macroEditAction.value = 'add'
   showModalCraftMacroEdit.value = true
+}
+const handleEditRow = (row: CraftMacroRow) => {
+  const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)
+  if (index !== -1) {
+    macroEditTarget.value = workState.value.recordedCraftMacros[index]
+    macroEditAction.value = 'edit'
+    showModalCraftMacroEdit.value = true
+  } else {
+    handleReportDataMissing(row.id)
+  }
+}
+const handleDeleteRow = (row: CraftMacroRow) => {
+  if (!window.confirm(t('确定要删除 {name} 吗?', row.name) + '\n' + t('此操作不可逆。'))){
+    return
+  }
+  const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)
+  if (index !== -1) {
+    workState.value.recordedCraftMacros.splice(index, 1)
+    NAIVE_UI_MESSAGE.success(t('已删除'))
+  } else {
+    handleReportDataMissing(row.id)
+  }
+}
+
+const handleMacroEditSubmit = (macro: RecordedCraftMacro) => {
+  const macroid = macro.id
+  if (macroEditAction.value === 'edit') {
+  const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === macroid)
+    if (index !== -1) {
+      workState.value.recordedCraftMacros[index] = macro
+      NAIVE_UI_MESSAGE.success(t('已保存更改'))
+    } else {
+      handleReportDataMissing(macro)
+    }
+  } else if (macroEditAction.value === 'add') {
+    workState.value.recordedCraftMacros.push(macro)
+    NAIVE_UI_MESSAGE.success(t('{dataname} 已保存', macro.name))
+  } else {
+    console.warn('unexpected action')
+  }
+  showModalCraftMacroEdit.value = false
 }
 </script>
 
@@ -351,7 +373,7 @@ const handleAddMacro = () => {
         </div>
         <div class="form-item">
           <div class="form-title">{{ t('添加') }}</div>
-          <n-button @click="handleAddMacro">
+          <n-button @click="handleAddRow">
             {{ t('点击此处') }}
           </n-button>
         </div>
@@ -380,6 +402,7 @@ const handleAddMacro = () => {
       v-model:show="showModalCraftMacroEdit"
       v-model:macro="macroEditTarget"
       :action="macroEditAction"
+      @on-submit="handleMacroEditSubmit"
     />
   </div>
 </template>

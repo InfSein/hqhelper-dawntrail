@@ -12,6 +12,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    .n-tag {
+      height: inherit;
+      font-size: 10px;
+      padding: 0 4px;
+    }
   }
   .macro-remark {
     font-size: 12px;
