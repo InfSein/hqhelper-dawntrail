@@ -95,7 +95,7 @@ const handleSave = () => {
             </tr>
           </thead>
           <tbody class="sort-target">
-            <tr v-for="(workflow, flowIndex) in formDataWorkflows" :key="flowIndex">
+            <tr v-for="(workflow, flowIndex) in formDataWorkflows" :key="workflow.tempId!">
               <td>
                 <n-input-group>
                   <n-input-group-label class="draggable-box" :title="t('拖动以排序')">
