@@ -27,6 +27,8 @@ const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 const { optionsRenderer } = useUiTools(isMobile)
 
+const modalId = 'modal-join-in-workflow'
+
 const showModal = defineModel<boolean>('show', { required: true })
 
 interface ModalAddToWorkflowProps {
@@ -126,6 +128,7 @@ const handleSubmit = () => {
 <template>
   <MyModal
     v-model:show="showModal"
+    :id="modalId"
     :icon="WaterDropOutlined"
     :title="t('加入工作流')"
     max-width="500px"
@@ -155,6 +158,7 @@ const handleSubmit = () => {
           v-model:items="itemsToAdd"
           :show-item-details="false"
           content-height="300px"
+          :container-id="modalId"
         />
       </GroupBox>
     </div>
