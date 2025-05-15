@@ -34,7 +34,12 @@ const showModal = defineModel<boolean>('show', { required: true })
 const macro = defineModel<RecordedCraftMacro>('macro', { required: true })
 
 const formData = ref<RecordedCraftMacro>(getDefaultCraftMacro(-1))
+const relateItemIndex = ref(0)
 const relateItemName = ref('')
+const formRelateItems = ref<{
+  id: number,
+  val: string | number,
+}[]>([])
 
 interface ModalCraftMacroEditProps {
   action: "add" | "edit";
@@ -47,7 +52,14 @@ const onLoad = () => {
   formData.value.requirements.craftsmanship ??= 0
   formData.value.requirements.control ??= 0
   formData.value.requirements.cp ??= 0
+  relateItemIndex.value = 0
   relateItemName.value = ''
+  formRelateItems.value = formData.value.relateItems.map(item => {
+    return {
+      id: relateItemIndex.value++,
+      val: item,
+    }
+  })
 }
 
 const modalTitle = computed(() => {
@@ -60,20 +72,26 @@ const remarkInputChecker = (value: string) => {
 
 const handleAddRelateItem = (itemid: number) => {
   if (!itemid) return
-  if (formData.value.relateItems.includes(itemid)) {
+  if (formRelateItems.value.map(item => item.val).includes(itemid)) {
     NAIVE_UI_MESSAGE.error(t('已有该物品')); return
   }
-  formData.value.relateItems.push(itemid)
+  formRelateItems.value.push({
+    id: relateItemIndex.value++,
+    val: itemid,
+  })
 }
 const handleAddRelateItemStr = () => {
   const itemname = relateItemName.value
   if (!itemname) {
     NAIVE_UI_MESSAGE.error(t('请输入物品名')); return
   }
-  if (formData.value.relateItems.includes(itemname)) {
+  if (formRelateItems.value.map(item => item.val).includes(itemname)) {
     NAIVE_UI_MESSAGE.error(t('已有该物品')); return
   }
-  formData.value.relateItems.push(itemname)
+  formRelateItems.value.push({
+    id: relateItemIndex.value++,
+    val: itemname,
+  })
   relateItemName.value = ''
 }
 
@@ -84,6 +102,7 @@ const handleSave = async () => {
   if (!formData.value.requirements.craftsmanship) delete formData.value.requirements.craftsmanship
   if (!formData.value.requirements.control) delete formData.value.requirements.control
   if (!formData.value.requirements.cp) delete formData.value.requirements.cp
+  formData.value.relateItems = formRelateItems.value.map(item => item.val)
 
   emits('onSubmit', formData.value)
 }
@@ -221,7 +240,7 @@ const handleSave = async () => {
               </div>
               <div class="form-input">
                 <VueDraggable
-                  v-model="formData.relateItems"
+                  v-model="formRelateItems"
                   target=".sort-target"
                   handle=".draggable-box"
                   :animation="150"
@@ -234,26 +253,26 @@ const handleSave = async () => {
                       </tr>
                     </thead>
                     <tbody class="sort-target">
-                      <tr v-for="(item, itemIndex) in formData.relateItems" :key="itemIndex">
+                      <tr v-for="(item, itemIndex) in formRelateItems" :key="item.id">
                         <td>
                           <n-input-group>
                             <n-input-group-label class="draggable-box" :title="t('拖动以排序')">
                               <n-icon :size="18"><ListFilled /></n-icon>
                             </n-input-group-label>
                             <n-button
-                              v-if="typeof item === 'number'"
+                              v-if="typeof item.val === 'number'"
                             >
-                              <ItemSpan :item-info="getItemInfo(item)" />
+                              <ItemSpan :item-info="getItemInfo(item.val)" />
                             </n-button>
                             <n-input
                               v-else
                               type="text"
-                              v-model:value="(formData.relateItems[itemIndex] as string)"
+                              v-model:value="item.val"
                             />
                           </n-input-group>
                         </td>
                         <td>
-                          <n-button ghost type="error" size="small" @click="() => formData.relateItems.splice(itemIndex, 1)">
+                          <n-button ghost type="error" size="small" @click="() => formRelateItems.splice(itemIndex, 1)">
                             <template #icon>
                               <n-icon><DeleteFilled /></n-icon>
                             </template>
