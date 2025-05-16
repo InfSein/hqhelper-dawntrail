@@ -11,6 +11,7 @@ import {
   QueryStatsFilled,
   TableViewOutlined,
   AllInclusiveSharp,
+  VisibilitySharp, VisibilityOffSharp,
   UnfoldMoreSharp, UnfoldLessSharp,
 } from '@vicons/material'
 import FoldableCard from '@/components/templates/FoldableCard.vue'
@@ -510,9 +511,21 @@ const handleAnalysisItemPrices = async () => {
                 :item-groups="recommProcessGroups"
                 :content-max-height="pageHeightVals.recommProcess"
                 content-max-width="1080px"
+                :hide-chs-offline-items="currentWorkflow.recommData.hideChsOfflineItems"
               />
 
               <n-float-button-group v-if="!isMobile" right="20px" bottom="5px">
+                <n-tooltip v-if="recommProcessGroups.length && itemServer === 'chs'" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
+                  <template #trigger>
+                    <n-float-button @click="currentWorkflow.recommData.hideChsOfflineItems = !currentWorkflow.recommData.hideChsOfflineItems">
+                      <n-icon>
+                        <VisibilitySharp v-if="currentWorkflow.recommData.hideChsOfflineItems" />
+                        <VisibilityOffSharp v-else />
+                      </n-icon>
+                    </n-float-button>
+                  </template>
+                  {{ currentWorkflow.recommData.hideChsOfflineItems ? t('显示国服未实装物品') : t('隐藏国服未实装物品') }}
+                </n-tooltip>
                 <n-tooltip v-if="recommProcessGroups.length" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
                   <template #trigger>
                     <n-float-button @click="handleCollapseOrUncollapseAllRecommGroupBlocks">
