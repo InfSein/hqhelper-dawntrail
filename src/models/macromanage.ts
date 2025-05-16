@@ -3,6 +3,11 @@ import {
   deepCopy
 } from '@/tools'
 
+export const _VAR_TAG_MAXLEN = 5
+export const _VAR_REMARK_MAXLINE = 3
+export const _VAR_RELATEITEM_MAXLEN = 99
+export const _VAR_TABLESHOW_RELATEITEM_MAXLEN = 3
+
 export interface RecordedCraftMacro {
   id: number,
   name: string,

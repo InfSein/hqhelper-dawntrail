@@ -16,6 +16,7 @@ import {
   AccessAlarmsOutlined,
   FastfoodOutlined,
   WavesOutlined,
+  CodeOutlined,
   HomeOutlined,
   HelpOutlineOutlined,
   MenuFilled,
@@ -135,6 +136,9 @@ const redirectToFoodAndTincPage = () => {
 const redirectToWorkflowPage = () => {
   router.push('/workflow')
 }
+const redirectToMacromanagePage = () => {
+  router.push('/macromanage')
+}
 const redirectToGatherClockPage = () => {
   router.push('/gatherclock')
 }
@@ -218,6 +222,7 @@ const desktopMenus = computed(() => {
   const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
   const hideGatherClock = router.currentRoute.value.path.startsWith('/gatherclock')
   const hideWorkflow = router.currentRoute.value.path.startsWith('/workflow')
+  const hideMacromanage = router.currentRoute.value.path.startsWith('/macromanage')
   const hideDownload = router.currentRoute.value.path.startsWith('/download')
   const changeThemeIcon = theme.value === 'light' ? DarkModeTwotone : LightModeTwotone
   const changeThemeTooltip = theme.value === 'light' ? t('为这个世界带回黑暗。') : t('静待黎明天光来。')
@@ -226,6 +231,7 @@ const desktopMenus = computed(() => {
   const gatherClockTooltip = hideGatherClock ? t('您已经处于采集时钟页面。') : t('挖穿艾欧泽亚的好帮手！')
   const gatherClockSWTooltip = t('在新窗口中打开采集时钟。')
   const workflowTooltip = hideWorkflow ? t('您已经处于工作流页面。') : t('众生如归流。')
+  const macromanageTooltip = hideMacromanage ? t('您已经处于宏管理页面。') : t('管理东方菜肴的食材还是第一次，请多指教。')
   const downloadClientTooltip = hideDownload ? t('您已经处于下载客户端页面。') : t('目前客户满足度达到124%。')
   const userPreferenceTooltip = t('以人的意志改变机械的程序。')
   // const funcPreferenceTooltip = t('还好我把魔法人偶的战斗力设置成了最强级别。')
@@ -297,6 +303,7 @@ const desktopMenus = computed(() => {
         { key: 'tool-gatherclock', label: t('采集时钟'), disabled: hideGatherClock, icon: renderIcon(AccessAlarmsOutlined), description: gatherClockTooltip, click: redirectToGatherClockPage },
         { key: 'tool-fthelper', label: t('食药计算'), disabled: hideFTHelper, icon: renderIcon(FastfoodOutlined), description: ftHelperTooltip, click: redirectToFoodAndTincPage },
         { key: 'tool-workflow', label: t('工作流'), disabled: hideWorkflow, icon: renderIcon(WavesOutlined), description: workflowTooltip, click: redirectToWorkflowPage },
+        { key: 'tool-macromanage', label: t('宏管理'), disabled: hideMacromanage, icon: renderIcon(CodeOutlined), description: macromanageTooltip, click: redirectToMacromanagePage },
         { key: 'tool-divider-1', hide: !canUseSubwindow.value, type: 'divider' },
         { key: 'tool-gatherclock-subwindow', hide: !canUseSubwindow.value, label: t('采集时钟(新窗口)'), icon: renderIcon(AccessAlarmsOutlined), description: gatherClockSWTooltip, click: openSubwindowOfGatherClock },
         { key: 'tool-fthelper-subwindow', hide: !canUseSubwindow.value, label: t('食药计算(新窗口)'), icon: renderIcon(FastfoodOutlined), description: ftHelperSWTooltip, click: openSubwindowOfFtHelper },

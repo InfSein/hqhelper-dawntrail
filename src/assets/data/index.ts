@@ -147,6 +147,16 @@ export const XivAttributes = JsonXivAttributes as Record<number, {
   name_fr: string
 }>
 
+import JsonXivCraftActionGroups from './xiv-craft-action-groups.json'
+export type XivCraftActionGroupKey = "firstStep" | "synth" | "touch" | "durability" | "buff" | "other"
+export interface XivCraftActionGroup {
+  name_zh: string
+  name_ja: string
+  name_en: string
+  actions: number[]
+}
+export const XivCraftActionGroups = JsonXivCraftActionGroups as Record<XivCraftActionGroupKey, XivCraftActionGroup>
+
 import JsonXivCraftActions from './xiv-craft-actions.json'
 export interface XivCraftAction {
   id: number

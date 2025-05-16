@@ -38,6 +38,22 @@ export const decompressString = (input: string): string => {
   return LzString.decompressFromBase64(input)
 }
 
+/** 检查数组中的重复元素 */
+export const findDuplicatesFromArray = <T>(arr : T[]): T[] => {
+  const countMap = new Map<T, number>()
+  const duplicates = new Set<T>()
+
+  for (const item of arr) {
+    const count = countMap.get(item) || 0
+    countMap.set(item, count + 1)
+    if (count + 1 === 2) {
+      duplicates.add(item)
+    }
+  }
+
+  return Array.from(duplicates)
+}
+
 export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 export const checkAppUpdates = async () : Promise<CallResult<AppVersionJson>> => {

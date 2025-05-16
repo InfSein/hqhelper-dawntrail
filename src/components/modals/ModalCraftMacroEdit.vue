@@ -11,24 +11,36 @@ import {
   SaveOutlined,
 } from '@vicons/material'
 import { VueDraggable } from 'vue-draggable-plus'
-import MyModal from '../templates/MyModal.vue'
-import HelpButton from '../custom/general/HelpButton.vue'
+import MyModal from '@/components/templates/MyModal.vue'
+import HelpButton from '@/components/custom/general/HelpButton.vue'
 import ItemSelector from '@/components/custom/item/ItemSelector.vue'
-import ItemSpan from '../custom/item/ItemSpan.vue'
-import MacroViewer from '../custom/macro/MacroViewer.vue'
+import ItemSpan from '@/components/custom/item/ItemSpan.vue'
+import CraftMacroEditor from '@/components/custom/macro/CraftMacroEditor.vue'
+import MacroViewer from '@/components/custom/macro/MacroViewer.vue'
 import TooltipButton from '@/components/custom/general/TooltipButton.vue'
 import { useStore } from '@/store'
-import { getDefaultCraftMacro, type RecordedCraftMacro } from '@/models/macromanage'
+import {
+  _VAR_TAG_MAXLEN, _VAR_REMARK_MAXLINE,
+  _VAR_RELATEITEM_MAXLEN, _VAR_TABLESHOW_RELATEITEM_MAXLEN,
+  getDefaultCraftMacro,
+  type RecordedCraftMacro,
+} from '@/models/macromanage'
+import { type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
-import { deepCopy } from '@/tools'
+import { deepCopy, findDuplicatesFromArray } from '@/tools'
 import { getItemInfo } from '@/tools/item'
-
-const store = useStore()
-const NAIVE_UI_MESSAGE = useMessage()
+import UseConfig from '@/tools/use-config'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+
+const store = useStore()
+const NAIVE_UI_MESSAGE = useMessage()
+const {
+  itemLanguage,
+} = UseConfig(userConfig, funcConfig)
 
 const modalId = 'modal-craft-macro-edit'
 
@@ -41,6 +53,11 @@ const relateItemName = ref('')
 const formRelateItems = ref<{
   id: number,
   val: string | number,
+}[]>([])
+const craftActionIndex = ref(0)
+const formCraftActions = ref<{
+  id: number,
+  val: number,
 }[]>([])
 
 interface ModalCraftMacroEditProps {
@@ -62,6 +79,13 @@ const onLoad = () => {
       val: item,
     }
   })
+  craftActionIndex.value = 0
+  formCraftActions.value = formData.value.craftActions.map(action => {
+    return {
+      id: craftActionIndex.value++,
+      val: action,
+    }
+  })
 }
 
 const modalTitle = computed(() => {
@@ -69,11 +93,14 @@ const modalTitle = computed(() => {
 })
 
 const remarkInputChecker = (value: string) => {
-  return value.split('\n').length <= 3
+  return value.split('\n').length <= _VAR_REMARK_MAXLINE
 }
 
 const handleAddRelateItem = (itemid: number) => {
   if (!itemid) return
+  if (formRelateItems.value.length >= _VAR_RELATEITEM_MAXLEN) {
+    NAIVE_UI_MESSAGE.error(t('关联物品数量达到上限')); return
+  }
   if (formRelateItems.value.map(item => item.val).includes(itemid)) {
     NAIVE_UI_MESSAGE.error(t('已有该物品')); return
   }
@@ -84,6 +111,9 @@ const handleAddRelateItem = (itemid: number) => {
 }
 const handleAddRelateItemStr = () => {
   const itemname = relateItemName.value
+  if (formRelateItems.value.length >= _VAR_RELATEITEM_MAXLEN) {
+    NAIVE_UI_MESSAGE.error(t('关联物品数量达到上限')); return
+  }
   if (!itemname) {
     NAIVE_UI_MESSAGE.error(t('请输入物品名')); return
   }
@@ -99,13 +129,30 @@ const handleAddRelateItemStr = () => {
 
 const handleSave = async () => {
   // 进行校验
+  let relateItems = formRelateItems.value.map(item => item.val)
+  const duplicateInRelateItems = findDuplicatesFromArray(relateItems)
+  if (duplicateInRelateItems.length) {
+    const diList = duplicateInRelateItems.map(itemval => {
+      if (typeof itemval === 'number') {
+        return getItemInfo(itemval)[`name_${itemLanguage.value}`]
+      } else {
+        return itemval
+      }
+    }).join(', ')
+    if (!window.confirm(
+      t('关联物品中的以下物品重复，将被自动去重：')
+      + '\n' + diList
+      + '\n' + t('要继续吗?')
+    )) return
+    relateItems = Array.from(new Set(relateItems))
+  }
 
   // 处理一些属性
   if (!formData.value.name) formData.value.name = t('{id}号宏', formData.value.id)
   if (!formData.value.requirements.craftsmanship) delete formData.value.requirements.craftsmanship
   if (!formData.value.requirements.control) delete formData.value.requirements.control
   if (!formData.value.requirements.cp) delete formData.value.requirements.cp
-  formData.value.relateItems = formRelateItems.value.map(item => item.val)
+  formData.value.relateItems = relateItems
 
   emits('onSubmit', formData.value)
 }
@@ -139,7 +186,7 @@ const handleSave = async () => {
             <div class="form-block">
               <div class="form-title">{{ t('标签') }}</div>
               <div class="form-input">
-                <n-dynamic-tags v-model:value="formData.tags" :max="5" />
+                <n-dynamic-tags v-model:value="formData.tags" :max="_VAR_TAG_MAXLEN" />
               </div>
             </div>
             <div class="form-block">
@@ -151,7 +198,7 @@ const handleSave = async () => {
                   maxlength="50"
                   show-count
                   :allow-input="remarkInputChecker"
-                  :placeholder="t('最多{limit}行', 3)"
+                  :placeholder="t('最多{limit}行', _VAR_REMARK_MAXLINE)"
                 />
               </div>
             </div>
@@ -234,10 +281,8 @@ const handleSave = async () => {
             <div class="form-block">
               <div class="form-title">{{ t('已有物品') }}</div>
               <div class="form-tip">
-                <p>{{ t('在下方表格查看已有的关联物品，还可以进行排序、重命名、删除等管理操作。') }}</p>
-                <p>{{ t('只有自行输入的物品可以重命名。') }}</p>
-                <p>{{ t('可以最多添加{limit_1}个关联物品，不过由于空间限制，宏管理页面的表格只会展示前{limit_2}个。', {
-                  limit_1: 99, limit_2: 3
+                <p>{{ t('关联物品可以设置最多{limit_1}个，不过宏管理页面的表格只会展示前{limit_2}个。', {
+                  limit_1: _VAR_RELATEITEM_MAXLEN, limit_2: _VAR_TABLESHOW_RELATEITEM_MAXLEN
                 }) }}</p>
               </div>
               <div class="form-input">
@@ -299,6 +344,10 @@ const handleSave = async () => {
           </div>
         </n-tab-pane>
         <n-tab-pane name="craftActions" :tab="t('宏内容')">
+          <CraftMacroEditor
+            v-model:craft-actions="formCraftActions"
+            v-model:craft-action-index="craftActionIndex"
+          />
         </n-tab-pane>
       </n-tabs>
     </div>

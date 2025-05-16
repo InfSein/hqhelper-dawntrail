@@ -384,7 +384,7 @@
     "icon": 1950
   },
   "100475": {
-    "id": 10075,
+    "id": 100475,
     "key": "trainedPerfection",
     "name_zh": "工匠的绝技",
     "name_ja": "匠の絶技",
@@ -428,7 +428,7 @@
     "icon": 1993
   },
   "4574": {
-    "id": 4674,
+    "id": 4574,
     "key": "manipulation",
     "name_zh": "掌握",
     "name_ja": "マニピュレーション",

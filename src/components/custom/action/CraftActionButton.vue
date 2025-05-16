@@ -19,8 +19,8 @@ interface CraftActionButtonProps {
 const props = defineProps<CraftActionButtonProps>()
 const emits = defineEmits(['click'])
 
-const btnSize = computed(() => props.btnSize ?? 32)
-const imgSize = computed(() => btnSize.value - 2)
+const btnSize = computed(() => props.btnSize ?? 42)
+const imgSize = computed(() => btnSize.value - 6)
 const imgUrl = computed(() => getImgCdnUrl(props.craftAction.icon))
 const popTrigger = computed(() => props.popTrigger ?? (isMobile.value ? 'manual' : 'hover'))
 
@@ -51,6 +51,8 @@ const handleButtonClick = () => {
       </n-button>
     </template>
     <div class="tips">
+      {{ craftAction.id }}
+      {{ craftAction.name_zh }}
     </div>
   </n-popover>
 </template>
