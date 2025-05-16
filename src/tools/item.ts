@@ -87,6 +87,8 @@ export interface ItemInfo {
   hqable: boolean
   /** 可否交易 */
   tradable: boolean
+  /** 是否还未在国服实装 */
+  chsOffline?: boolean
   /** 是否使用了中文暂译 */
   usedZHTemp?: boolean
   /**
@@ -252,6 +254,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     } else if (itemInfo.name_ja) {
       console.log('[开发提示] 此物品需要填写中文暂译:', itemInfo)
     }
+    itemInfo.chsOffline = true
   }
   if (!itemInfo.descZH) {
     const tempZhMap = XivTranslatedItemDescriptions

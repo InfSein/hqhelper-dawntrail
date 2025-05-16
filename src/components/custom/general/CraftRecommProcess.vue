@@ -51,7 +51,7 @@ const itemGroups = computed(() => {
   if (props.hideChsOfflineItems) {
     const _itemGroups = deepCopy(props.itemGroups)
     _itemGroups.forEach(itemGroup => {
-      itemGroup.items = itemGroup.items.filter(item => !item.usedZHTemp)
+      itemGroup.items = itemGroup.items.filter(item => !item.chsOffline)
     })
     return _itemGroups
   } else {
