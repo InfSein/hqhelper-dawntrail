@@ -18,6 +18,7 @@ interface ItemStatementTableProps {
   showItemDetails: boolean,
   containerId?: string
   contentHeight?: string
+  itemSpanMaxWidth?: string
 }
 const props = defineProps<ItemStatementTableProps>()
 
@@ -99,6 +100,7 @@ const handleNumInputLoop = (row: StatementRow) => {
                 :item-info="item.info"
                 :amount="item.amount.remain"
                 :show-item-details="showItemDetails"
+                :item-span-max-width="itemSpanMaxWidth"
                 :container-id="containerId"
               />
             </td>
@@ -134,6 +136,7 @@ const handleNumInputLoop = (row: StatementRow) => {
                 :item-info="item.info"
                 :amount="item.amount.remain"
                 :show-item-details="showItemDetails"
+                :item-span-max-width="itemSpanMaxWidth"
                 :container-id="containerId"
               />
             </td>

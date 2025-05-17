@@ -86,6 +86,7 @@ const preferenceAppShowUP = ref(false)
 const preferenceAppShowFP = ref(false)
 
 const headerBlock = ref<HTMLElement>()
+const proStatementInstace = ref<InstanceType<typeof CraftStatementsPro>>()
 const windowHeight = ref(window.innerHeight)
 const headerHeight = ref(0)
 const updateHeights = () => {
@@ -201,6 +202,11 @@ const handleSelectCardFoldStatusChanged = (folded: boolean) => {
   } else {
     selectCardWidth.value = '450px'
   }
+  setTimeout(() => {
+    if (proStatementInstace?.value?.updateSize) {
+      proStatementInstace.value.updateSize()
+    }
+  }, 10)
 }
 // #endregion
 
@@ -488,6 +494,7 @@ const handleAnalysisItemPrices = async () => {
               />
               <CraftStatementsPro
                 v-else
+                ref="proStatementInstace"
                 v-model:items-prepared="currentWorkflow.preparedItems"
                 :craft-targets="craftTargetsArray"
                 :statement-blocks="proStatementData.statementBlocks"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
+import { computed, inject, onBeforeUnmount, onMounted, ref, type Ref } from 'vue'
 import {
   NTabs, NTabPane
 } from 'naive-ui'
@@ -23,6 +23,9 @@ const itemsPrepared = defineModel<{
   materialsLvBase: Record<number, number>;
 }>('itemsPrepared', { required: true })
 
+const itemSpanMaxWidth = ref('inherit')
+const cspWrapper = ref<HTMLElement>()
+
 interface CraftStatementsProProps {
   /** 是否处于模态框内。此参数会影响一些UI效果。 */
   insideModal?: boolean,
@@ -33,11 +36,31 @@ interface CraftStatementsProProps {
 }
 const props = defineProps<CraftStatementsProProps>()
 
+const updateSize = () => {
+  if (cspWrapper.value?.offsetWidth) {
+    const eachBlockWidth = (cspWrapper.value.offsetWidth - 20) / 3
+    itemSpanMaxWidth.value = ((eachBlockWidth - 16) * 0.4 - 48) + 'px'
+  } else {
+    itemSpanMaxWidth.value = 'inherit'
+  }
+}
+onMounted(() => {
+  updateSize()
+  window.addEventListener('resize', updateSize)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateSize)
+})
+
 const showItemDetails = computed(() => {
   return !funcConfig.value.prostate_concise_mode
 })
 const groupBoxTitleBackground = computed(() => {
   return props.insideModal ? 'var(--n-color-modal)' : 'var(--n-color-embedded)'
+})
+
+defineExpose({
+  updateSize
 })
 </script>
 
@@ -60,7 +83,7 @@ const groupBoxTitleBackground = computed(() => {
       </div>
     </n-tab-pane>
   </n-tabs>
-  <div v-else class="csp-wrapper desktop" :style="`grid-template-columns: repeat(${statementBlocks.length}, minmax(0, 1fr));`">
+  <div v-else ref="cspWrapper" class="csp-wrapper desktop" :style="`grid-template-columns: repeat(${statementBlocks.length}, minmax(0, 1fr));`">
     <GroupBox
       v-for="block in statementBlocks"
       :key="block.id"
@@ -76,6 +99,7 @@ const groupBoxTitleBackground = computed(() => {
           :show-item-details="showItemDetails"
           :container-id="containerId"
           :content-height="contentHeight"
+          :item-span-max-width="itemSpanMaxWidth"
         />
       </div>
     </GroupBox>
