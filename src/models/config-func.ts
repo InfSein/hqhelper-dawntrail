@@ -31,6 +31,8 @@ export interface FuncConfigModel {
   // * 制作报表
   /** 使用旧版本制作报表 */
   use_traditional_statement: boolean
+  /** 制作报表不统计碎晶/水晶/晶簇 */
+  statement_ignore_crystals: boolean
   /** 专业版制作报表：使用简洁模式展示物品 */
   prostate_concise_mode: boolean
 
@@ -80,6 +82,7 @@ const defaultFuncConfig: FuncConfigModel = {
   cmacro_end_tipper_content: '',
   // * 制作报表
   use_traditional_statement: false,
+  statement_ignore_crystals: false,
   prostate_concise_mode: false,
   // * 推荐流程
   processes_show_item_details: false,

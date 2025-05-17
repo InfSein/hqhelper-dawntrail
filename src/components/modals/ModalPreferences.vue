@@ -482,6 +482,11 @@ const preferenceGroups : PreferenceGroup[] = [
             require_reload: true
           },
           {
+            key: 'statement_ignore_crystals',
+            label: t('制作报表不统计水晶'),
+            type: 'switch'
+          },
+          {
             key: 'prostate_concise_mode',
             label: t('使用简洁模式展示物品'),
             descriptions: dealDescriptions([
