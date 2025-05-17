@@ -95,7 +95,7 @@ const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
           />
           <span>{{ getJobName(XivJobs[18]) }}</span>
         </div>
-        <div v-if="itemInfo.uiTypeId === 59">{{ t('水晶') }}</div>
+        <div v-if="itemInfo.isCrystal">{{ t('水晶') }}</div>
       </div>
     </div>
   </div>
