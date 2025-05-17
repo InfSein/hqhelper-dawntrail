@@ -9,7 +9,8 @@ import {
 import GroupBox from '@/components/templates/GroupBox.vue'
 import ItemStatementTable from '@/components/custom/item/ItemStatementTable.vue'
 import { type FuncConfigModel } from '@/models/config-func'
-import type { ItemInfo, ProStatementBlock } from '@/tools/item'
+import type { ItemInfo } from '@/tools/item'
+import type { ProStatementBlock } from '@/tools/use-fufu-cal'
 
 // const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)

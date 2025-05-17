@@ -24,7 +24,7 @@ const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 // const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const NAIVE_UI_MESSAGE = useMessage()
-const { calRecommProcessGroups } = useFufuCal()
+const { calRecommProcessGroups } = useFufuCal(userConfig, funcConfig, t)
 const {
   itemLanguage, itemServer,
 } = UseConfig(userConfig, funcConfig)

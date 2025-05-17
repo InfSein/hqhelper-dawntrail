@@ -28,7 +28,7 @@ import {
 } from '@/models/workflow'
 import type { UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
-import { calCostAndBenefit, getItemInfo, getItemPriceInfo, getProStatementData, getStatementData, type ItemInfo } from '@/tools/item'
+import { calCostAndBenefit, getItemInfo, getItemPriceInfo, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { useFufuCal } from '@/tools/use-fufu-cal'
 import UseConfig from '@/tools/use-config'
@@ -45,7 +45,7 @@ const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 const { calItems } = useNbbCal()
-const { calRecommProcessData, calRecommProcessGroups } = useFufuCal()
+const { getStatementData, getProStatementData, calRecommProcessData, calRecommProcessGroups } = useFufuCal(userConfig, funcConfig, t)
 const {
   itemServer,
 } = UseConfig(userConfig, funcConfig)
@@ -226,7 +226,7 @@ const statementData = computed(() => {
   return getStatementData(statistics.value)
 })
 const proStatementData = computed(() => {
-  return getProStatementData(craftTargetsArray.value, currentWorkflow.value.preparedItems, t)
+  return getProStatementData(craftTargetsArray.value, currentWorkflow.value.preparedItems)
 })
 const recommProcessData = computed(() => {
   return calRecommProcessData(proStatementData.value.targetItemsForCal, proStatementData.value.lv1ItemsForCal, proStatementData.value.baseItemsForCal)

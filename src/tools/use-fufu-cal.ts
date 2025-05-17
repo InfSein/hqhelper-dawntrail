@@ -1,12 +1,185 @@
+import type { Ref } from 'vue'
 import { XivJobs } from '@/assets/data'
+import type { RecommItemGroup } from '@/models/item'
+import type { UserConfigModel } from "@/models/config-user"
+import type { FuncConfigModel } from "@/models/config-func"
+import { deepCopy } from '.'
 import { getItemInfo, type ItemInfo } from "./item"
 import { useNbbCal } from "./use-nbb-cal"
-import type { RecommItemGroup } from '@/models/item'
 
-export function useFufuCal() {
+export interface StatementData {
+  craftTargets: ItemInfo[];
+  materialsLv1: ItemInfo[];
+  materialsLv2: ItemInfo[];
+  materialsLv3: ItemInfo[];
+  materialsLv4: ItemInfo[];
+  materialsLv5: ItemInfo[];
+  materialsLvBase: ItemInfo[];
+}
+export type ProStatementPreparedKey = "craftTarget" | "materialsLv1" | "materialsLvBase"
+export interface ProStatementBlock {
+  id: string;
+  name: string;
+  items: Record<number, number>;
+  preparedKey: ProStatementPreparedKey;
+}
+
+export function useFufuCal(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  userConfig: Ref<UserConfigModel>,
+  funcConfig: Ref<FuncConfigModel>,
+  t: (text: string, ...args: any[]) => string,
+) {
   const calItems = (selections: Record<number, number>) => {
     const { calItems } = useNbbCal()
     return calItems(selections)
+  }
+  
+  const getStatementData = (statistics: any) : StatementData => {
+    const craftTargets : ItemInfo[] = []
+    const materialsLv1 : ItemInfo[] = []
+    const materialsLv2 : ItemInfo[] = []
+    const materialsLv3 : ItemInfo[] = []
+    const materialsLv4 : ItemInfo[] = []
+    const materialsLv5 : ItemInfo[] = []
+    const materialsLvBase : ItemInfo[] = []
+    
+    processStatistics(statistics.ls, craftTargets)
+    processStatistics(statistics.lv1, materialsLv1)
+    processStatistics(statistics.lv2, materialsLv2)
+    processStatistics(statistics.lv3, materialsLv3)
+    processStatistics(statistics.lv4, materialsLv4)
+    processStatistics(statistics.lv5, materialsLv5)
+    processStatistics(statistics.lvBase, materialsLvBase)
+
+    return { craftTargets, materialsLv1, materialsLv2, materialsLv3, materialsLv4, materialsLv5, materialsLvBase }
+
+    function processStatistics(_in: any, out: any[]) {
+      const ignoreCrystal = funcConfig.value.statement_ignore_crystals
+      for (const id in _in) {
+        const item = getItemInfo(_in[id])
+        if (ignoreCrystal && item.isCrystal) continue
+        out.push(item)
+      }
+    }
+  }
+
+  const getProStatementData = (
+    craftTargets: ItemInfo[],
+    itemsPrepared: {
+      craftTarget: Record<number, number>;
+      materialsLv1: Record<number, number>;
+      materialsLvBase: Record<number, number>;
+    },
+  ) => {
+    const { getRecipeMap, calItems } = useNbbCal()
+    const recipeMap = getRecipeMap()
+
+    // 这里啥比了，现在要加一个过滤掉水晶的功能
+    // 但是拿到的全是item_id而非ItemInfo，导致很难办
+    // 这次先写死了来实现，后续还有要加的就tm重写
+    const isCrystal = (itemid : number) => itemid >= 2 && itemid <= 19
+
+    // 根据已准备物品计算的实际要显示的物品清单
+    // xxxItems是显示的清单，xxxItemsForCal是用于计算的实际清单(减去已准备的数量)
+    // 计算顺序：成品->直接素材->基础素材
+    // 成品清单永远不变
+    // 修改成品清单的已准备数量，会影响到制作素材：直接和制作素材：基础
+    // 修改制作素材：直接，会影响到制作素材：基础
+
+    const targetItems : Record<number, number> = {}
+    Object.values(craftTargets).forEach(item => {
+      targetItems[item.id] = item.amount
+    })
+
+    const targetItemsForCal : Record<number, number> = {}
+    Object.values(craftTargets).forEach(item => {
+      targetItemsForCal[item.id] = item.amount
+    })
+    Object.keys(itemsPrepared.craftTarget).forEach(itemID => {
+      const id = Number(itemID)
+      targetItemsForCal[id] -= itemsPrepared.craftTarget[id]
+    })
+
+    const lv1Items : Record<number, number> = {}
+    const statisticsForLv1 = calItems(targetItemsForCal)
+    Object.values(statisticsForLv1.lv1).forEach((calResult : any) => {
+      const itemID : number = calResult.id
+      const amount : number = calResult.need
+      if (funcConfig.value.statement_ignore_crystals && isCrystal(itemID)) return
+      lv1Items[itemID] = amount
+    })
+
+    const lv1ItemsForCal = deepCopy(lv1Items)
+    Object.keys(itemsPrepared.materialsLv1).forEach(itemID => {
+      const id = Number(itemID)
+      if (!lv1ItemsForCal[id]) return
+      lv1ItemsForCal[id] -= itemsPrepared.materialsLv1[id]
+    })
+
+    const baseItems : Record<number, number> = {}
+    const statistics = calItems(lv1ItemsForCal)
+    Object.values(statistics.lvBase).forEach((calResult : any) => {
+      const itemID : number = calResult.id
+      const amount : number = calResult.need
+      if (funcConfig.value.statement_ignore_crystals && isCrystal(itemID)) return
+      baseItems[itemID] = amount
+    })
+    // nbb计算模型目前会忽略掉制作目标(这里的话是直接素材列表)中没有配方的道具，这里对它们进行特殊处理
+    Object.keys(lv1ItemsForCal).forEach(itemID => {
+      const id = Number(itemID)
+      if (!recipeMap[id]) {
+        baseItems[id] ??= 0
+        baseItems[id] += lv1ItemsForCal[id]
+      }
+    })
+
+    const baseItemsForCal = deepCopy(baseItems)
+    Object.keys(itemsPrepared.materialsLvBase).forEach(itemID => {
+      const id = Number(itemID)
+      if (!baseItemsForCal[id]) return
+      baseItemsForCal[id] -= itemsPrepared.materialsLvBase[id]
+    })
+
+    const statementBlocks : ProStatementBlock[] = [
+      {
+        id: 'craft-target',
+        name: t('成品清单'),
+        items: targetItems,
+        preparedKey: 'craftTarget'
+      },
+      {
+        id: 'material-lv1',
+        name: t('制作素材：直接'),
+        items: lv1Items,
+        preparedKey: 'materialsLv1'
+      },
+      /*
+      {
+        id: 'material-lv2',
+        name: t('制作素材：二级'),
+        items: props.materialsLv2
+      },
+      {
+        id: 'material-lv3',
+        name: t('制作素材：三级'),
+        items: props.materialsLv3
+      },
+      */
+      {
+        id: 'material-lvBase',
+        name: t('制作素材：基础'),
+        items: baseItems,
+        preparedKey: 'materialsLvBase'
+      },
+    ]
+
+    return {
+      targetItems, targetItemsForCal,
+      lv1Items, lv1ItemsForCal,
+      baseItems, baseItemsForCal,
+      statementBlocks
+    }
   }
 
   const calRecommProcessData = (
@@ -94,7 +267,7 @@ export function useFufuCal() {
         // 部分道具同时具备可采集/精选和可兑换的属性，需要注意区分
         itemsTradable.push(item)
       } else {
-        if (item.uiTypeId !== 59) {
+        if (item.isCrystal) {
           // 忽略水晶
           itemsOtherCollectable.push(item)
         }
@@ -265,6 +438,12 @@ export function useFufuCal() {
 
   return {
     calItems,
+    /**
+     * 获取 `查看报表` 需要的数据
+     * @param statistics 通过 `nbb-cal` 计算获得的统计数据
+     */
+    getStatementData,
+    getProStatementData,
     calRecommProcessData,
     calRecommProcessGroups
   }
