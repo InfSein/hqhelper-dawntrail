@@ -483,7 +483,19 @@ const preferenceGroups : PreferenceGroup[] = [
           },
           {
             key: 'statement_ignore_crystals',
-            label: t('制作报表不统计水晶'),
+            label: t('忽略水晶素材'),
+            descriptions: dealDescriptions([
+              t('如果你不需要让制作报表计算各种碎晶/水晶/晶簇，可以考虑打开此选项。'),
+            ]),
+            type: 'switch'
+          },
+          {
+            key: 'statement_no_highlights',
+            label: t('禁用高亮展示关联素材'),
+            descriptions: dealDescriptions([
+              t('在2.2.4版本，我们向制作报表追加了一个新功能，左键单击任意物品行后，它和它的制作素材会被高亮展示。'),
+              t('如果你并不需要这一功能、觉得它太容易误触，可以考虑打开此选项。'),
+            ]),
             type: 'switch'
           },
           {

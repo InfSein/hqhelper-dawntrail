@@ -5,16 +5,18 @@ import {
 } from 'naive-ui'
 import ItemCell from './ItemCell.vue'
 import StatementListPop from './StatementListPop.vue'
-import { getItemInfo, type StatementRow } from '@/tools/item'
-import type { UserConfigModel } from '@/models/config-user'
+import { getItemInfo, type ItemInfo, type StatementRow } from '@/tools/item'
+import { type UserConfigModel } from '@/models/config-user'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const itemsPrepared = defineModel<Record<number, number>>('itemsPrepared', { required: true })
+const selectedItem = defineModel<ItemInfo | undefined>('selectedItem', { required: true })
 interface ItemStatementTableProps {
   itemsTotal: Record<number, number>,
+  highlightedItems: number[],
   showItemDetails: boolean,
   containerId?: string
   contentHeight?: string
@@ -73,7 +75,7 @@ const handleNumInputLoop = (row: StatementRow) => {
   <div class="table-container" ref="tableContainer">
     <n-table class="table" size="small" :single-line="false">
       <thead>
-        <tr>
+        <tr @click="selectedItem = undefined">
           <th>
             {{ t('物品') }}
             <span class="font-small">
@@ -94,7 +96,12 @@ const handleNumInputLoop = (row: StatementRow) => {
     <n-scrollbar trigger="none" :style="{ height: contentHeight ?? '450px', 'margin-top': '-2px' }">
       <n-table class="table" size="small" :single-line="false">
         <tbody>
-          <tr v-for="item in rows.remaining" :key="'item-remaining-' + item.info.id">
+          <tr
+            v-for="item in rows.remaining"
+            :key="'item-remaining-' + item.info.id"
+            :class="highlightedItems.includes(item.info.id) ? 'highlight' : ''"
+            @click="selectedItem = item.info"
+          >
             <td>
               <ItemCell
                 :item-info="item.info"
@@ -130,7 +137,13 @@ const handleNumInputLoop = (row: StatementRow) => {
               {{ t('已筹备完成') }}
             </td>
           </tr>
-          <tr v-for="item in rows.cleaned" :key="'item-cleaned-' + item.info.id" class="prepared">
+          <tr
+            v-for="item in rows.cleaned"
+            :key="'item-cleaned-' + item.info.id"
+            class="prepared"
+            :class="highlightedItems.includes(item.info.id) ? 'highlight' : ''"
+            @click="selectedItem = item.info"
+          >
             <td>
               <ItemCell
                 :item-info="item.info"
@@ -194,6 +207,11 @@ const handleNumInputLoop = (row: StatementRow) => {
   }
   tr.prepared:hover td {
     background-color: var(--n-td-color-modal);
+  }
+  tr.highlight td,
+  tr.highlight:hover td {
+    color: white;
+    background-color: #3364C7;
   }
 }
 

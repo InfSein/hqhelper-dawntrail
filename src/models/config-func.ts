@@ -33,6 +33,8 @@ export interface FuncConfigModel {
   use_traditional_statement: boolean
   /** 制作报表不统计碎晶/水晶/晶簇 */
   statement_ignore_crystals: boolean
+  /** 制作报表禁用高亮展示关联素材 */
+  statement_no_highlights: boolean
   /** 专业版制作报表：使用简洁模式展示物品 */
   prostate_concise_mode: boolean
 
@@ -83,6 +85,7 @@ const defaultFuncConfig: FuncConfigModel = {
   // * 制作报表
   use_traditional_statement: false,
   statement_ignore_crystals: false,
+  statement_no_highlights: false,
   prostate_concise_mode: false,
   // * 推荐流程
   processes_show_item_details: false,
