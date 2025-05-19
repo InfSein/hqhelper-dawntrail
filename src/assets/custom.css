@@ -91,6 +91,17 @@
   text-align: right;
 }
 
+/* Line-Height */
+.lh-100 {
+  line-height: 1;
+}
+.lh-120 {
+  line-height: 1.2;
+}
+.lh-150 {
+  line-height: 1.5;
+}
+
 /* Sizing */
 .w-full {
   width: 100%;

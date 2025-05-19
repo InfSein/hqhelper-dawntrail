@@ -2,6 +2,7 @@
 import { computed, inject, ref, type Ref } from 'vue'
 import {
   NButton, NDynamicTags, NEmpty, NIcon, NInput, NInputNumber, NInputGroup, NInputGroupLabel, NTable, NTabs, NTabPane,
+  NRadio, NRadioGroup, 
   useMessage
 } from 'naive-ui'
 import { 
@@ -15,10 +16,12 @@ import MyModal from '@/components/templates/MyModal.vue'
 import HelpButton from '@/components/custom/general/HelpButton.vue'
 import ItemSelector from '@/components/custom/item/ItemSelector.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
+import CraftActionButton from '@/components/custom/action/CraftActionButton.vue'
 import CraftMacroEditor from '@/components/custom/macro/CraftMacroEditor.vue'
 import MacroViewer from '@/components/custom/macro/MacroViewer.vue'
 import TooltipButton from '@/components/custom/general/TooltipButton.vue'
 import { useStore } from '@/store'
+import { XivCraftActions } from '@/assets/data'
 import {
   _VAR_TAG_MAXLEN, _VAR_REMARK_MAXLINE,
   _VAR_RELATEITEM_MAXLEN, _VAR_TABLESHOW_RELATEITEM_MAXLEN,
@@ -30,6 +33,7 @@ import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { deepCopy, findDuplicatesFromArray } from '@/tools'
 import { getItemInfo } from '@/tools/item'
 import UseConfig from '@/tools/use-config'
+import useMacroHelper from '@/tools/macro-helper'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -41,6 +45,9 @@ const NAIVE_UI_MESSAGE = useMessage()
 const {
   itemLanguage,
 } = UseConfig(userConfig, funcConfig)
+const {
+  parseCraftMacroText, parseCraftProcedure,
+} = useMacroHelper(userConfig, funcConfig)
 
 const modalId = 'modal-craft-macro-edit'
 
@@ -59,6 +66,8 @@ const formCraftActions = ref<{
   id: number,
   val: number,
 }[]>([])
+const formCraftActionsImportType = ref<"gamemacro" | "simulator">('gamemacro')
+const formCraftActionsImport = ref('')
 
 interface ModalCraftMacroEditProps {
   action: "add" | "edit";
@@ -86,6 +95,8 @@ const onLoad = () => {
       val: action,
     }
   })
+  formCraftActionsImportType.value = 'gamemacro'
+  formCraftActionsImport.value = ''
 }
 
 const modalTitle = computed(() => {
@@ -125,6 +136,30 @@ const handleAddRelateItemStr = () => {
     val: itemname,
   })
   relateItemName.value = ''
+}
+
+const handleImportCraftActions = () => {
+  if (!formCraftActionsImport.value) {
+    NAIVE_UI_MESSAGE.error(t('请输入要导入的内容')); return
+  }
+  let importedActions : number[] = []
+  if (formCraftActionsImportType.value === 'gamemacro') {
+    importedActions = parseCraftMacroText(formCraftActionsImport.value).map(action => action.id)
+  } else if (formCraftActionsImportType.value === 'simulator') {
+    importedActions = parseCraftProcedure(formCraftActionsImport.value).map(action => action.id)
+  } else {
+    NAIVE_UI_MESSAGE.error('Unexpected formCraftActionsImportType'); return
+  }
+  if (!importedActions.length) {
+    NAIVE_UI_MESSAGE.error(t('没有识别到任何技能')); return
+  }
+  formCraftActions.value = importedActions.map(action => {
+    return {
+      id: craftActionIndex.value++,
+      val: action,
+    }
+  })
+  NAIVE_UI_MESSAGE.success(t('导入成功'))
 }
 
 const handleSave = async () => {
@@ -344,10 +379,73 @@ const handleSave = async () => {
           </div>
         </n-tab-pane>
         <n-tab-pane name="craftActions" :tab="t('宏内容')">
-          <CraftMacroEditor
-            v-model:craft-actions="formCraftActions"
-            v-model:craft-action-index="craftActionIndex"
-          />
+          <div class="tabpane-wrapper">
+            <div class="form-block">
+              <div class="form-title">{{ t('当前') }}</div>
+              <div class="form-tip">
+                <p>{{ t('可以长按下方技能按钮拖拽来自定义排序。') }}</p>
+              </div>
+              <div class="form-input">
+                <VueDraggable
+                  v-model="formCraftActions"
+                  :animation="150"
+                  class="actions-container"
+                >
+                  <CraftActionButton
+                    v-for="item in formCraftActions"
+                    :key="item.id"
+                    :craft-action="XivCraftActions[item.val]"
+                    :btn-size="48"
+                  />
+                </VueDraggable>
+              </div>
+            </div>
+            <div class="form-block">
+              <div class="form-title">{{ t('导入') }}</div>
+              <div class="form-input">
+                <div class="flex-vac gap-4">
+                  <p>{{ t('导入来源：') }}</p>
+                  <n-radio-group
+                    v-model:value="formCraftActionsImportType"
+                    name="formCraftActionsImportType"
+                    size="small"
+                  >
+                    <n-radio
+                      key="gamemacro"
+                      value="gamemacro"
+                      :label="t('游戏宏')"
+                    />
+                    <n-radio
+                      key="simulator"
+                      value="simulator"
+                      :label="t('模拟器')"
+                    />
+                  </n-radio-group>
+                </div>
+                <div class="lh-120" style="margin-bottom: 5px;">
+                  <div v-if="formCraftActionsImportType === 'gamemacro'">
+                    <p>{{ t('将游戏中的生产技能宏复制粘贴到下方输入框即可。') }}</p>
+                    <p>{{ t('输入框没有行数限制，组装多个宏时，粘贴完第一个宏之后换行粘贴第二个即可。') }}</p>
+                    <p>{{ t('最终需要保证一行一个技能，只会识别以“/ac”、“/action”或“/技能”开头的行，技能名可以加双引号。') }}</p>
+                    <p>{{ t('支持中文，英文和日文的宏，可以自由组合。') }}</p>
+                  </div>
+                  <div v-else-if="formCraftActionsImportType === 'simulator'">
+                    <p>{{ t('在FCO模拟器或BestCraft模拟器中编辑手法后，点击“导出工序”，将工序代码粘贴到下方输入框即可。') }}</p>
+                  </div>
+                </div>
+                <n-input
+                  v-model:value="formCraftActionsImport"
+                  type="textarea"
+                />
+                <n-button type="primary" @click="handleImportCraftActions">{{ t('确认') }}</n-button>
+              </div>
+            </div>
+            <div class="form-block">
+              <div class="form-title">{{ t('导出') }}</div>
+              <div class="form-input">
+              </div>
+            </div>
+          </div>
         </n-tab-pane>
       </n-tabs>
     </div>
@@ -428,6 +526,11 @@ table {
     align-items: center;
     cursor: move;
   }
+}
+.actions-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 .submit-container {
   display: flex;

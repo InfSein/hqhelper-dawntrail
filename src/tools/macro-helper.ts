@@ -13,7 +13,7 @@ const useMacroHelper = (
   const parseCraftMacroText = (macro: string) => {
     const actions : string[] = []
     macro.split('\n').forEach(line => {
-      const action = line.match(/\/ac\s"?(.*?)"?\s(<wait\.\d+>|)/)?.[1]
+      const action = line.match(/\/(ac|action|技能)\s"?(.*?)"?\s(<wait\.\d+>|)/)?.[2]
       if (action) actions.push(action)
     })
     const result: XivCraftAction[] = []
