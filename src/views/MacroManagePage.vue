@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { computed, h, inject, onMounted, ref, watch, type Ref } from 'vue'
+import { computed, h, inject, onBeforeUnmount, onMounted, ref, watch, type Ref } from 'vue'
 import {
-  NBackTop, NButton, NDataTable, NIcon, NInput, NInputGroup, NTag,
+  NBackTop, NButton, NDataTable, NIcon, NInput, NInputGroup, NInputGroupLabel, NSelect, NTag,
   useMessage,
   type DataTableColumns,
 } from 'naive-ui'
 import {
-  SearchOutlined
+  SearchOutlined,
+  SettingsSuggestFilled,
+  AddTaskOutlined,
 } from '@vicons/material'
 import FoldableCard from '@/components/templates/FoldableCard.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import ModalCraftMacroEdit from '@/components/modals/ModalCraftMacroEdit.vue'
+import ModalPreferences from '@/components/modals/ModalPreferences.vue'
 import { XivUnpackedItems, XivCraftActions, type XivCraftAction } from '@/assets/data'
 import { useStore } from '@/store'
 import { fixWorkState, type WorkState, type RecordedCraftMacro, getDefaultCraftMacro } from '@/models/macromanage'
@@ -56,7 +59,24 @@ watch(workState, async () => {
   }
 }, {deep: true})
 
-onMounted(async () => {
+const tableHeight = ref(300)
+const updateHeights = () => {
+  tableHeight.value = window.innerHeight - 280
+}
+onMounted(() => {
+  updateHeights()
+  window.addEventListener('resize', updateHeights)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateHeights)
+})
+
+const macroItemLanguageOptions = computed(() => {
+  return [
+    { label: t('中文'), value: 'zh' },
+    { label: t('英文'), value: 'en' },
+    { label: t('日文'), value: 'ja' },
+  ]
 })
 
 interface CraftMacroRow {
@@ -341,56 +361,67 @@ const handleMacroEditSubmit = (macro: RecordedCraftMacro) => {
   }
   showModalCraftMacroEdit.value = false
 }
+const showPreferencesModal = ref(false)
+const handleSettingButtonClick = () => {
+  showPreferencesModal.value = true
+}
 </script>
 
 <template>
   <div id="main-container">
-    <FoldableCard card-key="macromanage-queryoptions">
+    <FoldableCard card-key="macromanage-main">
       <template #header>
-        <i class="xiv square-1"></i>
-        <span class="card-title-text">{{ t('筛选／设置') }}</span>
+        <i class="xiv e0ba"></i>
+        <span class="card-title-text">{{ t('生产宏管理') }}</span>
       </template>
-      <div class="query-form">
-        <div id="query-filter" class="form-item">
-          <div class="form-title">{{ t('筛选') }}</div>
-          <n-input-group>
+      <div class="main-content">
+        <div class="query-options">
+          <n-input-group id="querier-search">
+            <n-input-group-label>{{ t('筛选／检索') }}</n-input-group-label>
             <n-input
               v-model:value="workState.searchKeyword"
               :placeholder="t('支持按宏名称/备注/标签以及关联物品的名称/ID/品级/版本进行检索')"
-              style="max-width: 600px;"
+              
             >
               <template #suffix>
                 <n-icon :component="SearchOutlined" />
               </template>
             </n-input>
           </n-input-group>
+          <n-input-group id="querier-itemlang">
+            <n-input-group-label>{{ t('物品语言') }}</n-input-group-label>
+            <n-select
+              v-model:value="workState.macroItemLanguage"
+              :options="macroItemLanguageOptions"
+            />
+          </n-input-group>
+          <div id="querier-actions">
+            <n-button
+              ghost
+              @click="handleSettingButtonClick"
+            >
+              <template #icon>
+                <n-icon :component="SettingsSuggestFilled" />
+              </template>
+              {{ t('设置') }}
+            </n-button>
+            <n-button
+              type="primary"
+              @click="handleAddRow"
+            >
+              <template #icon>
+                <n-icon :component="AddTaskOutlined" />
+              </template>
+              {{ t('新增') }}
+            </n-button>
+          </div>
         </div>
-        <div class="form-item">
-          <div class="form-title">{{ t('调试') }}</div>
-          <n-button @click="handleDebug">
-            {{ t('点击此处') }}
-          </n-button>
-        </div>
-        <div class="form-item">
-          <div class="form-title">{{ t('添加') }}</div>
-          <n-button @click="handleAddRow">
-            {{ t('点击此处') }}
-          </n-button>
-        </div>
-      </div>
-    </FoldableCard>
-    <FoldableCard card-key="macromanage-table">
-      <template #header>
-        <i class="xiv square-2"></i>
-        <span class="card-title-text">{{ t('数据') }}</span>
-      </template>
-      <div class="content-block">
         <n-data-table
           bordered
           :columns="tableColumns"
           :data="tableData"
           :pagination="false"
-          :max-height="500"
+          :max-height="tableHeight"
           :virtual-scroll="tableData.length > 200"
         />
       </div>
@@ -404,6 +435,11 @@ const handleMacroEditSubmit = (macro: RecordedCraftMacro) => {
       :action="macroEditAction"
       @on-submit="handleMacroEditSubmit"
     />
+    <ModalPreferences
+      v-model:show="showPreferencesModal"
+      setting-group="craft_macro"
+      app-show-fp
+    />
   </div>
 </template>
 
@@ -413,6 +449,23 @@ const handleMacroEditSubmit = (macro: RecordedCraftMacro) => {
   gap: 0.6rem;
   display: flex;
   flex-direction: column;
+
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .query-options {
+      display: flex;
+      gap: 4px;
+
+      #querier-actions {
+        margin-left: auto;
+        display: flex;
+        gap: 4px;
+      }
+    }
+  }
 }
 .query-form {
   padding: 0 0.8em;
@@ -432,20 +485,27 @@ const handleMacroEditSubmit = (macro: RecordedCraftMacro) => {
 
 /* Desktop */
 @media screen and (min-width: 768px) {
-  .query-form {
-    .form-item:hover {
-      border: 1px solid var(--n-color-target);
+  .query-options {
+    #querier-search {
+      max-width: 560px;
     }
-    #query-filter {
-      width: 510px;
+    #querier-itemlang {
+      max-width: 200px;
     }
   }
 }
 
 /* Mobile */
 @media screen and (max-width: 767px) {
-  .query-form {
+  .query-options {
     flex-direction: column;
+    
+    #querier-search {
+      width: 100%;
+    }
+    #querier-itemlang {
+      width: 100%;
+    }
   }
 }
 </style>

@@ -18,10 +18,7 @@ import HelpButton from '@/components/custom/general/HelpButton.vue'
 import ItemSelector from '@/components/custom/item/ItemSelector.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import CraftActionButton from '@/components/custom/action/CraftActionButton.vue'
-import CraftMacroEditor from '@/components/custom/macro/CraftMacroEditor.vue'
 import MacroViewer from '@/components/custom/macro/MacroViewer.vue'
-import TooltipButton from '@/components/custom/general/TooltipButton.vue'
-import { useStore } from '@/store'
 import { XivCraftActions } from '@/assets/data'
 import {
   _VAR_TAG_MAXLEN, _VAR_REMARK_MAXLINE,
@@ -30,7 +27,7 @@ import {
   type RecordedCraftMacro,
 } from '@/models/macromanage'
 import { type UserConfigModel } from '@/models/config-user'
-import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
+import { type FuncConfigModel } from '@/models/config-func'
 import { deepCopy, findDuplicatesFromArray } from '@/tools'
 import { getItemInfo } from '@/tools/item'
 import UseConfig from '@/tools/use-config'
@@ -41,7 +38,6 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
-const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 const {
   itemLanguage,

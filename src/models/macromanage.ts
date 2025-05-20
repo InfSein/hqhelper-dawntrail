@@ -44,11 +44,13 @@ export const getDefaultCraftMacro = (id: number) => {
 
 export interface WorkState {
   searchKeyword: string;
+  macroItemLanguage: "zh" | "en" | "ja";
   recordIndex: number;
   recordedCraftMacros: RecordedCraftMacro[];
 }
 export const defaultWorkState: WorkState = {
   searchKeyword: '',
+  macroItemLanguage: 'zh',
   recordIndex: 1,
   recordedCraftMacros: []
 }
