@@ -413,7 +413,7 @@ const handleCheckUpdates = async () => {
             </n-icon>
           </n-button>
         </template>
-        <div class="flex-column">
+        <div class="flex-col">
           <p>{{ t('点击此按钮可以返回到首页。') }}</p>
           <p v-if="!canRouteBack">{{ t('……不过您已经在HqHelper的首页了。') }}</p>
         </div>
@@ -428,7 +428,7 @@ const handleCheckUpdates = async () => {
           <template #trigger>
             <p>{{ AppStatus.Version }}</p>
           </template>
-          <div class="flex-column">
+          <div class="flex-col">
             <p>{{ t('国服数据版本：{}', AppStatus.SupportedGameVersion.CN) }}</p>
             <p>{{ t('国际服数据版本：{}', AppStatus.SupportedGameVersion.GLOBAL) }}</p>
             <p>{{ t('※ 国服数据尚未更新时，显示的中文名一般为人工临时翻译，请谨慎参考。') }}</p>
@@ -447,7 +447,7 @@ const handleCheckUpdates = async () => {
               <span class="time-text">{{ currentET.gameTime }}</span>
             </p>
           </template>
-          <div class="flex-column flex-center">
+          <div class="flex-col flex-center">
             <p class="font-center">{{ t('艾欧泽亚时间') }}</p>
           </div>
         </n-popover>

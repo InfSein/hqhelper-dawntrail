@@ -9,7 +9,7 @@
   display: flex;
   flex-wrap: wrap;
 }
-.flex-column {
+.flex-col {
   display: flex;
   flex-direction: column;
 }
