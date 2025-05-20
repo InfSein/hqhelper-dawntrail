@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, h, inject, onBeforeUnmount, onMounted, ref, watch, type Ref } from 'vue'
+import { computed, h, inject, onBeforeUnmount, onMounted, ref, watch, type Ref, type VNode } from 'vue'
 import {
-  NBackTop, NButton, NDataTable, NIcon, NInput, NInputGroup, NInputGroupLabel, NSelect, NTag,
+  NBackTop, NButton, NDataTable, NDivider, NEmpty, NIcon, NInput, NInputGroup, NInputGroupLabel, NSelect, NTag,
   useMessage,
   type DataTableColumns,
 } from 'naive-ui'
@@ -9,28 +9,32 @@ import {
   SearchOutlined,
   SettingsSuggestFilled,
   AddTaskOutlined,
+  EditNoteOutlined, DeleteFilled,
 } from '@vicons/material'
 import FoldableCard from '@/components/templates/FoldableCard.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import ModalCraftMacroEdit from '@/components/modals/ModalCraftMacroEdit.vue'
 import ModalPreferences from '@/components/modals/ModalPreferences.vue'
-import { XivUnpackedItems, XivCraftActions, type XivCraftAction } from '@/assets/data'
+import { XivCraftActions, type XivCraftAction } from '@/assets/data'
 import { useStore } from '@/store'
 import { fixWorkState, type WorkState, type RecordedCraftMacro, getDefaultCraftMacro } from '@/models/macromanage'
 import type { UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
+import { CopyToClipboard } from '@/tools'
+import useUiTools from '@/tools/ui'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import useMacroHelper from '@/tools/macro-helper'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-// const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
+const { renderIcon } = useUiTools(isMobile)
 const {
-  calMacroCpCost,
+  calMacroCpCost, exportCraftMacroText,
 } = useMacroHelper(userConfig, funcConfig)
 
 const workState = ref<WorkState>(fixWorkState())
@@ -43,6 +47,7 @@ if (cachedWorkState && JSON.stringify(cachedWorkState).length > 2) {
   workState.value = fixWorkState(cachedWorkState)
   // Compatible with older version caching
 }
+workState.value.recordIndex = Math.max(0, ...workState.value.recordedCraftMacros.map(macro => macro.id)) + 1
 
 // todo - 留意性能：深度侦听需要遍历被侦听对象中的所有嵌套的属性，当用于大型数据结构时，开销很大
 watch(workState, async () => {
@@ -147,7 +152,33 @@ const unarchiveMacroRow = (macro: RecordedCraftMacro) : CraftMacroRow => {
   }
 }
 const tableData = computed(() => {
-  return workState.value.recordedCraftMacros.map(macro => unarchiveMacroRow(macro))
+  return workState.value.recordedCraftMacros.map(macro => unarchiveMacroRow(macro)).filter(macro => {
+    if (workState.value.searchKeyword) {
+      const keyword = workState.value.searchKeyword
+      const keywordIsDigit = /^\d+$/.test(keyword)
+      return (
+        macro.name.includes(keyword) ||
+        macro.remark.includes(keyword) ||
+        macro.tags.some(tag => tag.includes(keyword)) ||
+        macro.relateItems.some(item => {
+          if (typeof item === 'string') {
+            return item.includes(keyword)
+          } else {
+            return (
+              item.name_zh.includes(keyword) ||
+              item.name_en.includes(keyword) ||
+              item.name_ja.includes(keyword)
+            ) || (keywordIsDigit && (
+              item.id.toString() === keyword ||
+              item.itemLevel.toString() === keyword ||
+              item.patch === keyword
+            ))
+          }
+        })
+      )
+    }
+    return true
+  })
 })
 const tableColumns = computed(() => {
   const columns: DataTableColumns<CraftMacroRow> = [
@@ -155,19 +186,15 @@ const tableColumns = computed(() => {
       title: t('编号'),
       key: 'id',
       className: '',
-      width: 60,
-      minWidth: 60,
-      resizable: true,
+      width: 80,
       align: 'center',
+      sorter: (a, b) => a.id - b.id,
     },
     {
       title: t('宏名称'),
       key: 'name',
       className: '',
-      resizable: true,
-      width: 300,
-      minWidth: 150,
-      maxWidth: 500,
+      width: 350,
       render(row) {
         return h(
           'div',
@@ -184,19 +211,23 @@ const tableColumns = computed(() => {
                 }, () => tag)) : t('无'),
               ]
             ),
-            h('div', { class: 'macro-remark' }, row.remark),
+            h(
+              'div',
+              { class: 'macro-remark' },
+              row.remark.split('\n').map(line => {
+                return h('div', { class: 'macro-remark-line' }, line)
+              })
+            ),
           ],
         )
-      }
+      },
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: t('关联物品'),
       key: 'itemId',
       className: '',
-      resizable: true,
-      width: 300,
-      minWidth: 150,
-      maxWidth: 500,
+      width: 200,
       render(row) {
         return h(
           'div',
@@ -205,6 +236,7 @@ const tableColumns = computed(() => {
             if (typeof item === 'string') {
               return h(NTag, {
                 size: 'small',
+                style: 'width: fit-content;',
               }, () => item)
             } else {
               return h(ItemSpan, {
@@ -216,12 +248,83 @@ const tableColumns = computed(() => {
       }
     },
     {
-      title: '管理',
+      title: t('属性要求'),
+      key: 'requirements',
+      className: '',
+      align: 'center',
+      width: 120,
+      render(row) {
+        const children : VNode[] = []
+        if (row.requirements.craftsmanship) {
+          children.push(h('div', null, t('{craftsmanship_val}作业', row.requirements.craftsmanship)))
+        }
+        if (row.requirements.control) {
+          children.push(h('div', null, t('{control_val}加工', row.requirements.craftsmanship)))
+        }
+        if (row.requirements.cp) {
+          children.push(h('div', null, row.requirements.cp + 'CP'))
+        }
+        return h(
+          'div',
+          { class: 'lh-120 font-small' },
+          children
+        )
+      }
+    },
+    {
+      title: t('内容'),
+      key: 'content',
+      render(row) {
+        const macros = exportCraftMacroText(row.craftActions)[`macros_${workState.value.macroItemLanguage}`]
+        return h(
+          'div',
+          { style: 'width: fit-content;' },
+          [
+            h(
+              'div',
+              null,
+              t('{step_count}步{time_count}秒', {
+                step_count: row.craftActions.length,
+                time_count: row.craftActions.reduce((total, action) => {
+                  return total + (XivCraftActions[action.id]?.wait_time ?? 0)
+                }, 0)
+              })
+            ),
+            h(
+              NDivider,
+              { style: 'margin: -3px 0 2px 0;' },
+              ''
+            ),
+            h(
+              'div',
+              { class: 'flex-vac gap-2' },
+              macros.map((macro, index) => {
+                return h(
+                  NButton,
+                  {
+                    tertiary: true,
+                    size: 'tiny',
+                    title: t('点击以复制'),
+                    onClick: () => handleCopyMacro(macro)
+                  },
+                  {
+                    default: () => t('宏#{index}', index + 1)
+                  }
+                )
+              })
+            ),
+          ]
+        )
+      }
+    },
+    {
+      title: t('管理'),
       key: 'manage',
+      width: 180,
       render(row) {
         return h(
           'div',
-          { class: 'flex-vac gap-4' },
+          { class: 'flex gap-4' },
           [
             h(
               NButton,
@@ -229,23 +332,32 @@ const tableColumns = computed(() => {
                 strong: true,
                 tertiary: true,
                 size: 'small',
+                style: 'width: fit-content;',
                 onClick: () => handleEditRow(row)
               },
-              { default: () => t('编辑') }
+              {
+                icon: renderIcon(EditNoteOutlined),
+                default: () => t('编辑')
+              }
             ),
             h(
               NButton,
               {
                 strong: true,
                 tertiary: true,
+                type: 'error',
                 size: 'small',
+                style: 'width: fit-content;',
                 onClick: () => handleDeleteRow(row)
               },
-              { default: () => t('删除') }
+              {
+                icon: renderIcon(DeleteFilled),
+                default: () => t('删除')
+              }
             ),
           ]
         )
-      }
+      },
     }
   ]
   return columns
@@ -270,48 +382,6 @@ const getMacroId = () => {
     workState.value.recordIndex = macroid
   }
   return macroid
-}
-
-const handleDebug = () => {
-  const itemIds = Object.keys(XivUnpackedItems)
-  const actionIds = Object.keys(XivCraftActions)
-
-  const records : RecordedCraftMacro[] = []
-  let id = 1
-  while (id < 499) {
-    const name = `测试宏 #${id}`
-
-    // 关联物品
-    const itemAmount = Math.floor(Math.random() * 5)
-    const relateItems: (number|string)[] = []
-    for (let i = 0; i < itemAmount; i++) {
-      const itemIdIndex = Math.floor(Math.random() * itemIds.length)
-      const itemId = itemIds[itemIdIndex]
-      relateItems.push(Number(itemId))
-    }
-
-    // 技能
-    const actionAmount = Math.floor(Math.random() * 30) + 1
-    const craftActions: number[] = []
-    for (let i = 0; i < actionAmount; i++) {
-      const actionIdIndex = Math.floor(Math.random() * actionIds.length)
-      const actionId = actionIds[actionIdIndex]
-      craftActions.push(Number(actionId))
-    }
-
-    records.push({
-      id: id++,
-      name,
-      remark: '',
-      relateItems,
-      tags: [],
-      requirements: {},
-      craftActions,
-    })
-  }
-
-  workState.value.recordedCraftMacros = records
-  alert('done!')
 }
 
 const handleAddRow = () => {
@@ -340,6 +410,14 @@ const handleDeleteRow = (row: CraftMacroRow) => {
     NAIVE_UI_MESSAGE.success(t('已删除'))
   } else {
     handleReportDataMissing(row.id)
+  }
+}
+const handleCopyMacro = async (macro: string) => {
+  const response = await CopyToClipboard(macro)
+  if (response) {
+    NAIVE_UI_MESSAGE.error(t('复制失败：发生意外错误'))
+  } else {
+    NAIVE_UI_MESSAGE.success(t('已复制到剪贴板'))
   }
 }
 
@@ -389,7 +467,7 @@ const handleSettingButtonClick = () => {
             </n-input>
           </n-input-group>
           <n-input-group id="querier-itemlang">
-            <n-input-group-label>{{ t('物品语言') }}</n-input-group-label>
+            <n-input-group-label>{{ t('宏语言') }}</n-input-group-label>
             <n-select
               v-model:value="workState.macroItemLanguage"
               :options="macroItemLanguageOptions"
@@ -418,12 +496,19 @@ const handleSettingButtonClick = () => {
         </div>
         <n-data-table
           bordered
+          scroll-x="100%"
           :columns="tableColumns"
           :data="tableData"
           :pagination="false"
           :max-height="tableHeight"
           :virtual-scroll="tableData.length > 200"
-        />
+        >
+          <template #empty>
+            <n-empty
+              :description="workState.searchKeyword ? t('无匹配内容') : t('无数据')"
+            />
+          </template>
+        </n-data-table>
       </div>
     </FoldableCard>
     

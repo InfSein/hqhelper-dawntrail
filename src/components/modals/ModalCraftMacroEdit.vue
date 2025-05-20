@@ -191,6 +191,7 @@ const handleSave = async () => {
   if (!formData.value.requirements.control) delete formData.value.requirements.control
   if (!formData.value.requirements.cp) delete formData.value.requirements.cp
   formData.value.relateItems = relateItems
+  formData.value.craftActions = formCraftActions.value.map(action => action.val)
 
   emits('onSubmit', formData.value)
 }
@@ -435,7 +436,7 @@ const handleSave = async () => {
                   <div v-if="formCraftActionsImportType === 'gamemacro'">
                     <p>{{ t('将游戏中的生产技能宏复制粘贴到下方输入框即可。') }}</p>
                     <p>{{ t('输入框没有行数限制，组装多个宏时，粘贴完第一个宏之后换行粘贴第二个即可。') }}</p>
-                    <p>{{ t('最终需要保证一行一个技能，只会识别以“/ac”、“/action”或“/技能”开头的行，技能名可以加双引号。') }}</p>
+                    <p>{{ t('最终需要保证一行一个技能。只会识别以“/ac”、“/action”或“/技能”开头的行，技能名可以加双引号。') }}</p>
                     <p>{{ t('支持中文，英文和日文的宏，可以自由组合。') }}</p>
                   </div>
                   <div v-else-if="formCraftActionsImportType === 'simulator'">
@@ -445,6 +446,9 @@ const handleSave = async () => {
                 <n-input
                   v-model:value="formCraftActionsImport"
                   type="textarea"
+                  :autosize="{
+                    minRows: 3,
+                  }"
                 />
                 <n-button
                   ghost
@@ -463,7 +467,7 @@ const handleSave = async () => {
               <div class="form-title">{{ t('导出') }}</div>
               <div class="form-input flex-col gap-4">
                 <div class="flex-vac gap-4">
-                  <p>{{ t('物品语言：') }}</p>
+                  <p>{{ t('宏语言：') }}</p>
                   <n-radio-group
                     v-model:value="formCraftActionsExportLang"
                     name="formCraftActionsExportLang"

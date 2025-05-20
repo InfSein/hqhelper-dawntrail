@@ -65,7 +65,9 @@ const useMacroHelper = (
   }
 
   /** 将技能列表按用户设置组装为宏 */
-  const exportCraftMacroText = (actions: XivCraftAction[]) => {
+  const exportCraftMacroText = (_actions: XivCraftAction[]) => {
+    const actions = deepCopy(_actions)
+
     let threshold = 15, pushLines = 14
     if (funcConfig.value.cmacro_use_macrolock) {
       threshold--; pushLines--
