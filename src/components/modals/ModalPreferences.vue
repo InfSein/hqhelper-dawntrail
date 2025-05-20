@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, h, inject, ref, type Component, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import {
   NButton, NIcon, NLayout, NLayoutContent, NLayoutSider, NMenu, NTabs, NTabPane,
   useMessage
@@ -27,11 +27,12 @@ import AboutApp from '../custom/general/AboutApp.vue'
 import SettingItem from '../custom/general/SettingItem.vue'
 import ModalPreferencesImportExport from './ModalPreferencesImportExport.vue'
 import { useStore } from '@/store/index'
-import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
-import { deepCopy } from '@/tools'
 import type { PreferenceGroup, SettingGroupKey } from '@/models'
+import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { fixWorkState } from '@/models/workflow'
+import { deepCopy } from '@/tools'
+import useUiTools from '@/tools/ui'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -39,6 +40,7 @@ const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
+const { renderIcon } = useUiTools(isMobile)
 
 const showModal = defineModel<boolean>('show', { required: true })
 const emit = defineEmits(['close', 'afterSubmit'])
@@ -68,13 +70,6 @@ const dealDescriptions = (descriptions: string[]) => {
       style: ''
     }
   })
-}
-const renderIcon = (icon: Component) => {
-  return () => {
-    return h(NIcon, null, {
-      default: () => h(icon)
-    })
-  }
 }
 const getPriceTypeOptions = () => {
   return [
@@ -439,7 +434,7 @@ const preferenceGroups : PreferenceGroup[] = [
             key: 'cmacro_remove_quotes',
             label: t('移除生产宏技能名的双引号'),
             descriptions: dealDescriptions([
-              t('含有空格的技能名仍需使用双引号或是转换为定型文，否则执行时会报错。'),
+              t('技能名含空格时必须使用双引号或是手动转换为定型文，否则执行时会报错。'),
             ]),
             type: 'switch'
           },

@@ -1,9 +1,17 @@
-import { NTooltip, type DropdownGroupOption, type DropdownOption, type SelectOption } from "naive-ui"
-import { h, type Ref, type VNode } from "vue"
+import { h, type Component, type Ref, type VNode } from "vue"
+import { NIcon, NTooltip, type DropdownGroupOption, type DropdownOption, type SelectOption } from "naive-ui"
 
 const useUiTools = (
   isMobile: Ref<boolean>,
 ) => {
+  const renderIcon = (icon: Component, props?: any) => {
+    return () => {
+      return h(NIcon, props, {
+        default: () => h(icon)
+      })
+    }
+  }
+
   const optionsRenderer = ({ node, option }: { node: VNode, option: DropdownOption | DropdownGroupOption | SelectOption }) => {
     if (option.description) {
       return h(
@@ -27,6 +35,7 @@ const useUiTools = (
   }
 
   return {
+    renderIcon,
     optionsRenderer,
   }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, h, inject, onMounted, ref, type Component, type Ref } from 'vue'
+import { computed, inject, onMounted, ref, type Component, type Ref } from 'vue'
 import {
   NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover,
   useMessage,
@@ -70,7 +70,7 @@ const canOpenDevTools = computed(() => {
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
-const { optionsRenderer } = useUiTools(isMobile)
+const { renderIcon, optionsRenderer } = useUiTools(isMobile)
 
 onMounted(() => {
   if (userConfig.value.cache_lasttime_version !== AppStatus.Version) {
@@ -347,13 +347,6 @@ const desktopMenus = computed(() => {
     }
   ] as DesktopMenuItem[]
 })
-function renderIcon(icon: Component) {
-  return () => {
-    return h(NIcon, null, {
-      default: () => h(icon)
-    })
-  }
-}
 const handleDesktopMenuOptionSelect = (key: string, option: any) => {
   if (option?.click) {
     option.click()
