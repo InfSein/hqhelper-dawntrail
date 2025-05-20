@@ -9,6 +9,7 @@ import {
   CodeSharp,
   ListFilled,
   DeleteFilled,
+  DoneOutlined,
   SaveOutlined,
 } from '@vicons/material'
 import { VueDraggable } from 'vue-draggable-plus'
@@ -46,7 +47,7 @@ const {
   itemLanguage,
 } = UseConfig(userConfig, funcConfig)
 const {
-  parseCraftMacroText, parseCraftProcedure,
+  parseCraftMacroText, parseCraftProcedure, exportCraftMacroText,
 } = useMacroHelper(userConfig, funcConfig)
 
 const modalId = 'modal-craft-macro-edit'
@@ -68,6 +69,7 @@ const formCraftActions = ref<{
 }[]>([])
 const formCraftActionsImportType = ref<"gamemacro" | "simulator">('gamemacro')
 const formCraftActionsImport = ref('')
+const formCraftActionsExportLang = ref<"zh" | "en" | "ja">('zh')
 
 interface ModalCraftMacroEditProps {
   action: "add" | "edit";
@@ -97,10 +99,15 @@ const onLoad = () => {
   })
   formCraftActionsImportType.value = 'gamemacro'
   formCraftActionsImport.value = ''
+  formCraftActionsExportLang.value = itemLanguage.value
 }
 
 const modalTitle = computed(() => {
   return props.action === 'add' ? t('添加宏') : t('编辑宏')
+})
+const craftActionsMacroLines = computed(() => {
+  const macros = exportCraftMacroText(formCraftActions.value.map(action => XivCraftActions[action.val]))
+  return [...macros[`macros_${formCraftActionsExportLang.value}`].map(str => str.split('\r\n')).flat()]
 })
 
 const remarkInputChecker = (value: string) => {
@@ -387,6 +394,7 @@ const handleSave = async () => {
               </div>
               <div class="form-input">
                 <VueDraggable
+                  v-if="formCraftActions.length"
                   v-model="formCraftActions"
                   :animation="150"
                   class="actions-container"
@@ -398,11 +406,16 @@ const handleSave = async () => {
                     :btn-size="48"
                   />
                 </VueDraggable>
+                <n-empty
+                  v-else
+                  style="margin-top: 15px;"
+                  :description="t('还未设置任何宏内容')"
+                />
               </div>
             </div>
             <div class="form-block">
               <div class="form-title">{{ t('导入') }}</div>
-              <div class="form-input">
+              <div class="form-input flex-col gap-4">
                 <div class="flex-vac gap-4">
                   <p>{{ t('导入来源：') }}</p>
                   <n-radio-group
@@ -422,7 +435,7 @@ const handleSave = async () => {
                     />
                   </n-radio-group>
                 </div>
-                <div class="lh-120" style="margin-bottom: 5px;">
+                <div class="lh-120" style="margin-bottom: 4px;">
                   <div v-if="formCraftActionsImportType === 'gamemacro'">
                     <p>{{ t('将游戏中的生产技能宏复制粘贴到下方输入框即可。') }}</p>
                     <p>{{ t('输入框没有行数限制，组装多个宏时，粘贴完第一个宏之后换行粘贴第二个即可。') }}</p>
@@ -437,12 +450,39 @@ const handleSave = async () => {
                   v-model:value="formCraftActionsImport"
                   type="textarea"
                 />
-                <n-button type="primary" @click="handleImportCraftActions">{{ t('确认') }}</n-button>
+                <n-button
+                  ghost
+                  type="primary"
+                  style="width: fit-content; margin-left: auto;"
+                  @click="handleImportCraftActions"
+                >
+                  <template #icon>
+                    <n-icon><DoneOutlined /></n-icon>
+                  </template>
+                  {{ t('确认') }}
+                </n-button>
               </div>
             </div>
             <div class="form-block">
               <div class="form-title">{{ t('导出') }}</div>
-              <div class="form-input">
+              <div class="form-input flex-col gap-4">
+                <div class="flex-vac gap-4">
+                  <p>{{ t('物品语言：') }}</p>
+                  <n-radio-group
+                    v-model:value="formCraftActionsExportLang"
+                    name="formCraftActionsExportLang"
+                    size="small"
+                  >
+                    <n-radio key="zh" value="zh" :label="t('中文')" />
+                    <n-radio key="en" value="en" :label="t('英文')" />
+                    <n-radio key="ja" value="ja" :label="t('日文')" />
+                  </n-radio-group>
+                </div>
+                <MacroViewer
+                  :macro-lines="craftActionsMacroLines"
+                  :container-id="modalId"
+                  content-height="240px"
+                />
               </div>
             </div>
           </div>

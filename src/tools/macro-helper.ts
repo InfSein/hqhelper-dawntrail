@@ -110,13 +110,16 @@ const useMacroHelper = (
           }
           macro[`macro_${lang}`] += `/ac ${actionName} <wait.${action.wait_time}>${linebreak}`
         })
-        if (column.length <= pushLines) {
-          macro[`macro_${lang}`] += cmacro_end_tipper_content + linebreak
-        } else {
-          macro[`macro_${lang}`] += cmacro_transition_tipper_content.replace('~INDEX', `${index + 1}`) + linebreak
+
+        if (column.length !== threshold) {
+          if (column.length < pushLines) {
+            macro[`macro_${lang}`] += cmacro_end_tipper_content + linebreak
+          } else {
+            macro[`macro_${lang}`] += cmacro_transition_tipper_content.replace('~INDEX', `${index + 1}`) + linebreak
+          }
         }
+
         macro[`macro_${lang}`] = macro[`macro_${lang}`].slice(0, linebreak.length * -1)
-        
         const _macro = deepCopy(macro)
         result[`macros_${lang}`].push(_macro[`macro_${lang}`])
       })
