@@ -1,8 +1,10 @@
 import { type Ref } from "vue"
+import { XivCraftActions, type XivCraftAction } from '@/assets/data'
 import type { UserConfigModel } from "@/models/config-user"
 import type { FuncConfigModel } from "@/models/config-func"
-import { XivCraftActions, type XivCraftAction } from '@/assets/data'
+import type { CraftMacroRow, RecordedCraftMacro } from "@/models/macromanage"
 import { deepCopy } from "."
+import { getItemInfo } from "./item"
 
 const useMacroHelper = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -13,7 +15,8 @@ const useMacroHelper = (
   const parseCraftMacroText = (macro: string) => {
     const actions : string[] = []
     macro.split('\n').forEach(line => {
-      const action = line.match(/\/(ac|action|技能)\s"?(.*?)"?\s(<wait\.\d+>|)/)?.[2]
+      const match = line.match(/\/(ac|action|技能)\s(?:"(.*?)"|(\S+))(?:\s?<wait\.\d+>)?/)
+      const action = match?.[2] || match?.[3]
       if (action) actions.push(action)
     })
     const result: XivCraftAction[] = []
@@ -130,6 +133,56 @@ const useMacroHelper = (
     return result
   }
 
+  /** 将表格行数据归档为缓存的宏内容 */
+  const archiveMacroRow = (row: CraftMacroRow, customCpRequirement?: number) : RecordedCraftMacro => {
+    const { id, name, remark, relateItems, tags, requirements, craftActions } = row
+    return {
+      id,
+      name,
+      remark,
+      relateItems: relateItems.map(item => {
+        if (typeof item === 'string') {
+          return item
+        } else {
+          return item.id
+        }
+      }),
+      tags,
+      requirements: {
+        craftsmanship: requirements.craftsmanship,
+        control: requirements.control,
+        cp: customCpRequirement ?? calMacroCpCost(craftActions),
+      },
+      craftActions: craftActions.map(action => action.id),
+    }
+  }
+  /** 将缓存的宏内容解档为表格行数据 */
+  const unarchiveMacroRow = (macro: RecordedCraftMacro) : CraftMacroRow => {
+    const relateItems = macro.relateItems.map(item => {
+      if (typeof item === 'number') {
+        return getItemInfo(item)
+      } else {
+        return item
+      }
+    })
+    const craftActions = macro.craftActions.map(actionid => XivCraftActions[actionid])
+    const cpRequirement = calMacroCpCost(craftActions)
+
+    return {
+      id: macro.id,
+      name: macro.name,
+      remark: macro.remark,
+      relateItems: relateItems,
+      tags: macro.tags,
+      requirements: {
+        craftsmanship: macro.requirements?.craftsmanship,
+        control: macro.requirements?.control,
+        cp: macro.requirements?.cp ?? cpRequirement,
+      },
+      craftActions: craftActions,
+    }
+  }
+
   return {
     /** 将生产宏转换为技能列表 */
     parseCraftMacroText,
@@ -139,6 +192,10 @@ const useMacroHelper = (
     calMacroCpCost,
     /** 将技能列表按用户设置组装为宏 */
     exportCraftMacroText,
+    /** 将表格行数据归档为缓存的宏内容 */
+    archiveMacroRow,
+    /** 将缓存的宏内容解档为表格行数据 */
+    unarchiveMacroRow,
   }
 }
 

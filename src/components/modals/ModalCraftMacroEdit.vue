@@ -184,6 +184,9 @@ const handleSave = async () => {
     )) return
     relateItems = Array.from(new Set(relateItems))
   }
+  if (!formCraftActions.value.length) {
+    NAIVE_UI_MESSAGE.error(t('宏内容不能为空')); return
+  }
 
   // 处理一些属性
   if (!formData.value.name) formData.value.name = t('{id}号宏', formData.value.id)

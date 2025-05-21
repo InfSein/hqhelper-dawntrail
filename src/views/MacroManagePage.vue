@@ -15,14 +15,17 @@ import FoldableCard from '@/components/templates/FoldableCard.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import ModalCraftMacroEdit from '@/components/modals/ModalCraftMacroEdit.vue'
 import ModalPreferences from '@/components/modals/ModalPreferences.vue'
-import { XivCraftActions, type XivCraftAction } from '@/assets/data'
+import { XivCraftActions } from '@/assets/data'
 import { useStore } from '@/store'
-import { fixWorkState, type WorkState, type RecordedCraftMacro, getDefaultCraftMacro } from '@/models/macromanage'
+import {
+  _VAR_MACRO_MAXAMOUNT,
+  fixWorkState, getDefaultCraftMacro,
+  type WorkState, type RecordedCraftMacro, type CraftMacroRow,
+} from '@/models/macromanage'
 import type { UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
 import { CopyToClipboard } from '@/tools'
 import useUiTools from '@/tools/ui'
-import { getItemInfo, type ItemInfo } from '@/tools/item'
 import useMacroHelper from '@/tools/macro-helper'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -34,7 +37,7 @@ const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 const { renderIcon } = useUiTools(isMobile)
 const {
-  calMacroCpCost, exportCraftMacroText,
+  exportCraftMacroText, unarchiveMacroRow,
 } = useMacroHelper(userConfig, funcConfig)
 
 const workState = ref<WorkState>(fixWorkState())
@@ -84,73 +87,6 @@ const macroItemLanguageOptions = computed(() => {
   ]
 })
 
-interface CraftMacroRow {
-  id: number,
-  name: string,
-  remark: string,
-  /** 关联的物品 */
-  relateItems: (ItemInfo|string)[],
-  /** 用户自定义标签 */
-  tags: string[],
-  /** 此生产宏的属性要求 */
-  requirements: {
-    /** 作业精度 */
-    craftsmanship?: number,
-    /** 加工精度 */
-    control?: number,
-    /** 制作力 */
-    cp: number,
-  },
-  craftActions: XivCraftAction[],
-}
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const archiveMacroRow = (row: CraftMacroRow, customCpRequirement?: number) : RecordedCraftMacro => {
-  const { id, name, remark, relateItems, tags, requirements, craftActions } = row
-  return {
-    id,
-    name,
-    remark,
-    relateItems: relateItems.map(item => {
-      if (typeof item === 'string') {
-        return item
-      } else {
-        return item.id
-      }
-    }),
-    tags,
-    requirements: {
-      craftsmanship: requirements.craftsmanship,
-      control: requirements.control,
-      cp: customCpRequirement ?? calMacroCpCost(craftActions),
-    },
-    craftActions: craftActions.map(action => action.id),
-  }
-}
-const unarchiveMacroRow = (macro: RecordedCraftMacro) : CraftMacroRow => {
-  const relateItems = macro.relateItems.map(item => {
-    if (typeof item === 'number') {
-      return getItemInfo(item)
-    } else {
-      return item
-    }
-  })
-  const craftActions = macro.craftActions.map(actionid => XivCraftActions[actionid])
-  const cpRequirement = calMacroCpCost(craftActions)
-
-  return {
-    id: macro.id,
-    name: macro.name,
-    remark: macro.remark,
-    relateItems: relateItems,
-    tags: macro.tags,
-    requirements: {
-      craftsmanship: macro.requirements?.craftsmanship,
-      control: macro.requirements?.control,
-      cp: macro.requirements?.cp ?? cpRequirement,
-    },
-    craftActions: craftActions,
-  }
-}
 const tableData = computed(() => {
   return workState.value.recordedCraftMacros.map(macro => unarchiveMacroRow(macro)).filter(macro => {
     if (workState.value.searchKeyword) {
@@ -385,6 +321,10 @@ const getMacroId = () => {
 }
 
 const handleAddRow = () => {
+  if (workState.value.recordedCraftMacros.length >= _VAR_MACRO_MAXAMOUNT) {
+    NAIVE_UI_MESSAGE.error(t('宏数量已达上限'))
+    return
+  }
   const macroid = getMacroId()
   macroEditTarget.value = getDefaultCraftMacro(macroid)
   macroEditAction.value = 'add'
