@@ -1,5 +1,8 @@
 # HqHelper 下载量统计
 
+> [!TIP]\
+> 热更新等需要重新上传Release文件的场合，那一版本的已统计下载量会被清空。
+
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)
 
 ## 客户端本体
@@ -51,3 +54,4 @@
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.1/static-pages.zip)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.2/static-pages.zip)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.3/static-pages.zip)
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.4/static-pages.zip)
