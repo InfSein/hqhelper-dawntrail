@@ -79,6 +79,11 @@ export const getChangelogs = (
                 f: t('导入/导出')
               })
             ,
+            t('国服数据库更新至{ver}，', {
+              ver: '7.15'
+            }) +  t('国际服数据库更新至{ver}。', {
+              ver: '7.21'
+            })
           ]
         },
         {
