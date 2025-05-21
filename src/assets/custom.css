@@ -13,6 +13,10 @@
   display: flex;
   flex-direction: column;
 }
+.flex-hac {
+  display: flex;
+  justify-content: center;
+}
 .flex-vac {
   display: flex;
   align-items: center;

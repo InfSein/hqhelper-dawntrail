@@ -164,7 +164,7 @@ export interface XivCraftAction {
   name_zh: string
   name_ja: string
   name_en: string
-  wait_time: Number
+  wait_time: number
   cost_cp: number
   icon: number
   /** 该制作技能在制作模拟器工序中的键 */
