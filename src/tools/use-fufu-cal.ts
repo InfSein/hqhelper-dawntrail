@@ -267,7 +267,7 @@ export function useFufuCal(
         // 部分道具同时具备可采集/精选和可兑换的属性，需要注意区分
         itemsTradable.push(item)
       } else {
-        if (item.isCrystal) {
+        if (!item.isCrystal) {
           // 忽略水晶
           itemsOtherCollectable.push(item)
         }
