@@ -6792,14 +6792,14 @@
     ]
   },
   "编号": {
-    "en": "编号",
+    "en": "No.",
     "ja": "编号",
     "$files": [
       "views\\MacroManagePage.vue"
     ]
   },
   "宏名称": {
-    "en": "宏名称",
+    "en": "Macro Name",
     "ja": "宏名称",
     "$files": [
       "views\\MacroManagePage.vue",
@@ -6807,14 +6807,14 @@
     ]
   },
   "标签：": {
-    "en": "标签：",
+    "en": "Tags: ",
     "ja": "标签：",
     "$files": [
       "views\\MacroManagePage.vue"
     ]
   },
   "关联物品": {
-    "en": "关联物品",
+    "en": "Related Items",
     "ja": "关联物品",
     "$files": [
       "views\\MacroManagePage.vue",
@@ -6822,378 +6822,343 @@
     ]
   },
   "编辑": {
-    "en": "编辑",
+    "en": "Edit",
     "ja": "编辑",
     "$files": [
       "views\\MacroManagePage.vue"
     ]
   },
   "数据丢失": {
-    "en": "数据丢失",
+    "en": "Data missing",
     "ja": "数据丢失",
     "$files": [
       "views\\MacroManagePage.vue"
     ]
   },
   "确定要删除 {name} 吗?": {
-    "en": "确定要删除 {name} 吗?",
+    "en": "Are you sure you want to delete {name}?",
     "ja": "确定要删除 {name} 吗?",
     "$files": [
       "views\\MacroManagePage.vue"
     ]
   },
   "此操作不可逆。": {
-    "en": "此操作不可逆。",
+    "en": "This operation is irreversible.",
     "ja": "此操作不可逆。",
     "$files": [
       "views\\MacroManagePage.vue"
     ]
   },
   "已删除": {
-    "en": "已删除",
+    "en": "Deleted",
     "ja": "已删除",
     "$files": [
       "views\\MacroManagePage.vue"
     ]
   },
   "已保存更改": {
-    "en": "已保存更改",
+    "en": "Saved",
     "ja": "已保存更改",
     "$files": [
       "views\\MacroManagePage.vue"
     ]
   },
   "{dataname} 已保存": {
-    "en": "{dataname} 已保存",
+    "en": "{dataname} saved",
     "ja": "{dataname} 已保存",
     "$files": [
       "views\\MacroManagePage.vue"
     ]
   },
-  "筛选／设置": {
-    "en": "筛选／设置",
-    "ja": "筛选／设置",
-    "$files": [
-      "views\\MacroManagePage.vue"
-    ]
-  },
-  "筛选": {
-    "en": "筛选",
-    "ja": "筛选",
-    "$files": [
-      "views\\MacroManagePage.vue"
-    ]
-  },
   "支持按宏名称/备注/标签以及关联物品的名称/ID/品级/版本进行检索": {
-    "en": "支持按宏名称/备注/标签以及关联物品的名称/ID/品级/版本进行检索",
+    "en": "Search by macro's name/remark/tags and items' name/ID/ilv/patch",
     "ja": "支持按宏名称/备注/标签以及关联物品的名称/ID/品级/版本进行检索",
     "$files": [
       "views\\MacroManagePage.vue"
     ]
   },
-  "调试": {
-    "en": "调试",
-    "ja": "调试",
-    "$files": [
-      "views\\MacroManagePage.vue"
-    ]
-  },
-  "数据": {
-    "en": "数据",
-    "ja": "数据",
-    "$files": [
-      "views\\MacroManagePage.vue"
-    ]
-  },
   "添加宏": {
-    "en": "添加宏",
+    "en": "Add macro",
     "ja": "添加宏",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "编辑宏": {
-    "en": "编辑宏",
+    "en": "Edit macro",
     "ja": "编辑宏",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "关联物品数量达到上限": {
-    "en": "关联物品数量达到上限",
+    "en": "The number of related items has reached the limit",
     "ja": "关联物品数量达到上限",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "请输入物品名": {
-    "en": "请输入物品名",
+    "en": "Please input item name",
     "ja": "请输入物品名",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "关联物品中的以下物品重复，将被自动去重：": {
-    "en": "关联物品中的以下物品重复，将被自动去重：",
+    "en": "The following items in the related items are duplicated and will be automatically deduplicated:",
     "ja": "关联物品中的以下物品重复，将被自动去重：",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "{id}号宏": {
-    "en": "{id}号宏",
+    "en": "Macro #{id}",
     "ja": "{id}号宏",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "基本信息": {
-    "en": "基本信息",
+    "en": "Base info",
     "ja": "基本信息",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "标签": {
-    "en": "标签",
+    "en": "Tag",
     "ja": "标签",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "备注": {
-    "en": "备注",
+    "en": "Remark",
     "ja": "备注",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "最多{limit}行": {
-    "en": "最多{limit}行",
+    "en": "Up to {limit} lines",
     "ja": "最多{limit}行",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "属性要求": {
-    "en": "属性要求",
+    "en": "Attribute requirements",
     "ja": "属性要求",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "作业精度": {
-    "en": "作业精度",
+    "en": "Craftsmanship",
     "ja": "作业精度",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "加工精度": {
-    "en": "加工精度",
+    "en": "Control",
     "ja": "加工精度",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "制作力": {
-    "en": "制作力",
+    "en": "CP",
     "ja": "制作力",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "不填或填0时会根据宏内容自动计算。": {
-    "en": "不填或填0时会根据宏内容自动计算。",
+    "en": "Will be automatically calculated based on the macro content when not filled or filled with 0.",
     "ja": "不填或填0时会根据宏内容自动计算。",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "相应的，一旦填写就会覆盖掉自动计算的制作力消耗。": {
-    "en": "相应的，一旦填写就会覆盖掉自动计算的制作力消耗。",
+    "en": "Correspondingly, once filled, it will override the automatically calculated CP consumption.",
     "ja": "相应的，一旦填写就会覆盖掉自动计算的制作力消耗。",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "此属性填0时会自动计算": {
-    "en": "此属性填0时会自动计算",
+    "en": "Automatically calculated when filled with 0",
     "ja": "此属性填0时会自动计算",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "可以从HqHelper的数据库中选择物品，也可以自行输入物品名称。": {
-    "en": "可以从HqHelper的数据库中选择物品，也可以自行输入物品名称。",
+    "en": "Select items from HqHelper's database or enter the item name yourself.",
     "ja": "可以从HqHelper的数据库中选择物品，也可以自行输入物品名称。",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "从数据库中选择": {
-    "en": "从数据库中选择",
+    "en": "Select from DB",
     "ja": "从数据库中选择",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "自行输入物品名": {
-    "en": "自行输入物品名",
+    "en": "Input item name",
     "ja": "自行输入物品名",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "已有物品": {
-    "en": "已有物品",
+    "en": "Existing items",
     "ja": "已有物品",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "关联物品可以设置最多{limit_1}个，不过宏管理页面的表格只会展示前{limit_2}个。": {
-    "en": "关联物品可以设置最多{limit_1}个，不过宏管理页面的表格只会展示前{limit_2}个。",
+    "en": "The related items can be set to a maximum of {limit_1}, but the table on the macro management page will only display the first {limit_2}.",
     "ja": "关联物品可以设置最多{limit_1}个，不过宏管理页面的表格只会展示前{limit_2}个。",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "还未设置任何关联物品": {
-    "en": "还未设置任何关联物品",
+    "en": "Not set any related items yet",
     "ja": "还未设置任何关联物品",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "宏内容": {
-    "en": "宏内容",
+    "en": "Macro content",
     "ja": "宏内容",
     "$files": [
       "components\\modals\\ModalCraftMacroEdit.vue"
     ]
   },
   "累加": {
-    "en": "累加",
+    "en": "Add",
     "ja": "累加",
     "$files": [
       "components\\modals\\ModalJoinInWorkflow.vue"
     ]
   },
   "覆盖": {
-    "en": "覆盖",
+    "en": "Cover",
     "ja": "覆盖",
     "$files": [
       "components\\modals\\ModalJoinInWorkflow.vue"
     ]
   },
   "若物品已经存在于工作流中，则数量会被覆盖。": {
-    "en": "若物品已经存在于工作流中，则数量会被覆盖。",
+    "en": "If the item already exists in the workflow, the quantity will be overwritten.",
     "ja": "若物品已经存在于工作流中，则数量会被覆盖。",
     "$files": [
       "components\\modals\\ModalJoinInWorkflow.vue"
     ]
   },
   "覆写": {
-    "en": "覆写",
+    "en": "Overwrite",
     "ja": "覆写",
     "$files": [
       "components\\modals\\ModalJoinInWorkflow.vue"
     ]
   },
   "选定工作流的数据将被清除，重新加入下述物品。": {
-    "en": "选定工作流的数据将被清除，重新加入下述物品。",
+    "en": "The data of the selected workflow will be cleared and the following items will be re-added.",
     "ja": "选定工作流的数据将被清除，重新加入下述物品。",
     "$files": [
       "components\\modals\\ModalJoinInWorkflow.vue"
     ]
   },
   "目标": {
-    "en": "目标",
+    "en": "Target",
     "ja": "目标",
     "$files": [
       "components\\modals\\ModalJoinInWorkflow.vue"
     ]
   },
   "生产宏": {
-    "en": "生产宏",
+    "en": "Craft macro",
     "ja": "生产宏",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
   "在每个生产宏的开头使用/macrolock": {
-    "en": "在每个生产宏的开头使用/macrolock",
+    "en": "Use /macrolock at the beginning of each craft macro",
     "ja": "在每个生产宏的开头使用/macrolock",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
   "启用后生成的生产宏在执行期间不会被其他宏打断，不过各宏的技能容量也会减少。": {
-    "en": "启用后生成的生产宏在执行期间不会被其他宏打断，不过各宏的技能容量也会减少。",
+    "en": "Enabling this option will prevent the generated craft macro from being interrupted by other macros during execution, but the skill capacity of each macro will also be reduced.",
     "ja": "启用后生成的生产宏在执行期间不会被其他宏打断，不过各宏的技能容量也会减少。",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
   "移除生产宏技能名的双引号": {
-    "en": "移除生产宏技能名的双引号",
+    "en": "Remove double quotes from craft macro skill names",
     "ja": "移除生产宏技能名的双引号",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
-  "含有空格的技能名仍需使用双引号或是转换为定型文，否则执行时会报错。": {
-    "en": "含有空格的技能名仍需使用双引号或是转换为定型文，否则执行时会报错。",
-    "ja": "含有空格的技能名仍需使用双引号或是转换为定型文，否则执行时会报错。",
-    "$files": [
-      "components\\modals\\ModalPreferences.vue"
-    ]
-  },
   "过渡生产宏的执行结束提醒": {
-    "en": "过渡生产宏的执行结束提醒",
+    "en": "Transition craft macro execution end reminder",
     "ja": "过渡生产宏的执行结束提醒",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
   "过渡生产宏指最后一个宏之外的生产宏。": {
-    "en": "过渡生产宏指最后一个宏之外的生产宏。",
+    "en": "Transition craft macro refers to the craft macros other than the last macro.",
     "ja": "过渡生产宏指最后一个宏之外的生产宏。",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
   "提醒内容中的「~INDEX」将被替换为宏的顺序号。": {
-    "en": "提醒内容中的「~INDEX」将被替换为宏的顺序号。",
+    "en": "「~INDEX」 in reminder content will be replaced with the macro's sequence number.",
     "ja": "提醒内容中的「~INDEX」将被替换为宏的顺序号。",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
   "此项未填写任何内容时会使用默认值：{val}": {
-    "en": "此项未填写任何内容时会使用默认值：{val}",
+    "en": "This item will use the default value when no content is filled in: {val}",
     "ja": "此项未填写任何内容时会使用默认值：{val}",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
   "最终生产宏的执行结束提醒": {
-    "en": "最终生产宏的执行结束提醒",
+    "en": "Final craft macro execution end reminder",
     "ja": "最终生产宏的执行结束提醒",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
   "导出Excel时导出成本/收益分析": {
-    "en": "导出Excel时导出成本/收益分析",
+    "en": "Export cost/profit analysis when exporting Excel",
     "ja": "导出Excel时导出成本/收益分析",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]
   },
   "您已经处于宏管理页面。": {
-    "en": "您已经处于宏管理页面。",
+    "en": "You are already on the macro management page.",
     "ja": "您已经处于宏管理页面。",
     "$files": [
       "components\\custom\\general\\AppHeader.vue"
@@ -7207,10 +7172,381 @@
     ]
   },
   "宏管理": {
-    "en": "宏管理",
+    "en": "Macro manage",
     "ja": "宏管理",
     "$files": [
       "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "实装全新功能「生产宏管理」。": {
+    "en": "Implemented a new feature 'Craft Macro Management'.",
+    "ja": "实装全新功能「生产宏管理」。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "伴随这一改动，“{f1}”中追加了“{f2}”选项卡。": {
+    "en": "With this change, the '{f2}' tab has been added to '{f1}'.",
+    "ja": "伴随这一改动，“{f1}”中追加了“{f2}”选项卡。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "相应的，原有的“{f}”选项卡将被撤除，其下的设置项将移动到其他选项卡中。": {
+    "en": "相应的，原有的“{f}”选项卡将被撤除，其下的设置项将移动到其他选项卡中。",
+    "ja": "相应的，原有的“{f}”选项卡将被撤除，其下的设置项将移动到其他选项卡中。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了克扎玛乌卡湿地的地图数据，现在会正常显示水果码头传送点。": {
+    "en": "修正了克扎玛乌卡湿地的地图数据，现在会正常显示水果码头传送点。",
+    "ja": "修正了克扎玛乌卡湿地的地图数据，现在会正常显示水果码头传送点。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了「成本/收益分析」和「加入工作流」弹窗中物品信息图标的复制功能没有正常工作的问题。": {
+    "en": "修复了「成本/收益分析」和「加入工作流」弹窗中物品信息图标的复制功能没有正常工作的问题。",
+    "ja": "修复了「成本/收益分析」和「加入工作流」弹窗中物品信息图标的复制功能没有正常工作的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了制作报表内物品名称过长时表格各列会错位的问题。": {
+    "en": "修复了制作报表内物品名称过长时表格各列会错位的问题。",
+    "ja": "修复了制作报表内物品名称过长时表格各列会错位的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了赞助者名单有时会因缓存而没有及时更新的问题。": {
+    "en": "修复了赞助者名单有时会因缓存而没有及时更新的问题。",
+    "ja": "修复了赞助者名单有时会因缓存而没有及时更新的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "此项是对2.2.3版本中相应修正的进一步处理。": {
+    "en": "此项是对2.2.3版本中相应修正的进一步处理。",
+    "ja": "此项是对2.2.3版本中相应修正的进一步处理。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "向「推荐流程」中追加了“隐藏/显示国服未实装物品”按钮 (仅“服务器“设置为国服时显示)。": {
+    "en": "向「推荐流程」中追加了“隐藏/显示国服未实装物品”按钮 (仅“服务器“设置为国服时显示)。",
+    "ja": "向「推荐流程」中追加了“隐藏/显示国服未实装物品”按钮 (仅“服务器“设置为国服时显示)。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "对制作报表的推荐流程弹窗和工作流的流程标签页均适用，不过按钮位置不同。": {
+    "en": "对制作报表的推荐流程弹窗和工作流的流程标签页均适用，不过按钮位置不同。",
+    "ja": "对制作报表的推荐流程弹窗和工作流的流程标签页均适用，不过按钮位置不同。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "忽略水晶素材": {
+    "en": "忽略水晶素材",
+    "ja": "忽略水晶素材",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "在制作报表中左键单击任意物品行后，它和它的制作素材会被高亮展示。": {
+    "en": "在制作报表中左键单击任意物品行后，它和它的制作素材会被高亮展示。",
+    "ja": "在制作报表中左键单击任意物品行后，它和它的制作素材会被高亮展示。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "如果不需要这一功能，可以在“{f1}”的“{f2}”选项卡中打开设置项“{f3}”。": {
+    "en": "如果不需要这一功能，可以在“{f1}”的“{f2}”选项卡中打开设置项“{f3}”。",
+    "ja": "如果不需要这一功能，可以在“{f1}”的“{f2}”选项卡中打开设置项“{f3}”。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "禁用高亮展示关联素材": {
+    "en": "禁用高亮展示关联素材",
+    "ja": "禁用高亮展示关联素材",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "现在在将物品加入工作流时，可以自由选择加入模式。": {
+    "en": "现在在将物品加入工作流时，可以自由选择加入模式。",
+    "ja": "现在在将物品加入工作流时，可以自由选择加入模式。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "模式选择为“累加”即与之前版本的逻辑一致。可以在弹窗中查看详细说明。": {
+    "en": "模式选择为“累加”即与之前版本的逻辑一致。可以在弹窗中查看详细说明。",
+    "ja": "模式选择为“累加”即与之前版本的逻辑一致。可以在弹窗中查看详细说明。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "中文": {
+    "en": "中文",
+    "ja": "中文",
+    "$files": [
+      "views\\MacroManagePage.vue",
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "英文": {
+    "en": "英文",
+    "ja": "英文",
+    "$files": [
+      "views\\MacroManagePage.vue",
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "日文": {
+    "en": "日文",
+    "ja": "日文",
+    "$files": [
+      "views\\MacroManagePage.vue",
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "{craftsmanship_val}作业": {
+    "en": "{craftsmanship_val}作业",
+    "ja": "{craftsmanship_val}作业",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "{control_val}加工": {
+    "en": "{control_val}加工",
+    "ja": "{control_val}加工",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "{step_count}步{time_count}秒": {
+    "en": "{step_count}步{time_count}秒",
+    "ja": "{step_count}步{time_count}秒",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "点击以复制": {
+    "en": "点击以复制",
+    "ja": "点击以复制",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "宏数量已达上限": {
+    "en": "宏数量已达上限",
+    "ja": "宏数量已达上限",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "生产宏管理": {
+    "en": "生产宏管理",
+    "ja": "生产宏管理",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "筛选／检索": {
+    "en": "筛选／检索",
+    "ja": "筛选／检索",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "宏语言": {
+    "en": "宏语言",
+    "ja": "宏语言",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "新增": {
+    "en": "新增",
+    "ja": "新增",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "无匹配内容": {
+    "en": "无匹配内容",
+    "ja": "无匹配内容",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "无数据": {
+    "en": "无数据",
+    "ja": "无数据",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "显示国服未实装物品": {
+    "en": "显示国服未实装物品",
+    "ja": "显示国服未实装物品",
+    "$files": [
+      "views\\WorkflowPage.vue",
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "隐藏国服未实装物品": {
+    "en": "隐藏国服未实装物品",
+    "ja": "隐藏国服未实装物品",
+    "$files": [
+      "views\\WorkflowPage.vue",
+      "components\\modals\\ModalRecommendedProcesses.vue"
+    ]
+  },
+  "请输入要导入的内容": {
+    "en": "请输入要导入的内容",
+    "ja": "请输入要导入的内容",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "没有识别到任何技能": {
+    "en": "没有识别到任何技能",
+    "ja": "没有识别到任何技能",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "宏内容不能为空": {
+    "en": "宏内容不能为空",
+    "ja": "宏内容不能为空",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "当前": {
+    "en": "当前",
+    "ja": "当前",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "可以长按下方技能按钮拖拽来自定义排序。": {
+    "en": "可以长按下方技能按钮拖拽来自定义排序。",
+    "ja": "可以长按下方技能按钮拖拽来自定义排序。",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "还未设置任何宏内容": {
+    "en": "还未设置任何宏内容",
+    "ja": "还未设置任何宏内容",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "导入来源：": {
+    "en": "导入来源：",
+    "ja": "导入来源：",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "游戏宏": {
+    "en": "游戏宏",
+    "ja": "游戏宏",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "模拟器": {
+    "en": "模拟器",
+    "ja": "模拟器",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "将游戏中的生产技能宏复制粘贴到下方输入框即可。": {
+    "en": "将游戏中的生产技能宏复制粘贴到下方输入框即可。",
+    "ja": "将游戏中的生产技能宏复制粘贴到下方输入框即可。",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "输入框没有行数限制，组装多个宏时，粘贴完第一个宏之后换行粘贴第二个即可。": {
+    "en": "输入框没有行数限制，组装多个宏时，粘贴完第一个宏之后换行粘贴第二个即可。",
+    "ja": "输入框没有行数限制，组装多个宏时，粘贴完第一个宏之后换行粘贴第二个即可。",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "最终需要保证一行一个技能。只会识别以“/ac”、“/action”或“/技能”开头的行，技能名可以加双引号。": {
+    "en": "最终需要保证一行一个技能。只会识别以“/ac”、“/action”或“/技能”开头的行，技能名可以加双引号。",
+    "ja": "最终需要保证一行一个技能。只会识别以“/ac”、“/action”或“/技能”开头的行，技能名可以加双引号。",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "支持中文，英文和日文的宏，可以自由组合。": {
+    "en": "支持中文，英文和日文的宏，可以自由组合。",
+    "ja": "支持中文，英文和日文的宏，可以自由组合。",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "在FCO模拟器或BestCraft模拟器中编辑手法后，点击“导出工序”，将工序代码粘贴到下方输入框即可。": {
+    "en": "在FCO模拟器或BestCraft模拟器中编辑手法后，点击“导出工序”，将工序代码粘贴到下方输入框即可。",
+    "ja": "在FCO模拟器或BestCraft模拟器中编辑手法后，点击“导出工序”，将工序代码粘贴到下方输入框即可。",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "宏语言：": {
+    "en": "宏语言：",
+    "ja": "宏语言：",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "技能名含空格时必须使用双引号或是手动转换为定型文，否则执行时会报错。": {
+    "en": "技能名含空格时必须使用双引号或是手动转换为定型文，否则执行时会报错。",
+    "ja": "技能名含空格时必须使用双引号或是手动转换为定型文，否则执行时会报错。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "如果你不需要让制作报表计算各种碎晶/水晶/晶簇，可以考虑打开此选项。": {
+    "en": "如果你不需要让制作报表计算各种碎晶/水晶/晶簇，可以考虑打开此选项。",
+    "ja": "如果你不需要让制作报表计算各种碎晶/水晶/晶簇，可以考虑打开此选项。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "在2.2.4版本，我们向制作报表追加了一个新功能，左键单击任意物品行后，它和它的制作素材会被高亮展示。": {
+    "en": "在2.2.4版本，我们向制作报表追加了一个新功能，左键单击任意物品行后，它和它的制作素材会被高亮展示。",
+    "ja": "在2.2.4版本，我们向制作报表追加了一个新功能，左键单击任意物品行后，它和它的制作素材会被高亮展示。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "如果你并不需要这一功能、觉得它太容易误触，可以考虑打开此选项。": {
+    "en": "如果你并不需要这一功能、觉得它太容易误触，可以考虑打开此选项。",
+    "ja": "如果你并不需要这一功能、觉得它太容易误触，可以考虑打开此选项。",
+    "$files": [
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "该物品国服尚未实装。": {
+    "en": "该物品国服尚未实装。",
+    "ja": "该物品国服尚未实装。",
+    "$files": [
+      "components\\custom\\item\\ItemPop.vue"
     ]
   }
 }
