@@ -103,11 +103,11 @@ const tableData = computed(() => {
             return (
               item.name_zh.includes(keyword) ||
               item.name_en.includes(keyword) ||
-              item.name_ja.includes(keyword)
+              item.name_ja.includes(keyword) ||
+              item.patch === keyword
             ) || (keywordIsDigit && (
               item.id.toString() === keyword ||
-              item.itemLevel.toString() === keyword ||
-              item.patch === keyword
+              item.itemLevel.toString() === keyword
             ))
           }
         })
@@ -195,7 +195,7 @@ const tableColumns = computed(() => {
           children.push(h('div', null, t('{craftsmanship_val}作业', row.requirements.craftsmanship)))
         }
         if (row.requirements.control) {
-          children.push(h('div', null, t('{control_val}加工', row.requirements.craftsmanship)))
+          children.push(h('div', null, t('{control_val}加工', row.requirements.control)))
         }
         if (row.requirements.cp) {
           children.push(h('div', null, row.requirements.cp + 'CP'))
