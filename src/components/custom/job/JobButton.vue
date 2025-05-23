@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { computed, h, inject, nextTick, ref, type Component, type Ref, type VNode } from 'vue'
+import { computed, h, inject, nextTick, ref, type Ref, type VNode } from 'vue'
 import {
-  NBadge, NButton, NDropdown, NIcon, NPopover
+  NBadge, NButton, NDropdown, NPopover
 } from 'naive-ui'
 import {
   FileDownloadDoneOutlined,
@@ -29,7 +29,7 @@ const {
   addAttire,
   addAccessory
 } = useGearAdder()
-const { dropdownOptionsRenderer } = useUiTools(isMobile)
+const { renderIcon, optionsRenderer } = useUiTools(isMobile)
 const {
   uiLanguage,
 } = UseConfig(userConfig, funcConfig)
@@ -478,13 +478,6 @@ const renderGroupTitle = (title: string) => {
   )
 }
 const groupOptionStyle = 'margin: 0 1em; user-select: none;'
-function renderIcon(icon: Component, props?: any) {
-  return () => {
-    return h(NIcon, props, {
-      default: () => h(icon)
-    })
-  }
-}
 const handleContextMenu = (e: MouseEvent) => {
   e.preventDefault()
   showDropdownRef.value = false
@@ -535,7 +528,7 @@ const onClickoutside = () => {
             :x="xRef"
             :y="yRef"
             :options="contextOptions"
-            :render-option="dropdownOptionsRenderer"
+            :render-option="optionsRenderer"
             :show="showDropdownRef"
             :on-clickoutside="onClickoutside"
             @select="handleSelect"

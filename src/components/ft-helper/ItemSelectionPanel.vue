@@ -9,7 +9,7 @@ import {
 } from '@vicons/material'
 import FoldableCard from '../templates/FoldableCard.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'
-import ItemSelector from '../custom/item/ItemSelector.vue'
+import ItemStepper from '../custom/item/ItemStepper.vue'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import TooltipButton from '../custom/general/TooltipButton.vue'
@@ -86,7 +86,7 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
               </template>
               
               <div class="item-btn-container">
-                <ItemSelector
+                <ItemStepper
                   class="item"
                   v-for="(item, index) in foodAndTinc.foods"
                   :key="`food-${patch}-${index}`"
@@ -108,7 +108,7 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
               </template>
               
               <div class="item-btn-container">
-                <ItemSelector
+                <ItemStepper
                   class="item"
                   v-for="(item, index) in foodAndTinc.tincs"
                   :key="`tinc-${patch}-${index}`"

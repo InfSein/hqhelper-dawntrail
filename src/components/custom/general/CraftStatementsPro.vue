@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
+import { computed, inject, onBeforeUnmount, onMounted, ref, type Ref } from 'vue'
 import {
   NTabs, NTabPane
 } from 'naive-ui'
@@ -9,7 +9,8 @@ import {
 import GroupBox from '@/components/templates/GroupBox.vue'
 import ItemStatementTable from '@/components/custom/item/ItemStatementTable.vue'
 import { type FuncConfigModel } from '@/models/config-func'
-import type { ItemInfo, ProStatementBlock } from '@/tools/item'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
+import type { ProStatementBlock } from '@/tools/use-fufu-cal'
 
 // const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -22,6 +23,10 @@ const itemsPrepared = defineModel<{
   materialsLvBase: Record<number, number>;
 }>('itemsPrepared', { required: true })
 
+const itemSpanMaxWidth = ref('inherit')
+const cspWrapper = ref<HTMLElement>()
+const selectedItem = ref<ItemInfo | undefined>(undefined)
+
 interface CraftStatementsProProps {
   /** 是否处于模态框内。此参数会影响一些UI效果。 */
   insideModal?: boolean,
@@ -32,11 +37,47 @@ interface CraftStatementsProProps {
 }
 const props = defineProps<CraftStatementsProProps>()
 
+const updateSize = () => {
+  if (cspWrapper.value?.offsetWidth) {
+    const eachBlockWidth = (cspWrapper.value.offsetWidth - 20) / 3
+    itemSpanMaxWidth.value = ((eachBlockWidth - 16) * 0.4 - 48) + 'px'
+  } else {
+    itemSpanMaxWidth.value = 'inherit'
+  }
+}
+onMounted(() => {
+  updateSize()
+  window.addEventListener('resize', updateSize)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateSize)
+})
+
 const showItemDetails = computed(() => {
   return !funcConfig.value.prostate_concise_mode
 })
 const groupBoxTitleBackground = computed(() => {
   return props.insideModal ? 'var(--n-color-modal)' : 'var(--n-color-embedded)'
+})
+const highlightedItems = computed(() : number[] => {
+  if (!selectedItem.value || funcConfig.value.statement_no_highlights) return []
+  if (!selectedItem.value.craftRequires.length) return [selectedItem.value.id]
+  const recipeSearch = [selectedItem.value.id]
+  const recipeResult = [selectedItem.value.id]
+  while (recipeSearch.length) {
+    const itemId = recipeSearch.pop()!
+    recipeResult.push(itemId)
+    const itemInfo = getItemInfo(itemId)
+    if (itemInfo.craftRequires?.length) {
+      recipeSearch.push(...itemInfo.craftRequires.map(item => item.id))
+    }
+  }
+  return recipeResult
+})
+
+
+defineExpose({
+  updateSize
 })
 </script>
 
@@ -51,15 +92,17 @@ const groupBoxTitleBackground = computed(() => {
       <div class="container">
         <ItemStatementTable
           v-model:items-prepared="itemsPrepared[block.preparedKey]"
+          v-model:selected-item="selectedItem"
           :items-total="block.items"
           :show-item-details="showItemDetails"
           :container-id="containerId"
           :content-height="contentHeight"
+          :highlighted-items="highlightedItems"
         />
       </div>
     </n-tab-pane>
   </n-tabs>
-  <div v-else class="csp-wrapper desktop" :style="`grid-template-columns: repeat(${statementBlocks.length}, minmax(0, 1fr));`">
+  <div v-else ref="cspWrapper" class="csp-wrapper desktop" :style="`grid-template-columns: repeat(${statementBlocks.length}, minmax(0, 1fr));`">
     <GroupBox
       v-for="block in statementBlocks"
       :key="block.id"
@@ -71,10 +114,13 @@ const groupBoxTitleBackground = computed(() => {
       <div class="container">
         <ItemStatementTable
           v-model:items-prepared="itemsPrepared[block.preparedKey]"
+          v-model:selected-item="selectedItem"
           :items-total="block.items"
           :show-item-details="showItemDetails"
           :container-id="containerId"
           :content-height="contentHeight"
+          :item-span-max-width="itemSpanMaxWidth"
+          :highlighted-items="highlightedItems"
         />
       </div>
     </GroupBox>

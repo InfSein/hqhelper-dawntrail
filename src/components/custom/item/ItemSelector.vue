@@ -1,58 +1,84 @@
 <script setup lang="ts">
-import { inject, ref, type PropType, type Ref } from 'vue'
-import Stepper from '../general/Stepper.vue'
-import ItemButton from './ItemButton.vue'
-import type { ItemInfo } from '@/tools/item'
+import { ref, computed, h } from 'vue'
+import {
+  NSelect,
+  type SelectOption, type SelectRenderLabel
+} from 'naive-ui'
+import ItemSpan from '@/components/custom/item/ItemSpan.vue'
+import { getItemInfo } from '@/tools/item'
+import { XivUnpackedItems } from '@/assets/data'
 
-const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+interface ItemSelectorProps {
+  containerId?: string
+}
+const props = defineProps<ItemSelectorProps>()
+const emits = defineEmits(['onItemSelected'])
 
-const value = defineModel<number>('value', { required: true })
-defineProps({
-  itemInfo: {
-    type: Object as PropType<ItemInfo>,
-    required: true
-  }
+const itemInputVal = ref<number | null>(null)
+
+const itemOptions = computed(() => {
+  return Object.values(XivUnpackedItems).filter(item => item.rids?.length > 0).map(item => {
+    return {
+      label: item.lang[0],
+      value: item.id
+    }
+  })
 })
+const renderItemLabel : SelectRenderLabel = (option) => {
+  if (!option.value || typeof option.value !== 'number') {
+    return h('div', null, [option.label as string])
+  }
+  return h(ItemSpan, {
+    itemInfo: getItemInfo(option.value),
+    containerId: props.containerId,
+  })
+}
+const filterItem = (pattern: string, option: SelectOption) => {
+  if (!pattern) {
+    return true
+  }
+  if (!option.value || typeof option.value !== 'number') {
+    return false
+  }
+  const item = getItemInfo(option.value)
+
+  let itemMatched = false
+  const availableKeywords = [
+    item.name_zh, item.name_en, item.name_ja
+  ]
+  availableKeywords.forEach(keyword => {
+    if (keyword?.toLowerCase().includes(pattern.toLowerCase())) {
+      itemMatched = true
+    }
+  })
+  if (itemMatched) return true
+
+  if (item.id.toString() === pattern) return true
+  if (item.itemLevel.toString() === pattern) return true
+  if (item.patch === pattern) return true
+
+  return false
+}
+
+const handleItemInputValueUpdate = (value: number) => {
+  if (!value) return
+  emits('onItemSelected', value)
+  itemInputVal.value = null
+}
 </script>
 
 <template>
-  <div class="item-selector">
-    <ItemButton
-      class="item-button"
-      :item-info="itemInfo"
-      show-icon show-name
-      :btn-height="30"
-      pop-use-custom-width
-      :pop-custom-width="isMobile ? 300 : undefined"
-    />
-    <Stepper
-      class="item-stepper"
-      v-model:value="value"
-    />
-  </div>
+  <n-select
+    v-model:value="itemInputVal"
+    filterable
+    :filter="filterItem"
+    :options="itemOptions"
+    :render-label="renderItemLabel"
+    :placeholder="t('支持按物品名/ID/品级/版本搜索')"
+    :title="t('支持按物品名/ID/品级/版本搜索')"
+    @update:value="handleItemInputValueUpdate"
+  />
 </template>
 
 <style scoped>
-/* All */
-.item-selector {
-  display: grid;
-  gap: 5px 10px;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 3fr);
-
-  .item-button {
-    width: 100%;
-  }
-}
-
-/* Desktop */
-@media screen and (min-width: 768px) {
-  .item-selector {
-    display: grid;
-    grid-template-columns: minmax(0, 8fr) minmax(0, 6fr);
-  }
-}
-
-/* Mobile */
-@media screen and (max-width: 767px) {
-}
 </style>

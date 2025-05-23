@@ -18,6 +18,9 @@ coverage
 /cypress/videos/
 /cypress/screenshots/
 
+# Plugins
+private-folder-alias.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

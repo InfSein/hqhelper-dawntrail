@@ -103,7 +103,7 @@ const tomeScriptItems = computed(() => {
 const crystals = computed(() => {
   const _crystals : ItemInfo[] = []
   materialTarget.value.forEach(material => {
-    if (material.uiTypeId === 59) {
+    if (material.isCrystal) {
       _crystals.push(material)
     }
   })
@@ -153,7 +153,7 @@ const otherMaterials = computed(() => {
     if (material.craftInfo?.jobId) return
     if (material.gatherInfo?.placeID) return
     if (material.tradeInfo) return
-    if (material.uiTypeId === 59) return
+    if (material.isCrystal) return
     if (material.gatherInfo) return
     items.push(material)
   })
