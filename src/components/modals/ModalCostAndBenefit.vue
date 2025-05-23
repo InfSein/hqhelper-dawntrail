@@ -19,6 +19,8 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 // const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
+const modalId = 'modal-cost-and-benefits'
+
 const showModal = defineModel<boolean>('show', { required: true })
 
 interface ModalCostAndBenefitProps {
@@ -42,6 +44,7 @@ const handleSettingButtonClick = () => {
 <template>
   <MyModal
     v-model:show="showModal"
+    :id="modalId"
     :icon="AttachMoneyOutlined"
     :title="t('成本/收益预估')"
     max-width="1200px"
@@ -60,7 +63,7 @@ const handleSettingButtonClick = () => {
             price-type="NQ"
             :items="costItems"
             :show-item-details="showItemDetails"
-            container-id="modal-cost-and-benefits"
+            :container-id="modalId"
           />
         </div>
       </n-tab-pane>
@@ -74,7 +77,7 @@ const handleSettingButtonClick = () => {
             price-type="HQ"
             :items="benefitItems"
             :show-item-details="showItemDetails"
-            container-id="modal-cost-and-benefits"
+            :container-id="modalId"
           />
         </div>
       </n-tab-pane>
@@ -91,7 +94,7 @@ const handleSettingButtonClick = () => {
           price-type="NQ"
           :items="costItems"
           :show-item-details="showItemDetails"
-          container-id="modal-cost-and-benefits"
+          :container-id="modalId"
         />
       </GroupBox>
       <GroupBox
@@ -105,7 +108,7 @@ const handleSettingButtonClick = () => {
           price-type="HQ"
           :items="benefitItems"
           :show-item-details="showItemDetails"
-          container-id="modal-cost-and-benefits"
+          :container-id="modalId"
         />
       </GroupBox>
     </div>

@@ -2,10 +2,11 @@ import type { ItemPriceInfo } from "@/tools/item"
 import type { UserConfigModel } from "./config-user"
 import { deepCopy, assignDefaults } from "@/tools"
 
-export type FuncConfigKey = "copy_macro" | "import_export" | "craft_statement" | "recomm_process" | "cost_benefit"
+export type FuncConfigKey = "copy_macro" | "craft_macro" | "craft_statement" | "recomm_process" | "cost_benefit"
 export type ItemPriceType = 'averagePrice' | 'currentAveragePrice' | 'minPrice' | 'maxPrice' | 'marketLowestPrice' | 'marketPrice' | 'purchasePrice'
 
 export type MacroGenerateMode = 'singleLine' | 'multiLine'
+export type WorkflowJoinMode = "accumulation" | "cover" | "overwrite"
 
 export interface FuncConfigModel {
   // #region 在偏好设置弹窗中设置的配置项
@@ -17,12 +18,23 @@ export interface FuncConfigModel {
   /** 宏生成模式 */
   macro_generate_mode: MacroGenerateMode
 
-  // * 导入/导出
-  export_item_price: boolean
+  // * 生产宏
+  /** 在每个生产宏的开头使用 `锁定宏指令 (/macrolock)` */
+  cmacro_use_macrolock: boolean
+  /** 移除生产宏技能名两端的双引号 */
+  cmacro_remove_quotes: boolean
+  /** 过渡生产宏执行结束后要提醒的内容 */
+  cmacro_transition_tipper_content: string
+  /** 所有生产宏执行结束后要提醒的内容 */
+  cmacro_end_tipper_content: string
 
   // * 制作报表
   /** 使用旧版本制作报表 */
   use_traditional_statement: boolean
+  /** 制作报表不统计碎晶/水晶/晶簇 */
+  statement_ignore_crystals: boolean
+  /** 制作报表禁用高亮展示关联素材 */
+  statement_no_highlights: boolean
   /** 专业版制作报表：使用简洁模式展示物品 */
   prostate_concise_mode: boolean
 
@@ -41,6 +53,8 @@ export interface FuncConfigModel {
   universalis_priceType: ItemPriceType
   /** 物品价格有效期 */
   universalis_expireTime: number
+  /** 导出Excel时导出成本/收益分析 */
+  export_item_price: boolean
   /** 成本/收益分析：显示物品详情 */
   costandbenefit_show_item_details: boolean
   /** 在物品悬浮窗中展示物品价格 */
@@ -49,7 +63,11 @@ export interface FuncConfigModel {
   universalis_poppricetypes: ItemPriceType[]
   // #endregion
 
-  // #region 隐藏的配置项/缓存
+  // #region 隐藏的配置项
+  workflow_default_join_mode: WorkflowJoinMode
+  // #endregion
+
+  // #region 缓存
   cache_item_prices: Record<number, ItemPriceInfo>
   // #endregion
 }
@@ -59,10 +77,15 @@ const defaultFuncConfig: FuncConfigModel = {
   macro_direct_copy: false,
   macro_copy_prefix: '',
   macro_generate_mode: 'singleLine',
-  // * 导入/导出
-  export_item_price: false,
+  // * 生产宏
+  cmacro_use_macrolock: false,
+  cmacro_remove_quotes: false,
+  cmacro_transition_tipper_content: '',
+  cmacro_end_tipper_content: '',
   // * 制作报表
   use_traditional_statement: false,
+  statement_ignore_crystals: false,
+  statement_no_highlights: false,
   prostate_concise_mode: false,
   // * 推荐流程
   processes_show_item_details: false,
@@ -72,9 +95,12 @@ const defaultFuncConfig: FuncConfigModel = {
   universalis_server: '红玉海',
   universalis_priceType: 'averagePrice',
   universalis_expireTime: 6 * 60 * 60 * 1000, // 默认6小时
+  export_item_price: false,
   costandbenefit_show_item_details: false,
   universalis_showpriceinpop: false,
   universalis_poppricetypes: [],
+  // * 隐藏的配置项
+  workflow_default_join_mode: 'accumulation',
   // * 缓存
   cache_item_prices: {},
 }

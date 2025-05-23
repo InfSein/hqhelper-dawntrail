@@ -147,6 +147,37 @@ export const XivAttributes = JsonXivAttributes as Record<number, {
   name_fr: string
 }>
 
+import JsonXivCraftActionGroups from './xiv-craft-action-groups.json'
+export type XivCraftActionGroupKey = "firstStep" | "synth" | "touch" | "durability" | "buff" | "other"
+export interface XivCraftActionGroup {
+  name_zh: string
+  name_ja: string
+  name_en: string
+  actions: number[]
+}
+export const XivCraftActionGroups = JsonXivCraftActionGroups as Record<XivCraftActionGroupKey, XivCraftActionGroup>
+
+import JsonXivCraftActions from './xiv-craft-actions.json'
+export interface XivCraftAction {
+  id: number
+  key: string
+  name_zh: string
+  name_ja: string
+  name_en: string
+  wait_time: number
+  cost_cp: number
+  icon: number
+  /** 该制作技能在制作模拟器工序中的键 */
+  simulator_keys: string[]
+  /** 该技能的连击组 */
+  combo_actions?: number[][]
+  /** 该技能连击成功时消耗的CP */
+  combo_cost_cp?: number
+  /** 该制作技能是否在 `Action` 表中 */
+  from_action_sheet?: boolean
+}
+export const XivCraftActions = JsonXivCraftActions as Record<number, XivCraftAction>
+
 import JsonXivGearAffixes from './xiv-gear-affixes.json'
 export const XivGearAffixes = JsonXivGearAffixes as Record<AttireAffix | AccessoryAffix, {
   key: AttireAffix | AccessoryAffix,

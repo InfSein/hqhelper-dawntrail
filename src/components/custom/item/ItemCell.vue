@@ -24,6 +24,7 @@ interface ItemCellProps {
   itemInfo: ItemInfo
   amount: number
   showItemDetails: boolean
+  itemSpanMaxWidth?: string
   containerId?: string
 }
 defineProps<ItemCellProps>()
@@ -60,7 +61,7 @@ const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
     </div>
     <div class="item-info">
       <div class="item-name">
-        <ItemSpan hide-icon :item-info="itemInfo" :container-id="containerId" />
+        <ItemSpan hide-icon :item-info="itemInfo" :span-max-width="itemSpanMaxWidth" :container-id="containerId" />
       </div>
       <div class="item-details">
         <div v-if="itemInfo.craftInfo?.jobId" class="cell crafter">
@@ -95,7 +96,7 @@ const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
           />
           <span>{{ getJobName(XivJobs[18]) }}</span>
         </div>
-        <div v-if="itemInfo.uiTypeId === 59">{{ t('水晶') }}</div>
+        <div v-if="itemInfo.isCrystal">{{ t('水晶') }}</div>
       </div>
     </div>
   </div>

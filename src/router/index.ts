@@ -4,6 +4,7 @@ import FoodAndTincPage from '@/views/FoodAndTincPage.vue'
 import GatherClockPage from '@/views/GatherClockPage.vue'
 import WorkflowPage from '@/views/WorkflowPage.vue'
 import DownloadPage from '@/views/DownloadPage.vue'
+import MacroManagePage from '@/views/MacroManagePage.vue'
 import ErrorPage404 from '@/views/ErrorPage404.vue'
 
 /* 
@@ -17,6 +18,7 @@ const routes = [
   { path: '/gatherclock', component: GatherClockPage },
   { path: '/workflow', component: WorkflowPage },
   { path: '/download', component: DownloadPage },
+  { path: '/macromanage', component: MacroManagePage },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',

@@ -13,7 +13,7 @@ import useUiTools from '@/tools/ui'
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
-const { dropdownOptionsRenderer } = useUiTools(isMobile)
+const { optionsRenderer } = useUiTools(isMobile)
 
 const formData = defineModel<any>('formData', { required: true })
 interface SettingItemProps {
@@ -98,8 +98,9 @@ const warnings = computed(() => {
         v-model:value="formData[settingItem.key]"
         :multiple="settingItem.multiple"
         :options="settingItem.options"
-        :render-option="dropdownOptionsRenderer"
+        :render-option="optionsRenderer"
         :style="{ width: isMobile ? '75%' : '60%' }"
+        :placeholder="settingItem.placeholder"
       />
       <n-cascader
         v-if="settingItem.type === 'cascader'"
@@ -110,12 +111,14 @@ const warnings = computed(() => {
         show-path
         filterable
         :style="{ width: isMobile ? '85%' : '70%' }"
+        :placeholder="settingItem.placeholder"
       />
       <n-input
         v-if="settingItem.type === 'string'"
         v-model:value="formData[settingItem.key]"
         type="text"
         :style="{ width: isMobile ? '85%' : '70%' }"
+        :placeholder="settingItem.placeholder"
       />
       <n-button
         v-if="settingItem.type === 'button'"

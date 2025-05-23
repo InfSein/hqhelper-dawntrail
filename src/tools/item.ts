@@ -87,6 +87,8 @@ export interface ItemInfo {
   hqable: boolean
   /** 可否交易 */
   tradable: boolean
+  /** 是否还未在国服实装 */
+  chsOffline?: boolean
   /** 是否使用了中文暂译 */
   usedZHTemp?: boolean
   /**
@@ -181,6 +183,7 @@ export interface ItemInfo {
     }[],
     timeLimitDescription: string
   },
+  isCrystal: boolean,
   isAethersand: boolean,
   isFishingItem: boolean,
   tradeInfo: ItemTradeInfo | undefined
@@ -252,6 +255,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     } else if (itemInfo.name_ja) {
       console.log('[开发提示] 此物品需要填写中文暂译:', itemInfo)
     }
+    itemInfo.chsOffline = true
   }
   if (!itemInfo.descZH) {
     const tempZhMap = XivTranslatedItemDescriptions
@@ -416,6 +420,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // * 组装物品兑换信息
   itemInfo.tradeInfo = tradeMap?.[itemInfo.id]
 
+  itemInfo.isCrystal = itemInfo.uiTypeId === 59
   itemInfo.isAethersand = itemInfo.name_en.endsWith('Aethersand')
 
   // * 处理物品是钓鱼采集品的场合
@@ -425,168 +430,13 @@ export const getItemInfo = (item: number | CalculatedItem) => {
 
   // * 组装完毕，返回结果
   return itemInfo
-
-  function getImgCdnUrl(iconID: number, isHq = false) {
-    const CDN_ICON = 'https://icon.nbbjack.com/'
-    const hq = isHq ? 'hq/' : ''
-    const icon = iconID.toString().padStart(6, '0')
-    return `${CDN_ICON}${icon.substring(0, 3)}000/${hq}${icon}.png`
-  }
 }
 
-interface StatementData {
-  craftTargets: ItemInfo[];
-  materialsLv1: ItemInfo[];
-  materialsLv2: ItemInfo[];
-  materialsLv3: ItemInfo[];
-  materialsLv4: ItemInfo[];
-  materialsLv5: ItemInfo[];
-  materialsLvBase: ItemInfo[];
-}
-/**
- * 获取 `查看报表` 需要的数据
- * @param statistics 通过 `nbb-cal` 计算获得的统计数据
- */
-export const getStatementData = (statistics: any) : StatementData => {
-  const craftTargets : ItemInfo[] = []
-  const materialsLv1 : ItemInfo[] = []
-  const materialsLv2 : ItemInfo[] = []
-  const materialsLv3 : ItemInfo[] = []
-  const materialsLv4 : ItemInfo[] = []
-  const materialsLv5 : ItemInfo[] = []
-  const materialsLvBase : ItemInfo[] = []
-  
-  processStatistics(statistics.ls, craftTargets)
-  processStatistics(statistics.lv1, materialsLv1)
-  processStatistics(statistics.lv2, materialsLv2)
-  processStatistics(statistics.lv3, materialsLv3)
-  processStatistics(statistics.lv4, materialsLv4)
-  processStatistics(statistics.lv5, materialsLv5)
-  processStatistics(statistics.lvBase, materialsLvBase)
-
-  return { craftTargets, materialsLv1, materialsLv2, materialsLv3, materialsLv4, materialsLv5, materialsLvBase }
-
-  function processStatistics(_in: any, out: any[]) {
-    for (const id in _in) {
-      const item = _in[id]
-      out.push(getItemInfo(item))
-    }
-  }
-}
-export interface ProStatementBlock {
-  id: string;
-  name: string;
-  items: Record<number, number>;
-  preparedKey: "craftTarget" | "materialsLv1" | "materialsLvBase";
-}
-export const getProStatementData = (
-  craftTargets: ItemInfo[],
-  itemsPrepared: {
-    craftTarget: Record<number, number>;
-    materialsLv1: Record<number, number>;
-    materialsLvBase: Record<number, number>;
-  },
-  t: (text: string, ...args: any[]) => string
-) => {
-  const { getRecipeMap, calItems } = useNbbCal()
-  const recipeMap = getRecipeMap()
-
-  // 根据已准备物品计算的实际要显示的物品清单
-  // xxxItems是显示的清单，xxxItemsForCal是用于计算的实际清单(减去已准备的数量)
-  // 计算顺序：成品->直接素材->基础素材
-  // 成品清单永远不变
-  // 修改成品清单的已准备数量，会影响到制作素材：直接和制作素材：基础
-  // 修改制作素材：直接，会影响到制作素材：基础
-
-  const targetItems : Record<number, number> = {}
-  Object.values(craftTargets).forEach(item => {
-    targetItems[item.id] = item.amount
-  })
-
-  const targetItemsForCal : Record<number, number> = {}
-  Object.values(craftTargets).forEach(item => {
-    targetItemsForCal[item.id] = item.amount
-  })
-  Object.keys(itemsPrepared.craftTarget).forEach(itemID => {
-    const id = Number(itemID)
-    targetItemsForCal[id] -= itemsPrepared.craftTarget[id]
-  })
-
-  const lv1Items : Record<number, number> = {}
-  const statisticsForLv1 = calItems(targetItemsForCal)
-  Object.values(statisticsForLv1.lv1).forEach((calResult : any) => {
-    const itemID : number = calResult.id
-    const amount : number = calResult.need
-    lv1Items[itemID] = amount
-  })
-
-  const lv1ItemsForCal = deepCopy(lv1Items)
-  Object.keys(itemsPrepared.materialsLv1).forEach(itemID => {
-    const id = Number(itemID)
-    lv1ItemsForCal[id] -= itemsPrepared.materialsLv1[id]
-  })
-
-  const baseItems : Record<number, number> = {}
-  const statistics = calItems(lv1ItemsForCal)
-  Object.values(statistics.lvBase).forEach((calResult : any) => {
-    const itemID : number = calResult.id
-    const amount : number = calResult.need
-    baseItems[itemID] = amount
-  })
-  // nbb计算模型目前会忽略掉制作目标(这里的话是直接素材列表)中没有配方的道具，这里对它们进行特殊处理
-  Object.keys(lv1ItemsForCal).forEach(itemID => {
-    const id = Number(itemID)
-    if (!recipeMap[id]) {
-      baseItems[id] ??= 0
-      baseItems[id] += lv1ItemsForCal[id]
-    }
-  })
-
-  const baseItemsForCal = deepCopy(baseItems)
-  Object.keys(itemsPrepared.materialsLvBase).forEach(itemID => {
-    const id = Number(itemID)
-    baseItemsForCal[id] -= itemsPrepared.materialsLvBase[id]
-  })
-
-  const statementBlocks : ProStatementBlock[] = [
-    {
-      id: 'craft-target',
-      name: t('成品清单'),
-      items: targetItems,
-      preparedKey: 'craftTarget' as keyof typeof itemsPrepared
-    },
-    {
-      id: 'material-lv1',
-      name: t('制作素材：直接'),
-      items: lv1Items,
-      preparedKey: 'materialsLv1' as keyof typeof itemsPrepared
-    },
-    /*
-    {
-      id: 'material-lv2',
-      name: t('制作素材：二级'),
-      items: props.materialsLv2
-    },
-    {
-      id: 'material-lv3',
-      name: t('制作素材：三级'),
-      items: props.materialsLv3
-    },
-    */
-    {
-      id: 'material-lvBase',
-      name: t('制作素材：基础'),
-      items: baseItems,
-      preparedKey: 'materialsLvBase' as keyof typeof itemsPrepared
-    },
-  ]
-
-  return {
-    targetItems, targetItemsForCal,
-    lv1Items, lv1ItemsForCal,
-    baseItems, baseItemsForCal,
-    statementBlocks
-  }
+export const getImgCdnUrl = (iconID: number, isHq = false) => {
+  const CDN_ICON = 'https://icon.nbbjack.com/'
+  const hq = isHq ? 'hq/' : ''
+  const icon = iconID.toString().padStart(6, '0')
+  return `${CDN_ICON}${icon.substring(0, 3)}000/${hq}${icon}.png`
 }
 
 import {
@@ -598,6 +448,7 @@ import { h, type Component } from 'vue'
 import { NIcon } from 'naive-ui'
 import { getNearestAetheryte } from './map'
 import type { FuncConfigModel } from '@/models/config-func'
+import type { StatementData } from './use-fufu-cal'
 export const getItemContexts = (
   itemInfo: ItemInfo,
   itemLanguage: "zh" | "en" | "ja",
