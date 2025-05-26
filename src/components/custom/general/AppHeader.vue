@@ -38,6 +38,7 @@ import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
 import ModalFestivalEgg from '@/components/modals/ModalFestivalEgg.vue'
 import ModalDonate from '@/components/modals/ModalDonate.vue'
+import ModalLoginApp from '@/components/modals/ModalLoginApp.vue'
 // import ChristmasTree from '@/assets/icons/ChristmasTree.vue'
 import { checkAppUpdates, visitUrl } from '@/tools'
 import EorzeaTime from '@/tools/eorzea-time'
@@ -97,6 +98,14 @@ const showDonateModal = ref(false)
 //   const date = now.getDate()
 //   return (now.getMonth() === 11) && ((date === 24 && now.getHours() >= 18) || date === 25)
 // })
+
+/** alovaApi test */
+const showloginAppModal = ref(false)
+const alovaApiTestLogin = () => {
+  console.log('alovaApi test')
+  showloginAppModal.value = true
+}
+/** alovaApi test */
 
 const canRouteBack = computed(() => {
   return router.currentRoute.value.path !== '/'
@@ -344,7 +353,15 @@ const desktopMenus = computed(() => {
         { key: 'ab-donate', label: t('赞助我们'), icon: renderIcon(HandshakeOutlined), description: donateTooltip, click: displayDonateModal },
         { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoOutlined), description: aboutTooltip, click: displayAboutAppModal },
       ],
-    }
+    },
+    /* alovaApi test */
+    {
+      label: 'alovaApi test',
+      icon: InfoFilled,
+      options: [
+        { key: 'ab-about', label: 'login', icon: renderIcon(InfoOutlined), click: alovaApiTestLogin },
+      ]
+    },
   ] as DesktopMenuItem[]
 })
 const handleDesktopMenuOptionSelect = (key: string, option: any) => {
@@ -515,6 +532,9 @@ const handleCheckUpdates = async () => {
     <ModalChangeLogs v-model:show="showChangeLogsModal" />
     <ModalFestivalEgg v-model:show="showFestivalEggModal" />
     <ModalDonate v-model:show="showDonateModal" />
+    <!-- alovaApi test -->
+     <ModalLoginApp v-model:show="showloginAppModal" />
+    <!-- alovaApi test -->
   </div>
 </template>
 

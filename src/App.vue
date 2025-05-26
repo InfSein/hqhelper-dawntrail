@@ -20,6 +20,8 @@ import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from './models/config-func'
 import AppStatus from './variables/app-status'
 import ModalFestivalEgg from './components/modals/ModalFestivalEgg.vue'
+import { useRequest } from 'alova/client'
+import { alovaApi } from './tools/use-nbb-cloud'
 
 const route = useRoute()
 const store = useStore()
@@ -89,6 +91,15 @@ const switchTheme = () => {
   userConfig.value.theme = theme.value === 'light' ? 'dark' : 'light'
   store.commit('setUserConfig', userConfig.value)
 }
+
+/** alovaApi test */
+const notice = useRequest(alovaApi.Get('/user/notice'), 
+  {
+    meta: { ignoreToken: true },
+    immediate: true,// 表示立即发送
+  }
+);
+/** alovaApi test */
 
 provide('userConfig', userConfig)
 provide('funcConfig', funcConfig)
