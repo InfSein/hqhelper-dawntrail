@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, type Component, type Ref } from 'vue'
+import { computed, inject, onMounted, ref, type Component, type Ref, type VNode } from 'vue'
 import {
   NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover,
   useMessage,
-  type DropdownOption,
+  type DropdownOption, type MenuOption,
 } from 'naive-ui'
 import {
   ArrowCircleLeftOutlined,
@@ -91,6 +91,163 @@ const showContactModal = ref(false)
 const showChangeLogsModal = ref(false)
 const showFestivalEggModal = ref(false)
 const showDonateModal = ref(false)
+
+interface MyMenuItem {
+  key: string
+  icon: Component
+  label: string
+  hide?: boolean
+  disabled?: boolean
+  click?: () => void
+  options?: MyMenuOption[]
+}
+type MyMenuOption = CommonMenuOption | MenuDivider | RouterMenuOption
+interface CommonMenuOption {
+  type: 'common'
+  icon: Component
+  label: string
+  description?: string
+  hide?: boolean
+  disabled?: boolean
+  showInMobile?: boolean
+  children?: MenuOption[]
+  click?: () => void
+  mobileClick?: () => void
+  customRenderer?: (node: VNode, option: DropdownOption) => VNode
+}
+interface MenuDivider {
+  type: 'divider'
+  hide?: boolean
+}
+interface RouterMenuOption {
+  type: 'router'
+  icon: Component
+  label: string
+  description: string
+  routerKey: string
+}
+
+const menuData = computed(() => {
+  const data : MyMenuItem[] = [
+    /* 参考资料 */
+    {
+      key: 'refs',
+      icon: FileCopyFilled,
+      label: '参考资料',
+      hide: userConfig.value.language_ui !== 'zh', // 这里的内容仅限中文用户可见，不做国际化
+      options: [
+        {
+          type: 'common',
+          label: '推荐攻略',
+          icon: renderIcon(FilePresentOutlined),
+          children: buildOuterlinkOptions([
+            { url: 'https://bbs.nga.cn/read.php?tid=41158426', label: '生产职业90-100练级攻略 by竹笙微凉_' },
+            { url: 'https://bbs.nga.cn/read.php?tid=40690311', label: '7.x星级配方制作攻略 by月下独翼' },
+            { url: 'https://bbs.nga.cn/read.php?tid=41258536', label: '7.x秘籍配方采集制作攻略 by竹笙微凉_' },
+            { url: 'https://bbs.nga.cn/read.php?tid=41277468', label: '7.0灵砂/工票鱼信息整理 by plas_g' },
+            { url: 'https://bbs.nga.cn/read.php?tid=42046664', label: '7.0捕鱼人大地票据指南 by f(x)=kx+b' },
+            { url: 'https://bbs.nga.cn/read.php?tid=43895399', label: '宇宙探索攻略 by 天然呆树歌' },
+            { url: 'https://www.kdocs.cn/l/ceEcTzlFQBUy', label: '全战职开荒/毕业配装 by 孤风行' }
+          ], 'ref-oth-book'),
+        },
+        {
+          type: 'common',
+          label: '实用工具',
+          icon: renderIcon(CasesOutlined),
+          children: buildOuterlinkOptions([
+            { url: 'https://tnze.yyyy.games/#/', label: '制作模拟器 by Tnze' },
+            { url: 'https://asvel.github.io/ffxiv-gearing/', label: '配装模拟器 by Asvel' },
+            { url: 'https://fish.ffmomola.com/#/', label: '鱼糕 by 红豆年糕' },
+            { url: 'https://cn.ff14angler.com/', label: '饥饿的猫' },
+          ], 'ref-oth-tool'),
+        }
+      ],
+    },
+    /* 实用工具 */
+    {
+      key: 'tools',
+      icon: CasesRound,
+      label: t('实用工具'),
+    }
+  ]
+  return data
+})
+const desktopMenuData = computed(() => {
+  return menuData.value.map(menuitem => {
+    return {
+      key: menuitem.key,
+      icon: renderIcon(menuitem.icon),
+      label: menuitem.label,
+      hide: menuitem.hide,
+      disabled: menuitem.disabled,
+      click: menuitem.click,
+      options: menuitem.options?.map((option, optionIndex) => {
+        const builtOption = buildMenuOption(option)
+        builtOption.key = `${menuitem.key}-${optionIndex}`
+        return builtOption
+      })
+    }
+  })
+})
+const mobileMenuData = computed(() => {
+  const mobileOptions: CommonMenuOption[] = []
+  menuData.value.forEach(({ options }) => {
+    options?.forEach(option => {
+      if (option.type !== 'divider' && option.showInMobile) {
+        mobileOptions.push(option)
+      }
+    })
+  })
+  return mobileOptions.map(option => {
+    return {
+      icon: renderIcon(option.icon),
+      label: option.label,
+      hide: option.hide,
+      disabled: option.disabled,
+      click: option.mobileClick ?? option.click,
+    }
+  })
+})
+
+const buildMenuOption = (menuOption : MyMenuOption) : DropdownOption => {
+  if (menuOption.type === 'divider') {
+    return { type: 'divider', hide: menuOption.hide }
+  } else if (menuOption.type === 'router') {
+    return {
+      // todo
+    }
+  } else {
+    return {
+      icon: renderIcon(menuOption.icon),
+      label: menuOption.label,
+      description: menuOption.description,
+      hide: menuOption.hide,
+      disabled: menuOption.disabled,
+      children: menuOption.children,
+      click: menuOption.click,
+      customRenderer: menuOption.customRenderer
+    }
+  }
+}
+const buildOuterlinkOptions = (
+  options: {
+    url: string, label: string, description?: string
+  }[],
+  key: string,
+  icon?: Component
+) => {
+  return options.map((option, index) => {
+    return {
+      key: `${key}-${index}`,
+      label: option.label,
+      icon: renderIcon(icon ?? OpenInNewOutlined),
+      click: () => {
+        visitUrl(option.url)
+      },
+      description: option.description ?? option.url
+    }
+  })
+}
 
 // const showFestivalEgg = computed(() => {
 //   const now = new Date()
@@ -218,7 +375,7 @@ const menuItems = computed(() => {
     aboutApp: { label: t('关于本作'), icon: InfoOutlined, click: displayAboutAppModal } as MenuItem
   }
 })
-const desktopMenus = computed(() => {
+const desktopMenus = computed(() : DesktopMenuItem[] => {
   const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
   const hideGatherClock = router.currentRoute.value.path.startsWith('/gatherclock')
   const hideWorkflow = router.currentRoute.value.path.startsWith('/workflow')
@@ -241,25 +398,7 @@ const desktopMenus = computed(() => {
   const donateTooltip = t('让程序肥多玩会肥肥14。')
   const aboutTooltip = t('重新自我介绍一下库啵。')
 
-  const buildOuterlinkOptions = (
-    options: {
-      url: string, label: string, description?: string
-    }[],
-    key: string,
-    icon?: Component
-  ) => {
-    return options.map((option, index) => {
-      return {
-        key: `${key}-${index}`,
-        label: option.label,
-        icon: renderIcon(icon ?? OpenInNewOutlined),
-        click: () => {
-          visitUrl(option.url)
-        },
-        description: option.description ?? option.url
-      }
-    })
-  }
+
 
   return [
     /* 参考资料 */
@@ -331,7 +470,7 @@ const desktopMenus = computed(() => {
         { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), description: userPreferenceTooltip, click: displayPreferencesModal },
         { key: 'sau-cu', label: t('检查更新'), icon: renderIcon(UpdateSharp), description: checkUpdatesTooltip, click: handleCheckUpdates },
         { key: 'sau-cl', label: t('更新日志'), icon: renderIcon(EventNoteFilled), description: changelogTooltip, click: displayChangeLogsModal },
-        { key: 'sau-dt', hide:!canOpenDevTools.value, label: t('开发工具'), icon: renderIcon(DevicesOtherOutlined), click: ()=>{ window.electronAPI!.openDevTools() } }
+        { key: 'sau-dt', hide: !canOpenDevTools.value, label: t('开发工具'), icon: renderIcon(DevicesOtherOutlined), click: () => { window.electronAPI!.openDevTools() } }
       ],
     },
     /* 关于 */
@@ -339,13 +478,13 @@ const desktopMenus = computed(() => {
       label: t('关于'),
       icon: InfoFilled,
       options: [
-        { key: 'ab-faq', label: '常见问题', hide: userConfig.value.language_ui !== 'zh', icon: renderIcon(HelpOutlineOutlined), description: '也有不常见的。', click: ()=>{ visitUrl('https://docs.qq.com/doc/DY3pPZmRGRHpubEFi') } },
+        { key: 'ab-faq', label: '常见问题', hide: userConfig.value.language_ui !== 'zh', icon: renderIcon(HelpOutlineOutlined), description: '也有不常见的。', click: () => { visitUrl('https://docs.qq.com/doc/DY3pPZmRGRHpubEFi') } },
         { key: 'ab-contact', label: t('联系我们'), icon: renderIcon(ContactlessOutlined), description: contactTooltip, click: displayContactModal },
         { key: 'ab-donate', label: t('赞助我们'), icon: renderIcon(HandshakeOutlined), description: donateTooltip, click: displayDonateModal },
         { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoOutlined), description: aboutTooltip, click: displayAboutAppModal },
       ],
     }
-  ] as DesktopMenuItem[]
+  ]
 })
 const handleDesktopMenuOptionSelect = (key: string, option: any) => {
   if (option?.click) {
@@ -458,8 +597,8 @@ const handleCheckUpdates = async () => {
         <n-dropdown
           size="small"
           placement="bottom-start"
-          v-for="(item, key) in desktopMenus"
-          :key="'desktop-menu-' + key"
+          v-for="(item, itemIndex) in desktopMenus"
+          :key="'desktop-menu-' + itemIndex"
           :options="item.options?.filter(o => !o.hide)"
           :render-option="optionsRenderer"
           :trigger="item.options?.length ? 'hover' : 'manual'"
