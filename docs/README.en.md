@@ -78,7 +78,7 @@ npm run dev
 
 ### Donate us
 
-* Sponsorship channels are not yet open.
+* <https://afdian.com/a/infseins>
 
 ## Other
 

@@ -85,7 +85,7 @@ npm run dev
 
 ### 提供赞助
 
-* 还没想好怎么接收
+* <https://afdian.com/a/infseins>
 
 ## 其他
 

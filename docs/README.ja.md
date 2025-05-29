@@ -82,7 +82,7 @@ npm run dev
 
 ### ギフティング
 
-* 形式はまた悩んでいます
+* <https://afdian.com/a/infseins>
 
 ## その他
 
