@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, type Component, type Ref, type VNode } from 'vue'
+import { computed, h, inject, onMounted, ref, type Component, type Ref, type VNode } from 'vue'
 import {
   NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover,
   useMessage,
   type DropdownOption, type MenuOption,
+NTooltip,
 } from 'naive-ui'
 import {
   ArrowCircleLeftOutlined,
@@ -109,11 +110,10 @@ interface CommonMenuOption {
   description?: string
   hide?: boolean
   disabled?: boolean
-  showInMobile?: boolean
   children?: MenuOption[]
   click?: () => void
   mobileClick?: () => void
-  customRenderer?: (node: VNode, option: DropdownOption) => VNode
+  customRenderer?: () => VNode
 }
 interface MenuDivider {
   type: 'divider'
@@ -123,8 +123,23 @@ interface RouterMenuOption {
   type: 'router'
   icon: Component
   label: string
+  /** 在默认状态下的描述 */
   description: string
+  hide?: boolean
+  disabled?: boolean
+  /** 路由键 */
   routerKey: string
+  /** 允许在新窗口中打开 */
+  allowNewWindow: boolean
+  /** 新窗口默认参数 */
+  defaultNewWindowOption?: {
+    width: number,
+    height: number,
+    /** 顶部偏移，仅在浏览器生效 */
+    top: number,
+    /** 左部偏移，仅在浏览器生效 */
+    left: number
+  }
 }
 
 const menuData = computed(() => {
@@ -140,6 +155,7 @@ const menuData = computed(() => {
           type: 'common',
           label: '推荐攻略',
           icon: renderIcon(FilePresentOutlined),
+          hide: isMobile.value,
           children: buildOuterlinkOptions([
             { url: 'https://bbs.nga.cn/read.php?tid=41158426', label: '生产职业90-100练级攻略 by竹笙微凉_' },
             { url: 'https://bbs.nga.cn/read.php?tid=40690311', label: '7.x星级配方制作攻略 by月下独翼' },
@@ -152,8 +168,9 @@ const menuData = computed(() => {
         },
         {
           type: 'common',
-          label: '实用工具',
+          label: '推荐工具',
           icon: renderIcon(CasesOutlined),
+          hide: isMobile.value,
           children: buildOuterlinkOptions([
             { url: 'https://tnze.yyyy.games/#/', label: '制作模拟器 by Tnze' },
             { url: 'https://asvel.github.io/ffxiv-gearing/', label: '配装模拟器 by Asvel' },
@@ -168,7 +185,178 @@ const menuData = computed(() => {
       key: 'tools',
       icon: CasesRound,
       label: t('实用工具'),
-    }
+      options: [
+        {
+          type: 'router',
+          icon: AccessAlarmsOutlined,
+          label: t('采集时钟'),
+          description: t('挖穿艾欧泽亚的好帮手！'),
+          routerKey: 'gatherclock',
+          allowNewWindow: true,
+          defaultNewWindowOption: {
+            width: 390,
+            height: 730,
+            top: 120,
+            left: 150
+          },
+        },
+        {
+          type: 'router',
+          icon: FastfoodOutlined,
+          label: t('食药计算'),
+          description: t('帮助你制作食物与爆发药。能帮到就好。'),
+          routerKey: 'fthelper',
+          allowNewWindow: true,
+          defaultNewWindowOption: {
+            width: 1600,
+            height: 800,
+            top: 120,
+            left: 45
+          },
+        },
+        {
+          type: 'router',
+          icon: WavesOutlined,
+          label: t('工作流'),
+          description: t('众生如归流。'),
+          routerKey: 'workflow',
+          allowNewWindow: false,
+        },
+        {
+          type: 'router',
+          icon: CodeOutlined,
+          label: t('宏管理'),
+          description: t('管理，收容，跑路……'),
+          hide: isMobile.value,
+          routerKey: 'macromanage',
+          allowNewWindow: false,
+        },
+        {
+          type: 'divider',
+          hide: !!window.electronAPI || isMobile.value,
+        },
+        {
+          type: 'router',
+          icon: DevicesOutlined,
+          label: t('下载客户端'),
+          hide: !!window.electronAPI || isMobile.value,
+          description: t('以备不时之需。'),
+          routerKey: 'download',
+          allowNewWindow: false,
+        }
+      ]
+    },
+    /* 设置与更新 */
+    {
+      key: 'settings_and_updates',
+      label: t('设置与更新'),
+      icon: UpdateOutlined,
+      options: [
+        {
+          type: 'common',
+          label: t('切换主题'),
+          icon: theme.value === 'light' ? DarkModeTwotone : LightModeTwotone,
+          description: theme.value === 'light' ? t('为这个世界带回黑暗。') : t('静待黎明天光来。'),
+          click: switchTheme
+        },
+        {
+          type: 'common',
+          label: t('偏好设置'),
+          icon: SettingsSharp,
+          description: t('以人的意志改变机械的程序。'),
+          click: () => {
+            showPreferencesModal.value = true
+          },
+          mobileClick: () => {
+            preferenceModalShowUpOnly.value = true
+            preferenceModalShowFpOnly.value = false
+            showPreferencesModal.value = true
+          }
+        },
+        {
+          type: 'common',
+          label: t('功能设置'),
+          icon: SettingsSuggestFilled,
+          hide: !isMobile.value,
+          mobileClick: () => {
+            preferenceModalShowUpOnly.value = false
+            preferenceModalShowFpOnly.value = true
+            showPreferencesModal.value = true
+          }
+        },
+        {
+          type: 'common',
+          label: t('检查更新'),
+          icon: UpdateSharp,
+          description: t('更新目标的战力等级……变更攻击模式……'),
+          click: handleCheckUpdates
+        },
+        {
+          type: 'common',
+          label: t('更新日志'),
+          icon: EventNoteFilled,
+          description: t('修正……改良……开始对循环程序进行更新……'),
+          click: () => {
+            showChangeLogsModal.value = true
+          }
+        },
+        {
+          type: 'common',
+          label: t('开发工具'),
+          icon: DevicesOtherOutlined,
+          description: t('帝国正在开发究极神兵的后续机体……'),
+          hide: !canOpenDevTools.value,
+          click: () => {
+            window.electronAPI!.openDevTools()
+          }
+        },
+      ],
+    },
+    /* 关于 */
+    {
+      key: 'about',
+      label: t('关于'),
+      icon: InfoFilled,
+      options: [
+        {
+          type: 'common',
+          label: '常见问题',
+          icon: HelpOutlineOutlined,
+          description: '也有不常见的。',
+          hide: userConfig.value.language_ui !== 'zh',
+          click: () => {
+            visitUrl('https://docs.qq.com/doc/DY3pPZmRGRHpubEFi')
+          }
+        },
+        {
+          type: 'common',
+          label: t('联系我们'),
+          icon: ContactlessOutlined,
+          description: t('关注我们喵，关注我们谢谢喵。'),
+          click: () => {
+            showContactModal.value = true
+          }
+        },
+        {
+          type: 'common',
+          label: t('赞助我们'),
+          icon: HandshakeOutlined,
+          description: t('请务必量力而行。'),
+          click: () => {
+            showDonateModal.value = true
+          }
+        },
+        {
+          type: 'common',
+          label: t('关于本作'),
+          icon: InfoOutlined,
+          description: t('重新自我介绍一下库啵。'),
+          click: () => {
+            showAboutAppModal.value = true
+          }
+        },
+      ],
+    },
   ]
   return data
 })
@@ -193,8 +381,19 @@ const mobileMenuData = computed(() => {
   const mobileOptions: CommonMenuOption[] = []
   menuData.value.forEach(({ options }) => {
     options?.forEach(option => {
-      if (option.type !== 'divider' && option.showInMobile) {
+      if (option.type === 'common' && !option.hide) {
         mobileOptions.push(option)
+      } else if (option.type === 'router' && !option.hide) {
+        const {
+          currentlyOnPage, redirectToPage,
+        } = resolveRouterMenuOption(option)
+        mobileOptions.push({
+          type: 'common',
+          icon: option.icon,
+          label: option.label,
+          disabled: option.disabled || currentlyOnPage,
+          click: redirectToPage,
+        })
       }
     })
   })
@@ -213,8 +412,10 @@ const buildMenuOption = (menuOption : MyMenuOption) : DropdownOption => {
   if (menuOption.type === 'divider') {
     return { type: 'divider', hide: menuOption.hide }
   } else if (menuOption.type === 'router') {
+    const { customRenderer } = resolveRouterMenuOption(menuOption)
     return {
-      // todo
+      type: 'render',
+      render: customRenderer,
     }
   } else {
     return {
@@ -239,14 +440,107 @@ const buildOuterlinkOptions = (
   return options.map((option, index) => {
     return {
       key: `${key}-${index}`,
-      label: option.label,
       icon: renderIcon(icon ?? OpenInNewOutlined),
+      label: option.label,
       click: () => {
         visitUrl(option.url)
       },
       description: option.description ?? option.url
     }
   })
+}
+const resolveRouterMenuOption = (menuOption: RouterMenuOption) => {
+  const routerUrl = `/${menuOption.routerKey}`
+  const pageUrl = document.location.origin + document.location.pathname + `#/${menuOption.routerKey}`
+  const currentlyOnPage = router.currentRoute.value.path.startsWith(routerUrl)
+  const buttonGroupTooltip = currentlyOnPage ? t('您已经处于{}页面。', menuOption.label) : menuOption.description
+  const redirectToPage = () => {
+    router.push(routerUrl)
+  }
+  const openSubWindow = () => {
+    const width = menuOption.defaultNewWindowOption?.width ?? 800
+    const height = menuOption.defaultNewWindowOption?.height ?? 600
+    const top = menuOption.defaultNewWindowOption?.top ?? 100
+    const left = menuOption.defaultNewWindowOption?.left ?? 100
+    if (window.electronAPI?.createNewWindow) {
+      window.electronAPI.createNewWindow(
+        menuOption.routerKey,
+        pageUrl,
+        width,
+        height,
+        menuOption.label
+      )
+    } else {
+      window.open(
+        pageUrl,
+        menuOption.label,
+        `height=${height}, width=${width}, top=${top}, left=${left}`
+      )
+    }
+  }
+  const customRenderer = () => {
+    return h(
+      NTooltip,
+      {
+        keepAliveOnHover: false,
+        placement: 'right',
+        style: {
+          width: 'max-content',
+          display: isMobile.value ? 'none' : 'inherit',
+        }
+      },
+      {
+        trigger: () => h(
+          'div',
+          {
+            class: 'flex-vac gap-2',
+            style: `
+              padding: 0 4px;
+            `,
+          },
+          [
+            h(
+              NButton,
+              {
+                quaternary: true,
+                size: 'small',
+                disabled: currentlyOnPage || menuOption.disabled,
+                renderIcon: renderIcon(menuOption.icon),
+                style: 'justify-content: start;' + 
+                  (menuOption.allowNewWindow ? '' : 'width: 100%;'),
+                onClick: redirectToPage,
+              },
+              () => menuOption.label
+            ),
+            menuOption.allowNewWindow ? h(
+              NButton,
+              {
+                quaternary: true,
+                size: 'small',
+                disabled: currentlyOnPage || menuOption.disabled,
+                class: 'n-square-button',
+                title: t('在新窗口中打开{tool}', menuOption.label),
+                onClick: openSubWindow,
+              },
+              [
+                h(NIcon, null, {
+                  default: () => h(OpenInNewOutlined)
+                })
+              ]
+            ) : undefined,
+          ].filter(item => !!item)
+        ),
+        default: () => buttonGroupTooltip
+      }
+    )
+  }
+  return {
+    currentlyOnPage,
+    buttonGroupTooltip,
+    redirectToPage,
+    openSubWindow,
+    customRenderer,
+  }
 }
 
 // const showFestivalEgg = computed(() => {
@@ -597,7 +891,7 @@ const handleCheckUpdates = async () => {
         <n-dropdown
           size="small"
           placement="bottom-start"
-          v-for="(item, itemIndex) in desktopMenus"
+          v-for="(item, itemIndex) in desktopMenuData"
           :key="'desktop-menu-' + itemIndex"
           :options="item.options?.filter(o => !o.hide)"
           :render-option="optionsRenderer"
@@ -630,7 +924,7 @@ const handleCheckUpdates = async () => {
       <n-drawer-content>
         <n-flex vertical>
           <n-button
-            v-for="(item, key) in menuItems"
+            v-for="(item, key) in mobileMenuData"
             :key="key"
             v-show="!item?.hide"
             @click="openModal(item.click)"
