@@ -1,3 +1,22 @@
+.appheader-menu-button {
+  justify-content: start;
+  padding: 0;
+  padding-right: 8px;
+
+  .button-content {
+    display: flex;
+    align-items: center;
+
+    .button-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      margin-right: 4px;
+    }
+  }
+}
+
 .macro-name-container {
   line-height: 1.2;
 

@@ -11,14 +11,10 @@ import {
   FileCopyFilled, FilePresentOutlined,
   OpenInNewOutlined,
   CasesRound, CasesOutlined,
-  ImportExportOutlined,
-  ArrowUpwardOutlined,
-  ArrowDownwardOutlined,
   AccessAlarmsOutlined,
   FastfoodOutlined,
   WavesOutlined,
   CodeOutlined,
-  HomeOutlined,
   HelpOutlineOutlined,
   MenuFilled,
   UpdateOutlined,
@@ -62,9 +58,6 @@ const displayCheckUpdatesModal = inject<() => void>('displayCheckUpdatesModal')!
 const useDesktopUi = computed(() => {
   return !isMobile.value || !!window.electronAPI
 })
-const canUseSubwindow = computed(() => {
-  return !isMobile.value
-})
 const canOpenDevTools = computed(() => {
   return !!window.electronAPI?.openDevTools && userConfig.value.enable_dev_mode
 })
@@ -78,7 +71,7 @@ onMounted(() => {
     userConfig.value.cache_lasttime_version = AppStatus.Version
     const newConfig = fixUserConfig(userConfig.value)
     store.commit('setUserConfig', newConfig)
-    displayChangeLogsModal()
+    showChangeLogsModal.value = true
   }
 })
 
@@ -154,7 +147,7 @@ const menuData = computed(() => {
         {
           type: 'common',
           label: '推荐攻略',
-          icon: renderIcon(FilePresentOutlined),
+          icon: FilePresentOutlined,
           hide: isMobile.value,
           children: buildOuterlinkOptions([
             { url: 'https://bbs.nga.cn/read.php?tid=41158426', label: '生产职业90-100练级攻略 by竹笙微凉_' },
@@ -169,7 +162,7 @@ const menuData = computed(() => {
         {
           type: 'common',
           label: '推荐工具',
-          icon: renderIcon(CasesOutlined),
+          icon: CasesOutlined,
           hide: isMobile.value,
           children: buildOuterlinkOptions([
             { url: 'https://tnze.yyyy.games/#/', label: '制作模拟器 by Tnze' },
@@ -231,19 +224,6 @@ const menuData = computed(() => {
           routerKey: 'macromanage',
           allowNewWindow: false,
         },
-        {
-          type: 'divider',
-          hide: !!window.electronAPI || isMobile.value,
-        },
-        {
-          type: 'router',
-          icon: DevicesOutlined,
-          label: t('下载客户端'),
-          hide: !!window.electronAPI || isMobile.value,
-          description: t('以备不时之需。'),
-          routerKey: 'download',
-          allowNewWindow: false,
-        }
       ]
     },
     /* 设置与更新 */
@@ -355,16 +335,30 @@ const menuData = computed(() => {
             showAboutAppModal.value = true
           }
         },
+        {
+          type: 'divider',
+          hide: !!window.electronAPI || isMobile.value,
+        },
+        {
+          type: 'router',
+          icon: DevicesOutlined,
+          label: t('下载客户端'),
+          hide: !!window.electronAPI || isMobile.value,
+          description: t('以备不时之需。'),
+          routerKey: 'download',
+          allowNewWindow: false,
+        },
       ],
     },
   ]
   return data
 })
+
 const desktopMenuData = computed(() => {
   return menuData.value.map(menuitem => {
     return {
       key: menuitem.key,
-      icon: renderIcon(menuitem.icon),
+      icon: menuitem.icon,
       label: menuitem.label,
       hide: menuitem.hide,
       disabled: menuitem.disabled,
@@ -399,7 +393,7 @@ const mobileMenuData = computed(() => {
   })
   return mobileOptions.map(option => {
     return {
-      icon: renderIcon(option.icon),
+      icon: option.icon,
       label: option.label,
       hide: option.hide,
       disabled: option.disabled,
@@ -451,7 +445,7 @@ const buildOuterlinkOptions = (
 }
 const resolveRouterMenuOption = (menuOption: RouterMenuOption) => {
   const routerUrl = `/${menuOption.routerKey}`
-  const pageUrl = document.location.origin + document.location.pathname + `#/${menuOption.routerKey}`
+  const pageUrl = document.location.origin + document.location.pathname + `#/${menuOption.routerKey}?mode=overlay`
   const currentlyOnPage = router.currentRoute.value.path.startsWith(routerUrl)
   const buttonGroupTooltip = currentlyOnPage ? t('您已经处于{}页面。', menuOption.label) : menuOption.description
   const redirectToPage = () => {
@@ -505,32 +499,49 @@ const resolveRouterMenuOption = (menuOption: RouterMenuOption) => {
                 quaternary: true,
                 size: 'small',
                 disabled: currentlyOnPage || menuOption.disabled,
-                renderIcon: renderIcon(menuOption.icon),
-                style: 'justify-content: start;' + 
-                  (menuOption.allowNewWindow ? '' : 'width: 100%;'),
+                class: 'appheader-menu-button',
+                style: menuOption.allowNewWindow ? '' : 'width: 100%;',
                 onClick: redirectToPage,
               },
-              () => menuOption.label
+              {
+                default: () => h(
+                  'div',
+                  { class: 'button-content' },
+                  [
+                    h(
+                      'div',
+                      { class: 'button-icon' },
+                      [
+                        h(NIcon, { size: 14 }, {
+                          default: () => h(menuOption.icon)
+                        })
+                      ]
+                    ),
+                    menuOption.label
+                  ]
+                )
+              }
             ),
             menuOption.allowNewWindow ? h(
               NButton,
               {
                 quaternary: true,
+                type: 'primary',
                 size: 'small',
                 disabled: currentlyOnPage || menuOption.disabled,
                 class: 'n-square-button',
                 title: t('在新窗口中打开{tool}', menuOption.label),
                 onClick: openSubWindow,
               },
-              [
-                h(NIcon, null, {
+              {
+                default: () => h(NIcon, { size: 14 }, {
                   default: () => h(OpenInNewOutlined)
                 })
-              ]
+              }
             ) : undefined,
           ].filter(item => !!item)
         ),
-        default: () => buttonGroupTooltip
+        default: () => h('span', buttonGroupTooltip)
       }
     )
   }
@@ -556,240 +567,12 @@ const handleRouteBack = () => {
   router.push('/')
 }
 
-const displayPreferencesModal = () => {
-  showPreferencesModal.value = true
-}
-const appShowUserPrefences = () => {
-  preferenceModalShowUpOnly.value = true
-  preferenceModalShowFpOnly.value = false
-  showPreferencesModal.value = true
-}
-const appShowFuncPrefences = () => {
-  preferenceModalShowUpOnly.value = false
-  preferenceModalShowFpOnly.value = true
-  showPreferencesModal.value = true
-}
-const displayAboutAppModal = () => {
-  showAboutAppModal.value = true
-}
-const displayContactModal = () => {
-  showContactModal.value = true
-}
-const displayChangeLogsModal = () => {
-  showChangeLogsModal.value = true
-}
-const displayDonateModal = () => {
-  showDonateModal.value = true
-}
-const redirectToFoodAndTincPage = () => {
-  router.push('/fthelper')
-}
-const redirectToWorkflowPage = () => {
-  router.push('/workflow')
-}
-const redirectToMacromanagePage = () => {
-  router.push('/macromanage')
-}
-const redirectToGatherClockPage = () => {
-  router.push('/gatherclock')
-}
-const redirectToDownloadPage = () => {
-  router.push('/download')
-}
-const openSubwindowOfGatherClock = () => {
-  const url = document.location.origin + document.location.pathname + '#/gatherclock?mode=overlay'
-  if (window.electronAPI?.createNewWindow) {
-    window.electronAPI.createNewWindow(
-      'gatherclock',
-      url,
-      390,
-      730,
-      t('采集时钟')
-    )
-  } else {
-    window.open(
-      url,
-      t('采集时钟'),
-      'height=730, width=390, top=120, left=150'
-    )
-  }
-}
-const openSubwindowOfFtHelper = () => {
-  const url = document.location.origin + document.location.pathname + '#/fthelper?mode=overlay'
-  if (window.electronAPI?.createNewWindow) {
-    window.electronAPI.createNewWindow(
-      'fthelper',
-      url,
-      1600,
-      800,
-      t('食药计算')
-    )
-  } else {
-    window.open(
-      url,
-      t('食药计算'),
-      'height=800, width=1600, top=120, left=45'
-    )
-  }
-  
-}
-
-interface MenuItem {
-  label: string
-  icon: typeof MenuFilled
-  hide?: boolean
-  click?: () => void
-}
-interface DesktopMenuItem {
-  label: string
-  icon: typeof MenuFilled
-  hide?: boolean
-  disabled?: boolean
-  click?: () => void
-  options?: DropdownOption[]
-}
-const menuItems = computed(() => {
-  const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
-  const hideGatherClock = router.currentRoute.value.path.startsWith('/gatherclock')
-  const hideWorkflow = router.currentRoute.value.path.startsWith('/workflow')
-  const hideHome = router.currentRoute.value.path === '/'
-  const changeThemeIcon = theme.value === 'light' ? DarkModeTwotone : LightModeTwotone
-  return {
-    changeTheme: { label: t('切换主题'), icon: changeThemeIcon, click: switchTheme } as MenuItem,
-    goHome: { label: t('返回首页'), hide: hideHome, icon: HomeOutlined, click: () => { router.push('/'); } } as MenuItem,
-    gatherClock: { label: t('采集时钟'), hide: hideGatherClock, icon: AccessAlarmsOutlined, click: redirectToGatherClockPage } as MenuItem,
-    ftHelper: { label: t('食药计算'), hide: hideFTHelper, icon: FastfoodOutlined, click: redirectToFoodAndTincPage } as MenuItem,
-    workflow: { label: t('工作流'), hide: hideWorkflow, icon: WavesOutlined, click: redirectToWorkflowPage } as MenuItem,
-    userPreferences: { label: t('偏好设置'), icon: SettingsSharp, click: appShowUserPrefences } as MenuItem,
-    funcPreferences: { label: t('功能设置'), icon: SettingsSuggestFilled, click: appShowFuncPrefences } as MenuItem,
-    checkUpdates: { label: t('检查更新'), icon: UpdateSharp, click: handleCheckUpdates } as MenuItem,
-    changelogs: { label: t('更新日志'), icon: EventNoteFilled, click: displayChangeLogsModal } as MenuItem,
-    contact: { label: t('联系我们'), icon: ContactlessOutlined, click: displayContactModal } as MenuItem,
-    donate: { label: t('赞助我们'), icon: HandshakeOutlined, click: displayDonateModal } as MenuItem,
-    aboutApp: { label: t('关于本作'), icon: InfoOutlined, click: displayAboutAppModal } as MenuItem
-  }
-})
-const desktopMenus = computed(() : DesktopMenuItem[] => {
-  const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
-  const hideGatherClock = router.currentRoute.value.path.startsWith('/gatherclock')
-  const hideWorkflow = router.currentRoute.value.path.startsWith('/workflow')
-  const hideMacromanage = router.currentRoute.value.path.startsWith('/macromanage')
-  const hideDownload = router.currentRoute.value.path.startsWith('/download')
-  const changeThemeIcon = theme.value === 'light' ? DarkModeTwotone : LightModeTwotone
-  const changeThemeTooltip = theme.value === 'light' ? t('为这个世界带回黑暗。') : t('静待黎明天光来。')
-  const ftHelperTooltip = hideFTHelper ? t('您已经处于食药计算器的页面。') : t('帮助你制作食物与爆发药。能帮到就好。')
-  const ftHelperSWTooltip = t('在新窗口中打开食药计算器。')
-  const gatherClockTooltip = hideGatherClock ? t('您已经处于采集时钟页面。') : t('挖穿艾欧泽亚的好帮手！')
-  const gatherClockSWTooltip = t('在新窗口中打开采集时钟。')
-  const workflowTooltip = hideWorkflow ? t('您已经处于工作流页面。') : t('众生如归流。')
-  const macromanageTooltip = hideMacromanage ? t('您已经处于宏管理页面。') : t('管理东方菜肴的食材还是第一次，请多指教。')
-  const downloadClientTooltip = hideDownload ? t('您已经处于下载客户端页面。') : t('目前客户满足度达到124%。')
-  const userPreferenceTooltip = t('以人的意志改变机械的程序。')
-  // const funcPreferenceTooltip = t('还好我把魔法人偶的战斗力设置成了最强级别。')
-  const checkUpdatesTooltip = t('更新目标的战力等级……变更攻击模式……')
-  const changelogTooltip = t('修正……改良……开始对循环程序进行更新……')
-  const contactTooltip = t('关注我们喵，关注我们谢谢喵。')
-  const donateTooltip = t('让程序肥多玩会肥肥14。')
-  const aboutTooltip = t('重新自我介绍一下库啵。')
-
-
-
-  return [
-    /* 参考资料 */
-    {
-      label: '参考资料',
-      icon: FileCopyFilled,
-      hide: userConfig.value.language_ui !== 'zh', // 这里的内容仅限中文用户可见，不做国际化
-      options: [
-        {
-          key: 'ref-oth-book',
-          label: '推荐攻略',
-          icon: renderIcon(FilePresentOutlined),
-          children: buildOuterlinkOptions([
-            { url: 'https://bbs.nga.cn/read.php?tid=41158426', label: '生产职业90-100练级攻略 by竹笙微凉_' },
-            { url: 'https://bbs.nga.cn/read.php?tid=40690311', label: '7.x星级配方制作攻略 by月下独翼' },
-            { url: 'https://bbs.nga.cn/read.php?tid=41258536', label: '7.x秘籍配方采集制作攻略 by竹笙微凉_' },
-            { url: 'https://bbs.nga.cn/read.php?tid=41277468', label: '7.0灵砂/工票鱼信息整理 by plas_g' },
-            { url: 'https://bbs.nga.cn/read.php?tid=42046664', label: '7.0捕鱼人大地票据指南 by f(x)=kx+b' },
-            { url: 'https://bbs.nga.cn/read.php?tid=43895399', label: '宇宙探索攻略 by 天然呆树歌' },
-            { url: 'https://www.kdocs.cn/l/ceEcTzlFQBUy', label: '全战职开荒/毕业配装 by 孤风行' }
-          ], 'ref-oth-book'),
-        },
-        {
-          key: 'ref-oth-tool',
-          label: '实用工具',
-          icon: renderIcon(CasesOutlined),
-          children: buildOuterlinkOptions([
-            { url: 'https://tnze.yyyy.games/#/', label: '制作模拟器 by Tnze' },
-            { url: 'https://asvel.github.io/ffxiv-gearing/', label: '配装模拟器 by Asvel' },
-            { url: 'https://fish.ffmomola.com/#/', label: '鱼糕 by 红豆年糕' },
-            { url: 'https://cn.ff14angler.com/', label: '饥饿的猫' },
-          ], 'ref-oth-tool'),
-        }
-      ]
-    },
-    /* 实用工具 */
-    {
-      label: t('实用工具'),
-      icon: CasesRound,
-      options: [
-        { key: 'tool-gatherclock', label: t('采集时钟'), disabled: hideGatherClock, icon: renderIcon(AccessAlarmsOutlined), description: gatherClockTooltip, click: redirectToGatherClockPage },
-        { key: 'tool-fthelper', label: t('食药计算'), disabled: hideFTHelper, icon: renderIcon(FastfoodOutlined), description: ftHelperTooltip, click: redirectToFoodAndTincPage },
-        { key: 'tool-workflow', label: t('工作流'), disabled: hideWorkflow, icon: renderIcon(WavesOutlined), description: workflowTooltip, click: redirectToWorkflowPage },
-        { key: 'tool-macromanage', label: t('宏管理'), disabled: hideMacromanage, icon: renderIcon(CodeOutlined), description: macromanageTooltip, click: redirectToMacromanagePage },
-        { key: 'tool-divider-1', hide: !canUseSubwindow.value, type: 'divider' },
-        { key: 'tool-gatherclock-subwindow', hide: !canUseSubwindow.value, label: t('采集时钟(新窗口)'), icon: renderIcon(AccessAlarmsOutlined), description: gatherClockSWTooltip, click: openSubwindowOfGatherClock },
-        { key: 'tool-fthelper-subwindow', hide: !canUseSubwindow.value, label: t('食药计算(新窗口)'), icon: renderIcon(FastfoodOutlined), description: ftHelperSWTooltip, click: openSubwindowOfFtHelper },
-        { key: 'tool-divider-2', hide: !!window.electronAPI, type: 'divider' },
-        { key: 'tool-download', label: t('下载客户端'), disabled: hideDownload, hide: !!window.electronAPI, icon: renderIcon(DevicesOutlined), description: downloadClientTooltip, click: redirectToDownloadPage },
-      ]
-    },
-    /* 导入导出 */
-    {
-      label: t('导入导出'),
-      icon: ImportExportOutlined,
-      disabled: true,
-      hide: true,
-      options: [
-        { key: 'ie-import', label: t('从Excel导入'), icon: renderIcon(ArrowUpwardOutlined), disabled: true, click: notDoneBtnClickEvent },
-        { key: 'ie-export', label: t('导出为Excel'), icon: renderIcon(ArrowDownwardOutlined), disabled: true, click: notDoneBtnClickEvent }
-      ]
-    },
-    /* 设置与更新 */
-    {
-      label: t('设置与更新'),
-      icon: UpdateOutlined,
-      options: [
-        { key: 'sau-ct', label: t('切换主题'), icon: renderIcon(changeThemeIcon), description: changeThemeTooltip, click: switchTheme },
-        { key: 'sau-up', label: t('偏好设置'), icon: renderIcon(SettingsSharp), description: userPreferenceTooltip, click: displayPreferencesModal },
-        { key: 'sau-cu', label: t('检查更新'), icon: renderIcon(UpdateSharp), description: checkUpdatesTooltip, click: handleCheckUpdates },
-        { key: 'sau-cl', label: t('更新日志'), icon: renderIcon(EventNoteFilled), description: changelogTooltip, click: displayChangeLogsModal },
-        { key: 'sau-dt', hide: !canOpenDevTools.value, label: t('开发工具'), icon: renderIcon(DevicesOtherOutlined), click: () => { window.electronAPI!.openDevTools() } }
-      ],
-    },
-    /* 关于 */
-    {
-      label: t('关于'),
-      icon: InfoFilled,
-      options: [
-        { key: 'ab-faq', label: '常见问题', hide: userConfig.value.language_ui !== 'zh', icon: renderIcon(HelpOutlineOutlined), description: '也有不常见的。', click: () => { visitUrl('https://docs.qq.com/doc/DY3pPZmRGRHpubEFi') } },
-        { key: 'ab-contact', label: t('联系我们'), icon: renderIcon(ContactlessOutlined), description: contactTooltip, click: displayContactModal },
-        { key: 'ab-donate', label: t('赞助我们'), icon: renderIcon(HandshakeOutlined), description: donateTooltip, click: displayDonateModal },
-        { key: 'ab-about', label: t('关于本作'), icon: renderIcon(InfoOutlined), description: aboutTooltip, click: displayAboutAppModal },
-      ],
-    }
-  ]
-})
 const handleDesktopMenuOptionSelect = (key: string, option: any) => {
   if (option?.click) {
     option.click()
   } else {
     console.log('[开发提示] 未分配点击事件', key, option)
   }
-  
-}
-const notDoneBtnClickEvent = () => {
-  alert('还没写好呢')
 }
 const defaultClickEvent = () => {}
 
@@ -804,7 +587,6 @@ const handleCheckUpdates = async () => {
   if (window.electronAPI?.clientVersion) {
     displayCheckUpdatesModal()
   } else {
-    // Mobile or PWA
     try {
       const checkUpdateResponse = await checkAppUpdates()
       if (checkUpdateResponse.success) {
@@ -902,6 +684,7 @@ const handleCheckUpdates = async () => {
             size="tiny" tertiary
             v-show="!item?.hide"
             :disabled="item.disabled"
+            class="no-select"
             @click="item.click ?? defaultClickEvent"
           >
             <template #icon>
@@ -927,6 +710,7 @@ const handleCheckUpdates = async () => {
             v-for="(item, key) in mobileMenuData"
             :key="key"
             v-show="!item?.hide"
+            :disabled="item.disabled"
             @click="openModal(item.click)"
           >
             <template #icon>
