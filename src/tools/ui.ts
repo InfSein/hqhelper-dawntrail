@@ -13,7 +13,10 @@ const useUiTools = (
   }
 
   const optionsRenderer = ({ node, option }: { node: VNode, option: DropdownOption | DropdownGroupOption | SelectOption }) => {
-    if (option.description) {
+    if (option.customRenderer) {
+      const func = option.customRenderer as (node: VNode, option: any) => VNode
+      return func(node, option)
+    } else if (option.description) {
       return h(
         NTooltip,
         {
