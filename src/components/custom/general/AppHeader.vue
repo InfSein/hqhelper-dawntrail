@@ -11,6 +11,7 @@ import {
   FileCopyFilled, FilePresentOutlined,
   OpenInNewOutlined,
   CasesRound, CasesOutlined,
+  HomeOutlined,
   AccessAlarmsOutlined,
   FastfoodOutlined,
   WavesOutlined,
@@ -179,6 +180,15 @@ const menuData = computed(() => {
       icon: CasesRound,
       label: t('实用工具'),
       options: [
+        {
+          type: 'router',
+          icon: HomeOutlined,
+          label: t('返回首页'),
+          description: '',
+          hide: !isMobile.value,
+          routerKey: '',
+          allowNewWindow: false,
+        },
         {
           type: 'router',
           icon: AccessAlarmsOutlined,
@@ -409,6 +419,7 @@ const buildMenuOption = (menuOption : MyMenuOption) : DropdownOption => {
     const { customRenderer } = resolveRouterMenuOption(menuOption)
     return {
       type: 'render',
+      hide: menuOption.hide,
       render: customRenderer,
     }
   } else {
@@ -446,7 +457,7 @@ const buildOuterlinkOptions = (
 const resolveRouterMenuOption = (menuOption: RouterMenuOption) => {
   const routerUrl = `/${menuOption.routerKey}`
   const pageUrl = document.location.origin + document.location.pathname + `#/${menuOption.routerKey}?mode=overlay`
-  const currentlyOnPage = router.currentRoute.value.path.startsWith(routerUrl)
+  const currentlyOnPage = router.currentRoute.value.path === routerUrl
   const buttonGroupTooltip = currentlyOnPage ? t('您已经处于{}页面。', menuOption.label) : menuOption.description
   const redirectToPage = () => {
     router.push(routerUrl)
