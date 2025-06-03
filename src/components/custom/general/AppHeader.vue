@@ -77,6 +77,7 @@ onMounted(() => {
 })
 
 const showMenus = ref(false)
+const menuDropdownVisiGroup = ref([false, false, false, false, false, false])
 
 const showPreferencesModal = ref(false)
 const preferenceModalShowUpOnly = ref(false)
@@ -461,6 +462,7 @@ const resolveRouterMenuOption = (menuOption: RouterMenuOption) => {
   const buttonGroupTooltip = currentlyOnPage ? t('您已经处于{}页面。', menuOption.label) : menuOption.description
   const redirectToPage = () => {
     router.push(routerUrl)
+    hideMenuDropdowns()
   }
   const openSubWindow = () => {
     const width = menuOption.defaultNewWindowOption?.width ?? 800
@@ -482,6 +484,7 @@ const resolveRouterMenuOption = (menuOption: RouterMenuOption) => {
         `height=${height}, width=${width}, top=${top}, left=${left}`
       )
     }
+    hideMenuDropdowns()
   }
   const customRenderer = () => {
     return h(
@@ -586,6 +589,9 @@ const handleDesktopMenuOptionSelect = (key: string, option: any) => {
   }
 }
 const defaultClickEvent = () => {}
+const hideMenuDropdowns = () => {
+  menuDropdownVisiGroup.value = menuDropdownVisiGroup.value.map(() => false)
+}
 
 const openModal = (click?: (() => void)) => {
   // close menus first
@@ -686,6 +692,7 @@ const handleCheckUpdates = async () => {
           placement="bottom-start"
           v-for="(item, itemIndex) in desktopMenuData"
           :key="'desktop-menu-' + itemIndex"
+          v-model:show="menuDropdownVisiGroup[itemIndex]"
           :options="item.options?.filter(o => !o.hide)"
           :render-option="optionsRenderer"
           :trigger="item.options?.length ? 'hover' : 'manual'"
