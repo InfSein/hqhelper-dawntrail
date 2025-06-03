@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { computed, h, inject, onBeforeUnmount, onMounted, ref, watch, type Ref, type VNode } from 'vue'
 import {
-  NBackTop, NButton, NDataTable, NDivider, NEmpty, NIcon, NInput, NInputGroup, NInputGroupLabel, NSelect, NTag,
+  NBackTop, NButton, NDataTable, NDivider, NDropdown, NEmpty, NIcon, NInput, NInputGroup, NInputGroupLabel, NSelect, NTag,
   useMessage,
   type DataTableColumns,
 } from 'naive-ui'
 import {
   SearchOutlined,
   SettingsSuggestFilled,
+  KeyboardArrowDownRound,
+  ImportExportOutlined,
   AddTaskOutlined,
   EditNoteOutlined, DeleteFilled,
 } from '@vicons/material'
@@ -84,6 +86,21 @@ const macroItemLanguageOptions = computed(() => {
     { label: t('中文'), value: 'zh' },
     { label: t('英文'), value: 'en' },
     { label: t('日文'), value: 'ja' },
+  ]
+})
+const multiOperateDropdownOptions = computed(() => {
+  return [
+    {
+      label: t('导入/导出'),
+      key: 'eximport',
+      icon: renderIcon(ImportExportOutlined),
+    },
+    {
+      label: t('删除所有宏'),
+      key: 'delete',
+      props: { style: 'color: red;' },
+      icon: renderIcon(DeleteFilled, { color: 'red' }),
+    },
   ]
 })
 
@@ -308,6 +325,23 @@ const handleReportDataMissing = (macro: RecordedCraftMacro | number) => {
     workState.value.recordedCraftMacros
   )
 }
+const handleMultiOperateDropdownSelect = (key: string | number) => {
+  if (key === 'eximport') {
+    NAIVE_UI_MESSAGE.info('developing...')
+  } else if (key === 'delete') {
+    if (!workState.value.recordedCraftMacros.length) {
+      NAIVE_UI_MESSAGE.info(t('还没有添加任何宏'))
+      return
+    }
+    if (!window.confirm(t('确定要删除所有宏吗？') + '\n' + t('此操作不可逆。'))) {
+      return
+    }
+    workState.value.recordedCraftMacros = []
+    NAIVE_UI_MESSAGE.success(t('已删除'))
+  } else {
+    console.warn('unexpected multi operate dropdown key:', key)
+  }
+}
 
 const getMacroId = () => {
   let macroid = workState.value.recordIndex
@@ -423,6 +457,18 @@ const handleSettingButtonClick = () => {
               </template>
               {{ t('设置') }}
             </n-button>
+            <n-dropdown
+              placement="bottom-end"
+              :options="multiOperateDropdownOptions"
+              @select="handleMultiOperateDropdownSelect"
+            >
+              <n-button ghost icon-placement="right">
+                <template #icon>
+                  <n-icon :component="KeyboardArrowDownRound" />
+                </template>
+                {{ t('批量操作') }}
+              </n-button>
+            </n-dropdown>
             <n-button
               type="primary"
               @click="handleAddRow"
