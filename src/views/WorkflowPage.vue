@@ -445,6 +445,7 @@ const handleAnalysisItemPrices = async () => {
             <ItemSelectTable
               v-model:items="currentWorkflow.targetItems"
               show-item-details
+              item-span-max-width="230px"
               :content-height="pageHeightVals.itemSelectTable"
             />
           </div>

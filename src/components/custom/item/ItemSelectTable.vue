@@ -13,6 +13,7 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const items = defineModel<Record<number, number>>('items', { required: true })
 interface ItemSelectTableProps {
   showItemDetails: boolean,
+  itemSpanMaxWidth?: string
   containerId?: string
   contentHeight?: string
 }
@@ -69,6 +70,7 @@ const handleDealNumInputEdge = (row: StatementRow) => {
                 :item-info="item.info"
                 :amount="item.amount.remain"
                 :show-item-details="showItemDetails"
+                :item-span-max-width="itemSpanMaxWidth"
                 :container-id="containerId"
               />
             </td>
