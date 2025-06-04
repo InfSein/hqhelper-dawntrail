@@ -155,6 +155,7 @@ const handleSettingButtonClick = () => {
       v-model:expanded-blocks="expandedBlocks"
       v-model:completed-items="completedItems"
       :item-groups="itemGroups"
+      item-span-max-width="250px"
       :container-id="modalId"
       :hide-chs-offline-items="hideChsOfflineItems"
     />

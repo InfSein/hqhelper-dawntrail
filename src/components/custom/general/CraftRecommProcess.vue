@@ -39,6 +39,7 @@ export interface CraftRecommProcessesProps {
   contentMaxWidth?: string;
   contentMaxHeight?: string;
   itemGroups: RecommItemGroup[];
+  itemSpanMaxWidth?: string
   containerId?: string;
   hideChsOfflineItems?: boolean;
 }
@@ -198,6 +199,7 @@ const isItemGatherableNow = (item: ItemInfo) => {
                   :item-info="item"
                   :amount="item.amount"
                   show-amount
+                  :span-max-width="itemSpanMaxWidth"
                   :container-id="containerId"
                 />
               </div>
