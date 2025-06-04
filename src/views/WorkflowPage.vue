@@ -313,6 +313,13 @@ const recommGroupAllCollapsed = computed(() => {
   }
   return allCollapsed
 })
+const handleHideOrShowChsOfflineItems = () => {
+  currentWorkflow.value.recommData.hideChsOfflineItems = !currentWorkflow.value.recommData.hideChsOfflineItems
+  const message = currentWorkflow.value.recommData.hideChsOfflineItems
+    ? t('已隐藏国服未实装物品')
+    : t('已显示国服未实装物品')
+  NAIVE_UI_MESSAGE.success(message)
+}
 const handleCollapseOrUncollapseAllRecommGroupBlocks = () => {
   const cacheRecommGroupAllCollapsed = recommGroupAllCollapsed.value
   // 这里不能直接引用 computed 的值，因为它会在折叠/展开过程中变化
@@ -525,7 +532,7 @@ const handleAnalysisItemPrices = async () => {
               <n-float-button-group v-if="!isMobile" right="20px" bottom="5px">
                 <n-tooltip v-if="recommProcessGroups.length && itemServer === 'chs'" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
                   <template #trigger>
-                    <n-float-button @click="currentWorkflow.recommData.hideChsOfflineItems = !currentWorkflow.recommData.hideChsOfflineItems">
+                    <n-float-button @click="handleHideOrShowChsOfflineItems">
                       <n-icon>
                         <VisibilitySharp v-if="currentWorkflow.recommData.hideChsOfflineItems" />
                         <VisibilityOffSharp v-else />
