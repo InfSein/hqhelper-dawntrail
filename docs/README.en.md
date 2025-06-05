@@ -12,7 +12,7 @@
   <strong>English</strong>
 </p>
 
-[![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github)](/LICENSE) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) <br>
+[![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github)](/LICENSE) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/InfSein/hqhelper-dawntrail) <br>
 [![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github)](https://github.com/InfSein/hqhelper-dawntrail/releases) [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)](https://github.com/InfSein/hqhelper-dawntrail/releases) <br>
 [![Based on Vite](https://img.shields.io/badge/Vite-6.3.4-646CFF?style=flat&logo=vite)](https://github.com/vitejs/vite) [![Based on Vue3](https://img.shields.io/badge/Vue-3.5.13-4FC08D?style=flat&logo=vue.js)](https://github.com/vuejs/core) [![Based on TypeScript](https://img.shields.io/badge/TypeScript-5.7.3-3178C6?style=flat&logo=typescript)](https://github.com/microsoft/TypeScript) [![Based on Naive UI](https://img.shields.io/badge/Naive%20UI-2.41.0-008080?style=flat&logo=npm)](https://github.com/tusen-ai/naive-ui)
 
