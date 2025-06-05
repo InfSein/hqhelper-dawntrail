@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, ref, computed, type Ref, type Component } from 'vue'
 import {
-  NButton, NIcon, NPopover,
+  NButton, NIcon, NPopover, NTooltip,
   type PopoverTrigger
 } from 'naive-ui'
 import type { Type } from 'naive-ui/es/button/src/interface'
@@ -11,11 +11,15 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 interface TooltipButtonProps {
   size?: "tiny" | "small" | "medium" | "large",
   type?: Type,
+  tertiary?: boolean,
+  quaternary?: boolean,
   square?: boolean,
+  btnStyle?: string,
   icon?: Component,
   iconSize?: number,
   text?: string,
   tip?: string | string[],
+  tipType?: "n-popover" | "n-tooltip",
   placement?: import("vueuc/lib/binder/src/interface").Placement,
   popTrigger?: PopoverTrigger,
 }
@@ -36,6 +40,12 @@ const tips = computed(() => {
     return [props.tip]
   }
 })
+const tipComponent = computed(() => {
+  if (props.tipType === 'n-tooltip') {
+    return NTooltip
+  }
+  return NPopover
+})
 const popTrigger = computed(() => props.popTrigger ?? (isMobile.value ? 'manual' : 'hover'))
 
 const handleButtonClick = () => {
@@ -44,9 +54,16 @@ const handleButtonClick = () => {
 </script>
 
 <template>
-  <n-popover :trigger="popTrigger" :placement="placement">
+  <component :is="tipComponent" :trigger="popTrigger" :placement="placement">
     <template #trigger>
-      <n-button :size="size" :class="btnClass" @click="handleButtonClick">
+      <n-button
+        :tertiary="tertiary" 
+        :quaternary="quaternary" 
+        :size="size" 
+        :class="btnClass" 
+        :style="btnStyle" 
+        @click="handleButtonClick"
+      >
         <template #icon>
           <slot name="icon">
             <n-icon v-if="icon && !square" :size="iconSize" :component="icon" />
@@ -63,7 +80,7 @@ const handleButtonClick = () => {
         <div v-for="(tip, tipIndex) in tips" :key="'tip-' + tipIndex">{{ tip }}</div>
       </div>
     </slot>
-  </n-popover>
+  </component>
 </template>
 
 <style scoped>

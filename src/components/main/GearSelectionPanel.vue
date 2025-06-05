@@ -12,6 +12,7 @@ import {
 import FoldableCard from '../templates/FoldableCard.vue'
 import Stepper from '../custom/general/Stepper.vue'
 import GearSlot from '../custom/gear/GearSlot.vue'
+import TooltipButton from '../custom/general/TooltipButton.vue'
 import ModalSelectedGears from '../modals/ModalSelectedGears.vue'
 import {
   XivGearAffixes,
@@ -229,13 +230,42 @@ const handleQuickOperatesDropdownMouseLeave = (event: MouseEvent) => {
 const handleCloseQuickOperatesOptions = () => {
   showQuickOperatesOptions.value = false
 }
-const quickOperatesOptions: DropdownOption[] = [
-  { key: 'add-crafter-mainoff', label: t('添加一套生产主副手'), description: t('添加所有能工巧匠职业的主手工具、副手工具各1件') },
-  { key: 'add-gatherer-mainoff', label: t('添加一套采集主副手'), description: t('添加所有大地使者职业的主手工具、副手工具各1件') },
-  { key: 'add-crafter-aaa', label: t('添加一套生产防具&首饰'), description: t('添加一套能工巧匠职业共用的防具与首饰。如果没有首饰则不会添加。') },
-  { key: 'add-gatherer-aaa', label: t('添加一套采集防具&首饰'), description: t('添加一套大地使者职业共用的防具与首饰。如果没有首饰则不会添加。') },
-  // `aaa` means `attire-and-accessory`, does it droll?
-]
+const quickOperatesOptions = computed(() => {
+  return [
+    {
+      key: 'add-crafter-mainoff',
+      label: t('添加一套生产|全职业主副手'),
+      description: t('添加所有能工巧匠职业的主手工具、副手工具各1件')
+    },
+    {
+      key: 'add-gatherer-mainoff',
+      label: t('添加一套采集|全职业主副手'),
+      description: t('添加所有大地使者职业的主手工具、副手工具各1件')
+    },
+    {
+      key: 'add-crafter-aaa', 
+      label: t('添加一套生产|防具&首饰'), 
+      description: [
+        t('添加一套能工巧匠职业共用的防具与首饰。'),
+        t('如果没有首饰则不会添加。'),
+      ] 
+    },
+    { 
+      key: 'add-gatherer-aaa', 
+      label: t('添加一套采集|防具&首饰'), 
+      description: [
+        t('添加一套大地使者职业共用的防具与首饰。'),
+        t('如果没有首饰则不会添加。'),
+      ] 
+    },
+  ].map(item => {
+    return {
+      key: item.key,
+      labels: item.label.split('|'),
+      description: item.description,
+    }
+  })
+})
 const handleQuickOperatesSelect = (key: string) => {
   if (jobNotSelected.value) {
     NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
@@ -539,31 +569,47 @@ defineExpose({
         </div>
         <n-divider dashed />
         <n-flex class="foot" justify="end">
-          <n-dropdown
+          <n-popover
             v-if="displayQuickOperates"
-            :show="showQuickOperatesOptions"
-            :options="quickOperatesOptions"
-            :render-option="optionsRenderer"
             class="no-select"
             placement="bottom"
-            @select="handleQuickOperatesSelect"
-            @mouseenter="handleQuickOperatesDropdownMouseEnter"
-            @mouseleave="handleQuickOperatesDropdownMouseLeave"
-            :on-clickoutside="handleCloseQuickOperatesOptions"
+            :trigger="isMobile ? 'click' : 'hover'"
           >
-            <n-button
-              icon-placement="right"
-              :disabled="jobNotSelected"
-              @click="showQuickOperatesOptions = !showQuickOperatesOptions"
-              @mouseenter="handleQuickOperatesDropdownMouseEnter"
-              @mouseleave="handleQuickOperatesDropdownMouseLeave"
-            >
-              <template #icon>
-                <n-icon><KeyboardArrowDownRound /></n-icon>
-              </template>
-              {{ t('快速操作') }}
-            </n-button>
-          </n-dropdown>
+            <template #trigger>
+              <n-button
+                icon-placement="right"
+                :disabled="jobNotSelected"
+                @click="showQuickOperatesOptions = !showQuickOperatesOptions"
+                @mouseenter="handleQuickOperatesDropdownMouseEnter"
+                @mouseleave="handleQuickOperatesDropdownMouseLeave"
+              >
+                <template #icon>
+                  <n-icon><KeyboardArrowDownRound /></n-icon>
+                </template>
+                {{ t('快速操作') }}
+              </n-button>
+            </template>
+            <div style="display: grid; gap: 4px 6px; grid-template-columns: minmax(0,1fr) minmax(0,1fr);">
+              <TooltipButton
+                v-for="(option, optionIndex) in quickOperatesOptions"
+                :key="option.key"
+                :tip="option.description"
+                tip-type="n-tooltip"
+                :placement="optionIndex > 1 ? 'bottom' : 'top'"
+                btn-style="--n-padding: 7px 16px; --n-height: auto;"
+                @click="handleQuickOperatesSelect(option.key)"
+              >
+                <div>
+                  <p
+                    v-for="(label, labelIndex) in option.labels"
+                    :key="`quick-operate-label-${option.key}-${labelIndex}`"
+                  >
+                    {{ label }}
+                  </p>
+                </div>
+              </TooltipButton>
+            </div>
+          </n-popover>
           <n-dropdown
             :show="showClearOptions"
             :options="clearOptions"
