@@ -60,13 +60,14 @@ const latestHqHelperVersion = ref<string | null>('')
 const latestElectronVersion = ref<string | null>('')
 const useCustomProxy = ref(false)
 const customProxyUrl = ref('')
-const proxyValue = ref('https://ghfast.top')
+const proxyValue = ref('https://github.moeyy.xyz')
 const proxyPings = ref<Record<string, number | "timeout" | "unknown" | "error">>({})
 const proxyOptions = [
   { label: t('不使用加速服务'), value: '' },
   { label: 'ghfast.top', value: 'https://ghfast.top' },
   { label: 'github.moeyy.xyz', value: 'https://github.moeyy.xyz' },
-  { label: 'ghps.cc', value: 'https://ghps.cc' }
+  { label: 'gh.jasonzeng.dev', value: 'https://gh.jasonzeng.dev/' },
+  { label: 'hub.gitmirror.com', value: 'https://hub.gitmirror.com/' },
   // https://www.cnblogs.com/ting1/p/18356265
 ]
 const currentElectronVersion = ref('UNKNOWN')
