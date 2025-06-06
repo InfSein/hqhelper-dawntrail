@@ -9,16 +9,19 @@ import {
 import MyModal from '../templates/MyModal.vue'
 import ModalRecommendedProcesses from './ModalRecommendedProcesses.vue'
 import ModalPreferences from './ModalPreferences.vue'
-import { getProStatementData, type ItemInfo } from '@/tools/item'
+import { type UserConfigModel } from '@/models/config-user'
+import { type FuncConfigModel } from '@/models/config-func'
+import { type ItemInfo } from '@/tools/item'
 import { useFufuCal } from '@/tools/use-fufu-cal'
 import CraftStatementsPro from '../custom/general/CraftStatementsPro.vue'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-// const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 // const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
-const { calRecommProcessData } = useFufuCal()
+const { getProStatementData, calRecommProcessData } = useFufuCal(userConfig, funcConfig, t)
 
 const showModal = defineModel<boolean>('show', { required: true })
 const showRecommendedProcessesModal = ref(false)
@@ -55,7 +58,7 @@ const fixMap = (oldprepared: Record<number, number>, newlist: Record<number, num
 }
 
 const proStatementData = computed(() => {
-  return getProStatementData(props.craftTargets, itemsPrepared.value, t)
+  return getProStatementData(props.craftTargets, itemsPrepared.value)
 })
 
 const recommProcessData = computed(() => {

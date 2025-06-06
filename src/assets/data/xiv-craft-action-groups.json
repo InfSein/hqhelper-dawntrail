@@ -1,0 +1,42 @@
+{
+  "firstStep": {
+    "name_zh": "首次作业",
+    "name_en": "First Step",
+    "name_ja": "最初の作業",
+    "actions": [100379,100387,100283]
+  },
+  "synth": {
+    "name_zh": "作业",
+    "name_en": "Synth",
+    "name_ja": "作業",
+    "actions": [100001,100203,100363,100403,100315,100427,100323]
+  },
+  "touch": {
+    "name_zh": "加工",
+    "name_en": "Touch",
+    "name_ja": "加工",
+    "actions": [
+      100002,100004,100411,
+      100355,100451,
+      100128,100227,100299,100443,100435,100339
+    ]
+  },
+  "durability": {
+    "name_zh": "耐久度",
+    "name_en": "Durability",
+    "name_ja": "耐久",
+    "actions": [100003,4631,4639,4574,100467]
+  },
+  "buff": {
+    "name_zh": "增益",
+    "name_en": "Buff",
+    "name_ja": "増益",
+    "actions": [19297,19004,260,100459,100475]
+  },
+  "other": {
+    "name_zh": "其他",
+    "name_en": "Other",
+    "name_ja": "その他",
+    "actions": [100010,100371,19012,100419]
+  }
+}

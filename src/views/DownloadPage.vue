@@ -130,7 +130,7 @@ const handleDownloadBtnClick = (link: string) => {
           <n-spin size="small" />
           <div>{{ t('正在加载……') }}</div>
         </div>
-        <div v-else class="flex-column gap-4">
+        <div v-else class="flex-col gap-4">
           <p>{{ t('当前最新版本：{ver}', appVersionInfo?.electron) }}</p>
           <p>{{ t('点击下方按钮来进行下载。') }}</p>
           <div class="download-btn-container">

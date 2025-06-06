@@ -158,8 +158,12 @@ const itemHasHQ = computed(() => {
 })
 const itemTailDescriptions = computed(() => {
   const descriptions : string[] = []
-  if (itemLanguage.value === 'zh' && props.itemInfo.usedZHTemp) {
-    descriptions.push(t('该物品国服尚未实装，中文名为临时译名。'))
+  if (itemLanguage.value === 'zh') {
+    if (props.itemInfo.usedZHTemp) {
+      descriptions.push(t('该物品国服尚未实装，中文名为临时译名。'))
+    } else if (props.itemInfo.chsOffline) {
+      descriptions.push(t('该物品国服尚未实装。'))
+    }
   }
   return descriptions
 })
@@ -191,7 +195,7 @@ const openInAngler = () => {
     case 'ja': lang = 'jp'; break
   }
   let name = getItemName()
-  if (props.itemInfo.usedZHTemp) {
+  if (props.itemInfo.chsOffline) {
     lang = 'en'
     name = props.itemInfo.name_en
   }

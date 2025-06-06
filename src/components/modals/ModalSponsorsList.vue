@@ -32,8 +32,9 @@ const loadSponsors = async () => {
     sponsors.value = []
     let loadSponsorsResponse : string
     let url = document?.location?.origin + document.location.pathname + 'data/sponsors.json'
+    url += `?t=${new Date().getTime()}`
     if (window.electronAPI?.httpGet) {
-      url = 'https://hqhelper.nbb.fan/data/sponsors.json'
+      url = `https://hqhelper.nbb.fan/data/sponsors.json?t=${new Date().getTime()}`
       loadSponsorsResponse = await window.electronAPI.httpGet(url)
     } else {
       loadSponsorsResponse = await fetch(url)

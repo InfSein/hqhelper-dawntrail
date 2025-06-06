@@ -13,6 +13,7 @@ import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import LocationSpan from '@/components/custom/map/LocationSpan.vue'
 import { type UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
+import { deepCopy } from '@/tools'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import UseConfig from '@/tools/use-config'
 import { XivJobs, type XivJob } from '@/assets/data'
@@ -39,11 +40,23 @@ export interface CraftRecommProcessesProps {
   contentMaxHeight?: string;
   itemGroups: RecommItemGroup[];
   containerId?: string;
+  hideChsOfflineItems?: boolean;
 }
 const props = defineProps<CraftRecommProcessesProps>()
 
 const showItemGatherDetails = computed(() => {
   return funcConfig.value.processes_show_item_details
+})
+const itemGroups = computed(() => {
+  if (props.hideChsOfflineItems) {
+    const _itemGroups = deepCopy(props.itemGroups)
+    _itemGroups.forEach(itemGroup => {
+      itemGroup.items = itemGroup.items.filter(item => !item.chsOffline)
+    })
+    return _itemGroups
+  } else {
+    return props.itemGroups
+  }
 })
 
 const getJobName = (jobInfo: XivJob) => {
@@ -73,9 +86,9 @@ const textsGatherAt = computed(() => {
 })
 
 const tomeScripts = computed(() : ItemInfo[] => {
-  const group = props.itemGroups.find(group => group.type === 'trade-tomescript')
+  const group = itemGroups.value.find(group => group.type === 'trade-tomescript')
   if (!group) return []
-  const groupIndex = props.itemGroups.indexOf(group)
+  const groupIndex = itemGroups.value.indexOf(group)
 
   const tradeMap: Record<number, number> = {}
     group.items.forEach(item => {

@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, onBeforeUnmount, ref, watch, h, type Ref } from 'vue'
+import { computed, inject, onMounted, onBeforeUnmount, ref, watch, type Ref } from 'vue'
 import {
-  NBackTop, NButton, NFloatButton, NFloatButtonGroup, NIcon, NInputGroup, NInputGroupLabel, NSelect, NTabs, NTabPane, NTooltip, 
-  type SelectOption, type SelectRenderLabel,
+  NBackTop, NButton, NFloatButton, NFloatButtonGroup, NIcon, NInputGroup, NInputGroupLabel, NTabs, NTabPane, NTooltip, 
   useMessage
 } from 'naive-ui'
 import {
@@ -12,10 +11,11 @@ import {
   QueryStatsFilled,
   TableViewOutlined,
   AllInclusiveSharp,
+  VisibilitySharp, VisibilityOffSharp,
   UnfoldMoreSharp, UnfoldLessSharp,
 } from '@vicons/material'
 import FoldableCard from '@/components/templates/FoldableCard.vue'
-import ItemSpan from '@/components/custom/item/ItemSpan.vue'
+import ItemSelector from '@/components/custom/item/ItemSelector.vue'
 import ItemSelectTable from '@/components/custom/item/ItemSelectTable.vue'
 import CraftStatistics from '@/components/custom/general/CraftStatistics.vue'
 import CraftStatements from '@/components/custom/general/CraftStatements.vue'
@@ -23,13 +23,12 @@ import CraftStatementsPro from '@/components/custom/general/CraftStatementsPro.v
 import ModalCostAndBenefit from '@/components/modals/ModalCostAndBenefit.vue'
 import ModalPreferences from '@/components/modals/ModalPreferences.vue'
 import { useStore } from '@/store'
-import { XivUnpackedItems } from '@/assets/data'
 import {
   getDefaultWorkflow, fixWorkState, _VAR_MAX_WORKFLOW
 } from '@/models/workflow'
 import type { UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
-import { calCostAndBenefit, getItemInfo, getItemPriceInfo, getProStatementData, getStatementData, type ItemInfo } from '@/tools/item'
+import { calCostAndBenefit, getItemInfo, getItemPriceInfo, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { useFufuCal } from '@/tools/use-fufu-cal'
 import UseConfig from '@/tools/use-config'
@@ -46,7 +45,7 @@ const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 const { calItems } = useNbbCal()
-const { calRecommProcessData, calRecommProcessGroups } = useFufuCal()
+const { getStatementData, getProStatementData, calRecommProcessData, calRecommProcessGroups } = useFufuCal(userConfig, funcConfig, t)
 const {
   itemServer,
 } = UseConfig(userConfig, funcConfig)
@@ -87,6 +86,7 @@ const preferenceAppShowUP = ref(false)
 const preferenceAppShowFP = ref(false)
 
 const headerBlock = ref<HTMLElement>()
+const proStatementInstace = ref<InstanceType<typeof CraftStatementsPro>>()
 const windowHeight = ref(window.innerHeight)
 const headerHeight = ref(0)
 const updateHeights = () => {
@@ -177,49 +177,6 @@ const pageHeightVals = computed(() => {
 })
 
 // #region content-items
-const itemOptions = computed(() => {
-  return Object.values(XivUnpackedItems).filter(item => item.rids?.length > 0).map(item => {
-    return {
-      label: item.lang[0],
-      value: item.id
-    }
-  })
-})
-const renderItemLabel : SelectRenderLabel = (option) => {
-  if (!option.value || typeof option.value !== 'number') {
-    return h('div', null, [option.label as string])
-  }
-  return h(ItemSpan, {
-    itemInfo: getItemInfo(option.value),
-  })
-}
-const filterItem = (pattern: string, option: SelectOption) => {
-  if (!pattern) {
-    return true
-  }
-  if (!option.value || typeof option.value !== 'number') {
-    return false
-  }
-  const item = getItemInfo(option.value)
-
-  let itemMatched = false
-  const availableKeywords = [
-    item.name_zh, item.name_en, item.name_ja
-  ]
-  availableKeywords.forEach(keyword => {
-    if (keyword?.toLowerCase().includes(pattern.toLowerCase())) {
-      itemMatched = true
-    }
-  })
-  if (itemMatched) return true
-
-  if (item.id.toString() === pattern) return true
-  if (item.itemLevel.toString() === pattern) return true
-  if (item.patch === pattern) return true
-
-  return false
-}
-const itemInputVal = ref<number | null>(null)
 const handleItemInputValueUpdate = (value: number) => {
   if (!value) return
   if (currentWorkflow.value.targetItems[value]) {
@@ -228,7 +185,6 @@ const handleItemInputValueUpdate = (value: number) => {
     currentWorkflow.value.targetItems[value] = 1
     currentWorkflow.value.preparedItems.craftTarget[value] = 0
   }
-  itemInputVal.value = null
 }
 const handleClearCurrentWorkflow = () => {
   currentWorkflow.value.targetItems = {}
@@ -246,6 +202,11 @@ const handleSelectCardFoldStatusChanged = (folded: boolean) => {
   } else {
     selectCardWidth.value = '450px'
   }
+  setTimeout(() => {
+    if (proStatementInstace?.value?.updateSize) {
+      proStatementInstace.value.updateSize()
+    }
+  }, 10)
 }
 // #endregion
 
@@ -271,7 +232,7 @@ const statementData = computed(() => {
   return getStatementData(statistics.value)
 })
 const proStatementData = computed(() => {
-  return getProStatementData(craftTargetsArray.value, currentWorkflow.value.preparedItems, t)
+  return getProStatementData(craftTargetsArray.value, currentWorkflow.value.preparedItems)
 })
 const recommProcessData = computed(() => {
   return calRecommProcessData(proStatementData.value.targetItemsForCal, proStatementData.value.lv1ItemsForCal, proStatementData.value.baseItemsForCal)
@@ -475,15 +436,8 @@ const handleAnalysisItemPrices = async () => {
           <div class="top-actions">
             <n-input-group>
               <n-input-group-label>{{ t('添加物品') }}</n-input-group-label>
-              <n-select
-                v-model:value="itemInputVal"
-                filterable
-                :filter="filterItem"
-                :options="itemOptions"
-                :render-label="renderItemLabel"
-                :placeholder="t('支持按物品名/ID/品级/版本搜索')"
-                :title="t('支持按物品名/ID/品级/版本搜索')"
-                @update:value="handleItemInputValueUpdate"
+              <ItemSelector
+                @on-item-selected="handleItemInputValueUpdate"
               />
             </n-input-group>
           </div>
@@ -540,6 +494,7 @@ const handleAnalysisItemPrices = async () => {
               />
               <CraftStatementsPro
                 v-else
+                ref="proStatementInstace"
                 v-model:items-prepared="currentWorkflow.preparedItems"
                 :craft-targets="craftTargetsArray"
                 :statement-blocks="proStatementData.statementBlocks"
@@ -563,9 +518,21 @@ const handleAnalysisItemPrices = async () => {
                 :item-groups="recommProcessGroups"
                 :content-max-height="pageHeightVals.recommProcess"
                 content-max-width="1080px"
+                :hide-chs-offline-items="currentWorkflow.recommData.hideChsOfflineItems"
               />
 
               <n-float-button-group v-if="!isMobile" right="20px" bottom="5px">
+                <n-tooltip v-if="recommProcessGroups.length && itemServer === 'chs'" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
+                  <template #trigger>
+                    <n-float-button @click="currentWorkflow.recommData.hideChsOfflineItems = !currentWorkflow.recommData.hideChsOfflineItems">
+                      <n-icon>
+                        <VisibilitySharp v-if="currentWorkflow.recommData.hideChsOfflineItems" />
+                        <VisibilityOffSharp v-else />
+                      </n-icon>
+                    </n-float-button>
+                  </template>
+                  {{ currentWorkflow.recommData.hideChsOfflineItems ? t('显示国服未实装物品') : t('隐藏国服未实装物品') }}
+                </n-tooltip>
                 <n-tooltip v-if="recommProcessGroups.length" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
                   <template #trigger>
                     <n-float-button @click="handleCollapseOrUncollapseAllRecommGroupBlocks">

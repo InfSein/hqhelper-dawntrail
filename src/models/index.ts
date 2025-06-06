@@ -49,11 +49,13 @@ export interface SettingItem {
   type: 'radio-group' | 'switch' | 'select' | 'cascader' | 'string' | 'button'
   multiple?: boolean
   options?: CascaderOption[]
+  /** 仅在 `type` 设为 `button` 时生效 */
   buttonProps?: {
     text: string
     type?: 'default' | 'tertiary' | 'primary' | 'success' | 'info' | 'warning' | 'error'
     icon?: Component
     onClick: () => void
   }
+  placeholder?: string
   require_reload?: boolean
 }

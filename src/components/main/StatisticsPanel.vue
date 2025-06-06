@@ -11,18 +11,21 @@ import TomeScriptButton from '../custom/other/TomeScriptButton.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import ModalProStatements from '../modals/ModalProStatements.vue'
 import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
-import { calCostAndBenefit, getItemInfo, getItemPriceInfo, getStatementData, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
+import ModalImportExportMain from '../modals/ModalImportExportMain.vue'
 import { type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import type { GearSelections } from '@/models/gears'
 import { useStore } from '@/store'
-import ModalImportExportMain from '../modals/ModalImportExportMain.vue'
+import { useFufuCal } from '@/tools/use-fufu-cal'
+import { calCostAndBenefit, getItemInfo, getItemPriceInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 
 const store = useStore()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+
+const { getStatementData } = useFufuCal(userConfig, funcConfig, t)
 
 interface StatisticsPanelProps {
   patchSelected: string,

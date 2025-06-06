@@ -10,15 +10,19 @@ import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import ModalProStatements from '../modals/ModalProStatements.vue'
 import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
 import { useStore } from '@/store'
-import { getItemPriceInfo, getStatementData, calCostAndBenefit } from '@/tools/item'
+import { type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
+import { getItemPriceInfo, calCostAndBenefit } from '@/tools/item'
+import { useFufuCal } from '@/tools/use-fufu-cal'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
-// const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+
+const { getStatementData } = useFufuCal(userConfig, funcConfig, t)
 
 interface StatisticsPanelProps {
   itemSelected: Record<number, number>

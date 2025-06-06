@@ -24,7 +24,7 @@ const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 // const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const NAIVE_UI_MESSAGE = useMessage()
-const { calRecommProcessGroups } = useFufuCal()
+const { calRecommProcessGroups } = useFufuCal(userConfig, funcConfig, t)
 const {
   itemLanguage, itemServer,
 } = UseConfig(userConfig, funcConfig)
@@ -33,6 +33,7 @@ const showModal = defineModel<boolean>('show', { required: true })
 const expandedBlocks = ref<Record<number, string[]>>({})
 /** (groupId, (itemId, checked)) */
 const completedItems = ref<Record<number, Record<number, boolean>>>({})
+const hideChsOfflineItems = ref(false)
 
 watch(showModal, async(newVal, oldVal) => {
   if (newVal && !oldVal) {
@@ -44,6 +45,7 @@ watch(showModal, async(newVal, oldVal) => {
         completedItems.value[i][item.id] = false
       })
     }
+    hideChsOfflineItems.value = false
   }
 })
 
@@ -137,6 +139,7 @@ const handleSettingButtonClick = () => {
         <span class="title">{{ t('推荐流程') }}</span>
         <div class="card-title-actions">
           <a href="javascript:void(0);" @click="handleCollapseOrUncollapseAllBlocks">[{{ isBlocksAllCollapsed() ? t('全部展开') : t('全部折叠') }}]</a>
+          <a v-if="itemServer === 'chs'" href="javascript:void(0);" @click="hideChsOfflineItems = !hideChsOfflineItems">[{{ hideChsOfflineItems ? t('显示国服未实装物品') : t('隐藏国服未实装物品') }}]</a>
         </div>
       </div>
     </template>
@@ -146,6 +149,7 @@ const handleSettingButtonClick = () => {
       v-model:completed-items="completedItems"
       :item-groups="itemGroups"
       :container-id="modalId"
+      :hide-chs-offline-items="hideChsOfflineItems"
     />
 
     <template #action>

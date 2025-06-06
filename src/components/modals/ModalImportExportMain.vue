@@ -16,16 +16,21 @@ import GroupBox from '../templates/GroupBox.vue'
 import HelpButton from '../custom/general/HelpButton.vue'
 import ModalConfirmImportMain from './ModalConfirmImportMain.vue'
 import { useStore } from '@/store'
+import type { GearSelections } from '@/models/gears'
+import { type UserConfigModel } from '@/models/config-user'
+import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
+import { useFufuCal } from '@/tools/use-fufu-cal'
 import { export2Excel, importExcel } from '@/tools/excel'
 import type { ItemInfo, ItemPriceInfo } from '@/tools/item'
-import type { GearSelections } from '@/models/gears'
-import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
+
+const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+const updateItemPrices = inject<() => Promise<void>>('updateItemPrices')!
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
-const updateItemPrices = inject<() => Promise<void>>('updateItemPrices')!
+const { getStatementData } = useFufuCal(userConfig, funcConfig, t)
 
 const showModal = defineModel<boolean>('show', { required: true })
 const onLoad = () => {
@@ -83,6 +88,7 @@ const handleExportExcel = async () => {
     props.ui_lang,
     props.item_lang,
     t,
+    getStatementData,
     fileName.value ? fileName.value + '.xlsx' : undefined,
     item_price_map,
     funcConfig.value.universalis_priceType

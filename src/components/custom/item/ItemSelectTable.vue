@@ -11,12 +11,12 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const items = defineModel<Record<number, number>>('items', { required: true })
-interface ItemStatementTableProps {
+interface ItemSelectTableProps {
   showItemDetails: boolean,
   containerId?: string
   contentHeight?: string
 }
-defineProps<ItemStatementTableProps>()
+defineProps<ItemSelectTableProps>()
 
 const tableContainer = ref<HTMLElement>()
 

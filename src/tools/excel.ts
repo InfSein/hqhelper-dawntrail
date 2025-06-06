@@ -4,7 +4,8 @@ import {
   XivJobs, XivGearAffixes
 } from '@/assets/data'
 import { attireAffixes, accessoryAffixes, type GearSelections, type AttireAffix, type AccessoryAffix, fixGearSelections } from "@/models/gears"
-import { getItemInfo, getStatementData, type ItemInfo, type ItemPriceInfo } from './item'
+import { getItemInfo, type ItemInfo, type ItemPriceInfo } from './item'
+import type { StatementData } from './use-fufu-cal'
 
 export const export2Excel = (
   gearSelections: GearSelections,
@@ -17,6 +18,7 @@ export const export2Excel = (
   ui_lang: 'zh' | 'ja' | 'en',
   item_lang: 'zh' | 'ja' | 'en',
   t: (message: string, ...args: any[]) => string,
+  getStatementData: (statistics: any) => StatementData,
   file_name?: string,
   item_price_map?: Record<number, ItemPriceInfo>,
   price_type?: "averagePrice" | "currentAveragePrice" | "minPrice" | "maxPrice" | "marketLowestPrice" | "marketPrice" | "purchasePrice"

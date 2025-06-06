@@ -29,7 +29,7 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const NAIVE_UI_MESSAGE = useMessage()
-const { dropdownOptionsRenderer } = useUiTools(isMobile)
+const { optionsRenderer } = useUiTools(isMobile)
 
 const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
 export interface GearSelectionPanelProps {
@@ -543,7 +543,7 @@ defineExpose({
             v-if="displayQuickOperates"
             :show="showQuickOperatesOptions"
             :options="quickOperatesOptions"
-            :render-option="dropdownOptionsRenderer"
+            :render-option="optionsRenderer"
             class="no-select"
             placement="bottom"
             @select="handleQuickOperatesSelect"
@@ -567,7 +567,7 @@ defineExpose({
           <n-dropdown
             :show="showClearOptions"
             :options="clearOptions"
-            :render-option="dropdownOptionsRenderer"
+            :render-option="optionsRenderer"
             class="no-select"
             placement="bottom"
             @select="handleClearSelect"
@@ -591,7 +591,7 @@ defineExpose({
           <n-dropdown
             :show="showAddsuitOptions"
             :options="addsuitOptions"
-            :render-option="dropdownOptionsRenderer"
+            :render-option="optionsRenderer"
             class="no-select"
             placement="bottom"
             @select="handleAddsuitSelect"

@@ -284,7 +284,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
   -webkit-app-region: drag;
 }
 
-:deep(#main-content .n-scrollbar-container) {
+:deep(#main-content>.n-scrollbar>.n-scrollbar-container) {
   padding: 1rem;
 }
 .n-layout-header {

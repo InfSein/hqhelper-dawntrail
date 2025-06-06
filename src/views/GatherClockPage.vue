@@ -37,7 +37,7 @@ const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const store = useStore()
 const { getLimitedGatherings } = useNbbCal()
-const { dropdownOptionsRenderer } = useUiTools(isMobile)
+const { optionsRenderer } = useUiTools(isMobile)
 const {
   uiLanguage, itemLanguage,
 } = UseConfig(userConfig, funcConfig)
@@ -563,7 +563,7 @@ const handleShowAlarmMacroExportModal = () => {
             <n-select v-model:value="workState.notifyMode" :options="notifyModeOptions" @update:value="handleCheckNotificationPermission" />
           </n-form-item>
           <n-form-item :label="t('排序依据')" style="min-width: 200px;">
-            <n-select v-model:value="workState.orderBy" :options="itemSortOptions" :render-option="dropdownOptionsRenderer" />
+            <n-select v-model:value="workState.orderBy" :options="itemSortOptions" :render-option="optionsRenderer" />
           </n-form-item>
           <n-form-item :label="t('将现可采集的物品置顶')">
             <n-switch v-model:value="workState.pinGatherableItems" />

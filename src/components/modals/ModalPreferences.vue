@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, h, inject, ref, type Component, type Ref } from 'vue'
+import { computed, inject, ref, type Ref } from 'vue'
 import {
   NButton, NIcon, NLayout, NLayoutContent, NLayoutSider, NMenu, NTabs, NTabPane,
   useMessage
@@ -13,7 +13,7 @@ import {
   MemoryRound,
   UpdateRound,
   CodeSharp,
-  ImportExportOutlined,
+  DiscountOutlined,
   TableViewOutlined,
   AllInclusiveSharp,
   AttachMoneyOutlined,
@@ -27,11 +27,12 @@ import AboutApp from '../custom/general/AboutApp.vue'
 import SettingItem from '../custom/general/SettingItem.vue'
 import ModalPreferencesImportExport from './ModalPreferencesImportExport.vue'
 import { useStore } from '@/store/index'
-import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
-import { deepCopy } from '@/tools'
 import type { PreferenceGroup, SettingGroupKey } from '@/models'
+import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { fixWorkState } from '@/models/workflow'
+import { deepCopy } from '@/tools'
+import useUiTools from '@/tools/ui'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -39,6 +40,7 @@ const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
+const { renderIcon } = useUiTools(isMobile)
 
 const showModal = defineModel<boolean>('show', { required: true })
 const emit = defineEmits(['close', 'afterSubmit'])
@@ -68,13 +70,6 @@ const dealDescriptions = (descriptions: string[]) => {
       style: ''
     }
   })
-}
-const renderIcon = (icon: Component) => {
-  return () => {
-    return h(NIcon, null, {
-      default: () => h(icon)
-    })
-  }
 }
 const getPriceTypeOptions = () => {
   return [
@@ -421,20 +416,48 @@ const preferenceGroups : PreferenceGroup[] = [
           },
         ]
       },
-      /* 导入/导出 */
+      /* 生产宏 */
       {
-        key: 'import_export',
-        icon: ImportExportOutlined,
-        text: t('导入/导出'),
+        key: 'craft_macro',
+        icon: DiscountOutlined,
+        text: t('生产宏'),
         children: [
           {
-            key: 'export_item_price',
-            label: t('导出成本/收益分析'),
+            key: 'cmacro_use_macrolock',
+            label: t('在每个生产宏的开头使用/macrolock'),
             descriptions: dealDescriptions([
-              t('启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。'),
+              t('启用后生成的生产宏在执行期间不会被其他宏打断，不过各宏的技能容量也会减少。'),
             ]),
             type: 'switch'
-          }
+          },
+          {
+            key: 'cmacro_remove_quotes',
+            label: t('移除生产宏技能名的双引号'),
+            descriptions: dealDescriptions([
+              t('技能名含空格时必须使用双引号或是手动转换为定型文，否则执行时会报错。'),
+            ]),
+            type: 'switch'
+          },
+          {
+            key: 'cmacro_transition_tipper_content',
+            label: t('过渡生产宏的执行结束提醒'),
+            descriptions: dealDescriptions([
+              t('过渡生产宏指最后一个宏之外的生产宏。'),
+              t('提醒内容中的「~INDEX」将被替换为宏的顺序号。'),
+              t('此项未填写任何内容时会使用默认值：{val}', '/e Macro #~INDEX completed. <se.1>'),
+            ]),
+            type: 'string',
+            placeholder: '/e Macro #~INDEX completed. <se.1>',
+          },
+          {
+            key: 'cmacro_end_tipper_content',
+            label: t('最终生产宏的执行结束提醒'),
+            descriptions: dealDescriptions([
+              t('此项未填写任何内容时会使用默认值：{val}', '/e Craft done! <se.14>'),
+            ]),
+            type: 'string',
+            placeholder: '/e Craft done! <se.14>',
+          },
         ]
       },
       /* 制作报表 */
@@ -452,6 +475,23 @@ const preferenceGroups : PreferenceGroup[] = [
             ]),
             type: 'switch',
             require_reload: true
+          },
+          {
+            key: 'statement_ignore_crystals',
+            label: t('忽略水晶素材'),
+            descriptions: dealDescriptions([
+              t('如果你不需要让制作报表计算各种碎晶/水晶/晶簇，可以考虑打开此选项。'),
+            ]),
+            type: 'switch'
+          },
+          {
+            key: 'statement_no_highlights',
+            label: t('禁用高亮展示关联素材'),
+            descriptions: dealDescriptions([
+              t('在2.2.4版本，我们向制作报表追加了一个新功能，左键单击任意物品行后，它和它的制作素材会被高亮展示。'),
+              t('如果你并不需要这一功能、觉得它太容易误触，可以考虑打开此选项。'),
+            ]),
+            type: 'switch'
           },
           {
             key: 'prostate_concise_mode',
@@ -732,6 +772,14 @@ const preferenceGroups : PreferenceGroup[] = [
             ]
           },
           {
+            key: 'export_item_price',
+            label: t('导出Excel时导出成本/收益分析'),
+            descriptions: dealDescriptions([
+              t('启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。'),
+            ]),
+            type: 'switch'
+          },
+          {
             key: 'costandbenefit_show_item_details',
             label: t('成本/收益分析中显示物品详情'),
             type: 'switch'
@@ -832,7 +880,16 @@ const onLoad = () => {
   formFuncConfigData.value = deepCopy(fixFuncConfig(store.state.funcConfig, store.state.userConfig))
 }
 
+const handleCheck = () => {
+  return ''
+}
 const handleSave = () => {
+  // * 检查设置合法性
+  const checkError = handleCheck()
+  if (checkError) {
+    NAIVE_UI_MESSAGE.error(checkError); return
+  }
+
   // * 处理偏好设置
   const oldUserConfig = deepCopy(fixUserConfig(store.state.userConfig))
   formUserConfigData.value.theme ??= 'system'

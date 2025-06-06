@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, h, inject, onMounted, ref, type Component, type Ref } from 'vue'
+import { computed, inject, onMounted, ref, type Component, type Ref } from 'vue'
 import {
   NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover,
   useMessage,
@@ -16,6 +16,7 @@ import {
   AccessAlarmsOutlined,
   FastfoodOutlined,
   WavesOutlined,
+  CodeOutlined,
   HomeOutlined,
   HelpOutlineOutlined,
   MenuFilled,
@@ -69,7 +70,7 @@ const canOpenDevTools = computed(() => {
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
-const { dropdownOptionsRenderer } = useUiTools(isMobile)
+const { renderIcon, optionsRenderer } = useUiTools(isMobile)
 
 onMounted(() => {
   if (userConfig.value.cache_lasttime_version !== AppStatus.Version) {
@@ -134,6 +135,9 @@ const redirectToFoodAndTincPage = () => {
 }
 const redirectToWorkflowPage = () => {
   router.push('/workflow')
+}
+const redirectToMacromanagePage = () => {
+  router.push('/macromanage')
 }
 const redirectToGatherClockPage = () => {
   router.push('/gatherclock')
@@ -218,6 +222,7 @@ const desktopMenus = computed(() => {
   const hideFTHelper = router.currentRoute.value.path.startsWith('/fthelper')
   const hideGatherClock = router.currentRoute.value.path.startsWith('/gatherclock')
   const hideWorkflow = router.currentRoute.value.path.startsWith('/workflow')
+  const hideMacromanage = router.currentRoute.value.path.startsWith('/macromanage')
   const hideDownload = router.currentRoute.value.path.startsWith('/download')
   const changeThemeIcon = theme.value === 'light' ? DarkModeTwotone : LightModeTwotone
   const changeThemeTooltip = theme.value === 'light' ? t('为这个世界带回黑暗。') : t('静待黎明天光来。')
@@ -226,6 +231,7 @@ const desktopMenus = computed(() => {
   const gatherClockTooltip = hideGatherClock ? t('您已经处于采集时钟页面。') : t('挖穿艾欧泽亚的好帮手！')
   const gatherClockSWTooltip = t('在新窗口中打开采集时钟。')
   const workflowTooltip = hideWorkflow ? t('您已经处于工作流页面。') : t('众生如归流。')
+  const macromanageTooltip = hideMacromanage ? t('您已经处于宏管理页面。') : t('管理东方菜肴的食材还是第一次，请多指教。')
   const downloadClientTooltip = hideDownload ? t('您已经处于下载客户端页面。') : t('目前客户满足度达到124%。')
   const userPreferenceTooltip = t('以人的意志改变机械的程序。')
   // const funcPreferenceTooltip = t('还好我把魔法人偶的战斗力设置成了最强级别。')
@@ -297,6 +303,7 @@ const desktopMenus = computed(() => {
         { key: 'tool-gatherclock', label: t('采集时钟'), disabled: hideGatherClock, icon: renderIcon(AccessAlarmsOutlined), description: gatherClockTooltip, click: redirectToGatherClockPage },
         { key: 'tool-fthelper', label: t('食药计算'), disabled: hideFTHelper, icon: renderIcon(FastfoodOutlined), description: ftHelperTooltip, click: redirectToFoodAndTincPage },
         { key: 'tool-workflow', label: t('工作流'), disabled: hideWorkflow, icon: renderIcon(WavesOutlined), description: workflowTooltip, click: redirectToWorkflowPage },
+        { key: 'tool-macromanage', label: t('宏管理'), disabled: hideMacromanage, icon: renderIcon(CodeOutlined), description: macromanageTooltip, click: redirectToMacromanagePage },
         { key: 'tool-divider-1', hide: !canUseSubwindow.value, type: 'divider' },
         { key: 'tool-gatherclock-subwindow', hide: !canUseSubwindow.value, label: t('采集时钟(新窗口)'), icon: renderIcon(AccessAlarmsOutlined), description: gatherClockSWTooltip, click: openSubwindowOfGatherClock },
         { key: 'tool-fthelper-subwindow', hide: !canUseSubwindow.value, label: t('食药计算(新窗口)'), icon: renderIcon(FastfoodOutlined), description: ftHelperSWTooltip, click: openSubwindowOfFtHelper },
@@ -340,13 +347,6 @@ const desktopMenus = computed(() => {
     }
   ] as DesktopMenuItem[]
 })
-function renderIcon(icon: Component) {
-  return () => {
-    return h(NIcon, null, {
-      default: () => h(icon)
-    })
-  }
-}
 const handleDesktopMenuOptionSelect = (key: string, option: any) => {
   if (option?.click) {
     option.click()
@@ -406,7 +406,7 @@ const handleCheckUpdates = async () => {
             </n-icon>
           </n-button>
         </template>
-        <div class="flex-column">
+        <div class="flex-col">
           <p>{{ t('点击此按钮可以返回到首页。') }}</p>
           <p v-if="!canRouteBack">{{ t('……不过您已经在HqHelper的首页了。') }}</p>
         </div>
@@ -421,7 +421,7 @@ const handleCheckUpdates = async () => {
           <template #trigger>
             <p>{{ AppStatus.Version }}</p>
           </template>
-          <div class="flex-column">
+          <div class="flex-col">
             <p>{{ t('国服数据版本：{}', AppStatus.SupportedGameVersion.CN) }}</p>
             <p>{{ t('国际服数据版本：{}', AppStatus.SupportedGameVersion.GLOBAL) }}</p>
             <p>{{ t('※ 国服数据尚未更新时，显示的中文名一般为人工临时翻译，请谨慎参考。') }}</p>
@@ -440,7 +440,7 @@ const handleCheckUpdates = async () => {
               <span class="time-text">{{ currentET.gameTime }}</span>
             </p>
           </template>
-          <div class="flex-column flex-center">
+          <div class="flex-col flex-center">
             <p class="font-center">{{ t('艾欧泽亚时间') }}</p>
           </div>
         </n-popover>
@@ -461,7 +461,7 @@ const handleCheckUpdates = async () => {
           v-for="(item, key) in desktopMenus"
           :key="'desktop-menu-' + key"
           :options="item.options?.filter(o => !o.hide)"
-          :render-option="dropdownOptionsRenderer"
+          :render-option="optionsRenderer"
           :trigger="item.options?.length ? 'hover' : 'manual'"
           @select="handleDesktopMenuOptionSelect"
         >

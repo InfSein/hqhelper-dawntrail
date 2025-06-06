@@ -1,5 +1,6 @@
 @import './base.css';
 @import './custom.css';
+@import './shared.css';
 @import './font.css';
 @import './font/xiv-axis-font.css';
 @import './scroll-bar.css';
