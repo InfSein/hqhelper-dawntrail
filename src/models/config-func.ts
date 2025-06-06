@@ -92,7 +92,7 @@ const defaultFuncConfig: FuncConfigModel = {
   processes_merge_gatherings: false,
   processes_craftable_item_sortby: 'itemId',
   // * 物品价格
-  universalis_server: '红玉海',
+  universalis_server: '陆行鸟',
   universalis_priceType: 'averagePrice',
   universalis_expireTime: 6 * 60 * 60 * 1000, // 默认6小时
   export_item_price: false,
