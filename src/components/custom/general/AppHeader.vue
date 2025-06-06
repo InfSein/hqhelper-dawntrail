@@ -611,7 +611,11 @@ const handleCheckUpdates = async () => {
         const currentVersion = AppStatus.Version
         if (currentVersion !== versionContent.hqhelper) {
           if (window.confirm(t('检测到新版本{v}，是否更新?', { v: versionContent.hqhelper }))) {
-            window.location.reload()
+            const cacheKeys = await caches.keys()
+            for (const name of cacheKeys) {
+              await caches.delete(name)
+            }
+            location.reload()    
           }
         } else {
           NAIVE_UI_MESSAGE.success(t('已是最新版本'))

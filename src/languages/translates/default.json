@@ -939,30 +939,30 @@
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "添加所有能工巧匠职业的主手工具、副手工具各1件": {
-    "en": "Add 1 mainhand and offhand tool for all crafters",
-    "ja": "全クラフターの主副道具を各１件を追加",
+  "添加所有能工巧匠职业的主手&副手工具各1件。": {
+    "en": "Add 1 mainhand and offhand tool for all crafters.",
+    "ja": "全クラフターの主副道具を各１件を追加。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "添加所有大地使者职业的主手工具、副手工具各1件": {
-    "en": "Add 1 mainhand and offhand tool for all gatherers",
-    "ja": "全ギャザラーの主副道具を各１件を追加",
+  "添加所有大地使者职业的主手&副手工具各1件。": {
+    "en": "Add 1 mainhand and offhand tool for all gatherers.",
+    "ja": "全ギャザラーの主副道具を各１件を追加。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "添加一套能工巧匠职业共用的防具与首饰。如果没有首饰则不会添加。": {
-    "en": "Add a set of protective attire and accessory commonly used by crafters. If there is no accessory, it will not be added.",
-    "ja": "クラフターの共通防具とアクセサリを1セット追加。ただし、アクセサリが存在しない場合は追加しない。",
+  "添加一套能工巧匠职业共用的防具与首饰。": {
+    "en": "Add a set of protective attire and accessory commonly used by crafters.",
+    "ja": "クラフターの共通防具とアクセサリを1セット追加。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "添加一套大地使者职业共用的防具与首饰。如果没有首饰则不会添加。": {
-    "en": "Add a set of protective attire and accessory commonly used by gatherers. If there is no accessory, it will not be added.",
-    "ja": "ギャザラーの共通防具とアクセサリを1セット追加。ただし、アクセサリが存在しない場合は追加しない。",
+  "添加一套大地使者职业共用的防具与首饰。": {
+    "en": "Add a set of protective attire and accessory commonly used by gatherers.",
+    "ja": "ギャザラーの共通防具とアクセサリを1セット追加。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]

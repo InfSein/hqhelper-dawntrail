@@ -190,7 +190,11 @@ onMounted(async () => {
             if (window.electronAPI) {
               displayCheckUpdatesModal()
             } else {
-              window.location.reload()
+              const cacheKeys = await caches.keys()
+              for (const name of cacheKeys) {
+                await caches.delete(name)
+              }
+              location.reload()    
             }
           }
         }
