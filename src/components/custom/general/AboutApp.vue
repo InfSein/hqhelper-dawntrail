@@ -18,44 +18,11 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const members = getStaffMebers(t)
 
 const currentElectronVersion = ref('')
-const sponsorsGen1 = ref<string[]>([])
-const sponsorsGen2 = ref<string[]>([])
-const sponsorLoadingStatus = ref<"finished" | "loading" | "error">('loading')
-const sponsorLoadError = ref('')
-
-const loadSponsors = async () => {
-  try {
-    sponsorLoadingStatus.value = 'loading'
-    sponsorLoadError.value = ''
-    sponsorsGen1.value = []
-    sponsorsGen2.value = []
-    let loadSponsorsResponse : string
-    let url = document?.location?.origin + document.location.pathname + 'data/sponsors.json'
-    if (window.electronAPI?.httpGet) {
-      url = 'https://hqhelper.nbb.fan/data/sponsors.json'
-      loadSponsorsResponse = await window.electronAPI.httpGet(url)
-    } else {
-      loadSponsorsResponse = await fetch(url)
-        .then(response => response.text())
-    }
-    const sponsorsContent = JSON.parse(loadSponsorsResponse) as {
-      sponsors_gen1: string[],
-      sponsors_gen2: string[]
-    }
-    sponsorsGen1.value = sponsorsContent.sponsors_gen1
-    sponsorsGen2.value = sponsorsContent.sponsors_gen2
-    sponsorLoadingStatus.value = 'finished'
-  } catch (e: any) {
-    sponsorLoadingStatus.value = 'error'
-    sponsorLoadError.value = e?.message ?? 'UNKNOWN ERROR' + e
-  }
-}
 
 onMounted(async () => {
   if (window.electronAPI?.clientVersion) {
     currentElectronVersion.value = await window.electronAPI?.clientVersion
   }
-  await loadSponsors()
 })
 
 const showSponsors = ref(false)
@@ -186,26 +153,6 @@ const viewSponsors = () => {
         width: fit-content;
         min-width: 60px;
         text-align: center;
-      }
-    }
-    .sponsor-spin-container {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      margin: 5px 0 0 1.2em;
-      text-indent: initial;
-    }
-    .sponsor-alert-container {
-      margin: 5px 2em 0 1.2em;
-
-      a {
-        padding: 0;
-        margin-left: 3px;
-        display: flex;
-        line-height: 1;
-        cursor: pointer;
-        width: fit-content;
-        text-indent: initial;
       }
     }
   }
