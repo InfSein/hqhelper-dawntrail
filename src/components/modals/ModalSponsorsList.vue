@@ -31,19 +31,22 @@ const loadSponsors = async () => {
     sponsorLoadError.value = ''
     sponsors.value = []
     let loadSponsorsResponse : string
-    let url = document?.location?.origin + document.location.pathname + 'data/sponsors.json'
-    url += `?t=${new Date().getTime()}`
+    let url = 'https://strapi.nbb.fan/api/hq-helper-configs/asqyxrsz050g074rswbe275p'
+    url += `?t=${new Date().getTime()}&fields[0]=content`
     if (window.electronAPI?.httpGet) {
-      url = `https://hqhelper.nbb.fan/data/sponsors.json?t=${new Date().getTime()}`
       loadSponsorsResponse = await window.electronAPI.httpGet(url)
     } else {
       loadSponsorsResponse = await fetch(url)
         .then(response => response.text())
     }
     const sponsorsContent = JSON.parse(loadSponsorsResponse) as {
-      sponsors: SponsorInfo[]
+      data: {
+        content: {
+          sponsors: SponsorInfo[]
+        }
+      }
     }
-    sponsors.value = sponsorsContent.sponsors
+    sponsors.value = sponsorsContent.data.content.sponsors
     sponsorLoadingStatus.value = 'finished'
   } catch (e: any) {
     sponsorLoadingStatus.value = 'error'

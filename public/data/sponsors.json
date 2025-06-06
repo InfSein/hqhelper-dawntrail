@@ -1,4 +1,5 @@
 {
+  "note": "This file is deprecated. Use strapi.nbb.fan instead.",
   "sponsors_gen1": [
     "小密峰",
     "宁无恨",
@@ -14,6 +15,12 @@
   ],
   "sponsors_gen2": [],
   "sponsors": [
+    {
+      "date": "2025-06-01",
+      "name": "杳",
+      "word": "",
+      "sponsored": [2]
+    },
     {
       "name": "磊",
       "date": "2025-05-17",
