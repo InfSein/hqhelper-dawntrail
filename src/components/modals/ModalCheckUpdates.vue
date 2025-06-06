@@ -67,7 +67,6 @@ const proxyOptions = [
   { label: 'ghfast.top', value: 'https://ghfast.top' },
   { label: 'github.moeyy.xyz', value: 'https://github.moeyy.xyz' },
   { label: 'gh.jasonzeng.dev', value: 'https://gh.jasonzeng.dev/' },
-  { label: 'hub.gitmirror.com', value: 'https://hub.gitmirror.com/' },
   // https://www.cnblogs.com/ting1/p/18356265
 ]
 const currentElectronVersion = ref('UNKNOWN')
