@@ -219,31 +219,25 @@ const quickOperatesOptions = computed(() => {
   return [
     {
       key: 'add-crafter-mainoff',
-      label: t('添加一套生产|全职业主副手'),
+      label: t('添加一套生产主副手'),
       description: t('添加所有能工巧匠职业的主手&副手工具各1件。')
     },
     {
       key: 'add-gatherer-mainoff',
-      label: t('添加一套采集|全职业主副手'),
+      label: t('添加一套采集主副手'),
       description: t('添加所有大地使者职业的主手&副手工具各1件。')
     },
     {
       key: 'add-crafter-aaa', 
-      label: t('添加一套生产|防具&首饰'), 
+      label: t('添加一套生产防具&首饰'), 
       description: t('添加一套能工巧匠职业共用的防具与首饰。'),
     },
     { 
       key: 'add-gatherer-aaa', 
-      label: t('添加一套采集|防具&首饰'), 
+      label: t('添加一套采集防具&首饰'), 
       description: t('添加一套大地使者职业共用的防具与首饰。'),
     },
-  ].map(item => {
-    return {
-      key: item.key,
-      labels: item.label.split('|'),
-      description: item.description,
-    }
-  })
+  ]
 })
 const handleQuickOperatesSelect = (key: string) => {
   if (jobNotSelected.value) {
@@ -499,10 +493,11 @@ defineExpose({
         <n-flex class="foot" justify="end">
           <n-popover
             v-if="displayQuickOperates"
-            class="no-select"
             placement="bottom"
             :trigger="isMobile ? 'click' : 'hover'"
-            style="--n-padding: 6px;"
+            :show-arrow="false"
+            class="no-select"
+            style="--n-padding: 4px;"
           >
             <template #trigger>
               <n-button
@@ -515,33 +510,26 @@ defineExpose({
                 {{ t('快速操作') }}
               </n-button>
             </template>
-            <div style="display: grid; gap: 4px 6px; grid-template-columns: minmax(0,1fr) minmax(0,1fr);">
+            <div class="flex-col gap-2">
               <TooltipButton
-                v-for="(option, optionIndex) in quickOperatesOptions"
+                v-for="option in quickOperatesOptions"
                 :key="option.key"
                 quaternary
+                :text="option.label"
                 :tip="option.description"
                 tip-type="n-tooltip"
-                :placement="optionIndex > 1 ? 'bottom' : 'top'"
-                btn-style="--n-padding: 8px 16px; --n-height: auto;"
+                placement="right"
+                btn-style="justify-content: start; --n-padding: 8px 16px; --n-height: auto;"
                 pop-style="width: max-content;"
                 @click="handleQuickOperatesSelect(option.key)"
-              >
-                <div>
-                  <p
-                    v-for="(label, labelIndex) in option.labels"
-                    :key="`quick-operate-label-${option.key}-${labelIndex}`"
-                  >
-                    {{ label }}
-                  </p>
-                </div>
-              </TooltipButton>
+              />
             </div>
           </n-popover>
           <n-popover
-            class="no-select"
             placement="bottom"
             :trigger="isMobile ? 'click' : 'hover'"
+            :show-arrow="false"
+            class="no-select"
             style="--n-padding: 4px;"
           >
             <template #trigger>
@@ -570,9 +558,10 @@ defineExpose({
             </div>
           </n-popover>
           <n-popover
-            class="no-select"
             placement="bottom"
             :trigger="isMobile ? 'click' : 'hover'"
+            :show-arrow="false"
+            class="no-select"
             style="--n-padding: 4px;"
           >
             <template #trigger>
