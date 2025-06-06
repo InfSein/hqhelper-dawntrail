@@ -22,6 +22,7 @@ interface TooltipButtonProps {
   tipType?: "n-popover" | "n-tooltip",
   placement?: import("vueuc/lib/binder/src/interface").Placement,
   popTrigger?: PopoverTrigger,
+  popStyle?: string,
 }
 const props = defineProps<TooltipButtonProps>()
 const emits = defineEmits(['click'])
@@ -54,7 +55,7 @@ const handleButtonClick = () => {
 </script>
 
 <template>
-  <component :is="tipComponent" :trigger="popTrigger" :placement="placement">
+  <component :is="tipComponent" :trigger="popTrigger" :placement="placement" :style="popStyle">
     <template #trigger>
       <n-button
         :tertiary="tertiary" 

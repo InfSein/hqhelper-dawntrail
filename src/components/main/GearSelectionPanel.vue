@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, inject, watch,  } from 'vue'
+import { ref, computed, inject } from 'vue'
 import type { Ref } from 'vue'
 import {
-  NAlert, NButton, NButtonGroup, NDropdown, NDivider, NFlex, NIcon, NPopover,
-  useMessage, type DropdownOption
+  NAlert, NButton, NButtonGroup, NDivider, NFlex, NIcon, NPopover,
+  useMessage,
 } from 'naive-ui'
 import { 
   JoinLeftOutlined,
@@ -24,13 +24,11 @@ import { getDefaultGearSelections } from '@/models/gears'
 import { type UserConfigModel } from '@/models/config-user'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 import { useGearAdder } from '@/tools/gears'
-import useUiTools from '@/tools/ui'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const NAIVE_UI_MESSAGE = useMessage()
-const { optionsRenderer } = useUiTools(isMobile)
 
 const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
 export interface GearSelectionPanelProps {
@@ -216,47 +214,28 @@ const displayQuickOperates = computed(() => {
   // * 简单算法，有刻木主手代表是有生产采集新装的版本
   return !!props.patchData?.jobs?.MainHand?.[8]?.[0]
 })
-const showQuickOperatesOptions = ref(false)
-const handleQuickOperatesDropdownMouseEnter = (event: MouseEvent) => {
-  if (isMobile.value) return
-  if ((event.target as HTMLButtonElement).disabled) return
-  showQuickOperatesOptions.value = true
-}
-const handleQuickOperatesDropdownMouseLeave = (event: MouseEvent) => {
-  if (isMobile.value) return
-  if ((event.target as HTMLButtonElement).disabled) return
-  showQuickOperatesOptions.value = false
-}
-const handleCloseQuickOperatesOptions = () => {
-  showQuickOperatesOptions.value = false
-}
+
 const quickOperatesOptions = computed(() => {
   return [
     {
       key: 'add-crafter-mainoff',
       label: t('添加一套生产|全职业主副手'),
-      description: t('添加所有能工巧匠职业的主手工具、副手工具各1件')
+      description: t('添加所有能工巧匠职业的主手&副手工具各1件。')
     },
     {
       key: 'add-gatherer-mainoff',
       label: t('添加一套采集|全职业主副手'),
-      description: t('添加所有大地使者职业的主手工具、副手工具各1件')
+      description: t('添加所有大地使者职业的主手&副手工具各1件。')
     },
     {
       key: 'add-crafter-aaa', 
       label: t('添加一套生产|防具&首饰'), 
-      description: [
-        t('添加一套能工巧匠职业共用的防具与首饰。'),
-        t('如果没有首饰则不会添加。'),
-      ] 
+      description: t('添加一套能工巧匠职业共用的防具与首饰。'),
     },
     { 
       key: 'add-gatherer-aaa', 
       label: t('添加一套采集|防具&首饰'), 
-      description: [
-        t('添加一套大地使者职业共用的防具与首饰。'),
-        t('如果没有首饰则不会添加。'),
-      ] 
+      description: t('添加一套大地使者职业共用的防具与首饰。'),
     },
   ].map(item => {
     return {
@@ -287,25 +266,12 @@ const handleQuickOperatesSelect = (key: string) => {
   }
 }
 
-
-const showClearOptions = ref(false)
-const handleClearDropdownMouseEnter = (event: MouseEvent) => {
-  if (isMobile.value) return
-  if ((event.target as HTMLButtonElement).disabled) return
-  showClearOptions.value = true
-}
-const handleClearDropdownMouseLeave = (event: MouseEvent) => {
-  if (isMobile.value) return
-  if ((event.target as HTMLButtonElement).disabled) return
-  showClearOptions.value = false
-}
-const handleCloseClearOptions = () => {
-  showClearOptions.value = false
-}
-const clearOptions: DropdownOption[] = [
-  { key: 'clear-current', label: t('清空当前'), description: t('清空当前职业的已选择部件') },
-  { key: 'clear-all', label: t('清空全部'), description: t('清空所有职业的已选择部件') },
-]
+const clearOptions = computed(() => {
+  return [
+    { key: 'clear-current', label: t('清空当前'), description: t('清空当前职业的已选择部件。') },
+    { key: 'clear-all', label: t('清空全部'), description: t('清空所有职业的已选择部件。') },
+  ]
+})
 const handleClearSelect = (key: string) => {
   if (key === 'clear-current') {
     clearCurrent()
@@ -314,21 +280,7 @@ const handleClearSelect = (key: string) => {
   }
 }
 
-const showAddsuitOptions = ref(false)
-const handleAddsuitDropdownMouseEnter = (event: MouseEvent) => {
-  if (isMobile.value) return
-  if ((event.target as HTMLButtonElement).disabled) return
-  showAddsuitOptions.value = true
-}
-const handleAddsuitDropdownMouseLeave = (event: MouseEvent) => {
-  if (isMobile.value) return
-  if ((event.target as HTMLButtonElement).disabled) return
-  showAddsuitOptions.value = false
-}
-const handleCloseAddsuitOptions = () => {
-  showAddsuitOptions.value = false
-}
-const addsuitOptions = computed(() : DropdownOption[] => {
+const addsuitOptions = computed(() => {
   return [
     {
       key: 'add-weapon',
@@ -368,32 +320,8 @@ const handleAddsuitSelect = (key: string) => {
     addAttireAndAccessory()
   } else if (key === 'add-suit') {
     addAll()
-  } else if (key === 'add-selfdef') {
-    // // TODO: Add Self-defined Suit
   }
 }
-
-// keep only one dropdown open at a time
-watch(showQuickOperatesOptions, (newValue) => {
-  if (newValue) {
-    showClearOptions.value = false
-    showAddsuitOptions.value = false
-  }
-})
-watch(showClearOptions, (newValue) => {
-  if (newValue) {
-    showQuickOperatesOptions.value = false
-    showAddsuitOptions.value = false
-  }
-})
-watch(showAddsuitOptions, (newValue) => {
-  if (newValue) {
-    showQuickOperatesOptions.value = false
-    showClearOptions.value = false
-  }
-})
-
-// #endregion
 
 defineExpose({
   addCurrMainOffHand
@@ -574,14 +502,12 @@ defineExpose({
             class="no-select"
             placement="bottom"
             :trigger="isMobile ? 'click' : 'hover'"
+            style="--n-padding: 6px;"
           >
             <template #trigger>
               <n-button
                 icon-placement="right"
                 :disabled="jobNotSelected"
-                @click="showQuickOperatesOptions = !showQuickOperatesOptions"
-                @mouseenter="handleQuickOperatesDropdownMouseEnter"
-                @mouseleave="handleQuickOperatesDropdownMouseLeave"
               >
                 <template #icon>
                   <n-icon><KeyboardArrowDownRound /></n-icon>
@@ -593,10 +519,12 @@ defineExpose({
               <TooltipButton
                 v-for="(option, optionIndex) in quickOperatesOptions"
                 :key="option.key"
+                quaternary
                 :tip="option.description"
                 tip-type="n-tooltip"
                 :placement="optionIndex > 1 ? 'bottom' : 'top'"
-                btn-style="--n-padding: 7px 16px; --n-height: auto;"
+                btn-style="--n-padding: 8px 16px; --n-height: auto;"
+                pop-style="width: max-content;"
                 @click="handleQuickOperatesSelect(option.key)"
               >
                 <div>
@@ -610,54 +538,67 @@ defineExpose({
               </TooltipButton>
             </div>
           </n-popover>
-          <n-dropdown
-            :show="showClearOptions"
-            :options="clearOptions"
-            :render-option="optionsRenderer"
+          <n-popover
             class="no-select"
             placement="bottom"
-            @select="handleClearSelect"
-            @mouseenter="handleClearDropdownMouseEnter"
-            @mouseleave="handleClearDropdownMouseLeave"
-            :on-clickoutside="handleCloseClearOptions"
+            :trigger="isMobile ? 'click' : 'hover'"
+            style="--n-padding: 4px;"
           >
-            <n-button
-              icon-placement="right"
-              :disabled="jobNotSelected"
-              @click="showClearOptions = !showClearOptions"
-              @mouseenter="handleClearDropdownMouseEnter"
-              @mouseleave="handleClearDropdownMouseLeave"
-            >
-              <template #icon>
-                <n-icon><KeyboardArrowDownRound /></n-icon>
-              </template>
-              {{ t('清空') }}
-            </n-button>
-          </n-dropdown>
-          <n-dropdown
-            :show="showAddsuitOptions"
-            :options="addsuitOptions"
-            :render-option="optionsRenderer"
+            <template #trigger>
+              <n-button
+                icon-placement="right"
+                :disabled="jobNotSelected"
+              >
+                <template #icon>
+                  <n-icon><KeyboardArrowDownRound /></n-icon>
+                </template>
+                {{ t('清空') }}
+              </n-button>
+            </template>
+            <div class="flex-col gap-2">
+              <TooltipButton
+                v-for="option in clearOptions"
+                :key="option.key"
+                quaternary
+                :text="option.label"
+                :tip="option.description"
+                tip-type="n-tooltip"
+                placement="right"
+                pop-style="width: max-content;"
+                @click="handleClearSelect(option.key)"
+              />
+            </div>
+          </n-popover>
+          <n-popover
             class="no-select"
             placement="bottom"
-            @select="handleAddsuitSelect"
-            @mouseenter="handleAddsuitDropdownMouseEnter"
-            @mouseleave="handleAddsuitDropdownMouseLeave"
-            :on-clickoutside="handleCloseAddsuitOptions"
+            :trigger="isMobile ? 'click' : 'hover'"
+            style="--n-padding: 4px;"
           >
-            <n-button
-              icon-placement="right"
-              :disabled="jobNotSelected"
-              @click="showAddsuitOptions = !showAddsuitOptions"
-              @mouseenter="handleAddsuitDropdownMouseEnter"
-              @mouseleave="handleAddsuitDropdownMouseLeave"
-            >
-              <template #icon>
-                <n-icon><KeyboardArrowDownRound /></n-icon>
-              </template>
-              {{ t('添加') }}
-            </n-button>
-          </n-dropdown>
+            <template #trigger>
+              <n-button
+                icon-placement="right"
+                :disabled="jobNotSelected"
+              >
+                <template #icon>
+                  <n-icon><KeyboardArrowDownRound /></n-icon>
+                </template>
+                {{ t('添加') }}
+              </n-button>
+            </template>
+            <div class="flex-col gap-2">
+              <n-button
+                v-for="option in addsuitOptions"
+                :key="option.key"
+                quaternary
+                :disabled="option.disabled"
+                style="justify-content: start;"
+                @click="handleAddsuitSelect(option.key)"
+              >
+                {{ option.label }}
+              </n-button>
+            </div>
+          </n-popover>
         </n-flex>
       </div>
     </div>
