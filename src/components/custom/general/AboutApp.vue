@@ -34,8 +34,11 @@ const viewSponsors = () => {
 <template>
   <div class="wrapper">
     <div class="logo">
-      <i class="xiv hq logo-about"></i>
-      HqHelper
+      <div class="logo-content">
+        <i class="xiv hq logo-about"></i>
+        HqHelper
+      </div>
+      <div class="patch-text">- DAWNTRAIL -</div>
     </div>
     <n-divider />
     <div class="version-info">
@@ -110,16 +113,27 @@ const viewSponsors = () => {
   padding-right: 5px;
 
   .logo {
-    display: flex;
     align-self: center;
     text-align: center;
     user-select: none;
-    font-size: 32px;
-    font-weight: 900;
     margin: 0.5em 0;
-    padding: 0.1em 0.5em;
+    padding-bottom: 0.6em;
     border-radius: 6px;
     box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    
+    .logo-content {
+      display: flex;
+      padding: 0.4em 0.5em 0 0.5em;
+      line-height: 1;
+      font-size: 32px;
+      font-weight: 900;
+    }
+    .patch-text {
+      line-height: 1.3;
+      font-size: 12px;
+      font-weight: normal;
+      letter-spacing: 1px;
+    }
   }
   .title {
     font-weight: bold;
