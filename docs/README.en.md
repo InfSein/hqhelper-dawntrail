@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="160" alt="icon" height="160" src="/docs/image/app-logo.png" />
+  <img alt="icon" height="160" src="/docs/image/app-logo.png" />
 </p>
 
 <h1 align="center">7.x HQ Helper</h1>
