@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, h, inject, onBeforeUnmount, onMounted, ref, watch, type Ref, type VNode } from 'vue'
 import {
-  NBackTop, NButton, NDataTable, NDivider, NDropdown, NEmpty, NIcon, NInput, NInputGroup, NInputGroupLabel, NSelect, NTag,
+  NBackTop, NButton, NButtonGroup, NDataTable, NDivider, NDropdown, NEmpty, NIcon, NInput, NInputGroup, NInputGroupLabel, NSelect, NTag,
   useMessage,
   type DataTableColumns,
 } from 'naive-ui'
@@ -9,7 +9,7 @@ import {
   SearchOutlined,
   SettingsSuggestFilled,
   KeyboardArrowDownRound,
-  ImportExportOutlined,
+  ArchiveSharp, UnarchiveSharp,
   AddTaskOutlined,
   EditNoteOutlined, DeleteFilled,
 } from '@vicons/material'
@@ -44,6 +44,8 @@ const {
 
 const workState = ref<WorkState>(fixWorkState())
 const showModalCraftMacroEdit = ref(false)
+const showModalImExport = ref(false)
+const imexportMode = ref<"import" | "export">('import')
 const macroEditTarget = ref(getDefaultCraftMacro(-1))
 const macroEditAction = ref<"add" | "edit">('add')
 
@@ -91,16 +93,20 @@ const macroItemLanguageOptions = computed(() => {
 const multiOperateDropdownOptions = computed(() => {
   return [
     {
-      label: t('导入/导出'),
-      key: 'eximport',
-      icon: renderIcon(ImportExportOutlined),
-    },
-    {
       label: t('删除所有宏'),
       key: 'delete',
       props: { style: 'color: var(--color-error);' },
       icon: renderIcon(DeleteFilled, { color: 'var(--color-error)' }),
     },
+  ]
+})
+const mainCardExtraButtons = computed(() => {
+  return [
+    {
+      text: t('设置'),
+      icon: SettingsSuggestFilled,
+      onClick: handleSettingButtonClick,
+    }
   ]
 })
 
@@ -326,9 +332,7 @@ const handleReportDataMissing = (macro: RecordedCraftMacro | number) => {
   )
 }
 const handleMultiOperateDropdownSelect = (key: string | number) => {
-  if (key === 'eximport') {
-    NAIVE_UI_MESSAGE.info('developing...')
-  } else if (key === 'delete') {
+  if (key === 'delete') {
     if (!workState.value.recordedCraftMacros.length) {
       NAIVE_UI_MESSAGE.info(t('还没有添加任何宏'))
       return
@@ -341,6 +345,14 @@ const handleMultiOperateDropdownSelect = (key: string | number) => {
   } else {
     console.warn('unexpected multi operate dropdown key:', key)
   }
+}
+const handleImportButtonClick = () => {
+  imexportMode.value = 'import'
+  showModalImExport.value = true
+}
+const handleExportButtonClick = () => {
+  imexportMode.value = 'export'
+  showModalImExport.value = true
 }
 
 const getMacroId = () => {
@@ -421,7 +433,7 @@ const handleSettingButtonClick = () => {
 
 <template>
   <div id="main-container">
-    <FoldableCard card-key="macromanage-main">
+    <FoldableCard card-key="macromanage-main" unfoldable :extra-header-buttons="mainCardExtraButtons">
       <template #header>
         <i class="xiv e0ba"></i>
         <span class="card-title-text">{{ t('生产宏管理') }}</span>
@@ -448,15 +460,6 @@ const handleSettingButtonClick = () => {
             />
           </n-input-group>
           <div id="querier-actions">
-            <n-button
-              ghost
-              @click="handleSettingButtonClick"
-            >
-              <template #icon>
-                <n-icon :component="SettingsSuggestFilled" />
-              </template>
-              {{ t('设置') }}
-            </n-button>
             <n-dropdown
               placement="bottom-end"
               :options="multiOperateDropdownOptions"
@@ -469,6 +472,20 @@ const handleSettingButtonClick = () => {
                 {{ t('批量操作') }}
               </n-button>
             </n-dropdown>
+            <n-button-group>
+              <n-button ghost @click="handleImportButtonClick">
+                <template #icon>
+                  <n-icon :component="ArchiveSharp" />
+                </template>
+                {{ t('导入') }}
+              </n-button>
+              <n-button ghost @click="handleExportButtonClick">
+                <template #icon>
+                  <n-icon :component="UnarchiveSharp" />
+                </template>
+                {{ t('导出') }}
+              </n-button>
+            </n-button-group>
             <n-button
               type="primary"
               @click="handleAddRow"
@@ -576,6 +593,10 @@ const handleSettingButtonClick = () => {
     }
     #querier-itemlang {
       width: 100%;
+    }
+    #querier-actions {
+      flex-wrap: wrap;
+      justify-content: end;
     }
   }
 }
