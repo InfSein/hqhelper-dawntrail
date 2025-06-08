@@ -98,8 +98,8 @@ const multiOperateDropdownOptions = computed(() => {
     {
       label: t('删除所有宏'),
       key: 'delete',
-      props: { style: 'color: red;' },
-      icon: renderIcon(DeleteFilled, { color: 'red' }),
+      props: { style: 'color: var(--color-error);' },
+      icon: renderIcon(DeleteFilled, { color: 'var(--color-error)' }),
     },
   ]
 })
