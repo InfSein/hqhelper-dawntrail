@@ -13,6 +13,21 @@
   touch-action: manipulation;
 }
 
+.theme-light {
+  --color-text: rgb(51, 54, 57);
+  --color-primary: #18a058;
+  --color-info: #2080f0;
+  --color-warning: #f0a020;
+  --color-error: #d03050;
+}
+.theme-dark {
+  --color-text: rgba(255, 255, 255, 0.82);
+  --color-primary: #63e2b7;
+  --color-info: #70c0e8;
+  --color-warning: #f2c97d;
+  --color-error: #e88080;
+}
+
 a {
   text-decoration: none;
   color: hsla(160, 100%, 37%, 1);
