@@ -149,7 +149,7 @@ const handleStaffSelectionUpdate = () => {
           </div>
           <div v-else-if="currentDonateWay.data_type === 'qrcode'">
             <p v-if="currentDonateWay.type === 'qq'">{{ t('请使用移动端的QQ或TIM扫描下方二维码：') }}</p>
-            <n-qr-code :value="currentDonateWay.data" :size="80" :padding="4" />
+            <n-qr-code class="staff-qrcode" :value="currentDonateWay.data" :size="88" :padding="4" />
           </div>
         </GroupBox>
       </div>
@@ -202,12 +202,18 @@ const handleStaffSelectionUpdate = () => {
 :deep(.group-box-content) {
   padding: 0 4px;
 }
+:deep(.staff-qrcode canvas) {
+  /* The size of canvas in `n-qr-code` is wrong. So it is nececssary to override it. */
+  width: 80px !important;
+  height: 80px !important;
+}
+
 .donate-warn-container :deep(.n-icon) {
   display: inline-block !important;
   vertical-align: text-top;
 }
 .wrapper {
-  height: 250px;
+  height: 260px;
   display: flex;
   flex-direction: column;
 
