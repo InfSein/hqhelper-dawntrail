@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, watch, type Component } from 'vue'
 import {
-  NButton, NCard, NIcon, NModal
+  NButton, NIcon, NModal
 } from 'naive-ui'
 import {
   SettingsSharp
@@ -78,9 +78,6 @@ const contentStyle = computed(() => {
 const handleShowFuncPreference = () => {
   emit('onSettingButtonClicked')
 }
-const handleClose = () => {
-  showModal.value = false
-}
 </script>
 
 <template>
@@ -131,34 +128,4 @@ const handleClose = () => {
 </template>
 
 <style scoped>
-.extra-header-container {
-  display: flex;
-  align-items: center;
-
-  .square-action {
-    width: 22px;
-    height: 22px;
-    padding: 2px;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    white-space: nowrap;
-    transition: width 0.3s ease;
-
-    .unshow-text {
-      font-size: 16px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-  }
-  .square-action:hover {
-    width: auto;
-    
-    .unshow-text {
-      opacity: 1;
-    }
-  }
-}
 </style>
