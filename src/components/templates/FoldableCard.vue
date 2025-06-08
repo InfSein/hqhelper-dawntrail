@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, type Ref, shallowRef, inject } from 'vue'
+import { ref, computed, type Ref, shallowRef, inject, type Component } from 'vue'
 import {
   NButton, NCard, NIcon
 } from 'naive-ui'
@@ -23,6 +23,12 @@ interface FoldableCardProps {
   foldDirection?: 'horizontal' | 'vertical'
   title?: string
   description?: string
+  /** 控制 `extra-header` 区域的按钮。 */
+  extraHeaderButtons?: {
+    text: string
+    icon: Component
+    onClick: (...args: any[]) => void
+  }[]
 }
 const props = defineProps<FoldableCardProps>()
 const emit = defineEmits([
@@ -90,12 +96,24 @@ defineExpose({
       <span v-if="description" class="description">{{ description }}</span>
     </template>
     <template #header-extra>
-      <n-button v-if="!unfoldable" text style="font-size: calc(var(--n-title-font-size) - 2px);" @click="handleFoldOrExpand">
-        <span>{{ folderText }}</span>
-        <n-icon size="16">
-          <component :is="folderIcon" />
-        </n-icon>
-      </n-button>
+      <div class="extra-header-container">
+        <n-button
+          v-for="(btn, btnIndex) in extraHeaderButtons"
+          :key="btnIndex"
+          quaternary size="small"
+          class="square-action"
+          @click="btn.onClick"
+        >
+          <n-icon :component="btn.icon" />
+          <div class="unshow-text">{{ btn.text }}</div>
+        </n-button>
+        <n-button v-if="!unfoldable" text style="font-size: calc(var(--n-title-font-size) - 2px);" @click="handleFoldOrExpand">
+          <span>{{ folderText }}</span>
+          <n-icon size="16">
+            <component :is="folderIcon" />
+          </n-icon>
+        </n-button>
+      </div>
     </template>
     <div v-show="!folded" class="h-full">
       <slot />
@@ -108,7 +126,8 @@ defineExpose({
   margin-left: 10px;
   font-size: 14px;
 }
-.collapse-button {
-  font-size: 16px;
+.extra-header-container {
+  display: flex;
+  align-items: center;
 }
 </style>
