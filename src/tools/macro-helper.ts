@@ -219,7 +219,7 @@ const useMacroHelper = (
     try {
       raw = JSON.parse(text)
     } catch {
-      throw new Error('Format Error (Must be .json)')
+      throw new Error('Format error, not a valid json.')
     }
 
     if (!isRecordedCraftMacroArray(raw)) {
