@@ -17,6 +17,7 @@ import FoldableCard from '@/components/templates/FoldableCard.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import ModalCraftMacroEdit from '@/components/modals/ModalCraftMacroEdit.vue'
 import ModalPreferences from '@/components/modals/ModalPreferences.vue'
+import ModalImExportCraftMacro from '@/components/modals/ModalImExportCraftMacro.vue'
 import { XivCraftActions } from '@/assets/data'
 import { useStore } from '@/store'
 import {
@@ -355,17 +356,6 @@ const handleExportButtonClick = () => {
   showModalImExport.value = true
 }
 
-const getMacroId = () => {
-  let macroid = workState.value.recordIndex
-  while (workState.value.recordedCraftMacros.find(macro => macro.id === macroid)) {
-    macroid++
-  }
-  if (workState.value.recordIndex !== macroid) {
-    workState.value.recordIndex = macroid
-  }
-  return macroid
-}
-
 const handleAddRow = () => {
   if (workState.value.recordedCraftMacros.length >= _VAR_MACRO_MAXAMOUNT) {
     NAIVE_UI_MESSAGE.error(t('宏数量已达上限'))
@@ -375,6 +365,17 @@ const handleAddRow = () => {
   macroEditTarget.value = getDefaultCraftMacro(macroid)
   macroEditAction.value = 'add'
   showModalCraftMacroEdit.value = true
+
+  function getMacroId () {
+    let macroid = workState.value.recordIndex
+    while (workState.value.recordedCraftMacros.find(macro => macro.id === macroid)) {
+      macroid++
+    }
+    if (workState.value.recordIndex !== macroid) {
+      workState.value.recordIndex = macroid
+    }
+    return macroid
+  }
 }
 const handleEditRow = (row: CraftMacroRow) => {
   const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)
@@ -527,6 +528,11 @@ const handleSettingButtonClick = () => {
       v-model:show="showPreferencesModal"
       setting-group="craft_macro"
       app-show-fp
+    />
+    <ModalImExportCraftMacro
+      v-model:show="showModalImExport"
+      v-model:recorded-macros="workState.recordedCraftMacros"
+      :mode="imexportMode"
     />
   </div>
 </template>
