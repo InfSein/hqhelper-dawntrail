@@ -474,17 +474,17 @@ const handleSettingButtonClick = () => {
               </n-button>
             </n-dropdown>
             <n-button-group>
-              <n-button ghost @click="handleImportButtonClick">
+              <n-button ghost @click="handleExportButtonClick">
                 <template #icon>
                   <n-icon :component="ArchiveSharp" />
                 </template>
-                {{ t('导入') }}
+                {{ t('导出') }}
               </n-button>
-              <n-button ghost @click="handleExportButtonClick">
+              <n-button ghost @click="handleImportButtonClick">
                 <template #icon>
                   <n-icon :component="UnarchiveSharp" />
                 </template>
-                {{ t('导出') }}
+                {{ t('导入') }}
               </n-button>
             </n-button-group>
             <n-button

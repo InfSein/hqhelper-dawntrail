@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { inject, ref, type Ref } from 'vue'
 import {
-  NButton, NCheckbox, NIcon, NInput, NTabs, NTabPane, NText, NUpload, NUploadDragger,
+  NButton, NIcon, NInput, NP, NTabs, NTabPane, NText, NUpload, NUploadDragger,
   type UploadFileInfo,
   useMessage
 } from 'naive-ui'
 import { 
   ImportExportOutlined,
-  ArrowUpwardOutlined, ArrowDownwardOutlined,
+  ArchiveSharp, UnarchiveSharp,
   FileDownloadOutlined,
   UnarchiveOutlined
 } from '@vicons/material'
@@ -63,11 +63,15 @@ const handleImport = async (file: File) => {
   try {
     const response = await importRecordedMacros(file)
 
-    if (window.confirm(
-      t('成功从文件中读取到{num}条宏。', response.length) + '\n'
-      + t('确认要进行导入吗?') + '\n'
-      + t('已存储的{num}条宏将会丢失!', recordedMacros.value.length)
-    )) {
+    const confirmTips = [
+      t('成功从文件中读取到{num}条宏。', response.length),
+      t('确认要进行导入吗?'),
+    ]
+    if (recordedMacros.value.length) {
+      confirmTips.push(t('已存储的{num}条宏将会丢失!', recordedMacros.value.length))
+    }
+
+    if (window.confirm(confirmTips.join('\n'))) {
       recordedMacros.value = response
       showModal.value = false
     }
@@ -96,7 +100,7 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
   <MyModal
     v-model:show="showModal"
     :icon="ImportExportOutlined"
-    :title="t('导入/导出')"
+    :title="t('宏管理：导入/导出')"
     max-width="500px"
     @on-load="onLoad"
   >
@@ -104,7 +108,7 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
       <n-tab-pane name="export">
         <!-- @vue-ignore -->
         <template #tab>
-          <n-icon><ArrowDownwardOutlined /></n-icon>
+          <n-icon><ArchiveSharp /></n-icon>
           {{ t('导出') }}
         </template>
         <div class="pane-container export-panel">
@@ -112,6 +116,12 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
             <n-input v-model:value="fileName" maxlength="100" :placeholder="t('不填则默认以时间命名')">
               <template #suffix>.json</template>
             </n-input>
+          </GroupBox>
+          <GroupBox id="gbx-cautions" :title="t('注意事项')" title-background-color="var(--n-color-modal)">
+            <ul>
+              <li>{{ t('与主界面的导入导出功能不同，此处导出的文件并非可供阅读与编辑的表格，而是单纯的数据文件。') }}</li>
+              <li>{{ t('请勿直接编辑导出文件的内容，以免数据受损。') }}</li>
+            </ul>
           </GroupBox>
           <div class="submit-bar">
             <n-button type="primary" :disabled="exporting" :loading="exporting" @click="handleExport">
@@ -126,7 +136,7 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
       <n-tab-pane name="import">
         <!-- @vue-ignore -->
         <template #tab>
-          <n-icon><ArrowUpwardOutlined /></n-icon>
+          <n-icon><UnarchiveSharp /></n-icon>
           {{ t('导入') }}
         </template>
         <div class="pane-container import-panel">
@@ -146,6 +156,9 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
               <n-text style="font-size: 16px">
                 {{ t('点击或者拖动文件到该区域来上传') }}
               </n-text>
+              <n-p depth="3" style="margin: 8px 0 0 0">
+                {{ t('导入自己的备份或他人的分享') }}
+              </n-p>
             </n-upload-dragger>
           </n-upload>
         </div>
@@ -162,6 +175,10 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
 .pane-container {
   padding: 0 5px;
   height: 205px;
+
+  ul {
+    padding-left: 1.5em;
+  }
 }
 .export-panel {
   display: flex;
