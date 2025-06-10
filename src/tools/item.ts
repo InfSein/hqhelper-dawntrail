@@ -42,7 +42,6 @@ export interface StatementRow {
 }
 
 import {
-  XivMaps, type XivMapAetheryteInfo,
   XivTranslatedItemDescriptions,
   XivTranslatedItemNames,
   XivTranslatedPlaces,
@@ -63,6 +62,17 @@ const { getTradeMap, getReduceMap, getReduceMapReverted } = useNbbCal()
 const tradeMap = getTradeMap()
 const reduceMap = getReduceMap()
 const revertedReduceMap = getReduceMapReverted()
+
+/**
+ * 获取素材物品
+ * 素材物品指可以用来制作其他物品的道具
+ */
+export const getMaterialItems = () => {
+  return [...new Set(
+    Object.values(XivUnpackedRecipes)
+      .flatMap(recipe => recipe.m.filter((_, i) => i % 2 === 0))
+  )].sort((a, b) => a - b);
+}
 
 export interface ItemInfo {
   id: number
