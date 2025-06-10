@@ -21,6 +21,7 @@ import {
   UpdateOutlined,
   SettingsSharp,
   SettingsSuggestFilled,
+  BackpackFilled,
   EventNoteFilled,
   InfoFilled, InfoOutlined,
   DevicesOtherOutlined,
@@ -31,6 +32,7 @@ import {
   UpdateSharp
 } from '@vicons/material'
 import ModalPreferences from '@/components/modals/ModalPreferences.vue'
+import ModalInventory from '@/components/modals/ModalInventory.vue'
 import ModalContactUs from '@/components/modals/ModalContactUs.vue'
 import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
@@ -82,6 +84,7 @@ const menuDropdownVisiGroup = ref([false, false, false, false, false, false])
 const showPreferencesModal = ref(false)
 const preferenceModalShowUpOnly = ref(false)
 const preferenceModalShowFpOnly = ref(false)
+const showInventoryModal = ref(false)
 const showAboutAppModal = ref(false)
 const showContactModal = ref(false)
 const showChangeLogsModal = ref(false)
@@ -274,6 +277,15 @@ const menuData = computed(() => {
             preferenceModalShowFpOnly.value = true
             showPreferencesModal.value = true
           }
+        },
+        {
+          type: 'common',
+          label: t('背包库存'),
+          icon: BackpackFilled,
+          description: t('喂喂，你的背包已经装满了啊。'),
+          click: () => {
+            showInventoryModal.value = true
+          },
         },
         {
           type: 'common',
@@ -749,6 +761,7 @@ const handleCheckUpdates = async () => {
       :app-show-up="preferenceModalShowUpOnly"
       :app-show-fp="preferenceModalShowFpOnly"
     />
+    <ModalInventory v-model:show="showInventoryModal" />
     <ModalAboutApp v-model:show="showAboutAppModal" />
     <ModalContactUs v-model:show="showContactModal" />
     <ModalChangeLogs v-model:show="showChangeLogsModal" />
