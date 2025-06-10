@@ -116,7 +116,7 @@ const handleImport = () => {
     </div>
 
     <template #action>
-      <div class="submit-container">
+      <div class="modal-submit-container">
         <n-button v-if="action === 'export'" type="primary" @click="handleCopy">
           <template #icon>
             <n-icon><ContentCopyRound /></n-icon>
@@ -144,9 +144,5 @@ const handleImport = () => {
   .desc {
     line-height: 1.2;
   }
-}
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
 }
 </style>

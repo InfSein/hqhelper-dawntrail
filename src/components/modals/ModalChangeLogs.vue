@@ -158,7 +158,7 @@ const handleSwitchShowHistory = () => {
     </div>
 
     <template #action>
-      <div class="submit-container">
+      <div class="modal-submit-container">
         <n-button v-if="!showHistory && !isMobile && devMode" type="info" @click="handleCopyLatestPatchNode">
           <template #icon>
             <n-icon :component="CopyAllOutlined" />
@@ -253,11 +253,6 @@ const handleSwitchShowHistory = () => {
   .item .change-group-title {
     font-weight: bold;
   }
-}
-.submit-container {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
 }
 
 /* Desktop */

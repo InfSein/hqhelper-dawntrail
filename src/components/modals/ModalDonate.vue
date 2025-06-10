@@ -178,7 +178,7 @@ const handleStaffSelectionUpdate = () => {
     </div>
     
     <template #action>
-      <div class="submit-container">
+      <div class="modal-submit-container">
         <n-button
           :type="cautionsConfirmed ? 'default' : 'primary'"
           @click="cautionsConfirmed = !cautionsConfirmed"
@@ -240,10 +240,6 @@ const handleStaffSelectionUpdate = () => {
   ul {
     padding-left: 1.5em;
   }
-}
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
 }
 
 /* Mobile */

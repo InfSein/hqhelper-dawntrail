@@ -135,7 +135,7 @@ const handleClose = () => {
     </n-tabs>
     
     <template #action>
-      <div class="submit-container">
+      <div class="modal-submit-container">
         <n-button type="error" size="large" @click="handleClose">
           <template #icon>
             <n-icon><CloseSharp /></n-icon>
@@ -181,10 +181,6 @@ const handleClose = () => {
     display: flex;
     flex-direction: row-reverse;
   }*/
-}
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
 }
 
 /* Mobile only */

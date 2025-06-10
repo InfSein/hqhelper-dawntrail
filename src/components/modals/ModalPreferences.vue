@@ -1119,7 +1119,7 @@ const containerMaxHeight = computed(() => {
     />
 
     <template #action>
-      <div class="submit-container">
+      <div class="modal-submit-container">
         <n-button type="primary" size="large" @click="handleSave">
           <template #icon>
             <n-icon><SaveOutlined /></n-icon>
@@ -1165,9 +1165,5 @@ const containerMaxHeight = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
 }
 </style>

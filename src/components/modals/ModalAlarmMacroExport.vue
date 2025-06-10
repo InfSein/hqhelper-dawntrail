@@ -278,10 +278,6 @@ const getPlaceName = (itemInfo : ItemInfo) => {
     margin-left: 0.6em;
   }
 }
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
-}
 
 /* Mobile */
 @media (max-width: 768px) {

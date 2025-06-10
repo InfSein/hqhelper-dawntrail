@@ -161,7 +161,7 @@ const handleSettingButtonClick = () => {
     />
 
     <template #action>
-      <div class="submit-container">
+      <div class="modal-submit-container">
         <n-button type="info" size="large" @click="handleCopyProcesses">
           <template #icon>
             <n-icon><CopyAllOutlined /></n-icon>
@@ -232,10 +232,6 @@ const handleSettingButtonClick = () => {
       }
     }
   }
-}
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
 }
 
 /* Mobile only */
