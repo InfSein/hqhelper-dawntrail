@@ -97,7 +97,7 @@ const handleClose = () => {
     </div>
 
     <template #action>
-      <div class="submit-container">
+      <div class="modal-submit-container">
         <n-button type="primary" size="large">
           <template #icon>
             <n-icon><SaveOutlined /></n-icon>
@@ -111,10 +111,6 @@ const handleClose = () => {
 
 <style scoped>
 .wrapper {
-}
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
 }
 </style>
 ```

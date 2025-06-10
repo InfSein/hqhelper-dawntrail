@@ -530,10 +530,6 @@ const handleSettingButtonClick = () => {
     height: 60px;
   }
 }
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
-}
 
 /* Desktop */
 @media screen and (min-width: 768px) {

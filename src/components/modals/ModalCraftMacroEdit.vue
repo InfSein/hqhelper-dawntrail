@@ -494,7 +494,7 @@ const handleSave = async () => {
     </div>
 
     <template #action>
-      <div class="submit-container">
+      <div class="modal-submit-container">
         <n-button type="primary" @click="handleSave">
           <template #icon>
             <n-icon>
@@ -574,9 +574,5 @@ table {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-}
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
 }
 </style>

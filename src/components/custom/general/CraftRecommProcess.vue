@@ -310,8 +310,4 @@ const isItemGatherableNow = (item: ItemInfo) => {
     }
   }
 }
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
-}
 </style>
