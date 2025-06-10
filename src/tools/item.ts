@@ -53,6 +53,9 @@ import {
   XivUnpackedTerritories,
   XivItemTypes
 } from '@/assets/data'
+import {
+  XivMaps, type XivMapAetheryteInfo,
+} from '@/tools/map'
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
