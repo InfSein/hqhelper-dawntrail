@@ -71,6 +71,8 @@ export interface FuncConfigModel {
   inventory_workflow_enable_sync: boolean
   /** 对不在库存中物品的处理方式 */
   inventory_other_items_way: "ignore" | "clear"
+  /** 用户库存数据 key:item_id, val:amount */
+  inventory_data: Record<number, number>
   // #endregion
 
   // #region 隐藏的配置项
@@ -113,6 +115,7 @@ const defaultFuncConfig: FuncConfigModel = {
   inventory_statement_enable_sync: false,
   inventory_workflow_enable_sync: false,
   inventory_other_items_way: 'ignore',
+  inventory_data: {},
   // * 隐藏的配置项
   workflow_default_join_mode: 'accumulation',
   // * 缓存

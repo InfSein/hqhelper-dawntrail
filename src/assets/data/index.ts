@@ -3,9 +3,6 @@ import type {
   AttireAffix, AccessoryAffix,
   GearSelections
 } from '@/models/gears'
-import {
-  parseUnpackedMapData
-} from '@/tools/map'
 // #endregion
 
 // #region Translations
