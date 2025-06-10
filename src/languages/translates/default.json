@@ -3475,70 +3475,70 @@
     "ja": "推奨の回し",
     "$files": [
       "components\\modals\\ModalProStatements.vue",
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "筹集灵砂": {
     "en": "Prepare aethersands",
     "ja": "霊砂を集める",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "兑换道具": {
     "en": "Trade items",
     "ja": "アイテム交換",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "筹集其他需要的道具": {
     "en": "Prepare other items needed",
     "ja": "その他必要な道具を集める",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}制作半半半成品": {
     "en": "Use {job} craft pre-pre-precrafts",
     "ja": "{job}で準準中間素材を制作",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}制作半半成品": {
     "en": "Use {job} craft pre-precrafts",
     "ja": "{job}で準中間素材を制作",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}制作半成品": {
     "en": "Use {job} craft precrafts",
     "ja": "{job}で中間素材を制作",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}制作成品": {
     "en": "Use {job} craft",
     "ja": "{job}で完成品を制作",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "全部展开": {
     "en": "Expand all",
     "ja": "全て展開",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "全部折叠": {
     "en": "Collapse all",
     "ja": "全て折りたたむ",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "点击物品信息图标时的行为": {
@@ -3865,35 +3865,35 @@
     "ja": "採集の詳細を表示",
     "$files": [
       "data\\change-logs.ts",
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}采集(非限时)": {
     "en": "Use {job} gather (Unlimited)",
     "ja": "{job}で採集（非時間制限）",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}采集(限时)": {
     "en": "Use {job} gather (Time-limited)",
     "ja": "{job}で採集（時間制限）",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "在{}采集": {
     "en": "Gather at {}",
     "ja": "{}で採集",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "限时: {}": {
     "en": "Time-limit: {}",
     "ja": "時間制限: {}",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "决定在点击材料区域物品按钮组上方的“清单”按钮后，展示的物品清单格式。": {
@@ -4692,7 +4692,7 @@
     "$files": [
       "components\\main\\StatisticsPanel.vue",
       "components\\modals\\ModalFuncPreferences.vue",
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "确认导入内容": {
@@ -4728,7 +4728,7 @@
     "ja": "コスト/収益分析のエクスポート",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue",
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。": {
@@ -4736,7 +4736,7 @@
     "ja": "このオプションを有効にすると、アイテム価格のキャッシュが期限切れの場合、データを更新するために一定の時間がかかります。",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue",
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "修改此选项的设置后需要刷新一次页面方可生效。": {
@@ -4750,63 +4750,63 @@
     "en": "Only .xlsx files can be imported",
     "ja": ".xlsxファイルのみインポート可能",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "未获取到文件": {
     "en": "No file obtained",
     "ja": "ファイルを取得できませんでした",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "文件名": {
     "en": "File name",
     "ja": "ファイル名",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "不填则默认以时间命名": {
     "en": "If not filled, it will be named by time by default",
     "ja": "入力しない場合はデフォルトで時間で命名されます",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "遵循“功能设置”中的“物品价格”设置。": {
     "en": "Follow the 'Item Price' settings in 'Function Preferences'.",
     "ja": "「機能設定」内の「アイテム価格」設定に従います。",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "导出成功后打开导出目录": {
     "en": "Open the export directory after export succeeded.",
     "ja": "エクスポート後、エクスポートディレクトリを開く",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "导出": {
     "en": "Export",
     "ja": "エクスポート",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "点击或者拖动文件到该区域来上传": {
     "en": "Click or drag the file to this area to upload",
     "ja": "このエリアにファイルをクリックまたはドラッグしてアップロード",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "需要确保表格的第一个工作表是“已选部件”": {
     "en": "Make sure the first worksheet of the table is 'View Selected'",
     "ja": "シート1が「選択した部品」であることを確認してください",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "设置": {
@@ -5408,14 +5408,14 @@
     "en": "Gather(Unlimited)",
     "ja": "採集アイテム（常駐）",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "采集限时道具": {
     "en": "Gather(Time-Limited)",
     "ja": "採集アイテム（刻限）",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "最多只能添加{num}条工作流": {
@@ -7368,7 +7368,7 @@
     "ja": "中国サーバー未実装アイテムを表示",
     "$files": [
       "views\\WorkflowPage.vue",
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "隐藏国服未实装物品": {
@@ -7376,7 +7376,7 @@
     "ja": "中国サーバー未実装アイテムを非表示",
     "$files": [
       "views\\WorkflowPage.vue",
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "请输入要导入的内容": {

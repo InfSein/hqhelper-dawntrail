@@ -7,7 +7,7 @@ import {
   TableViewOutlined
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
-import ModalRecommendedProcesses from './ModalRecommendedProcesses.vue'
+import ModalRecommProcesses from './ModalRecommProcesses.vue'
 import ModalPreferences from './ModalPreferences.vue'
 import { type UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
@@ -114,7 +114,7 @@ const handleSettingButtonClick = () => {
       :statement-blocks="proStatementData.statementBlocks"
     />
 
-    <ModalRecommendedProcesses
+    <ModalRecommProcesses
       v-model:show="showRecommendedProcessesModal"
       v-bind="recommProcessData"
     />
