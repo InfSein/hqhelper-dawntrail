@@ -53,11 +53,6 @@ const calculateUi = () => {
       needLimitNameWidth.value = true
     }
   }
-  console.log(
-    'maxWidth:', props.spanMaxWidth,
-    'itemSpanNode.value.offsetWidth', itemSpanNode.value?.offsetWidth,
-    'needLimitNameWidth:', needLimitNameWidth.value
-  )
 
   function measureNaturalWidth(el: HTMLElement): number {
     if (!el || !el.parentElement) return 0
