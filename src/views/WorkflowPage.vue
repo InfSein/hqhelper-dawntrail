@@ -494,6 +494,7 @@ const handleSetStatementPreparedByInventory = () => {
             class="card-title-extra"
             href="javascript:void(0);"
             style="cursor: pointer;"
+            :title="t('将报表中的“已有”数量设置为背包库存的数量。')"
             @click="handleSetStatementPreparedByInventory"
           >
             [{{ t('与背包库存同步') }}]

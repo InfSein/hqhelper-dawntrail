@@ -58,7 +58,10 @@ const inventorySettingItems = computed(() : Setting[] => {
       label: t('在工作流中启用背包库存手动同步'),
       type: 'switch',
       warnings: dealDesc([
-        t('开启此项后，工作流将追加一个可以将报表中“已有”数量设置为背包库存数量的按钮。'),
+        t('开启此项后，工作流的“{f1}”页面将追加“{f2}”按钮。', {
+          f1: t('报表'), f2: t('与背包库存同步')
+        }),
+        t('点击按钮后便会将报表中的“已有”数量设置为背包库存的数量。')
       ]),
     },
     {
@@ -67,7 +70,7 @@ const inventorySettingItems = computed(() : Setting[] => {
       type: 'select',
       options: [
         { label: t('忽略'), value: 'ignore', description: t('保持现有数量') },
-        { label: t('清空'), value: 'clear', description: t('将数量重设为0') },
+        { label: t('清零'), value: 'clear', description: t('将数量重设为0') },
       ],
       warnings: dealDesc([
         t('决定自动同步或手动同步时，对不在背包库存中的物品要如何处理。'),
