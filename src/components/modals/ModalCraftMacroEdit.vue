@@ -105,6 +105,16 @@ const craftActionsMacroLines = computed(() => {
   const macros = exportCraftMacroText(formCraftActions.value.map(action => XivCraftActions[action.val]))
   return [...macros[`macros_${formCraftActionsExportLang.value}`].map(str => str.split('\r\n')).flat()]
 })
+const groupLabelStyle = computed(() => {
+  let width = 25
+  if (userConfig.value.language_ui === 'ja') {
+    width = 35
+  }
+  return [
+    `width: ${width}%;`,
+    'text-align: center;'
+  ].join(' ')
+})
 
 const remarkInputChecker = (value: string) => {
   return value.split('\n').length <= _VAR_REMARK_MAXLINE
@@ -308,11 +318,11 @@ const handleSave = async () => {
               </div>
               <div class="form-input">
                 <n-input-group style="margin-top: 2px;">
-                  <n-input-group-label style="width: 25%; text-align: center;">{{ t('从数据库中选择') }}</n-input-group-label>
+                  <n-input-group-label :style="groupLabelStyle">{{ t('从数据库中选择') }}</n-input-group-label>
                   <ItemSelector :container-id="modalId" @on-item-selected="handleAddRelateItem"/>
                 </n-input-group>
                 <n-input-group style="margin-top: 1px;">
-                  <n-input-group-label style="width: 25%; text-align: center;">{{ t('自行输入物品名') }}</n-input-group-label>
+                  <n-input-group-label :style="groupLabelStyle">{{ t('自行输入物品名') }}</n-input-group-label>
                   <n-input v-model:value="relateItemName" />
                   <n-button type="primary" @click="handleAddRelateItemStr">
                     {{ t('添加') }}

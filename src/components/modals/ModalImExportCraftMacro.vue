@@ -174,7 +174,7 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
 }
 .pane-container {
   padding: 0 5px;
-  height: 205px;
+  height: 250px;
 
   ul {
     padding-left: 1.5em;
@@ -195,7 +195,7 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
 /* Mobile */
 @media screen and (max-width: 767px) {
   .pane-container {
-    height: 205px;
+    height: 250px;
   }
 }
 </style>
