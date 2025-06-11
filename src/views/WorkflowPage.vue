@@ -84,6 +84,7 @@ const showPreferencesModal = ref(false)
 const preferenceSettingGroup = ref<SettingGroupKey | undefined>(undefined)
 const preferenceAppShowUP = ref(false)
 const preferenceAppShowFP = ref(false)
+const selectedAnaTab = ref('statistics')
 
 const headerBlock = ref<HTMLElement>()
 const proStatementInstace = ref<InstanceType<typeof CraftStatementsPro>>()
@@ -371,6 +372,14 @@ const handleAnalysisItemPrices = async () => {
   await updateItemPrices()
   showCostAndBenefitModal.value = true
 }
+const handleSetStatementPreparedByInventory = () => {
+  if (proStatementInstace?.value?.setPreparedItemsByInventory) {
+    proStatementInstace.value.setPreparedItemsByInventory()
+    NAIVE_UI_MESSAGE.success(t('同步成功'))
+  } else {
+    NAIVE_UI_MESSAGE.error('proStatementInstace Ref Notfound')
+  }
+}
 // #endregion
 </script>
 
@@ -471,10 +480,28 @@ const handleAnalysisItemPrices = async () => {
         <template #header>
           <i class="xiv square-2"></i>
           <span class="card-title-text">{{ t('查看分析') }}</span>
-          <a class="card-title-extra" href="javascript:void(0);" :disabled="updatingPrice" :style="updatingPrice ? 'cursor: not-allowed; color: gray;' : 'cursor: pointer;'" @click="handleAnalysisItemPrices">[{{ updatingPrice ? t('正在加载……') : t('成本/收益预估') }}]</a>
+          <a
+            class="card-title-extra"
+            href="javascript:void(0);"
+            :disabled="updatingPrice"
+            :style="updatingPrice ? 'cursor: not-allowed; color: gray;' : 'cursor: pointer;'"
+            @click="handleAnalysisItemPrices"
+          >
+            [{{ updatingPrice ? t('正在加载……') : t('成本/收益预估') }}]
+          </a>
+          <a
+            v-show="funcConfig.inventory_workflow_enable_sync && selectedAnaTab === 'statements'"
+            class="card-title-extra"
+            href="javascript:void(0);"
+            style="cursor: pointer;"
+            :title="t('将报表中的“已有”数量设置为背包库存的数量。')"
+            @click="handleSetStatementPreparedByInventory"
+          >
+            [{{ t('与背包库存同步') }}]
+          </a>
         </template>
         <div class="block">
-          <n-tabs type="segment" animated class="h-full">
+          <n-tabs v-model:value="selectedAnaTab" type="segment" animated class="h-full">
             <n-tab-pane name="statistics">
               <!-- @vue-ignore -->
               <template #tab>

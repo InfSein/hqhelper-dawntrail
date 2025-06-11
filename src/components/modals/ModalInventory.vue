@@ -1,25 +1,26 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch, type Ref } from 'vue'
+import { computed, inject, ref } from 'vue'
 import {
-  NButton, NCheckbox, NIcon, NInput, NP, NTabs, NTabPane, NText, NUpload, NUploadDragger,
-  type UploadFileInfo,
+  NButton, NIcon, NInputGroup, NInputGroupLabel, NTabs, NTabPane,
   useMessage
 } from 'naive-ui'
 import { 
   BackpackFilled,
+  DeleteSweepRound,
   SaveOutlined,
 } from '@vicons/material'
 import MyModal from '@/components/templates/MyModal.vue'
+import TooltipButton from '@/components/custom/general/TooltipButton.vue'
 import SettingItem from '@/components/custom/general/SettingItem.vue'
+import ItemSelector from '@/components/custom/item/ItemSelector.vue'
+import ItemSelectTable from '@/components/custom/item/ItemSelectTable.vue'
 import { useStore } from '@/store'
 import type { SettingItem as Setting } from '@/models'
-import { type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { deepCopy } from '@/tools'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
-const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const store = useStore()
@@ -28,9 +29,18 @@ const NAIVE_UI_MESSAGE = useMessage()
 const showModal = defineModel<boolean>('show', { required: true })
 
 const formFuncConfigData = ref<FuncConfigModel>(deepCopy(fixFuncConfig(store.state.funcConfig, store.state.userConfig)))
+const formInventoryItems = ref<ItemInfo[]>([])
+
+const modalId = 'modal-inventory'
 
 const onLoad = () => {
   formFuncConfigData.value = deepCopy(fixFuncConfig(store.state.funcConfig, store.state.userConfig))
+  formInventoryItems.value = Object.keys(formFuncConfigData.value.inventory_data).map(_id => {
+    const id = Number(_id)
+    const item = getItemInfo(id)
+    item.amount = formFuncConfigData.value.inventory_data[id]
+    return item
+  })
 }
 
 const inventorySettingItems = computed(() : Setting[] => {
@@ -48,7 +58,10 @@ const inventorySettingItems = computed(() : Setting[] => {
       label: t('在工作流中启用背包库存手动同步'),
       type: 'switch',
       warnings: dealDesc([
-        t('开启此项后，工作流将追加一个可以将报表中“已有”数量设置为背包库存数量的按钮。'),
+        t('开启此项后，工作流的“{f1}”页面将追加“{f2}”按钮。', {
+          f1: t('报表'), f2: t('与背包库存同步')
+        }),
+        t('点击按钮后便会将报表中的“已有”数量设置为背包库存的数量。')
       ]),
     },
     {
@@ -57,7 +70,7 @@ const inventorySettingItems = computed(() : Setting[] => {
       type: 'select',
       options: [
         { label: t('忽略'), value: 'ignore', description: t('保持现有数量') },
-        { label: t('清空'), value: 'clear', description: t('将数量重设为0') },
+        { label: t('清零'), value: 'clear', description: t('将数量重设为0') },
       ],
       warnings: dealDesc([
         t('决定自动同步或手动同步时，对不在背包库存中的物品要如何处理。'),
@@ -74,19 +87,33 @@ const inventorySettingItems = computed(() : Setting[] => {
   }
 })
 
+const handleItemInputValueUpdate = (value: number) => {
+  if (!value) return
+  if (formFuncConfigData.value.inventory_data[value]) {
+    NAIVE_UI_MESSAGE.info(t('已有该物品'))
+  } else {
+    formFuncConfigData.value.inventory_data[value] = 1
+  }
+}
+const handleClearInventory = () => {
+  formFuncConfigData.value.inventory_data = {}
+  NAIVE_UI_MESSAGE.success(t('已清空'))
+}
+
 const handleSave = () => {
-  // * 保存选项
   store.commit('setFuncConfig', fixFuncConfig(formFuncConfigData.value))
 
   // * 结算
   showModal.value = false
   appForceUpdate()
+  NAIVE_UI_MESSAGE.success(t('保存成功'))
 }
 </script>
 
 <template>
   <MyModal
     v-model:show="showModal"
+    :id="modalId"
     :icon="BackpackFilled"
     :title="t('背包库存')"
     max-width="600px"
@@ -105,6 +132,33 @@ const handleSave = () => {
       </n-tab-pane>
       <n-tab-pane name="data" :tab="t('数据')">
         <div class="pane-container">
+          <div class="top-actions">
+            <n-input-group>
+              <n-input-group-label>{{ t('添加物品') }}</n-input-group-label>
+              <ItemSelector
+                options-preset="materials"
+                :container-id="modalId"
+                @on-item-selected="handleItemInputValueUpdate"
+              />
+            </n-input-group>
+          </div>
+          <div class="content-table">
+            <ItemSelectTable
+              v-model:items="formFuncConfigData.inventory_data"
+              show-item-details
+              item-span-max-width="260px"
+              content-height="285px"
+              :container-id="modalId"
+            />
+          </div>
+          <div class="bottom-actions">
+            <TooltipButton
+              :icon="DeleteSweepRound"
+              :text="t('清空')"
+              :tip="t('清空库存')"
+              @click="handleClearInventory"
+            />
+          </div>
         </div>
       </n-tab-pane>
     </n-tabs>
@@ -129,6 +183,26 @@ const handleSave = () => {
   display: flex;
   flex-direction: column;
   gap: 5px;
+
+  .top-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    .label {
+      font-size: 16px;
+    }
+    .n-select {
+      flex: 1;
+    }
+  }
+  .content-table {
+    flex: 1;
+  }
+  .bottom-actions {
+    display: flex;
+    justify-content: end;
+  }
 }
 
 /* Mobile */
