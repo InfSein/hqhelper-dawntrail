@@ -84,6 +84,7 @@ const showPreferencesModal = ref(false)
 const preferenceSettingGroup = ref<SettingGroupKey | undefined>(undefined)
 const preferenceAppShowUP = ref(false)
 const preferenceAppShowFP = ref(false)
+const selectedAnaTab = ref('statistics')
 
 const headerBlock = ref<HTMLElement>()
 const proStatementInstace = ref<InstanceType<typeof CraftStatementsPro>>()
@@ -313,6 +314,13 @@ const recommGroupAllCollapsed = computed(() => {
   }
   return allCollapsed
 })
+const handleHideOrShowChsOfflineItems = () => {
+  currentWorkflow.value.recommData.hideChsOfflineItems = !currentWorkflow.value.recommData.hideChsOfflineItems
+  const message = currentWorkflow.value.recommData.hideChsOfflineItems
+    ? t('已隐藏国服未实装物品')
+    : t('已显示国服未实装物品')
+  NAIVE_UI_MESSAGE.success(message)
+}
 const handleCollapseOrUncollapseAllRecommGroupBlocks = () => {
   const cacheRecommGroupAllCollapsed = recommGroupAllCollapsed.value
   // 这里不能直接引用 computed 的值，因为它会在折叠/展开过程中变化
@@ -363,6 +371,14 @@ const handleAnalysisItemPrices = async () => {
   }
   await updateItemPrices()
   showCostAndBenefitModal.value = true
+}
+const handleSetStatementPreparedByInventory = () => {
+  if (proStatementInstace?.value?.setPreparedItemsByInventory) {
+    proStatementInstace.value.setPreparedItemsByInventory()
+    NAIVE_UI_MESSAGE.success(t('同步成功'))
+  } else {
+    NAIVE_UI_MESSAGE.error('proStatementInstace Ref Notfound')
+  }
 }
 // #endregion
 </script>
@@ -445,6 +461,7 @@ const handleAnalysisItemPrices = async () => {
             <ItemSelectTable
               v-model:items="currentWorkflow.targetItems"
               show-item-details
+              item-span-max-width="230px"
               :content-height="pageHeightVals.itemSelectTable"
             />
           </div>
@@ -463,10 +480,28 @@ const handleAnalysisItemPrices = async () => {
         <template #header>
           <i class="xiv square-2"></i>
           <span class="card-title-text">{{ t('查看分析') }}</span>
-          <a class="card-title-extra" href="javascript:void(0);" :disabled="updatingPrice" :style="updatingPrice ? 'cursor: not-allowed; color: gray;' : 'cursor: pointer;'" @click="handleAnalysisItemPrices">[{{ updatingPrice ? t('正在加载……') : t('成本/收益预估') }}]</a>
+          <a
+            class="card-title-extra"
+            href="javascript:void(0);"
+            :disabled="updatingPrice"
+            :style="updatingPrice ? 'cursor: not-allowed; color: gray;' : 'cursor: pointer;'"
+            @click="handleAnalysisItemPrices"
+          >
+            [{{ updatingPrice ? t('正在加载……') : t('成本/收益预估') }}]
+          </a>
+          <a
+            v-show="funcConfig.inventory_workflow_enable_sync && selectedAnaTab === 'statements'"
+            class="card-title-extra"
+            href="javascript:void(0);"
+            style="cursor: pointer;"
+            :title="t('将报表中的“已有”数量设置为背包库存的数量。')"
+            @click="handleSetStatementPreparedByInventory"
+          >
+            [{{ t('与背包库存同步') }}]
+          </a>
         </template>
         <div class="block">
-          <n-tabs type="segment" animated class="h-full">
+          <n-tabs v-model:value="selectedAnaTab" type="segment" animated class="h-full">
             <n-tab-pane name="statistics">
               <!-- @vue-ignore -->
               <template #tab>
@@ -524,7 +559,7 @@ const handleAnalysisItemPrices = async () => {
               <n-float-button-group v-if="!isMobile" right="20px" bottom="5px">
                 <n-tooltip v-if="recommProcessGroups.length && itemServer === 'chs'" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
                   <template #trigger>
-                    <n-float-button @click="currentWorkflow.recommData.hideChsOfflineItems = !currentWorkflow.recommData.hideChsOfflineItems">
+                    <n-float-button @click="handleHideOrShowChsOfflineItems">
                       <n-icon>
                         <VisibilitySharp v-if="currentWorkflow.recommData.hideChsOfflineItems" />
                         <VisibilityOffSharp v-else />

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import XivFARImage from '../general/XivFARImage.vue'
-import type { XivMapInfo } from '@/assets/data'
-import { drawMap } from '@/tools/map'
+import { drawMap, type XivMapInfo } from '@/tools/map'
 
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 

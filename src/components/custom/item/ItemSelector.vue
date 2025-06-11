@@ -5,10 +5,11 @@ import {
   type SelectOption, type SelectRenderLabel
 } from 'naive-ui'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
-import { getItemInfo } from '@/tools/item'
 import { XivUnpackedItems } from '@/assets/data'
+import { getItemInfo, getMaterialItems } from '@/tools/item'
 
 interface ItemSelectorProps {
+  optionsPreset?: "craftable" | "materials"
   containerId?: string
 }
 const props = defineProps<ItemSelectorProps>()
@@ -16,13 +17,25 @@ const emits = defineEmits(['onItemSelected'])
 
 const itemInputVal = ref<number | null>(null)
 
+const optionsPreset = computed(() => props.optionsPreset ?? 'craftable')
 const itemOptions = computed(() => {
-  return Object.values(XivUnpackedItems).filter(item => item.rids?.length > 0).map(item => {
-    return {
-      label: item.lang[0],
-      value: item.id
-    }
-  })
+  if (optionsPreset.value === 'craftable') {
+    return Object.values(XivUnpackedItems).filter(item => item.rids?.length > 0).map(item => {
+      return {
+        label: item.lang[0],
+        value: item.id
+      }
+    })
+  } else {
+    const items = getMaterialItems()
+    return items.map(item => {
+      return {
+        label: 'item-' + item,
+        value: item
+      }
+    })
+  }
+  
 })
 const renderItemLabel : SelectRenderLabel = (option) => {
   if (!option.value || typeof option.value !== 'number') {

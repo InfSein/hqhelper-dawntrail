@@ -166,7 +166,7 @@ const handleClose = () => {
     </div>
 
     <template #action>
-      <div class="submit-container">
+      <div class="modal-submit-container">
         <TooltipButton
           type="primary"
           :icon="ContentCopyRound"
@@ -215,10 +215,6 @@ const handleClose = () => {
     flex-direction: column;
     gap: 3px;
   }
-}
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
 }
 
 /* Mobile only */

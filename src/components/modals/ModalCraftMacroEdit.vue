@@ -311,7 +311,7 @@ const handleSave = async () => {
                   <n-input-group-label style="width: 25%; text-align: center;">{{ t('从数据库中选择') }}</n-input-group-label>
                   <ItemSelector :container-id="modalId" @on-item-selected="handleAddRelateItem"/>
                 </n-input-group>
-                <n-input-group>
+                <n-input-group style="margin-top: 1px;">
                   <n-input-group-label style="width: 25%; text-align: center;">{{ t('自行输入物品名') }}</n-input-group-label>
                   <n-input v-model:value="relateItemName" />
                   <n-button type="primary" @click="handleAddRelateItemStr">
@@ -494,7 +494,7 @@ const handleSave = async () => {
     </div>
 
     <template #action>
-      <div class="submit-container">
+      <div class="modal-submit-container">
         <n-button type="primary" @click="handleSave">
           <template #icon>
             <n-icon>
@@ -574,9 +574,5 @@ table {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-}
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
 }
 </style>

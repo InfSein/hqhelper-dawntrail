@@ -11,7 +11,7 @@ import TomeScriptButton from '../custom/other/TomeScriptButton.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import ModalProStatements from '../modals/ModalProStatements.vue'
 import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
-import ModalImportExportMain from '../modals/ModalImportExportMain.vue'
+import ModalImExportMain from '../modals/ModalImExportMain.vue'
 import { type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import type { GearSelections } from '@/models/gears'
@@ -455,7 +455,7 @@ const handleAnalysisItemPrices = async () => {
       v-model:show="showProStatementModal"
       v-bind="statementData"
     />
-    <ModalImportExportMain
+    <ModalImExportMain
       v-model:show="showImportExportModal"
       v-bind="importExportData"
     />

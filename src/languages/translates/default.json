@@ -448,16 +448,16 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "清空当前职业的已选择部件": {
-    "en": "Clear gears selected for current job",
-    "ja": "現在のジョブの部位をクリア",
+  "清空当前职业的已选择部件。": {
+    "en": "Clear gears selected for current job.",
+    "ja": "現在のジョブの部位をクリア。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "清空所有职业的已选择部件": {
-    "en": "Clear all gears selected for all jobs",
-    "ja": "全てのジョブの部位をクリア",
+  "清空所有职业的已选择部件。": {
+    "en": "Clear all gears selected for all jobs.",
+    "ja": "全てのジョブの部位をクリア。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
@@ -939,30 +939,30 @@
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "添加所有能工巧匠职业的主手工具、副手工具各1件": {
-    "en": "Add 1 mainhand and offhand tool for all crafters",
-    "ja": "全クラフターの主副道具を各１件を追加",
+  "添加所有能工巧匠职业的主手&副手工具各1件。": {
+    "en": "Add 1 mainhand and offhand tool for all crafters.",
+    "ja": "全クラフターの主副道具を各１件を追加。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "添加所有大地使者职业的主手工具、副手工具各1件": {
-    "en": "Add 1 mainhand and offhand tool for all gatherers",
-    "ja": "全ギャザラーの主副道具を各１件を追加",
+  "添加所有大地使者职业的主手&副手工具各1件。": {
+    "en": "Add 1 mainhand and offhand tool for all gatherers.",
+    "ja": "全ギャザラーの主副道具を各１件を追加。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "添加一套能工巧匠职业共用的防具与首饰。如果没有首饰则不会添加。": {
-    "en": "Add a set of protective attire and accessory commonly used by crafters. If there is no accessory, it will not be added.",
-    "ja": "クラフターの共通防具とアクセサリを1セット追加。ただし、アクセサリが存在しない場合は追加しない。",
+  "添加一套能工巧匠职业共用的防具与首饰。": {
+    "en": "Add a set of protective attire and accessory commonly used by crafters.",
+    "ja": "クラフターの共通防具とアクセサリを1セット追加。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "添加一套大地使者职业共用的防具与首饰。如果没有首饰则不会添加。": {
-    "en": "Add a set of protective attire and accessory commonly used by gatherers. If there is no accessory, it will not be added.",
-    "ja": "ギャザラーの共通防具とアクセサリを1セット追加。ただし、アクセサリが存在しない場合は追加しない。",
+  "添加一套大地使者职业共用的防具与首饰。": {
+    "en": "Add a set of protective attire and accessory commonly used by gatherers.",
+    "ja": "ギャザラーの共通防具とアクセサリを1セット追加。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
@@ -1464,13 +1464,6 @@
       "views\\ErrorPage404.vue"
     ]
   },
-  "您已经处于食药计算器的页面。": {
-    "en": "You have already been inside the page of FT Helper.",
-    "ja": "すでに調理品&薬品の计算ページに接続しています",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
-    ]
-  },
   "实用工具": {
     "en": "Tools",
     "ja": "ツール",
@@ -1481,13 +1474,6 @@
   "采集时钟": {
     "en": "Gather Clock",
     "ja": "採集時計",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
-    ]
-  },
-  "导入导出": {
-    "en": "Import & Export",
-    "ja": "インポート＆エクスポート",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
@@ -2184,13 +2170,6 @@
     "ja": "採集可能中",
     "$files": [
       "views\\GatherClockPage.vue"
-    ]
-  },
-  "您已经处于采集时钟页面。": {
-    "en": "You have already been inside the page of Gatherclock.",
-    "ja": "すでに採集時計ページにいます。",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "挖穿艾欧泽亚的好帮手！": {
@@ -3475,70 +3454,70 @@
     "ja": "推奨の回し",
     "$files": [
       "components\\modals\\ModalProStatements.vue",
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "筹集灵砂": {
     "en": "Prepare aethersands",
     "ja": "霊砂を集める",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "兑换道具": {
     "en": "Trade items",
     "ja": "アイテム交換",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "筹集其他需要的道具": {
     "en": "Prepare other items needed",
     "ja": "その他必要な道具を集める",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}制作半半半成品": {
     "en": "Use {job} craft pre-pre-precrafts",
     "ja": "{job}で準準中間素材を制作",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}制作半半成品": {
     "en": "Use {job} craft pre-precrafts",
     "ja": "{job}で準中間素材を制作",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}制作半成品": {
     "en": "Use {job} craft precrafts",
     "ja": "{job}で中間素材を制作",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}制作成品": {
     "en": "Use {job} craft",
     "ja": "{job}で完成品を制作",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "全部展开": {
     "en": "Expand all",
     "ja": "全て展開",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "全部折叠": {
     "en": "Collapse all",
     "ja": "全て折りたたむ",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "点击物品信息图标时的行为": {
@@ -3865,35 +3844,35 @@
     "ja": "採集の詳細を表示",
     "$files": [
       "data\\change-logs.ts",
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}采集(非限时)": {
     "en": "Use {job} gather (Unlimited)",
     "ja": "{job}で採集（非時間制限）",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}采集(限时)": {
     "en": "Use {job} gather (Time-limited)",
     "ja": "{job}で採集（時間制限）",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "在{}采集": {
     "en": "Gather at {}",
     "ja": "{}で採集",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "限时: {}": {
     "en": "Time-limit: {}",
     "ja": "時間制限: {}",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "决定在点击材料区域物品按钮组上方的“清单”按钮后，展示的物品清单格式。": {
@@ -4199,20 +4178,6 @@
       "components\\modals\\ModalAlarmMacroExport.vue"
     ]
   },
-  "在新窗口中打开采集时钟。": {
-    "en": "Open gatherclock in a new window.",
-    "ja": "別のウィンドで採集時計を開く。",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
-    ]
-  },
-  "采集时钟(新窗口)": {
-    "en": "Gather Clock (New window)",
-    "ja": "採集時計(別ウィンド)",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
-    ]
-  },
   "开发工具": {
     "en": "Dev Tools",
     "ja": "開発ツール",
@@ -4288,13 +4253,6 @@
     "ja": "ウェブ版/PWAアプリ/クライアントのメインページタイトルを「7.0 HQ Helper」から「7.x HQ Helper」に変更しました。",
     "$files": [
       "data\\change-logs.ts"
-    ]
-  },
-  "在新窗口中打开食药计算器。": {
-    "en": "Open FT Helper in a new window.",
-    "ja": "新しいウィンドウで調理品&薬品の计算を開く。",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "为“选择职业”区域的各个职业按钮追加了右键菜单功能。": {
@@ -4511,13 +4469,6 @@
       "components\\custom\\general\\AppHeader.vue"
     ]
   },
-  "还好我把魔法人偶的战斗力设置成了最强级别。": {
-    "en": "Change function settings.",
-    "ja": "魔法人形を最強レベルに設定しておいてよかった。",
-    "$files": [
-      "components\\custom\\general\\AppHeader.vue"
-    ]
-  },
   "星芒节快乐": {
     "en": "Merry Christmas",
     "ja": "「星芒祭」おめでとうございます",
@@ -4692,7 +4643,7 @@
     "$files": [
       "components\\main\\StatisticsPanel.vue",
       "components\\modals\\ModalFuncPreferences.vue",
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "确认导入内容": {
@@ -4728,7 +4679,7 @@
     "ja": "コスト/収益分析のエクスポート",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue",
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。": {
@@ -4736,7 +4687,7 @@
     "ja": "このオプションを有効にすると、アイテム価格のキャッシュが期限切れの場合、データを更新するために一定の時間がかかります。",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue",
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "修改此选项的设置后需要刷新一次页面方可生效。": {
@@ -4750,63 +4701,63 @@
     "en": "Only .xlsx files can be imported",
     "ja": ".xlsxファイルのみインポート可能",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "未获取到文件": {
     "en": "No file obtained",
     "ja": "ファイルを取得できませんでした",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "文件名": {
     "en": "File name",
     "ja": "ファイル名",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "不填则默认以时间命名": {
     "en": "If not filled, it will be named by time by default",
     "ja": "入力しない場合はデフォルトで時間で命名されます",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "遵循“功能设置”中的“物品价格”设置。": {
     "en": "Follow the 'Item Price' settings in 'Function Preferences'.",
     "ja": "「機能設定」内の「アイテム価格」設定に従います。",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "导出成功后打开导出目录": {
     "en": "Open the export directory after export succeeded.",
     "ja": "エクスポート後、エクスポートディレクトリを開く",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "导出": {
     "en": "Export",
     "ja": "エクスポート",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "点击或者拖动文件到该区域来上传": {
     "en": "Click or drag the file to this area to upload",
     "ja": "このエリアにファイルをクリックまたはドラッグしてアップロード",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "需要确保表格的第一个工作表是“已选部件”": {
     "en": "Make sure the first worksheet of the table is 'View Selected'",
     "ja": "シート1が「選択した部品」であることを確認してください",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "设置": {
@@ -5408,14 +5359,14 @@
     "en": "Gather(Unlimited)",
     "ja": "採集アイテム（常駐）",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "采集限时道具": {
     "en": "Gather(Time-Limited)",
     "ja": "採集アイテム（刻限）",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "最多只能添加{num}条工作流": {
@@ -5647,13 +5598,6 @@
     "ja": "カスタムアクセラレーションサービスアドレス",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
-    ]
-  },
-  "您已经处于工作流页面。": {
-    "en": "You have already been inside the page of Workflow.",
-    "ja": "既にワークフローページにいます",
-    "$files": [
-      "components\\custom\\general\\AppHeader.vue"
     ]
   },
   "众生如归流。": {
@@ -6749,13 +6693,6 @@
       "components\\custom\\general\\AboutApp.vue"
     ]
   },
-  "让程序肥多玩会肥肥14。": {
-    "en": "Donate to boost development enthusiasm or reduce financial pressure.",
-    "ja": "「FF14でもっと遊べるようにツールを育てよう」",
-    "$files": [
-      "components\\custom\\general\\AppHeader.vue"
-    ]
-  },
   "辅助工具": {
     "en": "Tools",
     "ja": "サポートツール",
@@ -6768,20 +6705,6 @@
     "ja": "クライアントの専用ダウンロードページを追加しました。",
     "$files": [
       "data\\change-logs.ts"
-    ]
-  },
-  "您已经处于下载客户端页面。": {
-    "en": "You are already on the download client page.",
-    "ja": "すでにクライアントのダウンロードページを開いています。",
-    "$files": [
-      "components\\custom\\general\\AppHeader.vue"
-    ]
-  },
-  "目前客户满足度达到124%。": {
-    "en": "Download the client of HqHelper.",
-    "ja": "利用者の満足度は、124％に達しました。",
-    "$files": [
-      "components\\custom\\general\\AppHeader.vue"
     ]
   },
   "下载客户端": {
@@ -7157,20 +7080,6 @@
       "components\\modals\\ModalPreferences.vue"
     ]
   },
-  "您已经处于宏管理页面。": {
-    "en": "You are already on the macro management page.",
-    "ja": "既にマクロ管理ページにいます。",
-    "$files": [
-      "components\\custom\\general\\AppHeader.vue"
-    ]
-  },
-  "管理东方菜肴的食材还是第一次，请多指教。": {
-    "en": "Manage your craft macros.",
-    "ja": "東方料理の材料を扱うのは初めてですが、よろしくお願いします。",
-    "$files": [
-      "components\\custom\\general\\AppHeader.vue"
-    ]
-  },
   "宏管理": {
     "en": "Macro manage",
     "ja": "マクロ管理",
@@ -7368,7 +7277,7 @@
     "ja": "中国サーバー未実装アイテムを表示",
     "$files": [
       "views\\WorkflowPage.vue",
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "隐藏国服未实装物品": {
@@ -7376,7 +7285,7 @@
     "ja": "中国サーバー未実装アイテムを非表示",
     "$files": [
       "views\\WorkflowPage.vue",
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "请输入要导入的内容": {
@@ -7547,6 +7456,388 @@
     "ja": "このアイテムは中国サーバーでまだ実装されていません。",
     "$files": [
       "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "实装全新功能「背包库存」。": {
+    "en": "Implement the new feature 'In-game Inventory'.",
+    "ja": "实装全新功能「背包库存」。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "在全新追加的专属弹窗中设置自己的物品库存，并自由选择是否要与弹窗/工作流中的专业报表同步。": {
+    "en": "Set your inventory of in-game items in the newly added exclusive modal and freely choose whether to synchronize with pro statement in the modal/workflow.",
+    "ja": "在全新追加的专属弹窗中设置自己的物品库存，并自由选择是否要与弹窗/工作流中的专业报表同步。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "进一步修复github.io页面的自动更新问题。": {
+    "en": "Further fix the automatic update issue on the github.io page.",
+    "ja": "进一步修复github.io页面的自动更新问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了工作流的“挑选物品”区域表格在物品名称过长时各列会错位的问题。": {
+    "en": "Fixed the issue of column misalignment in the 'Select Items' area table of the workflow when item names are too long.",
+    "ja": "修复了工作流的“挑选物品”区域表格在物品名称过长时各列会错位的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了制作报表弹窗中的推荐流程在物品名称过长时的显示效果。": {
+    "en": "Fixed the display effect of the recomm. process in the statement modal when the item name is too long.",
+    "ja": "修正了制作报表弹窗中的推荐流程在物品名称过长时的显示效果。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了赞助页面二维码的显示效果。": {
+    "en": "Fixed the display effect of the QR code in donate modal.",
+    "ja": "修正了赞助页面二维码的显示效果。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "生产宏管理追加了导入、导出和删除所有宏功能。": {
+    "en": "Macro management has added the functions of importing, exporting, and deleting all macros.",
+    "ja": "生产宏管理追加了导入、导出和删除所有宏功能。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "伴随这一改动，操作区域的按钮布局进行了调整。": {
+    "en": "With this change, the button layout in the operating area has been adjusted.",
+    "ja": "伴随这一改动，操作区域的按钮布局进行了调整。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现可将大区本身(陆行鸟/猫小胖等)设置为物品价格服务器。": {
+    "en": "The data center itself (such as Aether, Chaos, etc.) can now be set as an item price server.",
+    "ja": "现可将大区本身(陆行鸟/猫小胖等)设置为物品价格服务器。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "桌面端菜单的“{f}”下拉菜单中，可以在新窗口打开的工具将在其右侧展示对应按钮，而非单独占用一个菜单项。": {
+    "en": "In the '{f}' dropdown menu of the desktop menu, tools that can be opened in a new window will display corresponding buttons on their right side, rather than occupying a separate menu item.",
+    "ja": "桌面端菜单的“{f}”下拉菜单中，可以在新窗口打开的工具将在其右侧展示对应按钮，而非单独占用一个菜单项。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "为「推荐流程」中的“隐藏/显示国服未实装物品”按钮增加了点击时提示。": {
+    "en": "Added a click prompt for the 'Hide/Show Items Not Installed in CHS' button in the 'Recomm. Process'.",
+    "ja": "为「推荐流程」中的“隐藏/显示国服未实装物品”按钮增加了点击时提示。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "调整了客户端检查更新界面的默认加速服务，并更新了加速服务列表。": {
+    "en": "Adjusted the default proxy for the client check update interface and updated the list of proxy.",
+    "ja": "调整了客户端检查更新界面的默认加速服务，并更新了加速服务列表。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "调整了「关于本作」中的应用程序logo设计。": {
+    "en": "Adjusted the application logo design in 'About us'.",
+    "ja": "调整了「关于本作」中的应用程序logo设计。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "删除所有宏": {
+    "en": "Delete all macros",
+    "ja": "删除所有宏",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "还没有添加任何宏": {
+    "en": "No macros was added yet",
+    "ja": "还没有添加任何宏",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "确定要删除所有宏吗？": {
+    "en": "Are you sure you want to delete ALL macros?",
+    "ja": "确定要删除所有宏吗？",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "批量操作": {
+    "en": "Batch Operation",
+    "ja": "批量操作",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "已隐藏国服未实装物品": {
+    "en": "Items not installed in CHS have already been hidden",
+    "ja": "已隐藏国服未实装物品",
+    "$files": [
+      "views\\WorkflowPage.vue",
+      "components\\modals\\ModalRecommProcesses.vue"
+    ]
+  },
+  "已显示国服未实装物品": {
+    "en": "Items not installed in CHS have already been shown",
+    "ja": "已显示国服未实装物品",
+    "$files": [
+      "views\\WorkflowPage.vue",
+      "components\\modals\\ModalRecommProcesses.vue"
+    ]
+  },
+  "同步成功": {
+    "en": "Sync succeed",
+    "ja": "同步成功",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "将报表中的“已有”数量设置为背包库存的数量。": {
+    "en": "Set the 'Prepared' quantity in the statement to the quantity of In-game inventory.",
+    "ja": "将报表中的“已有”数量设置为背包库存的数量。",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "与背包库存同步": {
+    "en": "Synchronize with In-game inventory",
+    "ja": "与背包库存同步",
+    "$files": [
+      "views\\WorkflowPage.vue",
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "导出失败：{err}": {
+    "en": "Exporting failed: {err}",
+    "ja": "导出失败：{err}",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "成功从文件中读取到{num}条宏。": {
+    "en": "Readed {num} macro(s) from file.",
+    "ja": "成功从文件中读取到{num}条宏。",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "确认要进行导入吗?": {
+    "en": "Import them?",
+    "ja": "确认要进行导入吗?",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "已存储的{num}条宏将会丢失!": {
+    "en": "Current {num} macros would be dropped!",
+    "ja": "已存储的{num}条宏将会丢失!",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "导入失败：{err}": {
+    "en": "Importing failed: {err}",
+    "ja": "导入失败：{err}",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "只能导入.json文件": {
+    "en": "Only .json file can be imported",
+    "ja": "只能导入.json文件",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "宏管理：导入/导出": {
+    "en": "Macro manage: Import / Export",
+    "ja": "宏管理：导入/导出",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "注意事项": {
+    "en": "CAUTIONS",
+    "ja": "注意事项",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "与主界面的导入导出功能不同，此处导出的文件并非可供阅读与编辑的表格，而是单纯的数据文件。": {
+    "en": "Unlike the import / export on the main interface, the exported file here is not a table that can be read and edited, but a simple data file.",
+    "ja": "与主界面的导入导出功能不同，此处导出的文件并非可供阅读与编辑的表格，而是单纯的数据文件。",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "请勿直接编辑导出文件的内容，以免数据受损。": {
+    "en": "Please do not directly edit the content of the exported file to avoid data damage.",
+    "ja": "请勿直接编辑导出文件的内容，以免数据受损。",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "导入自己的备份或他人的分享": {
+    "en": "Import your own backup or someone else's share",
+    "ja": "导入自己的备份或他人的分享",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "背包库存": {
+    "en": "In-game Inventory",
+    "ja": "背包库存",
+    "$files": [
+      "components\\modals\\ModalInventory.vue",
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "在制作报表弹窗中启用背包库存自动同步": {
+    "en": "Enable automatic sync of in-game inventory in the statement modal",
+    "ja": "在制作报表弹窗中启用背包库存自动同步",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "开启此项后，每次在主界面和食药计算器界面打开专业版制作报表时，报表中的“已有”数量会被设置为背包库存的数量。": {
+    "en": "After enabling this option, every time the pro statment is opened in the main interface and FT Helper, the 'Prepared' quantity in the statement will be set as the quantity of in-game inventory.",
+    "ja": "开启此项后，每次在主界面和食药计算器界面打开专业版制作报表时，报表中的“已有”数量会被设置为背包库存的数量。",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "在工作流中启用背包库存手动同步": {
+    "en": "Enable manual sync of in-game inventory in the workflow",
+    "ja": "在工作流中启用背包库存手动同步",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "开启此项后，工作流的“{f1}”页面将追加“{f2}”按钮。": {
+    "en": "After enabling this option, a '{f2}' button will be added to the '{f1}' page of the workflow.",
+    "ja": "开启此项后，工作流的“{f1}”页面将追加“{f2}”按钮。",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "点击按钮后便会将报表中的“已有”数量设置为背包库存的数量。": {
+    "en": "Clicking the button would make the 'Prepared' quantity set to the quantity of in-game inventory.",
+    "ja": "点击按钮后便会将报表中的“已有”数量设置为背包库存的数量。",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "对不在库存中物品的处理方式": {
+    "en": "How to handle items not in in-game inventory",
+    "ja": "对不在库存中物品的处理方式",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "决定自动同步或手动同步时，对不在背包库存中的物品要如何处理。": {
+    "en": "How to handle items that are not in the in-game inventory when deciding between automatic or manual synchronization.",
+    "ja": "决定自动同步或手动同步时，对不在背包库存中的物品要如何处理。",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "忽略": {
+    "en": "Ignore",
+    "ja": "忽略",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "保持现有数量": {
+    "en": "Keep current amount",
+    "ja": "保持现有数量",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "清零": {
+    "en": "Reset",
+    "ja": "清零",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "将数量重设为0": {
+    "en": "Reset the quantity to 0",
+    "ja": "将数量重设为0",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "数据": {
+    "en": "Data",
+    "ja": "数据",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "清空库存": {
+    "en": "Clear the inventory",
+    "ja": "清空库存",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "管理，收容，跑路……": {
+    "en": "Manage your craft macros.",
+    "ja": "管理，收容，跑路……",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "喂喂，你的背包已经装满了啊。": {
+    "en": "Manage your in-game inventory and determine whether to sync.",
+    "ja": "おいおい、荷物がいっぱいじゃないか。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "帝国正在开发究极神兵的后续机体……": {
+    "en": "Open devtool for client.",
+    "ja": "アルテマウェポンの後継機が開発されていた、とな……。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "请务必量力而行。": {
+    "en": "Donate. Please act within your means.",
+    "ja": "请务必量力而行。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "以备不时之需。": {
+    "en": "Download the client of HqHelper.",
+    "ja": "以备不时之需。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "您已经处于{}页面。": {
+    "en": "You have already been inside the page of {}.",
+    "ja": "您已经处于{}页面。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "在新窗口中打开{tool}": {
+    "en": "Open the {tool} in a new window",
+    "ja": "在新窗口中打开{tool}",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
     ]
   }
 }

@@ -147,6 +147,7 @@ provide('displayCheckUpdatesModal', displayCheckUpdatesModal)
 const appClass = computed(() => {
   const classes = [
     'lang-' + locale.value,
+    'theme-' + theme.value,
     'app-' + (isMobile.value ? 'mobile' : 'desktop'),
     window.electronAPI ? 'env-electron' : 'env-web',
     appMode.value === 'overlay' ? 'env-overlay' : ''
@@ -190,7 +191,11 @@ onMounted(async () => {
             if (window.electronAPI) {
               displayCheckUpdatesModal()
             } else {
-              window.location.reload()
+              const cacheKeys = await caches.keys()
+              for (const name of cacheKeys) {
+                await caches.delete(name)
+              }
+              location.reload()    
             }
           }
         }
@@ -251,6 +256,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
     :theme="naiveUiTheme"
     :locale="naiveUiLocale"
     :date-locale="naiveUiDateLocale"
+    :namespace="appClass"
     :theme-overrides="naiveUIThemeOverrides"
   >
     <n-global-style />

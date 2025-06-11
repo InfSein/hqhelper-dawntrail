@@ -7,7 +7,7 @@ import {
   TableViewOutlined
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
-import ModalRecommendedProcesses from './ModalRecommendedProcesses.vue'
+import ModalRecommProcesses from './ModalRecommProcesses.vue'
 import ModalPreferences from './ModalPreferences.vue'
 import { type UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
@@ -25,6 +25,7 @@ const { getProStatementData, calRecommProcessData } = useFufuCal(userConfig, fun
 
 const showModal = defineModel<boolean>('show', { required: true })
 const showRecommendedProcessesModal = ref(false)
+const proStatementInstace = ref<InstanceType<typeof CraftStatementsPro>>()
 
 interface ModalProStatementsProps {
   craftTargets: ItemInfo[]
@@ -74,6 +75,16 @@ const handleShowRecommendedProcesses = () => {
   showRecommendedProcessesModal.value = true
 }
 
+const handleStatementLoaded = () => {
+  if (funcConfig.value.inventory_statement_enable_sync) {
+    if (proStatementInstace?.value?.setPreparedItemsByInventory) {
+      proStatementInstace.value.setPreparedItemsByInventory()
+    } else {
+      console.error('proStatementInstace not found')
+    }
+  }
+}
+
 const showPreferencesModal = ref(false)
 const handleSettingButtonClick = () => {
   showPreferencesModal.value = true
@@ -107,14 +118,16 @@ const handleSettingButtonClick = () => {
     </template>
 
     <CraftStatementsPro
+      ref="proStatementInstace"
       v-model:items-prepared="itemsPrepared"
       inside-modal
       container-id="modal-pro-statements"
       :craft-targets="props.craftTargets"
       :statement-blocks="proStatementData.statementBlocks"
+      @loaded="handleStatementLoaded"
     />
 
-    <ModalRecommendedProcesses
+    <ModalRecommProcesses
       v-model:show="showRecommendedProcessesModal"
       v-bind="recommProcessData"
     />

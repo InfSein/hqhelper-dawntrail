@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { computed, h, inject, onBeforeUnmount, onMounted, ref, watch, type Ref, type VNode } from 'vue'
 import {
-  NBackTop, NButton, NDataTable, NDivider, NEmpty, NIcon, NInput, NInputGroup, NInputGroupLabel, NSelect, NTag,
+  NBackTop, NButton, NButtonGroup, NDataTable, NDivider, NDropdown, NEmpty, NIcon, NInput, NInputGroup, NInputGroupLabel, NSelect, NTag,
   useMessage,
   type DataTableColumns,
 } from 'naive-ui'
 import {
   SearchOutlined,
   SettingsSuggestFilled,
+  KeyboardArrowDownRound,
+  ArchiveSharp, UnarchiveSharp,
   AddTaskOutlined,
   EditNoteOutlined, DeleteFilled,
 } from '@vicons/material'
@@ -15,6 +17,7 @@ import FoldableCard from '@/components/templates/FoldableCard.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import ModalCraftMacroEdit from '@/components/modals/ModalCraftMacroEdit.vue'
 import ModalPreferences from '@/components/modals/ModalPreferences.vue'
+import ModalImExportCraftMacro from '@/components/modals/ModalImExportCraftMacro.vue'
 import { XivCraftActions } from '@/assets/data'
 import { useStore } from '@/store'
 import {
@@ -42,6 +45,8 @@ const {
 
 const workState = ref<WorkState>(fixWorkState())
 const showModalCraftMacroEdit = ref(false)
+const showModalImExport = ref(false)
+const imexportMode = ref<"import" | "export">('import')
 const macroEditTarget = ref(getDefaultCraftMacro(-1))
 const macroEditAction = ref<"add" | "edit">('add')
 
@@ -84,6 +89,25 @@ const macroItemLanguageOptions = computed(() => {
     { label: t('中文'), value: 'zh' },
     { label: t('英文'), value: 'en' },
     { label: t('日文'), value: 'ja' },
+  ]
+})
+const multiOperateDropdownOptions = computed(() => {
+  return [
+    {
+      label: t('删除所有宏'),
+      key: 'delete',
+      props: { style: 'color: var(--color-error);' },
+      icon: renderIcon(DeleteFilled, { color: 'var(--color-error)' }),
+    },
+  ]
+})
+const mainCardExtraButtons = computed(() => {
+  return [
+    {
+      text: t('设置'),
+      icon: SettingsSuggestFilled,
+      onClick: handleSettingButtonClick,
+    }
   ]
 })
 
@@ -308,16 +332,28 @@ const handleReportDataMissing = (macro: RecordedCraftMacro | number) => {
     workState.value.recordedCraftMacros
   )
 }
-
-const getMacroId = () => {
-  let macroid = workState.value.recordIndex
-  while (workState.value.recordedCraftMacros.find(macro => macro.id === macroid)) {
-    macroid++
+const handleMultiOperateDropdownSelect = (key: string | number) => {
+  if (key === 'delete') {
+    if (!workState.value.recordedCraftMacros.length) {
+      NAIVE_UI_MESSAGE.info(t('还没有添加任何宏'))
+      return
+    }
+    if (!window.confirm(t('确定要删除所有宏吗？') + '\n' + t('此操作不可逆。'))) {
+      return
+    }
+    workState.value.recordedCraftMacros = []
+    NAIVE_UI_MESSAGE.success(t('已删除'))
+  } else {
+    console.warn('unexpected multi operate dropdown key:', key)
   }
-  if (workState.value.recordIndex !== macroid) {
-    workState.value.recordIndex = macroid
-  }
-  return macroid
+}
+const handleImportButtonClick = () => {
+  imexportMode.value = 'import'
+  showModalImExport.value = true
+}
+const handleExportButtonClick = () => {
+  imexportMode.value = 'export'
+  showModalImExport.value = true
 }
 
 const handleAddRow = () => {
@@ -329,6 +365,17 @@ const handleAddRow = () => {
   macroEditTarget.value = getDefaultCraftMacro(macroid)
   macroEditAction.value = 'add'
   showModalCraftMacroEdit.value = true
+
+  function getMacroId () {
+    let macroid = workState.value.recordIndex
+    while (workState.value.recordedCraftMacros.find(macro => macro.id === macroid)) {
+      macroid++
+    }
+    if (workState.value.recordIndex !== macroid) {
+      workState.value.recordIndex = macroid
+    }
+    return macroid
+  }
 }
 const handleEditRow = (row: CraftMacroRow) => {
   const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)
@@ -387,7 +434,7 @@ const handleSettingButtonClick = () => {
 
 <template>
   <div id="main-container">
-    <FoldableCard card-key="macromanage-main">
+    <FoldableCard card-key="macromanage-main" unfoldable :extra-header-buttons="mainCardExtraButtons">
       <template #header>
         <i class="xiv e0ba"></i>
         <span class="card-title-text">{{ t('生产宏管理') }}</span>
@@ -414,15 +461,32 @@ const handleSettingButtonClick = () => {
             />
           </n-input-group>
           <div id="querier-actions">
-            <n-button
-              ghost
-              @click="handleSettingButtonClick"
+            <n-dropdown
+              placement="bottom-end"
+              :options="multiOperateDropdownOptions"
+              @select="handleMultiOperateDropdownSelect"
             >
-              <template #icon>
-                <n-icon :component="SettingsSuggestFilled" />
-              </template>
-              {{ t('设置') }}
-            </n-button>
+              <n-button ghost icon-placement="right">
+                <template #icon>
+                  <n-icon :component="KeyboardArrowDownRound" />
+                </template>
+                {{ t('批量操作') }}
+              </n-button>
+            </n-dropdown>
+            <n-button-group>
+              <n-button ghost @click="handleExportButtonClick">
+                <template #icon>
+                  <n-icon :component="ArchiveSharp" />
+                </template>
+                {{ t('导出') }}
+              </n-button>
+              <n-button ghost @click="handleImportButtonClick">
+                <template #icon>
+                  <n-icon :component="UnarchiveSharp" />
+                </template>
+                {{ t('导入') }}
+              </n-button>
+            </n-button-group>
             <n-button
               type="primary"
               @click="handleAddRow"
@@ -464,6 +528,11 @@ const handleSettingButtonClick = () => {
       v-model:show="showPreferencesModal"
       setting-group="craft_macro"
       app-show-fp
+    />
+    <ModalImExportCraftMacro
+      v-model:show="showModalImExport"
+      v-model:recorded-macros="workState.recordedCraftMacros"
+      :mode="imexportMode"
     />
   </div>
 </template>
@@ -530,6 +599,10 @@ const handleSettingButtonClick = () => {
     }
     #querier-itemlang {
       width: 100%;
+    }
+    #querier-actions {
+      flex-wrap: wrap;
+      justify-content: end;
     }
   }
 }
