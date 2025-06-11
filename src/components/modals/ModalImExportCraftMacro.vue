@@ -54,7 +54,7 @@ const handleExport = async () => {
       fileName.value ? fileName.value + '.json' : undefined
     )
   } catch (err) {
-    NAIVE_UI_MESSAGE.error(t('导出失败：', err))
+    NAIVE_UI_MESSAGE.error(t('导出失败：{err}', err))
   }
   exporting.value = false
 }
