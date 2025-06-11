@@ -65,7 +65,7 @@ export const getChangelogs = (
   return [
     {
       version: '2.2.4',
-      date: '2025-05-26',
+      date: '2025-05-23',
       changes: [
         {
           name: groupName.breaking,
@@ -100,7 +100,7 @@ export const getChangelogs = (
         {
           name: groupName.feature,
           changes: [
-            t('向「推荐流程」中追加了“隐藏/显示国服未实装物品”按钮 (仅“服务器“设置为国服时显示)。')
+            t('向「推荐流程」中追加了“隐藏/显示国服未实装物品”按钮 (仅“服务器”设置为国服时显示)。')
               + '<br>※ ' + t('对制作报表的推荐流程弹窗和工作流的流程标签页均适用，不过按钮位置不同。')
               + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/05/21/682d9eae36aae.png'),
             t('“{f1}”的“{f2}”选项卡中追加了设置项“{f3}”。', {

@@ -7234,7 +7234,7 @@
       "data\\change-logs.ts"
     ]
   },
-  "向「推荐流程」中追加了“隐藏/显示国服未实装物品”按钮 (仅“服务器“设置为国服时显示)。": {
+  "向「推荐流程」中追加了“隐藏/显示国服未实装物品”按钮 (仅“服务器”设置为国服时显示)。": {
     "en": "Added a 'Hide/Show Items Not Installed in CHS' button to the 'Recomm. Process' (only displayed when 'Server' is set to CHS).",
     "ja": "「推奨フロー」に「中国サーバー未実装アイテムを非表示/表示」ボタンを追加（「サーバー」が中国サーバーに設定されている場合のみ表示）。",
     "$files": [

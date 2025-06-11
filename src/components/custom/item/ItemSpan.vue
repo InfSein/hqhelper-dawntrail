@@ -135,9 +135,11 @@ const popTrigger = computed(() => {
 const containerStyle = computed(() => {
   let itemAmountwidth = 0
   if (props.showAmount && !!itemAmountNode.value) {
-    const itemAmountWidth = itemAmountNode.value.offsetWidth
-    const offset = itemLanguage.value === 'zh' ? 3 : 6 
-    itemAmountwidth = Math.ceil(itemAmountWidth) + offset
+    itemAmountwidth += Math.ceil(itemAmountNode.value.offsetWidth)
+    if (props.amount && props.amount.toString().length >= 2) {
+      const offset = itemLanguage.value === 'zh' ? 3 : 6 
+      itemAmountwidth += offset
+    }
   }
   return [
     (props.containerStyle ?? ''),
