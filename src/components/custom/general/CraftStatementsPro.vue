@@ -9,6 +9,7 @@ import {
 import GroupBox from '@/components/templates/GroupBox.vue'
 import ItemStatementTable from '@/components/custom/item/ItemStatementTable.vue'
 import { type FuncConfigModel } from '@/models/config-func'
+import { deepCopy } from '@/tools'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { ProStatementBlock } from '@/tools/use-fufu-cal'
 
@@ -36,6 +37,7 @@ interface CraftStatementsProProps {
   containerId?: string
 }
 const props = defineProps<CraftStatementsProProps>()
+const emit = defineEmits(['loaded'])
 
 const updateSize = () => {
   if (cspWrapper.value?.offsetWidth) {
@@ -48,6 +50,7 @@ const updateSize = () => {
 onMounted(() => {
   updateSize()
   window.addEventListener('resize', updateSize)
+  emit('loaded')
 })
 onBeforeUnmount(() => {
   window.removeEventListener('resize', updateSize)
@@ -75,9 +78,34 @@ const highlightedItems = computed(() : number[] => {
   return recipeResult
 })
 
+const setPreparedItemsByInventory = () => {
+  const inventory = deepCopy(funcConfig.value.inventory_data)
+  dealPrepared(itemsPrepared.value.materialsLv1, props.statementBlocks[1].items)
+  dealPrepared(itemsPrepared.value.materialsLvBase, props.statementBlocks[2].items)
+
+  function dealPrepared(pmap: Record<number, number>, tmap: Record<number, number>) {
+    Object.keys(pmap).forEach(_id => {
+      const id = Number(_id)
+      if (inventory[id]) {
+        // 物品在库存中
+        const inventAmount = inventory[id]
+        const needAmount = tmap[id] || 0
+        const reduceAmount = Math.min(inventAmount, needAmount)
+        pmap[id] = reduceAmount
+        inventory[id] -= reduceAmount
+      } else {
+        // 不在库存，按照用户设置处理
+        if (funcConfig.value.inventory_other_items_way === 'clear') {
+          pmap[id] = 0
+        }
+      }
+    })
+  }
+}
 
 defineExpose({
-  updateSize
+  updateSize,
+  setPreparedItemsByInventory,
 })
 </script>
 

@@ -143,8 +143,8 @@ const handleSave = () => {
             <ItemSelectTable
               v-model:items="formFuncConfigData.inventory_data"
               show-item-details
-              item-span-max-width="230px"
-              content-height="200px"
+              item-span-max-width="260px"
+              content-height="285px"
               :container-id="modalId"
             />
           </div>
