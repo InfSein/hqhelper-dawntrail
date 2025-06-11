@@ -11,7 +11,7 @@ import XivMap from './XivMap.vue'
 import type { UserConfigModel } from '@/models/config-user'
 import type { FuncConfigModel } from '@/models/config-func'
 import UseConfig from '@/tools/use-config'
-import { getNearestAetheryte ,type XivMapInfo } from '@/tools/map'
+import { getNearestAetheryte, type XivMapInfo } from '@/tools/map'
 
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
