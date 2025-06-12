@@ -3,9 +3,6 @@ import type {
   AttireAffix, AccessoryAffix,
   GearSelections
 } from '@/models/gears'
-import {
-  parseUnpackedMapData
-} from '@/tools/map'
 // #endregion
 
 // #region Translations
@@ -221,23 +218,6 @@ export interface XivJob {
   job_icon_url: string
 }
 export const XivJobs = JsonXivJobs as Record<number, XivJob>
-
-export interface XivMapInfo {
-  name_zh: string
-  name_ja: string
-  name_en: string
-  map_id: number
-  map_src: string
-  aetherytes: XivMapAetheryteInfo[]
-}
-export interface XivMapAetheryteInfo {
-  name_zh: string
-  name_ja: string
-  name_en: string
-  x: number
-  y: number
-}
-export const XivMaps = parseUnpackedMapData(XivUnpackedMaps)
 
 import JsonXivPatches from './xiv-patches.json'
 export interface XivPatch {

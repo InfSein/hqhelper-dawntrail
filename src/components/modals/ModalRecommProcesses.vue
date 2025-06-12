@@ -109,6 +109,13 @@ const handleCollapseOrUncollapseAllBlocks = () => {
     expandedBlocks.value[i] = allCollapsed ? ['1'] : []
   }
 }
+const handleHideOrShowChsOfflineItems = () => {
+  hideChsOfflineItems.value = !hideChsOfflineItems.value
+  const message = hideChsOfflineItems.value
+    ? t('已隐藏国服未实装物品')
+    : t('已显示国服未实装物品')
+  NAIVE_UI_MESSAGE.success(message)
+}
 const handleCopyProcesses = () => {
   const text = itemGroups.value.map((group, index) => {
     return (index+1) + '. ' + group.title + ':\n' + group.items.map(item => {
@@ -139,7 +146,7 @@ const handleSettingButtonClick = () => {
         <span class="title">{{ t('推荐流程') }}</span>
         <div class="card-title-actions">
           <a href="javascript:void(0);" @click="handleCollapseOrUncollapseAllBlocks">[{{ isBlocksAllCollapsed() ? t('全部展开') : t('全部折叠') }}]</a>
-          <a v-if="itemServer === 'chs'" href="javascript:void(0);" @click="hideChsOfflineItems = !hideChsOfflineItems">[{{ hideChsOfflineItems ? t('显示国服未实装物品') : t('隐藏国服未实装物品') }}]</a>
+          <a v-if="itemServer === 'chs'" href="javascript:void(0);" @click="handleHideOrShowChsOfflineItems">[{{ hideChsOfflineItems ? t('显示国服未实装物品') : t('隐藏国服未实装物品') }}]</a>
         </div>
       </div>
     </template>
@@ -148,12 +155,13 @@ const handleSettingButtonClick = () => {
       v-model:expanded-blocks="expandedBlocks"
       v-model:completed-items="completedItems"
       :item-groups="itemGroups"
+      item-span-max-width="250px"
       :container-id="modalId"
       :hide-chs-offline-items="hideChsOfflineItems"
     />
 
     <template #action>
-      <div class="submit-container">
+      <div class="modal-submit-container">
         <n-button type="info" size="large" @click="handleCopyProcesses">
           <template #icon>
             <n-icon><CopyAllOutlined /></n-icon>
@@ -224,10 +232,6 @@ const handleSettingButtonClick = () => {
       }
     }
   }
-}
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
 }
 
 /* Mobile only */

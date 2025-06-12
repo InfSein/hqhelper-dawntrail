@@ -133,7 +133,7 @@ const handleSave = () => {
     </div>
 
     <template #action>
-      <div class="submit-container">
+      <div class="modal-submit-container">
         <n-button type="primary" size="large" @click="handleSave">
           <template #icon>
             <n-icon><SaveOutlined /></n-icon>
@@ -169,9 +169,5 @@ const handleSave = () => {
       cursor: move;
     }
   }
-}
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
 }
 </style>

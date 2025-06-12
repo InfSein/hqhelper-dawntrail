@@ -1,4 +1,4 @@
-import { XivUnpackedPlaceNames, type XivMapInfo, type XivUnpackedMap } from "@/assets/data"
+import { XivUnpackedMaps, XivUnpackedPlaceNames, type XivUnpackedMap } from "@/assets/data"
 
 export const getPlaceNames = (placeId: number) => {
   const placeNames = XivUnpackedPlaceNames[placeId]
@@ -29,6 +29,23 @@ export const parseUnpackedMapData = (data: Record<number, XivUnpackedMap>) => {
   })
   return result
 }
+
+export interface XivMapInfo {
+  name_zh: string
+  name_ja: string
+  name_en: string
+  map_id: number
+  map_src: string
+  aetherytes: XivMapAetheryteInfo[]
+}
+export interface XivMapAetheryteInfo {
+  name_zh: string
+  name_ja: string
+  name_en: string
+  x: number
+  y: number
+}
+export const XivMaps = parseUnpackedMapData(XivUnpackedMaps)
 
 export const drawMap = (
   mapSrc: string, 

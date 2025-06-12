@@ -448,16 +448,16 @@
       "components\\modals\\ModalUserPreferences.vue"
     ]
   },
-  "清空当前职业的已选择部件": {
-    "en": "Clear gears selected for current job",
-    "ja": "現在のジョブの部位をクリア",
+  "清空当前职业的已选择部件。": {
+    "en": "Clear gears selected for current job.",
+    "ja": "現在のジョブの部位をクリア。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "清空所有职业的已选择部件": {
-    "en": "Clear all gears selected for all jobs",
-    "ja": "全てのジョブの部位をクリア",
+  "清空所有职业的已选择部件。": {
+    "en": "Clear all gears selected for all jobs.",
+    "ja": "全てのジョブの部位をクリア。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
@@ -939,30 +939,30 @@
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "添加所有能工巧匠职业的主手工具、副手工具各1件": {
-    "en": "Add 1 mainhand and offhand tool for all crafters",
-    "ja": "全クラフターの主副道具を各１件を追加",
+  "添加所有能工巧匠职业的主手&副手工具各1件。": {
+    "en": "Add 1 mainhand and offhand tool for all crafters.",
+    "ja": "全クラフターの主副道具を各１件を追加。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "添加所有大地使者职业的主手工具、副手工具各1件": {
-    "en": "Add 1 mainhand and offhand tool for all gatherers",
-    "ja": "全ギャザラーの主副道具を各１件を追加",
+  "添加所有大地使者职业的主手&副手工具各1件。": {
+    "en": "Add 1 mainhand and offhand tool for all gatherers.",
+    "ja": "全ギャザラーの主副道具を各１件を追加。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "添加一套能工巧匠职业共用的防具与首饰。如果没有首饰则不会添加。": {
-    "en": "Add a set of protective attire and accessory commonly used by crafters. If there is no accessory, it will not be added.",
-    "ja": "クラフターの共通防具とアクセサリを1セット追加。ただし、アクセサリが存在しない場合は追加しない。",
+  "添加一套能工巧匠职业共用的防具与首饰。": {
+    "en": "Add a set of protective attire and accessory commonly used by crafters.",
+    "ja": "クラフターの共通防具とアクセサリを1セット追加。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
   },
-  "添加一套大地使者职业共用的防具与首饰。如果没有首饰则不会添加。": {
-    "en": "Add a set of protective attire and accessory commonly used by gatherers. If there is no accessory, it will not be added.",
-    "ja": "ギャザラーの共通防具とアクセサリを1セット追加。ただし、アクセサリが存在しない場合は追加しない。",
+  "添加一套大地使者职业共用的防具与首饰。": {
+    "en": "Add a set of protective attire and accessory commonly used by gatherers.",
+    "ja": "ギャザラーの共通防具とアクセサリを1セット追加。",
     "$files": [
       "components\\main\\GearSelectionPanel.vue"
     ]
@@ -1464,13 +1464,6 @@
       "views\\ErrorPage404.vue"
     ]
   },
-  "您已经处于食药计算器的页面。": {
-    "en": "You have already been inside the page of FT Helper.",
-    "ja": "すでに調理品&薬品の计算ページに接続しています",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
-    ]
-  },
   "实用工具": {
     "en": "Tools",
     "ja": "ツール",
@@ -1481,13 +1474,6 @@
   "采集时钟": {
     "en": "Gather Clock",
     "ja": "採集時計",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
-    ]
-  },
-  "导入导出": {
-    "en": "Import & Export",
-    "ja": "インポート＆エクスポート",
     "$files": [
       "components\\custom-controls\\AppHeader.vue"
     ]
@@ -2097,7 +2083,7 @@
   },
   "重制了移动端“已选部件”弹窗的显示效果。": {
     "en": "Remaked the display effect of \"View Selected\" modal on mobile.",
-    "ja": "スマホ端末で「選択済み部位」ポップアップの表示効果をリニューアルしました。",
+    "ja": "スマホ端末で「選択済み部位」ツールチップの表示効果をリニューアルしました。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -2184,13 +2170,6 @@
     "ja": "採集可能中",
     "$files": [
       "views\\GatherClockPage.vue"
-    ]
-  },
-  "您已经处于采集时钟页面。": {
-    "en": "You have already been inside the page of Gatherclock.",
-    "ja": "すでに採集時計ページにいます。",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "挖穿艾欧泽亚的好帮手！": {
@@ -3475,70 +3454,70 @@
     "ja": "推奨の回し",
     "$files": [
       "components\\modals\\ModalProStatements.vue",
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "筹集灵砂": {
     "en": "Prepare aethersands",
     "ja": "霊砂を集める",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "兑换道具": {
     "en": "Trade items",
     "ja": "アイテム交換",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "筹集其他需要的道具": {
     "en": "Prepare other items needed",
     "ja": "その他必要な道具を集める",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}制作半半半成品": {
     "en": "Use {job} craft pre-pre-precrafts",
     "ja": "{job}で準準中間素材を制作",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}制作半半成品": {
     "en": "Use {job} craft pre-precrafts",
     "ja": "{job}で準中間素材を制作",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}制作半成品": {
     "en": "Use {job} craft precrafts",
     "ja": "{job}で中間素材を制作",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}制作成品": {
     "en": "Use {job} craft",
     "ja": "{job}で完成品を制作",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "全部展开": {
     "en": "Expand all",
     "ja": "全て展開",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "全部折叠": {
     "en": "Collapse all",
     "ja": "全て折りたたむ",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "点击物品信息图标时的行为": {
@@ -3644,7 +3623,7 @@
   },
   "可能无法在部分浏览器/设备上正常工作。程序会在您调整“{f}”时检查权限并弹窗提醒。": {
     "en": "Might cant work in some browser/device. The program will check permission and pop alert when you adjust \"{f}\".",
-    "ja": "一部のブラウザやデバイスでは正常に動作しない可能性があります。「{f}」を調整するときに権限を確認し、ポップアップで通知します。",
+    "ja": "一部のブラウザやデバイスでは正常に動作しない可能性があります。「{f}」を調整するときに権限を確認し、ツールチップで通知します。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -3865,35 +3844,35 @@
     "ja": "採集の詳細を表示",
     "$files": [
       "data\\change-logs.ts",
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}采集(非限时)": {
     "en": "Use {job} gather (Unlimited)",
     "ja": "{job}で採集（非時間制限）",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "使用{job}采集(限时)": {
     "en": "Use {job} gather (Time-limited)",
     "ja": "{job}で採集（時間制限）",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "在{}采集": {
     "en": "Gather at {}",
     "ja": "{}で採集",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "限时: {}": {
     "en": "Time-limit: {}",
     "ja": "時間制限: {}",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "决定在点击材料区域物品按钮组上方的“清单”按钮后，展示的物品清单格式。": {
@@ -4199,20 +4178,6 @@
       "components\\modals\\ModalAlarmMacroExport.vue"
     ]
   },
-  "在新窗口中打开采集时钟。": {
-    "en": "Open gatherclock in a new window.",
-    "ja": "別のウィンドで採集時計を開く。",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
-    ]
-  },
-  "采集时钟(新窗口)": {
-    "en": "Gather Clock (New window)",
-    "ja": "採集時計(別ウィンド)",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
-    ]
-  },
   "开发工具": {
     "en": "Dev Tools",
     "ja": "開発ツール",
@@ -4288,13 +4253,6 @@
     "ja": "ウェブ版/PWAアプリ/クライアントのメインページタイトルを「7.0 HQ Helper」から「7.x HQ Helper」に変更しました。",
     "$files": [
       "data\\change-logs.ts"
-    ]
-  },
-  "在新窗口中打开食药计算器。": {
-    "en": "Open FT Helper in a new window.",
-    "ja": "新しいウィンドウで調理品&薬品の计算を開く。",
-    "$files": [
-      "components\\custom-controls\\AppHeader.vue"
     ]
   },
   "为“选择职业”区域的各个职业按钮追加了右键菜单功能。": {
@@ -4511,13 +4469,6 @@
       "components\\custom\\general\\AppHeader.vue"
     ]
   },
-  "还好我把魔法人偶的战斗力设置成了最强级别。": {
-    "en": "Change function settings.",
-    "ja": "魔法人形を最強レベルに設定しておいてよかった。",
-    "$files": [
-      "components\\custom\\general\\AppHeader.vue"
-    ]
-  },
   "星芒节快乐": {
     "en": "Merry Christmas",
     "ja": "「星芒祭」おめでとうございます",
@@ -4618,14 +4569,14 @@
   },
   "追加了功能设置窗口，整合各个页面功能的设置选项。除了可以在顶部菜单统一配置之外，也可以点击部分弹窗右上角的设置按钮来单独配置该弹窗的设置项。": {
     "en": "Added Function Preferences window to integrate the settings options of each page function. In addition to being able to configure uniformly in the top menu, you can also click the settings button in the upper right corner of some pop-ups to configure the settings of the pop-up separately.",
-    "ja": "機能設定ウィンドウが追加され、各ページ機能の設定オプションが統合されました。トップメニューで一元的に設定できるほか、いくつかのポップアップウィンドウの右上にある設定ボタンをクリックして個別に設定することもできます。",
+    "ja": "機能設定ウィンドウが追加され、各ページ機能の設定オプションが統合されました。トップメニューで一元的に設定できるほか、いくつかのツールチップウィンドウの右上にある設定ボタンをクリックして個別に設定することもできます。",
     "$files": [
       "data\\change-logs.ts"
     ]
   },
   "伴随这一改动，部分弹窗的快捷操作有所精简。": {
     "en": "With this change, some quick operations of the pop-up windows have been streamlined.",
-    "ja": "この変更に伴い、一部のポップアップウィンドウのショートカット操作が簡素化されました。",
+    "ja": "この変更に伴い、一部のツールチップウィンドウのショートカット操作が簡素化されました。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -4692,7 +4643,7 @@
     "$files": [
       "components\\main\\StatisticsPanel.vue",
       "components\\modals\\ModalFuncPreferences.vue",
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "确认导入内容": {
@@ -4728,7 +4679,7 @@
     "ja": "コスト/収益分析のエクスポート",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue",
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。": {
@@ -4736,7 +4687,7 @@
     "ja": "このオプションを有効にすると、アイテム価格のキャッシュが期限切れの場合、データを更新するために一定の時間がかかります。",
     "$files": [
       "components\\modals\\ModalFuncPreferences.vue",
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "修改此选项的设置后需要刷新一次页面方可生效。": {
@@ -4750,63 +4701,63 @@
     "en": "Only .xlsx files can be imported",
     "ja": ".xlsxファイルのみインポート可能",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "未获取到文件": {
     "en": "No file obtained",
     "ja": "ファイルを取得できませんでした",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "文件名": {
     "en": "File name",
     "ja": "ファイル名",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "不填则默认以时间命名": {
     "en": "If not filled, it will be named by time by default",
     "ja": "入力しない場合はデフォルトで時間で命名されます",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "遵循“功能设置”中的“物品价格”设置。": {
     "en": "Follow the 'Item Price' settings in 'Function Preferences'.",
     "ja": "「機能設定」内の「アイテム価格」設定に従います。",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "导出成功后打开导出目录": {
     "en": "Open the export directory after export succeeded.",
     "ja": "エクスポート後、エクスポートディレクトリを開く",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "导出": {
     "en": "Export",
     "ja": "エクスポート",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "点击或者拖动文件到该区域来上传": {
     "en": "Click or drag the file to this area to upload",
     "ja": "このエリアにファイルをクリックまたはドラッグしてアップロード",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "需要确保表格的第一个工作表是“已选部件”": {
     "en": "Make sure the first worksheet of the table is 'View Selected'",
     "ja": "シート1が「選択した部品」であることを確認してください",
     "$files": [
-      "components\\modals\\ModalImportExportMain.vue"
+      "components\\modals\\ModalImExportMain.vue"
     ]
   },
   "设置": {
@@ -5005,7 +4956,7 @@
   },
   "“{f}”弹窗中的表格现在会将未获取到价格的物品价格显示为???，而非0。此外，追加了相应的提示文本。": {
     "en": "The table in the '{f}' pop-up now displays the price of items that could not retrieve prices as ??? instead of 0. Additionally, a corresponding tooltip has been added.",
-    "ja": "「{f}」ポップアップ内のテーブルでは、価格が取得できなかったアイテムの価格を0ではなく、「???」と表示するようにしました。また、対応する説明文を追加しました。",
+    "ja": "「{f}」ツールチップ内のテーブルでは、価格が取得できなかったアイテムの価格を0ではなく、「???」と表示するようにしました。また、対応する説明文を追加しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -5408,14 +5359,14 @@
     "en": "Gather(Unlimited)",
     "ja": "採集アイテム（常駐）",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "采集限时道具": {
     "en": "Gather(Time-Limited)",
     "ja": "採集アイテム（刻限）",
     "$files": [
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "最多只能添加{num}条工作流": {
@@ -5649,13 +5600,6 @@
       "components\\modals\\ModalPreferences.vue"
     ]
   },
-  "您已经处于工作流页面。": {
-    "en": "You have already been inside the page of Workflow.",
-    "ja": "既にワークフローページにいます",
-    "$files": [
-      "components\\custom\\general\\AppHeader.vue"
-    ]
-  },
   "众生如归流。": {
     "en": "Workflow allows you to freely add items as production targets.",
     "ja": "~ Flow Together ~",
@@ -5679,7 +5623,7 @@
   },
   "现在可以长按标题来拖拽弹窗。": {
     "en": "You can now long press the title to drag the popup.",
-    "ja": "タイトルを長押しでポップアップのドラッグが可能に",
+    "ja": "タイトルを長押しでツールチップのドラッグが可能に",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -5700,7 +5644,7 @@
   },
   "调整了客户端检查更新弹窗的加速服务列表，并且允许查看服务站和自定义加速服务。此外，优化了弹窗内容在深色模式下的显示效果。": {
     "en": "The acceleration service list in the client update check popup has been adjusted, and viewing of the service station and custom acceleration service is now allowed. Additionally, the display of popup content in dark mode has been optimized.",
-    "ja": "クライアント更新チェックポップアップのアクセラレーションサービスリストを調整、サービスステーションとカスタムサービスの閲覧を許可。ダークモード表示も最適化しました。",
+    "ja": "クライアント更新チェックツールチップのアクセラレーションサービスリストを調整、サービスステーションとカスタムサービスの閲覧を許可。ダークモード表示も最適化しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -6305,7 +6249,7 @@
   },
   "修正了管理工作流弹窗中一些内容组件的渲染问题。": {
     "en": "Fixed rendering issues of some content components in the Manage Workflows popup.",
-    "ja": "管理ワークフローポップアップのコンテンツコンポーネントのレンダリング問題を修正しました。",
+    "ja": "管理ワークフローツールチップのコンテンツコンポーネントのレンダリング問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -6749,13 +6693,6 @@
       "components\\custom\\general\\AboutApp.vue"
     ]
   },
-  "让程序肥多玩会肥肥14。": {
-    "en": "Donate to boost development enthusiasm or reduce financial pressure.",
-    "ja": "「FF14でもっと遊べるようにツールを育てよう」",
-    "$files": [
-      "components\\custom\\general\\AppHeader.vue"
-    ]
-  },
   "辅助工具": {
     "en": "Tools",
     "ja": "サポートツール",
@@ -6768,20 +6705,6 @@
     "ja": "クライアントの専用ダウンロードページを追加しました。",
     "$files": [
       "data\\change-logs.ts"
-    ]
-  },
-  "您已经处于下载客户端页面。": {
-    "en": "You are already on the download client page.",
-    "ja": "すでにクライアントのダウンロードページを開いています。",
-    "$files": [
-      "components\\custom\\general\\AppHeader.vue"
-    ]
-  },
-  "目前客户满足度达到124%。": {
-    "en": "Download the client of HqHelper.",
-    "ja": "利用者の満足度は、124％に達しました。",
-    "$files": [
-      "components\\custom\\general\\AppHeader.vue"
     ]
   },
   "下载客户端": {
@@ -7157,20 +7080,6 @@
       "components\\modals\\ModalPreferences.vue"
     ]
   },
-  "您已经处于宏管理页面。": {
-    "en": "You are already on the macro management page.",
-    "ja": "既にマクロ管理ページにいます。",
-    "$files": [
-      "components\\custom\\general\\AppHeader.vue"
-    ]
-  },
-  "管理东方菜肴的食材还是第一次，请多指教。": {
-    "en": "Manage your craft macros.",
-    "ja": "東方料理の材料を扱うのは初めてですが、よろしくお願いします。",
-    "$files": [
-      "components\\custom\\general\\AppHeader.vue"
-    ]
-  },
   "宏管理": {
     "en": "Macro manage",
     "ja": "マクロ管理",
@@ -7208,7 +7117,7 @@
   },
   "修复了「成本/收益分析」和「加入工作流」弹窗中物品信息图标的复制功能没有正常工作的问题。": {
     "en": "Fixed the issue where the copying function of item information icons in the 'Cost/Benefit Analysis' and 'Join Workflow' pop ups did not work properly.",
-    "ja": "「コスト/収益分析」と「ワークフローに追加」ポップアップでアイテム情報アイコンのコピー機能が正常に動作していない問題を修正しました。",
+    "ja": "「コスト/収益分析」と「ワークフローに追加」ツールチップでアイテム情報アイコンのコピー機能が正常に動作していない問題を修正しました。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -7243,7 +7152,7 @@
   },
   "对制作报表的推荐流程弹窗和工作流的流程标签页均适用，不过按钮位置不同。": {
     "en": "The recomm process pop-up for craft statement and the process tab for workflows are both applicable, but the button positions are different.",
-    "ja": "製作レポートの推奨フローポップアップとワークフローのフローラベルタブの両方に適用されますが、ボタンの位置は異なります。",
+    "ja": "製作レポートの推奨フローツールチップとワークフローのフローラベルタブの両方に適用されますが、ボタンの位置は異なります。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -7257,7 +7166,7 @@
   },
   "模式选择为“累加”即与之前版本的逻辑一致。可以在弹窗中查看详细说明。": {
     "en": "The mode selection of 'accumulation' is consistent with the logic of the previous version. You can view detailed instructions in the pop-up window.",
-    "ja": "モード選択が「累積」の場合、以前のバージョンのロジックと一致します。詳細な説明はポップアップで確認できます。",
+    "ja": "モード選択が「累積」の場合、以前のバージョンのロジックと一致します。詳細な説明はツールチップで確認できます。",
     "$files": [
       "data\\change-logs.ts"
     ]
@@ -7368,7 +7277,7 @@
     "ja": "中国サーバー未実装アイテムを表示",
     "$files": [
       "views\\WorkflowPage.vue",
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "隐藏国服未实装物品": {
@@ -7376,7 +7285,7 @@
     "ja": "中国サーバー未実装アイテムを非表示",
     "$files": [
       "views\\WorkflowPage.vue",
-      "components\\modals\\ModalRecommendedProcesses.vue"
+      "components\\modals\\ModalRecommProcesses.vue"
     ]
   },
   "请输入要导入的内容": {
@@ -7547,6 +7456,388 @@
     "ja": "このアイテムは中国サーバーでまだ実装されていません。",
     "$files": [
       "components\\custom\\item\\ItemPop.vue"
+    ]
+  },
+  "实装全新功能「背包库存」。": {
+    "en": "Implement the new feature 'In-game Inventory'.",
+    "ja": "新機能「在庫一覧」を実装しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "在全新追加的专属弹窗中设置自己的物品库存，并自由选择是否要与弹窗/工作流中的专业报表同步。": {
+    "en": "Set your inventory of in-game items in the newly added exclusive modal and freely choose whether to synchronize with pro statement in the modal/workflow.",
+    "ja": "新たに追加された専用ツールチップで自身の所持アイテムを設定し、ツールチップ/ワークフロー内のプロレポートと同期するかどうかを自由に選択可能になります。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "进一步修复github.io页面的自动更新问题。": {
+    "en": "Further fix the automatic update issue on the github.io page.",
+    "ja": "さらにGitHub.ioページの自動更新問題が修正されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了工作流的“挑选物品”区域表格在物品名称过长时各列会错位的问题。": {
+    "en": "Fixed the issue of column misalignment in the 'Select Items' area table of the workflow when item names are too long.",
+    "ja": "ワークフローの「アイテム選択」領域において、アイテム名が長すぎる場合に列がずれる問題が修正されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了制作报表弹窗中的推荐流程在物品名称过长时的显示效果。": {
+    "en": "Fixed the display effect of the recomm. process in the statement modal when the item name is too long.",
+    "ja": "レポート作成ツールチップ内の推奨フローにおいて、アイテム名が長すぎる場合の表示が修正されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了赞助页面二维码的显示效果。": {
+    "en": "Fixed the display effect of the QR code in donate modal.",
+    "ja": "スポンサーページのQRコード表示が修正されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "生产宏管理追加了导入、导出和删除所有宏功能。": {
+    "en": "Macro management has added the functions of importing, exporting, and deleting all macros.",
+    "ja": "マクロ管理に「インポート」「エクスポート」「全マクロ削除」機能が追加されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "伴随这一改动，操作区域的按钮布局进行了调整。": {
+    "en": "With this change, the button layout in the operating area has been adjusted.",
+    "ja": "これに伴い、操作領域のボタンレイアウトが調整されました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现可将大区本身(陆行鸟/猫小胖等)设置为物品价格服务器。": {
+    "en": "The data center itself (such as Aether, Chaos, etc.) can now be set as an item price server.",
+    "ja": "データセンター自体をアイテム価格サーバーとして設定可能になりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "桌面端菜单的“{f}”下拉菜单中，可以在新窗口打开的工具将在其右侧展示对应按钮，而非单独占用一个菜单项。": {
+    "en": "In the '{f}' dropdown menu of the desktop menu, tools that can be opened in a new window will display corresponding buttons on their right side, rather than occupying a separate menu item.",
+    "ja": "デスクトップ版メニューの「{f}」ドロップダウンにおいて、新規ウィンドウで開くツールは右側に対応ボタンを表示（個別メニュー項目として占有しない形に）。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "为「推荐流程」中的“隐藏/显示国服未实装物品”按钮增加了点击时提示。": {
+    "en": "Added a click prompt for the 'Hide/Show Items Not Installed in CHS' button in the 'Recomm. Process'.",
+    "ja": "「推奨の回し」内の「中国サーバー未実装アイテムを非表示/表示」ボタンにクリック時のヒントを追加。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "调整了客户端检查更新界面的默认加速服务，并更新了加速服务列表。": {
+    "en": "Adjusted the default proxy for the client check update interface and updated the list of proxy.",
+    "ja": "クライアントの更新確認画面におけるデフォルト加速サービスを調整し、加速サービスリストを更新。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "调整了「关于本作」中的应用程序logo设计。": {
+    "en": "Adjusted the application logo design in 'About us'.",
+    "ja": "「当ツールについて」内のアプリケーションロゴデザインを調整。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "删除所有宏": {
+    "en": "Delete all macros",
+    "ja": "全てのマクロを削除する",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "还没有添加任何宏": {
+    "en": "No macros was added yet",
+    "ja": "まだマクロが追加されていません",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "确定要删除所有宏吗？": {
+    "en": "Are you sure you want to delete ALL macros?",
+    "ja": "全てのマクロを削除しますか？",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "批量操作": {
+    "en": "Batch Operation",
+    "ja": "一括操作",
+    "$files": [
+      "views\\MacroManagePage.vue"
+    ]
+  },
+  "已隐藏国服未实装物品": {
+    "en": "Items not installed in CHS have already been hidden",
+    "ja": "中国サーバー未実装アイテムを非表示中",
+    "$files": [
+      "views\\WorkflowPage.vue",
+      "components\\modals\\ModalRecommProcesses.vue"
+    ]
+  },
+  "已显示国服未实装物品": {
+    "en": "Items not installed in CHS have already been shown",
+    "ja": "中国サーバー未実装アイテムを表示中",
+    "$files": [
+      "views\\WorkflowPage.vue",
+      "components\\modals\\ModalRecommProcesses.vue"
+    ]
+  },
+  "同步成功": {
+    "en": "Sync succeed",
+    "ja": "同期しました",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "将报表中的“已有”数量设置为背包库存的数量。": {
+    "en": "Set the 'Prepared' quantity in the statement to the quantity of In-game inventory.",
+    "ja": "レポート内の「所持」数量を「在庫一覧」の数量に設定する",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "与背包库存同步": {
+    "en": "Synchronize with In-game inventory",
+    "ja": "「在庫一覧」と同期する",
+    "$files": [
+      "views\\WorkflowPage.vue",
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "导出失败：{err}": {
+    "en": "Exporting failed: {err}",
+    "ja": "エクスポート失敗：{err}",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "成功从文件中读取到{num}条宏。": {
+    "en": "Readed {num} macro(s) from file.",
+    "ja": "ファイルから{num}個のマクロを読み込みました",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "确认要进行导入吗?": {
+    "en": "Import them?",
+    "ja": "インポートを実行しますか？",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "已存储的{num}条宏将会丢失!": {
+    "en": "Current {num} macros would be dropped!",
+    "ja": "保存済みの{num}個のマクロが失われます！",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "导入失败：{err}": {
+    "en": "Importing failed: {err}",
+    "ja": "インポート失敗：{err}",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "只能导入.json文件": {
+    "en": "Only .json file can be imported",
+    "ja": ".jsonファイルのみインポート可能",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "宏管理：导入/导出": {
+    "en": "Macro manage: Import / Export",
+    "ja": "マクロ管理：インポート/エクスポート",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "注意事项": {
+    "en": "CAUTIONS",
+    "ja": "注意事項",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "与主界面的导入导出功能不同，此处导出的文件并非可供阅读与编辑的表格，而是单纯的数据文件。": {
+    "en": "Unlike the import / export on the main interface, the exported file here is not a table that can be read and edited, but a simple data file.",
+    "ja": "メインインターフェースのインポート/エクスポート機能とは異なり、ここでエクスポートされるファイルは編集可能な表形式ではなく純粋なデータファイルです。",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "请勿直接编辑导出文件的内容，以免数据受损。": {
+    "en": "Please do not directly edit the content of the exported file to avoid data damage.",
+    "ja": "データ破損を防ぐため、エクスポートファイルを直接編集しないでください。",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "导入自己的备份或他人的分享": {
+    "en": "Import your own backup or someone else's share",
+    "ja": "自身のバックアップまたは他者からの共有をインポートする",
+    "$files": [
+      "components\\modals\\ModalImExportCraftMacro.vue"
+    ]
+  },
+  "背包库存": {
+    "en": "In-game Inventory",
+    "ja": "在庫一覧",
+    "$files": [
+      "components\\modals\\ModalInventory.vue",
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "在制作报表弹窗中启用背包库存自动同步": {
+    "en": "Enable automatic sync of in-game inventory in the statement modal",
+    "ja": "レポート作成ツールチップで「在庫一覧」の自動同期を有効化にする",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "开启此项后，每次在主界面和食药计算器界面打开专业版制作报表时，报表中的“已有”数量会被设置为背包库存的数量。": {
+    "en": "After enabling this option, every time the pro statment is opened in the main interface and FT Helper, the 'Prepared' quantity in the statement will be set as the quantity of in-game inventory.",
+    "ja": "有効時、メインインターフェースや調理品&薬品の计算でプロ版レポートを開く際、レポート内の「所持」数量が自動的に「在庫一覧」の数量に設定されます。",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "在工作流中启用背包库存手动同步": {
+    "en": "Enable manual sync of in-game inventory in the workflow",
+    "ja": "ワークフローで「在庫一覧」の手動同期を有効化にする",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "开启此项后，工作流的“{f1}”页面将追加“{f2}”按钮。": {
+    "en": "After enabling this option, a '{f2}' button will be added to the '{f1}' page of the workflow.",
+    "ja": "有効時、ワークフローの「{f1}」ページに「{f2}」ボタンが追加されます。",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "点击按钮后便会将报表中的“已有”数量设置为背包库存的数量。": {
+    "en": "Clicking the button would make the 'Prepared' quantity set to the quantity of in-game inventory.",
+    "ja": "ボタンをクリックすると、レポート内の「所持」数量が「在庫一覧」の数量に設定されます。",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "对不在库存中物品的处理方式": {
+    "en": "How to handle items not in in-game inventory",
+    "ja": "「在庫一覧」に存在しないアイテムの処理方法",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "决定自动同步或手动同步时，对不在背包库存中的物品要如何处理。": {
+    "en": "How to handle items that are not in the in-game inventory when deciding between automatic or manual synchronization.",
+    "ja": "自動/手動同期時、「在庫一覧」に存在しないアイテムの扱い方を指定します。",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "忽略": {
+    "en": "Ignore",
+    "ja": "無視",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "保持现有数量": {
+    "en": "Keep current amount",
+    "ja": "現在の数量を維持",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "清零": {
+    "en": "Reset",
+    "ja": "クリア",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "将数量重设为0": {
+    "en": "Reset the quantity to 0",
+    "ja": "数量を0にリセット",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "数据": {
+    "en": "Data",
+    "ja": "データ",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "清空库存": {
+    "en": "Clear the inventory",
+    "ja": "「在庫一覧」をクリアする",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "管理，收容，跑路……": {
+    "en": "Manage your craft macros.",
+    "ja": "管理、収容、撤退……",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "喂喂，你的背包已经装满了啊。": {
+    "en": "Manage your in-game inventory and determine whether to sync.",
+    "ja": "おいおい、荷物がいっぱいじゃないか。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "帝国正在开发究极神兵的后续机体……": {
+    "en": "Open devtool for client.",
+    "ja": "アルテマウェポンの後継機が開発されていた、とな……。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "请务必量力而行。": {
+    "en": "Donate. Please act within your means.",
+    "ja": "無理のない範囲でお願いします。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "以备不时之需。": {
+    "en": "Download the client of HqHelper.",
+    "ja": "いざという時のために。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "您已经处于{}页面。": {
+    "en": "You have already been inside the page of {}.",
+    "ja": "既に{}ページにいます。",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "在新窗口中打开{tool}": {
+    "en": "Open the {tool} in a new window",
+    "ja": "新しいウィンドウで{tool}を開く",
+    "$files": [
+      "components\\custom\\general\\AppHeader.vue"
     ]
   }
 }

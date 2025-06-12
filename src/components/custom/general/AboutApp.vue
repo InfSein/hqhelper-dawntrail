@@ -18,44 +18,11 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const members = getStaffMebers(t)
 
 const currentElectronVersion = ref('')
-const sponsorsGen1 = ref<string[]>([])
-const sponsorsGen2 = ref<string[]>([])
-const sponsorLoadingStatus = ref<"finished" | "loading" | "error">('loading')
-const sponsorLoadError = ref('')
-
-const loadSponsors = async () => {
-  try {
-    sponsorLoadingStatus.value = 'loading'
-    sponsorLoadError.value = ''
-    sponsorsGen1.value = []
-    sponsorsGen2.value = []
-    let loadSponsorsResponse : string
-    let url = document?.location?.origin + document.location.pathname + 'data/sponsors.json'
-    if (window.electronAPI?.httpGet) {
-      url = 'https://hqhelper.nbb.fan/data/sponsors.json'
-      loadSponsorsResponse = await window.electronAPI.httpGet(url)
-    } else {
-      loadSponsorsResponse = await fetch(url)
-        .then(response => response.text())
-    }
-    const sponsorsContent = JSON.parse(loadSponsorsResponse) as {
-      sponsors_gen1: string[],
-      sponsors_gen2: string[]
-    }
-    sponsorsGen1.value = sponsorsContent.sponsors_gen1
-    sponsorsGen2.value = sponsorsContent.sponsors_gen2
-    sponsorLoadingStatus.value = 'finished'
-  } catch (e: any) {
-    sponsorLoadingStatus.value = 'error'
-    sponsorLoadError.value = e?.message ?? 'UNKNOWN ERROR' + e
-  }
-}
 
 onMounted(async () => {
   if (window.electronAPI?.clientVersion) {
     currentElectronVersion.value = await window.electronAPI?.clientVersion
   }
-  await loadSponsors()
 })
 
 const showSponsors = ref(false)
@@ -67,8 +34,11 @@ const viewSponsors = () => {
 <template>
   <div class="wrapper">
     <div class="logo">
-      <i class="xiv hq logo-about"></i>
-      HqHelper
+      <div class="logo-content">
+        <i class="xiv hq logo-about"></i>
+        HqHelper
+      </div>
+      <div class="patch-text">- DAWNTRAIL -</div>
     </div>
     <n-divider />
     <div class="version-info">
@@ -143,16 +113,27 @@ const viewSponsors = () => {
   padding-right: 5px;
 
   .logo {
-    display: flex;
     align-self: center;
     text-align: center;
     user-select: none;
-    font-size: 32px;
-    font-weight: 900;
     margin: 0.5em 0;
-    padding: 0.1em 0.5em;
+    padding-bottom: 0.6em;
     border-radius: 6px;
     box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    
+    .logo-content {
+      display: flex;
+      padding: 0.4em 0.5em 0 0.5em;
+      line-height: 1;
+      font-size: 32px;
+      font-weight: 900;
+    }
+    .patch-text {
+      line-height: 1.3;
+      font-size: 12px;
+      font-weight: normal;
+      letter-spacing: 1px;
+    }
   }
   .title {
     font-weight: bold;
@@ -186,26 +167,6 @@ const viewSponsors = () => {
         width: fit-content;
         min-width: 60px;
         text-align: center;
-      }
-    }
-    .sponsor-spin-container {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      margin: 5px 0 0 1.2em;
-      text-indent: initial;
-    }
-    .sponsor-alert-container {
-      margin: 5px 2em 0 1.2em;
-
-      a {
-        padding: 0;
-        margin-left: 3px;
-        display: flex;
-        line-height: 1;
-        cursor: pointer;
-        width: fit-content;
-        text-indent: initial;
       }
     }
   }

@@ -63,6 +63,18 @@ export interface FuncConfigModel {
   universalis_poppricetypes: ItemPriceType[]
   // #endregion
 
+  // #region 在其他弹窗中设置的配置项
+  // * 背包库存
+  /** 在制作报表弹窗中启用背包库存自动同步 */
+  inventory_statement_enable_sync: boolean
+  /** 在工作流中启用背包库存手动同步 */
+  inventory_workflow_enable_sync: boolean
+  /** 对不在库存中物品的处理方式 */
+  inventory_other_items_way: "ignore" | "clear"
+  /** 用户库存数据 key:item_id, val:amount */
+  inventory_data: Record<number, number>
+  // #endregion
+
   // #region 隐藏的配置项
   workflow_default_join_mode: WorkflowJoinMode
   // #endregion
@@ -92,13 +104,18 @@ const defaultFuncConfig: FuncConfigModel = {
   processes_merge_gatherings: false,
   processes_craftable_item_sortby: 'itemId',
   // * 物品价格
-  universalis_server: '红玉海',
+  universalis_server: '陆行鸟',
   universalis_priceType: 'averagePrice',
   universalis_expireTime: 6 * 60 * 60 * 1000, // 默认6小时
   export_item_price: false,
   costandbenefit_show_item_details: false,
   universalis_showpriceinpop: false,
   universalis_poppricetypes: [],
+  // * 背包库存
+  inventory_statement_enable_sync: false,
+  inventory_workflow_enable_sync: false,
+  inventory_other_items_way: 'ignore',
+  inventory_data: {},
   // * 隐藏的配置项
   workflow_default_join_mode: 'accumulation',
   // * 缓存

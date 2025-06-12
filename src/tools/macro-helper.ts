@@ -183,6 +183,84 @@ const useMacroHelper = (
     }
   }
 
+  /** 将已记录的宏导出为JSON文件 */
+  const exportRecordedMacros = (
+    macros: RecordedCraftMacro[],
+    filename?: string,
+  ) => {
+    const data = macros.map(m => ([
+      m.id, m.name, m.remark, m.relateItems, m.tags,
+      [m.requirements.craftsmanship, m.requirements.control, m.requirements.cp],
+      m.craftActions
+    ]))
+    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    
+    function generateFileName() {
+      const now = new Date()
+      const formattedDate = now.toISOString().slice(0, 10) // YYYY-MM-DD
+      const formattedTime = now.toTimeString().slice(0, 8).replace(/:/g, '') // HHMMSS
+      const fileName = `hqhelper-macromanage-export_${formattedDate}T${formattedTime}.json`
+      return fileName
+    }
+    const name = filename || generateFileName() // 保存的文件名
+
+    const a = document.createElement('a')
+    a.href = url
+    a.download = name
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+  /** 导入JSON文件，解析为已记录的宏 */
+  const importRecordedMacros = async (file: File) : Promise<RecordedCraftMacro[]> => {
+    const text = await file.text()
+    let raw: any
+
+    try {
+      raw = JSON.parse(text)
+    } catch {
+      throw new Error('Format error, not a valid json.')
+    }
+
+    if (!isRecordedCraftMacroArray(raw)) {
+      throw new Error('Struct invalid. Do not edit exported file!')
+    }
+
+    const macros: RecordedCraftMacro[] = raw.map((m: any) => ({
+      id: m[0],
+      name: m[1],
+      remark: m[2],
+      relateItems: m[3],
+      tags: m[4],
+      requirements: {
+        craftsmanship: m[5][0],
+        control: m[5][1],
+        cp: m[5][2],
+      },
+      craftActions: m[6],
+    }))
+
+    return macros;
+
+    function isRecordedCraftMacroArray(data: any) {
+      return Array.isArray(data) && data.every(entry => {
+        return Array.isArray(entry) &&
+          typeof entry[0] === 'number' &&
+          typeof entry[1] === 'string' &&
+          typeof entry[2] === 'string' &&
+          Array.isArray(entry[3]) && entry[3].every((x: any) => typeof x === 'number' || typeof x === 'string') &&
+          Array.isArray(entry[4]) && entry[4].every((x: any) => typeof x === 'string') &&
+          Array.isArray(entry[5]) &&
+            (entry[5].length === 3) &&
+            (entry[5].every((x: any) => {
+              if (x === null) x = undefined
+              return typeof x === 'number' || typeof x === 'undefined'
+            })) &&
+          Array.isArray(entry[6]) && entry[6].every((x: any) => typeof x === 'number')
+      })
+    }
+  }
+
   return {
     /** 将生产宏转换为技能列表 */
     parseCraftMacroText,
@@ -196,6 +274,10 @@ const useMacroHelper = (
     archiveMacroRow,
     /** 将缓存的宏内容解档为表格行数据 */
     unarchiveMacroRow,
+    /** 将已记录的宏导出为JSON文件 */
+    exportRecordedMacros,
+    /** 导入JSON文件，解析为已记录的宏 */
+    importRecordedMacros,
   }
 }
 

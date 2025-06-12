@@ -164,7 +164,7 @@ const handleSubmit = () => {
     </div>
 
     <template #action>
-      <div class="submit-container">
+      <div class="modal-submit-container">
         <n-button type="primary" @click="handleSubmit">
           <template #icon>
             <n-icon><DoneOutlined /></n-icon>
@@ -183,9 +183,5 @@ const handleSubmit = () => {
   flex-direction: column;
   gap: 15px;
   user-select: text;
-}
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
 }
 </style>

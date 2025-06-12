@@ -563,31 +563,31 @@ const preferenceGroups : PreferenceGroup[] = [
                 label: '中国',
                 children: [
                   {
-                    value: '陆行鸟',
+                    value: 'g_陆行鸟',
                     label: '陆行鸟',
                     children: dealSimOptions([
-                      "红玉海","神意之地","拉诺西亚","幻影群岛","萌芽池","宇宙和音","沃仙曦染","晨曦王座"
+                      '陆行鸟',"红玉海","神意之地","拉诺西亚","幻影群岛","萌芽池","宇宙和音","沃仙曦染","晨曦王座"
                     ])
                   },
                   {
-                    value: '莫古力',
+                    value: 'g_莫古力',
                     label: '莫古力',
                     children: dealSimOptions([
-                      "白银乡","白金幻象","神拳痕","潮风亭","旅人栈桥","拂晓之间","龙巢神殿","梦羽宝境"
+                      '莫古力',"白银乡","白金幻象","神拳痕","潮风亭","旅人栈桥","拂晓之间","龙巢神殿","梦羽宝境"
                     ])
                   },
                   {
-                    value: '猫小胖',
+                    value: 'g_猫小胖',
                     label: '猫小胖',
                     children: dealSimOptions([
-                      "紫水栈桥","延夏","静语庄园","摩杜纳","海猫茶屋","柔风海湾","琥珀原"
+                      '猫小胖',"紫水栈桥","延夏","静语庄园","摩杜纳","海猫茶屋","柔风海湾","琥珀原"
                     ])
                   },
                   {
-                    value: '豆豆柴',
+                    value: 'g_豆豆柴',
                     label: '豆豆柴',
                     children: dealSimOptions([
-                      "水晶塔","银泪湖","太阳海岸","伊修加德","红茶川","黄金谷","月牙湾","雪松原"
+                      '豆豆柴',"水晶塔","银泪湖","太阳海岸","伊修加德","红茶川","黄金谷","月牙湾","雪松原"
                     ])
                   }
                 ]
@@ -597,31 +597,31 @@ const preferenceGroups : PreferenceGroup[] = [
                 label: '日本',
                 children: [
                   {
-                    value: 'Elemental',
+                    value: 'g_Elemental',
                     label: 'Elemental',
                     children: dealSimOptions([
-                      "Carbuncle","Kujata","Typhon","Garuda","Atomos","Tonberry","Aegis","Gungnir"
+                      'Elemental',"Carbuncle","Kujata","Typhon","Garuda","Atomos","Tonberry","Aegis","Gungnir"
                     ])
                   },
                   {
-                    value: 'Gaia',
+                    value: 'g_Gaia',
                     label: 'Gaia',
                     children: dealSimOptions([
-                      "Alexander","Fenrir","Ultima","Ifrit","Bahamut","Tiamat","Durandal","Ridill"
+                      'Gaia',"Alexander","Fenrir","Ultima","Ifrit","Bahamut","Tiamat","Durandal","Ridill"
                     ])
                   },
                   {
-                    value: 'Mana',
+                    value: 'g_Mana',
                     label: 'Mana',
                     children: dealSimOptions([
-                      "Asura","Pandaemonium","Anima","Hades","Ixion","Titan","Chocobo","Masamune"
+                      'Mana',"Asura","Pandaemonium","Anima","Hades","Ixion","Titan","Chocobo","Masamune"
                     ])
                   },
                   {
-                    value: 'Meteor',
+                    value: 'g_Meteor',
                     label: 'Meteor',
                     children: dealSimOptions([
-                      "Belias","Shinryu","Unicorn","Yojimbo","Zeromus","Valefor","Ramuh","Mandragora"
+                      'Meteor',"Belias","Shinryu","Unicorn","Yojimbo","Zeromus","Valefor","Ramuh","Mandragora"
                     ])
                   }
                 ]
@@ -631,31 +631,31 @@ const preferenceGroups : PreferenceGroup[] = [
                 label: 'North-America',
                 children: [
                   {
-                    value: 'Aether',
+                    value: 'g_Aether',
                     label: 'Aether',
                     children: dealSimOptions([
-                      "Jenova","Faerie","Siren","Gilgamesh","Midgardsormr","Adamantoise","Cactuar","Sargatanas"
+                      'Aether',"Jenova","Faerie","Siren","Gilgamesh","Midgardsormr","Adamantoise","Cactuar","Sargatanas"
                     ])
                   },
                   {
-                    value: 'Primal',
+                    value: 'g_Primal',
                     label: 'Primal',
                     children: dealSimOptions([
-                      "Famfrit","Exodus","Lamia","Leviathan","Ultros","Behemoth","Excalibur","Hyperion"
+                      'Primal',"Famfrit","Exodus","Lamia","Leviathan","Ultros","Behemoth","Excalibur","Hyperion"
                     ])
                   },
                   {
-                    value: 'Crystal',
+                    value: 'g_Crystal',
                     label: 'Crystal',
                     children: dealSimOptions([
-                      "Brynhildr","Mateus","Zalera","Diabolos","Coeurl","Malboro","Goblin","Balmung"
+                      'Crystal',"Brynhildr","Mateus","Zalera","Diabolos","Coeurl","Malboro","Goblin","Balmung"
                     ])
                   },
                   {
-                    value: 'Dynamis',
+                    value: 'g_Dynamis',
                     label: 'Dynamis',
                     children: dealSimOptions([
-                      "Marilith","Seraph","Halicarnassus","Maduin","Cuchulainn","Kraken","Rafflesia","Golem"
+                      'Dynamis',"Marilith","Seraph","Halicarnassus","Maduin","Cuchulainn","Kraken","Rafflesia","Golem"
                     ])
                   }
                 ]
@@ -665,17 +665,17 @@ const preferenceGroups : PreferenceGroup[] = [
                 label: 'Europe',
                 children: [
                   {
-                    value: 'Chaos',
+                    value: 'g_Chaos',
                     label: 'Chaos',
                     children: dealSimOptions([
-                      "Omega","Moogle","Cerberus","Louisoix","Spriggan","Ragnarok","Sagittarius","Phantom"
+                      'Chaos',"Omega","Moogle","Cerberus","Louisoix","Spriggan","Ragnarok","Sagittarius","Phantom"
                     ])
                   },
                   {
-                    value: 'Light',
+                    value: 'g_Light',
                     label: 'Light',
                     children: dealSimOptions([
-                      "Twintania","Lich","Zodiark","Phoenix","Odin","Shiva","Alpha","Raiden"
+                      'Light',"Twintania","Lich","Zodiark","Phoenix","Odin","Shiva","Alpha","Raiden"
                     ])
                   },
                 ]
@@ -685,10 +685,10 @@ const preferenceGroups : PreferenceGroup[] = [
                 label: 'Oceania',
                 children: [
                   {
-                    value: 'Materia',
+                    value: 'g_Materia',
                     label: 'Materia',
                     children: dealSimOptions([
-                      "Ravana","Bismarck","Sephirot","Sophia","Zurvan"
+                      'Materia',"Ravana","Bismarck","Sephirot","Sophia","Zurvan"
                     ])
                   },
                 ]
@@ -698,10 +698,10 @@ const preferenceGroups : PreferenceGroup[] = [
                 label: '한국',
                 children: [
                   {
-                    value: '한국',
+                    value: 'g_한국',
                     label: '한국',
                     children: dealSimOptions([
-                      "카벙클","초코보","모그리","톤베리","펜리르"
+                      '한국',"카벙클","초코보","모그리","톤베리","펜리르"
                     ])
                   },
                 ]
@@ -1119,7 +1119,7 @@ const containerMaxHeight = computed(() => {
     />
 
     <template #action>
-      <div class="submit-container">
+      <div class="modal-submit-container">
         <n-button type="primary" size="large" @click="handleSave">
           <template #icon>
             <n-icon><SaveOutlined /></n-icon>
@@ -1165,9 +1165,5 @@ const containerMaxHeight = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
 }
 </style>

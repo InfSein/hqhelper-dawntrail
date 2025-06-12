@@ -64,6 +64,45 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.2.5',
+      date: '2025-06-12',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('实装全新功能「背包库存」。')
+              + '<br>' + t('在全新追加的专属弹窗中设置自己的物品库存，并自由选择是否要与弹窗/工作流中的专业报表同步。')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/06/11/68492f5d0871d.png'),
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('进一步修复github.io页面的自动更新问题。'),
+            t('修复了工作流的“挑选物品”区域表格在物品名称过长时各列会错位的问题。'),
+            t('修正了制作报表弹窗中的推荐流程在物品名称过长时的显示效果。'),
+            t('修正了赞助页面二维码的显示效果。'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('生产宏管理追加了导入、导出和删除所有宏功能。')
+              + '<br>※ ' + t('伴随这一改动，操作区域的按钮布局进行了调整。')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/06/11/68493927bca72.png'),
+            t('现可将大区本身(陆行鸟/猫小胖等)设置为物品价格服务器。')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/06/11/6849329ac15b9.png'),
+            t('桌面端菜单的“{f}”下拉菜单中，可以在新窗口打开的工具将在其右侧展示对应按钮，而非单独占用一个菜单项。', {
+              f: t('实用工具')
+            }) + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/06/11/684931b9d7796.png'),
+            t('为「推荐流程」中的“隐藏/显示国服未实装物品”按钮增加了点击时提示。'),
+            t('调整了客户端检查更新界面的默认加速服务，并更新了加速服务列表。'),
+            t('调整了「关于本作」中的应用程序logo设计。'),
+          ]
+        }
+      ]
+    },
+    {
       version: '2.2.4',
       date: '2025-05-23',
       changes: [

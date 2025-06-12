@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, nextTick, ref, type Ref } from 'vue'
+import { computed, inject, nextTick, onMounted, ref, type Ref } from 'vue'
 import {
   NDropdown, NIcon,
   useMessage
@@ -39,7 +39,42 @@ interface ItemSpanProps {
 }
 const props = defineProps<ItemSpanProps>()
 
+const itemSpanNode = ref<HTMLElement>()
 const itemAmountNode = ref<HTMLElement>()
+
+const needLimitNameWidth = ref(false)
+
+const calculateUi = () => {
+  needLimitNameWidth.value = false
+  if (props.spanMaxWidth && itemSpanNode.value) {
+    const maxWidth = parseInt(props.spanMaxWidth.replace('px', ''), 10)
+    const spanWidth = measureNaturalWidth(itemSpanNode.value)
+    if (maxWidth > 0 && spanWidth > maxWidth) {
+      needLimitNameWidth.value = true
+    }
+  }
+
+  function measureNaturalWidth(el: HTMLElement): number {
+    if (!el || !el.parentElement) return 0
+
+    const clone = el.cloneNode(true) as HTMLElement
+
+    clone.style.visibility = 'hidden'
+    clone.style.position = 'absolute'
+    clone.style.maxWidth = 'none'
+    clone.style.width = 'auto'
+
+    el.parentElement.appendChild(clone)
+    const width = clone.offsetWidth
+    el.parentElement.removeChild(clone)
+
+    return width
+  }
+}
+
+onMounted(() => {
+  calculateUi()
+})
 
 const getItemName = () => {
   switch (itemLanguage.value) {
@@ -133,19 +168,24 @@ const popTrigger = computed(() => {
   }
 })
 const containerStyle = computed(() => {
-  let itemAmountwidth = 0
-  if (props.showAmount && !!itemAmountNode.value) {
-    itemAmountwidth += Math.ceil(itemAmountNode.value.offsetWidth)
-    if (props.amount && props.amount.toString().length >= 2) {
-      const offset = itemLanguage.value === 'zh' ? 3 : 6 
-      itemAmountwidth += offset
-    }
-  }
-  return [
+  const styles = [
     (props.containerStyle ?? ''),
-    `max-width: ${props.spanMaxWidth ?? 'unset'}`,
-    props.spanMaxWidth ? `--item-name-maxwidth: calc(100% - ${itemAmountwidth}px)` : '--item-name-maxwidth: unset',
-  ].join('; ')
+  ]
+
+  if (needLimitNameWidth.value) {
+    let itemAmountwidth = 0
+    if (props.showAmount && !!itemAmountNode.value) {
+      itemAmountwidth += Math.ceil(itemAmountNode.value.offsetWidth)
+      if (props.amount) {
+        const offset = itemLanguage.value === 'zh' ? 3 : 6 
+        itemAmountwidth += offset
+      }
+    }
+    styles.push(`--item-name-maxwidth: calc(100% - ${itemAmountwidth}px)`)
+  }
+  styles.push(`max-width: ${props.spanMaxWidth ?? 'unset'}`)
+
+  return styles.join('; ')
 })
 
 const handleItemIconClick = async () => {
@@ -167,7 +207,7 @@ const handleItemIconClick = async () => {
 </script>
 
 <template>
-  <div class="container" :style="containerStyle">
+  <div ref="itemSpanNode" class="container" :style="containerStyle">
     <XivFARImage
       v-show="!hideIcon"
       class="no-select"
