@@ -165,6 +165,15 @@ const preferenceGroups : PreferenceGroup[] = [
             ]
           },
           {
+            key: 'custom_background',
+            label: t('自定义背景'),
+            descriptions: dealDescriptions([
+              t('修改程序/网站的背景图片。'),
+              t('可以设置为本地或在线的图片，填写文件地址或图片链接即可。'),
+            ]),
+            type: 'string',
+          },
+          {
             key: 'custom_font_size',
             label: t('字体大小'),
             descriptions: dealDescriptions([

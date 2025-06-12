@@ -269,6 +269,9 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
           </n-layout-header>
 
           <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
+            <div v-if="userConfig.custom_background" class="app-background">
+              <img :src="userConfig.custom_background" class="background-image" />
+            </div>
             <router-view />
           </n-layout-content>
         </n-layout>
@@ -285,6 +288,28 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
 </template>
 
 <style scoped>
+.app-background {
+  position: fixed; /* 或 absolute，取决于是否要背景滚动 */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1; /* 保证在内容后面 */
+
+  .background-image {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: auto;
+    filter: blur(10px);
+    pointer-events: none; /* 防止遮挡交互 */
+    user-select: none;
+  }
+}
+
 .env-electron :deep(.n-layout-header) {
   -webkit-app-region: drag;
 }
