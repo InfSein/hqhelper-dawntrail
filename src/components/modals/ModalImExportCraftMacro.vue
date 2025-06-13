@@ -106,7 +106,6 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
   >
     <n-tabs type="segment" animated v-model:value="currTab">
       <n-tab-pane name="export">
-        <!-- @vue-ignore -->
         <template #tab>
           <n-icon><ArchiveSharp /></n-icon>
           {{ t('导出') }}
@@ -134,7 +133,6 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
         </div>
       </n-tab-pane>
       <n-tab-pane name="import">
-        <!-- @vue-ignore -->
         <template #tab>
           <n-icon><UnarchiveSharp /></n-icon>
           {{ t('导入') }}

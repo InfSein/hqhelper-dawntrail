@@ -133,6 +133,10 @@ export interface ItemInfo {
   craftRequires: {
     id: number, count: number
   }[],
+  /** 制作此道具需要的水晶 */
+  craftRequireCrystals: {
+    id: number, count: number
+  }[],
   craftInfo: {
     /** 制作职业 */
     jobId: number,
@@ -384,6 +388,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
 
   // * 组装物品配方
   itemInfo.craftRequires = []
+  itemInfo.craftRequireCrystals = []
   if (_item.rids?.length) {
     const recipeID = Number(_item.rids[0])
     const recipe = XivUnpackedRecipes[recipeID]
@@ -395,6 +400,17 @@ export const getItemInfo = (item: number | CalculatedItem) => {
           const requiredItemID = items[ptr]
           const requiredItemCount = items[ptr + 1]
           itemInfo.craftRequires.push({
+            id: requiredItemID, count: requiredItemCount
+          })
+        }
+      }
+
+      const crystals = recipe.s
+      if (crystals?.length % 2 === 0) {
+        for (let ptr = 0; ptr < crystals.length; ptr += 2) {
+          const requiredItemID = crystals[ptr]
+          const requiredItemCount = crystals[ptr + 1]
+          itemInfo.craftRequireCrystals.push({
             id: requiredItemID, count: requiredItemCount
           })
         }

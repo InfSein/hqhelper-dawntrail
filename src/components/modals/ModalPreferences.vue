@@ -230,6 +230,15 @@ const preferenceGroups : PreferenceGroup[] = [
             type: 'switch'
           },
           {
+            key: 'item_pop_craft_show_crystals',
+            label: t('物品悬浮窗中显示水晶素材'),
+            hide: isMobile.value,
+            descriptions: dealDescriptions([
+              t('开启此项后，对于可制作道具，其物品悬浮窗的制作模块将显示制作它所需的碎晶/水晶/晶簇。'),
+            ]),
+            type: 'switch'
+          },
+          {
             key: 'click_to_show_pop_in_span',
             label: t('手动控制二级悬浮窗'),
             hide: isMobile.value,
@@ -1087,7 +1096,6 @@ const containerMaxHeight = computed(() => {
         :key="index"
         :name="group.key"
       >
-        <!-- @vue-ignore -->
         <template #tab>
           <div class="tab-title">
             <n-icon :size="20"><component :is="group.icon" /></n-icon>
