@@ -156,6 +156,17 @@ const itemHasHQ = computed(() => {
     return props.itemInfo.attrsProvided.every(subArr => subArr[2] > 0)
   }
 })
+const itemCraftRequires = computed(() => {
+  const requires : {
+    id: number;
+    count: number;
+  }[] = []
+  if (userConfig.value.item_pop_craft_show_crystals) {
+    requires.push(...props.itemInfo.craftRequireCrystals)
+  }
+  requires.push(...props.itemInfo.craftRequires)
+  return requires
+})
 const itemTailDescriptions = computed(() => {
   const descriptions : string[] = []
   if (itemLanguage.value === 'zh') {
@@ -547,7 +558,7 @@ const innerPopTrigger = computed(() => {
             </div>
             <div
               class="item"
-              v-for="(item, index) in itemInfo.craftRequires"
+              v-for="(item, index) in itemCraftRequires"
               :key="'recipe-' + index"
             >
               <ItemSpan :item-info="getItemInfo(item.id)" :amount="item.count" show-amount :container-id="containerId" />
