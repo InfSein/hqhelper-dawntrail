@@ -8,6 +8,7 @@ import {
   type GlobalThemeOverrides
 } from 'naive-ui'
 import AppHeader from './components/custom/general/AppHeader.vue'
+import AccountView from './components/custom/general/AccountView.vue'
 import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
 import ModalCheckUpdates from './components/modals/ModalCheckUpdates.vue'
 import { useRoute } from 'vue-router'
@@ -18,6 +19,7 @@ import { checkAppUpdates, CopyToClipboard, sleep } from './tools'
 import EorzeaTime from './tools/eorzea-time'
 import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from './models/config-func'
+import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
 import AppStatus from './variables/app-status'
 import ModalFestivalEgg from './components/modals/ModalFestivalEgg.vue'
 
@@ -27,6 +29,7 @@ const i18n = injectVoerkaI18n()
 
 const userConfig = ref<UserConfigModel>(fixUserConfig(store.state.userConfig))
 const funcConfig = ref<FuncConfigModel>(fixFuncConfig(store.state.funcConfig, store.state.userConfig))
+const cloudConfig = ref<CloudConfigModel>(fixCloudConfig(store.state.cloudConfig))
 const locale = computed(() => {
   return userConfig.value?.language_ui ?? 'zh'
 })
@@ -92,6 +95,7 @@ const switchTheme = () => {
 
 provide('userConfig', userConfig)
 provide('funcConfig', funcConfig)
+provide('cloudConfig', cloudConfig)
 provide('t', (message: string, ...args: any[]) => {
   const i18nResult = t(message, ...args)
   if (/^[1-9]\d*$/.test(i18nResult)) {
@@ -271,6 +275,8 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
           <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
             <router-view />
           </n-layout-content>
+          
+          <AccountView v-if="!isMobile && appMode !== 'overlay'" class="account-view" />
         </n-layout>
         
         <ModalCopyAsMacro
@@ -302,5 +308,11 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
 }
 .env-overlay .n-layout-content {
   margin-top: 0;
+}
+.account-view {
+  position: absolute;
+  top: 36px;
+  right: 0.5em;
+  z-index: 2000;
 }
 </style>
