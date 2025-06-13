@@ -503,7 +503,6 @@ const handleSetStatementPreparedByInventory = () => {
         <div class="block">
           <n-tabs v-model:value="selectedAnaTab" type="segment" animated class="h-full">
             <n-tab-pane name="statistics">
-              <!-- @vue-ignore -->
               <template #tab>
                 <div class="tab-title">
                   <n-icon :size="16"><QueryStatsFilled /></n-icon>
@@ -516,7 +515,6 @@ const handleSetStatementPreparedByInventory = () => {
               />
             </n-tab-pane>
             <n-tab-pane name="statements">
-              <!-- @vue-ignore -->
               <template #tab>
                 <div class="tab-title">
                   <n-icon :size="16"><TableViewOutlined /></n-icon>
@@ -540,7 +538,6 @@ const handleSetStatementPreparedByInventory = () => {
               transform: 'translate(0)',
               minHeight: pageHeightVals.recommProcessContainer,
             }">
-              <!-- @vue-ignore -->
               <template #tab>
                 <div class="tab-title">
                   <n-icon :size="16"><AllInclusiveSharp /></n-icon>
