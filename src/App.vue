@@ -82,6 +82,7 @@ const appForceUpdate = () => {
   // Update user config
   userConfig.value = fixUserConfig(store.state.userConfig)
   funcConfig.value = fixFuncConfig(store.state.funcConfig, store.state.userConfig)
+  cloudConfig.value = fixCloudConfig(store.state.cloudConfig)
   // Update i18n
   i18n.activeLanguage = locale.value
   // Update vue
@@ -276,7 +277,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
             <router-view />
           </n-layout-content>
           
-          <AccountView v-if="!isMobile && appMode !== 'overlay'" class="account-view" />
+          <AccountView v-if="!isMobile && appMode !== 'overlay'" trigger-class="account-view" />
         </n-layout>
         
         <ModalCopyAsMacro
@@ -308,11 +309,5 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
 }
 .env-overlay .n-layout-content {
   margin-top: 0;
-}
-.account-view {
-  position: absolute;
-  top: 36px;
-  right: 1em;
-  z-index: 2000;
 }
 </style>

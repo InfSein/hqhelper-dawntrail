@@ -12,7 +12,7 @@ export interface NbbResponse <T = any> {
 }
 
 export interface ResdataRegisterAndLogin {
-  uid: string,
+  uid: number,
   nickname: string,
   loginname: string,
   email: string,
