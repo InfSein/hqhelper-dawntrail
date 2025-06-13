@@ -312,7 +312,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
 .account-view {
   position: absolute;
   top: 36px;
-  right: 0.5em;
+  right: 1em;
   z-index: 2000;
 }
 </style>
