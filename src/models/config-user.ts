@@ -60,6 +60,9 @@ export interface UserConfigModel {
   // #endregion
   
   // #region 在其他界面中设置的配置项
+  // * account-view
+  /** 用户自定义头衔 */
+  user_custom_title: string
   // * tome-script-button
   /** 在点数按钮的统计中显示双色宝石兑换物 */
   tomescript_show_bicolor_items: boolean
@@ -107,6 +110,8 @@ const defaultUserConfig: UserConfigModel = {
   use_custom_proxy: false,
   custom_proxy_url: '',
   
+  // account-view
+  user_custom_title: '',
   // tome-script-button
   tomescript_show_bicolor_items: false,
 
