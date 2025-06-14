@@ -11,6 +11,7 @@ import AppHeader from './components/custom/general/AppHeader.vue'
 import AccountView from './components/custom/general/AccountView.vue'
 import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
 import ModalCheckUpdates from './components/modals/ModalCheckUpdates.vue'
+import ModalLogin from '@/components/modals/ModalLogin.vue'
 import { useRoute } from 'vue-router'
 import { useStore } from '@/store/index'
 import { t } from '@/languages'
@@ -149,6 +150,14 @@ const displayCheckUpdatesModal = () => {
 }
 provide('displayCheckUpdatesModal', displayCheckUpdatesModal)
 
+const loginAction = ref<"login" | "register">('login')
+const showModalLogin = ref(false)
+const displayLoginModal = (action: "login" | "register") => {
+  loginAction.value = action
+  showModalLogin.value = true
+}
+provide('displayLoginModal', displayLoginModal)
+
 const appClass = computed(() => {
   const classes = [
     'lang-' + locale.value,
@@ -285,6 +294,10 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
           :macro-map="macroMapValue"
         />
         <ModalCheckUpdates v-model:show="showCheckUpdatesModal" />
+        <ModalLogin
+          v-model:show="showModalLogin"
+          :default-tab="loginAction"
+        />
         <ModalFestivalEgg v-model:show="showFestivalEgg" />
       </div>
     </n-message-provider>

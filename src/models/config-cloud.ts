@@ -5,16 +5,34 @@ import {
 export interface CloudConfigModel {
   /** NBB云账户头像 */
   nbb_account_avatar: number,
+  /** NBB云账户头像 */
+  nbb_account_uid: number,
   /** NBB云账户昵称 */
   nbb_account_nickname: string,
+  /** NBB云账户登录名 */
+  nbb_account_loginname: string,
+  /** NBB云账户邮箱 */
+  nbb_account_email: string,
   /** NBB云账户密钥 */
   nbb_account_token: string,
+  /** NBB云账户-国家 */
+  nbb_account_country: string,
+  /** NBB云账户-大区 */
+  nbb_account_datacenter: string,
+  /** NBB云账户-服务器 */
+  nbb_account_world: string,
 }
 
 const defaultCloudConfig: CloudConfigModel = {
   nbb_account_avatar: 0,
+  nbb_account_uid: 0,
   nbb_account_nickname: '',
+  nbb_account_loginname: '',
+  nbb_account_email: '',
   nbb_account_token: '',
+  nbb_account_country: '',
+  nbb_account_datacenter: '',
+  nbb_account_world: '',
 }
 
 /**

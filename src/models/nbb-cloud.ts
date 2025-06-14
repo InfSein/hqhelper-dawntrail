@@ -3,8 +3,8 @@ export enum HqList {
 }
 
 export interface NbbResponse <T = any> {
-  /** 状态码。0成功 1失败 */
-  errno: 0 | 1,
+  /** 状态码。0成功 1失败 也有别的 */
+  errno: number,
   /** 成功时为 `success`, 否则为失败信息 */
   errmsg: string,
   /** 可能是 `{}` 或 `[]` */

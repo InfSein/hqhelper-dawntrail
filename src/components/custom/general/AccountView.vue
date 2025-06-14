@@ -2,10 +2,13 @@
 import { inject, computed, type Ref } from 'vue'
 import {
   NAvatar, NButton, NDivider, NIcon, NPopover,
+  useMessage,
 } from 'naive-ui'
 import {
   LogInOutlined, LogOutOutlined, PersonAddAlt1Filled,
+  EditNoteOutlined,
 } from '@vicons/material'
+import { useStore } from '@/store'
 import type { UserConfigModel } from '@/models/config-user'
 import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
 import { getImgCdnUrl } from '@/tools/item'
@@ -13,6 +16,11 @@ import { getImgCdnUrl } from '@/tools/item'
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
+const displayLoginModal = inject<(action: "login" | "register") => void>('displayLoginModal')!
+const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
+
+const store = useStore()
+const NAIVE_UI_MESSAGE = useMessage()
 
 interface AccountViewProps {
   triggerClass: string
@@ -31,10 +39,23 @@ const userTitle = computed(() => {
   if (!userLoggedIn.value) return '-'
   return userConfig.value.user_custom_title || '-'
 })
+
+const handleLogin = () => {
+  displayLoginModal('login')
+}
+const handleRegister = () => {
+  displayLoginModal('register')
+}
+const handleLogout = () => {
+  const newCloudConfig = fixCloudConfig()
+  store.commit('setCloudConfig', newCloudConfig)
+  appForceUpdate()
+  NAIVE_UI_MESSAGE.success(t('已退出登录'))
+}
 </script>
 
 <template>
-  <n-popover trigger="click" placement="bottom-end">
+  <n-popover placement="bottom-end">
     <template #trigger>
       <n-button
         round strong secondary
@@ -67,21 +88,33 @@ const userTitle = computed(() => {
       <n-divider style="margin: 4px 0" />
       <div v-if="!userLoggedIn" class="unlogged-wrapper">
         <n-button
-          v-if="!userLoggedIn"
           type="primary"
-          class="w-full"
+          @click="handleLogin"
         >
           <template #icon><n-icon><LogInOutlined /></n-icon></template>
           {{ t('登录') }}
         </n-button>
         <n-button
-          v-if="!userLoggedIn"
-          class="w-full"
+          @click="handleRegister"
         >
           <template #icon><n-icon><PersonAddAlt1Filled /></n-icon></template>
           {{ t('注册') }}
         </n-button>
       </div>
+      <div v-else class="logged-wrapper">
+        <n-button>
+          <template #icon><n-icon><EditNoteOutlined /></n-icon></template>
+          {{ t('编辑') }}
+        </n-button>
+        <n-button
+          type="error"
+          @click="handleLogout"
+        >
+          <template #icon><n-icon><LogOutOutlined /></n-icon></template>
+          {{ t('登出') }}
+        </n-button>
+      </div>
+      <div class="copyright">Powered by NBB Cloud</div>
     </div>
   </n-popover>
 </template>
@@ -106,7 +139,7 @@ const userTitle = computed(() => {
   }
 }
 .avpop-wrapper {
-  width: 120px;
+  width: 150px;
 
   .user-base {
     display: grid;
@@ -125,10 +158,22 @@ const userTitle = computed(() => {
       }
     }
   }
-  .unlogged-wrapper {
+  .unlogged-wrapper,
+  .logged-wrapper {
     display: flex;
     flex-direction: column;
     gap: 2px;
+
+    button {
+      width: 100%;
+    }
+  }
+  .copyright {
+    line-height: 1.2;
+    font-size: 12px;
+    color: gray;
+    text-align: center;
+    margin-top: 5px;
   }
 }
 </style>

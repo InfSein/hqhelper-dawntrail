@@ -74,11 +74,11 @@ export const useNbbCloud = (
 
   const sendVerify = async (email: string) => {
     const response = await doNbbPost('/user/pycode', {email})
-    return response.errmsg
+    return response
   }
   const sendVerifyForResetPassword = async (email: string) => {
     const response = await doNbbPost('/user/pwdcode', {email})
-    return response.errmsg
+    return response
   }
 
   /**
@@ -102,7 +102,8 @@ export const useNbbCloud = (
       {
         email, nickname, loginname,
         password: encryptedPassword,
-        code, avatar
+        code, avatar,
+        channel: 'hqhelper',
       },
       true
     )
