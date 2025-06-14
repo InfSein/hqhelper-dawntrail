@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, computed, type Ref } from 'vue'
+import { inject, computed, onMounted, type Ref } from 'vue'
 import {
   NAvatar, NButton, NDivider, NIcon, NPopover,
   useMessage,
@@ -12,6 +12,7 @@ import { useStore } from '@/store'
 import type { UserConfigModel } from '@/models/config-user'
 import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
 import { getImgCdnUrl } from '@/tools/item'
+import { useNbbCloud } from '@/tools/nbb-cloud'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -21,11 +22,30 @@ const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
+const {
+  updateUserInfo,
+  resolveUserInfo,
+} = useNbbCloud(cloudConfig)
 
 interface AccountViewProps {
   triggerClass: string
 }
 defineProps<AccountViewProps>()
+
+onMounted(async () => {
+  if (cloudConfig.value.nbb_account_token) {
+    const response = await updateUserInfo()
+    if (response.errno) {
+      console.warn('User info auto update failed.\n', response)
+    } else {
+      const newCloudConfig = resolveUserInfo(response.data, cloudConfig.value)
+      if (JSON.stringify(newCloudConfig) !== JSON.stringify(cloudConfig.value)) {
+        store.commit('setCloudConfig', newCloudConfig)
+        appForceUpdate()
+      }
+    }
+  }
+})
 
 const avatarUrl = computed(() => {
   const avatarId = cloudConfig.value.nbb_account_avatar || 64384

@@ -13,21 +13,21 @@ import {
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 import { useStore } from '@/store'
-import { fixCloudConfig, type CloudConfigModel } from '@/models/config-cloud'
+import { type CloudConfigModel } from '@/models/config-cloud'
 import type { NbbResponse, ResdataRegisterAndLogin } from '@/models/nbb-cloud'
-import { deepCopy } from '@/tools'
 import { useNbbCloud } from '@/tools/nbb-cloud'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
+const store = useStore()
+const NAIVE_UI_MESSAGE = useMessage()
 const {
   sendVerify, sendVerifyForResetPassword,
   register, login, resetPassword,
+  resolveUserInfo,
 } = useNbbCloud(cloudConfig)
-const store = useStore()
-const NAIVE_UI_MESSAGE = useMessage()
 
 const showModal = defineModel<boolean>('show', { required: true })
 
@@ -112,16 +112,7 @@ const handleResponse = (
   }
 }
 const handleSaveLoginInfo = (data: ResdataRegisterAndLogin) => {
-  const newCloudConfig = fixCloudConfig(deepCopy(cloudConfig.value))
-  newCloudConfig.nbb_account_avatar = Number(data.avatar || '') || 0
-  newCloudConfig.nbb_account_uid = data.uid
-  newCloudConfig.nbb_account_nickname = data.nickname
-  newCloudConfig.nbb_account_loginname = data.loginname
-  newCloudConfig.nbb_account_email = data.email
-  newCloudConfig.nbb_account_token = data.token
-  newCloudConfig.nbb_account_country = data.country
-  newCloudConfig.nbb_account_datacenter = data.datacenter
-  newCloudConfig.nbb_account_world = data.world
+  const newCloudConfig = resolveUserInfo(data, cloudConfig.value)
   store.commit('setCloudConfig', newCloudConfig)
   appForceUpdate()
 }

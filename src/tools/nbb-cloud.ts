@@ -3,7 +3,7 @@ import { createAlova } from "alova"
 import { useRequest } from "alova/client"
 import adapterFetch from "alova/fetch"
 import vueHook from "alova/vue"
-import { type CloudConfigModel } from '@/models/config-cloud'
+import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
 import type {
   HqList,
   NbbResponse,
@@ -27,7 +27,9 @@ export const useNbbCloud = (
     },
     responded: (res) => {
       if (res.status >= 400) {
-        throw Promise.reject(new Error(res.statusText))
+        const error = new Error(res.statusText);
+        (error as any).status = res.status
+        throw error
       }
       return res.json()
     }
@@ -57,13 +59,14 @@ export const useNbbCloud = (
         resolve(data as NbbResponse<T>)
       })
       onError((error: any) => {
+        const status = error?.error?.status ?? 'Unknown'
         console.error(
           `[NBB.Cloud] Post to ${url} occurred an error.\n`,
           error
         )
         resolve({
           errno: 1,
-          errmsg: error.message,
+          errmsg: error.message ?? `Error ${status}`,
           data: error
         })
       })
@@ -119,6 +122,27 @@ export const useNbbCloud = (
       true
     )
     return response
+  }
+  const updateUserInfo = async () => {
+    const response = await doNbbPost<ResdataRegisterAndLogin>('/user/usrinfo', {})
+    return response
+  }
+
+  const resolveUserInfo = (
+    data: ResdataRegisterAndLogin,
+    oldConfig?: CloudConfigModel
+  ) => {
+    const newCloudConfig = fixCloudConfig(oldConfig)
+    newCloudConfig.nbb_account_avatar = Number(data.avatar || '') || 0
+    newCloudConfig.nbb_account_uid = data.uid
+    newCloudConfig.nbb_account_nickname = data.nickname
+    newCloudConfig.nbb_account_loginname = data.loginname
+    newCloudConfig.nbb_account_email = data.email
+    newCloudConfig.nbb_account_token = data.token
+    newCloudConfig.nbb_account_country = data.country
+    newCloudConfig.nbb_account_datacenter = data.datacenter
+    newCloudConfig.nbb_account_world = data.world
+    return newCloudConfig
   }
 
   const resetPassword = async (
@@ -190,6 +214,10 @@ export const useNbbCloud = (
     register,
     /** 登录 */
     login,
+    /** 刷新用户信息 */
+    updateUserInfo,
+    /** 将登录、注册、刷新用户信息获取到的data转译为cloudConfig */
+    resolveUserInfo,
     /** 修改密码 */
     resetPassword,
     /** 修改昵称 */
