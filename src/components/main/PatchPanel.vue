@@ -202,7 +202,7 @@ const patchPatterns = computed(() => {
 }
 
 /* Mobile */
-@media (max-width: 768px) {
+.app-mobile {
   .game-patches-panel {
     .patch-button {
       width: 100%;

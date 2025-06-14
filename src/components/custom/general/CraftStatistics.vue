@@ -248,7 +248,7 @@ const otherMaterials = computed(() => {
   column-gap: 10px;
 }
 /* Desktop */
-@media screen and (min-width: 768px) {
+.app-desktop {
   .cs-wrapper {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -257,7 +257,7 @@ const otherMaterials = computed(() => {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .cs-wrapper {
     display: flex;
     flex-direction: column;

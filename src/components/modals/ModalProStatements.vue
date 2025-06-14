@@ -158,11 +158,11 @@ const handleSettingButtonClick = () => {
 }
 
 /* Desktop */
-@media screen and (min-width: 768px) {
+.app-desktop {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .card-title-actions {
     flex-basis: 100%;
   }

@@ -184,7 +184,7 @@ const handleClose = () => {
 }
 
 /* Mobile only */
-/* @media (max-width: 768px) {
+/* .app-mobile {
 .wrapper {
     grid-template-columns: 1fr;
   }

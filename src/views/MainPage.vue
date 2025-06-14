@@ -178,7 +178,7 @@ const tradeMap = computed(() => {
 }
 
 /* PC only */
-@media screen and (min-width: 768px) {
+.app-desktop {
   #main-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -200,7 +200,7 @@ const tradeMap = computed(() => {
 }
 
 /* Mobile only */
-@media screen and (max-width: 767px) {
+.app-mobile {
   #main-container {
     display: flex;
     flex-direction: column;

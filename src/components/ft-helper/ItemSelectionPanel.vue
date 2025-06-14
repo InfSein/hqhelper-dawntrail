@@ -160,7 +160,7 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
 }
 
 /* PC only */
-@media screen and (min-width: 768px) {
+.app-desktop {
   .item-selection-container {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -172,7 +172,7 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
 }
 
 /* Mobile only */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .item-selection-container {
     display: flex;
     flex-direction: column;

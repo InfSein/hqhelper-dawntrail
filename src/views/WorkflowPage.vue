@@ -679,7 +679,7 @@ const handleSetStatementPreparedByInventory = () => {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .wrapper {
     .header-block .action {
       flex-direction: column;

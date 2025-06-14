@@ -504,7 +504,7 @@ const handleAnalysisItemPrices = async () => {
 }
 
 /* Desktop only */
-@media screen and (min-width: 768px) {
+.app-desktop {
   div.wrapper {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -522,7 +522,7 @@ const handleAnalysisItemPrices = async () => {
 }
 
 /* Mobile only */
-@media screen and (max-width: 767px) {
+.app-mobile {
   div.wrapper, #statistics-footer {
     width: 100%;
     display: flex;

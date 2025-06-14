@@ -204,14 +204,14 @@ const listContainer = ref<HTMLElement>()
 }
 
 /* Desktop only */
-@media screen and (min-width: 768px) {
+.app-desktop {
   .scroll-container {
     padding: 0 0.5em !important;
   }
 }
 
 /* Mobile only */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .scroll-container {
     padding: 0 !important;
   }

@@ -230,7 +230,7 @@ const onImportConfirmed = () => {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .pane-container {
     height: 205px;
   }

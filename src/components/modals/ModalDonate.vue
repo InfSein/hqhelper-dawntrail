@@ -243,7 +243,7 @@ const handleStaffSelectionUpdate = () => {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .wrapper {
     height: 300px;
   }

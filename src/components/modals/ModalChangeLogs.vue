@@ -256,7 +256,7 @@ const handleSwitchShowHistory = () => {
 }
 
 /* Desktop */
-@media screen and (min-width: 768px) {
+.app-desktop {
   .patchnote-container .item {
     display: grid;
     gap: 5px 10px;
@@ -272,6 +272,6 @@ const handleSwitchShowHistory = () => {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
 }
 </style>

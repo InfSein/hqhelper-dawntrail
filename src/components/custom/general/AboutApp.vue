@@ -175,7 +175,7 @@ const viewSponsors = () => {
 
 
 /* Desktop */
-@media screen and (min-width: 768px) {
+.app-desktop {
   .version-info {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -184,7 +184,7 @@ const viewSponsors = () => {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .version-info {
     display: flex;
     flex-direction: column;

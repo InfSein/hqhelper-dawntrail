@@ -191,7 +191,7 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .pane-container {
     height: 250px;
   }

@@ -132,7 +132,7 @@ const handleJoinWorkflow = () => {
 }
 
 /* Desktop */
-@media screen and (min-width: 768px) {
+.app-desktop {
   #main-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -155,7 +155,7 @@ const handleJoinWorkflow = () => {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   #main-container {
     display: flex;
     flex-direction: column;

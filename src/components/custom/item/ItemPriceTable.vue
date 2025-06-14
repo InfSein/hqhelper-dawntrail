@@ -112,11 +112,11 @@ const getItemAmount = (amount: number) => {
 }
 
 /* Desktop */
-@media screen and (min-width: 768px) {
+.app-desktop {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .table {
     th:first-child, td:first-child {
       width: 46%;

@@ -280,7 +280,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
 }
 
 /* Mobile */
-@media (max-width: 768px) {
+.app-mobile {
   .wrapper {
     display: flex;
     flex-direction: column;

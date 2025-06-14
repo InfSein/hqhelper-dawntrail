@@ -532,7 +532,7 @@ const handleSettingButtonClick = () => {
 }
 
 /* Desktop */
-@media screen and (min-width: 768px) {
+.app-desktop {
   .wrapper {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -544,7 +544,7 @@ const handleSettingButtonClick = () => {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .wrapper {
     display: flex;
     flex-direction: column;

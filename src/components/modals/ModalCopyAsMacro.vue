@@ -218,5 +218,5 @@ const handleClose = () => {
 }
 
 /* Mobile only */
-/* @media (max-width: 768px)*/
+/* .app-mobile*/
 </style>

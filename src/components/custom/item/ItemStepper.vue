@@ -45,7 +45,7 @@ defineProps({
 }
 
 /* Desktop */
-@media screen and (min-width: 768px) {
+.app-desktop {
   .item-selector {
     display: grid;
     grid-template-columns: minmax(0, 8fr) minmax(0, 6fr);
@@ -53,6 +53,6 @@ defineProps({
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
 }
 </style>

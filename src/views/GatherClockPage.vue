@@ -854,7 +854,7 @@ const handleShowAlarmMacroExportModal = () => {
 }
 
 /* Desktop */
-@media screen and (min-width: 768px) {
+.app-desktop {
   .query-form .n-form-item:hover {
     border: 1px solid var(--n-color-target);
   }
@@ -869,7 +869,7 @@ const handleShowAlarmMacroExportModal = () => {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .query-form {
     width: 100%;
   }

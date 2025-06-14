@@ -227,7 +227,7 @@ const getSponsorGenContent = (gen: number) => {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .wrapper {
     .table-container {
       table {

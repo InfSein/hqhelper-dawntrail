@@ -581,7 +581,7 @@ const handleSave = () => {
 }
 
 /* Desktop */
-@media (min-width: 769px) {
+.app-desktop {
   .weapons {
     grid-row: 1 / 3;
     height: 100%;
@@ -593,7 +593,7 @@ const handleSave = () => {
 }
 
 /* Mobile */
-@media (max-width: 768px) {
+.app-mobile {
   .wrapper {
     display: flex;
     flex-direction: column;

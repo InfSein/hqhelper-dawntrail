@@ -578,7 +578,7 @@ const handleSettingButtonClick = () => {
 }
 
 /* Desktop */
-@media screen and (min-width: 768px) {
+.app-desktop {
   .query-options {
     #querier-search {
       max-width: 560px;
@@ -590,7 +590,7 @@ const handleSettingButtonClick = () => {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .query-options {
     flex-direction: column;
     

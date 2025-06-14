@@ -636,7 +636,7 @@ table {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .bottom-buttons {
     margin-top: auto;
   }

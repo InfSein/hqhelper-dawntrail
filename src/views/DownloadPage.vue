@@ -213,7 +213,7 @@ const handleDownloadBtnClick = (link: string) => {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .download-btn-container {
     flex-direction: column;
   }

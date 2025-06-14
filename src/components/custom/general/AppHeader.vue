@@ -821,7 +821,7 @@ const handleCheckUpdates = async () => {
 }
 
 /* Desktop */
-@media screen and (min-width: 768px) {
+.app-desktop {
   .app-header .header-content {
     .app-info, .app-menu {
       line-height: 1;
@@ -834,7 +834,7 @@ const handleCheckUpdates = async () => {
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+.app-mobile {
   .app-header .header-content .app-info {
     height: 100%;
 
