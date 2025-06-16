@@ -39,40 +39,24 @@ export const useNbbCloud = (
     data: any,
     ignoreToken = false,
   ) : Promise<NbbResponse<T>> => {
-    return new Promise(resolve => {
-      const { send: handlePost, onSuccess, onError } = useRequest(
-        () => alovaApi.Post(url, data),
-        {
-          meta: {
-            ignoreToken: ignoreToken
-          },
-          immediate: false,
-        }
-      )
-
-      onSuccess((event: any) => {
-        const { data } = event
-        console.log(
-          `[NBB.Cloud] Post to ${url} succeed.\n`,
-          data
-        )
-        resolve(data as NbbResponse<T>)
-      })
-      onError((error: any) => {
-        const status = error?.error?.status ?? 'Unknown'
-        console.error(
-          `[NBB.Cloud] Post to ${url} occurred an error.\n`,
-          error
-        )
-        resolve({
-          errno: 1,
-          errmsg: error.message ?? `Error ${status}`,
-          data: error
-        })
-      })
-
-      handlePost()
+    const { send } = useRequest(() => alovaApi.Post(url, data), {
+      meta: { ignoreToken },
+      immediate: false,
     })
+
+    try {
+      const response = await send()
+      console.log(`[NBB.Cloud] Post to ${url} succeed.\n`, response)
+      return response as NbbResponse<T>
+    } catch (error: any) {
+      const status = error?.error?.status ?? 'Unknown'
+      console.error(`[NBB.Cloud] Post to ${url} occurred an error.\n`, error)
+      return {
+        errno: 1,
+        errmsg: error.message ?? `Error ${status}`,
+        data: error,
+      }
+    }
   }
 
   const sendVerify = async (email: string) => {
