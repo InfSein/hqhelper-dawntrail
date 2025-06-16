@@ -410,9 +410,11 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         for (let ptr = 0; ptr < crystals.length; ptr += 2) {
           const requiredItemID = crystals[ptr]
           const requiredItemCount = crystals[ptr + 1]
-          itemInfo.craftRequireCrystals.push({
-            id: requiredItemID, count: requiredItemCount
-          })
+          if (requiredItemID && requiredItemID !== -1) {
+            itemInfo.craftRequireCrystals.push({
+              id: requiredItemID, count: requiredItemCount
+            })
+          }
         }
       }
 
