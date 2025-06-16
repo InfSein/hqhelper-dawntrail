@@ -13,11 +13,16 @@ import {
 import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
 import { useStore } from '@/store'
+import type { UserConfigModel } from '@/models/config-user'
+import type { FuncConfigModel } from '@/models/config-func'
 import { type CloudConfigModel } from '@/models/config-cloud'
-import { HqList, type ResdataGetList } from '@/models/nbb-cloud'
+import { HqList, type NbbResponse } from '@/models/nbb-cloud'
 import { useNbbCloud } from '@/tools/nbb-cloud'
+import { deepCopy } from '@/tools'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
 
 const store = useStore()
@@ -52,6 +57,7 @@ const onLoad = () => {
 interface CloudList {
   load_succeed: boolean
   last_update: number
+  id: number
   content: string
 }
 
@@ -63,16 +69,18 @@ const loadLists = async () => {
   for (const tp of listTypes) {
     const response = await getList(tp)
     const load_succeed = !response.errno
-    let last_update = 0, content = ''
+    let last_update = 0, id = 0, content = ''
     if (load_succeed) {
-      if (!Array.isArray(response.data)) {
-        const { lastUpdateTime } = resolveListTitle(response.data.desc)
+      if (response.data.length) {
+        const data = response.data[0]
+        const { lastUpdateTime } = resolveListTitle(data.desc)
         last_update = lastUpdateTime
-        content = response.data.content
+        id = data.id
+        content = data.content
       }
     }
     clists[tp] = {
-      load_succeed, last_update, content,
+      load_succeed, last_update, id, content,
     }
   }
   cloudLists.value = clists
@@ -142,6 +150,11 @@ const syncTargets = computed(() =>
     .filter((v): v is HqList => typeof v === 'number')
     .filter(listtype => syncRange.value[listtype])
 )
+const getFailedLabels = computed(() => {
+  return syncTargets.value
+    .filter(target => !cloudLists.value?.[target]?.load_succeed)
+    .map(target => syncTypeLabelMap.value[target])
+})
 
 const getUpdateTimeText = (time: number) => {
   if (time) {
@@ -149,18 +162,134 @@ const getUpdateTimeText = (time: number) => {
   }
   return t('还未上传')
 }
+const handleResponse = (
+  response: NbbResponse,
+  on_success = '',
+  on_error = '',
+  show_errmsg = true,
+) => {
+  if (response.errno) {
+    let errmsg = ''
+    if (on_error) errmsg += on_error
+    if (show_errmsg) errmsg += response.errmsg
+    NAIVE_UI_MESSAGE.error(errmsg)
+  } else {
+    const succmsg = on_success || t('操作成功')
+    NAIVE_UI_MESSAGE.success(succmsg)
+  }
+}
 
-const handleUpload = async () => {}
+const handleUpload = async () => {
+  syncing.value = true
+
+  if (getFailedLabels.value.length) {
+    alert(
+      t('同步无法进行，因为以下模块的数据加载失败：') + '\n'
+      + '-> ' + getFailedLabels.value.join(', ') + '\n'
+      + t('请考虑刷新页面以重试。')
+    )
+    syncing.value = false
+    return
+  }
+
+  const failedModules : {
+    label: string, error: string
+  }[] = []
+  for (const listtype of syncTargets.value) {
+    const response = await dealUpload(listtype)
+    if (response.errno) {
+      failedModules.push({
+        label: syncTypeLabelMap.value[listtype],
+        error: response.errmsg,
+      })
+    }
+  }
+
+  if (failedModules.length) {
+    alert(
+      t('以下模块同步失败：') + '\n'
+      + failedModules.map(module => t('同步{mod}时发生错误：{err}', {
+        mod: module.label, err: module.error
+      })).join('\n')
+    )
+  } else {
+    NAIVE_UI_MESSAGE.success(t('同步成功'))
+  }
+
+  await loadLists()
+  syncing.value = false
+
+  async function dealUpload (listtype: HqList) {
+    let content = ''
+    switch (listtype) {
+      case HqList.ConfigBackupUserConfig: {
+        const obj = deepCopy(userConfig.value as any)
+        delete obj.cache_work_state
+        delete obj.fthelper_cache_work_state
+        delete obj.gatherclock_cache_work_state
+        delete obj.workflow_cache_work_state
+        delete obj.macromanage_cache_work_state
+        content = JSON.stringify(obj)
+        break
+      }
+      case HqList.ConfigBackupFuncConfig: {
+        const obj = deepCopy(funcConfig.value as any)
+        delete obj.inventory_statement_enable_sync
+        delete obj.inventory_workflow_enable_sync
+        delete obj.inventory_other_items_way
+        delete obj.inventory_data
+        delete obj.cache_item_prices
+        content = JSON.stringify(obj)
+        break
+      }
+      case HqList.WorkstateBackupMain:
+        content = JSON.stringify(userConfig.value.cache_work_state)
+        break
+      case HqList.WorkstateBackupFtHelper:
+        content = JSON.stringify(userConfig.value.fthelper_cache_work_state)
+        break
+      case HqList.WorkstateBackupGatherClock:
+        content = JSON.stringify(userConfig.value.gatherclock_cache_work_state)
+        break
+      case HqList.WorkstateBackupWorkflow:
+        content = JSON.stringify(userConfig.value.workflow_cache_work_state)
+        break
+      case HqList.WorkstateBackupMacromanage:
+        content = JSON.stringify(userConfig.value.macromanage_cache_work_state)
+        break
+      case HqList.DataBackupInventory: 
+        content = JSON.stringify({
+          inventory_statement_enable_sync: funcConfig.value.inventory_statement_enable_sync,
+          inventory_workflow_enable_sync: funcConfig.value.inventory_workflow_enable_sync,
+          inventory_other_items_way: funcConfig.value.inventory_other_items_way,
+          inventory_data: funcConfig.value.inventory_data,
+        })
+        break
+      default:
+        return {
+          errno: 1,
+          errmsg: 'Unexpected listtype' + listtype,
+          data: {}
+        } as NbbResponse
+    }
+    const isNewList = !cloudLists.value![listtype].last_update
+    let response: NbbResponse
+    if (isNewList) {
+      response = await addList(listtype, content)
+    } else {
+      const id = cloudLists.value![listtype].id
+      response = await editList(id, content)
+    }
+    return response
+  }
+}
 const handleDownload = async () => {
   syncing.value = true
 
-  const getfailedLabels = syncTargets.value
-    .filter(target => !cloudLists.value?.[target]?.load_succeed)
-    .map(target => syncTypeLabelMap.value[target])
-  if (getfailedLabels.length) {
+  if (getFailedLabels.value.length) {
     alert(
       t('同步无法进行，因为以下模块的数据加载失败：') + '\n'
-      + '-> ' + getfailedLabels.join(', ') + '\n'
+      + '-> ' + getFailedLabels.value.join(', ') + '\n'
       + t('请考虑刷新页面以重试。')
     )
     syncing.value = false
@@ -179,6 +308,18 @@ const handleDownload = async () => {
     syncing.value = false
     return
   }
+
+  const data = syncTargets.value.map(listtype => {
+    const obj = JSON.parse(cloudLists.value![listtype].content)
+    return {
+      id: listtype,
+      content: obj
+    }
+  })
+  console.log(
+    'Sync starts.' + '\ndata:\n',
+    data
+  )
 }
 </script>
 
@@ -264,11 +405,13 @@ const handleDownload = async () => {
     display: grid;
     grid-template-columns: repeat(2, minmax(0,1fr));
     gap: 10px;
+    padding: 0 12px;
 
     .sync-range-container {
       display: flex;
       flex-direction: column;
       gap: 5px;
+      padding: 0 6px;
 
       .desc>.text {
         line-height: 1;

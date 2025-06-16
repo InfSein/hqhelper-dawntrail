@@ -2,12 +2,12 @@ export enum HqList {
   // 用于 NBB Cloud 的队列type，可选值：5~19
   ConfigBackupUserConfig = 5,
   ConfigBackupFuncConfig,
-  WorkstateBackupMain = 10,
+  WorkstateBackupMain = 9,
   WorkstateBackupFtHelper,
   WorkstateBackupGatherClock,
   WorkstateBackupWorkflow,
   WorkstateBackupMacromanage,
-  DataBackupInventory = 17,
+  DataBackupInventory = 16,
 }
 
 export interface NbbResponse <T = any> {
