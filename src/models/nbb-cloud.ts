@@ -7,6 +7,7 @@ export enum HqList {
   WorkstateBackupGatherClock,
   WorkstateBackupWorkflow,
   WorkstateBackupMacromanage,
+  DataBackupInventory = 17,
 }
 
 export interface NbbResponse <T = any> {

@@ -12,6 +12,7 @@ import AccountView from './components/custom/general/AccountView.vue'
 import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
 import ModalCheckUpdates from './components/modals/ModalCheckUpdates.vue'
 import ModalLogin from '@/components/modals/ModalLogin.vue'
+import ModalCloudSync from './components/modals/ModalCloudSync.vue'
 import { useRoute } from 'vue-router'
 import { useStore } from '@/store/index'
 import { t } from '@/languages'
@@ -158,6 +159,12 @@ const displayLoginModal = (action: "login" | "register") => {
 }
 provide('displayLoginModal', displayLoginModal)
 
+const showModalCloudSync = ref(false)
+const displayCloudSyncModal = () => {
+  showModalCloudSync.value = true
+}
+provide('displayCloudSyncModal', displayCloudSyncModal)
+
 const appClass = computed(() => {
   const classes = [
     'lang-' + locale.value,
@@ -297,6 +304,9 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
         <ModalLogin
           v-model:show="showModalLogin"
           :default-tab="loginAction"
+        />
+        <ModalCloudSync
+          v-model:show="showModalCloudSync"
         />
         <ModalFestivalEgg v-model:show="showFestivalEgg" />
       </div>

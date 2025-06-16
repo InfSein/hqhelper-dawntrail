@@ -167,7 +167,7 @@ export const useNbbCloud = (
   }
 
   const getList = async (type: HqList) => {
-    const response = await doNbbPost<ResdataGetList>(
+    const response = await doNbbPost<ResdataGetList | never[]>(
       '/cloud/synclist',
       { type }
     )

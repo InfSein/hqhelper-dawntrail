@@ -6,6 +6,7 @@ import {
 } from 'naive-ui'
 import {
   LogInOutlined, LogOutOutlined, PersonAddAlt1Filled,
+  CloudSyncOutlined,
   EditNoteOutlined,
 } from '@vicons/material'
 import { useStore } from '@/store'
@@ -18,6 +19,7 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
 const displayLoginModal = inject<(action: "login" | "register") => void>('displayLoginModal')!
+const displayCloudSyncModal = inject<() => {}>('displayCloudSyncModal')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const store = useStore()
@@ -65,6 +67,9 @@ const handleLogin = () => {
 }
 const handleRegister = () => {
   displayLoginModal('register')
+}
+const handleCloudSync = () => {
+  displayCloudSyncModal()
 }
 const handleLogout = () => {
   const newCloudConfig = fixCloudConfig()
@@ -122,6 +127,14 @@ const handleLogout = () => {
         </n-button>
       </div>
       <div v-else class="logged-wrapper">
+        <n-button
+          type="primary"
+          @click="handleCloudSync"
+        >
+          <template #icon><n-icon><CloudSyncOutlined /></n-icon></template>
+          {{ t('数据同步') }}
+        </n-button>
+        <n-divider style="margin: 5px 0;" />
         <n-button>
           <template #icon><n-icon><EditNoteOutlined /></n-icon></template>
           {{ t('编辑') }}
