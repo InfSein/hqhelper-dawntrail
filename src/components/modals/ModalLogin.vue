@@ -152,8 +152,8 @@ const handleSubmit = async () => {
       handleResponse(response, t('登录成功'))
       if (!response.errno) {
         handleSaveLoginInfo(response.data)
+        showModal.value = false
       }
-      showModal.value = false
     } else if (loginAction.value === 'register') {
       if (!registerFormData.email) {
         NAIVE_UI_MESSAGE.error(t('请输入邮箱')) ; return
@@ -174,8 +174,8 @@ const handleSubmit = async () => {
       handleResponse(response, t('注册成功'))
       if (!response.errno) {
         handleSaveLoginInfo(response.data)
+        showModal.value = false
       }
-      showModal.value = false
     } else if (loginAction.value === 'resetpass') {
       if (!resetpassFormData.email) {
         NAIVE_UI_MESSAGE.error(t('请输入邮箱')) ; return
@@ -256,7 +256,10 @@ const handleSubmit = async () => {
             {{ t('验证码') }}
           </div>
           <n-input-group>
-            <n-input v-model:value="registerFormData.verifycode" />
+            <n-input
+              v-model:value="registerFormData.verifycode"
+              :placeholder="t('请输入验证码')"
+            />
             <n-button
               type="info"
               :disabled="isVerifyCooldown || isSendingVerify"
@@ -311,7 +314,10 @@ const handleSubmit = async () => {
             {{ t('验证码') }}
           </div>
           <n-input-group>
-            <n-input v-model:value="resetpassFormData.verifycode" />
+            <n-input
+              v-model:value="resetpassFormData.verifycode"
+              :placeholder="t('请输入验证码')"
+            />
             <n-button
               type="info"
               :disabled="isVerifyCooldown || isSendingVerify"

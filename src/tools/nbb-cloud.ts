@@ -156,6 +156,16 @@ export const useNbbCloud = (
     return response
   }
 
+  const generateListTitle = () => {
+    return `list-${Date.now()}`
+  }
+  const resolveListTitle = (title: string) => {
+    const lastUpdateTime = Number(title.split('-')[1]) || 0
+    return {
+      lastUpdateTime,
+    }
+  }
+
   const getList = async (type: HqList) => {
     const response = await doNbbPost<ResdataGetList>(
       '/cloud/synclist',
@@ -166,7 +176,7 @@ export const useNbbCloud = (
   const addList = async (
     type: HqList, content: string
   ) => {
-    const desc = `hqhelper-list-${type}`
+    const desc = generateListTitle()
     const response = await doNbbPost<ResdataSetList>(
       '/cloud/addlist',
       { type, desc, content }
@@ -176,7 +186,7 @@ export const useNbbCloud = (
   const editList = async (
     type: HqList, content: string
   ) => {
-    const desc = `hqhelper-list-${type}`
+    const desc = generateListTitle()
     const response = await doNbbPost<ResdataSetList>(
       '/cloud/addlist',
       { type, desc, content }
@@ -187,7 +197,7 @@ export const useNbbCloud = (
   return {
     /** 向邮箱发送验证码 */
     sendVerify,
-    /** 向邮箱发送验证码(用语修改密码) */
+    /** 向邮箱发送验证码(用于修改密码) */
     sendVerifyForResetPassword,
     /**
      * 注册
@@ -210,6 +220,7 @@ export const useNbbCloud = (
     /** 修改头像 */
     resetAvatar,
     getList, addList, editList,
+    resolveListTitle,
   }
 }
 
