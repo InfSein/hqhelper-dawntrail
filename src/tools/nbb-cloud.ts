@@ -134,6 +134,7 @@ export const useNbbCloud = (
   ) => {
     const newCloudConfig = fixCloudConfig(oldConfig)
     newCloudConfig.nbb_account_avatar = Number(data.avatar || '') || 0
+    newCloudConfig.nbb_account_avatar_vip = data.vipAvatar || ''
     newCloudConfig.nbb_account_uid = data.uid
     newCloudConfig.nbb_account_nickname = data.nickname
     newCloudConfig.nbb_account_loginname = data.loginname

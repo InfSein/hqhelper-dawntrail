@@ -1,5 +1,12 @@
 export enum HqList {
-  keep = 5,
+  // 用于 NBB Cloud 的队列type，可选值：5~19
+  ConfigBackupUserConfig = 5,
+  ConfigBackupFuncConfig,
+  WorkstateBackupMain = 10,
+  WorkstateBackupFtHelper,
+  WorkstateBackupGatherClock,
+  WorkstateBackupWorkflow,
+  WorkstateBackupMacromanage,
 }
 
 export interface NbbResponse <T = any> {
@@ -21,6 +28,7 @@ export interface ResdataRegisterAndLogin {
   datacenter: string,
   world: string,
   avatar: string,
+  vipAvatar?: string,
 }
 export interface ResdataGetList {
   id: number,

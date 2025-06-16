@@ -5,6 +5,8 @@ import {
 export interface CloudConfigModel {
   /** NBB云账户头像 */
   nbb_account_avatar: number,
+  /** NBB云账户头像 (VIP版，是个外链图片) */
+  nbb_account_avatar_vip: string,
   /** NBB云账户头像 */
   nbb_account_uid: number,
   /** NBB云账户昵称 */
@@ -25,6 +27,7 @@ export interface CloudConfigModel {
 
 const defaultCloudConfig: CloudConfigModel = {
   nbb_account_avatar: 0,
+  nbb_account_avatar_vip: '',
   nbb_account_uid: 0,
   nbb_account_nickname: '',
   nbb_account_loginname: '',
