@@ -34,10 +34,6 @@ const {
 
 const showModal = defineModel<boolean>('show', { required: true })
 
-interface ModalCloudSyncProps {
-}
-const props = defineProps<ModalCloudSyncProps>()
-
 const cloudLists = ref<Record<HqList, CloudList>>()
 const syncRange = ref<Record<HqList, boolean>>(
   Object.values(HqList)
@@ -162,22 +158,6 @@ const getUpdateTimeText = (time: number) => {
   }
   return t('还未上传')
 }
-const handleResponse = (
-  response: NbbResponse,
-  on_success = '',
-  on_error = '',
-  show_errmsg = true,
-) => {
-  if (response.errno) {
-    let errmsg = ''
-    if (on_error) errmsg += on_error
-    if (show_errmsg) errmsg += response.errmsg
-    NAIVE_UI_MESSAGE.error(errmsg)
-  } else {
-    const succmsg = on_success || t('操作成功')
-    NAIVE_UI_MESSAGE.success(succmsg)
-  }
-}
 
 const handleUpload = async () => {
   syncing.value = true
@@ -192,28 +172,24 @@ const handleUpload = async () => {
     return
   }
 
-  const failedModules : {
-    label: string, error: string
-  }[] = []
+  const failedModules : string[] = []
   for (const listtype of syncTargets.value) {
     const response = await dealUpload(listtype)
     if (response.errno) {
-      failedModules.push({
-        label: syncTypeLabelMap.value[listtype],
-        error: response.errmsg,
-      })
+      failedModules.push(t('同步{mod}时发生错误：{err}', {
+        mod: syncTypeLabelMap.value[listtype],
+        err: response.errmsg,
+      }))
     }
   }
 
   if (failedModules.length) {
     alert(
       t('以下模块同步失败：') + '\n'
-      + failedModules.map(module => t('同步{mod}时发生错误：{err}', {
-        mod: module.label, err: module.error
-      })).join('\n')
+      + failedModules.join('\n')
     )
   } else {
-    NAIVE_UI_MESSAGE.success(t('同步成功'))
+    NAIVE_UI_MESSAGE.success(t('同步成功！'))
   }
 
   await loadLists()
@@ -309,17 +285,103 @@ const handleDownload = async () => {
     return
   }
 
-  const data = syncTargets.value.map(listtype => {
-    const obj = JSON.parse(cloudLists.value![listtype].content)
-    return {
-      id: listtype,
-      content: obj
-    }
-  })
-  console.log(
-    'Sync starts.' + '\ndata:\n',
-    data
-  )
+  let configChanged = false
+
+  // #region Sync user config
+  const oldUserConfig = deepCopy(userConfig.value)
+  let newUserConfig = deepCopy(userConfig.value)
+
+  if (syncTargets.value.includes(HqList.ConfigBackupUserConfig)) {
+    newUserConfig = JSON.parse(cloudLists.value![HqList.ConfigBackupUserConfig].content)
+  }
+
+  if (syncTargets.value.includes(HqList.WorkstateBackupMain)) {
+    newUserConfig.cache_work_state = JSON.parse(cloudLists.value![HqList.WorkstateBackupMain].content)
+  } else {
+    newUserConfig.cache_work_state = oldUserConfig.cache_work_state
+  }
+
+  if (syncTargets.value.includes(HqList.WorkstateBackupFtHelper)) {
+    newUserConfig.fthelper_cache_work_state = JSON.parse(cloudLists.value![HqList.WorkstateBackupFtHelper].content)
+  } else {
+    newUserConfig.fthelper_cache_work_state = oldUserConfig.fthelper_cache_work_state
+  }
+
+  if (syncTargets.value.includes(HqList.WorkstateBackupGatherClock)) {
+    newUserConfig.gatherclock_cache_work_state = JSON.parse(cloudLists.value![HqList.WorkstateBackupGatherClock].content)
+  } else {
+    newUserConfig.gatherclock_cache_work_state = oldUserConfig.gatherclock_cache_work_state
+  }
+
+  if (syncTargets.value.includes(HqList.WorkstateBackupWorkflow)) {
+    newUserConfig.workflow_cache_work_state = JSON.parse(cloudLists.value![HqList.WorkstateBackupWorkflow].content)
+  } else {
+    newUserConfig.workflow_cache_work_state = oldUserConfig.workflow_cache_work_state
+  }
+
+  if (syncTargets.value.includes(HqList.WorkstateBackupMacromanage)) {
+    newUserConfig.macromanage_cache_work_state = JSON.parse(cloudLists.value![HqList.WorkstateBackupMacromanage].content)
+  } else {
+    newUserConfig.macromanage_cache_work_state = oldUserConfig.macromanage_cache_work_state
+  }
+
+  if (JSON.stringify(oldUserConfig) !== JSON.stringify(newUserConfig)) {
+    configChanged = true
+    store.commit('setUserConfig', newUserConfig)
+  } else {
+    console.log('[CloudSync] Tip: no changes for userConfig.')
+  }
+  // #endregion
+
+  // #region Sync func config
+  const oldFuncConfig = deepCopy(funcConfig.value)
+  let newFuncConfig = deepCopy(funcConfig.value)
+
+  if (syncTargets.value.includes(HqList.ConfigBackupFuncConfig)) {
+    newFuncConfig = JSON.parse(cloudLists.value![HqList.ConfigBackupFuncConfig].content)
+  }
+
+  if (syncTargets.value.includes(HqList.DataBackupInventory)) {
+    const content = JSON.parse(cloudLists.value![HqList.DataBackupInventory].content)
+    newFuncConfig.inventory_statement_enable_sync = content.inventory_statement_enable_sync
+    newFuncConfig.inventory_workflow_enable_sync = content.inventory_workflow_enable_sync
+    newFuncConfig.inventory_other_items_way = content.inventory_other_items_way
+    newFuncConfig.inventory_data = deepCopy(content.inventory_data)
+  } else {
+    newFuncConfig.inventory_statement_enable_sync = oldFuncConfig.inventory_statement_enable_sync
+    newFuncConfig.inventory_workflow_enable_sync = oldFuncConfig.inventory_workflow_enable_sync
+    newFuncConfig.inventory_other_items_way = oldFuncConfig.inventory_other_items_way
+    newFuncConfig.inventory_data = deepCopy(oldFuncConfig.inventory_data)
+  }
+
+  let itemPriceCacheCleaned = false
+  if (oldFuncConfig.universalis_server !== newFuncConfig.universalis_server) {
+    newFuncConfig.cache_item_prices = {}
+    itemPriceCacheCleaned = true
+  } else {
+    newFuncConfig.cache_item_prices = oldFuncConfig.cache_item_prices
+  }
+
+  if (JSON.stringify(oldFuncConfig) !== JSON.stringify(newFuncConfig)) {
+    configChanged = true
+    store.commit('setFuncConfig', newFuncConfig)
+  } else {
+    console.log('[CloudSync] Tip: no changes for funcConfig.')
+  }
+  // #endregion
+
+  syncing.value = false
+  if (configChanged) {
+    const tips = [t('同步成功！')]
+    if (itemPriceCacheCleaned) tips.push(t('由于物品价格服务器设置发生了变更，物品价格缓存已被清除。'))
+    tips.push(t('页面将重载以应用更改。'))
+    alert(tips.join('\n'))
+    setTimeout(() => {
+      location.reload()
+    }, 500)
+  } else {
+    NAIVE_UI_MESSAGE.success(t('本地数据与云端一致'))
+  }
 }
 </script>
 
@@ -376,13 +438,13 @@ const handleDownload = async () => {
           </template>
 
           <div class="start-sync-wrapper">
-            <n-button text :loading="syncing" :disabled="syncing" @click="handleUpload">
+            <n-button text :loading="syncing" :disabled="syncing || !syncTargets.length" @click="handleUpload">
               <div class="sync-button-container">
                 <n-icon :size="48"><CloudUploadRound /></n-icon>
                 {{ t('将本地数据上传到云端') }}
               </div>
             </n-button>
-            <n-button text :loading="syncing" :disabled="syncing" @click="handleDownload">
+            <n-button text :loading="syncing" :disabled="syncing || !syncTargets.length" @click="handleDownload">
               <div class="sync-button-container">
                 <n-icon :size="48"><CloudDownloadRound /></n-icon>
                 {{ t('将云端数据下载到本地') }}
