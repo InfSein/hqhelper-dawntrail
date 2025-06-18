@@ -11,6 +11,7 @@ import type {
   ResdataGetList, ResdataSetList
 } from '@/models/nbb-cloud'
 import { md5 } from "./md5"
+import AppStatus from "@/variables/app-status"
 
 export const useNbbCloud = (
   cloudConfig: Ref<CloudConfigModel>,
@@ -157,12 +158,14 @@ export const useNbbCloud = (
   }
 
   const generateListTitle = () => {
-    return `list-${Date.now()}`
+    return `list-${AppStatus.Version}-${Date.now()}`
   }
   const resolveListTitle = (title: string) => {
-    const lastUpdateTime = Number(title.split('-')[1]) || 0
+    const uploadVersion = title.split('-')[1]
+    const uploadTime = Number(title.split('-')[2]) || 0
     return {
-      lastUpdateTime,
+      uploadVersion,
+      uploadTime,
     }
   }
 
@@ -170,6 +173,16 @@ export const useNbbCloud = (
     const response = await doNbbPost<ResdataGetList[]>(
       '/cloud/synclist',
       { type }
+    )
+    return response
+  }
+  const getListBatch = async (types: HqList[]) => {
+    const response = await doNbbPost<Record<HqList, ResdataGetList>>(
+      '/cloud/batchsynclist',
+      {
+        types: types.join(','),
+        recordType: '<number,any>'
+      }
     )
     return response
   }
@@ -219,7 +232,15 @@ export const useNbbCloud = (
     resetNickName,
     /** 修改头像 */
     resetAvatar,
-    getList, addList, editList,
+    /** 获取队列内容 */
+    getList,
+    /** 批量获取队列内容 */
+    getListBatch,
+    /** 新增队列 */
+    addList,
+    /** 编辑队列 */
+    editList,
+    /** 解析队列标题 */
     resolveListTitle,
   }
 }

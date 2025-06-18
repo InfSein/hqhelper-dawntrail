@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, reactive, ref, type Ref } from 'vue'
 import {
-  NButton, NDivider, NIcon, NInput, NInputGroup,
+  NAvatar, NButton, NDivider, NIcon, NInput, NInputGroup,
   useMessage,
 } from 'naive-ui'
 import {
@@ -9,15 +9,21 @@ import {
   AccountCircleOutlined, KeyOutlined,
   EmailOutlined, VerifiedUserFilled,
   PersonOutlineOutlined, BadgeFilled,
+  EditNoteOutlined, LabelImportantFilled, FaceRetouchingNaturalFilled,
   DoneOutlined,
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
+import ModalNbbAvatarSelector from './ModalNbbAvatarSelector.vue'
 import { useStore } from '@/store'
+import type { UserConfigModel } from '@/models/config-user'
 import { type CloudConfigModel } from '@/models/config-cloud'
 import type { NbbResponse, ResdataRegisterAndLogin } from '@/models/nbb-cloud'
+import { deepCopy } from '@/tools'
+import { getImgCdnUrl } from '@/tools/item'
 import { useNbbCloud } from '@/tools/nbb-cloud'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
@@ -27,20 +33,22 @@ const {
   sendVerify, sendVerifyForResetPassword,
   register, login, resetPassword,
   resolveUserInfo,
+  resetNickName, resetAvatar,
 } = useNbbCloud(cloudConfig)
 
 const showModal = defineModel<boolean>('show', { required: true })
 
 interface ModalLoginProps {
-  defaultTab: "login" | "register"
+  defaultTab: "login" | "register" | "edituser"
 }
 const props = defineProps<ModalLoginProps>()
 
-const loginAction = ref<"login" | "register" | "resetpass">('login')
+const loginAction = ref<"login" | "register" | "resetpass" | "edituser">('login')
 const verifyCooldown = ref(0)
 const isVerifyCooldown = ref(false)
 const isSendingVerify = ref(false)
 const isSubmitting = ref(false)
+const showNbbAvatarSelector = ref(false)
 const loginFormData = reactive({
   account: '',
   password: '',
@@ -57,15 +65,24 @@ const resetpassFormData = reactive({
   password: '',
   verifycode: '',
 })
+const edituserFormData = reactive({
+  nickname: '',
+  title: '',
+  avatar: 0,
+})
 
 const onLoad = () => {
   loginAction.value = props.defaultTab
+  edituserFormData.nickname = cloudConfig.value.nbb_account_nickname
+  edituserFormData.title = userConfig.value.user_custom_title
+  edituserFormData.avatar = cloudConfig.value.nbb_account_avatar
 }
 
 const modalIcon = computed(() => {
   switch (loginAction.value) {
     case 'resetpass': return LockResetOutlined
     case 'register': return PersonAddAlt1Filled
+    case 'edituser': return EditNoteOutlined
     case 'login': 
     default: return LogInOutlined
   }
@@ -74,6 +91,7 @@ const modalTitle = computed(() => {
   switch (loginAction.value) {
     case 'resetpass': return t('重置密码')
     case 'register': return t('注册')
+    case 'edituser': return t('编辑信息')
     case 'login': 
     default: return t('登录')
   }
@@ -82,6 +100,10 @@ const modalTitle = computed(() => {
 const verifyButtonText = computed(() =>
   isVerifyCooldown.value ? t('{count}秒后可再次发送', verifyCooldown.value) : t('发送验证码')
 )
+const avatarUrl = computed(() => {
+  const avatarId = edituserFormData.avatar || 64384
+  return getImgCdnUrl(avatarId)
+})
 
 const startCooldown = (seconds: number) => {
   verifyCooldown.value = seconds
@@ -136,15 +158,18 @@ const handleSendVerify = async (email: string) => {
     isSendingVerify.value = false
   }
 }
+const handleShowNbbAvatarSelector = () => {
+  showNbbAvatarSelector.value = true
+}
 
 const handleSubmit = async () => {
   try {
     isSubmitting.value = true
     if (loginAction.value === 'login') {
       if (!loginFormData.account) {
-        NAIVE_UI_MESSAGE.error(t('请输入账号')) ; return
+        NAIVE_UI_MESSAGE.error(t('请输入账号')); return
       } else if (!loginFormData.password) {
-        NAIVE_UI_MESSAGE.error(t('请输入密码')) ; return
+        NAIVE_UI_MESSAGE.error(t('请输入密码')); return
       }
       const response = await login(
         loginFormData.account, loginFormData.password
@@ -156,15 +181,15 @@ const handleSubmit = async () => {
       }
     } else if (loginAction.value === 'register') {
       if (!registerFormData.email) {
-        NAIVE_UI_MESSAGE.error(t('请输入邮箱')) ; return
+        NAIVE_UI_MESSAGE.error(t('请输入邮箱')); return
       } else if (!registerFormData.verifycode) {
-        NAIVE_UI_MESSAGE.error(t('请输入验证码')) ; return
+        NAIVE_UI_MESSAGE.error(t('请输入验证码')); return
       } else if (!registerFormData.loginname) {
-        NAIVE_UI_MESSAGE.error(t('请输入登录名')) ; return
+        NAIVE_UI_MESSAGE.error(t('请输入登录名')); return
       } else if (!registerFormData.nickname) {
-        NAIVE_UI_MESSAGE.error(t('请输入昵称')) ; return
+        NAIVE_UI_MESSAGE.error(t('请输入昵称')); return
       } else if (!registerFormData.password) {
-        NAIVE_UI_MESSAGE.error(t('请输入密码')) ; return
+        NAIVE_UI_MESSAGE.error(t('请输入密码')); return
       }
       const response = await register(
         registerFormData.email,
@@ -178,11 +203,11 @@ const handleSubmit = async () => {
       }
     } else if (loginAction.value === 'resetpass') {
       if (!resetpassFormData.email) {
-        NAIVE_UI_MESSAGE.error(t('请输入邮箱')) ; return
+        NAIVE_UI_MESSAGE.error(t('请输入邮箱')); return
       } else if (!resetpassFormData.verifycode) {
-        NAIVE_UI_MESSAGE.error(t('请输入验证码')) ; return
+        NAIVE_UI_MESSAGE.error(t('请输入验证码')); return
       } else if (!resetpassFormData.password) {
-        NAIVE_UI_MESSAGE.error(t('请输入密码')) ; return
+        NAIVE_UI_MESSAGE.error(t('请输入密码')); return
       }
       const response = await resetPassword(
         resetpassFormData.email,
@@ -193,6 +218,38 @@ const handleSubmit = async () => {
       if (!response.errno) {
         loginAction.value = 'login'
       }
+    } else if (loginAction.value === 'edituser') {
+      if (!edituserFormData.nickname) {
+        NAIVE_UI_MESSAGE.error(t('请输入昵称')); return
+      }
+
+      const newCloudConfig = deepCopy(cloudConfig.value)
+      const newUserConfig = deepCopy(userConfig.value)
+      if (edituserFormData.nickname !== cloudConfig.value.nbb_account_nickname) {
+        const response = await resetNickName(edituserFormData.nickname)
+        if (response.errno) {
+          NAIVE_UI_MESSAGE.error(t('修改昵称失败：{err}', response.errmsg)); return
+        } else {
+          newCloudConfig.nbb_account_nickname = edituserFormData.nickname
+          store.commit('setCloudConfig', newCloudConfig)
+        }
+      }
+      if (edituserFormData.title !== userConfig.value.user_custom_title) {
+        newUserConfig.user_custom_title = edituserFormData.title
+        store.commit('setUserConfig', newUserConfig)
+      }
+      if (edituserFormData.avatar !== cloudConfig.value.nbb_account_avatar) {
+        const response = await resetAvatar(edituserFormData.avatar)
+        if (response.errno) {
+          NAIVE_UI_MESSAGE.error(t('修改头像失败：{err}', response.errmsg)); return
+        } else {
+          newCloudConfig.nbb_account_avatar = edituserFormData.avatar
+          store.commit('setCloudConfig', newCloudConfig)
+        }
+      }
+
+      appForceUpdate()
+      showModal.value = false
     } else {
       console.error('Unexpected loginAction', loginAction.value)
     }
@@ -284,6 +341,7 @@ const handleSubmit = async () => {
           <n-input
             v-model:value="registerFormData.nickname"
             :placeholder="t('请输入昵称')"
+            maxlength="6" show-count clearable
           />
           <div class="form-label">
             <n-icon :size="15"><KeyOutlined /></n-icon>
@@ -340,6 +398,45 @@ const handleSubmit = async () => {
           <a href="javascript:void(0);" @click="loginAction = 'login'">{{ t('返回登录') }}</a>
         </div>
       </div>
+      <div v-else-if="loginAction === 'edituser'" class="edituser-panel">
+        <div class="form-container">
+          <div class="form-label">
+            <n-icon :size="15"><BadgeFilled /></n-icon>
+            {{ t('昵称') }}
+          </div>
+          <n-input
+            v-model:value="edituserFormData.nickname"
+            :placeholder="t('请输入昵称')"
+            maxlength="6" show-count clearable
+          />
+          <div class="form-label">
+            <n-icon :size="15"><LabelImportantFilled /></n-icon>
+            {{ t('称号') }}
+          </div>
+          <n-input
+            v-model:value="edituserFormData.title"
+            :placeholder="t('请输入称号')"
+            maxlength="12" show-count clearable
+          />
+          <div class="form-label">
+            <n-icon :size="15"><FaceRetouchingNaturalFilled /></n-icon>
+            {{ t('头像') }}
+          </div>
+          <div class="avatar-edit-container">
+            <n-avatar
+              :size="48"
+              :src="avatarUrl"
+              class="button-avatar"
+            />
+            <n-button
+              size="small"
+              @click="handleShowNbbAvatarSelector"
+            >
+              {{ t('编辑') }}
+            </n-button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <template #action>
@@ -358,6 +455,11 @@ const handleSubmit = async () => {
         </n-button>
       </div>
     </template>
+
+    <ModalNbbAvatarSelector
+      v-model:show="showNbbAvatarSelector"
+      v-model:avatar-id="edituserFormData.avatar"
+    />
   </MyModal>
 </template>
 
@@ -374,6 +476,16 @@ const handleSubmit = async () => {
       align-items: center;
       gap: 2px;
       font-size: 15px;
+    }
+    .avatar-edit-container {
+      margin-top: 4px;
+      display: flex;
+      gap: 4px;
+      align-items: end;
+
+      .button-avatar {
+        display: flex;
+      }
     }
   }
   .sub-links {

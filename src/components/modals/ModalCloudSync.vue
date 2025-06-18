@@ -28,7 +28,7 @@ const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 const {
-  getList, addList, editList,
+  getListBatch, addList, editList,
   resolveListTitle,
 } = useNbbCloud(cloudConfig)
 
@@ -53,6 +53,7 @@ const onLoad = () => {
 interface CloudList {
   load_succeed: boolean
   last_update: number
+  upload_version: string
   id: number
   content: string
 }
@@ -62,21 +63,22 @@ const loadLists = async () => {
 
   const clists = {} as Record<HqList, CloudList>
   const listTypes = Object.values(HqList).filter((v): v is HqList => typeof v === 'number')
+  const response = await getListBatch(listTypes)
+  const load_succeed = !response.errno
   for (const tp of listTypes) {
-    const response = await getList(tp)
-    const load_succeed = !response.errno
-    let last_update = 0, id = 0, content = ''
+    let last_update = 0, upload_version = '', id = 0, content = ''
     if (load_succeed) {
-      if (response.data.length) {
-        const data = response.data[0]
-        const { lastUpdateTime } = resolveListTitle(data.desc)
-        last_update = lastUpdateTime
+      if (response.data[tp]) {
+        const data = response.data[tp]
+        const { uploadVersion, uploadTime } = resolveListTitle(data.desc)
+        last_update = uploadTime
+        upload_version = uploadVersion
         id = data.id
         content = data.content
       }
     }
     clists[tp] = {
-      load_succeed, last_update, id, content,
+      load_succeed, last_update, upload_version, id, content,
     }
   }
   cloudLists.value = clists
@@ -248,7 +250,7 @@ const handleUpload = async () => {
           data: {}
         } as NbbResponse
     }
-    const isNewList = !cloudLists.value![listtype].last_update
+    const isNewList = !cloudLists.value![listtype].id
     let response: NbbResponse
     if (isNewList) {
       response = await addList(listtype, content)

@@ -18,7 +18,7 @@ import { useNbbCloud } from '@/tools/nbb-cloud'
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
-const displayLoginModal = inject<(action: "login" | "register") => void>('displayLoginModal')!
+const displayLoginModal = inject<(action: "login" | "register" | "edituser") => void>('displayLoginModal')!
 const displayCloudSyncModal = inject<() => {}>('displayCloudSyncModal')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
@@ -50,8 +50,11 @@ onMounted(async () => {
 })
 
 const avatarUrl = computed(() => {
-  const avatarId = cloudConfig.value.nbb_account_avatar || 64384
-  return getImgCdnUrl(avatarId)
+  if (cloudConfig.value.nbb_account_avatar) {
+    return getImgCdnUrl(cloudConfig.value.nbb_account_avatar)
+  } else {
+    return './image/game-job/companion/none.png'
+  }
 })
 const userNickName = computed(() => {
   return cloudConfig.value.nbb_account_nickname || t('未登录')
@@ -67,6 +70,9 @@ const handleLogin = () => {
 }
 const handleRegister = () => {
   displayLoginModal('register')
+}
+const handleEditUserInfo = () => {
+  displayLoginModal('edituser')
 }
 const handleCloudSync = () => {
   displayCloudSyncModal()
@@ -112,6 +118,9 @@ const handleLogout = () => {
       </div>
       <n-divider style="margin: 4px 0" />
       <div v-if="!userLoggedIn" class="unlogged-wrapper">
+        <div class="group-title">
+          {{ t('账户') }}
+        </div>
         <n-button
           type="primary"
           @click="handleLogin"
@@ -127,15 +136,20 @@ const handleLogout = () => {
         </n-button>
       </div>
       <div v-else class="logged-wrapper">
+        <div class="group-title">
+          {{ t('数据') }}
+        </div>
         <n-button
           type="primary"
           @click="handleCloudSync"
         >
           <template #icon><n-icon><CloudSyncOutlined /></n-icon></template>
-          {{ t('数据同步') }}
+          {{ t('同步') }}
         </n-button>
-        <n-divider style="margin: 5px 0;" />
-        <n-button>
+        <div class="group-title">
+          {{ t('账户') }}
+        </div>
+        <n-button @click="handleEditUserInfo">
           <template #icon><n-icon><EditNoteOutlined /></n-icon></template>
           {{ t('编辑') }}
         </n-button>
@@ -172,18 +186,22 @@ const handleLogout = () => {
   }
 }
 .avpop-wrapper {
-  width: 150px;
+  min-width: 140px;
 
   .user-base {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 4px;
 
+    .user-avatar {
+      background-color: var(--color-background-popover);
+    }
     .user-name-container {
       line-height: 1;
       text-align: end;
       .user-title {
         font-size: 12px;
+        user-select: none;
       }
       .user-name {
         font-size: 18px;
@@ -199,6 +217,13 @@ const handleLogout = () => {
 
     button {
       width: 100%;
+      margin-bottom: 2px;
+    }
+    .group-title {
+      line-height: 1.2;
+      font-size: 12px;
+      color: var(--color-text-sub);
+      user-select: none;
     }
   }
   .copyright {

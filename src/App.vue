@@ -151,9 +151,9 @@ const displayCheckUpdatesModal = () => {
 }
 provide('displayCheckUpdatesModal', displayCheckUpdatesModal)
 
-const loginAction = ref<"login" | "register">('login')
+const loginAction = ref<"login" | "register" | "edituser">('login')
 const showModalLogin = ref(false)
-const displayLoginModal = (action: "login" | "register") => {
+const displayLoginModal = (action: "login" | "register" | "edituser") => {
   loginAction.value = action
   showModalLogin.value = true
 }
