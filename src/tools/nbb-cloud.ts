@@ -10,6 +10,7 @@ import type {
   ResdataRegisterAndLogin,
   ResdataGetList, ResdataSetList
 } from '@/models/nbb-cloud'
+import { deepCopy } from "."
 import { md5 } from "./md5"
 import AppStatus from "@/variables/app-status"
 
@@ -117,10 +118,11 @@ export const useNbbCloud = (
     data: ResdataRegisterAndLogin,
     oldConfig?: CloudConfigModel
   ) => {
-    const newCloudConfig = fixCloudConfig(oldConfig)
+    const newCloudConfig = fixCloudConfig(deepCopy(oldConfig))
     newCloudConfig.nbb_account_avatar = Number(data.avatar || '') || 0
     newCloudConfig.nbb_account_avatar_vip = data.vipAvatar || ''
     newCloudConfig.nbb_account_uid = data.uid
+    newCloudConfig.nbb_account_title = data.title || ''
     newCloudConfig.nbb_account_nickname = data.nickname
     newCloudConfig.nbb_account_loginname = data.loginname
     newCloudConfig.nbb_account_email = data.email
@@ -128,6 +130,7 @@ export const useNbbCloud = (
     newCloudConfig.nbb_account_country = data.country
     newCloudConfig.nbb_account_datacenter = data.datacenter
     newCloudConfig.nbb_account_world = data.world
+    newCloudConfig.nbb_userinfo_last_update = Date.now()
     return newCloudConfig
   }
 
@@ -142,10 +145,12 @@ export const useNbbCloud = (
     )
     return response
   }
-  const resetNickName = async (nickname: string) => {
+  const resetNickNameAndTitle = async (
+    nickname: string, title: string,
+  ) => {
     const response = await doNbbPost(
       '/user/upnickname',
-      { nickname }
+      { nickname, title }
     )
     return response
   }
@@ -228,8 +233,8 @@ export const useNbbCloud = (
     resolveUserInfo,
     /** 修改密码 */
     resetPassword,
-    /** 修改昵称 */
-    resetNickName,
+    /** 修改昵称与称号 */
+    resetNickNameAndTitle,
     /** 修改头像 */
     resetAvatar,
     /** 获取队列内容 */

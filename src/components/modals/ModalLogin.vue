@@ -15,7 +15,6 @@ import {
 import MyModal from '../templates/MyModal.vue'
 import ModalNbbAvatarSelector from './ModalNbbAvatarSelector.vue'
 import { useStore } from '@/store'
-import type { UserConfigModel } from '@/models/config-user'
 import { type CloudConfigModel } from '@/models/config-cloud'
 import type { NbbResponse, ResdataRegisterAndLogin } from '@/models/nbb-cloud'
 import { deepCopy } from '@/tools'
@@ -23,7 +22,6 @@ import { getImgCdnUrl } from '@/tools/item'
 import { useNbbCloud } from '@/tools/nbb-cloud'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
@@ -33,7 +31,7 @@ const {
   sendVerify, sendVerifyForResetPassword,
   register, login, resetPassword,
   resolveUserInfo,
-  resetNickName, resetAvatar,
+  resetNickNameAndTitle, resetAvatar,
 } = useNbbCloud(cloudConfig)
 
 const showModal = defineModel<boolean>('show', { required: true })
@@ -74,7 +72,7 @@ const edituserFormData = reactive({
 const onLoad = () => {
   loginAction.value = props.defaultTab
   edituserFormData.nickname = cloudConfig.value.nbb_account_nickname
-  edituserFormData.title = userConfig.value.user_custom_title
+  edituserFormData.title = cloudConfig.value.nbb_account_title
   edituserFormData.avatar = cloudConfig.value.nbb_account_avatar
 }
 
@@ -91,7 +89,7 @@ const modalTitle = computed(() => {
   switch (loginAction.value) {
     case 'resetpass': return t('重置密码')
     case 'register': return t('注册')
-    case 'edituser': return t('编辑信息')
+    case 'edituser': return t('编辑账号信息')
     case 'login': 
     default: return t('登录')
   }
@@ -116,6 +114,17 @@ const startCooldown = (seconds: number) => {
       isVerifyCooldown.value = false
     }
   }, 1000)
+}
+const handleCheckStrLength = (
+  str: string, maxlen: number, tipkey: string
+) => {
+  const strlen = str.replace(/[\u4e00-\u9fa5]/g, 'aa').length
+  if (strlen > maxlen) {
+    return t('{key}过长', {
+      key: tipkey
+    })
+  }
+  return ''
 }
 const handleResponse = (
   response: NbbResponse,
@@ -191,6 +200,10 @@ const handleSubmit = async () => {
       } else if (!registerFormData.password) {
         NAIVE_UI_MESSAGE.error(t('请输入密码')); return
       }
+      const inputLenTooLong = handleCheckStrLength(registerFormData.nickname, 12, t('昵称'))
+      if (inputLenTooLong) {
+        NAIVE_UI_MESSAGE.error(inputLenTooLong); return
+      }
       const response = await register(
         registerFormData.email,
         registerFormData.nickname, registerFormData.loginname,
@@ -222,21 +235,24 @@ const handleSubmit = async () => {
       if (!edituserFormData.nickname) {
         NAIVE_UI_MESSAGE.error(t('请输入昵称')); return
       }
+      const inputLenTooLong = handleCheckStrLength(edituserFormData.nickname, 12, t('昵称')) || handleCheckStrLength(edituserFormData.title, 20, t('头衔'))
+      if (inputLenTooLong) {
+        NAIVE_UI_MESSAGE.error(inputLenTooLong); return
+      }
 
       const newCloudConfig = deepCopy(cloudConfig.value)
-      const newUserConfig = deepCopy(userConfig.value)
-      if (edituserFormData.nickname !== cloudConfig.value.nbb_account_nickname) {
-        const response = await resetNickName(edituserFormData.nickname)
+      if (
+        edituserFormData.nickname !== cloudConfig.value.nbb_account_nickname
+        || edituserFormData.title !== cloudConfig.value.nbb_account_title
+      ) {
+        const response = await resetNickNameAndTitle(edituserFormData.nickname, edituserFormData.title)
         if (response.errno) {
-          NAIVE_UI_MESSAGE.error(t('修改昵称失败：{err}', response.errmsg)); return
+          NAIVE_UI_MESSAGE.error(t('修改昵称/称号失败：{err}', response.errmsg)); return
         } else {
           newCloudConfig.nbb_account_nickname = edituserFormData.nickname
+          newCloudConfig.nbb_account_title = edituserFormData.title
           store.commit('setCloudConfig', newCloudConfig)
         }
-      }
-      if (edituserFormData.title !== userConfig.value.user_custom_title) {
-        newUserConfig.user_custom_title = edituserFormData.title
-        store.commit('setUserConfig', newUserConfig)
       }
       if (edituserFormData.avatar !== cloudConfig.value.nbb_account_avatar) {
         const response = await resetAvatar(edituserFormData.avatar)
@@ -341,8 +357,14 @@ const handleSubmit = async () => {
           <n-input
             v-model:value="registerFormData.nickname"
             :placeholder="t('请输入昵称')"
-            maxlength="6" show-count clearable
-          />
+            show-count clearable
+          >
+            <template #count="{ value }">
+              <span :style="value.replace(/[\u4e00-\u9fa5]/g, 'aa').length > 12 ? 'color: var(--color-error);' : ''">
+                {{ value.replace(/[\u4e00-\u9fa5]/g, 'aa').length + ' / 12' }}
+              </span>
+            </template>
+          </n-input>
           <div class="form-label">
             <n-icon :size="15"><KeyOutlined /></n-icon>
             {{ t('密码') }}
@@ -407,8 +429,14 @@ const handleSubmit = async () => {
           <n-input
             v-model:value="edituserFormData.nickname"
             :placeholder="t('请输入昵称')"
-            maxlength="6" show-count clearable
-          />
+            show-count clearable
+          >
+            <template #count="{ value }">
+              <span :style="value.replace(/[\u4e00-\u9fa5]/g, 'aa').length > 12 ? 'color: var(--color-error);' : ''">
+                {{ value.replace(/[\u4e00-\u9fa5]/g, 'aa').length + ' / 12' }}
+              </span>
+            </template>
+          </n-input>
           <div class="form-label">
             <n-icon :size="15"><LabelImportantFilled /></n-icon>
             {{ t('称号') }}
@@ -416,8 +444,14 @@ const handleSubmit = async () => {
           <n-input
             v-model:value="edituserFormData.title"
             :placeholder="t('请输入称号')"
-            maxlength="12" show-count clearable
-          />
+            show-count clearable
+          >
+            <template #count="{ value }">
+              <span :style="value.replace(/[\u4e00-\u9fa5]/g, 'aa').length > 20 ? 'color: var(--color-error);' : ''">
+                {{ value.replace(/[\u4e00-\u9fa5]/g, 'aa').length + ' / 20' }}
+              </span>
+            </template>
+          </n-input>
           <div class="form-label">
             <n-icon :size="15"><FaceRetouchingNaturalFilled /></n-icon>
             {{ t('头像') }}

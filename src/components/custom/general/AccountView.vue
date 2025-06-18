@@ -10,13 +10,11 @@ import {
   EditNoteOutlined,
 } from '@vicons/material'
 import { useStore } from '@/store'
-import type { UserConfigModel } from '@/models/config-user'
 import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
 import { getImgCdnUrl } from '@/tools/item'
 import { useNbbCloud } from '@/tools/nbb-cloud'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
 const displayLoginModal = inject<(action: "login" | "register" | "edituser") => void>('displayLoginModal')!
 const displayCloudSyncModal = inject<() => {}>('displayCloudSyncModal')!
@@ -35,7 +33,11 @@ interface AccountViewProps {
 defineProps<AccountViewProps>()
 
 onMounted(async () => {
-  if (cloudConfig.value.nbb_account_token) {
+  const nextUpdateTime = cloudConfig.value.nbb_userinfo_last_update + 5000
+  if (
+    cloudConfig.value.nbb_account_token
+    && Date.now() >= nextUpdateTime
+  ) {
     const response = await updateUserInfo()
     if (response.errno) {
       console.warn('User info auto update failed.\n', response)
@@ -50,7 +52,9 @@ onMounted(async () => {
 })
 
 const avatarUrl = computed(() => {
-  if (cloudConfig.value.nbb_account_avatar) {
+  if (cloudConfig.value.nbb_account_avatar_vip) {
+    return cloudConfig.value.nbb_account_avatar_vip
+  } else if (cloudConfig.value.nbb_account_avatar) {
     return getImgCdnUrl(cloudConfig.value.nbb_account_avatar)
   } else {
     return './image/game-job/companion/none.png'
@@ -62,7 +66,7 @@ const userNickName = computed(() => {
 const userLoggedIn = computed(() => !!cloudConfig.value.nbb_account_token)
 const userTitle = computed(() => {
   if (!userLoggedIn.value) return '-'
-  return userConfig.value.user_custom_title || '-'
+  return cloudConfig.value.nbb_account_title || '-'
 })
 
 const handleLogin = () => {

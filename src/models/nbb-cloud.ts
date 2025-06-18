@@ -30,6 +30,7 @@ export interface ResdataRegisterAndLogin {
   world: string,
   avatar: string,
   vipAvatar?: string,
+  title?: string | null,
 }
 export interface ResdataGetList {
   id: number,

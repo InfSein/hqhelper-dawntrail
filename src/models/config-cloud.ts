@@ -9,6 +9,8 @@ export interface CloudConfigModel {
   nbb_account_avatar_vip: string,
   /** NBB云账户头像 */
   nbb_account_uid: number,
+  /** NBB云账户称号 */
+  nbb_account_title: string,
   /** NBB云账户昵称 */
   nbb_account_nickname: string,
   /** NBB云账户登录名 */
@@ -23,12 +25,16 @@ export interface CloudConfigModel {
   nbb_account_datacenter: string,
   /** NBB云账户-服务器 */
   nbb_account_world: string,
+
+  /** 上次刷新用户信息的时间戳 */
+  nbb_userinfo_last_update: number,
 }
 
 const defaultCloudConfig: CloudConfigModel = {
   nbb_account_avatar: 0,
   nbb_account_avatar_vip: '',
   nbb_account_uid: 0,
+  nbb_account_title: '',
   nbb_account_nickname: '',
   nbb_account_loginname: '',
   nbb_account_email: '',
@@ -36,6 +42,7 @@ const defaultCloudConfig: CloudConfigModel = {
   nbb_account_country: '',
   nbb_account_datacenter: '',
   nbb_account_world: '',
+  nbb_userinfo_last_update: 0,
 }
 
 /**
