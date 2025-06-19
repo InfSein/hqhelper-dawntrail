@@ -1,6 +1,7 @@
 import {
   assignDefaults
 } from '@/tools'
+import type { HqList } from './nbb-cloud'
 
 export interface CloudConfigModel {
   /** NBB云账户头像 */
@@ -28,6 +29,8 @@ export interface CloudConfigModel {
 
   /** 上次刷新用户信息的时间戳 */
   nbb_userinfo_last_update: number,
+  /** NBB云账户-同步范围 */
+  nbb_sync_targets: HqList[] | "all",
 }
 
 const defaultCloudConfig: CloudConfigModel = {
@@ -43,6 +46,7 @@ const defaultCloudConfig: CloudConfigModel = {
   nbb_account_datacenter: '',
   nbb_account_world: '',
   nbb_userinfo_last_update: 0,
+  nbb_sync_targets: 'all',
 }
 
 /**

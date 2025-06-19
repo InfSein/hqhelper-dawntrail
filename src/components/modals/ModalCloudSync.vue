@@ -13,8 +13,8 @@ import {
 import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
 import { useStore } from '@/store'
-import type { UserConfigModel } from '@/models/config-user'
-import type { FuncConfigModel } from '@/models/config-func'
+import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
+import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { type CloudConfigModel } from '@/models/config-cloud'
 import { HqList, type NbbResponse } from '@/models/nbb-cloud'
 import { useNbbCloud } from '@/tools/nbb-cloud'
@@ -24,6 +24,7 @@ const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { retu
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
+const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -61,6 +62,7 @@ interface CloudList {
 const loadLists = async () => {
   loading.value = true
 
+  // 从远程拉取数据
   const clists = {} as Record<HqList, CloudList>
   const listTypes = Object.values(HqList).filter((v): v is HqList => typeof v === 'number')
   const response = await getListBatch(listTypes)
@@ -82,6 +84,17 @@ const loadLists = async () => {
     }
   }
   cloudLists.value = clists
+
+  // 设置默认同步范围
+  if (cloudConfig.value.nbb_sync_targets === 'all') {
+    for (const listtype of listTypes) {
+      syncRange.value[listtype] = true
+    }
+  } else {
+    for (const listtype of listTypes) {
+      syncRange.value[listtype] = cloudConfig.value.nbb_sync_targets.includes(listtype)
+    }
+  }
 
   loading.value = false
 }
@@ -174,6 +187,14 @@ const handleUpload = async () => {
     return
   }
 
+  if (!confirm(
+    t('确定要将本地数据上传到云端吗?') + '\n'
+    + t('这将覆盖云端的现有数据。')
+  )) {
+    syncing.value = false
+    return
+  }
+
   const failedModules : string[] = []
   for (const listtype of syncTargets.value) {
     const response = await dealUpload(listtype)
@@ -193,6 +214,12 @@ const handleUpload = async () => {
   } else {
     NAIVE_UI_MESSAGE.success(t('同步成功！'))
   }
+
+  // 将同步范围保存到缓存
+  const newCloudConfig = deepCopy(cloudConfig.value)
+  newCloudConfig.nbb_sync_targets = syncTargets.value
+  store.commit('setCloudConfig', newCloudConfig)
+  appForceUpdate()
 
   await loadLists()
   syncing.value = false
@@ -287,6 +314,14 @@ const handleDownload = async () => {
     return
   }
 
+  if (!confirm(
+    t('确定要将云端数据下载到本地吗?') + '\n'
+    + t('这将覆盖本地的现有数据。')
+  )) {
+    syncing.value = false
+    return
+  }
+
   let configChanged = false
 
   // #region Sync user config
@@ -329,6 +364,7 @@ const handleDownload = async () => {
 
   if (JSON.stringify(oldUserConfig) !== JSON.stringify(newUserConfig)) {
     configChanged = true
+    newUserConfig = fixUserConfig(newUserConfig)
     store.commit('setUserConfig', newUserConfig)
   } else {
     console.log('[CloudSync] Tip: no changes for userConfig.')
@@ -366,11 +402,17 @@ const handleDownload = async () => {
 
   if (JSON.stringify(oldFuncConfig) !== JSON.stringify(newFuncConfig)) {
     configChanged = true
+    newFuncConfig = fixFuncConfig(newFuncConfig)
     store.commit('setFuncConfig', newFuncConfig)
   } else {
     console.log('[CloudSync] Tip: no changes for funcConfig.')
   }
   // #endregion
+  
+  // 将同步范围保存到缓存
+  const newCloudConfig = deepCopy(cloudConfig.value)
+  newCloudConfig.nbb_sync_targets = syncTargets.value
+  store.commit('setCloudConfig', newCloudConfig)
 
   syncing.value = false
   if (configChanged) {
@@ -475,7 +517,7 @@ const handleDownload = async () => {
       display: flex;
       flex-direction: column;
       gap: 5px;
-      padding: 0 6px;
+      padding: 1px 6px 3px;
 
       .desc>.text {
         line-height: 1;
@@ -485,16 +527,25 @@ const handleDownload = async () => {
     }
   }
   .start-sync-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 2em 6em;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 10px;
+    padding: 0 12px;
 
-    .sync-button-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    button {
+      padding: 12px 12px 24px 12px;
+      border: 1px solid transparent;
+      border-radius: 3px;
+
+      .sync-button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    button:hover {
+      border-color: var(--n-text-color-hover);
     }
   }
 }
