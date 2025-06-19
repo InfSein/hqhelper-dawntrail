@@ -59,9 +59,20 @@ const inventorySettingItems = computed(() : Setting[] => {
       type: 'switch',
       warnings: dealDesc([
         t('开启此项后，工作流的“{f1}”页面将追加“{f2}”按钮。', {
-          f1: t('报表'), f2: t('与背包库存同步')
+          f1: t('报表'), f2: t('从背包库存同步')
         }),
         t('点击按钮后便会将报表中的“已有”数量设置为背包库存的数量。')
+      ]),
+    },
+    {
+      key: 'inventory_workflow_enable_sync_reverse',
+      label: t('在工作流中启用背包库存反向同步'),
+      type: 'switch',
+      warnings: dealDesc([
+        t('开启此项后，工作流的“{f1}”页面将追加“{f2}”按钮。', {
+          f1: t('报表'), f2: t('同步到背包库存')
+        }),
+        t('点击按钮后便会将背包库存的数量设置为报表中的“已有”数量。')
       ]),
     },
     {
@@ -74,6 +85,19 @@ const inventorySettingItems = computed(() : Setting[] => {
       ],
       warnings: dealDesc([
         t('决定自动同步或手动同步时，对不在背包库存中的物品要如何处理。'),
+      ]),
+    },
+    {
+      key: 'inventory_sync_reverse_mode',
+      label: t('反向同步模式'),
+      type: 'select',
+      options: [
+        { label: t('宽松'), value: 'loose', description: t('忽略“已有”数量为0的物品和不在报表中的物品') },
+        { label: t('严格'), value: 'strict', description: t('同步“已有”数量为0的物品，忽略不在报表中的物品') },
+        { label: t('覆写'), value: 'overwrite', description: t('完全重置库存，以报表数据覆盖现有库存') },
+      ],
+      warnings: dealDesc([
+        t('决定反向同步时，对“已有”数量为0的物品和不在报表中的物品要如何处理。'),
       ]),
     },
   ]
@@ -180,6 +204,7 @@ const handleSave = () => {
 .pane-container {
   padding: 0 5px;
   height: 400px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 5px;

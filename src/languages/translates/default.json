@@ -7607,7 +7607,7 @@
       "views\\WorkflowPage.vue"
     ]
   },
-  "与背包库存同步": {
+  "从背包库存同步": {
     "en": "Synchronize with In-game inventory",
     "ja": "「在庫一覧」と同期する",
     "$files": [
