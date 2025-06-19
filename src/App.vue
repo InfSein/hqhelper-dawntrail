@@ -8,8 +8,11 @@ import {
   type GlobalThemeOverrides
 } from 'naive-ui'
 import AppHeader from './components/custom/general/AppHeader.vue'
+import AccountView from './components/custom/general/AccountView.vue'
 import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
 import ModalCheckUpdates from './components/modals/ModalCheckUpdates.vue'
+import ModalLogin from '@/components/modals/ModalLogin.vue'
+import ModalCloudSync from './components/modals/ModalCloudSync.vue'
 import { useRoute } from 'vue-router'
 import { useStore } from '@/store/index'
 import { t } from '@/languages'
@@ -18,6 +21,7 @@ import { checkAppUpdates, CopyToClipboard, sleep } from './tools'
 import EorzeaTime from './tools/eorzea-time'
 import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from './models/config-func'
+import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
 import AppStatus from './variables/app-status'
 import ModalFestivalEgg from './components/modals/ModalFestivalEgg.vue'
 
@@ -27,6 +31,7 @@ const i18n = injectVoerkaI18n()
 
 const userConfig = ref<UserConfigModel>(fixUserConfig(store.state.userConfig))
 const funcConfig = ref<FuncConfigModel>(fixFuncConfig(store.state.funcConfig, store.state.userConfig))
+const cloudConfig = ref<CloudConfigModel>(fixCloudConfig(store.state.cloudConfig))
 const locale = computed(() => {
   return userConfig.value?.language_ui ?? 'zh'
 })
@@ -79,6 +84,7 @@ const appForceUpdate = () => {
   // Update user config
   userConfig.value = fixUserConfig(store.state.userConfig)
   funcConfig.value = fixFuncConfig(store.state.funcConfig, store.state.userConfig)
+  cloudConfig.value = fixCloudConfig(store.state.cloudConfig)
   // Update i18n
   i18n.activeLanguage = locale.value
   // Update vue
@@ -92,6 +98,7 @@ const switchTheme = () => {
 
 provide('userConfig', userConfig)
 provide('funcConfig', funcConfig)
+provide('cloudConfig', cloudConfig)
 provide('t', (message: string, ...args: any[]) => {
   const i18nResult = t(message, ...args)
   if (/^[1-9]\d*$/.test(i18nResult)) {
@@ -143,6 +150,20 @@ const displayCheckUpdatesModal = () => {
   showCheckUpdatesModal.value = true
 }
 provide('displayCheckUpdatesModal', displayCheckUpdatesModal)
+
+const loginAction = ref<"login" | "register" | "edituser">('login')
+const showModalLogin = ref(false)
+const displayLoginModal = (action: "login" | "register" | "edituser") => {
+  loginAction.value = action
+  showModalLogin.value = true
+}
+provide('displayLoginModal', displayLoginModal)
+
+const showModalCloudSync = ref(false)
+const displayCloudSyncModal = () => {
+  showModalCloudSync.value = true
+}
+provide('displayCloudSyncModal', displayCloudSyncModal)
 
 const appClass = computed(() => {
   const classes = [
@@ -271,6 +292,8 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
           <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
             <router-view />
           </n-layout-content>
+          
+          <AccountView v-if="!isMobile && appMode !== 'overlay'" trigger-class="account-view" />
         </n-layout>
         
         <ModalCopyAsMacro
@@ -278,6 +301,13 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
           :macro-map="macroMapValue"
         />
         <ModalCheckUpdates v-model:show="showCheckUpdatesModal" />
+        <ModalLogin
+          v-model:show="showModalLogin"
+          :default-tab="loginAction"
+        />
+        <ModalCloudSync
+          v-model:show="showModalCloudSync"
+        />
         <ModalFestivalEgg v-model:show="showFestivalEgg" />
       </div>
     </n-message-provider>

@@ -106,7 +106,7 @@ const defaultUserConfig: UserConfigModel = {
   update_client_builtin: false,
   use_custom_proxy: false,
   custom_proxy_url: '',
-  
+
   // tome-script-button
   tomescript_show_bicolor_items: false,
 
