@@ -174,6 +174,21 @@ const getUpdateTimeText = (time: number) => {
   return t('还未上传')
 }
 
+const handleSelectAll = () => {
+  for (const listtype of Object.values(HqList)) {
+    if (typeof listtype === 'number') {
+      syncRange.value[listtype] = true
+    }
+  }
+}
+const handleSelectRevert = () => {
+  for (const listtype of Object.values(HqList)) {
+    if (typeof listtype === 'number') {
+      syncRange.value[listtype] = !syncRange.value[listtype]
+    }
+  }
+}
+
 const handleUpload = async () => {
   syncing.value = true
 
@@ -444,6 +459,10 @@ const handleDownload = async () => {
             <div class="card-title">
               <n-icon><ChecklistRtlOutlined /></n-icon>
               <span class="title">{{ t('同步范围') }}</span>
+              <div class="card-title-actions font-small">
+                <a href="javascript:void(0)" @click="handleSelectAll">[{{ t('全选') }}]</a>
+                <a href="javascript:void(0)" @click="handleSelectRevert">[{{ t('反选') }}]</a>
+              </div>
             </div>
           </template>
 
@@ -511,7 +530,7 @@ const handleDownload = async () => {
     display: grid;
     grid-template-columns: repeat(2, minmax(0,1fr));
     gap: 10px;
-    padding: 0 12px;
+    padding: 3px 12px;
 
     .sync-range-container {
       display: flex;
