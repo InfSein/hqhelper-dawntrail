@@ -7408,9 +7408,9 @@
       "components\\modals\\ModalPreferences.vue"
     ]
   },
-  "如果你不需要让制作报表计算各种碎晶/水晶/晶簇，可以考虑打开此选项。": {
+  "如果你不需要让制作报表计算各种碎晶／水晶／晶簇，可以考虑打开此选项。": {
     "en": "If you don't need to make reports to calculate various Shard/Crystal/Cluster, you can consider turning on this option.",
-    "ja": "製作レポートで各種シャード/クリスタル/クラスターの計算が必要ない場合、このオプションを有効にできます。",
+    "ja": "製作レポートで各種シャード／クリスタル／クラスターの計算が必要ない場合、このオプションを有効にできます。",
     "$files": [
       "components\\modals\\ModalPreferences.vue"
     ]

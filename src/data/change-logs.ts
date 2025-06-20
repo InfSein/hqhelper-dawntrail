@@ -45,6 +45,12 @@ export interface PatchChangeGroup {
         }
       ]
     },
+
+            t('“{f1}”的“{f2}”选项卡中追加了设置项“{f3}”。', {
+              f1: t('偏好设置'),
+              f2: t('制作报表'),
+              f3: t('忽略水晶素材')
+            }),
  */
 
 import { t } from '@/languages'
@@ -63,6 +69,46 @@ export const getChangelogs = (
   }
   const isZh = ui_lang === 'zh'
   return [
+    {
+      version: '2.2.6',
+      date: '2025-06-24',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('国服数据库更新至{ver}。', {
+              ver: '7.2'
+            }),
+            t('实装全新功能「云端同步」。')
+              + '<br>' + t('将自己的偏好设置与生产宏、背包库存等数据上传到云端，从而便捷备份和恢复，也可以在多端设备之间保持同步。')
+              + '<br>※ ' + t('需要注册和登录方可使用。账号与NBB配方计算器(5p.nbbjack.com)的账号互通。')
+              + '<br>※ ' + t('移动端暂未实装云端同步功能，将在后续版本追加。')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/06/20/6855000d829df.png'),
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('修复了主窗口在少数情况下可能因为采集时钟悬浮窗的设置而置顶的问题。'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('“{f1}”的“{f2}”选项卡中追加了设置项“{f3}”。', {
+              f1: t('偏好设置'),
+              f2: t('增强'),
+              f3: t('物品悬浮窗中显示水晶素材')
+            })
+              + '<br>' + t('开启此项后，对于可制作道具，其物品悬浮窗的制作模块将显示制作它所需的碎晶／水晶／晶簇。')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/06/20/68550174d1113.png'),
+            t('背包库存中追加了反向同步功能的相关设置。')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/06/20/685501d6210d6.png'),
+            t('优化了客户端拖拽区域的构建方式，现在有更多的位置支持长按拖拽。')
+          ]
+        }
+      ]
+    },
     {
       version: '2.2.5',
       date: '2025-06-12',

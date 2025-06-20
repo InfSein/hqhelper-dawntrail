@@ -234,7 +234,7 @@ const preferenceGroups : PreferenceGroup[] = [
             label: t('物品悬浮窗中显示水晶素材'),
             hide: isMobile.value,
             descriptions: dealDescriptions([
-              t('开启此项后，对于可制作道具，其物品悬浮窗的制作模块将显示制作它所需的碎晶/水晶/晶簇。'),
+              t('开启此项后，对于可制作道具，其物品悬浮窗的制作模块将显示制作它所需的碎晶／水晶／晶簇。'),
             ]),
             type: 'switch'
           },
@@ -489,7 +489,7 @@ const preferenceGroups : PreferenceGroup[] = [
             key: 'statement_ignore_crystals',
             label: t('忽略水晶素材'),
             descriptions: dealDescriptions([
-              t('如果你不需要让制作报表计算各种碎晶/水晶/晶簇，可以考虑打开此选项。'),
+              t('如果你不需要让制作报表计算各种碎晶／水晶／晶簇，可以考虑打开此选项。'),
             ]),
             type: 'switch'
           },
