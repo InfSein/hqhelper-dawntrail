@@ -28,7 +28,7 @@ const {
 } = useNbbCloud(cloudConfig)
 
 interface AccountViewProps {
-  triggerClass: string
+  triggerClass?: string
 }
 defineProps<AccountViewProps>()
 

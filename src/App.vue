@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, provide, ref, getCurrentInstance, onMounted, watch } from 'vue'
+import { computed, provide, ref, getCurrentInstance, onMounted, watch, onBeforeUnmount } from 'vue'
 import {
   darkTheme, lightTheme, useOsTheme,
   zhCN, enUS, jaJP, dateZhCN, dateEnUS, dateJaJP,
@@ -44,8 +44,6 @@ const isMobile = ref(false)
 const updateIsMobile = () => {
   isMobile.value = window.innerWidth < window.innerHeight
 }
-updateIsMobile()
-window.addEventListener('resize', updateIsMobile)
 
 const osTheme = useOsTheme()
 const theme = computed(() => {
@@ -240,7 +238,15 @@ onMounted(async () => {
     newConfig.last_triggered_egg = eggId
     store.commit('setUserConfig', newConfig)
   }
+  // 处理 UI
   updateIsMobile()
+  window.addEventListener('resize', updateIsMobile)
+  updateDraggableArea()
+  window.addEventListener('resize', updateDraggableArea)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateIsMobile)
+  window.removeEventListener('resize', updateDraggableArea)
 })
 watch(
   () => route.query.mode,
@@ -249,6 +255,32 @@ watch(
     updateIsMobile()
   }
 )
+
+const updateDraggableArea = () => {
+  const dragArea = document.getElementById('drag-area')
+  const appLayoutHeader = document.getElementById('app-layout-header')
+  if (dragArea && appLayoutHeader && window.electronAPI && appMode.value !== 'overlay') {
+    dragArea.innerHTML = ''
+
+    const regions = [
+      { top: 0, left: 0, width: appLayoutHeader.offsetWidth - 145, height: appLayoutHeader.offsetHeight },
+    ]
+
+    for (const { top, left, width, height } of regions) {
+      const div = document.createElement('div')
+      Object.assign(div.style, {
+        position: 'fixed',
+        top: `${top}px`,
+        left: `${left}px`,
+        width: `${width}px`,
+        height: `${height}px`,
+        WebkitAppRegion: 'drag',
+        'z-index': '-1',
+      })
+      dragArea.appendChild(div)
+    }
+  }
+}
 
 const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
   let fontFamily = 'Lato, -apple-system, Helvetica Neue, Segoe UI, Microsoft Yahei, 微软雅黑, Arial, Helvetica, sans-serif'
@@ -284,12 +316,11 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
     <n-message-provider :placement="naiveUiMessagePlacement">
       <div :class="appClass" :data-theme="theme">
         <n-layout id="main-layout" position="absolute" :native-scrollbar="false">
-          <n-layout-header v-if="appMode !== 'overlay'" bordered position="absolute">
-            <AppHeader />
-            <!-- <div class="draggable-view" /> -->
+          <n-layout-header v-if="appMode !== 'overlay'" id="app-layout-header" position="absolute" bordered>
+            <AppHeader class="app-header" />
           </n-layout-header>
 
-          <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
+          <n-layout-content id="main-content" :native-scrollbar="false">
             <router-view />
           </n-layout-content>
           
@@ -315,8 +346,11 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
 </template>
 
 <style scoped>
-.env-electron :deep(.n-layout-header) {
-  -webkit-app-region: drag;
+#app-layout-header {
+  .app-header {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 :deep(#main-content>.n-scrollbar>.n-scrollbar-container) {
