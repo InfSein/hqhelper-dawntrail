@@ -513,7 +513,7 @@ const resolveRouterMenuOption = (menuOption: RouterMenuOption) => {
         trigger: () => h(
           'div',
           {
-            class: 'flex-vac gap-2',
+            class: 'w-full flex-vac gap-2',
             style: `
               padding: 0 4px;
             `,
@@ -526,7 +526,7 @@ const resolveRouterMenuOption = (menuOption: RouterMenuOption) => {
                 size: 'small',
                 disabled: currentlyOnPage || menuOption.disabled,
                 class: 'appheader-menu-button',
-                style: menuOption.allowNewWindow ? '' : 'width: 100%;',
+                style: menuOption.allowNewWindow ? 'flex: 1;' : 'width: 100%;',
                 onClick: redirectToPage,
               },
               {

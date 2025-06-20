@@ -1,5 +1,5 @@
 {
-  "hqhelper": "2.2.4",
+  "hqhelper": "2.2.5",
   "electron": "v6",
   "dlink_hqhelper": "~PROXYhttps://github.com/InfSein/hqhelper-dawntrail/releases/download/v~VERSION/static-pages.zip",
   "dlink_electron": "~PROXYhttps://github.com/InfSein/hqhelper-dawntrail/releases/download/electron.~VERSION/HqHelper.Setup.exe",
