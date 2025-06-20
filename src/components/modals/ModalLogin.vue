@@ -151,6 +151,8 @@ const handleSaveLoginInfo = (data: ResdataRegisterAndLogin) => {
 const handleSendVerify = async (email: string) => {
   if (!email) {
     NAIVE_UI_MESSAGE.error(t('请输入{val}', t('邮箱'))); return
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    NAIVE_UI_MESSAGE.error(t('邮箱格式错误')); return
   }
   isSendingVerify.value = true
   const verifyFunc = loginAction.value === 'resetpass' ? sendVerifyForResetPassword : sendVerify
