@@ -123,7 +123,7 @@ const handleLogout = () => {
       <n-divider style="margin: 4px 0" />
       <div v-if="!userLoggedIn" class="unlogged-wrapper">
         <div class="group-title">
-          {{ t('账户') }}
+          {{ t('账号') }}
         </div>
         <n-button
           type="primary"
@@ -151,7 +151,7 @@ const handleLogout = () => {
           {{ t('同步') }}
         </n-button>
         <div class="group-title">
-          {{ t('账户') }}
+          {{ t('账号') }}
         </div>
         <n-button @click="handleEditUserInfo">
           <template #icon><n-icon><EditNoteOutlined /></n-icon></template>

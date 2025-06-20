@@ -7607,14 +7607,6 @@
       "views\\WorkflowPage.vue"
     ]
   },
-  "从背包库存同步": {
-    "en": "Synchronize with In-game inventory",
-    "ja": "「在庫一覧」と同期する",
-    "$files": [
-      "views\\WorkflowPage.vue",
-      "components\\modals\\ModalInventory.vue"
-    ]
-  },
   "导出失败：{err}": {
     "en": "Exporting failed: {err}",
     "ja": "エクスポート失敗：{err}",
@@ -7838,6 +7830,614 @@
     "ja": "新しいウィンドウで{tool}を開く",
     "$files": [
       "components\\custom\\general\\AppHeader.vue"
+    ]
+  },
+  "实装全新功能「云端同步」。": {
+    "en": "Implement the new feature 'Cloud Sync'.",
+    "ja": "实装全新功能「云端同步」。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "将自己的偏好设置与生产宏、背包库存等数据上传到云端，从而便捷备份和恢复，也可以在多端设备之间保持同步。": {
+    "en": "Upload your preference settings, craft macros, inventory, and other data to the cloud for convenient backup and recovery, as well as synchronization between multiple devices.",
+    "ja": "将自己的偏好设置与生产宏、背包库存等数据上传到云端，从而便捷备份和恢复，也可以在多端设备之间保持同步。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "需要注册和登录方可使用。账号与NBB配方计算器(5p.nbbjack.com)的账号互通。": {
+    "en": "Registration and login are required to use. The account is interoperable with the NBB recipe calculator (5p.nbbjack.com).",
+    "ja": "需要注册和登录方可使用。账号与NBB配方计算器(5p.nbbjack.com)的账号互通。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "移动端暂未实装云端同步功能，将在后续版本追加。": {
+    "en": "The function has not been implemented on mobile devices yet and will be added in future versions.",
+    "ja": "移动端暂未实装云端同步功能，将在后续版本追加。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了主窗口在少数情况下可能因为采集时钟悬浮窗的设置而置顶的问题。": {
+    "en": "Fixed the issue where the main window may be pinned to the top in rare cases due to the setting of the gatherclock overlay.",
+    "ja": "修复了主窗口在少数情况下可能因为采集时钟悬浮窗的设置而置顶的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "物品悬浮窗中显示水晶素材": {
+    "en": "Show crystals in item pop",
+    "ja": "物品悬浮窗中显示水晶素材",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "开启此项后，对于可制作道具，其物品悬浮窗的制作模块将显示制作它所需的碎晶／水晶／晶簇。": {
+    "en": "After enabling this option, for items that can be craftted, the craft module of the item pop will display the required Shard/Crystal/Cluster.",
+    "ja": "开启此项后，对于可制作道具，其物品悬浮窗的制作模块将显示制作它所需的碎晶／水晶／晶簇。",
+    "$files": [
+      "data\\change-logs.ts",
+      "components\\modals\\ModalPreferences.vue"
+    ]
+  },
+  "背包库存中追加了反向同步功能的相关设置。": {
+    "en": "The in-game inventory has added relevant settings for reverse synchronization function.",
+    "ja": "背包库存中追加了反向同步功能的相关设置。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了客户端拖拽区域的构建方式，现在有更多的位置支持长按拖拽。": {
+    "en": "Optimized the construction method of the client drag and drop area, now there are more positions that support long press drag and drop.",
+    "ja": "优化了客户端拖拽区域的构建方式，现在有更多的位置支持长按拖拽。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "将背包库存的数量设置为报表中的“已有”数量。": {
+    "en": "Set the inventory quantity to the 'Prepared' quantity in the statement.",
+    "ja": "将背包库存的数量设置为报表中的“已有”数量。",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "从背包库存同步": {
+    "en": "Sync from inventory",
+    "ja": "从背包库存同步",
+    "$files": [
+      "views\\WorkflowPage.vue",
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "同步到背包库存": {
+    "en": "Sync to inventory",
+    "ja": "同步到背包库存",
+    "$files": [
+      "views\\WorkflowPage.vue",
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "工作状态": {
+    "en": "Work States",
+    "ja": "工作状态",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "主界面": {
+    "en": "Main interface",
+    "ja": "主界面",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "上次上传：{time}": {
+    "en": "Last upload: {time}",
+    "ja": "上次上传：{time}",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "还未上传": {
+    "en": "Not uploaded yet",
+    "ja": "还未上传",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "同步无法进行，因为以下模块的数据加载失败：": {
+    "en": "Synchronization cannot proceed because the data loading for the following modules failed:",
+    "ja": "同步无法进行，因为以下模块的数据加载失败：",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "请考虑刷新页面以重试。": {
+    "en": "Please consider refreshing the page to retry.",
+    "ja": "请考虑刷新页面以重试。",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "确定要将本地数据上传到云端吗?": {
+    "en": "Are you sure you want to upload local data to the cloud?",
+    "ja": "确定要将本地数据上传到云端吗?",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "这将覆盖云端的现有数据。": {
+    "en": "This will overwrite the existing data in the cloud.",
+    "ja": "这将覆盖云端的现有数据。",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "同步{mod}时发生错误：{err}": {
+    "en": "An error occurred while synchronizing {mod}: {err}",
+    "ja": "同步{mod}时发生错误：{err}",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "以下模块同步失败：": {
+    "en": "The following modules failed to synchronize:",
+    "ja": "以下模块同步失败：",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "同步成功！": {
+    "en": "Synchronization successful!",
+    "ja": "同步成功！",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "同步无法进行，因为以下模块还没有上传过数据：": {
+    "en": "Synchronization cannot proceed because the following modules have not yet uploaded data:",
+    "ja": "同步无法进行，因为以下模块还没有上传过数据：",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "请先上传数据。": {
+    "en": "请先上传数据。",
+    "ja": "请先上传数据。",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "确定要将云端数据下载到本地吗?": {
+    "en": "Are you sure you want to download cloud data to the local?",
+    "ja": "确定要将云端数据下载到本地吗?",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "这将覆盖本地的现有数据。": {
+    "en": "This will overwrite the existing local data.",
+    "ja": "这将覆盖本地的现有数据。",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "由于物品价格服务器设置发生了变更，物品价格缓存已被清除。": {
+    "en": "Due to a change in the item price server settings, the item price cache has been cleared.",
+    "ja": "由于物品价格服务器设置发生了变更，物品价格缓存已被清除。",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "页面将重载以应用更改。": {
+    "en": "The page will reload to apply the changes.",
+    "ja": "页面将重载以应用更改。",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "本地数据与云端一致": {
+    "en": "Local data is consistent with cloud data",
+    "ja": "本地数据与云端一致",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "数据同步": {
+    "en": "Data synchronization",
+    "ja": "数据同步",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "同步范围": {
+    "en": "Synchronizing range",
+    "ja": "同步范围",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "全选": {
+    "en": "Select All",
+    "ja": "全选",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "反选": {
+    "en": "Select Invert",
+    "ja": "反选",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "加载中……": {
+    "en": "Loading...",
+    "ja": "加载中……",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "开始同步": {
+    "en": "Start synchronizing",
+    "ja": "开始同步",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "将本地数据上传到云端": {
+    "en": "Upload local data to cloud",
+    "ja": "将本地数据上传到云端",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "将云端数据下载到本地": {
+    "en": "Download cloud data to local",
+    "ja": "将云端数据下载到本地",
+    "$files": [
+      "components\\modals\\ModalCloudSync.vue"
+    ]
+  },
+  "在工作流中启用背包库存反向同步": {
+    "en": "Enable inventory reverse synchronization in workflow",
+    "ja": "在工作流中启用背包库存反向同步",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "点击按钮后便会将背包库存的数量设置为报表中的“已有”数量。": {
+    "en": "After clicking the button, the inventory quantity will be set to the 'Prepared' quantity in the statement.",
+    "ja": "点击按钮后便会将背包库存的数量设置为报表中的“已有”数量。",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "反向同步模式": {
+    "en": "Reverse synchronization mode",
+    "ja": "反向同步模式",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "宽松": {
+    "en": "Loose",
+    "ja": "宽松",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "忽略“已有”数量为0的物品和不在报表中的物品": {
+    "en": "Ignore items with 'Prepared' quantity of 0 and items not in the statement",
+    "ja": "忽略“已有”数量为0的物品和不在报表中的物品",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "严格": {
+    "en": "Strict",
+    "ja": "严格",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "同步“已有”数量为0的物品，忽略不在报表中的物品": {
+    "en": "Synchronize items with 'Prepared' quantity of 0, ignore items not in the statement",
+    "ja": "同步“已有”数量为0的物品，忽略不在报表中的物品",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "完全重置库存，以报表数据覆盖现有库存": {
+    "en": "Completely reset inventory and overwrite existing inventory with statement data",
+    "ja": "完全重置库存，以报表数据覆盖现有库存",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "决定反向同步时，对“已有”数量为0的物品和不在报表中的物品要如何处理。": {
+    "en": "Determine how to handle items with zero 'Prepared' quantity and items that are not in the statement when performing reverse synchronization.",
+    "ja": "决定反向同步时，对“已有”数量为0的物品和不在报表中的物品要如何处理。",
+    "$files": [
+      "components\\modals\\ModalInventory.vue"
+    ]
+  },
+  "重置密码": {
+    "en": "Reset password",
+    "ja": "重置密码",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "注册": {
+    "en": "Register",
+    "ja": "注册",
+    "$files": [
+      "components\\modals\\ModalLogin.vue",
+      "components\\custom\\general\\AccountView.vue"
+    ]
+  },
+  "编辑账号信息": {
+    "en": "Edit account information",
+    "ja": "编辑账号信息",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "登录": {
+    "en": "Login",
+    "ja": "登录",
+    "$files": [
+      "components\\modals\\ModalLogin.vue",
+      "components\\custom\\general\\AccountView.vue"
+    ]
+  },
+  "{count}秒后可再次发送": {
+    "en": "can be sent again in {count} seconds",
+    "ja": "{count}秒后可再次发送",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "发送验证码": {
+    "en": "Send verification code",
+    "ja": "发送验证码",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "{key}过长": {
+    "en": "{key} is too long",
+    "ja": "{key}过长",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "操作成功": {
+    "en": "Operation successful",
+    "ja": "操作成功",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "已发送验证码": {
+    "en": "Verification code sent",
+    "ja": "已发送验证码",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "发送失败：{err}": {
+    "en": "Send failed: {err}",
+    "ja": "发送失败：{err}",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "登录成功": {
+    "en": "Login successful",
+    "ja": "登录成功",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "昵称": {
+    "en": "Nickname",
+    "ja": "昵称",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "注册成功": {
+    "en": "Register successful",
+    "ja": "注册成功",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "重置密码成功": {
+    "en": "Reset password successful",
+    "ja": "重置密码成功",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "修改昵称/称号失败：{err}": {
+    "en": "Failed to modify nickname/title: {err}",
+    "ja": "修改昵称/称号失败：{err}",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "修改头像失败：{err}": {
+    "en": "Failed to modify avatar: {err}",
+    "ja": "修改头像失败：{err}",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "提交失败：{err}": {
+    "en": "Submit failed: {err}",
+    "ja": "提交失败：{err}",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "账号": {
+    "en": "Account",
+    "ja": "账号",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "请输入登录名或邮箱": {
+    "en": "Please input login name or email",
+    "ja": "请输入登录名或邮箱",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "密码": {
+    "en": "Password",
+    "ja": "密码",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "注册账号": {
+    "en": "Register",
+    "ja": "注册账号",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "忘记密码": {
+    "en": "Forget password",
+    "ja": "忘记密码",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "邮箱": {
+    "en": "Email",
+    "ja": "邮箱",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "验证码": {
+    "en": "Verify code",
+    "ja": "验证码",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "登录名": {
+    "en": "Loginname",
+    "ja": "登录名",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "已有账号?": {
+    "en": "Already have an account?",
+    "ja": "已有账号?",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "点此登录": {
+    "en": "Click to login",
+    "ja": "点此登录",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "请输入注册时填写的邮箱": {
+    "en": "Please input the email registered",
+    "ja": "请输入注册时填写的邮箱",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "新密码": {
+    "en": "New password",
+    "ja": "新密码",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "请输入新密码": {
+    "en": "Please input new password",
+    "ja": "请输入新密码",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "返回登录": {
+    "en": "Back to login",
+    "ja": "返回登录",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "称号": {
+    "en": "Title",
+    "ja": "称号",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "头像": {
+    "en": "Avatar",
+    "ja": "头像",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "选择头像": {
+    "en": "Select avatar",
+    "ja": "选择头像",
+    "$files": [
+      "components\\modals\\ModalNbbAvatarSelector.vue"
+    ]
+  },
+  "未登录": {
+    "en": "Not Logged In",
+    "ja": "未登录",
+    "$files": [
+      "components\\custom\\general\\AccountView.vue"
+    ]
+  },
+  "已退出登录": {
+    "en": "Logged out",
+    "ja": "已退出登录",
+    "$files": [
+      "components\\custom\\general\\AccountView.vue"
+    ]
+  },
+  "同步": {
+    "en": "Synchronous",
+    "ja": "同步",
+    "$files": [
+      "components\\custom\\general\\AccountView.vue"
+    ]
+  },
+  "登出": {
+    "en": "Log out",
+    "ja": "登出",
+    "$files": [
+      "components\\custom\\general\\AccountView.vue"
+    ]
+  },
+  "请输入{val}": {
+    "en": "Please input {val}",
+    "ja": "请输入{val}",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
     ]
   }
 }

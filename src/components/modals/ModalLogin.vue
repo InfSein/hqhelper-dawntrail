@@ -150,7 +150,7 @@ const handleSaveLoginInfo = (data: ResdataRegisterAndLogin) => {
 
 const handleSendVerify = async (email: string) => {
   if (!email) {
-    NAIVE_UI_MESSAGE.error(t('请输入邮箱')); return
+    NAIVE_UI_MESSAGE.error(t('请输入{val}', t('邮箱'))); return
   }
   isSendingVerify.value = true
   const verifyFunc = loginAction.value === 'resetpass' ? sendVerifyForResetPassword : sendVerify
@@ -176,9 +176,9 @@ const handleSubmit = async () => {
     isSubmitting.value = true
     if (loginAction.value === 'login') {
       if (!loginFormData.account) {
-        NAIVE_UI_MESSAGE.error(t('请输入账号')); return
+        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('账号'))); return
       } else if (!loginFormData.password) {
-        NAIVE_UI_MESSAGE.error(t('请输入密码')); return
+        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('密码'))); return
       }
       const response = await login(
         loginFormData.account, loginFormData.password
@@ -190,15 +190,15 @@ const handleSubmit = async () => {
       }
     } else if (loginAction.value === 'register') {
       if (!registerFormData.email) {
-        NAIVE_UI_MESSAGE.error(t('请输入邮箱')); return
+        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('邮箱'))); return
       } else if (!registerFormData.verifycode) {
-        NAIVE_UI_MESSAGE.error(t('请输入验证码')); return
+        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('验证码'))); return
       } else if (!registerFormData.loginname) {
-        NAIVE_UI_MESSAGE.error(t('请输入登录名')); return
+        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('登录名'))); return
       } else if (!registerFormData.nickname) {
-        NAIVE_UI_MESSAGE.error(t('请输入昵称')); return
+        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('昵称'))); return
       } else if (!registerFormData.password) {
-        NAIVE_UI_MESSAGE.error(t('请输入密码')); return
+        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('密码'))); return
       }
       const inputLenTooLong = handleCheckStrLength(registerFormData.nickname, 12, t('昵称'))
       if (inputLenTooLong) {
@@ -216,11 +216,11 @@ const handleSubmit = async () => {
       }
     } else if (loginAction.value === 'resetpass') {
       if (!resetpassFormData.email) {
-        NAIVE_UI_MESSAGE.error(t('请输入邮箱')); return
+        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('邮箱'))); return
       } else if (!resetpassFormData.verifycode) {
-        NAIVE_UI_MESSAGE.error(t('请输入验证码')); return
+        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('验证码'))); return
       } else if (!resetpassFormData.password) {
-        NAIVE_UI_MESSAGE.error(t('请输入密码')); return
+        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('密码'))); return
       }
       const response = await resetPassword(
         resetpassFormData.email,
@@ -233,9 +233,9 @@ const handleSubmit = async () => {
       }
     } else if (loginAction.value === 'edituser') {
       if (!edituserFormData.nickname) {
-        NAIVE_UI_MESSAGE.error(t('请输入昵称')); return
+        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('昵称'))); return
       }
-      const inputLenTooLong = handleCheckStrLength(edituserFormData.nickname, 12, t('昵称')) || handleCheckStrLength(edituserFormData.title, 20, t('头衔'))
+      const inputLenTooLong = handleCheckStrLength(edituserFormData.nickname, 12, t('昵称')) || handleCheckStrLength(edituserFormData.title, 20, t('称号'))
       if (inputLenTooLong) {
         NAIVE_UI_MESSAGE.error(inputLenTooLong); return
       }
@@ -305,7 +305,7 @@ const handleSubmit = async () => {
             type="password"
             v-model:value="loginFormData.password"
             show-password-on="click"
-            :placeholder="t('请输入密码')"
+            :placeholder="t('请输入{val}', t('密码'))"
           />
         </div>
         <div class="sub-links">
@@ -322,7 +322,7 @@ const handleSubmit = async () => {
           </div>
           <n-input
             v-model:value="registerFormData.email"
-            :placeholder="t('请输入邮箱')"
+            :placeholder="t('请输入{val}', t('邮箱'))"
           />
           <div class="form-label">
             <n-icon :size="15"><VerifiedUserFilled /></n-icon>
@@ -331,7 +331,7 @@ const handleSubmit = async () => {
           <n-input-group>
             <n-input
               v-model:value="registerFormData.verifycode"
-              :placeholder="t('请输入验证码')"
+              :placeholder="t('请输入{val}', t('验证码'))"
             />
             <n-button
               type="info"
@@ -348,7 +348,7 @@ const handleSubmit = async () => {
           </div>
           <n-input
             v-model:value="registerFormData.loginname"
-            :placeholder="t('请输入登录名')"
+            :placeholder="t('请输入{val}', t('登录名'))"
           />
           <div class="form-label">
             <n-icon :size="15"><BadgeFilled /></n-icon>
@@ -356,7 +356,7 @@ const handleSubmit = async () => {
           </div>
           <n-input
             v-model:value="registerFormData.nickname"
-            :placeholder="t('请输入昵称')"
+            :placeholder="t('请输入{val}', t('昵称'))"
             show-count clearable
           >
             <template #count="{ value }">
@@ -371,7 +371,7 @@ const handleSubmit = async () => {
           </div>
           <n-input
             v-model:value="registerFormData.password"
-            :placeholder="t('请输入密码')"
+            :placeholder="t('请输入{val}', t('密码'))"
           />
         </div>
         <div class="sub-links">
@@ -396,7 +396,7 @@ const handleSubmit = async () => {
           <n-input-group>
             <n-input
               v-model:value="resetpassFormData.verifycode"
-              :placeholder="t('请输入验证码')"
+              :placeholder="t('请输入{val}', t('验证码'))"
             />
             <n-button
               type="info"
@@ -428,7 +428,7 @@ const handleSubmit = async () => {
           </div>
           <n-input
             v-model:value="edituserFormData.nickname"
-            :placeholder="t('请输入昵称')"
+            :placeholder="t('请输入{val}', t('昵称'))"
             show-count clearable
           >
             <template #count="{ value }">
@@ -443,7 +443,7 @@ const handleSubmit = async () => {
           </div>
           <n-input
             v-model:value="edituserFormData.title"
-            :placeholder="t('请输入称号')"
+            :placeholder="t('请输入{val}', t('称号'))"
             show-count clearable
           >
             <template #count="{ value }">
