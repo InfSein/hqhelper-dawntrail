@@ -8439,5 +8439,12 @@
     "$files": [
       "components\\modals\\ModalLogin.vue"
     ]
+  },
+  "邮箱格式错误": {
+    "en": "Format of your email is incorrect",
+    "ja": "入力したメールアドレスは不正です",
+    "$files": [
+      "components\\modals\\ModalLogin.vue"
+    ]
   }
 }
