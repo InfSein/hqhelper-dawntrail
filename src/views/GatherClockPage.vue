@@ -161,7 +161,7 @@ const itemSortOptions = computed(() => {
 watch(
   () => workState.value.pinWindow,
   (newVal, oldVal) => {
-    if (window.electronAPI?.toggleAlwaysOnTop) {
+    if (canPinWindow.value) {
       if ((!oldVal && newVal) || (oldVal && !newVal)) {
         window.electronAPI!.toggleAlwaysOnTop()
       }

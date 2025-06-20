@@ -773,8 +773,14 @@ const handleCheckUpdates = async () => {
 <style scoped>
 /* Electron only */
 .env-electron .app-header {
-  width: fit-content;
-  -webkit-app-region: no-drag;
+  z-index: 1;
+  position: relative;
+  .app-info {
+    width: fit-content;
+  }
+  button, .app-info, .app-menu {
+    -webkit-app-region: no-drag;
+  }
 }
 
 /* All */

@@ -380,6 +380,14 @@ const handleSetStatementPreparedByInventory = () => {
     NAIVE_UI_MESSAGE.error('proStatementInstace Ref Notfound')
   }
 }
+const setInventoryByStatementPrepared = () => {
+  if (proStatementInstace?.value?.setInventoryByPreparedItems) {
+    proStatementInstace.value.setInventoryByPreparedItems()
+    NAIVE_UI_MESSAGE.success(t('同步成功'))
+  } else {
+    NAIVE_UI_MESSAGE.error('proStatementInstace Ref Notfound')
+  }
+}
 // #endregion
 </script>
 
@@ -497,13 +505,22 @@ const handleSetStatementPreparedByInventory = () => {
             :title="t('将报表中的“已有”数量设置为背包库存的数量。')"
             @click="handleSetStatementPreparedByInventory"
           >
-            [{{ t('与背包库存同步') }}]
+            [{{ t('从背包库存同步') }}]
+          </a>
+          <a
+            v-show="funcConfig.inventory_workflow_enable_sync_reverse && selectedAnaTab === 'statements'"
+            class="card-title-extra"
+            href="javascript:void(0);"
+            style="cursor: pointer;"
+            :title="t('将背包库存的数量设置为报表中的“已有”数量。')"
+            @click="setInventoryByStatementPrepared"
+          >
+            [{{ t('同步到背包库存') }}]
           </a>
         </template>
         <div class="block">
           <n-tabs v-model:value="selectedAnaTab" type="segment" animated class="h-full">
             <n-tab-pane name="statistics">
-              <!-- @vue-ignore -->
               <template #tab>
                 <div class="tab-title">
                   <n-icon :size="16"><QueryStatsFilled /></n-icon>
@@ -516,7 +533,6 @@ const handleSetStatementPreparedByInventory = () => {
               />
             </n-tab-pane>
             <n-tab-pane name="statements">
-              <!-- @vue-ignore -->
               <template #tab>
                 <div class="tab-title">
                   <n-icon :size="16"><TableViewOutlined /></n-icon>
@@ -540,7 +556,6 @@ const handleSetStatementPreparedByInventory = () => {
               transform: 'translate(0)',
               minHeight: pageHeightVals.recommProcessContainer,
             }">
-              <!-- @vue-ignore -->
               <template #tab>
                 <div class="tab-title">
                   <n-icon :size="16"><AllInclusiveSharp /></n-icon>
