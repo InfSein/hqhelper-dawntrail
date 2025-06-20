@@ -17,6 +17,13 @@
   }
 }
 
+.account-view {
+  position: absolute;
+  top: 36px;
+  right: 20px;
+  z-index: 2000;
+}
+
 .macro-name-container {
   line-height: 1.2;
 

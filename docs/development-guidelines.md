@@ -80,16 +80,13 @@ const wrapper = ref<HTMLElement>()
 const onLoad = () => {
 }
 
-const handleClose = () => {
-  showModal.value = false
-}
 </script>
 
 <template>
   <MyModal
     v-model:show="showModal"
     :icon="CodeSharp"
-    :title="t('复制宏')"
+    :title="t('')"
     max-width="350px"
     @on-load="onLoad"
   >

@@ -8,6 +8,7 @@ import {
 // } from '@vicons/material'
 import GroupBox from '@/components/templates/GroupBox.vue'
 import ItemStatementTable from '@/components/custom/item/ItemStatementTable.vue'
+import { useStore } from '@/store'
 import { type FuncConfigModel } from '@/models/config-func'
 import { deepCopy } from '@/tools'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
@@ -16,7 +17,9 @@ import type { ProStatementBlock } from '@/tools/use-fufu-cal'
 // const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
-// const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
+const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
+
+const store = useStore()
 
 const itemsPrepared = defineModel<{
   craftTarget: Record<number, number>;
@@ -102,10 +105,45 @@ const setPreparedItemsByInventory = () => {
     })
   }
 }
+const setInventoryByPreparedItems = () => {
+  const statementItems : Record<number, number> = {}
+  dealPrepared(itemsPrepared.value.materialsLv1)
+  dealPrepared(itemsPrepared.value.materialsLvBase)
+
+  const mode = funcConfig.value.inventory_sync_reverse_mode
+  const inventory = mode === 'overwrite' ? {} : deepCopy(funcConfig.value.inventory_data)
+
+  Object.entries(statementItems).forEach(([_id, amount]) => {
+    const id = Number(_id)
+    if (!amount) {
+      if (mode === 'strict' && inventory[id]) {
+        delete inventory[id]
+      }
+    } else {
+      inventory[id] = amount
+    }
+  })
+
+  if (JSON.stringify(inventory) !== JSON.stringify(funcConfig.value.inventory_data)) {
+    const newFuncConfig = deepCopy(funcConfig.value)
+    newFuncConfig.inventory_data = inventory
+    store.commit('setFuncConfig', newFuncConfig)
+    appForceUpdate()
+  }
+
+  function dealPrepared(pmap: Record<number, number>) {
+    Object.keys(pmap).forEach(_id => {
+      const id = Number(_id)
+      statementItems[id] ??= 0
+      statementItems[id] += pmap[id]
+    })
+  }
+}
 
 defineExpose({
   updateSize,
   setPreparedItemsByInventory,
+  setInventoryByPreparedItems,
 })
 </script>
 

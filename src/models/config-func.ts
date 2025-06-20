@@ -69,8 +69,12 @@ export interface FuncConfigModel {
   inventory_statement_enable_sync: boolean
   /** 在工作流中启用背包库存手动同步 */
   inventory_workflow_enable_sync: boolean
+  /** 在工作流中启用背包库存反向同步 */
+  inventory_workflow_enable_sync_reverse: boolean
   /** 对不在库存中物品的处理方式 */
   inventory_other_items_way: "ignore" | "clear"
+  /** 反向同步模式 */
+  inventory_sync_reverse_mode: "loose" | "strict" | "overwrite"
   /** 用户库存数据 key:item_id, val:amount */
   inventory_data: Record<number, number>
   // #endregion
@@ -114,7 +118,9 @@ const defaultFuncConfig: FuncConfigModel = {
   // * 背包库存
   inventory_statement_enable_sync: false,
   inventory_workflow_enable_sync: false,
+  inventory_workflow_enable_sync_reverse: false,
   inventory_other_items_way: 'ignore',
+  inventory_sync_reverse_mode: 'loose',
   inventory_data: {},
   // * 隐藏的配置项
   workflow_default_join_mode: 'accumulation',
