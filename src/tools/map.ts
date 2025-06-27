@@ -139,3 +139,18 @@ export const getNearestAetheryte = (
   }
   return undefined
 }
+
+/** 通过 Morton 编码计算坐标的可排序值 */
+export const calculatePosVal = (posx: number, posy: number) => {
+  const scale = 100
+  const x = Math.floor(posx * scale)
+  const y = Math.floor(posy * scale)
+  let result = 0
+  for (let i = 0; i < 16; i++) {
+    const bitX = (x >> i) & 1
+    const bitY = (y >> i) & 1
+    result |= bitX << (2 * i)
+    result |= bitY << (2 * i + 1)
+  }
+  return result
+}
