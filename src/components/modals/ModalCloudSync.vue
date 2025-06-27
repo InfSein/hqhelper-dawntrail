@@ -436,6 +436,7 @@ const handleDownload = async () => {
     tips.push(t('页面将重载以应用更改。'))
     alert(tips.join('\n'))
     setTimeout(() => {
+      window.electronAPI?.closeAllChildWindows?.()
       location.reload()
     }, 500)
   } else {

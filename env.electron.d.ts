@@ -43,6 +43,8 @@ export interface ElectronAPI {
   createNewWindow: (id: string, url: string, defaultWidth: number, defaultHeight: number, title: string) => void;
   /** 切换窗口置顶 */
   toggleAlwaysOnTop: () => void;
+  /** (v7+) 关闭所有子窗口 */
+  closeAllChildWindows?: () => void;
   /** 更新标题栏操作按钮的主题 */
   updateTitleBarTheme: (isDarkMode: boolean) => void;
   /** 打开开发者工具 */
