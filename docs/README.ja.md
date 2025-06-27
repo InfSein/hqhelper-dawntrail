@@ -1,6 +1,6 @@
-<p align="center">
+<h1 align="center">
   <img alt="icon" src="/docs/image/app-logo.png" height="160" />
-</p>
+</h1>
 
 <p align="center">
   <a href="/README.md">简体中文</a>
