@@ -11,6 +11,7 @@ import {
   QueryStatsFilled,
   TableViewOutlined,
   AllInclusiveSharp,
+  OpenInNewOutlined,
   VisibilitySharp, VisibilityOffSharp,
   UnfoldMoreSharp, UnfoldLessSharp,
 } from '@vicons/material'
@@ -314,6 +315,27 @@ const recommGroupAllCollapsed = computed(() => {
   }
   return allCollapsed
 })
+
+const handleOpenProcessInNewWindow = () => {
+  const pageTitle = t('工作流流程')
+  const pageUrl = document.location.origin + document.location.pathname + `#/workflow_process?mode=overlay`
+  const width = 500; const height = 800
+  if (window.electronAPI?.createNewWindow) {
+    window.electronAPI.createNewWindow(
+      'workflow-process',
+      pageUrl,
+      width,
+      height,
+      pageTitle
+    )
+  } else {
+    window.open(
+      pageUrl,
+      pageTitle,
+      `height=${height}, width=${width}, top=200, left=200`
+    )
+  }
+}
 const handleHideOrShowChsOfflineItems = () => {
   currentWorkflow.value.recommData.hideChsOfflineItems = !currentWorkflow.value.recommData.hideChsOfflineItems
   const message = currentWorkflow.value.recommData.hideChsOfflineItems
@@ -572,6 +594,16 @@ const setInventoryByStatementPrepared = () => {
               />
 
               <n-float-button-group v-if="!isMobile" right="20px" bottom="5px">
+                <n-tooltip :trigger="isMobile ? 'manual' : 'hover'" placement="left">
+                  <template #trigger>
+                    <n-float-button @click="handleOpenProcessInNewWindow">
+                      <n-icon>
+                        <OpenInNewOutlined />
+                      </n-icon>
+                    </n-float-button>
+                  </template>
+                  {{ t('在新窗口中打开') }}
+                </n-tooltip>
                 <n-tooltip v-if="recommProcessGroups.length && itemServer === 'chs'" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
                   <template #trigger>
                     <n-float-button @click="handleHideOrShowChsOfflineItems">
