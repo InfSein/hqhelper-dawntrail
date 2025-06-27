@@ -1,8 +1,6 @@
 <p align="center">
-  <img alt="icon" height="160" src="/docs/image/app-logo.png" />
+  <img alt="icon" src="/docs/image/app-logo.png" style="max-height: 160px;" />
 </p>
-
-<h1 align="center">7.x HQ Helper</h1>
 
 <p align="center">
   <a href="/README.md">简体中文</a>
