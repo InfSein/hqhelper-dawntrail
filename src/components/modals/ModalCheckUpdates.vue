@@ -63,7 +63,7 @@ const latestHqHelperVersion = ref<string | null>('')
 const latestElectronVersion = ref<string | null>('')
 const useCustomProxy = ref(false)
 const customProxyUrl = ref('')
-const proxyValue = ref('https://github.moeyy.xyz')
+const proxyValue = ref('https://ghfast.top')
 const proxyPings = ref<Record<string, number | "timeout" | "unknown" | "error">>({})
 const proxyOptions = [
   { label: t('不使用加速服务'), value: '' },
