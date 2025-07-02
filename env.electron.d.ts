@@ -53,9 +53,10 @@ export interface ElectronAPI {
   openDevTools: () => void;
 }
 
+export type ProcessStage = "requesting" | "downloading" | "extracting" | "replacing" | "cleaning" | "relaunching" | "opening" | "end";
 export interface ProgressData {
   /** 当前阶段 */
-  stage: "requesting" | "downloading" | "extracting" | "replacing" | "cleaning" | "relaunching" | "opening" | "end";
+  stage: ProcessStage;
   progress?: {
     /** 总下载大小 (MB) */
     total: string;
@@ -63,6 +64,10 @@ export interface ProgressData {
     downloaded: string;
     /** 下载速度 (MB/s) */
     speed: string;
+  };
+  error?: {
+    msg: string;
+    onstage: ProcessStage;
   };
 }
 

@@ -13,7 +13,7 @@ import {
 import MyModal from '../templates/MyModal.vue'
 import ModalPreferences from './ModalPreferences.vue'
 import FoldableCard from '../templates/FoldableCard.vue'
-import type { ProgressData } from 'env.electron'
+import type { ProcessStage, ProgressData } from 'env.electron'
 import { useStore } from '@/store'
 import AppStatus from '@/variables/app-status'
 import { checkUrlLag } from '@/tools/web-request'
@@ -32,7 +32,7 @@ onMounted(() => {
   if (window.electronAPI?.onUpdateProgress) {
     window.electronAPI.onUpdateProgress(handleProgress)
   } else {
-    updateTip.preText = t('{ver}版本以上的客户端才能查看当前更新进度。', {
+    updateTip.titleText = t('{ver}版本以上的客户端才能查看当前更新进度。', {
       ver: 'v3'
     })
   }
@@ -48,9 +48,12 @@ const onLoad = async () => {
 
 const checkingUpdates = ref(false)
 const updateTip = reactive({
+  updating: false,
   updating_hqhelper: false,
   updating_electron: false,
-  preText: '',
+  error: false,
+  titleText: '',
+  contentText: '',
   downloaded: '',
   total: '',
   downloadSpeed: ''
@@ -60,7 +63,7 @@ const latestHqHelperVersion = ref<string | null>('')
 const latestElectronVersion = ref<string | null>('')
 const useCustomProxy = ref(false)
 const customProxyUrl = ref('')
-const proxyValue = ref('https://github.moeyy.xyz')
+const proxyValue = ref('https://ghfast.top')
 const proxyPings = ref<Record<string, number | "timeout" | "unknown" | "error">>({})
 const proxyOptions = [
   { label: t('不使用加速服务'), value: '' },
@@ -89,39 +92,44 @@ const handleShowProxySiteStatus = () => {
   window.open("https://ghproxy.link/")
 }
 const handleProgress = (progressData: ProgressData) => {
+  const error = progressData.error
+  const stage = dealProcessStage(progressData.stage)
+
+  updateTip.error = !!error
   updateTip.downloaded = progressData.progress?.downloaded ?? "???"
   updateTip.total = progressData.progress?.total ?? "???"
   updateTip.downloadSpeed = progressData.progress?.speed ?? "???"
-  switch (progressData.stage) {
-    case 'requesting': 
-      updateTip.preText = t('正在建立连接……')
-      break
-    case 'downloading':
-      updateTip.preText = t('正在下载更新包…… 已下载 {now} / {total} MB | 当前速度：{speed}MB/s',
-        { now: updateTip.downloaded, total: updateTip.total, speed: updateTip.downloadSpeed }
-      )
-      break
-    case 'extracting':
-      updateTip.preText = t('正在解压更新包……')
-      break
-    case 'replacing':
-      updateTip.preText = t('正在替换文件……')
-      break
-    case 'cleaning':
-      updateTip.preText = t('正在清理临时文件……')
-      break
-    case 'relaunching':
-      updateTip.preText = t('正在重启程序……')
-      break
-    case 'opening':
-      updateTip.preText = t('正在打开安装包……')
-      break
-    case 'end':
-      updateTip.updating_hqhelper = false
-      updateTip.updating_electron = false
-      break
-    default:
-      updateTip.preText = ''
+
+  updateTip.titleText = error ? t('{stage}失败', dealProcessStage(error.onstage)) : t('正在{stage}……', stage)
+  if (progressData.stage === 'downloading') {
+    updateTip.titleText += ' ' + t('已下载 {now} / {total} MB | 当前速度：{speed}MB/s',
+      { now: updateTip.downloaded, total: updateTip.total, speed: updateTip.downloadSpeed }
+    )
+  }
+
+  updateTip.contentText = ''
+  if (error?.msg) {
+    updateTip.contentText = error.msg
+  }
+
+  if (progressData.stage === 'end') {
+    updateTip.updating_hqhelper = false
+    updateTip.updating_electron = false
+  }
+  updateTip.updating = updateTip.updating_hqhelper || updateTip.updating_electron
+
+  function dealProcessStage(stage: ProcessStage) {
+    switch (stage) {
+      case 'requesting': return t('建立连接')
+      case 'downloading': return t('下载更新包')
+      case 'extracting': return t('解压更新包')
+      case 'replacing': return t('替换文件')
+      case 'cleaning': return t('清理临时文件')
+      case 'relaunching': return t('重启程序')
+      case 'opening': return t('打开安装包')
+      case 'end':
+      default: return ''
+    }
   }
 }
 const handleCheckUpdates = async () => {
@@ -264,7 +272,7 @@ const handleDownloadWebPack = async () => {
     const err = await window.electronAPI.downloadUpdatePack(url)
     if (err) {
       alert(t('下载更新包失败：{errmsg}', err))
-      updateTip.preText = ''
+      updateTip.titleText = ''
     }
   }
 }
@@ -309,7 +317,7 @@ const handleDownloadElectronPack = async () => {
       const err = await window.electronAPI.downloadAndOpen(url, t('客户端更新程序') + '.exe')
       if (err) {
         alert(t('下载安装包失败：{errmsg}', err))
-        updateTip.preText = ''
+        updateTip.titleText = ''
       }
     }
   } else {
@@ -500,8 +508,11 @@ const handleSettingButtonClick = () => {
           </div>
         </div>
       </n-card>
-      <n-alert v-if="updateTip.preText" class="card upd-tip" type="info">
-        {{ updateTip.preText }}
+      <n-alert v-if="updateTip.error" class="card upd-tip" type="error" :title="updateTip.titleText">
+        {{ updateTip.contentText }}
+      </n-alert>
+      <n-alert v-else-if="updateTip.updating && updateTip.titleText" class="card upd-tip" type="info">
+        {{ updateTip.titleText }}
       </n-alert>
     </div>
 
