@@ -22,6 +22,8 @@ export interface ElectronAPI {
   /** 令窗口关闭 */
   close: () => void;
 
+  /** 获取客户端的当前平台 */
+  clientPlatform?: Promise<"win32" | "darwin" | "linux">;
   /** 获取客户端的当前版本 (格式如 `v1`, `v5a`, `v6`) */
   clientVersion: Promise<string>;
 

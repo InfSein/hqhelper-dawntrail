@@ -268,6 +268,20 @@ const handleDownloadWebPack = async () => {
     }
   }
 }
+const getClientDownloadLink = async () => {
+  let url : string | undefined = ''
+  if (window.electronAPI?.clientPlatform) {
+    const platform = await window.electronAPI.clientPlatform
+    if (platform === 'darwin') {
+      url = versionContent.value?.dlink_electron_mac
+    } else {
+      url = versionContent.value?.dlink_electron
+    }
+  } else {
+    url = versionContent.value?.dlink_electron
+  }
+  return url
+}
 const handleDownloadElectronPack = async () => {
   if (userConfig.value.update_client_builtin) {
     if (!window.electronAPI?.downloadAndOpen) {
@@ -284,7 +298,7 @@ const handleDownloadElectronPack = async () => {
     updateTip.updating_electron = true
 
     saveUpdateSettings()
-    let url = versionContent.value?.dlink_electron
+    let url = await getClientDownloadLink()
     if (!url) {
       alert('Update link not given. Server might be undergoing maintenance...')
     } else if (!latestElectronVersion.value) {
@@ -309,7 +323,7 @@ const handleDownloadElectronPack = async () => {
     }
     saveUpdateSettings()
     const func = window.electronAPI?.openUrlByBrowser ?? window.open
-    let url = versionContent.value?.dlink_electron
+    let url = await getClientDownloadLink()
     if (!url) {
       alert('Update link not given. Server might be undergoing maintenance...')
     } else if (!latestElectronVersion.value) {
