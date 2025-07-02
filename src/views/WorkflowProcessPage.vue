@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
-  NBackTop, NFloatButton, NFloatButtonGroup, NIcon, NTooltip, 
-  useMessage
+  NBackTop,
 } from 'naive-ui'
-import {
-  SettingsSharp,
-  VisibilitySharp, VisibilityOffSharp,
-  UnfoldMoreSharp, UnfoldLessSharp,
-} from '@vicons/material'
+// import {
+//   SettingsSharp,
+//   VisibilitySharp, VisibilityOffSharp,
+//   UnfoldMoreSharp, UnfoldLessSharp,
+// } from '@vicons/material'
 import ModalPreferences from '@/components/modals/ModalPreferences.vue'
 import { useStore } from '@/store'
+import { useElectronSync } from '@/composables/electron-sync'
 import { fixWorkState } from '@/models/workflow'
 import type { UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
@@ -20,14 +20,16 @@ import { useFufuCal } from '@/tools/use-fufu-cal'
 import UseConfig from '@/tools/use-config'
 import CraftRecommProcess from '@/components/custom/general/CraftRecommProcess.vue'
 import type { SettingGroupKey } from '@/models'
+import { deepCopy } from '@/tools'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
-const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+// const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
 const store = useStore()
-const NAIVE_UI_MESSAGE = useMessage()
+// const NAIVE_UI_MESSAGE = useMessage()
+const { emitSync, onSync } = useElectronSync()
 const { calItems } = useNbbCal()
 const { getStatementData, getProStatementData, calRecommProcessData, calRecommProcessGroups } = useFufuCal(userConfig, funcConfig, t)
 const {
@@ -40,6 +42,7 @@ const currentWorkflow = computed(() => {
   return workState.value.workflows[workState.value.currentWorkflow]
 })
 
+const ignoreNextUpdate = ref(false)
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {
   const cachedWorkState = userConfig.value.workflow_cache_work_state
@@ -53,8 +56,13 @@ if (!disable_workstate_cache) {
     if (workState.value && userConfig) {
       try {
         await Promise.resolve()
+        if (ignoreNextUpdate.value) {
+          ignoreNextUpdate.value = false
+          return
+        }
         userConfig.value.workflow_cache_work_state = workState.value
         store.commit('setUserConfig', userConfig.value)
+        emitSync('workflowStateChanged', deepCopy(userConfig.value))
       } catch (error) {
         console.error('Error handling workState change:', error)
       }
@@ -63,6 +71,10 @@ if (!disable_workstate_cache) {
     }
   }, {deep: true})
 }
+onSync('workflowStateChanged', (userConfig: UserConfigModel) => {
+  ignoreNextUpdate.value = true
+  workState.value = userConfig.workflow_cache_work_state
+})
 
 const showPreferencesModal = ref(false)
 const preferenceSettingGroup = ref<SettingGroupKey | undefined>(undefined)
@@ -162,36 +174,6 @@ watch(recommProcessGroups, async () => {
 })
 fixRecommMaps()
 fixPreparedItems()
-
-const recommGroupAllCollapsed = computed(() => {
-  let allCollapsed = true
-  for (let i = 0; i < recommProcessGroups.value.length; i++) {
-    if (currentWorkflow.value.recommData.expandedBlocks[i] && currentWorkflow.value.recommData.expandedBlocks[i].length > 0) {
-      allCollapsed = false
-    }
-  }
-  return allCollapsed
-})
-const handleHideOrShowChsOfflineItems = () => {
-  currentWorkflow.value.recommData.hideChsOfflineItems = !currentWorkflow.value.recommData.hideChsOfflineItems
-  const message = currentWorkflow.value.recommData.hideChsOfflineItems
-    ? t('已隐藏国服未实装物品')
-    : t('已显示国服未实装物品')
-  NAIVE_UI_MESSAGE.success(message)
-}
-const handleCollapseOrUncollapseAllRecommGroupBlocks = () => {
-  const cacheRecommGroupAllCollapsed = recommGroupAllCollapsed.value
-  // 这里不能直接引用 computed 的值，因为它会在折叠/展开过程中变化
-  for (let i = 0; i < recommProcessGroups.value.length; i++) {
-    currentWorkflow.value.recommData.expandedBlocks[i] = cacheRecommGroupAllCollapsed ? ['1'] : []
-  }
-}
-const handleRecommSettingButtonClick = () => {
-  preferenceAppShowUP.value = false
-  preferenceAppShowFP.value = true
-  preferenceSettingGroup.value = 'recomm_process'
-  showPreferencesModal.value = true
-}
 // #endregion
 </script>
 
@@ -205,41 +187,6 @@ const handleRecommSettingButtonClick = () => {
       content-max-width="auto"
       :hide-chs-offline-items="currentWorkflow.recommData.hideChsOfflineItems"
     />
-
-    <n-float-button-group v-if="!isMobile" right="20px" bottom="5px">
-      <n-tooltip v-if="recommProcessGroups.length && itemServer === 'chs'" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
-        <template #trigger>
-          <n-float-button @click="handleHideOrShowChsOfflineItems">
-            <n-icon>
-              <VisibilitySharp v-if="currentWorkflow.recommData.hideChsOfflineItems" />
-              <VisibilityOffSharp v-else />
-            </n-icon>
-          </n-float-button>
-        </template>
-        {{ currentWorkflow.recommData.hideChsOfflineItems ? t('显示国服未实装物品') : t('隐藏国服未实装物品') }}
-      </n-tooltip>
-      <n-tooltip v-if="recommProcessGroups.length" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
-        <template #trigger>
-          <n-float-button @click="handleCollapseOrUncollapseAllRecommGroupBlocks">
-            <n-icon>
-              <UnfoldMoreSharp v-if="recommGroupAllCollapsed" />
-              <UnfoldLessSharp v-else />
-            </n-icon>
-          </n-float-button>
-        </template>
-        {{ recommGroupAllCollapsed ? t('全部展开') : t('全部折叠') }}
-      </n-tooltip>
-      <n-tooltip :trigger="isMobile ? 'manual' : 'hover'" placement="left">
-        <template #trigger>
-          <n-float-button @click="handleRecommSettingButtonClick">
-            <n-icon>
-              <SettingsSharp />
-            </n-icon>
-          </n-float-button>
-        </template>
-        {{ t('设置') }}
-      </n-tooltip>
-    </n-float-button-group>
 
     <ModalPreferences
       v-model:show="showPreferencesModal"

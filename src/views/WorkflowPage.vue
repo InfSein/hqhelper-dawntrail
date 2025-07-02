@@ -24,6 +24,7 @@ import CraftStatementsPro from '@/components/custom/general/CraftStatementsPro.v
 import ModalCostAndBenefit from '@/components/modals/ModalCostAndBenefit.vue'
 import ModalPreferences from '@/components/modals/ModalPreferences.vue'
 import { useStore } from '@/store'
+import { useElectronSync } from '@/composables/electron-sync'
 import {
   getDefaultWorkflow, fixWorkState, _VAR_MAX_WORKFLOW
 } from '@/models/workflow'
@@ -37,6 +38,7 @@ import CraftRecommProcess from '@/components/custom/general/CraftRecommProcess.v
 import TooltipButton from '@/components/custom/general/TooltipButton.vue'
 import ModalWorkflowsManage from '@/components/modals/ModalWorkflowsManage.vue'
 import type { SettingGroupKey } from '@/models'
+import { deepCopy } from '@/tools'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -45,6 +47,7 @@ const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
+const { emitSync, onSync } = useElectronSync()
 const { calItems } = useNbbCal()
 const { getStatementData, getProStatementData, calRecommProcessData, calRecommProcessGroups } = useFufuCal(userConfig, funcConfig, t)
 const {
@@ -57,6 +60,7 @@ const currentWorkflow = computed(() => {
   return workState.value.workflows[workState.value.currentWorkflow]
 })
 
+const ignoreNextUpdate = ref(false)
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {
   const cachedWorkState = userConfig.value.workflow_cache_work_state
@@ -70,8 +74,13 @@ if (!disable_workstate_cache) {
     if (workState.value && userConfig) {
       try {
         await Promise.resolve()
+        if (ignoreNextUpdate.value) {
+          ignoreNextUpdate.value = false
+          return
+        }
         userConfig.value.workflow_cache_work_state = workState.value
         store.commit('setUserConfig', userConfig.value)
+        emitSync('workflowStateChanged', deepCopy(userConfig.value))
       } catch (error) {
         console.error('Error handling workState change:', error)
       }
@@ -80,6 +89,10 @@ if (!disable_workstate_cache) {
     }
   }, {deep: true})
 }
+onSync('workflowStateChanged', (userConfig: UserConfigModel) => {
+  ignoreNextUpdate.value = true
+  workState.value = userConfig.workflow_cache_work_state
+})
 
 const showPreferencesModal = ref(false)
 const preferenceSettingGroup = ref<SettingGroupKey | undefined>(undefined)
@@ -316,10 +329,13 @@ const recommGroupAllCollapsed = computed(() => {
   return allCollapsed
 })
 
+const canUseNewWindow = computed(() => {
+  return !!window.electronAPI && !!window.$syncStore
+})
 const handleOpenProcessInNewWindow = () => {
   const pageTitle = t('工作流流程')
   const pageUrl = document.location.origin + document.location.pathname + `#/workflow_process?mode=overlay`
-  const width = 500; const height = 800
+  const width = 400; const height = 350
   if (window.electronAPI?.createNewWindow) {
     window.electronAPI.createNewWindow(
       'workflow-process',
@@ -594,7 +610,7 @@ const setInventoryByStatementPrepared = () => {
               />
 
               <n-float-button-group v-if="!isMobile" right="20px" bottom="5px">
-                <n-tooltip :trigger="isMobile ? 'manual' : 'hover'" placement="left">
+                <n-tooltip v-if="canUseNewWindow" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
                   <template #trigger>
                     <n-float-button @click="handleOpenProcessInNewWindow">
                       <n-icon>
