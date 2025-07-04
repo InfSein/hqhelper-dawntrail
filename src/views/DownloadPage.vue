@@ -211,9 +211,9 @@ const handleDownloadBtnClick = (link: string) => {
           </div>
           <p>{{ t('※仅适用于 Mac OS 10.13 或更高版本') }}</p>
           <p>{{ t('※仅适用于搭载了M系列芯片的设备') }}</p>
-          <n-alert type="info" :title="t('提示')" style="width: fit-content;">
-            <p>{{ t('安装时提示「“HqHelper”已损坏，无法打开。你应该将它移到废纸篓。」是正常的，因为我们暂时没有能力提供 Apple 开发者签名。') }}</p>
-            <p>{{ t('你需要解除安全检查限制或是将 HqHelper 添加到白名单，方可成功安装。') }}</p>
+          <n-alert type="info" :title="t('提示')" style="width: fit-content; margin-top: 8px;">
+            <p>{{ t('我们暂时没有能力提供 Apple 开发者签名，安装时可能会提示「“HqHelper”已损坏，无法打开。你应该将它移到废纸篓」。') }}</p>
+            <p>{{ t('你需要解除安全检查限制或是将 HqHelper 添加到白名单方可成功安装。') }}</p>
             <p>
               <span>{{ t('请参阅：') }}</span>
               <a target="_blank" href="https://zhuanlan.zhihu.com/p/135948430">https://zhuanlan.zhihu.com/p/135948430</a>
