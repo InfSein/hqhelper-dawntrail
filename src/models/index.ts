@@ -18,6 +18,7 @@ export interface AppVersionJson {
   client_info: {
     recomm_proxy: string;
     cn_sub_links: string[];
+    mac_cn_sub_links: string[];
   }
 }
 

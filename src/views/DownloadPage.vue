@@ -111,6 +111,15 @@ const macAppBtns = computed(() => {
       ghost: false,
     }
   ]
+  vi.client_info.mac_cn_sub_links.forEach((sublink) => {
+    res.push({
+      icon: LandscapeRound,
+      text: t('国内下载链接{index}', index++),
+      type: 'primary',
+      link: sublink,
+      ghost: true,
+    })
+  })
   res.push({
     icon: FlightLandRound,
     text: t('国际下载链接'),
