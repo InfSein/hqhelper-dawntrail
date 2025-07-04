@@ -8,7 +8,6 @@ import {
 //   VisibilitySharp, VisibilityOffSharp,
 //   UnfoldMoreSharp, UnfoldLessSharp,
 // } from '@vicons/material'
-import ModalPreferences from '@/components/modals/ModalPreferences.vue'
 import { useStore } from '@/store'
 import { useElectronSync } from '@/composables/electron-sync'
 import { fixWorkState } from '@/models/workflow'
@@ -19,7 +18,6 @@ import { useNbbCal } from '@/tools/use-nbb-cal'
 import { useFufuCal } from '@/tools/use-fufu-cal'
 import UseConfig from '@/tools/use-config'
 import CraftRecommProcess from '@/components/custom/general/CraftRecommProcess.vue'
-import type { SettingGroupKey } from '@/models'
 import { deepCopy } from '@/tools'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
@@ -75,11 +73,6 @@ onSync('workflowStateChanged', (userConfig: UserConfigModel) => {
   ignoreNextUpdate.value = true
   workState.value = userConfig.workflow_cache_work_state
 })
-
-const showPreferencesModal = ref(false)
-const preferenceSettingGroup = ref<SettingGroupKey | undefined>(undefined)
-const preferenceAppShowUP = ref(false)
-const preferenceAppShowFP = ref(false)
 
 // #region content-statistics
 const craftTargetsArray = computed(() => {
@@ -186,13 +179,6 @@ fixPreparedItems()
       content-max-height="auto"
       content-max-width="auto"
       :hide-chs-offline-items="currentWorkflow.recommData.hideChsOfflineItems"
-    />
-
-    <ModalPreferences
-      v-model:show="showPreferencesModal"
-      :setting-group="preferenceSettingGroup"
-      :app-show-up="preferenceAppShowUP"
-      :app-show-fp="preferenceAppShowFP"
     />
 
     <n-back-top />
