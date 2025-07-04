@@ -11,7 +11,7 @@ export const _VAR_RELATEITEM_MAXLEN = 99
 export const _VAR_TABLESHOW_RELATEITEM_MAXLEN = 3
 export const _VAR_MACRO_MAXAMOUNT = 500
 /** 常用标签预设的最大数量 */
-export const _VAR_PRESET_TAG_MAXAMOUNT = 5
+export const _VAR_PRESET_TAG_MAXAMOUNT = 8
 /** 常用制作属性要求预设的最大数量 */
 export const _VAR_PRESET_CREQ_MAXAMOUNT = 5
 
@@ -23,6 +23,10 @@ export interface CraftRequirements {
   /** 制作力 */
   cp?: number,
 }
+export type StrictCraftRequirements = {
+  [K in keyof Required<CraftRequirements>]: number
+}
+
 export interface RecordedCraftMacro {
   id: number,
   name: string,
@@ -69,7 +73,7 @@ export interface WorkState {
   recordIndex: number;
   recordedCraftMacros: RecordedCraftMacro[];
   presetTags: string[];
-  presetRequirements: CraftRequirements[];
+  presetCReqs: StrictCraftRequirements[];
 }
 export const defaultWorkState: WorkState = {
   searchKeyword: '',
@@ -77,7 +81,7 @@ export const defaultWorkState: WorkState = {
   recordIndex: 1,
   recordedCraftMacros: [],
   presetTags: [],
-  presetRequirements: [],
+  presetCReqs: [],
 }
 
 export const fixWorkState = (state?: WorkState) : WorkState => {
