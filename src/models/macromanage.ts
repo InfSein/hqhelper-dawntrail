@@ -10,7 +10,19 @@ export const _VAR_REMARK_MAXLINE = 3
 export const _VAR_RELATEITEM_MAXLEN = 99
 export const _VAR_TABLESHOW_RELATEITEM_MAXLEN = 3
 export const _VAR_MACRO_MAXAMOUNT = 500
+/** 常用标签预设的最大数量 */
+export const _VAR_PRESET_TAG_MAXAMOUNT = 5
+/** 常用制作属性要求预设的最大数量 */
+export const _VAR_PRESET_CREQ_MAXAMOUNT = 5
 
+export interface CraftRequirements {
+  /** 作业精度 */
+  craftsmanship?: number,
+  /** 加工精度 */
+  control?: number,
+  /** 制作力 */
+  cp?: number,
+}
 export interface RecordedCraftMacro {
   id: number,
   name: string,
@@ -20,14 +32,7 @@ export interface RecordedCraftMacro {
   /** 用户自定义标签 */
   tags: string[],
   /** 此生产宏的属性要求 */
-  requirements: {
-    /** 作业精度 */
-    craftsmanship?: number,
-    /** 加工精度 */
-    control?: number,
-    /** 制作力 */
-    cp?: number,
-  },
+  requirements: CraftRequirements,
   craftActions: number[],
 }
 const defaultCraftMacro: RecordedCraftMacro = {
@@ -54,14 +59,7 @@ export interface CraftMacroRow {
   /** 用户自定义标签 */
   tags: string[],
   /** 此生产宏的属性要求 */
-  requirements: {
-    /** 作业精度 */
-    craftsmanship?: number,
-    /** 加工精度 */
-    control?: number,
-    /** 制作力 */
-    cp: number,
-  },
+  requirements: Omit<CraftRequirements, 'cp'> & { cp: number },
   craftActions: XivCraftAction[],
 }
 
@@ -70,12 +68,16 @@ export interface WorkState {
   macroItemLanguage: "zh" | "en" | "ja";
   recordIndex: number;
   recordedCraftMacros: RecordedCraftMacro[];
+  presetTags: string[];
+  presetRequirements: CraftRequirements[];
 }
 export const defaultWorkState: WorkState = {
   searchKeyword: '',
   macroItemLanguage: 'zh',
   recordIndex: 1,
-  recordedCraftMacros: []
+  recordedCraftMacros: [],
+  presetTags: [],
+  presetRequirements: [],
 }
 
 export const fixWorkState = (state?: WorkState) : WorkState => {

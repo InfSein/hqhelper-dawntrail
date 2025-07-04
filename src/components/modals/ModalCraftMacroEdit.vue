@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NButton, NDynamicTags, NEmpty, NIcon, NInput, NInputNumber, NInputGroup, NInputGroupLabel, NTable, NTabs, NTabPane,
-  NRadio, NRadioGroup, 
+  NButton, NCheckbox, NDivider, NDynamicTags, NEmpty, NIcon, NInput, NInputNumber, NInputGroup, NInputGroupLabel, NPopover,
+  NTable, NTabs, NTabPane, NTag, NRadio, NRadioGroup, 
   useMessage
 } from 'naive-ui'
 import { 
   CodeSharp,
+  AddCircleOutlined,
+  RemoveCircleOutlined,
+  LocalOfferFilled,
   ListFilled,
   DeleteFilled,
   DoneOutlined,
   SaveOutlined,
+  SettingsRound,
 } from '@vicons/material'
 import { VueDraggable } from 'vue-draggable-plus'
 import MyModal from '@/components/templates/MyModal.vue'
@@ -19,6 +23,7 @@ import ItemSelector from '@/components/custom/item/ItemSelector.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import CraftActionButton from '@/components/custom/action/CraftActionButton.vue'
 import MacroViewer from '@/components/custom/macro/MacroViewer.vue'
+import ModalPresetTagsManage from './ModalPresetTagsManage.vue'
 import { XivCraftActions } from '@/assets/data'
 import {
   _VAR_TAG_MAXLEN, _VAR_REMARK_MAXLINE,
@@ -66,6 +71,7 @@ const formCraftActions = ref<{
 const formCraftActionsImportType = ref<"gamemacro" | "simulator">('gamemacro')
 const formCraftActionsImport = ref('')
 const formCraftActionsExportLang = ref<"zh" | "en" | "ja">('zh')
+const showPresetTagsManageModal = ref(false)
 
 interface ModalCraftMacroEditProps {
   action: "add" | "edit";
@@ -115,6 +121,14 @@ const groupLabelStyle = computed(() => {
     'text-align: center;'
   ].join(' ')
 })
+
+const handlePresetTagClick = (tag: string) => {
+  if (formData.value.tags.includes(tag)){
+    formData.value.tags = formData.value.tags.filter(_tag => tag !== _tag)
+  } else {
+    formData.value.tags.push(tag)
+  }
+}
 
 const remarkInputChecker = (value: string) => {
   return value.split('\n').length <= _VAR_REMARK_MAXLINE
@@ -236,7 +250,49 @@ const handleSave = async () => {
               </div>
             </div>
             <div class="form-block">
-              <div class="form-title">{{ t('标签') }}</div>
+              <div class="form-title">
+                {{ t('标签') }}
+                <span class="sub">
+                  <n-popover placement="right-start">
+                    <template #trigger>
+                      <a>[{{ t('预设') }}]</a>
+                    </template>
+
+                    <div class="pop-wrapper">
+                      <div class="flex-vac font-big gap-4">
+                        <n-icon :size="16"><LocalOfferFilled /></n-icon>
+                        <span>{{ t('常用标签预设') }}</span>
+                      </div>
+                      <n-divider style="margin: 0 0 3px 0;" />
+                      <div class="flex-col gap-2">
+                        <n-tag
+                          v-for="(tag, tagIndex) in userConfig.macromanage_cache_work_state.presetTags"
+                          :key="`tag-${tagIndex}`"
+                          size="small"
+                          :type="formData.tags.includes(tag) ? 'success' : 'default'"
+                          style="width: fit-content; cursor: pointer; user-select: none;"
+                          @click="handlePresetTagClick(tag)"
+                        >
+                          <template #icon>
+                            <n-icon v-if="formData.tags.includes(tag)" :component="RemoveCircleOutlined" />
+                            <n-icon v-else :component="AddCircleOutlined" />
+                          </template>
+                          {{ tag }}
+                        </n-tag>
+                      </div>
+                      <n-divider style="margin: 3px 0 3px 0;" />
+                      <div class="flex" style="justify-content: end;">
+                        <n-button size="tiny" @click="showPresetTagsManageModal = true">
+                          <template #icon>
+                            <n-icon><SettingsRound /></n-icon>
+                          </template>
+                          {{ t('管理') }}
+                        </n-button>
+                      </div>
+                    </div>
+                  </n-popover>
+                </span>
+              </div>
               <div class="form-input">
                 <n-dynamic-tags v-model:value="formData.tags" :max="_VAR_TAG_MAXLEN" />
               </div>
@@ -515,6 +571,10 @@ const handleSave = async () => {
         </n-button>
       </div>
     </template>
+
+    <ModalPresetTagsManage
+      v-model:show="showPresetTagsManageModal"
+    />
   </MyModal>
 </template>
 
@@ -537,6 +597,10 @@ const handleSave = async () => {
       .form-title {
         font-weight: bold;
         line-height: 1.5;
+
+        .sub {
+          font-size: calc(var(--n-font-size) - 2px);
+        }
       }
       .form-tip {
         line-height: 1.2;
