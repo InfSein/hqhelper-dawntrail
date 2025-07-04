@@ -15,9 +15,10 @@ import ModalLogin from '@/components/modals/ModalLogin.vue'
 import ModalCloudSync from './components/modals/ModalCloudSync.vue'
 import { useRoute } from 'vue-router'
 import { useStore } from '@/store/index'
+import { useElectronSync } from '@/composables/electron-sync'
 import { t } from '@/languages'
 import { injectVoerkaI18n } from "@voerkai18n/vue"
-import { checkAppUpdates, CopyToClipboard, sleep } from './tools'
+import { checkAppUpdates, CopyToClipboard, deepCopy, sleep } from './tools'
 import EorzeaTime from './tools/eorzea-time'
 import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from './models/config-func'
@@ -28,6 +29,7 @@ import ModalFestivalEgg from './components/modals/ModalFestivalEgg.vue'
 const route = useRoute()
 const store = useStore()
 const i18n = injectVoerkaI18n()
+const { emitSync, onSync } = useElectronSync()
 
 const userConfig = ref<UserConfigModel>(fixUserConfig(store.state.userConfig))
 const funcConfig = ref<FuncConfigModel>(fixFuncConfig(store.state.funcConfig, store.state.userConfig))
@@ -79,10 +81,37 @@ const naiveUiMessagePlacement = computed(() => {
 })
 
 const appForceUpdate = () => {
-  // Update user config
-  userConfig.value = fixUserConfig(store.state.userConfig)
-  funcConfig.value = fixFuncConfig(store.state.funcConfig, store.state.userConfig)
-  cloudConfig.value = fixCloudConfig(store.state.cloudConfig)
+  // update app
+  handleAppUpdate(
+    store.state.userConfig,
+    store.state.funcConfig,
+    store.state.cloudConfig
+  )
+  // Update electron settings
+  emitSync('update-setting', deepCopy({
+    userConfig: userConfig.value,
+    funcConfig: funcConfig.value,
+    cloudConfig: cloudConfig.value,
+  }))
+}
+onSync('update-setting', (value) => {
+  console.log('on-sync was called', value)
+  const {
+    userConfig: _userConfig, funcConfig: _funcConfig, cloudConfig: _cloudConfig
+  } = value
+  handleAppUpdate(_userConfig, _funcConfig, _cloudConfig)
+  store.commit('setUserConfig', userConfig.value)
+  store.commit('setFuncConfig', funcConfig.value)
+  store.commit('setCloudConfig', cloudConfig.value)
+})
+const handleAppUpdate = (
+  _userConfig: UserConfigModel | undefined,
+  _funcConfig: FuncConfigModel | undefined,
+  _cloudConfig: CloudConfigModel | undefined,
+) => {
+  userConfig.value = fixUserConfig(_userConfig)
+  funcConfig.value = fixFuncConfig(_funcConfig, _userConfig)
+  cloudConfig.value = fixCloudConfig(_cloudConfig)
   // Update i18n
   i18n.activeLanguage = locale.value
   // Update vue

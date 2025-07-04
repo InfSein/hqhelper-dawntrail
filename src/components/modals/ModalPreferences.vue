@@ -952,6 +952,7 @@ const handleSave = () => {
   if (needReload) {
     const dealReload = () => {
       setTimeout(() => {
+        window.electronAPI?.closeAllChildWindows?.()
         location.reload()
       }, reloadTimeout) // 必须设置一个延迟，不然有些设置不会生效
     }
