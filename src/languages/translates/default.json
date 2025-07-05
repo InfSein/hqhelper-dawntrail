@@ -8705,5 +8705,12 @@
     "$files": [
       "data\\change-logs.ts"
     ]
+  },
+  "修正了宏管理界面输入框在界面语言设置为日语/英语时的显示效果。": {
+    "en": "Fixed the display of input fields in macro management when UI language is set to Japanese/English.",
+    "ja": "修正了宏管理界面输入框在界面语言设置为日语/英语时的显示效果。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
   }
 }

@@ -587,6 +587,12 @@ const handleSettingButtonClick = () => {
       max-width: 200px;
     }
   }
+  .lang-ja #querier-search {
+    max-width: 775px;
+  }
+  .lang-en #querier-itemlang {
+    max-width: 240px;
+  }
 }
 
 /* Mobile */
