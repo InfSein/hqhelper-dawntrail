@@ -113,8 +113,8 @@ const handleSwitchShowHistory = () => {
         <div class="wrapper-latest-update">
           <n-h1 prefix="bar" class="latest-update-baseinfo">
             <n-text>v{{ latestPatchNote.version }}</n-text>
-            <n-text depth="3" class="title-sub">{{ latestPatchNote.date }}</n-text>
-            <n-text depth="3" class="title-sub">
+            <n-text depth="3" class="date">{{ latestPatchNote.date }}</n-text>
+            <n-text v-if="!isMobile" depth="3" class="data-version">
               ({{
                 t('国服{cnver}／国际服{glbver}', {
                   cnver: AppStatus.SupportedGameVersion.CN,
@@ -248,9 +248,14 @@ const handleSwitchShowHistory = () => {
     line-height: 1.2;
     margin-bottom: 0;
 
-    .title-sub {
+    .date {
       padding-left: 8px;
       font-size: 14px;
+    }
+    .data-version {
+      font-size: 14px;
+      position: absolute;
+      right: 0; bottom: 3px;
     }
   }
   .latest-update-content {
