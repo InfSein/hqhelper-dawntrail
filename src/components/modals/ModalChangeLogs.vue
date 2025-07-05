@@ -11,6 +11,7 @@ import {
 import MyModal from '../templates/MyModal.vue'
 import { getChangelogs, type PatchChangeGroup } from '@/data/change-logs'
 import type { UserConfigModel } from '@/models/config-user'
+import AppStatus from '@/variables/app-status'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -90,7 +91,15 @@ const handleSwitchShowHistory = () => {
         <div class="wrapper-latest-update">
           <n-h1 prefix="bar" class="latest-update-baseinfo">
             <n-text>v{{ latestPatchNote.version }}</n-text>
-            <n-text depth="3" class="date">{{ latestPatchNote.date }}</n-text>
+            <n-text depth="3" class="title-sub">{{ latestPatchNote.date }}</n-text>
+            <n-text depth="3" class="title-sub">
+              ({{
+                t('国服{cnver}／国际服{glbver}', {
+                  cnver: AppStatus.SupportedGameVersion.CN,
+                  glbver: AppStatus.SupportedGameVersion.GLOBAL,
+                })
+              }})
+            </n-text>
           </n-h1>
           <n-divider style="margin: 8px 0 12px 0;" />
           <div class="latest-update-content">
@@ -211,7 +220,7 @@ const handleSwitchShowHistory = () => {
     line-height: 1.2;
     margin-bottom: 0;
 
-    .date {
+    .title-sub {
       padding-left: 8px;
       font-size: 14px;
     }
