@@ -349,7 +349,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
             <AppHeader class="app-header" />
           </n-layout-header>
 
-          <n-layout-content id="main-content" :native-scrollbar="false">
+          <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
             <router-view />
           </n-layout-content>
           
