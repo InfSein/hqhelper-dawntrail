@@ -8698,5 +8698,12 @@
     "$files": [
       "components\\custom\\general\\DraggableTable.vue"
     ]
+  },
+  "修复了工作流报表的清单悬浮窗中的各组标题文字会被边框覆盖的问题。": {
+    "en": "Fixed an issue where group header text in the workflow statement list popup would be obscured by borders.",
+    "ja": "修复了工作流报表的清单悬浮窗中的各组标题文字会被边框覆盖的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
   }
 }

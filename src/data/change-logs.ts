@@ -77,6 +77,7 @@ export const getChangelogs = (
           name: groupName.bugfix,
           changes: [
             t('修复了以覆写模式将物品加入工作流会清除工作流名称的问题。') + ' <i>(Found by Small-Dianer)</i>',
+            t('修复了工作流报表的清单悬浮窗中的各组标题文字会被边框覆盖的问题。'),
             t('修复了移动端的菜单界面会随主页面一起滚动的问题。'),
             t('预修正了一部分云端同步可能导致的错误。'),
           ]
