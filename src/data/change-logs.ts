@@ -84,9 +84,12 @@ export const getChangelogs = (
         {
           name: groupName.feature,
           changes: [
-            t('优化了推荐流程中非限时采集道具的排序，现在采集位置相近的道具会排在一起。'),
+            t('优化了推荐流程中非限时采集道具的排序，现在采集位置相近的道具会排在一起。')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/07/05/6868ee62a8487.png'),
             t('现在点击报表的空白区域也可以取消选中物品行。'),
-            t('编辑用户宏弹窗中追加了预设标签和预设属性的功能。'),
+            t('编辑用户宏弹窗中追加了预设标签和预设属性的功能。')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/07/05/6868eec16b46b.png')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/07/05/6868eeef3af65.png'),
           ]
         }
       ]
