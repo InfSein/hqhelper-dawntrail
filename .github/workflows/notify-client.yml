@@ -1,0 +1,17 @@
+name: Notify hqhelper-client to update submodule
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  trigger-client-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger workflow in hqhelper-client
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PAT_FOR_CLIENT }}
+          repository: InfSein/hqhelper-client
+          event-type: update-submodule
