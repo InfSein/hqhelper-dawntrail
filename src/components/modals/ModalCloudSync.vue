@@ -273,12 +273,16 @@ const handleUpload = async () => {
       case HqList.WorkstateBackupGatherClock:
         content = JSON.stringify(userConfig.value.gatherclock_cache_work_state)
         break
-      case HqList.WorkstateBackupWorkflow:
-        content = JSON.stringify(userConfig.value.workflow_cache_work_state)
+      case HqList.WorkstateBackupWorkflow: {
+        const workstate = fixWorkflowWorkState(userConfig.value.workflow_cache_work_state)
+        content = JSON.stringify(workstate)
         break
-      case HqList.WorkstateBackupMacromanage:
-        content = JSON.stringify(userConfig.value.macromanage_cache_work_state)
+      }
+      case HqList.WorkstateBackupMacromanage: {
+        const workstate = fixMacromanageWorkState(userConfig.value.macromanage_cache_work_state)
+        content = JSON.stringify(workstate)
         break
+      }
       case HqList.DataBackupInventory: 
         content = JSON.stringify({
           inventory_statement_enable_sync: funcConfig.value.inventory_statement_enable_sync,
