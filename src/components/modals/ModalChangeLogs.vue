@@ -63,16 +63,38 @@ const handleCopyLatestPatchNode = () => {
 const handleCopyLatestPatchNodeMarkdown = () => {
   const br = '\r\n'
   let content = ``
+  content += `## ${latestPatchNote.value.version} (${latestPatchNote.value.date})${br}${br}`
   latestPatchNote.value.changes.forEach(change => {
     content += `### ${change.name}${br}`
     change.changes.forEach((str, strIndex) => {
-      const cleanedStr = str.replace('<br>', br).replace(/<[^>]+>/g, '')
+      let cleanedStr = str.replace('<br>', br).replace(/<[^>]+>/g, '')
+      cleanedStr = cleanedStr.endsWith('\r\n') ? cleanedStr.slice(0, -2) : cleanedStr
+      console.log({cleanedStr})
       content += `${strIndex+1}. ${cleanedStr}${br}`
     })
     content += br
   })
   navigator.clipboard.writeText(content)
 }
+/*
+const handleCopyAllPatchNodeMarkdown = () => {
+  const br = '\r\n'
+  let content = `# HqHelper CHANGELOG${br}${br}`
+  const allNote = getChangelogs(userConfig.value.language_ui)
+  allNote.forEach(note => {
+    content += `## ${note.version} (${note.date})${br}${br}`
+    note.changes.forEach(change => {
+      content += `### ${change.name}${br}`
+      change.changes.forEach((str, strIndex) => {
+        const cleanedStr = str.replace('<br>', br).replace(/<[^>]+>/g, '').replace('\r\n\r\n', br)
+        content += `${strIndex+1}. ${cleanedStr}${br}`
+      })
+      content += br
+    })
+  })
+  navigator.clipboard.writeText(content)
+}
+*/
 const handleSwitchShowHistory = () => {
   showHistory.value = !showHistory.value
 }
@@ -180,6 +202,12 @@ const handleSwitchShowHistory = () => {
           </template>
           复制(Markdown)
         </n-button>
+        <!-- <n-button v-if="!showHistory && !isMobile && devMode" type="warning" ghost @click="handleCopyAllPatchNodeMarkdown">
+          <template #icon>
+            <n-icon :component="CopyAllOutlined" />
+          </template>
+          复制全部日志(Markdown)
+        </n-button> -->
         <n-button type="primary" @click="handleSwitchShowHistory">
           <template #icon>
             <n-icon :component="showHistory ? StickyNote2Outlined : HistoryOutlined" />
