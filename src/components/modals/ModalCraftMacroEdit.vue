@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NButton, NCheckbox, NDivider, NDynamicTags, NEmpty, NIcon, NInput, NInputNumber, NInputGroup, NInputGroupLabel, NPopover,
+  NButton, NDivider, NDynamicTags, NEmpty, NIcon, NInput, NInputNumber, NInputGroup, NInputGroupLabel, NPopover,
   NTable, NTabs, NTabPane, NTag, NRadio, NRadioGroup, 
   useMessage
 } from 'naive-ui'

@@ -95,7 +95,7 @@ const handleSave = () => {
         :check-rows-before-save="handleCheck"
       >
         <template #tableTitle>
-          <div class="bold">{{ t('常用属性组 (作业/加工/CP)') }}</div>
+          <div class="bold">{{ t('常用属性组 （作业精度／加工精度／制作力）') }}</div>
         </template>
         <template #default="{ row }">
           <n-input-group>
@@ -103,16 +103,19 @@ const handleSave = () => {
               v-model:value="row.craftsmanship"
               :precision="0"
               :min="0" :max="9999"
+              :placeholder="t('作业精度')"
             />
             <n-input-number
               v-model:value="row.control"
               :precision="0"
               :min="0" :max="9999"
+              :placeholder="t('加工精度')"
             />
             <n-input-number
               v-model:value="row.cp"
               :precision="0"
               :min="0" :max="999"
+              :placeholder="t('制作力')"
             />
           </n-input-group>
         </template>
