@@ -14,9 +14,9 @@
 [![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github)](https://github.com/InfSein/hqhelper-dawntrail/releases) [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)](https://github.com/InfSein/hqhelper-dawntrail/releases) <br>
 [![Based on Vite](https://img.shields.io/badge/Vite-6.3.4-646CFF?style=flat&logo=vite)](https://github.com/vitejs/vite) [![Based on Vue3](https://img.shields.io/badge/Vue-3.5.13-4FC08D?style=flat&logo=vue.js)](https://github.com/vuejs/core) [![Based on TypeScript](https://img.shields.io/badge/TypeScript-5.7.3-3178C6?style=flat&logo=typescript)](https://github.com/microsoft/TypeScript) [![Based on Naive UI](https://img.shields.io/badge/Naive%20UI-2.41.0-008080?style=flat&logo=npm)](https://github.com/tusen-ai/naive-ui)
 
-面向生产采集玩家的黄金篇(7.0~7.4)秘籍配方制作计算器。
+面向生产采集玩家的秘籍配方制作计算器。
 
-我们将会为你提供7.0/7.05/7.1/7.2/7.3/7.4各个版本新增的HQ装备、食物和爆发药的信息整理和配方计算服务，以及一些其他的生产采集玩家可能比较需要的杂项功能。
+我们将会为你提供《最终幻想XIV》各个版本新增的秘籍HQ装备、食物和爆发药的信息整理和配方计算服务，以及一些其他的生产采集玩家可能比较需要的杂项功能。
 
 ## 使用方法
 
@@ -43,19 +43,7 @@
 
 我们可能会提供各式各样的套壳，但是很难保证效果跟浏览器一样好。
 
-#### Windows 应用
-
-参见 [Release Electron v6](https://github.com/InfSein/hqhelper-dawntrail/releases/tag/electron.v6)
-
-#### iOS 应用
-
-由于一些原因，我们无法为你提供iOS的app，不过我们的网站支持PWA。
-
-用 `Safari` 打开网页，点击底部正中间的按钮，再点击 `添加到主屏幕`，即可从主屏幕启动应用，获得接近于app的体验。
-
-#### Android 应用
-
-暂无计划
+请参阅 [hqhelper-client](https://github.com/InfSein/hqhelper-client) 项目。
 
 ### 手动构建
 
@@ -105,7 +93,3 @@ npm run dev
 ### Star数量历史
 
 [![Stargazers over time](https://starchart.cc/InfSein/hqhelper-dawntrail.svg?variant=adaptive)](https://starchart.cc/InfSein/hqhelper-dawntrail)
-
-## 特别感谢
-
-* JetBrains 

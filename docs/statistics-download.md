@@ -7,6 +7,8 @@
 
 ## 客户端本体
 
+### v1 ~ v6
+
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/electron.v1/HqHelper.Setup.exe)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/electron.v2/HqHelper.Setup.exe)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/electron.v3/HqHelper.Setup.exe)
@@ -14,6 +16,12 @@
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/electron.v5/HqHelper.Setup.exe)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/electron.v5a/HqHelper.Setup.exe)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/electron.v6/HqHelper.Setup.exe)
+
+### v7 及之后
+
+迁移至独立项目 [hqhelper-client](https://github.com/InfSein/hqhelper-client) 。
+
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-client/total?style=flat&logo=github)
 
 ## 更新包
 
@@ -55,3 +63,6 @@
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.2/static-pages.zip)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.3/static-pages.zip)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.4/static-pages.zip)
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.5/static-pages.zip)
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.6/static-pages.zip)
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.7/static-pages.zip)
