@@ -2270,48 +2270,6 @@
       "components\\modals\\ModalCheckUpdates.vue"
     ]
   },
-  "正在建立连接……": {
-    "en": "Building connections...",
-    "ja": "接続を確立中……",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
-  "正在下载更新包…… 已下载 {now} / {total} MB | 当前速度：{speed}MB/s": {
-    "en": "Downloading... Downloaded: {now} / {total} MB / Speed:{speed}MB/s",
-    "ja": "更新パッケージをダウンロード中…… {now}MBをダウンロード済み、総ダウンロードサイズ：{total}MB | 現在の速度：{speed}MB/s",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
-  "正在解压更新包……": {
-    "en": "Extracting...",
-    "ja": "更新パッケージを解凍中……",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
-  "正在替换文件……": {
-    "en": "Replacing files...",
-    "ja": "ファイルを置き換え中……",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
-  "正在清理临时文件……": {
-    "en": "Cleaning temp files...",
-    "ja": "一時ファイルを整理中……",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
-  "正在重启程序……": {
-    "en": "Relaunching...",
-    "ja": "プログラムを再起動中……",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
   "正在更新": {
     "en": "Updating",
     "ja": "アップデート中……",
@@ -5502,13 +5460,6 @@
       "components\\main\\PatchPanel.vue"
     ]
   },
-  "正在打开安装包……": {
-    "en": "Opening the installer package...",
-    "ja": "インストールパッケージを開いています...",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
   "即将开始下载新版客户端安装包，可能需要一些时间。": {
     "en": "The download of the new client installer will begin shortly, and it may take some time.",
     "ja": "新版クライアントインストーラのダウンロードを開始します、時間がかかる場合があります",
@@ -8445,6 +8396,307 @@
     "ja": "入力したメールアドレスは不正です",
     "$files": [
       "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "修复了以覆写模式将物品加入工作流会清除工作流名称的问题。": {
+    "en": "修复了以覆写模式将物品加入工作流会清除工作流名称的问题。",
+    "ja": "修复了以覆写模式将物品加入工作流会清除工作流名称的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了移动端的菜单界面会随主页面一起滚动的问题。": {
+    "en": "修复了移动端的菜单界面会随主页面一起滚动的问题。",
+    "ja": "修复了移动端的菜单界面会随主页面一起滚动的问题。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "预修正了一部分云端同步可能导致的错误。": {
+    "en": "预修正了一部分云端同步可能导致的错误。",
+    "ja": "预修正了一部分云端同步可能导致的错误。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了推荐流程中非限时采集道具的排序，现在采集位置相近的道具会排在一起。": {
+    "en": "优化了推荐流程中非限时采集道具的排序，现在采集位置相近的道具会排在一起。",
+    "ja": "优化了推荐流程中非限时采集道具的排序，现在采集位置相近的道具会排在一起。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在点击报表的空白区域也可以取消选中物品行。": {
+    "en": "现在点击报表的空白区域也可以取消选中物品行。",
+    "ja": "现在点击报表的空白区域也可以取消选中物品行。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "编辑用户宏弹窗中追加了预设标签和预设属性的功能。": {
+    "en": "编辑用户宏弹窗中追加了预设标签和预设属性的功能。",
+    "ja": "编辑用户宏弹窗中追加了预设标签和预设属性的功能。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "※仅适用于 Mac OS 10.13 或更高版本": {
+    "en": "※仅适用于 Mac OS 10.13 或更高版本",
+    "ja": "※仅适用于 Mac OS 10.13 或更高版本",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "※仅适用于搭载了M系列芯片的设备": {
+    "en": "※仅适用于搭载了M系列芯片的设备",
+    "ja": "※仅适用于搭载了M系列芯片的设备",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "提示": {
+    "en": "提示",
+    "ja": "提示",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "我们暂时没有能力提供 Apple 开发者签名，安装时可能会提示「“HqHelper”已损坏，无法打开。你应该将它移到废纸篓」。": {
+    "en": "我们暂时没有能力提供 Apple 开发者签名，安装时可能会提示「“HqHelper”已损坏，无法打开。你应该将它移到废纸篓」。",
+    "ja": "我们暂时没有能力提供 Apple 开发者签名，安装时可能会提示「“HqHelper”已损坏，无法打开。你应该将它移到废纸篓」。",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "你需要解除安全检查限制或是将 HqHelper 添加到白名单方可成功安装。": {
+    "en": "你需要解除安全检查限制或是将 HqHelper 添加到白名单方可成功安装。",
+    "ja": "你需要解除安全检查限制或是将 HqHelper 添加到白名单方可成功安装。",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "请参阅：": {
+    "en": "请参阅：",
+    "ja": "请参阅：",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "工作流流程": {
+    "en": "工作流流程",
+    "ja": "工作流流程",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "在新窗口中打开": {
+    "en": "在新窗口中打开",
+    "ja": "在新窗口中打开",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "国服{cnver}／国际服{glbver}": {
+    "en": "国服{cnver}／国际服{glbver}",
+    "ja": "国服{cnver}／国际服{glbver}",
+    "$files": [
+      "components\\modals\\ModalChangeLogs.vue"
+    ]
+  },
+  "正在{stage}……": {
+    "en": "正在{stage}……",
+    "ja": "正在{stage}……",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "{stage}失败": {
+    "en": "{stage}失败",
+    "ja": "{stage}失败",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "已下载 {now} / {total} MB | 当前速度：{speed}MB/s": {
+    "en": "已下载 {now} / {total} MB | 当前速度：{speed}MB/s",
+    "ja": "已下载 {now} / {total} MB | 当前速度：{speed}MB/s",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "建立连接": {
+    "en": "建立连接",
+    "ja": "建立连接",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "下载更新包": {
+    "en": "下载更新包",
+    "ja": "下载更新包",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "解压更新包": {
+    "en": "解压更新包",
+    "ja": "解压更新包",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "替换文件": {
+    "en": "替换文件",
+    "ja": "替换文件",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "清理临时文件": {
+    "en": "清理临时文件",
+    "ja": "清理临时文件",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "重启程序": {
+    "en": "重启程序",
+    "ja": "重启程序",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "打开安装包": {
+    "en": "打开安装包",
+    "ja": "打开安装包",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "最多设置{num}个标签": {
+    "en": "最多设置{num}个标签",
+    "ja": "最多设置{num}个标签",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "作业{val1}／加工{val2}／CP{val3}": {
+    "en": "作业{val1}／加工{val2}／CP{val3}",
+    "ja": "作业{val1}／加工{val2}／CP{val3}",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "预设": {
+    "en": "预设",
+    "ja": "预设",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "常用标签": {
+    "en": "常用标签",
+    "ja": "常用标签",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "还未设置任何常用标签": {
+    "en": "还未设置任何常用标签",
+    "ja": "还未设置任何常用标签",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "常用属性组": {
+    "en": "常用属性组",
+    "ja": "常用属性组",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "还未设置任何常用属性组": {
+    "en": "还未设置任何常用属性组",
+    "ja": "还未设置任何常用属性组",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "不能设置重复的常用属性组": {
+    "en": "不能设置重复的常用属性组",
+    "ja": "不能设置重复的常用属性组",
+    "$files": [
+      "components\\modals\\ModalPresetCReqsManage.vue"
+    ]
+  },
+  "不能设置属性值全是0的常用属性组": {
+    "en": "不能设置属性值全是0的常用属性组",
+    "ja": "不能设置属性值全是0的常用属性组",
+    "$files": [
+      "components\\modals\\ModalPresetCReqsManage.vue"
+    ]
+  },
+  "管理常用属性组": {
+    "en": "管理常用属性组",
+    "ja": "管理常用属性组",
+    "$files": [
+      "components\\modals\\ModalPresetCReqsManage.vue"
+    ]
+  },
+  "最多只能添加{num}组常用属性": {
+    "en": "最多只能添加{num}组常用属性",
+    "ja": "最多只能添加{num}组常用属性",
+    "$files": [
+      "components\\modals\\ModalPresetCReqsManage.vue"
+    ]
+  },
+  "常用属性组 （作业精度／加工精度／制作力）": {
+    "en": "常用属性组 （作业精度／加工精度／制作力）",
+    "ja": "常用属性组 （作业精度／加工精度／制作力）",
+    "$files": [
+      "components\\modals\\ModalPresetCReqsManage.vue"
+    ]
+  },
+  "不能设置空白内容的标签": {
+    "en": "不能设置空白内容的标签",
+    "ja": "不能设置空白内容的标签",
+    "$files": [
+      "components\\modals\\ModalPresetTagsManage.vue"
+    ]
+  },
+  "管理常用标签": {
+    "en": "管理常用标签",
+    "ja": "管理常用标签",
+    "$files": [
+      "components\\modals\\ModalPresetTagsManage.vue"
+    ]
+  },
+  "最多只能添加{num}个常用标签": {
+    "en": "最多只能添加{num}个常用标签",
+    "ja": "最多只能添加{num}个常用标签",
+    "$files": [
+      "components\\modals\\ModalPresetTagsManage.vue"
+    ]
+  },
+  "标签名称": {
+    "en": "标签名称",
+    "ja": "标签名称",
+    "$files": [
+      "components\\modals\\ModalPresetTagsManage.vue"
+    ]
+  },
+  "最多只能有{num}行数据": {
+    "en": "最多只能有{num}行数据",
+    "ja": "最多只能有{num}行数据",
+    "$files": [
+      "components\\custom\\general\\DraggableTable.vue"
+    ]
+  },
+  "需要保留至少{num}行数据": {
+    "en": "需要保留至少{num}行数据",
+    "ja": "需要保留至少{num}行数据",
+    "$files": [
+      "components\\custom\\general\\DraggableTable.vue"
     ]
   }
 }
