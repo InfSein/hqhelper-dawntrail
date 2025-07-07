@@ -325,6 +325,9 @@ export function useFufuCal(
         gathering.sort((a, b) => {
           const aMap = a.gatherInfo.placeID
           const bMap = b.gatherInfo.placeID
+          if (aMap === bMap) {
+            return a.gatherInfo.posVal - b.gatherInfo.posVal
+          }
           return aMap - bMap
         })
       } else if (orderBy === 'start-time') {

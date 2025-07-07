@@ -22,6 +22,8 @@ export interface ElectronAPI {
   /** 令窗口关闭 */
   close: () => void;
 
+  /** 获取客户端的当前平台 */
+  clientPlatform?: Promise<"win32" | "darwin" | "linux">;
   /** 获取客户端的当前版本 (格式如 `v1`, `v5a`, `v6`) */
   clientVersion: Promise<string>;
 
@@ -43,15 +45,18 @@ export interface ElectronAPI {
   createNewWindow: (id: string, url: string, defaultWidth: number, defaultHeight: number, title: string) => void;
   /** 切换窗口置顶 */
   toggleAlwaysOnTop: () => void;
+  /** (v7+) 关闭所有子窗口 */
+  closeAllChildWindows?: () => void;
   /** 更新标题栏操作按钮的主题 */
   updateTitleBarTheme: (isDarkMode: boolean) => void;
   /** 打开开发者工具 */
   openDevTools: () => void;
 }
 
+export type ProcessStage = "requesting" | "downloading" | "extracting" | "replacing" | "cleaning" | "relaunching" | "opening" | "end";
 export interface ProgressData {
   /** 当前阶段 */
-  stage: "requesting" | "downloading" | "extracting" | "replacing" | "cleaning" | "relaunching" | "opening" | "end";
+  stage: ProcessStage;
   progress?: {
     /** 总下载大小 (MB) */
     total: string;
@@ -59,6 +64,10 @@ export interface ProgressData {
     downloaded: string;
     /** 下载速度 (MB/s) */
     speed: string;
+  };
+  error?: {
+    msg: string;
+    onstage: ProcessStage;
   };
 }
 

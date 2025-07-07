@@ -100,7 +100,9 @@ const handleSubmit = () => {
   } else {
     let workflow = newUserConfig.workflow_cache_work_state.workflows[targetWorkflow.value]
     if (joinMode.value === 'overwrite') {
+      const name = workflow.name
       workflow = getDefaultWorkflow()
+      workflow.name = name
       workflow.targetItems = itemsToAdd.value
     } else {
       for (const _id in itemsToAdd.value) {

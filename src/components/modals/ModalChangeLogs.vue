@@ -11,6 +11,7 @@ import {
 import MyModal from '../templates/MyModal.vue'
 import { getChangelogs, type PatchChangeGroup } from '@/data/change-logs'
 import type { UserConfigModel } from '@/models/config-user'
+import AppStatus from '@/variables/app-status'
 
 const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -62,16 +63,38 @@ const handleCopyLatestPatchNode = () => {
 const handleCopyLatestPatchNodeMarkdown = () => {
   const br = '\r\n'
   let content = ``
+  content += `## ${latestPatchNote.value.version} (${latestPatchNote.value.date})${br}${br}`
   latestPatchNote.value.changes.forEach(change => {
     content += `### ${change.name}${br}`
     change.changes.forEach((str, strIndex) => {
-      const cleanedStr = str.replace('<br>', br).replace(/<[^>]+>/g, '')
+      let cleanedStr = str.replace('<br>', br).replace(/<[^>]+>/g, '')
+      cleanedStr = cleanedStr.endsWith('\r\n') ? cleanedStr.slice(0, -2) : cleanedStr
+      console.log({cleanedStr})
       content += `${strIndex+1}. ${cleanedStr}${br}`
     })
     content += br
   })
   navigator.clipboard.writeText(content)
 }
+/*
+const handleCopyAllPatchNodeMarkdown = () => {
+  const br = '\r\n'
+  let content = `# HqHelper CHANGELOG${br}${br}`
+  const allNote = getChangelogs(userConfig.value.language_ui)
+  allNote.forEach(note => {
+    content += `## ${note.version} (${note.date})${br}${br}`
+    note.changes.forEach(change => {
+      content += `### ${change.name}${br}`
+      change.changes.forEach((str, strIndex) => {
+        const cleanedStr = str.replace('<br>', br).replace(/<[^>]+>/g, '').replace('\r\n\r\n', br)
+        content += `${strIndex+1}. ${cleanedStr}${br}`
+      })
+      content += br
+    })
+  })
+  navigator.clipboard.writeText(content)
+}
+*/
 const handleSwitchShowHistory = () => {
   showHistory.value = !showHistory.value
 }
@@ -91,6 +114,14 @@ const handleSwitchShowHistory = () => {
           <n-h1 prefix="bar" class="latest-update-baseinfo">
             <n-text>v{{ latestPatchNote.version }}</n-text>
             <n-text depth="3" class="date">{{ latestPatchNote.date }}</n-text>
+            <n-text v-if="!isMobile" depth="3" class="data-version">
+              ({{
+                t('国服{cnver}／国际服{glbver}', {
+                  cnver: AppStatus.SupportedGameVersion.CN,
+                  glbver: AppStatus.SupportedGameVersion.GLOBAL,
+                })
+              }})
+            </n-text>
           </n-h1>
           <n-divider style="margin: 8px 0 12px 0;" />
           <div class="latest-update-content">
@@ -171,6 +202,12 @@ const handleSwitchShowHistory = () => {
           </template>
           复制(Markdown)
         </n-button>
+        <!-- <n-button v-if="!showHistory && !isMobile && devMode" type="warning" ghost @click="handleCopyAllPatchNodeMarkdown">
+          <template #icon>
+            <n-icon :component="CopyAllOutlined" />
+          </template>
+          复制全部日志(Markdown)
+        </n-button> -->
         <n-button type="primary" @click="handleSwitchShowHistory">
           <template #icon>
             <n-icon :component="showHistory ? StickyNote2Outlined : HistoryOutlined" />
@@ -214,6 +251,11 @@ const handleSwitchShowHistory = () => {
     .date {
       padding-left: 8px;
       font-size: 14px;
+    }
+    .data-version {
+      font-size: 14px;
+      position: absolute;
+      right: 0; bottom: 3px;
     }
   }
   .latest-update-content {

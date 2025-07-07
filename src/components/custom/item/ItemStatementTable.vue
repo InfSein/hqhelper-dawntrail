@@ -94,84 +94,91 @@ const handleNumInputLoop = (row: StatementRow) => {
       </thead>
     </n-table>
     <n-scrollbar trigger="none" :style="{ height: contentHeight ?? '450px', 'margin-top': '-2px' }">
-      <n-table class="table" size="small" :single-line="false">
-        <tbody>
-          <tr
-            v-for="item in rows.remaining"
-            :key="'item-remaining-' + item.info.id"
-            :class="highlightedItems.includes(item.info.id) ? 'highlight' : ''"
-            @click="selectedItem = item.info"
-          >
-            <td>
-              <ItemCell
-                :item-info="item.info"
-                :amount="item.amount.remain"
-                :show-item-details="showItemDetails"
-                :item-span-max-width="itemSpanMaxWidth"
-                :container-id="containerId"
-              />
-            </td>
-            <td>
-              {{ getItemAmount(item.amount.total) }}
-            </td>
-            <td>
-              <n-input-number
-                v-model:value="itemsPrepared[item.info.id]"
-                :min="-1"
-                :max="item.amount.total"
-                :precision="0"
-                :size="showItemDetails ? 'small' : 'tiny'"
-                button-placement="both"
-                :show-button="!isMobile"
-                placeholder="0"
-                @update:value="handleNumInputLoop(item)"
-              />
-            </td>
-            <td>
-              {{ getItemAmount(item.amount.remain) }}
-            </td>
-          </tr>
-          <tr v-if="rows.cleaned?.length" class="prepared">
-            <td colspan="4" class="bold">
-              <i class="xiv e05e"></i>
-              {{ t('已筹备完成') }}
-            </td>
-          </tr>
-          <tr
-            v-for="item in rows.cleaned"
-            :key="'item-cleaned-' + item.info.id"
-            class="prepared"
-            :class="highlightedItems.includes(item.info.id) ? 'highlight' : ''"
-            @click="selectedItem = item.info"
-          >
-            <td>
-              <ItemCell
-                :item-info="item.info"
-                :amount="item.amount.remain"
-                :show-item-details="showItemDetails"
-                :item-span-max-width="itemSpanMaxWidth"
-                :container-id="containerId"
-              />
-            </td>
-            <td>
-              {{ getItemAmount(item.amount.total) }}
-            </td>
-            <td>
-              <n-input-number
-                v-model:value="itemsPrepared[item.info.id]"
-                :min="0"
-                :max="item.amount.total"
-                :precision="0"
-                :size="showItemDetails ? 'small' : 'tiny'"
-                button-placement="both"
-              />
-            </td>
-            <td>
-              {{ getItemAmount(item.amount.remain) }}
-            </td>
-          </tr>
-        </tbody>
-      </n-table>
+      <div class="table-container">
+        <div
+          class="container-back"
+          :style="{ height: contentHeight ?? '450px' }"
+          @click="selectedItem = undefined"
+        />
+        <n-table class="table" size="small" :single-line="false">
+          <tbody>
+            <tr
+              v-for="item in rows.remaining"
+              :key="'item-remaining-' + item.info.id"
+              :class="highlightedItems.includes(item.info.id) ? 'highlight' : ''"
+              @click="selectedItem = item.info"
+            >
+              <td>
+                <ItemCell
+                  :item-info="item.info"
+                  :amount="item.amount.remain"
+                  :show-item-details="showItemDetails"
+                  :item-span-max-width="itemSpanMaxWidth"
+                  :container-id="containerId"
+                />
+              </td>
+              <td>
+                {{ getItemAmount(item.amount.total) }}
+              </td>
+              <td>
+                <n-input-number
+                  v-model:value="itemsPrepared[item.info.id]"
+                  :min="-1"
+                  :max="item.amount.total"
+                  :precision="0"
+                  :size="showItemDetails ? 'small' : 'tiny'"
+                  button-placement="both"
+                  :show-button="!isMobile"
+                  placeholder="0"
+                  @update:value="handleNumInputLoop(item)"
+                />
+              </td>
+              <td>
+                {{ getItemAmount(item.amount.remain) }}
+              </td>
+            </tr>
+            <tr v-if="rows.cleaned?.length" class="prepared">
+              <td colspan="4" class="bold">
+                <i class="xiv e05e"></i>
+                {{ t('已筹备完成') }}
+              </td>
+            </tr>
+            <tr
+              v-for="item in rows.cleaned"
+              :key="'item-cleaned-' + item.info.id"
+              class="prepared"
+              :class="highlightedItems.includes(item.info.id) ? 'highlight' : ''"
+              @click="selectedItem = item.info"
+            >
+              <td>
+                <ItemCell
+                  :item-info="item.info"
+                  :amount="item.amount.remain"
+                  :show-item-details="showItemDetails"
+                  :item-span-max-width="itemSpanMaxWidth"
+                  :container-id="containerId"
+                />
+              </td>
+              <td>
+                {{ getItemAmount(item.amount.total) }}
+              </td>
+              <td>
+                <n-input-number
+                  v-model:value="itemsPrepared[item.info.id]"
+                  :min="0"
+                  :max="item.amount.total"
+                  :precision="0"
+                  :size="showItemDetails ? 'small' : 'tiny'"
+                  button-placement="both"
+                />
+              </td>
+              <td>
+                {{ getItemAmount(item.amount.remain) }}
+              </td>
+            </tr>
+          </tbody>
+        </n-table>
+      </div>
     </n-scrollbar>
   </div>
 </template>
@@ -214,7 +221,21 @@ const handleNumInputLoop = (row: StatementRow) => {
     background-color: #3364C7;
   }
 }
+.table-container {
+  position: relative;
+  z-index: 0;
 
+  .container-back {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 1;
+    background: transparent;
+  }
+  .table {
+    z-index: 2;
+    position: relative;
+  }
+}
 
 /* Desktop */
 @media screen and (min-width: 768px) {

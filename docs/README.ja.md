@@ -1,8 +1,6 @@
-<p align="center">
-  <img alt="icon" height="160" src="/docs/image/app-logo.png" />
-</p>
-
-<h1 align="center">7.x HQ Helper</h1>
+<h1 align="center">
+  <img alt="icon" src="/docs/image/app-logo.png" height="160" />
+</h1>
 
 <p align="center">
   <a href="/README.md">简体中文</a>
@@ -16,9 +14,9 @@
 [![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github)](https://github.com/InfSein/hqhelper-dawntrail/releases) [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)](https://github.com/InfSein/hqhelper-dawntrail/releases) <br>
 [![Based on Vite](https://img.shields.io/badge/Vite-6.3.4-646CFF?style=flat&logo=vite)](https://github.com/vitejs/vite) [![Based on Vue3](https://img.shields.io/badge/Vue-3.5.13-4FC08D?style=flat&logo=vue.js)](https://github.com/vuejs/core) [![Based on TypeScript](https://img.shields.io/badge/TypeScript-5.7.3-3178C6?style=flat&logo=typescript)](https://github.com/microsoft/TypeScript) [![Based on Naive UI](https://img.shields.io/badge/Naive%20UI-2.41.0-008080?style=flat&logo=npm)](https://github.com/tusen-ai/naive-ui)
 
-生産＆採集プレイヤー向けの黄金編（パッチ7.0～7.4）秘伝書レシピ計算ツール。
+生産＆採集プレイヤー向けの秘伝書レシピ計算ツール。
 
-パッチ7.0/7.05/7.1/7.2/7.3/7.4で追加されたHQ装備、食事、強化薬の情報整理とレシピ計算ツールを提供します。さらに、生産＆採集プレイヤーにとって便利なその他の機能も用意しています。
+パッチで追加されたHQ装備、食事、強化薬の情報整理とレシピ計算ツールを提供します。さらに、生産＆採集プレイヤーにとって便利なその他の機能も用意しています。
 
 ## 使い方
 
@@ -42,19 +40,7 @@
 
 様々なラッピング方法を提供する予定ですが、ブラウザと同じパフォーマンスを保証しかねます。
 
-#### Windows アプリ
-
-[Release Electron v6](https://github.com/InfSein/hqhelper-dawntrail/releases/tag/electron.v6) をご覧ください。
-
-#### iOS アプリ
-
-いくつかの理由で、iOS用のアプリを提供することはできませんが、サイト自体はPWA（プログレッシブウェブアプリ）をサポートしています。
-
- `Safari` でウェブサイトを開き、下部中央のボタンをタップし、 `ホーム画面に追加`，を選択すると、ホーム画面からアプリに近い体験で起動できます。
-
-#### Android アプリ
-
-現時点に開発する予定はありません。
+[hqhelper-client](https://github.com/InfSein/hqhelper-client) をご覧ください。
 
 ### 手動ビルド
 
@@ -104,7 +90,3 @@ npm run dev
 ### Star数の推移
 
 [![Stargazers over time](https://starchart.cc/InfSein/hqhelper-dawntrail.svg?variant=adaptive)](https://starchart.cc/InfSein/hqhelper-dawntrail)
-
-## スペシャルサンクス
-
-* JetBrains 

@@ -14,10 +14,14 @@ export interface AppVersionJson {
   electron: string;
   dlink_hqhelper: string;
   dlink_electron: string;
+  dlink_electron_mac: string;
   client_info: {
     recomm_proxy: string;
     cn_sub_links: string[];
+    mac_cn_sub_links: string[];
   }
+  maintenance_webpack: boolean;
+  maintenance_client: boolean;
 }
 
 export interface PreferenceGroup {

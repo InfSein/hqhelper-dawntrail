@@ -2270,48 +2270,6 @@
       "components\\modals\\ModalCheckUpdates.vue"
     ]
   },
-  "正在建立连接……": {
-    "en": "Building connections...",
-    "ja": "接続を確立中……",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
-  "正在下载更新包…… 已下载 {now} / {total} MB | 当前速度：{speed}MB/s": {
-    "en": "Downloading... Downloaded: {now} / {total} MB / Speed:{speed}MB/s",
-    "ja": "更新パッケージをダウンロード中…… {now}MBをダウンロード済み、総ダウンロードサイズ：{total}MB | 現在の速度：{speed}MB/s",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
-  "正在解压更新包……": {
-    "en": "Extracting...",
-    "ja": "更新パッケージを解凍中……",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
-  "正在替换文件……": {
-    "en": "Replacing files...",
-    "ja": "ファイルを置き換え中……",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
-  "正在清理临时文件……": {
-    "en": "Cleaning temp files...",
-    "ja": "一時ファイルを整理中……",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
-  "正在重启程序……": {
-    "en": "Relaunching...",
-    "ja": "プログラムを再起動中……",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
   "正在更新": {
     "en": "Updating",
     "ja": "アップデート中……",
@@ -5502,13 +5460,6 @@
       "components\\main\\PatchPanel.vue"
     ]
   },
-  "正在打开安装包……": {
-    "en": "Opening the installer package...",
-    "ja": "インストールパッケージを開いています...",
-    "$files": [
-      "components\\modals\\ModalCheckUpdates.vue"
-    ]
-  },
   "即将开始下载新版客户端安装包，可能需要一些时间。": {
     "en": "The download of the new client installer will begin shortly, and it may take some time.",
     "ja": "新版クライアントインストーラのダウンロードを開始します、時間がかかる場合があります",
@@ -8445,6 +8396,321 @@
     "ja": "入力したメールアドレスは不正です",
     "$files": [
       "components\\modals\\ModalLogin.vue"
+    ]
+  },
+  "修复了以覆写模式将物品加入工作流会清除工作流名称的问题。": {
+    "en": "Fixed an issue where adding items to a workflow in overwrite mode would clear the workflow name.",
+    "ja": "上書きモードでアイテムをワークフローに追加するとワークフロー名が消去される問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修复了移动端的菜单界面会随主页面一起滚动的问题。": {
+    "en": "Fixed an issue where the mobile menu interface would scroll along with the main page.",
+    "ja": "モバイル端末のメニュー画面がメインページと一緒にスクロールする問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "预修正了一部分云端同步可能导致的错误。": {
+    "en": "Pre-fixed some errors that might be caused by cloud synchronization.",
+    "ja": "クラウド同期が引き起こす可能性のあるエラーの一部を事前に修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "优化了推荐流程中非限时采集道具的排序，现在采集位置相近的道具会排在一起。": {
+    "en": "Optimized the sorting of non-time-limited gathering items in the Recomm. Process. Items with nearby gathering locations will now be grouped together.",
+    "ja": "推奨の回しにおける非刻限採集アイテムの並び順を最適化し、採集場所が近いアイテムがまとめて表示されるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "现在点击报表的空白区域也可以取消选中物品行。": {
+    "en": "Now clicking on blank areas of the statement can also deselect item rows.",
+    "ja": "レポートの空白部分をクリックしてもアイテム行の選択を解除できるようになりました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "编辑用户宏弹窗中追加了预设标签和预设属性的功能。": {
+    "en": "Added preset tags and preset attributes functionality to the user macro editing modal.",
+    "ja": "ユーザーマクロ編集ダイアログにプリセットタグとプリセット属性の機能を追加しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "※仅适用于 Mac OS 10.13 或更高版本": {
+    "en": "※Only available for Mac OS 10.13 or later",
+    "ja": "※Mac OS 10.13以降のみ対応",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "※仅适用于搭载了M系列芯片的设备": {
+    "en": "※Only available for devices with M-series chips",
+    "ja": "※Mシリーズチップ搭載デバイスのみ対応",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "提示": {
+    "en": "Notice",
+    "ja": "ヒント",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "我们暂时没有能力提供 Apple 开发者签名，安装时可能会提示「“HqHelper”已损坏，无法打开。你应该将它移到废纸篓」。": {
+    "en": "We currently cannot provide Apple developer signatures. During installation, you might see a message saying \"'HqHelper' is damaged and can't be opened. You should move it to the Trash.\"",
+    "ja": "現在Apple開発者署名を提供する能力がなく、インストール時に「\"HqHelper\"が破損しているため開けません。ゴミ箱に移動する必要があります」と表示される場合があります。",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "你需要解除安全检查限制或是将 HqHelper 添加到白名单方可成功安装。": {
+    "en": "You need to disable security check restrictions or add HqHelper to the whitelist to install successfully.",
+    "ja": "セキュリティチェック制限を解除するか、HqHelperをホワイトリストに追加する必要があります。",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "请参阅：": {
+    "en": "Please refer to:",
+    "ja": "詳細はこちら：",
+    "$files": [
+      "views\\DownloadPage.vue"
+    ]
+  },
+  "工作流流程": {
+    "en": "Workflow Process",
+    "ja": "ワークフローのプロセス",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "在新窗口中打开": {
+    "en": "Open in new window",
+    "ja": "新しいウィンドウで開く",
+    "$files": [
+      "views\\WorkflowPage.vue"
+    ]
+  },
+  "国服{cnver}／国际服{glbver}": {
+    "en": "CN Server {cnver} / Global Server {glbver}",
+    "ja": "中国版{cnver}／グローバル版{glbver}",
+    "$files": [
+      "components\\modals\\ModalChangeLogs.vue"
+    ]
+  },
+  "正在{stage}……": {
+    "en": "{stage} ...",
+    "ja": "{stage}中…",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "{stage}失败": {
+    "en": "{stage} failed",
+    "ja": "{stage}失敗",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "已下载 {now} / {total} MB | 当前速度：{speed}MB/s": {
+    "en": "Downloaded {now} / {total} MB | Current speed: {speed}MB/s",
+    "ja": "ダウンロード済み {now} / {total} MB | 現在の速度：{speed}MB/s",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "建立连接": {
+    "en": "Establishing connection",
+    "ja": "接続確立",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "下载更新包": {
+    "en": "Downloading update package",
+    "ja": "更新パッケージをダウンロード",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "解压更新包": {
+    "en": "Extracting update package",
+    "ja": "更新パッケージを解凍",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "替换文件": {
+    "en": "Replacing files",
+    "ja": "ファイルを置換",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "清理临时文件": {
+    "en": "Cleaning temporary files",
+    "ja": "一時ファイルをクリーンアップ",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "重启程序": {
+    "en": "Restarting application",
+    "ja": "アプリを再起動",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "打开安装包": {
+    "en": "Opening installer",
+    "ja": "インストーラーを開く",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "最多设置{num}个标签": {
+    "en": "Maximum {num} tags can be set",
+    "ja": "最大{num}個のタグを設定可能",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "作业{val1}／加工{val2}／CP{val3}": {
+    "en": "Craftsmanship {val1} / Control {val2} / CP {val3}",
+    "ja": "作業{val1}／加工{val2}／CP{val3}",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "预设": {
+    "en": "Presets",
+    "ja": "プリセット",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "常用标签": {
+    "en": "Frequently Used Tags",
+    "ja": "よく使うタグ",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "还未设置任何常用标签": {
+    "en": "No frequently used tags set yet",
+    "ja": "よく使うタグはまだ設定されていません",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "常用属性组": {
+    "en": "Frequently Used Attribute Sets",
+    "ja": "よく使う属性グループ",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "还未设置任何常用属性组": {
+    "en": "No frequently used attribute sets set yet",
+    "ja": "よく使う属性グループはまだ設定されていません",
+    "$files": [
+      "components\\modals\\ModalCraftMacroEdit.vue"
+    ]
+  },
+  "不能设置重复的常用属性组": {
+    "en": "Cannot set duplicate frequently used attribute sets",
+    "ja": "重複するよく使う属性グループは設定できません",
+    "$files": [
+      "components\\modals\\ModalPresetCReqsManage.vue"
+    ]
+  },
+  "不能设置属性值全是0的常用属性组": {
+    "en": "Cannot set frequently used attribute sets with all values as 0",
+    "ja": "属性値がすべて0のよく使う属性グループは設定できません",
+    "$files": [
+      "components\\modals\\ModalPresetCReqsManage.vue"
+    ]
+  },
+  "管理常用属性组": {
+    "en": "Manage Frequently Used Attribute Sets",
+    "ja": "よく使う属性グループを管理",
+    "$files": [
+      "components\\modals\\ModalPresetCReqsManage.vue"
+    ]
+  },
+  "最多只能添加{num}组常用属性": {
+    "en": "Maximum {num} frequently used attribute sets can be added",
+    "ja": "最大{num}グループのよく使う属性しか追加できません",
+    "$files": [
+      "components\\modals\\ModalPresetCReqsManage.vue"
+    ]
+  },
+  "常用属性组 （作业精度／加工精度／制作力）": {
+    "en": "Frequently Used Attribute Sets (Craftsmanship/Control/CP)",
+    "ja": "よく使う属性グループ （作業精度／加工精度／制作力）",
+    "$files": [
+      "components\\modals\\ModalPresetCReqsManage.vue"
+    ]
+  },
+  "不能设置空白内容的标签": {
+    "en": "Cannot set tags with blank content",
+    "ja": "空の内容のタグは設定できません",
+    "$files": [
+      "components\\modals\\ModalPresetTagsManage.vue"
+    ]
+  },
+  "管理常用标签": {
+    "en": "Manage Frequently Used Tags",
+    "ja": "よく使うタグを管理",
+    "$files": [
+      "components\\modals\\ModalPresetTagsManage.vue"
+    ]
+  },
+  "最多只能添加{num}个常用标签": {
+    "en": "Maximum {num} frequently used tags can be added",
+    "ja": "最大{num}個のよく使うタグしか追加できません",
+    "$files": [
+      "components\\modals\\ModalPresetTagsManage.vue"
+    ]
+  },
+  "标签名称": {
+    "en": "Tag Name",
+    "ja": "タグ名",
+    "$files": [
+      "components\\modals\\ModalPresetTagsManage.vue"
+    ]
+  },
+  "最多只能有{num}行数据": {
+    "en": "Maximum {num} rows of data allowed",
+    "ja": "最大{num}行のデータしか保持できません",
+    "$files": [
+      "components\\custom\\general\\DraggableTable.vue"
+    ]
+  },
+  "需要保留至少{num}行数据": {
+    "en": "At least {num} rows of data must be retained",
+    "ja": "少なくとも{num}行のデータを残す必要があります",
+    "$files": [
+      "components\\custom\\general\\DraggableTable.vue"
+    ]
+  },
+  "修复了工作流报表的清单悬浮窗中的各组标题文字会被边框覆盖的问题。": {
+    "en": "Fixed an issue where group header text in the workflow statement list popup would be obscured by borders.",
+    "ja": "ワークフローレポートのリストポップアップ内でグループ見出しテキストが枠に重なる問題を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
+    ]
+  },
+  "修正了宏管理界面输入框在界面语言设置为日语/英语时的显示效果。": {
+    "en": "Fixed the display of input fields in macro management when UI language is set to Japanese/English.",
+    "ja": "マクロ管理画面の入力欄が日本語/英語に設定時の表示効果を修正しました。",
+    "$files": [
+      "data\\change-logs.ts"
     ]
   }
 }

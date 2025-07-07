@@ -16,6 +16,8 @@ import { useStore } from '@/store'
 import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { type CloudConfigModel } from '@/models/config-cloud'
+import { fixWorkState as fixWorkflowWorkState } from '@/models/workflow'
+import { fixWorkState as fixMacromanageWorkState } from '@/models/macromanage'
 import { HqList, type NbbResponse } from '@/models/nbb-cloud'
 import { useNbbCloud } from '@/tools/nbb-cloud'
 import { deepCopy } from '@/tools'
@@ -271,12 +273,16 @@ const handleUpload = async () => {
       case HqList.WorkstateBackupGatherClock:
         content = JSON.stringify(userConfig.value.gatherclock_cache_work_state)
         break
-      case HqList.WorkstateBackupWorkflow:
-        content = JSON.stringify(userConfig.value.workflow_cache_work_state)
+      case HqList.WorkstateBackupWorkflow: {
+        const workstate = fixWorkflowWorkState(userConfig.value.workflow_cache_work_state)
+        content = JSON.stringify(workstate)
         break
-      case HqList.WorkstateBackupMacromanage:
-        content = JSON.stringify(userConfig.value.macromanage_cache_work_state)
+      }
+      case HqList.WorkstateBackupMacromanage: {
+        const workstate = fixMacromanageWorkState(userConfig.value.macromanage_cache_work_state)
+        content = JSON.stringify(workstate)
         break
+      }
       case HqList.DataBackupInventory: 
         content = JSON.stringify({
           inventory_statement_enable_sync: funcConfig.value.inventory_statement_enable_sync,
@@ -366,18 +372,19 @@ const handleDownload = async () => {
   }
 
   if (syncTargets.value.includes(HqList.WorkstateBackupWorkflow)) {
-    newUserConfig.workflow_cache_work_state = JSON.parse(cloudLists.value![HqList.WorkstateBackupWorkflow].content)
+    newUserConfig.workflow_cache_work_state = fixWorkflowWorkState(JSON.parse(cloudLists.value![HqList.WorkstateBackupWorkflow].content))
   } else {
     newUserConfig.workflow_cache_work_state = oldUserConfig.workflow_cache_work_state
   }
 
   if (syncTargets.value.includes(HqList.WorkstateBackupMacromanage)) {
-    newUserConfig.macromanage_cache_work_state = JSON.parse(cloudLists.value![HqList.WorkstateBackupMacromanage].content)
+    newUserConfig.macromanage_cache_work_state = fixMacromanageWorkState(JSON.parse(cloudLists.value![HqList.WorkstateBackupMacromanage].content))
   } else {
     newUserConfig.macromanage_cache_work_state = oldUserConfig.macromanage_cache_work_state
   }
 
   if (JSON.stringify(oldUserConfig) !== JSON.stringify(newUserConfig)) {
+    console.log('userconfig json diff.\n', JSON.stringify(oldUserConfig), JSON.stringify(newUserConfig))
     configChanged = true
     newUserConfig = fixUserConfig(newUserConfig)
     store.commit('setUserConfig', newUserConfig)
@@ -416,6 +423,7 @@ const handleDownload = async () => {
   }
 
   if (JSON.stringify(oldFuncConfig) !== JSON.stringify(newFuncConfig)) {
+    console.log('funcconfig json diff.\n', JSON.stringify(oldFuncConfig), JSON.stringify(newFuncConfig))
     configChanged = true
     newFuncConfig = fixFuncConfig(newFuncConfig)
     store.commit('setFuncConfig', newFuncConfig)
@@ -436,6 +444,7 @@ const handleDownload = async () => {
     tips.push(t('页面将重载以应用更改。'))
     alert(tips.join('\n'))
     setTimeout(() => {
+      window.electronAPI?.closeAllChildWindows?.()
       location.reload()
     }, 500)
   } else {
