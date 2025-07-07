@@ -1,6 +1,7 @@
-<h1 align="center">
-  <img alt="icon" src="/docs/image/app-logo.png" height="160" />
-</h1>
+<p align="center">
+  <img alt="icon" height="160" src="/docs/image/app-logo.png" />
+</p>
+<h1 align="center"></h1>
 
 <p align="center">
   <strong>简体中文</strong>
