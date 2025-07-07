@@ -1,16 +1,21 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue'
 import {
-  NButton, NDynamicTags, NEmpty, NIcon, NInput, NInputNumber, NInputGroup, NInputGroupLabel, NTable, NTabs, NTabPane,
-  NRadio, NRadioGroup, 
+  NButton, NDivider, NDynamicTags, NEmpty, NIcon, NInput, NInputNumber, NInputGroup, NInputGroupLabel, NPopover,
+  NTable, NTabs, NTabPane, NTag, NRadio, NRadioGroup, 
   useMessage
 } from 'naive-ui'
-import { 
+import {
+  BuildFilled,
   CodeSharp,
+  AddCircleOutlined,
+  RemoveCircleOutlined,
+  LocalOfferFilled,
   ListFilled,
   DeleteFilled,
   DoneOutlined,
   SaveOutlined,
+  SettingsRound,
 } from '@vicons/material'
 import { VueDraggable } from 'vue-draggable-plus'
 import MyModal from '@/components/templates/MyModal.vue'
@@ -19,12 +24,15 @@ import ItemSelector from '@/components/custom/item/ItemSelector.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import CraftActionButton from '@/components/custom/action/CraftActionButton.vue'
 import MacroViewer from '@/components/custom/macro/MacroViewer.vue'
+import ModalPresetTagsManage from './ModalPresetTagsManage.vue'
+import ModalPresetCReqsManage from './ModalPresetCReqsManage.vue'
 import { XivCraftActions } from '@/assets/data'
 import {
   _VAR_TAG_MAXLEN, _VAR_REMARK_MAXLINE,
   _VAR_RELATEITEM_MAXLEN, _VAR_TABLESHOW_RELATEITEM_MAXLEN,
   getDefaultCraftMacro,
   type RecordedCraftMacro,
+  type StrictCraftRequirements,
 } from '@/models/macromanage'
 import { type UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
@@ -66,6 +74,8 @@ const formCraftActions = ref<{
 const formCraftActionsImportType = ref<"gamemacro" | "simulator">('gamemacro')
 const formCraftActionsImport = ref('')
 const formCraftActionsExportLang = ref<"zh" | "en" | "ja">('zh')
+const showPresetTagsManageModal = ref(false)
+const showPresetCReqsManageModal = ref(false)
 
 interface ModalCraftMacroEditProps {
   action: "add" | "edit";
@@ -115,6 +125,36 @@ const groupLabelStyle = computed(() => {
     'text-align: center;'
   ].join(' ')
 })
+
+const handlePresetTagClick = (tag: string) => {
+  if (formData.value.tags.includes(tag)){
+    formData.value.tags = formData.value.tags.filter(_tag => tag !== _tag)
+  } else {
+    if (formData.value.tags.length >= _VAR_TAG_MAXLEN) {
+      NAIVE_UI_MESSAGE.warning(t('最多设置{num}个标签', _VAR_TAG_MAXLEN))
+      return
+    }
+    formData.value.tags.push(tag)
+  }
+}
+
+const isActiveCReq = (creq: StrictCraftRequirements) => {
+  return creq.craftsmanship === formData.value.requirements.craftsmanship
+    && creq.control === formData.value.requirements.control
+    && creq.cp === formData.value.requirements.cp
+}
+const buildCReqButtonText = (creq: StrictCraftRequirements) => {
+  return t('作业{val1}／加工{val2}／CP{val3}', {
+    val1: creq.craftsmanship,
+    val2: creq.control,
+    val3: creq.cp,
+  })
+}
+const handleCReqButtonClick = (creq: StrictCraftRequirements) => {
+  formData.value.requirements.craftsmanship = creq.craftsmanship
+  formData.value.requirements.control = creq.control
+  formData.value.requirements.cp = creq.cp
+}
 
 const remarkInputChecker = (value: string) => {
   return value.split('\n').length <= _VAR_REMARK_MAXLINE
@@ -236,7 +276,57 @@ const handleSave = async () => {
               </div>
             </div>
             <div class="form-block">
-              <div class="form-title">{{ t('标签') }}</div>
+              <div class="form-title">
+                {{ t('标签') }}
+                <span class="sub">
+                  <n-popover placement="right-start">
+                    <template #trigger>
+                      <a>[{{ t('预设') }}]</a>
+                    </template>
+
+                    <div class="pop-wrapper">
+                      <div class="flex-vac font-big gap-4">
+                        <n-icon :size="16"><LocalOfferFilled /></n-icon>
+                        <span>{{ t('常用标签') }}</span>
+                      </div>
+                      <n-divider style="margin: 0 0 3px 0;" />
+                      <div v-if="userConfig.macromanage_cache_work_state.presetTags.length" class="flex-wrap gap-2">
+                        <n-tag
+                          v-for="(tag, tagIndex) in userConfig.macromanage_cache_work_state.presetTags"
+                          :key="`tag-${tagIndex}`"
+                          size="small"
+                          :type="formData.tags.includes(tag) ? 'success' : 'default'"
+                          class="pop-tag"
+                          :title="tag"
+                          @click="handlePresetTagClick(tag)"
+                        >
+                          <template #icon>
+                            <n-icon v-if="formData.tags.includes(tag)" :component="RemoveCircleOutlined" />
+                            <n-icon v-else :component="AddCircleOutlined" />
+                          </template>
+                          {{ tag }}
+                        </n-tag>
+                      </div>
+                      <n-empty
+                        v-else
+                        size="small"
+                        class="font-small no-margin-empty"
+                        style="align-self: center;"
+                        :description="t('还未设置任何常用标签')"
+                      />
+                      <n-divider style="margin: 3px 0 3px 0;" />
+                      <div class="flex" style="justify-content: end;">
+                        <n-button size="tiny" @click="showPresetTagsManageModal = true">
+                          <template #icon>
+                            <n-icon><SettingsRound /></n-icon>
+                          </template>
+                          {{ t('管理') }}
+                        </n-button>
+                      </div>
+                    </div>
+                  </n-popover>
+                </span>
+              </div>
               <div class="form-input">
                 <n-dynamic-tags v-model:value="formData.tags" :max="_VAR_TAG_MAXLEN" />
               </div>
@@ -255,7 +345,51 @@ const handleSave = async () => {
               </div>
             </div>
             <div class="form-block">
-              <div class="form-title">{{ t('属性要求') }}</div>
+              <div class="form-title">
+                {{ t('属性要求') }}
+                <span class="sub">
+                  <n-popover placement="right-start">
+                    <template #trigger>
+                      <a>[{{ t('预设') }}]</a>
+                    </template>
+
+                    <div>
+                      <div class="flex-vac font-big gap-4">
+                        <n-icon :size="16"><BuildFilled /></n-icon>
+                        <span>{{ t('常用属性组') }}</span>
+                      </div>
+                      <n-divider style="margin: 0 0 3px 0;" />
+                      <div v-if="userConfig.macromanage_cache_work_state.presetCReqs.length" class="flex-col gap-2">
+                        <n-button
+                          v-for="(creq, creqIndex) in userConfig.macromanage_cache_work_state.presetCReqs"
+                          :key="`creq-${creqIndex}`"
+                          size="tiny"
+                          :ghost="!isActiveCReq(creq)"
+                          :type="isActiveCReq(creq) ? 'success' : 'default'"
+                          @click="handleCReqButtonClick(creq)"
+                        >
+                          {{ buildCReqButtonText(creq) }}
+                        </n-button>
+                      </div>
+                      <n-empty
+                        v-else
+                        size="small"
+                        class="font-small no-margin-empty"
+                        :description="t('还未设置任何常用属性组')"
+                      />
+                      <n-divider style="margin: 3px 0 3px 0;" />
+                      <div class="flex" style="justify-content: end;">
+                        <n-button size="tiny" @click="showPresetCReqsManageModal = true">
+                          <template #icon>
+                            <n-icon><SettingsRound /></n-icon>
+                          </template>
+                          {{ t('管理') }}
+                        </n-button>
+                      </div>
+                    </div>
+                  </n-popover>
+                </span>
+              </div>
               <div class="form-input">
                 <n-table id="form-requirements-table" size="small" :single-line="false">
                   <thead>
@@ -515,6 +649,13 @@ const handleSave = async () => {
         </n-button>
       </div>
     </template>
+
+    <ModalPresetTagsManage
+      v-model:show="showPresetTagsManageModal"
+    />
+    <ModalPresetCReqsManage
+      v-model:show="showPresetCReqsManageModal"
+    />
   </MyModal>
 </template>
 
@@ -537,12 +678,32 @@ const handleSave = async () => {
       .form-title {
         font-weight: bold;
         line-height: 1.5;
+
+        .sub {
+          font-size: calc(var(--n-font-size) - 2px);
+        }
       }
       .form-tip {
         line-height: 1.2;
       }
     }
   }
+}
+.pop-wrapper {
+  width: 150px;
+
+  .pop-tag {
+    width: fit-content;
+    max-width: 100%;
+    cursor: pointer;
+    user-select: none;
+  }
+}
+:deep(.pop-tag span.n-tag__content) {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 table {
   th {

@@ -54,6 +54,7 @@ import {
 } from '@/assets/data'
 import {
   XivMaps, type XivMapAetheryteInfo,
+  calculatePosVal,
 } from '@/tools/map'
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
@@ -193,6 +194,7 @@ export interface ItemInfo {
     folkloreId?: number,
     posX: number,
     posY: number,
+    posVal: number,
     recommAetheryte?: XivMapAetheryteInfo,
     timeLimitInfo: {
       start: string,
@@ -348,7 +350,9 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         if (!placeNameZH) {
           placeNameZH = XivTranslatedPlaces[placeID] || '未翻译的地点'
         }
-        const timelimitdesc : string[] = []
+        const posX = Number(gatherData!.coords!.x)
+        const posY = Number(gatherData!.coords!.y)
+        const posVal = calculatePosVal(posX, posY)
         itemInfo.gatherInfo = {
           jobId: gatherJob,
           placeID: placeID,
@@ -356,8 +360,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
           placeNameJA: gatherPlaceData[0],
           placeNameEN: gatherPlaceData[1],
           gntype_zh, gntype_en, gntype_ja,
-          posX: Number(gatherData!.coords!.x),
-          posY: Number(gatherData!.coords!.y),
+          posX, posY, posVal,
           timeLimitInfo: [],
           timeLimitDescription: ''
         };
@@ -367,6 +370,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         if (XivMaps[placeID]) {
           itemInfo.gatherInfo.recommAetheryte = getNearestAetheryte(XivMaps[placeID], itemInfo.gatherInfo.posX, itemInfo.gatherInfo.posY)
         }
+        const timelimitdesc : string[] = [];
         [1,2,3].forEach(i => {
           if (gatherData?.popTime) {
             const index = i as 1|2|3

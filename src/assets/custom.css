@@ -157,6 +157,11 @@
   font-size: var(--n-font-size);
   margin: 3px 0 0 5px;
 }
+.no-margin-empty {
+  .n-empty__description {
+    margin-top: 0 !important;
+  }
+}
 .tab-title {
   display: flex;
   align-items: center;

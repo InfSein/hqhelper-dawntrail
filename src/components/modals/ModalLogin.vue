@@ -151,6 +151,8 @@ const handleSaveLoginInfo = (data: ResdataRegisterAndLogin) => {
 const handleSendVerify = async (email: string) => {
   if (!email) {
     NAIVE_UI_MESSAGE.error(t('请输入{val}', t('邮箱'))); return
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    NAIVE_UI_MESSAGE.error(t('邮箱格式错误')); return
   }
   isSendingVerify.value = true
   const verifyFunc = loginAction.value === 'resetpass' ? sendVerifyForResetPassword : sendVerify
@@ -191,6 +193,8 @@ const handleSubmit = async () => {
     } else if (loginAction.value === 'register') {
       if (!registerFormData.email) {
         NAIVE_UI_MESSAGE.error(t('请输入{val}', t('邮箱'))); return
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(registerFormData.email)) {
+        NAIVE_UI_MESSAGE.error(t('邮箱格式错误')); return
       } else if (!registerFormData.verifycode) {
         NAIVE_UI_MESSAGE.error(t('请输入{val}', t('验证码'))); return
       } else if (!registerFormData.loginname) {
@@ -217,6 +221,8 @@ const handleSubmit = async () => {
     } else if (loginAction.value === 'resetpass') {
       if (!resetpassFormData.email) {
         NAIVE_UI_MESSAGE.error(t('请输入{val}', t('邮箱'))); return
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(resetpassFormData.email)) {
+        NAIVE_UI_MESSAGE.error(t('邮箱格式错误')); return
       } else if (!resetpassFormData.verifycode) {
         NAIVE_UI_MESSAGE.error(t('请输入{val}', t('验证码'))); return
       } else if (!resetpassFormData.password) {

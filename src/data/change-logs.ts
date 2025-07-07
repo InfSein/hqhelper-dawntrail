@@ -70,6 +70,33 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.2.7',
+      date: '2025-07-07',
+      changes: [
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('修复了以覆写模式将物品加入工作流会清除工作流名称的问题。') + ' <i>(Found by Small-Dianer)</i>',
+            t('修复了工作流报表的清单悬浮窗中的各组标题文字会被边框覆盖的问题。'),
+            t('修复了移动端的菜单界面会随主页面一起滚动的问题。'),
+            t('修正了宏管理界面输入框在界面语言设置为日语/英语时的显示效果。'),
+            t('预修正了一部分云端同步可能导致的错误。'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('优化了推荐流程中非限时采集道具的排序，现在采集位置相近的道具会排在一起。')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/07/05/6868ee62a8487.png'),
+            t('现在点击报表的空白区域也可以取消选中物品行。'),
+            t('编辑用户宏弹窗中追加了预设标签和预设属性的功能。')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/07/05/6868eec16b46b.png')
+              + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/07/05/6868eeef3af65.png'),
+          ]
+        }
+      ]
+    },
+    {
       version: '2.2.6',
       date: '2025-06-24',
       changes: [

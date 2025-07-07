@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, ref } from 'vue'
 import {
-  NBackTop, NButton, NDivider, NIcon, NSpin,
+  NAlert, NBackTop, NButton, NDivider, NIcon, NSpin,
   useMessage
 } from 'naive-ui'
 import type { Type } from 'naive-ui/es/button/src/interface'
@@ -91,6 +91,44 @@ const winAppBtns = computed(() => {
   })
   return res
 })
+const macAppBtns = computed(() => {
+  const vi = appVersionInfo.value
+  if (!vi) return []
+  const dlink = vi.dlink_electron_mac.replace('~VERSION', vi.electron)
+  let index = 1
+  const res : {
+    icon: typeof LandscapeRound;
+    text: string;
+    type: Type;
+    link: string;
+    ghost: boolean;
+  }[] = [
+    {
+      icon: LandscapeRound,
+      text: t('国内下载链接{index}', index++),
+      type: 'primary',
+      link: dlink.replace('~PROXY', vi.client_info.recomm_proxy),
+      ghost: false,
+    }
+  ]
+  vi.client_info.mac_cn_sub_links.forEach((sublink) => {
+    res.push({
+      icon: LandscapeRound,
+      text: t('国内下载链接{index}', index++),
+      type: 'primary',
+      link: sublink,
+      ghost: true,
+    })
+  })
+  res.push({
+    icon: FlightLandRound,
+    text: t('国际下载链接'),
+    type: 'info',
+    link: dlink.replace('~PROXY', ''),
+    ghost: false,
+  })
+  return res
+})
 
 const handleDownloadBtnClick = (link: string) => {
   window.open(link, '_blank')
@@ -157,7 +195,41 @@ const handleDownloadBtnClick = (link: string) => {
         <i class="xiv square-2"></i>
         <span class="card-title-text">{{ t('{platform} 客户端', 'Mac') }}</span>
       </template>
-      <div class="content-block">{{ t('开发中') }}</div>
+      <div class="content-block">
+        <div v-if="loading" class="spin-container">
+          <n-spin size="small" />
+          <div>{{ t('正在加载……') }}</div>
+        </div>
+        <div v-else class="flex-col gap-4">
+          <p>{{ t('当前最新版本：{ver}', appVersionInfo?.electron) }}</p>
+          <p>{{ t('点击下方按钮来进行下载。') }}</p>
+          <div class="download-btn-container">
+            <n-button
+              v-for="(btn, btnIndex) in macAppBtns"
+              :key="'mac-app-btn-' + btnIndex"
+              size="small"
+              :type="btn.type"
+              :ghost="btn.ghost"
+              @click="() => handleDownloadBtnClick(btn.link)"
+            >
+              <template #icon>
+                <n-icon :size="16" :component="btn.icon" />
+              </template>
+              {{ btn.text }}
+            </n-button>
+          </div>
+          <p>{{ t('※仅适用于 Mac OS 10.13 或更高版本') }}</p>
+          <p>{{ t('※仅适用于搭载了M系列芯片的设备') }}</p>
+          <n-alert type="info" :title="t('提示')" style="width: fit-content; margin-top: 8px;">
+            <p>{{ t('我们暂时没有能力提供 Apple 开发者签名，安装时可能会提示「“HqHelper”已损坏，无法打开。你应该将它移到废纸篓」。') }}</p>
+            <p>{{ t('你需要解除安全检查限制或是将 HqHelper 添加到白名单方可成功安装。') }}</p>
+            <p>
+              <span>{{ t('请参阅：') }}</span>
+              <a target="_blank" href="https://zhuanlan.zhihu.com/p/135948430">https://zhuanlan.zhihu.com/p/135948430</a>
+            </p>
+          </n-alert>
+        </div>
+      </div>
     </FoldableCard>
     <FoldableCard card-key="download-ios">
       <template #header>
