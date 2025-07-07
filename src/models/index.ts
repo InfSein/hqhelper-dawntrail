@@ -20,6 +20,8 @@ export interface AppVersionJson {
     cn_sub_links: string[];
     mac_cn_sub_links: string[];
   }
+  maintenance_webpack: boolean;
+  maintenance_client: boolean;
 }
 
 export interface PreferenceGroup {
