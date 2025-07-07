@@ -1,16 +1,16 @@
 {
-  "hqhelper": "2.2.6",
-  "electron": "v7",
+  "hqhelper": "2.2.7",
+  "electron": "v6",
   "dlink_hqhelper": "~PROXYhttps://github.com/InfSein/hqhelper-dawntrail/releases/download/v~VERSION/static-pages.zip",
   "dlink_electron": "~PROXYhttps://github.com/InfSein/hqhelper-client/releases/latest/download/HqHelper.WinSetup.exe",
   "dlink_electron_mac": "~PROXYhttps://github.com/InfSein/hqhelper-client/releases/latest/download/HqHelper.Mac.dmg",
   "client_info": {
     "recomm_proxy": "https://ghfast.top/",
     "cn_sub_links": [
-      "https://share.weiyun.com/0SXWWxJC"
     ],
     "mac_cn_sub_links": [
-      "https://share.weiyun.com/0SXWWxJC"
     ]
-  }
+  },
+  "maintenance_webpack": false,
+  "maintenance_client": false
 }
