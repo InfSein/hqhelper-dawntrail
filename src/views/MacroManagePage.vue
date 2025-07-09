@@ -27,7 +27,7 @@ import {
 } from '@/models/macromanage'
 import type { UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
-import { CopyToClipboard } from '@/tools'
+import { CopyToClipboard, deepCopy } from '@/tools'
 import useUiTools from '@/tools/ui'
 import useMacroHelper from '@/tools/macro-helper'
 
@@ -410,16 +410,19 @@ const handleCopyMacro = async (macro: string) => {
 
 const handleMacroEditSubmit = (macro: RecordedCraftMacro) => {
   const macroid = macro.id
+  const newWorkState = fixWorkState(deepCopy(userConfig.value.macromanage_cache_work_state))
   if (macroEditAction.value === 'edit') {
-  const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === macroid)
+    const index = newWorkState.recordedCraftMacros.findIndex(macro => macro.id === macroid)
     if (index !== -1) {
-      workState.value.recordedCraftMacros[index] = macro
+      newWorkState.recordedCraftMacros[index] = macro
+      workState.value = newWorkState
       NAIVE_UI_MESSAGE.success(t('已保存更改'))
     } else {
       handleReportDataMissing(macro)
     }
   } else if (macroEditAction.value === 'add') {
-    workState.value.recordedCraftMacros.push(macro)
+    newWorkState.recordedCraftMacros.push(macro)
+    workState.value = newWorkState
     NAIVE_UI_MESSAGE.success(t('{dataname} 已保存', macro.name))
   } else {
     console.warn('unexpected action')
