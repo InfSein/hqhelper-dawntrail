@@ -184,7 +184,7 @@ export function useNbbCal() {
       foods: number[],
       tincs: number[]
     }[]
-    const recipeMap = {} as any
+    const recipeMap : Record<number, number> = {}
     for (const patch in config) {
       const o = config[patch].jobs
       const foods: number[] = []
@@ -231,6 +231,7 @@ export function useNbbCal() {
             foods: [],
             tincs: []
           }
+          if (data[p].foods.map(food => food.id).includes(itemID)) return // 去重
           data[p].foods.push(itemInfo)
           data[p].count++
         }
@@ -245,6 +246,7 @@ export function useNbbCal() {
             foods: [],
             tincs: []
           }
+          if (data[p].tincs.map(tinc => tinc.id).includes(itemID)) return // 去重
           data[p].tincs.push(itemInfo)
           data[p].count++
         }
