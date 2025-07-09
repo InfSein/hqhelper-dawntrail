@@ -380,8 +380,8 @@ export function useFufuCal(
         const rokey = item_server === 'chs' ? 'recipeOrderCHS' : 'recipeOrder'
         if (processes_craftable_item_sortby === 'recipeOrder') {
           items.sort((a, b) => {
-            if (a.craftInfo?.[rokey] && b.craftInfo?.[rokey]) {
-              return a.craftInfo[rokey] - b.craftInfo[rokey]
+            if (a.uiTypeId !== b.uiTypeId) {
+              return a.uiTypeId - b.uiTypeId
             } else {
               return a.id - b.id
             }
