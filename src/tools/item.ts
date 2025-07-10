@@ -93,6 +93,8 @@ export interface ItemInfo {
   descZH: string
   // * uiType: 游戏内道具描述弹窗的类型，如`触媒`/`灵魂水晶`/`腿部防具`等
   uiTypeId: number
+  /** 物品ui的排序号 */
+  uiTypeOrder: number
   uiTypeNameJA: string
   uiTypeNameEN: string
   uiTypeNameZH: string
@@ -296,6 +298,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   const itemType : number = _item.uc
   if (typeMap?.[itemType]) {
     itemInfo.uiTypeId = itemType
+    itemInfo.uiTypeOrder = typeMap[itemType].order_major * 256 + typeMap[itemType].order_minor
     itemInfo.uiTypeNameJA = typeMap[itemType].lang[0]
     itemInfo.uiTypeNameEN = typeMap[itemType].lang[1]
     itemInfo.uiTypeNameZH = typeMap[itemType].lang[2]
