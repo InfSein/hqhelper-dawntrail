@@ -84,6 +84,8 @@ export interface ItemInfo {
   name_zh: string
   name_en: string
   name_ja: string
+  /** 道具所属职业ID，可能是0 */
+  classJobId: number
   // * icon: 道具图标。需要注意hqIcon指向的文件可能不存在
   iconUrl: string
   hqIconUrl: string
@@ -263,6 +265,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.descJA = _item.desc[0]
   itemInfo.descEN = _item.desc[1]
   itemInfo.descZH = _item.desc[2]
+  itemInfo.classJobId = _item.jobs
   itemInfo.patch = _item.p || '7.05'
   itemInfo.hqable = _item.hq
   itemInfo.tradable = _item.tradable
