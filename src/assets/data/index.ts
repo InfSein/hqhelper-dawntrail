@@ -206,6 +206,8 @@ export const XivItemTypes = JsonXivItemTypes as Record<number, {
   id: number
   lang: string[]
   icon: number
+  order_minor: number
+  order_major: number
 }>
 
 import JsonXivJobs from './xiv-jobs.json'

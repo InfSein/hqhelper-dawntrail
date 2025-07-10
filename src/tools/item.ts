@@ -84,6 +84,8 @@ export interface ItemInfo {
   name_zh: string
   name_en: string
   name_ja: string
+  /** 道具所属职业ID，可能是0 */
+  classJobId: number
   // * icon: 道具图标。需要注意hqIcon指向的文件可能不存在
   iconUrl: string
   hqIconUrl: string
@@ -93,6 +95,8 @@ export interface ItemInfo {
   descZH: string
   // * uiType: 游戏内道具描述弹窗的类型，如`触媒`/`灵魂水晶`/`腿部防具`等
   uiTypeId: number
+  /** 物品ui的排序号 */
+  uiTypeOrder: number
   uiTypeNameJA: string
   uiTypeNameEN: string
   uiTypeNameZH: string
@@ -261,6 +265,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.descJA = _item.desc[0]
   itemInfo.descEN = _item.desc[1]
   itemInfo.descZH = _item.desc[2]
+  itemInfo.classJobId = _item.jobs
   itemInfo.patch = _item.p || '7.05'
   itemInfo.hqable = _item.hq
   itemInfo.tradable = _item.tradable
@@ -296,6 +301,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   const itemType : number = _item.uc
   if (typeMap?.[itemType]) {
     itemInfo.uiTypeId = itemType
+    itemInfo.uiTypeOrder = typeMap[itemType].order_major * 256 + typeMap[itemType].order_minor
     itemInfo.uiTypeNameJA = typeMap[itemType].lang[0]
     itemInfo.uiTypeNameEN = typeMap[itemType].lang[1]
     itemInfo.uiTypeNameZH = typeMap[itemType].lang[2]
