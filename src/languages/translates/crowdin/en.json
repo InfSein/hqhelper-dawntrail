@@ -1,0 +1,2046 @@
+{
+  "common": {
+    "expand": "Expand",
+    "fold": "Fold",
+    "import": "Import",
+    "export": "Export",
+    "import_or_export": "Import/Export",
+    "auto": "Auto",
+    "save": "Save",
+    "other": "Other",
+    "click": "Click",
+    "here": "HERE",
+    "rule": "Rules",
+    "ignore": "Ignore",
+    "loose": "Loose",
+    "strict": "Strict",
+    "summation": "Add",
+    "cover": "Cover",
+    "overwrite": "Overwrite",
+    "target": "Target",
+    "reset_to_0": "Reset",
+    "data": "Data",
+    "clear": "Clear",
+    "add": "Add",
+    "special": "Special",
+    "preview": "Preview",
+    "options": "Options",
+    "copy": "Copy",
+    "note_x": "Note {}：",
+    "list": "View list",
+    "go_back": "Return",
+    "tomescript": "TomeScript",
+    "server": "Item Server",
+    "qq": "QQ",
+    "weibo": "Weibo",
+    "twitter_x": "Twitter (X)",
+    "click_here": "CLICK HERE",
+    "close": "Close",
+    "temp_trans": "",
+    "patch_x": "Patch{}",
+    "food": "Food",
+    "tinc": "Tinctures",
+    "chs_server_data_version": "",
+    "global_server_data_version": "Game data updated to: Patch {}",
+    "time": {
+      "val_hours": "{val} Hours",
+      "val_days": "{val} Days"
+    },
+    "appfunc": {
+      "useful_tools": "Tools",
+      "gather_clock": "Gather Clock",
+      "cal_food_and_tinc": "Food & Tinctures",
+      "food_and_tinc_new_window": "Food & Tinctures (New window)",
+      "fthelper": "FT Helper",
+      "workflow": "Workflow",
+      "macro_manage": "Macro manage",
+      "setting_and_update": "Settings & Updates",
+      "switch_theme": "Switch Theme",
+      "user_preference": "User Preferences",
+      "ingame_inventory": "In-game Inventory",
+      "check_updates": "Check Updates",
+      "changelog": "Change Logs",
+      "devtool": "Dev Tools",
+      "about": "About",
+      "contact_us": "Contact us",
+      "donate_us": "Donate us",
+      "thank_list": "Thankyou List",
+      "about_app": "About us",
+      "download_client": "Download client",
+      "func_setting": "Function Preferences",
+      "copy_macro": "Copy macro",
+      "craft_macro": "Craft macro",
+      "craft_statement": "Crafting Statements",
+      "recomm_process": "Recomm. Process",
+      "item_price": "Item price"
+    },
+    "appsetting": {
+      "basic_setting": "Basic Preferences",
+      "general": "General",
+      "appearance": "Appearance",
+      "enhancement": "Enhancements",
+      "performance": "Performance",
+      "update": "Update"
+    },
+    "message": {
+      "import_succeed": "Import succeeded",
+      "import_failed": "Import failed",
+      "copy_failed": "Copy action failed",
+      "copy_succeed": "Copy action succeed",
+      "nothing_to_copy": "Nothing to copy.",
+      "please_wait_for_a_while": "",
+      "copy_failed_unexpected_error": "Copy action failed: unexpected error.",
+      "ask_continue": "Continue?",
+      "get_price_failed": "Get Item Price Failed",
+      "confirm_delete_with_name": "Are you sure you want to delete {name}?",
+      "operation_irreversible": "This operation is irreversible.",
+      "deleted": "Deleted",
+      "changes_saved": "Saved",
+      "dataname_saved": "{dataname} saved",
+      "please_input_item_name": "Please input item name",
+      "sync_succeed": "Sync succeed",
+      "export_failed_with_error": "Exporting failed: {err}",
+      "import_failed_with_error": "Importing failed: {err}",
+      "please_input_val": "Please input {val}",
+      "data_line_max_len": "Maximum {num} rows of data allowed",
+      "data_line_min_len": "At least {num} rows of data must be retained"
+    },
+    "copy_item_name": "Copy item name",
+    "name_zh": "Chinese",
+    "name_ja": "Japanese",
+    "name_en": "English",
+    "armor_attr": "Bonuses",
+    "open_in": {
+      "huijiwiki": "Open in HuijiWiki",
+      "garland": "Open in Garland",
+      "huijiwiki2": "Open in HuijiWiki",
+      "garland2": "Open in Garland",
+      "universalis": "Open in Universalis",
+      "angler": "Open in ff14angler",
+      "angler_search": "Search in ff14angler",
+      "ffmomola": "Open in ffmomola",
+      "gamer_escape": "Open in GamerEscape"
+    },
+    "unknown": "UNKNOWN",
+    "effect": "Effects",
+    "quoted_maximum": "(Max {})",
+    "craft": {
+      "title": "Recipe",
+      "craftsmanship": "Craftsmanship",
+      "control": "Control",
+      "cp": "CP"
+    },
+    "back_to_index": "Back to Home Page",
+    "index": "Home Page",
+    "route_card_desc": "※ You are currently on a subpage of HqHelper.",
+    "trade": "Exchanges",
+    "quoted_leveling": "(Leveling)",
+    "reduce": "Aetherial Reduction",
+    "gather": "Gathering",
+    "back_to_upper": "Go Back",
+    "import_from_excel": "Import from .xlsx",
+    "export_to_excel": "Export to .xlsx",
+    "view_statement": "View statements",
+    "mquoted_view_statement": "[View statements]",
+    "timeout": "timeout",
+    "checking": "Checking...",
+    "check_failed": "Check failed",
+    "update_immedi": "Update now",
+    "error": "ERROR",
+    "hqhelper_version": "HqHelper Version",
+    "curr_version_with_val": "Current Version: {v}",
+    "latest_version": "Latest Version: ",
+    "recheck": "Recheck",
+    "client_version": "Client Version",
+    "message_copied_with_content": "\"{content}\" copied",
+    "updating": "Updating",
+    "favorite": {
+      "title": "Star",
+      "desc": {
+        "desc_1": "Click to star/unstar this item.",
+        "desc_2": "Item stared would be shown in \"Starred\" column."
+      }
+    },
+    "gatherable_now": "Can gather now",
+    "nothing": "None",
+    "job_or_affix": "Job/Affix",
+    "item_name": "Item Name",
+    "craft_job": "Craft Job",
+    "amount": "Amount",
+    "tomescript_type": "Tome Script Type",
+    "export_excel": "Export Excel",
+    "item": "Item",
+    "unit_price": "Price",
+    "subtotal": "Total",
+    "cost": "Cost",
+    "benefit": "Benefit",
+    "item_price_type": "Item Price Type",
+    "favorited": "Starred",
+    "click_here_show_menu": "CLICK HERE",
+    "recomm": "Recomm.",
+    "remain_with_colon": "Remains:",
+    "val_minutes": "{minute}m",
+    "val_seconds": "{second}s",
+    "expand_all": "Expand all",
+    "fold_all": "Collapse all",
+    "disable": "Disable",
+    "val_level": "Lv. {lv}",
+    "macro_with_index": "Macro #{index}",
+    "no_content": "No content",
+    "content": "Content",
+    "no_required_items": "Now items required",
+    "select_item": "Select Items",
+    "job": "Job",
+    "map": "Map",
+    "selected": "Selected",
+    "clear_selected": "Clear selected",
+    "gear_set": {
+      "title": "Gears",
+      "simulate": "Gearing simulator",
+      "recomm": "Recomm. gear sets"
+    },
+    "confirm": "Confirm",
+    "file_name": "File name",
+    "will_be_named_with_time_when_empty": "If not filled, it will be named by time by default",
+    "follow_preference_of_item_price": "Follow the 'Item Price' settings in 'Function Preferences'.",
+    "click_or_drag_to_upload": "Click or drag the file to this area to upload",
+    "setting": "Settings",
+    "remain_time": "Remaining time",
+    "ask_every_time": "Ask every time",
+    "auto_refresh": "Auto-refresh",
+    "dont_refresh": "Don't refresh",
+    "save_succeed": "Successfully saved",
+    "never": "Never",
+    "just_now": "Just now",
+    "val_minutes_ago": "{minutes}m ago",
+    "val_hours_ago": "{hours}h ago",
+    "val_days_ago": "{days}d ago",
+    "price": "Price",
+    "last_update_with_val": "Last update: {}",
+    "expired": "Expired",
+    "refreshing": "Refreshing...",
+    "refresh": "Refresh",
+    "loading": "Loading...",
+    "load_failed": "Failed to load.",
+    "retry": "Retry",
+    "item_already_have": "This item already exists",
+    "cleared": "Cleared",
+    "select_item2": "Select Item",
+    "add_item": "Add Item",
+    "item_search_input_placeholder": "Search by item name/ID/ilv/patch",
+    "item_search_input_placeholder_2": "Search by macro's name/remark/tags and items' name/ID/ilv/patch",
+    "view_analysis": "View Analysis",
+    "statistics": "Statistics",
+    "statement": "Statements",
+    "process": "Processes",
+    "manage": "Manage",
+    "delete": "Delete",
+    "all_changes_effects_after_save": "All changes will only take effect after clicking save.",
+    "simulate_craft": "Simulate",
+    "special_notice": "Special Reminder",
+    "brief_intro": "Introduction",
+    "developing": "Under development",
+    "not_planned": "No plans yet",
+    "drag_to_sort": "Drag to sort",
+    "prefix": "Prefix",
+    "mode": "Mode",
+    "auxiliary_tools": "Tools",
+    "number": "No.",
+    "edit": "Edit",
+    "data_missing": "Data missing",
+    "id_macro": "Macro #{id}",
+    "basic_info": "Base info",
+    "tag": "Tag",
+    "comment": "Remark",
+    "line_max_len": "Up to {limit} lines",
+    "craft_requirements": "Attribute requirements",
+    "macro_content": "Macro content",
+    "lang_zh": "Chinese",
+    "lang_en": "English",
+    "lang_ja": "Japanese",
+    "val_craftsmanship": "Craftsmanship {craftsmanship_val}",
+    "val_control": "Control {control_val}",
+    "step_and_sec": "{step_count}Step,{time_count}Sec",
+    "click_to_copy": "Click to copy",
+    "add2": "Add",
+    "no_content_matched": "No matching content",
+    "no_data": "No data",
+    "current": "Current",
+    "game_macro": "Game macro",
+    "simulator": "Simulator",
+    "cautions": "CAUTIONS",
+    "work_state": "Work States",
+    "main_ui": "Main interface",
+    "select_all": "Select All",
+    "select_invert": "Select Invert",
+    "register": "Register",
+    "login": "Login",
+    "nickname": "Nickname",
+    "account": "Account",
+    "password": "Password",
+    "email": "Email",
+    "verify_code": "Verify code",
+    "login_name": "Loginname",
+    "sync": "Synchronous",
+    "logout": "Log out",
+    "tip": "Notice",
+    "please_refer_to": "Please refer to:",
+    "open_in_new_window": "Open in new window",
+    "chs_and_global_data_version": "CN Server {cnver} / Global Server {glbver}",
+    "preset": "Presets"
+  },
+  "err_404": {
+    "page_not_exist": "Page does not exist.",
+    "advise": "Please try Go Back or Back to Home Page."
+  },
+  "game": {
+    "eorzea_time": "Eorzea Time",
+    "item_id": "Item ID",
+    "gear": {
+      "mainoff_hand": {
+        "title": "Main/Off-hand",
+        "mainhand": {
+          "detailed": "Weapon/Tool: Mainhand"
+        },
+        "offhand": {
+          "detailed": "Weapon/Tool: Offhand"
+        }
+      },
+      "mainhand": "Mainhand",
+      "offhand": "Offhand",
+      "attire": {
+        "title": "Attire",
+        "head": {
+          "title": "Head",
+          "detailed": "Attire: Head"
+        },
+        "body": {
+          "title": "Body",
+          "detailed": "Attire: Body"
+        },
+        "hands": {
+          "title": "Hands",
+          "detailed": "Attire: Hands"
+        },
+        "legs": {
+          "title": "Legs",
+          "detailed": "Attire: Legs"
+        },
+        "feet": {
+          "title": "Feet",
+          "detailed": "Attire: Feet"
+        }
+      },
+      "affix": "Affix",
+      "accessory": {
+        "title": "Accessory",
+        "earring": {
+          "title": "Earrings",
+          "detailed": "Accessory: Earrings"
+        },
+        "necklace": {
+          "title": "Necklace",
+          "detailed": "Accessory: Necklace"
+        },
+        "wrist": {
+          "title": "Wrist",
+          "detailed": "Accessory: Wrist"
+        },
+        "rings": {
+          "title": "Rings",
+          "detailed": "Accessory: Rings"
+        }
+      }
+    },
+    "crystal": "Crystals"
+  },
+  "appheader": {
+    "tooltip": {
+      "back_to_index": "Click to back to home page.",
+      "already_in_index": "...But you have already been inside the home page of HqHelper.",
+      "announcement_for_item_zh_translation": ""
+    },
+    "menu": {
+      "tooltip": {
+        "gather_clock": "View time-limited gatherings.",
+        "fthelper": "Help you craft meal(food) and medicine(tincture).",
+        "workflow": "Workflow allows you to freely add items as production targets.",
+        "macro_manage": "Manage your craft macros.",
+        "theme_switch_to_light": "Switch to light theme.",
+        "theme_switch_to_dark": "Switch to dark theme.",
+        "user_preference": "Change app settings by your will.",
+        "ingame_inventory": "Manage your in-game inventory and determine whether to sync.",
+        "check_updates": "Check version update of the application.",
+        "changelog": "See what's new in this version, or check out the changelog.",
+        "devtool": "Open devtool for client.",
+        "contact_us": "Get ways to contact with us.",
+        "donate_us": "Donate. Please act within your means.",
+        "about_app": "Get something about us.",
+        "download_client": "Download the client of HqHelper.",
+        "already_in_page": "You have already been inside the page of {}.",
+        "open_in_new_window": "Open the {tool} in a new window"
+      }
+    }
+  },
+  "preference": {
+    "language_ui": "UI Language",
+    "language_item": {
+      "title": "Item Language",
+      "desc": {
+        "desc_1": "Select the language of item name shown in app. This setting also affects some other information(e.g. map name) language.",
+        "desc_2": "It would follow the settings of \"UI Language\" if you select \"Auto\""
+      }
+    },
+    "item_server": {
+      "desc": {
+        "desc_1": "Select the server of your game account. Selection would affect some other statistics data (e.g. price of exchangeable items) calculation.",
+        "desc_2": "It would automatically determine by the setting of \"Item Language\" if you select \"Auto\"."
+      }
+    },
+    "server": {
+      "option": {
+        "chs": "CHS",
+        "global": "Global"
+      }
+    },
+    "auto_refresh_after_save": {
+      "title": "Automatically refresh after saving settings",
+      "desc": {
+        "desc_1": "This setting will take effect on this time's saving. Automatic refresh will only be performed when necessary."
+      }
+    },
+    "theme": {
+      "title": "Theme",
+      "option": {
+        "follow_system": "System",
+        "light": "Light",
+        "dark": "Dark"
+      }
+    },
+    "custom_font_size": {
+      "title": "Font size",
+      "desc": {
+        "desc_1": "Change the size of text in program/website globally.",
+        "desc_2": "Some areas do not follow this setting. In addition, it is also limited by the 'Minimum font size' setting of the browser.",
+        "desc_3": "Now we could not guarantee the display effect of sizes other than \"Standard\". Unless there is a special need, we do not recommend modifying."
+      },
+      "option": {
+        "tiny": "Tiny",
+        "small": "Small",
+        "medium": "Standard",
+        "big": "Large",
+        "large": "Huge"
+      }
+    },
+    "custom_font": {
+      "title": "Custom font",
+      "desc": {
+        "desc_1": "Change the font of text in program/website globally.",
+        "desc_2": "Allow multi fonts, separated by comma. If the font library of the first font does not include the text to be displayed, the program will use the second font; if none of them include the text, the program will use the font before the setting.",
+        "desc_3": "Recommends to wrap the font name with single or double quotes, such as \"Source Han Sans Medium\".",
+        "desc_4": "If you have knowledge about CSS, you can refer to the syntax of font-family to fill in."
+      }
+    },
+    "hide_collector_icons": {
+      "title": "Hide job icon in item button",
+      "desc": {
+        "desc_1": "Some item buttons show the icon of the job that craft or gather this item.",
+        "desc_2": "Though this would be more convenient, the display effect may not be as good as expected.",
+        "desc_3": "If you thought this is too ugly, please consider enabling this option."
+      }
+    },
+    "disable_patchcard_autofold": {
+      "title": "Disable auto-fold after patch selected (mobile)",
+      "desc": {
+        "desc_1": "\"Select Patch\" costs too much space on mobile, both not frequently modified, so we automatically fold it after you select the patch on mobile.",
+        "desc_2": "If you want to fold it manually, please turn on this option."
+      }
+    },
+    "disable_jobbtn_doubleclick": {
+      "title": "Disable adding main/off-hand when clicking the selected job button",
+      "desc": {
+        "desc_1": "Clicking the job button again after selecting the job will add a set of mainhand/offhand weapons or tools by default.",
+        "desc_2": "If this contradicts your habit, please turn on this option."
+      }
+    },
+    "item_pop_craft_show_crystals": {
+      "title": "Show crystals in item pop",
+      "desc": {
+        "desc_1": "After enabling this option, for items that can be craftted, the craft module of the item pop will display the required Shard/Crystal/Cluster."
+      }
+    },
+    "click_to_show_pop_in_span": {
+      "title": "Control sub item popup manually",
+      "desc": {
+        "desc_1": "Some elements in item popup may have sub popup, such as craft materials and map buttons.",
+        "desc_2": "In default case, the sub popup will be opened immediately when mouse hover on the element. If you think this is too easy to trigger, you can turn on this option to control the sub popup by left click only."
+      }
+    },
+    "item_amount_use_comma": {
+      "title": "Format item quantity with thousands separator",
+      "desc": {
+        "desc_1": "When this option is enabled, item quantities will be formatted with thousands separators (e.g., 12,345).",
+        "desc_2": "This option applies to all tables, item buttons, and item info."
+      }
+    },
+    "item_button_click_event": "Action while clicking item button",
+    "item_info_icon_click_event": {
+      "title": "Action while clicking item info icon",
+      "desc": {
+        "desc_1": "Control the click event while clicking info icon on the right side of item name.",
+        "desc_2": "Setting option \"{option}\" may have conflict with this."
+      }
+    },
+    "item_list_style": {
+      "title": "Item list style",
+      "desc": {
+        "desc_1": "Determine the format of the list shown after clicking the \"View list\" button above the item button group.",
+        "desc_2": "Some of programs might be able to recognize and import specific format of list."
+      },
+      "option": {
+        "standard": "Standard (Name x Amount)",
+        "tight": "Tight (NamexAmount)",
+        "modern": "Modern (Name xAmount)",
+        "teamcraft": "Teamcraft style (Amountx Name)"
+      }
+    },
+    "disable_workstate_cache": {
+      "title": "Disable Work State Memory",
+      "desc": {
+        "desc_1": "The application records the patch, job, and gear selection as the default, to ensure that the application remembers your last session's state.",
+        "desc_2": "If you wish to start from scratch every time you open the application or catched frequent lag during use, you can consider disabling this by open this option.",
+        "desc_3": "CAUTION: Disabling work status memory will delete the recorded state immediately!"
+      }
+    },
+    "enable_dev_mode": "Enable dev mode",
+    "disable_auto_update": {
+      "title": "Disable auto update",
+      "desc": {
+        "desc_1": "We check the latest version once when you start the application, and prompt you to update.",
+        "desc_2": "If you dont want to receive update prompts, you can consider enabling this option.",
+        "desc_3": "If you are using the web version, the browser will automatically update due to cache. Enabling this option can only reduce the frequency of prompts."
+      }
+    },
+    "update_client_builtin": {
+      "title": "Use the built-in update function to handle client updates",
+      "desc": {
+        "desc_1": "By default, when you try to update the client version, the program will open the download link in the system's default browser.",
+        "desc_2": "Enabling this option will directly download and open the new version of the client installer within the program."
+      }
+    },
+    "use_custom_proxy": "Use Custom Proxy",
+    "custom_proxy_url": "Custom Proxy Host",
+    "macro_direct_copy": {
+      "title": "Copy directly when click \"Copy macro\"",
+      "desc": {
+        "desc_1": "In default case, every time you click \"Copy macro\" button, program will popup a modal and ask you which macro you want to copy.",
+        "desc_2": "You can enable this option to let program copy macro directly according to default macro prefix."
+      }
+    },
+    "macro_copy_prefix": {
+      "title": "Default macro prefix",
+      "option": {
+        "none": "Direct copy (none prefix)",
+        "echo": "Self reminder (/e)",
+        "party": "Party (/p)",
+        "free_company": "Free company (/fc)",
+        "beginner": "Beginner (/b)"
+      }
+    },
+    "macro_generate_mode": {
+      "title": "Macro generation mode",
+      "desc": {
+        "desc_1": "Decide how to generate macros.",
+        "desc_2": "Single-line mode will merge all materials into one line, allowing you to paste and send directly in the in-game chat box;",
+        "desc_3": "Multi-line mode will display materials in separate lines for better formatting, but this requires pasting and executing in the user macro interface in the game to send."
+      },
+      "option": {
+        "single_line": "Single-line mode",
+        "multi_line": "Multi-line mode"
+      }
+    },
+    "cmacro_use_macrolock": {
+      "title": "Use /macrolock at the beginning of each craft macro",
+      "desc": {
+        "desc_1": "Enabling this option will prevent the generated craft macro from being interrupted by other macros during execution, but the skill capacity of each macro will also be reduced."
+      }
+    },
+    "cmacro_remove_quotes": {
+      "title": "Remove double quotes from craft macro skill names",
+      "desc": {
+        "desc_1": "When the action name contains spaces, double quotation marks must be used or manually converted to Auto-translate, otherwise an error will be reported during execution."
+      }
+    },
+    "cmacro_transition_tipper_content": {
+      "title": "Transition craft macro execution end reminder",
+      "desc": {
+        "desc_1": "Transition craft macro refers to the craft macros other than the last macro.",
+        "desc_2": "「~INDEX」 in reminder content will be replaced with the macro's sequence number."
+      }
+    },
+    "cmacro_end_tipper_content": "Final craft macro execution end reminder",
+    "use_traditional_statement": {
+      "title": "Use traditional Craft Statement ",
+      "desc": {
+        "desc_1": "We provides PRO Craft Statement after v2.0.10 to provide more detailed item information table and support to calculate the remaining materials based on the prepared materials.",
+        "desc_2": "If you dont need to use these features, or you prefer the old version of craft statement, you can consider to turn on this option."
+      }
+    },
+    "statement_ignore_crystals": {
+      "title": "Ignore crystals",
+      "desc": {
+        "desc_1": "If you don't need to make reports to calculate various Shard/Crystal/Cluster, you can consider turning on this option."
+      }
+    },
+    "statement_no_highlights": {
+      "title": "Disable highlighting associated materials",
+      "desc": {
+        "desc_1": "In version 2.2.4, we added a new feature to craft statement: where left clicking on any item row will highlight it and its craft material.",
+        "desc_2": "If you don't need this feature and feel it's too easy to accidentally touch, you can consider turning on this option."
+      }
+    },
+    "prostate_concise_mode": {
+      "title": "Show item in concise mode",
+      "desc": {
+        "desc_1": "Only works in Pro statement."
+      }
+    },
+    "processes_show_item_details": "Show item details",
+    "processes_merge_gatherings": {
+      "title": "Merge gatherable items",
+      "desc": {
+        "desc_1": "Merge groups divided by gathering jobs.",
+        "desc_2": "For example, before merge: MIN(unlimited), BTN(unlimited), MIN(time-limited), BTN(time-limited), after merge: Gather(Unlimited), Gather(Time-Limited)."
+      }
+    },
+    "processes_craftable_item_sortby": {
+      "title": "Craftable item sorting by",
+      "option": {
+        "crafting_log": "Crafting log order"
+      },
+      "desc": {
+        "desc_1": "If you choose 'Crafting log order', the items will be sorted according to the order of the recipes in the crafting log (the crafting interface opened by pressing N in the game)."
+      }
+    },
+    "universalis_server": {
+      "desc": {
+        "desc_1": "Input box supports searching options by keywords.",
+        "desc_2": "CAUTION: Modifying this setting will clear all retrieved item price caches!"
+      }
+    },
+    "universalis_price_type": {
+      "title": "Price type",
+      "desc": {
+        "desc_1": "Item price calculates NQ by default when calculating cost; calculates HQ by default when calculating benefit.",
+        "desc_2": "Some options' meaning:",
+        "desc_3": "Recent purchase price: calculate average by latest 5 market record.",
+        "desc_4": "Current lowest marketboard price: calculate by lowest price in top 10 market record.",
+        "desc_5": "Current average marketboard price: calculate average by top 10 market record."
+      },
+      "option": {
+        "average": "Average Price",
+        "curr_average": "Current Average Price",
+        "min": "Min Price",
+        "max": "Max Price",
+        "purchase_average": {
+          "title": "Recent purchase price",
+          "tooltip": {
+            "tooltip_1": "calculate average by latest 5 market record"
+          }
+        },
+        "market_min": {
+          "title": "Current lowest marketboard price",
+          "tooltip": {
+            "tooltip_1": "calculate by lowest price in top 10 market record"
+          }
+        },
+        "market_average": {
+          "title": "Current average marketboard price",
+          "tooltip": {
+            "tooltip_1": "calculate average by top 10 market record"
+          }
+        }
+      }
+    },
+    "universalis_expire_time": {
+      "title": "Cache validity period",
+      "desc": {
+        "desc_1": "Item price would be saved in cache. Once if the expire time is reached, you need to get the price again.",
+        "desc_2": "Too short might cause efficiency decrease; too long might cause outdated result."
+      },
+      "option": {
+        "never_expires": "Never expires"
+      }
+    },
+    "export_item_price": {
+      "title": "Export cost/profit analysis when exporting Excel",
+      "desc": {
+        "desc_1": "When this option is enabled, if the item price cache has expired, it will take some time to refresh the data."
+      }
+    },
+    "costandbenefit_show_item_details": "Display item details in cost/benefit analysis",
+    "universalis_showpriceinpop": {
+      "title": "Show in item pop-ups",
+      "desc": {
+        "desc_1": "Added a 'Price' module to the pop-ups of various item buttons/information icons. Only tradeable items will be displayed."
+      }
+    },
+    "universalis_poppricetypes": {
+      "title": "Price type displayed in item pop-ups",
+      "desc": {
+        "desc_1": "Choose which types of prices to display in the item pop-ups. Multiple selections are allowed."
+      }
+    },
+    "import": {
+      "title": "Import Preferences",
+      "desc": {
+        "desc_1": "Import settings exported from other devices here to keep them synchronized.",
+        "desc_2": "After importing, please confirm the changes in the preferences window. The actual settings will not change until you click save."
+      },
+      "placeholder": "Paste the settings exported from another HqHelper here.",
+      "message": {
+        "input_empty": "Please input"
+      }
+    },
+    "export": {
+      "title": "Export Preferences",
+      "desc": {
+        "desc_1": "You can now export the preferences/features settings of this device to another device. Excludes item price caches.",
+        "desc_2": "Please note: The exported content will be generated based on the current settings in the preferences window, not the saved settings."
+      }
+    },
+    "shared": {
+      "option": {
+        "donothing": "Do nothing",
+        "copy_item_name": "Copy item name",
+        "copy_isearch_macro": "Copy isearch macro"
+      },
+      "warn": {
+        "need_refresh": "After changing the settings of this option, you need to refresh the page once to take effect."
+      },
+      "desc": {
+        "fit_to_func": "Used in \"{f}\".",
+        "fit_to_func_and_item_pop_price": "Used in '{f}' and item pop-ups.",
+        "use_default_val_when_empty": "This item will use the default value when no content is filled in: {val}"
+      },
+      "tooltip": {
+        "click_to_desc": "Click to expand or collapse the description of this setting option."
+      }
+    },
+    "message": {
+      "save_succeed_but_need_refresh": "Successfully saved! Some changes require refreshing.",
+      "saved_but_some_changes_need_refresh": "Preference settings have been saved, but some of them may not take effect until refresh.",
+      "ask_refresh_now": "Refresh NOW?"
+    }
+  },
+  "ingame_inventory": {
+    "preference": {
+      "inventory_statement_enable_sync": {
+        "title": "Enable automatic sync of in-game inventory in the statement modal",
+        "desc": {
+          "desc_1": "After enabling this option, every time the pro statment is opened in the main interface and FT Helper, the 'Prepared' quantity in the statement will be set as the quantity of in-game inventory."
+        }
+      },
+      "inventory_workflow_enable_sync": {
+        "title": "Enable manual sync of in-game inventory in the workflow",
+        "desc": {
+          "desc_1": "Clicking the button would make the 'Prepared' quantity set to the quantity of in-game inventory."
+        }
+      },
+      "inventory_workflow_enable_sync_reverse": {
+        "title": "Enable inventory reverse synchronization in workflow",
+        "desc": {
+          "desc_1": "After clicking the button, the inventory quantity will be set to the 'Prepared' quantity in the statement."
+        }
+      },
+      "inventory_other_items_way": {
+        "title": "How to handle items not in in-game inventory",
+        "desc": {
+          "desc_1": "How to handle items that are not in the in-game inventory when deciding between automatic or manual synchronization."
+        },
+        "option": {
+          "ignore": {
+            "tooltip": {
+              "tooltip_1": "Keep current amount"
+            }
+          },
+          "reset_to_0": {
+            "tooltip": {
+              "tooltip_1": "Reset the quantity to 0"
+            }
+          }
+        }
+      },
+      "inventory_sync_reverse_mode": {
+        "title": "Reverse synchronization mode",
+        "desc": {
+          "desc_1": "Determine how to handle items with zero 'Prepared' quantity and items that are not in the statement when performing reverse synchronization."
+        },
+        "option": {
+          "loose": {
+            "tooltip": {
+              "tooltip_1": "Ignore items with 'Prepared' quantity of 0 and items not in the statement"
+            }
+          },
+          "strict": {
+            "tooltip": {
+              "tooltip_1": "Synchronize items with 'Prepared' quantity of 0, ignore items not in the statement"
+            }
+          },
+          "overwrite": {
+            "tooltip": {
+              "tooltip_1": "Completely reset inventory and overwrite existing inventory with statement data"
+            }
+          }
+        }
+      }
+    },
+    "shared": {
+      "desc": {
+        "add_button_to_workflow_when_enabled": "After enabling this option, a '{f2}' button will be added to the '{f1}' page of the workflow."
+      }
+    }
+  },
+  "about_app": {
+    "version": {
+      "web": "Current webpage version: {v}",
+      "client": "Current client version: {v}"
+    },
+    "staff": {
+      "title": "Staff",
+      "producer": "Producers",
+      "contributor": "Contributors",
+      "jobs": {
+        "infsein": "Responsible for all design and development work",
+        "nbb": "Responsible for providing game data and hosting support",
+        "yakita": "Responsible for the Japanese UI internationalization and the Chinese translation of upcoming item names",
+        "kim": "Contributed to the initial Japanese UI internationalization",
+        "wcy": "Contributed the initial version of Windows client framework",
+        "etnatker": "Contributed to the feature that displays material lists in Teamcraft format",
+        "personal_page": "Personal homepages: "
+      }
+    },
+    "thank_donate": {
+      "title": "ThanksTo: Sponsorship",
+      "desc": {
+        "desc_1": "The birth and continuous development of HqHelper cannot be separated from the support of users.",
+        "desc_2": "to view the thankyou list."
+      }
+    }
+  },
+  "thank_list": {
+    "donater": "Sponsor",
+    "last_donate": "Last sponsorship",
+    "donate_comment": "Message",
+    "donate_gen": "Sponsored 'Generation {gen}' of HqHelper"
+  },
+  "donate_us": {
+    "desc": {
+      "desc_1": "Thanks for your support for HqHelper.",
+      "desc_2": "However, please read the following notes before starting the sponsorship:",
+      "desc_3": "After sponsoring, your ID and message will be updated to the thankyou list. The thankyou list is manually counted and may have a delay of several days.",
+      "desc_4": "You can specify the sponsor ID and message you want to display in the transfer note/sponsorship message.",
+      "desc_5": "Sponsorship is about the intention, not the amount, and there are no returns. Please act within your means.",
+      "desc_6": "After joining the thankyou list, you can also modify your name. However, this requires manual entry, so it cannot be changed frequently.",
+      "desc_7": "If you encounter any problems, please contact us in the QQ group."
+    },
+    "target": {
+      "title": "Sponsorship target",
+      "placeholder": "Please select staff to sponsor"
+    },
+    "way": {
+      "title": "Sponsorship method",
+      "aifadian": "Aifadian",
+      "placeholder": "Please select sponsorship method"
+    },
+    "final_confirm": {
+      "title": "Final confirmation",
+      "desc": {
+        "desc_1": "You will start sponsoring",
+        "desc_2": "，to support HqHelper's {contents}.",
+        "desc_3": "developments",
+        "desc_4": "data update and balance the expenses of the hosting server (nbb.fan)",
+        "desc_5": "※Please indicate in the sponsorship message that you are sponsoring because of HqHelper.",
+        "desc_6": "This member has other projects that are also accepting sponsorship.",
+        "desc_7": "If you do not specify, we may ignore you when counting the thankyou list."
+      }
+    },
+    "start_donate": {
+      "title": "Start sponsoring",
+      "desc": {
+        "desc_1": "Please click the link below to sponsor:",
+        "desc_2": "Please use the mobile QQ or TIM to scan the QR code below:"
+      }
+    }
+  },
+  "contact_us": {
+    "feedback": {
+      "title": "Consultation & Feedback",
+      "desc": {
+        "desc_1": "As long as you use QQ, communicating through Q-Group will be the most convenient way. ",
+        "desc_2": "You can ask questions, give suggestions, or just chat inside. ",
+        "desc_3": "If you have already logged into QQ, just",
+        "desc_4": "to join our Q-Group. ",
+        "desc_5": "You can also search the group number",
+        "desc_6": "to join. ",
+        "desc_7": "In Github, you can create issues to report bugs or suggest improvements and new features. ",
+        "desc_8": "Through this way of feedback, you can track the progress of the problem at any time. ",
+        "desc_9": "If you have a Github account, you can",
+        "desc_10": "to create an issue. ",
+        "desc_11": "Please note that you should follow the community guidelines and read the issue guideline carefully. "
+      },
+      "button": {
+        "qr_code": "OR scan this qr-code"
+      },
+      "sub_title": {
+        "github_issue": "Create an issue on Github"
+      }
+    },
+    "follow": {
+      "title": "Follow latest news",
+      "desc": {
+        "desc_1": "We welcome you to follow HqHelper's latest news through social media, as long as you don't mind being disturbed. ",
+        "desc_2": "Our Weibo account only provides Chinese contents. ",
+        "desc_3": "to follow us. ",
+        "desc_4": "Our twitter(X) account now provides limited English contents. "
+      }
+    }
+  },
+  "main": {
+    "shared": {
+      "desc": {
+        "not_selected": "Selected: None"
+      }
+    },
+    "select_patch": {
+      "title": "Select Patch",
+      "desc": {
+        "selected": "Selected: Patch {}"
+      },
+      "patch_button": {
+        "text": "Patch{v}: {name}",
+        "tooltip": {
+          "tooltip_1": "This patch provides new HQ crafting items:",
+          "tooltip_2": "Non-combat jobs' {il} HQ",
+          "tooltip_3": "Combat jobs' {il} HQ"
+        }
+      },
+      "info": {
+        "info_1": "FFXIV's crafting gear update pattern is relatively stable, which allows us to predict the updates in each minor patch.",
+        "info_2": "{patch} version will add HQ white gear of item level {ilv} for crafter and gatherers;",
+        "info_3": "{patch} version will add HQ green gear of item level {ilv} for combat jobs, as well as corresponding secret food/medicine of the same item level;",
+        "info_4": "{patch} version will add HQ white gear of item level {ilv} for crafter and gatherers (excluding accessories);",
+        "info_5": "{patch} version will add HQ green gear of item level {ilv} for crafter and gatherers, which is also the endgame gear for crafting and gathering in this DLC;",
+        "info_6": "Patch {patch} will not add new HQ gear."
+      }
+    },
+    "select_job": {
+      "title": "Select Job",
+      "desc": {
+        "selected": "Selected: Job {}"
+      },
+      "warn": {
+        "select_patch_first": "Please select patch"
+      }
+    },
+    "select_gear": {
+      "title": "Select Gears",
+      "desc": {
+        "un_selected": "None"
+      },
+      "warn": {
+        "select_job_first": "Please select job"
+      },
+      "info": {
+        "info_1": "Same equipments will be merged in displaying.",
+        "info_2": "Current mainhand and offhand correspond to job: {}",
+        "info_3": "Current attire correspond to affix: {}",
+        "info_4": "Current accessory correspond to affix: {}"
+      },
+      "view_selected": "View Selected",
+      "quick_operate": {
+        "title": "Quick Operations",
+        "add_crafter_tool": {
+          "title": "Add 1 set of crafters' tools",
+          "tooltip": {
+            "tooltip_1": "Add 1 mainhand and offhand tool for all crafters."
+          }
+        },
+        "add_gatherer_tool": {
+          "title": "Add 1 set of gatherers' tools",
+          "tooltip": {
+            "tooltip_1": "Add 1 mainhand and offhand tool for all gatherers."
+          }
+        },
+        "add_crafter_suit": {
+          "title": "Add 1 set of crafters' attire&accessory",
+          "tooltip": {
+            "tooltip_1": "Add a set of protective attire and accessory commonly used by crafters."
+          }
+        },
+        "add_gatherer_suit": {
+          "title": "Add 1 set of gatherers' attire&accessory",
+          "tooltip": {
+            "tooltip_1": "Add a set of protective attire and accessory commonly used by gatherers."
+          }
+        }
+      },
+      "clear": {
+        "current": {
+          "title": "Clear current",
+          "tooltip": {
+            "tooltip_1": "Clear gears selected for current job."
+          }
+        },
+        "all": {
+          "title": "Clear all",
+          "tooltip": {
+            "tooltip_1": "Clear all gears selected for all jobs."
+          }
+        }
+      },
+      "add": {
+        "mainoff_hand": "Add 1 set of mainhand&offhand",
+        "attire": "Add 1 set of attire",
+        "accessory": "Add 1 set of accessory",
+        "attire_and_accessory": "Add 1 set of attire & accessory",
+        "whole_suit": "Add suit"
+      }
+    },
+    "message": {
+      "switch_patch_will_clean_gears": "Switch patch would clear all your gear selections.",
+      "curr_job_not_valid": "Job selected is not available in current version, please reselect."
+    },
+    "imexport": {
+      "confirm_import_content": "Confirm import content",
+      "import_parts": "Import parts",
+      "confirm_import_patch": "Select the version to import",
+      "export_cost_and_benefit": "Export cost/benefit analysis",
+      "only_xlsx_can_be_imported": "Only .xlsx files can be imported",
+      "no_file_received": "No file obtained",
+      "open_folder_after_export": "Open the export directory after export succeeded.",
+      "need_to_ensure_first_worksheet": "Make sure the first worksheet of the table is 'View Selected'"
+    }
+  },
+  "ft_helper": {
+    "select_food_and_tinc": "Select food and tinctures",
+    "tooltip": {
+      "clear_selected": "Clear all food and tinctures selected"
+    },
+    "option": {
+      "hide_precraft_materials": "Hide materials of precrafts"
+    }
+  },
+  "statistics": {
+    "view_statistics": "View Statistics",
+    "message": {
+      "select_patch_and_job_first": "Please select job and patch"
+    },
+    "group_tooltip": {
+      "special": "Includes special master precrafts (Alchemist Gemsaps) and tome script statistics.",
+      "common_master_precrafts": "Master precrafts except Alchemist Gemsaps.",
+      "common_material_lvbase": "Summary here includes both the materials needed to make the final product and the materials needed to make the semi-finished product.",
+      "common_material_lv1": "Summary here only includes the materials needed to make the final product, not the materials needed to make the semi-finished product."
+    },
+    "tomescript": {
+      "title": "Tome Script Summary",
+      "show_bicolor_items": "Show Bicolor Items"
+    },
+    "group": {
+      "common_master_precrafts": "MasterPrecrafts",
+      "common_precrafts": "CommonPrecrafts",
+      "aethersands": "Aethersands",
+      "trade_items": "Exchanges",
+      "precrafts": "Precrafts",
+      "gatherings": {
+        "title": "Gatherings",
+        "common": "Common gathering items",
+        "time_limited": "Limited gathering items"
+      },
+      "cost_and_benefit": {
+        "title": "Cost/Benefit",
+        "button": {
+          "text": {
+            "text_1": "Costing {val}",
+            "text_2": "Benefit {val}"
+          },
+          "tooltip": {
+            "tooltip_1": "Calculate the cost and benefit of materials with data given by Universalis API.",
+            "tooltip_2": "Benefit means sold earns, not deducted by cost."
+          }
+        }
+      },
+      "direct_materials": "Direct Materials",
+      "common_gathering": "Gatherings (Common)",
+      "time_limited_gathering": "Gatherings (Time-limited)",
+      "crystal": "Crystals",
+      "other_materials": {
+        "title": "Other materials",
+        "tooltip": "Items that have not been classified by other groups."
+      },
+      "common_gathering2": "Common gatherings",
+      "time_limited_gathering_and_aethersands": "Limited gatherings & Aethersands"
+    },
+    "preference": {
+      "show_direct_materials_only": "Only show direct materials"
+    },
+    "text": {
+      "analysis_cost": "Cost analysis",
+      "analysis_benefit": "Benefit analysis"
+    }
+  },
+  "copy_macro": {
+    "option": {
+      "macro_direct_copy": "Don't ask again, just copy"
+    },
+    "message": {
+      "failed": "Copy action failed, please select the text in the preview area and copy manually"
+    },
+    "mode": {
+      "single_line": {
+        "desc": {
+          "desc_1": "Currently in single-line mode",
+          "desc_2": "The copied macro can be pasted directly into the in-game chat box to send"
+        }
+      },
+      "multi_line": {
+        "desc": {
+          "desc_1": "Currently in multi-line mode",
+          "desc_2": "The copied macro needs to be pasted into the user macro to be executed and sent"
+        }
+      }
+    },
+    "text": {
+      "please_select_macro_prefix": "Please select macro prefix",
+      "please_select_macro_mode": "Please select macro mode"
+    }
+  },
+  "statement": {
+    "list": {
+      "targets": "List of products",
+      "material": {
+        "lv1": "List of direct materials",
+        "lv2": "List of lv.2 materials",
+        "lv3": "List of lv.3 materials",
+        "lvbase": "List of base materials"
+      },
+      "use_amount_of": "Amount use:",
+      "copy_list": "Copy List"
+    },
+    "table": {
+      "total": "Total",
+      "prepared": "Prepared",
+      "requires": "Requires"
+    },
+    "text": {
+      "all_prepared_items": "Prepared Items",
+      "reset_prepared": "Reset prepared"
+    }
+  },
+  "workflow": {
+    "shared": {
+      "new_a_workflow": "Create New Workflow"
+    },
+    "join_in_workflow": {
+      "title": "Join Workflow",
+      "entry_btn": {
+        "tooltip": "Add the selected equipment to a workflow"
+      },
+      "message": {
+        "join_succeed": "Successfully Joined",
+        "no_armor": "No equipment selected yet",
+        "no_food_tinc": "No food/medicine selected yet."
+      },
+      "desc": {
+        "desc_1": "Select which workflow to join in here",
+        "desc_2": "The items in the table below will be joined into the selected workflow.",
+        "desc_3": "If the item already exists in the workflow, the quantity will be incremented.",
+        "desc_4": "If the item already exists in the workflow, the quantity will be overwritten.",
+        "desc_5": "The data of the selected workflow will be cleared and the following items will be re-added."
+      }
+    },
+    "message": {
+      "max_len": "You can only add up to {num} workflows"
+    },
+    "text": {
+      "set_workflows": "Configure Workflow",
+      "switch_workflows": "Switch Workflow: ",
+      "workflow_with_index": "Workflow {index}",
+      "clear_current_workflow": "Clear selected items in current workflow",
+      "rename_to": "Rename this workflow to:",
+      "min_len": "You must keep at least one workflow.",
+      "confirm_delete": "Delete this workflow?",
+      "rename_this_workflow": "Rename this workflow",
+      "delete_this_workflow": "Delete this workflow",
+      "add_a_workflow": "Add a workflow",
+      "manage_existed_workflows": "Manage existing workflows",
+      "manage_workflows": "Manage workflows",
+      "manage_workflows_desc": "Here you can modify the names of each workflow or delete them directly.",
+      "workflow_name": "Workflow name",
+      "workflow_name_default_info": "If no name was set for a workflow, it would automatically display as 'Workflow 1~{maxlen}' in order.",
+      "workflow_name_reorder_on_deleted": "When a workflow is deleted, all subsequent unnamed workflows would be renumbered.",
+      "join_in_workflow": "Add to workflow",
+      "join_selected_food_and_tinc_in_workflow": "Add the selected food and medicine to a workflow",
+      "sync_from_inventory": "Sync from inventory",
+      "sync_to_inventory": "Sync to inventory"
+    },
+    "tooltip": {
+      "set_prepared_by_inventory": "Set the 'Prepared' quantity in the statement to the quantity of In-game inventory.",
+      "set_inventory_by_prepared": "Set the inventory quantity to the 'Prepared' quantity in the statement."
+    },
+    "recomm_process": "Workflow Process"
+  },
+  "item": {
+    "text": {
+      "zh_name_is_temp": "",
+      "basic_info": "[Patch{patch}] [{id}]",
+      "attribute_isnq_or_hq_desc": "※ Only the {NQorHQ} attribute of the item is displayed here",
+      "is_tradable": "This item could be traded by:",
+      "multi_get_each_trade": "Could get {receive} each exchanging.",
+      "recipe_level_info": "{job} Lv. {lv}{star}",
+      "craft_condi": "Required:",
+      "craftsmanship_with_val": "{value} Craftsmanship",
+      "control_with_val": "{value} Control",
+      "yields_info": "Yields: {yields}",
+      "cannot_quick_synthesis": "Quick Synthesis Unavailable",
+      "cannot_hq": "High-quality Uncraftable",
+      "reduce_info": "This item could be reduced from:",
+      "gather_pos_info": "This item could be gathered at:",
+      "quoted_position": "(X:{x}, Y:{y})",
+      "need_learn": "Need to learn",
+      "timelimited_gatherable": "ONGOING",
+      "item_level_with_val": "ITEM LEVEL {ilv}",
+      "gather_time_info": "This item could be gathered only in following ET:",
+      "gather_website": {
+        "intro": "You might obtain gathering ways of this item in:",
+        "note": "※ Items that not implemented in the CHS server may not have data on some of the given websites."
+      },
+      "reduce_can_get": "Reduce this item might get:",
+      "simulate_craft_bestcraft": "Simulate-craft in BestCraft",
+      "simulate_craft_teamcraft": "Simulate-craft in TeamCraft",
+      "recipe_detail": "Durability {dur} / Progress {pro} / Quality {qua}",
+      "copy_other_names": "Copy item name (other lang)",
+      "gather_condi": "Gathering conditions:",
+      "not_installed_in_chs": "The item has not yet been installed in CHS."
+    },
+    "price": {
+      "no_price": "No price.",
+      "no_price_reason": "Possible reasons: Price not retrieved/Item not implemented or does not exist in this quality/Insufficient transaction data.",
+      "no_price_received": "No price retrieved.",
+      "no_price_received_reason": "Possible reasons: Item not implemented/Insufficient transaction data.",
+      "refreshing": "Refreshing price",
+      "update_succeed": "Price updated",
+      "update_failed": "Failed to update price",
+      "no_show_price_type_setted": "No price types set to display yet. Please configure in the '{option}' setting in preferences."
+    }
+  },
+  "update": {
+    "message": {
+      "ask_update_new_webversion": "New version {v} detected. Do update now?",
+      "already_latest": "No updates now.",
+      "checked_new_hqhelper": "New version ({v}) of HqHelper detected.",
+      "checked_new_client": "New version ({v}) of client detected.",
+      "ask_update_now": "Update NOW?",
+      "check_update_failed": "Update check failed. Please try again later.",
+      "check_update_failed_with_error": "Update check failed: {error}",
+      "download_update_pack_failed_with_error": "Download update pack failed: {errmsg}",
+      "download_client_pack_failed_with_error": "Failed to download the installer package: {errmsg}",
+      "server_under_maintenance": "",
+      "require_ver_plus_client_to_see_progress": "Only clients with version: {ver} or higher can view the current update progress.",
+      "staging": "{stage} ...",
+      "stage_failed": "{stage} failed",
+      "downloaded_and_speed": "Downloaded {now} / {total} MB | Current speed: {speed}MB/s"
+    },
+    "proxy": {
+      "dont_use_proxy": "Do not use proxy",
+      "title": "Proxy"
+    },
+    "alert_text": {
+      "text_1": "Update pack download starting. Might take some time.",
+      "text_2": "Application would be restarted automatically after update.",
+      "text_3": "If no response for a long time, please try to restart the application and adjust \"Proxy\" setting.",
+      "text_4": "Start updating NOW?",
+      "text_5": "Client update starting. We would open your browser to download the client update pack, cause it might be too big.",
+      "text_6": "Run the \".exe\" file downloaded to update client.",
+      "text_7": "If download speed is too slow, please try to cancel download and adjust \"Proxy\" setting to retry.",
+      "text_8": "The download of the new client installer will begin shortly, and it may take some time.",
+      "text_9": "The installer package will automatically open after the update is successful."
+    },
+    "file_name": {
+      "client_updater": "Client Update Program"
+    },
+    "text": {
+      "proxy_status_view": "Service Station Status",
+      "custom_proxy": "Custom Proxy",
+      "check_connections": "Connection Check"
+    },
+    "stage": {
+      "connecting": "Establishing connection",
+      "downloading": "Downloading update package",
+      "extracting": "Extracting update package",
+      "replacing": "Replacing files",
+      "cleaning": "Cleaning temporary files",
+      "restarting": "Restarting application",
+      "opening": "Opening installer"
+    }
+  },
+  "changelog": {
+    "fix": "BUG FIXES",
+    "feat": "FEATURES",
+    "breaking": "BREAKING CHANGES",
+    "milestone": "Milestone",
+    "text": {
+      "release_date_with_val": "DATE: {date}",
+      "view_latest": "View latest logs",
+      "view_history": "View history"
+    },
+    "2_0_0": {
+      "milestone": {
+        "text_1": "HqHelper released."
+      }
+    },
+    "2_0_2": {
+      "fix": {
+        "text_1": "Fixed auto-update prompt not showing latest version number.",
+        "text_2": "Fixed update button still could be clicked when client is up to date.",
+        "text_3": "Fixed cache of FT Helper not been cleared after enabling \"Disable Work State Memory\"",
+        "text_4": "Fixed floating window not shown while re-clicking {} in mobile.",
+        "text_5": "Current [Main-offhand/Attire/Accessory] in \"Select Gears\""
+      },
+      "feat": {
+        "text_1": "Now you could customize action while clicking item button by change settings in \"User Preferences\".",
+        "text_2": "Remaked the display effect of \"View Selected\" modal on mobile.",
+        "text_3": "Optimized the display effect of item button floating window in some cases.",
+        "text_4": "Updated staff info in \"About us\""
+      }
+    },
+    "2_0_3": {
+      "fix": {
+        "text_1": "Fixed incorrect height of \"{f2}\" button in \"{f1}\".",
+        "text_2": "Fixed some of text in \"{f}\" not correctly adapted to i18n.",
+        "text_3": "Fixed the issue where the update item numbers in \"{f}\" may not be coherent when {lang} is set to Japanese/English."
+      },
+      "feat": {
+        "text_1": "Adjusted the order of top menu buttons in mobile.",
+        "text_2": "Now the \"{f2}\" buttons in \"{f1}\" would no longer pop tips in mobile.",
+        "text_3": "Optimized some of i18n translation."
+      }
+    },
+    "2_0_4": {
+      "breaking": {
+        "text_1": "Compressing the size of some built-in images and cleaning up some useless code significantly reduces the volume of update packages that need to be downloaded during updates, the loading time of initial page visits, and the bandwidth pressure of hosting servers."
+      },
+      "fix": {
+        "text_1": "Fixed some text area might appear meaningless numbers when {lang} is set to Japanese/English."
+      },
+      "feat": {
+        "text_1": "Item button floating window now also shows the attributes of equipment.",
+        "text_2": "Optimized the display effect of item button floating window in \"{f1}\".",
+        "text_3": "Now the client shows download progress and speed while downloading HqHelper update (only for v3+ clients).",
+        "text_4": "Adjusted the list of proxies that can be selected in checking updates."
+      }
+    },
+    "2_0_5": {
+      "fix": {
+        "text_1": "Fixed client might not be able to move window position by dragging top area after updating HqHelper version."
+      },
+      "feat": {
+        "text_1": "Now the pop of gear icons in \"{f}\" area will also show the information of related item that correspond to the selected job on this gear."
+      }
+    },
+    "shared": {
+      "released_func": "Function \"{f}\" released.",
+      "temp_not_support_mobile": "This function does not support mobile devices now.",
+      "require_setting": "Need to deal settings in \"{f2}\" tab of \"{f1}\" first.",
+      "chs_db_update": "CHS game data updated to {ver}.",
+      "chs_db_update_with_comma": "CHS game data updated to {ver}, ",
+      "global_db_update": "Global game data updated to {ver}.",
+      "add_new_func": "The “{f}” feature has been added."
+    },
+    "2_0_6": {
+      "breaking": {
+        "text_1": "Select gears in the main page, then click \"{f2}\" button on the right side of \"{f1}\" to export statistics to Excel."
+      },
+      "fix": {
+        "text_1": "Fixed copy function of item buttons in \"{f}\" not worked correctly.",
+        "text_2": "Fixed issue that {f} disappears on first opening.",
+        "text_3": "Fixed some of changelog items still show index on only one update given when {lang} is Japanese/English."
+      },
+      "feat": {
+        "text_1": "Item buttons that meet a condition will show the icon of the job that craft or gather it.",
+        "text_2": "With this change, the \"{f1}\" tab of \"{f}\" has added a setting option: \"{f2}\".",
+        "text_3": "Now the tome script statistics can also count bicolor gems. You can control the switch in the popup window of the tome script button.",
+        "text_4": "Now the FT Helper can also use \"{f}\" function.",
+        "text_5": "Now the child item in item button popup can also expand context menu by right-clicking the blue info icon.",
+        "text_6": "Adjusted title text of each material statistics area and added tips icon and tips.",
+        "text_7": "Optimized the display effect of \"{f2}\" in \"{f1}\".",
+        "text_8": "Now the context menu of item button can also select \"{f}\".",
+        "text_9": "Now the top menu will show \"{f}\" button when needed on mobile."
+      }
+    },
+    "2_0_7": {
+      "fix": {
+        "text_1": "Fixed menu of item button directs to error item.",
+        "text_2": "Fixed inputs of \"{f}\" may overflow container on specific screen.",
+        "text_3": "Fixed display effect of some item buttons on mobile."
+      },
+      "feat": {
+        "text_1": "Added sort, {f1} and {f2} to \"{f}\".",
+        "text_2": "Now items in tome script statistics will be sorted same as exchange store.",
+        "text_3": "Now the \"{f}\" will also export aethersand statistics."
+      }
+    },
+    "2_0_8": {
+      "breaking": {
+        "text_1": "Dawntrail gather map now available.",
+        "text_2": "Now the location info in item button and gather clock will show map button on its right side. Hover the mouse cursor on the map button, you will see the map and the nearest aetheryte portal name to the gather location.",
+        "text_3": "Map file is compressed heavily due to page/update-pack size consideration. If you want to see a higher quality map, you can click \"{f}\" in the popup of map button.",
+        "text_4": "Only 6 dawntrail maps is given, so gatherable items in old expansions will not be affected by above changes."
+      },
+      "fix": {
+        "text_1": "Fixed copy function of the context menu of item info icon in \"{f}\" not worked correctly.",
+        "text_2": "Fixed some of i18n translation."
+      },
+      "feat": {
+        "text_1": "Following changes are implemented in \"{f}\":",
+        "text_2": "① Group logic has changed. Now 7.0 aethersands will be separated from 7.0 Legacy gatherings;",
+        "text_3": "② Added map button and recommended aetheryte portal name in gather item card;",
+        "text_4": "③ Now clock's config area can be collapsed;",
+        "text_5": "④ Added \"{f}\" config item, you can show map directly in gather item card.",
+        "text_6": "⑤ Added \"{f}\" config item, you can batch star/unstar gather items in whole group.",
+        "text_7": "⑥ The \"Star\" tab has been renamed to \"Starred\"",
+        "text_8": "⑦ Adjusted some interface elements and improved the distinguishability of tab area.",
+        "text_9": "Now the \"{f2}\" of \"{f1}\" can be set to \"{o1}\", \"{o2}\" or \"{o3}\".",
+        "text_10": "You can change settings and check details in \"{f1}\"→\"{f2}\"→\"{f3}\"",
+        "text_11": "Cache got in old version would be expired after update due to data type adjustment.",
+        "text_12": "Now the item button popup shows not only \"This item could be reduced from\" but also \"Reducing this item could get (aethersand)\"",
+        "text_13": "To avoid infinite jumping of the item button popup, the latter will not display info icon that can open the popup."
+      }
+    },
+    "2_0_9": {
+      "feat": {
+        "text_1": "Now you can customize font and font size in \"{f1}\"→\"{f2}\".",
+        "text_2": "Now the \"{f}\" will also show the remaining earth time in the item card of the current collectible item."
+      }
+    },
+    "2_0_10": {
+      "breaking": {
+        "text_1": "{f} PRO now available.",
+        "text_2": "Pro statement provides more detailed information for each item, including crafting job, recipe level, gathering job, source, and total exchange price.",
+        "text_3": "Not only that, the pro statement also allows you to fill in the number of materials that have already been prepared, and dynamically calculate the materials that still need to be prepared based on the input values.",
+        "text_4": "Click the \"{f}\" button on main page or FT Helper to use Pro statement.",
+        "text_5": "If you still prefer the old version of craft statement, you can turn on the \"{f3}\" option on the \"{f2}\" tab of \"{f1}\"."
+      },
+      "fix": {
+        "text_1": "Fixed gather clock considers item gatherable when its gather time is just finished."
+      },
+      "feat": {
+        "text_1": "Added new setting option \"{f}\".",
+        "text_2": "Updated logo and background image for {v} version.",
+        "text_3": "Game data still not updated until it's officially released.",
+        "text_4": "Optimized the display effect of text in patch buttons."
+      }
+    },
+    "2_0_11": {
+      "breaking": {
+        "text_1": "Added new function \"{f}\" to Pro statement.",
+        "text_2": "Recomm. Process will automatically calculate the materials needed and classify them according to the type of process and the profession, and finally summarize the steps in an ordered manner."
+      },
+      "fix": {
+        "text_1": "Fixed Pro statement might show items that actually not needed with NaN number.",
+        "text_2": "Fixed some item that cannot be obtained by Fisher but show the collection prompt in the item button popup."
+      },
+      "feat": {
+        "text_1": "Optimized the display logic of item info in Pro statement.",
+        "text_2": "Optimized the display effect of title bar of app and the title and prompt icons of each material statistics area."
+      }
+    },
+    "2_0_12": {
+      "breaking": {
+        "text_1": "Added subscribe/notification function to Gatherclock.",
+        "text_2": "Now you can subscribe gather items, subscribed items will be displayed in \"{f1}\". In addition, after setting \"{f3}\" to \"{f4}\" in \"{f2}\", the program will send a system notification when the gather item can be gathered.",
+        "text_3": "Might cant work in some browser/device. The program will check permission and pop alert when you adjust \"{f}\".",
+        "text_4": "The performance of HqHelper might be restricted by browser when it is in background, which might cause the notification time to be later than the start time of subscribed item.",
+        "text_5": "System might enter do not disturb mode automatically and block all notifications when game is running in full screen. If you want to receive notifications normally while playing the game, you need to disable auto do not disturb mode or grant HqHelper white list permission.",
+        "text_6": "Further refined the grouping of gatherings in the Recomm. process, optimized the sorting logic within the group, and enabled the display of collection details.",
+        "text_7": "Now the group will be further divided into limited and unlimited gatherings. In the same group, the non-limited gatherings will be sorted according to the map where they are collected, and the limited products will be sorted according to their start time.",
+        "text_8": "In addition, \"{f}\" is added, which will show extra information about gatherings, including limited time and gather location."
+      },
+      "fix": {
+        "text_1": "Fixed issue that mobile device cant enable \"{f}\" in preference settings."
+      },
+      "feat": {
+        "text_1": "① Further optimized the recognizability of the tabs of the Gatherclock;",
+        "text_2": "② Now the coordinate of item gather location is unified to 1 decimal place;",
+        "text_3": "③ Optimized some UI details.",
+        "text_4": "Now the number input box in the Pro statement can click minus button to mark item prepared directly when its value is 0 (similar to the in-game logic).",
+        "text_5": "Added new setting option \"{f3}\" in tab \"{f2}\" of \"{f1}\".",
+        "text_6": "Now you can choose to display item list in Teamcraft format (e.g.: \"3x Sungilt Aethersand\").",
+        "text_7": "The return button in the upper left corner has changed its logic: it will always return to the home page, instead of the previous page.",
+        "text_8": "Optimized client's inner update logic."
+      }
+    },
+    "2_0_13": {
+      "breaking": {
+        "text_1": "Now gatherclock could set \"{f1}\" to \"{f2}\".",
+        "text_2": "Audio would be played once on first setting."
+      },
+      "feat": {
+        "text_1": "Now the popup of craftable items will also show durability/progress/quality info.",
+        "text_2": "With this change, the order of formula information in popup is adjusted.",
+        "text_3": "Now the context menu of craftable item will have \"{f1}\" and \"{f2}\" options."
+      }
+    },
+    "2_1_0": {
+      "fix": {
+        "text_1": "Fixed some area of the button in \"{f}\" could not trigger click event."
+      },
+      "feat": {
+        "text_1": "Added checkbox before each item in \"{f}\". Check to mark item as completed.",
+        "text_2": "Once if all the items in a group are marked as completed, the group will be automatically collapsed.",
+        "text_3": "Markings in \"{f}\" will not affect the amount recorded in the report. Closing \"{f}\" will automatically reset the completion status.",
+        "text_4": "Adjusted the display effect of the top menu bar when using the client vertically."
+      }
+    },
+    "2_1_1": {
+      "breaking": {
+        "text_1": "Added new function \"{f}\" to Gatherclock."
+      },
+      "fix": {
+        "text_1": "Fixed statistics of time-limited gatherings not included new items in patch 7.1.",
+        "text_2": "Fixed display effect of tome-script buttons while its content is too long.",
+        "text_3": "Fixed some data of map."
+      },
+      "feat": {
+        "text_1": "Gather details of items marked as completed in Recomm. process will be automatically hidden.",
+        "text_2": "Now the program gives tip when selected job has no equipable item in selected patch."
+      }
+    },
+    "2_1_2": {
+      "breaking": {
+        "text_1": "No actual changes have been made.",
+        "text_2": "Limited to {ver} and higher versions of the client only."
+      },
+      "fix": {
+        "text_1": "Fixed the issue where there were extra line breaks between item names and quantities when directly selecting in areas like floating window and recomm. process and copying them.",
+        "text_2": "With this change, the display effect of the floating window changes when the sub item name is too long.",
+        "text_3": "Fixed the issue where the macro content generated by Export alarm macro cannot be executed on the CHS client.",
+        "text_4": "Fixed the issue where Export alarm macro could not paste all the content in game when copying the macro by clicking the copy button.",
+        "text_5": "Fixed an issue where some prompts displayed in incorrect situations."
+      },
+      "feat": {
+        "text_1": "Optimized the display effect of the {f2} option in {f1} on mobile devices.",
+        "text_2": "The homepage title of the web version/PWA application/client has been changed from \"7.0 HQ Helper\" to \"7.x HQ Helper\"."
+      }
+    },
+    "2_1_4": {
+      "breaking": {
+        "text_1": "Added context menu to each job button in \"Select Job\".",
+        "text_2": "You can quickly add/subtract selected parts of the selected job, open the page of the selected job in Gearing simulator, or view recommended gearsets.",
+        "text_3": "Following changes have been implemented for the \"View Statistics\" of FT Helper:",
+        "text_4": "Added a \"{f}\" group to list items that have not been classified by other groups;",
+        "text_5": "Merge the aethersand statistics into the Limited gathering items statistics and adjust the arrangement order of groups;",
+        "text_6": "Change the \"{f1}\" option to \"{f2}\". When this option is checked, all columns except \"{f3}\" will no longer count the materials required for precrafts."
+      },
+      "fix": {
+        "text_1": "Fixed the issue where the program would ring at times when there were no subscribed items to collect when the Notification way was set to \"Sound\".",
+        "text_2": "Fixed an issue where the external link assembled from the \"{f}\" in the fishing items' popup may not be able to retrieve the specified prop when the language of the item is set to Chinese/Japanese.",
+        "text_3": "Fixed the issue where there were extra line breaks between atrribute names and amounts when directly selecting in items' popup and copying them.",
+        "text_4": "Fixed the issue where the right-click menu of items could be activated by partially inoperable item buttons.",
+        "text_5": "Fixed the display effect of food/equipment attributes in the item popup in specific scenarios.",
+        "text_6": "Fixed the display effect of the tome script button when displaying multiple scripts."
+      },
+      "feat": {
+        "text_1": "Optimized the layout logic of copying item names in the right-click menu of the item button. Clicking on the \"Copy Item Name\" option will directly copy the item language under the current preference settings, while item names in other languages will be placed in the secondary menu. In addition, it is now possible to copy /isearch macros.",
+        "text_2": "The setting option \"{f2}\" in \"{f1}\" can now be set to \"{f3}\".",
+        "text_3": "Optimized the display effect of the page scrollbar."
+      }
+    },
+    "2_1_5": {
+      "milestone": {
+        "text_1": "At this point, all major functions of the first generation HqHelper have been migrated."
+      },
+      "breaking": {
+        "text_1": "Added map/aetherytes data for the 2.0/3.0/4.0/5.0/6.0 wilderness and main cities of each patch.",
+        "text_2": "Now old version gatherable items can also view maps and recommended aetheryte.",
+        "text_3": "Added the function to import gear selections from exported Excel. Therefore, the original 'Export Excel' button has been changed to 'Import/Export'.",
+        "text_4": "Now you can customize the name of the export file before exporting, and you can export cost/benefit analysis.",
+        "text_5": "Added Function Preferences window to integrate the settings options of each page function. In addition to being able to configure uniformly in the top menu, you can also click the settings button in the upper right corner of some pop-ups to configure the settings of the pop-up separately.",
+        "text_6": "With this change, some quick operations of the pop-up windows have been streamlined.",
+        "text_7": "Some settings in 'User Preferences' have been migrated to Function Preferences."
+      },
+      "fix": {
+        "text_1": "Thoroughly fixed the issue where text in some item pop-ups could not be selected."
+      },
+      "feat": {
+        "text_1": "Now you can set the cache validity period of item prices to 1 hour.",
+        "text_2": "Now when both the client and HqHelper have new versions available for update, only one pop-up reminder will be shown instead of separate reminders.",
+        "text_3": "Optimized the expression of some interface texts."
+      }
+    },
+    "2_1_6": {
+      "fix": {
+        "text_1": "Fixed the issue where new users would encounter page crashes in specific scenarios.",
+        "text_2": "Fixed the issue where the 'Show item in concise mode' setting in Function Preferences->Crafting Statement did not work correctly in specific scenarios."
+      },
+      "feat": {
+        "text_1": "Added the setting option 'Craftable item sorting by' in Function Preferences->Recommended Process.",
+        "text_2": "Set to 'Crafting log order' to allow the craftable items in the recommended process to be arranged in the order of the recipes in the crafting log in the game.",
+        "text_3": "Now the 'Sort by' of the 'Gather Clock' can also be set to 'Remaining time'.",
+        "text_4": "Remaining time refers to the remaining time of the currently gatherable item / the remaining time until the start time of the ungatherable item."
+      }
+    },
+    "2_1_7": {
+      "breaking": {
+        "text_1": "Reworked the '{f1}' feature, integrating the original '{f1}', '{f2}', and '{f3}' into the same window. Additionally, the following changes were implemented:",
+        "text_2": "You can now click the button in the top-right corner of the window to import/export settings.",
+        "text_3": "Now page refresh is only requested or executed after specific settings have been modified. Settings that require refreshing to take effect will be marked with a warning icon on the right.",
+        "text_4": "Added the following setting options: [General]{f1}; [Item Prices]{f2}, {f3}; [Recomm. Process]{f4}.",
+        "text_5": "Remade the interface of '{f}'.",
+        "text_6": "The mobile version will continue using the old design due to screen size limitations.",
+        "text_7": "You can now view and manually refresh price info in the item pop-ups.",
+        "text_8": "You need to enable '{option}' in the item price settings.",
+        "text_9": "Non-tradeable items will not show the price module, and items without High Quality will not show HQ price info."
+      },
+      "fix": {
+        "text_1": "No bug was found. Awesome"
+      },
+      "feat": {
+        "text_1": "The item pop-ups for collectable items now also shows the gather-node level and required tome information.",
+        "text_2": "The table in the '{f}' pop-up now displays the price of items that could not retrieve prices as ??? instead of 0. Additionally, a corresponding tooltip has been added.",
+        "text_3": "Added tooltips to some items that only display icons without names, to indicate their item names.",
+        "text_4": "Compressed some unpacked data files to reduce the update package size needed for downloads, decrease page load time on first visit, and lessen bandwidth pressure on hosting servers.",
+        "text_5": "Optimized the display of item crafting level information in specific cases within crafting reports."
+      }
+    },
+    "2_1_8": {
+      "feat": {
+        "text_1": "You can now long press the title to drag the popup.",
+        "text_2": "An info icon has been added to the version selection module, indicating the update pattern for each version.",
+        "text_3": "You can now open the Gather Clock and FT Helper in a new window from the desktop browser.",
+        "text_4": "The acceleration service list in the client update check popup has been adjusted, and viewing of the service station and custom acceleration service is now allowed. Additionally, the display of popup content in dark mode has been optimized."
+      }
+    },
+    "2_1_9": {
+      "fix": {
+        "text_1": "Fixed the issue where the workflow statement could not set the 'Prepared' quantity within the range of 'Total required quantity × 0.5 + 1' to 'Total required quantity - 1'.",
+        "text_2": "Fixed the heights of various areas in the workflow to fit different display devices.",
+        "text_3": "Fixed the issue where some scrollable components did not display scrollbars."
+      },
+      "feat": {
+        "text_1": "Added a 'Manage Existing Workflows' button and popup to the workflow interface, allowing users to rename and delete existing workflows.",
+        "text_2": "You can now add selected food/medicine items to the workflow on the FT Helper page.",
+        "text_3": "Workflow functionality is now available on mobile devices.",
+        "text_4": "Added a 'Simulate' button to the 'Crafting' module in the floating window for craftable items. Click it to quickly open BestCraft for simulation.",
+        "text_5": "Added a 'Back to Top' button to the FT Helper, Gatherclock, and Workflow pages.",
+        "text_6": "Optimized the display of the '{f}' feature on the desktop version."
+      }
+    },
+    "2_1_10": {
+      "fix": {
+        "text_1": "Fixed the issue where the copy function of item info icons in the Pro Craft Statements did not work properly.",
+        "text_2": "Fixed the issue where the copy function of item buttons in the old version craft statements did not work properly."
+      },
+      "feat": {
+        "text_1": "Workflows can now perform cost/profit analysis.",
+        "text_2": "On the desktop version, the 'Select Items' panel in workflows can now be collapsed to the left to free up more space for the statistics area.",
+        "text_3": "Optimized the display of the '{f}' popup."
+      }
+    },
+    "2_2_0": {
+      "fix": {
+        "text_1": "Fixed the issue where the copy function of item info icons in the Recomm. Process (modal) did not work properly.",
+        "text_2": "Fixed display effect of Processes area in workflow on mobile devices."
+      },
+      "feat": {
+        "text_1": "Processes in the workflow now automatically remember. After collapsing process groups and marking preparation items as completed, these changes will be retained even after refresh the page or switching to other workflows.",
+        "text_2": "The exchange item column in the recommended process will now display the points required for the remaining materials.",
+        "text_3": "Added a floating button to the 'Processes' area of the workflow on the desktop version for quick control of expanding/collapsing each process or entering function settings.",
+        "text_4": "You can now set the cost/benefit analysis table to display item details."
+      }
+    },
+    "2_2_1": {
+      "fix": {
+        "text_1": "Fixed version text of database not updated."
+      },
+      "feat": {
+        "text_1": "Added Chinese translations for the names and descriptions of various items added in Patch {patch}."
+      }
+    },
+    "2_2_2": {
+      "fix": {
+        "text_1": "Fixed the issue where some items appeared multiple times in the collection statistics and tome-script exchange statistics in the FT Helper and workflow.",
+        "text_2": "Fixed the background color of subtitles in workflow statements.",
+        "text_3": "Fixed the display logic of operation buttons in the main page Gear Selection area."
+      },
+      "feat": {
+        "text_1": "Default settings for various features have been adjusted.",
+        "text_2": "Only effective for users using HqHelper for the first time.",
+        "text_3": "In User Preferences, some settings no longer require a page refresh to take effect after modification.",
+        "text_4": "Optimized the display effect of the expanded menu of the right-click profession button on the main page.",
+        "text_5": "Added drag-and-drop buttons to the workflow management interface table, allowing users to sort existing workflows by dragging."
+      }
+    },
+    "2_2_3": {
+      "breaking": {
+        "text_1": "Implemented the sponsorship feature.",
+        "text_2": "Pick any creator to sponsor, to boost their development enthusiasm or reduce their financial pressure.",
+        "text_3": "After sponsoring, you can join the 'Thankyou List'.",
+        "text_4": "Added a dedicated page for downloading the client."
+      },
+      "fix": {
+        "text_1": "Fixed rendering issues of some content components in the Manage Workflows popup.",
+        "text_2": "Fixed the issue where the automatic refresh of the program after changing the UI language setting in preferences did not take effect immediately.",
+        "text_3": "Fixed the issue where some texts did not follow the UI language setting.",
+        "text_4": "Fixed the automatic judgment logic of '{f3}' in '{f1}'->'{f2}'.",
+        "text_5": "Now set to automatic will follow the item language setting, not the ui language.",
+        "text_6": "Fixed the display effect of the workflow switching area on mobile devices.",
+        "text_7": "Fixed the display effect of the process title in the recommended process when the tomescript requirements is too long.",
+        "text_8": "Fixed the display effect of the export alarm macro interface when the item language is set to Japanese/English."
+      },
+      "feat": {
+        "text_1": "Copying macros now supports adjusting the macro generation mode, allowing for multi-line output.",
+        "text_2": "In multi-line mode, the copied macro needs to be pasted into the user macro to be executed and sent.",
+        "text_3": "In the Pro Craft Statements, if the number of tomescript items exceeds the total required quantity due to changes in the materials for higher-level crafting, the remaining tomescript statistics will no longer be displayed as negative numbers.",
+        "text_4": "Optimized the display effect of the right-click menu on the job button.",
+        "text_5": "Updated the recommended gear for 720HQ/740HQ.",
+        "text_6": "In the preferences, some dropdown options have added description text.",
+        "text_7": "Optimized the display effect of the item button tooltip on the gathering clock page on mobile devices.",
+        "text_8": "Optimized the text description in some areas."
+      }
+    },
+    "2_2_4": {
+      "breaking": {
+        "text_1": "Implemented a new feature: 'Craft Macro Management'.",
+        "text_2": "With this change, the '{f2}' tab has been added to '{f1}'.",
+        "text_3": "Correspondingly, the original '{f}' tab will be removed, and the settings under it will be moved to other tabs."
+      },
+      "fix": {
+        "text_1": "Corrected the map data of the Kozama'uka, and now the Dock Poga will be displayed normally.",
+        "text_2": "Fixed the issue where the copying function of item information icons in the 'Cost/Benefit Analysis' and 'Join Workflow' pop ups did not work properly.",
+        "text_3": "Fixed the issue where the columns of the table would be misaligned when the item names in the craft statement were too long.",
+        "text_4": "Fixed the issue where the sponsor list was sometimes not updated in a timely manner due to caching.",
+        "text_5": "This is a further processing of the corresponding correction in version 2.2.3."
+      },
+      "feat": {
+        "text_1": "Added a 'Hide/Show Items Not Installed in CHS' button to the 'Recomm. Process' (only displayed when 'Server' is set to CHS).",
+        "text_2": "The recomm process pop-up for craft statement and the process tab for workflows are both applicable, but the button positions are different.",
+        "text_3": "Now you can freely choose the join mode when adding items to the workflow.",
+        "text_4": "The mode selection of 'accumulation' is consistent with the logic of the previous version. You can view detailed instructions in the pop-up window.",
+        "text_5": "After left clicking on any item row in the craft statement, it and its production materials will be highlighted.",
+        "text_6": "If you don't need this feature, you can open the settings option '{f3}' in the '{f2}' tab of '{f1}'."
+      }
+    },
+    "2_2_5": {
+      "breaking": {
+        "text_1": "Implement the new feature 'In-game Inventory'.",
+        "text_2": "Set your inventory of in-game items in the newly added exclusive modal and freely choose whether to synchronize with pro statement in the modal/workflow."
+      },
+      "fix": {
+        "text_1": "Further fix the automatic update issue on the github.io page.",
+        "text_2": "Fixed the issue of column misalignment in the 'Select Items' area table of the workflow when item names are too long.",
+        "text_3": "Fixed the display effect of the recomm. process in the statement modal when the item name is too long.",
+        "text_4": "Fixed the display effect of the QR code in donate modal."
+      },
+      "feat": {
+        "text_1": "Macro management has added the functions of importing, exporting, and deleting all macros.",
+        "text_2": "With this change, the button layout in the operating area has been adjusted.",
+        "text_3": "The data center itself (such as Aether, Chaos, etc.) can now be set as an item price server.",
+        "text_4": "In the '{f}' dropdown menu of the desktop menu, tools that can be opened in a new window will display corresponding buttons on their right side, rather than occupying a separate menu item.",
+        "text_5": "Added a click prompt for the 'Hide/Show Items Not Installed in CHS' button in the 'Recomm. Process'.",
+        "text_6": "Adjusted the default proxy for the client check update interface and updated the list of proxy.",
+        "text_7": "Adjusted the application logo design in 'About us'."
+      }
+    },
+    "2_2_6": {
+      "breaking": {
+        "text_1": "Implement the new feature 'Cloud Sync'.",
+        "text_2": "Upload your preference settings, craft macros, inventory, and other data to the cloud for convenient backup and recovery, as well as synchronization between multiple devices.",
+        "text_3": "Registration and login are required to use. The account is interoperable with the NBB recipe calculator (5p.nbbjack.com).",
+        "text_4": "The function has not been implemented on mobile devices yet and will be added in future versions."
+      },
+      "fix": {
+        "text_1": "Fixed the issue where the main window may be pinned to the top in rare cases due to the setting of the gatherclock overlay."
+      },
+      "feat": {
+        "text_1": "The in-game inventory has added relevant settings for reverse synchronization function.",
+        "text_2": "Optimized the construction method of the client drag and drop area, now there are more positions that support long press drag and drop."
+      }
+    },
+    "2_2_7": {
+      "fix": {
+        "text_1": "Fixed an issue where adding items to a workflow in overwrite mode would clear the workflow name.",
+        "text_2": "Fixed an issue where the mobile menu interface would scroll along with the main page.",
+        "text_3": "Pre-fixed some errors that might be caused by cloud synchronization.",
+        "text_4": "Fixed an issue where group header text in the workflow statement list popup would be obscured by borders.",
+        "text_5": "Fixed the display of input fields in macro management when UI language is set to Japanese/English."
+      },
+      "feat": {
+        "text_1": "Optimized the sorting of non-time-limited gathering items in the Recomm. Process. Items with nearby gathering locations will now be grouped together.",
+        "text_2": "Now clicking on blank areas of the statement can also deselect item rows.",
+        "text_3": "Added preset tags and preset attributes functionality to the user macro editing modal."
+      }
+    }
+  },
+  "gather_clock": {
+    "preference": {
+      "title": "Clock Configurations",
+      "pin_gatherable_items": "Pin gatherable items",
+      "disable_item_pop": "Ban item button popup",
+      "sort_by": {
+        "title": "Sort by",
+        "option": {
+          "gather_start_time": "Start Time"
+        }
+      },
+      "show_map": "Show gather map",
+      "mention_way": {
+        "title": "Notification way",
+        "option": {
+          "system_notice": "System notification",
+          "sound": "Sound"
+        }
+      },
+      "pin_window": "Window top"
+    },
+    "grouptitle_with_patch_and_il": "Patch {patch} (IL{il})",
+    "text": {
+      "un_star_with_item": "Unstar \"{}\"",
+      "star_with_item": "Star \"{}\"",
+      "un_star_all": "Unstar all",
+      "subscribed": "Subscribed",
+      "subscribe": "Subscribe",
+      "unsubscribe_with_item": "Unsubscribe \"{}\"",
+      "subscribe_with_item": "Subscribe \"{}\"",
+      "unsubscribe_all": "Unsubscribe all",
+      "no_items": "No items here."
+    },
+    "message": {
+      "system_notice_not_supported": "Current browser/device does not support system notification function.",
+      "system_notice_denied": "Noitfication permission was rejected, please check browser's website permission setting.",
+      "following_items_can_be_gathered": "Following items can be gathered:"
+    },
+    "tooltip": {
+      "subscribe_1": "Click to subscribe/unsubscribe this item.",
+      "subscribe_2": "When the subscribed item can be gathered, we will send you a notification according to your setting \"{setting}\"."
+    },
+    "export_alarm_macro": {
+      "title": "Export alarm macro",
+      "preference": {
+        "clean_old_alarms": "Clear old alarms",
+        "alarm_name_includes": "Alarm name includes:",
+        "no_repeat": "No repeat"
+      },
+      "tooltip": {
+        "alarm_name_length": "Alarm name has 20 characters limit, and will be truncated if too long."
+      }
+    },
+    "remain_time": {
+      "tooltip": "Remaining time of the currently gatherable item / Remaining time until the start time of ungatherable item"
+    }
+  },
+  "cost_and_benefit": {
+    "tooltip": {
+      "cal_nq_price_here": "Calculated by items' NQ price.",
+      "cal_hq_price_here": "Calculated by items' HQ price."
+    }
+  },
+  "map": {
+    "text": {
+      "open_in": {
+        "ffcafe": "Open in FFCAFE Interactive Map"
+      },
+      "recomm_aetheryte": "Recomm. Aetheryte"
+    }
+  },
+  "recomm_process": {
+    "group": {
+      "aethersand": "Prepare aethersands",
+      "trade": "Trade items",
+      "other": "Prepare other items needed",
+      "pre_pre_precraft": "Use {job} craft pre-pre-precrafts",
+      "pre_precraft": "Use {job} craft pre-precrafts",
+      "precraft": "Use {job} craft precrafts",
+      "craft": "Use {job} craft",
+      "gather_common_with_job": "Use {job} gather (Unlimited)",
+      "gather_time_limited_with_job": "Use {job} gather (Time-limited)",
+      "common_gathering": "Gather(Unlimited)",
+      "time_limited_gathering": "Gather(Time-Limited)"
+    },
+    "text": {
+      "show_gather_detail": "Show gather details",
+      "gather_at_with_val": "Gather at {}",
+      "time_limit_with_val": "Time-limit: {}",
+      "show_items_not_installed_in_chs": "Show Items Not Installed in CHS",
+      "hide_items_not_installed_in_chs": "Hide Items Not Installed in CHS"
+    },
+    "message": {
+      "hided_unchs_items": "Items not installed in CHS have already been hidden",
+      "showed_unchs_items": "Items not installed in CHS have already been shown"
+    }
+  },
+  "festival_egg": {
+    "chirstmas": {
+      "text": {
+        "text_1": "Merry Christmas",
+        "text_2": "Good day to you, ",
+        "text_3": "miss/sir.",
+        "text_4": "I trust you've met with no grief during this year's Starlight Celebration?"
+      }
+    }
+  },
+  "download_page": {
+    "text": {
+      "text_1": "Most of HqHelper's features can be used directly on the web.",
+      "text_2": "However, to accommodate user preferences and enable features that browsers cannot support, we also provide a client version.",
+      "text_3": "Are there any special features?",
+      "text_4": "Even if the network is poor or the remote server crashes, the client can still provide basic calculation services.",
+      "text_5": "The client allows you to pin the gathering timer when opened in a new window like overlay.",
+      "text_6": "You can bookmark this page to easily download the latest version of the client in the future.",
+      "text_7": "The client is merely a container for HqHelper. After downloading the latest client version, you may still need to update HqHelper separately.",
+      "text_8": "Current latest version: {ver}",
+      "text_9": "Click the button below to download.",
+      "text_10": "※ Only compatible with Windows 7 or later",
+      "text_11": "{platform} Client",
+      "text_12": "※Only available for Mac OS 10.13 or later",
+      "text_13": "※Only available for devices with M-series chips",
+      "text_14": "We currently cannot provide Apple developer signatures. During installation, you might see a message saying \"'HqHelper' is damaged and can't be opened. You should move it to the Trash.\"",
+      "text_15": "You need to disable security check restrictions or add HqHelper to the whitelist to install successfully."
+    },
+    "link": {
+      "cn_with_index": "CN Users' download link {index}",
+      "global": "International download link"
+    }
+  },
+  "macro_manage": {
+    "text": {
+      "macro_name": "Macro Name",
+      "tag_with_colon": "Tags: ",
+      "relate_item": "Related Items",
+      "add_macro": "Add macro",
+      "edit_macro": "Edit macro",
+      "auto_cal_by_macro_when_empty_or_zero": "Will be automatically calculated based on the macro content when not filled or filled with 0.",
+      "cover_auto_val_when_inputed": "Correspondingly, once filled, it will override the automatically calculated CP consumption.",
+      "attr_auto_cal_when_zero": "Automatically calculated when filled with 0",
+      "can_select_item_or_input_name": "Select items from HqHelper's database or enter the item name yourself.",
+      "select_from_db": "Select from DB",
+      "input_item_name": "Input item name",
+      "existing_items": "Existing items",
+      "relate_item_desc": "The related items can be set to a maximum of {limit_1}, but the table on the macro management page will only display the first {limit_2}.",
+      "no_relate_item_set": "Not set any related items yet",
+      "filter_or_search": "Filter / Search",
+      "macro_lang": "Macro language",
+      "please_input_content_to_import": "Please input the content to import",
+      "drag_to_sort": "You can long press the skill button below to drag and customize the order.",
+      "no_macro_content_set": "No macro content set yet",
+      "import_source": "Import: ",
+      "import_action": {
+        "text_1": "Copy and paste the craft action macro in game to the input box below.",
+        "text_2": "There is no limit on the number of lines in the input box. When assembling multiple macros, after pasting the first macro, wrap and paste the second one.",
+        "text_3": "Ultimately, it is necessary to ensure one action per line. Only recognize lines starting with “/ac”, “/action” or “/技能”, and action names can be enclosed in double quotation marks.",
+        "text_4": "Supports macros in Chinese, English, and Japanese, which can be freely combined.",
+        "text_5": "After editing the technique in FCO simulator or BestCraft simulator, click 'Export Process' and paste the process code into the input box below."
+      },
+      "macro_lang_with_colon": "Macro language: ",
+      "delete_all_macros": "Delete all macros",
+      "batch_operate": "Batch Operation",
+      "preset_creq_info": "Craftsmanship {val1} / Control {val2} / CP {val3}",
+      "preset_tags": "Frequently Used Tags",
+      "preset_creqs": "Frequently Used Attribute Sets",
+      "preset_creqs_manage": "Manage Frequently Used Attribute Sets",
+      "preset_creqs_manage_table_head": "Frequently Used Attribute Sets (Craftsmanship/Control/CP)",
+      "preset_tags_manage": "Manage Frequently Used Tags",
+      "tag_name": "Tag Name"
+    },
+    "message": {
+      "relate_item_max_len": "The number of related items has reached the limit",
+      "relate_item_deduplicate": "The following items in the related items are duplicated and will be automatically deduplicated:",
+      "macro_amount_limited": "The number of macros has reached the maximum limit",
+      "no_actions_recognized": "No action was recognized",
+      "macro_content_cannot_empty": "Macro content cannot be empty",
+      "no_macro_added": "No macros was added yet",
+      "confirm_delete_all": "Are you sure you want to delete ALL macros?",
+      "readed_num_macros_from_file": "Readed {num} macro(s) from file.",
+      "confirm_import": "Import them?",
+      "warn_saved_macros_would_be_dropped": "Current {num} macros would be dropped!",
+      "only_json_can_be_imported": "Only .json file can be imported",
+      "tag_max_len": "Maximum {num} tags can be set",
+      "no_preset_tags": "No frequently used tags set yet",
+      "no_preset_creqs": "No frequently used attribute sets set yet",
+      "cannot_set_duplicate_creqs": "Cannot set duplicate frequently used attribute sets",
+      "cannot_set_all_zero_creqs": "Cannot set frequently used attribute sets with all values as 0",
+      "preset_creq_max_len": "Maximum {num} frequently used attribute sets can be added",
+      "cannot_set_empty_tag": "Cannot set tags with blank content",
+      "preset_tag_max_len": "Maximum {num} frequently used tags can be added"
+    },
+    "title": "Craft macro management",
+    "imexport": {
+      "title": "Macro manage: Import / Export",
+      "desc": {
+        "desc_1": "Unlike the import / export on the main interface, the exported file here is not a table that can be read and edited, but a simple data file.",
+        "desc_2": "Please do not directly edit the content of the exported file to avoid data damage.",
+        "desc_3": "Import your own backup or someone else's share"
+      }
+    }
+  },
+  "inventory": {
+    "clear_inventory": "Clear the inventory"
+  },
+  "cloud": {
+    "text": {
+      "last_upload": "Last upload: {time}",
+      "not_uploaded": "Not uploaded yet",
+      "data_sync": "Data synchronization",
+      "sync_range": "Synchronizing range",
+      "loading": "Loading...",
+      "start_sync": "Start synchronizing",
+      "upload_data": "Upload local data to cloud",
+      "download_data": "Download cloud data to local",
+      "reset_password": "Reset password",
+      "edit_account_info": "Edit account information",
+      "send_verify": "Send verification code",
+      "register_account": "Register",
+      "forgot_password": "Forget password",
+      "do_you_have_an_account": "Already have an account?",
+      "click_here_to_login": "Click to login",
+      "please_input_email_when_registered": "Please input the email registered",
+      "new_password": "New password",
+      "please_input_new_password": "Please input new password",
+      "back_to_login": "Back to login",
+      "user_title": "Title",
+      "avatar": "Avatar",
+      "select_avatar": "Select avatar",
+      "not_logged_in": "Not Logged In"
+    },
+    "message": {
+      "cannot_sync_because_modules_data_load_failed": "Synchronization cannot proceed because the data loading for the following modules failed:",
+      "please_refresh_and_retry": "Please consider refreshing the page to retry.",
+      "confirm_upload_1": "Are you sure you want to upload local data to the cloud?",
+      "confirm_upload_2": "This will overwrite the existing data in the cloud.",
+      "sync_error": "An error occurred while synchronizing {mod}: {err}",
+      "following_modules_sync_failed": "The following modules failed to synchronize:",
+      "sync_succeed": "Synchronization successful!",
+      "cannot_sync_because_modules_data_not_uploaded": "Synchronization cannot proceed because the following modules have not yet uploaded data:",
+      "please_upload_first": "请先上传数据。",
+      "confirm_download_1": "Are you sure you want to download cloud data to the local?",
+      "confirm_download_2": "This will overwrite the existing local data.",
+      "cache_cleaned": "Due to a change in the item price server settings, the item price cache has been cleared.",
+      "page_would_be_reloaded": "The page will reload to apply the changes.",
+      "data_consistent": "Local data is consistent with cloud data",
+      "verify_cooldown": "can be sent again in {count} seconds",
+      "key_is_too_long": "{key} is too long",
+      "operate_succeed": "Operation successful",
+      "verify_sent": "Verification code sent",
+      "verify_send_failed": "Send failed: {err}",
+      "login_succeed": "Login successful",
+      "register_succeed": "Register successful",
+      "reset_password_succeed": "Reset password successful",
+      "reset_nick_or_title_failed": "Failed to modify nickname/title: {err}",
+      "reset_avatar_failed": "Failed to modify avatar: {err}",
+      "submit_failed": "Submit failed: {err}",
+      "please_input_loginname_or_email": "Please input login name or email",
+      "logged_out": "Logged out",
+      "email_format_wrong": "Format of your email is incorrect"
+    }
+  }
+}

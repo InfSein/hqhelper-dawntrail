@@ -8712,5 +8712,19 @@
     "$files": [
       "data\\change-logs.ts"
     ]
+  },
+  "服务器正在维护，暂时不能更新。": {
+    "en": "",
+    "ja": "",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
+  },
+  "请稍等片刻。": {
+    "en": "",
+    "ja": "",
+    "$files": [
+      "components\\modals\\ModalCheckUpdates.vue"
+    ]
   }
 }
