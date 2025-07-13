@@ -263,9 +263,9 @@ const itemPriceInfo = computed(() => {
         case 'currentAveragePrice': return t('preference.universalis_price_type.option.curr_average')
         case 'minPrice': return t('preference.universalis_price_type.option.min')
         case 'maxPrice': return t('preference.universalis_price_type.option.max')
-        case 'purchasePrice': return t('preference.universalis_price_type.option.purchase_average')
-        case 'marketLowestPrice': return t('preference.universalis_price_type.option.market_min')
-        case 'marketPrice': return t('preference.universalis_price_type.option.market_average')
+        case 'purchasePrice': return t('preference.universalis_price_type.option.purchase_average.title')
+        case 'marketLowestPrice': return t('preference.universalis_price_type.option.market_min.title')
+        case 'marketPrice': return t('preference.universalis_price_type.option.market_average.title')
         default: return t('common.unknown')
       }
     }
@@ -626,7 +626,7 @@ const innerPopTrigger = computed(() => {
               </template>
             </div>
             <div v-else style="text-indent: 1em;">
-              {{ t('item.price.no_show_price_type_setted', t('preference.universalis_poppricetypes')) }}
+              {{ t('item.price.no_show_price_type_setted', t('preference.universalis_poppricetypes.title')) }}
             </div>
           </div>
         </div>

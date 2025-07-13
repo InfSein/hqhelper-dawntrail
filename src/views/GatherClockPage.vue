@@ -657,7 +657,7 @@ const handleShowAlarmMacroExportModal = () => {
                   </n-button>
                 </template>
                 <div>{{ t('gather_clock.tooltip.subscribe_1') }}</div>
-                <div>{{ t('gather_clock.tooltip.subscribe_2', t('gather_clock.preference.mention_way')) }}</div>
+                <div>{{ t('gather_clock.tooltip.subscribe_2', t('gather_clock.preference.mention_way.title')) }}</div>
               </n-popover>
               <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
                 <template #trigger>

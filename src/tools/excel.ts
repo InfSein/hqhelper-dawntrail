@@ -59,9 +59,9 @@ export const export2Excel = (
   tableData = [
     [
       t('common.job_or_affix'),
-      t('game.gear.tool.mainhand'), t('game.gear.tool.offhand'),
-      t('game.gear.attire.head.title'), t('game.gear.attire.body'), t('game.gear.attire.hands'), t('game.gear.attire.legs'), t('game.gear.attire.feet'),
-      t('game.gear.accessory.earring.title'),  t('game.gear.accessory.necklace'), t('game.gear.accessory.wrist'), t('game.gear.accessory.rings')
+      t('game.gear.tool.mainhand.title'), t('game.gear.tool.offhand.title'),
+      t('game.gear.attire.head.title'), t('game.gear.attire.body.title'), t('game.gear.attire.hands.title'), t('game.gear.attire.legs.title'), t('game.gear.attire.feet.title'),
+      t('game.gear.accessory.earring.title'),  t('game.gear.accessory.necklace.title'), t('game.gear.accessory.wrist.title'), t('game.gear.accessory.rings.title')
     ]
   ]
 
@@ -261,7 +261,7 @@ export const export2Excel = (
   workSheet = XLSX.utils.aoa_to_sheet(tableData)
   workSheet['!cols'] = calculateColumnWidths(tableData)
   setWorkSheetStyle(workSheet)
-  XLSX.utils.book_append_sheet(workBook, workSheet, t('statistics.tomescript'))
+  XLSX.utils.book_append_sheet(workBook, workSheet, t('statistics.tomescript.title'))
   // #endregion
 
   // #region 采集品(普通)统计

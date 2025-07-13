@@ -507,7 +507,7 @@ defineExpose({
                 <template #icon>
                   <n-icon><KeyboardArrowDownRound /></n-icon>
                 </template>
-                {{ t('main.select_gear.quick_operate') }}
+                {{ t('main.select_gear.quick_operate.title') }}
               </n-button>
             </template>
             <div class="flex-col gap-2">
