@@ -1,0 +1,8 @@
+project_id: hqhelper
+api_token_env: INPUT_YOUR_USER_TOKEN
+base_path: '.'
+base_url: 'https://api.crowdin.com'
+
+files:
+  - source: '/src/locales/zh.json'
+    translation: '/src/locales/%locale%.json'
