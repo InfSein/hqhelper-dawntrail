@@ -15,7 +15,7 @@ import type { MacroGenerateMode } from '@/models/config-func'
 import { useStore } from '@/store'
 import UseConfig from '@/tools/use-config'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -151,9 +151,9 @@ const handleCopyAsMacro = async () => {
     :style="{ maxWidth: isMobile ? 'unset' : '320px' }"
   >
     <template #trigger>
-      <n-button class="ts-btn" :title="t('点数')">
+      <n-button class="ts-btn" :title="t('common.tomescript')">
         <div class="w-full flex-col align-right">
-          <p class="text">{{ t('点数') }}</p>
+          <p class="text">{{ t('common.tomescript') }}</p>
           <div class="tome-scripts">
               <div class="tome-script" v-for="(totalAmount, scriptID) in tomeScripts" :key="'tome-script-' + scriptID">
                 <span class="amount">{{ getItemAmount(totalAmount) }}</span>
@@ -169,13 +169,13 @@ const handleCopyAsMacro = async () => {
 
     <div class="pop-wrapper">
       <div class="pop-header">
-        <p>{{ t('点数统计') }}</p>
+        <p>{{ t('statistics.tomescript.title') }}</p>
       </div>
       <n-divider class="block-divider" />
       <div class="pre">
         <div class="preset-item">
           <n-switch v-model:value="showBiColorItems" @update:value="handleShowBiColorItemsChange" :round="false" size="small" />
-          <div>{{ t('显示双色宝石兑换物') }}</div>
+          <div>{{ t('statistics.tomescript.show_bicolor_items') }}</div>
         </div>
       </div>
       <div class="items">
@@ -191,7 +191,7 @@ const handleCopyAsMacro = async () => {
           </div>
         </div>
         <div v-if="!Object.keys(items).length">
-          <n-empty :description="t('没有需要的道具')" />
+          <n-empty :description="t('common.no_required_items')" />
         </div>
       </div>
       <n-divider class="block-divider" />
@@ -200,7 +200,7 @@ const handleCopyAsMacro = async () => {
           <template #icon>
             <n-icon><CodeSharp /></n-icon>
           </template>
-          {{ t('复制宏') }}
+          {{ t('common.appfunc.copy_macro') }}
         </n-button>
       </div>
     </div>

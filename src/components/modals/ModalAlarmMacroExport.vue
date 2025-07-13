@@ -20,7 +20,7 @@ import type { ItemGroup } from '@/models/item'
 import type { AlarmMacroOptions } from '@/models/gather-clock'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -130,12 +130,12 @@ const getItemName = (itemInfo: ItemInfo) => {
 const getJobName = (jobInfo: XivJob) => {
   switch (uiLanguage.value) {
     case 'ja':
-      return jobInfo?.job_name_ja || t('未知')
+      return jobInfo?.job_name_ja || t('common.unknown')
     case 'en':
-      return jobInfo?.job_name_en || t('未知')
+      return jobInfo?.job_name_en || t('common.unknown')
     case 'zh':
     default:
-      return jobInfo?.job_name_zh || t('未知')
+      return jobInfo?.job_name_zh || t('common.unknown')
   }
 }
 const getPlaceName = (itemInfo : ItemInfo) => {
@@ -156,13 +156,13 @@ const getPlaceName = (itemInfo : ItemInfo) => {
     v-model:show="showModal"
     :id="modalId"
     :icon="CodeSharp"
-    :title="t('导出闹钟宏')"
+    :title="t('gather_clock.export_alarm_macro.title')"
     max-width="730px"
   >
     <div class="wrapper" ref="wrapper">
       <GroupBox id="select-items" title-background-color="var(--n-color-modal)">
         <template #title>
-          <span class="title">{{ t('选择物品') }}</span>
+          <span class="title">{{ t('common.select_item') }}</span>
         </template>
         <n-tree
           block-line
@@ -178,23 +178,23 @@ const getPlaceName = (itemInfo : ItemInfo) => {
       <div id="right-container">
         <GroupBox id="export-settings" title-background-color="var(--n-color-modal)">
           <template #title>
-            <span class="title">{{ t('选项') }}</span>
+            <span class="title">{{ t('common.options') }}</span>
           </template>
           <div class="settings-container">
             <n-checkbox v-model:checked="alarmMacroOptions.clearOldAlarms">
-              {{ t('同时清除此前设置的闹钟') }}
+              {{ t('gather_clock.export_alarm_macro.preference.clean_old_alarms') }}
             </n-checkbox>
             <div class="flex">
-              <div style="min-width: fit-content;">{{ t('闹钟名包括：') }}</div>
+              <div style="min-width: fit-content;">{{ t('gather_clock.export_alarm_macro.preference.alarm_name_includes') }}</div>
               <div class="flex-wrap">
                 <n-checkbox v-model:checked="alarmMacroOptions.containsJobName">
-                  {{ t('职业') }}
+                  {{ t('common.job') }}
                 </n-checkbox>
                 <n-checkbox v-model:checked="alarmMacroOptions.containsMapName">
-                  {{ t('地图') }}
+                  {{ t('common.map') }}
                 </n-checkbox>
                 <n-checkbox v-model:checked="alarmMacroOptions.containsAetheryteName">
-                  {{ t('推荐传送点') }}
+                  {{ t('map.text.recomm_aetheryte') }}
                 </n-checkbox>
                 <n-popover :trigger="isMobile ? 'click' : 'hover'">
                   <template #trigger>
@@ -205,19 +205,19 @@ const getPlaceName = (itemInfo : ItemInfo) => {
                     </div>
                   </template>
                   <div>
-                    {{ t('闹钟名具有20个字的限制，过长的部分会被截断。') }}
+                    {{ t('gather_clock.export_alarm_macro.tooltip.alarm_name_length') }}
                   </div>
                 </n-popover>
               </div>
             </div>
             <n-checkbox v-model:checked="alarmMacroOptions.noRepeat">
-              {{ t('不重复提醒') }}
+              {{ t('gather_clock.export_alarm_macro.preference.no_repeat') }}
             </n-checkbox>
           </div>
         </GroupBox>
         <GroupBox id="macro-preview" title-background-color="var(--n-color-modal)">
           <template #title>
-            <span class="title">{{ t('预览') }}</span>
+            <span class="title">{{ t('common.preview') }}</span>
           </template>
 
           <MacroViewer

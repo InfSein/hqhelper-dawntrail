@@ -48,12 +48,12 @@ export const getStaffMebers = (
       infsein: createStaffMember(
         "InfSein",
         "./image/staff/all-infsein.jpg",
-        t('负责全部设计开发工作'),
+        t('about_app.staff.jobs.infsein'),
         ["我问遍了整个猫区，他们都说我是最帅的肥"],
         [{ name: "Github", url: "https://github.com/InfSein" }],
         {
           self: true,
-          donate_desc: t('开发事业'),
+          donate_desc: t('donate_us.final_confirm.desc.desc_3'),
           donate_ways: [
             { type: 'qq', data_type: 'qrcode', data: 'https://i.qianbao.qq.com/wallet/sqrcode.htm?m=tenpay&f=wallet&a=1&ac=CAEQlJC58QoYw9aqoAZCIDNmNDlkNDI3ZmI2ZjY2Yjg2ZGJmNGQ2YTk2MjA5ZDFl_xxx_sign&u=2922268692&n=float' },
             { type: 'afd', data_type: 'url', data: 'https://afdian.com/a/infseins' },
@@ -63,11 +63,11 @@ export const getStaffMebers = (
       nbb: createStaffMember(
         "N.B.B",
         "https://avatars.githubusercontent.com/u/7787811?v=4",
-        t('负责提供游戏数据和托管支持'),
+        t('about_app.staff.jobs.nbb'),
         ["画饼砖家"],
         [{ name: "nbbjack.com", url: "https://nbbjack.com/" }],
         {
-          donate_desc: t('数据更新，并平衡托管服务器(nbb.fan)的开支'),
+          donate_desc: t('donate_us.final_confirm.desc.desc_4'),
           donate_ways: [
             { type: 'afd', data_type: 'url', data: 'https://afdian.com/a/nbb-box' },
           ]
@@ -76,7 +76,7 @@ export const getStaffMebers = (
       yakita: createStaffMember(
         "夜北Yakita",
         "./image/staff/lt-yakita.jpg",
-        t('负责UI的日语国际化和前瞻物品名的中文翻译'),
+        t('about_app.staff.jobs.yakita'),
         ["简直是世间精品库啵"],
         [
           { name: "BiliLive", url: "https://b23.tv/IwuuPBI" },
@@ -86,21 +86,21 @@ export const getStaffMebers = (
       kimuchi: createStaffMember(
         "Kim",
         "https://avatars.githubusercontent.com/u/44747407?v=4",
-        t('贡献了初期的UI日语国际化'),
+        t('about_app.staff.jobs.kim'),
         [],
         [{ name: "Github", url: "https://github.com/kimuchidev" }]
       ),
       wcy: createStaffMember(
         "joj",
         "./image/staff/client-wcy.jpg",
-        t('贡献了初版Windows客户端框架'),
+        t('about_app.staff.jobs.wcy'),
         ["在线求职"],
         [{ name: "Github", url: "https://github.com/wanchenyang521" }]
       ),
       etnatker: createStaffMember(
         "etnAtker",
         "https://avatars.githubusercontent.com/u/20952240?v=4",
-        t('贡献了以Teamcraft格式展示材料清单的功能'),
+        t('about_app.staff.jobs.etnatker'),
         [],
         [{ name: "Github", url: "https://github.com/etnAtker" }]
       ),

@@ -16,7 +16,7 @@ import type { FuncConfigModel } from '@/models/config-func'
 import UseConfig from '@/tools/use-config'
 import { accessoryAffixes, attireAffixes, fixGearSelections, type AccessoryAffix, type AttireAffix, type GearSelections } from '@/models/gears'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -49,17 +49,17 @@ const emit = defineEmits(['onImportConfirmed'])
 const patchSelected = ref(props.defaultPatch)
 
 const slots = [
-  { key: 'MainHand', text: t('主手'), icon: './image/game-gear-slot/mainhand.png' },
-  { key: 'OffHand', text: t('副手'), icon: './image/game-gear-slot/offhand.png' },
-  { key: 'HeadAttire', text: t('头部'), icon: './image/game-gear-slot/head.png' },
-  { key: 'BodyAttire', text: t('身体'), icon: './image/game-gear-slot/body.png' },
-  { key: 'HandsAttire', text: t('手部'), icon: './image/game-gear-slot/hands.png' },
-  { key: 'LegsAttire', text: t('腿部'), icon: './image/game-gear-slot/legs.png' },
-  { key: 'FeetAttire', text: t('脚部'), icon: './image/game-gear-slot/feet.png' },
-  { key: 'Earrings', text: t('耳坠'), icon: './image/game-gear-slot/ear.png' },
-  { key: 'Necklace', text: t('项链'), icon: './image/game-gear-slot/neck.png' },
-  { key: 'Wrist', text: t('手镯'), icon: './image/game-gear-slot/wrist.png' },
-  { key: 'Rings', text: t('戒指'), icon: './image/game-gear-slot/ring.png' },
+  { key: 'MainHand', text: t('game.gear.tool.mainhand.title'), icon: './image/game-gear-slot/mainhand.png' },
+  { key: 'OffHand', text: t('game.gear.tool.offhand.title'), icon: './image/game-gear-slot/offhand.png' },
+  { key: 'HeadAttire', text: t('game.gear.attire.head.title'), icon: './image/game-gear-slot/head.png' },
+  { key: 'BodyAttire', text: t('game.gear.attire.body.title'), icon: './image/game-gear-slot/body.png' },
+  { key: 'HandsAttire', text: t('game.gear.attire.hands.title'), icon: './image/game-gear-slot/hands.png' },
+  { key: 'LegsAttire', text: t('game.gear.attire.legs.title'), icon: './image/game-gear-slot/legs.png' },
+  { key: 'FeetAttire', text: t('game.gear.attire.feet.title'), icon: './image/game-gear-slot/feet.png' },
+  { key: 'Earrings', text: t('game.gear.accessory.earring.title'), icon: './image/game-gear-slot/ear.png' },
+  { key: 'Necklace', text: t('game.gear.accessory.necklace.title'), icon: './image/game-gear-slot/neck.png' },
+  { key: 'Wrist', text: t('game.gear.accessory.wrist.title'), icon: './image/game-gear-slot/wrist.png' },
+  { key: 'Rings', text: t('game.gear.accessory.rings.title'), icon: './image/game-gear-slot/ring.png' },
 ]
 const gearRows = computed(() => {
   const rows : string[][] = []
@@ -144,7 +144,7 @@ const gearRows = computed(() => {
 const patchOptions = computed(() => {
   const opt = XivPatches.map(patch => {
     return {
-      label: t('版本{v}: {name}', { v: patch.v, name: patch[`name_${uiLanguage.value}`] }),
+      label: t('main.select_patch.patch_button.text', { v: patch.v, name: patch[`name_${uiLanguage.value}`] }),
       value: patch.v,
       disabled: !patch.updated
     }
@@ -163,28 +163,28 @@ const handleSubmit = () => {
   <MyModal
     v-model:show="showModal"
     :icon="UnarchiveOutlined"
-    :title="t('确认导入内容')"
+    :title="t('main.imexport.confirm_import_content')"
     :max-width="modalMaxWidth"
     @on-load="onLoad"
   >
     <div class="wrapper">
-      <GroupBox v-if="isMobile" :title="t('导入部件')" title-background-color="var(--n-color-modal)">
+      <GroupBox v-if="isMobile" :title="t('main.imexport.import_parts')" title-background-color="var(--n-color-modal)">
         <n-scrollbar trigger="none" x-scrollable :style="{ width: '100%', height: '300px', 'margin-top': '-2px' }">
           <n-table class="table" size="small" :single-line="false">
             <thead>
               <tr>
-                <th>{{ t('职业/词缀') }}</th>
-                <th>{{ t('主手') }}</th>
-                <th>{{ t('副手') }}</th>
-                <th>{{ t('头部') }}</th>
-                <th>{{ t('身体') }}</th>
-                <th>{{ t('手部') }}</th>
-                <th>{{ t('腿部') }}</th>
-                <th>{{ t('脚部') }}</th>
-                <th>{{ t('耳坠') }}</th>
-                <th>{{ t('项链') }}</th>
-                <th>{{ t('手镯') }}</th>
-                <th>{{ t('戒指') }}</th>
+                <th>{{ t('common.job_or_affix') }}</th>
+                <th>{{ t('game.gear.tool.mainhand.title') }}</th>
+                <th>{{ t('game.gear.tool.offhand.title') }}</th>
+                <th>{{ t('game.gear.attire.head.title') }}</th>
+                <th>{{ t('game.gear.attire.body.title') }}</th>
+                <th>{{ t('game.gear.attire.hands.title') }}</th>
+                <th>{{ t('game.gear.attire.legs.title') }}</th>
+                <th>{{ t('game.gear.attire.feet.title') }}</th>
+                <th>{{ t('game.gear.accessory.earring.title') }}</th>
+                <th>{{ t('game.gear.accessory.necklace.title') }}</th>
+                <th>{{ t('game.gear.accessory.wrist.title') }}</th>
+                <th>{{ t('game.gear.accessory.rings.title') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -206,11 +206,11 @@ const handleSubmit = () => {
           </n-table>
         </n-scrollbar>
       </GroupBox>
-      <GroupBox v-else :title="t('导入部件')" title-background-color="var(--n-color-modal)">
+      <GroupBox v-else :title="t('main.imexport.import_parts')" title-background-color="var(--n-color-modal)">
         <n-table class="table" size="small" :single-line="false">
           <thead>
             <tr>
-              <th>{{ t('职业/词缀') }}</th>
+              <th>{{ t('common.job_or_affix') }}</th>
               <th
                 v-for="slot in slots"
                 :key="slot.key"
@@ -244,8 +244,8 @@ const handleSubmit = () => {
           </n-table>
         </n-scrollbar>
       </GroupBox>
-      <GroupBox :title="t('选择版本')" title-background-color="var(--n-color-modal)">
-        <n-select v-model:value="patchSelected" :placeholder="t('选择导入的版本')" :options="patchOptions" />
+      <GroupBox :title="t('main.select_patch.title')" title-background-color="var(--n-color-modal)">
+        <n-select v-model:value="patchSelected" :placeholder="t('main.imexport.confirm_import_patch')" :options="patchOptions" />
       </GroupBox>
     </div>
 
@@ -255,7 +255,7 @@ const handleSubmit = () => {
           <template #icon>
             <n-icon><DoneOutlined /></n-icon>
           </template>
-          {{ t('确认') }}
+          {{ t('common.confirm') }}
         </n-button>
       </div>
     </template>

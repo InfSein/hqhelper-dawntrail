@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
 import {
   NButton, NIcon,
 } from 'naive-ui'
@@ -9,6 +9,8 @@ import {
 import MyModal from '../templates/MyModal.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'
 import { getImgCdnUrl } from '@/tools/item'
+
+const t = inject<(message: string, args?: any) => string>('t')!
 
 const showModal = defineModel<boolean>('show', { required: true })
 const avatarId = defineModel<number>('avatarId', { required: true })
@@ -55,7 +57,7 @@ const handleSubmit = () => {
   <MyModal
     v-model:show="showModal"
     :icon="FaceRetouchingNaturalFilled"
-    :title="t('选择头像')"
+    :title="t('cloud.text.select_avatar')"
     max-width="500px"
     @on-load="onLoad"
   >
@@ -81,7 +83,7 @@ const handleSubmit = () => {
           <template #icon>
             <n-icon><DoneOutlined /></n-icon>
           </template>
-          {{ t('确认') }}
+          {{ t('common.confirm') }}
         </n-button>
       </div>
     </template>

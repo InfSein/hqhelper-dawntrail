@@ -16,8 +16,7 @@ import ModalCloudSync from './components/modals/ModalCloudSync.vue'
 import { useRoute } from 'vue-router'
 import { useStore } from '@/store/index'
 import { useElectronSync } from '@/composables/electron-sync'
-import { t } from '@/languages'
-import { injectVoerkaI18n } from "@voerkai18n/vue"
+import { useLocale } from './locales'
 import { checkAppUpdates, CopyToClipboard, deepCopy, sleep } from './tools'
 import EorzeaTime from './tools/eorzea-time'
 import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
@@ -28,7 +27,7 @@ import ModalFestivalEgg from './components/modals/ModalFestivalEgg.vue'
 
 const route = useRoute()
 const store = useStore()
-const i18n = injectVoerkaI18n()
+const { t: rawT, setLocale } = useLocale()
 const { emitSync, onSync } = useElectronSync()
 
 const userConfig = ref<UserConfigModel>(fixUserConfig(store.state.userConfig))
@@ -37,7 +36,7 @@ const cloudConfig = ref<CloudConfigModel>(fixCloudConfig(store.state.cloudConfig
 const locale = computed(() => {
   return userConfig.value?.language_ui ?? 'zh'
 })
-i18n.activeLanguage = locale.value
+setLocale(locale.value)
 
 const appMode = ref<"overlay" | "" | undefined>('')
 provide('appMode', appMode)
@@ -113,7 +112,7 @@ const handleAppUpdate = (
   funcConfig.value = fixFuncConfig(_funcConfig, _userConfig)
   cloudConfig.value = fixCloudConfig(_cloudConfig)
   // Update i18n
-  i18n.activeLanguage = locale.value
+  setLocale(locale.value)
   // Update vue
   const instance = getCurrentInstance()
   instance?.proxy?.$forceUpdate()
@@ -123,18 +122,35 @@ const switchTheme = () => {
   store.commit('setUserConfig', userConfig.value)
 }
 
+const t = (message: string, args?: any) => {
+  const rawTranslate = rawT(message)
+
+  if (typeof rawTranslate !== 'string') {
+    console.warn(`[i18n] '${message}' resolved to a non-string`)
+    return message
+  }
+
+  let result = ''
+
+  if (typeof args === 'object') {
+    result = rawT(message, args)
+  } else if (args !== undefined) {
+    result = rawT(message, {
+      val: args, f: args, index: args, gen: args, v: args, ver: args, date: args, option: args, il: args,
+    })
+  } else {
+    result = rawT(message)
+  }
+
+  if (result === 'DONT_SHOW') result = ''
+
+  return result
+}
+
 provide('userConfig', userConfig)
 provide('funcConfig', funcConfig)
 provide('cloudConfig', cloudConfig)
-provide('t', (message: string, ...args: any[]) => {
-  const i18nResult = t(message, ...args)
-  if (/^[1-9]\d*$/.test(i18nResult)) {
-    return '' // 特殊处理 voerka-i18n 会对置空翻译返回 textMap id 的问题
-    // * https://github.com/zhangfisher/voerka-i18n/issues/47
-  } else {
-    return i18nResult
-  }
-})
+provide('t', t)
 provide('theme', theme)
 provide('locale', locale)
 provide('isMobile', isMobile)
@@ -157,14 +173,14 @@ const copyAsMacro = async (macroMap: Record<MacroGenerateMode, string>, containe
 } | undefined> => {
   const macroContent = macroMap[funcConfig.value.macro_generate_mode]
   if (!macroContent) {
-    return { result: 'info', msg: t('没有需要复制的内容') }
+    return { result: 'info', msg: t('common.message.nothing_to_copy') }
   }
   if (funcConfig.value.macro_direct_copy) {
     const errored = await CopyToClipboard(funcConfig.value.macro_copy_prefix + macroContent, container)
     if (errored) {
-      return { result: 'error', msg: t('复制失败') }
+      return { result: 'error', msg: t('common.message.copy_failed') }
     }
-    return { result: 'success', msg: t('已复制到剪贴板') }
+    return { result: 'success', msg: t('common.message.copy_succeed') }
   } else {
     macroMapValue.value = macroMap
     showCopyMacroModal.value = true
@@ -225,16 +241,16 @@ onMounted(async () => {
 
         if (needUpdateElectron) {
           if (window.confirm(
-            t('检测到客户端有新版本({v})。', versionContent.electron)
-            + (needUpdateHqHelper ? ('\n' + t('检测到HqHelper有新版本({v})。', versionContent.hqhelper)) : '')
-            + '\n' + t('要现在更新吗?')
+            t('update.message.checked_new_client', versionContent.electron)
+            + (needUpdateHqHelper ? ('\n' + t('update.message.checked_new_hqhelper', versionContent.hqhelper)) : '')
+            + '\n' + t('update.message.ask_update_now')
           )) {
             displayCheckUpdatesModal()
           }
         } else if (needUpdateHqHelper) {
           if (window.confirm(
-            t('检测到HqHelper有新版本({v})。', versionContent.hqhelper)
-            + '\n' + t('要现在更新吗?')
+            t('update.message.checked_new_hqhelper', versionContent.hqhelper)
+            + '\n' + t('update.message.ask_update_now')
           )) {
             if (window.electronAPI) {
               displayCheckUpdatesModal()

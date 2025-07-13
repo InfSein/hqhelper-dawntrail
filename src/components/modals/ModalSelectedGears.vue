@@ -20,7 +20,7 @@ import { type UserConfigModel } from '@/models/config-user'
 import { deepCopy } from '@/tools'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const uiLanguage = userConfig.value?.language_ui ?? 'zh'
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -36,17 +36,17 @@ const getAffixName = (affix: AttireAffix | AccessoryAffix) => {
   return XivGearAffixes[affix][`name_${uiLanguage}`]
 }
 const attireGearSlots = [
-  { key: 'HeadAttire', text: t('头部'), icon: './image/game-gear-slot/head.png' },
-  { key: 'BodyAttire', text: t('身体'), icon: './image/game-gear-slot/body.png' },
-  { key: 'HandsAttire', text: t('手部'), icon: './image/game-gear-slot/hands.png' },
-  { key: 'LegsAttire', text: t('腿部'), icon: './image/game-gear-slot/legs.png' },
-  { key: 'FeetAttire', text: t('脚部'), icon: './image/game-gear-slot/feet.png' },
+  { key: 'HeadAttire', text: t('game.gear.attire.head.title'), icon: './image/game-gear-slot/head.png' },
+  { key: 'BodyAttire', text: t('game.gear.attire.body.title'), icon: './image/game-gear-slot/body.png' },
+  { key: 'HandsAttire', text: t('game.gear.attire.hands.title'), icon: './image/game-gear-slot/hands.png' },
+  { key: 'LegsAttire', text: t('game.gear.attire.legs.title'), icon: './image/game-gear-slot/legs.png' },
+  { key: 'FeetAttire', text: t('game.gear.attire.feet.title'), icon: './image/game-gear-slot/feet.png' },
 ]
 const accessoryGearSlots = [
-  { key: 'Earrings', text: t('耳坠'), icon: './image/game-gear-slot/ear.png' },
-  { key: 'Necklace', text: t('项链'), icon: './image/game-gear-slot/neck.png' },
-  { key: 'Wrist', text: t('手镯'), icon: './image/game-gear-slot/wrist.png' },
-  { key: 'Rings', text: t('戒指'), icon: './image/game-gear-slot/ring.png' },
+  { key: 'Earrings', text: t('game.gear.accessory.earring.title'), icon: './image/game-gear-slot/ear.png' },
+  { key: 'Necklace', text: t('game.gear.accessory.necklace.title'), icon: './image/game-gear-slot/neck.png' },
+  { key: 'Wrist', text: t('game.gear.accessory.wrist.title'), icon: './image/game-gear-slot/wrist.png' },
+  { key: 'Rings', text: t('game.gear.accessory.rings.title'), icon: './image/game-gear-slot/ring.png' },
 ]
 
 const showModal = defineModel<boolean>('show', { required: true })
@@ -119,7 +119,7 @@ const handleSave = () => {
   <MyModal
     v-model:show="showModal"
     :icon="CheckroomSharp"
-    :title="t('已选部件')"
+    :title="t('main.select_gear.view_selected')"
     max-width="1500px"
     :height="(pageHeight - 80) + 'px'"
     content-extra-style="overflow-y: auto;"
@@ -127,7 +127,7 @@ const handleSave = () => {
   >
     <div class="wrapper" v-if="!isMobile">
       <div class="weapons">
-        <n-card size="small" :title="t('主副手')">
+        <n-card size="small" :title="t('game.gear.tool.mainoff_hand')">
           <div class="weapons-container">
             <GroupBox
               class="weapon-group"
@@ -174,39 +174,39 @@ const handleSave = () => {
         </n-card>
       </div>
       <div class="attires">
-        <n-card size="small" :title="t('防具')">
+        <n-card size="small" :title="t('game.gear.attire.title')">
           <n-table class="attires-table" size="small" :single-line="false">
             <thead>
               <tr>
-                <th>{{ t('词缀') }}</th>
+                <th>{{ t('game.gear.affix') }}</th>
                 <th>
                   <div class="th-inner">
                     <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/head.png" />
-                    <span>{{ t('头部') }}</span>
+                    <span>{{ t('game.gear.attire.head.title') }}</span>
                   </div>
                 </th>
                 <th>
                   <div class="th-inner">
                     <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/body.png" />
-                    <span>{{ t('身体') }}</span>
+                    <span>{{ t('game.gear.attire.body.title') }}</span>
                   </div>
                 </th>
                 <th>
                   <div class="th-inner">
                     <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/hands.png" />
-                    <span>{{ t('手部') }}</span>
+                    <span>{{ t('game.gear.attire.hands.title') }}</span>
                   </div>
                 </th>
                 <th>
                   <div class="th-inner">
                     <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/legs.png" />
-                    <span>{{ t('腿部') }}</span>
+                    <span>{{ t('game.gear.attire.legs.title') }}</span>
                   </div>
                 </th>
                 <th>
                   <div class="th-inner">
                     <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/feet.png" />
-                    <span>{{ t('脚部') }}</span>
+                    <span>{{ t('game.gear.attire.feet.title') }}</span>
                   </div>
                 </th>
               </tr>
@@ -288,33 +288,33 @@ const handleSave = () => {
         </n-card>
       </div>
       <div class="accessories">
-        <n-card size="small" :title="t('首饰')">
+        <n-card size="small" :title="t('game.gear.accessory.title')">
           <n-table class="accessories-table" size="small" :single-line="false">
             <thead>
               <tr>
-                <th>{{ t('词缀') }}</th>
+                <th>{{ t('game.gear.affix') }}</th>
                 <th>
                   <div class="th-inner">
                     <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/ear.png" />
-                    <span>{{ t('耳坠') }}</span>
+                    <span>{{ t('game.gear.accessory.earring.title') }}</span>
                   </div>
                 </th>
                 <th>
                   <div class="th-inner">
                     <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/neck.png" />
-                    <span>{{ t('项链') }}</span>
+                    <span>{{ t('game.gear.accessory.necklace.title') }}</span>
                   </div>
                 </th>
                 <th>
                   <div class="th-inner">
                     <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/wrist.png" />
-                    <span>{{ t('手镯') }}</span>
+                    <span>{{ t('game.gear.accessory.wrist.title') }}</span>
                   </div>
                 </th>
                 <th>
                   <div class="th-inner">
                     <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/ring.png" />
-                    <span>{{ t('戒指') }}</span>
+                    <span>{{ t('game.gear.accessory.rings.title') }}</span>
                   </div>
                 </th>
                 <th v-if="!isMobile"></th>
@@ -388,7 +388,7 @@ const handleSave = () => {
     </div>
     <div class="wrapper" v-else>
       <n-tabs v-if="isMobile" type="segment" animated>
-        <n-tab-pane name="weapon" :tab="t('主副手')">
+        <n-tab-pane name="weapon" :tab="t('game.gear.tool.mainoff_hand')">
           <div class="weapons-container">
             <GroupBox
               class="weapon-group"
@@ -432,7 +432,7 @@ const handleSave = () => {
             </GroupBox>
           </div>
         </n-tab-pane>
-        <n-tab-pane name="attire" :tab="t('防具')">
+        <n-tab-pane name="attire" :tab="t('game.gear.attire.title')">
           <div class="weapons-container">
             <GroupBox
               class="weapon-group"
@@ -470,7 +470,7 @@ const handleSave = () => {
             </GroupBox>
           </div>
         </n-tab-pane>
-        <n-tab-pane name="accessory" :tab="t('首饰')">
+        <n-tab-pane name="accessory" :tab="t('game.gear.accessory.title')">
           <div class="weapons-container">
             <GroupBox
               class="weapon-group"
@@ -517,7 +517,7 @@ const handleSave = () => {
           <template #icon>
             <n-icon><SaveOutlined /></n-icon>
           </template>
-          {{ t('保存') }}
+          {{ t('common.save') }}
         </n-button>
       </div>
     </template>

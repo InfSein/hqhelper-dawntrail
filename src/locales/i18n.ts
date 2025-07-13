@@ -1,13 +1,13 @@
 import { createI18n } from 'vue-i18n'
-import zh from './data/zh.json'
-import en from './data/en.json'
-import ja from './data/ja.json'
+import zh from './zh.json'
+import en from './en.json'
+import ja from './ja.json'
 
 const DEFAULT_LOCALE = localStorage.getItem('locale') || navigator.language.slice(0, 2) || 'zh'
 
 const i18n = createI18n({
   legacy: false,
-  globalInjection: true,
+  globalInjection: false,
   locale: DEFAULT_LOCALE,
   fallbackLocale: 'zh',
   messages: {

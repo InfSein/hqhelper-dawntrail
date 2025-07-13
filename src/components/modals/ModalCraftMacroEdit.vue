@@ -41,7 +41,7 @@ import { getItemInfo } from '@/tools/item'
 import UseConfig from '@/tools/use-config'
 import useMacroHelper from '@/tools/macro-helper'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -109,7 +109,7 @@ const onLoad = () => {
 }
 
 const modalTitle = computed(() => {
-  return props.action === 'add' ? t('添加宏') : t('编辑宏')
+  return props.action === 'add' ? t('macro_manage.text.add_macro') : t('macro_manage.text.edit_macro')
 })
 const craftActionsMacroLines = computed(() => {
   const macros = exportCraftMacroText(formCraftActions.value.map(action => XivCraftActions[action.val]))
@@ -131,7 +131,7 @@ const handlePresetTagClick = (tag: string) => {
     formData.value.tags = formData.value.tags.filter(_tag => tag !== _tag)
   } else {
     if (formData.value.tags.length >= _VAR_TAG_MAXLEN) {
-      NAIVE_UI_MESSAGE.warning(t('最多设置{num}个标签', _VAR_TAG_MAXLEN))
+      NAIVE_UI_MESSAGE.warning(t('macro_manage.message.tag_max_len', _VAR_TAG_MAXLEN))
       return
     }
     formData.value.tags.push(tag)
@@ -144,7 +144,7 @@ const isActiveCReq = (creq: StrictCraftRequirements) => {
     && creq.cp === formData.value.requirements.cp
 }
 const buildCReqButtonText = (creq: StrictCraftRequirements) => {
-  return t('作业{val1}／加工{val2}／CP{val3}', {
+  return t('macro_manage.text.preset_creq_info', {
     val1: creq.craftsmanship,
     val2: creq.control,
     val3: creq.cp,
@@ -163,10 +163,10 @@ const remarkInputChecker = (value: string) => {
 const handleAddRelateItem = (itemid: number) => {
   if (!itemid) return
   if (formRelateItems.value.length >= _VAR_RELATEITEM_MAXLEN) {
-    NAIVE_UI_MESSAGE.error(t('关联物品数量达到上限')); return
+    NAIVE_UI_MESSAGE.error(t('macro_manage.message.relate_item_max_len')); return
   }
   if (formRelateItems.value.map(item => item.val).includes(itemid)) {
-    NAIVE_UI_MESSAGE.error(t('已有该物品')); return
+    NAIVE_UI_MESSAGE.error(t('common.item_already_have')); return
   }
   formRelateItems.value.push({
     id: relateItemIndex.value++,
@@ -176,13 +176,13 @@ const handleAddRelateItem = (itemid: number) => {
 const handleAddRelateItemStr = () => {
   const itemname = relateItemName.value
   if (formRelateItems.value.length >= _VAR_RELATEITEM_MAXLEN) {
-    NAIVE_UI_MESSAGE.error(t('关联物品数量达到上限')); return
+    NAIVE_UI_MESSAGE.error(t('macro_manage.message.relate_item_max_len')); return
   }
   if (!itemname) {
-    NAIVE_UI_MESSAGE.error(t('请输入物品名')); return
+    NAIVE_UI_MESSAGE.error(t('common.message.please_input_item_name')); return
   }
   if (formRelateItems.value.map(item => item.val).includes(itemname)) {
-    NAIVE_UI_MESSAGE.error(t('已有该物品')); return
+    NAIVE_UI_MESSAGE.error(t('common.item_already_have')); return
   }
   formRelateItems.value.push({
     id: relateItemIndex.value++,
@@ -193,7 +193,7 @@ const handleAddRelateItemStr = () => {
 
 const handleImportCraftActions = () => {
   if (!formCraftActionsImport.value) {
-    NAIVE_UI_MESSAGE.error(t('请输入要导入的内容')); return
+    NAIVE_UI_MESSAGE.error(t('macro_manage.text.please_input_content_to_import')); return
   }
   let importedActions : number[] = []
   if (formCraftActionsImportType.value === 'gamemacro') {
@@ -204,7 +204,7 @@ const handleImportCraftActions = () => {
     NAIVE_UI_MESSAGE.error('Unexpected formCraftActionsImportType'); return
   }
   if (!importedActions.length) {
-    NAIVE_UI_MESSAGE.error(t('没有识别到任何技能')); return
+    NAIVE_UI_MESSAGE.error(t('macro_manage.message.no_actions_recognized')); return
   }
   formCraftActions.value = importedActions.map(action => {
     return {
@@ -212,7 +212,7 @@ const handleImportCraftActions = () => {
       val: action,
     }
   })
-  NAIVE_UI_MESSAGE.success(t('导入成功'))
+  NAIVE_UI_MESSAGE.success(t('common.message.import_succeed'))
 }
 
 const handleSave = async () => {
@@ -228,18 +228,18 @@ const handleSave = async () => {
       }
     }).join(', ')
     if (!window.confirm(
-      t('关联物品中的以下物品重复，将被自动去重：')
+      t('macro_manage.message.relate_item_deduplicate')
       + '\n' + diList
-      + '\n' + t('要继续吗?')
+      + '\n' + t('common.message.ask_continue')
     )) return
     relateItems = Array.from(new Set(relateItems))
   }
   if (!formCraftActions.value.length) {
-    NAIVE_UI_MESSAGE.error(t('宏内容不能为空')); return
+    NAIVE_UI_MESSAGE.error(t('macro_manage.message.macro_content_cannot_empty')); return
   }
 
   // 处理一些属性
-  if (!formData.value.name) formData.value.name = t('{id}号宏', formData.value.id)
+  if (!formData.value.name) formData.value.name = t('common.id_macro', formData.value.id)
   if (!formData.value.requirements.craftsmanship) delete formData.value.requirements.craftsmanship
   if (!formData.value.requirements.control) delete formData.value.requirements.control
   if (!formData.value.requirements.cp) delete formData.value.requirements.cp
@@ -261,33 +261,33 @@ const handleSave = async () => {
   >
     <div class="wrapper">
       <n-tabs type="segment" animated>
-        <n-tab-pane name="baseInfo" :tab="t('基本信息')">
+        <n-tab-pane name="baseInfo" :tab="t('common.basic_info')">
           <div class="tabpane-wrapper">
             <div class="form-block">
-              <div class="form-title">{{ t('宏名称') }}</div>
+              <div class="form-title">{{ t('macro_manage.text.macro_name') }}</div>
               <div class="form-input">
                 <n-input
                   v-model:value="formData.name"
                   maxlength="20"
                   show-count
                   clearable
-                  :placeholder="t('{id}号宏', formData.id)"
+                  :placeholder="t('common.id_macro', formData.id)"
                 />
               </div>
             </div>
             <div class="form-block">
               <div class="form-title">
-                {{ t('标签') }}
+                {{ t('common.tag') }}
                 <span class="sub">
                   <n-popover placement="right-start">
                     <template #trigger>
-                      <a>[{{ t('预设') }}]</a>
+                      <a>[{{ t('common.preset') }}]</a>
                     </template>
 
                     <div class="pop-wrapper">
                       <div class="flex-vac font-big gap-4">
                         <n-icon :size="16"><LocalOfferFilled /></n-icon>
-                        <span>{{ t('常用标签') }}</span>
+                        <span>{{ t('macro_manage.text.preset_tags') }}</span>
                       </div>
                       <n-divider style="margin: 0 0 3px 0;" />
                       <div v-if="userConfig.macromanage_cache_work_state.presetTags.length" class="flex-wrap gap-2">
@@ -312,7 +312,7 @@ const handleSave = async () => {
                         size="small"
                         class="font-small no-margin-empty"
                         style="align-self: center;"
-                        :description="t('还未设置任何常用标签')"
+                        :description="t('macro_manage.message.no_preset_tags')"
                       />
                       <n-divider style="margin: 3px 0 3px 0;" />
                       <div class="flex" style="justify-content: end;">
@@ -320,7 +320,7 @@ const handleSave = async () => {
                           <template #icon>
                             <n-icon><SettingsRound /></n-icon>
                           </template>
-                          {{ t('管理') }}
+                          {{ t('common.manage') }}
                         </n-button>
                       </div>
                     </div>
@@ -332,7 +332,7 @@ const handleSave = async () => {
               </div>
             </div>
             <div class="form-block">
-              <div class="form-title">{{ t('备注') }}</div>
+              <div class="form-title">{{ t('common.comment') }}</div>
               <div class="form-input">
                 <n-input
                   v-model:value="formData.remark"
@@ -340,23 +340,23 @@ const handleSave = async () => {
                   maxlength="50"
                   show-count
                   :allow-input="remarkInputChecker"
-                  :placeholder="t('最多{limit}行', _VAR_REMARK_MAXLINE)"
+                  :placeholder="t('common.line_max_len', _VAR_REMARK_MAXLINE)"
                 />
               </div>
             </div>
             <div class="form-block">
               <div class="form-title">
-                {{ t('属性要求') }}
+                {{ t('common.craft_requirements') }}
                 <span class="sub">
                   <n-popover placement="right-start">
                     <template #trigger>
-                      <a>[{{ t('预设') }}]</a>
+                      <a>[{{ t('common.preset') }}]</a>
                     </template>
 
                     <div>
                       <div class="flex-vac font-big gap-4">
                         <n-icon :size="16"><BuildFilled /></n-icon>
-                        <span>{{ t('常用属性组') }}</span>
+                        <span>{{ t('macro_manage.text.preset_creqs') }}</span>
                       </div>
                       <n-divider style="margin: 0 0 3px 0;" />
                       <div v-if="userConfig.macromanage_cache_work_state.presetCReqs.length" class="flex-col gap-2">
@@ -375,7 +375,7 @@ const handleSave = async () => {
                         v-else
                         size="small"
                         class="font-small no-margin-empty"
-                        :description="t('还未设置任何常用属性组')"
+                        :description="t('macro_manage.message.no_preset_creqs')"
                       />
                       <n-divider style="margin: 3px 0 3px 0;" />
                       <div class="flex" style="justify-content: end;">
@@ -383,7 +383,7 @@ const handleSave = async () => {
                           <template #icon>
                             <n-icon><SettingsRound /></n-icon>
                           </template>
-                          {{ t('管理') }}
+                          {{ t('common.manage') }}
                         </n-button>
                       </div>
                     </div>
@@ -394,17 +394,17 @@ const handleSave = async () => {
                 <n-table id="form-requirements-table" size="small" :single-line="false">
                   <thead>
                     <tr>
-                      <th>{{ t('作业精度') }}</th>
-                      <th>{{ t('加工精度') }}</th>
+                      <th>{{ t('common.craft.craftsmanship') }}</th>
+                      <th>{{ t('common.craft.control') }}</th>
                       <th>
                         <div class="flex-center">
-                          <div class="bold">{{ t('制作力') }}</div>
+                          <div class="bold">{{ t('common.craft.cp') }}</div>
                           <div>
                             <HelpButton
                               icon="info"
                               :descriptions="[
-                                t('不填或填0时会根据宏内容自动计算。'),
-                                t('相应的，一旦填写就会覆盖掉自动计算的制作力消耗。'),
+                                t('macro_manage.text.auto_cal_by_macro_when_empty_or_zero'),
+                                t('macro_manage.text.cover_auto_val_when_inputed'),
                               ]"
                             />
                           </div>
@@ -433,7 +433,7 @@ const handleSave = async () => {
                           v-model:value="formData.requirements.cp!"
                           :precision="0"
                           :min="0" :max="999"
-                          :placeholder="t('此属性填0时会自动计算')"
+                          :placeholder="t('macro_manage.text.attr_auto_cal_when_zero')"
                         />
                       </td>
                     </tr>
@@ -443,31 +443,31 @@ const handleSave = async () => {
             </div>
           </div>
         </n-tab-pane>
-        <n-tab-pane name="relateItems" :tab="t('关联物品')">
+        <n-tab-pane name="relateItems" :tab="t('macro_manage.text.relate_item')">
           <div class="tabpane-wrapper">
             <div class="form-block">
-              <div class="form-title">{{ t('添加物品') }}</div>
+              <div class="form-title">{{ t('common.add_item') }}</div>
               <div class="form-tip">
-                <p>{{ t('可以从HqHelper的数据库中选择物品，也可以自行输入物品名称。') }}</p>
+                <p>{{ t('macro_manage.text.can_select_item_or_input_name') }}</p>
               </div>
               <div class="form-input">
                 <n-input-group style="margin-top: 2px;">
-                  <n-input-group-label :style="groupLabelStyle">{{ t('从数据库中选择') }}</n-input-group-label>
+                  <n-input-group-label :style="groupLabelStyle">{{ t('macro_manage.text.select_from_db') }}</n-input-group-label>
                   <ItemSelector :container-id="modalId" @on-item-selected="handleAddRelateItem"/>
                 </n-input-group>
                 <n-input-group style="margin-top: 1px;">
-                  <n-input-group-label :style="groupLabelStyle">{{ t('自行输入物品名') }}</n-input-group-label>
+                  <n-input-group-label :style="groupLabelStyle">{{ t('macro_manage.text.input_item_name') }}</n-input-group-label>
                   <n-input v-model:value="relateItemName" />
                   <n-button type="primary" @click="handleAddRelateItemStr">
-                    {{ t('添加') }}
+                    {{ t('common.add') }}
                   </n-button>
                 </n-input-group>
               </div>
             </div>
             <div class="form-block">
-              <div class="form-title">{{ t('已有物品') }}</div>
+              <div class="form-title">{{ t('macro_manage.text.existing_items') }}</div>
               <div class="form-tip">
-                <p>{{ t('关联物品可以设置最多{limit_1}个，不过宏管理页面的表格只会展示前{limit_2}个。', {
+                <p>{{ t('macro_manage.text.relate_item_desc', {
                   limit_1: _VAR_RELATEITEM_MAXLEN, limit_2: _VAR_TABLESHOW_RELATEITEM_MAXLEN
                 }) }}</p>
               </div>
@@ -481,15 +481,15 @@ const handleSave = async () => {
                   <n-table id="existed-items-table" size="small" :single-line="false">
                     <thead>
                       <tr>
-                        <th>{{ t('物品') }}</th>
-                        <th>{{ t('管理') }}</th>
+                        <th>{{ t('common.item') }}</th>
+                        <th>{{ t('common.manage') }}</th>
                       </tr>
                     </thead>
                     <tbody class="sort-target">
                       <tr v-for="(item, itemIndex) in formRelateItems" :key="item.id">
                         <td>
                           <n-input-group>
-                            <n-input-group-label class="draggable-box" :title="t('拖动以排序')">
+                            <n-input-group-label class="draggable-box" :title="t('common.drag_to_sort')">
                               <n-icon :size="18"><ListFilled /></n-icon>
                             </n-input-group-label>
                             <n-button
@@ -511,14 +511,14 @@ const handleSave = async () => {
                             <template #icon>
                               <n-icon><DeleteFilled /></n-icon>
                             </template>
-                            {{ t('删除') }}
+                            {{ t('common.delete') }}
                           </n-button>
                         </td>
                       </tr>
                       <tr v-if="!formRelateItems.length">
                         <td colspan="2">
                           <div class="flex-center">
-                            <n-empty :description="t('还未设置任何关联物品')" />
+                            <n-empty :description="t('macro_manage.text.no_relate_item_set')" />
                           </div>
                         </td>
                       </tr>
@@ -529,12 +529,12 @@ const handleSave = async () => {
             </div>
           </div>
         </n-tab-pane>
-        <n-tab-pane name="craftActions" :tab="t('宏内容')">
+        <n-tab-pane name="craftActions" :tab="t('common.macro_content')">
           <div class="tabpane-wrapper">
             <div class="form-block">
-              <div class="form-title">{{ t('当前') }}</div>
+              <div class="form-title">{{ t('common.current') }}</div>
               <div class="form-tip">
-                <p>{{ t('可以长按下方技能按钮拖拽来自定义排序。') }}</p>
+                <p>{{ t('macro_manage.text.drag_to_sort') }}</p>
               </div>
               <div class="form-input">
                 <VueDraggable
@@ -553,15 +553,15 @@ const handleSave = async () => {
                 <n-empty
                   v-else
                   style="margin-top: 15px;"
-                  :description="t('还未设置任何宏内容')"
+                  :description="t('macro_manage.text.no_macro_content_set')"
                 />
               </div>
             </div>
             <div class="form-block">
-              <div class="form-title">{{ t('导入') }}</div>
+              <div class="form-title">{{ t('common.import') }}</div>
               <div class="form-input flex-col gap-4">
                 <div class="flex-vac gap-4">
-                  <p>{{ t('导入来源：') }}</p>
+                  <p>{{ t('macro_manage.text.import_source') }}</p>
                   <n-radio-group
                     v-model:value="formCraftActionsImportType"
                     name="formCraftActionsImportType"
@@ -570,24 +570,24 @@ const handleSave = async () => {
                     <n-radio
                       key="gamemacro"
                       value="gamemacro"
-                      :label="t('游戏宏')"
+                      :label="t('common.game_macro')"
                     />
                     <n-radio
                       key="simulator"
                       value="simulator"
-                      :label="t('模拟器')"
+                      :label="t('common.simulator')"
                     />
                   </n-radio-group>
                 </div>
                 <div class="lh-120" style="margin-bottom: 4px;">
                   <div v-if="formCraftActionsImportType === 'gamemacro'">
-                    <p>{{ t('将游戏中的生产技能宏复制粘贴到下方输入框即可。') }}</p>
-                    <p>{{ t('输入框没有行数限制，组装多个宏时，粘贴完第一个宏之后换行粘贴第二个即可。') }}</p>
-                    <p>{{ t('最终需要保证一行一个技能。只会识别以“/ac”、“/action”或“/技能”开头的行，技能名可以加双引号。') }}</p>
-                    <p>{{ t('支持中文，英文和日文的宏，可以自由组合。') }}</p>
+                    <p>{{ t('macro_manage.text.import_action.text_1') }}</p>
+                    <p>{{ t('macro_manage.text.import_action.text_2') }}</p>
+                    <p>{{ t('macro_manage.text.import_action.text_3') }}</p>
+                    <p>{{ t('macro_manage.text.import_action.text_4') }}</p>
                   </div>
                   <div v-else-if="formCraftActionsImportType === 'simulator'">
-                    <p>{{ t('在FCO模拟器或BestCraft模拟器中编辑手法后，点击“导出工序”，将工序代码粘贴到下方输入框即可。') }}</p>
+                    <p>{{ t('macro_manage.text.import_action.text_5') }}</p>
                   </div>
                 </div>
                 <n-input
@@ -606,23 +606,23 @@ const handleSave = async () => {
                   <template #icon>
                     <n-icon><DoneOutlined /></n-icon>
                   </template>
-                  {{ t('确认') }}
+                  {{ t('common.confirm') }}
                 </n-button>
               </div>
             </div>
             <div class="form-block">
-              <div class="form-title">{{ t('导出') }}</div>
+              <div class="form-title">{{ t('common.export') }}</div>
               <div class="form-input flex-col gap-4">
                 <div class="flex-vac gap-4">
-                  <p>{{ t('宏语言：') }}</p>
+                  <p>{{ t('macro_manage.text.macro_lang_with_colon') }}</p>
                   <n-radio-group
                     v-model:value="formCraftActionsExportLang"
                     name="formCraftActionsExportLang"
                     size="small"
                   >
-                    <n-radio key="zh" value="zh" :label="t('中文')" />
-                    <n-radio key="en" value="en" :label="t('英文')" />
-                    <n-radio key="ja" value="ja" :label="t('日文')" />
+                    <n-radio key="zh" value="zh" :label="t('common.lang_zh')" />
+                    <n-radio key="en" value="en" :label="t('common.lang_en')" />
+                    <n-radio key="ja" value="ja" :label="t('common.lang_ja')" />
                   </n-radio-group>
                 </div>
                 <MacroViewer
@@ -645,7 +645,7 @@ const handleSave = async () => {
               <SaveOutlined />
             </n-icon>
           </template>
-          {{ t('保存') }}
+          {{ t('common.save') }}
         </n-button>
       </div>
     </template>

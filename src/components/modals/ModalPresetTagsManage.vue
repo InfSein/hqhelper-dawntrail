@@ -18,7 +18,7 @@ import { deepCopy } from '@/tools'
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
@@ -34,7 +34,7 @@ const onLoad = () => {
 
 const handleCheck = (new_data: string[]) => {
   if (new_data.some(dr => !dr)) {
-    return t('不能设置空白内容的标签')
+    return t('macro_manage.message.cannot_set_empty_tag')
   }
   return ''
 }
@@ -52,7 +52,7 @@ const handleSave = () => {
   store.commit('setUserConfig', newUserConfig)
   appForceUpdate()
   showModal.value = false
-  NAIVE_UI_MESSAGE.success(t('保存成功'))
+  NAIVE_UI_MESSAGE.success(t('common.save_succeed'))
 }
 </script>
 
@@ -60,7 +60,7 @@ const handleSave = () => {
   <MyModal
     v-model:show="showModal"
     :icon="SettingsSharp"
-    :title="t('管理常用标签')"
+    :title="t('macro_manage.text.preset_tags_manage')"
     max-width="600px"
     @on-load="onLoad"
   >
@@ -70,15 +70,15 @@ const handleSave = () => {
         ref="dataTable"
         can-add
         :max="_VAR_PRESET_TAG_MAXAMOUNT"
-        :max-tip="t('最多只能添加{num}个常用标签', _VAR_PRESET_TAG_MAXAMOUNT)"
+        :max-tip="t('macro_manage.message.preset_tag_max_len', _VAR_PRESET_TAG_MAXAMOUNT)"
         :get-default-data-row="() => ''"
         :check-rows-before-save="handleCheck"
       >
         <template #tableTitle>
-          <div class="bold">{{ t('标签名称') }}</div>
+          <div class="bold">{{ t('macro_manage.text.tag_name') }}</div>
         </template>
       </DraggableTable>
-      <p>{{ t('所有修改都只在点击保存之后才会生效。') }}</p>
+      <p>{{ t('common.all_changes_effects_after_save') }}</p>
     </div>
 
     <template #action>
@@ -87,7 +87,7 @@ const handleSave = () => {
           <template #icon>
             <n-icon><SaveOutlined /></n-icon>
           </template>
-          {{ t('保存') }}
+          {{ t('common.save') }}
         </n-button>
       </div>
     </template>

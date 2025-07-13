@@ -11,7 +11,7 @@ import ItemList from '@/components/custom/item/ItemList.vue'
 import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/config-user'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
@@ -34,27 +34,27 @@ const statementBlocks = computed(() => {
   return [
     {
       id: 'craft-target',
-      name: t('成品清单'),
+      name: t('statement.list.targets'),
       items: props.craftTargets
     },
     {
       id: 'material-lv1',
-      name: t('制作素材：直接'),
+      name: t('statement.list.material.lv1'),
       items: props.materialsLv1
     },
     {
       id: 'material-lv2',
-      name: t('制作素材：二级'),
+      name: t('statement.list.material.lv2'),
       items: props.materialsLv2
     },
     {
       id: 'material-lv3',
-      name: t('制作素材：三级'),
+      name: t('statement.list.material.lv3'),
       items: props.materialsLv3
     },
     {
       id: 'material-lvBase',
-      name: t('制作素材：基础'),
+      name: t('statement.list.material.lvbase'),
       items: props.materialsLvBase
     },
   ]

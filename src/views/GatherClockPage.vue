@@ -29,7 +29,7 @@ import EorzeaTime from '@/tools/eorzea-time'
 import { playAudio } from '@/tools'
 import { fixAlarmMacroOptions } from '@/models/gather-clock'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -64,7 +64,7 @@ const gatherData = computed(() => {
     }
   })
   data.push({
-    title: t('已收藏'),
+    title: t('common.favorited'),
     key: 'stars',
     items: stars
   })
@@ -79,7 +79,7 @@ const gatherData = computed(() => {
     }
   })
   data.push({
-    title: t('已订阅'),
+    title: t('gather_clock.text.subscribed'),
     key: 'subscribed',
     items: subscribed
   })
@@ -87,7 +87,7 @@ const gatherData = computed(() => {
   for (const key in limitedGatherings) {
     const [patch, il] = key.split('-')
     data.push({
-      title: t('版本{patch} ({il}品级)', {
+      title: t('gather_clock.grouptitle_with_patch_and_il', {
         patch: patch,
         il: il
       }),
@@ -127,15 +127,15 @@ const showAlarmMacroExportModal = ref(false)
 const notifyModeOptions = computed(() => {
   return [
     {
-      label: t('禁用'),
+      label: t('common.disable'),
       value: 'none'
     },
     {
-      label: t('系统通知'),
+      label: t('gather_clock.preference.mention_way.option.system_notice'),
       value: 'system_noti'
     },
     {
-      label: t('提示音'),
+      label: t('gather_clock.preference.mention_way.option.sound'),
       value: 'audio'
     },
   ]
@@ -143,17 +143,17 @@ const notifyModeOptions = computed(() => {
 const itemSortOptions = computed(() => {
   return [
     {
-      label: t('物品ID'),
+      label: t('game.item_id'),
       value: 'itemId'
     },
     {
-      label: t('采集开始时间'),
+      label: t('gather_clock.preference.sort_by.option.gather_start_time'),
       value: 'gatherStartTimeAsc'
     },
     {
-      label: t('剩余时间'),
+      label: t('common.remain_time'),
       value: 'remainingTimeAsc',
-      description: t('现可采集物品的剩余可采集时间 / 未可采集物品距离得可采集的剩余时间')
+      description: t('gather_clock.remain_time.tooltip')
     },
   ]
 })
@@ -210,9 +210,9 @@ onBeforeUnmount(() => {
 const handleCheckNotificationPermission = () => {
   if (workState.value.notifyMode === 'system_noti') {
     if (!("Notification" in window)) {
-      alert(t('当前使用的浏览器或客户端不支持系统通知功能。'))
+      alert(t('gather_clock.message.system_notice_not_supported'))
     } else if (Notification.permission === 'denied') {
-      alert(t('通知权限被拒绝，请检查浏览器的网站权限设置。'))
+      alert(t('gather_clock.message.system_notice_denied'))
     } else if (Notification.permission !== 'granted') {
       Notification.requestPermission()
     }
@@ -223,11 +223,11 @@ const handleCheckNotificationPermission = () => {
 const handleNotify = (itemsNeedAlarm: ItemInfo[]) => {
   if (!itemsNeedAlarm.length) return
   if (workState.value.notifyMode === 'system_noti') {
-    new Notification(t('以下物品已可采集：'), {
+    new Notification(t('gather_clock.message.following_items_can_be_gathered'), {
       body: itemsNeedAlarm.map(item => {
         let text = `${getItemName(item)}: ${getJobName(XivJobs[item.gatherInfo.jobId])} | ${getPlaceName(item)} ${getItemGatherLocation(item)}`
         if (item.gatherInfo.recommAetheryte) {
-          text += ' | ' + t('推荐传送点') + ' - ' + item.gatherInfo.recommAetheryte?.[`name_${itemLanguage.value}`]
+          text += ' | ' + t('map.text.recomm_aetheryte') + ' - ' + item.gatherInfo.recommAetheryte?.[`name_${itemLanguage.value}`]
         }
         return text
       }).join('\n'),
@@ -288,11 +288,11 @@ const dealTimeLimit = (start: string, end: string) => {
       } else if (ls < 60) {
         ltClass += ' color-warning'
       }
-      remainLT = t('剩余:')
+      remainLT = t('common.remain_with_colon')
       if (ls >= 60) {
-        remainLT += t('{minute}分', Math.floor(ls / 60))
+        remainLT += t('common.val_minutes', Math.floor(ls / 60))
       }
-      remainLT += t('{second}秒', ls % 60)
+      remainLT += t('common.val_seconds', ls % 60)
     } else {
       progressPercentage = 0
       remainET = s - c
@@ -334,7 +334,7 @@ const getQuickOperateOptions = () => {
   ).map(data => {
     const itemsAllStared = data.items.every(item => workState.value.starItems.includes(item.id))
     return {
-      label: itemsAllStared ? t('取消收藏“{}”', data.title) : t('收藏“{}”', data.title),
+      label: itemsAllStared ? t('gather_clock.text.un_star_with_item', data.title) : t('gather_clock.text.star_with_item', data.title),
       key: 'star-option-' + data.key,
       click: () => {
         if (itemsAllStared) {
@@ -354,7 +354,7 @@ const getQuickOperateOptions = () => {
   ).map(data => {
     const itemsAllAlarmed = data.items.every(item => workState.value.subscribedItems.includes(item.id))
     return {
-      label: itemsAllAlarmed ? t('取消订阅“{}”', data.title) : t('订阅“{}”', data.title),
+      label: itemsAllAlarmed ? t('gather_clock.text.unsubscribe_with_item', data.title) : t('gather_clock.text.subscribe_with_item', data.title),
       key: 'subscribe-option-' + data.key,
       click: () => {
         if (itemsAllAlarmed) {
@@ -371,7 +371,7 @@ const getQuickOperateOptions = () => {
   })
 
   const optionUnstarAll = {
-    label: t('全部取消收藏'),
+    label: t('gather_clock.text.un_star_all'),
     key: 'star-removeAll',
     disabled: workState.value.starItems.length === 0,
     click: () => {
@@ -379,7 +379,7 @@ const getQuickOperateOptions = () => {
     }
   }
   const optionUnsubscribeAll = {
-    label: t('全部取消订阅'),
+    label: t('gather_clock.text.unsubscribe_all'),
     key: 'subscribe-removeAll',
     disabled: workState.value.subscribedItems.length === 0,
     click: () => {
@@ -402,7 +402,7 @@ const getQuickOperateOptions = () => {
   } else {
     return [
       {
-        label: t('收藏'),
+        label: t('common.favorite.title'),
         key: 'group-star',
         children: [
           ...starOptions
@@ -411,7 +411,7 @@ const getQuickOperateOptions = () => {
       optionUnstarAll,
       divider,
       {
-        label: t('订阅'),
+        label: t('gather_clock.text.subscribe'),
         key: 'group-subscribe',
         children: [
           ...subscribeOptions
@@ -506,12 +506,12 @@ const getItemName = (itemInfo: ItemInfo) => {
 const getJobName = (jobInfo: XivJob) => {
   switch (uiLanguage.value) {
     case 'ja':
-      return jobInfo?.job_name_ja || t('未知')
+      return jobInfo?.job_name_ja || t('common.unknown')
     case 'en':
-      return jobInfo?.job_name_en || t('未知')
+      return jobInfo?.job_name_en || t('common.unknown')
     case 'zh':
     default:
-      return jobInfo?.job_name_zh || t('未知')
+      return jobInfo?.job_name_zh || t('common.unknown')
   }
 }
 const getPlaceName = (itemInfo : ItemInfo) => {
@@ -526,7 +526,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
   }
 }
 const getItemGatherLocation = (itemInfo: ItemInfo) => {
-  return t('(X:{x}, Y:{y})', { x: itemInfo.gatherInfo.posX.toFixed(1), y: itemInfo.gatherInfo.posY.toFixed(1) })
+  return t('item.text.quoted_position', { x: itemInfo.gatherInfo.posX.toFixed(1), y: itemInfo.gatherInfo.posY.toFixed(1) })
 }
 
 const handleShowAlarmMacroExportModal = () => {
@@ -539,13 +539,13 @@ const handleShowAlarmMacroExportModal = () => {
     <RouterCard
       v-if="appMode !== 'overlay'"
       id="router-card"
-      :page-name="t('采集时钟')"
+      :page-name="t('common.appfunc.gather_clock')"
       :page-icon="AccessAlarmsOutlined"
     />
     <FoldableCard card-key="gatherclock-filter">
       <template #header>
         <i class="xiv sync-invert"></i>	
-        <span class="card-title-text">{{ t('配置时钟') }}</span>
+        <span class="card-title-text">{{ t('gather_clock.preference.title') }}</span>
       </template>
 
       <div class="query-form">
@@ -557,35 +557,35 @@ const handleShowAlarmMacroExportModal = () => {
             maxWidth: isMobile ? '100%' : 'fit-content'
           }"
         >
-          <n-form-item :label="t('窗口置顶')" v-show="canPinWindow">
+          <n-form-item :label="t('gather_clock.preference.pin_window')" v-show="canPinWindow">
             <n-switch v-model:value="workState.pinWindow" />
           </n-form-item>
-          <n-form-item :label="t('提醒方式')" style="min-width: 150px;">
+          <n-form-item :label="t('gather_clock.preference.mention_way.title')" style="min-width: 150px;">
             <n-select v-model:value="workState.notifyMode" :options="notifyModeOptions" @update:value="handleCheckNotificationPermission" />
           </n-form-item>
-          <n-form-item :label="t('排序依据')" style="min-width: 200px;">
+          <n-form-item :label="t('gather_clock.preference.sort_by.title')" style="min-width: 200px;">
             <n-select v-model:value="workState.orderBy" :options="itemSortOptions" :render-option="optionsRenderer" />
           </n-form-item>
-          <n-form-item :label="t('将现可采集的物品置顶')">
+          <n-form-item :label="t('gather_clock.preference.pin_gatherable_items')">
             <n-switch v-model:value="workState.pinGatherableItems" />
           </n-form-item>
-          <n-form-item :label="t('禁用物品按钮悬浮窗')">
+          <n-form-item :label="t('gather_clock.preference.disable_item_pop')">
             <n-switch v-model:value="workState.banItemPop" />
           </n-form-item>
-          <n-form-item :label="t('展示采集地图')">
+          <n-form-item :label="t('gather_clock.preference.show_map')">
             <n-switch v-model:value="workState.showMap" />
           </n-form-item>
-          <n-form-item :label="t('快速操作')">
+          <n-form-item :label="t('main.select_gear.quick_operate.title')">
             <n-dropdown
               placement="bottom-start"
               :options="getQuickOperateOptions()"
               @select="handleQuickOperateOptionSelect"
             >
-              <n-button>{{ t('点此展开菜单') }}</n-button>
+              <n-button>{{ t('common.click_here_show_menu') }}</n-button>
             </n-dropdown>
           </n-form-item>
-          <n-form-item :label="t('导出闹钟宏')">
-            <n-button @click="handleShowAlarmMacroExportModal">{{ t('点击此处') }}</n-button>
+          <n-form-item :label="t('gather_clock.export_alarm_macro.title')">
+            <n-button @click="handleShowAlarmMacroExportModal">{{ t('common.click_here') }}</n-button>
           </n-form-item>
         </n-form>
       </div>
@@ -626,7 +626,7 @@ const handleShowAlarmMacroExportModal = () => {
         v-show="workState.patch === patch.key"
       >
         <div v-if="!patch.items?.length" class="flex-center w-full" :style="isMobile ? 'min-height: 300px;' : ''">
-          <n-empty size="large" :description="t('没有物品')" />
+          <n-empty size="large" :description="t('gather_clock.text.no_items')" />
         </div>
         <div class="items-container">
           <div
@@ -656,8 +656,8 @@ const handleShowAlarmMacroExportModal = () => {
                     </template>
                   </n-button>
                 </template>
-                <div>{{ t('点击此按钮来订阅/取消订阅这个采集品。') }}</div>
-                <div>{{ t('被订阅的采集品可以采集时，我们会按照您设置的“{setting}”向您发送提醒。', t('提醒方式')) }}</div>
+                <div>{{ t('gather_clock.tooltip.subscribe_1') }}</div>
+                <div>{{ t('gather_clock.tooltip.subscribe_2', t('gather_clock.preference.mention_way')) }}</div>
               </n-popover>
               <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
                 <template #trigger>
@@ -672,8 +672,8 @@ const handleShowAlarmMacroExportModal = () => {
                     </template>
                   </n-button>
                 </template>
-                <div>{{ t('点击此按钮来收藏/取消收藏这个采集品。') }}</div>
-                <div>{{ t('被收藏的采集品将在“已收藏”栏目单独展示。') }}</div>
+                <div>{{ t('common.favorite.desc.desc_1') }}</div>
+                <div>{{ t('common.favorite.desc.desc_2') }}</div>
               </n-popover>
             </div>
             <n-divider class="no-margin" />
@@ -687,7 +687,7 @@ const handleShowAlarmMacroExportModal = () => {
                   <p>{{ getJobName(XivJobs[item.gatherInfo.jobId]) }}</p>
                 </div>
                 <div class="recommended-aetheryte" v-if="XivMaps[item.gatherInfo.placeID]">
-                  <span>{{ t('推荐') }}</span>
+                  <span>{{ t('common.recomm') }}</span>
                   <span style="vertical-align: middle;">
                     <XivFARImage
                       :size="14"
@@ -725,7 +725,7 @@ const handleShowAlarmMacroExportModal = () => {
                   <div>
                     {{ timelimit.start }} ~ {{ timelimit.end }}
                     <span v-if="dealTimeLimit(timelimit.start, timelimit.end).canGather" class="green" style="margin-left: 5px;">
-                      {{ t('现可采集') }}
+                      {{ t('common.gatherable_now') }}
                     </span>
                     <span v-if="dealTimeLimit(timelimit.start, timelimit.end).remainLT" :class="dealTimeLimit(timelimit.start, timelimit.end).ltClass" style="margin-left: 5px;">
                       {{ dealTimeLimit(timelimit.start, timelimit.end).remainLT }}

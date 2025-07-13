@@ -7,7 +7,7 @@ import {
   HomeOutlined
 } from '@vicons/material'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 
 defineProps({
   pageName: {
@@ -25,15 +25,15 @@ defineProps({
   <n-card id="router-card" embedded :bordered="false">
     <div class="wrapper">
       <n-breadcrumb separator=">">
-        <n-breadcrumb-item @click="$router.push('/')" :title="t('返回首页')">
-          <n-icon :component="HomeOutlined" /> {{ t('主页' )}}
+        <n-breadcrumb-item @click="$router.push('/')" :title="t('common.back_to_index')">
+          <n-icon :component="HomeOutlined" /> {{ t('common.index' )}}
         </n-breadcrumb-item>
         <n-breadcrumb-item>
           <n-icon :component="pageIcon" /> {{ pageName }}
         </n-breadcrumb-item>
       </n-breadcrumb>
       <div class="tip-container">
-        <p>{{ t('※ 您正处于HqHelper的子页面。') }}</p>
+        <p>{{ t('common.route_card_desc') }}</p>
       </div>
     </div>
   </n-card>

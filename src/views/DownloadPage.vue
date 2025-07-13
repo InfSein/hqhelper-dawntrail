@@ -14,7 +14,7 @@ import type { AppVersionJson } from '@/models'
 
 const NAIVE_UI_MESSAGE = useMessage()
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 
 const loading = ref(false)
 const appVersionInfo = ref<AppVersionJson | undefined>(undefined)
@@ -33,22 +33,22 @@ onMounted(async () => {
 const introData = computed(() => {
   return [
     {
-      title: t('HqHelper 的大多数功能在网页端即可完成。')
-        + '<br>' + t('不过，为了满足部分用户的习惯和实现一些浏览器无法完成的功能，我们也提供客户端服务。'),
+      title: t('download_page.text.text_1')
+        + '<br>' + t('download_page.text.text_2'),
       contents: []
     },
     {
-      title: t('有什么特别功能吗？'),
+      title: t('download_page.text.text_3'),
       contents: [
-        t('即使网络不佳或远程服务器崩溃，客户端也能正常提供基础的计算服务。'),
-        t('客户端允许你在使用新窗口打开采集时钟期间将其置顶，从而达成类似悬浮窗的效果。')
+        t('download_page.text.text_4'),
+        t('download_page.text.text_5')
       ]
     },
     {
-      title: t('特别提醒'),
+      title: t('common.special_notice'),
       contents: [
-        t('您可以收藏此页面，从而在未来方便地下载到最新版本的客户端。'),
-        t('客户端仅是搭载 HqHelper 的“容器”，下载最新版本的客户端后可能仍需要更新一次 HqHelper 的版本。')
+        t('download_page.text.text_6'),
+        t('download_page.text.text_7')
       ]
     }
   ]
@@ -67,7 +67,7 @@ const winAppBtns = computed(() => {
   }[] = [
     {
       icon: LandscapeRound,
-      text: t('国内下载链接{index}', index++),
+      text: t('download_page.link.cn_with_index', index++),
       type: 'primary',
       link: dlink.replace('~PROXY', vi.client_info.recomm_proxy),
       ghost: false,
@@ -76,7 +76,7 @@ const winAppBtns = computed(() => {
   vi.client_info.cn_sub_links.forEach((sublink) => {
     res.push({
       icon: LandscapeRound,
-      text: t('国内下载链接{index}', index++),
+      text: t('download_page.link.cn_with_index', index++),
       type: 'primary',
       link: sublink,
       ghost: true,
@@ -84,7 +84,7 @@ const winAppBtns = computed(() => {
   })
   res.push({
     icon: FlightLandRound,
-    text: t('国际下载链接'),
+    text: t('download_page.link.global'),
     type: 'info',
     link: dlink.replace('~PROXY', ''),
     ghost: false,
@@ -105,7 +105,7 @@ const macAppBtns = computed(() => {
   }[] = [
     {
       icon: LandscapeRound,
-      text: t('国内下载链接{index}', index++),
+      text: t('download_page.link.cn_with_index', index++),
       type: 'primary',
       link: dlink.replace('~PROXY', vi.client_info.recomm_proxy),
       ghost: false,
@@ -114,7 +114,7 @@ const macAppBtns = computed(() => {
   vi.client_info.mac_cn_sub_links.forEach((sublink) => {
     res.push({
       icon: LandscapeRound,
-      text: t('国内下载链接{index}', index++),
+      text: t('download_page.link.cn_with_index', index++),
       type: 'primary',
       link: sublink,
       ghost: true,
@@ -122,7 +122,7 @@ const macAppBtns = computed(() => {
   })
   res.push({
     icon: FlightLandRound,
-    text: t('国际下载链接'),
+    text: t('download_page.link.global'),
     type: 'info',
     link: dlink.replace('~PROXY', ''),
     ghost: false,
@@ -140,7 +140,7 @@ const handleDownloadBtnClick = (link: string) => {
     <FoldableCard card-key="download-intro">
       <template #header>
         <i class="xiv help"></i>
-        <span class="card-title-text">{{ t('简介') }}</span>
+        <span class="card-title-text">{{ t('common.brief_intro') }}</span>
       </template>
       <div
         v-for="(intro, introIndex) in introData"
@@ -159,18 +159,18 @@ const handleDownloadBtnClick = (link: string) => {
     <FoldableCard card-key="download-windows">
       <template #header>
         <i class="xiv square-1"></i>
-        <span class="card-title-text">{{ t('{platform} 客户端', 'Windows') }}</span>
+        <span class="card-title-text">{{ t('download_page.text.text_11', 'Windows') }}</span>
       </template>
       <div
         class="content-block"
       >
         <div v-if="loading" class="spin-container">
           <n-spin size="small" />
-          <div>{{ t('正在加载……') }}</div>
+          <div>{{ t('common.loading') }}</div>
         </div>
         <div v-else class="flex-col gap-4">
-          <p>{{ t('当前最新版本：{ver}', appVersionInfo?.electron) }}</p>
-          <p>{{ t('点击下方按钮来进行下载。') }}</p>
+          <p>{{ t('download_page.text.text_8', appVersionInfo?.electron) }}</p>
+          <p>{{ t('download_page.text.text_9') }}</p>
           <div class="download-btn-container">
             <n-button
               v-for="(btn, btnIndex) in winAppBtns"
@@ -186,23 +186,23 @@ const handleDownloadBtnClick = (link: string) => {
               {{ btn.text }}
             </n-button>
           </div>
-          <p>{{ t('※仅适用于 Windows 7 或更高版本') }}</p>
+          <p>{{ t('download_page.text.text_10') }}</p>
         </div>
       </div>
     </FoldableCard>
     <FoldableCard card-key="download-mac">
       <template #header>
         <i class="xiv square-2"></i>
-        <span class="card-title-text">{{ t('{platform} 客户端', 'Mac') }}</span>
+        <span class="card-title-text">{{ t('download_page.text.text_11', 'Mac') }}</span>
       </template>
       <div class="content-block">
         <div v-if="loading" class="spin-container">
           <n-spin size="small" />
-          <div>{{ t('正在加载……') }}</div>
+          <div>{{ t('common.loading') }}</div>
         </div>
         <div v-else class="flex-col gap-4">
-          <p>{{ t('当前最新版本：{ver}', appVersionInfo?.electron) }}</p>
-          <p>{{ t('点击下方按钮来进行下载。') }}</p>
+          <p>{{ t('download_page.text.text_8', appVersionInfo?.electron) }}</p>
+          <p>{{ t('download_page.text.text_9') }}</p>
           <div class="download-btn-container">
             <n-button
               v-for="(btn, btnIndex) in macAppBtns"
@@ -218,13 +218,13 @@ const handleDownloadBtnClick = (link: string) => {
               {{ btn.text }}
             </n-button>
           </div>
-          <p>{{ t('※仅适用于 Mac OS 10.13 或更高版本') }}</p>
-          <p>{{ t('※仅适用于搭载了M系列芯片的设备') }}</p>
-          <n-alert type="info" :title="t('提示')" style="width: fit-content; margin-top: 8px;">
-            <p>{{ t('我们暂时没有能力提供 Apple 开发者签名，安装时可能会提示「“HqHelper”已损坏，无法打开。你应该将它移到废纸篓」。') }}</p>
-            <p>{{ t('你需要解除安全检查限制或是将 HqHelper 添加到白名单方可成功安装。') }}</p>
+          <p>{{ t('download_page.text.text_12') }}</p>
+          <p>{{ t('download_page.text.text_13') }}</p>
+          <n-alert type="info" :title="t('common.tip')" style="width: fit-content; margin-top: 8px;">
+            <p>{{ t('download_page.text.text_14') }}</p>
+            <p>{{ t('download_page.text.text_15') }}</p>
             <p>
-              <span>{{ t('请参阅：') }}</span>
+              <span>{{ t('common.please_refer_to') }}</span>
               <a target="_blank" href="https://zhuanlan.zhihu.com/p/135948430">https://zhuanlan.zhihu.com/p/135948430</a>
             </p>
           </n-alert>
@@ -234,16 +234,16 @@ const handleDownloadBtnClick = (link: string) => {
     <FoldableCard card-key="download-ios">
       <template #header>
         <i class="xiv square-3"></i>
-        <span class="card-title-text">{{ t('{platform} 客户端', 'iOS') }}</span>
+        <span class="card-title-text">{{ t('download_page.text.text_11', 'iOS') }}</span>
       </template>
-      <div class="content-block">{{ t('暂无计划') }}</div>
+      <div class="content-block">{{ t('common.not_planned') }}</div>
     </FoldableCard>
     <FoldableCard card-key="download-android">
       <template #header>
         <i class="xiv square-4"></i>
-        <span class="card-title-text">{{ t('{platform} 客户端', 'Android') }}</span>
+        <span class="card-title-text">{{ t('download_page.text.text_11', 'Android') }}</span>
       </template>
-      <div class="content-block">{{ t('开发中') }}</div>
+      <div class="content-block">{{ t('common.developing') }}</div>
     </FoldableCard>
     
     <n-back-top />

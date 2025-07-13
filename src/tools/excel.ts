@@ -58,10 +58,10 @@ export const export2Excel = (
   // #region 已选部件
   tableData = [
     [
-      t('职业/词缀'),
-      t('主手'), t('副手'),
-      t('头部'), t('身体'), t('手部'), t('腿部'), t('脚部'),
-      t('耳坠'),  t('项链'), t('手镯'), t('戒指')
+      t('common.job_or_affix'),
+      t('game.gear.tool.mainhand'), t('game.gear.tool.offhand'),
+      t('game.gear.attire.head.title'), t('game.gear.attire.body'), t('game.gear.attire.hands'), t('game.gear.attire.legs'), t('game.gear.attire.feet'),
+      t('game.gear.accessory.earring.title'),  t('game.gear.accessory.necklace'), t('game.gear.accessory.wrist'), t('game.gear.accessory.rings')
     ]
   ]
 
@@ -165,15 +165,15 @@ export const export2Excel = (
   workSheet = XLSX.utils.aoa_to_sheet(tableData)
   workSheet['!cols'] = calculateColumnWidths(tableData)
   setWorkSheetStyle(workSheet)
-  XLSX.utils.book_append_sheet(workBook, workSheet, t('已选部件'))
+  XLSX.utils.book_append_sheet(workBook, workSheet, t('main.select_gear.view_selected'))
   // #endregion
 
   // #region 成品清单
   tableData = [
     [
-      t('道具名'),
-      t('制作职业'),
-      t('数量')
+      t('common.item_name'),
+      t('common.craft_job'),
+      t('common.amount')
     ]
   ]
 
@@ -206,14 +206,14 @@ export const export2Excel = (
   workSheet = XLSX.utils.aoa_to_sheet(tableData)
   workSheet['!cols'] = calculateColumnWidths(tableData)
   setWorkSheetStyle(workSheet)
-  XLSX.utils.book_append_sheet(workBook, workSheet, t('成品清单'))
+  XLSX.utils.book_append_sheet(workBook, workSheet, t('statement.list.targets'))
   // #endregion
 
   // #region 直接素材统计
   tableData = [
     [
-      t('道具名'),
-      t('数量')
+      t('common.item_name'),
+      t('common.amount')
     ]
   ]
 
@@ -231,15 +231,15 @@ export const export2Excel = (
   workSheet = XLSX.utils.aoa_to_sheet(tableData)
   workSheet['!cols'] = calculateColumnWidths(tableData)
   setWorkSheetStyle(workSheet)
-  XLSX.utils.book_append_sheet(workBook, workSheet, t('直接素材统计'))
+  XLSX.utils.book_append_sheet(workBook, workSheet, t('statistics.group.direct_materials'))
   // #endregion
 
   // #region 点数统计
   tableData = [
     [
-      t('道具名'),
-      t('点数类型'),
-      t('数量')
+      t('common.item_name'),
+      t('common.tomescript_type'),
+      t('common.amount')
     ]
   ]
 
@@ -261,14 +261,14 @@ export const export2Excel = (
   workSheet = XLSX.utils.aoa_to_sheet(tableData)
   workSheet['!cols'] = calculateColumnWidths(tableData)
   setWorkSheetStyle(workSheet)
-  XLSX.utils.book_append_sheet(workBook, workSheet, t('点数统计'))
+  XLSX.utils.book_append_sheet(workBook, workSheet, t('statistics.tomescript'))
   // #endregion
 
   // #region 采集品(普通)统计
   tableData = [
     [
-      t('道具名'),
-      t('数量')
+      t('common.item_name'),
+      t('common.amount')
     ]
   ]
   
@@ -284,14 +284,14 @@ export const export2Excel = (
   workSheet = XLSX.utils.aoa_to_sheet(tableData)
   workSheet['!cols'] = calculateColumnWidths(tableData)
   setWorkSheetStyle(workSheet)
-  XLSX.utils.book_append_sheet(workBook, workSheet, t('采集品(普通)统计'))
+  XLSX.utils.book_append_sheet(workBook, workSheet, t('statistics.group.common_gathering'))
   // #endregion
 
   // #region 采集品(限时)统计
   tableData = [
     [
-      t('道具名'),
-      t('数量')
+      t('common.item_name'),
+      t('common.amount')
     ]
   ]
   
@@ -307,14 +307,14 @@ export const export2Excel = (
   workSheet = XLSX.utils.aoa_to_sheet(tableData)
   workSheet['!cols'] = calculateColumnWidths(tableData)
   setWorkSheetStyle(workSheet)
-  XLSX.utils.book_append_sheet(workBook, workSheet, t('采集品(限时)统计'))
+  XLSX.utils.book_append_sheet(workBook, workSheet, t('statistics.group.time_limited_gathering'))
   // #endregion
   
   // #region 灵砂统计
   tableData = [
     [
-      t('道具名'),
-      t('数量')
+      t('common.item_name'),
+      t('common.amount')
     ]
   ]
   
@@ -330,14 +330,14 @@ export const export2Excel = (
   workSheet = XLSX.utils.aoa_to_sheet(tableData)
   workSheet['!cols'] = calculateColumnWidths(tableData)
   setWorkSheetStyle(workSheet)
-  XLSX.utils.book_append_sheet(workBook, workSheet, t('灵砂统计'))
+  XLSX.utils.book_append_sheet(workBook, workSheet, t('statistics.group.aethersands'))
   // #endregion
 
   // #region 水晶统计
   tableData = [
     [
-      t('道具名'),
-      t('数量')
+      t('common.item_name'),
+      t('common.amount')
     ]
   ]
   
@@ -353,17 +353,17 @@ export const export2Excel = (
   workSheet = XLSX.utils.aoa_to_sheet(tableData)
   workSheet['!cols'] = calculateColumnWidths(tableData)
   setWorkSheetStyle(workSheet)
-  XLSX.utils.book_append_sheet(workBook, workSheet, t('水晶统计'))
+  XLSX.utils.book_append_sheet(workBook, workSheet, t('statistics.group.crystal'))
   // #endregion
 
   if (item_price_map && price_type) {
     // #region 成本分析
     tableData = [
       [
-        t('道具名'),
-        t('数量'),
-        t('单价'),
-        t('小计')
+        t('common.item_name'),
+        t('common.amount'),
+        t('common.unit_price'),
+        t('common.subtotal')
       ]
     ]
   
@@ -372,11 +372,11 @@ export const export2Excel = (
       if (item.amount) {
         let price = item_price_map[item.id][`${price_type}NQ`]
         if (price) price = Math.floor(price)
-        const subtotal = price === undefined ? t('未知') : (price*item.amount).toString()
+        const subtotal = price === undefined ? t('common.unknown') : (price*item.amount).toString()
         tableData.push([
           getItemName(item),
           item.amount.toString(),
-          price?.toString() ?? t('未知'),
+          price?.toString() ?? t('common.unknown'),
           subtotal
         ])
       }
@@ -385,16 +385,16 @@ export const export2Excel = (
     workSheet = XLSX.utils.aoa_to_sheet(tableData)
     workSheet['!cols'] = calculateColumnWidths(tableData)
     setWorkSheetStyle(workSheet)
-    XLSX.utils.book_append_sheet(workBook, workSheet, t('成本分析'))
+    XLSX.utils.book_append_sheet(workBook, workSheet, t('statistics.text.analysis_cost'))
     // #endregion
 
     // #region 收益分析
     tableData = [
       [
-        t('道具名'),
-        t('数量'),
-        t('单价'),
-        t('小计')
+        t('common.item_name'),
+        t('common.amount'),
+        t('common.unit_price'),
+        t('common.subtotal')
       ]
     ]
   
@@ -402,11 +402,11 @@ export const export2Excel = (
       if (item.amount) {
         let price = item_price_map[item.id][`${price_type}HQ`]
         if (price) price = Math.floor(price)
-        const subtotal = price === undefined ? t('未知') : (price*item.amount).toString()
+        const subtotal = price === undefined ? t('common.unknown') : (price*item.amount).toString()
         tableData.push([
           getItemName(item),
           item.amount.toString(),
-          price?.toString() ?? t('未知'),
+          price?.toString() ?? t('common.unknown'),
           subtotal
         ])
       }
@@ -415,7 +415,7 @@ export const export2Excel = (
     workSheet = XLSX.utils.aoa_to_sheet(tableData)
     workSheet['!cols'] = calculateColumnWidths(tableData)
     setWorkSheetStyle(workSheet)
-    XLSX.utils.book_append_sheet(workBook, workSheet, t('收益分析'))
+    XLSX.utils.book_append_sheet(workBook, workSheet, t('statistics.text.analysis_benefit'))
     // #endregion
   }
 

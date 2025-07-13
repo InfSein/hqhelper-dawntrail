@@ -4,7 +4,7 @@
     "fold": "Fold",
     "import": "Import",
     "export": "Export",
-    "import_or_export": "Import/Export",
+    "imexport": "Import/Export",
     "auto": "Auto",
     "save": "Save",
     "other": "Other",
@@ -26,7 +26,7 @@
     "preview": "Preview",
     "options": "Options",
     "copy": "Copy",
-    "note_x": "Note {}：",
+    "note_x": "Note {val}：",
     "list": "View list",
     "go_back": "Return",
     "tomescript": "TomeScript",
@@ -36,12 +36,12 @@
     "twitter_x": "Twitter (X)",
     "click_here": "CLICK HERE",
     "close": "Close",
-    "temp_trans": "",
-    "patch_x": "Patch{}",
+    "temp_trans": "DONT_SHOW",
+    "patch_x": "Patch{val}",
     "food": "Food",
     "tinc": "Tinctures",
-    "chs_server_data_version": "",
-    "global_server_data_version": "Game data updated to: Patch {}",
+    "chs_data_version": "DONT_SHOW",
+    "global_data_version": "Game data version: Patch {val}",
     "time": {
       "val_hours": "{val} Hours",
       "val_days": "{val} Days"
@@ -123,7 +123,7 @@
     },
     "unknown": "UNKNOWN",
     "effect": "Effects",
-    "quoted_maximum": "(Max {})",
+    "quoted_maximum": "(Max {val})",
     "craft": {
       "title": "Recipe",
       "craftsmanship": "Craftsmanship",
@@ -184,7 +184,7 @@
     "expand_all": "Expand all",
     "fold_all": "Collapse all",
     "disable": "Disable",
-    "val_level": "Lv. {lv}",
+    "val_level": "Lv. {val}",
     "macro_with_index": "Macro #{index}",
     "no_content": "No content",
     "content": "Content",
@@ -216,7 +216,7 @@
     "val_hours_ago": "{hours}h ago",
     "val_days_ago": "{days}d ago",
     "price": "Price",
-    "last_update_with_val": "Last update: {}",
+    "last_update_with_val": "Last update: {val}",
     "expired": "Expired",
     "refreshing": "Refreshing...",
     "refresh": "Refresh",
@@ -297,17 +297,17 @@
     "eorzea_time": "Eorzea Time",
     "item_id": "Item ID",
     "gear": {
-      "mainoff_hand": {
-        "title": "Main/Off-hand",
+      "tool": {
+        "mainoff_hand": "Main/Off-hand",
         "mainhand": {
+          "title": "Mainhand",
           "detailed": "Weapon/Tool: Mainhand"
         },
         "offhand": {
+          "title": "Offhand",
           "detailed": "Weapon/Tool: Offhand"
         }
       },
-      "mainhand": "Mainhand",
-      "offhand": "Offhand",
       "attire": {
         "title": "Attire",
         "head": {
@@ -358,7 +358,7 @@
     "tooltip": {
       "back_to_index": "Click to back to home page.",
       "already_in_index": "...But you have already been inside the home page of HqHelper.",
-      "announcement_for_item_zh_translation": ""
+      "announcement_for_item_zh_translation": "DONT_SHOW"
     },
     "menu": {
       "tooltip": {
@@ -377,7 +377,7 @@
         "donate_us": "Donate. Please act within your means.",
         "about_app": "Get something about us.",
         "download_client": "Download the client of HqHelper.",
-        "already_in_page": "You have already been inside the page of {}.",
+        "already_in_page": "You have already been inside the page of {val}.",
         "open_in_new_window": "Open the {tool} in a new window"
       }
     }
@@ -915,7 +915,7 @@
     "select_patch": {
       "title": "Select Patch",
       "desc": {
-        "selected": "Selected: Patch {}"
+        "selected": "Selected: Patch {val}"
       },
       "patch_button": {
         "text": "Patch{v}: {name}",
@@ -937,7 +937,7 @@
     "select_job": {
       "title": "Select Job",
       "desc": {
-        "selected": "Selected: Job {}"
+        "selected": "Selected: Job {val}"
       },
       "warn": {
         "select_patch_first": "Please select patch"
@@ -953,9 +953,9 @@
       },
       "info": {
         "info_1": "Same equipments will be merged in displaying.",
-        "info_2": "Current mainhand and offhand correspond to job: {}",
-        "info_3": "Current attire correspond to affix: {}",
-        "info_4": "Current accessory correspond to affix: {}"
+        "info_2": "Current mainhand and offhand correspond to job: {val}",
+        "info_3": "Current attire correspond to affix: {val}",
+        "info_4": "Current accessory correspond to affix: {val}"
       },
       "view_selected": "View Selected",
       "quick_operate": {
@@ -1192,7 +1192,7 @@
   },
   "item": {
     "text": {
-      "zh_name_is_temp": "",
+      "zh_name_is_temp": "DONT_SHOW",
       "basic_info": "[Patch{patch}] [{id}]",
       "attribute_isnq_or_hq_desc": "※ Only the {NQorHQ} attribute of the item is displayed here",
       "is_tradable": "This item could be traded by:",
@@ -1304,7 +1304,7 @@
         "text_1": "Fixed auto-update prompt not showing latest version number.",
         "text_2": "Fixed update button still could be clicked when client is up to date.",
         "text_3": "Fixed cache of FT Helper not been cleared after enabling \"Disable Work State Memory\"",
-        "text_4": "Fixed floating window not shown while re-clicking {} in mobile.",
+        "text_4": "Fixed floating window not shown while re-clicking {val} in mobile.",
         "text_5": "Current [Main-offhand/Attire/Accessory] in \"Select Gears\""
       },
       "feat": {
@@ -1459,7 +1459,7 @@
       "breaking": {
         "text_1": "Added subscribe/notification function to Gatherclock.",
         "text_2": "Now you can subscribe gather items, subscribed items will be displayed in \"{f1}\". In addition, after setting \"{f3}\" to \"{f4}\" in \"{f2}\", the program will send a system notification when the gather item can be gathered.",
-        "text_3": "Might cant work in some browser/device. The program will check permission and pop alert when you adjust \"{f}\".",
+        "text_3": "Might cant work in some browser/device. The program will check permission and pop alert when you adjust \"{val}}\".",
         "text_4": "The performance of HqHelper might be restricted by browser when it is in background, which might cause the notification time to be later than the start time of subscribed item.",
         "text_5": "System might enter do not disturb mode automatically and block all notifications when game is running in full screen. If you want to receive notifications normally while playing the game, you need to disable auto do not disturb mode or grant HqHelper white list permission.",
         "text_6": "Further refined the grouping of gatherings in the Recomm. process, optimized the sorting logic within the group, and enabled the display of collection details.",
@@ -1805,13 +1805,13 @@
     },
     "grouptitle_with_patch_and_il": "Patch {patch} (IL{il})",
     "text": {
-      "un_star_with_item": "Unstar \"{}\"",
-      "star_with_item": "Star \"{}\"",
+      "un_star_with_item": "Unstar \"{val}\"",
+      "star_with_item": "Star \"{val}\"",
       "un_star_all": "Unstar all",
       "subscribed": "Subscribed",
       "subscribe": "Subscribe",
-      "unsubscribe_with_item": "Unsubscribe \"{}\"",
-      "subscribe_with_item": "Subscribe \"{}\"",
+      "unsubscribe_with_item": "Unsubscribe \"{val}\"",
+      "subscribe_with_item": "Subscribe \"{val}\"",
       "unsubscribe_all": "Unsubscribe all",
       "no_items": "No items here."
     },
@@ -1869,8 +1869,8 @@
     },
     "text": {
       "show_gather_detail": "Show gather details",
-      "gather_at_with_val": "Gather at {}",
-      "time_limit_with_val": "Time-limit: {}",
+      "gather_at_with_val": "Gather at {val}",
+      "time_limit_with_val": "Time-limit: {val}",
       "show_items_not_installed_in_chs": "Show Items Not Installed in CHS",
       "hide_items_not_installed_in_chs": "Hide Items Not Installed in CHS"
     },

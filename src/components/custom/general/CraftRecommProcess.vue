@@ -20,7 +20,7 @@ import { XivJobs, type XivJob } from '@/assets/data'
 import type EorzeaTime from '@/tools/eorzea-time'
 import type { RecommItemGroup } from '@/models/item'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -63,11 +63,11 @@ const itemGroups = computed(() => {
 const getJobName = (jobInfo: XivJob) => {
   switch (userConfig.value.language_ui) {
     case 'ja':
-      return jobInfo?.job_name_ja || t('未知')
+      return jobInfo?.job_name_ja || t('common.unknown')
     case 'en':
-      return jobInfo?.job_name_en || t('未知')
+      return jobInfo?.job_name_en || t('common.unknown')
     default:
-      return jobInfo?.job_name_zh || t('未知')
+      return jobInfo?.job_name_zh || t('common.unknown')
   }
 }
 const getPlaceName = (itemInfo : ItemInfo) => {
@@ -82,7 +82,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
   }
 }
 const textsGatherAt = computed(() => {
-  const [p1, p2] = t('在{}采集').split('{}')
+  const [p1, p2] = t('recomm_process.text.gather_at_with_val').split('{}')
   return { p1, p2 }
 })
 
@@ -167,7 +167,7 @@ const isItemGatherableNow = (item: ItemInfo) => {
               </span>
               <component v-if="group.subtitle" :is="group.subtitle"></component>
               <div v-else-if="group.type === 'trade-tomescript'" class="flex-vac gap-2" style="margin-left: 0.5em;">
-                <p v-show="tomeScripts.length">{{ t('尚需') }}</p>
+                <p v-show="tomeScripts.length">{{ t('statement.table.requires') }}</p>
                 <ItemSpan
                   v-for="item in tomeScripts"
                   :key="'ts-' + item.id"
@@ -208,8 +208,8 @@ const isItemGatherableNow = (item: ItemInfo) => {
                 v-if="showItemGatherDetails && item.gatherInfo?.timeLimitDescription && !completedItems[groupIndex][item.id]"
               >
                 <span style="margin-right: 1px;">(</span>
-                <span>{{ t('限时: {}', item.gatherInfo.timeLimitDescription) }}</span>
-                <span v-if="isItemGatherableNow(item)" class="green" style="margin-left: 3px;">{{ t('现可采集') }}</span>
+                <span>{{ t('recomm_process.text.time_limit_with_val', item.gatherInfo.timeLimitDescription) }}</span>
+                <span v-if="isItemGatherableNow(item)" class="green" style="margin-left: 3px;">{{ t('common.gatherable_now') }}</span>
                 <span style="margin-left: 1px;">)</span>
               </div>
               <div
@@ -245,7 +245,7 @@ const isItemGatherableNow = (item: ItemInfo) => {
                 </span>
                 <span v-if="funcConfig.processes_merge_gatherings" style="margin: 0 3px 0 1px;">)</span>
                 <span style="margin-right: 1px;">(</span>
-                <span>{{ t('推荐传送点') }} - {{ item.gatherInfo.recommAetheryte?.[`name_${itemLanguage}`] }}</span>
+                <span>{{ t('map.text.recomm_aetheryte') }} - {{ item.gatherInfo.recommAetheryte?.[`name_${itemLanguage}`] }}</span>
                 <span style="margin-left: 1px;">)</span>
               </div>
             </div>

@@ -18,7 +18,7 @@ import { useNbbCal } from '@/tools/use-nbb-cal'
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
@@ -77,7 +77,7 @@ const workflowItems = computed(() => {
 })
 const handleJoinWorkflow = () => {
   if (!Object.values(workflowItems.value).length) {
-    NAIVE_UI_MESSAGE.error(t('还未选择任何装备')); return
+    NAIVE_UI_MESSAGE.error(t('workflow.join_in_workflow.message.no_armor')); return
   }
   showModalJoinInWorkflow.value = true
 }
@@ -85,7 +85,7 @@ const handleJoinWorkflow = () => {
 const handleImportState = (patch: string, gearSelections?: GearSelections) => {
   workState.value.patch = patch
   workState.value.gears = fixGearSelections(gearSelections)
-  NAIVE_UI_MESSAGE.success(t('导入成功'))
+  NAIVE_UI_MESSAGE.success(t('common.message.import_succeed'))
 }
 provide('handleImportState', handleImportState)
 

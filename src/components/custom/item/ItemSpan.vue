@@ -15,7 +15,7 @@ import { CopyToClipboard } from '@/tools'
 import { getItemContexts, type ItemInfo } from '@/tools/item'
 import UseConfig from '@/tools/use-config'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -104,9 +104,9 @@ const handleCopy = async (content: string, successMessage?: string) => {
   }
   const response = await CopyToClipboard(content, container)
   if (response) {
-    NAIVE_UI_MESSAGE.error(t('复制失败：发生意外错误'))
+    NAIVE_UI_MESSAGE.error(t('common.message.copy_failed_unexpected_error'))
   } else {
-    NAIVE_UI_MESSAGE.success(successMessage ?? t('已复制到剪贴板'))
+    NAIVE_UI_MESSAGE.success(successMessage ?? t('common.message.copy_succeed'))
   }
 }
 const { options, handleKeyEvent } = getItemContexts(props.itemInfo, itemLanguage.value, t, handleCopy)
@@ -201,7 +201,7 @@ const handleItemIconClick = async () => {
   }
 
   if (copyContent) {
-    await handleCopy(copyContent, t('已复制 {content}', copyContent))
+    await handleCopy(copyContent, t('common.message_copied_with_content', copyContent))
   }
 }
 </script>

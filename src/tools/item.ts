@@ -498,33 +498,33 @@ export const getItemContexts = (
   }
   const options = [
     {
-      label: t('复制道具名'),
+      label: t('common.copy_item_name'),
       key: 'copy-item-name',
       icon: renderIcon(FileCopyOutlined),
       click: () => {
         const copyContent = itemInfo[`name_${itemLanguage}`]
-        handleCopy(copyContent, t('已复制 {content}', copyContent))
+        handleCopy(copyContent, t('common.message_copied_with_content', copyContent))
       }
     },
     {
-      label: t('复制其他道具名'),
+      label: t('item.text.copy_other_names'),
       key: 'copy-other-names',
       icon: renderIcon(FileCopyOutlined),
       children: [
         {
-          label: t('中文名'),
+          label: t('common.name_zh'),
           key: 'copy-zh',
           show: itemLanguage !== 'zh',
           icon: renderIcon(LanguageOutlined)
         },
         {
-          label: t('日文名'),
+          label: t('common.name_ja'),
           key: 'copy-ja',
           show: itemLanguage !== 'ja',
           icon: renderIcon(LanguageOutlined)
         },
         {
-          label: t('英文名'),
+          label: t('common.name_en'),
           key: 'copy-en',
           show: itemLanguage !== 'en',
           icon: renderIcon(LanguageOutlined)
@@ -532,13 +532,13 @@ export const getItemContexts = (
       ]
     },
     {
-      label: t('复制物品检索宏'),
+      label: t('preference.shared.option.copy_isearch_macro'),
       key: 'copy-isearch-macro',
       icon: renderIcon(FileCopyOutlined),
       click: () => {
         const name = itemInfo[`name_${itemLanguage}`]
         const copyContent = `/isearch "${name}"`
-        handleCopy(copyContent, t('已复制 {content}', copyContent))
+        handleCopy(copyContent, t('common.message_copied_with_content', copyContent))
       }
     },
     {
@@ -546,7 +546,7 @@ export const getItemContexts = (
       key: 'd1'
     },
     {
-      label: t('在灰机维基中打开'),
+      label: t('common.open_in.huijiwiki2'),
       key: 'open-in-hjwiki',
       icon: renderIcon(OpenInNewFilled),
       click: () => {
@@ -554,7 +554,7 @@ export const getItemContexts = (
       }
     },
     {
-      label: t('在花环数据库中打开'),
+      label: t('common.open_in.garland2'),
       key: 'open-in-garland',
       icon: renderIcon(OpenInNewFilled),
       click: () => {
@@ -562,7 +562,7 @@ export const getItemContexts = (
       }
     },
     {
-      label: t('在GamerEscape中打开'),
+      label: t('common.open_in.gamer_escape'),
       key: 'open-in-gamerescape',
       icon: renderIcon(OpenInNewFilled),
       click: () => {
@@ -570,7 +570,7 @@ export const getItemContexts = (
       }
     },
     {
-      label: t('在Universalis中打开'),
+      label: t('common.open_in.universalis'),
       key: 'open-in-universalis',
       icon: renderIcon(OpenInNewFilled),
       click: () => {
@@ -583,7 +583,7 @@ export const getItemContexts = (
       show: !!itemInfo?.craftInfo?.recipeId
     },
     {
-      label: t('在BestCraft中模拟制作'),
+      label: t('item.text.simulate_craft_bestcraft'),
       key: 'open-in-bestcraft',
       show: !!itemInfo?.craftInfo?.recipeId,
       icon: renderIcon(OpenInNewFilled),
@@ -592,7 +592,7 @@ export const getItemContexts = (
       }
     },
     {
-      label: t('在TeamCraft中模拟制作'),
+      label: t('item.text.simulate_craft_teamcraft'),
       key: 'open-in-teamcraft',
       show: !!itemInfo?.craftInfo?.recipeId,
       icon: renderIcon(OpenInNewFilled),

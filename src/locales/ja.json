@@ -4,7 +4,7 @@
     "fold": "折り畳む",
     "import": "インポート",
     "export": "エクスポート",
-    "import_or_export": "インポート/エクスポート",
+    "imexport": "インポート/エクスポート",
     "auto": "オート",
     "save": "保存",
     "other": "他",
@@ -26,7 +26,7 @@
     "preview": "プレビュー",
     "options": "オプション",
     "copy": "コピーする",
-    "note_x": "備考{}：",
+    "note_x": "備考{val}：",
     "list": "リスト",
     "go_back": "戻る",
     "tomescript": "トークン",
@@ -36,12 +36,12 @@
     "twitter_x": "Twitter (X)",
     "click_here": "ここをクリックする",
     "close": "閉じる",
-    "temp_trans": "",
-    "patch_x": "パッチ{}",
+    "temp_trans": "DONT_SHOW",
+    "patch_x": "パッチ{val}",
     "food": "調理品",
     "tinc": "強化薬",
-    "chs_server_data_version": "",
-    "global_server_data_version": "ゲームデーターのパッチ：{}",
+    "chs_data_version": "DONT_SHOW",
+    "global_data_version": "ゲームデーターのパッチ：{val}",
     "time": {
       "val_hours": "{val}時間",
       "val_days": "{val}日"
@@ -123,7 +123,7 @@
     },
     "unknown": "不明",
     "effect": "効果",
-    "quoted_maximum": "(上限{})",
+    "quoted_maximum": "(上限{val})",
     "craft": {
       "title": "レシピ",
       "craftsmanship": "作業精度",
@@ -184,7 +184,7 @@
     "expand_all": "全て展開",
     "fold_all": "全て折りたたむ",
     "disable": "無効化にする",
-    "val_level": "レベル{lv}",
+    "val_level": "レベル{val}",
     "macro_with_index": "マクロ#{index}",
     "no_content": "内容なし",
     "content": "内容",
@@ -216,7 +216,7 @@
     "val_hours_ago": "{hours}時間前",
     "val_days_ago": "{days}日前",
     "price": "価格",
-    "last_update_with_val": "最終更新: {}",
+    "last_update_with_val": "最終更新: {val}",
     "expired": "期限切れ",
     "refreshing": "更新中...",
     "refresh": "リフレッシュ",
@@ -297,17 +297,17 @@
     "eorzea_time": "エオルゼア時間",
     "item_id": "アイテムID",
     "gear": {
-      "mainoff_hand": {
-        "title": "主副道具",
+      "tool": {
+        "mainoff_hand": "主副道具",
         "mainhand": {
+          "title": "メインアーム",
           "detailed": "武器/主道具"
         },
         "offhand": {
+          "title": "サブアーム",
           "detailed": "盾/副道具"
         }
       },
-      "mainhand": "メインアーム",
-      "offhand": "サブアーム",
       "attire": {
         "title": "防具",
         "head": {
@@ -358,7 +358,7 @@
     "tooltip": {
       "back_to_index": "このボタンをクリックするとホームページに戻ります。",
       "already_in_index": "すでにHqHelperのホームページです",
-      "announcement_for_item_zh_translation": ""
+      "announcement_for_item_zh_translation": "DONT_SHOW"
     },
     "menu": {
       "tooltip": {
@@ -377,7 +377,7 @@
         "donate_us": "無理のない範囲でお願いします。",
         "about_app": "改めて自己紹介させていただきますクポ",
         "download_client": "いざという時のために。",
-        "already_in_page": "既に{}ページにいます。",
+        "already_in_page": "既に{val}ページにいます。",
         "open_in_new_window": "新しいウィンドウで{tool}を開く"
       }
     }
@@ -915,7 +915,7 @@
     "select_patch": {
       "title": "パッチ選択",
       "desc": {
-        "selected": "選択したパッチ: {}"
+        "selected": "選択したパッチ: {val}"
       },
       "patch_button": {
         "text": "パッチ{v}: {name}",
@@ -937,7 +937,7 @@
     "select_job": {
       "title": "ジョブ選択",
       "desc": {
-        "selected": "選択したジョブ: {}"
+        "selected": "選択したジョブ: {val}"
       },
       "warn": {
         "select_patch_first": "パッチを選択してください"
@@ -953,9 +953,9 @@
       },
       "info": {
         "info_1": "同じ装備は一括表示されます。",
-        "info_2": "現在の主副道具が該当するジョブ：{}",
-        "info_3": "現在の防具に該当する分類：{}",
-        "info_4": "現在のアクセサリに該当する分類：{}"
+        "info_2": "現在の主副道具が該当するジョブ：{val}",
+        "info_3": "現在の防具に該当する分類：{val}",
+        "info_4": "現在のアクセサリに該当する分類：{val}"
       },
       "view_selected": "選択済み部位",
       "quick_operate": {
@@ -1192,7 +1192,7 @@
   },
   "item": {
     "text": {
-      "zh_name_is_temp": "",
+      "zh_name_is_temp": "DONT_SHOW",
       "basic_info": "[パッチ{patch}] [{id}]",
       "attribute_isnq_or_hq_desc": "※ ここは{NQorHQ}アイテムの属性のみが表示されます",
       "is_tradable": "交換で入手可能なアイテムです：",
@@ -1304,7 +1304,7 @@
         "text_1": "自動更新通知で最新バージョン番号が表示されない問題を修正しました。",
         "text_2": "クライアント版の更新ボタンが、すでに最新バージョンの場合でもクリックできる問題を修正しました。",
         "text_3": "「作業状態の記憶を無効にする」を有効にした後、「調理品&薬品の素材集計」の稼働キャッシュがクリアされない問題を修正しました。",
-        "text_4": "スマホ端末で空白部分をクリックして{}のツールチップを閉じた後、再度に正常に開けない問題を修正しました。",
+        "text_4": "スマホ端末で空白部分をクリックして{val}のツールチップを閉じた後、再度に正常に開けない問題を修正しました。",
         "text_5": "“部位選択”のカテゴリの現在の[主/副道具・防具・アクセサリ]"
       },
       "feat": {
@@ -1459,7 +1459,7 @@
       "breaking": {
         "text_1": "採集時計にフォロー/リマインド機能が追加されました。",
         "text_2": "フォローした収集品は「{f1}」内に一覧で表示されます。また、「{f2}」エリアで「{f3}」を「{f4}」に設定すると、収集品が採集可能なときにシステム通知が送信されます。",
-        "text_3": "一部のブラウザやデバイスでは正常に動作しない可能性があります。「{f}」を調整するときに権限を確認し、ツールチップで通知します。",
+        "text_3": "一部のブラウザやデバイスでは正常に動作しない可能性があります。「{val}}」を調整するときに権限を確認し、ツールチップで通知します。",
         "text_4": "HqHelperがバックグラウンドで動作している場合、ブラウザの性能制限により、収集品の採集開始時間よりも遅れて通知が届く場合があります。",
         "text_5": "ゲームをフルスクリーンでプレイ中に自動的に「おやすみモード」に入り、すべての通知がブロックされる場合があります。ゲーム中も通知を受け取るには、オートおやすみモードを無効にするか、HqHelperにホワイトリスト権限を付与する必要があります。",
         "text_6": "収集品の推奨プロセスがさらに詳細に分類され、グループ内の並び替えロジックが最適化され、採集詳細を表示できるようになりました。",
@@ -1805,13 +1805,13 @@
     },
     "grouptitle_with_patch_and_il": "パッチ{patch}（アイテムレベル{il}）",
     "text": {
-      "un_star_with_item": "「{}」のお気に入りを解除",
-      "star_with_item": "「{}」をお気に入りに登録",
+      "un_star_with_item": "「{val}」のお気に入りを解除",
+      "star_with_item": "「{val}」をお気に入りに登録",
       "un_star_all": "すべてのお気に入りを解除する",
       "subscribed": "フォロー済み",
       "subscribe": "フォロー",
-      "unsubscribe_with_item": "「{}」のフォローを解除",
-      "subscribe_with_item": "「{}」をフォローする",
+      "unsubscribe_with_item": "「{val}」のフォローを解除",
+      "subscribe_with_item": "「{val}」をフォローする",
       "unsubscribe_all": "すべてのフォローを解除",
       "no_items": "アイテムがありません"
     },
@@ -1869,8 +1869,8 @@
     },
     "text": {
       "show_gather_detail": "採集の詳細を表示",
-      "gather_at_with_val": "{}で採集",
-      "time_limit_with_val": "時間制限: {}",
+      "gather_at_with_val": "{val}で採集",
+      "time_limit_with_val": "時間制限: {val}",
       "show_items_not_installed_in_chs": "中国サーバー未実装アイテムを表示",
       "hide_items_not_installed_in_chs": "中国サーバー未実装アイテムを非表示"
     },

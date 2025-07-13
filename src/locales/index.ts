@@ -18,8 +18,11 @@ export function useLocale() {
   }
 
   return {
+    /** 原始 t 函数 */
     t,
+    /** 当前语言 */
     currentLocale,
+    /** 切换语言 */
     setLocale,
   }
 }

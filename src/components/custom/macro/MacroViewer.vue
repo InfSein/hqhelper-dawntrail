@@ -10,7 +10,7 @@ import {
 import { CopyToClipboard } from '@/tools'
 
 const NAIVE_UI_MESSAGE = useMessage()
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 
 interface MacroViewerProps {
   macroLines: string[]
@@ -42,10 +42,10 @@ const handleCopy = async (text: string) => {
   }
   const errored = await CopyToClipboard(text, container)
   if (errored) {
-    NAIVE_UI_MESSAGE.error(t('复制失败，请手动框选预览区域内的文本复制'))
+    NAIVE_UI_MESSAGE.error(t('copy_macro.message.failed'))
     return
   }
-  NAIVE_UI_MESSAGE.success(t('已复制到剪贴板'))
+  NAIVE_UI_MESSAGE.success(t('common.message.copy_succeed'))
 }
 </script>
 
@@ -59,7 +59,7 @@ const handleCopy = async (text: string) => {
         :type="selectedGroupIndex === groupIndex ? 'primary' : undefined"
         @click="selectedGroupIndex = groupIndex"
       >
-        {{ t('宏#{index}', groupIndex + 1) }}
+        {{ t('common.macro_with_index', groupIndex + 1) }}
       </n-button>
     </div>
     <n-divider v-if="!hideTabs" style="margin-top: 3px; margin-bottom: 2px;" />
@@ -73,7 +73,7 @@ const handleCopy = async (text: string) => {
       <template #icon>
         <n-icon><CopyAllOutlined /></n-icon>
       </template>
-      {{ t('复制') }}
+      {{ t('common.copy') }}
     </n-button>
     <div
       class="group-container"
@@ -88,7 +88,7 @@ const handleCopy = async (text: string) => {
           height: contentHeight
         }"
       >
-        <n-empty size="large" :description="t('无内容')" />
+        <n-empty size="large" :description="t('common.no_content')" />
       </div>
       <div
         v-else
