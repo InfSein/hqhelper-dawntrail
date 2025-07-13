@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "update-CHANGELOG": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "i18n:upload": "npx crowdin upload sources",
+    "i18n:download": "npx crowdin download",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
@@ -27,6 +28,7 @@
     "xlsx-style": "^0.8.13"
   },
   "devDependencies": {
+    "@crowdin/cli": "^4.9.0",
     "@rushstack/eslint-patch": "^1.10.4",
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^22.13.5",
