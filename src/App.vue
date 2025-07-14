@@ -135,9 +135,15 @@ const t = (message: string, args?: any) => {
   if (typeof args === 'object') {
     result = rawT(message, args)
   } else if (args !== undefined) {
-    result = rawT(message, {
-      val: args, f: args, index: args, gen: args, v: args, ver: args, date: args, option: args, il: args,
-    })
+    const keys = [
+      // 为了兼容旧数据默认插值
+      'content', 'contents', 'control_val', 'count', 'craftsmanship_val',
+      'dataname', 'date', 'days', 'err', 'errmsg', 'error', 'f', 'gen',
+      'hours', 'id', 'il', 'ilv', 'index', 'job', 'key', 'lang', 'limit',
+      'maxlen', 'minute', 'minutes', 'name', 'num', 'option', 'patch', 'platform',
+      'second', 'setting', 'stage', 'tool', 'v', 'val', 'ver'
+    ]
+    result = rawT(message, Object.fromEntries(keys.map(k => [k, args])))
   } else {
     result = rawT(message)
   }

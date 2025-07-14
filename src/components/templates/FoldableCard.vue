@@ -39,7 +39,6 @@ const ui_fold_cache = userConfig.value.cache_ui_fold ?? {}
 const foldOnDefault : boolean = !userConfig.value.disable_workstate_cache && (ui_fold_cache[props.cardKey] ?? false)
 
 const folded = ref(foldOnDefault)
-const folderText = ref('')
 const folderIcon = shallowRef(KeyboardArrowUpRound)
 const cardContentStyle = ref('')
 
@@ -55,14 +54,15 @@ const foldIcon = computed(() => {
 const expandIcon = computed(() => {
   return foldDirection.value === 'vertical' ? KeyboardArrowDownRound : KeyboardArrowRightRound
 })
+const folderText = computed(() => {
+  return folded.value ? t('common.expand') : t('common.fold')
+})
 
 const updateUi = () => {
   if (folded.value) {
-    folderText.value = t('common.expand')
     folderIcon.value = expandIcon.value
     cardContentStyle.value = 'padding: 0;'
   } else {
-    folderText.value = t('common.fold')
     folderIcon.value = foldIcon.value
     cardContentStyle.value = ''
   }

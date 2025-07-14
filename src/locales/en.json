@@ -1194,14 +1194,14 @@
     "text": {
       "zh_name_is_temp": "DONT_SHOW",
       "basic_info": "[Patch{patch}] [{id}]",
-      "attribute_isnq_or_hq_desc": "※ Only the {NQorHQ} attribute of the item is displayed here",
+      "attribute_isnq_or_hq_desc": "※ Only the {val} attribute of the item is displayed here",
       "is_tradable": "This item could be traded by:",
-      "multi_get_each_trade": "Could get {receive} each exchanging.",
+      "multi_get_each_trade": "Could get {val} each exchanging.",
       "recipe_level_info": "{job} Lv. {lv}{star}",
       "craft_condi": "Required:",
-      "craftsmanship_with_val": "{value} Craftsmanship",
-      "control_with_val": "{value} Control",
-      "yields_info": "Yields: {yields}",
+      "craftsmanship_with_val": "{val} Craftsmanship",
+      "control_with_val": "{val} Control",
+      "yields_info": "Yields: {val}",
       "cannot_quick_synthesis": "Quick Synthesis Unavailable",
       "cannot_hq": "High-quality Uncraftable",
       "reduce_info": "This item could be reduced from:",
@@ -1988,7 +1988,7 @@
   },
   "cloud": {
     "text": {
-      "last_upload": "Last upload: {time}",
+      "last_upload": "Last upload: {val}",
       "not_uploaded": "Not uploaded yet",
       "data_sync": "Data synchronization",
       "sync_range": "Synchronizing range",

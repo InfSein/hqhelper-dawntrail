@@ -395,17 +395,22 @@ export function useFufuCal(
         })
       })
     }
+
+    // 新i18n框架不传值会直接把{job}清除掉
+    // 所以这里做一个原地TP
+    // 有点啥比，但是还有别的办法吗
+    const insituTp = { job: '{job}' }
   
     if (processes_merge_gatherings) {
-      dealGatherings(itemsGatherableCommon, 'common', t('recomm_process.group.common_gathering'), 'map', {
+      dealGatherings(itemsGatherableCommon, 'common', t('recomm_process.group.common_gathering', insituTp), 'map', {
         iconUrl: './ui/gathering.png'
       })
-      dealGatherings(itemsGatherableLimited, 'limited', t('recomm_process.group.time_limited_gathering'), 'start-time', {
+      dealGatherings(itemsGatherableLimited, 'limited', t('recomm_process.group.time_limited_gathering', insituTp), 'start-time', {
         iconUrl: './ui/gathering-limited.png'
       })
     } else {
-      dealGatherings(itemsGatherableCommon, 'common', t('recomm_process.group.gather_common_with_job'), 'map')
-      dealGatherings(itemsGatherableLimited, 'limited', t('recomm_process.group.gather_time_limited_with_job'), 'start-time')
+      dealGatherings(itemsGatherableCommon, 'common', t('recomm_process.group.gather_common_with_job', insituTp), 'map')
+      dealGatherings(itemsGatherableLimited, 'limited', t('recomm_process.group.gather_time_limited_with_job', insituTp), 'start-time')
     }
     if (aethersands.length) {
       groups.push({
@@ -431,10 +436,10 @@ export function useFufuCal(
         items: itemsOtherCollectable
       })
     }
-    dealCraftings(itemsPrePrePrecraft, 'prepreprecraft', t('recomm_process.group.pre_pre_precraft'))
-    dealCraftings(itemsPrePrecraft, 'preprecraft', t('recomm_process.group.pre_precraft'))
-    dealCraftings(itemsPrecraft, 'precraft', t('recomm_process.group.precraft'))
-    dealCraftings(itemsTarget, 'target', t('recomm_process.group.craft'))
+    dealCraftings(itemsPrePrePrecraft, 'prepreprecraft', t('recomm_process.group.pre_pre_precraft', insituTp))
+    dealCraftings(itemsPrePrecraft, 'preprecraft', t('recomm_process.group.pre_precraft', insituTp))
+    dealCraftings(itemsPrecraft, 'precraft', t('recomm_process.group.precraft', insituTp))
+    dealCraftings(itemsTarget, 'target', t('recomm_process.group.craft', insituTp))
   
     return groups
   }

@@ -1194,14 +1194,14 @@
     "text": {
       "zh_name_is_temp": "该物品国服尚未实装，中文名为临时译名。",
       "basic_info": "[{patch}版本] [{id}]",
-      "attribute_isnq_or_hq_desc": "※ 此处仅展示物品的{NQorHQ}属性",
+      "attribute_isnq_or_hq_desc": "※ 此处仅展示物品的{val}属性",
       "is_tradable": "该物品可以通过兑换获得：",
-      "multi_get_each_trade": "每次兑换可获得{receive}个",
+      "multi_get_each_trade": "每次兑换可获得{val}个",
       "recipe_level_info": "{lv}级{star}{job}配方",
       "craft_condi": "制作条件：",
-      "craftsmanship_with_val": "作业精度{value}",
-      "control_with_val": "加工精度{value}",
-      "yields_info": "每次制作会产出{yields}个成品",
+      "craftsmanship_with_val": "作业精度{val}",
+      "control_with_val": "加工精度{val}",
+      "yields_info": "每次制作会产出{val}个成品",
       "cannot_quick_synthesis": "无法进行简易制作",
       "cannot_hq": "无法制作优质道具",
       "reduce_info": "该物品可以通过精选以下道具获得：",
@@ -1988,7 +1988,7 @@
   },
   "cloud": {
     "text": {
-      "last_upload": "上次上传：{time}",
+      "last_upload": "上次上传：{val}",
       "not_uploaded": "还未上传",
       "data_sync": "数据同步",
       "sync_range": "同步范围",

@@ -1194,14 +1194,14 @@
     "text": {
       "zh_name_is_temp": "DONT_SHOW",
       "basic_info": "[パッチ{patch}] [{id}]",
-      "attribute_isnq_or_hq_desc": "※ ここは{NQorHQ}アイテムの属性のみが表示されます",
+      "attribute_isnq_or_hq_desc": "※ ここは{val}アイテムの属性のみが表示されます",
       "is_tradable": "交換で入手可能なアイテムです：",
-      "multi_get_each_trade": "一回交換で{receive}個が入手されます",
+      "multi_get_each_trade": "一回交換で{val}個が入手されます",
       "recipe_level_info": "{job} Lv. {lv}{star}",
       "craft_condi": "製作可能条件：",
-      "craftsmanship_with_val": "作業精度{value}",
-      "control_with_val": "加工精度{value}",
-      "yields_info": "Yields: {yields}",
+      "craftsmanship_with_val": "作業精度{val}",
+      "control_with_val": "加工精度{val}",
+      "yields_info": "Yields: {val}",
       "cannot_quick_synthesis": "簡易製作不可",
       "cannot_hq": "HQ製作不可",
       "reduce_info": "このアイテムは精選以下のアイテムで入手できます：",
@@ -1988,7 +1988,7 @@
   },
   "cloud": {
     "text": {
-      "last_upload": "最終アップロード：{time}",
+      "last_upload": "最終アップロード：{val}",
       "not_uploaded": "未アップロード",
       "data_sync": "データ同期",
       "sync_range": "同期範囲",
