@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "i18n:upload": "npx crowdin upload sources",
+    "i18n:upload-source": "npx crowdin upload sources",
+    "i18n:upload-translations": "npx crowdin upload translations",
     "i18n:download": "npx crowdin download",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
