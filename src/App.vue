@@ -140,8 +140,8 @@ const t = (message: string, args?: any) => {
       'content', 'contents', 'control_val', 'count', 'craftsmanship_val',
       'dataname', 'date', 'days', 'err', 'errmsg', 'error', 'f', 'gen',
       'hours', 'id', 'il', 'ilv', 'index', 'job', 'key', 'lang', 'limit',
-      'maxlen', 'minute', 'minutes', 'name', 'num', 'option', 'patch', 'platform',
-      'second', 'setting', 'stage', 'tool', 'v', 'val', 'ver'
+      'maxlen', 'minute', 'minutes', 'name', 'num', 'option', 'patch', 'platform', 'pos',
+      'second', 'setting', 'stage', 'tool', 'v', 'val', 'ver',
     ]
     result = rawT(message, Object.fromEntries(keys.map(k => [k, args])))
   } else {

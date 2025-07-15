@@ -103,7 +103,9 @@
       "import_failed_with_error": "导入失败：{err}",
       "please_input_val": "请输入{val}",
       "data_line_max_len": "最多只能有{num}行数据",
-      "data_line_min_len": "需要保留至少{num}行数据"
+      "data_line_min_len": "需要保留至少{num}行数据",
+      "copied_with_content": "已复制 {content}",
+      "item_already_have": "已有该物品"
     },
     "copy_item_name": "复制道具名",
     "name_zh": "中文名",
@@ -152,7 +154,6 @@
     "latest_version": "最新版本：",
     "recheck": "重新检测",
     "client_version": "客户端版本",
-    "message_copied_with_content": "已复制 {content}",
     "updating": "正在更新",
     "favorite": {
       "title": "收藏",
@@ -223,7 +224,6 @@
     "loading": "正在加载……",
     "load_failed": "加载失败",
     "retry": "重试",
-    "item_already_have": "已有该物品",
     "cleared": "已清空",
     "select_item2": "挑选物品",
     "add_item": "添加物品",
@@ -1869,7 +1869,7 @@
     },
     "text": {
       "show_gather_detail": "显示采集详情",
-      "gather_at_with_val": "在{val}采集",
+      "gather_at_with_val": "在{pos}采集",
       "time_limit_with_val": "限时: {val}",
       "show_items_not_installed_in_chs": "显示国服未实装物品",
       "hide_items_not_installed_in_chs": "隐藏国服未实装物品"

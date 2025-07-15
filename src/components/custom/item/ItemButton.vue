@@ -182,7 +182,7 @@ const handleItemButtonClick = async () => {
   }
 
   if (copyContent) {
-    await handleCopy(copyContent, t('common.message_copied_with_content', copyContent))
+    await handleCopy(copyContent, t('common.message.copied_with_content', copyContent))
   }
 }
 </script>

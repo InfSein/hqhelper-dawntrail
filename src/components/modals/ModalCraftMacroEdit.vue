@@ -166,7 +166,7 @@ const handleAddRelateItem = (itemid: number) => {
     NAIVE_UI_MESSAGE.error(t('macro_manage.message.relate_item_max_len')); return
   }
   if (formRelateItems.value.map(item => item.val).includes(itemid)) {
-    NAIVE_UI_MESSAGE.error(t('common.item_already_have')); return
+    NAIVE_UI_MESSAGE.error(t('common.message.item_already_have')); return
   }
   formRelateItems.value.push({
     id: relateItemIndex.value++,
@@ -182,7 +182,7 @@ const handleAddRelateItemStr = () => {
     NAIVE_UI_MESSAGE.error(t('common.message.please_input_item_name')); return
   }
   if (formRelateItems.value.map(item => item.val).includes(itemname)) {
-    NAIVE_UI_MESSAGE.error(t('common.item_already_have')); return
+    NAIVE_UI_MESSAGE.error(t('common.message.item_already_have')); return
   }
   formRelateItems.value.push({
     id: relateItemIndex.value++,

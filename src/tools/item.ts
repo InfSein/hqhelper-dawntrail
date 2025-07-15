@@ -487,7 +487,7 @@ import type { StatementData } from './use-fufu-cal'
 export const getItemContexts = (
   itemInfo: ItemInfo,
   itemLanguage: "zh" | "en" | "ja",
-  t: (text: string, ...args: any[]) => string,
+  t: (message: string, args?: any) => string,
   handleCopy: (content: string, successMessage?: string) => Promise<void>
 ) => {
   if (!itemInfo.id) {
@@ -503,7 +503,7 @@ export const getItemContexts = (
       icon: renderIcon(FileCopyOutlined),
       click: () => {
         const copyContent = itemInfo[`name_${itemLanguage}`]
-        handleCopy(copyContent, t('common.message_copied_with_content', copyContent))
+        handleCopy(copyContent, t('common.message.copied_with_content', copyContent))
       }
     },
     {
@@ -538,7 +538,7 @@ export const getItemContexts = (
       click: () => {
         const name = itemInfo[`name_${itemLanguage}`]
         const copyContent = `/isearch "${name}"`
-        handleCopy(copyContent, t('common.message_copied_with_content', copyContent))
+        handleCopy(copyContent, t('common.message.copied_with_content', copyContent))
       }
     },
     {

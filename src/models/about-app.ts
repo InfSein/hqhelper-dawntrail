@@ -41,7 +41,7 @@ export const createStaffMember = (
 }
 
 export const getStaffMebers = (
-  t: (text: string, ...args: any[]) => string
+  t: (message: string, args?: any) => string
 ) => {
   const members = computed(() => {
     return {

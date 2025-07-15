@@ -114,7 +114,7 @@ const inventorySettingItems = computed(() : Setting[] => {
 const handleItemInputValueUpdate = (value: number) => {
   if (!value) return
   if (formFuncConfigData.value.inventory_data[value]) {
-    NAIVE_UI_MESSAGE.info(t('common.item_already_have'))
+    NAIVE_UI_MESSAGE.info(t('common.message.item_already_have'))
   } else {
     formFuncConfigData.value.inventory_data[value] = 1
   }

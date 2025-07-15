@@ -103,7 +103,9 @@
       "import_failed_with_error": "Importing failed: {err}",
       "please_input_val": "Please input {val}",
       "data_line_max_len": "Maximum {num} rows of data allowed",
-      "data_line_min_len": "At least {num} rows of data must be retained"
+      "data_line_min_len": "At least {num} rows of data must be retained",
+      "copied_with_content": "\"{content}\" copied",
+      "item_already_have": "This item already exists"
     },
     "copy_item_name": "Copy item name",
     "name_zh": "Chinese",
@@ -152,7 +154,6 @@
     "latest_version": "Latest Version: ",
     "recheck": "Recheck",
     "client_version": "Client Version",
-    "message_copied_with_content": "\"{content}\" copied",
     "updating": "Updating",
     "favorite": {
       "title": "Star",
@@ -223,7 +224,6 @@
     "loading": "Loading...",
     "load_failed": "Failed to load.",
     "retry": "Retry",
-    "item_already_have": "This item already exists",
     "cleared": "Cleared",
     "select_item2": "Select Item",
     "add_item": "Add Item",
@@ -1869,7 +1869,7 @@
     },
     "text": {
       "show_gather_detail": "Show gather details",
-      "gather_at_with_val": "Gather at {val}",
+      "gather_at_with_val": "Gather at {pos}",
       "time_limit_with_val": "Time-limit: {val}",
       "show_items_not_installed_in_chs": "Show Items Not Installed in CHS",
       "hide_items_not_installed_in_chs": "Hide Items Not Installed in CHS"

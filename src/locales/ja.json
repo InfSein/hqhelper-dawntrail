@@ -103,7 +103,9 @@
       "import_failed_with_error": "インポート失敗：{err}",
       "please_input_val": "{val}を入力してください",
       "data_line_max_len": "最大{num}行のデータしか保持できません",
-      "data_line_min_len": "少なくとも{num}行のデータを残す必要があります"
+      "data_line_min_len": "少なくとも{num}行のデータを残す必要があります",
+      "copied_with_content": "{content}をコピーしました",
+      "item_already_have": "該当アイテムが既に存在します"
     },
     "copy_item_name": "アイテム",
     "name_zh": "中国語名",
@@ -152,7 +154,6 @@
     "latest_version": "最新のバーション：",
     "recheck": "チェックし直す",
     "client_version": "クライアントバーション",
-    "message_copied_with_content": "{content}をコピーしました",
     "updating": "アップデート中……",
     "favorite": {
       "title": "お気に入り",
@@ -223,7 +224,6 @@
     "loading": "読み込み中……",
     "load_failed": "読み込み失敗",
     "retry": "再試行",
-    "item_already_have": "該当アイテムが既に存在します",
     "cleared": "クリア済み",
     "select_item2": "アイテム選択",
     "add_item": "アイテム追加",
@@ -1869,7 +1869,7 @@
     },
     "text": {
       "show_gather_detail": "採集の詳細を表示",
-      "gather_at_with_val": "{val}で採集",
+      "gather_at_with_val": "{pos}で採集",
       "time_limit_with_val": "時間制限: {val}",
       "show_items_not_installed_in_chs": "中国サーバー未実装アイテムを表示",
       "hide_items_not_installed_in_chs": "中国サーバー未実装アイテムを非表示"

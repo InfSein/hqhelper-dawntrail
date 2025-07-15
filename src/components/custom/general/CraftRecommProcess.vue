@@ -82,7 +82,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
   }
 }
 const textsGatherAt = computed(() => {
-  const [p1, p2] = t('recomm_process.text.gather_at_with_val').split('{}')
+  const [p1, p2] = t('recomm_process.text.gather_at_with_val', '{}').split('{}')
   return { p1, p2 }
 })
 

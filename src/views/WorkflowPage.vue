@@ -195,7 +195,7 @@ const pageHeightVals = computed(() => {
 const handleItemInputValueUpdate = (value: number) => {
   if (!value) return
   if (currentWorkflow.value.targetItems[value]) {
-    NAIVE_UI_MESSAGE.info(t('common.item_already_have'))
+    NAIVE_UI_MESSAGE.info(t('common.message.item_already_have'))
   } else {
     currentWorkflow.value.targetItems[value] = 1
     currentWorkflow.value.preparedItems.craftTarget[value] = 0

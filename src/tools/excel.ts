@@ -17,7 +17,7 @@ export const export2Excel = (
   crystals: ItemInfo[],
   ui_lang: 'zh' | 'ja' | 'en',
   item_lang: 'zh' | 'ja' | 'en',
-  t: (message: string, ...args: any[]) => string,
+  t: (message: string, args?: any) => string,
   getStatementData: (statistics: any) => StatementData,
   file_name?: string,
   item_price_map?: Record<number, ItemPriceInfo>,

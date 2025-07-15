@@ -28,7 +28,7 @@ export function useFufuCal(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   userConfig: Ref<UserConfigModel>,
   funcConfig: Ref<FuncConfigModel>,
-  t: (text: string, ...args: any[]) => string,
+  t: (message: string, args?: any) => string,
 ) {
   const calItems = (selections: Record<number, number>) => {
     const { calItems } = useNbbCal()
@@ -241,7 +241,7 @@ export function useFufuCal(
     processes_merge_gatherings: boolean,
     language_ui: "zh" | "en" | "ja",
     item_server: 'chs' | 'global',
-    t: (text: string, ...args: any[]) => string
+    t: (message: string, args?: any) => string
   ) => {
     const itemsGatherableCommon : ItemInfo[] = []
     const itemsGatherableLimited : ItemInfo[] = []
