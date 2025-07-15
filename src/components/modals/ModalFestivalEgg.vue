@@ -5,7 +5,7 @@ import {
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 const showModal = defineModel<boolean>('show', { required: true })
@@ -15,9 +15,9 @@ defineProps<ModalFestivalEggProps>()
 
 const content = computed(() => {
   return [
-    t('星芒节快乐！'),
-    t('值此佳节，星光分外璀璨，'),
-    t('你过得开心吗？')
+    t('festival_egg.chirstmas.text.text_2'),
+    t('festival_egg.chirstmas.text.text_3'),
+    t('festival_egg.chirstmas.text.text_4')
   ]
 })
 </script>
@@ -26,7 +26,7 @@ const content = computed(() => {
   <MyModal
     v-model:show="showModal"
     :icon="FestivalOutlined"
-    :title="t('星芒节快乐')"
+    :title="t('festival_egg.chirstmas.text.text_1')"
     max-width="800px"
   >
     <div class="wrapper">

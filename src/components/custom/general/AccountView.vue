@@ -14,7 +14,7 @@ import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
 import { getImgCdnUrl } from '@/tools/item'
 import { useNbbCloud } from '@/tools/nbb-cloud'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
 const displayLoginModal = inject<(action: "login" | "register" | "edituser") => void>('displayLoginModal')!
 const displayCloudSyncModal = inject<() => {}>('displayCloudSyncModal')!
@@ -61,7 +61,7 @@ const avatarUrl = computed(() => {
   }
 })
 const userNickName = computed(() => {
-  return cloudConfig.value.nbb_account_nickname || t('未登录')
+  return cloudConfig.value.nbb_account_nickname || t('cloud.text.not_logged_in')
 })
 const userLoggedIn = computed(() => !!cloudConfig.value.nbb_account_token)
 const userTitle = computed(() => {
@@ -85,7 +85,7 @@ const handleLogout = () => {
   const newCloudConfig = fixCloudConfig()
   store.commit('setCloudConfig', newCloudConfig)
   appForceUpdate()
-  NAIVE_UI_MESSAGE.success(t('已退出登录'))
+  NAIVE_UI_MESSAGE.success(t('cloud.message.logged_out'))
 }
 </script>
 
@@ -123,46 +123,46 @@ const handleLogout = () => {
       <n-divider style="margin: 4px 0" />
       <div v-if="!userLoggedIn" class="unlogged-wrapper">
         <div class="group-title">
-          {{ t('账号') }}
+          {{ t('common.account') }}
         </div>
         <n-button
           type="primary"
           @click="handleLogin"
         >
           <template #icon><n-icon><LogInOutlined /></n-icon></template>
-          {{ t('登录') }}
+          {{ t('common.login') }}
         </n-button>
         <n-button
           @click="handleRegister"
         >
           <template #icon><n-icon><PersonAddAlt1Filled /></n-icon></template>
-          {{ t('注册') }}
+          {{ t('common.register') }}
         </n-button>
       </div>
       <div v-else class="logged-wrapper">
         <div class="group-title">
-          {{ t('数据') }}
+          {{ t('common.data') }}
         </div>
         <n-button
           type="primary"
           @click="handleCloudSync"
         >
           <template #icon><n-icon><CloudSyncOutlined /></n-icon></template>
-          {{ t('同步') }}
+          {{ t('common.sync') }}
         </n-button>
         <div class="group-title">
-          {{ t('账号') }}
+          {{ t('common.account') }}
         </div>
         <n-button @click="handleEditUserInfo">
           <template #icon><n-icon><EditNoteOutlined /></n-icon></template>
-          {{ t('编辑') }}
+          {{ t('common.edit') }}
         </n-button>
         <n-button
           type="error"
           @click="handleLogout"
         >
           <template #icon><n-icon><LogOutOutlined /></n-icon></template>
-          {{ t('登出') }}
+          {{ t('common.logout') }}
         </n-button>
       </div>
       <div class="copyright">Powered by NBB Cloud</div>

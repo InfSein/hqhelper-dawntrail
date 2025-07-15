@@ -11,7 +11,7 @@ import CraftStatements from '../custom/general/CraftStatements.vue'
 import ModalPreferences from './ModalPreferences.vue'
 import type { ItemInfo } from '@/tools/item'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
@@ -60,7 +60,7 @@ const handleSettingButtonClick = () => {
     v-model:show="showModal"
     id="modal-pro-statements"
     :icon="TableViewOutlined"
-    :title="t('制作报表')"
+    :title="t('common.appfunc.craft_statement')"
     max-width="1500px"
     :height="isMobile ? '650px' : '600px'"
     show-setting

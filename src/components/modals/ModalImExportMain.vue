@@ -23,7 +23,7 @@ import { useFufuCal } from '@/tools/use-fufu-cal'
 import { export2Excel, importExcel } from '@/tools/excel'
 import type { ItemInfo, ItemPriceInfo } from '@/tools/item'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const updateItemPrices = inject<() => Promise<void>>('updateItemPrices')!
@@ -68,7 +68,7 @@ watch(exportItemPrices, async(newVal, oldVal) => {
 
 const handleExportExcel = async () => {
   if (!props.gearSelections) {
-    NAIVE_UI_MESSAGE.error(t('请先选择版本和职业'))
+    NAIVE_UI_MESSAGE.error(t('statistics.message.select_patch_and_job_first'))
     return
   }
   exporting.value = true
@@ -104,13 +104,13 @@ const handleExcel = async (file: File) => {
 
 const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
   if (!file.name.endsWith('.xlsx')) {
-    NAIVE_UI_MESSAGE.error(t('只能导入.xlsx文件'))
+    NAIVE_UI_MESSAGE.error(t('main.imexport.only_xlsx_can_be_imported'))
     return false
   }
   if (file.file) {
     await handleExcel(file.file)
   } else {
-    NAIVE_UI_MESSAGE.error(t('未获取到文件'))
+    NAIVE_UI_MESSAGE.error(t('main.imexport.no_file_received'))
   }
   fileList.value = [] // 清空文件列表，允许再次上传
   return false
@@ -126,7 +126,7 @@ const onImportConfirmed = () => {
   <MyModal
     v-model:show="showModal"
     :icon="ImportExportOutlined"
-    :title="t('导入/导出')"
+    :title="t('common.imexport')"
     max-width="500px"
     @on-load="onLoad"
   >
@@ -134,29 +134,29 @@ const onImportConfirmed = () => {
       <n-tab-pane name="export">
         <template #tab>
           <n-icon><ArrowDownwardOutlined /></n-icon>
-          {{ t('导出为Excel') }}
+          {{ t('common.export_to_excel') }}
         </template>
         <div class="pane-container export-panel">
-          <GroupBox id="gbx-file-name" :title="t('文件名')" title-background-color="var(--n-color-modal)">
-            <n-input v-model:value="fileName" maxlength="100" :placeholder="t('不填则默认以时间命名')">
+          <GroupBox id="gbx-file-name" :title="t('common.file_name')" title-background-color="var(--n-color-modal)">
+            <n-input v-model:value="fileName" maxlength="100" :placeholder="t('common.will_be_named_with_time_when_empty')">
               <template #suffix>.xlsx</template>
             </n-input>
           </GroupBox>
-          <GroupBox :title="t('选项')" title-background-color="var(--n-color-modal)">
+          <GroupBox :title="t('common.options')" title-background-color="var(--n-color-modal)">
             <n-checkbox v-model:checked="exportItemPrices">
               <div class="flex-center">
-                <div>{{ t('导出成本/收益分析') }}</div>
+                <div>{{ t('main.imexport.export_cost_and_benefit') }}</div>
                 <HelpButton
                   icon="question"
                   :descriptions="[
-                    t('遵循“功能设置”中的“物品价格”设置。'),
-                    t('启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。')
+                    t('common.follow_preference_of_item_price'),
+                    t('preference.export_item_price.desc.desc_1')
                   ]"
                 />
               </div>
             </n-checkbox>
             <n-checkbox v-show="false">
-              {{ t('导出成功后打开导出目录') }}
+              {{ t('main.imexport.open_folder_after_export') }}
             </n-checkbox>
           </GroupBox>
           <div class="submit-bar">
@@ -164,7 +164,7 @@ const onImportConfirmed = () => {
               <template #icon>
                 <n-icon><FileDownloadOutlined /></n-icon>
               </template>
-              {{ t('导出') }}
+              {{ t('common.export') }}
             </n-button>
           </div>
         </div>
@@ -172,7 +172,7 @@ const onImportConfirmed = () => {
       <n-tab-pane name="import">
         <template #tab>
           <n-icon><ArrowUpwardOutlined /></n-icon>
-          {{ t('从Excel导入') }}
+          {{ t('common.import_from_excel') }}
         </template>
         <div class="pane-container import-panel">
           <n-upload
@@ -189,10 +189,10 @@ const onImportConfirmed = () => {
                 </n-icon>
               </div>
               <n-text style="font-size: 16px">
-                {{ t('点击或者拖动文件到该区域来上传') }}
+                {{ t('common.click_or_drag_to_upload') }}
               </n-text>
               <n-p depth="3" style="margin: 8px 0 0 0">
-                {{ t('需要确保表格的第一个工作表是“已选部件”') }}
+                {{ t('main.imexport.need_to_ensure_first_worksheet') }}
               </n-p>
             </n-upload-dragger>
           </n-upload>

@@ -5,6 +5,7 @@ import {
 } from 'naive-ui'
 import type { StaffMember } from '@/models/about-app'
 
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 interface StaffGroupProps {
@@ -50,7 +51,7 @@ const popTrigger = computed(() => {
           </p>
         </div>
         <div class="tail">
-          <div class="title">{{ t('个人主页：') }}</div>
+          <div class="title">{{ t('about_app.staff.jobs.personal_page') }}</div>
           <div class="pages">
             <a target="_blank" v-for="(page, pIndex) in member.pages" :key="member.name + '-page-' + pIndex" :href="page.url">
               {{ page.name }}

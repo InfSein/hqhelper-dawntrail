@@ -8,7 +8,7 @@ import StatementListPop from './StatementListPop.vue'
 import { getItemInfo, type ItemInfo, type StatementRow } from '@/tools/item'
 import { type UserConfigModel } from '@/models/config-user'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
@@ -77,19 +77,19 @@ const handleNumInputLoop = (row: StatementRow) => {
       <thead>
         <tr @click="selectedItem = undefined">
           <th>
-            {{ t('物品') }}
+            {{ t('common.item') }}
             <span class="font-small">
               <StatementListPop
                 :rows="rows.all"
                 :container="tableContainer"
               >
-                <a href="javascript:void(0)">[{{ t('清单') }}]</a>
+                <a href="javascript:void(0)">[{{ t('common.list') }}]</a>
               </StatementListPop>
             </span>
           </th>
-          <th>{{ t('总需') }}</th>
-          <th>{{ t('已有') }}</th>
-          <th>{{ t('尚需') }}</th>
+          <th>{{ t('statement.table.total') }}</th>
+          <th>{{ t('statement.table.prepared') }}</th>
+          <th>{{ t('statement.table.requires') }}</th>
         </tr>
       </thead>
     </n-table>
@@ -140,7 +140,7 @@ const handleNumInputLoop = (row: StatementRow) => {
             <tr v-if="rows.cleaned?.length" class="prepared">
               <td colspan="4" class="bold">
                 <i class="xiv e05e"></i>
-                {{ t('已筹备完成') }}
+                {{ t('statement.text.all_prepared_items') }}
               </td>
             </tr>
             <tr

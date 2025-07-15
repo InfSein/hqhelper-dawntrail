@@ -16,7 +16,7 @@ import { CopyToClipboard, deepCopy } from '@/tools'
 import UseConfig from '@/tools/use-config'
 
 const NAIVE_UI_MESSAGE = useMessage()
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -82,13 +82,13 @@ const listValue = computed(() => {
 
 const handleCopyList = async () => {
   if (!listValue?.value?.length) {
-    NAIVE_UI_MESSAGE.info(t('没有需要复制的内容')); return
+    NAIVE_UI_MESSAGE.info(t('common.message.nothing_to_copy')); return
   }
   const response = await CopyToClipboard(listValue.value, listPopContainer.value)
   if (response) {
-    NAIVE_UI_MESSAGE.error(t('复制失败：发生意外错误'))
+    NAIVE_UI_MESSAGE.error(t('common.message.copy_failed_unexpected_error'))
   } else {
-    NAIVE_UI_MESSAGE.success(t('已复制到剪贴板'))
+    NAIVE_UI_MESSAGE.success(t('common.message.copy_succeed'))
   }
 }
 </script>
@@ -106,37 +106,37 @@ const handleCopyList = async () => {
     <div class="wrapper" ref="listPopContainer">
       <div class="pop-title font-big">
         <n-icon :size="16"><ViewListSharp /></n-icon>
-        <span>{{ t('清单') }}</span>
+        <span>{{ t('common.list') }}</span>
       </div>
       <n-divider style="margin: 0 0 3px 0;" />
       <div class="groupboxes-container">
         <GroupBox
-          :title="t('选项')"
+          :title="t('common.options')"
           title-background-color="var(--n-color-modal, var(--n-color))"
           class="config-container"
         >
           <div class="config-item">
-            <div class="title">{{ t('数量使用：') }}</div>
+            <div class="title">{{ t('statement.list.use_amount_of') }}</div>
             <div class="content">
               <n-radio-group
                 v-model:value="amountRule"
                 name="amount-rule"
               >
                 <n-radio value="all">
-                  {{ t('总需') }}
+                  {{ t('statement.table.total') }}
                 </n-radio>
                 <n-radio value="prepared">
-                  {{ t('已有') }}
+                  {{ t('statement.table.prepared') }}
                 </n-radio>
                 <n-radio value="remaining">
-                  {{ t('尚需') }}
+                  {{ t('statement.table.requires') }}
                 </n-radio>
               </n-radio-group>
             </div>
           </div>
         </GroupBox>
         <GroupBox
-          :title="t('内容')"
+          :title="t('common.content')"
           title-background-color="var(--n-color-modal, var(--n-color))"
         >
           <div class="actions-container">
@@ -148,7 +148,7 @@ const handleCopyList = async () => {
               <template #icon>
                 <n-icon><CopyAllOutlined /></n-icon>
               </template>
-              {{ t('复制清单') }}
+              {{ t('statement.list.copy_list') }}
             </n-button>
           </div>
           <n-input
@@ -156,7 +156,7 @@ const handleCopyList = async () => {
             readonly
             autosize
             type="textarea"
-            :placeholder="t('没有需要的道具')"
+            :placeholder="t('common.no_required_items')"
             style="height: 250px;"
           />
         </GroupBox>

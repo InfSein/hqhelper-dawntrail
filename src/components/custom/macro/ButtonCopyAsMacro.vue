@@ -13,7 +13,7 @@ import type { UserConfigModel } from '@/models/config-user'
 import type { FuncConfigModel, MacroGenerateMode } from '@/models/config-func'
 
 const NAIVE_UI_MESSAGE = useMessage()
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const copyAsMacro = inject<(macroMap: Record<MacroGenerateMode, string>, container?: HTMLElement | undefined) => Promise<{
@@ -99,7 +99,7 @@ const handleCopyAsMacro = async () => {
     <template #icon>
       <n-icon><CodeSharp /></n-icon>
     </template>
-    {{ t('复制宏') }}
+    {{ t('common.appfunc.copy_macro') }}
   </n-button>
 </template>
 

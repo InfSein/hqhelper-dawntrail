@@ -11,7 +11,7 @@ import type { UserConfigModel } from '@/models/config-user'
 
 // const store = useStore()
 // const NAIVE_UI_MESSAGE = useMessage()
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -65,8 +65,8 @@ const materialTarget = computed(() => {
 const materialTargetDescription = computed(() => {
   return [
     props.hidePrecraftMaterials
-      ? t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
-      : t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+      ? t('statistics.group_tooltip.common_material_lv1')
+      : t('statistics.group_tooltip.common_material_lvbase')
   ]
 })
 
@@ -164,7 +164,7 @@ const otherMaterials = computed(() => {
 <template>
   <div class="cs-wrapper">
     <GroupBox id="common-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
-      <template #title>{{ t('半成品统计') }}</template>
+      <template #title>{{ t('statistics.group.precrafts') }}</template>
       <div class="container">
         <ItemList
           :items="precrafts"
@@ -175,7 +175,7 @@ const otherMaterials = computed(() => {
     </GroupBox>
     <GroupBox
       id="tome-script-group" class="group" title-background-color="var(--n-color-embedded)"
-      :title="t('兑换道具统计')"
+      :title="t('statistics.group.trade_items')"
       :descriptions="materialTargetDescription"
     >
       <div class="container">
@@ -187,7 +187,7 @@ const otherMaterials = computed(() => {
     </GroupBox>
     <GroupBox
       id="crystals-group" class="group" title-background-color="var(--n-color-embedded)"
-      :title="t('水晶统计')"
+      :title="t('statistics.group.crystal')"
       :descriptions="materialTargetDescription"
     >
       <div class="container">
@@ -199,7 +199,7 @@ const otherMaterials = computed(() => {
     </GroupBox>
     <GroupBox
       id="common-gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
-      :title="t('常规采集品统计')"
+      :title="t('statistics.group.common_gathering2')"
       :descriptions="materialTargetDescription"
     >
       <div class="container">
@@ -212,7 +212,7 @@ const otherMaterials = computed(() => {
     </GroupBox>
     <GroupBox
       id="timed-gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
-      :title="t('限时采集品&灵砂统计')"
+      :title="t('statistics.group.time_limited_gathering_and_aethersands')"
       :descriptions="materialTargetDescription"
     >
       <div class="container">
@@ -225,9 +225,9 @@ const otherMaterials = computed(() => {
     </GroupBox>
     <GroupBox
       id="other-materials-group" class="group" title-background-color="var(--n-color-embedded)"
-      :title="t('其他素材统计')"
+      :title="t('statistics.group.other_materials.title')"
       :descriptions="[
-        t('未被其他分组归类的道具。'),
+        t('statistics.group.other_materials.tooltip'),
         ...materialTargetDescription
       ]"
     >

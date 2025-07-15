@@ -7,6 +7,7 @@ import XivFARImage from '../general/XivFARImage.vue'
 import ItemButton from '../item/ItemButton.vue'
 import { getItemInfo } from '@/tools/item'
 
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 const props = defineProps({
@@ -52,7 +53,7 @@ const itemInfo = computed(() => {
         btn-extra-style="max-width: 250px;"
       />
       <p v-else>
-        {{ t('无') }}
+        {{ t('common.nothing') }}
       </p>
     </div>
   </n-popover>

@@ -20,7 +20,7 @@ import UseConfig from '@/tools/use-config'
 import CraftRecommProcess from '@/components/custom/general/CraftRecommProcess.vue'
 import { deepCopy } from '@/tools'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!

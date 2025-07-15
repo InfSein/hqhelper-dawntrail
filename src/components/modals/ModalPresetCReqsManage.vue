@@ -18,7 +18,7 @@ import { deepCopy } from '@/tools'
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
@@ -41,10 +41,10 @@ const getDefaultCReq = () : StrictCraftRequirements => {
 }
 const handleCheck = (new_data: StrictCraftRequirements[]) => {
   if (hasDuplicate()) {
-    return t('不能设置重复的常用属性组')
+    return t('macro_manage.message.cannot_set_duplicate_creqs')
   }
   if (new_data.some(item => !item.craftsmanship && !item.control && !item.cp)) {
-    return t('不能设置属性值全是0的常用属性组')
+    return t('macro_manage.message.cannot_set_all_zero_creqs')
   }
   return ''
 
@@ -72,7 +72,7 @@ const handleSave = () => {
   store.commit('setUserConfig', newUserConfig)
   appForceUpdate()
   showModal.value = false
-  NAIVE_UI_MESSAGE.success(t('保存成功'))
+  NAIVE_UI_MESSAGE.success(t('common.save_succeed'))
 }
 </script>
 
@@ -80,7 +80,7 @@ const handleSave = () => {
   <MyModal
     v-model:show="showModal"
     :icon="SettingsSharp"
-    :title="t('管理常用属性组')"
+    :title="t('macro_manage.text.preset_creqs_manage')"
     max-width="600px"
     @on-load="onLoad"
   >
@@ -90,12 +90,12 @@ const handleSave = () => {
         ref="dataTable"
         can-add
         :max="_VAR_PRESET_CREQ_MAXAMOUNT"
-        :max-tip="t('最多只能添加{num}组常用属性', _VAR_PRESET_CREQ_MAXAMOUNT)"
+        :max-tip="t('macro_manage.message.preset_creq_max_len', _VAR_PRESET_CREQ_MAXAMOUNT)"
         :get-default-data-row="getDefaultCReq"
         :check-rows-before-save="handleCheck"
       >
         <template #tableTitle>
-          <div class="bold">{{ t('常用属性组 （作业精度／加工精度／制作力）') }}</div>
+          <div class="bold">{{ t('macro_manage.text.preset_creqs_manage_table_head') }}</div>
         </template>
         <template #default="{ row }">
           <n-input-group>
@@ -103,24 +103,24 @@ const handleSave = () => {
               v-model:value="row.craftsmanship"
               :precision="0"
               :min="0" :max="9999"
-              :placeholder="t('作业精度')"
+              :placeholder="t('common.craft.craftsmanship')"
             />
             <n-input-number
               v-model:value="row.control"
               :precision="0"
               :min="0" :max="9999"
-              :placeholder="t('加工精度')"
+              :placeholder="t('common.craft.control')"
             />
             <n-input-number
               v-model:value="row.cp"
               :precision="0"
               :min="0" :max="999"
-              :placeholder="t('制作力')"
+              :placeholder="t('common.craft.cp')"
             />
           </n-input-group>
         </template>
       </DraggableTable>
-      <p>{{ t('所有修改都只在点击保存之后才会生效。') }}</p>
+      <p>{{ t('common.all_changes_effects_after_save') }}</p>
     </div>
 
     <template #action>
@@ -129,7 +129,7 @@ const handleSave = () => {
           <template #icon>
             <n-icon><SaveOutlined /></n-icon>
           </template>
-          {{ t('保存') }}
+          {{ t('common.save') }}
         </n-button>
       </div>
     </template>

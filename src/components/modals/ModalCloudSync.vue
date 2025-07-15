@@ -22,7 +22,7 @@ import { HqList, type NbbResponse } from '@/models/nbb-cloud'
 import { useNbbCloud } from '@/tools/nbb-cloud'
 import { deepCopy } from '@/tools'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
@@ -105,45 +105,45 @@ const syncRangeGroups = computed(() => {
   return [
     {
       key: 'preferences',
-      title: t('偏好设置'),
+      title: t('common.appfunc.user_preference'),
       children: [
         {
           value: HqList.ConfigBackupUserConfig,
-          label: t('基础设置'),
+          label: t('common.appsetting.basic_setting'),
         },
         {
           value: HqList.ConfigBackupFuncConfig,
-          label: t('功能设置'),
+          label: t('common.appfunc.func_setting'),
         },
         {
           value: HqList.DataBackupInventory,
-          label: t('背包库存'),
+          label: t('common.appfunc.ingame_inventory'),
         },
       ]
     },
     {
       key: 'workstates',
-      title: t('工作状态'),
+      title: t('common.work_state'),
       children: [
         {
           value: HqList.WorkstateBackupMain,
-          label: t('主界面'),
+          label: t('common.main_ui'),
         },
         {
           value: HqList.WorkstateBackupGatherClock,
-          label: t('采集时钟'),
+          label: t('common.appfunc.gather_clock'),
         },
         {
           value: HqList.WorkstateBackupFtHelper,
-          label: t('食药计算器'),
+          label: t('common.appfunc.fthelper'),
         },
         {
           value: HqList.WorkstateBackupWorkflow,
-          label: t('工作流'),
+          label: t('common.appfunc.workflow'),
         },
         {
           value: HqList.WorkstateBackupMacromanage,
-          label: t('生产宏管理'),
+          label: t('macro_manage.title'),
         },
       ]
     },
@@ -171,9 +171,9 @@ const getFailedLabels = computed(() => {
 
 const getUpdateTimeText = (time: number) => {
   if (time) {
-    return t('上次上传：{time}', new Date(time).toLocaleString())
+    return t('cloud.text.last_upload', new Date(time).toLocaleString())
   }
-  return t('还未上传')
+  return t('cloud.text.not_uploaded')
 }
 
 const handleSelectAll = () => {
@@ -196,17 +196,17 @@ const handleUpload = async () => {
 
   if (getFailedLabels.value.length) {
     alert(
-      t('同步无法进行，因为以下模块的数据加载失败：') + '\n'
+      t('cloud.message.cannot_sync_because_modules_data_load_failed') + '\n'
       + '-> ' + getFailedLabels.value.join(', ') + '\n'
-      + t('请考虑刷新页面以重试。')
+      + t('cloud.message.please_refresh_and_retry')
     )
     syncing.value = false
     return
   }
 
   if (!confirm(
-    t('确定要将本地数据上传到云端吗?') + '\n'
-    + t('这将覆盖云端的现有数据。')
+    t('cloud.message.confirm_upload_1') + '\n'
+    + t('cloud.message.confirm_upload_2')
   )) {
     syncing.value = false
     return
@@ -216,7 +216,7 @@ const handleUpload = async () => {
   for (const listtype of syncTargets.value) {
     const response = await dealUpload(listtype)
     if (response.errno) {
-      failedModules.push(t('同步{mod}时发生错误：{err}', {
+      failedModules.push(t('cloud.message.sync_error', {
         mod: syncTypeLabelMap.value[listtype],
         err: response.errmsg,
       }))
@@ -225,11 +225,11 @@ const handleUpload = async () => {
 
   if (failedModules.length) {
     alert(
-      t('以下模块同步失败：') + '\n'
+      t('cloud.message.following_modules_sync_failed') + '\n'
       + failedModules.join('\n')
     )
   } else {
-    NAIVE_UI_MESSAGE.success(t('同步成功！'))
+    NAIVE_UI_MESSAGE.success(t('cloud.message.sync_succeed'))
   }
 
   // 将同步范围保存到缓存
@@ -314,9 +314,9 @@ const handleDownload = async () => {
 
   if (getFailedLabels.value.length) {
     alert(
-      t('同步无法进行，因为以下模块的数据加载失败：') + '\n'
+      t('cloud.message.cannot_sync_because_modules_data_load_failed') + '\n'
       + '-> ' + getFailedLabels.value.join(', ') + '\n'
-      + t('请考虑刷新页面以重试。')
+      + t('cloud.message.please_refresh_and_retry')
     )
     syncing.value = false
     return
@@ -327,17 +327,17 @@ const handleDownload = async () => {
     .map(target => syncTypeLabelMap.value[target])
   if (novalLabels.length) {
     alert(
-      t('同步无法进行，因为以下模块还没有上传过数据：') + '\n'
+      t('cloud.message.cannot_sync_because_modules_data_not_uploaded') + '\n'
       + '-> ' + novalLabels.join(', ') + '\n'
-      + t('请先上传数据。')
+      + t('cloud.message.please_upload_first')
     )
     syncing.value = false
     return
   }
 
   if (!confirm(
-    t('确定要将云端数据下载到本地吗?') + '\n'
-    + t('这将覆盖本地的现有数据。')
+    t('cloud.message.confirm_download_1') + '\n'
+    + t('cloud.message.confirm_download_2')
   )) {
     syncing.value = false
     return
@@ -439,16 +439,16 @@ const handleDownload = async () => {
 
   syncing.value = false
   if (configChanged) {
-    const tips = [t('同步成功！')]
-    if (itemPriceCacheCleaned) tips.push(t('由于物品价格服务器设置发生了变更，物品价格缓存已被清除。'))
-    tips.push(t('页面将重载以应用更改。'))
+    const tips = [t('cloud.message.sync_succeed')]
+    if (itemPriceCacheCleaned) tips.push(t('cloud.message.cache_cleaned'))
+    tips.push(t('cloud.message.page_would_be_reloaded'))
     alert(tips.join('\n'))
     setTimeout(() => {
       window.electronAPI?.closeAllChildWindows?.()
       location.reload()
     }, 500)
   } else {
-    NAIVE_UI_MESSAGE.success(t('本地数据与云端一致'))
+    NAIVE_UI_MESSAGE.success(t('cloud.message.data_consistent'))
   }
 }
 </script>
@@ -457,7 +457,7 @@ const handleDownload = async () => {
   <MyModal
     v-model:show="showModal"
     :icon="CloudSyncOutlined"
-    :title="t('数据同步')"
+    :title="t('cloud.text.data_sync')"
     max-width="600px"
     @on-load="onLoad"
   >
@@ -467,10 +467,10 @@ const handleDownload = async () => {
           <template #header>
             <div class="card-title">
               <n-icon><ChecklistRtlOutlined /></n-icon>
-              <span class="title">{{ t('同步范围') }}</span>
+              <span class="title">{{ t('cloud.text.sync_range') }}</span>
               <div class="card-title-actions font-small">
-                <a href="javascript:void(0)" @click="handleSelectAll">[{{ t('全选') }}]</a>
-                <a href="javascript:void(0)" @click="handleSelectRevert">[{{ t('反选') }}]</a>
+                <a href="javascript:void(0)" @click="handleSelectAll">[{{ t('common.select_all') }}]</a>
+                <a href="javascript:void(0)" @click="handleSelectRevert">[{{ t('common.select_invert') }}]</a>
               </div>
             </div>
           </template>
@@ -492,8 +492,8 @@ const handleDownload = async () => {
                     {{ item.label }}
                   </n-checkbox>
                   <div class="desc">
-                    <div v-if="loading" class="text">{{ t('加载中……') }}</div>
-                    <div v-else-if="!cloudLists?.[item.value]?.load_succeed" class="text error">{{ t('加载失败') }}</div>
+                    <div v-if="loading" class="text">{{ t('cloud.text.loading') }}</div>
+                    <div v-else-if="!cloudLists?.[item.value]?.load_succeed" class="text error">{{ t('common.load_failed') }}</div>
                     <div v-else class="text">{{ getUpdateTimeText(cloudLists[item.value].last_update) }}</div>
                   </div>
                 </div>
@@ -505,7 +505,7 @@ const handleDownload = async () => {
           <template #header>
             <div class="card-title">
               <n-icon><CloudOutlined /></n-icon>
-              <span class="title">{{ t('开始同步') }}</span>
+              <span class="title">{{ t('cloud.text.start_sync') }}</span>
             </div>
           </template>
 
@@ -513,13 +513,13 @@ const handleDownload = async () => {
             <n-button text :loading="syncing" :disabled="syncing || !syncTargets.length" @click="handleUpload">
               <div class="sync-button-container">
                 <n-icon :size="48"><CloudUploadRound /></n-icon>
-                {{ t('将本地数据上传到云端') }}
+                {{ t('cloud.text.upload_data') }}
               </div>
             </n-button>
             <n-button text :loading="syncing" :disabled="syncing || !syncTargets.length" @click="handleDownload">
               <div class="sync-button-container">
                 <n-icon :size="48"><CloudDownloadRound /></n-icon>
-                {{ t('将云端数据下载到本地') }}
+                {{ t('cloud.text.download_data') }}
               </div>
             </n-button>
           </div>

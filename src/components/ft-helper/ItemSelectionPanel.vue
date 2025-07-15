@@ -14,7 +14,7 @@ import { useNbbCal } from '@/tools/use-nbb-cal'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import TooltipButton from '../custom/general/TooltipButton.vue'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 
 const patchModel = defineModel<string>('patch', { required: true })
 const itemSelected = defineModel<Record<number, number>>('itemSelected', { required: true })
@@ -30,7 +30,7 @@ const handleClearSelections = () => {
   }
 }
 const fixPatch = (patch: string) => {
-  return patch.replace('LEVELING', t('(练级)'))
+  return patch.replace('LEVELING', t('common.quoted_leveling'))
 }
 
 const handleJoinWorkflow = () => {
@@ -61,7 +61,7 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
     <FoldableCard card-key="ft-item-selection">
       <template #header>
         <i class="xiv square-1"></i>
-        <span class="card-title-text">{{ t('挑选食药') }}</span>
+        <span class="card-title-text">{{ t('ft_helper.select_food_and_tinc') }}</span>
       </template>
 
       <n-tabs v-model:value="patchModel" type="line" animated>
@@ -69,7 +69,7 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
           v-for="(foodAndTinc, patch) in foodAndTincs"
           :key="'foodAndTincs-' + patch"
           :name="patch"
-          :tab="t('版本{}', fixPatch(patch))"
+          :tab="t('common.patch_x', fixPatch(patch))"
           :disabled="!foodAndTinc.count"
         >
           <div class="item-selection-container">
@@ -80,7 +80,7 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
                     :size="16"
                     src="./image/game-job/companion/culinarian.png"
                   />
-                  <span class="title">{{ t('食物') }}</span>
+                  <span class="title">{{ t('common.food') }}</span>
                   <a v-if="false" href="javascript:void(0)" @click="handleExportToNgaBbsCode(foodAndTinc.foods)">[EXPORT]</a>
                 </div>
               </template>
@@ -102,7 +102,7 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
                     :size="16"
                     src="./image/game-job/companion/alchemist.png"
                   />
-                  <span class="title">{{ t('爆发药') }}</span>
+                  <span class="title">{{ t('common.tinc') }}</span>
                   <a v-if="false" href="javascript:void(0)" @click="handleExportToNgaBbsCode(foodAndTinc.tincs)">[EXPORT]</a>
                 </div>
               </template>
@@ -124,14 +124,14 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
       <div class="actions">
         <TooltipButton
           :icon="JoinLeftOutlined"
-          :text="t('加入到工作流')"
-          :tip="t('将已选的食物和爆发药加入到某条工作流')"
+          :text="t('workflow.text.join_in_workflow')"
+          :tip="t('workflow.text.join_selected_food_and_tinc_in_workflow')"
           @click="handleJoinWorkflow"
         />
         <TooltipButton
           :icon="DeleteSweepRound"
-          :text="t('清空')"
-          :tip="t('清空已选择的食物和爆发药')"
+          :text="t('common.clear')"
+          :tip="t('ft_helper.tooltip.clear_selected')"
           @click="handleClearSelections"
         />
       </div>

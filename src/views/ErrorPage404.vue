@@ -4,12 +4,12 @@ import {
   NButton, NResult
 } from 'naive-ui'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 
 const descriptions = computed(() => {
   return [
-    t('访问的页面不存在。'),
-    t('请尝试回到上一页或直接返回首页。')
+    t('err_404.page_not_exist'),
+    t('err_404.advise')
   ]
 })
 </script>
@@ -22,8 +22,8 @@ const descriptions = computed(() => {
       </div>
       <template #footer>
         <div class="footer-container">
-          <n-button @click="$router.go(-1)">{{ t('返回上一页') }}</n-button>
-          <n-button @click="$router.push('/')">{{ t('返回首页') }}</n-button>
+          <n-button @click="$router.go(-1)">{{ t('common.back_to_upper') }}</n-button>
+          <n-button @click="$router.push('/')">{{ t('common.back_to_index') }}</n-button>
         </div>
       </template>
     </n-result>
