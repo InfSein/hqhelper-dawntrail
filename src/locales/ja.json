@@ -1,1426 +1,63 @@
 {
-  "common": {
-    "expand": "展開",
-    "fold": "折り畳む",
-    "import": "インポート",
-    "export": "エクスポート",
-    "imexport": "インポート/エクスポート",
-    "auto": "オート",
-    "save": "保存",
-    "other": "他",
-    "click": "クリック",
-    "here": "ここ",
-    "rule": "ルール",
-    "ignore": "無視",
-    "loose": "緩和",
-    "strict": "厳密",
-    "summation": "累積",
-    "cover": "上書き",
-    "overwrite": "書き換え",
-    "target": "ターゲット",
-    "reset_to_0": "クリア",
-    "data": "データ",
-    "clear": "クリア",
-    "add": "追加",
-    "special": "特殊",
-    "preview": "プレビュー",
-    "options": "オプション",
-    "copy": "コピーする",
-    "note_x": "備考{val}：",
-    "list": "リスト",
-    "go_back": "戻る",
-    "tomescript": "トークン",
-    "server": "サーバー",
-    "qq": "QQ",
-    "weibo": "Weibo",
-    "twitter_x": "Twitter (X)",
-    "click_here": "ここをクリックする",
-    "close": "閉じる",
-    "temp_trans": "DONT_SHOW",
-    "patch_x": "パッチ{val}",
-    "food": "調理品",
-    "tinc": "強化薬",
-    "chs_data_version": "DONT_SHOW",
-    "global_data_version": "ゲームデーターのパッチ：{val}",
-    "time": {
-      "val_hours": "{val}時間",
-      "val_days": "{val}日"
-    },
-    "appfunc": {
-      "useful_tools": "ツール",
-      "gather_clock": "採集時計",
-      "cal_food_and_tinc": "調理品&薬品",
-      "food_and_tinc_new_window": "調理品&薬品(別ウィンド)",
-      "fthelper": "調理品&薬品の计算",
-      "workflow": "ワークフロー",
-      "macro_manage": "マクロ管理",
-      "setting_and_update": "設定とアップデート",
-      "switch_theme": "テーマを切り替える",
-      "user_preference": "設定",
-      "ingame_inventory": "在庫一覧",
-      "check_updates": "アップデートチェック",
-      "changelog": "Change Logs",
-      "devtool": "開発ツール",
-      "about": "他の説明",
-      "contact_us": "コンタクト",
-      "donate_us": "スポンサーになる",
-      "thank_list": "特別感謝",
-      "about_app": "当ツールについて",
-      "download_client": "クライアントをダウンロードする",
-      "func_setting": "機能設定",
-      "copy_macro": "マクロをコピー",
-      "craft_macro": "生産マクロ",
-      "craft_statement": "素材リストを生成する",
-      "recomm_process": "推奨の回し",
-      "item_price": "アイテム価格"
-    },
-    "appsetting": {
-      "basic_setting": "基礎設定",
-      "general": "一般",
-      "appearance": "外見",
-      "enhancement": "拡張",
-      "performance": "機能",
-      "update": "更新"
-    },
-    "message": {
-      "import_succeed": "インポート成功",
-      "import_failed": "インポート失敗",
-      "copy_failed": "コピーが失敗しました",
-      "copy_succeed": "コピーしました",
-      "nothing_to_copy": "コピーできる内容はありません",
-      "please_wait_for_a_while": "请稍等片刻。",
-      "copy_failed_unexpected_error": "コピーエラー：原因不明",
-      "ask_continue": "続行しますか？",
-      "get_price_failed": "価格の取得に失敗しました。",
-      "confirm_delete_with_name": "{name}を削除しますか？",
-      "operation_irreversible": "この操作は元に戻せません。",
-      "deleted": "削除済み",
-      "changes_saved": "変更を保存しました",
-      "dataname_saved": "{dataname}を保存しました",
-      "please_input_item_name": "アイテム名を入力してください",
-      "sync_succeed": "同期しました",
-      "export_failed_with_error": "エクスポート失敗：{err}",
-      "import_failed_with_error": "インポート失敗：{err}",
-      "please_input_val": "{val}を入力してください",
-      "data_line_max_len": "最大{num}行のデータしか保持できません",
-      "data_line_min_len": "少なくとも{num}行のデータを残す必要があります",
-      "copied_with_content": "{content}をコピーしました",
-      "item_already_have": "該当アイテムが既に存在します"
-    },
-    "copy_item_name": "アイテム",
-    "name_zh": "中国語名",
-    "name_ja": "日本語名",
-    "name_en": "英語名",
-    "armor_attr": "装備品の詳細",
-    "open_in": {
-      "huijiwiki": "HuijiWiki で検索",
-      "garland": "Garland で検索",
-      "huijiwiki2": "HuijiWiki で検索",
-      "garland2": "Garland で検索",
-      "universalis": "Universalis で検索",
-      "angler": "猫はお腹がすいた で検索",
-      "angler_search": "猫はお腹がすいた で検索",
-      "ffmomola": "ffmomola で検索",
-      "gamer_escape": "GamerEscapeで開く"
-    },
-    "unknown": "不明",
-    "effect": "効果",
-    "quoted_maximum": "(上限{val})",
-    "craft": {
-      "title": "レシピ",
-      "craftsmanship": "作業精度",
-      "control": "加工精度",
-      "cp": "製作力"
-    },
-    "back_to_index": "ホームページに戻る",
-    "index": "ホームページ",
-    "route_card_desc": "※ 今が表示されているのはHqHelperのサブページです。",
-    "trade": "交換",
-    "quoted_leveling": "(レベリング)",
-    "reduce": "精選",
-    "gather": "採集",
-    "back_to_upper": "前のページに戻る",
-    "import_from_excel": "エクセルシートからインポート",
-    "export_to_excel": "エクセルシートへエクスポート",
-    "view_statement": "素材リストを表示する",
-    "mquoted_view_statement": "[素材リストを表示する]",
-    "timeout": "タイムアウト",
-    "checking": "チェック中です……",
-    "check_failed": "チェックが失敗しました",
-    "update_immedi": "今すぐアップデートする",
-    "error": "エラー",
-    "hqhelper_version": "HqHelperバーション",
-    "curr_version_with_val": "現在のバーション：{v}",
-    "latest_version": "最新のバーション：",
-    "recheck": "チェックし直す",
-    "client_version": "クライアントバーション",
-    "updating": "アップデート中……",
-    "favorite": {
-      "title": "お気に入り",
-      "desc": {
-        "desc_1": "このボタンをクリックして、この採集品をお気に入りに登録/登録解除します。",
-        "desc_2": "お気に入りに登録された採集品は、「お気に入り」欄に個別に表示されます。"
-      }
-    },
-    "gatherable_now": "採集可能中",
-    "nothing": "なし",
-    "job_or_affix": "职业/枠名",
-    "item_name": "アイテム名",
-    "craft_job": "クラフタージョブ",
-    "amount": "数",
-    "tomescript_type": "トークンタイプ",
-    "export_excel": "Excelシートにエクスポート",
-    "item": "アイテム",
-    "unit_price": "単価",
-    "subtotal": "小計",
-    "cost": "コスト",
-    "benefit": "収入",
-    "item_price_type": "アイテム価格タイプ",
-    "favorited": "お気に入り登録済み",
-    "click_here_show_menu": "メニューを開く",
-    "recomm": "おすすめ",
-    "remain_with_colon": "残り:",
-    "val_minutes": "{minute}分",
-    "val_seconds": "{second}秒",
-    "expand_all": "全て展開",
-    "fold_all": "全て折りたたむ",
-    "disable": "無効化にする",
-    "val_level": "レベル{val}",
-    "macro_with_index": "マクロ#{index}",
-    "no_content": "内容なし",
-    "content": "内容",
-    "no_required_items": "必要なアイテムはありません",
-    "select_item": "アイテムを選択",
-    "job": "ジョブ",
-    "map": "マップ",
-    "selected": "選択済み",
-    "clear_selected": "選択済みをクリア",
-    "gear_set": {
-      "title": "ギアセット",
-      "simulate": "ギアセットシミュレーター",
-      "recomm": "推奨ギアセット"
-    },
-    "confirm": "確認",
-    "file_name": "ファイル名",
-    "will_be_named_with_time_when_empty": "入力しない場合はデフォルトで時間で命名されます",
-    "follow_preference_of_item_price": "「機能設定」内の「アイテム価格」設定に従います。",
-    "click_or_drag_to_upload": "このエリアにファイルをクリックまたはドラッグしてアップロード",
-    "setting": "設定",
-    "remain_time": "残り時間",
-    "ask_every_time": "毎回確認",
-    "auto_refresh": "自動リフレッシュ",
-    "dont_refresh": "リフレッシュしない",
-    "save_succeed": "セーブ成功",
-    "never": "一度もない",
-    "just_now": "たった今",
-    "val_minutes_ago": "{minutes}分前",
-    "val_hours_ago": "{hours}時間前",
-    "val_days_ago": "{days}日前",
-    "price": "価格",
-    "last_update_with_val": "最終更新: {val}",
-    "expired": "期限切れ",
-    "refreshing": "更新中...",
-    "refresh": "リフレッシュ",
-    "loading": "読み込み中……",
-    "load_failed": "読み込み失敗",
-    "retry": "再試行",
-    "cleared": "クリア済み",
-    "select_item2": "アイテム選択",
-    "add_item": "アイテム追加",
-    "item_search_input_placeholder": "アイテム名/ID/品質/パッチでの検索に対応",
-    "item_search_input_placeholder_2": "マクロ名/備考/タグおよび関連アイテムの名称/ID/アイテムレベル/パッチでの検索ができます",
-    "view_analysis": "分析を表示する",
-    "statistics": "集計",
-    "statement": "レポート",
-    "process": "プロセス",
-    "manage": "管理",
-    "delete": "削除",
-    "all_changes_effects_after_save": "全ての変更は保存ボタンをクリックしてから有効になります",
-    "simulate_craft": "製作をシミュレーション",
-    "special_notice": "特別な注意点",
-    "brief_intro": "概要",
-    "developing": "開発中",
-    "not_planned": "計画なし",
-    "drag_to_sort": "ドラッグで並べ替え",
-    "prefix": "プレフィックス",
-    "mode": "モード",
-    "auxiliary_tools": "サポートツール",
-    "number": "番号",
-    "edit": "編集",
-    "data_missing": "データ損失",
-    "id_macro": "{id}番マクロ",
-    "basic_info": "基本情報",
-    "tag": "タグ",
-    "comment": "備考",
-    "line_max_len": "最大{limit}行",
-    "craft_requirements": "必須属性",
-    "macro_content": "マクロ内容",
-    "lang_zh": "中国語",
-    "lang_en": "英語",
-    "lang_ja": "日本語",
-    "val_craftsmanship": "{craftsmanship_val}作業",
-    "val_control": "{control_val}加工",
-    "step_and_sec": "{step_count}ターン{time_count}秒",
-    "click_to_copy": "クリックでコピー",
-    "add2": "新規追加",
-    "no_content_matched": "一致する内容がありません",
-    "no_data": "データなし",
-    "current": "現在",
-    "game_macro": "ゲームマクロ",
-    "simulator": "シミュレーター",
-    "cautions": "注意事項",
-    "work_state": "作業状態",
-    "main_ui": "メイン画面",
-    "select_all": "すべての内容を選択する",
-    "select_invert": "未選択の内容を選択する",
-    "register": "登録",
-    "login": "ログイン",
-    "nickname": "ニックネーム",
-    "account": "アカウント",
-    "password": "パスワード",
-    "email": "メールアドレス",
-    "verify_code": "認証コード",
-    "login_name": "ログイン名",
-    "sync": "同期",
-    "logout": "ログアウト",
-    "tip": "ヒント",
-    "please_refer_to": "詳細はこちら：",
-    "open_in_new_window": "新しいウィンドウで開く",
-    "chs_and_global_data_version": "中国版{cnver}／グローバル版{glbver}",
-    "preset": "プリセット"
-  },
-  "err_404": {
-    "page_not_exist": "アクセスされたページは存在しません。",
-    "advise": "前のページ、またはホームページに戻ってください。"
-  },
-  "game": {
-    "eorzea_time": "エオルゼア時間",
-    "item_id": "アイテムID",
-    "gear": {
-      "tool": {
-        "mainoff_hand": "主副道具",
-        "mainhand": {
-          "title": "メインアーム",
-          "detailed": "武器/主道具"
-        },
-        "offhand": {
-          "title": "サブアーム",
-          "detailed": "盾/副道具"
-        }
-      },
-      "attire": {
-        "title": "防具",
-        "head": {
-          "title": "頭",
-          "detailed": "防具：頭"
-        },
-        "body": {
-          "title": "胴",
-          "detailed": "防具：胴"
-        },
-        "hands": {
-          "title": "手",
-          "detailed": "防具：手"
-        },
-        "legs": {
-          "title": "脚",
-          "detailed": "防具：脚"
-        },
-        "feet": {
-          "title": "足",
-          "detailed": "防具：足"
-        }
-      },
-      "affix": "種類",
-      "accessory": {
-        "title": "アクセサリ",
-        "earring": {
-          "title": "耳飾り",
-          "detailed": "アクセサリ：耳飾り"
-        },
-        "necklace": {
-          "title": "首飾り",
-          "detailed": "アクセサリ：首飾り"
-        },
-        "wrist": {
-          "title": "腕輪",
-          "detailed": "アクセサリ：腕輪"
-        },
-        "rings": {
-          "title": "指輪",
-          "detailed": "アクセサリ：指輪"
-        }
-      }
-    },
-    "crystal": "クリスタル"
-  },
-  "appheader": {
-    "tooltip": {
-      "back_to_index": "このボタンをクリックするとホームページに戻ります。",
-      "already_in_index": "すでにHqHelperのホームページです",
-      "announcement_for_item_zh_translation": "DONT_SHOW"
-    },
-    "menu": {
-      "tooltip": {
-        "gather_clock": "エオルゼアを掘り尽くすための最高のサポーター！",
-        "fthelper": "調理品と薬品の制作にサポートいたします。お願い、ワタシを使ってください。",
-        "workflow": "~ Flow Together ~",
-        "macro_manage": "管理、収容、撤退……",
-        "theme_switch_to_light": "今はただ夜明けの時を待つ。",
-        "theme_switch_to_dark": "世界に闇をとりもどしてほしい。",
-        "user_preference": "人の意思で機械の稼働を改変できる神たる能力",
-        "ingame_inventory": "おいおい、荷物がいっぱいじゃないか。",
-        "check_updates": "目標の戦力レベルを更新……攻撃パターンの変更を実行しまス……",
-        "changelog": "修正……改良……サークルプログラムの更新を開始……",
-        "devtool": "アルテマウェポンの後継機が開発されていた、とな……。",
-        "contact_us": "フォローしてくださいにゃ、大感謝にゃ。",
-        "donate_us": "無理のない範囲でお願いします。",
-        "about_app": "改めて自己紹介させていただきますクポ",
-        "download_client": "いざという時のために。",
-        "already_in_page": "既に{val}ページにいます。",
-        "open_in_new_window": "新しいウィンドウで{tool}を開く"
-      }
-    }
-  },
-  "preference": {
-    "language_ui": "インタフェース言語",
-    "language_item": {
-      "title": "アイテム言語",
-      "desc": {
-        "desc_1": "アイテム名の表示言語を設定する。このオプションは他の一部テキストも改変されます。（例：マップ名）",
-        "desc_2": "“オート”を選択した場合，アイテムの表示言語は“インタフェース言語”と紐付けされます。"
-      }
-    },
-    "item_server": {
-      "desc": {
-        "desc_1": "キャラクターが所属するサーバーを選択してください。サーバーが異なることで、集計の結果も変化します。例：トークン素材の相場。",
-        "desc_2": "“オート”を選択した場合，“アイテム言語”の設定に応じて自動判断します。"
-      }
-    },
-    "server": {
-      "option": {
-        "chs": "中国版",
-        "global": "クローバル版"
-      }
-    },
-    "auto_refresh_after_save": {
-      "title": "セーブ後に自動的にリフレッシュします",
-      "desc": {
-        "desc_1": "この設定を変更すると本セーブで有効になります。また、リフレッシュが必要な場合にのみ自動リフレッシュが実行されます。"
-      }
-    },
-    "theme": {
-      "title": "テーマ",
-      "option": {
-        "follow_system": "システム設定",
-        "light": "ライト",
-        "dark": "ダーク"
-      }
-    },
-    "custom_font_size": {
-      "title": "フォントサイズ",
-      "desc": {
-        "desc_1": "クライアント/Webサイトのフォントサイズを一括変更。",
-        "desc_2": "一部のフォントサイズはこの設定に影響されません。また、ブラウザの「最小サイズ」設定によっても制限されます。",
-        "desc_3": "「標準」サイズ以外の表示効果は最適化されていません。特別な必要がない限り、変更は推奨されません。"
-      },
-      "option": {
-        "tiny": "さらに小さい",
-        "small": "小さい",
-        "medium": "標準",
-        "big": "大さい",
-        "large": "さらに大きい"
-      }
-    },
-    "custom_font": {
-      "title": "カスタムフォント",
-      "desc": {
-        "desc_1": "クライアント/Webサイトのフォントを一括変更。",
-        "desc_2": "複数のフォント名を英語のカンマで区切るこで、複数のフォント設定が可能になります。現在のフォントライブラリに表示するテキストが含まれていない場合、次のフォントを使用します。どちらも含まれていない場合は設定前のフォントを使用します。",
-        "desc_3": "フォント名にスペースがある場合は、英文の一重引用符または二重引用符で囲むことをお勧めします。例：\"Jupiter Pro\"。",
-        "desc_4": "CSSに詳しい場合は、font-familyの文法を参照して記入することができます。"
-      }
-    },
-    "hide_collector_icons": {
-      "title": "アイテムボタンのジョブアイコンを非表示にする",
-      "desc": {
-        "desc_1": "一部のアイテムボタンは、アイテム名の横にそのアイテムに対応するクラフター/ギャザラージョブのアイコンを表示します。",
-        "desc_2": "便利になりますが、表示がやや見づらくなる可能性があります。",
-        "desc_3": "煩わしく感じる場合は、このオプションを有効にしてください。"
-      }
-    },
-    "disable_patchcard_autofold": {
-      "title": "選択後の自動折り畳み機能を無効化する",
-      "desc": {
-        "desc_1": "\"パッチ選択\"はスマホ画面にとって場所を取りすぎて、かつ高頻度に変更される箇所でもないため、デフォルトではパッチ選択後、自動で折り畳みます。",
-        "desc_2": "もし、自動で折畳まない方が好都合の場合は、このオプションを有効にしてください。"
-      }
-    },
-    "disable_jobbtn_doubleclick": {
-      "title": "ジョブアイコンを複数回選択時、主副道具の自動追加を無効にする",
-      "desc": {
-        "desc_1": "ジョブ選択後、再度ジョブアイコンをクリックする場合，デフォルトでは主副道具を１セット追加します。",
-        "desc_2": "前世代のHqHelperで、当機能はデフォルトで無効かされてますが、当世代ではデフォルトで有効化されてます。もし、慣れない場合は、このオプションを有効にしてください。"
-      }
-    },
-    "item_pop_craft_show_crystals": {
-      "title": "アイテムフローティングウィンドウにクリスタル素材を表示",
-      "desc": {
-        "desc_1": "このオプションを有効にすると、製作可能なアイテムについて、そのフローティングウィンドウの製作モジュールに、必要なシャード／クリスタル／クラスターが表示されます。"
-      }
-    },
-    "click_to_show_pop_in_span": {
-      "title": "手動で二次ツールチップを制御",
-      "desc": {
-        "desc_1": "アイテムボタンのツールチップ内には、素材作成やマップボタンなど、ツールチップを開くことができる要素がいくつかあります。",
-        "desc_2": "デフォルトでは、カーソルを要素にホバーするとすぐにツールチップが開きます。これが誤って操作されやすいと感じる場合は、このオプションを有効にして、左クリックのみでツールチップの表示を制御できるようにします。"
-      }
-    },
-    "item_amount_use_comma": {
-      "title": "アイテム数量をカンマ区切りで表示する機能を追加（例：12,345）",
-      "desc": {
-        "desc_1": "このオプションを有効にすると、アイテム数量がカンマ区切りで表示されます（例：12,345）。",
-        "desc_2": "この設定はすべてのテーブル、アイテムボタン、アイテム情報に適用されます。"
-      }
-    },
-    "item_button_click_event": "アイテムボタンをクリックした際の動作",
-    "item_info_icon_click_event": {
-      "title": "アイテム情報アイコンをクリックした際の動作",
-      "desc": {
-        "desc_1": "アイテム名の右側にある青色の情報アイコンを一部の領域でクリックした際に発生するイベントを制御します。",
-        "desc_2": "「{option}」とこの項目の設定は、矛盾する可能性があります。"
-      }
-    },
-    "item_list_style": {
-      "title": "素材リスト形式",
-      "desc": {
-        "desc_1": "材料エリアのアイテムボタン上部の「リスト」ボタンをクリックすると、アイテムリストの形式が表示されます。",
-        "desc_2": "一部のプログラムは特定の形式のリストを識別し、インポートできる可能性があります。"
-      },
-      "option": {
-        "standard": "標準（アイテム名 x 数量）",
-        "tight": "コンパクト（アイテム名x数）",
-        "modern": "現代スタイル（アイテム名 x数量）",
-        "teamcraft": "Teamcraft形式（数量x アイテム名）"
-      }
-    },
-    "disable_workstate_cache": {
-      "title": "作業状態の記憶を無効にする",
-      "desc": {
-        "desc_1": "当サイトはデフォルトで選択したパッチ、ジョブ、装備を記憶し、次回起動時に前回の作業状態を復元します。",
-        "desc_2": "起動するたびに最初から作業を始めたい場合、または使用中に頻繁に動作が遅くなる場合は、このオプションを有効にしてください。",
-        "desc_3": "注意: 作業状態の記憶を無効にすると、保存されている作業状態は直ちに削除されます！"
-      }
-    },
-    "enable_dev_mode": "開発者モードの有効化",
-    "disable_auto_update": {
-      "title": "自動アップデートをオフにする",
-      "desc": {
-        "desc_1": "アプリの起動時は自動的にバーションチェットを行います、最新バーションがあった場合はお知らせさせていただきます。",
-        "desc_2": "お知らせが不要な場合は、このオプションをオンにしてください。",
-        "desc_3": "サイト版はブラウザキャッシュの原因で常時自動アップデートされますので、このオプションはお知らせが表示する頻度だけを減らせます、ご注意ください。"
-      }
-    },
-    "update_client_builtin": {
-      "title": "組み込み更新機能でクライアント更新を処理",
-      "desc": {
-        "desc_1": "デフォルトではクライアント更新時にシステムブラウザでダウンロードリンクを開きます",
-        "desc_2": "このオプションを有効にすると、プログラム内で直接新版クライアントのインストールパッケージをダウンロード・起動します"
-      }
-    },
-    "use_custom_proxy": "カスタムアクセラレーションサービスを利用",
-    "custom_proxy_url": "カスタムアクセラレーションサービスアドレス",
-    "macro_direct_copy": {
-      "title": "「マクロをコピーする」をクリックだけでコピー完了とする",
-      "desc": {
-        "desc_1": "デフォルトの設定は、毎回「マクロをコピーする」をクリックした際に、どのチャンネルに送信するかを確認します",
-        "desc_2": "効率を上げたい場合は、このオプションをオンにして、コピーは毎回のデフォルト設定で行います"
-      }
-    },
-    "macro_copy_prefix": {
-      "title": "マクロコマンドのデフォルト設定",
-      "option": {
-        "none": "マクロなしでコピーする",
-        "echo": "注意喚起用マクロ(/e)",
-        "party": "PTチャ用マクロ(/p)",
-        "free_company": "FCチャ用マクロ(/fc)",
-        "beginner": "ビギチャ用マクロ(/b)"
-      }
-    },
-    "macro_generate_mode": {
-      "title": "マクロ生成モード",
-      "desc": {
-        "desc_1": "マクロ生成フォーマットを決定します",
-        "desc_2": "シングルラインモードは全素材を1行にまとめ、ゲーム内チャットボックス直接貼り付けを可能にします",
-        "desc_3": "マルチラインモードは改行で整形表示しますが、ユーザーマクロ画面での貼り付け実行が必要です"
-      },
-      "option": {
-        "single_line": "シングルラインモード",
-        "multi_line": "マルチラインモード"
-      }
-    },
-    "cmacro_use_macrolock": {
-      "title": "各生産マクロの先頭に/macrolockを使用",
-      "desc": {
-        "desc_1": "有効にすると、生成されたマクロは実行中に他のマクロに中断されませんが、各マクロのアクション容量も減少します。"
-      }
-    },
-    "cmacro_remove_quotes": {
-      "title": "マクロのスキル名から二重引用符を削除",
-      "desc": {
-        "desc_1": "スキル名にスペースが含まれる場合、二重引用符を使用するか手動で定型文に変換する必要があります。そうしないと実行時にエラーが発生します。"
-      }
-    },
-    "cmacro_transition_tipper_content": {
-      "title": "中間マクロの実行終了リマインダ",
-      "desc": {
-        "desc_1": "中間マクロとは最後のマクロ以外のマクロを指します。",
-        "desc_2": "リマインダ内容中の「~INDEX」はマクロの順序番号に置き換えられます。"
-      }
-    },
-    "cmacro_end_tipper_content": "最終マクロの実行終了リマインダ",
-    "use_traditional_statement": {
-      "title": "旧バージョンでリストを作成",
-      "desc": {
-        "desc_1": "バージョン2.0.10では、プロ版のリスト作成機能を追加し、より詳細なアイテム情報表と、準備済みの素材に基づいて必要な素材を計算するサポートを提供しています。",
-        "desc_2": "これらの機能が必要ない場合、または旧バージョンのリスト作成のスタイルを好む場合は、このオプションを有効にすることを検討してください。"
-      }
-    },
-    "statement_ignore_crystals": {
-      "title": "クリスタル素材を無視",
-      "desc": {
-        "desc_1": "製作レポートで各種シャード／クリスタル／クラスターの計算が必要ない場合、このオプションを有効にできます。"
-      }
-    },
-    "statement_no_highlights": {
-      "title": "関連素材のハイライト表示を無効化",
-      "desc": {
-        "desc_1": "バージョン2.2.4で、製作レポートに新機能を追加しました。任意のアイテム行を左クリックすると、そのアイテムとその製作素材がハイライト表示されます。",
-        "desc_2": "この機能が必要ない、誤操作しやすいと感じる場合、このオプションを有効にできます。"
-      }
-    },
-    "prostate_concise_mode": {
-      "title": "簡易モードでアイテムを表示",
-      "desc": {
-        "desc_1": "プロ版でレポート作成時にのみ有効"
-      }
-    },
-    "processes_show_item_details": "アイテム詳細を表示",
-    "processes_merge_gatherings": {
-      "title": "採集アイテムを統合する",
-      "desc": {
-        "desc_1": "採掘師の採集品と園芸師の採集品を統合する。",
-        "desc_2": "例えば、統合前は「採掘（常駐）」、「園芸（常駐）」、「採掘（刻限）」、「園芸（刻限）」でしたが、統合後は「採集（常駐）」、「採集（刻限）」となります。"
-      }
-    },
-    "processes_craftable_item_sortby": {
-      "title": "製作アイテムの並び替えルール",
-      "option": {
-        "crafting_log": "製作手帳順"
-      },
-      "desc": {
-        "desc_1": "「製作手帳順」を選択すると、製作手帳（ゲーム内でNキーを押して開く製作画面）内のレシピ順に優先的に並べ替えられます。"
-      }
-    },
-    "universalis_server": {
-      "desc": {
-        "desc_1": "以下の入力ボックスで、キーワードを入力してオプションを検索できます。",
-        "desc_2": "注意：この設定を変更すると、すべての取得済みアイテム価格キャッシュが削除されます！"
-      }
-    },
-    "universalis_price_type": {
-      "title": "価格のタイプ",
-      "desc": {
-        "desc_1": "コスト計算には、デフォルトで素材のNQ価格を使用します。収入計算には、デフォルトで完成品のHQ価格を使用します。",
-        "desc_2": "いくつかのオプションの説明：",
-        "desc_3": "最近の取引価格：直近5件の取引履歴を元に算出した平均価格。",
-        "desc_4": "現在の最低出品価格：マーケットボードの最初の10件の出品から算出した最低価格。",
-        "desc_5": "現在の平均出品価格：マーケットボードの最初の10件の出品から算出した平均価格。"
-      },
-      "option": {
-        "average": "平均価格",
-        "curr_average": "現在の平均価格",
-        "min": "最低価格",
-        "max": "最高価格",
-        "purchase_average": {
-          "title": "最近の取引価格",
-          "tooltip": {
-            "tooltip_1": "直近5件の取引履歴を元に算出した平均価格"
-          }
-        },
-        "market_min": {
-          "title": "現在の最低出品価格",
-          "tooltip": {
-            "tooltip_1": "マーケットボードの最初の10件の出品から算出した最低価格"
-          }
-        },
-        "market_average": {
-          "title": "現在の平均出品価格",
-          "tooltip": {
-            "tooltip_1": "マーケットボードの最初の10件の出品から算出した平均価格"
-          }
-        }
-      }
-    },
-    "universalis_expire_time": {
-      "title": "キャッシュの有効期間",
-      "desc": {
-        "desc_1": "アプリはは取得したアイテムの価格をキャッシュします。設定された有効期間を超えた場合、価格情報を再取得する必要があります。",
-        "desc_2": "短すぎる設定は価格計算の効率を低下させます。長すぎる設定は結果が古くなる可能性があります。"
-      },
-      "option": {
-        "never_expires": "無期限"
-      }
-    },
-    "export_item_price": {
-      "title": "Excelエクスポート時にコスト/収益分析をエクスポート",
-      "desc": {
-        "desc_1": "このオプションを有効にすると、アイテム価格のキャッシュが期限切れの場合、データを更新するために一定の時間がかかります。"
-      }
-    },
-    "costandbenefit_show_item_details": "コスト/収益分析におけるアイテム詳細の表示機能を追加しました",
-    "universalis_showpriceinpop": {
-      "title": "アイテムのツールチップで表示します",
-      "desc": {
-        "desc_1": "各アイテムボタン/情報アイコンのツールチップに「価格」モジュールを追加しました。取引可能な道具のみ表示されます。"
-      }
-    },
-    "universalis_poppricetypes": {
-      "title": "ツールチップで表示するタイプ",
-      "desc": {
-        "desc_1": "ツールチップで表示する価格の種類を選択します。複数選択可能です。"
-      }
-    },
-    "import": {
-      "title": "設定をインポート",
-      "desc": {
-        "desc_1": "ここで他のデバイスからエクスポートした設定をインポートし、同期を維持します。",
-        "desc_2": "インポート後は設定ウィンドウで変更を確認してください。保存をクリックするまで実際の設定は変更されません。"
-      },
-      "placeholder": "ここに他のHqHelperからエクスポートした設定を貼り付けてください。",
-      "message": {
-        "input_empty": "内容を入力してください"
-      }
-    },
-    "export": {
-      "title": "設定をエクスポート",
-      "desc": {
-        "desc_1": "現在、このデバイスの設定/機能設定を他のデバイスにエクスポートできるようになりました。アイテム価格などのキャッシュは含まれません。",
-        "desc_2": "注意：エクスポート内容は設定ウィンドウの現在の設定に基づいて生成され、保存済みの設定ではありません。"
-      }
-    },
-    "shared": {
-      "option": {
-        "donothing": "何もしない",
-        "copy_item_name": "アイテム名をコピーする",
-        "copy_isearch_macro": "アイテムの検索マクロをコピーする"
-      },
-      "warn": {
-        "need_refresh": "この設定を変更した後、ページをリフレッシュする必要があります。"
-      },
-      "desc": {
-        "fit_to_func": "「{f}」機能に適用されます。",
-        "fit_to_func_and_item_pop_price": "適用対象：「{f}」機能およびアイテムツールチップの価格モジュール。",
-        "use_default_val_when_empty": "この項目が未入力の場合はデフォルト値が使用されます：{val}"
-      },
-      "tooltip": {
-        "click_to_desc": "クリックして、当オプションの説明を展開または折り畳む"
-      }
-    },
-    "message": {
-      "save_succeed_but_need_refresh": "保存しました！一部変更はページ更新後に反映されます。",
-      "saved_but_some_changes_need_refresh": "オプション設定は保存されました、一部の設定はページを更新してから適用されます。",
-      "ask_refresh_now": "今すぐページを更新しますか？"
-    }
-  },
-  "ingame_inventory": {
-    "preference": {
-      "inventory_statement_enable_sync": {
-        "title": "レポート作成ツールチップで「在庫一覧」の自動同期を有効化にする",
-        "desc": {
-          "desc_1": "有効時、メインインターフェースや調理品&薬品の计算でプロ版レポートを開く際、レポート内の「所持」数量が自動的に「在庫一覧」の数量に設定されます。"
-        }
-      },
-      "inventory_workflow_enable_sync": {
-        "title": "ワークフローで「在庫一覧」の手動同期を有効化にする",
-        "desc": {
-          "desc_1": "ボタンをクリックすると、レポート内の「所持」数量が「在庫一覧」の数量に設定されます。"
-        }
-      },
-      "inventory_workflow_enable_sync_reverse": {
-        "title": "ワークフローで在庫一覧逆同期を有効にする",
-        "desc": {
-          "desc_1": "ボタンをクリックすると、在庫一覧の数量がレポートの「所持数」に設定されます。"
-        }
-      },
-      "inventory_other_items_way": {
-        "title": "「在庫一覧」に存在しないアイテムの処理方法",
-        "desc": {
-          "desc_1": "自動/手動同期時、「在庫一覧」に存在しないアイテムの扱い方を指定します。"
-        },
-        "option": {
-          "ignore": {
-            "tooltip": {
-              "tooltip_1": "現在の数量を維持"
-            }
-          },
-          "reset_to_0": {
-            "tooltip": {
-              "tooltip_1": "数量を0にリセット"
-            }
-          }
-        }
-      },
-      "inventory_sync_reverse_mode": {
-        "title": "逆同期モード",
-        "desc": {
-          "desc_1": "逆同期時に「所持数」が0のアイテムやレポートにないアイテムをどのように処理するかを決定します。"
-        },
-        "option": {
-          "loose": {
-            "tooltip": {
-              "tooltip_1": "「所持数」が0のアイテムとレポートにないアイテムを無視"
-            }
-          },
-          "strict": {
-            "tooltip": {
-              "tooltip_1": "「所持数」が0のアイテムを同期し、レポートにないアイテムを無視"
-            }
-          },
-          "overwrite": {
-            "tooltip": {
-              "tooltip_1": "完全リセットし、レポートデータで上書き"
-            }
-          }
-        }
-      }
-    },
-    "shared": {
-      "desc": {
-        "add_button_to_workflow_when_enabled": "有効時、ワークフローの「{f1}」ページに「{f2}」ボタンが追加されます。"
-      }
-    }
-  },
   "about_app": {
-    "version": {
-      "web": "現在のウェブ版バージョン：{v}",
-      "client": "現在のクライアント版バージョン：{v}"
-    },
     "staff": {
-      "title": "開発チーム",
-      "producer": "プロデューサ",
       "contributor": "贡献者",
       "jobs": {
-        "infsein": "すべての設計開発作業を担当",
-        "nbb": "ゲームデータの提供とホスティングサポートを担当",
-        "yakita": "UIの日本語と先行アイテム名の中国語翻訳を担当",
-        "kim": "初期のUI日本語翻訳に貢献",
-        "wcy": "初版Windowsクライアントフレームワークに貢献",
         "etnatker": "Teamcraft形式で素材リストを表示する機能に貢献",
-        "personal_page": "個人ホームページ："
-      }
+        "infsein": "すべての設計開発作業を担当",
+        "kim": "初期のUI日本語翻訳に貢献",
+        "nbb": "ゲームデータの提供とホスティングサポートを担当",
+        "personal_page": "個人ホームページ：",
+        "wcy": "初版Windowsクライアントフレームワークに貢献",
+        "yakita": "UIの日本語と先行アイテム名の中国語翻訳を担当"
+      },
+      "producer": "プロデューサ",
+      "title": "開発チーム"
     },
     "thank_donate": {
-      "title": "謝辞: 支援",
       "desc": {
         "desc_1": "HqHelperの誕生と持続的な開発にはユーザーの支持が欠かせません。",
         "desc_2": "特別感謝を見る。"
-      }
+      },
+      "title": "謝辞: 支援"
+    },
+    "version": {
+      "client": "現在のクライアント版バージョン：{v}",
+      "web": "現在のウェブ版バージョン：{v}"
     }
   },
-  "thank_list": {
-    "donater": "スポンサー",
-    "last_donate": "前回のスポンサー",
-    "donate_comment": "コメント",
-    "donate_gen": "第{gen}世代HqHelperのスポンサーになりました"
-  },
-  "donate_us": {
-    "desc": {
-      "desc_1": "HqHelperへのご支援に心より感謝申し上げます",
-      "desc_2": "スポンサーになる前に以下の注意事項をご確認ください：",
-      "desc_3": "スポンサーになった後、IDとコメントが特別感謝に反映されます（手動更新のため数日遅延あり）",
-      "desc_4": "振込備考欄/コメント欄に表示希望のIDとメッセージを記載可能",
-      "desc_5": "スポンサーは金額ではなく気持ちが大切です。見返りはありませんので、無理のない範囲でご協力ください。",
-      "desc_6": "掲載後の名前変更も可能ですが、手動処理のため頻繁な変更はできません",
-      "desc_7": "問題発生時はQQグループまでご連絡ください"
-    },
-    "target": {
-      "title": "スポンサーになる開発者",
-      "placeholder": "スポンサーになりたいクリエイターを選択"
-    },
-    "way": {
-      "title": "スポンサーになる方法",
-      "aifadian": "Afdian（愛発電）",
-      "placeholder": "スポンサーになる方法を選択"
-    },
-    "final_confirm": {
-      "title": "最終確認",
-      "desc": {
-        "desc_1": "この開発者のスポンサーになります：",
-        "desc_2": "、これでHqHelperの{contents}が支援されます。",
-        "desc_3": "開発事業",
-        "desc_4": "データ更新とホスティングサーバー(nbb.fan)の経費バランス調整",
-        "desc_5": "※コメントにHqHelper経由でのスポンサーにいなることをご明記してください。",
-        "desc_6": "該当メンバーは他プロジェクトでも支援を受け付けています。",
-        "desc_7": "特に明記しない場合、特別感謝に反映されない可能性があります"
+  "appheader": {
+    "menu": {
+      "tooltip": {
+        "about_app": "改めて自己紹介させていただきますクポ",
+        "already_in_page": "既に{val}ページにいます。",
+        "changelog": "修正……改良……サークルプログラムの更新を開始……",
+        "check_updates": "目標の戦力レベルを更新……攻撃パターンの変更を実行しまス……",
+        "contact_us": "フォローしてくださいにゃ、大感謝にゃ。",
+        "devtool": "アルテマウェポンの後継機が開発されていた、とな……。",
+        "donate_us": "無理のない範囲でお願いします。",
+        "download_client": "いざという時のために。",
+        "fthelper": "調理品と薬品の制作にサポートいたします。お願い、ワタシを使ってください。",
+        "gather_clock": "エオルゼアを掘り尽くすための最高のサポーター！",
+        "ingame_inventory": "おいおい、荷物がいっぱいじゃないか。",
+        "macro_manage": "管理、収容、撤退……",
+        "open_in_new_window": "新しいウィンドウで{tool}を開く",
+        "theme_switch_to_dark": "世界に闇をとりもどしてほしい。",
+        "theme_switch_to_light": "今はただ夜明けの時を待つ。",
+        "user_preference": "人の意思で機械の稼働を改変できる神たる能力",
+        "workflow": "~ Flow Together ~"
       }
-    },
-    "start_donate": {
-      "title": "スポンサーになる",
-      "desc": {
-        "desc_1": "下記リンクからスポンサーになる：",
-        "desc_2": "モバイル版のQQ/TIMでQRコードをスキャン："
-      }
-    }
-  },
-  "contact_us": {
-    "feedback": {
-      "title": "質問・フィードバック",
-      "desc": {
-        "desc_1": "QQをご利用の場合、QQグループでのコミュニケーションが最も便利です。",
-        "desc_2": "グループ内では、質問・アドバイス、またはただお話しするだけでも構いません。",
-        "desc_3": "既にQQにログインしている場合、",
-        "desc_4": "と直接QQグループに参加できます。",
-        "desc_5": "またはグループ番号",
-        "desc_6": "から参加してください。",
-        "desc_7": "Github で issue を起票して、BUG 報告、または改善点・新しい機能の提案することも可能です。",
-        "desc_8": "この方式では随時処理状況を確認できるメリットがあります。",
-        "desc_9": "既にGithubアカウントをお持ちの場合、",
-        "desc_10": "で issue を起票できます。",
-        "desc_11": "起票時は、プラットフォームの利用ルールを遵守して、ガイドラインをお読みください。"
-      },
-      "button": {
-        "qr_code": "またはQRコードスキャンでも参加できます。"
-      },
-      "sub_title": {
-        "github_issue": "Github で issue を起票"
-      }
-    },
-    "follow": {
-      "title": "最新ニュースをフォロー",
-      "desc": {
-        "desc_1": "（騒がしいと思わなければ…）SNS で HqHelper の最新ニュースをフォローいただけますと大変うれしく思います。",
-        "desc_2": "Weibo では中国語の内容のみ提供しています。",
-        "desc_3": "フォロー。",
-        "desc_4": "Twitter(X) では今のところ限定的な英語内容のみ提供しています。"
-      }
-    }
-  },
-  "main": {
-    "shared": {
-      "desc": {
-        "not_selected": "未選択"
-      }
-    },
-    "select_patch": {
-      "title": "パッチ選択",
-      "desc": {
-        "selected": "選択したパッチ: {val}"
-      },
-      "patch_button": {
-        "text": "パッチ{v}: {name}",
-        "tooltip": {
-          "tooltip_1": "現在のパッチで実装された新たな新式HQ装備：",
-          "tooltip_2": "クラフター＆ギャザラー{il}HQ",
-          "tooltip_3": "バトルジョブ{il}HQ"
-        }
-      },
-      "info": {
-        "info_1": "FFXIVの製作装備更新パターンは比較的安定しており、各メジャーパッチの更新内容を予測可能です",
-        "info_2": "パッチ{patch}でクラフター・ギャザラー用アイテムレベル{ilv}のHQを追加；",
-        "info_3": "パッチ{patch}でバトルジョブ用アイテムレベル{ilv}HQと同じレベルの秘伝書/料理/強化薬を追加；",
-        "info_4": "パッチ{patch}でクラフター・ギャザラー用{ilv}HQを追加（アクセサリ除く）；",
-        "info_5": "パッチ{patch}でクラフター・ギャザラー用{ilv}HQを追加（当拡張の最終装備）；",
-        "info_6": "パッチ{patch}では新HQ装備は追加されません"
-      }
-    },
-    "select_job": {
-      "title": "ジョブ選択",
-      "desc": {
-        "selected": "選択したジョブ: {val}"
-      },
-      "warn": {
-        "select_patch_first": "パッチを選択してください"
-      }
-    },
-    "select_gear": {
-      "title": "部位選択",
-      "desc": {
-        "un_selected": "未選択"
-      },
-      "warn": {
-        "select_job_first": "ジョブを選択してください"
-      },
-      "info": {
-        "info_1": "同じ装備は一括表示されます。",
-        "info_2": "現在の主副道具が該当するジョブ：{val}",
-        "info_3": "現在の防具に該当する分類：{val}",
-        "info_4": "現在のアクセサリに該当する分類：{val}"
-      },
-      "view_selected": "選択済み部位",
-      "quick_operate": {
-        "title": "クイック操作",
-        "add_crafter_tool": {
-          "title": "クラフター主副道具を１セット追加",
-          "tooltip": {
-            "tooltip_1": "全クラフターの主副道具を各１件を追加。"
-          }
-        },
-        "add_gatherer_tool": {
-          "title": "ギャザラー主副道具を１セット追加",
-          "tooltip": {
-            "tooltip_1": "全ギャザラーの主副道具を各１件を追加。"
-          }
-        },
-        "add_crafter_suit": {
-          "title": "クラフター防具とアクセサリを１セット追加",
-          "tooltip": {
-            "tooltip_1": "クラフターの共通防具とアクセサリを1セット追加。"
-          }
-        },
-        "add_gatherer_suit": {
-          "title": "ギャザラー防具とアクセサリを１セット追加",
-          "tooltip": {
-            "tooltip_1": "ギャザラーの共通防具とアクセサリを1セット追加。"
-          }
-        }
-      },
-      "clear": {
-        "current": {
-          "title": "現在の選択をクリア",
-          "tooltip": {
-            "tooltip_1": "現在のジョブの部位をクリア。"
-          }
-        },
-        "all": {
-          "title": "すべてクリア",
-          "tooltip": {
-            "tooltip_1": "全てのジョブの部位をクリア。"
-          }
-        }
-      },
-      "add": {
-        "mainoff_hand": "主副道具を１セット追加",
-        "attire": "防具を１セット追加",
-        "accessory": "アクセサリを１セット追加",
-        "attire_and_accessory": "防具とアクセサリを１セット追加",
-        "whole_suit": "セットを追加"
-      }
-    },
-    "message": {
-      "switch_patch_will_clean_gears": "パッチを切り替えると、選択した装備パーツがクリアされます。",
-      "curr_job_not_valid": "選択したジョブは現在のパッチで使用できません。再選択してください。"
-    },
-    "imexport": {
-      "confirm_import_content": "インポート内容の確認",
-      "import_parts": "部品をインポート",
-      "confirm_import_patch": "インポートするパッチの選択",
-      "export_cost_and_benefit": "コスト/収益分析のエクスポート",
-      "only_xlsx_can_be_imported": ".xlsxファイルのみインポート可能",
-      "no_file_received": "ファイルを取得できませんでした",
-      "open_folder_after_export": "エクスポート後、エクスポートディレクトリを開く",
-      "need_to_ensure_first_worksheet": "シート1が「選択した部品」であることを確認してください"
-    }
-  },
-  "ft_helper": {
-    "select_food_and_tinc": "調理品&薬品の選択",
-    "tooltip": {
-      "clear_selected": "選択済みの調理品と薬品をすべて削除する"
-    },
-    "option": {
-      "hide_precraft_materials": "採集集計に中間素材の制作素材を表示されないにする"
-    }
-  },
-  "statistics": {
-    "view_statistics": "集計を見る",
-    "message": {
-      "select_patch_and_job_first": "まずパッチとジョブを選択してください"
-    },
-    "group_tooltip": {
-      "special": "特殊な秘伝書の中間品（錬金術師の各種宝水）およびトークン集計を含みます。",
-      "common_master_precrafts": "錬金術師の宝水シリーズ以外の秘伝書中間品です。",
-      "common_material_lvbase": "ここでの集計には、完成品を直接製作するに必要な素材と、中間品を作成するために必要な素材が含まれています。",
-      "common_material_lv1": "ここでの集計は、完成品を直接製作するに必要な素材のみを計算し、中間品を作成するために必要な素材は含まれていません。"
-    },
-    "tomescript": {
-      "title": "トークン集計",
-      "show_bicolor_items": "バイカラージェム交換品を表示"
-    },
-    "group": {
-      "common_master_precrafts": "一般秘伝書の中間素材集計",
-      "common_precrafts": "一般中間素材集計",
-      "aethersands": "霊砂集計",
-      "trade_items": "トークン交換アイテム集計",
-      "precrafts": "中間素材集計",
-      "gatherings": {
-        "title": "採集集計",
-        "common": "一般採集品",
-        "time_limited": "刻限採集品"
-      },
-      "cost_and_benefit": {
-        "title": "コスト/収入予測",
-        "button": {
-          "text": {
-            "text_1": "予想コスト {val}",
-            "text_2": "予想収入　 {val}"
-          },
-          "tooltip": {
-            "tooltip_1": "Universalis APIを利用し、素材のコストと予想される収入を計算します。",
-            "tooltip_2": "「収入」とは、完成品を販売した際に得られるギルのことです（コストは差し引かれていません）。"
-          }
-        }
-      },
-      "direct_materials": "直接な素材集計",
-      "common_gathering": "採集素材（一般）集計",
-      "time_limited_gathering": "採集素材（刻限）集計",
-      "crystal": "クリスタル集計",
-      "other_materials": {
-        "title": "その他素材の集計",
-        "tooltip": "他のグループに分類されないアイテム"
-      },
-      "common_gathering2": "一般採集品集計",
-      "time_limited_gathering_and_aethersands": "刻限採集品＆霊砂集計"
-    },
-    "preference": {
-      "show_direct_materials_only": "直接な素材のみを表示"
-    },
-    "text": {
-      "analysis_cost": "コスト分析",
-      "analysis_benefit": "収益分析"
-    }
-  },
-  "copy_macro": {
-    "option": {
-      "macro_direct_copy": "次回から表示ぜずにコピーする"
-    },
-    "message": {
-      "failed": "自動コピーが失敗しました、カーソルでテキストを選択してコピーしてください"
-    },
-    "mode": {
-      "single_line": {
-        "desc": {
-          "desc_1": "現在はシングルラインモード",
-          "desc_2": "コピーしたマクロはゲーム内チャットボックスに直接貼り付け可能"
-        }
-      },
-      "multi_line": {
-        "desc": {
-          "desc_1": "現在はマルチラインモード",
-          "desc_2": "コピーしたマクロはユーザーマクロに貼り付けて実行する必要があります"
-        }
-      }
-    },
-    "text": {
-      "please_select_macro_prefix": "マクロプレフィックスを選択",
-      "please_select_macro_mode": "マクロ生成モードを選択"
-    }
-  },
-  "statement": {
-    "list": {
-      "targets": "アイテムリスト",
-      "material": {
-        "lv1": "素材：直接",
-        "lv2": "素材：中間",
-        "lv3": "素材：中間以下",
-        "lvbase": "素材：基礎"
-      },
-      "use_amount_of": "使用数：",
-      "copy_list": "リストをコピー"
-    },
-    "table": {
-      "total": "総数",
-      "prepared": "既にあり",
-      "requires": "まだ必要"
-    },
-    "text": {
-      "all_prepared_items": "準備完了",
-      "reset_prepared": "既存をリセット"
-    }
-  },
-  "workflow": {
-    "shared": {
-      "new_a_workflow": "新しいワークフローを作成する"
-    },
-    "join_in_workflow": {
-      "title": "ワークフローに追加",
-      "entry_btn": {
-        "tooltip": "選択した装備をワークフローに追加する"
-      },
-      "message": {
-        "join_succeed": "追加に成功しました",
-        "no_armor": "まだ装備が選択されていません",
-        "no_food_tinc": "まだ調理品&薬品を選択していません"
-      },
-      "desc": {
-        "desc_1": "ここで、どのワークフローに追加するかを選択してください",
-        "desc_2": "以下のシートに記載されているアイテムが選択したワークフローに追加されます。",
-        "desc_3": "すでにワークフローに存在する場合は、数量が加算されます。",
-        "desc_4": "アイテムが既にワークフローに存在する場合、数量が上書きされます。",
-        "desc_5": "選択したワークフローのデータはクリアされ、以下のアイテムが再追加されます。"
-      }
-    },
-    "message": {
-      "max_len": "最大{num}個のワークフローしか追加できません"
-    },
-    "text": {
-      "set_workflows": "ワークフロー設定",
-      "switch_workflows": "ワークフロー切替：",
-      "workflow_with_index": "ワークフロー{index}",
-      "clear_current_workflow": "現在のワークフローの選択済みアイテムをクリア",
-      "rename_to": "このワークフローの名前を変更する：",
-      "min_len": "少なくとも1つのワークフローを保持する必要があります",
-      "confirm_delete": "本当にこのワークフローを削除しますか？",
-      "rename_this_workflow": "このワークフローの名前を変更する",
-      "delete_this_workflow": "このワークフローを削除する",
-      "add_a_workflow": "ワークフローを追加する",
-      "manage_existed_workflows": "既存ワークフローの管理",
-      "manage_workflows": "ワークフローの管理",
-      "manage_workflows_desc": "ここで各ワークフローの名称を変更したり、直接削除したりできます",
-      "workflow_name": "ワークフロー名",
-      "workflow_name_default_info": "ワークフローに名前を設定しない場合、順番に「ワークフロー1～{maxlen}」と自動表示されます",
-      "workflow_name_reorder_on_deleted": "ワークフローを削除する際、その後にある全ての未命名ワークフローは再び番号付けされます",
-      "join_in_workflow": "ワークフローに追加",
-      "join_selected_food_and_tinc_in_workflow": "選択済みの調理品&薬品をワークフローに追加する",
-      "sync_from_inventory": "在庫一覧から同期",
-      "sync_to_inventory": "在庫一覧に同期"
     },
     "tooltip": {
-      "set_prepared_by_inventory": "レポート内の「所持」数量を「在庫一覧」の数量に設定する",
-      "set_inventory_by_prepared": "在庫一覧の数量をレポートの「所持数」に設定します。"
-    },
-    "recomm_process": "ワークフローのプロセス"
-  },
-  "item": {
-    "text": {
-      "zh_name_is_temp": "DONT_SHOW",
-      "basic_info": "[パッチ{patch}] [{id}]",
-      "attribute_isnq_or_hq_desc": "※ ここは{val}アイテムの属性のみが表示されます",
-      "is_tradable": "交換で入手可能なアイテムです：",
-      "multi_get_each_trade": "一回交換で{val}個が入手されます",
-      "recipe_level_info": "{job} Lv. {lv}{star}",
-      "craft_condi": "製作可能条件：",
-      "craftsmanship_with_val": "作業精度{val}",
-      "control_with_val": "加工精度{val}",
-      "yields_info": "Yields: {val}",
-      "cannot_quick_synthesis": "簡易製作不可",
-      "cannot_hq": "HQ製作不可",
-      "reduce_info": "このアイテムは精選以下のアイテムで入手できます：",
-      "gather_pos_info": "アイテムは次の場所で収集できます：",
-      "quoted_position": "(X:{x}, Y:{y})",
-      "need_learn": "修得必要：",
-      "timelimited_gatherable": "採集可能期間中",
-      "item_level_with_val": "アイテムレベル {ilv}",
-      "gather_time_info": "該当アイテムは以下のET内のみ採集可能：",
-      "gather_website": {
-        "intro": "以下のサイトで該当アイテムの採集方法が掲載されています：",
-        "note": "※ 中国版で実装されていないアイテムは一部のサイトで未掲載の可能性があります。"
-      },
-      "reduce_can_get": "収集品を精選することで入手可能なアイテム：",
-      "simulate_craft_bestcraft": "BestCraftで製作をシミュレーション",
-      "simulate_craft_teamcraft": "TeamCraftで製作をシミュレーション",
-      "recipe_detail": "耐久{dur} / 難易度{pro} / 品質{qua}",
-      "copy_other_names": "他のアイテム名をコピー",
-      "gather_condi": "採集条件：",
-      "not_installed_in_chs": "このアイテムは中国サーバーでまだ実装されていません。"
-    },
-    "price": {
-      "no_price": "価格がありません。",
-      "no_price_reason": "予想の原因：価格が取得されていない/アイテムが実装されていない、またはその品質が存在しない/取引データが不足している",
-      "no_price_received": "価格を取得できませんでした。",
-      "no_price_received_reason": "予想の原因：アイテムが実装されていない/取引データが不足している",
-      "refreshing": "価格を更新中",
-      "update_succeed": "価格の更新に成功しました",
-      "update_failed": "価格の更新に失敗しました",
-      "no_show_price_type_setted": "表示する価格の種類がまだ設定されていません。「{option}」設定項目で設定してください。"
-    }
-  },
-  "update": {
-    "message": {
-      "ask_update_new_webversion": "新しいバーション{v}がありました，アップデートしますか?",
-      "already_latest": "すでに最新バーションです",
-      "checked_new_hqhelper": "新しいバーションのHqHelperがありました({v})。",
-      "checked_new_client": "新しいバーションのクライアントがありました({v})。",
-      "ask_update_now": "今アップデートしますか?",
-      "check_update_failed": "アップデートチェックが失敗しました、しばらく待ってから実行してください。",
-      "check_update_failed_with_error": "アップデートチェックが失敗しました：{error}",
-      "download_update_pack_failed_with_error": "ダウンロードが失敗しました：{errmsg}",
-      "download_client_pack_failed_with_error": "インストールパッケージのダウンロードに失敗しました：{errmsg}",
-      "server_under_maintenance": "服务器正在维护，暂时不能更新。",
-      "require_ver_plus_client_to_see_progress": "{ver}バージョン以降のクライアントのみが、現在の更新進行状況を確認できます。",
-      "staging": "{stage}中…",
-      "stage_failed": "{stage}失敗",
-      "downloaded_and_speed": "ダウンロード済み {now} / {total} MB | 現在の速度：{speed}MB/s"
-    },
-    "proxy": {
-      "dont_use_proxy": "プロキシサービスをオフにする",
-      "title": "プロキシサービス"
-    },
-    "alert_text": {
-      "text_1": "最新のHqHelperをダウンロードします、しばらくお待ちください。",
-      "text_2": "アップデートが成功しましたらアプリは自動的に再起動します。",
-      "text_3": "長時間に無反応の場合、アプリを再起動して「プロキシサービス」の設定を調整してください。",
-      "text_4": "今からアップデートします、よろしいですか？",
-      "text_5": "最新のクライアントをダウンロードします、容量が大きので、ブラウザのダウンロードページに移行します。",
-      "text_6": "ダウンロードがお済みしましたら、インストールしてから最新のバージョンご利用ください。",
-      "text_7": "ダウンロードスピードがだるすぎる場合、ダウンロードをキャンセルして「プロキシサービス」の設定を調整してください。",
-      "text_8": "新版クライアントインストーラのダウンロードを開始します、時間がかかる場合があります",
-      "text_9": "更新成功後自動的にインストーラが起動します"
-    },
-    "file_name": {
-      "client_updater": "クライアント更新プログラム"
-    },
-    "text": {
-      "proxy_status_view": "サービスステーション状況",
-      "custom_proxy": "カスタムアクセラレーションサービス",
-      "check_connections": "接続チェック"
-    },
-    "stage": {
-      "connecting": "接続確立",
-      "downloading": "更新パッケージをダウンロード",
-      "extracting": "更新パッケージを解凍",
-      "replacing": "ファイルを置換",
-      "cleaning": "一時ファイルをクリーンアップ",
-      "restarting": "アプリを再起動",
-      "opening": "インストーラーを開く"
+      "already_in_index": "すでにHqHelperのホームページです",
+      "announcement_for_item_zh_translation": "DONT_SHOW",
+      "back_to_index": "このボタンをクリックするとホームページに戻ります。"
     }
   },
   "changelog": {
-    "fix": "不具合修正",
-    "feat": "機能アップデート",
-    "breaking": "重要な変更",
-    "milestone": "マイルストーン",
-    "text": {
-      "release_date_with_val": "更新日：{date}",
-      "view_latest": "最新更新履歴を確認",
-      "view_history": "過去の更新履歴を確認"
-    },
     "2_0_0": {
       "milestone": {
         "text_1": "HqHelperは正式にリリースしました。"
-      }
-    },
-    "2_0_2": {
-      "fix": {
-        "text_1": "自動更新通知で最新バージョン番号が表示されない問題を修正しました。",
-        "text_2": "クライアント版の更新ボタンが、すでに最新バージョンの場合でもクリックできる問題を修正しました。",
-        "text_3": "「作業状態の記憶を無効にする」を有効にした後、「調理品&薬品の素材集計」の稼働キャッシュがクリアされない問題を修正しました。",
-        "text_4": "スマホ端末で空白部分をクリックして{val}のツールチップを閉じた後、再度に正常に開けない問題を修正しました。",
-        "text_5": "“部位選択”のカテゴリの現在の[主/副道具・防具・アクセサリ]"
-      },
-      "feat": {
-        "text_1": "「設定」でアイテムボタンをクリックしたときの動作をカスタマイズできるようになりました。",
-        "text_2": "スマホ端末で「選択済み部位」ツールチップの表示効果をリニューアルしました。",
-        "text_3": "一部の状況下でアイテムボタンのツールチップの表示効果を最適化しました。",
-        "text_4": "「当ツールについて」に記載されているクリエイター情報を更新しました。"
-      }
-    },
-    "2_0_3": {
-      "fix": {
-        "text_1": "「{f1}」の「{f2}」ボタンがスマホ端末で高さが正常でない問題を修正しました。",
-        "text_2": "「{f}」内の一部テキストが翻訳に正しく適応していない問題を修正しました。",
-        "text_3": "言語設定を日本語/英語にした場合、「{f}」内の更新項目の番号が連続しない可能性がある問題を修正しました。"
-      },
-      "feat": {
-        "text_1": "スマホ端末のトップメニューのボタン順序を調整しました。",
-        "text_2": "現在、「{f1}」内の「{f2}」ボタンがスマホ端末でツールチップを表示しなくなりました。",
-        "text_3": "一部の翻訳を最適化しました。"
-      }
-    },
-    "2_0_4": {
-      "breaking": {
-        "text_1": "一部の内蔵画像のサイズを圧縮し、不要なコードを整理したことで、更新時にダウンロードするパッケージサイズが大幅に削減され、初回ページアクセス時の読み込み時間とホスティングサーバーの帯域幅負荷が軽減されました。"
-      },
-      "fix": {
-        "text_1": "{lang}設定が日本語/英語の場合、一部の内容が表示されないはずのとことに意味のない数字が表示されてしまう問題を修正しました。"
-      },
-      "feat": {
-        "text_1": "アイテムボタンのツールチップには、装備アイテムの属性も表示されるようになりました。",
-        "text_2": "「{f1}」インターフェースのアイテムボタンのツールチップの表示が最適化されました。",
-        "text_3": "クライアントがHqHelperの更新をダウンロードする際、進捗とスピードが表示されるようになりました（v3以降のクライアントのみ対応）。",
-        "text_4": "クライアントが更新を確認する際に選択可能なプロキシサービスのリストが調整されました。"
-      }
-    },
-    "2_0_5": {
-      "fix": {
-        "text_1": "HqHelperのアップデート後、クライアントがウィンドウの上部をドラッグしても移動できない可能性がある問題を修正しました。"
-      },
-      "feat": {
-        "text_1": "また、「{f}」の装備アイコンのツールチップに、選択されたジョブのその部位に対応する装備アイテム情報が表示されるようになりました。"
-      }
-    },
-    "shared": {
-      "released_func": "「{f}」機能を実装しました。",
-      "temp_not_support_mobile": "この機能は現時点ではスマホ端末に対応していません。",
-      "require_setting": "「{f1}」の「{f2}」タブで設定を行う必要があります。",
-      "chs_db_update": "中国版データベースが{ver}に更新されました。",
-      "chs_db_update_with_comma": "中国版データベースが{ver}に更新されました、",
-      "global_db_update": "グローバル版のデータベースが{ver}に更新されました。",
-      "add_new_func": "「{f}」機能を追加"
-    },
-    "2_0_6": {
-      "breaking": {
-        "text_1": "メイン画面で装備品を選定した後、「{f1}」の右側にある「{f2}」ボタンをクリックすると、集計をExcelファイルにエクスポートできます。"
-      },
-      "fix": {
-        "text_1": "ウェブ版の「{f}」でアイテムボタンのコピー機能が正常に動作しない問題を修正しました。",
-        "text_2": "初回ページを開く時に「{f}」が意図せず消える問題を修正しました。",
-        "text_3": "{lang}設定を日本語/英語にした場合、更新ログの更新項目が1つしかない場合にも番号が表示される問題を修正しました。"
-      },
-      "feat": {
-        "text_1": "該当するアイテムボタンには、アイテム名の前に対応するクラフター/ギャザラージョブのアイコンが表示されるようになりました。",
-        "text_2": "この変更に伴い、「{f}」の「{f1}」タブに「{f2}」設定項目を追加しました。",
-        "text_3": "メイン画面のトークン集計には、双蛇党の交換アイテムも集計されるようになりました。トークンボタンのツールチップでオン/オフを切り替えます。",
-        "text_4": "調理品&薬品の素材集計でも「{f}」機能が使用できるようになりました。",
-        "text_5": "アイテムボタンのツールチップにあるサブアイテムも、青い情報アイコンを右クリックすることで操作メニューを展開できます。",
-        "text_6": "各素材集計エリアのタイトルテキストを調整し、ヒントアイコンと説明文を追加しました。",
-        "text_7": "「{f1}」の「{f2}」の表示を最適化しました。",
-        "text_8": "アイテムボタンの右クリックメニューには、今後「{f}」オプションも選べるようになりました。",
-        "text_9": "スマホ端末のトップメニューには、特定の状況で「{f}」ボタンが表示されるようになりました。"
-      }
-    },
-    "2_0_7": {
-      "fix": {
-        "text_1": "アイテムボタンを右クリックした際、ツールチップメニューが正しいアイテムを表示しない問題を修正しました。",
-        "text_2": "「{f}」の入力ボックスが特定のサイズのディスプレイでコンテナをはみ出す可能性がある問題を修正しました。",
-        "text_3": "一部のアイテムボタンのツールチップのスマホ最適化表示を調整しました。"
-      },
-      "feat": {
-        "text_1": "「{f}」に並べ替え、「{f1}」と「{f2}」の機能を追加しました。",
-        "text_2": "トークン集計での交換アイテムの並ぶ順が交換ショップと一致するようになりました。",
-        "text_3": "「{f}」が霊砂の集計も同時に出力するようになりました。"
-      }
-    },
-    "2_0_8": {
-      "breaking": {
-        "text_1": "パッチ7.0の採集マップが実装されました。",
-        "text_2": "アイテムボタンのツールチップや採集時計の採集地点の右側に、マップボタンが表示されるようになります。マップボタンにカーソルを合わせると、採集地点の概要図と最寄りのエーテライトの名前が確認できます。",
-        "text_3": "ページとアップデートパッケージを軽量化するため、マップファイルは高圧縮されています。高解像度のマップを確認したい場合は、マップボタンのホバーウィンドウで「{f}」をクリックし、FFCAFEのインタラクティブマップに移動してください。",
-        "text_4": "パッチ7.0の6つのフィールドマップのみが実装されているため、旧パッチの採集アイテムはこの変更に対応しません。"
-      },
-      "fix": {
-        "text_1": "ウェブ版の「{f}」で、アイテム情報アイコンの右クリックメニューでのコピー機能が正常に動作しない問題を修正しました。",
-        "text_2": "いくつかの翻訳を修正しました。"
-      },
-      "feat": {
-        "text_1": "「{f}」に以下の変更を実装しました：",
-        "text_2": "① アイテムの分類ロジックを変更。7.0の霊砂精選アイテムは、7.0の伝承録★付き採集品と区別されます。",
-        "text_3": "② 採集品カードにマップボタンと推奨テレポ先（最寄りのエーテライト名）を追加しました。",
-        "text_4": "③ 時計の設定領域が折りたたみ可能になりました。",
-        "text_5": "④ 「{f}」の設定項目を追加し、採集品カード内でマップを直接表示できるようにしました。",
-        "text_6": "⑤ 「{f}」の設定項目を追加し、お気に入りアイテムのグループ全体を一括で登録または解除できるようにしました。",
-        "text_7": "⑥ 「お気に入り」タブが「お気に入り登録済み」に名称変更されました。",
-        "text_8": "⑦ いくつかのUI要素を調整し、タブ領域の視認性を向上させました。",
-        "text_9": "「{f1}」の「{f2}」は「{o1}」、「{o2}」、「{o3}」に設定できるようになりました。",
-        "text_10": "「{f1}」→「{f2}」→「{f3}」で詳細な説明を設定・確認できます。",
-        "text_11": "データタイプの調整が行われたため、旧バージョンで取得したアイテム価格のキャッシュは、アップデート後に再取得が必要です。",
-        "text_12": "アイテムボタンのツールチップの精選項目では、「どのアイテムでこのアイテムを精選可能か」のほか、「このアイテムを精選することで得られる可能性のあるアイテム（霊砂限定）」も表示されます。",
-        "text_13": "アイテムボタンのツールチップで無限ループが発生するのを防ぐため、後者ではツールチップを開けるアイコンは表示されません。"
-      }
-    },
-    "2_0_9": {
-      "feat": {
-        "text_1": "「{f1}」の「{f2}」タブでクライアント/Webサイトで使用するフォントとフォントのサイズを変更できるようになりました。",
-        "text_2": "現在採取可能な道具の採取カードには、“{f}”に現実世界の残り時間が表示されるようになりました。"
       }
     },
     "2_0_10": {
@@ -1431,14 +68,14 @@
         "text_4": "メイン画面または調理品&薬品の素材集計の「{f}」ボタンをクリックすることで、プロ版のリストを確認できます。",
         "text_5": "旧バージョンのリスト作成を好む場合は、「{f1}」の「{f2}」タブで「{f3}」にチェックを入れてください。"
       },
-      "fix": {
-        "text_1": "採集時計が、採集時間がちょうど終了した採集品を現在採集可能と判断してしまう問題を修正しました。"
-      },
       "feat": {
         "text_1": "設定項目「{f}」を新たに追加しました。",
         "text_2": "特設サイトで公開された情報に基づき、パッチ{v}のロゴと背景画像を更新しました。",
         "text_3": "関連データは、パッチが正式にリリースされた後で更新される予定です。",
         "text_4": "パッチ選択エリアボタンのテキスト表示効果を最適化しました。"
+      },
+      "fix": {
+        "text_1": "採集時計が、採集時間がちょうど終了した採集品を現在採集可能と判断してしまう問題を修正しました。"
       }
     },
     "2_0_11": {
@@ -1446,13 +83,13 @@
         "text_1": "プロ版のリスト作成に機能「{f}」が追加されました。",
         "text_2": "推奨の回しは、リストに入力された既存の素材に基づいて、まだ準備が必要な素材を自動的に計算し、採集/制作ジョブや種類ごとに分類し、最終的に素材→中間素材→完成品の順序をまとめます。"
       },
-      "fix": {
-        "text_1": "プロ版がリストを生成する時に、用意不要になったアイテムの数にNaNと表示してしまう問題を修正しました。",
-        "text_2": "一部、実際には漁師によっては採集できない道具が、アイテムボタンのサブウィンドウに採集のヒントとして表示される問題を修正しました。"
-      },
       "feat": {
         "text_1": "プロ版リスト作成におけるアイテム情報の表示ロジックを最適化しました。",
         "text_2": "アプリのタイトルバーおよび各素材統計エリアのタイトル/ヒントアイコンの表示効果を最適化しました。"
+      },
+      "fix": {
+        "text_1": "プロ版がリストを生成する時に、用意不要になったアイテムの数にNaNと表示してしまう問題を修正しました。",
+        "text_2": "一部、実際には漁師によっては採集できない道具が、アイテムボタンのサブウィンドウに採集のヒントとして表示される問題を修正しました。"
       }
     },
     "2_0_12": {
@@ -1466,9 +103,6 @@
         "text_7": "時間制限のある収集品と時間制限のない収集品がさらに区別されます。同じグループ内で、時間制限のない収集品は収集場所のマップ順に、時間制限のある収集品は開始時間順に並びます。",
         "text_8": "さらに、「{f}」オプションが追加され、採集品の追加情報（時間制限や採集場所）を表示できるようになりました。"
       },
-      "fix": {
-        "text_1": "モバイル版では、設定で「{f}」を有効にできない問題が修正されました。"
-      },
       "feat": {
         "text_1": "① 採集時計のタブエリアの視認性がさらに向上しました。",
         "text_2": "② アイテム採集場所の座標が小数点1桁まで正確に表示されるようになりました。",
@@ -1478,6 +112,9 @@
         "text_6": "现素材リストをTeamcraft形式（例：\"3x 黄金の霊砂\"）で表示するオプションが追加されました。",
         "text_7": "デスクトップ版の左上の戻るボタンの動作が変更され、常にホームに戻るようになりました。",
         "text_8": "クライアントの内蔵更新機能の仕組みが最適化されました。"
+      },
+      "fix": {
+        "text_1": "モバイル版では、設定で「{f}」を有効にできない問題が修正されました。"
       }
     },
     "2_0_13": {
@@ -1491,29 +128,155 @@
         "text_3": "レシピのアイテムボタンを右クリックすると、メニューから「{f1}」や「{f2}」を選択できるようになりました。"
       }
     },
-    "2_1_0": {
-      "fix": {
-        "text_1": "「{f}」エリアのボタンの一部がクリックイベントをトリガーしない問題が修正されました。"
+    "2_0_2": {
+      "feat": {
+        "text_1": "「設定」でアイテムボタンをクリックしたときの動作をカスタマイズできるようになりました。",
+        "text_2": "スマホ端末で「選択済み部位」ツールチップの表示効果をリニューアルしました。",
+        "text_3": "一部の状況下でアイテムボタンのツールチップの表示効果を最適化しました。",
+        "text_4": "「当ツールについて」に記載されているクリエイター情報を更新しました。"
       },
+      "fix": {
+        "text_1": "自動更新通知で最新バージョン番号が表示されない問題を修正しました。",
+        "text_2": "クライアント版の更新ボタンが、すでに最新バージョンの場合でもクリックできる問題を修正しました。",
+        "text_3": "「作業状態の記憶を無効にする」を有効にした後、「調理品&薬品の素材集計」の稼働キャッシュがクリアされない問題を修正しました。",
+        "text_4": "スマホ端末で空白部分をクリックして{val}のツールチップを閉じた後、再度に正常に開けない問題を修正しました。",
+        "text_5": "“部位選択”のカテゴリの現在の[主/副道具・防具・アクセサリ]"
+      }
+    },
+    "2_0_3": {
+      "feat": {
+        "text_1": "スマホ端末のトップメニューのボタン順序を調整しました。",
+        "text_2": "現在、「{f1}」内の「{f2}」ボタンがスマホ端末でツールチップを表示しなくなりました。",
+        "text_3": "一部の翻訳を最適化しました。"
+      },
+      "fix": {
+        "text_1": "「{f1}」の「{f2}」ボタンがスマホ端末で高さが正常でない問題を修正しました。",
+        "text_2": "「{f}」内の一部テキストが翻訳に正しく適応していない問題を修正しました。",
+        "text_3": "言語設定を日本語/英語にした場合、「{f}」内の更新項目の番号が連続しない可能性がある問題を修正しました。"
+      }
+    },
+    "2_0_4": {
+      "breaking": {
+        "text_1": "一部の内蔵画像のサイズを圧縮し、不要なコードを整理したことで、更新時にダウンロードするパッケージサイズが大幅に削減され、初回ページアクセス時の読み込み時間とホスティングサーバーの帯域幅負荷が軽減されました。"
+      },
+      "feat": {
+        "text_1": "アイテムボタンのツールチップには、装備アイテムの属性も表示されるようになりました。",
+        "text_2": "「{f1}」インターフェースのアイテムボタンのツールチップの表示が最適化されました。",
+        "text_3": "クライアントがHqHelperの更新をダウンロードする際、進捗とスピードが表示されるようになりました（v3以降のクライアントのみ対応）。",
+        "text_4": "クライアントが更新を確認する際に選択可能なプロキシサービスのリストが調整されました。"
+      },
+      "fix": {
+        "text_1": "{lang}設定が日本語/英語の場合、一部の内容が表示されないはずのとことに意味のない数字が表示されてしまう問題を修正しました。"
+      }
+    },
+    "2_0_5": {
+      "feat": {
+        "text_1": "また、「{f}」の装備アイコンのツールチップに、選択されたジョブのその部位に対応する装備アイテム情報が表示されるようになりました。"
+      },
+      "fix": {
+        "text_1": "HqHelperのアップデート後、クライアントがウィンドウの上部をドラッグしても移動できない可能性がある問題を修正しました。"
+      }
+    },
+    "2_0_6": {
+      "breaking": {
+        "text_1": "メイン画面で装備品を選定した後、「{f1}」の右側にある「{f2}」ボタンをクリックすると、集計をExcelファイルにエクスポートできます。"
+      },
+      "feat": {
+        "text_1": "該当するアイテムボタンには、アイテム名の前に対応するクラフター/ギャザラージョブのアイコンが表示されるようになりました。",
+        "text_2": "この変更に伴い、「{f}」の「{f1}」タブに「{f2}」設定項目を追加しました。",
+        "text_3": "メイン画面のトークン集計には、双蛇党の交換アイテムも集計されるようになりました。トークンボタンのツールチップでオン/オフを切り替えます。",
+        "text_4": "調理品&薬品の素材集計でも「{f}」機能が使用できるようになりました。",
+        "text_5": "アイテムボタンのツールチップにあるサブアイテムも、青い情報アイコンを右クリックすることで操作メニューを展開できます。",
+        "text_6": "各素材集計エリアのタイトルテキストを調整し、ヒントアイコンと説明文を追加しました。",
+        "text_7": "「{f1}」の「{f2}」の表示を最適化しました。",
+        "text_8": "アイテムボタンの右クリックメニューには、今後「{f}」オプションも選べるようになりました。",
+        "text_9": "スマホ端末のトップメニューには、特定の状況で「{f}」ボタンが表示されるようになりました。"
+      },
+      "fix": {
+        "text_1": "ウェブ版の「{f}」でアイテムボタンのコピー機能が正常に動作しない問題を修正しました。",
+        "text_2": "初回ページを開く時に「{f}」が意図せず消える問題を修正しました。",
+        "text_3": "{lang}設定を日本語/英語にした場合、更新ログの更新項目が1つしかない場合にも番号が表示される問題を修正しました。"
+      }
+    },
+    "2_0_7": {
+      "feat": {
+        "text_1": "「{f}」に並べ替え、「{f1}」と「{f2}」の機能を追加しました。",
+        "text_2": "トークン集計での交換アイテムの並ぶ順が交換ショップと一致するようになりました。",
+        "text_3": "「{f}」が霊砂の集計も同時に出力するようになりました。"
+      },
+      "fix": {
+        "text_1": "アイテムボタンを右クリックした際、ツールチップメニューが正しいアイテムを表示しない問題を修正しました。",
+        "text_2": "「{f}」の入力ボックスが特定のサイズのディスプレイでコンテナをはみ出す可能性がある問題を修正しました。",
+        "text_3": "一部のアイテムボタンのツールチップのスマホ最適化表示を調整しました。"
+      }
+    },
+    "2_0_8": {
+      "breaking": {
+        "text_1": "パッチ7.0の採集マップが実装されました。",
+        "text_2": "アイテムボタンのツールチップや採集時計の採集地点の右側に、マップボタンが表示されるようになります。マップボタンにカーソルを合わせると、採集地点の概要図と最寄りのエーテライトの名前が確認できます。",
+        "text_3": "ページとアップデートパッケージを軽量化するため、マップファイルは高圧縮されています。高解像度のマップを確認したい場合は、マップボタンのホバーウィンドウで「{f}」をクリックし、FFCAFEのインタラクティブマップに移動してください。",
+        "text_4": "パッチ7.0の6つのフィールドマップのみが実装されているため、旧パッチの採集アイテムはこの変更に対応しません。"
+      },
+      "feat": {
+        "text_1": "「{f}」に以下の変更を実装しました：",
+        "text_10": "「{f1}」→「{f2}」→「{f3}」で詳細な説明を設定・確認できます。",
+        "text_11": "データタイプの調整が行われたため、旧バージョンで取得したアイテム価格のキャッシュは、アップデート後に再取得が必要です。",
+        "text_12": "アイテムボタンのツールチップの精選項目では、「どのアイテムでこのアイテムを精選可能か」のほか、「このアイテムを精選することで得られる可能性のあるアイテム（霊砂限定）」も表示されます。",
+        "text_13": "アイテムボタンのツールチップで無限ループが発生するのを防ぐため、後者ではツールチップを開けるアイコンは表示されません。",
+        "text_2": "① アイテムの分類ロジックを変更。7.0の霊砂精選アイテムは、7.0の伝承録★付き採集品と区別されます。",
+        "text_3": "② 採集品カードにマップボタンと推奨テレポ先（最寄りのエーテライト名）を追加しました。",
+        "text_4": "③ 時計の設定領域が折りたたみ可能になりました。",
+        "text_5": "④ 「{f}」の設定項目を追加し、採集品カード内でマップを直接表示できるようにしました。",
+        "text_6": "⑤ 「{f}」の設定項目を追加し、お気に入りアイテムのグループ全体を一括で登録または解除できるようにしました。",
+        "text_7": "⑥ 「お気に入り」タブが「お気に入り登録済み」に名称変更されました。",
+        "text_8": "⑦ いくつかのUI要素を調整し、タブ領域の視認性を向上させました。",
+        "text_9": "「{f1}」の「{f2}」は「{o1}」、「{o2}」、「{o3}」に設定できるようになりました。"
+      },
+      "fix": {
+        "text_1": "ウェブ版の「{f}」で、アイテム情報アイコンの右クリックメニューでのコピー機能が正常に動作しない問題を修正しました。",
+        "text_2": "いくつかの翻訳を修正しました。"
+      }
+    },
+    "2_0_9": {
+      "feat": {
+        "text_1": "「{f1}」の「{f2}」タブでクライアント/Webサイトで使用するフォントとフォントのサイズを変更できるようになりました。",
+        "text_2": "現在採取可能な道具の採取カードには、“{f}”に現実世界の残り時間が表示されるようになりました。"
+      }
+    },
+    "2_1_0": {
       "feat": {
         "text_1": "「{f}」内の各アイテムにチェックボックスが追加され、そのチェックを入れることでアイテムを一時的に「完了済み」としてマークできます。",
         "text_2": "一組のアイテムがすべて「完了済み」としてマークされると、そのグループは自動的に折りたたまれます。",
         "text_3": "「{f}」内でのマークは、レポート作成時の記録された数量には影響しません。「{f}」を閉じると完了状態は自動的にリセットされます。",
         "text_4": "縦向きでクライアントを使用した場合、トップメニューの表示効果が調整されました。"
+      },
+      "fix": {
+        "text_1": "「{f}」エリアのボタンの一部がクリックイベントをトリガーしない問題が修正されました。"
       }
     },
     "2_1_1": {
       "breaking": {
         "text_1": "採集時計に「{f}」機能を追加しました。"
       },
+      "feat": {
+        "text_1": "推奨の流れでは、完了済みとマークされたアイテムの採集詳細が自動的に非表示になります。",
+        "text_2": "パッチ切り替えなどの状況により、選択したジョブに現在のパッチで追加可能な装備がない場合、ジョブ選択エリアに警告が表示されるようになりました。"
+      },
       "fix": {
         "text_1": "集計エリアで、7.1で追加されたアイテムが時限採集品としてカウントされない問題を修正しました。",
         "text_2": "トークンボタンの内容が長すぎる場合の表示問題を修正しました。",
         "text_3": "一部のマップデータを修正しました。"
-      },
+      }
+    },
+    "2_1_10": {
       "feat": {
-        "text_1": "推奨の流れでは、完了済みとマークされたアイテムの採集詳細が自動的に非表示になります。",
-        "text_2": "パッチ切り替えなどの状況により、選択したジョブに現在のパッチで追加可能な装備がない場合、ジョブ選択エリアに警告が表示されるようになりました。"
+        "text_1": "ワークフローでコスト/収益分析が可能になりました。",
+        "text_2": "PC版ワークフローでは「アイテム選択」パネルを左側に折り畳むことで、右側の集計領域により多くのスペースを確保できるようになりました。",
+        "text_3": "「{f}」ダイアログの表示効果を最適化しました。"
+      },
+      "fix": {
+        "text_1": "プロ版レポート作成におけるアイテム情報アイコンのコピー機能が正常に動作しない問題を修正しました。",
+        "text_2": "旧バージョンのレポート作成におけるアイテムボタンのコピー機能が正常に動作しない問題を修正しました。"
       }
     },
     "2_1_2": {
@@ -1521,16 +284,16 @@
         "text_1": "情報更新のみで、実際の変更はありません。",
         "text_2": "バージョン{ver}以上のクライアントのみ有効となります。"
       },
+      "feat": {
+        "text_1": "{f1}内の{f2}オプションのモバイルデバイスでの表示を最適化しました。",
+        "text_2": "ウェブ版/PWAアプリ/クライアントのメインページタイトルを「7.0 HQ Helper」から「7.x HQ Helper」に変更しました。"
+      },
       "fix": {
         "text_1": "直接選択されたアイテムのツールチップや推奨流れなどの内容をコピーした際に、アイテム名と数量の間に余分な改行が含まれる問題を修正しました。",
         "text_2": "この変更に伴い、サブアイテム名が長すぎる場合のツールチップの表示が一部変更されました。",
         "text_3": "中国版でエクスポートされたアラームマクロが使えない問題を修正しました。",
         "text_4": "エクスポートされたアラームマクロをコピーする際、ゲーム内に貼り付けると全内容が正しく貼り付けられない問題を修正しました。",
         "text_5": "一部のヒントが誤った場面で表示される問題を修正しました。"
-      },
-      "feat": {
-        "text_1": "{f1}内の{f2}オプションのモバイルデバイスでの表示を最適化しました。",
-        "text_2": "ウェブ版/PWAアプリ/クライアントのメインページタイトルを「7.0 HQ Helper」から「7.x HQ Helper」に変更しました。"
       }
     },
     "2_1_4": {
@@ -1542,6 +305,11 @@
         "text_5": "霊砂の集計を刻限採集品集計に統合し、各列の配置順を調整しました。",
         "text_6": "「{f1}」オプションを「{f2}」に変更しました。このオプションを有効にすると、「{f3}」以外のすべての列で調理品&薬品の中間素材に必要な素材を統計しなくなります。"
       },
+      "feat": {
+        "text_1": "アイテムボタンの右クリックメニュー内の「アイテム名をコピーする」オプションのレイアウトロジックを最適化しました。現在の言語設定でのアイテム名を直接コピーできるほか、他の言語でのアイテム名はサブメニューに配置されるようになりました。また、「アイテム検索マクロ」をコピーする機能も追加しました。",
+        "text_2": "「{f1}」の設定項目「{f2}」は「{f3}」に設定することも可能になりました。",
+        "text_3": "ページスクロールバーの表示効果を最適化しました。"
+      },
       "fix": {
         "text_1": "採集時計の通知方法を「アラーム音」に設定した際、採集可能なアイテムがない時間帯にアラームが鳴る問題を修正しました。",
         "text_2": "アイテム言語設定を中国語または日本語にした場合、釣り採集アイテムのツールチップ内にある「{f}」で構成された外部リンクが指定アイテムを正しく検索できない場合がある問題を修正しました。",
@@ -1549,17 +317,9 @@
         "text_4": "アイテムの右クリックメニューが、一部操作不可能なアイテムボタンで起動可能だった問題を修正しました。",
         "text_5": "特定の場面で、アイテムツールチップ内の食品/装備ステータスの表示が正しくない問題を修正しました。",
         "text_6": "トークンが複数のポイント種別を表示する場合の表示効果を修正しました。"
-      },
-      "feat": {
-        "text_1": "アイテムボタンの右クリックメニュー内の「アイテム名をコピーする」オプションのレイアウトロジックを最適化しました。現在の言語設定でのアイテム名を直接コピーできるほか、他の言語でのアイテム名はサブメニューに配置されるようになりました。また、「アイテム検索マクロ」をコピーする機能も追加しました。",
-        "text_2": "「{f1}」の設定項目「{f2}」は「{f3}」に設定することも可能になりました。",
-        "text_3": "ページスクロールバーの表示効果を最適化しました。"
       }
     },
     "2_1_5": {
-      "milestone": {
-        "text_1": "これにより、初代HqHelperのすべての主要機能が移行されました。"
-      },
       "breaking": {
         "text_1": "2.0/3.0/4.0/5.0/6.0のフィールドマップおよび各パッチの都市マップ/テレポ地点データを追加しました。",
         "text_2": "旧パッチの採集アイテムもマップとおすすめテレポ地点を確認できるようになりました。",
@@ -1569,25 +329,28 @@
         "text_6": "この変更に伴い、一部のツールチップウィンドウのショートカット操作が簡素化されました。",
         "text_7": "「設定」内の一部の設定項目が機能設定に移行されました。"
       },
-      "fix": {
-        "text_1": "一部のアイテムのツールチップ内でテキストを選択できない問題が完全に修正されました。"
-      },
       "feat": {
         "text_1": "アイテム価格のキャッシュ有効期限を1時間に設定できるようになりました。",
         "text_2": "クライアントとHqHelperの両方に新しいバージョンがある場合、通知は一度だけ表示され、個別には表示されないように改修しました。",
         "text_3": "一部のインターフェーステキストの表現が最適化されました。"
+      },
+      "fix": {
+        "text_1": "一部のアイテムのツールチップ内でテキストを選択できない問題が完全に修正されました。"
+      },
+      "milestone": {
+        "text_1": "これにより、初代HqHelperのすべての主要機能が移行されました。"
       }
     },
     "2_1_6": {
-      "fix": {
-        "text_1": "新規ユーザーが特定の条件でページがクラッシュする問題を修正しました。",
-        "text_2": "機能設定 -> 製作レポート -> 簡易モードでアイテムを表示する設定が特定の状況で正しく動作しない問題を修正しました。"
-      },
       "feat": {
         "text_1": "機能設定 -> 推奨の回しに「製作アイテムの並び替えルール」の設定項目を追加しました。",
         "text_2": "「製作手帳順」に設定することで、推奨の回し内の製作可能なアイテムがゲーム内の製作手帳の順番に並びます。",
         "text_3": "「採集時計」の「並び替え基準」に「残り時間」を設定できるようになりました。",
         "text_4": "残り時間とは、現在採集可能なアイテムの残り採集可能時間 / 採集不可能なアイテムが採集可能になるまでの残り時間を指します。"
+      },
+      "fix": {
+        "text_1": "新規ユーザーが特定の条件でページがクラッシュする問題を修正しました。",
+        "text_2": "機能設定 -> 製作レポート -> 簡易モードでアイテムを表示する設定が特定の状況で正しく動作しない問題を修正しました。"
       }
     },
     "2_1_7": {
@@ -1602,15 +365,15 @@
         "text_8": "「{option}」を有効にする必要があります。",
         "text_9": "取引不可のアイテムには価格モジュールが表示されず、HQ品質のないアイテムにはHQ価格情報が表示されません。"
       },
-      "fix": {
-        "text_1": "バグはまだ見つかっていません、素晴らしい。"
-      },
       "feat": {
         "text_1": "採集可能アイテムのホツールチップには、採集場所のレベルと採集に必要な伝承録の情報も表示されるようになりました。",
         "text_2": "「{f}」ツールチップ内のテーブルでは、価格が取得できなかったアイテムの価格を0ではなく、「???」と表示するようにしました。また、対応する説明文を追加しました。",
         "text_3": "一部、アイコンのみが表示されて名前がないアイテムにツールチップを追加し、アイテム名を提示するようにしました。",
         "text_4": "一部の展開データファイルの容量を圧縮し、更新時に必要なアップデートパッケージの容量、初回ページアクセス時のロード時間、およびホスティングサーバーの帯域幅の負担を軽減しました。",
         "text_5": "製作レポート内のアイテム製作レベル情報の表示を特定の場面で最適化しました。"
+      },
+      "fix": {
+        "text_1": "バグはまだ見つかっていません、素晴らしい。"
       }
     },
     "2_1_8": {
@@ -1622,11 +385,6 @@
       }
     },
     "2_1_9": {
-      "fix": {
-        "text_1": "ワークフロー関連レポートが「既存」数量を「総必要数×0.5+1」から「総必要数-1」の範囲値に設定できない問題を修正。",
-        "text_2": "ワークフロー各UIエリアの高さを修正し、異なる表示デバイスに対応できるように調整しました。",
-        "text_3": "スクロール可能なコンポーネントの一部にスクロールバーが表示されない問題を修正。"
-      },
       "feat": {
         "text_1": "ワークフローインターフェースに「既存ワークフローの管理」ボタンとダイアログを追加しました。このダイアログで既存ワークフローの名前変更と削除が可能になりました。",
         "text_2": "調理品&薬品の计算ページで選択済みの調理品&薬品をワークフローに追加できるようになりました。",
@@ -1634,51 +392,45 @@
         "text_4": "制作可能アイテムのツールチップ「制作」モジュールに「製作をシミュレーション」ボタンを追加しました。クリックでBestCraftのシミュレーションを即時起動できます。",
         "text_5": "調理品&薬品の计算、採集時計、ワークフローページにトップへ戻るボタンを追加。",
         "text_6": "「{f}」機能のPC端末表示効果を最適化。"
-      }
-    },
-    "2_1_10": {
-      "fix": {
-        "text_1": "プロ版レポート作成におけるアイテム情報アイコンのコピー機能が正常に動作しない問題を修正しました。",
-        "text_2": "旧バージョンのレポート作成におけるアイテムボタンのコピー機能が正常に動作しない問題を修正しました。"
       },
-      "feat": {
-        "text_1": "ワークフローでコスト/収益分析が可能になりました。",
-        "text_2": "PC版ワークフローでは「アイテム選択」パネルを左側に折り畳むことで、右側の集計領域により多くのスペースを確保できるようになりました。",
-        "text_3": "「{f}」ダイアログの表示効果を最適化しました。"
+      "fix": {
+        "text_1": "ワークフロー関連レポートが「既存」数量を「総必要数×0.5+1」から「総必要数-1」の範囲値に設定できない問題を修正。",
+        "text_2": "ワークフロー各UIエリアの高さを修正し、異なる表示デバイスに対応できるように調整しました。",
+        "text_3": "スクロール可能なコンポーネントの一部にスクロールバーが表示されない問題を修正。"
       }
     },
     "2_2_0": {
-      "fix": {
-        "text_1": "推奨の回し（ツールチップ）内のアイテム情報アイコンのコピー機能が正常に動作していなかった問題を修正しました。",
-        "text_2": "スマホ版ワークフローにおける「プロセス」領域の表示効果を改善しました。"
-      },
       "feat": {
         "text_1": "ワークフロー内の「プロセス」が自動的に記憶されるようになりました。折りたたんだプロセスグループや完了済みマークを付けた準備項目について、ページを再読み込みしたり他のワークフローに切り替えたりしても変更が保持されるようになります。",
         "text_2": "推奨の回しの交換アイテム欄に、残り材料に必要なトークン数が表示されるようになりました。",
         "text_3": "PC版ワークフローの「プロセス」領域にフローティングボタンを追加し、各プロセスの展開/折りたたみや機能設定への迅速なアクセスを可能にしました。",
         "text_4": "コスト/収益分析テーブルにアイテム詳細を表示する設定が可能になりました。"
+      },
+      "fix": {
+        "text_1": "推奨の回し（ツールチップ）内のアイテム情報アイコンのコピー機能が正常に動作していなかった問題を修正しました。",
+        "text_2": "スマホ版ワークフローにおける「プロセス」領域の表示効果を改善しました。"
       }
     },
     "2_2_1": {
-      "fix": {
-        "text_1": "データベースのパッチ番号のテキストが更新されない問題を修正しました。"
-      },
       "feat": {
         "text_1": "パッチ{patch}で追加された各種アイテムの名称および説明の中国語翻訳を追加しました。"
+      },
+      "fix": {
+        "text_1": "データベースのパッチ番号のテキストが更新されない問題を修正しました。"
       }
     },
     "2_2_2": {
-      "fix": {
-        "text_1": "調理品&薬品計算とワークフローの集計において、特定のアイテムが採取集計とトークン交換集計で重複して表示される問題を修正しました。",
-        "text_2": "ワークフローレポートのサブタイトル背景色を修正しました。",
-        "text_3": "メイン画面のパーツ選択エリア操作ボタンの表示方を修正しました。"
-      },
       "feat": {
         "text_1": "各機能のデフォルト設定を調整しました。",
         "text_2": "HqHelperを初めて利用するユーザーのみ有効",
         "text_3": "環境設定において、一部設定項目の変更後にページリロードが不要になりました。",
         "text_4": "メイン画面の右クリックジョブボタン展開メニューの表示効果を最適化しました。",
         "text_5": "ワークフロー管理画面のテーブルにドラッグボタンを追加し、既存ワークフローの順序変更を可能にしました"
+      },
+      "fix": {
+        "text_1": "調理品&薬品計算とワークフローの集計において、特定のアイテムが採取集計とトークン交換集計で重複して表示される問題を修正しました。",
+        "text_2": "ワークフローレポートのサブタイトル背景色を修正しました。",
+        "text_3": "メイン画面のパーツ選択エリア操作ボタンの表示方を修正しました。"
       }
     },
     "2_2_3": {
@@ -1687,16 +439,6 @@
         "text_2": "任意のクリエイターを選択してスポンサーになり、開発意欲の向上や経費負担の軽減ができます。",
         "text_3": "スポンサーは「特別感謝」に掲載されます。",
         "text_4": "クライアントの専用ダウンロードページを追加しました。"
-      },
-      "fix": {
-        "text_1": "管理ワークフローツールチップのコンテンツコンポーネントのレンダリング問題を修正しました。",
-        "text_2": "設定＞インターフェース言語の調整後に自動リフレッシュが即時反映されない問題を修正しました。",
-        "text_3": "一部地域のテキストがユーザーインターフェース言語設定に従っていない問題を修正しました。",
-        "text_4": "「{f1}」→「{f2}」における「{f3}」の自動判定ロジックを修正しました。",
-        "text_5": "自動設定時、インターフェース言語ではなくアイテム言語の設定に従うようになりました。",
-        "text_6": "スマホ端末でのワークフローエリア切り替え表示を修正しました。",
-        "text_7": "推奨フローでトークン要求が長い場合のフロータイトル表示を改善しました。",
-        "text_8": "アイテム言語が日本語/英語設定時のエクスポートアラームマクロ画面表示を修正しました。"
       },
       "feat": {
         "text_1": "マクロコピー時に生成モードを調整できるようになり、複数行形式でマクロを出力できます。",
@@ -1707,6 +449,16 @@
         "text_6": "設定＞一部項目のプルダウンオプションに説明文を追加しました。",
         "text_7": "採集時計ページのアイコンボタンホバー表示（モバイル）を最適化しました。",
         "text_8": "一部テキスト説明の表現を改善しました。"
+      },
+      "fix": {
+        "text_1": "管理ワークフローツールチップのコンテンツコンポーネントのレンダリング問題を修正しました。",
+        "text_2": "設定＞インターフェース言語の調整後に自動リフレッシュが即時反映されない問題を修正しました。",
+        "text_3": "一部地域のテキストがユーザーインターフェース言語設定に従っていない問題を修正しました。",
+        "text_4": "「{f1}」→「{f2}」における「{f3}」の自動判定ロジックを修正しました。",
+        "text_5": "自動設定時、インターフェース言語ではなくアイテム言語の設定に従うようになりました。",
+        "text_6": "スマホ端末でのワークフローエリア切り替え表示を修正しました。",
+        "text_7": "推奨フローでトークン要求が長い場合のフロータイトル表示を改善しました。",
+        "text_8": "アイテム言語が日本語/英語設定時のエクスポートアラームマクロ画面表示を修正しました。"
       }
     },
     "2_2_4": {
@@ -1715,13 +467,6 @@
         "text_2": "この変更に伴い、「{f1}」に「{f2}」タブが追加されました。",
         "text_3": "従来の「{f}」タブは撤廃され、その下の設定項目は他のタブに移動します。"
       },
-      "fix": {
-        "text_1": "コザマル・カのマップデータを修正し、ポガ停船所が正常に表示されるようになりました。",
-        "text_2": "「コスト/収益分析」と「ワークフローに追加」ツールチップでアイテム情報アイコンのコピー機能が正常に動作していない問題を修正しました。",
-        "text_3": "製作レポート内でアイテム名が長すぎる場合にテーブルの列がずれる問題を修正しました。",
-        "text_4": "スポンサーリストがキャッシュの影響で時々更新されない問題を修正しました。",
-        "text_5": "この項目はバージョン2.2.3での対応修正をさらに処理したものです。"
-      },
       "feat": {
         "text_1": "「推奨フロー」に「中国サーバー未実装アイテムを非表示/表示」ボタンを追加（「サーバー」が中国サーバーに設定されている場合のみ表示）。",
         "text_2": "製作レポートの推奨フローツールチップとワークフローのフローラベルタブの両方に適用されますが、ボタンの位置は異なります。",
@@ -1729,18 +474,19 @@
         "text_4": "モード選択が「累積」の場合、以前のバージョンのロジックと一致します。詳細な説明はツールチップで確認できます。",
         "text_5": "製作レポートで任意のアイテム行を左クリックすると、そのアイテムとその製作素材がハイライト表示されます。",
         "text_6": "この機能が必要ない場合、「{f1}」の「{f2}」タブで「{f3}」設定項目を有効にできます。"
+      },
+      "fix": {
+        "text_1": "コザマル・カのマップデータを修正し、ポガ停船所が正常に表示されるようになりました。",
+        "text_2": "「コスト/収益分析」と「ワークフローに追加」ツールチップでアイテム情報アイコンのコピー機能が正常に動作していない問題を修正しました。",
+        "text_3": "製作レポート内でアイテム名が長すぎる場合にテーブルの列がずれる問題を修正しました。",
+        "text_4": "スポンサーリストがキャッシュの影響で時々更新されない問題を修正しました。",
+        "text_5": "この項目はバージョン2.2.3での対応修正をさらに処理したものです。"
       }
     },
     "2_2_5": {
       "breaking": {
         "text_1": "新機能「在庫一覧」を実装しました。",
         "text_2": "新たに追加された専用ツールチップで自身の所持アイテムを設定し、ツールチップ/ワークフロー内のプロレポートと同期するかどうかを自由に選択可能になります。"
-      },
-      "fix": {
-        "text_1": "さらにGitHub.ioページの自動更新問題が修正されました。",
-        "text_2": "ワークフローの「アイテム選択」領域において、アイテム名が長すぎる場合に列がずれる問題が修正されました。",
-        "text_3": "レポート作成ツールチップ内の推奨フローにおいて、アイテム名が長すぎる場合の表示が修正されました。",
-        "text_4": "スポンサーページのQRコード表示が修正されました。"
       },
       "feat": {
         "text_1": "マクロ管理に「インポート」「エクスポート」「全マクロ削除」機能が追加されました。",
@@ -1750,6 +496,12 @@
         "text_5": "「推奨の回し」内の「中国サーバー未実装アイテムを非表示/表示」ボタンにクリック時のヒントを追加。",
         "text_6": "クライアントの更新確認画面におけるデフォルト加速サービスを調整し、加速サービスリストを更新。",
         "text_7": "「当ツールについて」内のアプリケーションロゴデザインを調整。"
+      },
+      "fix": {
+        "text_1": "さらにGitHub.ioページの自動更新問題が修正されました。",
+        "text_2": "ワークフローの「アイテム選択」領域において、アイテム名が長すぎる場合に列がずれる問題が修正されました。",
+        "text_3": "レポート作成ツールチップ内の推奨フローにおいて、アイテム名が長すぎる場合の表示が修正されました。",
+        "text_4": "スポンサーページのQRコード表示が修正されました。"
       }
     },
     "2_2_6": {
@@ -1759,125 +511,529 @@
         "text_3": "利用には登録とログインが必要です。アカウントはNBBレシピシミュレーター（5p.nbbjack.com）と共通です。",
         "text_4": "モバイル端末ではクラウド同期機能はまだ実装されておらず、今後のバージョンで追加予定です。"
       },
-      "fix": {
-        "text_1": "メインウィンドウが、採集時計のフローティングウィンドウ設定によって稀に最前面に固定される問題を修正しました。"
-      },
       "feat": {
         "text_1": "在庫一覧に逆同期機能に関する設定を追加しました。",
         "text_2": "クライアントのドラッグ領域の構築方法を最適化し、より多くの位置で長押しドラッグが可能になりました。"
+      },
+      "fix": {
+        "text_1": "メインウィンドウが、採集時計のフローティングウィンドウ設定によって稀に最前面に固定される問題を修正しました。"
       }
     },
     "2_2_7": {
+      "feat": {
+        "text_1": "推奨の回しにおける非刻限採集アイテムの並び順を最適化し、採集場所が近いアイテムがまとめて表示されるようになりました。",
+        "text_2": "レポートの空白部分をクリックしてもアイテム行の選択を解除できるようになりました。",
+        "text_3": "ユーザーマクロ編集ダイアログにプリセットタグとプリセット属性の機能を追加しました。"
+      },
       "fix": {
         "text_1": "上書きモードでアイテムをワークフローに追加するとワークフロー名が消去される問題を修正しました。",
         "text_2": "モバイル端末のメニュー画面がメインページと一緒にスクロールする問題を修正しました。",
         "text_3": "クラウド同期が引き起こす可能性のあるエラーの一部を事前に修正しました。",
         "text_4": "ワークフローレポートのリストポップアップ内でグループ見出しテキストが枠に重なる問題を修正しました。",
         "text_5": "マクロ管理画面の入力欄が日本語/英語に設定時の表示効果を修正しました。"
-      },
-      "feat": {
-        "text_1": "推奨の回しにおける非刻限採集アイテムの並び順を最適化し、採集場所が近いアイテムがまとめて表示されるようになりました。",
-        "text_2": "レポートの空白部分をクリックしてもアイテム行の選択を解除できるようになりました。",
-        "text_3": "ユーザーマクロ編集ダイアログにプリセットタグとプリセット属性の機能を追加しました。"
       }
+    },
+    "2_2_8": {
+      "breaking": {
+        "text_1": ""
+      }
+    },
+    "breaking": "重要な変更",
+    "feat": "機能アップデート",
+    "fix": "不具合修正",
+    "milestone": "マイルストーン",
+    "shared": {
+      "add_new_func": "「{f}」機能を追加",
+      "chs_db_update": "中国版データベースが{ver}に更新されました。",
+      "chs_db_update_with_comma": "中国版データベースが{ver}に更新されました、",
+      "global_db_update": "グローバル版のデータベースが{ver}に更新されました。",
+      "released_func": "「{f}」機能を実装しました。",
+      "require_setting": "「{f1}」の「{f2}」タブで設定を行う必要があります。",
+      "temp_not_support_mobile": "この機能は現時点ではスマホ端末に対応していません。"
+    },
+    "text": {
+      "release_date_with_val": "更新日：{date}",
+      "view_history": "過去の更新履歴を確認",
+      "view_latest": "最新更新履歴を確認"
     }
   },
-  "gather_clock": {
-    "preference": {
-      "title": "時計を設定",
-      "pin_gatherable_items": "現在採集可能なアイテムをトップに表示",
-      "disable_item_pop": "アイテムボタンのツールチップを隠す",
-      "sort_by": {
-        "title": "並べ替え基準",
-        "option": {
-          "gather_start_time": "採集開始時間"
-        }
-      },
-      "show_map": "採集マップを表示",
-      "mention_way": {
-        "title": "リマインド方式",
-        "option": {
-          "system_notice": "システム通知",
-          "sound": "通知音"
-        }
-      },
-      "pin_window": "ウィンドウを最前面に固定"
-    },
-    "grouptitle_with_patch_and_il": "パッチ{patch}（アイテムレベル{il}）",
-    "text": {
-      "un_star_with_item": "「{val}」のお気に入りを解除",
-      "star_with_item": "「{val}」をお気に入りに登録",
-      "un_star_all": "すべてのお気に入りを解除する",
-      "subscribed": "フォロー済み",
-      "subscribe": "フォロー",
-      "unsubscribe_with_item": "「{val}」のフォローを解除",
-      "subscribe_with_item": "「{val}」をフォローする",
-      "unsubscribe_all": "すべてのフォローを解除",
-      "no_items": "アイテムがありません"
-    },
+  "cloud": {
     "message": {
-      "system_notice_not_supported": "現在使用中のブラウザまたはクライアントがシステム通知機能をサポートしていません。",
-      "system_notice_denied": "リマインド権限が拒否されました。ブラウザのサイト権限設定を確認してください。",
-      "following_items_can_be_gathered": "現在採集可能になったアイテム："
+      "cache_cleaned": "アイテム価格サーバーの設定が変更されたため、アイテム価格キャッシュがクリアされました。",
+      "cannot_sync_because_modules_data_load_failed": "同期できません。以下のモジュールのデータ読み込みに失敗しました：",
+      "cannot_sync_because_modules_data_not_uploaded": "同期できません。以下のモジュールがまだアップロードされていません：",
+      "confirm_download_1": "クラウドデータをローカルにダウンロードしますか？",
+      "confirm_download_2": "これによりローカルの既存データが上書きされます。",
+      "confirm_upload_1": "ローカルデータをクラウドにアップロードしますか？",
+      "confirm_upload_2": "これによりクラウド上の既存データが上書きされます。",
+      "data_consistent": "ローカルデータとクラウドデータは一致しています",
+      "email_format_wrong": "入力したメールアドレスは不正です",
+      "following_modules_sync_failed": "以下のモジュールの同期に失敗しました：",
+      "key_is_too_long": "{key}が長すぎます",
+      "logged_out": "ログアウト済み",
+      "login_succeed": "ログイン成功",
+      "operate_succeed": "操作成功",
+      "page_would_be_reloaded": "変更を適用するため、ページを再読み込みします。",
+      "please_input_loginname_or_email": "ログイン名またはメールアドレスを入力",
+      "please_refresh_and_retry": "ページを再読み込みして再試行してください。",
+      "please_upload_first": "まずデータをアップロードしてください。",
+      "register_succeed": "登録成功",
+      "reset_avatar_failed": "アバター変更失敗：{err}",
+      "reset_nick_or_title_failed": "ニックネーム/称号の変更失敗：{err}",
+      "reset_password_succeed": "パスワードリセット成功",
+      "submit_failed": "送信失敗：{err}",
+      "sync_error": "{mod}の同期中にエラーが発生しました：{err}",
+      "sync_succeed": "同期成功！",
+      "verify_cooldown": "{count}秒後に再送可能",
+      "verify_send_failed": "送信失敗：{err}",
+      "verify_sent": "認証コードを送信しました"
     },
-    "tooltip": {
-      "subscribe_1": "このボタンをクリックすると、この採集品をサブスクリプション/サブスクリプション解除できます。",
-      "subscribe_2": "フォローした採集品が採集可能になったら、「{setting}」に従って通知を送信します。"
+    "text": {
+      "avatar": "アバター",
+      "back_to_login": "ログインに戻る",
+      "click_here_to_login": "こちらからログインする",
+      "data_sync": "データ同期",
+      "do_you_have_an_account": "既にアカウントをお持ちですか？",
+      "download_data": "クラウドデータをローカルにダウンロード",
+      "edit_account_info": "アカウント情報編集",
+      "forgot_password": "パスワードを忘れた場合",
+      "last_upload": "最終アップロード：{val}",
+      "loading": "読み込み中……",
+      "new_password": "新しいパスワード",
+      "not_logged_in": "ログインしていません",
+      "not_uploaded": "未アップロード",
+      "please_input_email_when_registered": "登録時に入力したメールアドレスを入力してください",
+      "please_input_new_password": "新しいパスワードを入力",
+      "register_account": "アカウント登録",
+      "reset_password": "パスワードリセット",
+      "select_avatar": "アバターを選択",
+      "send_verify": "認証コードを送信",
+      "start_sync": "同期開始",
+      "sync_range": "同期範囲",
+      "upload_data": "ローカルデータをクラウドにアップロード",
+      "user_title": "称号"
+    }
+  },
+  "common": {
+    "account": "アカウント",
+    "add": "追加",
+    "add2": "新規追加",
+    "add_item": "アイテム追加",
+    "all_changes_effects_after_save": "全ての変更は保存ボタンをクリックしてから有効になります",
+    "amount": "数",
+    "appfunc": {
+      "about": "他の説明",
+      "about_app": "当ツールについて",
+      "cal_food_and_tinc": "調理品&薬品",
+      "changelog": "Change Logs",
+      "check_updates": "アップデートチェック",
+      "contact_us": "コンタクト",
+      "copy_macro": "マクロをコピー",
+      "craft_macro": "生産マクロ",
+      "craft_statement": "素材リストを生成する",
+      "devtool": "開発ツール",
+      "donate_us": "スポンサーになる",
+      "download_client": "クライアントをダウンロードする",
+      "food_and_tinc_new_window": "調理品&薬品(別ウィンド)",
+      "fthelper": "調理品&薬品の计算",
+      "func_setting": "機能設定",
+      "gather_clock": "採集時計",
+      "ingame_inventory": "在庫一覧",
+      "item_price": "アイテム価格",
+      "macro_manage": "マクロ管理",
+      "recomm_process": "推奨の回し",
+      "setting_and_update": "設定とアップデート",
+      "switch_theme": "テーマを切り替える",
+      "thank_list": "特別感謝",
+      "useful_tools": "ツール",
+      "user_preference": "設定",
+      "workflow": "ワークフロー"
     },
-    "export_alarm_macro": {
-      "title": "アラームマクロをエクスポート",
-      "preference": {
-        "clean_old_alarms": "以前設定したアラームを同時にクリア",
-        "alarm_name_includes": "アラーム名には以下が含まれます：",
-        "no_repeat": "リマインダーの重複通知をオフにする"
+    "appsetting": {
+      "appearance": "外見",
+      "basic_setting": "基礎設定",
+      "enhancement": "拡張",
+      "general": "一般",
+      "performance": "機能",
+      "update": "更新"
+    },
+    "armor_attr": "装備品の詳細",
+    "ask_every_time": "毎回確認",
+    "auto": "オート",
+    "auto_refresh": "自動リフレッシュ",
+    "auxiliary_tools": "サポートツール",
+    "back_to_index": "ホームページに戻る",
+    "back_to_upper": "前のページに戻る",
+    "basic_info": "基本情報",
+    "benefit": "収入",
+    "brief_intro": "概要",
+    "cautions": "注意事項",
+    "check_failed": "チェックが失敗しました",
+    "checking": "チェック中です……",
+    "chs_and_global_data_version": "中国版{cnver}／グローバル版{glbver}",
+    "chs_data_version": "DONT_SHOW",
+    "clear": "クリア",
+    "clear_selected": "選択済みをクリア",
+    "cleared": "クリア済み",
+    "click": "クリック",
+    "click_here": "ここをクリックする",
+    "click_here_show_menu": "メニューを開く",
+    "click_or_drag_to_upload": "このエリアにファイルをクリックまたはドラッグしてアップロード",
+    "click_to_copy": "クリックでコピー",
+    "client_version": "クライアントバーション",
+    "close": "閉じる",
+    "comment": "備考",
+    "confirm": "確認",
+    "content": "内容",
+    "copy": "コピーする",
+    "copy_item_name": "アイテム",
+    "cost": "コスト",
+    "cover": "上書き",
+    "craft": {
+      "control": "加工精度",
+      "cp": "製作力",
+      "craftsmanship": "作業精度",
+      "title": "レシピ"
+    },
+    "craft_job": "クラフタージョブ",
+    "craft_requirements": "必須属性",
+    "curr_version_with_val": "現在のバーション：{v}",
+    "current": "現在",
+    "data": "データ",
+    "data_missing": "データ損失",
+    "delete": "削除",
+    "developing": "開発中",
+    "disable": "無効化にする",
+    "dont_refresh": "リフレッシュしない",
+    "drag_to_sort": "ドラッグで並べ替え",
+    "edit": "編集",
+    "effect": "効果",
+    "email": "メールアドレス",
+    "error": "エラー",
+    "expand": "展開",
+    "expand_all": "全て展開",
+    "expired": "期限切れ",
+    "export": "エクスポート",
+    "export_excel": "Excelシートにエクスポート",
+    "export_to_excel": "エクセルシートへエクスポート",
+    "favorite": {
+      "desc": {
+        "desc_1": "このボタンをクリックして、この採集品をお気に入りに登録/登録解除します。",
+        "desc_2": "お気に入りに登録された採集品は、「お気に入り」欄に個別に表示されます。"
       },
-      "tooltip": {
-        "alarm_name_length": "アラーム名は20文字の制限があり、長すぎる部分は切り捨てられます。"
+      "title": "お気に入り"
+    },
+    "favorited": "お気に入り登録済み",
+    "file_name": "ファイル名",
+    "fold": "折り畳む",
+    "fold_all": "全て折りたたむ",
+    "follow_preference_of_item_price": "「機能設定」内の「アイテム価格」設定に従います。",
+    "food": "調理品",
+    "game_macro": "ゲームマクロ",
+    "gather": "採集",
+    "gatherable_now": "採集可能中",
+    "gear_set": {
+      "recomm": "推奨ギアセット",
+      "simulate": "ギアセットシミュレーター",
+      "title": "ギアセット"
+    },
+    "global_data_version": "ゲームデーターのパッチ：{val}",
+    "go_back": "戻る",
+    "here": "ここ",
+    "hqhelper_version": "HqHelperバーション",
+    "id_macro": "{id}番マクロ",
+    "ignore": "無視",
+    "imexport": "インポート/エクスポート",
+    "import": "インポート",
+    "import_from_excel": "エクセルシートからインポート",
+    "index": "ホームページ",
+    "item": "アイテム",
+    "item_name": "アイテム名",
+    "item_price_type": "アイテム価格タイプ",
+    "item_search_input_placeholder": "アイテム名/ID/品質/パッチでの検索に対応",
+    "item_search_input_placeholder_2": "マクロ名/備考/タグおよび関連アイテムの名称/ID/アイテムレベル/パッチでの検索ができます",
+    "job": "ジョブ",
+    "job_or_affix": "职业/枠名",
+    "just_now": "たった今",
+    "lang_en": "英語",
+    "lang_ja": "日本語",
+    "lang_zh": "中国語",
+    "last_update_with_val": "最終更新: {val}",
+    "latest_version": "最新のバーション：",
+    "line_max_len": "最大{limit}行",
+    "list": "リスト",
+    "load_failed": "読み込み失敗",
+    "loading": "読み込み中……",
+    "login": "ログイン",
+    "login_name": "ログイン名",
+    "logout": "ログアウト",
+    "loose": "緩和",
+    "macro_content": "マクロ内容",
+    "macro_with_index": "マクロ#{index}",
+    "main_ui": "メイン画面",
+    "manage": "管理",
+    "map": "マップ",
+    "message": {
+      "ask_continue": "続行しますか？",
+      "changes_saved": "変更を保存しました",
+      "confirm_delete_with_name": "{name}を削除しますか？",
+      "copied_with_content": "{content}をコピーしました",
+      "copy_failed": "コピーが失敗しました",
+      "copy_failed_unexpected_error": "コピーエラー：原因不明",
+      "copy_succeed": "コピーしました",
+      "data_line_max_len": "最大{num}行のデータしか保持できません",
+      "data_line_min_len": "少なくとも{num}行のデータを残す必要があります",
+      "dataname_saved": "{dataname}を保存しました",
+      "deleted": "削除済み",
+      "export_failed_with_error": "エクスポート失敗：{err}",
+      "get_price_failed": "価格の取得に失敗しました。",
+      "import_failed": "インポート失敗",
+      "import_failed_with_error": "インポート失敗：{err}",
+      "import_succeed": "インポート成功",
+      "item_already_have": "該当アイテムが既に存在します",
+      "nothing_to_copy": "コピーできる内容はありません",
+      "operation_irreversible": "この操作は元に戻せません。",
+      "please_input_item_name": "アイテム名を入力してください",
+      "please_input_val": "{val}を入力してください",
+      "please_wait_for_a_while": "请稍等片刻。",
+      "sync_succeed": "同期しました"
+    },
+    "mode": "モード",
+    "mquoted_view_statement": "[素材リストを表示する]",
+    "name_en": "英語名",
+    "name_ja": "日本語名",
+    "name_zh": "中国語名",
+    "never": "一度もない",
+    "nickname": "ニックネーム",
+    "no_content": "内容なし",
+    "no_content_matched": "一致する内容がありません",
+    "no_data": "データなし",
+    "no_required_items": "必要なアイテムはありません",
+    "not_planned": "計画なし",
+    "note_x": "備考{val}：",
+    "nothing": "なし",
+    "number": "番号",
+    "open_in": {
+      "angler": "猫はお腹がすいた で検索",
+      "angler_search": "猫はお腹がすいた で検索",
+      "ffmomola": "ffmomola で検索",
+      "gamer_escape": "GamerEscapeで開く",
+      "garland": "Garland で検索",
+      "garland2": "Garland で検索",
+      "huijiwiki": "HuijiWiki で検索",
+      "huijiwiki2": "HuijiWiki で検索",
+      "universalis": "Universalis で検索"
+    },
+    "open_in_new_window": "新しいウィンドウで開く",
+    "options": "オプション",
+    "other": "他",
+    "overwrite": "書き換え",
+    "password": "パスワード",
+    "patch_x": "パッチ{val}",
+    "please_refer_to": "詳細はこちら：",
+    "prefix": "プレフィックス",
+    "preset": "プリセット",
+    "preview": "プレビュー",
+    "price": "価格",
+    "process": "プロセス",
+    "qq": "QQ",
+    "quoted_leveling": "(レベリング)",
+    "quoted_maximum": "(上限{val})",
+    "recheck": "チェックし直す",
+    "recomm": "おすすめ",
+    "reduce": "精選",
+    "refresh": "リフレッシュ",
+    "refreshing": "更新中...",
+    "register": "登録",
+    "remain_time": "残り時間",
+    "remain_with_colon": "残り:",
+    "reset_to_0": "クリア",
+    "retry": "再試行",
+    "route_card_desc": "※ 今が表示されているのはHqHelperのサブページです。",
+    "rule": "ルール",
+    "save": "保存",
+    "save_succeed": "セーブ成功",
+    "select_all": "すべての内容を選択する",
+    "select_invert": "未選択の内容を選択する",
+    "select_item": "アイテムを選択",
+    "select_item2": "アイテム選択",
+    "selected": "選択済み",
+    "server": "サーバー",
+    "setting": "設定",
+    "simulate_craft": "製作をシミュレーション",
+    "simulator": "シミュレーター",
+    "special": "特殊",
+    "special_notice": "特別な注意点",
+    "statement": "レポート",
+    "statistics": "集計",
+    "step_and_sec": "{step_count}ターン{time_count}秒",
+    "strict": "厳密",
+    "subtotal": "小計",
+    "summation": "累積",
+    "sync": "同期",
+    "tag": "タグ",
+    "target": "ターゲット",
+    "temp_trans": "DONT_SHOW",
+    "time": {
+      "val_days": "{val}日",
+      "val_hours": "{val}時間"
+    },
+    "timeout": "タイムアウト",
+    "tinc": "強化薬",
+    "tip": "ヒント",
+    "tomescript": "トークン",
+    "tomescript_type": "トークンタイプ",
+    "trade": "交換",
+    "twitter_x": "Twitter (X)",
+    "unit_price": "単価",
+    "unknown": "不明",
+    "update_immedi": "今すぐアップデートする",
+    "updating": "アップデート中……",
+    "val_control": "{control_val}加工",
+    "val_craftsmanship": "{craftsmanship_val}作業",
+    "val_days_ago": "{days}日前",
+    "val_hours_ago": "{hours}時間前",
+    "val_level": "レベル{val}",
+    "val_minutes": "{minute}分",
+    "val_minutes_ago": "{minutes}分前",
+    "val_seconds": "{second}秒",
+    "verify_code": "認証コード",
+    "view_analysis": "分析を表示する",
+    "view_statement": "素材リストを表示する",
+    "weibo": "Weibo",
+    "will_be_named_with_time_when_empty": "入力しない場合はデフォルトで時間で命名されます",
+    "work_state": "作業状態"
+  },
+  "contact_us": {
+    "feedback": {
+      "button": {
+        "qr_code": "またはQRコードスキャンでも参加できます。"
+      },
+      "desc": {
+        "desc_1": "QQをご利用の場合、QQグループでのコミュニケーションが最も便利です。",
+        "desc_10": "で issue を起票できます。",
+        "desc_11": "起票時は、プラットフォームの利用ルールを遵守して、ガイドラインをお読みください。",
+        "desc_2": "グループ内では、質問・アドバイス、またはただお話しするだけでも構いません。",
+        "desc_3": "既にQQにログインしている場合、",
+        "desc_4": "と直接QQグループに参加できます。",
+        "desc_5": "またはグループ番号",
+        "desc_6": "から参加してください。",
+        "desc_7": "Github で issue を起票して、BUG 報告、または改善点・新しい機能の提案することも可能です。",
+        "desc_8": "この方式では随時処理状況を確認できるメリットがあります。",
+        "desc_9": "既にGithubアカウントをお持ちの場合、"
+      },
+      "sub_title": {
+        "github_issue": "Github で issue を起票"
+      },
+      "title": "質問・フィードバック"
+    },
+    "follow": {
+      "desc": {
+        "desc_1": "（騒がしいと思わなければ…）SNS で HqHelper の最新ニュースをフォローいただけますと大変うれしく思います。",
+        "desc_2": "Weibo では中国語の内容のみ提供しています。",
+        "desc_3": "フォロー。",
+        "desc_4": "Twitter(X) では今のところ限定的な英語内容のみ提供しています。"
+      },
+      "title": "最新ニュースをフォロー"
+    }
+  },
+  "copy_macro": {
+    "message": {
+      "failed": "自動コピーが失敗しました、カーソルでテキストを選択してコピーしてください"
+    },
+    "mode": {
+      "multi_line": {
+        "desc": {
+          "desc_1": "現在はマルチラインモード",
+          "desc_2": "コピーしたマクロはユーザーマクロに貼り付けて実行する必要があります"
+        }
+      },
+      "single_line": {
+        "desc": {
+          "desc_1": "現在はシングルラインモード",
+          "desc_2": "コピーしたマクロはゲーム内チャットボックスに直接貼り付け可能"
+        }
       }
     },
-    "remain_time": {
-      "tooltip": "現在採集可能なアイテムの残り採集可能時間 / 採集不可能なアイテムが採集可能になるまでの残り時間"
+    "option": {
+      "macro_direct_copy": "次回から表示ぜずにコピーする"
+    },
+    "text": {
+      "please_select_macro_mode": "マクロ生成モードを選択",
+      "please_select_macro_prefix": "マクロプレフィックスを選択"
     }
   },
   "cost_and_benefit": {
     "tooltip": {
-      "cal_nq_price_here": "NQの価格が計算に含まれています。",
-      "cal_hq_price_here": "HQの価格が計算に含まれています。"
+      "cal_hq_price_here": "HQの価格が計算に含まれています。",
+      "cal_nq_price_here": "NQの価格が計算に含まれています。"
     }
   },
-  "map": {
-    "text": {
-      "open_in": {
-        "ffcafe": "FFCAFEインタラクティブマップで開く"
+  "donate_us": {
+    "desc": {
+      "desc_1": "HqHelperへのご支援に心より感謝申し上げます",
+      "desc_2": "スポンサーになる前に以下の注意事項をご確認ください：",
+      "desc_3": "スポンサーになった後、IDとコメントが特別感謝に反映されます（手動更新のため数日遅延あり）",
+      "desc_4": "振込備考欄/コメント欄に表示希望のIDとメッセージを記載可能",
+      "desc_5": "スポンサーは金額ではなく気持ちが大切です。見返りはありませんので、無理のない範囲でご協力ください。",
+      "desc_6": "掲載後の名前変更も可能ですが、手動処理のため頻繁な変更はできません",
+      "desc_7": "問題発生時はQQグループまでご連絡ください"
+    },
+    "final_confirm": {
+      "desc": {
+        "desc_1": "この開発者のスポンサーになります：",
+        "desc_2": "、これでHqHelperの{contents}が支援されます。",
+        "desc_3": "開発事業",
+        "desc_4": "データ更新とホスティングサーバー(nbb.fan)の経費バランス調整",
+        "desc_5": "※コメントにHqHelper経由でのスポンサーにいなることをご明記してください。",
+        "desc_6": "該当メンバーは他プロジェクトでも支援を受け付けています。",
+        "desc_7": "特に明記しない場合、特別感謝に反映されない可能性があります"
       },
-      "recomm_aetheryte": "おすすめのテレポ地点"
+      "title": "最終確認"
+    },
+    "start_donate": {
+      "desc": {
+        "desc_1": "下記リンクからスポンサーになる：",
+        "desc_2": "モバイル版のQQ/TIMでQRコードをスキャン："
+      },
+      "title": "スポンサーになる"
+    },
+    "target": {
+      "placeholder": "スポンサーになりたいクリエイターを選択",
+      "title": "スポンサーになる開発者"
+    },
+    "way": {
+      "aifadian": "Afdian（愛発電）",
+      "placeholder": "スポンサーになる方法を選択",
+      "title": "スポンサーになる方法"
     }
   },
-  "recomm_process": {
-    "group": {
-      "aethersand": "霊砂を集める",
-      "trade": "アイテム交換",
-      "other": "その他必要な道具を集める",
-      "pre_pre_precraft": "{job}で準準中間素材を制作",
-      "pre_precraft": "{job}で準中間素材を制作",
-      "precraft": "{job}で中間素材を制作",
-      "craft": "{job}で完成品を制作",
-      "gather_common_with_job": "{job}で採集（非時間制限）",
-      "gather_time_limited_with_job": "{job}で採集（時間制限）",
-      "common_gathering": "採集アイテム（常駐）",
-      "time_limited_gathering": "採集アイテム（刻限）"
+  "download_page": {
+    "link": {
+      "cn_with_index": "中国用ダウンロードリンク{index}",
+      "global": "国際用ダウンロードリンク"
     },
     "text": {
-      "show_gather_detail": "採集の詳細を表示",
-      "gather_at_with_val": "{pos}で採集",
-      "time_limit_with_val": "時間制限: {val}",
-      "show_items_not_installed_in_chs": "中国サーバー未実装アイテムを表示",
-      "hide_items_not_installed_in_chs": "中国サーバー未実装アイテムを非表示"
-    },
-    "message": {
-      "hided_unchs_items": "中国サーバー未実装アイテムを非表示中",
-      "showed_unchs_items": "中国サーバー未実装アイテムを表示中"
+      "text_1": "HqHelperのほとんどの機能はWeb版で使用できます。",
+      "text_10": "※Windows 7以降のOSのみ対応",
+      "text_11": "{platform} クライアント",
+      "text_12": "※Mac OS 10.13以降のみ対応",
+      "text_13": "※Mシリーズチップ搭載デバイスのみ対応",
+      "text_14": "現在Apple開発者署名を提供する能力がなく、インストール時に「\"HqHelper\"が破損しているため開けません。ゴミ箱に移動する必要があります」と表示される場合があります。",
+      "text_15": "セキュリティチェック制限を解除するか、HqHelperをホワイトリストに追加する必要があります。",
+      "text_2": "ただし、一部ユーザーの習慣に応えるため、およびブラウザでは実現できない機能を提供するために、クライアントサービスも提供しています。",
+      "text_3": "特別な機能はありますか？",
+      "text_4": "ネットワーク状況が悪い場合やリモートサーバーがダウンした場合でも、クライアントは基本的な計算サービスを正常に提供できます。",
+      "text_5": "クライアントでは収集クロックを新しいウィンドウで開く際、最前面に表示させて擬似フローティングウィンドウを実現できます。",
+      "text_6": "このページをブックマークすることで、今後最新バージョンのクライアントを簡単にダウンロードできます。",
+      "text_7": "クライアントはあくまでHqHelperの「コンテナ」であり、最新版クライアントをダウンロードした後もHqHelper本体の更新が必要な場合があります。",
+      "text_8": "現在の最新バージョン：{ver}",
+      "text_9": "下記ボタンからダウンロードを行ってください。"
     }
+  },
+  "err_404": {
+    "advise": "前のページ、またはホームページに戻ってください。",
+    "page_not_exist": "アクセスされたページは存在しません。"
   },
   "festival_egg": {
     "chirstmas": {
@@ -1889,51 +1045,290 @@
       }
     }
   },
-  "download_page": {
-    "text": {
-      "text_1": "HqHelperのほとんどの機能はWeb版で使用できます。",
-      "text_2": "ただし、一部ユーザーの習慣に応えるため、およびブラウザでは実現できない機能を提供するために、クライアントサービスも提供しています。",
-      "text_3": "特別な機能はありますか？",
-      "text_4": "ネットワーク状況が悪い場合やリモートサーバーがダウンした場合でも、クライアントは基本的な計算サービスを正常に提供できます。",
-      "text_5": "クライアントでは収集クロックを新しいウィンドウで開く際、最前面に表示させて擬似フローティングウィンドウを実現できます。",
-      "text_6": "このページをブックマークすることで、今後最新バージョンのクライアントを簡単にダウンロードできます。",
-      "text_7": "クライアントはあくまでHqHelperの「コンテナ」であり、最新版クライアントをダウンロードした後もHqHelper本体の更新が必要な場合があります。",
-      "text_8": "現在の最新バージョン：{ver}",
-      "text_9": "下記ボタンからダウンロードを行ってください。",
-      "text_10": "※Windows 7以降のOSのみ対応",
-      "text_11": "{platform} クライアント",
-      "text_12": "※Mac OS 10.13以降のみ対応",
-      "text_13": "※Mシリーズチップ搭載デバイスのみ対応",
-      "text_14": "現在Apple開発者署名を提供する能力がなく、インストール時に「\"HqHelper\"が破損しているため開けません。ゴミ箱に移動する必要があります」と表示される場合があります。",
-      "text_15": "セキュリティチェック制限を解除するか、HqHelperをホワイトリストに追加する必要があります。"
+  "ft_helper": {
+    "option": {
+      "hide_precraft_materials": "採集集計に中間素材の制作素材を表示されないにする"
     },
-    "link": {
-      "cn_with_index": "中国用ダウンロードリンク{index}",
-      "global": "国際用ダウンロードリンク"
+    "select_food_and_tinc": "調理品&薬品の選択",
+    "tooltip": {
+      "clear_selected": "選択済みの調理品と薬品をすべて削除する"
+    }
+  },
+  "game": {
+    "crystal": "クリスタル",
+    "eorzea_time": "エオルゼア時間",
+    "gear": {
+      "accessory": {
+        "earring": {
+          "detailed": "アクセサリ：耳飾り",
+          "title": "耳飾り"
+        },
+        "necklace": {
+          "detailed": "アクセサリ：首飾り",
+          "title": "首飾り"
+        },
+        "rings": {
+          "detailed": "アクセサリ：指輪",
+          "title": "指輪"
+        },
+        "title": "アクセサリ",
+        "wrist": {
+          "detailed": "アクセサリ：腕輪",
+          "title": "腕輪"
+        }
+      },
+      "affix": "種類",
+      "attire": {
+        "body": {
+          "detailed": "防具：胴",
+          "title": "胴"
+        },
+        "feet": {
+          "detailed": "防具：足",
+          "title": "足"
+        },
+        "hands": {
+          "detailed": "防具：手",
+          "title": "手"
+        },
+        "head": {
+          "detailed": "防具：頭",
+          "title": "頭"
+        },
+        "legs": {
+          "detailed": "防具：脚",
+          "title": "脚"
+        },
+        "title": "防具"
+      },
+      "tool": {
+        "mainhand": {
+          "detailed": "武器/主道具",
+          "title": "メインアーム"
+        },
+        "mainoff_hand": "主副道具",
+        "offhand": {
+          "detailed": "盾/副道具",
+          "title": "サブアーム"
+        }
+      }
+    },
+    "item_id": "アイテムID"
+  },
+  "gather_clock": {
+    "export_alarm_macro": {
+      "preference": {
+        "alarm_name_includes": "アラーム名には以下が含まれます：",
+        "clean_old_alarms": "以前設定したアラームを同時にクリア",
+        "no_repeat": "リマインダーの重複通知をオフにする"
+      },
+      "title": "アラームマクロをエクスポート",
+      "tooltip": {
+        "alarm_name_length": "アラーム名は20文字の制限があり、長すぎる部分は切り捨てられます。"
+      }
+    },
+    "grouptitle_with_patch_and_il": "パッチ{patch}（アイテムレベル{il}）",
+    "message": {
+      "following_items_can_be_gathered": "現在採集可能になったアイテム：",
+      "system_notice_denied": "リマインド権限が拒否されました。ブラウザのサイト権限設定を確認してください。",
+      "system_notice_not_supported": "現在使用中のブラウザまたはクライアントがシステム通知機能をサポートしていません。"
+    },
+    "preference": {
+      "disable_item_pop": "アイテムボタンのツールチップを隠す",
+      "mention_way": {
+        "option": {
+          "sound": "通知音",
+          "system_notice": "システム通知"
+        },
+        "title": "リマインド方式"
+      },
+      "pin_gatherable_items": "現在採集可能なアイテムをトップに表示",
+      "pin_window": "ウィンドウを最前面に固定",
+      "show_map": "採集マップを表示",
+      "sort_by": {
+        "option": {
+          "gather_start_time": "採集開始時間"
+        },
+        "title": "並べ替え基準"
+      },
+      "title": "時計を設定"
+    },
+    "remain_time": {
+      "tooltip": "現在採集可能なアイテムの残り採集可能時間 / 採集不可能なアイテムが採集可能になるまでの残り時間"
+    },
+    "text": {
+      "no_items": "アイテムがありません",
+      "star_with_item": "「{val}」をお気に入りに登録",
+      "subscribe": "フォロー",
+      "subscribe_with_item": "「{val}」をフォローする",
+      "subscribed": "フォロー済み",
+      "un_star_all": "すべてのお気に入りを解除する",
+      "un_star_with_item": "「{val}」のお気に入りを解除",
+      "unsubscribe_all": "すべてのフォローを解除",
+      "unsubscribe_with_item": "「{val}」のフォローを解除"
+    },
+    "tooltip": {
+      "subscribe_1": "このボタンをクリックすると、この採集品をサブスクリプション/サブスクリプション解除できます。",
+      "subscribe_2": "フォローした採集品が採集可能になったら、「{setting}」に従って通知を送信します。"
+    }
+  },
+  "ingame_inventory": {
+    "preference": {
+      "inventory_other_items_way": {
+        "desc": {
+          "desc_1": "自動/手動同期時、「在庫一覧」に存在しないアイテムの扱い方を指定します。"
+        },
+        "option": {
+          "ignore": {
+            "tooltip": {
+              "tooltip_1": "現在の数量を維持"
+            }
+          },
+          "reset_to_0": {
+            "tooltip": {
+              "tooltip_1": "数量を0にリセット"
+            }
+          }
+        },
+        "title": "「在庫一覧」に存在しないアイテムの処理方法"
+      },
+      "inventory_statement_enable_sync": {
+        "desc": {
+          "desc_1": "有効時、メインインターフェースや調理品&薬品の计算でプロ版レポートを開く際、レポート内の「所持」数量が自動的に「在庫一覧」の数量に設定されます。"
+        },
+        "title": "レポート作成ツールチップで「在庫一覧」の自動同期を有効化にする"
+      },
+      "inventory_sync_reverse_mode": {
+        "desc": {
+          "desc_1": "逆同期時に「所持数」が0のアイテムやレポートにないアイテムをどのように処理するかを決定します。"
+        },
+        "option": {
+          "loose": {
+            "tooltip": {
+              "tooltip_1": "「所持数」が0のアイテムとレポートにないアイテムを無視"
+            }
+          },
+          "overwrite": {
+            "tooltip": {
+              "tooltip_1": "完全リセットし、レポートデータで上書き"
+            }
+          },
+          "strict": {
+            "tooltip": {
+              "tooltip_1": "「所持数」が0のアイテムを同期し、レポートにないアイテムを無視"
+            }
+          }
+        },
+        "title": "逆同期モード"
+      },
+      "inventory_workflow_enable_sync": {
+        "desc": {
+          "desc_1": "ボタンをクリックすると、レポート内の「所持」数量が「在庫一覧」の数量に設定されます。"
+        },
+        "title": "ワークフローで「在庫一覧」の手動同期を有効化にする"
+      },
+      "inventory_workflow_enable_sync_reverse": {
+        "desc": {
+          "desc_1": "ボタンをクリックすると、在庫一覧の数量がレポートの「所持数」に設定されます。"
+        },
+        "title": "ワークフローで在庫一覧逆同期を有効にする"
+      }
+    },
+    "shared": {
+      "desc": {
+        "add_button_to_workflow_when_enabled": "有効時、ワークフローの「{f1}」ページに「{f2}」ボタンが追加されます。"
+      }
+    }
+  },
+  "inventory": {
+    "clear_inventory": "「在庫一覧」をクリアする"
+  },
+  "item": {
+    "price": {
+      "no_price": "価格がありません。",
+      "no_price_reason": "予想の原因：価格が取得されていない/アイテムが実装されていない、またはその品質が存在しない/取引データが不足している",
+      "no_price_received": "価格を取得できませんでした。",
+      "no_price_received_reason": "予想の原因：アイテムが実装されていない/取引データが不足している",
+      "no_show_price_type_setted": "表示する価格の種類がまだ設定されていません。「{option}」設定項目で設定してください。",
+      "refreshing": "価格を更新中",
+      "update_failed": "価格の更新に失敗しました",
+      "update_succeed": "価格の更新に成功しました"
+    },
+    "text": {
+      "attribute_isnq_or_hq_desc": "※ ここは{val}アイテムの属性のみが表示されます",
+      "basic_info": "[パッチ{patch}] [{id}]",
+      "cannot_hq": "HQ製作不可",
+      "cannot_quick_synthesis": "簡易製作不可",
+      "control_with_val": "加工精度{val}",
+      "copy_other_names": "他のアイテム名をコピー",
+      "craft_condi": "製作可能条件：",
+      "craftsmanship_with_val": "作業精度{val}",
+      "gather_condi": "採集条件：",
+      "gather_pos_info": "アイテムは次の場所で収集できます：",
+      "gather_time_info": "該当アイテムは以下のET内のみ採集可能：",
+      "gather_website": {
+        "intro": "以下のサイトで該当アイテムの採集方法が掲載されています：",
+        "note": "※ 中国版で実装されていないアイテムは一部のサイトで未掲載の可能性があります。"
+      },
+      "is_tradable": "交換で入手可能なアイテムです：",
+      "item_level_with_val": "アイテムレベル {ilv}",
+      "multi_get_each_trade": "一回交換で{val}個が入手されます",
+      "need_learn": "修得必要：",
+      "not_installed_in_chs": "このアイテムは中国サーバーでまだ実装されていません。",
+      "quoted_position": "(X:{x}, Y:{y})",
+      "recipe_detail": "耐久{dur} / 難易度{pro} / 品質{qua}",
+      "recipe_level_info": "{job} Lv. {lv}{star}",
+      "reduce_can_get": "収集品を精選することで入手可能なアイテム：",
+      "reduce_info": "このアイテムは精選以下のアイテムで入手できます：",
+      "simulate_craft_bestcraft": "BestCraftで製作をシミュレーション",
+      "simulate_craft_teamcraft": "TeamCraftで製作をシミュレーション",
+      "timelimited_gatherable": "採集可能期間中",
+      "yields_info": "Yields: {val}",
+      "zh_name_is_temp": "DONT_SHOW"
     }
   },
   "macro_manage": {
+    "imexport": {
+      "desc": {
+        "desc_1": "メインインターフェースのインポート/エクスポート機能とは異なり、ここでエクスポートされるファイルは編集可能な表形式ではなく純粋なデータファイルです。",
+        "desc_2": "データ破損を防ぐため、エクスポートファイルを直接編集しないでください。",
+        "desc_3": "自身のバックアップまたは他者からの共有をインポートする"
+      },
+      "title": "マクロ管理：インポート/エクスポート"
+    },
+    "message": {
+      "cannot_set_all_zero_creqs": "属性値がすべて0のよく使う属性グループは設定できません",
+      "cannot_set_duplicate_creqs": "重複するよく使う属性グループは設定できません",
+      "cannot_set_empty_tag": "空の内容のタグは設定できません",
+      "confirm_delete_all": "全てのマクロを削除しますか？",
+      "confirm_import": "インポートを実行しますか？",
+      "macro_amount_limited": "マクロ数が上限に達しました",
+      "macro_content_cannot_empty": "マクロ内容が空です",
+      "no_actions_recognized": "認識できるスキルがありません",
+      "no_macro_added": "まだマクロが追加されていません",
+      "no_preset_creqs": "よく使う属性グループはまだ設定されていません",
+      "no_preset_tags": "よく使うタグはまだ設定されていません",
+      "only_json_can_be_imported": ".jsonファイルのみインポート可能",
+      "preset_creq_max_len": "最大{num}グループのよく使う属性しか追加できません",
+      "preset_tag_max_len": "最大{num}個のよく使うタグしか追加できません",
+      "readed_num_macros_from_file": "ファイルから{num}個のマクロを読み込みました",
+      "relate_item_deduplicate": "関連アイテム内で以下の重複アイテムは自動的に重複除去されます：",
+      "relate_item_max_len": "関連アイテムの上限に達しました",
+      "tag_max_len": "最大{num}個のタグを設定可能",
+      "warn_saved_macros_would_be_dropped": "保存済みの{num}個のマクロが失われます！"
+    },
     "text": {
-      "macro_name": "マクロ名",
-      "tag_with_colon": "タグ：",
-      "relate_item": "関連アイテム",
       "add_macro": "マクロを追加",
-      "edit_macro": "マクロを編集",
-      "auto_cal_by_macro_when_empty_or_zero": "未入力または0の場合はマクロ内容に基づき自動計算されます。",
-      "cover_auto_val_when_inputed": "対応する属性を入力すると、自動計算された製作力消費量が上書きされます。",
       "attr_auto_cal_when_zero": "この属性が0の場合は自動計算されます",
+      "auto_cal_by_macro_when_empty_or_zero": "未入力または0の場合はマクロ内容に基づき自動計算されます。",
+      "batch_operate": "一括操作",
       "can_select_item_or_input_name": "HqHelperのデータベースからアイテムを選択するか、自分でアイテム名を入力できます。",
-      "select_from_db": "データベースから選択",
-      "input_item_name": "自分でアイテム名を入力",
-      "existing_items": "既存アイテム",
-      "relate_item_desc": "関連アイテムは最大{limit_1}個まで設定可能ですが、マクロ管理ページのテーブルには最初の{limit_2}個のみ表示されます。",
-      "no_relate_item_set": "まだ関連アイテムが設定されていません",
-      "filter_or_search": "フィルター／検索",
-      "macro_lang": "マクロ言語",
-      "please_input_content_to_import": "インポートする内容を入力してください",
+      "cover_auto_val_when_inputed": "対応する属性を入力すると、自動計算された製作力消費量が上書きされます。",
+      "delete_all_macros": "全てのマクロを削除する",
       "drag_to_sort": "ホールドしでアクションボタンをドラッグして順序をカスタマイズできます。",
-      "no_macro_content_set": "まだマクロ内容が設定されていません",
-      "import_source": "インポート元：",
+      "edit_macro": "マクロを編集",
+      "existing_items": "既存アイテム",
+      "filter_or_search": "フィルター／検索",
       "import_action": {
         "text_1": "ゲーム内の生産スキルマクロを下の入力ボックスにコピー＆ペーストしてください。",
         "text_2": "入力ボックスに行数制限はありません。複数のマクロを組み立てる場合、最初のマクロをペーストした後、改行して2番目のマクロをペーストします。",
@@ -1941,106 +1336,716 @@
         "text_4": "中国語、英語、日本語のマクロをサポートし、自由に組み合わせることができます。",
         "text_5": "FCOシミュレーターまたはBestCraftシミュレーターで手法を編集後、「工程をエクスポート」をクリックし、工程コードを下の入力ボックスにペーストしてください。"
       },
+      "import_source": "インポート元：",
+      "input_item_name": "自分でアイテム名を入力",
+      "macro_lang": "マクロ言語",
       "macro_lang_with_colon": "マクロ言語：",
-      "delete_all_macros": "全てのマクロを削除する",
-      "batch_operate": "一括操作",
+      "macro_name": "マクロ名",
+      "no_macro_content_set": "まだマクロ内容が設定されていません",
+      "no_relate_item_set": "まだ関連アイテムが設定されていません",
+      "please_input_content_to_import": "インポートする内容を入力してください",
       "preset_creq_info": "作業{val1}／加工{val2}／CP{val3}",
-      "preset_tags": "よく使うタグ",
       "preset_creqs": "よく使う属性グループ",
       "preset_creqs_manage": "よく使う属性グループを管理",
       "preset_creqs_manage_table_head": "よく使う属性グループ （作業精度／加工精度／制作力）",
+      "preset_tags": "よく使うタグ",
       "preset_tags_manage": "よく使うタグを管理",
-      "tag_name": "タグ名"
+      "relate_item": "関連アイテム",
+      "relate_item_desc": "関連アイテムは最大{limit_1}個まで設定可能ですが、マクロ管理ページのテーブルには最初の{limit_2}個のみ表示されます。",
+      "select_from_db": "データベースから選択",
+      "tag_name": "タグ名",
+      "tag_with_colon": "タグ："
+    },
+    "title": "マクロ管理"
+  },
+  "main": {
+    "imexport": {
+      "confirm_import_content": "インポート内容の確認",
+      "confirm_import_patch": "インポートするパッチの選択",
+      "export_cost_and_benefit": "コスト/収益分析のエクスポート",
+      "import_parts": "部品をインポート",
+      "need_to_ensure_first_worksheet": "シート1が「選択した部品」であることを確認してください",
+      "no_file_received": "ファイルを取得できませんでした",
+      "only_xlsx_can_be_imported": ".xlsxファイルのみインポート可能",
+      "open_folder_after_export": "エクスポート後、エクスポートディレクトリを開く"
     },
     "message": {
-      "relate_item_max_len": "関連アイテムの上限に達しました",
-      "relate_item_deduplicate": "関連アイテム内で以下の重複アイテムは自動的に重複除去されます：",
-      "macro_amount_limited": "マクロ数が上限に達しました",
-      "no_actions_recognized": "認識できるスキルがありません",
-      "macro_content_cannot_empty": "マクロ内容が空です",
-      "no_macro_added": "まだマクロが追加されていません",
-      "confirm_delete_all": "全てのマクロを削除しますか？",
-      "readed_num_macros_from_file": "ファイルから{num}個のマクロを読み込みました",
-      "confirm_import": "インポートを実行しますか？",
-      "warn_saved_macros_would_be_dropped": "保存済みの{num}個のマクロが失われます！",
-      "only_json_can_be_imported": ".jsonファイルのみインポート可能",
-      "tag_max_len": "最大{num}個のタグを設定可能",
-      "no_preset_tags": "よく使うタグはまだ設定されていません",
-      "no_preset_creqs": "よく使う属性グループはまだ設定されていません",
-      "cannot_set_duplicate_creqs": "重複するよく使う属性グループは設定できません",
-      "cannot_set_all_zero_creqs": "属性値がすべて0のよく使う属性グループは設定できません",
-      "preset_creq_max_len": "最大{num}グループのよく使う属性しか追加できません",
-      "cannot_set_empty_tag": "空の内容のタグは設定できません",
-      "preset_tag_max_len": "最大{num}個のよく使うタグしか追加できません"
+      "curr_job_not_valid": "選択したジョブは現在のパッチで使用できません。再選択してください。",
+      "switch_patch_will_clean_gears": "パッチを切り替えると、選択した装備パーツがクリアされます。"
     },
-    "title": "マクロ管理",
-    "imexport": {
-      "title": "マクロ管理：インポート/エクスポート",
+    "select_gear": {
+      "add": {
+        "accessory": "アクセサリを１セット追加",
+        "attire": "防具を１セット追加",
+        "attire_and_accessory": "防具とアクセサリを１セット追加",
+        "mainoff_hand": "主副道具を１セット追加",
+        "whole_suit": "セットを追加"
+      },
+      "clear": {
+        "all": {
+          "title": "すべてクリア",
+          "tooltip": {
+            "tooltip_1": "全てのジョブの部位をクリア。"
+          }
+        },
+        "current": {
+          "title": "現在の選択をクリア",
+          "tooltip": {
+            "tooltip_1": "現在のジョブの部位をクリア。"
+          }
+        }
+      },
       "desc": {
-        "desc_1": "メインインターフェースのインポート/エクスポート機能とは異なり、ここでエクスポートされるファイルは編集可能な表形式ではなく純粋なデータファイルです。",
-        "desc_2": "データ破損を防ぐため、エクスポートファイルを直接編集しないでください。",
-        "desc_3": "自身のバックアップまたは他者からの共有をインポートする"
+        "un_selected": "未選択"
+      },
+      "info": {
+        "info_1": "同じ装備は一括表示されます。",
+        "info_2": "現在の主副道具が該当するジョブ：{val}",
+        "info_3": "現在の防具に該当する分類：{val}",
+        "info_4": "現在のアクセサリに該当する分類：{val}"
+      },
+      "quick_operate": {
+        "add_crafter_suit": {
+          "title": "クラフター防具とアクセサリを１セット追加",
+          "tooltip": {
+            "tooltip_1": "クラフターの共通防具とアクセサリを1セット追加。"
+          }
+        },
+        "add_crafter_tool": {
+          "title": "クラフター主副道具を１セット追加",
+          "tooltip": {
+            "tooltip_1": "全クラフターの主副道具を各１件を追加。"
+          }
+        },
+        "add_gatherer_suit": {
+          "title": "ギャザラー防具とアクセサリを１セット追加",
+          "tooltip": {
+            "tooltip_1": "ギャザラーの共通防具とアクセサリを1セット追加。"
+          }
+        },
+        "add_gatherer_tool": {
+          "title": "ギャザラー主副道具を１セット追加",
+          "tooltip": {
+            "tooltip_1": "全ギャザラーの主副道具を各１件を追加。"
+          }
+        },
+        "title": "クイック操作"
+      },
+      "title": "部位選択",
+      "view_selected": "選択済み部位",
+      "warn": {
+        "select_job_first": "ジョブを選択してください"
+      }
+    },
+    "select_job": {
+      "desc": {
+        "selected": "選択したジョブ: {val}"
+      },
+      "title": "ジョブ選択",
+      "warn": {
+        "select_patch_first": "パッチを選択してください"
+      }
+    },
+    "select_patch": {
+      "desc": {
+        "selected": "選択したパッチ: {val}"
+      },
+      "info": {
+        "info_1": "FFXIVの製作装備更新パターンは比較的安定しており、各メジャーパッチの更新内容を予測可能です",
+        "info_2": "パッチ{patch}でクラフター・ギャザラー用アイテムレベル{ilv}のHQを追加；",
+        "info_3": "パッチ{patch}でバトルジョブ用アイテムレベル{ilv}HQと同じレベルの秘伝書/料理/強化薬を追加；",
+        "info_4": "パッチ{patch}でクラフター・ギャザラー用{ilv}HQを追加（アクセサリ除く）；",
+        "info_5": "パッチ{patch}でクラフター・ギャザラー用{ilv}HQを追加（当拡張の最終装備）；",
+        "info_6": "パッチ{patch}では新HQ装備は追加されません"
+      },
+      "patch_button": {
+        "text": "パッチ{v}: {name}",
+        "tooltip": {
+          "tooltip_1": "現在のパッチで実装された新たな新式HQ装備：",
+          "tooltip_2": "クラフター＆ギャザラー{il}HQ",
+          "tooltip_3": "バトルジョブ{il}HQ"
+        }
+      },
+      "title": "パッチ選択"
+    },
+    "shared": {
+      "desc": {
+        "not_selected": "未選択"
       }
     }
   },
-  "inventory": {
-    "clear_inventory": "「在庫一覧」をクリアする"
-  },
-  "cloud": {
+  "map": {
     "text": {
-      "last_upload": "最終アップロード：{val}",
-      "not_uploaded": "未アップロード",
-      "data_sync": "データ同期",
-      "sync_range": "同期範囲",
-      "loading": "読み込み中……",
-      "start_sync": "同期開始",
-      "upload_data": "ローカルデータをクラウドにアップロード",
-      "download_data": "クラウドデータをローカルにダウンロード",
-      "reset_password": "パスワードリセット",
-      "edit_account_info": "アカウント情報編集",
-      "send_verify": "認証コードを送信",
-      "register_account": "アカウント登録",
-      "forgot_password": "パスワードを忘れた場合",
-      "do_you_have_an_account": "既にアカウントをお持ちですか？",
-      "click_here_to_login": "こちらからログインする",
-      "please_input_email_when_registered": "登録時に入力したメールアドレスを入力してください",
-      "new_password": "新しいパスワード",
-      "please_input_new_password": "新しいパスワードを入力",
-      "back_to_login": "ログインに戻る",
-      "user_title": "称号",
-      "avatar": "アバター",
-      "select_avatar": "アバターを選択",
-      "not_logged_in": "ログインしていません"
+      "open_in": {
+        "ffcafe": "FFCAFEインタラクティブマップで開く"
+      },
+      "recomm_aetheryte": "おすすめのテレポ地点"
+    }
+  },
+  "preference": {
+    "auto_refresh_after_save": {
+      "desc": {
+        "desc_1": "この設定を変更すると本セーブで有効になります。また、リフレッシュが必要な場合にのみ自動リフレッシュが実行されます。"
+      },
+      "title": "セーブ後に自動的にリフレッシュします"
+    },
+    "click_to_show_pop_in_span": {
+      "desc": {
+        "desc_1": "アイテムボタンのツールチップ内には、素材作成やマップボタンなど、ツールチップを開くことができる要素がいくつかあります。",
+        "desc_2": "デフォルトでは、カーソルを要素にホバーするとすぐにツールチップが開きます。これが誤って操作されやすいと感じる場合は、このオプションを有効にして、左クリックのみでツールチップの表示を制御できるようにします。"
+      },
+      "title": "手動で二次ツールチップを制御"
+    },
+    "cmacro_end_tipper_content": "最終マクロの実行終了リマインダ",
+    "cmacro_remove_quotes": {
+      "desc": {
+        "desc_1": "スキル名にスペースが含まれる場合、二重引用符を使用するか手動で定型文に変換する必要があります。そうしないと実行時にエラーが発生します。"
+      },
+      "title": "マクロのスキル名から二重引用符を削除"
+    },
+    "cmacro_transition_tipper_content": {
+      "desc": {
+        "desc_1": "中間マクロとは最後のマクロ以外のマクロを指します。",
+        "desc_2": "リマインダ内容中の「~INDEX」はマクロの順序番号に置き換えられます。"
+      },
+      "title": "中間マクロの実行終了リマインダ"
+    },
+    "cmacro_use_macrolock": {
+      "desc": {
+        "desc_1": "有効にすると、生成されたマクロは実行中に他のマクロに中断されませんが、各マクロのアクション容量も減少します。"
+      },
+      "title": "各生産マクロの先頭に/macrolockを使用"
+    },
+    "costandbenefit_show_item_details": "コスト/収益分析におけるアイテム詳細の表示機能を追加しました",
+    "custom_font": {
+      "desc": {
+        "desc_1": "クライアント/Webサイトのフォントを一括変更。",
+        "desc_2": "複数のフォント名を英語のカンマで区切るこで、複数のフォント設定が可能になります。現在のフォントライブラリに表示するテキストが含まれていない場合、次のフォントを使用します。どちらも含まれていない場合は設定前のフォントを使用します。",
+        "desc_3": "フォント名にスペースがある場合は、英文の一重引用符または二重引用符で囲むことをお勧めします。例：\"Jupiter Pro\"。",
+        "desc_4": "CSSに詳しい場合は、font-familyの文法を参照して記入することができます。"
+      },
+      "title": "カスタムフォント"
+    },
+    "custom_font_size": {
+      "desc": {
+        "desc_1": "クライアント/Webサイトのフォントサイズを一括変更。",
+        "desc_2": "一部のフォントサイズはこの設定に影響されません。また、ブラウザの「最小サイズ」設定によっても制限されます。",
+        "desc_3": "「標準」サイズ以外の表示効果は最適化されていません。特別な必要がない限り、変更は推奨されません。"
+      },
+      "option": {
+        "big": "大さい",
+        "large": "さらに大きい",
+        "medium": "標準",
+        "small": "小さい",
+        "tiny": "さらに小さい"
+      },
+      "title": "フォントサイズ"
+    },
+    "custom_proxy_url": "カスタムアクセラレーションサービスアドレス",
+    "disable_auto_update": {
+      "desc": {
+        "desc_1": "アプリの起動時は自動的にバーションチェットを行います、最新バーションがあった場合はお知らせさせていただきます。",
+        "desc_2": "お知らせが不要な場合は、このオプションをオンにしてください。",
+        "desc_3": "サイト版はブラウザキャッシュの原因で常時自動アップデートされますので、このオプションはお知らせが表示する頻度だけを減らせます、ご注意ください。"
+      },
+      "title": "自動アップデートをオフにする"
+    },
+    "disable_jobbtn_doubleclick": {
+      "desc": {
+        "desc_1": "ジョブ選択後、再度ジョブアイコンをクリックする場合，デフォルトでは主副道具を１セット追加します。",
+        "desc_2": "前世代のHqHelperで、当機能はデフォルトで無効かされてますが、当世代ではデフォルトで有効化されてます。もし、慣れない場合は、このオプションを有効にしてください。"
+      },
+      "title": "ジョブアイコンを複数回選択時、主副道具の自動追加を無効にする"
+    },
+    "disable_patchcard_autofold": {
+      "desc": {
+        "desc_1": "\"パッチ選択\"はスマホ画面にとって場所を取りすぎて、かつ高頻度に変更される箇所でもないため、デフォルトではパッチ選択後、自動で折り畳みます。",
+        "desc_2": "もし、自動で折畳まない方が好都合の場合は、このオプションを有効にしてください。"
+      },
+      "title": "選択後の自動折り畳み機能を無効化する"
+    },
+    "disable_workstate_cache": {
+      "desc": {
+        "desc_1": "当サイトはデフォルトで選択したパッチ、ジョブ、装備を記憶し、次回起動時に前回の作業状態を復元します。",
+        "desc_2": "起動するたびに最初から作業を始めたい場合、または使用中に頻繁に動作が遅くなる場合は、このオプションを有効にしてください。",
+        "desc_3": "注意: 作業状態の記憶を無効にすると、保存されている作業状態は直ちに削除されます！"
+      },
+      "title": "作業状態の記憶を無効にする"
+    },
+    "enable_dev_mode": "開発者モードの有効化",
+    "export": {
+      "desc": {
+        "desc_1": "現在、このデバイスの設定/機能設定を他のデバイスにエクスポートできるようになりました。アイテム価格などのキャッシュは含まれません。",
+        "desc_2": "注意：エクスポート内容は設定ウィンドウの現在の設定に基づいて生成され、保存済みの設定ではありません。"
+      },
+      "title": "設定をエクスポート"
+    },
+    "export_item_price": {
+      "desc": {
+        "desc_1": "このオプションを有効にすると、アイテム価格のキャッシュが期限切れの場合、データを更新するために一定の時間がかかります。"
+      },
+      "title": "Excelエクスポート時にコスト/収益分析をエクスポート"
+    },
+    "hide_collector_icons": {
+      "desc": {
+        "desc_1": "一部のアイテムボタンは、アイテム名の横にそのアイテムに対応するクラフター/ギャザラージョブのアイコンを表示します。",
+        "desc_2": "便利になりますが、表示がやや見づらくなる可能性があります。",
+        "desc_3": "煩わしく感じる場合は、このオプションを有効にしてください。"
+      },
+      "title": "アイテムボタンのジョブアイコンを非表示にする"
+    },
+    "import": {
+      "desc": {
+        "desc_1": "ここで他のデバイスからエクスポートした設定をインポートし、同期を維持します。",
+        "desc_2": "インポート後は設定ウィンドウで変更を確認してください。保存をクリックするまで実際の設定は変更されません。"
+      },
+      "message": {
+        "input_empty": "内容を入力してください"
+      },
+      "placeholder": "ここに他のHqHelperからエクスポートした設定を貼り付けてください。",
+      "title": "設定をインポート"
+    },
+    "item_amount_use_comma": {
+      "desc": {
+        "desc_1": "このオプションを有効にすると、アイテム数量がカンマ区切りで表示されます（例：12,345）。",
+        "desc_2": "この設定はすべてのテーブル、アイテムボタン、アイテム情報に適用されます。"
+      },
+      "title": "アイテム数量をカンマ区切りで表示する機能を追加（例：12,345）"
+    },
+    "item_button_click_event": "アイテムボタンをクリックした際の動作",
+    "item_info_icon_click_event": {
+      "desc": {
+        "desc_1": "アイテム名の右側にある青色の情報アイコンを一部の領域でクリックした際に発生するイベントを制御します。",
+        "desc_2": "「{option}」とこの項目の設定は、矛盾する可能性があります。"
+      },
+      "title": "アイテム情報アイコンをクリックした際の動作"
+    },
+    "item_list_style": {
+      "desc": {
+        "desc_1": "材料エリアのアイテムボタン上部の「リスト」ボタンをクリックすると、アイテムリストの形式が表示されます。",
+        "desc_2": "一部のプログラムは特定の形式のリストを識別し、インポートできる可能性があります。"
+      },
+      "option": {
+        "modern": "現代スタイル（アイテム名 x数量）",
+        "standard": "標準（アイテム名 x 数量）",
+        "teamcraft": "Teamcraft形式（数量x アイテム名）",
+        "tight": "コンパクト（アイテム名x数）"
+      },
+      "title": "素材リスト形式"
+    },
+    "item_pop_craft_show_crystals": {
+      "desc": {
+        "desc_1": "このオプションを有効にすると、製作可能なアイテムについて、そのフローティングウィンドウの製作モジュールに、必要なシャード／クリスタル／クラスターが表示されます。"
+      },
+      "title": "アイテムフローティングウィンドウにクリスタル素材を表示"
+    },
+    "item_server": {
+      "desc": {
+        "desc_1": "キャラクターが所属するサーバーを選択してください。サーバーが異なることで、集計の結果も変化します。例：トークン素材の相場。",
+        "desc_2": "“オート”を選択した場合，“アイテム言語”の設定に応じて自動判断します。"
+      }
+    },
+    "language_item": {
+      "desc": {
+        "desc_1": "アイテム名の表示言語を設定する。このオプションは他の一部テキストも改変されます。（例：マップ名）",
+        "desc_2": "“オート”を選択した場合，アイテムの表示言語は“インタフェース言語”と紐付けされます。"
+      },
+      "title": "アイテム言語"
+    },
+    "language_ui": "インタフェース言語",
+    "macro_copy_prefix": {
+      "option": {
+        "beginner": "ビギチャ用マクロ(/b)",
+        "echo": "注意喚起用マクロ(/e)",
+        "free_company": "FCチャ用マクロ(/fc)",
+        "none": "マクロなしでコピーする",
+        "party": "PTチャ用マクロ(/p)"
+      },
+      "title": "マクロコマンドのデフォルト設定"
+    },
+    "macro_direct_copy": {
+      "desc": {
+        "desc_1": "デフォルトの設定は、毎回「マクロをコピーする」をクリックした際に、どのチャンネルに送信するかを確認します",
+        "desc_2": "効率を上げたい場合は、このオプションをオンにして、コピーは毎回のデフォルト設定で行います"
+      },
+      "title": "「マクロをコピーする」をクリックだけでコピー完了とする"
+    },
+    "macro_generate_mode": {
+      "desc": {
+        "desc_1": "マクロ生成フォーマットを決定します",
+        "desc_2": "シングルラインモードは全素材を1行にまとめ、ゲーム内チャットボックス直接貼り付けを可能にします",
+        "desc_3": "マルチラインモードは改行で整形表示しますが、ユーザーマクロ画面での貼り付け実行が必要です"
+      },
+      "option": {
+        "multi_line": "マルチラインモード",
+        "single_line": "シングルラインモード"
+      },
+      "title": "マクロ生成モード"
     },
     "message": {
-      "cannot_sync_because_modules_data_load_failed": "同期できません。以下のモジュールのデータ読み込みに失敗しました：",
-      "please_refresh_and_retry": "ページを再読み込みして再試行してください。",
-      "confirm_upload_1": "ローカルデータをクラウドにアップロードしますか？",
-      "confirm_upload_2": "これによりクラウド上の既存データが上書きされます。",
-      "sync_error": "{mod}の同期中にエラーが発生しました：{err}",
-      "following_modules_sync_failed": "以下のモジュールの同期に失敗しました：",
-      "sync_succeed": "同期成功！",
-      "cannot_sync_because_modules_data_not_uploaded": "同期できません。以下のモジュールがまだアップロードされていません：",
-      "please_upload_first": "まずデータをアップロードしてください。",
-      "confirm_download_1": "クラウドデータをローカルにダウンロードしますか？",
-      "confirm_download_2": "これによりローカルの既存データが上書きされます。",
-      "cache_cleaned": "アイテム価格サーバーの設定が変更されたため、アイテム価格キャッシュがクリアされました。",
-      "page_would_be_reloaded": "変更を適用するため、ページを再読み込みします。",
-      "data_consistent": "ローカルデータとクラウドデータは一致しています",
-      "verify_cooldown": "{count}秒後に再送可能",
-      "key_is_too_long": "{key}が長すぎます",
-      "operate_succeed": "操作成功",
-      "verify_sent": "認証コードを送信しました",
-      "verify_send_failed": "送信失敗：{err}",
-      "login_succeed": "ログイン成功",
-      "register_succeed": "登録成功",
-      "reset_password_succeed": "パスワードリセット成功",
-      "reset_nick_or_title_failed": "ニックネーム/称号の変更失敗：{err}",
-      "reset_avatar_failed": "アバター変更失敗：{err}",
-      "submit_failed": "送信失敗：{err}",
-      "please_input_loginname_or_email": "ログイン名またはメールアドレスを入力",
-      "logged_out": "ログアウト済み",
-      "email_format_wrong": "入力したメールアドレスは不正です"
+      "ask_refresh_now": "今すぐページを更新しますか？",
+      "save_succeed_but_need_refresh": "保存しました！一部変更はページ更新後に反映されます。",
+      "saved_but_some_changes_need_refresh": "オプション設定は保存されました、一部の設定はページを更新してから適用されます。"
+    },
+    "processes_craftable_item_sortby": {
+      "desc": {
+        "desc_1": "「製作手帳順」を選択すると、製作手帳（ゲーム内でNキーを押して開く製作画面）内のレシピ順に優先的に並べ替えられます。"
+      },
+      "option": {
+        "crafting_log": "製作手帳順"
+      },
+      "title": "製作アイテムの並び替えルール"
+    },
+    "processes_merge_gatherings": {
+      "desc": {
+        "desc_1": "採掘師の採集品と園芸師の採集品を統合する。",
+        "desc_2": "例えば、統合前は「採掘（常駐）」、「園芸（常駐）」、「採掘（刻限）」、「園芸（刻限）」でしたが、統合後は「採集（常駐）」、「採集（刻限）」となります。"
+      },
+      "title": "採集アイテムを統合する"
+    },
+    "processes_show_item_details": "アイテム詳細を表示",
+    "prostate_concise_mode": {
+      "desc": {
+        "desc_1": "プロ版でレポート作成時にのみ有効"
+      },
+      "title": "簡易モードでアイテムを表示"
+    },
+    "server": {
+      "option": {
+        "chs": "中国版",
+        "global": "クローバル版"
+      }
+    },
+    "shared": {
+      "desc": {
+        "fit_to_func": "「{f}」機能に適用されます。",
+        "fit_to_func_and_item_pop_price": "適用対象：「{f}」機能およびアイテムツールチップの価格モジュール。",
+        "use_default_val_when_empty": "この項目が未入力の場合はデフォルト値が使用されます：{val}"
+      },
+      "option": {
+        "copy_isearch_macro": "アイテムの検索マクロをコピーする",
+        "copy_item_name": "アイテム名をコピーする",
+        "donothing": "何もしない"
+      },
+      "tooltip": {
+        "click_to_desc": "クリックして、当オプションの説明を展開または折り畳む"
+      },
+      "warn": {
+        "need_refresh": "この設定を変更した後、ページをリフレッシュする必要があります。"
+      }
+    },
+    "statement_ignore_crystals": {
+      "desc": {
+        "desc_1": "製作レポートで各種シャード／クリスタル／クラスターの計算が必要ない場合、このオプションを有効にできます。"
+      },
+      "title": "クリスタル素材を無視"
+    },
+    "statement_no_highlights": {
+      "desc": {
+        "desc_1": "バージョン2.2.4で、製作レポートに新機能を追加しました。任意のアイテム行を左クリックすると、そのアイテムとその製作素材がハイライト表示されます。",
+        "desc_2": "この機能が必要ない、誤操作しやすいと感じる場合、このオプションを有効にできます。"
+      },
+      "title": "関連素材のハイライト表示を無効化"
+    },
+    "theme": {
+      "option": {
+        "dark": "ダーク",
+        "follow_system": "システム設定",
+        "light": "ライト"
+      },
+      "title": "テーマ"
+    },
+    "universalis_expire_time": {
+      "desc": {
+        "desc_1": "アプリはは取得したアイテムの価格をキャッシュします。設定された有効期間を超えた場合、価格情報を再取得する必要があります。",
+        "desc_2": "短すぎる設定は価格計算の効率を低下させます。長すぎる設定は結果が古くなる可能性があります。"
+      },
+      "option": {
+        "never_expires": "無期限"
+      },
+      "title": "キャッシュの有効期間"
+    },
+    "universalis_poppricetypes": {
+      "desc": {
+        "desc_1": "ツールチップで表示する価格の種類を選択します。複数選択可能です。"
+      },
+      "title": "ツールチップで表示するタイプ"
+    },
+    "universalis_price_type": {
+      "desc": {
+        "desc_1": "コスト計算には、デフォルトで素材のNQ価格を使用します。収入計算には、デフォルトで完成品のHQ価格を使用します。",
+        "desc_2": "いくつかのオプションの説明：",
+        "desc_3": "最近の取引価格：直近5件の取引履歴を元に算出した平均価格。",
+        "desc_4": "現在の最低出品価格：マーケットボードの最初の10件の出品から算出した最低価格。",
+        "desc_5": "現在の平均出品価格：マーケットボードの最初の10件の出品から算出した平均価格。"
+      },
+      "option": {
+        "average": "平均価格",
+        "curr_average": "現在の平均価格",
+        "market_average": {
+          "title": "現在の平均出品価格",
+          "tooltip": {
+            "tooltip_1": "マーケットボードの最初の10件の出品から算出した平均価格"
+          }
+        },
+        "market_min": {
+          "title": "現在の最低出品価格",
+          "tooltip": {
+            "tooltip_1": "マーケットボードの最初の10件の出品から算出した最低価格"
+          }
+        },
+        "max": "最高価格",
+        "min": "最低価格",
+        "purchase_average": {
+          "title": "最近の取引価格",
+          "tooltip": {
+            "tooltip_1": "直近5件の取引履歴を元に算出した平均価格"
+          }
+        }
+      },
+      "title": "価格のタイプ"
+    },
+    "universalis_server": {
+      "desc": {
+        "desc_1": "以下の入力ボックスで、キーワードを入力してオプションを検索できます。",
+        "desc_2": "注意：この設定を変更すると、すべての取得済みアイテム価格キャッシュが削除されます！"
+      }
+    },
+    "universalis_showpriceinpop": {
+      "desc": {
+        "desc_1": "各アイテムボタン/情報アイコンのツールチップに「価格」モジュールを追加しました。取引可能な道具のみ表示されます。"
+      },
+      "title": "アイテムのツールチップで表示します"
+    },
+    "update_client_builtin": {
+      "desc": {
+        "desc_1": "デフォルトではクライアント更新時にシステムブラウザでダウンロードリンクを開きます",
+        "desc_2": "このオプションを有効にすると、プログラム内で直接新版クライアントのインストールパッケージをダウンロード・起動します"
+      },
+      "title": "組み込み更新機能でクライアント更新を処理"
+    },
+    "use_custom_proxy": "カスタムアクセラレーションサービスを利用",
+    "use_traditional_statement": {
+      "desc": {
+        "desc_1": "バージョン2.0.10では、プロ版のリスト作成機能を追加し、より詳細なアイテム情報表と、準備済みの素材に基づいて必要な素材を計算するサポートを提供しています。",
+        "desc_2": "これらの機能が必要ない場合、または旧バージョンのリスト作成のスタイルを好む場合は、このオプションを有効にすることを検討してください。"
+      },
+      "title": "旧バージョンでリストを作成"
+    }
+  },
+  "recomm_process": {
+    "group": {
+      "aethersand": "霊砂を集める",
+      "common_gathering": "採集アイテム（常駐）",
+      "craft": "{job}で完成品を制作",
+      "gather_common_with_job": "{job}で採集（非時間制限）",
+      "gather_time_limited_with_job": "{job}で採集（時間制限）",
+      "other": "その他必要な道具を集める",
+      "pre_pre_precraft": "{job}で準準中間素材を制作",
+      "pre_precraft": "{job}で準中間素材を制作",
+      "precraft": "{job}で中間素材を制作",
+      "time_limited_gathering": "採集アイテム（刻限）",
+      "trade": "アイテム交換"
+    },
+    "message": {
+      "hided_unchs_items": "中国サーバー未実装アイテムを非表示中",
+      "showed_unchs_items": "中国サーバー未実装アイテムを表示中"
+    },
+    "text": {
+      "gather_at_with_val": "{pos}で採集",
+      "hide_items_not_installed_in_chs": "中国サーバー未実装アイテムを非表示",
+      "show_gather_detail": "採集の詳細を表示",
+      "show_items_not_installed_in_chs": "中国サーバー未実装アイテムを表示",
+      "time_limit_with_val": "時間制限: {val}"
+    }
+  },
+  "statement": {
+    "list": {
+      "copy_list": "リストをコピー",
+      "material": {
+        "lv1": "素材：直接",
+        "lv2": "素材：中間",
+        "lv3": "素材：中間以下",
+        "lvbase": "素材：基礎"
+      },
+      "targets": "アイテムリスト",
+      "use_amount_of": "使用数："
+    },
+    "table": {
+      "prepared": "既にあり",
+      "requires": "まだ必要",
+      "total": "総数"
+    },
+    "text": {
+      "all_prepared_items": "準備完了",
+      "reset_prepared": "既存をリセット"
+    }
+  },
+  "statistics": {
+    "group": {
+      "aethersands": "霊砂集計",
+      "common_gathering": "採集素材（一般）集計",
+      "common_gathering2": "一般採集品集計",
+      "common_master_precrafts": "一般秘伝書の中間素材集計",
+      "common_precrafts": "一般中間素材集計",
+      "cost_and_benefit": {
+        "button": {
+          "text": {
+            "text_1": "予想コスト {val}",
+            "text_2": "予想収入　 {val}"
+          },
+          "tooltip": {
+            "tooltip_1": "Universalis APIを利用し、素材のコストと予想される収入を計算します。",
+            "tooltip_2": "「収入」とは、完成品を販売した際に得られるギルのことです（コストは差し引かれていません）。"
+          }
+        },
+        "title": "コスト/収入予測"
+      },
+      "crystal": "クリスタル集計",
+      "direct_materials": "直接な素材集計",
+      "gatherings": {
+        "common": "一般採集品",
+        "time_limited": "刻限採集品",
+        "title": "採集集計"
+      },
+      "other_materials": {
+        "title": "その他素材の集計",
+        "tooltip": "他のグループに分類されないアイテム"
+      },
+      "precrafts": "中間素材集計",
+      "time_limited_gathering": "採集素材（刻限）集計",
+      "time_limited_gathering_and_aethersands": "刻限採集品＆霊砂集計",
+      "trade_items": "トークン交換アイテム集計"
+    },
+    "group_tooltip": {
+      "common_master_precrafts": "錬金術師の宝水シリーズ以外の秘伝書中間品です。",
+      "common_material_lv1": "ここでの集計は、完成品を直接製作するに必要な素材のみを計算し、中間品を作成するために必要な素材は含まれていません。",
+      "common_material_lvbase": "ここでの集計には、完成品を直接製作するに必要な素材と、中間品を作成するために必要な素材が含まれています。",
+      "special": "特殊な秘伝書の中間品（錬金術師の各種宝水）およびトークン集計を含みます。"
+    },
+    "message": {
+      "select_patch_and_job_first": "まずパッチとジョブを選択してください"
+    },
+    "preference": {
+      "show_direct_materials_only": "直接な素材のみを表示"
+    },
+    "text": {
+      "analysis_benefit": "収益分析",
+      "analysis_cost": "コスト分析"
+    },
+    "tomescript": {
+      "show_bicolor_items": "バイカラージェム交換品を表示",
+      "title": "トークン集計"
+    },
+    "view_statistics": "集計を見る"
+  },
+  "thank_list": {
+    "donate_comment": "コメント",
+    "donate_gen": "第{gen}世代HqHelperのスポンサーになりました",
+    "donater": "スポンサー",
+    "last_donate": "前回のスポンサー"
+  },
+  "update": {
+    "alert_text": {
+      "text_1": "最新のHqHelperをダウンロードします、しばらくお待ちください。",
+      "text_2": "アップデートが成功しましたらアプリは自動的に再起動します。",
+      "text_3": "長時間に無反応の場合、アプリを再起動して「プロキシサービス」の設定を調整してください。",
+      "text_4": "今からアップデートします、よろしいですか？",
+      "text_5": "最新のクライアントをダウンロードします、容量が大きので、ブラウザのダウンロードページに移行します。",
+      "text_6": "ダウンロードがお済みしましたら、インストールしてから最新のバージョンご利用ください。",
+      "text_7": "ダウンロードスピードがだるすぎる場合、ダウンロードをキャンセルして「プロキシサービス」の設定を調整してください。",
+      "text_8": "新版クライアントインストーラのダウンロードを開始します、時間がかかる場合があります",
+      "text_9": "更新成功後自動的にインストーラが起動します"
+    },
+    "file_name": {
+      "client_updater": "クライアント更新プログラム"
+    },
+    "message": {
+      "already_latest": "すでに最新バーションです",
+      "ask_update_new_webversion": "新しいバーション{v}がありました，アップデートしますか?",
+      "ask_update_now": "今アップデートしますか?",
+      "check_update_failed": "アップデートチェックが失敗しました、しばらく待ってから実行してください。",
+      "check_update_failed_with_error": "アップデートチェックが失敗しました：{error}",
+      "checked_new_client": "新しいバーションのクライアントがありました({v})。",
+      "checked_new_hqhelper": "新しいバーションのHqHelperがありました({v})。",
+      "download_client_pack_failed_with_error": "インストールパッケージのダウンロードに失敗しました：{errmsg}",
+      "download_update_pack_failed_with_error": "ダウンロードが失敗しました：{errmsg}",
+      "downloaded_and_speed": "ダウンロード済み {now} / {total} MB | 現在の速度：{speed}MB/s",
+      "require_ver_plus_client_to_see_progress": "{ver}バージョン以降のクライアントのみが、現在の更新進行状況を確認できます。",
+      "server_under_maintenance": "服务器正在维护，暂时不能更新。",
+      "stage_failed": "{stage}失敗",
+      "staging": "{stage}中…"
+    },
+    "proxy": {
+      "dont_use_proxy": "プロキシサービスをオフにする",
+      "title": "プロキシサービス"
+    },
+    "stage": {
+      "cleaning": "一時ファイルをクリーンアップ",
+      "connecting": "接続確立",
+      "downloading": "更新パッケージをダウンロード",
+      "extracting": "更新パッケージを解凍",
+      "opening": "インストーラーを開く",
+      "replacing": "ファイルを置換",
+      "restarting": "アプリを再起動"
+    },
+    "text": {
+      "check_connections": "接続チェック",
+      "custom_proxy": "カスタムアクセラレーションサービス",
+      "proxy_status_view": "サービスステーション状況"
+    }
+  },
+  "workflow": {
+    "join_in_workflow": {
+      "desc": {
+        "desc_1": "ここで、どのワークフローに追加するかを選択してください",
+        "desc_2": "以下のシートに記載されているアイテムが選択したワークフローに追加されます。",
+        "desc_3": "すでにワークフローに存在する場合は、数量が加算されます。",
+        "desc_4": "アイテムが既にワークフローに存在する場合、数量が上書きされます。",
+        "desc_5": "選択したワークフローのデータはクリアされ、以下のアイテムが再追加されます。"
+      },
+      "entry_btn": {
+        "tooltip": "選択した装備をワークフローに追加する"
+      },
+      "message": {
+        "join_succeed": "追加に成功しました",
+        "no_armor": "まだ装備が選択されていません",
+        "no_food_tinc": "まだ調理品&薬品を選択していません"
+      },
+      "title": "ワークフローに追加"
+    },
+    "message": {
+      "max_len": "最大{num}個のワークフローしか追加できません"
+    },
+    "recomm_process": "ワークフローのプロセス",
+    "shared": {
+      "new_a_workflow": "新しいワークフローを作成する"
+    },
+    "text": {
+      "add_a_workflow": "ワークフローを追加する",
+      "clear_current_workflow": "現在のワークフローの選択済みアイテムをクリア",
+      "confirm_delete": "本当にこのワークフローを削除しますか？",
+      "delete_this_workflow": "このワークフローを削除する",
+      "join_in_workflow": "ワークフローに追加",
+      "join_selected_food_and_tinc_in_workflow": "選択済みの調理品&薬品をワークフローに追加する",
+      "manage_existed_workflows": "既存ワークフローの管理",
+      "manage_workflows": "ワークフローの管理",
+      "manage_workflows_desc": "ここで各ワークフローの名称を変更したり、直接削除したりできます",
+      "min_len": "少なくとも1つのワークフローを保持する必要があります",
+      "rename_this_workflow": "このワークフローの名前を変更する",
+      "rename_to": "このワークフローの名前を変更する：",
+      "set_workflows": "ワークフロー設定",
+      "switch_workflows": "ワークフロー切替：",
+      "sync_from_inventory": "在庫一覧から同期",
+      "sync_to_inventory": "在庫一覧に同期",
+      "workflow_name": "ワークフロー名",
+      "workflow_name_default_info": "ワークフローに名前を設定しない場合、順番に「ワークフロー1～{maxlen}」と自動表示されます",
+      "workflow_name_reorder_on_deleted": "ワークフローを削除する際、その後にある全ての未命名ワークフローは再び番号付けされます",
+      "workflow_with_index": "ワークフロー{index}"
+    },
+    "tooltip": {
+      "set_inventory_by_prepared": "在庫一覧の数量をレポートの「所持数」に設定します。",
+      "set_prepared_by_inventory": "レポート内の「所持」数量を「在庫一覧」の数量に設定する"
     }
   }
 }
