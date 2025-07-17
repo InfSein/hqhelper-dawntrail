@@ -70,6 +70,30 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.2.8',
+      date: '2025-07-17',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_0_10.feat.text_2', '7.3')
+              + '<br> ※ '
+              + t('changelog.2_0_10.feat.text_3'),
+          ]
+        }
+      ]
+    },
+    {
       version: '2.2.7',
       date: '2025-07-07',
       changes: [
