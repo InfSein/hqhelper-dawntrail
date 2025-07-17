@@ -51,11 +51,17 @@ export interface PatchChangeGroup {
               f2: t('common.appfunc.craft_statement'),
               f3: t('preference.statement_ignore_crystals.title')
             }),
+    「」
  */
 
+const halfEmBlock = '<span style="display:inline-block;width:0.5em;"></span>'
 const emBlock = '<span style="display:inline-block;width:1em;"></span>'
-const tipper = '<br>' +  emBlock + ' ※ '
+const tipper = '<br>' +  halfEmBlock + ' ※ '
 const renderImg = (url: string) => `<img src="${url}" style="max-width: 70%;" />`
+const renderLink = (url: string, text?: string) => {
+  text ??= url
+  return `<a target="_blank" href="${url}">${text}</a>`
+}
 // const refer = (text: string) => `<span class="font-small" style="font-style: italic;">${text}</span>`
 export const getChangelogs = (
   ui_lang: 'zh' | 'ja' | 'en',
@@ -71,21 +77,32 @@ export const getChangelogs = (
   return [
     {
       version: '2.2.8',
-      date: '2025-07-17',
+      date: '2025-07-18',
       changes: [
         {
           name: groupName.breaking,
           changes: [
+            t('changelog.2_2_8.breaking.text_1')
+              + '<br>' +  halfEmBlock + '① ' + t('changelog.2_2_8.breaking.text_2')
+              + '<br>' +  halfEmBlock + '② ' + t('changelog.2_2_8.breaking.text_3', renderLink('https://zh.crowdin.com/project/hqhelper', 'Crowdin'))
           ]
         },
         {
           name: groupName.bugfix,
           changes: [
+            t('changelog.2_2_8.fix.text_1'),
+            t('changelog.2_2_8.fix.text_2'),
+            t('changelog.2_2_8.fix.text_3', {
+              f1: t('common.appfunc.recomm_process'),
+              f2: t('preference.processes_craftable_item_sortby.title'),
+              f3: t('preference.processes_craftable_item_sortby.option.crafting_log')
+            }) + '<br> ※ ' + t('changelog.2_2_8.fix.text_4') + t('changelog.2_2_8.fix.text_5')
           ]
         },
         {
           name: groupName.feature,
           changes: [
+            t('changelog.2_2_8.feat.text_1'),
             t('changelog.2_0_10.feat.text_2', '7.3')
               + '<br> ※ '
               + t('changelog.2_0_10.feat.text_3'),
