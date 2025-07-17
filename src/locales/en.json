@@ -5,7 +5,7 @@
       "jobs": {
         "etnatker": "Contributed to the feature that displays material lists in Teamcraft format",
         "infsein": "Responsible for all design and development work",
-        "kim": "Contributed to the initial Japanese UI internationalization",
+        "kim": "Contributed initial UI Japanese internationalization",
         "nbb": "Responsible for providing game data and hosting support",
         "personal_page": "Personal homepages: ",
         "wcy": "Contributed the initial version of Windows client framework",
@@ -535,7 +535,19 @@
     },
     "2_2_8": {
       "breaking": {
-        "text_1": "Remade the i18n struct of project."
+        "text_1": "Remade the i18n struct of project.",
+        "text_2": "Performance is optimized and it is no longer necessary to refresh the page to switch the UI language.",
+        "text_3": "Now you can use {val} to view and join in i18n translation of HqHelper."
+      },
+      "feat": {
+        "text_1": "Optimized the display of the main interface on some devices."
+      },
+      "fix": {
+        "text_1": "Fixed issues that add or edit macro will lose preset tags and preset attributes settings.",
+        "text_2": "Fixed trade data of Patch 7.0 and Patch 7.05.",
+        "text_3": "To some extent, it has fixed the issue where the order of items is still inconsistent with the in-game order even after setting the '{f2}' of '{f1}' to '{f3}' in the preference settings.",
+        "text_4": "We have encountered some technical difficulties and are temporarily unable to resolve the problem of inconsistency between the sequence of the same items and the in-game notes.",
+        "text_5": "If you have a solution, please contact us."
       }
     },
     "breaking": "BREAKING CHANGES",

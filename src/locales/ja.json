@@ -1,7 +1,7 @@
 {
   "about_app": {
     "staff": {
-      "contributor": "贡献者",
+      "contributor": "貢献者",
       "jobs": {
         "etnatker": "Teamcraft形式で素材リストを表示する機能に貢献",
         "infsein": "すべての設計開発作業を担当",
@@ -535,7 +535,19 @@
     },
     "2_2_8": {
       "breaking": {
-        "text_1": ""
+        "text_1": "重制了项目的国际化结构。",
+        "text_2": "性能有所优化，现在切换界面语言不再需要刷新页面。",
+        "text_3": "现可通过{val}查阅和参与HqHelper的翻译工作。"
+      },
+      "feat": {
+        "text_1": "优化了主界面在部分设备上的显示效果。"
+      },
+      "fix": {
+        "text_1": "修复了添加/编辑宏后会丢失预设标签和预设属性设置的问题。",
+        "text_2": "修正了7.05/7.1版本点数道具的兑换数据。",
+        "text_3": "一定程度上修复了在偏好设置中将「{f1}」的「{f2}」设置为「{f3}」后，物品顺序仍与游戏内顺序不一致的问题。",
+        "text_4": "我们遇到了一些技术难题，暂时无法解决少数同类物品的顺序与游戏内制作笔记不一致的问题。",
+        "text_5": "如果您有解决思路，欢迎与我们联系。"
       }
     },
     "breaking": "重要な変更",
@@ -572,7 +584,7 @@
       "key_is_too_long": "{key}が長すぎます",
       "logged_out": "ログアウト済み",
       "login_succeed": "ログイン成功",
-      "operate_succeed": "操作成功",
+      "operate_succeed": "操作は成功しました",
       "page_would_be_reloaded": "変更を適用するため、ページを再読み込みします。",
       "please_input_loginname_or_email": "ログイン名またはメールアドレスを入力",
       "please_refresh_and_retry": "ページを再読み込みして再試行してください。",
@@ -655,7 +667,7 @@
       "enhancement": "拡張",
       "general": "一般",
       "performance": "機能",
-      "update": "更新"
+      "update": "アップデート"
     },
     "armor_attr": "装備品の詳細",
     "ask_every_time": "毎回確認",
@@ -684,7 +696,7 @@
     "close": "閉じる",
     "comment": "備考",
     "confirm": "確認",
-    "content": "内容",
+    "content": "コンテンツ",
     "copy": "コピーする",
     "copy_item_name": "アイテム",
     "cost": "コスト",
@@ -795,7 +807,7 @@
       "operation_irreversible": "この操作は元に戻せません。",
       "please_input_item_name": "アイテム名を入力してください",
       "please_input_val": "{val}を入力してください",
-      "please_wait_for_a_while": "请稍等片刻。",
+      "please_wait_for_a_while": "しばらくお待ちください。",
       "sync_succeed": "同期しました"
     },
     "mode": "モード",
@@ -851,7 +863,7 @@
     "retry": "再試行",
     "route_card_desc": "※ 今が表示されているのはHqHelperのサブページです。",
     "rule": "ルール",
-    "save": "保存",
+    "save": "保存する",
     "save_succeed": "セーブ成功",
     "select_all": "すべての内容を選択する",
     "select_invert": "未選択の内容を選択する",
@@ -862,7 +874,7 @@
     "setting": "設定",
     "simulate_craft": "製作をシミュレーション",
     "simulator": "シミュレーター",
-    "special": "特殊",
+    "special": "特別",
     "special_notice": "特別な注意点",
     "statement": "レポート",
     "statistics": "集計",
@@ -889,7 +901,7 @@
     "unknown": "不明",
     "update_immedi": "今すぐアップデートする",
     "updating": "アップデート中……",
-    "val_control": "{control_val}加工",
+    "val_control": "{control_val}加工精度",
     "val_craftsmanship": "{craftsmanship_val}作業",
     "val_days_ago": "{days}日前",
     "val_hours_ago": "{hours}時間前",
@@ -1972,7 +1984,7 @@
       "download_update_pack_failed_with_error": "ダウンロードが失敗しました：{errmsg}",
       "downloaded_and_speed": "ダウンロード済み {now} / {total} MB | 現在の速度：{speed}MB/s",
       "require_ver_plus_client_to_see_progress": "{ver}バージョン以降のクライアントのみが、現在の更新進行状況を確認できます。",
-      "server_under_maintenance": "服务器正在维护，暂时不能更新。",
+      "server_under_maintenance": "サーバーはメンテナンス中のため、現在アップデートできません。",
       "stage_failed": "{stage}失敗",
       "staging": "{stage}中…"
     },
