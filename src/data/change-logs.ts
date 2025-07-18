@@ -91,7 +91,7 @@ export const getChangelogs = (
           name: groupName.bugfix,
           changes: [
             t('changelog.2_2_8.fix.text_1'),
-            t('changelog.2_2_8.fix.text_2'),
+            t('changelog.2_2_8.fix.text_2') + '<br>' + renderImg('http://lsky.nbb.fan/i/2025/07/18/687a1850aefa7.png'),
             t('changelog.2_2_8.fix.text_3', {
               f1: t('common.appfunc.recomm_process'),
               f2: t('preference.processes_craftable_item_sortby.title'),

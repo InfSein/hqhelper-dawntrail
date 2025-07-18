@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, onMounted, ref } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import {
   NDivider, NTable
 } from 'naive-ui'
@@ -25,6 +25,15 @@ onMounted(async () => {
   }
 })
 
+const appVersions = computed(() => {
+  return {
+    webVersion: t('about_app.version.web', AppStatus.Version),
+    clientVersion: (currentElectronVersion.value ? t('about_app.version.client', currentElectronVersion.value) : ''),
+    dataVersionChs: t('common.chs_data_version', AppStatus.SupportedGameVersion.CN),
+    dataVersionGlobal: t('common.global_data_version', AppStatus.SupportedGameVersion.GLOBAL)
+  }
+})
+
 const showSponsors = ref(false)
 const viewSponsors = () => {
   showSponsors.value = true
@@ -42,10 +51,10 @@ const viewSponsors = () => {
     </div>
     <n-divider />
     <div class="version-info">
-      <div>{{ t('about_app.version.web', AppStatus.Version) }}</div>
-      <div>{{ currentElectronVersion ? t('about_app.version.client', currentElectronVersion) : '' }}</div>
-      <div>{{ t('common.chs_data_version', AppStatus.SupportedGameVersion.CN) }}</div>
-      <div>{{ t('common.global_data_version', AppStatus.SupportedGameVersion.GLOBAL) }}</div>
+      <div>{{ appVersions.webVersion }}</div>
+      <div>{{ appVersions.clientVersion }}</div>
+      <div v-if="appVersions.dataVersionChs">{{ appVersions.dataVersionChs }}</div>
+      <div>{{ appVersions.dataVersionGlobal }}</div>
     </div>
     <n-divider />
     <div id="staffs">

@@ -44,10 +44,12 @@ const handleJobSelect = (jobId: number, role: any) => {
   }
 }
 
-const uiLanguage = userConfig.value?.language_ui ?? 'zh'
+const uiLanguage = computed(() => {
+  return userConfig.value?.language_ui ?? 'zh'
+})
 
 const getRoleName = (role: any) => {
-  switch (uiLanguage) {
+  switch (uiLanguage.value) {
     case 'ja':
       return role.role_name_ja
     case 'en':
@@ -58,7 +60,7 @@ const getRoleName = (role: any) => {
 }
 const getJobName = (jobId: number) => {
   const _job = XivJobs[jobId]
-  switch (uiLanguage) {
+  switch (uiLanguage.value) {
     case 'ja':
       return _job.job_name_ja
     case 'en':

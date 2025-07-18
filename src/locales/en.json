@@ -96,7 +96,7 @@
       "breaking": {
         "text_1": "Added subscribe/notification function to Gatherclock.",
         "text_2": "Now you can subscribe gather items, subscribed items will be displayed in \"{f1}\". In addition, after setting \"{f3}\" to \"{f4}\" in \"{f2}\", the program will send a system notification when the gather item can be gathered.",
-        "text_3": "Might cant work in some browser/device. The program will check permission and pop alert when you adjust \"{val}}\".",
+        "text_3": "Might cant work in some browser/device. The program will check permission and pop alert when you adjust \"{val}\".",
         "text_4": "The performance of HqHelper might be restricted by browser when it is in background, which might cause the notification time to be later than the start time of subscribed item.",
         "text_5": "System might enter do not disturb mode automatically and block all notifications when game is running in full screen. If you want to receive notifications normally while playing the game, you need to disable auto do not disturb mode or grant HqHelper white list permission.",
         "text_6": "Further refined the grouping of gatherings in the Recomm. process, optimized the sorting logic within the group, and enabled the display of collection details.",
