@@ -13,7 +13,7 @@ import { getChangelogs, type PatchChangeGroup } from '@/data/change-logs'
 import type { UserConfigModel } from '@/models/config-user'
 import AppStatus from '@/variables/app-status'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const devMode = import.meta.env.DEV
@@ -28,10 +28,10 @@ const wrapperStyle = computed(() => {
   }
 })
 const latestPatchNote = computed(() => {
-  return getChangelogs(userConfig.value.language_ui)[0]
+  return getChangelogs(userConfig.value.language_ui, t)[0]
 })
 const historyChangelogs = computed(() => {
-  return getChangelogs(userConfig.value.language_ui).slice(1)
+  return getChangelogs(userConfig.value.language_ui, t).slice(1)
 })
 const latestPatchNoteNumWidth = computed(() => {
   const maxLengthOfNote = latestPatchNote.value.changes.map(change => change.changes.length).reduce((a, b) => Math.max(a, b), 0)
@@ -80,7 +80,7 @@ const handleCopyLatestPatchNodeMarkdown = () => {
 const handleCopyAllPatchNodeMarkdown = () => {
   const br = '\r\n'
   let content = `# HqHelper CHANGELOG${br}${br}`
-  const allNote = getChangelogs(userConfig.value.language_ui)
+  const allNote = getChangelogs(userConfig.value.language_ui, t)
   allNote.forEach(note => {
     content += `## ${note.version} (${note.date})${br}${br}`
     note.changes.forEach(change => {
@@ -104,7 +104,7 @@ const handleSwitchShowHistory = () => {
   <MyModal
     v-model:show="showModal"
     :icon="EventNoteFilled"
-    :title="t('更新日志')"
+    :title="t('common.appfunc.changelog')"
     max-width="650px"
     :height="isMobile ? '650px' : '620px'"
   >
@@ -116,7 +116,7 @@ const handleSwitchShowHistory = () => {
             <n-text depth="3" class="date">{{ latestPatchNote.date }}</n-text>
             <n-text v-if="!isMobile" depth="3" class="data-version">
               ({{
-                t('国服{cnver}／国际服{glbver}', {
+                t('common.chs_and_global_data_version', {
                   cnver: AppStatus.SupportedGameVersion.CN,
                   glbver: AppStatus.SupportedGameVersion.GLOBAL,
                 })
@@ -130,7 +130,7 @@ const handleSwitchShowHistory = () => {
               :key="'latest-' + changeIndex"
               class="item"
             >
-              <div class="change-group-title">{{ t(change.name) }}</div>
+              <div class="change-group-title">{{ change.name }}</div>
               <div class="change-group-content">
                 <div
                   v-for="(changeContent, changeContentIndex) in getChanges(change)"
@@ -161,7 +161,7 @@ const handleSwitchShowHistory = () => {
         <n-collapse :default-expanded-names="logIndex ? [] : ['1']">
           <n-collapse-item name="1" :title="patchlog.version">
             <template #header-extra>
-              {{ t('更新时间：{date}', patchlog.date) }}
+              {{ t('changelog.text.release_date_with_val', patchlog.date) }}
             </template>
             <div class="patchnote-container">
               <div
@@ -169,7 +169,7 @@ const handleSwitchShowHistory = () => {
                 :key="patchlog.version + '-' + changeIndex"
                 class="item"
               >
-                <div class="change-group-title">{{ t(change.name) }}</div>
+                <div class="change-group-title">{{ change.name }}</div>
                 <div class="change-group-content">
                   <div
                     v-for="(changeContent, changeContentIndex) in getChanges(change)"
@@ -212,7 +212,7 @@ const handleSwitchShowHistory = () => {
           <template #icon>
             <n-icon :component="showHistory ? StickyNote2Outlined : HistoryOutlined" />
           </template>
-          {{ showHistory ? t('查看最新日志') : t('查看历史日志') }}
+          {{ showHistory ? t('changelog.text.view_latest') : t('changelog.text.view_history') }}
         </n-button>
       </div>
     </template>

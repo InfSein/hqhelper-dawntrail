@@ -12,7 +12,7 @@ import { XivPatches, type XivPatch } from "@/assets/data"
 import { fixGearSelections, isGearEmpty, type GearSelections } from '@/models/gears'
 import HelpButton from '../custom/general/HelpButton.vue'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
@@ -20,8 +20,8 @@ const patchSelected = defineModel<string>('patchSelected', { required: true })
 const gearsSelected = defineModel<GearSelections>('gearsSelected', { required: true })
 
 const cardDescription = computed(() => {
-  if (!patchSelected.value) return t('还未选择')
-  else return t('已选择版本: {}', patchSelected.value)
+  if (!patchSelected.value) return t('main.shared.desc.not_selected')
+  else return t('main.select_patch.desc.selected', patchSelected.value)
 })
 
 const containerCard = ref<InstanceType<typeof FoldableCard>>()
@@ -32,8 +32,8 @@ const handlePatchSelect = (patch: XivPatch) => {
     && !isGearEmpty(gearsSelected.value)
   ) {
     if (window.confirm(
-      t('切换版本会清空你已选择的装备部件。')
-      + '\n' + t('要继续吗?')
+      t('main.message.switch_patch_will_clean_gears')
+      + '\n' + t('common.message.ask_continue')
     )) {
       gearsSelected.value = fixGearSelections()
     } else {
@@ -57,7 +57,7 @@ const getPatchName = (patch: XivPatch) => {
     patchName = patch.name_ja
   }
 
-  return t('版本{v}: {name}', { v: patch.v, name: patchName })
+  return t('main.select_patch.patch_button.text', { v: patch.v, name: patchName })
 }
 
 const getPatchBackground = (patch: XivPatch) => {
@@ -71,25 +71,25 @@ const getPatchBackground = (patch: XivPatch) => {
 
 const patchPatterns = computed(() => {
   return [
-    t('{patch}版本会追加生产采集职业的{ilv}品级白装HQ；', {
+    t('main.select_patch.info.info_2', {
       patch: XivPatches[0].v, ilv: XivPatches[0].life_hq_il
     }),
-    t('{patch}版本会追加战斗职业的{ilv}品级绿装HQ，以及同品级的秘籍食物/爆发药；', {
+    t('main.select_patch.info.info_3', {
       patch: XivPatches[0].v_sub, ilv: XivPatches[0].combat_hq_il
     })    ,
-    t('{patch}版本会追加生产采集职业的{ilv}品级白装HQ (不包括首饰)；', {
+    t('main.select_patch.info.info_4', {
       patch: XivPatches[1].v, ilv: XivPatches[1].life_hq_il
     }),
-    t('{patch}版本会追加战斗职业的{ilv}品级绿装HQ，以及同品级的秘籍食物/爆发药；', {
+    t('main.select_patch.info.info_3', {
       patch: XivPatches[2].v, ilv: XivPatches[2].combat_hq_il
     }),
-    t('{patch}版本会追加生产采集职业的{ilv}品级绿装HQ，这也是整个大版本的生产采集毕业装；', {
+    t('main.select_patch.info.info_5', {
       patch: XivPatches[3].v, ilv: XivPatches[3].life_hq_il
     }),
-    t('{patch}版本会追加战斗职业的{ilv}品级绿装HQ，以及同品级的秘籍食物/爆发药；', {
+    t('main.select_patch.info.info_3', {
       patch: XivPatches[4].v, ilv: XivPatches[4].combat_hq_il
     }),
-    t('{patch}版本不会追加新HQ装备。', {
+    t('main.select_patch.info.info_6', {
       patch: '7.5',
     }),
   ]
@@ -101,11 +101,11 @@ const patchPatterns = computed(() => {
     <template #header>
       <div class="card-title">
         <i class="xiv square-1"></i>
-        <span class="card-title-text">{{ t('选择版本') }}</span>
+        <span class="card-title-text">{{ t('main.select_patch.title') }}</span>
         <div style="margin-left: 1px;">
           <HelpButton icon="info" :size="22" :placement="isMobile ? 'bottom' : 'right-start'" pop-type="popover" style="margin-left: 0.5em;">
             <div class="pop-wrapper">
-              <div>{{ t('FFXIV的制作装备更新规律较为稳定，这使得我们可以预判各小版本的更新内容。') }}</div>
+              <div>{{ t('main.select_patch.info.info_1') }}</div>
               <n-divider style="margin: 1px 5px 3px 5px" />
               <ul>
                 <li v-for="(pattern, patternIndex) in patchPatterns" :key="patternIndex">{{ pattern }}</li>
@@ -142,9 +142,9 @@ const patchPatterns = computed(() => {
           </n-button>
         </template>
         <div class="popover-container">
-          <p>{{ t('此版本实装新的HQ制作装：') }}</p>
-          <p class="sub" v-if="patch.life_hq_il">{{ t('生活职业{il}HQ', patch.life_hq_il) }}</p>
-          <p class="sub" v-if="patch.combat_hq_il">{{ t('战斗职业{il}HQ', patch.combat_hq_il) }}</p>
+          <p>{{ t('main.select_patch.patch_button.tooltip.tooltip_1') }}</p>
+          <p class="sub" v-if="patch.life_hq_il">{{ t('main.select_patch.patch_button.tooltip.tooltip_2', patch.life_hq_il) }}</p>
+          <p class="sub" v-if="patch.combat_hq_il">{{ t('main.select_patch.patch_button.tooltip.tooltip_3', patch.combat_hq_il) }}</p>
         </div>
       </n-popover>
     </n-flex>

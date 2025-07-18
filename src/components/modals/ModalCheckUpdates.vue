@@ -22,7 +22,7 @@ import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
 import { checkAppUpdates } from '@/tools'
 
 const store = useStore()
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
@@ -32,7 +32,7 @@ onMounted(() => {
   if (window.electronAPI?.onUpdateProgress) {
     window.electronAPI.onUpdateProgress(handleProgress)
   } else {
-    updateTip.titleText = t('{ver}版本以上的客户端才能查看当前更新进度。', {
+    updateTip.titleText = t('update.message.require_ver_plus_client_to_see_progress', {
       ver: 'v3'
     })
   }
@@ -66,7 +66,7 @@ const customProxyUrl = ref('')
 const proxyValue = ref('https://ghfast.top')
 const proxyPings = ref<Record<string, number | "timeout" | "unknown" | "error">>({})
 const proxyOptions = [
-  { label: t('不使用加速服务'), value: '' },
+  { label: t('update.proxy.dont_use_proxy'), value: '' },
   { label: 'ghfast.top', value: 'https://ghfast.top' },
   { label: 'github.moeyy.xyz', value: 'https://github.moeyy.xyz' },
   { label: 'gh.jasonzeng.dev', value: 'https://gh.jasonzeng.dev/' },
@@ -100,9 +100,9 @@ const handleProgress = (progressData: ProgressData) => {
   updateTip.total = progressData.progress?.total ?? "???"
   updateTip.downloadSpeed = progressData.progress?.speed ?? "???"
 
-  updateTip.titleText = error ? t('{stage}失败', dealProcessStage(error.onstage)) : t('正在{stage}……', stage)
+  updateTip.titleText = error ? t('update.message.stage_failed', dealProcessStage(error.onstage)) : t('update.message.staging', stage)
   if (progressData.stage === 'downloading') {
-    updateTip.titleText += ' ' + t('已下载 {now} / {total} MB | 当前速度：{speed}MB/s',
+    updateTip.titleText += ' ' + t('update.message.downloaded_and_speed',
       { now: updateTip.downloaded, total: updateTip.total, speed: updateTip.downloadSpeed }
     )
   }
@@ -120,13 +120,13 @@ const handleProgress = (progressData: ProgressData) => {
 
   function dealProcessStage(stage: ProcessStage) {
     switch (stage) {
-      case 'requesting': return t('建立连接')
-      case 'downloading': return t('下载更新包')
-      case 'extracting': return t('解压更新包')
-      case 'replacing': return t('替换文件')
-      case 'cleaning': return t('清理临时文件')
-      case 'relaunching': return t('重启程序')
-      case 'opening': return t('打开安装包')
+      case 'requesting': return t('update.stage.connecting')
+      case 'downloading': return t('update.stage.downloading')
+      case 'extracting': return t('update.stage.extracting')
+      case 'replacing': return t('update.stage.replacing')
+      case 'cleaning': return t('update.stage.cleaning')
+      case 'relaunching': return t('update.stage.restarting')
+      case 'opening': return t('update.stage.opening')
       case 'end':
       default: return ''
     }
@@ -156,7 +156,7 @@ const handleCheckUpdates = async () => {
 
   function dealFailure(msg: string, errdata: any) {
     console.error(errdata)
-    alert(t('检查更新失败：{error}', msg))
+    alert(t('update.message.check_update_failed_with_error', msg))
     latestHqHelperVersion.value = null
     latestElectronVersion.value = null
   }
@@ -164,25 +164,25 @@ const handleCheckUpdates = async () => {
 
 const getDoUpdateBtnText = (versionNow: string, versionLatest: string | null) => {
   if (versionLatest === '') {
-    return t('检测中……')
+    return t('common.checking')
   } else if (versionLatest === null) {
-    return t('检测失败')
+    return t('common.check_failed')
   } else if (versionNow === versionLatest) {
-    return t('已是最新版本')
+    return t('update.message.already_latest')
   } else {
-    return t('立即更新', versionLatest)
+    return t('common.update_immedi', versionLatest)
   }
 }
 const hqHelperUpdateBtnText = computed(() => {
   if (updateTip.updating_hqhelper) {
-    return t('正在更新')
+    return t('common.updating')
   } else {
     return getDoUpdateBtnText(AppStatus.Version, latestHqHelperVersion.value)
   }
 })
 const electronUpdateBtnText = computed(() => {
   if (updateTip.updating_electron) {
-    return t('正在更新')
+    return t('common.updating')
   } else {
     return getDoUpdateBtnText(currentElectronVersion.value, latestElectronVersion.value)
   }
@@ -214,11 +214,11 @@ const getProxyPingText = (proxy: string) => {
   if (ping === undefined) {
     return ''
   } else if (ping === 'timeout') {
-    return t('超时')
+    return t('common.timeout')
   } else if (ping === 'unknown') {
-    return t('未知')
+    return t('common.unknown')
   } else if (ping === 'error') {
-    return t('错误')
+    return t('common.error')
   } else {
     return ping + 'ms'
   }
@@ -251,10 +251,10 @@ const handleDownloadWebPack = async () => {
     alert('electronAPI.downloadUpdatePack is not defined'); return
   }
   if (!window.confirm(
-    t('即将开始下载HqHelper更新包，可能需要一些时间。')
-    + '\n' + t('更新成功后将自动重启程序。')
-    + '\n' + t('如果长时间无反应，请尝试关闭程序，重新打开并调整“加速服务”的设置。')
-    + '\n' + t('确认要现在开始更新吗?')
+    t('update.alert_text.text_1')
+    + '\n' + t('update.alert_text.text_2')
+    + '\n' + t('update.alert_text.text_3')
+    + '\n' + t('update.alert_text.text_4')
   )) {
     return
   }
@@ -267,13 +267,13 @@ const handleDownloadWebPack = async () => {
   } else if (!latestHqHelperVersion.value) {
     alert('latestHqHelperVersion not given, Please retry later.')
   } else if (versionContent.value?.maintenance_webpack) {
-    alert(t('服务器正在维护，暂时不能更新。') + '\n' + t('请稍等片刻。'))
+    alert(t('update.message.server_under_maintenance') + '\n' + t('common.message.please_wait_for_a_while'))
   } else {
     url = url.replace('~PROXY', proxy.value)
     url = url.replace('~VERSION', latestHqHelperVersion.value)
     const err = await window.electronAPI.downloadUpdatePack(url)
     if (err) {
-      alert(t('下载更新包失败：{errmsg}', err))
+      alert(t('update.message.download_update_pack_failed_with_error', err))
       updateTip.titleText = ''
     }
   }
@@ -298,10 +298,10 @@ const handleDownloadElectronPack = async () => {
       alert('function downloadAndOpen is not defined.\nPlease check the client version (v6+ is required).'); return
     }
     if (!window.confirm(
-      t('即将开始下载新版客户端安装包，可能需要一些时间。')
-      + '\n' + t('更新成功后将自动打开安装包。')
-      + '\n' + t('如果长时间无反应，请尝试关闭程序，重新打开并调整“加速服务”的设置。')
-      + '\n' + t('确认要现在开始更新吗?')
+      t('update.alert_text.text_8')
+      + '\n' + t('update.alert_text.text_9')
+      + '\n' + t('update.alert_text.text_3')
+      + '\n' + t('update.alert_text.text_4')
     )) {
       return
     }
@@ -314,22 +314,22 @@ const handleDownloadElectronPack = async () => {
     } else if (!latestElectronVersion.value) {
       alert('latestElectronVersion not given, Please retry later.')
     } else if (versionContent.value?.maintenance_client) {
-      alert(t('服务器正在维护，暂时不能更新。') + '\n' + t('请稍等片刻。'))
+      alert(t('update.message.server_under_maintenance') + '\n' + t('common.message.please_wait_for_a_while'))
     } else {
       url = url.replace('~PROXY', proxy.value)
       url = url.replace('~VERSION', latestElectronVersion.value)
-      const err = await window.electronAPI.downloadAndOpen(url, t('客户端更新程序') + '.exe')
+      const err = await window.electronAPI.downloadAndOpen(url, t('update.file_name.client_updater') + '.exe')
       if (err) {
-        alert(t('下载安装包失败：{errmsg}', err))
+        alert(t('update.message.download_client_pack_failed_with_error', err))
         updateTip.titleText = ''
       }
     }
   } else {
     if (!window.confirm(
-      t('即将开始下载客户端更新包。由于客户端体积较大，将调用系统默认浏览器打开下载页。')
-      + '\n' + t('下载成功后，运行下载的安装包即可将客户端更新到新版本。')
-      + '\n' + t('如果下载速度过慢，请尝试取消下载，调整“加速服务”的设置后重试。')
-      + '\n' + t('确认要现在开始更新吗?')
+      t('update.alert_text.text_5')
+      + '\n' + t('update.alert_text.text_6')
+      + '\n' + t('update.alert_text.text_7')
+      + '\n' + t('update.alert_text.text_4')
     )) {
       return
     }
@@ -341,7 +341,7 @@ const handleDownloadElectronPack = async () => {
     } else if (!latestElectronVersion.value) {
       alert('latestElectronVersion not given, Please retry later.')
     } else if (versionContent.value?.maintenance_client) {
-      alert(t('服务器正在维护，暂时不能更新。') + '\n' + t('请稍等片刻。'))
+      alert(t('update.message.server_under_maintenance') + '\n' + t('common.message.please_wait_for_a_while'))
     } else {
       url = url.replace('~PROXY', proxy.value)
       url = url.replace('~VERSION', latestElectronVersion.value)
@@ -360,7 +360,7 @@ const handleSettingButtonClick = () => {
   <MyModal
     v-model:show="showModal"
     :icon="UpdateSharp"
-    :title="t('检查更新')"
+    :title="t('common.appfunc.check_updates')"
     height="auto"
     @on-load="onLoad"
     show-setting
@@ -371,9 +371,9 @@ const handleSettingButtonClick = () => {
         <template #header>
           <div class="card-title">
             <n-icon><VpnLockRound /></n-icon>
-            <span class="title">{{ t('加速服务') }}</span>
+            <span class="title">{{ t('update.proxy.title') }}</span>
             <div class="card-title-actions font-small">
-              <a href="javascript:void(0)" @click="handleShowProxySiteStatus">[{{ t('服务站状况') }}]</a>
+              <a href="javascript:void(0)" @click="handleShowProxySiteStatus">[{{ t('update.text.proxy_status_view') }}]</a>
             </div>
           </div>
         </template>
@@ -409,7 +409,7 @@ const handleSettingButtonClick = () => {
                   name="proxy-option"
                   v-model:checked="useCustomProxy"
                 >
-                  {{ t('自定义加速服务') }}
+                  {{ t('update.text.custom_proxy') }}
                 </n-radio>
               </div>
               <div class="proxy-ping">
@@ -433,7 +433,7 @@ const handleSettingButtonClick = () => {
               <template #icon>
                 <n-icon><SpeedRound /></n-icon>
               </template>
-              {{ t('连接检测') }}
+              {{ t('update.text.check_connections') }}
             </n-button>
           </div>
         </div>
@@ -442,18 +442,18 @@ const handleSettingButtonClick = () => {
         <template #header>
           <div class="card-title">
             <n-icon><SystemUpdateAltRound /></n-icon>
-            <span class="title">{{ t('HqHelper版本') }}</span>
+            <span class="title">{{ t('common.hqhelper_version') }}</span>
           </div>
         </template>
 
         <div class="version-card-container">
           <div class="versions">
-            <div>{{ t('当前版本：{v}', AppStatus.Version) }}</div>
+            <div>{{ t('common.curr_version_with_val', AppStatus.Version) }}</div>
             <div>
-              <span>{{ t('最新版本：') }}</span>
+              <span>{{ t('common.latest_version') }}</span>
               <span v-if="latestHqHelperVersion">{{ latestHqHelperVersion }}</span>
-              <span v-else-if="latestHqHelperVersion===''">{{ t('检测中……') }}</span>
-              <span v-else>{{ t('检测失败') }}</span>
+              <span v-else-if="latestHqHelperVersion===''">{{ t('common.checking') }}</span>
+              <span v-else>{{ t('common.check_failed') }}</span>
             </div>
           </div>
           <div class="edge-top-right">
@@ -461,7 +461,7 @@ const handleSettingButtonClick = () => {
               <template #icon>
                 <n-icon><RefreshRound /></n-icon>
               </template>
-              {{ t('重新检测') }}
+              {{ t('common.recheck') }}
             </n-button>
           </div>
           <div class="action">
@@ -480,18 +480,18 @@ const handleSettingButtonClick = () => {
         <template #header>
           <div class="card-title">
             <n-icon><BrowserUpdatedRound /></n-icon>
-            <span class="title">{{ t('客户端版本') }}</span>
+            <span class="title">{{ t('common.client_version') }}</span>
           </div>
         </template>
 
         <div class="version-card-container">
           <div class="versions">
-            <div>{{ t('当前版本：{v}', currentElectronVersion) }}</div>
+            <div>{{ t('common.curr_version_with_val', currentElectronVersion) }}</div>
             <div>
-              <span>{{ t('最新版本：') }}</span>
+              <span>{{ t('common.latest_version') }}</span>
               <span v-if="latestElectronVersion">{{ latestElectronVersion }}</span>
-              <span v-else-if="latestElectronVersion===''">{{ t('检测中……') }}</span>
-              <span v-else>{{ t('检测失败') }}</span>
+              <span v-else-if="latestElectronVersion===''">{{ t('common.checking') }}</span>
+              <span v-else>{{ t('common.check_failed') }}</span>
             </div>
           </div>
           <div class="edge-top-right">
@@ -499,7 +499,7 @@ const handleSettingButtonClick = () => {
               <template #icon>
                 <n-icon><RefreshRound /></n-icon>
               </template>
-              {{ t('重新检测') }}
+              {{ t('common.recheck') }}
             </n-button>
           </div>
           <div class="action">

@@ -15,7 +15,7 @@ import { _VAR_MAX_WORKFLOW, getDefaultWorkflow, type Workflow } from '@/models/w
 
 const NAIVE_UI_MESSAGE = useMessage()
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 const showModal = defineModel<boolean>('show', { required: true })
@@ -34,7 +34,7 @@ const handleSave = () => {
     return
   }
   showModal.value = false
-  NAIVE_UI_MESSAGE.success(t('保存成功'))
+  NAIVE_UI_MESSAGE.success(t('common.save_succeed'))
   emits('afterSave')
 }
 </script>
@@ -43,30 +43,30 @@ const handleSave = () => {
   <MyModal
     v-model:show="showModal"
     :icon="SettingsSharp"
-    :title="t('管理工作流')"
+    :title="t('workflow.text.manage_workflows')"
     max-width="600px"
   >
     <div class="wrapper">
-      <p>{{ t('在这里可以修改各个工作流的名称，或是直接删除工作流。') }}</p>
+      <p>{{ t('workflow.text.manage_workflows_desc') }}</p>
       <DraggableTable
         v-model:data="workflows"
         ref="workflowsTable"
         can-add
         :min="1"
-        :min-tip="t('需要保留至少1条工作流')"
+        :min-tip="t('workflow.text.min_len')"
         :max="_VAR_MAX_WORKFLOW"
-        :max-tip="t('最多只能添加{num}条工作流', _VAR_MAX_WORKFLOW)"
+        :max-tip="t('workflow.message.max_len', _VAR_MAX_WORKFLOW)"
         :get-default-data-row="getDefaultWorkflow"
       >
         <template #tableTitle>
           <div class="flex-vac">
-            <div class="bold">{{ t('工作流名称') }}</div>
+            <div class="bold">{{ t('workflow.text.workflow_name') }}</div>
             <div>
               <HelpButton
                 icon="question"
                 :descriptions="[
-                  t('如果没有为工作流设置名称，则按顺序自动显示为「工作流1~{maxlen}」。', _VAR_MAX_WORKFLOW),
-                  t('删除某一工作流时，其后的所有未命名工作流将重新编号。')
+                  t('workflow.text.workflow_name_default_info', _VAR_MAX_WORKFLOW),
+                  t('workflow.text.workflow_name_reorder_on_deleted')
                 ]"
               />
             </div>
@@ -74,10 +74,10 @@ const handleSave = () => {
         </template>
 
         <template #default="{ row, rowIndex }">
-          <n-input v-model:value="row.name" type="text" :placeholder="t('工作流{index}', rowIndex + 1)" />
+          <n-input v-model:value="row.name" type="text" :placeholder="t('workflow.text.workflow_with_index', rowIndex + 1)" />
         </template>
       </DraggableTable>
-      <p>{{ t('所有修改都只在点击保存之后才会生效。') }}</p>
+      <p>{{ t('common.all_changes_effects_after_save') }}</p>
     </div>
 
     <template #action>
@@ -86,7 +86,7 @@ const handleSave = () => {
           <template #icon>
             <n-icon><SaveOutlined /></n-icon>
           </template>
-          {{ t('保存') }}
+          {{ t('common.save') }}
         </n-button>
       </div>
     </template>

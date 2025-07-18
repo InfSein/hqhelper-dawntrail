@@ -21,7 +21,7 @@ import { deepCopy } from '@/tools'
 import { getImgCdnUrl } from '@/tools/item'
 import { useNbbCloud } from '@/tools/nbb-cloud'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
@@ -87,16 +87,16 @@ const modalIcon = computed(() => {
 })
 const modalTitle = computed(() => {
   switch (loginAction.value) {
-    case 'resetpass': return t('重置密码')
-    case 'register': return t('注册')
-    case 'edituser': return t('编辑账号信息')
+    case 'resetpass': return t('cloud.text.reset_password')
+    case 'register': return t('common.register')
+    case 'edituser': return t('cloud.text.edit_account_info')
     case 'login': 
-    default: return t('登录')
+    default: return t('common.login')
   }
 })
 
 const verifyButtonText = computed(() =>
-  isVerifyCooldown.value ? t('{count}秒后可再次发送', verifyCooldown.value) : t('发送验证码')
+  isVerifyCooldown.value ? t('cloud.message.verify_cooldown', verifyCooldown.value) : t('cloud.text.send_verify')
 )
 const avatarUrl = computed(() => {
   const avatarId = edituserFormData.avatar || 64384
@@ -120,7 +120,7 @@ const handleCheckStrLength = (
 ) => {
   const strlen = str.replace(/[\u4e00-\u9fa5]/g, 'aa').length
   if (strlen > maxlen) {
-    return t('{key}过长', {
+    return t('cloud.message.key_is_too_long', {
       key: tipkey
     })
   }
@@ -138,7 +138,7 @@ const handleResponse = (
     if (show_errmsg) errmsg += response.errmsg
     NAIVE_UI_MESSAGE.error(errmsg)
   } else {
-    const succmsg = on_success || t('操作成功')
+    const succmsg = on_success || t('cloud.message.operate_succeed')
     NAIVE_UI_MESSAGE.success(succmsg)
   }
 }
@@ -150,20 +150,20 @@ const handleSaveLoginInfo = (data: ResdataRegisterAndLogin) => {
 
 const handleSendVerify = async (email: string) => {
   if (!email) {
-    NAIVE_UI_MESSAGE.error(t('请输入{val}', t('邮箱'))); return
+    NAIVE_UI_MESSAGE.error(t('common.message.please_input_val', t('common.email'))); return
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    NAIVE_UI_MESSAGE.error(t('邮箱格式错误')); return
+    NAIVE_UI_MESSAGE.error(t('cloud.message.email_format_wrong')); return
   }
   isSendingVerify.value = true
   const verifyFunc = loginAction.value === 'resetpass' ? sendVerifyForResetPassword : sendVerify
   try {
     const response = await verifyFunc(email)
-    handleResponse(response, t('已发送验证码'))
+    handleResponse(response, t('cloud.message.verify_sent'))
     if (!response.errno) {
       startCooldown(60)
     }
   } catch (err: any) {
-    NAIVE_UI_MESSAGE.error(t('发送失败：{err}', err.message))
+    NAIVE_UI_MESSAGE.error(t('cloud.message.verify_send_failed', err.message))
     console.error('Send verify failed:\n', err)
   } finally {
     isSendingVerify.value = false
@@ -178,33 +178,33 @@ const handleSubmit = async () => {
     isSubmitting.value = true
     if (loginAction.value === 'login') {
       if (!loginFormData.account) {
-        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('账号'))); return
+        NAIVE_UI_MESSAGE.error(t('common.message.please_input_val', t('common.account'))); return
       } else if (!loginFormData.password) {
-        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('密码'))); return
+        NAIVE_UI_MESSAGE.error(t('common.message.please_input_val', t('common.password'))); return
       }
       const response = await login(
         loginFormData.account, loginFormData.password
       )
-      handleResponse(response, t('登录成功'))
+      handleResponse(response, t('cloud.message.login_succeed'))
       if (!response.errno) {
         handleSaveLoginInfo(response.data)
         showModal.value = false
       }
     } else if (loginAction.value === 'register') {
       if (!registerFormData.email) {
-        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('邮箱'))); return
+        NAIVE_UI_MESSAGE.error(t('common.message.please_input_val', t('common.email'))); return
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(registerFormData.email)) {
-        NAIVE_UI_MESSAGE.error(t('邮箱格式错误')); return
+        NAIVE_UI_MESSAGE.error(t('cloud.message.email_format_wrong')); return
       } else if (!registerFormData.verifycode) {
-        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('验证码'))); return
+        NAIVE_UI_MESSAGE.error(t('common.message.please_input_val', t('common.verify_code'))); return
       } else if (!registerFormData.loginname) {
-        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('登录名'))); return
+        NAIVE_UI_MESSAGE.error(t('common.message.please_input_val', t('common.login_name'))); return
       } else if (!registerFormData.nickname) {
-        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('昵称'))); return
+        NAIVE_UI_MESSAGE.error(t('common.message.please_input_val', t('common.nickname'))); return
       } else if (!registerFormData.password) {
-        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('密码'))); return
+        NAIVE_UI_MESSAGE.error(t('common.message.please_input_val', t('common.password'))); return
       }
-      const inputLenTooLong = handleCheckStrLength(registerFormData.nickname, 12, t('昵称'))
+      const inputLenTooLong = handleCheckStrLength(registerFormData.nickname, 12, t('common.nickname'))
       if (inputLenTooLong) {
         NAIVE_UI_MESSAGE.error(inputLenTooLong); return
       }
@@ -213,35 +213,35 @@ const handleSubmit = async () => {
         registerFormData.nickname, registerFormData.loginname,
         registerFormData.password, registerFormData.verifycode,
       )
-      handleResponse(response, t('注册成功'))
+      handleResponse(response, t('cloud.message.register_succeed'))
       if (!response.errno) {
         handleSaveLoginInfo(response.data)
         showModal.value = false
       }
     } else if (loginAction.value === 'resetpass') {
       if (!resetpassFormData.email) {
-        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('邮箱'))); return
+        NAIVE_UI_MESSAGE.error(t('common.message.please_input_val', t('common.email'))); return
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(resetpassFormData.email)) {
-        NAIVE_UI_MESSAGE.error(t('邮箱格式错误')); return
+        NAIVE_UI_MESSAGE.error(t('cloud.message.email_format_wrong')); return
       } else if (!resetpassFormData.verifycode) {
-        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('验证码'))); return
+        NAIVE_UI_MESSAGE.error(t('common.message.please_input_val', t('common.verify_code'))); return
       } else if (!resetpassFormData.password) {
-        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('密码'))); return
+        NAIVE_UI_MESSAGE.error(t('common.message.please_input_val', t('common.password'))); return
       }
       const response = await resetPassword(
         resetpassFormData.email,
         resetpassFormData.password,
         resetpassFormData.verifycode
       )
-      handleResponse(response, t('重置密码成功'))
+      handleResponse(response, t('cloud.message.reset_password_succeed'))
       if (!response.errno) {
         loginAction.value = 'login'
       }
     } else if (loginAction.value === 'edituser') {
       if (!edituserFormData.nickname) {
-        NAIVE_UI_MESSAGE.error(t('请输入{val}', t('昵称'))); return
+        NAIVE_UI_MESSAGE.error(t('common.message.please_input_val', t('common.nickname'))); return
       }
-      const inputLenTooLong = handleCheckStrLength(edituserFormData.nickname, 12, t('昵称')) || handleCheckStrLength(edituserFormData.title, 20, t('称号'))
+      const inputLenTooLong = handleCheckStrLength(edituserFormData.nickname, 12, t('common.nickname')) || handleCheckStrLength(edituserFormData.title, 20, t('cloud.text.user_title'))
       if (inputLenTooLong) {
         NAIVE_UI_MESSAGE.error(inputLenTooLong); return
       }
@@ -253,7 +253,7 @@ const handleSubmit = async () => {
       ) {
         const response = await resetNickNameAndTitle(edituserFormData.nickname, edituserFormData.title)
         if (response.errno) {
-          NAIVE_UI_MESSAGE.error(t('修改昵称/称号失败：{err}', response.errmsg)); return
+          NAIVE_UI_MESSAGE.error(t('cloud.message.reset_nick_or_title_failed', response.errmsg)); return
         } else {
           newCloudConfig.nbb_account_nickname = edituserFormData.nickname
           newCloudConfig.nbb_account_title = edituserFormData.title
@@ -263,7 +263,7 @@ const handleSubmit = async () => {
       if (edituserFormData.avatar !== cloudConfig.value.nbb_account_avatar) {
         const response = await resetAvatar(edituserFormData.avatar)
         if (response.errno) {
-          NAIVE_UI_MESSAGE.error(t('修改头像失败：{err}', response.errmsg)); return
+          NAIVE_UI_MESSAGE.error(t('cloud.message.reset_avatar_failed', response.errmsg)); return
         } else {
           newCloudConfig.nbb_account_avatar = edituserFormData.avatar
           store.commit('setCloudConfig', newCloudConfig)
@@ -276,7 +276,7 @@ const handleSubmit = async () => {
       console.error('Unexpected loginAction', loginAction.value)
     }
   } catch (err: any) {
-    NAIVE_UI_MESSAGE.error(t('提交失败：{err}', err.message))
+    NAIVE_UI_MESSAGE.error(t('cloud.message.submit_failed', err.message))
     console.error('Submit failed:\n', err)
   } finally {
     isSubmitting.value = false
@@ -297,47 +297,47 @@ const handleSubmit = async () => {
         <div class="form-container">
           <div class="form-label">
             <n-icon :size="15"><AccountCircleOutlined /></n-icon>
-            {{ t('账号') }}
+            {{ t('common.account') }}
           </div>
           <n-input
             v-model:value="loginFormData.account"
-            :placeholder="t('请输入登录名或邮箱')"
+            :placeholder="t('cloud.message.please_input_loginname_or_email')"
           />
           <div class="form-label">
             <n-icon :size="15"><KeyOutlined /></n-icon>
-            {{ t('密码') }}
+            {{ t('common.password') }}
           </div>
           <n-input
             type="password"
             v-model:value="loginFormData.password"
             show-password-on="click"
-            :placeholder="t('请输入{val}', t('密码'))"
+            :placeholder="t('common.message.please_input_val', t('common.password'))"
           />
         </div>
         <div class="sub-links">
-          <a href="javascript:void(0);" @click="loginAction = 'register'">{{ t('注册账号') }}</a>
+          <a href="javascript:void(0);" @click="loginAction = 'register'">{{ t('cloud.text.register_account') }}</a>
           <n-divider vertical />
-          <a href="javascript:void(0);" @click="loginAction = 'resetpass'">{{ t('忘记密码') }}</a>
+          <a href="javascript:void(0);" @click="loginAction = 'resetpass'">{{ t('cloud.text.forgot_password') }}</a>
         </div>
       </div>
       <div v-else-if="loginAction === 'register'" class="register-panel">
         <div class="form-container">
           <div class="form-label">
             <n-icon :size="15"><EmailOutlined /></n-icon>
-            {{ t('邮箱') }}
+            {{ t('common.email') }}
           </div>
           <n-input
             v-model:value="registerFormData.email"
-            :placeholder="t('请输入{val}', t('邮箱'))"
+            :placeholder="t('common.message.please_input_val', t('common.email'))"
           />
           <div class="form-label">
             <n-icon :size="15"><VerifiedUserFilled /></n-icon>
-            {{ t('验证码') }}
+            {{ t('common.verify_code') }}
           </div>
           <n-input-group>
             <n-input
               v-model:value="registerFormData.verifycode"
-              :placeholder="t('请输入{val}', t('验证码'))"
+              :placeholder="t('common.message.please_input_val', t('common.verify_code'))"
             />
             <n-button
               type="info"
@@ -350,19 +350,19 @@ const handleSubmit = async () => {
           </n-input-group>
           <div class="form-label">
             <n-icon :size="15"><PersonOutlineOutlined /></n-icon>
-            {{ t('登录名') }}
+            {{ t('common.login_name') }}
           </div>
           <n-input
             v-model:value="registerFormData.loginname"
-            :placeholder="t('请输入{val}', t('登录名'))"
+            :placeholder="t('common.message.please_input_val', t('common.login_name'))"
           />
           <div class="form-label">
             <n-icon :size="15"><BadgeFilled /></n-icon>
-            {{ t('昵称') }}
+            {{ t('common.nickname') }}
           </div>
           <n-input
             v-model:value="registerFormData.nickname"
-            :placeholder="t('请输入{val}', t('昵称'))"
+            :placeholder="t('common.message.please_input_val', t('common.nickname'))"
             show-count clearable
           >
             <template #count="{ value }">
@@ -373,36 +373,36 @@ const handleSubmit = async () => {
           </n-input>
           <div class="form-label">
             <n-icon :size="15"><KeyOutlined /></n-icon>
-            {{ t('密码') }}
+            {{ t('common.password') }}
           </div>
           <n-input
             v-model:value="registerFormData.password"
-            :placeholder="t('请输入{val}', t('密码'))"
+            :placeholder="t('common.message.please_input_val', t('common.password'))"
           />
         </div>
         <div class="sub-links">
-          <div>{{ t('已有账号?') }}</div>
-          <a href="javascript:void(0);" @click="loginAction = 'login'">{{ t('点此登录') }}</a>
+          <div>{{ t('cloud.text.do_you_have_an_account') }}</div>
+          <a href="javascript:void(0);" @click="loginAction = 'login'">{{ t('cloud.text.click_here_to_login') }}</a>
         </div>
       </div>
       <div v-else-if="loginAction === 'resetpass'" class="resetpass-panel">
         <div class="form-container">
           <div class="form-label">
             <n-icon :size="15"><EmailOutlined /></n-icon>
-            {{ t('邮箱') }}
+            {{ t('common.email') }}
           </div>
           <n-input
             v-model:value="resetpassFormData.email"
-            :placeholder="t('请输入注册时填写的邮箱')"
+            :placeholder="t('cloud.text.please_input_email_when_registered')"
           />
           <div class="form-label">
             <n-icon :size="15"><VerifiedUserFilled /></n-icon>
-            {{ t('验证码') }}
+            {{ t('common.verify_code') }}
           </div>
           <n-input-group>
             <n-input
               v-model:value="resetpassFormData.verifycode"
-              :placeholder="t('请输入{val}', t('验证码'))"
+              :placeholder="t('common.message.please_input_val', t('common.verify_code'))"
             />
             <n-button
               type="info"
@@ -415,26 +415,26 @@ const handleSubmit = async () => {
           </n-input-group>
           <div class="form-label">
             <n-icon :size="15"><KeyOutlined /></n-icon>
-            {{ t('新密码') }}
+            {{ t('cloud.text.new_password') }}
           </div>
           <n-input
             v-model:value="resetpassFormData.password"
-            :placeholder="t('请输入新密码')"
+            :placeholder="t('cloud.text.please_input_new_password')"
           />
         </div>
         <div class="sub-links">
-          <a href="javascript:void(0);" @click="loginAction = 'login'">{{ t('返回登录') }}</a>
+          <a href="javascript:void(0);" @click="loginAction = 'login'">{{ t('cloud.text.back_to_login') }}</a>
         </div>
       </div>
       <div v-else-if="loginAction === 'edituser'" class="edituser-panel">
         <div class="form-container">
           <div class="form-label">
             <n-icon :size="15"><BadgeFilled /></n-icon>
-            {{ t('昵称') }}
+            {{ t('common.nickname') }}
           </div>
           <n-input
             v-model:value="edituserFormData.nickname"
-            :placeholder="t('请输入{val}', t('昵称'))"
+            :placeholder="t('common.message.please_input_val', t('common.nickname'))"
             show-count clearable
           >
             <template #count="{ value }">
@@ -445,11 +445,11 @@ const handleSubmit = async () => {
           </n-input>
           <div class="form-label">
             <n-icon :size="15"><LabelImportantFilled /></n-icon>
-            {{ t('称号') }}
+            {{ t('cloud.text.user_title') }}
           </div>
           <n-input
             v-model:value="edituserFormData.title"
-            :placeholder="t('请输入{val}', t('称号'))"
+            :placeholder="t('common.message.please_input_val', t('cloud.text.user_title'))"
             show-count clearable
           >
             <template #count="{ value }">
@@ -460,7 +460,7 @@ const handleSubmit = async () => {
           </n-input>
           <div class="form-label">
             <n-icon :size="15"><FaceRetouchingNaturalFilled /></n-icon>
-            {{ t('头像') }}
+            {{ t('cloud.text.avatar') }}
           </div>
           <div class="avatar-edit-container">
             <n-avatar
@@ -472,7 +472,7 @@ const handleSubmit = async () => {
               size="small"
               @click="handleShowNbbAvatarSelector"
             >
-              {{ t('编辑') }}
+              {{ t('common.edit') }}
             </n-button>
           </div>
         </div>
@@ -491,7 +491,7 @@ const handleSubmit = async () => {
           <template #icon>
             <n-icon><DoneOutlined /></n-icon>
           </template>
-          {{ t('确认') }}
+          {{ t('common.confirm') }}
         </n-button>
       </div>
     </template>

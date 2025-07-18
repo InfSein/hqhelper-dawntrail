@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, inject, provide, ref, watch, type Ref } from 'vue';
 import {
-  NBackTop,
+  NBackTop, NGrid, NGridItem,
   useMessage
 } from 'naive-ui'
 import PatchPanel from '@/components/main/PatchPanel.vue'
@@ -18,7 +18,7 @@ import { useNbbCal } from '@/tools/use-nbb-cal'
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
@@ -77,7 +77,7 @@ const workflowItems = computed(() => {
 })
 const handleJoinWorkflow = () => {
   if (!Object.values(workflowItems.value).length) {
-    NAIVE_UI_MESSAGE.error(t('还未选择任何装备')); return
+    NAIVE_UI_MESSAGE.error(t('workflow.join_in_workflow.message.no_armor')); return
   }
   showModalJoinInWorkflow.value = true
 }
@@ -85,7 +85,7 @@ const handleJoinWorkflow = () => {
 const handleImportState = (patch: string, gearSelections?: GearSelections) => {
   workState.value.patch = patch
   workState.value.gears = fixGearSelections(gearSelections)
-  NAIVE_UI_MESSAGE.success(t('导入成功'))
+  NAIVE_UI_MESSAGE.success(t('common.message.import_succeed'))
 }
 provide('handleImportState', handleImportState)
 
@@ -104,33 +104,37 @@ const tradeMap = computed(() => {
 </script>
 
 <template>
-  <div>
+  <div id="main-container">
     <!-- <n-alert
       type="info"
       style="margin-bottom: 10px;"
     >
       {{ t('我们已经开始内测，并提供7.0版本生产采集新HQ的装备数据。如果遇到问题，请通过“联系我们”中的方式反馈。') }}
     </n-alert> -->
-    <div vertical id="main-container">
-      <PatchPanel
-        id="top-layout"
-        v-model:patch-selected="workState.patch"
-        v-model:gears-selected="workState.gears"
-      />
-      <div vertical id="left-layout">
+    <n-grid cols="4" item-responsive :x-gap="10" :y-gap="10">
+      <n-grid-item span="4">
+        <PatchPanel
+          v-model:patch-selected="workState.patch"
+          v-model:gears-selected="workState.gears"
+          class="h-full"
+        />
+      </n-grid-item>
+      <n-grid-item span="4 600:2 1340:1">
         <JobPanel
           v-model:job-selected="workState.job"
           v-model:affixes-selected="workState.affixes"
           v-model:gears-selected="workState.gears"
-          class="job-panel"
+          class="h-full"
           :patch-selected="workState.patch"
           :patch-data="patchData"
           @on-job-button-dupli-click="handleJobButtonDupliClick"
         />
+      </n-grid-item>
+      <n-grid-item span="4 600:2 1340:1">
         <GearSelectionPanel
           v-model:gear-selections="workState.gears"
           ref="gearSelectionPanel"
-          class="gear-panel"
+          class="h-full"
           :patch-selected="workState.patch"
           :job-id="workState.job"
           :patch-data="patchData"
@@ -138,10 +142,10 @@ const tradeMap = computed(() => {
           :accessory-affix="(workState.affixes?.accessory as AccessoryAffix)"
           @join-workflow="handleJoinWorkflow"
         />
-      </div>
-      <div vertical id="right-layout">
+      </n-grid-item>
+      <n-grid-item span="4 1340:2">
         <StatisticsPanel
-          class="statistics-panel"
+          class="h-full"
           :patch-selected="workState.patch"
           :statistics="statistics"
           :normal-gatherings="specialItems.normalGathering"
@@ -153,8 +157,8 @@ const tradeMap = computed(() => {
           :trade-map="tradeMap"
           :gear-selections="workState.gears"
         />
-      </div>
-    </div>
+      </n-grid-item>
+    </n-grid>
 
     <ModalJoinInWorkflow
       v-model:show="showModalJoinInWorkflow"
@@ -168,62 +172,19 @@ const tradeMap = computed(() => {
 <style scoped>
 /* All */
 #main-container {
-  gap: 0.6rem;
   max-width: 100%;
   font-weight: 400;
-
-  #left-layout {
-    gap: 0.6rem;
-  }
 }
 
 /* PC only */
 @media screen and (min-width: 768px) {
   #main-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     height: 100%;
     overflow: auto;
-
-    #top-layout {
-      grid-column: 1 / 3;
-      grid-row: 1 / 2;
-    }
-    #left-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-    #right-layout .statistics-panel {
-      width: 100%;
-    }
   }
 }
 
 /* Mobile only */
 @media screen and (max-width: 767px) {
-  #main-container {
-    display: flex;
-    flex-direction: column;
-
-    #left-layout {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-
-      .job-panel {
-        width: 100%;
-      }
-      .gear-panel {
-        width: 100%;
-      }
-    }
-    #right-layout {
-      width: 100%;
-
-      .statistics-panel {
-        width: 100%;
-      }
-    }
-  }
 }
 </style>

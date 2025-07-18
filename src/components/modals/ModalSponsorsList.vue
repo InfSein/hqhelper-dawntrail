@@ -9,7 +9,7 @@ import {
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 const showModal = defineModel<boolean>('show', { required: true })
@@ -56,8 +56,8 @@ const loadSponsors = async () => {
 
 const showRules = () => {
   const msg = [
-    t('进行赞助之后，您的ID与留言会更新入致谢名单。致谢名单为人工统计、可能有数日延迟。'),
-    t('加入致谢名单后也可以修改自己的名称。不过这需要人工录入，因此无法频繁地修改。'),
+    t('donate_us.desc.desc_3'),
+    t('donate_us.desc.desc_6'),
   ].join('\n')
   alert(msg)
 }
@@ -83,10 +83,10 @@ const getSponsorGenContent = (gen: number) => {
       <div class="card-title no-select">
         <n-icon><ChecklistRtlSharp /></n-icon>
         <span class="title">
-          {{ t('致谢名单') }}
+          {{ t('common.appfunc.thank_list') }}
         </span>
         <div class="card-title-actions">
-          <a href="javascript:void(0);" @click="showRules">[{{ t('规则') }}]</a>
+          <a href="javascript:void(0);" @click="showRules">[{{ t('common.rule') }}]</a>
         </div>
       </div>
     </template>
@@ -94,27 +94,27 @@ const getSponsorGenContent = (gen: number) => {
     <div class="wrapper">
       <div v-if="sponsorLoadingStatus === 'loading'" class="spin-container">
         <n-spin size="small" style="text-indent: initial;" />
-        <div>{{ t('正在加载……') }}</div>
+        <div>{{ t('common.loading') }}</div>
       </div>
       <n-alert
         v-else-if="sponsorLoadingStatus === 'error'"
         type="error"
-        :title="t('加载失败')"
+        :title="t('common.load_failed')"
         class="alert-container"
       >
         <div>{{ sponsorLoadError }}</div>
         <a @click="loadSponsors">
           <n-icon :size="14"><RefreshOutlined /></n-icon>
-          {{ t('重试') }}
+          {{ t('common.retry') }}
         </a>
       </n-alert>
       <div v-else class="table-container">
         <n-table :single-line="false">
           <thead>
             <tr>
-              <th>{{ t('赞助者') }}</th>
-              <th>{{ t('上次赞助') }}</th>
-              <th>{{ t('留言') }}</th>
+              <th>{{ t('thank_list.donater') }}</th>
+              <th>{{ t('thank_list.last_donate') }}</th>
+              <th>{{ t('thank_list.donate_comment') }}</th>
             </tr>
           </thead>
         </n-table>
@@ -135,7 +135,7 @@ const getSponsorGenContent = (gen: number) => {
                           {{ getSponsorGenContent(sponsoredGen) }}
                         </div>
                       </template>
-                      {{ t('赞助了第{gen}代的HqHelper', sponsoredGen) }}
+                      {{ t('thank_list.donate_gen', sponsoredGen) }}
                     </n-tooltip>
                   </div>
                 </td>

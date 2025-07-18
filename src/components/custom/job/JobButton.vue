@@ -19,7 +19,7 @@ import type { UserConfigModel } from '@/models/config-user'
 import type { FuncConfigModel } from '@/models/config-func'
 import UseConfig from '@/tools/use-config'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -184,7 +184,7 @@ const contextOptions = computed(() => {
     } else {
       return [{
         key: 'rg-none',
-        label: t('无'),
+        label: t('common.nothing'),
         disabled: true
       }]
     }
@@ -200,7 +200,7 @@ const contextOptions = computed(() => {
       key: 'd0'
     },
     {
-      label: t('已选'),
+      label: t('common.selected'),
       key: 'selected',
       icon: renderIcon(FileDownloadDoneOutlined),
       children: [
@@ -216,11 +216,11 @@ const contextOptions = computed(() => {
         {
           key: 'selected-add',
           type: 'render',
-          render: renderGroupTitle(t('添加'))
+          render: renderGroupTitle(t('common.add'))
         },
         {
           key: 'selected-add-weapon',
-          label: t('添加一套主副手'),
+          label: t('main.select_gear.add.mainoff_hand'),
           icon: renderIcon(AddCircleOutlineOutlined),
           props: { style: groupOptionStyle },
           click: () => {
@@ -229,7 +229,7 @@ const contextOptions = computed(() => {
         },
         {
           key: 'selected-add-attire',
-          label: t('添加一套防具'),
+          label: t('main.select_gear.add.attire'),
           icon: renderIcon(AddCircleOutlineOutlined),
           props: { style: groupOptionStyle },
           click: () => {
@@ -242,7 +242,7 @@ const contextOptions = computed(() => {
         },
         {
           key: 'selected-add-accessory',
-          label: t('添加一套首饰'),
+          label: t('main.select_gear.add.accessory'),
           icon: renderIcon(AddCircleOutlineOutlined),
           props: { style: groupOptionStyle },
           click: () => {
@@ -255,7 +255,7 @@ const contextOptions = computed(() => {
         },
         {
           key: 'selected-add-attire-and-accessory',
-          label: t('添加一套防具和首饰'),
+          label: t('main.select_gear.add.attire_and_accessory'),
           icon: renderIcon(AddCircleOutlineOutlined),
           props: { style: groupOptionStyle },
           click: () => {
@@ -273,7 +273,7 @@ const contextOptions = computed(() => {
         },
         {
           key: 'selected-add-suit',
-          label: t('添加整套'),
+          label: t('main.select_gear.add.whole_suit'),
           icon: renderIcon(AddCircleOutlined),
           props: { style: groupOptionStyle },
           click: () => {
@@ -293,11 +293,11 @@ const contextOptions = computed(() => {
         {
           key: 'selected-manage',
           type: 'render',
-          render: renderGroupTitle(t('管理'))
+          render: renderGroupTitle(t('common.manage'))
         },
         {
           key: 'selected-clear',
-          label: t('清空已选'),
+          label: t('common.clear_selected'),
           props: {
             style: 'color: red;' + groupOptionStyle
           },
@@ -323,17 +323,17 @@ const contextOptions = computed(() => {
       ]
     },
     {
-      label: t('配装'),
+      label: t('common.gear_set.title'),
       key: 'gearing',
       icon: renderIcon(AccessibilityNewOutlined),
       children: [
         {
           key: 'gearing-tools',
           type: 'render',
-          render: renderGroupTitle(t('辅助工具'))
+          render: renderGroupTitle(t('common.auxiliary_tools'))
         },
         {
-          label: t('模拟配装'),
+          label: t('common.gear_set.simulate'),
           key: 'gearing-open-simulator',
           icon: renderIcon(AccessibilityNewOutlined),
           props: { style: groupOptionStyle },
@@ -345,7 +345,7 @@ const contextOptions = computed(() => {
         {
           key: 'selected-add',
           type: 'render',
-          render: renderGroupTitle(t('推荐配装'))
+          render: renderGroupTitle(t('common.gear_set.recomm'))
         },
         ...dealGearingRecomm(),
       ]
@@ -396,7 +396,7 @@ const renderGearsSelectedHeader = () => {
       style: 'padding: 0.2em 1em; min-width: 180px;'
     },
     [
-      h('p', { class: 'bold' }, t('已选部件')),
+      h('p', { class: 'bold' }, t('main.select_gear.view_selected')),
       h(
         'div',
         { style: 'margin-left: 0.2em;' },
@@ -409,7 +409,7 @@ const renderGearsSelectedHeader = () => {
     if (!currJobGears.value?.count) {
       return [
         h(
-          'div', {class: 'font-small'}, t('无')
+          'div', {class: 'font-small'}, t('common.nothing')
         )
       ]
     }

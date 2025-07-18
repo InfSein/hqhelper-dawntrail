@@ -27,11 +27,11 @@ import {
 } from '@/models/macromanage'
 import type { UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
-import { CopyToClipboard } from '@/tools'
+import { CopyToClipboard, deepCopy } from '@/tools'
 import useUiTools from '@/tools/ui'
 import useMacroHelper from '@/tools/macro-helper'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -86,15 +86,15 @@ onBeforeUnmount(() => {
 
 const macroItemLanguageOptions = computed(() => {
   return [
-    { label: t('中文'), value: 'zh' },
-    { label: t('英文'), value: 'en' },
-    { label: t('日文'), value: 'ja' },
+    { label: t('common.lang_zh'), value: 'zh' },
+    { label: t('common.lang_en'), value: 'en' },
+    { label: t('common.lang_ja'), value: 'ja' },
   ]
 })
 const multiOperateDropdownOptions = computed(() => {
   return [
     {
-      label: t('删除所有宏'),
+      label: t('macro_manage.text.delete_all_macros'),
       key: 'delete',
       props: { style: 'color: var(--color-error);' },
       icon: renderIcon(DeleteFilled, { color: 'var(--color-error)' }),
@@ -104,7 +104,7 @@ const multiOperateDropdownOptions = computed(() => {
 const mainCardExtraButtons = computed(() => {
   return [
     {
-      text: t('设置'),
+      text: t('common.setting'),
       icon: SettingsSuggestFilled,
       onClick: handleSettingButtonClick,
     }
@@ -143,7 +143,7 @@ const tableData = computed(() => {
 const tableColumns = computed(() => {
   const columns: DataTableColumns<CraftMacroRow> = [
     {
-      title: t('编号'),
+      title: t('common.number'),
       key: 'id',
       className: '',
       width: 80,
@@ -151,7 +151,7 @@ const tableColumns = computed(() => {
       sorter: (a, b) => a.id - b.id,
     },
     {
-      title: t('宏名称'),
+      title: t('macro_manage.text.macro_name'),
       key: 'name',
       className: '',
       width: 350,
@@ -165,10 +165,10 @@ const tableColumns = computed(() => {
               'div',
               { class: 'macro-tags-container' },
               [
-                t('标签：'),
+                t('macro_manage.text.tag_with_colon'),
                 row.tags.length ? row.tags.map(tag => h(NTag, {
                   size: 'small',
-                }, () => tag)) : t('无'),
+                }, () => tag)) : t('common.nothing'),
               ]
             ),
             h(
@@ -184,7 +184,7 @@ const tableColumns = computed(() => {
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
-      title: t('关联物品'),
+      title: t('macro_manage.text.relate_item'),
       key: 'itemId',
       className: '',
       width: 200,
@@ -208,7 +208,7 @@ const tableColumns = computed(() => {
       }
     },
     {
-      title: t('属性要求'),
+      title: t('common.craft_requirements'),
       key: 'requirements',
       className: '',
       align: 'center',
@@ -216,10 +216,10 @@ const tableColumns = computed(() => {
       render(row) {
         const children : VNode[] = []
         if (row.requirements.craftsmanship) {
-          children.push(h('div', null, t('{craftsmanship_val}作业', row.requirements.craftsmanship)))
+          children.push(h('div', null, t('common.val_craftsmanship', row.requirements.craftsmanship)))
         }
         if (row.requirements.control) {
-          children.push(h('div', null, t('{control_val}加工', row.requirements.control)))
+          children.push(h('div', null, t('common.val_control', row.requirements.control)))
         }
         if (row.requirements.cp) {
           children.push(h('div', null, row.requirements.cp + 'CP'))
@@ -232,7 +232,7 @@ const tableColumns = computed(() => {
       }
     },
     {
-      title: t('内容'),
+      title: t('common.content'),
       key: 'content',
       render(row) {
         const macros = exportCraftMacroText(row.craftActions)[`macros_${workState.value.macroItemLanguage}`]
@@ -243,7 +243,7 @@ const tableColumns = computed(() => {
             h(
               'div',
               null,
-              t('{step_count}步{time_count}秒', {
+              t('common.step_and_sec', {
                 step_count: row.craftActions.length,
                 time_count: row.craftActions.reduce((total, action) => {
                   return total + (XivCraftActions[action.id]?.wait_time ?? 0)
@@ -264,11 +264,11 @@ const tableColumns = computed(() => {
                   {
                     tertiary: true,
                     size: 'tiny',
-                    title: t('点击以复制'),
+                    title: t('common.click_to_copy'),
                     onClick: () => handleCopyMacro(macro)
                   },
                   {
-                    default: () => t('宏#{index}', index + 1)
+                    default: () => t('common.macro_with_index', index + 1)
                   }
                 )
               })
@@ -278,7 +278,7 @@ const tableColumns = computed(() => {
       }
     },
     {
-      title: t('管理'),
+      title: t('common.manage'),
       key: 'manage',
       width: 180,
       render(row) {
@@ -297,7 +297,7 @@ const tableColumns = computed(() => {
               },
               {
                 icon: renderIcon(EditNoteOutlined),
-                default: () => t('编辑')
+                default: () => t('common.edit')
               }
             ),
             h(
@@ -312,7 +312,7 @@ const tableColumns = computed(() => {
               },
               {
                 icon: renderIcon(DeleteFilled),
-                default: () => t('删除')
+                default: () => t('common.delete')
               }
             ),
           ]
@@ -324,7 +324,7 @@ const tableColumns = computed(() => {
 })
 
 const handleReportDataMissing = (macro: RecordedCraftMacro | number) => {
-  NAIVE_UI_MESSAGE.error(t('数据丢失'))
+  NAIVE_UI_MESSAGE.error(t('common.data_missing'))
   console.error(
     'edited macro not found! \nmacro:',
     macro,
@@ -335,14 +335,14 @@ const handleReportDataMissing = (macro: RecordedCraftMacro | number) => {
 const handleMultiOperateDropdownSelect = (key: string | number) => {
   if (key === 'delete') {
     if (!workState.value.recordedCraftMacros.length) {
-      NAIVE_UI_MESSAGE.info(t('还没有添加任何宏'))
+      NAIVE_UI_MESSAGE.info(t('macro_manage.message.no_macro_added'))
       return
     }
-    if (!window.confirm(t('确定要删除所有宏吗？') + '\n' + t('此操作不可逆。'))) {
+    if (!window.confirm(t('macro_manage.message.confirm_delete_all') + '\n' + t('common.message.operation_irreversible'))) {
       return
     }
     workState.value.recordedCraftMacros = []
-    NAIVE_UI_MESSAGE.success(t('已删除'))
+    NAIVE_UI_MESSAGE.success(t('common.message.deleted'))
   } else {
     console.warn('unexpected multi operate dropdown key:', key)
   }
@@ -358,7 +358,7 @@ const handleExportButtonClick = () => {
 
 const handleAddRow = () => {
   if (workState.value.recordedCraftMacros.length >= _VAR_MACRO_MAXAMOUNT) {
-    NAIVE_UI_MESSAGE.error(t('宏数量已达上限'))
+    NAIVE_UI_MESSAGE.error(t('macro_manage.message.macro_amount_limited'))
     return
   }
   const macroid = getMacroId()
@@ -388,13 +388,13 @@ const handleEditRow = (row: CraftMacroRow) => {
   }
 }
 const handleDeleteRow = (row: CraftMacroRow) => {
-  if (!window.confirm(t('确定要删除 {name} 吗?', row.name) + '\n' + t('此操作不可逆。'))){
+  if (!window.confirm(t('common.message.confirm_delete_with_name', row.name) + '\n' + t('common.message.operation_irreversible'))){
     return
   }
   const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)
   if (index !== -1) {
     workState.value.recordedCraftMacros.splice(index, 1)
-    NAIVE_UI_MESSAGE.success(t('已删除'))
+    NAIVE_UI_MESSAGE.success(t('common.message.deleted'))
   } else {
     handleReportDataMissing(row.id)
   }
@@ -402,25 +402,28 @@ const handleDeleteRow = (row: CraftMacroRow) => {
 const handleCopyMacro = async (macro: string) => {
   const response = await CopyToClipboard(macro)
   if (response) {
-    NAIVE_UI_MESSAGE.error(t('复制失败：发生意外错误'))
+    NAIVE_UI_MESSAGE.error(t('common.message.copy_failed_unexpected_error'))
   } else {
-    NAIVE_UI_MESSAGE.success(t('已复制到剪贴板'))
+    NAIVE_UI_MESSAGE.success(t('common.message.copy_succeed'))
   }
 }
 
 const handleMacroEditSubmit = (macro: RecordedCraftMacro) => {
   const macroid = macro.id
+  const newWorkState = fixWorkState(deepCopy(userConfig.value.macromanage_cache_work_state))
   if (macroEditAction.value === 'edit') {
-  const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === macroid)
+    const index = newWorkState.recordedCraftMacros.findIndex(macro => macro.id === macroid)
     if (index !== -1) {
-      workState.value.recordedCraftMacros[index] = macro
-      NAIVE_UI_MESSAGE.success(t('已保存更改'))
+      newWorkState.recordedCraftMacros[index] = macro
+      workState.value = newWorkState
+      NAIVE_UI_MESSAGE.success(t('common.message.changes_saved'))
     } else {
       handleReportDataMissing(macro)
     }
   } else if (macroEditAction.value === 'add') {
-    workState.value.recordedCraftMacros.push(macro)
-    NAIVE_UI_MESSAGE.success(t('{dataname} 已保存', macro.name))
+    newWorkState.recordedCraftMacros.push(macro)
+    workState.value = newWorkState
+    NAIVE_UI_MESSAGE.success(t('common.message.dataname_saved', macro.name))
   } else {
     console.warn('unexpected action')
   }
@@ -437,15 +440,15 @@ const handleSettingButtonClick = () => {
     <FoldableCard card-key="macromanage-main" unfoldable :extra-header-buttons="mainCardExtraButtons">
       <template #header>
         <i class="xiv e0ba"></i>
-        <span class="card-title-text">{{ t('生产宏管理') }}</span>
+        <span class="card-title-text">{{ t('macro_manage.title') }}</span>
       </template>
       <div class="main-content">
         <div class="query-options">
           <n-input-group id="querier-search">
-            <n-input-group-label>{{ t('筛选／检索') }}</n-input-group-label>
+            <n-input-group-label>{{ t('macro_manage.text.filter_or_search') }}</n-input-group-label>
             <n-input
               v-model:value="workState.searchKeyword"
-              :placeholder="t('支持按宏名称/备注/标签以及关联物品的名称/ID/品级/版本进行检索')"
+              :placeholder="t('common.item_search_input_placeholder_2')"
               
             >
               <template #suffix>
@@ -454,7 +457,7 @@ const handleSettingButtonClick = () => {
             </n-input>
           </n-input-group>
           <n-input-group id="querier-itemlang">
-            <n-input-group-label>{{ t('宏语言') }}</n-input-group-label>
+            <n-input-group-label>{{ t('macro_manage.text.macro_lang') }}</n-input-group-label>
             <n-select
               v-model:value="workState.macroItemLanguage"
               :options="macroItemLanguageOptions"
@@ -470,7 +473,7 @@ const handleSettingButtonClick = () => {
                 <template #icon>
                   <n-icon :component="KeyboardArrowDownRound" />
                 </template>
-                {{ t('批量操作') }}
+                {{ t('macro_manage.text.batch_operate') }}
               </n-button>
             </n-dropdown>
             <n-button-group>
@@ -478,13 +481,13 @@ const handleSettingButtonClick = () => {
                 <template #icon>
                   <n-icon :component="ArchiveSharp" />
                 </template>
-                {{ t('导出') }}
+                {{ t('common.export') }}
               </n-button>
               <n-button ghost @click="handleImportButtonClick">
                 <template #icon>
                   <n-icon :component="UnarchiveSharp" />
                 </template>
-                {{ t('导入') }}
+                {{ t('common.import') }}
               </n-button>
             </n-button-group>
             <n-button
@@ -494,7 +497,7 @@ const handleSettingButtonClick = () => {
               <template #icon>
                 <n-icon :component="AddTaskOutlined" />
               </template>
-              {{ t('新增') }}
+              {{ t('common.add2') }}
             </n-button>
           </div>
         </div>
@@ -509,7 +512,7 @@ const handleSettingButtonClick = () => {
         >
           <template #empty>
             <n-empty
-              :description="workState.searchKeyword ? t('无匹配内容') : t('无数据')"
+              :description="workState.searchKeyword ? t('common.no_content_matched') : t('common.no_data')"
             />
           </template>
         </n-data-table>

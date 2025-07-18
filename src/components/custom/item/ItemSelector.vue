@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, h } from 'vue'
+import { ref, computed, h, inject } from 'vue'
 import {
   NSelect,
   type SelectOption, type SelectRenderLabel
@@ -7,6 +7,8 @@ import {
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import { XivUnpackedItems } from '@/assets/data'
 import { getItemInfo, getMaterialItems } from '@/tools/item'
+
+const t = inject<(message: string, args?: any) => string>('t')!
 
 interface ItemSelectorProps {
   optionsPreset?: "craftable" | "materials"
@@ -87,8 +89,8 @@ const handleItemInputValueUpdate = (value: number) => {
     :filter="filterItem"
     :options="itemOptions"
     :render-label="renderItemLabel"
-    :placeholder="t('支持按物品名/ID/品级/版本搜索')"
-    :title="t('支持按物品名/ID/品级/版本搜索')"
+    :placeholder="t('common.item_search_input_placeholder')"
+    :title="t('common.item_search_input_placeholder')"
     @update:value="handleItemInputValueUpdate"
   />
 </template>

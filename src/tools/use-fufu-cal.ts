@@ -28,7 +28,7 @@ export function useFufuCal(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   userConfig: Ref<UserConfigModel>,
   funcConfig: Ref<FuncConfigModel>,
-  t: (text: string, ...args: any[]) => string,
+  t: (message: string, args?: any) => string,
 ) {
   const calItems = (selections: Record<number, number>) => {
     const { calItems } = useNbbCal()
@@ -144,31 +144,31 @@ export function useFufuCal(
     const statementBlocks : ProStatementBlock[] = [
       {
         id: 'craft-target',
-        name: t('成品清单'),
+        name: t('statement.list.targets'),
         items: targetItems,
         preparedKey: 'craftTarget'
       },
       {
         id: 'material-lv1',
-        name: t('制作素材：直接'),
+        name: t('statement.list.material.lv1'),
         items: lv1Items,
         preparedKey: 'materialsLv1'
       },
       /*
       {
         id: 'material-lv2',
-        name: t('制作素材：二级'),
+        name: t('statement.list.material.lv2'),
         items: props.materialsLv2
       },
       {
         id: 'material-lv3',
-        name: t('制作素材：三级'),
+        name: t('statement.list.material.lv3'),
         items: props.materialsLv3
       },
       */
       {
         id: 'material-lvBase',
-        name: t('制作素材：基础'),
+        name: t('statement.list.material.lvbase'),
         items: baseItems,
         preparedKey: 'materialsLvBase'
       },
@@ -241,7 +241,7 @@ export function useFufuCal(
     processes_merge_gatherings: boolean,
     language_ui: "zh" | "en" | "ja",
     item_server: 'chs' | 'global',
-    t: (text: string, ...args: any[]) => string
+    t: (message: string, args?: any) => string
   ) => {
     const itemsGatherableCommon : ItemInfo[] = []
     const itemsGatherableLimited : ItemInfo[] = []
@@ -380,8 +380,8 @@ export function useFufuCal(
         const rokey = item_server === 'chs' ? 'recipeOrderCHS' : 'recipeOrder'
         if (processes_craftable_item_sortby === 'recipeOrder') {
           items.sort((a, b) => {
-            if (a.craftInfo?.[rokey] && b.craftInfo?.[rokey]) {
-              return a.craftInfo[rokey] - b.craftInfo[rokey]
+            if (a.uiTypeOrder !== b.uiTypeOrder) {
+              return a.uiTypeOrder - b.uiTypeOrder
             } else {
               return a.id - b.id
             }
@@ -395,22 +395,27 @@ export function useFufuCal(
         })
       })
     }
+
+    // 新i18n框架不传值会直接把{job}清除掉
+    // 所以这里做一个原地TP
+    // 有点啥比，但是还有别的办法吗
+    const insituTp = { job: '{job}' }
   
     if (processes_merge_gatherings) {
-      dealGatherings(itemsGatherableCommon, 'common', t('采集非限时道具'), 'map', {
+      dealGatherings(itemsGatherableCommon, 'common', t('recomm_process.group.common_gathering', insituTp), 'map', {
         iconUrl: './ui/gathering.png'
       })
-      dealGatherings(itemsGatherableLimited, 'limited', t('采集限时道具'), 'start-time', {
+      dealGatherings(itemsGatherableLimited, 'limited', t('recomm_process.group.time_limited_gathering', insituTp), 'start-time', {
         iconUrl: './ui/gathering-limited.png'
       })
     } else {
-      dealGatherings(itemsGatherableCommon, 'common', t('使用{job}采集(非限时)'), 'map')
-      dealGatherings(itemsGatherableLimited, 'limited', t('使用{job}采集(限时)'), 'start-time')
+      dealGatherings(itemsGatherableCommon, 'common', t('recomm_process.group.gather_common_with_job', insituTp), 'map')
+      dealGatherings(itemsGatherableLimited, 'limited', t('recomm_process.group.gather_time_limited_with_job', insituTp), 'start-time')
     }
     if (aethersands.length) {
       groups.push({
         type: 'aethersand',
-        title: t('筹集灵砂'),
+        title: t('recomm_process.group.aethersand'),
         icon: './ui/reduce.png',
         items: aethersands
       })
@@ -418,7 +423,7 @@ export function useFufuCal(
     if (itemsTradable.length) {
       groups.push({
         type: 'trade-tomescript',
-        title: t('兑换道具'),
+        title: t('recomm_process.group.trade'),
         icon: './ui/important-item.png',
         items: itemsTradable
       })
@@ -426,15 +431,15 @@ export function useFufuCal(
     if (itemsOtherCollectable.length) {
       groups.push({
         type: 'other',
-        title: t('筹集其他需要的道具'),
+        title: t('recomm_process.group.other'),
         icon: './ui/bag.png',
         items: itemsOtherCollectable
       })
     }
-    dealCraftings(itemsPrePrePrecraft, 'prepreprecraft', t('使用{job}制作半半半成品'))
-    dealCraftings(itemsPrePrecraft, 'preprecraft', t('使用{job}制作半半成品'))
-    dealCraftings(itemsPrecraft, 'precraft', t('使用{job}制作半成品'))
-    dealCraftings(itemsTarget, 'target', t('使用{job}制作成品'))
+    dealCraftings(itemsPrePrePrecraft, 'prepreprecraft', t('recomm_process.group.pre_pre_precraft', insituTp))
+    dealCraftings(itemsPrePrecraft, 'preprecraft', t('recomm_process.group.pre_precraft', insituTp))
+    dealCraftings(itemsPrecraft, 'precraft', t('recomm_process.group.precraft', insituTp))
+    dealCraftings(itemsTarget, 'target', t('recomm_process.group.craft', insituTp))
   
     return groups
   }

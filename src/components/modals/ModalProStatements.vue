@@ -15,7 +15,7 @@ import { type ItemInfo } from '@/tools/item'
 import { useFufuCal } from '@/tools/use-fufu-cal'
 import CraftStatementsPro from '../custom/general/CraftStatementsPro.vue'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -105,14 +105,14 @@ const handleSettingButtonClick = () => {
       <div class="card-title no-select">
         <n-icon><TableViewOutlined /></n-icon>
         <span class="title">
-          {{ t('制作报表') }}
+          {{ t('common.appfunc.craft_statement') }}
         </span>
         <span class="card-title-extra">
           <n-tag type="info" size="small" round>PRO</n-tag>
         </span>
         <div class="card-title-actions">
-          <a href="javascript:void(0);" @click="handleResetPreparedItems">[{{ t('重置已有') }}]</a>
-          <a href="javascript:void(0);" @click="handleShowRecommendedProcesses">[{{ t('推荐流程') }}]</a>
+          <a href="javascript:void(0);" @click="handleResetPreparedItems">[{{ t('statement.text.reset_prepared') }}]</a>
+          <a href="javascript:void(0);" @click="handleShowRecommendedProcesses">[{{ t('common.appfunc.recomm_process') }}]</a>
         </div>
       </div>
     </template>

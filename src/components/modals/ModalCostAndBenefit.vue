@@ -13,7 +13,7 @@ import ModalPreferences from './ModalPreferences.vue'
 import type { ItemInfo } from '@/tools/item'
 import type { FuncConfigModel } from '@/models/config-func'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -46,7 +46,7 @@ const handleSettingButtonClick = () => {
     v-model:show="showModal"
     :id="modalId"
     :icon="AttachMoneyOutlined"
-    :title="t('成本/收益预估')"
+    :title="t('statistics.group.cost_and_benefit.title')"
     max-width="1200px"
     :height="isMobile ? '650px' : '600px'"
     show-setting
@@ -55,10 +55,10 @@ const handleSettingButtonClick = () => {
     <n-tabs v-if="isMobile" type="segment" animated>
       <n-tab-pane
         name="cost"
-        :tab="t('成本')"
+        :tab="t('common.cost')"
       >
         <div class="container">
-          <div class="align-right">{{ t('预计成本 {val}', costInfo) }}</div>
+          <div class="align-right">{{ t('statistics.group.cost_and_benefit.button.text.text_1', costInfo) }}</div>
           <ItemPriceTable
             price-type="NQ"
             :items="costItems"
@@ -69,10 +69,10 @@ const handleSettingButtonClick = () => {
       </n-tab-pane>
       <n-tab-pane
         name="benefit"
-        :tab="t('收益')"
+        :tab="t('common.benefit')"
       >
         <div class="container">
-          <div class="align-right">{{ t('预计收益 {val}', benefitInfo) }}</div>
+          <div class="align-right">{{ t('statistics.group.cost_and_benefit.button.text.text_2', benefitInfo) }}</div>
           <ItemPriceTable
             price-type="HQ"
             :items="benefitItems"
@@ -84,9 +84,9 @@ const handleSettingButtonClick = () => {
     </n-tabs>
     <div v-else class="wrapper">
       <GroupBox
-        :title="t('预计成本 {val}', costInfo) + '&#xE049;'"
+        :title="t('statistics.group.cost_and_benefit.button.text.text_1', costInfo) + '&#xE049;'"
         :descriptions="[
-          t('此处计入物品的NQ价格。')
+          t('cost_and_benefit.tooltip.cal_nq_price_here')
         ]"
         title-background-color="var(--n-color-modal)"
       >
@@ -98,9 +98,9 @@ const handleSettingButtonClick = () => {
         />
       </GroupBox>
       <GroupBox
-        :title="t('预计收益 {val}', benefitInfo) + '&#xE049;'"
+        :title="t('statistics.group.cost_and_benefit.button.text.text_2', benefitInfo) + '&#xE049;'"
         :descriptions="[
-          t('此处计入物品的HQ价格。')
+          t('cost_and_benefit.tooltip.cal_hq_price_here')
         ]"
         title-background-color="var(--n-color-modal)"
       >

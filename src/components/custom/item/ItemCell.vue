@@ -11,7 +11,7 @@ import { XivJobs, type XivJob } from '@/assets/data'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import UseConfig from '@/tools/use-config'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -32,11 +32,11 @@ defineProps<ItemCellProps>()
 const getJobName = (jobInfo: XivJob) => {
   switch (userConfig.value.language_ui) {
     case 'ja':
-      return jobInfo?.job_name_ja || t('未知')
+      return jobInfo?.job_name_ja || t('common.unknown')
     case 'en':
-      return jobInfo?.job_name_en || t('未知')
+      return jobInfo?.job_name_en || t('common.unknown')
     default:
-      return jobInfo?.job_name_zh || t('未知')
+      return jobInfo?.job_name_zh || t('common.unknown')
   }
 }
 const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
@@ -70,7 +70,7 @@ const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
             :size="12"
           />
           <span>
-            {{ getJobName(XivJobs[itemInfo.craftInfo.jobId]) + ' ' + t('{lv}级', itemInfo.craftInfo.craftLevel) + '★'.repeat(itemInfo.craftInfo?.starCount || 0) }}
+            {{ getJobName(XivJobs[itemInfo.craftInfo.jobId]) + ' ' + t('common.val_level', itemInfo.craftInfo.craftLevel) + '★'.repeat(itemInfo.craftInfo?.starCount || 0) }}
           </span>
         </div>
         <div v-if="itemInfo.gatherInfo?.jobId" class="cell gatherer">
@@ -80,7 +80,7 @@ const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
           />
           <span>{{ getJobName(XivJobs[itemInfo.gatherInfo.jobId]) }}</span>
         </div>
-        <div v-else-if="itemInfo.canReduceFrom?.length">{{ t('精选') }}</div>
+        <div v-else-if="itemInfo.canReduceFrom?.length">{{ t('common.reduce') }}</div>
         <div v-else-if="getTradeCost(itemInfo, amount)">
           <ItemSpan
             :item-info="getItemInfo(getTradeCost(itemInfo, amount)!.costItem)"
@@ -96,7 +96,7 @@ const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
           />
           <span>{{ getJobName(XivJobs[18]) }}</span>
         </div>
-        <div v-if="itemInfo.isCrystal">{{ t('水晶') }}</div>
+        <div v-if="itemInfo.isCrystal">{{ t('game.crystal') }}</div>
       </div>
     </div>
   </div>

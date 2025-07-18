@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, onMounted, ref } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import {
   NDivider, NTable
 } from 'naive-ui'
@@ -11,7 +11,7 @@ import ModalSponsorsList from '@/components/modals/ModalSponsorsList.vue'
 import AppStatus from '@/variables/app-status'
 import { getStaffMebers } from '@/models/about-app'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
@@ -22,6 +22,15 @@ const currentElectronVersion = ref('')
 onMounted(async () => {
   if (window.electronAPI?.clientVersion) {
     currentElectronVersion.value = await window.electronAPI?.clientVersion
+  }
+})
+
+const appVersions = computed(() => {
+  return {
+    webVersion: t('about_app.version.web', AppStatus.Version),
+    clientVersion: (currentElectronVersion.value ? t('about_app.version.client', currentElectronVersion.value) : ''),
+    dataVersionChs: t('common.chs_data_version', AppStatus.SupportedGameVersion.CN),
+    dataVersionGlobal: t('common.global_data_version', AppStatus.SupportedGameVersion.GLOBAL)
   }
 })
 
@@ -42,25 +51,25 @@ const viewSponsors = () => {
     </div>
     <n-divider />
     <div class="version-info">
-      <div>{{ t('当前网页版本：{v}', AppStatus.Version) }}</div>
-      <div>{{ currentElectronVersion ? t('当前客户端版本：{v}', currentElectronVersion) : '' }}</div>
-      <div>{{ t('国服数据版本：{}', AppStatus.SupportedGameVersion.CN) }}</div>
-      <div>{{ t('国际服数据版本：{}', AppStatus.SupportedGameVersion.GLOBAL) }}</div>
+      <div>{{ appVersions.webVersion }}</div>
+      <div>{{ appVersions.clientVersion }}</div>
+      <div v-if="appVersions.dataVersionChs">{{ appVersions.dataVersionChs }}</div>
+      <div>{{ appVersions.dataVersionGlobal }}</div>
     </div>
     <n-divider />
     <div id="staffs">
-      <div class="title">{{ t('创作人员') }}</div>
+      <div class="title">{{ t('about_app.staff.title') }}</div>
       <div class="content">
         <n-table class="staff-table" :single-line="false" size="small">
           <tbody>
             <tr>
-              <td>{{ t('制作人') }}</td>
+              <td>{{ t('about_app.staff.producer') }}</td>
               <td>
                 <StaffGroup :group-members="[members.infsein, members.nbb, members.yakita]" />
               </td>
             </tr>
             <tr>
-              <td>{{ t('贡献者') }}</td>
+              <td>{{ t('about_app.staff.contributor') }}</td>
               <td>
                 <StaffGroup :group-members="[members.wcy, members.kimuchi, members.etnatker]" />
               </td>
@@ -71,13 +80,13 @@ const viewSponsors = () => {
     </div>
     <n-divider />
     <div id="thanks-donate">
-      <div class="title">{{ t('致谢：赞助') }}</div>
+      <div class="title">{{ t('about_app.thank_donate.title') }}</div>
       <div class="content">
-        <p>{{ t('HqHelper的诞生与持续开发离不开用户的支持。') }}</p>
+        <p>{{ t('about_app.thank_donate.desc.desc_1') }}</p>
         <p>
-          <span>{{ t('点击') }}</span>
-          <a href="javascript:void(0);" @click="viewSponsors">{{ t('这里') }}</a>
-          <span>{{ t('来查看致谢名单。') }}</span>
+          <span>{{ t('common.click') }}</span>
+          <a href="javascript:void(0);" @click="viewSponsors">{{ t('common.here') }}</a>
+          <span>{{ t('about_app.thank_donate.desc.desc_2') }}</span>
         </p>
       </div>
     </div>

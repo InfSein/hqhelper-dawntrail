@@ -3,7 +3,7 @@ import ItemSpan from './ItemSpan.vue'
 import LocationSpan from '../map/LocationSpan.vue'
 import { getItemInfo } from '@/tools/item'
 
-// const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+// const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 

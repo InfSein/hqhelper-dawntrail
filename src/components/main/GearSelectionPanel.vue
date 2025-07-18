@@ -25,7 +25,7 @@ import { type UserConfigModel } from '@/models/config-user'
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 import { useGearAdder } from '@/tools/gears'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const NAIVE_UI_MESSAGE = useMessage()
@@ -50,17 +50,17 @@ const selectedAffixes = computed(() => {
 const affixesTips = computed(() => {
   const { jobName, attireName, accessoryName } = getAffixesName()
   return [
-    t('相同的装备会合并显示。'),
-    t('当前主副手对应职业：{}', jobName),
-    t('当前防具对应的词缀：{}', attireName),
-    t('当前首饰对应的词缀：{}', accessoryName)
+    t('main.select_gear.info.info_1'),
+    t('main.select_gear.info.info_2', jobName),
+    t('main.select_gear.info.info_3', attireName),
+    t('main.select_gear.info.info_4', accessoryName)
   ]
 })
 const getAffixesName = () => {
   const uiLanguage = userConfig.value?.language_ui ?? 'zh'
-  const jobName = XivJobs?.[props.jobId]?.[`job_name_${uiLanguage}`] || t('未选择')
-  const attireName = XivGearAffixes?.[props.attireAffix]?.[`name_${uiLanguage}`] || t('未选择')
-  const accessoryName = XivGearAffixes?.[props.accessoryAffix]?.[`name_${uiLanguage}`] || t('未选择')
+  const jobName = XivJobs?.[props.jobId]?.[`job_name_${uiLanguage}`] || t('main.select_gear.desc.un_selected')
+  const attireName = XivGearAffixes?.[props.attireAffix]?.[`name_${uiLanguage}`] || t('main.select_gear.desc.un_selected')
+  const accessoryName = XivGearAffixes?.[props.accessoryAffix]?.[`name_${uiLanguage}`] || t('main.select_gear.desc.un_selected')
   return { jobName, attireName, accessoryName }
 }
 
@@ -153,7 +153,7 @@ const clearAll = () => {
 }
 const clearCurrent = () => {
   if (jobNotSelected.value) {
-    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+    NAIVE_UI_MESSAGE.error(t('main.select_gear.warn.select_job_first')); return
   }
   MainHand.value = 0
   OffHand.value = 0
@@ -174,32 +174,32 @@ const {
 } = useGearAdder()
 const addCurrMainOffHand = () => {
   if (jobNotSelected.value) {
-    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+    NAIVE_UI_MESSAGE.error(t('main.select_gear.warn.select_job_first')); return
   }
   addMainOffHand(gearSelections, props.patchData, props.jobId)
 }
 const addCurrAttire = () => {
   if (jobNotSelected.value) {
-    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+    NAIVE_UI_MESSAGE.error(t('main.select_gear.warn.select_job_first')); return
   }
   addAttire(gearSelections, props.patchData, props.attireAffix)
 }
 const addCurrAccessory = () => {
   if (jobNotSelected.value) {
-    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+    NAIVE_UI_MESSAGE.error(t('main.select_gear.warn.select_job_first')); return
   }
   addAccessory(gearSelections, props.patchData, props.accessoryAffix)
 }
 const addAttireAndAccessory = () => {
   if (jobNotSelected.value) {
-    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+    NAIVE_UI_MESSAGE.error(t('main.select_gear.warn.select_job_first')); return
   }
   addCurrAttire()
   addCurrAccessory()
 }
 const addAll = () => {
   if (jobNotSelected.value) {
-    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+    NAIVE_UI_MESSAGE.error(t('main.select_gear.warn.select_job_first')); return
   }
   addCurrMainOffHand()
   addAttireAndAccessory()
@@ -219,29 +219,29 @@ const quickOperatesOptions = computed(() => {
   return [
     {
       key: 'add-crafter-mainoff',
-      label: t('添加一套生产主副手'),
-      description: t('添加所有能工巧匠职业的主手&副手工具各1件。')
+      label: t('main.select_gear.quick_operate.add_crafter_tool.title'),
+      description: t('main.select_gear.quick_operate.add_crafter_tool.tooltip.tooltip_1')
     },
     {
       key: 'add-gatherer-mainoff',
-      label: t('添加一套采集主副手'),
-      description: t('添加所有大地使者职业的主手&副手工具各1件。')
+      label: t('main.select_gear.quick_operate.add_gatherer_tool.title'),
+      description: t('main.select_gear.quick_operate.add_gatherer_tool.tooltip.tooltip_1')
     },
     {
       key: 'add-crafter-aaa', 
-      label: t('添加一套生产防具&首饰'), 
-      description: t('添加一套能工巧匠职业共用的防具与首饰。'),
+      label: t('main.select_gear.quick_operate.add_crafter_suit.title'), 
+      description: t('main.select_gear.quick_operate.add_crafter_suit.tooltip.tooltip_1'),
     },
     { 
       key: 'add-gatherer-aaa', 
-      label: t('添加一套采集防具&首饰'), 
-      description: t('添加一套大地使者职业共用的防具与首饰。'),
+      label: t('main.select_gear.quick_operate.add_gatherer_suit.title'), 
+      description: t('main.select_gear.quick_operate.add_gatherer_suit.tooltip.tooltip_1'),
     },
   ]
 })
 const handleQuickOperatesSelect = (key: string) => {
   if (jobNotSelected.value) {
-    NAIVE_UI_MESSAGE.error(t('请先选择职业')); return
+    NAIVE_UI_MESSAGE.error(t('main.select_gear.warn.select_job_first')); return
   }
   if (key === 'add-crafter-mainoff') {
     XivRoles.crafter.jobs.forEach(jobId => {
@@ -262,8 +262,8 @@ const handleQuickOperatesSelect = (key: string) => {
 
 const clearOptions = computed(() => {
   return [
-    { key: 'clear-current', label: t('清空当前'), description: t('清空当前职业的已选择部件。') },
-    { key: 'clear-all', label: t('清空全部'), description: t('清空所有职业的已选择部件。') },
+    { key: 'clear-current', label: t('main.select_gear.clear.current.title'), description: t('main.select_gear.clear.current.tooltip.tooltip_1') },
+    { key: 'clear-all', label: t('main.select_gear.clear.all.title'), description: t('main.select_gear.clear.all.tooltip.tooltip_1') },
   ]
 })
 const handleClearSelect = (key: string) => {
@@ -278,27 +278,27 @@ const addsuitOptions = computed(() => {
   return [
     {
       key: 'add-weapon',
-      label: t('添加一套主副手'),
+      label: t('main.select_gear.add.mainoff_hand'),
       disabled: disableMainhand.value && disableOffhand.value
     },
     {
       key: 'add-attire',
-      label: t('添加一套防具'),
+      label: t('main.select_gear.add.attire'),
       disabled: disableAllAttires.value
     },
     {
       key: 'add-accessory',
-      label: t('添加一套首饰'),
+      label: t('main.select_gear.add.accessory'),
       disabled: disableAllAccessories.value
     },
     {
       key: 'add-attire-and-accessory',
-      label: t('添加一套防具和首饰'),
+      label: t('main.select_gear.add.attire_and_accessory'),
       disabled: disableAllAttires.value || disableAllAccessories.value
     },
     {
       key: 'add-suit',
-      label: t('添加整套'),
+      label: t('main.select_gear.add.whole_suit'),
       disabled: disableMainhand.value && disableOffhand.value && disableAllAttires.value && disableAllAccessories.value
     },
   ]
@@ -326,7 +326,7 @@ defineExpose({
   <FoldableCard card-key="game-gear-selection">
     <template #header>
       <i class="xiv square-3"></i>
-      <span class="card-title-text">{{ t('选择部件') }}</span>
+      <span class="card-title-text">{{ t('main.select_gear.title') }}</span>
       <n-popover placement="bottom-start" :trigger="isMobile ? 'click' : 'hover'">
         <template #trigger>
           <span class="card-title-desc">{{ selectedAffixes }}</span>
@@ -345,7 +345,7 @@ defineExpose({
         type="warning"
         style="margin-bottom: 10px;"
       >
-        {{ t('请先选择职业') }}
+        {{ t('main.select_gear.warn.select_job_first') }}
       </n-alert>
 
       <table>
@@ -354,7 +354,7 @@ defineExpose({
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/mainhand.png"
-                :slot-description="t('武器/工具：主手')"
+                :slot-description="t('game.gear.tool.mainhand.detailed')"
                 :related-item="patchData?.jobs.MainHand?.[jobId]?.[0] ?? 0"
               />
             </td>
@@ -362,7 +362,7 @@ defineExpose({
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/offhand.png"
-                :slot-description="t('武器/工具：副手')"
+                :slot-description="t('game.gear.tool.offhand.detailed')"
                 :related-item="patchData?.jobs.OffHand?.[jobId]?.[0] ?? 0"
               />
             </td>
@@ -377,7 +377,7 @@ defineExpose({
             <td style="min-width: 40px;">
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/head.png"
-                :slot-description="t('防具：头部')"
+                :slot-description="t('game.gear.attire.head.detailed')"
                 :related-item="patchData?.jobs.HeadAttire?.[attireAffix]?.[0] ?? 0"
               />
             </td>
@@ -385,7 +385,7 @@ defineExpose({
             <td style="min-width: 40px;">
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/ear.png"
-                :slot-description="t('首饰：耳坠')"
+                :slot-description="t('game.gear.accessory.earring.detailed')"
                 :related-item="patchData?.jobs.Earrings?.[accessoryAffix]?.[0] ?? 0"
               />
             </td>
@@ -396,7 +396,7 @@ defineExpose({
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/body.png"
-                :slot-description="t('防具：身体')"
+                :slot-description="t('game.gear.attire.body.detailed')"
                 :related-item="patchData?.jobs.BodyAttire?.[attireAffix]?.[0] ?? 0"
               />
             </td>
@@ -404,7 +404,7 @@ defineExpose({
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/neck.png"
-                :slot-description="t('首饰：项链')"
+                :slot-description="t('game.gear.accessory.necklace.detailed')"
                 :related-item="patchData?.jobs.Necklace?.[accessoryAffix]?.[0] ?? 0"
               />
             </td>
@@ -415,7 +415,7 @@ defineExpose({
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/hands.png"
-                :slot-description="t('防具：手部')"
+                :slot-description="t('game.gear.attire.hands.detailed')"
                 :related-item="patchData?.jobs.HandsAttire?.[attireAffix]?.[0] ?? 0"
               />
             </td>
@@ -423,7 +423,7 @@ defineExpose({
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/wrist.png"
-                :slot-description="t('首饰：手镯')"
+                :slot-description="t('game.gear.accessory.wrist.detailed')"
                 :related-item="patchData?.jobs.Wrist?.[accessoryAffix]?.[0] ?? 0"
               />
             </td>
@@ -434,7 +434,7 @@ defineExpose({
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/legs.png"
-                :slot-description="t('防具：腿部')"
+                :slot-description="t('game.gear.attire.legs.detailed')"
                 :related-item="patchData?.jobs.LegsAttire?.[attireAffix]?.[0] ?? 0"
               />
             </td>
@@ -442,7 +442,7 @@ defineExpose({
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/ring.png"
-                :slot-description="t('首饰：戒指')"
+                :slot-description="t('game.gear.accessory.rings.detailed')"
                 :related-item="patchData?.jobs.Rings?.[accessoryAffix]?.[0] ?? 0"
               />
             </td>
@@ -453,7 +453,7 @@ defineExpose({
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/feet.png"
-                :slot-description="t('防具：脚部')"
+                :slot-description="t('game.gear.attire.feet.detailed')"
                 :related-item="patchData?.jobs.FeetAttire?.[attireAffix]?.[0] ?? 0"
               />
             </td>
@@ -471,7 +471,7 @@ defineExpose({
               :disabled="jobNotSelected"
               @click="showSelectedGears = true"
             >
-              {{ t('已选部件') }}
+              {{ t('main.select_gear.view_selected') }}
             </n-button>
             <n-popover :trigger="isMobile ? 'manual' : 'hover'" placement="top">
               <template #trigger>
@@ -484,7 +484,7 @@ defineExpose({
                 </n-button>
               </template>
               <div class="descriptions">
-                <div>{{ t('将已选的装备加入到某条工作流') }}</div>
+                <div>{{ t('workflow.join_in_workflow.entry_btn.tooltip') }}</div>
               </div>
             </n-popover>
           </n-button-group>
@@ -507,7 +507,7 @@ defineExpose({
                 <template #icon>
                   <n-icon><KeyboardArrowDownRound /></n-icon>
                 </template>
-                {{ t('快速操作') }}
+                {{ t('main.select_gear.quick_operate.title') }}
               </n-button>
             </template>
             <div class="flex-col gap-2">
@@ -540,7 +540,7 @@ defineExpose({
                 <template #icon>
                   <n-icon><KeyboardArrowDownRound /></n-icon>
                 </template>
-                {{ t('清空') }}
+                {{ t('common.clear') }}
               </n-button>
             </template>
             <div class="flex-col gap-2">
@@ -572,7 +572,7 @@ defineExpose({
                 <template #icon>
                   <n-icon><KeyboardArrowDownRound /></n-icon>
                 </template>
-                {{ t('添加') }}
+                {{ t('common.add') }}
               </n-button>
             </template>
             <div class="flex-col gap-2">

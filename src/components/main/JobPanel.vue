@@ -15,7 +15,7 @@ import {
 import type { IHqVer } from '@/tools/nbb-cal-v5'
 import type { GearSelections } from '@/models/gears'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
@@ -30,8 +30,8 @@ const props = defineProps<JobPanelProps>()
 const emit = defineEmits(['onJobButtonDupliClick'])
 
 const cardDescription = computed(() => {
-  if (!jobSelected.value) return t('还未选择')
-  else return t('已选择职业: {}', getJobName(jobSelected.value))
+  if (!jobSelected.value) return t('main.shared.desc.not_selected')
+  else return t('main.select_job.desc.selected', getJobName(jobSelected.value))
 })
 const handleJobSelect = (jobId: number, role: any) => {
   if (jobSelected.value === jobId) {
@@ -44,10 +44,12 @@ const handleJobSelect = (jobId: number, role: any) => {
   }
 }
 
-const uiLanguage = userConfig.value?.language_ui ?? 'zh'
+const uiLanguage = computed(() => {
+  return userConfig.value?.language_ui ?? 'zh'
+})
 
 const getRoleName = (role: any) => {
-  switch (uiLanguage) {
+  switch (uiLanguage.value) {
     case 'ja':
       return role.role_name_ja
     case 'en':
@@ -58,7 +60,7 @@ const getRoleName = (role: any) => {
 }
 const getJobName = (jobId: number) => {
   const _job = XivJobs[jobId]
-  switch (uiLanguage) {
+  switch (uiLanguage.value) {
     case 'ja':
       return _job.job_name_ja
     case 'en':
@@ -94,21 +96,21 @@ const isJobGroupAvailable = (group: number[]) => {
   <FoldableCard card-key="select-job" :description="cardDescription">
     <template #header>
       <i class="xiv square-2"></i>
-      <span class="card-title-text">{{ t('选择职业') }}</span>
+      <span class="card-title-text">{{ t('main.select_job.title') }}</span>
     </template>
     <n-alert
       v-if="!patchSelected"
       type="warning"
       style="margin-bottom: 15px;"
     >
-      {{ t('请先选择版本') }}
+      {{ t('main.select_job.warn.select_patch_first') }}
     </n-alert>
     <n-alert
       v-else-if="jobSelected && !isJobAvailable(jobSelected)"
       type="info"
       style="margin-bottom: 15px;"
     >
-      {{ t('所选职业在当前版本不可用，请重新选择。') }}
+      {{ t('main.message.curr_job_not_valid') }}
     </n-alert>
 
     <n-flex :size="[8,15]">

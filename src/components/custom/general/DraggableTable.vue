@@ -14,7 +14,7 @@ import { deepCopy } from '@/tools'
 
 const NAIVE_UI_MESSAGE = useMessage()
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 const data = defineModel<DataRow[]>('data', { required: true })
@@ -77,7 +77,7 @@ const tryGetDefaultDataRow = () => {
 
 const handleAddRow = () => {
   if (props.max && formDataRows.value.length >= props.max) {
-    NAIVE_UI_MESSAGE.warning(props.maxTip ?? t('最多只能有{num}行数据', props.max))
+    NAIVE_UI_MESSAGE.warning(props.maxTip ?? t('common.message.data_line_max_len', props.max))
     return
   }
   const newRow = tryGetDefaultDataRow()
@@ -89,7 +89,7 @@ const handleAddRow = () => {
 
 const handleSave = () => {
   if (props.min && formDataRows.value.length < props.min) {
-    NAIVE_UI_MESSAGE.warning(props.minTip ?? t('需要保留至少{num}行数据', props.min))
+    NAIVE_UI_MESSAGE.warning(props.minTip ?? t('common.message.data_line_min_len', props.min))
     return false
   }
   const new_data = deepCopy(formDataRows.value.map(row => row.data))
@@ -122,14 +122,14 @@ defineExpose({
           <th>
             <slot name="tableTitle" />
           </th>
-          <th>{{ t('管理') }}</th>
+          <th>{{ t('common.manage') }}</th>
         </tr>
       </thead>
       <tbody class="sort-target">
         <tr v-for="(row, rowIndex) in formDataRows" :key="row.id">
           <td>
             <n-input-group>
-              <n-input-group-label class="draggable-box" :title="t('拖动以排序')">
+              <n-input-group-label class="draggable-box" :title="t('common.drag_to_sort')">
                 <n-icon :size="18"><ListFilled /></n-icon>
               </n-input-group-label>
               <slot :row="row.data" :row-index="rowIndex">
@@ -143,7 +143,7 @@ defineExpose({
               <template #icon>
                 <n-icon><DeleteFilled /></n-icon>
               </template>
-              {{ t('删除') }}
+              {{ t('common.delete') }}
             </n-button>
           </td>
         </tr>
@@ -156,7 +156,7 @@ defineExpose({
               <template #icon>
                 <n-icon><AddSharp /></n-icon>
               </template>
-              {{ t('添加') }}
+              {{ t('common.add') }}
             </n-button>
           </td>
         </tr>

@@ -40,7 +40,7 @@ import ModalWorkflowsManage from '@/components/modals/ModalWorkflowsManage.vue'
 import type { SettingGroupKey } from '@/models'
 import { deepCopy } from '@/tools'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -127,19 +127,19 @@ onBeforeUnmount(() => {
 /*
 const handleEditWorkflow = (flowIndex: number) => {
   const flow = workState.value.workflows[flowIndex]
-  const oldName = flow.name || t('工作流{index}', flowIndex + 1)
+  const oldName = flow.name || t('workflow.text.workflow_with_index', flowIndex + 1)
   // todo Electron 不支持 prompt()。等待后续替换为组件对话框。
-  const newName = prompt(t('将这条工作流重命名为：'), oldName)
+  const newName = prompt(t('workflow.text.rename_to'), oldName)
   if (newName) {
     flow.name = newName
   }
 }
 const handleDeleteWorkflow = (flowIndex: number) => {
   if (workState.value.workflows.length <= 1) {
-    NAIVE_UI_MESSAGE.warning(t('需要保留至少1条工作流'))
+    NAIVE_UI_MESSAGE.warning(t('workflow.text.min_len'))
     return
   }
-  if (!confirm(t('确认要删除这条工作流吗?'))) {
+  if (!confirm(t('workflow.text.confirm_delete'))) {
     return
   }
   workState.value.workflows.splice(flowIndex, 1)
@@ -153,7 +153,7 @@ const handleDeleteWorkflow = (flowIndex: number) => {
 */
 const handleAddWorkflow = () => {
   if (workState.value.workflows.length >= _VAR_MAX_WORKFLOW) {
-    NAIVE_UI_MESSAGE.warning(t('最多只能添加{num}条工作流', _VAR_MAX_WORKFLOW))
+    NAIVE_UI_MESSAGE.warning(t('workflow.message.max_len', _VAR_MAX_WORKFLOW))
     return
   }
   workState.value.workflows.push(getDefaultWorkflow())
@@ -195,7 +195,7 @@ const pageHeightVals = computed(() => {
 const handleItemInputValueUpdate = (value: number) => {
   if (!value) return
   if (currentWorkflow.value.targetItems[value]) {
-    NAIVE_UI_MESSAGE.info(t('已有该物品'))
+    NAIVE_UI_MESSAGE.info(t('common.message.item_already_have'))
   } else {
     currentWorkflow.value.targetItems[value] = 1
     currentWorkflow.value.preparedItems.craftTarget[value] = 0
@@ -208,7 +208,7 @@ const handleClearCurrentWorkflow = () => {
     materialsLv1: {},
     materialsLvBase: {},
   }
-  NAIVE_UI_MESSAGE.success(t('已清空'))
+  NAIVE_UI_MESSAGE.success(t('common.cleared'))
 }
 const selectCardWidth = ref('450px')
 const handleSelectCardFoldStatusChanged = (folded: boolean) => {
@@ -333,7 +333,7 @@ const canUseNewWindow = computed(() => {
   return !!window.electronAPI && !!window.$syncStore
 })
 const handleOpenProcessInNewWindow = () => {
-  const pageTitle = t('工作流流程')
+  const pageTitle = t('workflow.recomm_process')
   const pageUrl = document.location.origin + document.location.pathname + `#/workflow_process?mode=overlay`
   const width = 400; const height = 350
   if (window.electronAPI?.createNewWindow) {
@@ -355,8 +355,8 @@ const handleOpenProcessInNewWindow = () => {
 const handleHideOrShowChsOfflineItems = () => {
   currentWorkflow.value.recommData.hideChsOfflineItems = !currentWorkflow.value.recommData.hideChsOfflineItems
   const message = currentWorkflow.value.recommData.hideChsOfflineItems
-    ? t('已隐藏国服未实装物品')
-    : t('已显示国服未实装物品')
+    ? t('recomm_process.message.hided_unchs_items')
+    : t('recomm_process.message.showed_unchs_items')
   NAIVE_UI_MESSAGE.success(message)
 }
 const handleCollapseOrUncollapseAllRecommGroupBlocks = () => {
@@ -398,14 +398,14 @@ const updateItemPrices = async () => {
       await store.commit('setFuncConfig', fixFuncConfig(newConfig, store.state.userConfig))
     } catch (error : any) {
       console.error(error)
-      alert(t('获取价格失败') + '\n' + (error?.message ?? error))
+      alert(t('common.message.get_price_failed') + '\n' + (error?.message ?? error))
     }
     updatingPrice.value = false
   }
 }
 const handleAnalysisItemPrices = async () => {
   if (updatingPrice.value) {
-    NAIVE_UI_MESSAGE.info(t('正在加载……')); return
+    NAIVE_UI_MESSAGE.info(t('common.loading')); return
   }
   await updateItemPrices()
   showCostAndBenefitModal.value = true
@@ -413,7 +413,7 @@ const handleAnalysisItemPrices = async () => {
 const handleSetStatementPreparedByInventory = () => {
   if (proStatementInstace?.value?.setPreparedItemsByInventory) {
     proStatementInstace.value.setPreparedItemsByInventory()
-    NAIVE_UI_MESSAGE.success(t('同步成功'))
+    NAIVE_UI_MESSAGE.success(t('common.message.sync_succeed'))
   } else {
     NAIVE_UI_MESSAGE.error('proStatementInstace Ref Notfound')
   }
@@ -421,7 +421,7 @@ const handleSetStatementPreparedByInventory = () => {
 const setInventoryByStatementPrepared = () => {
   if (proStatementInstace?.value?.setInventoryByPreparedItems) {
     proStatementInstace.value.setInventoryByPreparedItems()
-    NAIVE_UI_MESSAGE.success(t('同步成功'))
+    NAIVE_UI_MESSAGE.success(t('common.message.sync_succeed'))
   } else {
     NAIVE_UI_MESSAGE.error('proStatementInstace Ref Notfound')
   }
@@ -434,18 +434,18 @@ const setInventoryByStatementPrepared = () => {
     <FoldableCard card-key="workflow-header" class="header-block" @onCardFoldStatusChanged="handleUpdateHeights">
       <template #header>
         <i class="xiv sync-invert"></i>	
-        <span class="card-title-text">{{ t('配置工作流') }}</span>
+        <span class="card-title-text">{{ t('workflow.text.set_workflows') }}</span>
       </template>
       <div class="block" ref="headerBlock">
         <div class="action">
-          <p>{{ t('切换工作流：') }}</p>
+          <p>{{ t('workflow.text.switch_workflows') }}</p>
           <div class="flex-wrap" style="gap: 5px;">
             <!-- <n-button-group
             >
-              <n-button v-show="false" size="tiny" class="n-square-button" :title="t('重命名这条工作流')" @click="handleEditWorkflow(flowIndex)">
+              <n-button v-show="false" size="tiny" class="n-square-button" :title="t('workflow.text.rename_this_workflow')" @click="handleEditWorkflow(flowIndex)">
                 <n-icon :size="16"><ModeEditFilled /></n-icon>
               </n-button>
-              <n-button v-show="false" size="tiny" class="n-square-button" :title="t('删除这条工作流')" @click="handleDeleteWorkflow(flowIndex)">
+              <n-button v-show="false" size="tiny" class="n-square-button" :title="t('workflow.text.delete_this_workflow')" @click="handleDeleteWorkflow(flowIndex)">
                 <n-icon :size="16"><DeleteFilled /></n-icon>
               </n-button>
             </n-button-group> -->
@@ -456,14 +456,14 @@ const setInventoryByStatementPrepared = () => {
               :type="flowIndex === workState.currentWorkflow ? 'primary' : 'default'"
               @click="workState.currentWorkflow = flowIndex"
             >
-              {{ flow.name || t('工作流{index}', flowIndex + 1) }}
+              {{ flow.name || t('workflow.text.workflow_with_index', flowIndex + 1) }}
             </n-button>
             <TooltipButton
               size="tiny"
               square
               :icon="AddSharp"
               :icon-size="16"
-              :tip="t('添加一条工作流')"
+              :tip="t('workflow.text.add_a_workflow')"
               @click="handleAddWorkflow"
             />
             <TooltipButton
@@ -471,7 +471,7 @@ const setInventoryByStatementPrepared = () => {
               square
               :icon="SettingsSharp"
               :icon-size="14"
-              :tip="t('管理已有工作流')"
+              :tip="t('workflow.text.manage_existed_workflows')"
               @click="handleManageWorkflows"
             />
           </div>
@@ -492,12 +492,12 @@ const setInventoryByStatementPrepared = () => {
       >
         <template #header>
           <i class="xiv square-1"></i>
-          <span class="card-title-text">{{ t('挑选物品') }}</span>
+          <span class="card-title-text">{{ t('common.select_item2') }}</span>
         </template>
         <div class="block items-block">
           <div class="top-actions">
             <n-input-group>
-              <n-input-group-label>{{ t('添加物品') }}</n-input-group-label>
+              <n-input-group-label>{{ t('common.add_item') }}</n-input-group-label>
               <ItemSelector
                 @on-item-selected="handleItemInputValueUpdate"
               />
@@ -514,8 +514,8 @@ const setInventoryByStatementPrepared = () => {
           <div class="bottom-actions">
             <TooltipButton
               :icon="DeleteSweepRound"
-              :text="t('清空')"
-              :tip="t('清空当前工作流的已选物品')"
+              :text="t('common.clear')"
+              :tip="t('workflow.text.clear_current_workflow')"
               @click="handleClearCurrentWorkflow"
             />
           </div>
@@ -525,7 +525,7 @@ const setInventoryByStatementPrepared = () => {
       <FoldableCard :unfoldable="!isMobile" card-key="workflow-content-statistics" class="statistics-wrapper">
         <template #header>
           <i class="xiv square-2"></i>
-          <span class="card-title-text">{{ t('查看分析') }}</span>
+          <span class="card-title-text">{{ t('common.view_analysis') }}</span>
           <a
             class="card-title-extra"
             href="javascript:void(0);"
@@ -533,27 +533,27 @@ const setInventoryByStatementPrepared = () => {
             :style="updatingPrice ? 'cursor: not-allowed; color: gray;' : 'cursor: pointer;'"
             @click="handleAnalysisItemPrices"
           >
-            [{{ updatingPrice ? t('正在加载……') : t('成本/收益预估') }}]
+            [{{ updatingPrice ? t('common.loading') : t('statistics.group.cost_and_benefit.title') }}]
           </a>
           <a
             v-show="funcConfig.inventory_workflow_enable_sync && selectedAnaTab === 'statements'"
             class="card-title-extra"
             href="javascript:void(0);"
             style="cursor: pointer;"
-            :title="t('将报表中的“已有”数量设置为背包库存的数量。')"
+            :title="t('workflow.tooltip.set_prepared_by_inventory')"
             @click="handleSetStatementPreparedByInventory"
           >
-            [{{ t('从背包库存同步') }}]
+            [{{ t('workflow.text.sync_from_inventory') }}]
           </a>
           <a
             v-show="funcConfig.inventory_workflow_enable_sync_reverse && selectedAnaTab === 'statements'"
             class="card-title-extra"
             href="javascript:void(0);"
             style="cursor: pointer;"
-            :title="t('将背包库存的数量设置为报表中的“已有”数量。')"
+            :title="t('workflow.tooltip.set_inventory_by_prepared')"
             @click="setInventoryByStatementPrepared"
           >
-            [{{ t('同步到背包库存') }}]
+            [{{ t('workflow.text.sync_to_inventory') }}]
           </a>
         </template>
         <div class="block">
@@ -562,7 +562,7 @@ const setInventoryByStatementPrepared = () => {
               <template #tab>
                 <div class="tab-title">
                   <n-icon :size="16"><QueryStatsFilled /></n-icon>
-                  <div>{{ t('统计') }}</div>
+                  <div>{{ t('common.statistics') }}</div>
                 </div>
               </template>
               <CraftStatistics
@@ -574,7 +574,7 @@ const setInventoryByStatementPrepared = () => {
               <template #tab>
                 <div class="tab-title">
                   <n-icon :size="16"><TableViewOutlined /></n-icon>
-                  <div>{{ t('报表') }}</div>
+                  <div>{{ t('common.statement') }}</div>
                 </div>
               </template>
               <CraftStatements
@@ -597,7 +597,7 @@ const setInventoryByStatementPrepared = () => {
               <template #tab>
                 <div class="tab-title">
                   <n-icon :size="16"><AllInclusiveSharp /></n-icon>
-                  <div>{{ t('流程') }}</div>
+                  <div>{{ t('common.process') }}</div>
                 </div>
               </template>
               <CraftRecommProcess
@@ -618,7 +618,7 @@ const setInventoryByStatementPrepared = () => {
                       </n-icon>
                     </n-float-button>
                   </template>
-                  {{ t('在新窗口中打开') }}
+                  {{ t('common.open_in_new_window') }}
                 </n-tooltip>
                 <n-tooltip v-if="recommProcessGroups.length && itemServer === 'chs'" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
                   <template #trigger>
@@ -629,7 +629,7 @@ const setInventoryByStatementPrepared = () => {
                       </n-icon>
                     </n-float-button>
                   </template>
-                  {{ currentWorkflow.recommData.hideChsOfflineItems ? t('显示国服未实装物品') : t('隐藏国服未实装物品') }}
+                  {{ currentWorkflow.recommData.hideChsOfflineItems ? t('recomm_process.text.show_items_not_installed_in_chs') : t('recomm_process.text.hide_items_not_installed_in_chs') }}
                 </n-tooltip>
                 <n-tooltip v-if="recommProcessGroups.length" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
                   <template #trigger>
@@ -640,7 +640,7 @@ const setInventoryByStatementPrepared = () => {
                       </n-icon>
                     </n-float-button>
                   </template>
-                  {{ recommGroupAllCollapsed ? t('全部展开') : t('全部折叠') }}
+                  {{ recommGroupAllCollapsed ? t('common.expand_all') : t('common.fold_all') }}
                 </n-tooltip>
                 <n-tooltip :trigger="isMobile ? 'manual' : 'hover'" placement="left">
                   <template #trigger>
@@ -650,7 +650,7 @@ const setInventoryByStatementPrepared = () => {
                       </n-icon>
                     </n-float-button>
                   </template>
-                  {{ t('设置') }}
+                  {{ t('common.setting') }}
                 </n-tooltip>
               </n-float-button-group>
             </n-tab-pane>

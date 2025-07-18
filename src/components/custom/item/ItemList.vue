@@ -13,7 +13,7 @@ import UseConfig from '@/tools/use-config'
 import type { UserConfigModel } from '@/models/config-user'
 import type { FuncConfigModel } from '@/models/config-func'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
@@ -132,13 +132,13 @@ const listContainer = ref<HTMLElement>()
         <template #icon>
           <n-icon><ViewListSharp /></n-icon>
         </template>
-        {{ t('清单') }}
+        {{ t('common.list') }}
       </n-button>
       <n-button size="tiny" v-else @click="mode = 'default'">
         <template #icon>
           <n-icon><SettingsBackupRestoreSharp /></n-icon>
         </template>
-        {{ t('返回') }}
+        {{ t('common.go_back') }}
       </n-button>
     </div>
     <div v-if="mode === 'default'" class="scroll-container" :style="getScrollbarStyles()">
@@ -163,12 +163,12 @@ const listContainer = ref<HTMLElement>()
       readonly
       autosize
       type="textarea"
-      :placeholder="t('没有需要的道具')"
+      :placeholder="t('common.no_required_items')"
       style="max-height: calc(100% - 25px);"
     />
   </div>
   <div v-else-if="!hideEmpty" class="empty-container" :style="getContainerStyles()">
-    <n-empty :description="t('没有需要的道具')" />
+    <n-empty :description="t('common.no_required_items')" />
   </div>
 </template>
   

@@ -17,7 +17,7 @@ import { useFufuCal } from '@/tools/use-fufu-cal'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -70,14 +70,14 @@ const updateItemPrices = async () => {
       await store.commit('setFuncConfig', fixFuncConfig(newConfig, store.state.userConfig))
     } catch (error : any) {
       console.error(error)
-      alert(t('获取价格失败') + '\n' + (error?.message ?? error))
+      alert(t('common.message.get_price_failed') + '\n' + (error?.message ?? error))
     }
     updatingPrice.value = false
   }
 }
 const handleAnalysisItemPrices = async () => {
   if (updatingPrice.value) {
-    NAIVE_UI_MESSAGE.info(t('正在加载……')); return
+    NAIVE_UI_MESSAGE.info(t('common.loading')); return
   }
   await updateItemPrices()
   showCostAndBenefitModal.value = true
@@ -89,15 +89,15 @@ const handleAnalysisItemPrices = async () => {
     <FoldableCard card-key="ft-statistics">
       <template #header>
         <i class="xiv square-2"></i>
-        <span class="card-title-text">{{ t('查看统计') }}</span>
-        <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
-        <a class="card-title-extra" href="javascript:void(0);" :disabled="updatingPrice" :style="updatingPrice ? 'cursor: not-allowed; color: gray;' : 'cursor: pointer;'" @click="handleAnalysisItemPrices">[{{ updatingPrice ? t('正在加载……') : t('成本/收益预估') }}]</a>
+        <span class="card-title-text">{{ t('statistics.view_statistics') }}</span>
+        <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('common.mquoted_view_statement') }}</a>
+        <a class="card-title-extra" href="javascript:void(0);" :disabled="updatingPrice" :style="updatingPrice ? 'cursor: not-allowed; color: gray;' : 'cursor: pointer;'" @click="handleAnalysisItemPrices">[{{ updatingPrice ? t('common.loading') : t('statistics.group.cost_and_benefit.title') }}]</a>
       </template>
 
       <div class="pre">
         <div class="preset-item">
           <n-switch v-model:value="hidePrecraftMaterials" :round="false" size="small" />
-          <div>{{ t('只显示直接制作素材') }}</div>
+          <div>{{ t('statistics.preference.show_direct_materials_only') }}</div>
         </div>
       </div>
       <CraftStatistics
