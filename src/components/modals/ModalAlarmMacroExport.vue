@@ -87,7 +87,7 @@ const itemTreeData = computed(() => {
   }
 })
 const macro = computed(() => {
-  let result : string[] = []
+  const result : string[] = []
   if (alarmMacroOptions.value.clearOldAlarms) {
     result.push('/alarm clear')
   }

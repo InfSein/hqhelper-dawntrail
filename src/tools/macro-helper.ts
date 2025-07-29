@@ -7,7 +7,6 @@ import { deepCopy } from "."
 import { getItemInfo } from "./item"
 
 const useMacroHelper = (
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   userConfig: Ref<UserConfigModel>,
   funcConfig: Ref<FuncConfigModel>,
 ) => {

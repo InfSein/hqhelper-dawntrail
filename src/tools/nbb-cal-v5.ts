@@ -203,7 +203,7 @@ export class Cal {
 
             if (repice) {
                 const pc = parseInt(repice.bp[1]);
-                mkc = parseInt((need / pc).toString()); // eslint-disable-line
+                mkc = parseInt((need / pc).toString());
                 mkc += (need % pc) > 0 ? 1 : 0;
                 b[id] = {
                     id: Number(id),
