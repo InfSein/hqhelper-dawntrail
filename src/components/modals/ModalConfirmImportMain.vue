@@ -69,7 +69,7 @@ const gearRows = computed(() => {
   Object.keys(XivJobs).forEach(_jobid => {
     const jobId = Number(_jobid)
     const job = XivJobs[jobId]
-    let name = job[`job_name_${uiLanguage.value}`] || '???'
+    const name = job[`job_name_${uiLanguage.value}`] || '???'
     const mainCount = gearSelections.MainHand[jobId]
     const offCount = gearSelections.OffHand[jobId]
     if (mainCount || offCount) {
@@ -92,7 +92,7 @@ const gearRows = computed(() => {
   ]
   affixes.forEach(affix => {
     const affixData = XivGearAffixes[affix]
-    let name = affixData[`name_${uiLanguage.value}`] || '???'
+    const name = affixData[`name_${uiLanguage.value}`] || '???'
     const attireValid = attireAffixes.includes(affix as AttireAffix)
     const accessoryValid = accessoryAffixes.includes(affix as AccessoryAffix)
     const rowCounts : (string | number)[] = []

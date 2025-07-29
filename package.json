@@ -3,6 +3,9 @@
   "version": "2.2.8",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "scripts": {
     "dev": "vite",
     "i18n:upload-source": "npx crowdin upload sources",
@@ -13,11 +16,10 @@
     "build-only": "vite build",
     "postinstall": "node scripts/update-version.cjs",
     "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+    "lint": "eslint . --fix"
   },
   "dependencies": {
     "alova": "^3.3.4",
-    "file-saver": "^2.0.5",
     "lz-string": "^1.5.0",
     "vue": "^3.5.18",
     "vue-clipboard3": "^2.0.0",
@@ -25,20 +27,19 @@
     "vue-i18n": "^11.1.11",
     "vue-router": "^4.5.1",
     "vuex": "^4.1.0",
-    "xlsx": "^0.18.5",
-    "xlsx-style": "^0.8.13"
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@crowdin/cli": "^4.9.0",
-    "@rushstack/eslint-patch": "^1.12.0",
-    "@tsconfig/node20": "^20.1.6",
-    "@types/node": "^24.1.0",
+    "@tsconfig/node22": "^22.0.2",
+    "@types/node": "^22.16.5",
     "@vicons/material": "^0.13.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/tsconfig": "^0.7.0",
-    "eslint": "^9.32.0",
-    "eslint-plugin-vue": "^10.3.0",
+    "eslint": "^9.31.0",
+    "eslint-plugin-vue": "~10.3.0",
+    "jiti": "^2.4.2",
     "naive-ui": "^2.42.0",
     "npm-run-all2": "^8.0.4",
     "typescript": "~5.8.3",

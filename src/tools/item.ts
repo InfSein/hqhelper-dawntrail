@@ -696,7 +696,7 @@ const parseApiPriceInfo = (apiPriceInfo : ApiPriceInfo) => {
   itemPriceInfo.marketPriceNQ = nq_quantity ? nq_total / nq_quantity : 0
   itemPriceInfo.marketPriceHQ = hq_quantity ? hq_total / hq_quantity : 0
 
-  nq_quantity = 0, nq_total = 0, hq_quantity = 0, hq_total = 0
+  nq_quantity = 0; nq_total = 0; hq_quantity = 0; hq_total = 0
   apiPriceInfo.recentHistory?.forEach(item => {
     if (item.hq) {
       hq_quantity += item.quantity

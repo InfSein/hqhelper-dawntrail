@@ -48,7 +48,7 @@ const updateIsMobile = () => {
 
 const osTheme = useOsTheme()
 const theme = computed(() => {
-  let _theme = userConfig.value.theme
+  const _theme = userConfig.value.theme
   if (_theme === 'system') {
     return osTheme.value === 'dark' ? 'dark' : 'light'
   }

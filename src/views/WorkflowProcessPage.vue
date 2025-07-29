@@ -79,7 +79,7 @@ const craftTargetsArray = computed(() => {
   const items : ItemInfo[] = []
   for (const _id in currentWorkflow.value.targetItems) {
     const id = Number(_id)
-    let count = currentWorkflow.value.targetItems[id]
+    const count = currentWorkflow.value.targetItems[id]
     if (count > 0) {
       const itemInfo = getItemInfo(id)
       itemInfo.amount = count

@@ -25,7 +25,6 @@ export interface ProStatementBlock {
 }
 
 export function useFufuCal(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   userConfig: Ref<UserConfigModel>,
   funcConfig: Ref<FuncConfigModel>,
   t: (message: string, args?: any) => string,
@@ -377,7 +376,7 @@ export function useFufuCal(
         const jobId = Number(_jobID)
         const job = XivJobs[jobId]
         const items = craftings[jobId]
-        const rokey = item_server === 'chs' ? 'recipeOrderCHS' : 'recipeOrder'
+        //const rokey = item_server === 'chs' ? 'recipeOrderCHS' : 'recipeOrder'
         if (processes_craftable_item_sortby === 'recipeOrder') {
           items.sort((a, b) => {
             if (a.uiTypeOrder !== b.uiTypeOrder) {
