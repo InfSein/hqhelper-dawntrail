@@ -353,6 +353,8 @@ const handleDownload = async () => {
     newUserConfig = JSON.parse(cloudLists.value![HqList.ConfigBackupUserConfig].content)
   }
 
+  newUserConfig.cache_lasttime_version = oldUserConfig.cache_lasttime_version
+
   if (syncTargets.value.includes(HqList.WorkstateBackupMain)) {
     newUserConfig.cache_work_state = JSON.parse(cloudLists.value![HqList.WorkstateBackupMain].content)
   } else {
