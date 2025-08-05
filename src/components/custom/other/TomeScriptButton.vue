@@ -30,21 +30,17 @@ const {
   itemLanguage,
 } = UseConfig(userConfig, funcConfig)
 
-const props = defineProps({
+interface TomeScriptButtonProps {
   /**
    * 点数素材列表
    * * key: 点数的id
    * * value: [item, item, ...]
    */
-  items: {
-    type: Object as () => Record<number, ItemInfo[]>,
-    required: true
-  },
-  tradeMap: {
-    type: Object as () => Record<number, ItemTradeInfo>,
-    required: true
-  }
-})
+  items: Record<number, ItemInfo[]>
+  tradeMap: Record<number, ItemTradeInfo>
+  btnStyle?: string
+}
+const props = defineProps<TomeScriptButtonProps>()
 
 const showBiColorItems = ref(userConfig.value.tomescript_show_bicolor_items)
 const handleShowBiColorItemsChange = (val: boolean) => {
@@ -151,7 +147,7 @@ const handleCopyAsMacro = async () => {
     :style="{ maxWidth: isMobile ? 'unset' : '320px' }"
   >
     <template #trigger>
-      <n-button class="ts-btn" :title="t('common.tomescript')">
+      <n-button class="ts-btn" :style="btnStyle" :title="t('common.tomescript')">
         <div class="w-full flex-col align-right">
           <p class="text">{{ t('common.tomescript') }}</p>
           <div class="tome-scripts">
