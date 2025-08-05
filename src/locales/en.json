@@ -550,6 +550,20 @@
         "text_5": "If you have a solution, please contact us."
       }
     },
+    "2_3_0": {
+      "feat": {
+        "text_1": "Added '{f}' button in item pop of gatherable fishing.",
+        "text_2": "Add a descriptive text to some setting items in the preferences.",
+        "text_3": "Optimized the display effect of tome-script buttons in main statistic panel while selected patch 7.1 or 7.3.",
+        "text_4": "Clicking the button would open the related page in ffmomola v2."
+      },
+      "fix": {
+        "text_1": "Fixed issue that Change Logs modal might reopen after download user data from Cloud Sync.",
+        "text_2": "Fix the problem that the sponsor list cannot be loaded properly.",
+        "text_3": "Previous data has been lost as a result of the invasion of the hosting server.",
+        "text_4": "If you found the new list has some parts missing, please contact us."
+      }
+    },
     "breaking": "BREAKING CHANGES",
     "feat": "FEATURES",
     "fix": "BUG FIXES",
@@ -1748,7 +1762,8 @@
     },
     "statement_ignore_crystals": {
       "desc": {
-        "desc_1": "If you don't need to make reports to calculate various Shard/Crystal/Cluster, you can consider turning on this option."
+        "desc_1": "If you don't need to make reports to calculate various Shard/Crystal/Cluster, you can consider turning on this option.",
+        "desc_2": "The '{f}' would also ignore the crystals after this option is enabled."
       },
       "title": "Ignore crystals"
     },

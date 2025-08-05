@@ -100,7 +100,7 @@ export const getChangelogs = (
           changes: [
             t('changelog.2_3_0.feat.text_3'),
             t('changelog.2_3_0.feat.text_1', t('common.open_in.ffmomola'))
-              + '<br>' + '点击后会跳转到V2鱼糕钓鱼笔记的相应页面。',
+              + '<br>' + t('changelog.2_3_0.feat.text_4'),
             t('changelog.2_3_0.feat.text_2')
           ]
         }
