@@ -31,7 +31,7 @@ const loadSponsors = async () => {
     sponsorLoadError.value = ''
     sponsors.value = []
     let loadSponsorsResponse : string
-    let url = 'https://strapi.nbb.fan/api/hq-helper-configs/asqyxrsz050g074rswbe275p'
+    let url = 'https://strapi.nbb.fan/api/hq-helper-configs/vif4s1czgkysocpg1bnoa8vi'
     url += `?t=${new Date().getTime()}&fields[0]=content`
     if (window.electronAPI?.httpGet) {
       loadSponsorsResponse = await window.electronAPI.httpGet(url)

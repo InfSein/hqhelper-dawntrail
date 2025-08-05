@@ -25,8 +25,8 @@ export interface PatchChangeGroup {
 
 /*
     {
-      version: '2.2.3',
-      date: '2025-05-01',
+      version: '2.3.0',
+      date: '2025-08-05',
       changes: [
         {
           name: groupName.breaking,
@@ -75,6 +75,37 @@ export const getChangelogs = (
   }
   const isZh = ui_lang === 'zh'
   return [
+    {
+      version: '2.3.0',
+      date: '2025-08-05',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('changelog.shared.global_db_update', {
+              ver: '7.3'
+            })
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('changelog.2_3_0.fix.text_1'),
+            t('changelog.2_3_0.fix.text_2')
+              + tipper + t('changelog.2_3_0.fix.text_3') + ' ' + t('changelog.2_3_0.fix.text_4'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_3_0.feat.text_3'),
+            t('changelog.2_3_0.feat.text_1', t('common.open_in.ffmomola'))
+              + '<br>' + t('changelog.2_3_0.feat.text_4'),
+            t('changelog.2_3_0.feat.text_2')
+          ]
+        }
+      ]
+    },
     {
       version: '2.2.8',
       date: '2025-07-18',

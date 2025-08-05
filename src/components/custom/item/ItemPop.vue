@@ -197,7 +197,7 @@ const timeCanGather = (timeLimit: {start: string, end: string}) => {
 }
 
 const openInMomola = () => {
-  window.open(`https://fish.ffmomola.com/#/wiki?fishId=${props.itemInfo.id}`)
+  window.open(`https://fish.ffmomola.com/ng/#/wiki/fish/${props.itemInfo.id}`)
 }
 const openInAngler = () => {
   let lang : string = itemLanguage.value
@@ -496,7 +496,7 @@ const innerPopTrigger = computed(() => {
                 </template>
                 {{ t('common.open_in.angler_search') }}
               </n-button>
-              <n-button v-show="false" size="small" @click="openInMomola">
+              <n-button size="small" @click="openInMomola">
                 <template #icon>
                   <n-icon><OpenInNewFilled /></n-icon>
                 </template>

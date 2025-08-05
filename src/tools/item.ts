@@ -220,7 +220,8 @@ export interface ItemTradeInfo {
   costCHS: {
     costId: number,
     costCount: number
-  }
+  },
+  costAlter?: ItemTradeInfo
 }
 
 /**
@@ -266,7 +267,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.descEN = _item.desc[1]
   itemInfo.descZH = _item.desc[2]
   itemInfo.classJobId = _item.jobs
-  itemInfo.patch = _item.p || '7.05'
+  itemInfo.patch = _item.p || '7.3'
   itemInfo.hqable = _item.hq
   itemInfo.tradable = _item.tradable
 
@@ -696,7 +697,7 @@ const parseApiPriceInfo = (apiPriceInfo : ApiPriceInfo) => {
   itemPriceInfo.marketPriceNQ = nq_quantity ? nq_total / nq_quantity : 0
   itemPriceInfo.marketPriceHQ = hq_quantity ? hq_total / hq_quantity : 0
 
-  nq_quantity = 0, nq_total = 0, hq_quantity = 0, hq_total = 0
+  nq_quantity = 0; nq_total = 0; hq_quantity = 0; hq_total = 0
   apiPriceInfo.recentHistory?.forEach(item => {
     if (item.hq) {
       hq_quantity += item.quantity

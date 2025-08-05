@@ -491,6 +491,9 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               descriptions: dealDescriptions([
                 t('preference.statement_ignore_crystals.desc.desc_1'),
               ]),
+              warnings: dealDescriptions([
+                t('preference.statement_ignore_crystals.desc.desc_2', t('statistics.group.cost_and_benefit.title')),
+              ]),
               type: 'switch'
             },
             {

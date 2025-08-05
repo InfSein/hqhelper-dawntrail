@@ -90,6 +90,7 @@ const reagents = computed(() => {
   while (crafts.length < 5) {
     crafts.push(placeHolder);
   }
+  if (crafts[4].id === 0) crafts.pop()
   return crafts
 })
 
@@ -328,9 +329,9 @@ const handleAnalysisItemPrices = async () => {
           >
           </ItemButton>
           <TomeScriptButton
-            class="w-full h-full"
             :items="tomeScriptItems"
             :trade-map="tradeMap"
+            :btn-style="reagents.length === 4 ? 'grid-column-start: span 2;' : ''"
           />
         </div>
       </GroupBox>
