@@ -220,7 +220,8 @@ export interface ItemTradeInfo {
   costCHS: {
     costId: number,
     costCount: number
-  }
+  },
+  costAlter?: ItemTradeInfo
 }
 
 /**
@@ -266,7 +267,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.descEN = _item.desc[1]
   itemInfo.descZH = _item.desc[2]
   itemInfo.classJobId = _item.jobs
-  itemInfo.patch = _item.p || '7.05'
+  itemInfo.patch = _item.p || '7.3'
   itemInfo.hqable = _item.hq
   itemInfo.tradable = _item.tradable
 
