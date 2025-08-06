@@ -7,6 +7,7 @@ import ItemCell from './ItemCell.vue'
 import StatementListPop from './StatementListPop.vue'
 import { getItemInfo, type ItemInfo, type StatementRow } from '@/tools/item'
 import { type UserConfigModel } from '@/models/config-user'
+import { objectEqual } from '@/tools'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -69,6 +70,11 @@ const handleNumInputLoop = (row: StatementRow) => {
     itemsPrepared.value[itemId] = row.amount.total
   }
 }
+
+const handleRowClick = (row: StatementRow) => {
+  if (objectEqual(selectedItem.value, row.info)) selectedItem.value = undefined
+  else selectedItem.value = row.info
+}
 </script>
 
 <template>
@@ -106,7 +112,7 @@ const handleNumInputLoop = (row: StatementRow) => {
               v-for="item in rows.remaining"
               :key="'item-remaining-' + item.info.id"
               :class="highlightedItems.includes(item.info.id) ? 'highlight' : ''"
-              @click="selectedItem = item.info"
+              @click="handleRowClick(item)"
             >
               <td>
                 <ItemCell
