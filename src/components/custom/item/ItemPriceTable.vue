@@ -8,7 +8,7 @@ import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/config-user'
 import type { FuncConfigModel } from '@/models/config-func'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -25,12 +25,12 @@ const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
   const price = funcConfig.value.cache_item_prices[item.id]?.[`${funcConfig.value.universalis_priceType}${type}`]
   if (price === undefined) {
     return {
-      price: t('未知'),
-      total: t('未知')
+      price: t('common.unknown'),
+      total: t('common.unknown')
     }
   } else {
     const p = Math.floor(price)
-    const tooltipForNoPrice = t('没有获取到价格。') + '\n' + t('可能原因：物品未实装/交易数据不足')
+    const tooltipForNoPrice = t('item.price.no_price_received') + '\n' + t('item.price.no_price_received_reason')
     const styleForNoPrice = 'cursor: help; text-decoration: underline dashed gray;'
     return {
       price: p ? p.toLocaleString() : '???',
@@ -53,10 +53,10 @@ const getItemAmount = (amount: number) => {
     <n-table class="table" size="small" :single-line="false">
       <thead>
         <tr>
-          <th>{{ t('物品') }}</th>
-          <th>{{ t('数量') }}</th>
-          <th>{{ t('单价') }}</th>
-          <th>{{ t('小计') }}</th>
+          <th>{{ t('common.item') }}</th>
+          <th>{{ t('common.amount') }}</th>
+          <th>{{ t('common.unit_price') }}</th>
+          <th>{{ t('common.subtotal') }}</th>
         </tr>
       </thead>
     </n-table>

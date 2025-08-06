@@ -20,7 +20,7 @@ import { useFufuCal } from '@/tools/use-fufu-cal'
 import { calCostAndBenefit, getItemInfo, getItemPriceInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
 
 const store = useStore()
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -90,6 +90,7 @@ const reagents = computed(() => {
   while (crafts.length < 5) {
     crafts.push(placeHolder);
   }
+  if (crafts[4].id === 0) crafts.pop()
   return crafts
 })
 
@@ -288,7 +289,7 @@ const updateItemPrices = async () => {
       await store.commit('setFuncConfig', fixFuncConfig(newConfig, store.state.userConfig))
     } catch (error : any) {
       console.error(error)
-      alert(t('获取价格失败') + '\n' + (error?.message ?? error))
+      alert(t('common.message.get_price_failed') + '\n' + (error?.message ?? error))
     }
     updatingPrice.value = false
   }
@@ -304,16 +305,16 @@ const handleAnalysisItemPrices = async () => {
   <FoldableCard card-key="main-statistics">
     <template #header>
       <i class="xiv square-4"></i>
-      <span class="card-title-text">{{ t('查看统计') }}</span>
-      <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('[查看报表]') }}</a>
-      <a class="card-title-extra" href="javascript:void(0);" @click="handleDisplayImportExportModal">[{{ t('导入/导出') }}]</a>
+      <span class="card-title-text">{{ t('statistics.view_statistics') }}</span>
+      <a class="card-title-extra" href="javascript:void(0);" @click="showStatement">{{ t('common.mquoted_view_statement') }}</a>
+      <a class="card-title-extra" href="javascript:void(0);" @click="handleDisplayImportExportModal">[{{ t('common.imexport') }}]</a>
     </template>
     <div class="wrapper">
       <GroupBox
         id="reagents-group" class="group" title-background-color="var(--n-color-embedded)" title-max-width="200px"
-        :title="t('特殊')"
+        :title="t('common.special')"
         :descriptions="[
-          t('包括特殊秘籍半成品(即炼金术士的各个宝水)和点数统计。')
+          t('statistics.group_tooltip.special')
         ]"
       >
         <div class="container">
@@ -328,17 +329,17 @@ const handleAnalysisItemPrices = async () => {
           >
           </ItemButton>
           <TomeScriptButton
-            class="w-full h-full"
             :items="tomeScriptItems"
             :trade-map="tradeMap"
+            :btn-style="reagents.length === 4 ? 'grid-column-start: span 2;' : ''"
           />
         </div>
       </GroupBox>
       <GroupBox
         id="aethersands-group" class="group" title-background-color="var(--n-color-embedded)"
-        :title="t('灵砂统计')"
+        :title="t('statistics.group.aethersands')"
         :descriptions="[
-          t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+          t('statistics.group_tooltip.common_material_lvbase')
         ]"
       >
         <div class="container">
@@ -354,9 +355,9 @@ const handleAnalysisItemPrices = async () => {
       </GroupBox>
       <GroupBox
         id="master-precrafts-group" class="group" title-background-color="var(--n-color-embedded)"
-        :title="t('普通秘籍半成品统计')"
+        :title="t('statistics.group.common_master_precrafts')"
         :descriptions="[
-          t('即炼金术士宝水系列以外的秘籍半成品。')
+          t('statistics.group_tooltip.common_master_precrafts')
         ]"
       >
         <div class="container">
@@ -369,9 +370,9 @@ const handleAnalysisItemPrices = async () => {
       </GroupBox>
       <GroupBox
         id="common-precrafts-group" class="group" title-background-color="var(--n-color-embedded)"
-        :title="t('普通半成品统计')"
+        :title="t('statistics.group.common_precrafts')"
         :descriptions="[
-          t('此处的统计只计算了直接制作成品的所需素材，未包括制作半成品的所需素材。')
+          t('statistics.group_tooltip.common_material_lv1')
         ]"
       >
         <div class="container">
@@ -385,14 +386,14 @@ const handleAnalysisItemPrices = async () => {
       <div id="statistics-footer">
         <GroupBox
           id="gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
-          :title="t('采集统计')"
+          :title="t('statistics.group.gatherings.title')"
           :descriptions="[
-            t('此处的统计包括直接制作成品的所需素材和制作半成品的所需素材。')
+            t('statistics.group_tooltip.common_material_lvbase')
           ]"
         >
           <div class="container">
             <n-collapse :accordion="!isMobile" :default-expanded-names="['crystals']">
-              <n-collapse-item :title="t('常规采集品')" name="gatheringsCommon">
+              <n-collapse-item :title="t('statistics.group.gatherings.common')" name="gatheringsCommon">
                 <div class="item-collapsed-container">
                   <ItemList
                     :items="gatheringsCommon"
@@ -402,7 +403,7 @@ const handleAnalysisItemPrices = async () => {
                   />
                 </div>
               </n-collapse-item>
-              <n-collapse-item :title="t('限时采集品')" name="gatheringsTimed">
+              <n-collapse-item :title="t('statistics.group.gatherings.time_limited')" name="gatheringsTimed">
                 <div class="item-collapsed-container">
                   <ItemList
                     :items="gatheringsTimed"
@@ -412,7 +413,7 @@ const handleAnalysisItemPrices = async () => {
                   />
                 </div>
               </n-collapse-item>
-              <n-collapse-item :title="t('水晶')" name="crystals">
+              <n-collapse-item :title="t('game.crystal')" name="crystals">
                 <div class="item-collapsed-container">
                   <ItemList
                     :items="crystals"
@@ -426,10 +427,10 @@ const handleAnalysisItemPrices = async () => {
         </GroupBox>
         <GroupBox
           id="price-analysis-group" class="group" title-background-color="var(--n-color-embedded)"
-          :title="t('成本/收益预估')"
+          :title="t('statistics.group.cost_and_benefit.title')"
           :descriptions="[
-            t('借助Universalis提供的API计算素材成本和预计收益。'),
-            t('“收益”是指卖出制作成品所能获得的金钱，并未扣除成本。')
+            t('statistics.group.cost_and_benefit.button.tooltip.tooltip_1'),
+            t('statistics.group.cost_and_benefit.button.tooltip.tooltip_2')
           ]"
         >
           <n-button
@@ -439,8 +440,8 @@ const handleAnalysisItemPrices = async () => {
             :disabled="updatingPrice"
           >
             <div style="line-height: 1.2; text-align: left;">
-              <p>{{ t('预计成本 {val}', costAndBenefit.costInfo) }}</p>
-              <p>{{ t('预计收益 {val}', costAndBenefit.benefitInfo) }}</p>
+              <p>{{ t('statistics.group.cost_and_benefit.button.text.text_1', costAndBenefit.costInfo) }}</p>
+              <p>{{ t('statistics.group.cost_and_benefit.button.text.text_2', costAndBenefit.benefitInfo) }}</p>
             </div>
           </n-button>
         </GroupBox>

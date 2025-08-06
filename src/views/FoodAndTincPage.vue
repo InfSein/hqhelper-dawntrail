@@ -15,7 +15,7 @@ import { useStore } from '@/store'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import type { UserConfigModel } from '@/models/config-user'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
@@ -86,7 +86,7 @@ const workflowItems = computed(() => {
 })
 const handleJoinWorkflow = () => {
   if (!Object.values(workflowItems.value).length) {
-    NAIVE_UI_MESSAGE.error(t('还未选择任何食物/爆发药')); return
+    NAIVE_UI_MESSAGE.error(t('workflow.join_in_workflow.message.no_food_tinc')); return
   }
   showModalJoinInWorkflow.value = true
 }
@@ -97,7 +97,7 @@ const handleJoinWorkflow = () => {
     <RouterCard
       id="router-card"
       v-show="appMode !== 'overlay'"
-      :page-name="t('食药计算')"
+      :page-name="t('common.appfunc.cal_food_and_tinc')"
       :page-icon="FastfoodOutlined"
     />
     <div id="left-layout">

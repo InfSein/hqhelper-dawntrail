@@ -12,7 +12,7 @@ import { type UserConfigModel } from '@/models/config-user'
 
 const store = useStore()
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 interface FoldableCardProps {
@@ -39,7 +39,6 @@ const ui_fold_cache = userConfig.value.cache_ui_fold ?? {}
 const foldOnDefault : boolean = !userConfig.value.disable_workstate_cache && (ui_fold_cache[props.cardKey] ?? false)
 
 const folded = ref(foldOnDefault)
-const folderText = ref('')
 const folderIcon = shallowRef(KeyboardArrowUpRound)
 const cardContentStyle = ref('')
 
@@ -55,14 +54,15 @@ const foldIcon = computed(() => {
 const expandIcon = computed(() => {
   return foldDirection.value === 'vertical' ? KeyboardArrowDownRound : KeyboardArrowRightRound
 })
+const folderText = computed(() => {
+  return folded.value ? t('common.expand') : t('common.fold')
+})
 
 const updateUi = () => {
   if (folded.value) {
-    folderText.value = t('展开')
     folderIcon.value = expandIcon.value
     cardContentStyle.value = 'padding: 0;'
   } else {
-    folderText.value = t('折叠')
     folderIcon.value = foldIcon.value
     cardContentStyle.value = ''
   }

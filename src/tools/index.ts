@@ -28,6 +28,9 @@ export const assignDefaults = (defaultVal: any, currentVal: any) => {
   }
   return currentVal;
 }
+export const objectEqual = <T>(obj1: T, obj2: T): boolean => {
+  return JSON.stringify(obj1) === JSON.stringify(obj2)
+}
 
 /** 压缩字符串 */
 export const compressString = (input: string): string => {

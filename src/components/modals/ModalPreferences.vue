@@ -34,7 +34,7 @@ import { fixWorkState } from '@/models/workflow'
 import { deepCopy } from '@/tools'
 import useUiTools from '@/tools/ui'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
@@ -73,763 +73,767 @@ const dealDescriptions = (descriptions: string[]) => {
 }
 const getPriceTypeOptions = () => {
   return [
-    { value: 'averagePrice', label: t('平均价格') },
-    { value: 'currentAveragePrice', label: t('当前平均价格') },
-    { value: 'minPrice', label: t('最低价格') },
-    { value: 'maxPrice', label: t('最高价格') },
-    { value: 'purchasePrice', label: t('近期成交价格'), description: t('选取最近5条成交记录计算平均价格') },
-    { value: 'marketLowestPrice', label: t('当前寄售最低价'), description: t('选取交易板前10条在售记录中的最低价格') },
-    { value: 'marketPrice', label: t('当前寄售平均价'), description: t('选取交易板前10条在售记录计算平均价格') }
+    { value: 'averagePrice', label: t('preference.universalis_price_type.option.average') },
+    { value: 'currentAveragePrice', label: t('preference.universalis_price_type.option.curr_average') },
+    { value: 'minPrice', label: t('preference.universalis_price_type.option.min') },
+    { value: 'maxPrice', label: t('preference.universalis_price_type.option.max') },
+    { value: 'purchasePrice', label: t('preference.universalis_price_type.option.purchase_average.title'), description: t('preference.universalis_price_type.option.purchase_average.tooltip.tooltip_1') },
+    { value: 'marketLowestPrice', label: t('preference.universalis_price_type.option.market_min.title'), description: t('preference.universalis_price_type.option.market_min.tooltip.tooltip_1') },
+    { value: 'marketPrice', label: t('preference.universalis_price_type.option.market_average.title'), description: t('preference.universalis_price_type.option.market_average.tooltip.tooltip_1') }
   ]
 }
-const preferenceGroups : PreferenceGroup[] = [
-  {
-    key: 'userConfig',
-    text: t('基础设置'),
-    settings: [
-      /* General */
-      {
-        key: 'general',
-        icon: TravelExploreRound,
-        text: t('通用'),
-        children: [
-          {
-            key: 'language_ui',
-            label: t('界面语言'),
-            type: 'radio-group',
-            options: [
-              { value: 'zh', label: '简体中文' },
-              { value: 'en', label: 'English' },
-              { value: 'ja', label: '日本語' }
-            ],
-            require_reload: true
-          },
-          {
-            key: 'language_item',
-            label: t('物品语言'),
-            descriptions: dealDescriptions([
-              t('选择程序中道具的语言。此设置还会影响一部分其他信息(例如地图名)的语言。'),
-              t('如果选择“自动”，物品语言将跟随“界面语言”的设置。'),
-            ]),
-            type: 'radio-group',
-            options: [
-              { value: 'auto', label: t('自动') },
-              { value: 'zh', label: '简体中文' },
-              { value: 'en', label: 'English' },
-              { value: 'ja', label: '日本語' }
-            ],
-          },
-          {
-            key: 'item_server',
-            label: t('服务器'),
-            descriptions: dealDescriptions([
-              t('选择您游戏账号所属的服务器。此设置还会影响一部分统计数据(例如点数道具的兑换价格)的计算方式。'),
-              t('如果选择“自动”，程序会根据您在“物品语言”的设置自动判断。'),
-            ]),
-            type: 'radio-group',
-            options: [
-              { value: 'auto', label: t('自动') },
-              { value: 'chs', label: t('国服') },
-              { value: 'global', label: t('国际服') }
-            ],
-          },
-          {
-            key: 'action_after_savesettings',
-            label: t('保存设置后自动刷新'),
-            warnings: dealDescriptions([
-              t('此设置修改后本次保存便会生效。另外，仅会在需要刷新的时候执行自动刷新。')
-            ]),
-            type: 'radio-group',
-            options: [
-              { value: 'ask', label: t('每次询问') },
-              { value: 'reload', label: t('自动刷新') },
-              { value: 'none', label: t('不刷新') }
-            ]
-          }
-        ]
-      },
-      /* Appearance */
-      {
-        key: 'appearance',
-        icon: ColorLensRound,
-        text: t('外观'),
-        children: [
-          {
-            key: 'theme',
-            label: t('主题'),
-            type: 'radio-group',
-            options: [
-              { value: 'system', label: t('跟随系统') },
-              { value: 'light', label: t('浅色') },
-              { value: 'dark', label: t('深色') }
-            ]
-          },
-          {
-            key: 'custom_font_size',
-            label: t('字体大小'),
-            descriptions: dealDescriptions([
-              t('全局性地修改程序/网站的字体大小。'),
-              t('部分区域的字体大小不受此设置的影响。此外，还会受到浏览器“最小字号”设置的限制。'),
-              t('暂时无法保证“标准”大小之外的显示效果。除非有特殊需要，否则不建议修改。'),
-            ]),
-            type: 'radio-group',
-            options: [
-              { value: '12px', label: t('更小') },
-              { value: '13px', label: t('较小') },
-              { value: '14px', label: t('标准') },
-              { value: '15px', label: t('较大') },
-              { value: '16px', label: t('更大') },
-            ],
-          },
-          {
-            key: 'custom_font',
-            label: t('自定义字体'),
-            descriptions: dealDescriptions([
-              t('全局性地修改程序/网站的字体。'),
-              t('可以设置多个字体，用英文逗号分隔。当前一个字体字库未包括要显示的文字时，程序会使用下一个字体；如果均不包括，程序会使用设置前的字体。'),
-              t('字体名称出现空格时，建议用英文的单引号或双引号来将其包裹，例如"思源黑体 CN Medium"。'),
-              t('如果你对CSS有所了解，可以直接参照font-family的语法来填写。'),
-            ]),
-            type: 'string',
-          },
-          {
-            key: 'hide_collector_icons',
-            label: t('隐藏物品按钮的职业图标'),
-            descriptions: dealDescriptions([
-              t('部分物品按钮会在物品名处展示该物品对应的生产/采集职业图标。'),
-              t('虽然会更方便，但显示效果可能就不太尽如人意。'),
-              t('如果你觉得这样太过碍眼，请考虑打开此选项。'),
-            ]),
-            type: 'switch'
-          },
-        ]
-      },
-      /* Enhancements */
-      {
-        key: 'enhancements',
-        icon: TrendingUpRound,
-        text: t('增强'),
-        children: [
-          {
-            key: 'disable_patchcard_autofold',
-            label: t('禁用选择版本后自动折叠'),
-            hide: !isMobile.value,
-            descriptions: dealDescriptions([
-              t('"选择版本"在手机端有些太占地方，而且一般也不会被高频率地修改，所以我们默认在你选择版本之后就自动折叠它。'),
-              t('如果你觉得不自动折叠会更好，请打开此选项。'),
-            ]),
-            type: 'switch'
-          },
-          {
-            key: 'disable_jobbtn_doubleclick',
-            label: t('禁用重复点击已选择的职业按钮时添加主副手'),
-            descriptions: dealDescriptions([
-              t('在选择了职业之后再度点击职业按钮，将会默认添加一套主副手武器或工具。'),
-              t('这一功能在第一代HqHelper是默认关闭的，而本代默认开启。如果这与您的习惯相悖，请打开此选项。'),
-            ]),
-            type: 'switch'
-          },
-          {
-            key: 'item_pop_craft_show_crystals',
-            label: t('物品悬浮窗中显示水晶素材'),
-            hide: isMobile.value,
-            descriptions: dealDescriptions([
-              t('开启此项后，对于可制作道具，其物品悬浮窗的制作模块将显示制作它所需的碎晶／水晶／晶簇。'),
-            ]),
-            type: 'switch'
-          },
-          {
-            key: 'click_to_show_pop_in_span',
-            label: t('手动控制二级悬浮窗'),
-            hide: isMobile.value,
-            descriptions: dealDescriptions([
-              t('在物品按钮悬浮窗内可能有一些可以打开子悬浮窗的元素，比如制作素材和地图按钮。'),
-              t('在默认情况下，光标悬停在元素上时就会立即打开子悬浮窗。如果你觉得这样太容易误触，可以打开此选项，只通过左键单击来控制子悬浮窗的显示与否。'),
-            ]),
-            type: 'switch'
-          },
-          {
-            key: 'item_amount_use_comma',
-            label: t('物品数量按千分号格式化'),
-            descriptions: dealDescriptions([
-              t('开启此选项时，物品数量将按千分号格式化(如 12,345)。'),
-              t('此选项适用于所有表格、物品按钮和物品信息。'),
-            ]),
-            type: 'switch',
-          },
-          {
-            key: 'item_button_click_event',
-            label: t('点击物品按钮时的行为'),
-            type: 'select',
-            options: [
-              { value: 'none', label: t('什么都不做') },
-              { value: 'copy_name', label: t('复制物品名') },
-              { value: 'copy_isearch', label: t('复制物品检索宏') },
-            ]
-          },
-          {
-            key: 'item_info_icon_click_event',
-            label: t('点击物品信息图标时的行为'),
-            descriptions: dealDescriptions([
-              t('控制点击部分区域物品名称右侧蓝色信息图标时触发的事件。'),
-              t('“{option}”与此项目的设置可能会有冲突。', t('手动控制二级悬浮窗')),
-            ]),
-            type: 'select',
-            options: [
-              { value: 'none', label: t('什么都不做') },
-              { value: 'copy_name', label: t('复制物品名') },
-              { value: 'copy_isearch', label: t('复制物品检索宏') },
-            ]
-          },
-          {
-            key: 'item_list_style',
-            label: t('材料清单格式'),
-            descriptions: dealDescriptions([
-              t('决定在点击材料区域物品按钮组上方的“清单”按钮后，展示的物品清单格式。'),
-              t('部分程序可能可以识别并导入特定格式的清单。'),
-            ]),
-            type: 'select',
-            options: [
-              { value: 'standard', label: t('标准 (物品名称 x 数量)') },
-              { value: 'tight', label: t('紧凑 (物品名称x数量)') },
-              { value: 'modern', label: t('现代 (物品名称 x数量)') },
-              { value: 'teamcraft', label: t('Teamcraft风格 (数量x 物品名称)') },
-            ]
-          },
-        ]
-      },
-      /* Performance */
-      {
-        key: 'performance',
-        icon: MemoryRound,
-        text: t('性能'),
-        children: [
-          {
-            key: 'disable_workstate_cache',
-            label: t('禁用工作状态记忆'),
-            descriptions: dealDescriptions([
-              t('应用默认记录您的版本、职业和部件选择，从而让应用长期保持上次关闭时的的工作状态。'),
-              t('如果您希望每次打开应用都从头开始，或是在使用过程中出现较严重的卡顿，则可以考虑打开此选项。'),
-            ]),
-            warnings: [
-              {
-                value: t('注意：禁用工作状态记忆后，已记录的工作状态将被立即删除！'),
-                class: 'red',
-                style: ''
-              }
-            ],
-            type: 'switch',
-            require_reload: true
-          },
-          {
-            key: 'enable_dev_mode',
-            label: t('启用开发者模式'),
-            hide: !window.electronAPI?.openDevTools,
-            type: 'switch',
-            require_reload: true
-          }
-        ]
-      },
-      /* Update */
-      {
-        key: 'update',
-        icon: UpdateRound,
-        text: t('更新'),
-        children: [
-          {
-            key: 'disable_auto_update',
-            label: t('禁用自动更新'),
-            descriptions: [
-              ...dealDescriptions([
-                t('我们默认在您启动应用时检查一次最新版本，并提示您进行更新。'),
-                t('如果您不希望接收到更新提示，则可以考虑打开此选项。'),
-              ]),
-              {
-                value: t('在使用网页端时，即使打开了这一选项，浏览器也仍会因为缓存而自动更新。'),
-                class: 'color-info',
-                style: ''
-              }
-            ],
-            type: 'switch'
-          },
-          {
-            key: 'update_client_builtin',
-            label: t('使用内置更新功能处理客户端更新'),
-            descriptions: dealDescriptions([
-              t('在默认情况下，当您尝试更新客户端版本时，程序会通过系统默认浏览器打开下载链接。'),
-              t('启用此选项后，将直接在程序内下载并打开新版本客户端的安装包。'),
-            ]),
-            type: 'switch',
-            hide: !window.electronAPI?.downloadAndOpen
-          },
-          {
-            key: 'use_custom_proxy',
-            label: t('使用自定义加速服务'),
-            type: 'switch',
-            hide: !window.electronAPI
-          },
-          {
-            key: 'custom_proxy_url',
-            label: t('自定义加速服务地址'),
-            type: 'string',
-            hide: !window.electronAPI
-          }
-        ]
-      }
-    ]
-  },
-  {
-    key: 'funcConfig',
-    text: t('功能设置'),
-    settings: [
-      /* 复制宏 */
-      {
-        key: 'copy_macro',
-        icon: CodeSharp,
-        text: t('复制宏'),
-        children: [
-          {
-            key: 'macro_direct_copy',
-            label: t('点击“复制宏”时直接复制'),
-            descriptions: dealDescriptions([
-              t('在默认情况下，每次您点击“复制宏”按钮，程序都会弹窗询问您要复制哪种宏。'),
-              t('如果您希望提升效率，可以启用此选项，让程序直接按照默认的宏前缀来复制宏。'),
-            ]),
-            type: 'switch'
-          },
-          {
-            key: 'macro_copy_prefix',
-            label: t('默认宏前缀'),
-            type: 'select',
-            options: [
-              { value: '', label: t('直接复制(无前缀)') },
-              { value: '/e ', label: t('自提醒宏(/e)') },
-              { value: '/p ', label: t('小队宏(/p)') },
-              { value: '/fc ', label: t('部队宏(/fc)') },
-              { value: '/b ', label: t('新频宏(/b)') },
-            ]
-          },
-          {
-            key: 'macro_generate_mode',
-            label: t('宏生成模式'),
-            descriptions: dealDescriptions([
-              t('决定要以何种格式生成宏。'),
-              t('单行模式会将所有材料合并入一行，以允许你直接在游戏内聊天框中粘贴发送；'),
-              t('多行模式会分行展示材料，以获得更好的排版，不过这样就必须在游戏内的用户宏界面中粘贴执行才能发送。'),
-            ]),
-            type: 'select',
-            options: [
-              { value: 'singleLine', label: t('单行模式') },
-              { value: 'multiLine', label: t('多行模式') },
-            ]
-          },
-        ]
-      },
-      /* 生产宏 */
-      {
-        key: 'craft_macro',
-        icon: DiscountOutlined,
-        text: t('生产宏'),
-        children: [
-          {
-            key: 'cmacro_use_macrolock',
-            label: t('在每个生产宏的开头使用/macrolock'),
-            descriptions: dealDescriptions([
-              t('启用后生成的生产宏在执行期间不会被其他宏打断，不过各宏的技能容量也会减少。'),
-            ]),
-            type: 'switch'
-          },
-          {
-            key: 'cmacro_remove_quotes',
-            label: t('移除生产宏技能名的双引号'),
-            descriptions: dealDescriptions([
-              t('技能名含空格时必须使用双引号或是手动转换为定型文，否则执行时会报错。'),
-            ]),
-            type: 'switch'
-          },
-          {
-            key: 'cmacro_transition_tipper_content',
-            label: t('过渡生产宏的执行结束提醒'),
-            descriptions: dealDescriptions([
-              t('过渡生产宏指最后一个宏之外的生产宏。'),
-              t('提醒内容中的「~INDEX」将被替换为宏的顺序号。'),
-              t('此项未填写任何内容时会使用默认值：{val}', '/e Macro #~INDEX completed. <se.1>'),
-            ]),
-            type: 'string',
-            placeholder: '/e Macro #~INDEX completed. <se.1>',
-          },
-          {
-            key: 'cmacro_end_tipper_content',
-            label: t('最终生产宏的执行结束提醒'),
-            descriptions: dealDescriptions([
-              t('此项未填写任何内容时会使用默认值：{val}', '/e Craft done! <se.14>'),
-            ]),
-            type: 'string',
-            placeholder: '/e Craft done! <se.14>',
-          },
-        ]
-      },
-      /* 制作报表 */
-      {
-        key: 'craft_statement',
-        icon: TableViewOutlined,
-        text: t('制作报表'),
-        children: [
-          {
-            key: 'use_traditional_statement',
-            label: t('使用旧版本制作报表'),
-            descriptions: dealDescriptions([
-              t('在2.0.10版本，我们添加了专业版制作报表，提供更详细的物品信息表格，并支持根据已准备素材计算尚需素材。'),
-              t('如果你并不需要这些功能，或是更喜欢旧版本制作报表的风格，可以考虑打开此选项。'),
-            ]),
-            type: 'switch',
-            require_reload: true
-          },
-          {
-            key: 'statement_ignore_crystals',
-            label: t('忽略水晶素材'),
-            descriptions: dealDescriptions([
-              t('如果你不需要让制作报表计算各种碎晶／水晶／晶簇，可以考虑打开此选项。'),
-            ]),
-            type: 'switch'
-          },
-          {
-            key: 'statement_no_highlights',
-            label: t('禁用高亮展示关联素材'),
-            descriptions: dealDescriptions([
-              t('在2.2.4版本，我们向制作报表追加了一个新功能，左键单击任意物品行后，它和它的制作素材会被高亮展示。'),
-              t('如果你并不需要这一功能、觉得它太容易误触，可以考虑打开此选项。'),
-            ]),
-            type: 'switch'
-          },
-          {
-            key: 'prostate_concise_mode',
-            label: t('使用简洁模式展示物品'),
-            descriptions: dealDescriptions([
-              t('仅在专业版制作报表生效。')
-            ]),
-            type: 'switch'
-          }
-        ]
-      },
-      /* 推荐流程 */
-      {
-        key: 'recomm_process',
-        icon: AllInclusiveSharp,
-        text: t('推荐流程'),
-        children: [
-          {
-            key: 'processes_show_item_details',
-            label: t('显示物品详情'),
-            type: 'switch'
-          },
-          {
-            key: 'processes_merge_gatherings',
-            label: t('合并采集物品'),
-            type: 'switch',
-            descriptions: dealDescriptions([
-              t('将采矿工采集品和园艺工采集品合并。'),
-              t('例如，合并前为采矿非限时、园艺非限时、采矿限时、园艺限时，合并后为采集非限时、采集限时。'),
-            ])
-          },
-          {
-            key: 'processes_craftable_item_sortby',
-            label: t('制作物品排序规则'),
-            type: 'select',
-            options: [
-              { value: 'itemId', label: t('物品ID') },
-              { value: 'recipeOrder', label: t('制作笔记顺序') }
-            ],
-            descriptions: dealDescriptions([
-              t('如果选择“制作笔记顺序”，将优先按照制作笔记(游戏内按N打开的制作界面)中配方的顺序排列。'),
-            ])
-          }
-        ]
-      },
-      /* 物品价格 */
-      {
-        key: 'cost_benefit',
-        icon: AttachMoneyOutlined,
-        text: t('物品价格'),
-        children: [
-          {
-            key: 'universalis_server',
-            label: t('服务器'),
-            descriptions: dealDescriptions([
-              t('适用于“{f}”功能和物品悬浮窗中的价格模块。', t('成本/收益预估')),
-              t('下方的输入框支持通过输入关键词来检索选项。'),
-            ]),
-            warnings: [
-              {
-                value: t('注意：修改此设置将会清除所有已获取的物品价格缓存！'),
-                class: 'red', style: ''
-              }
-            ],
-            type: 'cascader',
-            options: [
+const preferenceGroups = computed(() : PreferenceGroup[] => {
+  return [
+    {
+      key: 'userConfig',
+      text: t('common.appsetting.basic_setting'),
+      settings: [
+        /* General */
+        {
+          key: 'general',
+          icon: TravelExploreRound,
+          text: t('common.appsetting.general'),
+          children: [
             {
-                value: 'chs',
-                label: '中国',
-                children: [
-                  {
-                    value: 'g_陆行鸟',
-                    label: '陆行鸟',
-                    children: dealSimOptions([
-                      '陆行鸟',"红玉海","神意之地","拉诺西亚","幻影群岛","萌芽池","宇宙和音","沃仙曦染","晨曦王座"
-                    ])
-                  },
-                  {
-                    value: 'g_莫古力',
-                    label: '莫古力',
-                    children: dealSimOptions([
-                      '莫古力',"白银乡","白金幻象","神拳痕","潮风亭","旅人栈桥","拂晓之间","龙巢神殿","梦羽宝境"
-                    ])
-                  },
-                  {
-                    value: 'g_猫小胖',
-                    label: '猫小胖',
-                    children: dealSimOptions([
-                      '猫小胖',"紫水栈桥","延夏","静语庄园","摩杜纳","海猫茶屋","柔风海湾","琥珀原"
-                    ])
-                  },
-                  {
-                    value: 'g_豆豆柴',
-                    label: '豆豆柴',
-                    children: dealSimOptions([
-                      '豆豆柴',"水晶塔","银泪湖","太阳海岸","伊修加德","红茶川","黄金谷","月牙湾","雪松原"
-                    ])
-                  }
-                ]
-              },
-              {
-                value: 'japan',
-                label: '日本',
-                children: [
-                  {
-                    value: 'g_Elemental',
-                    label: 'Elemental',
-                    children: dealSimOptions([
-                      'Elemental',"Carbuncle","Kujata","Typhon","Garuda","Atomos","Tonberry","Aegis","Gungnir"
-                    ])
-                  },
-                  {
-                    value: 'g_Gaia',
-                    label: 'Gaia',
-                    children: dealSimOptions([
-                      'Gaia',"Alexander","Fenrir","Ultima","Ifrit","Bahamut","Tiamat","Durandal","Ridill"
-                    ])
-                  },
-                  {
-                    value: 'g_Mana',
-                    label: 'Mana',
-                    children: dealSimOptions([
-                      'Mana',"Asura","Pandaemonium","Anima","Hades","Ixion","Titan","Chocobo","Masamune"
-                    ])
-                  },
-                  {
-                    value: 'g_Meteor',
-                    label: 'Meteor',
-                    children: dealSimOptions([
-                      'Meteor',"Belias","Shinryu","Unicorn","Yojimbo","Zeromus","Valefor","Ramuh","Mandragora"
-                    ])
-                  }
-                ]
-              },
-              {
-                value: 'na',
-                label: 'North-America',
-                children: [
-                  {
-                    value: 'g_Aether',
-                    label: 'Aether',
-                    children: dealSimOptions([
-                      'Aether',"Jenova","Faerie","Siren","Gilgamesh","Midgardsormr","Adamantoise","Cactuar","Sargatanas"
-                    ])
-                  },
-                  {
-                    value: 'g_Primal',
-                    label: 'Primal',
-                    children: dealSimOptions([
-                      'Primal',"Famfrit","Exodus","Lamia","Leviathan","Ultros","Behemoth","Excalibur","Hyperion"
-                    ])
-                  },
-                  {
-                    value: 'g_Crystal',
-                    label: 'Crystal',
-                    children: dealSimOptions([
-                      'Crystal',"Brynhildr","Mateus","Zalera","Diabolos","Coeurl","Malboro","Goblin","Balmung"
-                    ])
-                  },
-                  {
-                    value: 'g_Dynamis',
-                    label: 'Dynamis',
-                    children: dealSimOptions([
-                      'Dynamis',"Marilith","Seraph","Halicarnassus","Maduin","Cuchulainn","Kraken","Rafflesia","Golem"
-                    ])
-                  }
-                ]
-              },
-              {
-                value: 'eu',
-                label: 'Europe',
-                children: [
-                  {
-                    value: 'g_Chaos',
-                    label: 'Chaos',
-                    children: dealSimOptions([
-                      'Chaos',"Omega","Moogle","Cerberus","Louisoix","Spriggan","Ragnarok","Sagittarius","Phantom"
-                    ])
-                  },
-                  {
-                    value: 'g_Light',
-                    label: 'Light',
-                    children: dealSimOptions([
-                      'Light',"Twintania","Lich","Zodiark","Phoenix","Odin","Shiva","Alpha","Raiden"
-                    ])
-                  },
-                ]
-              },
-              {
-                value: 'ocean',
-                label: 'Oceania',
-                children: [
-                  {
-                    value: 'g_Materia',
-                    label: 'Materia',
-                    children: dealSimOptions([
-                      'Materia',"Ravana","Bismarck","Sephirot","Sophia","Zurvan"
-                    ])
-                  },
-                ]
-              },
-              {
-                value: 'kr',
-                label: '한국',
-                children: [
-                  {
-                    value: 'g_한국',
-                    label: '한국',
-                    children: dealSimOptions([
-                      '한국',"카벙클","초코보","모그리","톤베리","펜리르"
-                    ])
-                  },
-                ]
-              },
-            ],
-            require_reload: true
-          },
-          {
-            key: 'universalis_priceType',
-            label: t('价格类型'),
-            descriptions: [
-              ...dealDescriptions([
-                t('适用于“{f}”功能。', t('成本/收益预估')),
-                t('计算成本时，默认计算制作材料NQ的价格；计算收益时，默认计算成品道具HQ的价格。'),
+              key: 'language_ui',
+              label: t('preference.language_ui'),
+              type: 'radio-group',
+              options: [
+                { value: 'zh', label: '简体中文' },
+                { value: 'en', label: 'English' },
+                { value: 'ja', label: '日本語' }
+              ],
+            },
+            {
+              key: 'language_item',
+              label: t('preference.language_item.title'),
+              descriptions: dealDescriptions([
+                t('preference.language_item.desc.desc_1'),
+                t('preference.language_item.desc.desc_2'),
               ]),
-              {
-                value: t('部分选项说明：'),
-                class: '',
-                style: 'margin-top: 5px;'
-              },
-              ...dealDescriptions([
-                t('近期成交价格：选取最近5条成交记录计算平均价格。'),
-                t('当前寄售最低价：在交易板前10条在售记录中选取最低价格。'),
-                t('当前寄售平均价：选取交易板前10条在售记录计算平均价格。'),
+              type: 'radio-group',
+              options: [
+                { value: 'auto', label: t('common.auto') },
+                { value: 'zh', label: '简体中文' },
+                { value: 'en', label: 'English' },
+                { value: 'ja', label: '日本語' }
+              ],
+            },
+            {
+              key: 'item_server',
+              label: t('common.server'),
+              descriptions: dealDescriptions([
+                t('preference.item_server.desc.desc_1'),
+                t('preference.item_server.desc.desc_2'),
               ]),
-            ],
-            type: 'select',
-            options: getPriceTypeOptions()
-          },
-          {
-            key: 'universalis_expireTime',
-            label: t('缓存有效期'),
-            descriptions: dealDescriptions([
-              t('适用于“{f}”功能和物品悬浮窗中的价格模块。', t('成本/收益预估')),
-              t('程序会将获取到的物品价格缓存。一旦超出设置的有效期，就需要重新获取价格信息。'),
-              t('设定时间过短，会导致计算价格的效率降低；设置时间过长，则会导致结果过时。'),
-            ]),
-            type: 'select',
-            options: [
+              type: 'radio-group',
+              options: [
+                { value: 'auto', label: t('common.auto') },
+                { value: 'chs', label: t('preference.server.option.chs') },
+                { value: 'global', label: t('preference.server.option.global') }
+              ],
+            },
+            {
+              key: 'action_after_savesettings',
+              label: t('preference.auto_refresh_after_save.title'),
+              warnings: dealDescriptions([
+                t('preference.auto_refresh_after_save.desc.desc_1')
+              ]),
+              type: 'radio-group',
+              options: [
+                { value: 'ask', label: t('common.ask_every_time') },
+                { value: 'reload', label: t('common.auto_refresh') },
+                { value: 'none', label: t('common.dont_refresh') }
+              ]
+            }
+          ]
+        },
+        /* Appearance */
+        {
+          key: 'appearance',
+          icon: ColorLensRound,
+          text: t('common.appsetting.appearance'),
+          children: [
+            {
+              key: 'theme',
+              label: t('preference.theme.title'),
+              type: 'radio-group',
+              options: [
+                { value: 'system', label: t('preference.theme.option.follow_system') },
+                { value: 'light', label: t('preference.theme.option.light') },
+                { value: 'dark', label: t('preference.theme.option.dark') }
+              ]
+            },
+            {
+              key: 'custom_font_size',
+              label: t('preference.custom_font_size.title'),
+              descriptions: dealDescriptions([
+                t('preference.custom_font_size.desc.desc_1'),
+                t('preference.custom_font_size.desc.desc_2'),
+                t('preference.custom_font_size.desc.desc_3'),
+              ]),
+              type: 'radio-group',
+              options: [
+                { value: '12px', label: t('preference.custom_font_size.option.tiny') },
+                { value: '13px', label: t('preference.custom_font_size.option.small') },
+                { value: '14px', label: t('preference.custom_font_size.option.medium') },
+                { value: '15px', label: t('preference.custom_font_size.option.big') },
+                { value: '16px', label: t('preference.custom_font_size.option.large') },
+              ],
+            },
+            {
+              key: 'custom_font',
+              label: t('preference.custom_font.title'),
+              descriptions: dealDescriptions([
+                t('preference.custom_font.desc.desc_1'),
+                t('preference.custom_font.desc.desc_2'),
+                t('preference.custom_font.desc.desc_3'),
+                t('preference.custom_font.desc.desc_4'),
+              ]),
+              type: 'string',
+            },
+            {
+              key: 'hide_collector_icons',
+              label: t('preference.hide_collector_icons.title'),
+              descriptions: dealDescriptions([
+                t('preference.hide_collector_icons.desc.desc_1'),
+                t('preference.hide_collector_icons.desc.desc_2'),
+                t('preference.hide_collector_icons.desc.desc_3'),
+              ]),
+              type: 'switch'
+            },
+          ]
+        },
+        /* Enhancements */
+        {
+          key: 'enhancements',
+          icon: TrendingUpRound,
+          text: t('common.appsetting.enhancement'),
+          children: [
+            {
+              key: 'disable_patchcard_autofold',
+              label: t('preference.disable_patchcard_autofold.title'),
+              hide: !isMobile.value,
+              descriptions: dealDescriptions([
+                t('preference.disable_patchcard_autofold.desc.desc_1'),
+                t('preference.disable_patchcard_autofold.desc.desc_2'),
+              ]),
+              type: 'switch'
+            },
+            {
+              key: 'disable_jobbtn_doubleclick',
+              label: t('preference.disable_jobbtn_doubleclick.title'),
+              descriptions: dealDescriptions([
+                t('preference.disable_jobbtn_doubleclick.desc.desc_1'),
+                t('preference.disable_jobbtn_doubleclick.desc.desc_2'),
+              ]),
+              type: 'switch'
+            },
+            {
+              key: 'item_pop_craft_show_crystals',
+              label: t('preference.item_pop_craft_show_crystals.title'),
+              hide: isMobile.value,
+              descriptions: dealDescriptions([
+                t('preference.item_pop_craft_show_crystals.desc.desc_1'),
+              ]),
+              type: 'switch'
+            },
+            {
+              key: 'click_to_show_pop_in_span',
+              label: t('preference.click_to_show_pop_in_span.title'),
+              hide: isMobile.value,
+              descriptions: dealDescriptions([
+                t('preference.click_to_show_pop_in_span.desc.desc_1'),
+                t('preference.click_to_show_pop_in_span.desc.desc_2'),
+              ]),
+              type: 'switch'
+            },
+            {
+              key: 'item_amount_use_comma',
+              label: t('preference.item_amount_use_comma.title'),
+              descriptions: dealDescriptions([
+                t('preference.item_amount_use_comma.desc.desc_1'),
+                t('preference.item_amount_use_comma.desc.desc_2'),
+              ]),
+              type: 'switch',
+            },
+            {
+              key: 'item_button_click_event',
+              label: t('preference.item_button_click_event'),
+              type: 'select',
+              options: [
+                { value: 'none', label: t('preference.shared.option.donothing') },
+                { value: 'copy_name', label: t('preference.shared.option.copy_item_name') },
+                { value: 'copy_isearch', label: t('preference.shared.option.copy_isearch_macro') },
+              ]
+            },
+            {
+              key: 'item_info_icon_click_event',
+              label: t('preference.item_info_icon_click_event.title'),
+              descriptions: dealDescriptions([
+                t('preference.item_info_icon_click_event.desc.desc_1'),
+                t('preference.item_info_icon_click_event.desc.desc_2', t('preference.click_to_show_pop_in_span.title')),
+              ]),
+              type: 'select',
+              options: [
+                { value: 'none', label: t('preference.shared.option.donothing') },
+                { value: 'copy_name', label: t('preference.shared.option.copy_item_name') },
+                { value: 'copy_isearch', label: t('preference.shared.option.copy_isearch_macro') },
+              ]
+            },
+            {
+              key: 'item_list_style',
+              label: t('preference.item_list_style.title'),
+              descriptions: dealDescriptions([
+                t('preference.item_list_style.desc.desc_1'),
+                t('preference.item_list_style.desc.desc_2'),
+              ]),
+              type: 'select',
+              options: [
+                { value: 'standard', label: t('preference.item_list_style.option.standard') },
+                { value: 'tight', label: t('preference.item_list_style.option.tight') },
+                { value: 'modern', label: t('preference.item_list_style.option.modern') },
+                { value: 'teamcraft', label: t('preference.item_list_style.option.teamcraft') },
+              ]
+            },
+          ]
+        },
+        /* Performance */
+        {
+          key: 'performance',
+          icon: MemoryRound,
+          text: t('common.appsetting.performance'),
+          children: [
+            {
+              key: 'disable_workstate_cache',
+              label: t('preference.disable_workstate_cache.title'),
+              descriptions: dealDescriptions([
+                t('preference.disable_workstate_cache.desc.desc_1'),
+                t('preference.disable_workstate_cache.desc.desc_2'),
+              ]),
+              warnings: [
+                {
+                  value: t('preference.disable_workstate_cache.desc.desc_3'),
+                  class: 'red',
+                  style: ''
+                }
+              ],
+              type: 'switch',
+              require_reload: true
+            },
+            {
+              key: 'enable_dev_mode',
+              label: t('preference.enable_dev_mode'),
+              hide: !window.electronAPI?.openDevTools,
+              type: 'switch',
+              require_reload: true
+            }
+          ]
+        },
+        /* Update */
+        {
+          key: 'update',
+          icon: UpdateRound,
+          text: t('common.appsetting.update'),
+          children: [
+            {
+              key: 'disable_auto_update',
+              label: t('preference.disable_auto_update.title'),
+              descriptions: [
+                ...dealDescriptions([
+                  t('preference.disable_auto_update.desc.desc_1'),
+                  t('preference.disable_auto_update.desc.desc_2'),
+                ]),
+                {
+                  value: t('preference.disable_auto_update.desc.desc_3'),
+                  class: 'color-info',
+                  style: ''
+                }
+              ],
+              type: 'switch'
+            },
+            {
+              key: 'update_client_builtin.title',
+              label: t('preference.update_client_builtin.title'),
+              descriptions: dealDescriptions([
+                t('preference.update_client_builtin.desc.desc_1'),
+                t('preference.update_client_builtin.desc.desc_2'),
+              ]),
+              type: 'switch',
+              hide: !window.electronAPI?.downloadAndOpen
+            },
+            {
+              key: 'use_custom_proxy',
+              label: t('preference.use_custom_proxy'),
+              type: 'switch',
+              hide: !window.electronAPI
+            },
+            {
+              key: 'custom_proxy_url',
+              label: t('preference.custom_proxy_url'),
+              type: 'string',
+              hide: !window.electronAPI
+            }
+          ]
+        }
+      ]
+    },
+    {
+      key: 'funcConfig',
+      text: t('common.appfunc.func_setting'),
+      settings: [
+        /* 复制宏 */
+        {
+          key: 'copy_macro',
+          icon: CodeSharp,
+          text: t('common.appfunc.copy_macro'),
+          children: [
+            {
+              key: 'macro_direct_copy',
+              label: t('preference.macro_direct_copy.title'),
+              descriptions: dealDescriptions([
+                t('preference.macro_direct_copy.desc.desc_1'),
+                t('preference.macro_direct_copy.desc.desc_2'),
+              ]),
+              type: 'switch'
+            },
+            {
+              key: 'macro_copy_prefix',
+              label: t('preference.macro_copy_prefix.title'),
+              type: 'select',
+              options: [
+                { value: '', label: t('preference.macro_copy_prefix.option.none') },
+                { value: '/e ', label: t('preference.macro_copy_prefix.option.echo') },
+                { value: '/p ', label: t('preference.macro_copy_prefix.option.party') },
+                { value: '/fc ', label: t('preference.macro_copy_prefix.option.free_company') },
+                { value: '/b ', label: t('preference.macro_copy_prefix.option.beginner') },
+              ]
+            },
+            {
+              key: 'macro_generate_mode',
+              label: t('preference.macro_generate_mode.title'),
+              descriptions: dealDescriptions([
+                t('preference.macro_generate_mode.desc.desc_1'),
+                t('preference.macro_generate_mode.desc.desc_2'),
+                t('preference.macro_generate_mode.desc.desc_3'),
+              ]),
+              type: 'select',
+              options: [
+                { value: 'singleLine', label: t('preference.macro_generate_mode.option.single_line') },
+                { value: 'multiLine', label: t('preference.macro_generate_mode.option.multi_line') },
+              ]
+            },
+          ]
+        },
+        /* 生产宏 */
+        {
+          key: 'craft_macro',
+          icon: DiscountOutlined,
+          text: t('common.appfunc.craft_macro'),
+          children: [
+            {
+              key: 'cmacro_use_macrolock',
+              label: t('preference.cmacro_use_macrolock.title'),
+              descriptions: dealDescriptions([
+                t('preference.cmacro_use_macrolock.desc.desc_1'),
+              ]),
+              type: 'switch'
+            },
+            {
+              key: 'cmacro_remove_quotes',
+              label: t('preference.cmacro_remove_quotes.title'),
+              descriptions: dealDescriptions([
+                t('preference.cmacro_remove_quotes.desc.desc_1'),
+              ]),
+              type: 'switch'
+            },
+            {
+              key: 'cmacro_transition_tipper_content',
+              label: t('preference.cmacro_transition_tipper_content.title'),
+              descriptions: dealDescriptions([
+                t('preference.cmacro_transition_tipper_content.desc.desc_1'),
+                t('preference.cmacro_transition_tipper_content.desc.desc_2'),
+                t('preference.shared.desc.use_default_val_when_empty', '/e Macro #~INDEX completed. <se.1>'),
+              ]),
+              type: 'string',
+              placeholder: '/e Macro #~INDEX completed. <se.1>',
+            },
+            {
+              key: 'cmacro_end_tipper_content',
+              label: t('preference.cmacro_end_tipper_content'),
+              descriptions: dealDescriptions([
+                t('preference.shared.desc.use_default_val_when_empty', '/e Craft done! <se.14>'),
+              ]),
+              type: 'string',
+              placeholder: '/e Craft done! <se.14>',
+            },
+          ]
+        },
+        /* 制作报表 */
+        {
+          key: 'craft_statement',
+          icon: TableViewOutlined,
+          text: t('common.appfunc.craft_statement'),
+          children: [
+            {
+              key: 'use_traditional_statement',
+              label: t('preference.use_traditional_statement.title'),
+              descriptions: dealDescriptions([
+                t('preference.use_traditional_statement.desc.desc_1'),
+                t('preference.use_traditional_statement.desc.desc_2'),
+              ]),
+              type: 'switch',
+              require_reload: true
+            },
+            {
+              key: 'statement_ignore_crystals',
+              label: t('preference.statement_ignore_crystals.title'),
+              descriptions: dealDescriptions([
+                t('preference.statement_ignore_crystals.desc.desc_1'),
+              ]),
+              warnings: dealDescriptions([
+                t('preference.statement_ignore_crystals.desc.desc_2', t('statistics.group.cost_and_benefit.title')),
+              ]),
+              type: 'switch'
+            },
+            {
+              key: 'statement_no_highlights',
+              label: t('preference.statement_no_highlights.title'),
+              descriptions: dealDescriptions([
+                t('preference.statement_no_highlights.desc.desc_1'),
+                t('preference.statement_no_highlights.desc.desc_2'),
+              ]),
+              type: 'switch'
+            },
+            {
+              key: 'prostate_concise_mode',
+              label: t('preference.prostate_concise_mode.title'),
+              descriptions: dealDescriptions([
+                t('preference.prostate_concise_mode.desc.desc_1')
+              ]),
+              type: 'switch'
+            }
+          ]
+        },
+        /* 推荐流程 */
+        {
+          key: 'recomm_process',
+          icon: AllInclusiveSharp,
+          text: t('common.appfunc.recomm_process'),
+          children: [
+            {
+              key: 'processes_show_item_details',
+              label: t('preference.processes_show_item_details'),
+              type: 'switch'
+            },
+            {
+              key: 'processes_merge_gatherings',
+              label: t('preference.processes_merge_gatherings.title'),
+              type: 'switch',
+              descriptions: dealDescriptions([
+                t('preference.processes_merge_gatherings.desc.desc_1'),
+                t('preference.processes_merge_gatherings.desc.desc_2'),
+              ])
+            },
+            {
+              key: 'processes_craftable_item_sortby',
+              label: t('preference.processes_craftable_item_sortby.title'),
+              type: 'select',
+              options: [
+                { value: 'itemId', label: t('game.item_id') },
+                { value: 'recipeOrder', label: t('preference.processes_craftable_item_sortby.option.crafting_log') }
+              ],
+              descriptions: dealDescriptions([
+                t('preference.processes_craftable_item_sortby.desc.desc_1'),
+              ])
+            }
+          ]
+        },
+        /* 物品价格 */
+        {
+          key: 'cost_benefit',
+          icon: AttachMoneyOutlined,
+          text: t('common.appfunc.item_price'),
+          children: [
+            {
+              key: 'universalis_server',
+              label: t('common.server'),
+              descriptions: dealDescriptions([
+                t('preference.shared.desc.fit_to_func_and_item_pop_price', t('statistics.group.cost_and_benefit.title')),
+                t('preference.universalis_server.desc.desc_1'),
+              ]),
+              warnings: [
+                {
+                  value: t('preference.universalis_server.desc.desc_2'),
+                  class: 'red', style: ''
+                }
+              ],
+              type: 'cascader',
+              options: [
               {
-                value: 1 * 60 * 60 * 1000,
-                label: t('{val}小时', 1)
-              },
-              {
-                value: 3 * 60 * 60 * 1000,
-                label: t('{val}小时', 3)
-              },
-              {
-                value: 6 * 60 * 60 * 1000,
-                label: t('{val}小时', 6)
-              },
-              {
-                value: 24 * 60 * 60 * 1000,
-                label: t('{val}小时', 24)
-              },
-              {
-                value: 3 * 24 * 60 * 60 * 1000,
-                label:t('{val}天', 3)
-              },
-              {
-                value: 7 * 24 * 60 * 60 * 1000,
-                label:t('{val}天', 7)
-              },
-              {
-                value: 999999999999999,
-                label: t('永不过期')
-              }
-            ]
-          },
-          {
-            key: 'export_item_price',
-            label: t('导出Excel时导出成本/收益分析'),
-            descriptions: dealDescriptions([
-              t('启用此项时，如果物品价格缓存已过期，则需要耗费一定时间来刷新数据。'),
-            ]),
-            type: 'switch'
-          },
-          {
-            key: 'costandbenefit_show_item_details',
-            label: t('成本/收益分析中显示物品详情'),
-            type: 'switch'
-          },
-          {
-            key: 'universalis_showpriceinpop',
-            label: t('在物品悬浮窗中显示'),
-            descriptions: dealDescriptions([
-              t('在各个物品按钮/信息图标的悬浮窗中追加“价格”模块。只有可交易的道具才会显示。'),
-            ]),
-            type: 'switch'
-          },
-          {
-            key: 'universalis_poppricetypes',
-            label: t('在物品悬浮窗中显示的类型'),
-            descriptions: dealDescriptions([
-              t('选择在物品悬浮窗中要显示哪些类型的价格。可以多选。'),
-            ]),
-            type: 'select',
-            multiple: true,
-            options: getPriceTypeOptions()
-          }
-        ]
-      },
-    ]
-  },
-  {
-    key: 'about',
-    text: t('其他'),
-    settings: [
-      {
-        key: 'about_app',
-        icon: InfoOutlined,
-        text: t('关于本作'),
-        children: []
-      }
-    ]
-  }
-]
+                  value: 'chs',
+                  label: '中国',
+                  children: [
+                    {
+                      value: 'g_陆行鸟',
+                      label: '陆行鸟',
+                      children: dealSimOptions([
+                        '陆行鸟',"红玉海","神意之地","拉诺西亚","幻影群岛","萌芽池","宇宙和音","沃仙曦染","晨曦王座"
+                      ])
+                    },
+                    {
+                      value: 'g_莫古力',
+                      label: '莫古力',
+                      children: dealSimOptions([
+                        '莫古力',"白银乡","白金幻象","神拳痕","潮风亭","旅人栈桥","拂晓之间","龙巢神殿","梦羽宝境"
+                      ])
+                    },
+                    {
+                      value: 'g_猫小胖',
+                      label: '猫小胖',
+                      children: dealSimOptions([
+                        '猫小胖',"紫水栈桥","延夏","静语庄园","摩杜纳","海猫茶屋","柔风海湾","琥珀原"
+                      ])
+                    },
+                    {
+                      value: 'g_豆豆柴',
+                      label: '豆豆柴',
+                      children: dealSimOptions([
+                        '豆豆柴',"水晶塔","银泪湖","太阳海岸","伊修加德","红茶川","黄金谷","月牙湾","雪松原"
+                      ])
+                    }
+                  ]
+                },
+                {
+                  value: 'japan',
+                  label: '日本',
+                  children: [
+                    {
+                      value: 'g_Elemental',
+                      label: 'Elemental',
+                      children: dealSimOptions([
+                        'Elemental',"Carbuncle","Kujata","Typhon","Garuda","Atomos","Tonberry","Aegis","Gungnir"
+                      ])
+                    },
+                    {
+                      value: 'g_Gaia',
+                      label: 'Gaia',
+                      children: dealSimOptions([
+                        'Gaia',"Alexander","Fenrir","Ultima","Ifrit","Bahamut","Tiamat","Durandal","Ridill"
+                      ])
+                    },
+                    {
+                      value: 'g_Mana',
+                      label: 'Mana',
+                      children: dealSimOptions([
+                        'Mana',"Asura","Pandaemonium","Anima","Hades","Ixion","Titan","Chocobo","Masamune"
+                      ])
+                    },
+                    {
+                      value: 'g_Meteor',
+                      label: 'Meteor',
+                      children: dealSimOptions([
+                        'Meteor',"Belias","Shinryu","Unicorn","Yojimbo","Zeromus","Valefor","Ramuh","Mandragora"
+                      ])
+                    }
+                  ]
+                },
+                {
+                  value: 'na',
+                  label: 'North-America',
+                  children: [
+                    {
+                      value: 'g_Aether',
+                      label: 'Aether',
+                      children: dealSimOptions([
+                        'Aether',"Jenova","Faerie","Siren","Gilgamesh","Midgardsormr","Adamantoise","Cactuar","Sargatanas"
+                      ])
+                    },
+                    {
+                      value: 'g_Primal',
+                      label: 'Primal',
+                      children: dealSimOptions([
+                        'Primal',"Famfrit","Exodus","Lamia","Leviathan","Ultros","Behemoth","Excalibur","Hyperion"
+                      ])
+                    },
+                    {
+                      value: 'g_Crystal',
+                      label: 'Crystal',
+                      children: dealSimOptions([
+                        'Crystal',"Brynhildr","Mateus","Zalera","Diabolos","Coeurl","Malboro","Goblin","Balmung"
+                      ])
+                    },
+                    {
+                      value: 'g_Dynamis',
+                      label: 'Dynamis',
+                      children: dealSimOptions([
+                        'Dynamis',"Marilith","Seraph","Halicarnassus","Maduin","Cuchulainn","Kraken","Rafflesia","Golem"
+                      ])
+                    }
+                  ]
+                },
+                {
+                  value: 'eu',
+                  label: 'Europe',
+                  children: [
+                    {
+                      value: 'g_Chaos',
+                      label: 'Chaos',
+                      children: dealSimOptions([
+                        'Chaos',"Omega","Moogle","Cerberus","Louisoix","Spriggan","Ragnarok","Sagittarius","Phantom"
+                      ])
+                    },
+                    {
+                      value: 'g_Light',
+                      label: 'Light',
+                      children: dealSimOptions([
+                        'Light',"Twintania","Lich","Zodiark","Phoenix","Odin","Shiva","Alpha","Raiden"
+                      ])
+                    },
+                  ]
+                },
+                {
+                  value: 'ocean',
+                  label: 'Oceania',
+                  children: [
+                    {
+                      value: 'g_Materia',
+                      label: 'Materia',
+                      children: dealSimOptions([
+                        'Materia',"Ravana","Bismarck","Sephirot","Sophia","Zurvan"
+                      ])
+                    },
+                  ]
+                },
+                {
+                  value: 'kr',
+                  label: '한국',
+                  children: [
+                    {
+                      value: 'g_한국',
+                      label: '한국',
+                      children: dealSimOptions([
+                        '한국',"카벙클","초코보","모그리","톤베리","펜리르"
+                      ])
+                    },
+                  ]
+                },
+              ],
+              require_reload: true
+            },
+            {
+              key: 'universalis_priceType',
+              label: t('preference.universalis_price_type.title'),
+              descriptions: [
+                ...dealDescriptions([
+                  t('preference.shared.desc.fit_to_func', t('statistics.group.cost_and_benefit.title')),
+                  t('preference.universalis_price_type.desc.desc_1'),
+                ]),
+                {
+                  value: t('preference.universalis_price_type.desc.desc_2'),
+                  class: '',
+                  style: 'margin-top: 5px;'
+                },
+                ...dealDescriptions([
+                  t('preference.universalis_price_type.desc.desc_3'),
+                  t('preference.universalis_price_type.desc.desc_4'),
+                  t('preference.universalis_price_type.desc.desc_5'),
+                ]),
+              ],
+              type: 'select',
+              options: getPriceTypeOptions()
+            },
+            {
+              key: 'universalis_expireTime',
+              label: t('preference.universalis_expire_time.title'),
+              descriptions: dealDescriptions([
+                t('preference.shared.desc.fit_to_func_and_item_pop_price', t('statistics.group.cost_and_benefit.title')),
+                t('preference.universalis_expire_time.desc.desc_1'),
+                t('preference.universalis_expire_time.desc.desc_2'),
+              ]),
+              type: 'select',
+              options: [
+                {
+                  value: 1 * 60 * 60 * 1000,
+                  label: t('common.time.val_hours', 1)
+                },
+                {
+                  value: 3 * 60 * 60 * 1000,
+                  label: t('common.time.val_hours', 3)
+                },
+                {
+                  value: 6 * 60 * 60 * 1000,
+                  label: t('common.time.val_hours', 6)
+                },
+                {
+                  value: 24 * 60 * 60 * 1000,
+                  label: t('common.time.val_hours', 24)
+                },
+                {
+                  value: 3 * 24 * 60 * 60 * 1000,
+                  label:t('common.time.val_days', 3)
+                },
+                {
+                  value: 7 * 24 * 60 * 60 * 1000,
+                  label:t('common.time.val_days', 7)
+                },
+                {
+                  value: 999999999999999,
+                  label: t('preference.universalis_expire_time.option.never_expires')
+                }
+              ]
+            },
+            {
+              key: 'export_item_price',
+              label: t('preference.export_item_price.title'),
+              descriptions: dealDescriptions([
+                t('preference.export_item_price.desc.desc_1'),
+              ]),
+              type: 'switch'
+            },
+            {
+              key: 'costandbenefit_show_item_details',
+              label: t('preference.costandbenefit_show_item_details'),
+              type: 'switch'
+            },
+            {
+              key: 'universalis_showpriceinpop',
+              label: t('preference.universalis_showpriceinpop.title'),
+              descriptions: dealDescriptions([
+                t('preference.universalis_showpriceinpop.desc.desc_1'),
+              ]),
+              type: 'switch'
+            },
+            {
+              key: 'universalis_poppricetypes',
+              label: t('preference.universalis_poppricetypes.title'),
+              descriptions: dealDescriptions([
+                t('preference.universalis_poppricetypes.desc.desc_1'),
+              ]),
+              type: 'select',
+              multiple: true,
+              options: getPriceTypeOptions()
+            }
+          ]
+        },
+      ]
+    },
+    {
+      key: 'about',
+      text: t('common.other'),
+      settings: [
+        {
+          key: 'about_app',
+          icon: InfoOutlined,
+          text: t('common.appfunc.about_app'),
+          children: []
+        }
+      ]
+    }
+  ]
+})
 const preferenceMenuOptions = computed(() => {
-  return preferenceGroups.map(group => {
+  return preferenceGroups.value.map(group => {
     return {
       type: 'group',
       key: group.key,
@@ -845,31 +849,31 @@ const preferenceMenuOptions = computed(() => {
   })
 })
 const appPreferenceTabs = computed(() => {
-  let target = preferenceGroups.map(group => group.settings).flat()
+  let target = preferenceGroups.value.map(group => group.settings).flat()
   if (props.appShowUp) {
-    target = preferenceGroups[0].settings
+    target = preferenceGroups.value[0].settings
   } else if (isMobile.value && props.appShowFp) {
-    target = preferenceGroups[1].settings
+    target = preferenceGroups.value[1].settings
   }
   return target
 })
 const currentUPSettings = computed(() => {
-  return preferenceGroups[0].settings.find(setting => setting.key === currentMenuVal.value)?.children ?? []
+  return preferenceGroups.value[0].settings.find(setting => setting.key === currentMenuVal.value)?.children ?? []
 })
 const currentFPSettings = computed(() => {
-  return preferenceGroups[1].settings.find(setting => setting.key === currentMenuVal.value)?.children ?? []
+  return preferenceGroups.value[1].settings.find(setting => setting.key === currentMenuVal.value)?.children ?? []
 })
 const modalTitle = computed(() => {
   let icon = SettingsSharp
-  let text = t('偏好设置')
+  let text = t('common.appfunc.user_preference')
   if (isMobile.value && props.appShowFp) {
     icon = SettingsSuggestFilled
-    text = t('功能设置')
+    text = t('common.appfunc.func_setting')
   }
   return { icon, text }
 })
 const currentGroupName = computed(() => {
-  return preferenceGroups.map(group => group.settings).flat().find(setting => setting.key === currentMenuVal.value)?.text ?? ''
+  return preferenceGroups.value.map(group => group.settings).flat().find(setting => setting.key === currentMenuVal.value)?.text ?? ''
 })
 // #endregion
 
@@ -924,7 +928,7 @@ const handleSave = () => {
 
   // * 判断是否需要刷新
   let needReload = false, reloadTimeout = 100
-  preferenceGroups[0].settings.forEach(setting => {
+  preferenceGroups.value[0].settings.forEach(setting => {
     setting.children.forEach(item => {
       if (item.require_reload) {
         const key = item.key as keyof UserConfigModel
@@ -937,7 +941,7 @@ const handleSave = () => {
       }
     })
   })
-  preferenceGroups[1].settings.forEach(setting => {
+  preferenceGroups.value[1].settings.forEach(setting => {
     setting.children.forEach(item => {
       if (item.require_reload) {
         const key = item.key as keyof FuncConfigModel
@@ -957,7 +961,7 @@ const handleSave = () => {
       }, reloadTimeout) // 必须设置一个延迟，不然有些设置不会生效
     }
     const dealTip = () => {
-      NAIVE_UI_MESSAGE.success(t('保存成功！部分改动需要刷新页面才能生效'))
+      NAIVE_UI_MESSAGE.success(t('preference.message.save_succeed_but_need_refresh'))
     }
     if (formUserConfigData.value.action_after_savesettings === 'reload') {
       dealReload()
@@ -965,8 +969,8 @@ const handleSave = () => {
       dealTip()
     } else {
       if (window.confirm(
-        t('偏好设置已经保存，不过部分改动需要刷新页面才能生效。')
-        + '\n' + t('要现在刷新吗?')
+        t('preference.message.saved_but_some_changes_need_refresh')
+        + '\n' + t('preference.message.ask_refresh_now')
       )) {
         dealReload()
       } else {
@@ -974,7 +978,7 @@ const handleSave = () => {
       }
     }
   } else {
-    NAIVE_UI_MESSAGE.success(t('保存成功'))
+    NAIVE_UI_MESSAGE.success(t('common.save_succeed'))
   }
 
   // * 结算
@@ -994,7 +998,7 @@ const extraHeaderButtons = computed(() => {
   return [
     {
       icon: ArchiveSharp,
-      text: t('导入'),
+      text: t('common.import'),
       onClick: () => {
         importExportAction.value = 'import'
         showImportExportModal.value = true
@@ -1002,7 +1006,7 @@ const extraHeaderButtons = computed(() => {
     },
     {
       icon: UnarchiveSharp,
-      text: t('导出'),
+      text: t('common.export'),
       onClick: () => {
         importExportAction.value = 'export'
         showImportExportModal.value = true
@@ -1133,7 +1137,7 @@ const containerMaxHeight = computed(() => {
           <template #icon>
             <n-icon><SaveOutlined /></n-icon>
           </template>
-          {{ t('保存') }}
+          {{ t('common.save') }}
         </n-button>
       </div>
     </template>

@@ -6,7 +6,7 @@ import {
 import ItemCell from './ItemCell.vue'
 import { getItemInfo, type StatementRow } from '@/tools/item'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
@@ -56,8 +56,8 @@ const handleDealNumInputEdge = (row: StatementRow) => {
     <n-table class="table" size="small" :single-line="false">
       <thead>
         <tr>
-          <th>{{ t('物品') }}</th>
-          <th>{{ t('数量') }}</th>
+          <th>{{ t('common.item') }}</th>
+          <th>{{ t('common.amount') }}</th>
         </tr>
       </thead>
     </n-table>

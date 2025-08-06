@@ -47,7 +47,7 @@ import router from '@/router'
 import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
 import { useStore } from '@/store'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const locale = inject<Ref<"zh" | "en" | "ja">>('locale') ?? ref('zh')
@@ -182,12 +182,12 @@ const menuData = computed(() => {
     {
       key: 'tools',
       icon: CasesRound,
-      label: t('实用工具'),
+      label: t('common.appfunc.useful_tools'),
       options: [
         {
           type: 'router',
           icon: HomeOutlined,
-          label: t('返回首页'),
+          label: t('common.back_to_index'),
           description: '',
           hide: !isMobile.value,
           routerKey: '',
@@ -196,8 +196,8 @@ const menuData = computed(() => {
         {
           type: 'router',
           icon: AccessAlarmsOutlined,
-          label: t('采集时钟'),
-          description: t('挖穿艾欧泽亚的好帮手！'),
+          label: t('common.appfunc.gather_clock'),
+          description: t('appheader.menu.tooltip.gather_clock'),
           routerKey: 'gatherclock',
           allowNewWindow: true,
           defaultNewWindowOption: {
@@ -210,8 +210,8 @@ const menuData = computed(() => {
         {
           type: 'router',
           icon: FastfoodOutlined,
-          label: t('食药计算'),
-          description: t('帮助你制作食物与爆发药。能帮到就好。'),
+          label: t('common.appfunc.cal_food_and_tinc'),
+          description: t('appheader.menu.tooltip.fthelper'),
           routerKey: 'fthelper',
           allowNewWindow: true,
           defaultNewWindowOption: {
@@ -224,16 +224,16 @@ const menuData = computed(() => {
         {
           type: 'router',
           icon: WavesOutlined,
-          label: t('工作流'),
-          description: t('众生如归流。'),
+          label: t('common.appfunc.workflow'),
+          description: t('appheader.menu.tooltip.workflow'),
           routerKey: 'workflow',
           allowNewWindow: false,
         },
         {
           type: 'router',
           icon: CodeOutlined,
-          label: t('宏管理'),
-          description: t('管理，收容，跑路……'),
+          label: t('common.appfunc.macro_manage'),
+          description: t('appheader.menu.tooltip.macro_manage'),
           hide: isMobile.value,
           routerKey: 'macromanage',
           allowNewWindow: false,
@@ -243,21 +243,21 @@ const menuData = computed(() => {
     /* 设置与更新 */
     {
       key: 'settings_and_updates',
-      label: t('设置与更新'),
+      label: t('common.appfunc.setting_and_update'),
       icon: UpdateOutlined,
       options: [
         {
           type: 'common',
-          label: t('切换主题'),
+          label: t('common.appfunc.switch_theme'),
           icon: theme.value === 'light' ? DarkModeTwotone : LightModeTwotone,
-          description: theme.value === 'light' ? t('为这个世界带回黑暗。') : t('静待黎明天光来。'),
+          description: theme.value === 'light' ? t('appheader.menu.tooltip.theme_switch_to_dark') : t('appheader.menu.tooltip.theme_switch_to_light'),
           click: switchTheme
         },
         {
           type: 'common',
-          label: t('偏好设置'),
+          label: t('common.appfunc.user_preference'),
           icon: SettingsSharp,
-          description: t('以人的意志改变机械的程序。'),
+          description: t('appheader.menu.tooltip.user_preference'),
           click: () => {
             showPreferencesModal.value = true
           },
@@ -269,7 +269,7 @@ const menuData = computed(() => {
         },
         {
           type: 'common',
-          label: t('功能设置'),
+          label: t('common.appfunc.func_setting'),
           icon: SettingsSuggestFilled,
           hide: !isMobile.value,
           mobileClick: () => {
@@ -280,34 +280,34 @@ const menuData = computed(() => {
         },
         {
           type: 'common',
-          label: t('背包库存'),
+          label: t('common.appfunc.ingame_inventory'),
           icon: BackpackFilled,
-          description: t('喂喂，你的背包已经装满了啊。'),
+          description: t('appheader.menu.tooltip.ingame_inventory'),
           click: () => {
             showInventoryModal.value = true
           },
         },
         {
           type: 'common',
-          label: t('检查更新'),
+          label: t('common.appfunc.check_updates'),
           icon: UpdateSharp,
-          description: t('更新目标的战力等级……变更攻击模式……'),
+          description: t('appheader.menu.tooltip.check_updates'),
           click: handleCheckUpdates
         },
         {
           type: 'common',
-          label: t('更新日志'),
+          label: t('common.appfunc.changelog'),
           icon: EventNoteFilled,
-          description: t('修正……改良……开始对循环程序进行更新……'),
+          description: t('appheader.menu.tooltip.changelog'),
           click: () => {
             showChangeLogsModal.value = true
           }
         },
         {
           type: 'common',
-          label: t('开发工具'),
+          label: t('common.appfunc.devtool'),
           icon: DevicesOtherOutlined,
-          description: t('帝国正在开发究极神兵的后续机体……'),
+          description: t('appheader.menu.tooltip.devtool'),
           hide: !canOpenDevTools.value,
           click: () => {
             window.electronAPI!.openDevTools()
@@ -318,7 +318,7 @@ const menuData = computed(() => {
     /* 关于 */
     {
       key: 'about',
-      label: t('关于'),
+      label: t('common.appfunc.about'),
       icon: InfoFilled,
       options: [
         {
@@ -333,27 +333,27 @@ const menuData = computed(() => {
         },
         {
           type: 'common',
-          label: t('联系我们'),
+          label: t('common.appfunc.contact_us'),
           icon: ContactlessOutlined,
-          description: t('关注我们喵，关注我们谢谢喵。'),
+          description: t('appheader.menu.tooltip.contact_us'),
           click: () => {
             showContactModal.value = true
           }
         },
         {
           type: 'common',
-          label: t('赞助我们'),
+          label: t('common.appfunc.donate_us'),
           icon: HandshakeOutlined,
-          description: t('请务必量力而行。'),
+          description: t('appheader.menu.tooltip.donate_us'),
           click: () => {
             showDonateModal.value = true
           }
         },
         {
           type: 'common',
-          label: t('关于本作'),
+          label: t('common.appfunc.about_app'),
           icon: InfoOutlined,
-          description: t('重新自我介绍一下库啵。'),
+          description: t('appheader.menu.tooltip.about_app'),
           click: () => {
             showAboutAppModal.value = true
           }
@@ -365,9 +365,9 @@ const menuData = computed(() => {
         {
           type: 'router',
           icon: DevicesOutlined,
-          label: t('下载客户端'),
+          label: t('common.appfunc.download_client'),
           hide: !!window.electronAPI || isMobile.value,
-          description: t('以备不时之需。'),
+          description: t('appheader.menu.tooltip.download_client'),
           routerKey: 'download',
           allowNewWindow: false,
         },
@@ -471,7 +471,7 @@ const resolveRouterMenuOption = (menuOption: RouterMenuOption) => {
   const routerUrl = `/${menuOption.routerKey}`
   const pageUrl = document.location.origin + document.location.pathname + `#/${menuOption.routerKey}?mode=overlay`
   const currentlyOnPage = router.currentRoute.value.path === routerUrl
-  const buttonGroupTooltip = currentlyOnPage ? t('您已经处于{}页面。', menuOption.label) : menuOption.description
+  const buttonGroupTooltip = currentlyOnPage ? t('appheader.menu.tooltip.already_in_page', menuOption.label) : menuOption.description
   const redirectToPage = () => {
     router.push(routerUrl)
     hideMenuDropdowns()
@@ -556,7 +556,7 @@ const resolveRouterMenuOption = (menuOption: RouterMenuOption) => {
                 size: 'small',
                 disabled: currentlyOnPage || menuOption.disabled,
                 class: 'n-square-button',
-                title: t('在新窗口中打开{tool}', menuOption.label),
+                title: t('appheader.menu.tooltip.open_in_new_window', menuOption.label),
                 onClick: openSubWindow,
               },
               {
@@ -622,7 +622,7 @@ const handleCheckUpdates = async () => {
         const versionContent = checkUpdateResponse.data!
         const currentVersion = AppStatus.Version
         if (currentVersion !== versionContent.hqhelper) {
-          if (window.confirm(t('检测到新版本{v}，是否更新?', { v: versionContent.hqhelper }))) {
+          if (window.confirm(t('update.message.ask_update_new_webversion', { v: versionContent.hqhelper }))) {
             const cacheKeys = await caches.keys()
             for (const name of cacheKeys) {
               await caches.delete(name)
@@ -630,13 +630,13 @@ const handleCheckUpdates = async () => {
             location.reload()    
           }
         } else {
-          NAIVE_UI_MESSAGE.success(t('已是最新版本'))
+          NAIVE_UI_MESSAGE.success(t('update.message.already_latest'))
         }
       } else {
         NAIVE_UI_MESSAGE.error(checkUpdateResponse.message)
       }
     } catch (err) {
-      NAIVE_UI_MESSAGE.error(t('检查更新失败，请稍后再试'))
+      NAIVE_UI_MESSAGE.error(t('update.message.check_update_failed'))
       NAIVE_UI_MESSAGE.error(String(err))
     }
   }
@@ -655,8 +655,8 @@ const handleCheckUpdates = async () => {
           </n-button>
         </template>
         <div class="flex-col">
-          <p>{{ t('点击此按钮可以返回到首页。') }}</p>
-          <p v-if="!canRouteBack">{{ t('……不过您已经在HqHelper的首页了。') }}</p>
+          <p>{{ t('appheader.tooltip.back_to_index') }}</p>
+          <p v-if="!canRouteBack">{{ t('appheader.tooltip.already_in_index') }}</p>
         </div>
       </n-popover>
     </div>
@@ -670,9 +670,9 @@ const handleCheckUpdates = async () => {
             <p>{{ AppStatus.Version }}</p>
           </template>
           <div class="flex-col">
-            <p>{{ t('国服数据版本：{}', AppStatus.SupportedGameVersion.CN) }}</p>
-            <p>{{ t('国际服数据版本：{}', AppStatus.SupportedGameVersion.GLOBAL) }}</p>
-            <p>{{ t('※ 国服数据尚未更新时，显示的中文名一般为人工临时翻译，请谨慎参考。') }}</p>
+            <p>{{ t('common.chs_data_version', AppStatus.SupportedGameVersion.CN) }}</p>
+            <p>{{ t('common.global_data_version', AppStatus.SupportedGameVersion.GLOBAL) }}</p>
+            <p>{{ t('appheader.tooltip.announcement_for_item_zh_translation') }}</p>
           </div>
         </n-popover>
 
@@ -689,7 +689,7 @@ const handleCheckUpdates = async () => {
             </p>
           </template>
           <div class="flex-col flex-center">
-            <p class="font-center">{{ t('艾欧泽亚时间') }}</p>
+            <p class="font-center">{{ t('game.eorzea_time') }}</p>
           </div>
         </n-popover>
 

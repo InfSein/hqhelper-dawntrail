@@ -4,6 +4,7 @@ import MapButton from './MapButton.vue'
 import { XivMaps } from '@/tools/map'
 import type { UserConfigModel } from '@/models/config-user'
 
+const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
@@ -47,7 +48,7 @@ const mapButtonSize = computed(() => {
 <template>
   <div class="container">
     <span v-if="!hideMapName">{{ placeName }}</span>
-    <span v-if="!hideCoordinates">{{ t('(X:{x}, Y:{y})', { x: coordinateX.toFixed(1), y: coordinateY.toFixed(1) }) }}</span>
+    <span v-if="!hideCoordinates">{{ t('item.text.quoted_position', { x: coordinateX.toFixed(1), y: coordinateY.toFixed(1) }) }}</span>
     <span
       v-if="showMapButton"
       class="map-button no-select"

@@ -13,6 +13,7 @@ import type { FuncConfigModel } from '@/models/config-func'
 import UseConfig from '@/tools/use-config'
 import { getNearestAetheryte, type XivMapInfo } from '@/tools/map'
 
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -76,7 +77,7 @@ const handleOpenCafeMap = () => {
       />
       <div class="footer">
         <div class="recommended-aetheryte">
-          <span>{{ t('推荐') }}</span>
+          <span>{{ t('common.recomm') }}</span>
           <span style="vertical-align: middle;">
             <XivFARImage
               :size="14"
@@ -92,7 +93,7 @@ const handleOpenCafeMap = () => {
             <template #icon>
               <n-icon><OpenInNewFilled /></n-icon>
             </template>
-            {{ t('在FFCAFE互动地图中打开') }}
+            {{ t('map.text.open_in.ffcafe') }}
           </n-button>
         </div>
       </div>

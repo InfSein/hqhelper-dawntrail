@@ -7,7 +7,7 @@ import MyModal from '../templates/MyModal.vue'
 import AboutApp from '../custom/general/AboutApp.vue'
 import { InfoSharp } from '@vicons/material'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
@@ -18,7 +18,7 @@ const showModal = defineModel<boolean>('show', { required: true })
   <MyModal
     v-model:show="showModal"
     :icon="InfoSharp"
-    :title="t('关于本作')"
+    :title="t('common.appfunc.about_app')"
     :height="isMobile ? '650px' : '600px'"
   >
     <div class="wrapper" :style="{ height: isMobile ? '550px' : '500px' }">

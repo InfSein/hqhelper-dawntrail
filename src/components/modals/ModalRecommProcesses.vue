@@ -17,7 +17,7 @@ import { CopyToClipboard } from '@/tools'
 import { useFufuCal } from '@/tools/use-fufu-cal'
 import UseConfig from '@/tools/use-config'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -88,9 +88,9 @@ const handleCopy = async (content: string, successMessage?: string) => {
   const container = document.getElementById('modal-recomm-process')
   const response = await CopyToClipboard(content, container)
   if (response) {
-    NAIVE_UI_MESSAGE.error(t('复制失败：发生意外错误'))
+    NAIVE_UI_MESSAGE.error(t('common.message.copy_failed_unexpected_error'))
   } else {
-    NAIVE_UI_MESSAGE.success(successMessage ?? t('已复制到剪贴板'))
+    NAIVE_UI_MESSAGE.success(successMessage ?? t('common.message.copy_succeed'))
   }
 }
 
@@ -112,8 +112,8 @@ const handleCollapseOrUncollapseAllBlocks = () => {
 const handleHideOrShowChsOfflineItems = () => {
   hideChsOfflineItems.value = !hideChsOfflineItems.value
   const message = hideChsOfflineItems.value
-    ? t('已隐藏国服未实装物品')
-    : t('已显示国服未实装物品')
+    ? t('recomm_process.message.hided_unchs_items')
+    : t('recomm_process.message.showed_unchs_items')
   NAIVE_UI_MESSAGE.success(message)
 }
 const handleCopyProcesses = () => {
@@ -143,10 +143,10 @@ const handleSettingButtonClick = () => {
     <template #header>
       <div class="card-title no-select">
         <n-icon><AllInclusiveSharp /></n-icon>
-        <span class="title">{{ t('推荐流程') }}</span>
+        <span class="title">{{ t('common.appfunc.recomm_process') }}</span>
         <div class="card-title-actions">
-          <a href="javascript:void(0);" @click="handleCollapseOrUncollapseAllBlocks">[{{ isBlocksAllCollapsed() ? t('全部展开') : t('全部折叠') }}]</a>
-          <a v-if="itemServer === 'chs'" href="javascript:void(0);" @click="handleHideOrShowChsOfflineItems">[{{ hideChsOfflineItems ? t('显示国服未实装物品') : t('隐藏国服未实装物品') }}]</a>
+          <a href="javascript:void(0);" @click="handleCollapseOrUncollapseAllBlocks">[{{ isBlocksAllCollapsed() ? t('common.expand_all') : t('common.fold_all') }}]</a>
+          <a v-if="itemServer === 'chs'" href="javascript:void(0);" @click="handleHideOrShowChsOfflineItems">[{{ hideChsOfflineItems ? t('recomm_process.text.show_items_not_installed_in_chs') : t('recomm_process.text.hide_items_not_installed_in_chs') }}]</a>
         </div>
       </div>
     </template>
@@ -166,7 +166,7 @@ const handleSettingButtonClick = () => {
           <template #icon>
             <n-icon><CopyAllOutlined /></n-icon>
           </template>
-          {{ t('复制') }}
+          {{ t('common.copy') }}
         </n-button>
       </div>
     </template>

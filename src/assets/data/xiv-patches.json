@@ -33,12 +33,13 @@
   },
   {
     "v": "7.3",
-    "name_zh": "通向明日的路标",
+    "name_zh": "明日之道标",
     "name_en": "The Promise of Tomorrow",
     "name_ja": "明日への道標",
-    "updated": false,
+    "updated": true,
     "life_hq_il": 750,
-    "logo": "./image/game-patch/patch-7.0.png"
+    "logo": "./image/game-patch/patch-7.3.png",
+    "background": "./image/game-patch/patch-7.3-background.jpg"
   },
   {
     "v": "7.4",

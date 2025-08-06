@@ -19,7 +19,7 @@ import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from '@/m
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
   
@@ -36,15 +36,15 @@ const macroMode = ref<MacroGenerateMode>('singleLine')
 const noMoreInquiries = ref(false)
 
 const prefixOptions = [
-  { value: '', label: t('直接复制(无前缀)') },
-  { value: '/e ', label: t('自提醒宏(/e)') },
-  { value: '/p ', label: t('小队宏(/p)') },
-  { value: '/fc ', label: t('部队宏(/fc)') },
-  { value: '/b ', label: t('新频宏(/b)') },
+  { value: '', label: t('preference.macro_copy_prefix.option.none') },
+  { value: '/e ', label: t('preference.macro_copy_prefix.option.echo') },
+  { value: '/p ', label: t('preference.macro_copy_prefix.option.party') },
+  { value: '/fc ', label: t('preference.macro_copy_prefix.option.free_company') },
+  { value: '/b ', label: t('preference.macro_copy_prefix.option.beginner') },
 ]
 const modeOptions = [
-  { value: 'singleLine', label: t('单行模式') },
-  { value: 'multiLine', label: t('多行模式') },
+  { value: 'singleLine', label: t('preference.macro_generate_mode.option.single_line') },
+  { value: 'multiLine', label: t('preference.macro_generate_mode.option.multi_line') },
 ]
 
 const onLoad = () => {
@@ -85,20 +85,20 @@ const macroContentStyle = computed(() => {
 const copyBtnTooltip = computed(() => {
   if (macroMode.value === 'singleLine') {
     return [
-      t('目前为单行模式'),
-      t('复制的宏可以直接粘贴在游戏内聊天框中发送'),
+      t('copy_macro.mode.single_line.desc.desc_1'),
+      t('copy_macro.mode.single_line.desc.desc_2'),
     ]
   } else {
     return [
-      t('目前为多行模式'),
-      t('复制的宏需要粘贴在用户宏中执行方可发送'),
+      t('copy_macro.mode.multi_line.desc.desc_1'),
+      t('copy_macro.mode.multi_line.desc.desc_2'),
     ]
   }
 })
 const handleCopy = async () => {
   const errored = await CopyToClipboard(macro.value, wrapper.value)
   if (errored) {
-    NAIVE_UI_MESSAGE.error(t('复制失败，请手动框选预览区域内的文本复制'))
+    NAIVE_UI_MESSAGE.error(t('copy_macro.message.failed'))
     return
   }
   if (noMoreInquiries.value) {
@@ -109,7 +109,7 @@ const handleCopy = async () => {
     store.commit('setFuncConfig', newConfig)
   }
   handleClose()
-  NAIVE_UI_MESSAGE.success(t('已复制到剪贴板'))
+  NAIVE_UI_MESSAGE.success(t('common.message.copy_succeed'))
 }
 const handleClose = () => {
   showModal.value = false
@@ -120,14 +120,14 @@ const handleClose = () => {
   <MyModal
     v-model:show="showModal"
     :icon="CodeSharp"
-    :title="t('复制宏')"
+    :title="t('common.appfunc.copy_macro')"
     max-width="350px"
     @on-load="onLoad"
   >
     <div class="wrapper" ref="wrapper">
       <GroupBox id="marco-preview" title-background-color="var(--n-color-modal)" :content-style="macroContentStyle">
         <template #title>
-          <span class="title">{{ t('预览') }}</span>
+          <span class="title">{{ t('common.preview') }}</span>
         </template>
         <div v-if="macroMode === 'singleLine'">{{ macro }}</div>
         <MacroViewer
@@ -139,27 +139,27 @@ const handleClose = () => {
       </GroupBox>
       <GroupBox id="marco-settings" title-background-color="var(--n-color-modal)">
         <template #title>
-          <span class="title">{{ t('选项') }}</span>
+          <span class="title">{{ t('common.options') }}</span>
         </template>
         <div class="settings-container">
           <n-input-group>
-            <n-input-group-label size="small">{{ t('前缀') }}</n-input-group-label>
+            <n-input-group-label size="small">{{ t('common.prefix') }}</n-input-group-label>
             <n-select size="small"
               v-model:value="macroPrefix"
               :options="prefixOptions"
-              :placeholder="t('请选择宏前缀')"
+              :placeholder="t('copy_macro.text.please_select_macro_prefix')"
             />
           </n-input-group>
           <n-input-group>
-            <n-input-group-label size="small">{{ t('模式') }}</n-input-group-label>
+            <n-input-group-label size="small">{{ t('common.mode') }}</n-input-group-label>
             <n-select size="small"
               v-model:value="macroMode"
               :options="modeOptions"
-              :placeholder="t('请选择宏生成模式')"
+              :placeholder="t('copy_macro.text.please_select_macro_mode')"
             />
           </n-input-group>
           <n-checkbox v-model:checked="noMoreInquiries">
-            {{ t('以后不再询问，直接复制') }}
+            {{ t('copy_macro.option.macro_direct_copy') }}
           </n-checkbox>
         </div>
       </GroupBox>
@@ -170,7 +170,7 @@ const handleClose = () => {
         <TooltipButton
           type="primary"
           :icon="ContentCopyRound"
-          :text="t('复制')"
+          :text="t('common.copy')"
           :tip="copyBtnTooltip"
           placement="bottom"
           @click="handleCopy"

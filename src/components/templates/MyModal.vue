@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch, type Component } from 'vue'
+import { computed, inject, watch, type Component } from 'vue'
 import {
   NButton, NIcon, NModal
 } from 'naive-ui'
@@ -7,7 +7,7 @@ import {
   SettingsSharp
 } from '@vicons/material'
 
-// const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 // const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
@@ -113,7 +113,7 @@ const handleShowFuncPreference = () => {
         </n-button>
         <n-button v-if="showSetting" quaternary size="small" class="square-action" @click="handleShowFuncPreference">
           <n-icon><SettingsSharp /></n-icon>
-          <div class="unshow-text">{{ t('设置') }}</div>
+          <div class="unshow-text">{{ t('common.setting') }}</div>
         </n-button>
       </div>
     </template>

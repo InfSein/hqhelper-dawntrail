@@ -14,7 +14,7 @@ import { deepCopy } from '@/tools'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import type { ProStatementBlock } from '@/tools/use-fufu-cal'
 
-// const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+// const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})

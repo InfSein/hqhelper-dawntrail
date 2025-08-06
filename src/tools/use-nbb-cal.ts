@@ -9,6 +9,7 @@ import hqConfig from '@/assets/data/unpacks/hq-config.json'
 import { Cal, type CostCHS, type IHqConfig } from './nbb-cal-v5'
 import type { GearSelections } from '@/models/gears'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from './item'
+import { objectEqual } from '.'
 
 export function useNbbCal() {
   const langHash: any = { 'lang-zh': 2, 'lang-en': 1, 'lang-ja': 0 };
@@ -124,10 +125,29 @@ export function useNbbCal() {
             costCount: trade.costCount
           }
           const costCHS = (trade.costCHS || costGlobal) as CostCHS
-          map[itemID] = {
+          const tradeInfo : ItemTradeInfo = {
             receiveCount: trade.receiveCount,
             costGlobal: costGlobal,
             costCHS: costCHS
+          }
+          if (map[itemID]) {
+            let ptr = map[itemID]; let loop = true
+            while (loop) {
+              if (!ptr.costAlter) {
+                ptr.costAlter = tradeInfo
+                loop = false
+              } else if (objectEqual(tradeInfo, ptr.costAlter)) {
+                loop = false
+              } else {
+                ptr = ptr.costAlter
+              }
+            }
+          } else {
+            map[itemID] = {
+              receiveCount: trade.receiveCount,
+              costGlobal: costGlobal,
+              costCHS: costCHS
+            }
           }
         }
       })
@@ -184,7 +204,7 @@ export function useNbbCal() {
       foods: number[],
       tincs: number[]
     }[]
-    const recipeMap = {} as any
+    const recipeMap : Record<number, number> = {}
     for (const patch in config) {
       const o = config[patch].jobs
       const foods: number[] = []
@@ -231,6 +251,7 @@ export function useNbbCal() {
             foods: [],
             tincs: []
           }
+          if (data[p].foods.map(food => food.id).includes(itemID)) return // 去重
           data[p].foods.push(itemInfo)
           data[p].count++
         }
@@ -245,6 +266,7 @@ export function useNbbCal() {
             foods: [],
             tincs: []
           }
+          if (data[p].tincs.map(tinc => tinc.id).includes(itemID)) return // 去重
           data[p].tincs.push(itemInfo)
           data[p].count++
         }

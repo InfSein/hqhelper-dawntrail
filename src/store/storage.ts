@@ -3,7 +3,7 @@ export const getItem = <T>(key: string): T | undefined => {
   if (!data) return undefined
   try {
     return JSON.parse(data) as T
-  } catch (e) {
+  } catch {
     return undefined
   }
 }

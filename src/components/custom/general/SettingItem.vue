@@ -10,7 +10,7 @@ import HelpButton from './HelpButton.vue'
 import type { SettingItem } from '@/models'
 import useUiTools from '@/tools/ui'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 const { optionsRenderer } = useUiTools(isMobile)
@@ -28,7 +28,7 @@ const warnings = computed(() => {
   const oriwarns = props.settingItem.warnings ?? []
   // if (props.settingItem.require_reload) {
   //   warns.push({
-  //     value: t('修改此选项的设置后需要刷新一次页面方可生效。'),
+  //     value: t('preference.shared.warn.need_refresh'),
   //     class: '', style: ''
   //   })
   // }
@@ -46,11 +46,11 @@ const warnings = computed(() => {
             v-if="settingItem.require_reload"
             icon="warning"
             color="#F0A020"
-            :descriptions="[t('修改此选项的设置后需要刷新一次页面方可生效。')]"
+            :descriptions="[t('preference.shared.warn.need_refresh')]"
           />
         </template>
         <template #arrow>
-          <n-icon v-if="settingItem.descriptions?.length" :title="t('点击以展开或折叠此设置项的描述')"><KeyboardArrowRightOutlined /></n-icon>
+          <n-icon v-if="settingItem.descriptions?.length" :title="t('preference.shared.tooltip.click_to_desc')"><KeyboardArrowRightOutlined /></n-icon>
           <n-icon v-else></n-icon>
         </template>
 

@@ -20,7 +20,7 @@ import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { deepCopy } from '@/tools'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 
-const t = inject<(text: string, ...args: any[]) => string>('t') ?? (() => { return '' })
+const t = inject<(message: string, args?: any) => string>('t')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const store = useStore()
@@ -47,57 +47,57 @@ const inventorySettingItems = computed(() : Setting[] => {
   return [
     {
       key: 'inventory_statement_enable_sync',
-      label: t('在制作报表弹窗中启用背包库存自动同步'),
+      label: t('ingame_inventory.preference.inventory_statement_enable_sync.title'),
       type: 'switch',
       warnings: dealDesc([
-        t('开启此项后，每次在主界面和食药计算器界面打开专业版制作报表时，报表中的“已有”数量会被设置为背包库存的数量。'),
+        t('ingame_inventory.preference.inventory_statement_enable_sync.desc.desc_1'),
       ]),
     },
     {
       key: 'inventory_workflow_enable_sync',
-      label: t('在工作流中启用背包库存手动同步'),
+      label: t('ingame_inventory.preference.inventory_workflow_enable_sync.title'),
       type: 'switch',
       warnings: dealDesc([
-        t('开启此项后，工作流的“{f1}”页面将追加“{f2}”按钮。', {
-          f1: t('报表'), f2: t('从背包库存同步')
+        t('ingame_inventory.shared.desc.add_button_to_workflow_when_enabled', {
+          f1: t('common.statement'), f2: t('workflow.text.sync_from_inventory')
         }),
-        t('点击按钮后便会将报表中的“已有”数量设置为背包库存的数量。')
+        t('ingame_inventory.preference.inventory_workflow_enable_sync.desc.desc_1')
       ]),
     },
     {
       key: 'inventory_workflow_enable_sync_reverse',
-      label: t('在工作流中启用背包库存反向同步'),
+      label: t('ingame_inventory.preference.inventory_workflow_enable_sync_reverse.title'),
       type: 'switch',
       warnings: dealDesc([
-        t('开启此项后，工作流的“{f1}”页面将追加“{f2}”按钮。', {
-          f1: t('报表'), f2: t('同步到背包库存')
+        t('ingame_inventory.shared.desc.add_button_to_workflow_when_enabled', {
+          f1: t('common.statement'), f2: t('workflow.text.sync_to_inventory')
         }),
-        t('点击按钮后便会将背包库存的数量设置为报表中的“已有”数量。')
+        t('ingame_inventory.preference.inventory_workflow_enable_sync_reverse.desc.desc_1')
       ]),
     },
     {
       key: 'inventory_other_items_way',
-      label: t('对不在库存中物品的处理方式'),
+      label: t('ingame_inventory.preference.inventory_other_items_way.title'),
       type: 'select',
       options: [
-        { label: t('忽略'), value: 'ignore', description: t('保持现有数量') },
-        { label: t('清零'), value: 'clear', description: t('将数量重设为0') },
+        { label: t('common.ignore'), value: 'ignore', description: t('ingame_inventory.preference.inventory_other_items_way.option.ignore.tooltip.tooltip_1') },
+        { label: t('common.reset_to_0'), value: 'clear', description: t('ingame_inventory.preference.inventory_other_items_way.option.reset_to_0.tooltip.tooltip_1') },
       ],
       warnings: dealDesc([
-        t('决定自动同步或手动同步时，对不在背包库存中的物品要如何处理。'),
+        t('ingame_inventory.preference.inventory_other_items_way.desc.desc_1'),
       ]),
     },
     {
       key: 'inventory_sync_reverse_mode',
-      label: t('反向同步模式'),
+      label: t('ingame_inventory.preference.inventory_sync_reverse_mode.title'),
       type: 'select',
       options: [
-        { label: t('宽松'), value: 'loose', description: t('忽略“已有”数量为0的物品和不在报表中的物品') },
-        { label: t('严格'), value: 'strict', description: t('同步“已有”数量为0的物品，忽略不在报表中的物品') },
-        { label: t('覆写'), value: 'overwrite', description: t('完全重置库存，以报表数据覆盖现有库存') },
+        { label: t('common.loose'), value: 'loose', description: t('ingame_inventory.preference.inventory_sync_reverse_mode.option.loose.tooltip.tooltip_1') },
+        { label: t('common.strict'), value: 'strict', description: t('ingame_inventory.preference.inventory_sync_reverse_mode.option.strict.tooltip.tooltip_1') },
+        { label: t('common.overwrite'), value: 'overwrite', description: t('ingame_inventory.preference.inventory_sync_reverse_mode.option.overwrite.tooltip.tooltip_1') },
       ],
       warnings: dealDesc([
-        t('决定反向同步时，对“已有”数量为0的物品和不在报表中的物品要如何处理。'),
+        t('ingame_inventory.preference.inventory_sync_reverse_mode.desc.desc_1'),
       ]),
     },
   ]
@@ -114,14 +114,14 @@ const inventorySettingItems = computed(() : Setting[] => {
 const handleItemInputValueUpdate = (value: number) => {
   if (!value) return
   if (formFuncConfigData.value.inventory_data[value]) {
-    NAIVE_UI_MESSAGE.info(t('已有该物品'))
+    NAIVE_UI_MESSAGE.info(t('common.message.item_already_have'))
   } else {
     formFuncConfigData.value.inventory_data[value] = 1
   }
 }
 const handleClearInventory = () => {
   formFuncConfigData.value.inventory_data = {}
-  NAIVE_UI_MESSAGE.success(t('已清空'))
+  NAIVE_UI_MESSAGE.success(t('common.cleared'))
 }
 
 const handleSave = () => {
@@ -130,7 +130,7 @@ const handleSave = () => {
   // * 结算
   showModal.value = false
   appForceUpdate()
-  NAIVE_UI_MESSAGE.success(t('保存成功'))
+  NAIVE_UI_MESSAGE.success(t('common.save_succeed'))
 }
 </script>
 
@@ -139,12 +139,12 @@ const handleSave = () => {
     v-model:show="showModal"
     :id="modalId"
     :icon="BackpackFilled"
-    :title="t('背包库存')"
+    :title="t('common.appfunc.ingame_inventory')"
     max-width="600px"
     @on-load="onLoad"
   >
     <n-tabs type="segment" animated>
-      <n-tab-pane name="options" :tab="t('选项')">
+      <n-tab-pane name="options" :tab="t('common.options')">
         <div class="pane-container">
           <SettingItem
             v-for="item in inventorySettingItems"
@@ -154,11 +154,11 @@ const handleSave = () => {
           />
         </div>
       </n-tab-pane>
-      <n-tab-pane name="data" :tab="t('数据')">
+      <n-tab-pane name="data" :tab="t('common.data')">
         <div class="pane-container">
           <div class="top-actions">
             <n-input-group>
-              <n-input-group-label>{{ t('添加物品') }}</n-input-group-label>
+              <n-input-group-label>{{ t('common.add_item') }}</n-input-group-label>
               <ItemSelector
                 options-preset="materials"
                 :container-id="modalId"
@@ -178,8 +178,8 @@ const handleSave = () => {
           <div class="bottom-actions">
             <TooltipButton
               :icon="DeleteSweepRound"
-              :text="t('清空')"
-              :tip="t('清空库存')"
+              :text="t('common.clear')"
+              :tip="t('inventory.clear_inventory')"
               @click="handleClearInventory"
             />
           </div>
@@ -193,7 +193,7 @@ const handleSave = () => {
           <template #icon>
             <n-icon><SaveOutlined /></n-icon>
           </template>
-          {{ t('保存') }}
+          {{ t('common.save') }}
         </n-button>
       </div>
     </template>
