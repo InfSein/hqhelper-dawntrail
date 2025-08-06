@@ -203,12 +203,6 @@ const tradeCostList = computed(() => {
 
   return result
 })
-const itemTradeCost = computed(() => {
-  return itemServer.value === 'chs' ? props.itemInfo.tradeInfo?.costCHS : props.itemInfo.tradeInfo?.costGlobal
-})
-const itemTradeCostAlter = computed(() => {
-  return itemServer.value === 'chs' ? props.itemInfo.tradeInfo?.costAlter?.costCHS : props.itemInfo.tradeInfo?.costAlter?.costGlobal
-})
 const timeCanGather = (timeLimit: {start: string, end: string}) => {
   try {
     const parseTime = (time: string) => time.split(':').reduce((acc, val, idx) => acc + parseInt(val) * [60, 1][idx], 0)
@@ -536,7 +530,7 @@ const innerPopTrigger = computed(() => {
             {{ t('item.text.gather_website.note') }}
           </div>
         </div>
-        <div class="description-block" v-if="itemInfo.tradeInfo && itemTradeCost">
+        <div class="description-block" v-if="tradeCostList.length">
           <div class="title">{{ t('common.trade') }}</div>
           <n-divider class="item-divider" />
           <div class="content">
