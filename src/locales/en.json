@@ -564,6 +564,12 @@
         "text_4": "If you found the new list has some parts missing, please contact us."
       }
     },
+    "2_3_1": {
+      "feat": {
+        "text_1": "Items with multiple trade ways will now show all of them.",
+        "text_2": "Now re-click the selected row of statement would deselect it."
+      }
+    },
     "breaking": "BREAKING CHANGES",
     "feat": "FEATURES",
     "fix": "BUG FIXES",
@@ -852,6 +858,7 @@
     },
     "open_in_new_window": "Open in new window",
     "options": "Options",
+    "or": "or",
     "other": "Other",
     "overwrite": "Overwrite",
     "password": "Password",
