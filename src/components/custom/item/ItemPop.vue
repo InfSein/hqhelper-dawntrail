@@ -178,8 +178,30 @@ const itemTailDescriptions = computed(() => {
   }
   return descriptions
 })
-const itemTradeCost = computed(() => {
-  return itemServer.value === 'chs' ? props.itemInfo.tradeInfo?.costCHS : props.itemInfo.tradeInfo?.costGlobal
+interface RenderedTradeCost {
+  costId: number
+  costCount: number
+  receiveCount: number
+  level: number // 嵌套层级，方便渲染缩进或分隔
+}
+const tradeCostList = computed(() => {
+  const result: RenderedTradeCost[] = []
+  let current = props.itemInfo.tradeInfo
+  let level = 0
+
+  while (current) {
+    const cost = itemServer.value === 'chs' ? current.costCHS : current.costGlobal
+    result.push({
+      costId: cost.costId,
+      costCount: cost.costCount,
+      receiveCount: current.receiveCount,
+      level
+    })
+    current = current.costAlter
+    level++
+  }
+
+  return result
 })
 const timeCanGather = (timeLimit: {start: string, end: string}) => {
   try {
@@ -508,17 +530,26 @@ const innerPopTrigger = computed(() => {
             {{ t('item.text.gather_website.note') }}
           </div>
         </div>
-        <div class="description-block" v-if="itemInfo.tradeInfo && itemTradeCost">
+        <div class="description-block" v-if="tradeCostList.length">
           <div class="title">{{ t('common.trade') }}</div>
           <n-divider class="item-divider" />
           <div class="content">
             <div>{{ t('item.text.is_tradable') }}</div>
-            <div class="item">
-              <ItemSpan span-max-width="230px" :item-info="getItemInfo(itemTradeCost.costId)" :amount="itemTradeCost.costCount" show-amount :container-id="containerId" />
-            </div>
-            <div class="item" v-if="itemInfo.tradeInfo.receiveCount > 1">
-              {{ t('item.text.multi_get_each_trade', itemInfo.tradeInfo.receiveCount) }}
-            </div>
+            <template v-for="(cost, index) in tradeCostList" :key="index">
+              <div class="item">
+                {{ index > 0 ? t('common.or') : '' }}
+                <ItemSpan
+                  span-max-width="230px"
+                  :item-info="getItemInfo(cost.costId)"
+                  :amount="cost.costCount"
+                  show-amount
+                  :container-id="containerId"
+                />
+              </div>
+              <div class="item other-attrs" v-if="cost.receiveCount > 1">
+                {{ t('item.text.multi_get_each_trade', cost.receiveCount) }}
+              </div>
+            </template>
           </div>
         </div>
         <div class="description-block" v-if="itemInfo.craftRequires.length">

@@ -76,6 +76,22 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.3.1',
+      date: '2025-08-06',
+      changes: [
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_2_1.feat.text_1', '7.3'),
+            isZh ? '追加和修订了部分物品的笔记 (仅在界面语言设置为简体中文时显示)。' : '',
+            t('changelog.2_3_1.feat.text_1')
+              + '<br>' + renderImg('https://infsein.github.io/static/hqhelper/patchnote/2_3_1.1.png'),
+            t('changelog.2_3_1.feat.text_2'),
+          ]
+        }
+      ]
+    },
+    {
       version: '2.3.0',
       date: '2025-08-05',
       changes: [
