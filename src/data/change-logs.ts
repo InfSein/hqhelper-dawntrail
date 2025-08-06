@@ -84,7 +84,8 @@ export const getChangelogs = (
           changes: [
             t('changelog.2_2_1.feat.text_1', '7.3'),
             isZh ? '追加和修订了部分物品的笔记 (仅在界面语言设置为简体中文时显示)。' : '',
-            t('changelog.2_3_1.feat.text_1'),
+            t('changelog.2_3_1.feat.text_1')
+              + '<br>' + renderImg('https://infsein.github.io/static/hqhelper/patchnote/2_3_1.1.png'),
             t('changelog.2_3_1.feat.text_2'),
           ]
         }
