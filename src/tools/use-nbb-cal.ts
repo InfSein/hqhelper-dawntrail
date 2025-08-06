@@ -6,7 +6,7 @@ import {
   XivUnpackedRecipes
 } from '@/assets/data'
 import hqConfig from '@/assets/data/unpacks/hq-config.json'
-import { Cal, type CostCHS, type IHqConfig } from './nbb-cal-v5'
+import { Cal, type CostCHS, type IHqConfig, type TradeShop } from './nbb-cal-v5'
 import type { GearSelections } from '@/models/gears'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from './item'
 import { objectEqual } from '.'
@@ -116,8 +116,8 @@ export function useNbbCal() {
   const getTradeMap = () => {
     const map = {} as Record<number, ItemTradeInfo>
     for (const patch in config) {
-      const trades = config[patch].tradeShops
-      trades?.forEach(trade => {
+      const trades = removeDuplicates(config[patch].tradeShops ?? [])
+      trades.forEach(trade => {
         const itemID = trade.receiveId
         if (itemID) {
           const costGlobal = {
@@ -131,15 +131,18 @@ export function useNbbCal() {
             costCHS: costCHS
           }
           if (map[itemID]) {
-            let ptr = map[itemID]; let loop = true
-            while (loop) {
+            let ptr = map[itemID]; let loop = true; let looptime = 0
+            while (loop && looptime < 10) {
               if (!ptr.costAlter) {
-                ptr.costAlter = tradeInfo
+                if (!objectEqual(tradeInfo, ptr)) {
+                  ptr.costAlter = tradeInfo
+                }
                 loop = false
               } else if (objectEqual(tradeInfo, ptr.costAlter)) {
                 loop = false
               } else {
                 ptr = ptr.costAlter
+                looptime++
               }
             }
           } else {
@@ -153,6 +156,29 @@ export function useNbbCal() {
       })
     }
     return map
+
+    function removeDuplicates(shops: TradeShop[]): TradeShop[] {
+      const seen = new Set<string>()
+      const result: TradeShop[] = []
+
+      for (const shop of shops) {
+        const key = [
+          shop.receiveId,
+          shop.receiveCount,
+          shop.receiveHqCount,
+          shop.costId,
+          shop.costCount,
+          shop.costHqCount
+        ].join('|')
+
+        if (!seen.has(key)) {
+          seen.add(key)
+          result.push(shop)
+        }
+      }
+
+      return result
+    }
   }
 
   /**
