@@ -266,6 +266,8 @@ const handleDownloadWebPack = async () => {
     alert('Update link not given. Server might be undergoing maintenance...')
   } else if (!latestHqHelperVersion.value) {
     alert('latestHqHelperVersion not given, Please retry later.')
+  } else if (versionContent.value?.maintenance_webpack) {
+    alert(t('服务器正在维护，暂时不能更新。') + '\n' + t('请稍等片刻。'))
   } else {
     url = url.replace('~PROXY', proxy.value)
     url = url.replace('~VERSION', latestHqHelperVersion.value)
@@ -311,6 +313,8 @@ const handleDownloadElectronPack = async () => {
       alert('Update link not given. Server might be undergoing maintenance...')
     } else if (!latestElectronVersion.value) {
       alert('latestElectronVersion not given, Please retry later.')
+    } else if (versionContent.value?.maintenance_client) {
+      alert(t('服务器正在维护，暂时不能更新。') + '\n' + t('请稍等片刻。'))
     } else {
       url = url.replace('~PROXY', proxy.value)
       url = url.replace('~VERSION', latestElectronVersion.value)
@@ -336,6 +340,8 @@ const handleDownloadElectronPack = async () => {
       alert('Update link not given. Server might be undergoing maintenance...')
     } else if (!latestElectronVersion.value) {
       alert('latestElectronVersion not given, Please retry later.')
+    } else if (versionContent.value?.maintenance_client) {
+      alert(t('服务器正在维护，暂时不能更新。') + '\n' + t('请稍等片刻。'))
     } else {
       url = url.replace('~PROXY', proxy.value)
       url = url.replace('~VERSION', latestElectronVersion.value)
