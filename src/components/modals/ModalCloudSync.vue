@@ -235,7 +235,7 @@ const handleUpload = async () => {
   // 将同步范围保存到缓存
   const newCloudConfig = deepCopy(cloudConfig.value)
   newCloudConfig.nbb_sync_targets = syncTargets.value
-  store.commit('setCloudConfig', newCloudConfig)
+  store.setCloudConfig(newCloudConfig)
   appForceUpdate()
 
   await loadLists()
@@ -389,7 +389,7 @@ const handleDownload = async () => {
     console.log('userconfig json diff.\n', JSON.stringify(oldUserConfig), JSON.stringify(newUserConfig))
     configChanged = true
     newUserConfig = fixUserConfig(newUserConfig)
-    store.commit('setUserConfig', newUserConfig)
+    store.setUserConfig(newUserConfig)
   } else {
     console.log('[CloudSync] Tip: no changes for userConfig.')
   }
@@ -428,7 +428,7 @@ const handleDownload = async () => {
     console.log('funcconfig json diff.\n', JSON.stringify(oldFuncConfig), JSON.stringify(newFuncConfig))
     configChanged = true
     newFuncConfig = fixFuncConfig(newFuncConfig)
-    store.commit('setFuncConfig', newFuncConfig)
+    store.setFuncConfig(newFuncConfig)
   } else {
     console.log('[CloudSync] Tip: no changes for funcConfig.')
   }
@@ -437,7 +437,7 @@ const handleDownload = async () => {
   // 将同步范围保存到缓存
   const newCloudConfig = deepCopy(cloudConfig.value)
   newCloudConfig.nbb_sync_targets = syncTargets.value
-  store.commit('setCloudConfig', newCloudConfig)
+  store.setCloudConfig(newCloudConfig)
 
   syncing.value = false
   if (configChanged) {

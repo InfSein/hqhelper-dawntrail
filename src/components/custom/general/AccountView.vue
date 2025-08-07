@@ -44,7 +44,7 @@ onMounted(async () => {
     } else {
       const newCloudConfig = resolveUserInfo(response.data, cloudConfig.value)
       if (JSON.stringify(newCloudConfig) !== JSON.stringify(cloudConfig.value)) {
-        store.commit('setCloudConfig', newCloudConfig)
+        store.setCloudConfig(newCloudConfig)
         appForceUpdate()
       }
     }
@@ -83,7 +83,7 @@ const handleCloudSync = () => {
 }
 const handleLogout = () => {
   const newCloudConfig = fixCloudConfig()
-  store.commit('setCloudConfig', newCloudConfig)
+  store.setCloudConfig(newCloudConfig)
   appForceUpdate()
   NAIVE_UI_MESSAGE.success(t('cloud.message.logged_out'))
 }

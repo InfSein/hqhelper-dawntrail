@@ -256,7 +256,7 @@ if (!disable_workstate_cache) {
       try {
         await Promise.resolve()
         userConfig.value.gatherclock_cache_work_state = workState.value
-        store.commit('setUserConfig', userConfig.value)
+        store.setUserConfig(userConfig.value)
       } catch (error) {
         console.error('Error handling workState change:', error)
       }

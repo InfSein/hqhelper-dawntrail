@@ -878,8 +878,8 @@ const currentGroupName = computed(() => {
 // #endregion
 
 const currentMenuVal = ref<string>('general')
-const formUserConfigData = ref<UserConfigModel>(deepCopy(fixUserConfig(store.state.userConfig)))
-const formFuncConfigData = ref<FuncConfigModel>(deepCopy(fixFuncConfig(store.state.funcConfig, store.state.userConfig)))
+const formUserConfigData = ref<UserConfigModel>(deepCopy(fixUserConfig(store.userConfig)))
+const formFuncConfigData = ref<FuncConfigModel>(deepCopy(fixFuncConfig(store.funcConfig, store.userConfig)))
 
 const onLoad = () => {
   if (props.settingGroup) {
@@ -889,8 +889,8 @@ const onLoad = () => {
   } else {
     currentMenuVal.value = 'general'
   }
-  formUserConfigData.value = deepCopy(fixUserConfig(store.state.userConfig))
-  formFuncConfigData.value = deepCopy(fixFuncConfig(store.state.funcConfig, store.state.userConfig))
+  formUserConfigData.value = deepCopy(fixUserConfig(store.userConfig))
+  formFuncConfigData.value = deepCopy(fixFuncConfig(store.funcConfig, store.userConfig))
 }
 
 const handleCheck = () => {
@@ -904,7 +904,7 @@ const handleSave = () => {
   }
 
   // * 处理偏好设置
-  const oldUserConfig = deepCopy(fixUserConfig(store.state.userConfig))
+  const oldUserConfig = deepCopy(fixUserConfig(store.userConfig))
   formUserConfigData.value.theme ??= 'system'
   formUserConfigData.value.language_ui ??= 'zh'
   formUserConfigData.value.language_item ??= 'auto'
@@ -916,15 +916,15 @@ const handleSave = () => {
     formUserConfigData.value.workflow_cache_work_state = fixWorkState()
   }
   const newUserConfig = fixUserConfig(formUserConfigData.value)
-  store.commit('setUserConfig', newUserConfig)
+  store.setUserConfig(newUserConfig)
 
   // * 处理功能设置
-  const oldFuncConfig = deepCopy(fixFuncConfig(store.state.funcConfig, store.state.userConfig))
+  const oldFuncConfig = deepCopy(fixFuncConfig(store.funcConfig, store.userConfig))
   if (formFuncConfigData.value.universalis_server !== oldFuncConfig?.universalis_server) {
     formFuncConfigData.value.cache_item_prices = {}
   }
   const newFuncConfig = fixFuncConfig(formFuncConfigData.value)
-  store.commit('setFuncConfig', newFuncConfig)
+  store.setFuncConfig(newFuncConfig)
 
   // * 判断是否需要刷新
   let needReload = false, reloadTimeout = 100

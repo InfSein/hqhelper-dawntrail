@@ -79,7 +79,7 @@ if (!disable_workstate_cache) {
           return
         }
         userConfig.value.workflow_cache_work_state = workState.value
-        store.commit('setUserConfig', userConfig.value)
+        store.setUserConfig(userConfig.value)
         emitSync('workflowStateChanged', deepCopy(userConfig.value))
       } catch (error) {
         console.error('Error handling workState change:', error)
@@ -395,7 +395,7 @@ const updateItemPrices = async () => {
         const itemID = Number(id)
         newConfig.cache_item_prices[itemID] = itemPrices[itemID]
       })
-      await store.commit('setFuncConfig', fixFuncConfig(newConfig, store.state.userConfig))
+      await store.setFuncConfig(fixFuncConfig(newConfig, store.userConfig))
     } catch (error : any) {
       console.error(error)
       alert(t('common.message.get_price_failed') + '\n' + (error?.message ?? error))

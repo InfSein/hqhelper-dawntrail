@@ -241,10 +241,10 @@ const getProxyPingStyle = (proxy: string) => {
 }
 
 const saveUpdateSettings = () => {
-  const newConfig = fixUserConfig(store.state.userConfig)
+  const newConfig = fixUserConfig(store.userConfig)
   newConfig.use_custom_proxy = useCustomProxy.value
   newConfig.custom_proxy_url = customProxyUrl.value
-  store.commit('setUserConfig', newConfig)
+  store.setUserConfig(newConfig)
 }
 const handleDownloadWebPack = async () => {
   if (!window.electronAPI?.downloadUpdatePack) {

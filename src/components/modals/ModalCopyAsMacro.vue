@@ -102,11 +102,11 @@ const handleCopy = async () => {
     return
   }
   if (noMoreInquiries.value) {
-    const newConfig = fixFuncConfig(store.state.funcConfig, store.state.userConfig)
+    const newConfig = fixFuncConfig(store.funcConfig, store.userConfig)
     newConfig.macro_direct_copy = true
     newConfig.macro_copy_prefix = macroPrefix.value
     newConfig.macro_generate_mode = macroMode.value
-    store.commit('setFuncConfig', newConfig)
+    store.setFuncConfig(newConfig)
   }
   handleClose()
   NAIVE_UI_MESSAGE.success(t('common.message.copy_succeed'))
