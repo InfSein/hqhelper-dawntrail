@@ -9,7 +9,6 @@ import hqConfig from '@/assets/data/unpacks/hq-config.json'
 import { Cal, type CostCHS, type IHqConfig, type TradeShop } from './nbb-cal-v5'
 import type { GearSelections } from '@/models/gears'
 import { getItemInfo, type ItemInfo, type ItemTradeInfo } from './item'
-import { objectEqual } from '.'
 
 export function useNbbCal() {
   const langHash: any = { 'lang-zh': 2, 'lang-en': 1, 'lang-ja': 0 };
