@@ -44,9 +44,9 @@ const props = defineProps<TomeScriptButtonProps>()
 
 const showBiColorItems = ref(userConfig.value.tomescript_show_bicolor_items)
 const handleShowBiColorItemsChange = (val: boolean) => {
-  const newConfig = fixUserConfig(store.state.userConfig)
+  const newConfig = fixUserConfig(store.userConfig)
   newConfig.tomescript_show_bicolor_items = val ?? false
-  store.commit('setUserConfig', newConfig)
+  store.setUserConfig(newConfig)
 }
 
 const getTradeCost = (itemTradeInfo: ItemTradeInfo) => {

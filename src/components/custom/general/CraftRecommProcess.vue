@@ -166,7 +166,7 @@ const isItemGatherableNow = (item: ItemInfo) => {
                 {{ groupIndex + 1 }}. {{ group.title }}
               </span>
               <component v-if="group.subtitle" :is="group.subtitle"></component>
-              <div v-else-if="group.type === 'trade-tomescript'" class="flex-vac gap-2" style="margin-left: 0.5em;">
+              <div v-else-if="group.type === 'trade-tomescript'" class="flex-vac flex-wrap gap-2" style="margin-left: 0.5em;">
                 <p v-show="tomeScripts.length">{{ t('statement.table.requires') }}</p>
                 <ItemSpan
                   v-for="item in tomeScripts"

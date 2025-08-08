@@ -286,7 +286,7 @@ const updateItemPrices = async () => {
         const itemID = Number(id)
         newConfig.cache_item_prices[itemID] = itemPrices[itemID]
       })
-      await store.commit('setFuncConfig', fixFuncConfig(newConfig, store.state.userConfig))
+      await store.setFuncConfig(fixFuncConfig(newConfig, store.userConfig))
     } catch (error : any) {
       console.error(error)
       alert(t('common.message.get_price_failed') + '\n' + (error?.message ?? error))
@@ -346,7 +346,7 @@ const handleAnalysisItemPrices = async () => {
           <ItemList
             :items="aethersands"
             :list-height="isMobile ? undefined : 120"
-            display-style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));"
+            :display-style="aethersands.length > 1 ? 'display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));' : ''"
             scroll-style="overflow-y: auto;"
             btn-pop-use-custom-width
             :btn-pop-custom-width="isMobile ? 300 : undefined"

@@ -3,7 +3,7 @@
 > [!TIP]\
 > 热更新等需要重新上传Release文件的场合，那一版本的已统计下载量会被清空。
 
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github) ＋ ![Client Downloads](https://img.shields.io/github/downloads/InfSein/hqhelper-client/total?style=flat&logo=github)
 
 ## 客户端本体
 
@@ -66,3 +66,8 @@
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.5/static-pages.zip)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.6/static-pages.zip)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.7/static-pages.zip)
+
+### 2.3.x (对应 FFXIV 的 7.3~7.35)
+
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.0/static-pages.zip)
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.1/static-pages.zip)

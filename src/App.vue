@@ -30,9 +30,9 @@ const store = useStore()
 const { t: rawT, setLocale } = useLocale()
 const { emitSync, onSync } = useElectronSync()
 
-const userConfig = ref<UserConfigModel>(fixUserConfig(store.state.userConfig))
-const funcConfig = ref<FuncConfigModel>(fixFuncConfig(store.state.funcConfig, store.state.userConfig))
-const cloudConfig = ref<CloudConfigModel>(fixCloudConfig(store.state.cloudConfig))
+const userConfig = ref<UserConfigModel>(fixUserConfig(store.userConfig))
+const funcConfig = ref<FuncConfigModel>(fixFuncConfig(store.funcConfig, store.userConfig))
+const cloudConfig = ref<CloudConfigModel>(fixCloudConfig(store.cloudConfig))
 const locale = computed(() => {
   return userConfig.value?.language_ui ?? 'zh'
 })
@@ -82,9 +82,9 @@ const naiveUiMessagePlacement = computed(() => {
 const appForceUpdate = () => {
   // update app
   handleAppUpdate(
-    store.state.userConfig,
-    store.state.funcConfig,
-    store.state.cloudConfig
+    store.userConfig,
+    store.funcConfig,
+    store.cloudConfig
   )
   // Update electron settings
   emitSync('update-setting', deepCopy({
@@ -99,9 +99,9 @@ onSync('update-setting', (value) => {
     userConfig: _userConfig, funcConfig: _funcConfig, cloudConfig: _cloudConfig
   } = value
   handleAppUpdate(_userConfig, _funcConfig, _cloudConfig)
-  store.commit('setUserConfig', userConfig.value)
-  store.commit('setFuncConfig', funcConfig.value)
-  store.commit('setCloudConfig', cloudConfig.value)
+  store.setUserConfig(userConfig.value)
+  store.setFuncConfig(funcConfig.value)
+  store.setCloudConfig(cloudConfig.value)
 })
 const handleAppUpdate = (
   _userConfig: UserConfigModel | undefined,
@@ -119,7 +119,7 @@ const handleAppUpdate = (
 }
 const switchTheme = () => {
   userConfig.value.theme = theme.value === 'light' ? 'dark' : 'light'
-  store.commit('setUserConfig', userConfig.value)
+  store.setUserConfig(userConfig.value)
 }
 
 const t = (message: string, args?: any) => {
@@ -285,9 +285,9 @@ onMounted(async () => {
     (now.getMonth() === 11) && ((date === 24 && now.getHours() >= 18) || date === 25)
   ) {
     showFestivalEgg.value = true
-    const newConfig = fixUserConfig(store.state.userConfig)
+    const newConfig = fixUserConfig(store.userConfig)
     newConfig.last_triggered_egg = eggId
-    store.commit('setUserConfig', newConfig)
+    store.setUserConfig(newConfig)
   }
   // 处理 UI
   updateIsMobile()

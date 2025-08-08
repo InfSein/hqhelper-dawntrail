@@ -144,7 +144,7 @@ const handleResponse = (
 }
 const handleSaveLoginInfo = (data: ResdataRegisterAndLogin) => {
   const newCloudConfig = resolveUserInfo(data, cloudConfig.value)
-  store.commit('setCloudConfig', newCloudConfig)
+  store.setCloudConfig(newCloudConfig)
   appForceUpdate()
 }
 
@@ -257,7 +257,7 @@ const handleSubmit = async () => {
         } else {
           newCloudConfig.nbb_account_nickname = edituserFormData.nickname
           newCloudConfig.nbb_account_title = edituserFormData.title
-          store.commit('setCloudConfig', newCloudConfig)
+          store.setCloudConfig(newCloudConfig)
         }
       }
       if (edituserFormData.avatar !== cloudConfig.value.nbb_account_avatar) {
@@ -266,7 +266,7 @@ const handleSubmit = async () => {
           NAIVE_UI_MESSAGE.error(t('cloud.message.reset_avatar_failed', response.errmsg)); return
         } else {
           newCloudConfig.nbb_account_avatar = edituserFormData.avatar
-          store.commit('setCloudConfig', newCloudConfig)
+          store.setCloudConfig(newCloudConfig)
         }
       }
 
