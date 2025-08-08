@@ -77,6 +77,7 @@ export const getMaterialItems = () => {
 
 export interface ItemInfo {
   id: number
+  valid: boolean
   amount: number
   patch: string
   /** 物品品级 */
@@ -240,10 +241,12 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   }
 
   let _item : XivUnpackedItem
+  let itemValid = true
   if (!itemID) {
     _item = deepCopy(phItem)
   } else {
     if (!XivUnpackedItems?.[itemID]) {
+      itemValid = false
       console.log('[开发提示] 此物品在items表中缺失:', item)
     }
     _item = deepCopy(XivUnpackedItems?.[itemID] || phItem)
@@ -253,6 +256,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // * 组装ItemInfo的基本参数
   const itemInfo = {
     id: _item.id,
+    valid: itemValid,
     amount: itemAmount
   } as ItemInfo
   if (_item.lang.length !== 3 || _item.desc.length !== 3) {

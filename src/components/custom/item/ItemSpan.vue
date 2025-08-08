@@ -208,50 +208,53 @@ const handleItemIconClick = async () => {
 
 <template>
   <div ref="itemSpanNode" class="container" :style="containerStyle">
-    <XivFARImage
-      v-show="!hideIcon"
-      class="no-select"
-      :size="imgSize ?? 14"
-      :src="itemInfo.iconUrl"
-      :title="(hideName && hidePopIcon) ? getItemName() : ''"
-    />
-    <div class="item-text-container">
-      <span v-show="!hideName" class="item-name">
-        {{ hideName ? '' : getItemName() }}
-      </span>
-      <span v-if="!hideName && showAmount">&nbsp;</span>
-      <span v-show="showAmount" ref="itemAmountNode" class="item-amount">
-        {{ showAmount ? (' x' + itemAmount) : '' }}
-      </span>
-    </div>
-    <ItemPop
-      v-if="!hidePopIcon"
-      :item-info="itemInfo"
-      pop-use-custom-width
-      :pop-custom-width="275"
-      :pop-trigger="popTrigger"
-    >
-      <n-icon v-if="!hidePopIcon" class="item-popicon" size="14" color="#3b7fef"
-        @contextmenu="handleContextMenu"
-        @touchstart.passive="handleItemButtonTouchStart" 
-        @touchmove.passive="handleItemButtonTouchMove" 
-        @touchend.passive="handleItemButtonTouchEnd"
-        @click="handleItemIconClick"
+    <div v-if="!itemInfo?.valid" class="item-text-container">未知物品({{itemInfo?.id}})</div>
+    <template v-else>
+      <XivFARImage
+        v-show="!hideIcon"
+        class="no-select"
+        :size="imgSize ?? 14"
+        :src="itemInfo.iconUrl"
+        :title="(hideName && hidePopIcon) ? getItemName() : ''"
+      />
+      <div class="item-text-container">
+        <span v-show="!hideName" class="item-name">
+          {{ hideName ? '' : getItemName() }}
+        </span>
+        <span v-if="!hideName && showAmount">&nbsp;</span>
+        <span v-show="showAmount" ref="itemAmountNode" class="item-amount">
+          {{ showAmount ? (' x' + itemAmount) : '' }}
+        </span>
+      </div>
+      <ItemPop
+        v-if="!hidePopIcon"
+        :item-info="itemInfo"
+        pop-use-custom-width
+        :pop-custom-width="275"
+        :pop-trigger="popTrigger"
       >
-        <InfoOutlined />
-        <n-dropdown
-          size="small"
-          placement="bottom-start"
-          trigger="manual"
-          :x="xRef"
-          :y="yRef"
-          :options="options"
-          :show="showDropdownRef"
-          :on-clickoutside="onClickoutside"
-          @select="handleSelect"
-        />
-      </n-icon>
-    </ItemPop>
+        <n-icon v-if="!hidePopIcon" class="item-popicon" size="14" color="#3b7fef"
+          @contextmenu="handleContextMenu"
+          @touchstart.passive="handleItemButtonTouchStart" 
+          @touchmove.passive="handleItemButtonTouchMove" 
+          @touchend.passive="handleItemButtonTouchEnd"
+          @click="handleItemIconClick"
+        >
+          <InfoOutlined />
+          <n-dropdown
+            size="small"
+            placement="bottom-start"
+            trigger="manual"
+            :x="xRef"
+            :y="yRef"
+            :options="options"
+            :show="showDropdownRef"
+            :on-clickoutside="onClickoutside"
+            @select="handleSelect"
+          />
+        </n-icon>
+      </ItemPop>
+    </template>
   </div>
 </template>
 
