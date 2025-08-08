@@ -73,7 +73,7 @@ onMounted(() => {
   if (userConfig.value.cache_lasttime_version !== AppStatus.Version) {
     userConfig.value.cache_lasttime_version = AppStatus.Version
     const newConfig = fixUserConfig(userConfig.value)
-    store.commit('setUserConfig', newConfig)
+    store.setUserConfig(newConfig)
     showChangeLogsModal.value = true
   }
 })

@@ -28,13 +28,13 @@ const NAIVE_UI_MESSAGE = useMessage()
 
 const showModal = defineModel<boolean>('show', { required: true })
 
-const formFuncConfigData = ref<FuncConfigModel>(deepCopy(fixFuncConfig(store.state.funcConfig, store.state.userConfig)))
+const formFuncConfigData = ref<FuncConfigModel>(deepCopy(fixFuncConfig(store.funcConfig, store.userConfig)))
 const formInventoryItems = ref<ItemInfo[]>([])
 
 const modalId = 'modal-inventory'
 
 const onLoad = () => {
-  formFuncConfigData.value = deepCopy(fixFuncConfig(store.state.funcConfig, store.state.userConfig))
+  formFuncConfigData.value = deepCopy(fixFuncConfig(store.funcConfig, store.userConfig))
   formInventoryItems.value = Object.keys(formFuncConfigData.value.inventory_data).map(_id => {
     const id = Number(_id)
     const item = getItemInfo(id)
@@ -125,7 +125,7 @@ const handleClearInventory = () => {
 }
 
 const handleSave = () => {
-  store.commit('setFuncConfig', fixFuncConfig(formFuncConfigData.value))
+  store.setFuncConfig(fixFuncConfig(formFuncConfigData.value))
 
   // * 结算
   showModal.value = false

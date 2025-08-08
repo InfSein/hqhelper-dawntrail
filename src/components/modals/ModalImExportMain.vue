@@ -60,9 +60,9 @@ const importGearSelections = ref<GearSelections>()
 
 watch(exportItemPrices, async(newVal, oldVal) => {
   if (newVal !== oldVal) {
-    const newConfig = fixFuncConfig(store.state.funcConfig, store.state.userConfig)
+    const newConfig = fixFuncConfig(store.funcConfig, store.userConfig)
     newConfig.export_item_price = newVal
-    await store.commit('setFuncConfig', fixFuncConfig(newConfig, store.state.userConfig))
+    await store.setFuncConfig(fixFuncConfig(newConfig, store.userConfig))
   }
 })
 

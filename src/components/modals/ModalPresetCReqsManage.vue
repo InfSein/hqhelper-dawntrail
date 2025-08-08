@@ -69,7 +69,7 @@ const handleSave = () => {
   }
   const newUserConfig = deepCopy(userConfig.value)
   newUserConfig.macromanage_cache_work_state.presetCReqs = creqs.value
-  store.commit('setUserConfig', newUserConfig)
+  store.setUserConfig(newUserConfig)
   appForceUpdate()
   showModal.value = false
   NAIVE_UI_MESSAGE.success(t('common.save_succeed'))

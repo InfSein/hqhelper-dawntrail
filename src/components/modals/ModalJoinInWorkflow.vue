@@ -88,7 +88,7 @@ const joinModeOptions = computed(() => {
 })
 
 const handleSubmit = () => {
-  const newUserConfig = fixUserConfig(store.state.userConfig)
+  const newUserConfig = fixUserConfig(store.userConfig)
   if (targetWorkflow.value === 'add') {
     if (newUserConfig.workflow_cache_work_state.workflows.length >= _VAR_MAX_WORKFLOW) {
       NAIVE_UI_MESSAGE.warning(t('workflow.message.max_len', _VAR_MAX_WORKFLOW))
@@ -116,11 +116,11 @@ const handleSubmit = () => {
     }
     newUserConfig.workflow_cache_work_state.workflows[targetWorkflow.value] = workflow
   }
-  store.commit('setUserConfig', newUserConfig)
+  store.setUserConfig(newUserConfig)
   if (joinMode.value !== funcConfig.value.workflow_default_join_mode) {
-    const newFuncConfig = fixFuncConfig(store.state.funcConfig)
+    const newFuncConfig = fixFuncConfig(store.funcConfig)
     newFuncConfig.workflow_default_join_mode = joinMode.value
-    store.commit('setFuncConfig', newFuncConfig)
+    store.setFuncConfig(newFuncConfig)
   }
   NAIVE_UI_MESSAGE.success(t('workflow.join_in_workflow.message.join_succeed'))
   showModal.value = false

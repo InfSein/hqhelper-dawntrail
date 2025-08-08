@@ -59,7 +59,7 @@ if (!disable_workstate_cache) {
           return
         }
         userConfig.value.workflow_cache_work_state = workState.value
-        store.commit('setUserConfig', userConfig.value)
+        store.setUserConfig(userConfig.value)
         emitSync('workflowStateChanged', deepCopy(userConfig.value))
       } catch (error) {
         console.error('Error handling workState change:', error)

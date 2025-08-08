@@ -311,7 +311,7 @@ const refreshItemPrice = async () => {
       const itemID = Number(id)
       newConfig.cache_item_prices[itemID] = itemPrices[itemID]
     })
-    await store.commit('setFuncConfig', fixFuncConfig(newConfig, store.state.userConfig))
+    await store.setFuncConfig(fixFuncConfig(newConfig, store.userConfig))
     funcConfig.value = newConfig
     NAIVE_UI_MESSAGE.success(t('item.price.update_succeed'))
   } catch (err: any) {

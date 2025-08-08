@@ -74,7 +74,7 @@ const updateCache = () => {
   const _ui_fold_cache = userConfig.value.cache_ui_fold ?? {} // refresh to avoid mutation
   _ui_fold_cache[props.cardKey] = folded.value
   userConfig.value.cache_ui_fold = _ui_fold_cache
-  store.commit('setUserConfig', userConfig.value)
+  store.setUserConfig(userConfig.value)
 }
 
 const handleFoldOrExpand = () => {

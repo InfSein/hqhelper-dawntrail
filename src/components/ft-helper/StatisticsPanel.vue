@@ -67,7 +67,7 @@ const updateItemPrices = async () => {
         const itemID = Number(id)
         newConfig.cache_item_prices[itemID] = itemPrices[itemID]
       })
-      await store.commit('setFuncConfig', fixFuncConfig(newConfig, store.state.userConfig))
+      await store.setFuncConfig(fixFuncConfig(newConfig, store.userConfig))
     } catch (error : any) {
       console.error(error)
       alert(t('common.message.get_price_failed') + '\n' + (error?.message ?? error))

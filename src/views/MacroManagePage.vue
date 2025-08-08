@@ -63,7 +63,7 @@ watch(workState, async () => {
     try {
       await Promise.resolve()
       userConfig.value.macromanage_cache_work_state = workState.value
-      store.commit('setUserConfig', userConfig.value)
+      store.setUserConfig(userConfig.value)
     } catch (error) {
       console.error('Error handling workState change:', error)
     }

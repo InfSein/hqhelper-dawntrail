@@ -127,7 +127,7 @@ const setInventoryByPreparedItems = () => {
   if (JSON.stringify(inventory) !== JSON.stringify(funcConfig.value.inventory_data)) {
     const newFuncConfig = deepCopy(funcConfig.value)
     newFuncConfig.inventory_data = inventory
-    store.commit('setFuncConfig', newFuncConfig)
+    store.setFuncConfig(newFuncConfig)
     appForceUpdate()
   }
 
