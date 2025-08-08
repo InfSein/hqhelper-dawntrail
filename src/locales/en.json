@@ -570,6 +570,14 @@
         "text_2": "Now re-click the selected row of statement would deselect it."
       }
     },
+    "2_3_2": {
+      "feat": {
+        "text_1": "Added data of 'Levinchrome Aethersand' and related gatherings."
+      },
+      "fix": {
+        "text_1": "Fixed display effect of trade item title in Recomm. Process when tomescript types are too many."
+      }
+    },
     "breaking": "BREAKING CHANGES",
     "feat": "FEATURES",
     "fix": "BUG FIXES",
