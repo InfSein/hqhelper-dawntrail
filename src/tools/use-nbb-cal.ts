@@ -115,46 +115,46 @@ export function useNbbCal() {
    */
   const getTradeMap = () => {
     const map = {} as Record<number, ItemTradeInfo>
+    let trades: TradeShop[] = []
     for (const patch in config) {
-      const trades = removeDuplicates(config[patch].tradeShops ?? [])
-      trades.forEach(trade => {
-        const itemID = trade.receiveId
-        if (itemID) {
-          const costGlobal = {
-            costId: trade.costId,
-            costCount: trade.costCount
+      if (config[patch].tradeShops) {
+        trades.push(...config[patch].tradeShops)
+      }
+    }
+    trades = removeDuplicates(trades)
+    trades.forEach(trade => {
+      const itemID = trade.receiveId
+      if (itemID) {
+        const costGlobal = {
+          costId: trade.costId,
+          costCount: trade.costCount
+        }
+        const costCHS = (trade.costCHS || costGlobal) as CostCHS
+        const tradeInfo : ItemTradeInfo = {
+          receiveCount: trade.receiveCount,
+          costGlobal: costGlobal,
+          costCHS: costCHS
+        }
+        if (map[itemID]) {
+          let ptr = map[itemID]; let loop = true; let looptime = 0
+          while (loop && looptime < 10) {
+            if (!ptr.costAlter) {
+              ptr.costAlter = tradeInfo
+              loop = false
+            } else {
+              ptr = ptr.costAlter
+              looptime++
+            }
           }
-          const costCHS = (trade.costCHS || costGlobal) as CostCHS
-          const tradeInfo : ItemTradeInfo = {
+        } else {
+          map[itemID] = {
             receiveCount: trade.receiveCount,
             costGlobal: costGlobal,
             costCHS: costCHS
           }
-          if (map[itemID]) {
-            let ptr = map[itemID]; let loop = true; let looptime = 0
-            while (loop && looptime < 10) {
-              if (!ptr.costAlter) {
-                if (!objectEqual(tradeInfo, ptr)) {
-                  ptr.costAlter = tradeInfo
-                }
-                loop = false
-              } else if (objectEqual(tradeInfo, ptr.costAlter)) {
-                loop = false
-              } else {
-                ptr = ptr.costAlter
-                looptime++
-              }
-            }
-          } else {
-            map[itemID] = {
-              receiveCount: trade.receiveCount,
-              costGlobal: costGlobal,
-              costCHS: costCHS
-            }
-          }
         }
-      })
-    }
+      }
+    })
     return map
 
     function removeDuplicates(shops: TradeShop[]): TradeShop[] {
