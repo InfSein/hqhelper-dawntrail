@@ -154,7 +154,7 @@ const handleRowClick = (row: StatementRow) => {
               :key="'item-cleaned-' + item.info.id"
               class="prepared"
               :class="highlightedItems.includes(item.info.id) ? 'highlight' : ''"
-              @click="selectedItem = item.info"
+              @click="handleRowClick(item)"
             >
               <td>
                 <ItemCell
