@@ -92,6 +92,18 @@ export const getChangelogs = (
               ) : ''),
           ]
         },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('changelog.2_3_3.fix.text_1')
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_3_3.feat.text_1')
+          ]
+        }
       ]
     },
     {
