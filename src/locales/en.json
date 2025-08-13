@@ -578,6 +578,14 @@
         "text_1": "Fixed display effect of trade item title in Recomm. Process when tomescript types are too many."
       }
     },
+    "2_3_3": {
+      "feat": {
+        "text_1": "Now click the 'Prepared Items' title would also cancel item row select."
+      },
+      "fix": {
+        "text_1": "Fixed clicking selected item rows would not cancel select."
+      }
+    },
     "breaking": "BREAKING CHANGES",
     "feat": "FEATURES",
     "fix": "BUG FIXES",

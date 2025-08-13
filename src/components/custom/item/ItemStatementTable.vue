@@ -143,7 +143,11 @@ const handleRowClick = (row: StatementRow) => {
                 {{ getItemAmount(item.amount.remain) }}
               </td>
             </tr>
-            <tr v-if="rows.cleaned?.length" class="prepared">
+            <tr
+              v-if="rows.cleaned?.length"
+              class="prepared"
+              @click="selectedItem = undefined"
+            >
               <td colspan="4" class="bold">
                 <i class="xiv e05e"></i>
                 {{ t('statement.text.all_prepared_items') }}
@@ -154,7 +158,7 @@ const handleRowClick = (row: StatementRow) => {
               :key="'item-cleaned-' + item.info.id"
               class="prepared"
               :class="highlightedItems.includes(item.info.id) ? 'highlight' : ''"
-              @click="selectedItem = item.info"
+              @click="handleRowClick(item)"
             >
               <td>
                 <ItemCell

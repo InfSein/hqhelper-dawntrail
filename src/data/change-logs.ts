@@ -76,6 +76,37 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.3.3',
+      date: '2025-08-13',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('changelog.shared.chs_db_update', {
+              ver: '7.25'
+            })
+              + (isZh ? (
+                tipper + '国服7.25版本修改了一部分物品的名称和描述。如果想要查看修改详情，请参阅'
+                + renderLink('https://docs.qq.com/doc/DY3dKYXB3ZElFU2xN', 'HqHelper 中文暂译修订记录')
+                + '。'
+              ) : ''),
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('changelog.2_3_3.fix.text_1')
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_3_3.feat.text_1')
+          ]
+        }
+      ]
+    },
+    {
       version: '2.3.2',
       date: '2025-08-08',
       changes: [
