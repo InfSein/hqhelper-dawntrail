@@ -715,6 +715,7 @@
     "basic_info": "基本信息",
     "benefit": "收益",
     "brief_intro": "简介",
+    "cancel": "取消",
     "cautions": "注意事项",
     "check_failed": "检测失败",
     "checking": "检测中……",
@@ -949,6 +950,7 @@
     "verify_code": "验证码",
     "view_analysis": "查看分析",
     "view_statement": "查看报表",
+    "warn": "警告",
     "weibo": "微博",
     "will_be_named_with_time_when_empty": "不填则默认以时间命名",
     "work_state": "工作状态"

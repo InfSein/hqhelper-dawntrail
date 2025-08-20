@@ -3,7 +3,7 @@ import { computed, provide, ref, getCurrentInstance, onMounted, watch, onBeforeU
 import {
   darkTheme, lightTheme, useOsTheme,
   zhCN, enUS, jaJP, dateZhCN, dateEnUS, dateJaJP,
-  NConfigProvider, NGlobalStyle, NMessageProvider,
+  NConfigProvider, NDialogProvider, NGlobalStyle, NMessageProvider,
   NLayout, NLayoutHeader, NLayoutContent,
   type GlobalThemeOverrides
 } from 'naive-ui'
@@ -364,6 +364,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
     :theme-overrides="naiveUIThemeOverrides"
   >
     <n-global-style />
+    <n-dialog-provider>
     <n-message-provider :placement="naiveUiMessagePlacement">
       <div :class="appClass" :data-theme="theme">
         <n-layout id="main-layout" position="absolute" :native-scrollbar="false">
@@ -393,6 +394,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
         <ModalFestivalEgg v-model:show="showFestivalEgg" />
       </div>
     </n-message-provider>
+    </n-dialog-provider>
   </n-config-provider>
 </template>
 
