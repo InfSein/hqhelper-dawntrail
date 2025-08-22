@@ -97,6 +97,7 @@ defineExpose({
 
 .dialog-container {
   width: 420px;
+  max-width: 98%;
   border-radius: 4px;
   box-shadow: 0 4px 18px rgba(0,0,0,0.25);
   overflow: hidden;
