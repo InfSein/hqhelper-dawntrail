@@ -36,7 +36,7 @@ const handlePatchSelect = async (patch: XivPatch) => {
   ) {
     if (await confirm(
       t('main.message.switch_patch_will_clean_gears')
-      + '\n' + t('common.message.ask_continue')
+      + '\r\n' + t('common.message.ask_continue')
     )) {
       gearsSelected.value = fixGearSelections()
     } else {

@@ -133,6 +133,6 @@ export const playAudio = (source: string) => {
       source.start(0)
     })
     .catch(error => {
-      alert("播放失败：\n"+ error)
+      console.error("Play audio failed:\n"+ error)
     })
 }

@@ -1,170 +1,131 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, type VNodeChild } from "vue"
+import {
+  NButton, NDialog
+} from "naive-ui"
 
-interface DialogProps {
-  title: string
-  message: string
-  type: "alert" | "confirm"
-  resolve: (value: boolean | void) => void
+export interface InternalDialogOptions {
+  id: number
+  title: string | (() => VNodeChild)
+  content: string | (() => VNodeChild)
+  type: "error" | "success" | "warning" | "info"
+  closable: boolean
+  positiveText?: string
+  negativeText?: string
+  onPositiveClick?: () => void
+  onNegativeClick?: () => void
 }
-const props = defineProps<DialogProps>()
 
-const visible = ref(true)
+const dialogs = ref<InternalDialogOptions[]>([])
+let idCounter = 0
 
-function handleOk() {
-  visible.value = false
-  if (props.type === 'confirm') {
-    props.resolve(true)
-  } else {
-    props.resolve()
-  }
+function openDialog(options: Omit<InternalDialogOptions, "id">) {
+  const id = ++idCounter
+  dialogs.value.push({ ...options, id })
+  return id
 }
-function handleCancel() {
-  visible.value = false
-  props.resolve(false)
+
+function closeDialog(id: number) {
+  dialogs.value = dialogs.value.filter(d => d.id !== id)
 }
+
+defineExpose({
+  openDialog,
+  closeDialog,
+})
 </script>
 
 <template>
-  <Teleport to="body">
-    <Transition name="fade">
+  <div>
+    <transition-group name="fade" tag="div">
       <div
-        v-if="visible"
+        v-for="dialog in dialogs"
+        :key="dialog.id"
         class="dialog-mask"
+        @click="() => { 
+          if (dialog.negativeText) {
+            dialog.onNegativeClick?.()
+            closeDialog(dialog.id)
+          }
+        }"
       >
-        <Transition name="scale">
-          <div v-if="visible" class="dialog">
-            <div class="dialog-header">
-              <span class="dialog-icon">⚡</span>
-              <h2 class="dialog-title">{{ title }}</h2>
-            </div>
-            <div class="dialog-content">
-              {{ message }}
-            </div>
-            <div class="dialog-actions">
-              <button
-                v-if="type === 'confirm'"
-                class="btn cancel"
-                @click="handleCancel"
-              >
-                取消
-              </button>
-              <button class="btn confirm" @click="handleOk">
-                确定
-              </button>
-            </div>
+        <div class="dialog-container" @click.stop>
+          <n-dialog
+            :title="dialog.title"
+            :content="dialog.content"
+            :closable="dialog.closable"
+            :type="dialog.type"
+            style="border-radius: initial; padding: 20px 28px 16px 28px;"
+          ></n-dialog>
+          <div class="dialog-footer">
+            <n-button
+              v-if="dialog.negativeText"
+              ghost
+              class="dialog-button"
+              @click="() => { dialog.onNegativeClick?.(); closeDialog(dialog.id) }"
+            >
+              {{ dialog.negativeText }}
+            </n-button>
+            <n-button
+              :type="dialog.type"
+              class="dialog-button"
+              @click="() => { dialog.onPositiveClick?.(); closeDialog(dialog.id) }"
+            >
+              {{ dialog.positiveText || 'OK' }}
+            </n-button>
           </div>
-        </Transition>
+        </div>
       </div>
-    </Transition>
-  </Teleport>
+    </transition-group>
+  </div>
 </template>
 
 <style scoped>
-/* 遮罩层 */
+:deep(.n-dialog__content) {
+  white-space: pre-line;
+}
+
 .dialog-mask {
   position: fixed;
   inset: 0;
+  background: rgba(0,0,0,0.35);
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  background: rgba(30, 30, 30, 0.4);
-  backdrop-filter: blur(8px);
-  z-index: 1000;
+  z-index: 9999;
 }
 
-/* 对话框主体 */
-.dialog {
-  width: 360px;
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 20px 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  animation: pop 0.25s ease-out;
+.dialog-container {
+  width: 420px;
+  border-radius: 4px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  overflow: hidden;
+  animation: fadeInUp 0.2s ease-out;
 }
 
-/* 标题区 */
-.dialog-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-}
-.dialog-icon {
-  font-size: 22px;
-  margin-right: 8px;
-}
-.dialog-title {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-/* 内容区 */
-.dialog-content {
-  font-size: 15px;
-  line-height: 1.6;
-  color: #444;
-  margin-bottom: 20px;
-}
-
-/* 按钮区 */
-.dialog-actions {
+.dialog-footer {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 8px;
+  padding: 14px 16px;
+  background: var(--color-background-action);
+  border-top: 1px solid var(--color-border);
+
+  .dialog-button {
+    min-width: 90px;
+    height: 30px;
+    border-radius: 4px;
+  }
 }
 
-/* 渐变按钮 */
-.btn {
-  min-width: 80px;
-  padding: 8px 16px;
-  border-radius: 24px;
-  font-size: 14px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.2s;
 }
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-.btn.cancel {
-  background: #f0f0f0;
-  color: #333;
-}
-.btn.confirm {
-  background: linear-gradient(135deg, #6366f1, #ec4899);
-  color: white;
-}
-
-/* 动画 */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.25s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
+.fade-enter-from, .fade-leave-to {
   opacity: 0;
 }
-
-.scale-enter-active,
-.scale-leave-active {
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-.scale-enter-from,
-.scale-leave-to {
-  transform: scale(0.9);
-  opacity: 0;
-}
-
-@keyframes pop {
-  from {
-    transform: scale(0.9);
-    opacity: 0.5;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>

@@ -9,6 +9,7 @@ import {
 } from 'naive-ui'
 import AppHeader from './components/custom/general/AppHeader.vue'
 import AccountView from './components/custom/general/AccountView.vue'
+import Dialog from "@/components/custom/general/Dialog.vue"
 import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
 import ModalCheckUpdates from './components/modals/ModalCheckUpdates.vue'
 import ModalLogin from '@/components/modals/ModalLogin.vue'
@@ -24,6 +25,7 @@ import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from './m
 import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
 import AppStatus from './variables/app-status'
 import ModalFestivalEgg from './components/modals/ModalFestivalEgg.vue'
+import { registerDialogProvider, useDialog } from './tools/dialog'
 
 const route = useRoute()
 const store = useStore()
@@ -226,8 +228,16 @@ const appClass = computed(() => {
 })
 
 const showFestivalEgg = ref(false)
+const dialogRef = ref<InstanceType<typeof Dialog> | null>(null)
+const { confirm } = useDialog(t)
 
 onMounted(async () => {
+  // 注册对话框
+  if (dialogRef.value) {
+    registerDialogProvider(dialogRef.value)
+  } else {
+    console.warn('dialogRef is not set, dialog provider will not be registered.')
+  }
   await sleep(500)
   // 处理全局页面参数
   appMode.value = route.query.mode as typeof appMode.value
@@ -246,7 +256,7 @@ onMounted(async () => {
         needUpdateHqHelper = AppStatus.Version !== versionContent.hqhelper
 
         if (needUpdateElectron) {
-          if (window.confirm(
+          if (await confirm(
             t('update.message.checked_new_client', versionContent.electron)
             + (needUpdateHqHelper ? ('\n' + t('update.message.checked_new_hqhelper', versionContent.hqhelper)) : '')
             + '\n' + t('update.message.ask_update_now')
@@ -254,7 +264,7 @@ onMounted(async () => {
             displayCheckUpdatesModal()
           }
         } else if (needUpdateHqHelper) {
-          if (window.confirm(
+          if (await confirm(
             t('update.message.checked_new_hqhelper', versionContent.hqhelper)
             + '\n' + t('update.message.ask_update_now')
           )) {
@@ -379,6 +389,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
           <AccountView v-if="!isMobile && appMode !== 'overlay'" trigger-class="account-view" />
         </n-layout>
         
+        <Dialog ref="dialogRef" />
         <ModalCopyAsMacro
           v-model:show="showCopyMacroModal"
           :macro-map="macroMapValue"

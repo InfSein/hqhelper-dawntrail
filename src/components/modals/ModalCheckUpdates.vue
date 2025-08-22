@@ -16,15 +16,18 @@ import FoldableCard from '../templates/FoldableCard.vue'
 import type { ProcessStage, ProgressData } from 'env.electron'
 import { useStore } from '@/store'
 import AppStatus from '@/variables/app-status'
+import { useDialog } from '@/tools/dialog'
 import { checkUrlLag } from '@/tools/web-request'
 import type { AppVersionJson } from '@/models'
 import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
 import { checkAppUpdates } from '@/tools'
 
-const store = useStore()
 const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+
+const store = useStore()
+const { alertError, confirm } = useDialog(t)
 
 const showModal = defineModel<boolean>('show', { required: true })
 
@@ -134,7 +137,7 @@ const handleProgress = (progressData: ProgressData) => {
 }
 const handleCheckUpdates = async () => {
   if (!window.electronAPI?.httpGet) {
-    alert('electronAPI.httpGet is not defined'); return
+    await alertError('electronAPI.httpGet is not defined'); return
   }
   checkingUpdates.value = true
   latestHqHelperVersion.value = ''
@@ -146,17 +149,17 @@ const handleCheckUpdates = async () => {
       latestHqHelperVersion.value = versionContent.value.hqhelper
       latestElectronVersion.value = versionContent.value.electron
     } else {
-      dealFailure(checkUpdateResponse.message, checkUpdateResponse)
+      await dealFailure(checkUpdateResponse.message, checkUpdateResponse)
     }
   } catch (e: any) {
-    dealFailure(e?.message || 'UNKNOWN ERROR', e)
+    await dealFailure(e?.message || 'UNKNOWN ERROR', e)
   } finally {
     checkingUpdates.value = false
   }
 
-  function dealFailure(msg: string, errdata: any) {
+  async function dealFailure(msg: string, errdata: any) {
     console.error(errdata)
-    alert(t('update.message.check_update_failed_with_error', msg))
+    await alertError(t('update.message.check_update_failed_with_error', msg))
     latestHqHelperVersion.value = null
     latestElectronVersion.value = null
   }
@@ -248,9 +251,9 @@ const saveUpdateSettings = () => {
 }
 const handleDownloadWebPack = async () => {
   if (!window.electronAPI?.downloadUpdatePack) {
-    alert('electronAPI.downloadUpdatePack is not defined'); return
+    await alertError('electronAPI.downloadUpdatePack is not defined'); return
   }
-  if (!window.confirm(
+  if (!await confirm(
     t('update.alert_text.text_1')
     + '\n' + t('update.alert_text.text_2')
     + '\n' + t('update.alert_text.text_3')
@@ -263,17 +266,17 @@ const handleDownloadWebPack = async () => {
   saveUpdateSettings()
   let url = versionContent.value?.dlink_hqhelper
   if (!url) {
-    alert('Update link not given. Server might be undergoing maintenance...')
+    await alertError('Update link not given. Server might be undergoing maintenance...')
   } else if (!latestHqHelperVersion.value) {
-    alert('latestHqHelperVersion not given, Please retry later.')
+    await alertError('latestHqHelperVersion not given, Please retry later.')
   } else if (versionContent.value?.maintenance_webpack) {
-    alert(t('update.message.server_under_maintenance') + '\n' + t('common.message.please_wait_for_a_while'))
+    await alertError(t('update.message.server_under_maintenance') + '\n' + t('common.message.please_wait_for_a_while'))
   } else {
     url = url.replace('~PROXY', proxy.value)
     url = url.replace('~VERSION', latestHqHelperVersion.value)
     const err = await window.electronAPI.downloadUpdatePack(url)
     if (err) {
-      alert(t('update.message.download_update_pack_failed_with_error', err))
+      await alertError(t('update.message.download_update_pack_failed_with_error', err))
       updateTip.titleText = ''
     }
   }
@@ -295,9 +298,9 @@ const getClientDownloadLink = async () => {
 const handleDownloadElectronPack = async () => {
   if (userConfig.value.update_client_builtin) {
     if (!window.electronAPI?.downloadAndOpen) {
-      alert('function downloadAndOpen is not defined.\nPlease check the client version (v6+ is required).'); return
+      await alertError('function downloadAndOpen is not defined.\nPlease check the client version (v6+ is required).'); return
     }
-    if (!window.confirm(
+    if (!await confirm(
       t('update.alert_text.text_8')
       + '\n' + t('update.alert_text.text_9')
       + '\n' + t('update.alert_text.text_3')
@@ -310,22 +313,22 @@ const handleDownloadElectronPack = async () => {
     saveUpdateSettings()
     let url = await getClientDownloadLink()
     if (!url) {
-      alert('Update link not given. Server might be undergoing maintenance...')
+      await alertError('Update link not given. Server might be undergoing maintenance...')
     } else if (!latestElectronVersion.value) {
-      alert('latestElectronVersion not given, Please retry later.')
+      await alertError('latestElectronVersion not given, Please retry later.')
     } else if (versionContent.value?.maintenance_client) {
-      alert(t('update.message.server_under_maintenance') + '\n' + t('common.message.please_wait_for_a_while'))
+      await alertError(t('update.message.server_under_maintenance') + '\n' + t('common.message.please_wait_for_a_while'))
     } else {
       url = url.replace('~PROXY', proxy.value)
       url = url.replace('~VERSION', latestElectronVersion.value)
       const err = await window.electronAPI.downloadAndOpen(url, t('update.file_name.client_updater') + '.exe')
       if (err) {
-        alert(t('update.message.download_client_pack_failed_with_error', err))
+        await alertError(t('update.message.download_client_pack_failed_with_error', err))
         updateTip.titleText = ''
       }
     }
   } else {
-    if (!window.confirm(
+    if (!await confirm(
       t('update.alert_text.text_5')
       + '\n' + t('update.alert_text.text_6')
       + '\n' + t('update.alert_text.text_7')
@@ -337,11 +340,11 @@ const handleDownloadElectronPack = async () => {
     const func = window.electronAPI?.openUrlByBrowser ?? window.open
     let url = await getClientDownloadLink()
     if (!url) {
-      alert('Update link not given. Server might be undergoing maintenance...')
+      await alertError('Update link not given. Server might be undergoing maintenance...')
     } else if (!latestElectronVersion.value) {
-      alert('latestElectronVersion not given, Please retry later.')
+      await alertError('latestElectronVersion not given, Please retry later.')
     } else if (versionContent.value?.maintenance_client) {
-      alert(t('update.message.server_under_maintenance') + '\n' + t('common.message.please_wait_for_a_while'))
+      await alertError(t('update.message.server_under_maintenance') + '\n' + t('common.message.please_wait_for_a_while'))
     } else {
       url = url.replace('~PROXY', proxy.value)
       url = url.replace('~VERSION', latestElectronVersion.value)
