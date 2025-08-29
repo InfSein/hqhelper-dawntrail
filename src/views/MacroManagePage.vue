@@ -28,6 +28,7 @@ import {
 import type { UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
 import { CopyToClipboard, deepCopy } from '@/tools'
+import { useDialog } from '@/tools/dialog'
 import useUiTools from '@/tools/ui'
 import useMacroHelper from '@/tools/macro-helper'
 
@@ -37,6 +38,7 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
 const store = useStore()
+const { confirmWarning } = useDialog(t)
 const NAIVE_UI_MESSAGE = useMessage()
 const { renderIcon } = useUiTools(isMobile)
 const {
@@ -332,13 +334,13 @@ const handleReportDataMissing = (macro: RecordedCraftMacro | number) => {
     workState.value.recordedCraftMacros
   )
 }
-const handleMultiOperateDropdownSelect = (key: string | number) => {
+const handleMultiOperateDropdownSelect = async (key: string | number) => {
   if (key === 'delete') {
     if (!workState.value.recordedCraftMacros.length) {
       NAIVE_UI_MESSAGE.info(t('macro_manage.message.no_macro_added'))
       return
     }
-    if (!window.confirm(t('macro_manage.message.confirm_delete_all') + '\n' + t('common.message.operation_irreversible'))) {
+    if (!await confirmWarning(t('macro_manage.message.confirm_delete_all') + '\n' + t('common.message.operation_irreversible'))) {
       return
     }
     workState.value.recordedCraftMacros = []
@@ -387,8 +389,8 @@ const handleEditRow = (row: CraftMacroRow) => {
     handleReportDataMissing(row.id)
   }
 }
-const handleDeleteRow = (row: CraftMacroRow) => {
-  if (!window.confirm(t('common.message.confirm_delete_with_name', row.name) + '\n' + t('common.message.operation_irreversible'))){
+const handleDeleteRow = async (row: CraftMacroRow) => {
+  if (!await confirmWarning(t('common.message.confirm_delete_with_name', row.name) + '\n' + t('common.message.operation_irreversible'))){
     return
   }
   const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)

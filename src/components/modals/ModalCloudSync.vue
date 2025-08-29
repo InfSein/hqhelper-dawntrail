@@ -19,8 +19,9 @@ import { type CloudConfigModel } from '@/models/config-cloud'
 import { fixWorkState as fixWorkflowWorkState } from '@/models/workflow'
 import { fixWorkState as fixMacromanageWorkState } from '@/models/macromanage'
 import { HqList, type NbbResponse } from '@/models/nbb-cloud'
-import { useNbbCloud } from '@/tools/nbb-cloud'
 import { deepCopy } from '@/tools'
+import { useDialog } from '@/tools/dialog'
+import { useNbbCloud } from '@/tools/nbb-cloud'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -29,6 +30,7 @@ const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const store = useStore()
+const { alertInfo, alertError, confirm } = useDialog(t)
 const NAIVE_UI_MESSAGE = useMessage()
 const {
   getListBatch, addList, editList,
@@ -195,7 +197,7 @@ const handleUpload = async () => {
   syncing.value = true
 
   if (getFailedLabels.value.length) {
-    alert(
+    await alertError(
       t('cloud.message.cannot_sync_because_modules_data_load_failed') + '\n'
       + '-> ' + getFailedLabels.value.join(', ') + '\n'
       + t('cloud.message.please_refresh_and_retry')
@@ -204,7 +206,7 @@ const handleUpload = async () => {
     return
   }
 
-  if (!confirm(
+  if (!await confirm(
     t('cloud.message.confirm_upload_1') + '\n'
     + t('cloud.message.confirm_upload_2')
   )) {
@@ -224,7 +226,7 @@ const handleUpload = async () => {
   }
 
   if (failedModules.length) {
-    alert(
+    await alertError(
       t('cloud.message.following_modules_sync_failed') + '\n'
       + failedModules.join('\n')
     )
@@ -313,7 +315,7 @@ const handleDownload = async () => {
   syncing.value = true
 
   if (getFailedLabels.value.length) {
-    alert(
+    await alertError(
       t('cloud.message.cannot_sync_because_modules_data_load_failed') + '\n'
       + '-> ' + getFailedLabels.value.join(', ') + '\n'
       + t('cloud.message.please_refresh_and_retry')
@@ -326,7 +328,7 @@ const handleDownload = async () => {
     .filter(target => !cloudLists.value?.[target]?.last_update)
     .map(target => syncTypeLabelMap.value[target])
   if (novalLabels.length) {
-    alert(
+    await alertError(
       t('cloud.message.cannot_sync_because_modules_data_not_uploaded') + '\n'
       + '-> ' + novalLabels.join(', ') + '\n'
       + t('cloud.message.please_upload_first')
@@ -335,7 +337,7 @@ const handleDownload = async () => {
     return
   }
 
-  if (!confirm(
+  if (!await confirm(
     t('cloud.message.confirm_download_1') + '\n'
     + t('cloud.message.confirm_download_2')
   )) {
@@ -444,7 +446,7 @@ const handleDownload = async () => {
     const tips = [t('cloud.message.sync_succeed')]
     if (itemPriceCacheCleaned) tips.push(t('cloud.message.cache_cleaned'))
     tips.push(t('cloud.message.page_would_be_reloaded'))
-    alert(tips.join('\n'))
+    await alertInfo(tips.join('\n'))
     setTimeout(() => {
       window.electronAPI?.closeAllChildWindows?.()
       location.reload()
