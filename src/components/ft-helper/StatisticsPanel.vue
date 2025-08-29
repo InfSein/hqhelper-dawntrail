@@ -12,16 +12,18 @@ import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
 import { useStore } from '@/store'
 import { type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
+import { useDialog } from '@/tools/dialog'
 import { getItemPriceInfo, calCostAndBenefit } from '@/tools/item'
 import { useFufuCal } from '@/tools/use-fufu-cal'
 
-const store = useStore()
-const NAIVE_UI_MESSAGE = useMessage()
 const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
+const store = useStore()
+const { alertError } = useDialog(t)
+const NAIVE_UI_MESSAGE = useMessage()
 const { getStatementData } = useFufuCal(userConfig, funcConfig, t)
 
 interface StatisticsPanelProps {
@@ -70,7 +72,7 @@ const updateItemPrices = async () => {
       await store.setFuncConfig(fixFuncConfig(newConfig, store.userConfig))
     } catch (error : any) {
       console.error(error)
-      alert(t('common.message.get_price_failed') + '\n' + (error?.message ?? error))
+      await alertError(t('common.message.get_price_failed') + '\n' + (error?.message ?? error))
     }
     updatingPrice.value = false
   }

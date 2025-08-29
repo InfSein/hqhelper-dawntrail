@@ -37,6 +37,7 @@ import {
 import { type UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
 import { deepCopy, findDuplicatesFromArray } from '@/tools'
+import { useDialog } from '@/tools/dialog'
 import { getItemInfo } from '@/tools/item'
 import UseConfig from '@/tools/use-config'
 import useMacroHelper from '@/tools/macro-helper'
@@ -46,6 +47,7 @@ const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
+const { confirm } = useDialog(t)
 const NAIVE_UI_MESSAGE = useMessage()
 const {
   itemLanguage,
@@ -227,7 +229,7 @@ const handleSave = async () => {
         return itemval
       }
     }).join(', ')
-    if (!window.confirm(
+    if (!await confirm(
       t('macro_manage.message.relate_item_deduplicate')
       + '\n' + diList
       + '\n' + t('common.message.ask_continue')

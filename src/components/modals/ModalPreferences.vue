@@ -32,6 +32,7 @@ import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { fixWorkState } from '@/models/workflow'
 import { deepCopy } from '@/tools'
+import { useDialog } from '@/tools/dialog'
 import useUiTools from '@/tools/ui'
 
 const t = inject<(message: string, args?: any) => string>('t')!
@@ -39,6 +40,7 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const store = useStore()
+const { confirm } = useDialog(t)
 const NAIVE_UI_MESSAGE = useMessage()
 const { renderIcon } = useUiTools(isMobile)
 
@@ -896,7 +898,7 @@ const onLoad = () => {
 const handleCheck = () => {
   return ''
 }
-const handleSave = () => {
+const handleSave = async () => {
   // * 检查设置合法性
   const checkError = handleCheck()
   if (checkError) {
@@ -968,7 +970,7 @@ const handleSave = () => {
     } else if (formUserConfigData.value.action_after_savesettings === 'none') {
       dealTip()
     } else {
-      if (window.confirm(
+      if (await confirm(
         t('preference.message.saved_but_some_changes_need_refresh')
         + '\n' + t('preference.message.ask_refresh_now')
       )) {

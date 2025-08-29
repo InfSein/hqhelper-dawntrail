@@ -8,9 +8,12 @@ import {
   RefreshOutlined,
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
+import { useDialog } from '@/tools/dialog'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+
+const { alertInfo } = useDialog(t)
 
 const showModal = defineModel<boolean>('show', { required: true })
 
@@ -59,7 +62,7 @@ const showRules = () => {
     t('donate_us.desc.desc_3'),
     t('donate_us.desc.desc_6'),
   ].join('\n')
-  alert(msg)
+  alertInfo(msg)
 }
 
 const getSponsorGenStyle = (gen: number) => {

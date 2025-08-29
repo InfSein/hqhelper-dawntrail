@@ -11,10 +11,13 @@ import { type UserConfigModel } from '@/models/config-user'
 import { XivPatches, type XivPatch } from "@/assets/data"
 import { fixGearSelections, isGearEmpty, type GearSelections } from '@/models/gears'
 import HelpButton from '../custom/general/HelpButton.vue'
+import { useDialog } from '@/tools/dialog'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
+
+const { confirm } = useDialog(t)
 
 const patchSelected = defineModel<string>('patchSelected', { required: true })
 const gearsSelected = defineModel<GearSelections>('gearsSelected', { required: true })
@@ -26,14 +29,14 @@ const cardDescription = computed(() => {
 
 const containerCard = ref<InstanceType<typeof FoldableCard>>()
 
-const handlePatchSelect = (patch: XivPatch) => {
+const handlePatchSelect = async (patch: XivPatch) => {
   if (
     patchSelected.value && patch.v !== patchSelected.value
     && !isGearEmpty(gearsSelected.value)
   ) {
-    if (window.confirm(
+    if (await confirm(
       t('main.message.switch_patch_will_clean_gears')
-      + '\n' + t('common.message.ask_continue')
+      + '\r\n' + t('common.message.ask_continue')
     )) {
       gearsSelected.value = fixGearSelections()
     } else {

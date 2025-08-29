@@ -30,6 +30,8 @@ import {
 } from '@/models/workflow'
 import type { UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
+import { deepCopy } from '@/tools'
+import { useDialog } from '@/tools/dialog'
 import { calCostAndBenefit, getItemInfo, getItemPriceInfo, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { useFufuCal } from '@/tools/use-fufu-cal'
@@ -38,7 +40,6 @@ import CraftRecommProcess from '@/components/custom/general/CraftRecommProcess.v
 import TooltipButton from '@/components/custom/general/TooltipButton.vue'
 import ModalWorkflowsManage from '@/components/modals/ModalWorkflowsManage.vue'
 import type { SettingGroupKey } from '@/models'
-import { deepCopy } from '@/tools'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -46,6 +47,7 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
 const store = useStore()
+const { alertError } = useDialog(t)
 const NAIVE_UI_MESSAGE = useMessage()
 const { emitSync, onSync } = useElectronSync()
 const { calItems } = useNbbCal()
@@ -398,7 +400,7 @@ const updateItemPrices = async () => {
       await store.setFuncConfig(fixFuncConfig(newConfig, store.userConfig))
     } catch (error : any) {
       console.error(error)
-      alert(t('common.message.get_price_failed') + '\n' + (error?.message ?? error))
+      await alertError(t('common.message.get_price_failed') + '\n' + (error?.message ?? error))
     }
     updatingPrice.value = false
   }
