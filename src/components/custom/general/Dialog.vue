@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref, type VNodeChild } from "vue"
-import {
-  NButton, NDialog
-} from "naive-ui"
+import { NButton, NDialog } from "naive-ui"
 
 export interface InternalDialogOptions {
   id: number
@@ -19,16 +17,48 @@ export interface InternalDialogOptions {
 const dialogs = ref<InternalDialogOptions[]>([])
 let idCounter = 0
 
+const handleKeydown = (e: KeyboardEvent) => {
+  const dialog = dialogs.value[dialogs.value.length - 1]
+  if (!dialog) return
+
+  if (e.key === "Enter") {
+    e.preventDefault(); e.stopPropagation()
+    handleConfirmDialog(dialog)
+  }
+  if (e.key === "Escape") {
+    e.preventDefault(); e.stopPropagation()
+    handleCancelDialog(dialog)
+  }
+}
+const updateListener = () => {
+  if (dialogs.value.length > 0) {
+    window.addEventListener("keydown", handleKeydown, true)
+  } else {
+    window.removeEventListener("keydown", handleKeydown, true)
+  }
+}
+
+const handleConfirmDialog = (dialog: InternalDialogOptions) => {
+  dialog.onPositiveClick?.()
+  closeDialog(dialog.id)
+}
+const handleCancelDialog = (dialog: InternalDialogOptions) => {
+  if (dialog.negativeText) {
+    dialog.onNegativeClick?.()
+    closeDialog(dialog.id)
+  }
+}
+
 function openDialog(options: Omit<InternalDialogOptions, "id">) {
   const id = ++idCounter
   dialogs.value.push({ ...options, id })
+  updateListener()
   return id
 }
-
 function closeDialog(id: number) {
   dialogs.value = dialogs.value.filter(d => d.id !== id)
+  updateListener()
 }
-
 defineExpose({
   openDialog,
   closeDialog,
@@ -42,35 +72,25 @@ defineExpose({
         v-for="dialog in dialogs"
         :key="dialog.id"
         class="dialog-mask"
-        @click="() => { 
-          if (dialog.negativeText) {
-            dialog.onNegativeClick?.()
-            closeDialog(dialog.id)
-          }
-        }"
+        @click="handleCancelDialog(dialog)"
       >
-        <div class="dialog-container" @click.stop>
+        <div
+          :id="`dialog-${dialog.id}`"
+          tabindex="-1" @click.stop
+          class="dialog-container"
+        >
           <n-dialog
             :title="dialog.title"
             :content="dialog.content"
             :closable="dialog.closable"
             :type="dialog.type"
             style="border-radius: initial; padding: 20px 28px 16px 28px;"
-          ></n-dialog>
+          />
           <div class="dialog-footer">
-            <n-button
-              v-if="dialog.negativeText"
-              ghost
-              class="dialog-button"
-              @click="() => { dialog.onNegativeClick?.(); closeDialog(dialog.id) }"
-            >
+            <n-button v-if="dialog.negativeText" ghost class="dialog-button" @click="handleCancelDialog(dialog)">
               {{ dialog.negativeText }}
             </n-button>
-            <n-button
-              :type="dialog.type"
-              class="dialog-button"
-              @click="() => { dialog.onPositiveClick?.(); closeDialog(dialog.id) }"
-            >
+            <n-button :type="dialog.type" class="dialog-button" @click="handleConfirmDialog(dialog)">
               {{ dialog.positiveText || 'OK' }}
             </n-button>
           </div>
@@ -88,7 +108,7 @@ defineExpose({
 .dialog-mask {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, .4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,7 +119,7 @@ defineExpose({
   width: 420px;
   max-width: 98%;
   border-radius: 4px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   animation: fadeInUp 0.2s ease-out;
 }
@@ -119,14 +139,24 @@ defineExpose({
   }
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.2s;
 }
-.fade-enter-from, .fade-leave-to {
+
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
+
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
