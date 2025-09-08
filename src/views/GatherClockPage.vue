@@ -114,13 +114,13 @@ const workState = ref({
   /** 通知方式 */
   notifyMode: 'none' as "none" | "system_noti" | "audio",
   /** 排序依据 */
-  orderBy: 'gatherStartTimeAsc' as "itemId" | "gatherStartTimeAsc" | "remainingTimeAsc",
+  orderBy: 'remainingTimeAsc' as "itemId" | "gatherStartTimeAsc" | "remainingTimeAsc",
   /** 是否将目前可以采集的道具置顶 */
   pinGatherableItems: false,
   /** 禁用物品按钮悬浮窗 */
   banItemPop: false,
   /** 是否直接在采集卡片内展示地图 */
-  showMap: false,
+  showMap: true,
   alarmMacroOptions: fixAlarmMacroOptions(),
   starItems: [] as number[],
   subscribedItems: [] as number[]
