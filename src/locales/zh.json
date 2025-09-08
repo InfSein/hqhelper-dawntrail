@@ -822,6 +822,7 @@
     "main_ui": "主界面",
     "manage": "管理",
     "map": "地图",
+    "medicine": "药品",
     "message": {
       "ask_continue": "要继续吗?",
       "changes_saved": "已保存更改",
@@ -1102,7 +1103,7 @@
     },
     "select_food_and_tinc": "挑选食药",
     "tooltip": {
-      "clear_selected": "清空已选择的食物和爆发药"
+      "clear_selected": "清空已选择的食药"
     }
   },
   "game": {
@@ -2079,7 +2080,7 @@
       "confirm_delete": "确认要删除这条工作流吗?",
       "delete_this_workflow": "删除这条工作流",
       "join_in_workflow": "加入到工作流",
-      "join_selected_food_and_tinc_in_workflow": "将已选的食物和爆发药加入到某条工作流",
+      "join_selected_food_and_tinc_in_workflow": "将已选的食药加入到某条工作流",
       "manage_existed_workflows": "管理已有工作流",
       "manage_workflows": "管理工作流",
       "manage_workflows_desc": "在这里可以修改各个工作流的名称，或是直接删除工作流。",
