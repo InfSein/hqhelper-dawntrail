@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, computed, onMounted, type Ref } from 'vue'
+import { inject, onMounted, type Ref } from 'vue'
 import {
   NAvatar, NButton, NDivider, NIcon, NPopover,
   useMessage,
@@ -11,8 +11,8 @@ import {
 } from '@vicons/material'
 import { useStore } from '@/store'
 import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
-import { getImgCdnUrl } from '@/tools/item'
 import { useNbbCloud } from '@/tools/nbb-cloud'
+import useCloud from '@/tools/cloud'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
@@ -26,6 +26,12 @@ const {
   updateUserInfo,
   resolveUserInfo,
 } = useNbbCloud(cloudConfig)
+const {
+  avatarUrl,
+  userNickName,
+  userLoggedIn,
+  userTitle,
+} = useCloud(cloudConfig, t)
 
 interface AccountViewProps {
   triggerClass?: string
@@ -49,24 +55,6 @@ onMounted(async () => {
       }
     }
   }
-})
-
-const avatarUrl = computed(() => {
-  if (cloudConfig.value.nbb_account_avatar_vip) {
-    return cloudConfig.value.nbb_account_avatar_vip
-  } else if (cloudConfig.value.nbb_account_avatar) {
-    return getImgCdnUrl(cloudConfig.value.nbb_account_avatar)
-  } else {
-    return './image/game-job/companion/none.png'
-  }
-})
-const userNickName = computed(() => {
-  return cloudConfig.value.nbb_account_nickname || t('cloud.text.not_logged_in')
-})
-const userLoggedIn = computed(() => !!cloudConfig.value.nbb_account_token)
-const userTitle = computed(() => {
-  if (!userLoggedIn.value) return '-'
-  return cloudConfig.value.nbb_account_title || '-'
 })
 
 const handleLogin = () => {

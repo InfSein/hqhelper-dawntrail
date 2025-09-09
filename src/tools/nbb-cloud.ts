@@ -1,4 +1,4 @@
-import type { Ref } from "vue"
+import { type Ref } from "vue"
 import { createAlova } from "alova"
 import { useRequest } from "alova/client"
 import adapterFetch from "alova/fetch"
