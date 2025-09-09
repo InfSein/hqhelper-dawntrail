@@ -1,0 +1,15 @@
+{
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts, env.*.ts",
+    "vite.config.*": "eslint*, crowdin.yml",
+    "package.json": "package-lock.json",
+    "folder-alias.json": "private-folder-alias.json",
+    "README.md": "CHANGELOG.md, LICENSE"
+  },
+  "i18n-ally.localesPaths": [
+    "src/locales"
+  ],
+  "i18n-ally.sourceLanguage": "zh",
+  "i18n-ally.keystyle": "nested"
+}
