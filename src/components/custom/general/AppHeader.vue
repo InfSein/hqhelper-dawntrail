@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, h, inject, onMounted, ref, type Component, type Ref, type VNode } from 'vue'
 import {
-  NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NFlex, NIcon, NPopover,
+  NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NIcon, NPopover,
   useMessage,
   type DropdownOption, type MenuOption,
 NTooltip,
@@ -47,6 +47,7 @@ import { useDialog } from '@/tools/dialog'
 import EorzeaTime from '@/tools/eorzea-time'
 import useUiTools from '@/tools/ui'
 import AppStatus from '@/variables/app-status'
+import AccountView from './AccountView.vue'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -741,20 +742,24 @@ const handleCheckUpdates = async () => {
       to="#main-content"
     >
       <n-drawer-content>
-        <n-flex vertical>
-          <n-button
-            v-for="(item, key) in mobileMenuData"
-            :key="key"
-            v-show="!item?.hide"
-            :disabled="item.disabled"
-            @click="openModal(item.click)"
-          >
-            <template #icon>
-              <n-icon><component :is="item.icon" /></n-icon>
-            </template>
-            {{ item.label }}
-          </n-button>
-        </n-flex>
+        <div class="drawer">
+          <AccountView />
+          <n-divider style="margin: 12px 0 8px 0;" />
+          <div class="drawer-main">
+            <n-button
+              v-for="(item, key) in mobileMenuData"
+              :key="key"
+              v-show="!item?.hide"
+              :disabled="item.disabled"
+              @click="openModal(item.click)"
+            >
+              <template #icon>
+                <n-icon><component :is="item.icon" /></n-icon>
+              </template>
+              {{ item.label }}
+            </n-button>
+          </div>
+        </div>
       </n-drawer-content>
     </n-drawer>
 
@@ -825,6 +830,20 @@ const handleCheckUpdates = async () => {
         margin-left: 20px;
       }
     }
+  }
+}
+.drawer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .drawer-main {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    justify-content: start;
+    gap: 8px;
+    overflow-y: auto;
   }
 }
 

@@ -24,6 +24,7 @@ import { useDialog } from '@/tools/dialog'
 import { useNbbCloud } from '@/tools/nbb-cloud'
 
 const t = inject<(message: string, args?: any) => string>('t')!
+const isMobile = inject<Ref<boolean>>('isMobile')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
@@ -514,15 +515,15 @@ const handleDownload = async () => {
           </template>
 
           <div class="start-sync-wrapper">
-            <n-button text :loading="syncing" :disabled="syncing || !syncTargets.length" @click="handleUpload">
+            <n-button :text="!isMobile" :loading="syncing" :disabled="syncing || !syncTargets.length" @click="handleUpload">
               <div class="sync-button-container">
-                <n-icon :size="48"><CloudUploadRound /></n-icon>
+                <n-icon :size="isMobile ? 16 : 48"><CloudUploadRound /></n-icon>
                 {{ t('cloud.text.upload_data') }}
               </div>
             </n-button>
-            <n-button text :loading="syncing" :disabled="syncing || !syncTargets.length" @click="handleDownload">
+            <n-button :text="!isMobile" :loading="syncing" :disabled="syncing || !syncTargets.length" @click="handleDownload">
               <div class="sync-button-container">
-                <n-icon :size="48"><CloudDownloadRound /></n-icon>
+                <n-icon :size="isMobile ? 16 : 48"><CloudDownloadRound /></n-icon>
                 {{ t('cloud.text.download_data') }}
               </div>
             </n-button>
@@ -583,5 +584,30 @@ const handleDownload = async () => {
 }
 .text.error {
   color: var(--color-error);
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .wrapper {
+    .sync-range-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .start-sync-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      button {
+        --n-height: 40px !important;
+        padding: var(--n-padding);
+        .sync-button-container {
+          flex-direction: row;
+          gap: 4px;
+        }
+      }
+    }
+  }
 }
 </style>
