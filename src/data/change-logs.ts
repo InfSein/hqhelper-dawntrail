@@ -89,12 +89,6 @@ export const getChangelogs = (
           ]
         },
         {
-          name: groupName.bugfix,
-          changes: [
-            t('changelog.2_3_0.fix.text_2'),
-          ]
-        },
-        {
           name: groupName.feature,
           changes: [
             t('changelog.2_3_4.feat.text_1'),
