@@ -586,6 +586,14 @@
         "text_1": "修复了重复点击制作报表已筹备完成区域的物品不会取消选中物品行的问题。"
       }
     },
+    "2_3_4": {
+      "breaking": {
+        "text_1": "实装了移动端的云端同步功能。"
+      },
+      "feat": {
+        "text_1": "追加了全新的弹窗对话框界面。"
+      }
+    },
     "breaking": "重要变更",
     "feat": "功能更新",
     "fix": "问题修复",
@@ -594,6 +602,8 @@
       "add_new_func": "追加了“{f}”功能。",
       "chs_db_update": "国服数据库更新至{ver}。",
       "chs_db_update_with_comma": "国服数据库更新至{ver}，",
+      "detail_optimized": "进行了一些细节优化。",
+      "game_db_update": "国服／国际服数据库更新至{ver}。",
       "global_db_update": "国际服数据库更新至{ver}。",
       "released_func": "实装了“{f}”功能。",
       "require_setting": "需要在“{f1}”的“{f2}”选项卡中进行设置。",
