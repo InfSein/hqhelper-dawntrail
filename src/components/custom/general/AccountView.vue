@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, computed, onMounted, type Ref } from 'vue'
+import { inject, onMounted, type Ref } from 'vue'
 import {
   NAvatar, NButton, NDivider, NIcon, NPopover,
   useMessage,
@@ -11,10 +11,11 @@ import {
 } from '@vicons/material'
 import { useStore } from '@/store'
 import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
-import { getImgCdnUrl } from '@/tools/item'
 import { useNbbCloud } from '@/tools/nbb-cloud'
+import useCloud from '@/tools/cloud'
 
 const t = inject<(message: string, args?: any) => string>('t')!
+const isMobile = inject<Ref<boolean>>('isMobile')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
 const displayLoginModal = inject<(action: "login" | "register" | "edituser") => void>('displayLoginModal')!
 const displayCloudSyncModal = inject<() => {}>('displayCloudSyncModal')!
@@ -26,6 +27,12 @@ const {
   updateUserInfo,
   resolveUserInfo,
 } = useNbbCloud(cloudConfig)
+const {
+  avatarUrl,
+  userNickName,
+  userLoggedIn,
+  userTitle,
+} = useCloud(cloudConfig, t)
 
 interface AccountViewProps {
   triggerClass?: string
@@ -51,24 +58,6 @@ onMounted(async () => {
   }
 })
 
-const avatarUrl = computed(() => {
-  if (cloudConfig.value.nbb_account_avatar_vip) {
-    return cloudConfig.value.nbb_account_avatar_vip
-  } else if (cloudConfig.value.nbb_account_avatar) {
-    return getImgCdnUrl(cloudConfig.value.nbb_account_avatar)
-  } else {
-    return './image/game-job/companion/none.png'
-  }
-})
-const userNickName = computed(() => {
-  return cloudConfig.value.nbb_account_nickname || t('cloud.text.not_logged_in')
-})
-const userLoggedIn = computed(() => !!cloudConfig.value.nbb_account_token)
-const userTitle = computed(() => {
-  if (!userLoggedIn.value) return '-'
-  return cloudConfig.value.nbb_account_title || '-'
-})
-
 const handleLogin = () => {
   displayLoginModal('login')
 }
@@ -90,14 +79,33 @@ const handleLogout = () => {
 </script>
 
 <template>
-  <n-popover placement="bottom-end">
+  <n-popover
+    placement="bottom-end"
+    :width="isMobile ? 'trigger' : undefined"
+    :trigger="isMobile ? 'click' : 'hover'"
+  >
     <template #trigger>
+      <n-button v-if="isMobile" style="--n-height: 65px;">
+        <div class="button-container" style="min-width: 165px; justify-content: space-between; --isize: 36px; --tsize: 24px;">
+          <n-avatar
+            :size="36"
+            :src="avatarUrl"
+            class="button-avatar"
+            style="background-color: var(--color-background-modal);"
+          />
+          <div class="user-block">
+            <div class="button-text-sub">{{ userTitle }}</div>
+            <div class="button-text">{{ userNickName }}</div>
+          </div>
+        </div>
+      </n-button>
       <n-button
+        v-else
         round strong secondary
         size="small"
         :class="triggerClass"
       >
-        <div class="button-container flex-vac gap-2">
+        <div class="button-container">
           <n-avatar
             :size="14"
             :src="avatarUrl"
@@ -109,7 +117,7 @@ const handleLogout = () => {
     </template>
 
     <div class="avpop-wrapper">
-      <div class="user-base">
+      <div class="user-base" v-show="!isMobile">
         <n-avatar
           :size="32"
           :src="avatarUrl"
@@ -120,7 +128,8 @@ const handleLogout = () => {
           <div class="user-name">{{ userNickName }}</div>
         </div>
       </div>
-      <n-divider style="margin: 4px 0" />
+      <div v-if="isMobile" style="height: 3px;" />
+      <n-divider v-else style="margin: 4px 0" />
       <div v-if="!userLoggedIn" class="unlogged-wrapper">
         <div class="group-title">
           {{ t('common.account') }}
@@ -175,18 +184,28 @@ const handleLogout = () => {
   display: flex;
   align-items: center;
   gap: 2px;
+  --isize: 14px;
   --tsize: 14px;
+  --tsize-sub: 12px;
 
   .button-avatar {
     display: flex;
-    height: var(--tsize);
-    line-height: var(--tsize);
+    height: var(--isize);
+    line-height: var(--isize);
   }
   .button-text {
     font-weight: bold;
     font-size: var(--tsize);
     height: var(--tsize);
     line-height: var(--tsize);
+  }
+  .button-text-sub {
+    font-size: var(--tsize-sub);
+    height: var(--tsize-sub);
+    line-height: var(--tsize-sub);
+  }
+  .user-block {
+    text-align: end;
   }
 }
 .avpop-wrapper {

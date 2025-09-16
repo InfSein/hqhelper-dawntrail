@@ -1,8 +1,4 @@
-export type AttireAffix = "fending" | "maiming" | "striking" | "scouting" | "aiming"
-              | "healing" | "casting" | "gathering" | "crafting"
-export type AccessoryAffix = "fending" | "slaying" | "aiming" | "healing" | "casting" | "gathering" | "crafting"
-
-export const attireAffixes: AttireAffix[] = [
+export const attireAffixes = [
   "fending",
   "maiming",
   "striking",
@@ -11,17 +7,23 @@ export const attireAffixes: AttireAffix[] = [
   "healing",
   "casting",
   "gathering",
-  "crafting"
-]
-export const accessoryAffixes: AccessoryAffix[] = [
+  "crafting",
+] as const
+
+export type AttireAffix = typeof attireAffixes[number]
+
+export const accessoryAffixes = [
   "fending",
   "slaying",
   "aiming",
   "healing",
   "casting",
   "gathering",
-  "crafting"
-]
+  "crafting",
+] as const
+
+export type AccessoryAffix = typeof accessoryAffixes[number]
+
 
 export interface GearSelections {
   MainHand: Record<number, number>;

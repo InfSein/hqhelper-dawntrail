@@ -586,6 +586,14 @@
         "text_1": "リスト作成のタイトル「準備完了」を再度クリックする場合、選択済みのアイテムがキャンセルできない問題が修正されました。"
       }
     },
+    "2_3_4": {
+      "breaking": {
+        "text_1": "スマホ版にクラウド同期機能を実装しました。"
+      },
+      "feat": {
+        "text_1": "新しいポップアップウィンドウを追加しました。"
+      }
+    },
     "breaking": "重要な変更",
     "feat": "機能アップデート",
     "fix": "不具合修正",
@@ -594,6 +602,8 @@
       "add_new_func": "「{f}」機能を追加",
       "chs_db_update": "中国版データベースが{ver}に更新されました。",
       "chs_db_update_with_comma": "中国版データベースが{ver}に更新されました、",
+      "detail_optimized": "細かい部分を最適化しました。",
+      "game_db_update": "中国版／グローバル版のデータベースが{ver}に更新されました。",
       "global_db_update": "グローバル版のデータベースが{ver}に更新されました。",
       "released_func": "「{f}」機能を実装しました。",
       "require_setting": "「{f1}」の「{f2}」タブで設定を行う必要があります。",
@@ -715,6 +725,7 @@
     "basic_info": "基本情報",
     "benefit": "収入",
     "brief_intro": "概要",
+    "cancel": "キャンセル",
     "cautions": "注意事項",
     "check_failed": "チェックが失敗しました",
     "checking": "チェック中です……",
@@ -821,6 +832,7 @@
     "main_ui": "メイン画面",
     "manage": "管理",
     "map": "マップ",
+    "medicine": "薬品",
     "message": {
       "ask_continue": "続行しますか？",
       "changes_saved": "変更を保存しました",
@@ -949,6 +961,7 @@
     "verify_code": "認証コード",
     "view_analysis": "分析を表示する",
     "view_statement": "素材リストを表示する",
+    "warn": "注意",
     "weibo": "Weibo",
     "will_be_named_with_time_when_empty": "入力しない場合はデフォルトで時間で命名されます",
     "work_state": "作業状態"
@@ -1100,7 +1113,7 @@
     },
     "select_food_and_tinc": "調理品&薬品の選択",
     "tooltip": {
-      "clear_selected": "選択済みの調理品と薬品をすべて削除する"
+      "clear_selected": "選択済みの調理品&薬品をクリアする"
     }
   },
   "game": {

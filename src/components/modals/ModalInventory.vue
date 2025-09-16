@@ -15,7 +15,7 @@ import SettingItem from '@/components/custom/general/SettingItem.vue'
 import ItemSelector from '@/components/custom/item/ItemSelector.vue'
 import ItemSelectTable from '@/components/custom/item/ItemSelectTable.vue'
 import { useStore } from '@/store'
-import type { SettingItem as Setting } from '@/models'
+import type { PreferenceItem as Setting } from '@/models'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { deepCopy } from '@/tools'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
@@ -49,31 +49,31 @@ const inventorySettingItems = computed(() : Setting[] => {
       key: 'inventory_statement_enable_sync',
       label: t('ingame_inventory.preference.inventory_statement_enable_sync.title'),
       type: 'switch',
-      warnings: dealDesc([
+      warnings: [
         t('ingame_inventory.preference.inventory_statement_enable_sync.desc.desc_1'),
-      ]),
+      ],
     },
     {
       key: 'inventory_workflow_enable_sync',
       label: t('ingame_inventory.preference.inventory_workflow_enable_sync.title'),
       type: 'switch',
-      warnings: dealDesc([
+      warnings: [
         t('ingame_inventory.shared.desc.add_button_to_workflow_when_enabled', {
           f1: t('common.statement'), f2: t('workflow.text.sync_from_inventory')
         }),
         t('ingame_inventory.preference.inventory_workflow_enable_sync.desc.desc_1')
-      ]),
+      ],
     },
     {
       key: 'inventory_workflow_enable_sync_reverse',
       label: t('ingame_inventory.preference.inventory_workflow_enable_sync_reverse.title'),
       type: 'switch',
-      warnings: dealDesc([
+      warnings: [
         t('ingame_inventory.shared.desc.add_button_to_workflow_when_enabled', {
           f1: t('common.statement'), f2: t('workflow.text.sync_to_inventory')
         }),
         t('ingame_inventory.preference.inventory_workflow_enable_sync_reverse.desc.desc_1')
-      ]),
+      ],
     },
     {
       key: 'inventory_other_items_way',
@@ -83,9 +83,9 @@ const inventorySettingItems = computed(() : Setting[] => {
         { label: t('common.ignore'), value: 'ignore', description: t('ingame_inventory.preference.inventory_other_items_way.option.ignore.tooltip.tooltip_1') },
         { label: t('common.reset_to_0'), value: 'clear', description: t('ingame_inventory.preference.inventory_other_items_way.option.reset_to_0.tooltip.tooltip_1') },
       ],
-      warnings: dealDesc([
+      warnings: [
         t('ingame_inventory.preference.inventory_other_items_way.desc.desc_1'),
-      ]),
+      ],
     },
     {
       key: 'inventory_sync_reverse_mode',
@@ -96,19 +96,11 @@ const inventorySettingItems = computed(() : Setting[] => {
         { label: t('common.strict'), value: 'strict', description: t('ingame_inventory.preference.inventory_sync_reverse_mode.option.strict.tooltip.tooltip_1') },
         { label: t('common.overwrite'), value: 'overwrite', description: t('ingame_inventory.preference.inventory_sync_reverse_mode.option.overwrite.tooltip.tooltip_1') },
       ],
-      warnings: dealDesc([
+      warnings: [
         t('ingame_inventory.preference.inventory_sync_reverse_mode.desc.desc_1'),
-      ]),
+      ],
     },
   ]
-
-  function dealDesc(descs: string[]){
-    return descs.map(desc => {
-      return {
-        value: desc, class: '', style: '',
-      }
-    })
-  }
 })
 
 const handleItemInputValueUpdate = (value: number) => {

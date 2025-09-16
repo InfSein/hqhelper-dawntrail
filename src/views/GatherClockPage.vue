@@ -17,17 +17,18 @@ import LocationSpan from '@/components/custom/map/LocationSpan.vue'
 import ModalAlarmMacroExport from '@/components/modals/ModalAlarmMacroExport.vue'
 import { XivJobs, type XivJob } from '@/assets/data'
 import { useStore } from '@/store'
-import { useNbbCal } from '@/tools/use-nbb-cal'
-import { getItemInfo, type ItemInfo } from '@/tools/item'
-import { XivMaps } from '@/tools/map'
-import useUiTools from '@/tools/ui'
-import type { ItemGroup } from '@/models/item'
 import type { UserConfigModel } from '@/models/config-user'
 import type { FuncConfigModel } from '@/models/config-func'
+import type { ItemGroup } from '@/models/item'
+import { fixAlarmMacroOptions } from '@/models/gather-clock'
+import { playAudio } from '@/tools'
+import { useDialog } from '@/tools/dialog'
+import { XivMaps } from '@/tools/map'
+import useUiTools from '@/tools/ui'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
+import { useNbbCal } from '@/tools/use-nbb-cal'
 import UseConfig from '@/tools/use-config'
 import EorzeaTime from '@/tools/eorzea-time'
-import { playAudio } from '@/tools'
-import { fixAlarmMacroOptions } from '@/models/gather-clock'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -37,6 +38,7 @@ const currentET = inject<Ref<EorzeaTime>>('currentET')!
 const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const store = useStore()
+const { alertError } = useDialog(t)
 const { getLimitedGatherings } = useNbbCal()
 const { optionsRenderer } = useUiTools(isMobile)
 const {
@@ -112,13 +114,13 @@ const workState = ref({
   /** 通知方式 */
   notifyMode: 'none' as "none" | "system_noti" | "audio",
   /** 排序依据 */
-  orderBy: 'gatherStartTimeAsc' as "itemId" | "gatherStartTimeAsc" | "remainingTimeAsc",
+  orderBy: 'remainingTimeAsc' as "itemId" | "gatherStartTimeAsc" | "remainingTimeAsc",
   /** 是否将目前可以采集的道具置顶 */
   pinGatherableItems: false,
   /** 禁用物品按钮悬浮窗 */
   banItemPop: false,
   /** 是否直接在采集卡片内展示地图 */
-  showMap: false,
+  showMap: true,
   alarmMacroOptions: fixAlarmMacroOptions(),
   starItems: [] as number[],
   subscribedItems: [] as number[]
@@ -207,14 +209,14 @@ onBeforeUnmount(() => {
   }
 })
 
-const handleCheckNotificationPermission = () => {
+const handleCheckNotificationPermission = async () => {
   if (workState.value.notifyMode === 'system_noti') {
     if (!("Notification" in window)) {
-      alert(t('gather_clock.message.system_notice_not_supported'))
+      await alertError(t('gather_clock.message.system_notice_not_supported'))
     } else if (Notification.permission === 'denied') {
-      alert(t('gather_clock.message.system_notice_denied'))
+      await alertError(t('gather_clock.message.system_notice_denied'))
     } else if (Notification.permission !== 'granted') {
-      Notification.requestPermission()
+      await Notification.requestPermission()
     }
   } else if (workState.value.notifyMode === 'audio') {
     playAudio('./audio/FFXIV_Incoming_Tell_2.mp3')

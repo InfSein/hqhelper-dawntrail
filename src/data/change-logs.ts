@@ -76,6 +76,34 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.3.4',
+      date: '2025-09-16',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('changelog.shared.game_db_update', {
+              ver: '7.31'
+            })
+              + (isZh ? (
+                tipper + '我们之前提供的物品名称／描述的翻译有部分与国服正式文本不同。如果想要查看变化详情，请参阅'
+                + renderLink('https://docs.qq.com/doc/DY3dKYXB3ZElFU2xN', 'HqHelper 中文暂译修订记录')
+                + '。'
+              ) : ''),
+            t('changelog.2_3_4.breaking.text_1'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_3_4.feat.text_1'),
+            t('changelog.shared.detail_optimized'),
+            isZh ? '追加和修订了部分物品的笔记 (仅在界面语言设置为简体中文时显示)。' : '',
+          ]
+        }
+      ]
+    },
+    {
       version: '2.3.3',
       date: '2025-08-13',
       changes: [

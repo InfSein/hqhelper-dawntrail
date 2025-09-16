@@ -32,6 +32,7 @@ import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { fixWorkState } from '@/models/workflow'
 import { deepCopy } from '@/tools'
+import { useDialog } from '@/tools/dialog'
 import useUiTools from '@/tools/ui'
 
 const t = inject<(message: string, args?: any) => string>('t')!
@@ -39,6 +40,7 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const store = useStore()
+const { confirm } = useDialog(t)
 const NAIVE_UI_MESSAGE = useMessage()
 const { renderIcon } = useUiTools(isMobile)
 
@@ -59,15 +61,6 @@ const dealSimOptions = (options: string[]) => {
     return {
       label: option,
       value: option
-    }
-  })
-}
-const dealDescriptions = (descriptions: string[]) => {
-  return descriptions.map(description => {
-    return {
-      value: description,
-      class: '',
-      style: ''
     }
   })
 }
@@ -107,10 +100,10 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'language_item',
               label: t('preference.language_item.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.language_item.desc.desc_1'),
                 t('preference.language_item.desc.desc_2'),
-              ]),
+              ],
               type: 'radio-group',
               options: [
                 { value: 'auto', label: t('common.auto') },
@@ -122,10 +115,10 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'item_server',
               label: t('common.server'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.item_server.desc.desc_1'),
                 t('preference.item_server.desc.desc_2'),
-              ]),
+              ],
               type: 'radio-group',
               options: [
                 { value: 'auto', label: t('common.auto') },
@@ -136,9 +129,9 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'action_after_savesettings',
               label: t('preference.auto_refresh_after_save.title'),
-              warnings: dealDescriptions([
+              warnings: [
                 t('preference.auto_refresh_after_save.desc.desc_1')
-              ]),
+              ],
               type: 'radio-group',
               options: [
                 { value: 'ask', label: t('common.ask_every_time') },
@@ -167,11 +160,11 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'custom_font_size',
               label: t('preference.custom_font_size.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.custom_font_size.desc.desc_1'),
                 t('preference.custom_font_size.desc.desc_2'),
                 t('preference.custom_font_size.desc.desc_3'),
-              ]),
+              ],
               type: 'radio-group',
               options: [
                 { value: '12px', label: t('preference.custom_font_size.option.tiny') },
@@ -184,22 +177,22 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'custom_font',
               label: t('preference.custom_font.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.custom_font.desc.desc_1'),
                 t('preference.custom_font.desc.desc_2'),
                 t('preference.custom_font.desc.desc_3'),
                 t('preference.custom_font.desc.desc_4'),
-              ]),
+              ],
               type: 'string',
             },
             {
               key: 'hide_collector_icons',
               label: t('preference.hide_collector_icons.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.hide_collector_icons.desc.desc_1'),
                 t('preference.hide_collector_icons.desc.desc_2'),
                 t('preference.hide_collector_icons.desc.desc_3'),
-              ]),
+              ],
               type: 'switch'
             },
           ]
@@ -214,47 +207,47 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               key: 'disable_patchcard_autofold',
               label: t('preference.disable_patchcard_autofold.title'),
               hide: !isMobile.value,
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.disable_patchcard_autofold.desc.desc_1'),
                 t('preference.disable_patchcard_autofold.desc.desc_2'),
-              ]),
+              ],
               type: 'switch'
             },
             {
               key: 'disable_jobbtn_doubleclick',
               label: t('preference.disable_jobbtn_doubleclick.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.disable_jobbtn_doubleclick.desc.desc_1'),
                 t('preference.disable_jobbtn_doubleclick.desc.desc_2'),
-              ]),
+              ],
               type: 'switch'
             },
             {
               key: 'item_pop_craft_show_crystals',
               label: t('preference.item_pop_craft_show_crystals.title'),
               hide: isMobile.value,
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.item_pop_craft_show_crystals.desc.desc_1'),
-              ]),
+              ],
               type: 'switch'
             },
             {
               key: 'click_to_show_pop_in_span',
               label: t('preference.click_to_show_pop_in_span.title'),
               hide: isMobile.value,
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.click_to_show_pop_in_span.desc.desc_1'),
                 t('preference.click_to_show_pop_in_span.desc.desc_2'),
-              ]),
+              ],
               type: 'switch'
             },
             {
               key: 'item_amount_use_comma',
               label: t('preference.item_amount_use_comma.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.item_amount_use_comma.desc.desc_1'),
                 t('preference.item_amount_use_comma.desc.desc_2'),
-              ]),
+              ],
               type: 'switch',
             },
             {
@@ -270,10 +263,10 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'item_info_icon_click_event',
               label: t('preference.item_info_icon_click_event.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.item_info_icon_click_event.desc.desc_1'),
                 t('preference.item_info_icon_click_event.desc.desc_2', t('preference.click_to_show_pop_in_span.title')),
-              ]),
+              ],
               type: 'select',
               options: [
                 { value: 'none', label: t('preference.shared.option.donothing') },
@@ -284,10 +277,10 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'item_list_style',
               label: t('preference.item_list_style.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.item_list_style.desc.desc_1'),
                 t('preference.item_list_style.desc.desc_2'),
-              ]),
+              ],
               type: 'select',
               options: [
                 { value: 'standard', label: t('preference.item_list_style.option.standard') },
@@ -307,15 +300,14 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'disable_workstate_cache',
               label: t('preference.disable_workstate_cache.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.disable_workstate_cache.desc.desc_1'),
                 t('preference.disable_workstate_cache.desc.desc_2'),
-              ]),
+              ],
               warnings: [
                 {
                   value: t('preference.disable_workstate_cache.desc.desc_3'),
                   class: 'red',
-                  style: ''
                 }
               ],
               type: 'switch',
@@ -340,14 +332,11 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               key: 'disable_auto_update',
               label: t('preference.disable_auto_update.title'),
               descriptions: [
-                ...dealDescriptions([
-                  t('preference.disable_auto_update.desc.desc_1'),
-                  t('preference.disable_auto_update.desc.desc_2'),
-                ]),
+                t('preference.disable_auto_update.desc.desc_1'),
+                t('preference.disable_auto_update.desc.desc_2'),
                 {
                   value: t('preference.disable_auto_update.desc.desc_3'),
                   class: 'color-info',
-                  style: ''
                 }
               ],
               type: 'switch'
@@ -355,10 +344,10 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'update_client_builtin.title',
               label: t('preference.update_client_builtin.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.update_client_builtin.desc.desc_1'),
                 t('preference.update_client_builtin.desc.desc_2'),
-              ]),
+              ],
               type: 'switch',
               hide: !window.electronAPI?.downloadAndOpen
             },
@@ -391,10 +380,10 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'macro_direct_copy',
               label: t('preference.macro_direct_copy.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.macro_direct_copy.desc.desc_1'),
                 t('preference.macro_direct_copy.desc.desc_2'),
-              ]),
+              ],
               type: 'switch'
             },
             {
@@ -412,11 +401,11 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'macro_generate_mode',
               label: t('preference.macro_generate_mode.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.macro_generate_mode.desc.desc_1'),
                 t('preference.macro_generate_mode.desc.desc_2'),
                 t('preference.macro_generate_mode.desc.desc_3'),
-              ]),
+              ],
               type: 'select',
               options: [
                 { value: 'singleLine', label: t('preference.macro_generate_mode.option.single_line') },
@@ -434,36 +423,36 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'cmacro_use_macrolock',
               label: t('preference.cmacro_use_macrolock.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.cmacro_use_macrolock.desc.desc_1'),
-              ]),
+              ],
               type: 'switch'
             },
             {
               key: 'cmacro_remove_quotes',
               label: t('preference.cmacro_remove_quotes.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.cmacro_remove_quotes.desc.desc_1'),
-              ]),
+              ],
               type: 'switch'
             },
             {
               key: 'cmacro_transition_tipper_content',
               label: t('preference.cmacro_transition_tipper_content.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.cmacro_transition_tipper_content.desc.desc_1'),
                 t('preference.cmacro_transition_tipper_content.desc.desc_2'),
                 t('preference.shared.desc.use_default_val_when_empty', '/e Macro #~INDEX completed. <se.1>'),
-              ]),
+              ],
               type: 'string',
               placeholder: '/e Macro #~INDEX completed. <se.1>',
             },
             {
               key: 'cmacro_end_tipper_content',
               label: t('preference.cmacro_end_tipper_content'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.shared.desc.use_default_val_when_empty', '/e Craft done! <se.14>'),
-              ]),
+              ],
               type: 'string',
               placeholder: '/e Craft done! <se.14>',
             },
@@ -478,39 +467,39 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'use_traditional_statement',
               label: t('preference.use_traditional_statement.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.use_traditional_statement.desc.desc_1'),
                 t('preference.use_traditional_statement.desc.desc_2'),
-              ]),
+              ],
               type: 'switch',
               require_reload: true
             },
             {
               key: 'statement_ignore_crystals',
               label: t('preference.statement_ignore_crystals.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.statement_ignore_crystals.desc.desc_1'),
-              ]),
-              warnings: dealDescriptions([
+              ],
+              warnings: [
                 t('preference.statement_ignore_crystals.desc.desc_2', t('statistics.group.cost_and_benefit.title')),
-              ]),
+              ],
               type: 'switch'
             },
             {
               key: 'statement_no_highlights',
               label: t('preference.statement_no_highlights.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.statement_no_highlights.desc.desc_1'),
                 t('preference.statement_no_highlights.desc.desc_2'),
-              ]),
+              ],
               type: 'switch'
             },
             {
               key: 'prostate_concise_mode',
               label: t('preference.prostate_concise_mode.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.prostate_concise_mode.desc.desc_1')
-              ]),
+              ],
               type: 'switch'
             }
           ]
@@ -530,10 +519,10 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               key: 'processes_merge_gatherings',
               label: t('preference.processes_merge_gatherings.title'),
               type: 'switch',
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.processes_merge_gatherings.desc.desc_1'),
                 t('preference.processes_merge_gatherings.desc.desc_2'),
-              ])
+              ],
             },
             {
               key: 'processes_craftable_item_sortby',
@@ -543,9 +532,9 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
                 { value: 'itemId', label: t('game.item_id') },
                 { value: 'recipeOrder', label: t('preference.processes_craftable_item_sortby.option.crafting_log') }
               ],
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.processes_craftable_item_sortby.desc.desc_1'),
-              ])
+              ],
             }
           ]
         },
@@ -558,14 +547,14 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'universalis_server',
               label: t('common.server'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.shared.desc.fit_to_func_and_item_pop_price', t('statistics.group.cost_and_benefit.title')),
                 t('preference.universalis_server.desc.desc_1'),
-              ]),
+              ],
               warnings: [
                 {
                   value: t('preference.universalis_server.desc.desc_2'),
-                  class: 'red', style: ''
+                  class: 'red',
                 }
               ],
               type: 'cascader',
@@ -725,20 +714,15 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               key: 'universalis_priceType',
               label: t('preference.universalis_price_type.title'),
               descriptions: [
-                ...dealDescriptions([
-                  t('preference.shared.desc.fit_to_func', t('statistics.group.cost_and_benefit.title')),
-                  t('preference.universalis_price_type.desc.desc_1'),
-                ]),
+                t('preference.shared.desc.fit_to_func', t('statistics.group.cost_and_benefit.title')),
+                t('preference.universalis_price_type.desc.desc_1'),
                 {
                   value: t('preference.universalis_price_type.desc.desc_2'),
-                  class: '',
                   style: 'margin-top: 5px;'
                 },
-                ...dealDescriptions([
-                  t('preference.universalis_price_type.desc.desc_3'),
-                  t('preference.universalis_price_type.desc.desc_4'),
-                  t('preference.universalis_price_type.desc.desc_5'),
-                ]),
+                t('preference.universalis_price_type.desc.desc_3'),
+                t('preference.universalis_price_type.desc.desc_4'),
+                t('preference.universalis_price_type.desc.desc_5'),
               ],
               type: 'select',
               options: getPriceTypeOptions()
@@ -746,11 +730,11 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'universalis_expireTime',
               label: t('preference.universalis_expire_time.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.shared.desc.fit_to_func_and_item_pop_price', t('statistics.group.cost_and_benefit.title')),
                 t('preference.universalis_expire_time.desc.desc_1'),
                 t('preference.universalis_expire_time.desc.desc_2'),
-              ]),
+              ],
               type: 'select',
               options: [
                 {
@@ -786,9 +770,9 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'export_item_price',
               label: t('preference.export_item_price.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.export_item_price.desc.desc_1'),
-              ]),
+              ],
               type: 'switch'
             },
             {
@@ -799,17 +783,17 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'universalis_showpriceinpop',
               label: t('preference.universalis_showpriceinpop.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.universalis_showpriceinpop.desc.desc_1'),
-              ]),
+              ],
               type: 'switch'
             },
             {
               key: 'universalis_poppricetypes',
               label: t('preference.universalis_poppricetypes.title'),
-              descriptions: dealDescriptions([
+              descriptions: [
                 t('preference.universalis_poppricetypes.desc.desc_1'),
-              ]),
+              ],
               type: 'select',
               multiple: true,
               options: getPriceTypeOptions()
@@ -896,7 +880,7 @@ const onLoad = () => {
 const handleCheck = () => {
   return ''
 }
-const handleSave = () => {
+const handleSave = async () => {
   // * 检查设置合法性
   const checkError = handleCheck()
   if (checkError) {
@@ -968,7 +952,7 @@ const handleSave = () => {
     } else if (formUserConfigData.value.action_after_savesettings === 'none') {
       dealTip()
     } else {
-      if (window.confirm(
+      if (await confirm(
         t('preference.message.saved_but_some_changes_need_refresh')
         + '\n' + t('preference.message.ask_refresh_now')
       )) {

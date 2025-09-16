@@ -102,7 +102,7 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
                     :size="16"
                     src="./image/game-job/companion/alchemist.png"
                   />
-                  <span class="title">{{ t('common.tinc') }}</span>
+                  <span class="title">{{ t('common.medicine') }}</span>
                   <a v-if="false" href="javascript:void(0)" @click="handleExportToNgaBbsCode(foodAndTinc.tincs)">[EXPORT]</a>
                 </div>
               </template>

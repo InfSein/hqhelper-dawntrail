@@ -586,6 +586,14 @@
         "text_1": "Fixed clicking selected item rows would not cancel select."
       }
     },
+    "2_3_4": {
+      "breaking": {
+        "text_1": "Implement 'Cloud Sync' on mobile devices."
+      },
+      "feat": {
+        "text_1": "Added new interface of application dialog."
+      }
+    },
     "breaking": "BREAKING CHANGES",
     "feat": "FEATURES",
     "fix": "BUG FIXES",
@@ -594,6 +602,8 @@
       "add_new_func": "The “{f}” feature has been added.",
       "chs_db_update": "CHS game data updated to {ver}.",
       "chs_db_update_with_comma": "CHS game data updated to {ver}, ",
+      "detail_optimized": "Optimized some details.",
+      "game_db_update": "Game data updated to {ver}.",
       "global_db_update": "Global game data updated to {ver}.",
       "released_func": "Function \"{f}\" released.",
       "require_setting": "Need to deal settings in \"{f2}\" tab of \"{f1}\" first.",
@@ -715,6 +725,7 @@
     "basic_info": "Base info",
     "benefit": "Benefit",
     "brief_intro": "Introduction",
+    "cancel": "Cancel",
     "cautions": "CAUTIONS",
     "check_failed": "Check failed",
     "checking": "Checking...",
@@ -821,6 +832,7 @@
     "main_ui": "Main interface",
     "manage": "Manage",
     "map": "Map",
+    "medicine": "Medicine",
     "message": {
       "ask_continue": "Continue?",
       "changes_saved": "Saved",
@@ -949,6 +961,7 @@
     "verify_code": "Verify code",
     "view_analysis": "View Analysis",
     "view_statement": "View statements",
+    "warn": "Warning",
     "weibo": "Weibo",
     "will_be_named_with_time_when_empty": "If not filled, it will be named by time by default",
     "work_state": "Work States"
@@ -1100,7 +1113,7 @@
     },
     "select_food_and_tinc": "Select food and tinctures",
     "tooltip": {
-      "clear_selected": "Clear all food and tinctures selected"
+      "clear_selected": "Clear selected food and medicine"
     }
   },
   "game": {

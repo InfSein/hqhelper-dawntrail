@@ -19,16 +19,19 @@ import { type CloudConfigModel } from '@/models/config-cloud'
 import { fixWorkState as fixWorkflowWorkState } from '@/models/workflow'
 import { fixWorkState as fixMacromanageWorkState } from '@/models/macromanage'
 import { HqList, type NbbResponse } from '@/models/nbb-cloud'
-import { useNbbCloud } from '@/tools/nbb-cloud'
 import { deepCopy } from '@/tools'
+import { useDialog } from '@/tools/dialog'
+import { useNbbCloud } from '@/tools/nbb-cloud'
 
 const t = inject<(message: string, args?: any) => string>('t')!
+const isMobile = inject<Ref<boolean>>('isMobile')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const store = useStore()
+const { alertInfo, alertError, confirm } = useDialog(t)
 const NAIVE_UI_MESSAGE = useMessage()
 const {
   getListBatch, addList, editList,
@@ -195,7 +198,7 @@ const handleUpload = async () => {
   syncing.value = true
 
   if (getFailedLabels.value.length) {
-    alert(
+    await alertError(
       t('cloud.message.cannot_sync_because_modules_data_load_failed') + '\n'
       + '-> ' + getFailedLabels.value.join(', ') + '\n'
       + t('cloud.message.please_refresh_and_retry')
@@ -204,7 +207,7 @@ const handleUpload = async () => {
     return
   }
 
-  if (!confirm(
+  if (!await confirm(
     t('cloud.message.confirm_upload_1') + '\n'
     + t('cloud.message.confirm_upload_2')
   )) {
@@ -224,7 +227,7 @@ const handleUpload = async () => {
   }
 
   if (failedModules.length) {
-    alert(
+    await alertError(
       t('cloud.message.following_modules_sync_failed') + '\n'
       + failedModules.join('\n')
     )
@@ -313,7 +316,7 @@ const handleDownload = async () => {
   syncing.value = true
 
   if (getFailedLabels.value.length) {
-    alert(
+    await alertError(
       t('cloud.message.cannot_sync_because_modules_data_load_failed') + '\n'
       + '-> ' + getFailedLabels.value.join(', ') + '\n'
       + t('cloud.message.please_refresh_and_retry')
@@ -326,7 +329,7 @@ const handleDownload = async () => {
     .filter(target => !cloudLists.value?.[target]?.last_update)
     .map(target => syncTypeLabelMap.value[target])
   if (novalLabels.length) {
-    alert(
+    await alertError(
       t('cloud.message.cannot_sync_because_modules_data_not_uploaded') + '\n'
       + '-> ' + novalLabels.join(', ') + '\n'
       + t('cloud.message.please_upload_first')
@@ -335,7 +338,7 @@ const handleDownload = async () => {
     return
   }
 
-  if (!confirm(
+  if (!await confirm(
     t('cloud.message.confirm_download_1') + '\n'
     + t('cloud.message.confirm_download_2')
   )) {
@@ -444,7 +447,7 @@ const handleDownload = async () => {
     const tips = [t('cloud.message.sync_succeed')]
     if (itemPriceCacheCleaned) tips.push(t('cloud.message.cache_cleaned'))
     tips.push(t('cloud.message.page_would_be_reloaded'))
-    alert(tips.join('\n'))
+    await alertInfo(tips.join('\n'))
     setTimeout(() => {
       window.electronAPI?.closeAllChildWindows?.()
       location.reload()
@@ -512,15 +515,15 @@ const handleDownload = async () => {
           </template>
 
           <div class="start-sync-wrapper">
-            <n-button text :loading="syncing" :disabled="syncing || !syncTargets.length" @click="handleUpload">
+            <n-button :text="!isMobile" :loading="syncing" :disabled="syncing || !syncTargets.length" @click="handleUpload">
               <div class="sync-button-container">
-                <n-icon :size="48"><CloudUploadRound /></n-icon>
+                <n-icon :size="isMobile ? 16 : 48"><CloudUploadRound /></n-icon>
                 {{ t('cloud.text.upload_data') }}
               </div>
             </n-button>
-            <n-button text :loading="syncing" :disabled="syncing || !syncTargets.length" @click="handleDownload">
+            <n-button :text="!isMobile" :loading="syncing" :disabled="syncing || !syncTargets.length" @click="handleDownload">
               <div class="sync-button-container">
-                <n-icon :size="48"><CloudDownloadRound /></n-icon>
+                <n-icon :size="isMobile ? 16 : 48"><CloudDownloadRound /></n-icon>
                 {{ t('cloud.text.download_data') }}
               </div>
             </n-button>
@@ -581,5 +584,30 @@ const handleDownload = async () => {
 }
 .text.error {
   color: var(--color-error);
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .wrapper {
+    .sync-range-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .start-sync-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      button {
+        --n-height: 40px !important;
+        padding: var(--n-padding);
+        .sync-button-container {
+          flex-direction: row;
+          gap: 4px;
+        }
+      }
+    }
+  }
 }
 </style>

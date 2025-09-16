@@ -7,7 +7,7 @@ import {
   KeyboardArrowRightOutlined
 } from '@vicons/material'
 import HelpButton from './HelpButton.vue'
-import type { SettingItem } from '@/models'
+import type { AppTextUi, PreferenceItem } from '@/models'
 import useUiTools from '@/tools/ui'
 
 const t = inject<(message: string, args?: any) => string>('t')!
@@ -17,27 +17,32 @@ const { optionsRenderer } = useUiTools(isMobile)
 
 const formData = defineModel<any>('formData', { required: true })
 interface SettingItemProps {
-  settingItem: SettingItem
+  settingItem: PreferenceItem
 }
 const props = defineProps<SettingItemProps>()
 
+const descriptions = computed(() : AppTextUi[] => {
+  return (props.settingItem.descriptions ?? []).map(desc => {
+    if (typeof desc === 'string') {
+      return { value: desc }
+    } else {
+      return desc
+    }
+  })
+})
 const warnings = computed(() => {
-  const warns : {
-    value: string; class: string; style: string;
-  }[] = []
-  const oriwarns = props.settingItem.warnings ?? []
-  // if (props.settingItem.require_reload) {
-  //   warns.push({
-  //     value: t('preference.shared.warn.need_refresh'),
-  //     class: '', style: ''
-  //   })
-  // }
-  return [...warns, ...oriwarns]
+  return (props.settingItem.warnings ?? []).map(warn => {
+    if (typeof warn === 'string') {
+      return { value: warn }
+    } else {
+      return warn
+    }
+  })
 })
 </script>
 
 <template>
-  <div class="setting-item" v-show="!settingItem.hide">
+  <div class="setting-item" v-show="!settingItem.hide" :style="{}">
     <n-collapse arrow-placement="right">
       <n-collapse-item>
         <template #header>
@@ -50,13 +55,13 @@ const warnings = computed(() => {
           />
         </template>
         <template #arrow>
-          <n-icon v-if="settingItem.descriptions?.length" :title="t('preference.shared.tooltip.click_to_desc')"><KeyboardArrowRightOutlined /></n-icon>
+          <n-icon v-if="descriptions.length" :title="t('preference.shared.tooltip.click_to_desc')"><KeyboardArrowRightOutlined /></n-icon>
           <n-icon v-else></n-icon>
         </template>
 
         <div class="item-descriptions">
           <p
-            v-for="(description, index) in settingItem.descriptions"
+            v-for="(description, index) in descriptions"
             :key="settingItem.key + '-description-' + index"
             :class="description.class"
             :style="description.style"
