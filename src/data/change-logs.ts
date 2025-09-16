@@ -84,7 +84,12 @@ export const getChangelogs = (
           changes: [
             t('changelog.shared.game_db_update', {
               ver: '7.31'
-            }),
+            })
+              + (isZh ? (
+                tipper + '我们之前提供的物品名称／描述的翻译有部分与国服正式文本不同。如果想要查看变化详情，请参阅'
+                + renderLink('https://docs.qq.com/doc/DY3dKYXB3ZElFU2xN', 'HqHelper 中文暂译修订记录')
+                + '。'
+              ) : ''),
             t('changelog.2_3_4.breaking.text_1'),
           ]
         },
