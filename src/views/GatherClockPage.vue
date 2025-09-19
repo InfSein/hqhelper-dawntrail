@@ -686,20 +686,11 @@ const handleShowAlarmMacroExportModal = () => {
   flex-wrap: wrap;
   gap: 2px 5px;
 }
-.items-container {
-  gap: 0.3rem;
-  padding: 0.5rem;
-
-}
 
 /* Desktop */
 @media screen and (min-width: 768px) {
   .query-form .n-form-item:hover {
     border: 1px solid var(--n-color-target);
-  }
-  .items-container {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 
@@ -707,13 +698,6 @@ const handleShowAlarmMacroExportModal = () => {
 @media screen and (max-width: 767px) {
   .query-form {
     width: 100%;
-  }
-  .items-container {
-    display: flex;
-    flex-direction: column;
-  }
-  .env-overlay .items-container {
-    padding: 0;
   }
 }
 </style>
