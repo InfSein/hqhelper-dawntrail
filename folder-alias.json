@@ -160,5 +160,11 @@
     },
     "src/views/WorkflowProcessPage.vue": {
         "description": "客户端工作流流程"
+    },
+    "src/components/gatherclock": {
+        "description": "采集时钟下属组件"
+    },
+    "src/components/gatherclock/GatherItemCard.vue": {
+        "description": "采集品卡片"
     }
 }

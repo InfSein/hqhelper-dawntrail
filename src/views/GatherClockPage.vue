@@ -1,19 +1,14 @@
 <script setup lang="ts">
 import { computed, inject, onBeforeUnmount, onMounted, ref, watch, type Ref } from 'vue'
 import {
-  NBackTop, NButton, NCard, NDivider, NDropdown, NEl, NEmpty, NForm, NFormItem, NIcon, NPopover, NProgress, NSelect, NSwitch,
+  NBackTop, NButton, NCard, NDivider, NDropdown, NEl, NEmpty, NForm, NFormItem, NGrid, NGridItem, NSelect, NSwitch,
 } from 'naive-ui'
 import {
   AccessAlarmsOutlined,
-  NotificationsRound, NotificationsNoneRound,
-  StarBorderRound, StarRound,
 } from '@vicons/material'
 import FoldableCard from '@/components/templates/FoldableCard.vue'
-import XivFARImage from '@/components/custom/general/XivFARImage.vue'
 import RouterCard from '@/components/custom/general/RouterCard.vue'
-import ItemButton from '@/components/custom/item/ItemButton.vue'
-import XivMap from '@/components/custom/map/XivMap.vue'
-import LocationSpan from '@/components/custom/map/LocationSpan.vue'
+import GatherItemCard from '@/components/gatherclock/GatherItemCard.vue'
 import ModalAlarmMacroExport from '@/components/modals/ModalAlarmMacroExport.vue'
 import { XivJobs, type XivJob } from '@/assets/data'
 import { useStore } from '@/store'
@@ -23,7 +18,6 @@ import type { ItemGroup } from '@/models/item'
 import { fixAlarmMacroOptions } from '@/models/gather-clock'
 import { playAudio } from '@/tools'
 import { useDialog } from '@/tools/dialog'
-import { XivMaps } from '@/tools/map'
 import useUiTools from '@/tools/ui'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
@@ -275,6 +269,7 @@ const dealTimeLimit = (start: string, end: string) => {
   let remainET = 99999
   let remainLT : string | undefined = undefined
   let ltClass = 'font-small'
+  let ltTitle = ''
   try {
     const parseTime = (time: string) => time.split(':').reduce((acc, val, idx) => acc + parseInt(val) * [60, 1][idx], 0)
     const s = parseTime(start)
@@ -291,6 +286,7 @@ const dealTimeLimit = (start: string, end: string) => {
       } else if (ls < 60) {
         ltClass += ' color-warning'
       }
+      ltTitle = '剩余可采集时间'
     } else {
       progressPercentage = 0
       remainET = s - c
@@ -299,6 +295,7 @@ const dealTimeLimit = (start: string, end: string) => {
       }
       ls = Math.floor(EorzeaTime.EorzeaMinute2LocalSecond(remainET))
       ltClass += ' text-sub'
+      ltTitle = '距离变得可采集的剩余时间'
     }
     remainLT = t('common.remain_with_colon')
     if (ls >= 60) {
@@ -313,7 +310,7 @@ const dealTimeLimit = (start: string, end: string) => {
     canGather: canGather,
     status: progressStatus,
     percentage: progressPercentage,
-    remainLT, ltClass,
+    remainLT, ltClass, ltTitle,
     remainET
   }
 }
@@ -325,14 +322,14 @@ const handleSubscribeButtonClick = (itemInfo : ItemInfo) => {
     workState.value.subscribedItems.push(itemInfo.id)
   }
 }
-
-const handleQuickOperateButtonClick = (itemInfo : ItemInfo) => {
+const handleStarButtonClick = (itemInfo : ItemInfo) => {
   if (workState.value.starItems.includes(itemInfo.id)) {
     workState.value.starItems = workState.value.starItems.filter(id => id !== itemInfo.id)
   } else {
     workState.value.starItems.push(itemInfo.id)
   }
 }
+
 const getQuickOperateOptions = () => {
   const starOptions = gatherData.value.filter(
     item => item.key !== 'stars' && item.items.length
@@ -633,121 +630,22 @@ const handleShowAlarmMacroExportModal = () => {
         <div v-if="!patch.items?.length" class="flex-center w-full" :style="isMobile ? 'min-height: 300px;' : ''">
           <n-empty size="large" :description="t('gather_clock.text.no_items')" />
         </div>
-        <div class="items-container">
-          <div
+        <n-grid cols="1 600:2 900:3 1200:4 1500:5" :x-gap="5" :y-gap="5">
+          <n-grid-item
             v-for="item in getSortedItems(patch.items)"
             :key="item.id"
-            class="item-card"
           >
-            <div class="title">
-              <ItemButton
-                :item-info="item"
-                show-icon show-name
-                btn-extra-style="flex-grow: 1;"
-                :disable-pop="workState.banItemPop"
-                pop-use-custom-width
-                :pop-custom-width="isMobile ? 300 : undefined"
-              />
-              <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
-                <template #trigger>
-                  <n-button class="btn-alarm" @click="handleSubscribeButtonClick(item)">
-                    <template #icon>
-                      <n-icon v-if="workState.subscribedItems.includes(item.id)" color="#A80ABF">
-                        <NotificationsRound />
-                      </n-icon>
-                      <n-icon v-else color="#A80ABF">
-                        <NotificationsNoneRound />
-                      </n-icon>
-                    </template>
-                  </n-button>
-                </template>
-                <div>{{ t('gather_clock.tooltip.subscribe_1') }}</div>
-                <div>{{ t('gather_clock.tooltip.subscribe_2', t('gather_clock.preference.mention_way.title')) }}</div>
-              </n-popover>
-              <n-popover placement="top" :trigger="isMobile ? 'manual' : 'hover'" :keep-alive-on-hover="false">
-                <template #trigger>
-                  <n-button class="btn-star" @click="handleQuickOperateButtonClick(item)">
-                    <template #icon>
-                      <n-icon v-if="workState.starItems.includes(item.id)" color="#F6CA45">
-                        <StarRound />
-                      </n-icon>
-                      <n-icon v-else color="#F6CA45">
-                        <StarBorderRound />
-                      </n-icon>
-                    </template>
-                  </n-button>
-                </template>
-                <div>{{ t('common.favorite.desc.desc_1') }}</div>
-                <div>{{ t('common.favorite.desc.desc_2') }}</div>
-              </n-popover>
-            </div>
-            <n-divider class="no-margin" />
-            <div class="content">
-              <div class="standard-info">
-                <div class="gather-job">
-                  <XivFARImage
-                    class="icon"
-                    :src="XivJobs[item.gatherInfo.jobId].job_icon_url"
-                  />
-                  <p>{{ getJobName(XivJobs[item.gatherInfo.jobId]) }}</p>
-                </div>
-                <div class="recommended-aetheryte" v-if="XivMaps[item.gatherInfo.placeID]">
-                  <span>{{ t('common.recomm') }}</span>
-                  <span style="vertical-align: middle;">
-                    <XivFARImage
-                      :size="14"
-                      src="./ui/aetheryte.png"
-                    />
-                  </span>
-                  <span>
-                    {{ item.gatherInfo.recommAetheryte?.[`name_${itemLanguage}`] }}
-                  </span>
-                </div>
-                <div class="gather-place">
-                  <LocationSpan
-                    :place-id="item.gatherInfo.placeID"
-                    :place-name="getPlaceName(item)"
-                    :coordinate-x="item.gatherInfo.posX"
-                    :coordinate-y="item.gatherInfo.posY"
-                    hide-coordinates
-                  />
-                  <div>{{ getItemGatherLocation(item) }}</div>
-                </div>
-              </div>
-              <XivMap
-                v-if="workState.showMap && XivMaps[item.gatherInfo.placeID]"
-                :map-data="XivMaps[item.gatherInfo.placeID]"
-                :map-size="isMobile ? 225 : 125"
-                :flag-x="item.gatherInfo.posX"
-                :flag-y="item.gatherInfo.posY"
-                style="justify-content: end;"
-              />
-              <div class="progresses">
-                <div
-                  v-for="(timelimit, tlIndex) in item.gatherInfo.timeLimitInfo"
-                  :key="item.id + '-' + tlIndex"
-                >
-                  <div>
-                    {{ timelimit.start }} ~ {{ timelimit.end }}
-                    <span v-if="dealTimeLimit(timelimit.start, timelimit.end).canGather" class="green" style="margin-left: 5px;">
-                      {{ t('common.gatherable_now') }}
-                    </span>
-                    <span v-if="dealTimeLimit(timelimit.start, timelimit.end).remainLT" :class="dealTimeLimit(timelimit.start, timelimit.end).ltClass" style="margin-left: 5px;">
-                      {{ dealTimeLimit(timelimit.start, timelimit.end).remainLT }}
-                    </span>
-                  </div>
-                  <n-progress
-                    type="line"
-                    processing
-                    :show-indicator="false"
-                    :status="dealTimeLimit(timelimit.start, timelimit.end).status"
-                    :percentage="dealTimeLimit(timelimit.start, timelimit.end).percentage"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+            <GatherItemCard
+              :ban-item-pop="workState.banItemPop"
+              :show-map="workState.showMap"
+              :item="item"
+              :subscribed-items="workState.subscribedItems"
+              :star-items="workState.starItems"
+              @on-star-button-click="handleStarButtonClick"
+              @on-subscribe-button-click="handleSubscribeButtonClick"
+            />
+          </n-grid-item>
+        </n-grid>
       </n-el>
     </n-card>
 
@@ -792,70 +690,6 @@ const handleShowAlarmMacroExportModal = () => {
   gap: 0.3rem;
   padding: 0.5rem;
 
-  .item-card:hover {
-    box-shadow: 0 0 10px var(--primary-color);
-    border-color: var(--primary-color);
-  }
-  .item-card {
-    border-radius: 5px;
-    border: 1px solid var(--primary-color);
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-    padding: 0.3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-    
-    .title {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-
-      .btn-alarm,
-      .btn-star {
-        padding: 0px 8px;
-      }
-    }
-    .content {
-      .standard-info {
-        position: relative;
-        line-height: 1.2;
-        margin: 0 0.1rem 0.2rem 0.1rem;
-        --font-size: var(--n-font-size);
-
-        .gather-job {
-          font-size: var(--font-size);
-          text-align: left;
-          width: 70%;
-          line-height: var(--font-size);
-
-          img {
-            float: left;
-            height: var(--font-size);
-            display: block;
-            user-select: none;
-          }
-          p {
-            font-size: var(--font-size);
-            padding-left: var(--textgap-left);
-          }
-        }
-        .recommended-aetheryte {
-          margin-top: 3px;
-          max-width: 60%;
-        }
-        .gather-place {
-          position: absolute;
-          text-align: right;
-          top: 0;
-          right: 0;
-        }
-      }
-      .progresses {
-        margin: 0 0.1rem;
-      }
-    }
-  }
 }
 
 /* Desktop */
@@ -866,10 +700,6 @@ const handleShowAlarmMacroExportModal = () => {
   .items-container {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-
-    .item-card .title .btn-star {
-      height: 100%;
-    }
   }
 }
 
@@ -881,10 +711,6 @@ const handleShowAlarmMacroExportModal = () => {
   .items-container {
     display: flex;
     flex-direction: column;
-    
-    .item-card {
-      width: 100%;
-    }
   }
   .env-overlay .items-container {
     padding: 0;
