@@ -68,6 +68,9 @@
 .color-warning {
   color: #ffc107;
 }
+.text-sub {
+  color: var(--color-text-sub);
+}
 
 /* Text */
 .bold {

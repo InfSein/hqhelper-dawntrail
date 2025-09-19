@@ -280,28 +280,31 @@ const dealTimeLimit = (start: string, end: string) => {
     const s = parseTime(start)
     const e = parseTime(end)
     const c = currentET.value.hour * 60 + currentET.value.minute
+    let ls = 0
     if (c >= s && c < e) {
       canGather = true
       progressPercentage = (c - s) / (e - s) * 100
       remainET = e - c
-      const ls = Math.floor(EorzeaTime.EorzeaMinute2LocalSecond(remainET))
+      ls = Math.floor(EorzeaTime.EorzeaMinute2LocalSecond(remainET))
       if (ls < 30) {
         ltClass += ' red'
       } else if (ls < 60) {
         ltClass += ' color-warning'
       }
-      remainLT = t('common.remain_with_colon')
-      if (ls >= 60) {
-        remainLT += t('common.val_minutes', Math.floor(ls / 60))
-      }
-      remainLT += t('common.val_seconds', ls % 60)
     } else {
       progressPercentage = 0
       remainET = s - c
       if (remainET < 0) {
         remainET += 1440
       }
+      ls = Math.floor(EorzeaTime.EorzeaMinute2LocalSecond(remainET))
+      ltClass += ' text-sub'
     }
+    remainLT = t('common.remain_with_colon')
+    if (ls >= 60) {
+      remainLT += t('common.val_minutes', Math.floor(ls / 60))
+    }
+    remainLT += t('common.val_seconds', ls % 60)
   } catch (err) {
     console.error(err)
     progressStatus = 'error'; progressPercentage = 100
