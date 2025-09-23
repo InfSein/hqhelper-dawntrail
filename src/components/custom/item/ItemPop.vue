@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, inject, ref, type Ref } from 'vue'
+import { computed, inject, onMounted, ref, type Ref } from 'vue'
 import {
   NButton, NDivider, NIcon, NPopover,
   useMessage
@@ -8,6 +8,7 @@ import {
   OpenInNewFilled,
   RefreshOutlined
 } from '@vicons/material'
+import HqSwitcher from '../general/HqSwitcher.vue'
 import ItemSpan from './ItemSpan.vue'
 import ItemRemark from './ItemRemark.vue'
 import XivFARImage from '../general/XivFARImage.vue'
@@ -57,6 +58,14 @@ interface ItemPopProps {
   containerId?: string
 }
 const props = defineProps<ItemPopProps>()
+
+const showItemHqAttr = ref(true)
+
+onMounted(() => {
+  if (!itemHasHQ.value) {
+    showItemHqAttr.value = false
+  }
+})
 
 const getJobName = (jobInfo: XivJob) => {
   switch (uiLanguage.value) {
@@ -343,6 +352,7 @@ const innerPopTrigger = computed(() => {
       <slot />
     </template>
     <div class="item-popover">
+      <!-- 抬头 -->
       <div class="base-info">
         <XivFARImage
           class="item-icon"
@@ -362,6 +372,7 @@ const innerPopTrigger = computed(() => {
       <div class="item-level">{{ t('item.text.item_level_with_val', itemInfo.itemLevel) }}</div>
       <n-divider class="item-divider" />
       <div class="item-descriptions">
+        <!-- 版本/ID等 -->
         <div class="item-attributes">
           <div class="item-type">
             <XivFARImage
@@ -373,11 +384,16 @@ const innerPopTrigger = computed(() => {
           </div>
           <p>{{ t('item.text.basic_info', { patch: itemInfo.patch, id: itemInfo.id }) }}</p>
         </div>
+        <!-- 游戏内物品描述 -->
         <div class="main-descriptions" v-html="getItemDescriptions()"></div>
+        <!-- 装备属性 -->
         <div class="description-block" v-if="itemInfo.attrsProvided.length">
-          <div class="title">{{ t('common.armor_attr') }}</div>
+          <div class="title">
+            {{ t('common.armor_attr') }}
+            <HqSwitcher v-model:hq="showItemHqAttr" :readonly="!itemHasHQ" :size="12" class="extra" />
+          </div>
           <n-divider class="item-divider" />
-          <div class="content armor" v-if="itemHasHQ">
+          <div class="content armor" v-if="showItemHqAttr">
             <div
               class="item"
               v-for="(attr, index) in itemInfo.attrsProvided"
@@ -386,7 +402,7 @@ const innerPopTrigger = computed(() => {
               <div>{{ `${getAttrName(attr[0])} +${attr[2]}` }}</div>
             </div>
           </div>
-          <div class="content" v-else>
+          <div class="content armor" v-else>
             <div
               class="item"
               v-for="(attr, index) in itemInfo.attrsProvided"
@@ -395,14 +411,18 @@ const innerPopTrigger = computed(() => {
               <div>{{ `${getAttrName(attr[0])} +${attr[1]}` }}</div>
             </div>
           </div>
-          <div class="content extra">
-            {{ t('item.text.attribute_isnq_or_hq_desc', itemHasHQ ? 'HQ' : 'NQ') }}
+          <div v-if="isMobile" class="content extra">
+            ※ {{ t('item.text.curr_show_hqornq', [(showItemHqAttr ? 'HQ' : 'NQ')]) }}
           </div>
         </div>
+        <!-- 使用效果(食物/爆发药) -->
         <div class="description-block" v-if="itemInfo.tempAttrsProvided.length">
-          <div class="title">{{ t('common.effect') }}</div>
+          <div class="title">
+            {{ t('common.effect') }}
+            <HqSwitcher v-model:hq="showItemHqAttr" :readonly="!itemHasHQ" :size="12" class="extra" />
+          </div>
           <n-divider class="item-divider" />
-          <div class="content" v-if="itemHasHQ">
+          <div class="content" v-if="showItemHqAttr">
             <div
               class="item"
               v-for="(attr, index) in itemInfo.tempAttrsProvided"
@@ -420,10 +440,11 @@ const innerPopTrigger = computed(() => {
               <div>{{ `${getAttrName(attr[0])} +${attr[2]}% ${t('common.quoted_maximum', attr[3])}` }}</div>
             </div>
           </div>
-          <div class="content extra">
-            {{ t('item.text.attribute_isnq_or_hq_desc', itemHasHQ ? 'HQ' : 'NQ') }}
+          <div v-if="isMobile" class="content extra">
+            ※ {{ t('item.text.curr_show_hqornq', [(showItemHqAttr ? 'HQ' : 'NQ')]) }}
           </div>
         </div>
+        <!-- 精选信息 -->
         <div class="description-block" v-if="itemInfo.canReduceFrom?.length || itemInfo.canReduceTo">
           <div class="title">{{ t('common.reduce') }}</div>
           <n-divider class="item-divider" />
@@ -440,6 +461,7 @@ const innerPopTrigger = computed(() => {
             </div>
           </div>
         </div>
+        <!-- 笔记 -->
         <div class="description-block" v-if="uiLanguage === 'zh' && XivItemRemarks[itemInfo.id]?.length">
           <div class="title">笔记</div>
           <n-divider class="item-divider" />
@@ -451,6 +473,7 @@ const innerPopTrigger = computed(() => {
             />
           </div>
         </div>
+        <!-- 采集 -->
         <div class="description-block" v-if="itemInfo.gatherInfo || itemInfo.isFishingItem">
           <div class="title">
             {{ t('common.gather') }}
@@ -530,6 +553,7 @@ const innerPopTrigger = computed(() => {
             {{ t('item.text.gather_website.note') }}
           </div>
         </div>
+        <!-- 兑换 -->
         <div class="description-block" v-if="tradeCostList.length">
           <div class="title">{{ t('common.trade') }}</div>
           <n-divider class="item-divider" />
@@ -552,6 +576,7 @@ const innerPopTrigger = computed(() => {
             </template>
           </div>
         </div>
+        <!-- 制作 -->
         <div class="description-block" v-if="itemInfo.craftRequires.length">
           <div class="title">
             {{ t('common.craft.title') }}
@@ -618,6 +643,7 @@ const innerPopTrigger = computed(() => {
             </div>
           </div>
         </div>
+        <!-- 价格 -->
         <div class="description-block" v-if="funcConfig.universalis_showpriceinpop && itemInfo.tradable">
           <div class="title">
             {{ t('common.price') }}
@@ -661,22 +687,15 @@ const innerPopTrigger = computed(() => {
             </div>
           </div>
         </div>
+        <!-- 插槽，目前好像没用到 -->
         <slot name="extra-descriptions" />
+        <!-- 注 -->
         <div class="tail-descriptions">
           <p v-for="(desc, index) in itemTailDescriptions" :key="'tail-descriptions' + index">
             {{ t('common.note_x', itemTailDescriptions.length === 1 ? '' : index + 1) }}{{ desc }}
           </p>
         </div>
       </div>
-      <!-- <n-flex v-show="false" class="item-actions">
-        <n-button size="small" @click="openInHuijiWiki()">
-          {{ t('common.open_in.huijiwiki') }}
-        </n-button>
-        <n-button size="small" @click="openInGarland()">
-          {{ t('common.open_in.garland') }}
-        </n-button>
-        <slot name="extra-actions" />
-      </n-flex> -->
     </div>
   </n-popover>
   <slot v-else />
