@@ -1056,7 +1056,9 @@
     "start_donate": {
       "desc": {
         "desc_1": "请点击下方链接进行赞助：",
-        "desc_2": "请使用移动端的QQ或TIM扫描下方二维码："
+        "desc_2": "请使用移动端的QQ或TIM扫描下方二维码：",
+        "desc_3": "请使用支付宝扫描下方二维码：",
+        "desc_4": "请使用微信扫描下方图片："
       },
       "title": "开始赞助"
     },
@@ -1066,8 +1068,10 @@
     },
     "way": {
       "aifadian": "爱发电",
+      "alipay": "支付宝",
       "placeholder": "请选择赞助方式",
-      "title": "赞助方式"
+      "title": "赞助方式",
+      "wechat_admire": "微信支付(赞赏码)"
     }
   },
   "download_page": {
