@@ -666,7 +666,7 @@ const handleCheckUpdates = async () => {
     </div>
     <div class="header-content">
       <div class="app-info">
-        <HqLogo :size="15" />
+        <HqLogo :size="isMobile ? 24 : 15" />
         <p class="app-name">HqHelper</p>
 
         <n-popover :trigger="isMobile ? 'click' : 'hover'" :keep-alive-on-hover="isMobile" style="max-width: 260px;">
@@ -862,10 +862,6 @@ const handleCheckUpdates = async () => {
 @media screen and (max-width: 767px) {
   .app-header .header-content .app-info {
     height: 100%;
-
-    .logo-font {
-      font-size: 24px;
-    }
   }
   .header-content, .app-info {
     width: 100%;
