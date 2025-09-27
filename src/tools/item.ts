@@ -306,10 +306,10 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   const itemType : number = _item.uc
   if (typeMap?.[itemType]) {
     itemInfo.uiTypeId = itemType
-    itemInfo.uiTypeOrder = typeMap[itemType].order_major * 256 + typeMap[itemType].order_minor
-    itemInfo.uiTypeNameJA = typeMap[itemType].lang[0]
-    itemInfo.uiTypeNameEN = typeMap[itemType].lang[1]
-    itemInfo.uiTypeNameZH = typeMap[itemType].lang[2]
+    itemInfo.uiTypeOrder = typeMap[itemType].order[0] * 256 + typeMap[itemType].order[1]
+    itemInfo.uiTypeNameJA = typeMap[itemType].name[0]
+    itemInfo.uiTypeNameEN = typeMap[itemType].name[1]
+    itemInfo.uiTypeNameZH = typeMap[itemType].name[2].replace(/（/, '(').replace(/）/, ')')
     itemInfo.uiTypeIconUrl = getImgCdnUrl(typeMap[itemType].icon)
   }
 

@@ -204,10 +204,10 @@ export const XivGearSlots = JsonXivGearSlots as Record<keyof GearSelections, {
 import JsonXivItemTypes from './xiv-item-types.json'
 export const XivItemTypes = JsonXivItemTypes as Record<number, {
   id: number
-  lang: string[]
   icon: number
-  order_minor: number
-  order_major: number
+  name: string[]
+  /** 顺序号，固定2个元素。第1个为majorOrder，第2个为minorOrder。 */
+  order: number[]
 }>
 
 import JsonXivJobs from './xiv-jobs.json'
