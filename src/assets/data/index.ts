@@ -25,22 +25,41 @@ export const XivTranslatedPlaces = JsonXivTranslatedPlaces as Record<number, str
   * src\assets\data\unpacks\hq-config.json - 因为只在 use-nbb-cal 中使用，并且已经进行了类型声明 (虽然后续可能还要改)
  */
 
-import JsonXivUnpackedGatheringItems from './unpacks/gathering-item.json'
+import JsonXivUnpackedCollectableSubmissions from './unpacks/collectable-submissions.json'
+export const XivUnpackedCollectableSubmissions = JsonXivUnpackedCollectableSubmissions as Record<number, {
+  id: number
+  /**
+   * 等级组
+   * @var [levelMin, levelMax]
+   */
+  levels: number[]
+  /**
+   * 奖励组，从低到高排列
+   * @var [[所需收藏价值,奖励的票据数], ...]
+   */
+  rewards: number[][]
+  rewardScrip: number
+}>
+
+import JsonXivUnpackedGatheringItems from './unpacks/gathering-items.json'
 export const XivUnpackedGatheringItems = JsonXivUnpackedGatheringItems as Record<number, {
   level: number
+  star: number
   /**
    * 采集点类型I
-   * * 0=採掘,1=砕岩,2=伐採,3=草刈
+   * * 0=采掘,1=碎石,2=采伐,3=割草
    */
   type: number
   /**
    * 采集点类型II
-   * * 1=常规点，2=收藏品，3=工艺馆，4=灵砂，5=传承录
+   * todo ??待考察 * 1=常规点，2=收藏品，3=工艺馆，4=灵砂，5=传承录
    */
-  pointType?: number
-  territory?: number
-  place?: number
-  popType?: string
+  pointType: number
+  pointLevel: number
+  territory: number
+  place: number
+  coords: { x: string, y: string }
+  popType: "normal" | "legendary" | "ephemeral"
   popTime?: {
     start1: string
     end1: string
@@ -48,14 +67,13 @@ export const XivUnpackedGatheringItems = JsonXivUnpackedGatheringItems as Record
     end2: string
     start3: string
     end3: string
-  } | false
-  coords?: { x: string, y: string }
+  }
   /**
    * 采集点是否需要习得传承录方可采集
    * * 为数字时，代表所需传承录的道具ID
-   * * 为 false 或 undefined 时，代表不需要传承录或缺失数据
+   * * 为 undefined 时，代表不需要传承录或缺失数据
    */
-  folkloreBook?: number | false
+  folkloreBook?: number
 }>
 
 import JsonXivUnpackedItems from './unpacks/item.json'

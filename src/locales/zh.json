@@ -1333,6 +1333,7 @@
       "craftsmanship_with_val": "作业精度{val}",
       "curr_show_hqornq": "正在展示物品的{0}属性",
       "gather_condi": "采集条件：",
+      "gather_level_info": "{lv}级{job}",
       "gather_pos_info": "该物品可以在以下位置采集：",
       "gather_time_info": "该物品只能在以下ET内采集：",
       "gather_website": {

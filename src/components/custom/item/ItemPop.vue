@@ -482,7 +482,13 @@ const innerPopTrigger = computed(() => {
                 class="icon"
                 :src="XivJobs[itemInfo.gatherInfo.jobId].job_icon_url"
               />
-              <p>{{ getJobName(XivJobs[itemInfo.gatherInfo.jobId]) }}</p>
+              <p v-if="itemInfo.gatherInfo.level !== itemInfo.gatherInfo.nodelevel">
+                {{ t('item.text.gather_level_info', {
+                  lv: itemInfo.gatherInfo.level,
+                  job: getJobName(XivJobs[itemInfo.gatherInfo.jobId])
+                }) }}
+              </p>
+              <p v-else>{{ getJobName(XivJobs[itemInfo.gatherInfo.jobId]) }}</p>
             </div>
             <div v-if="itemInfo.isFishingItem" class="extra">
               <XivFARImage

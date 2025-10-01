@@ -189,6 +189,8 @@ export interface ItemInfo {
   },
   gatherInfo: {
     jobId: number,
+    level: number,
+    nodelevel: number,
     placeID: number,
     placeNameZH: string,
     placeNameJA: string,
@@ -348,9 +350,10 @@ export const getItemInfo = (item: number | CalculatedItem) => {
       case 2: gntype_zh = '良材'; gntype_en = 'mature tree'; gntype_ja = '伐採'; break
       case 3: gntype_zh = '草场'; gntype_en = 'lush vegetation'; gntype_ja = '草刈'; break
     }
-    gntype_zh = gatherData.level + '级' + gntype_zh
-    gntype_en = 'Lv ' + gatherData.level + ' ' + gntype_en
-    gntype_ja = 'レベル' + gatherData.level + gntype_ja
+    const nodeLevel = gatherData.pointLevel
+    gntype_zh = nodeLevel + '级' + '★'.repeat(gatherData.star) + gntype_zh
+    gntype_en = 'Lv ' + nodeLevel + '★'.repeat(gatherData.star) + ' ' + gntype_en
+    gntype_ja = 'レベル' + nodeLevel + '★'.repeat(gatherData.star) + gntype_ja
     const territoryID = gatherData.territory
     if (territoryID && XivUnpackedTerritories[territoryID]) {
       const territoryData = XivUnpackedTerritories[territoryID]
@@ -366,6 +369,8 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         const posVal = calculatePosVal(posX, posY)
         itemInfo.gatherInfo = {
           jobId: gatherJob,
+          level: gatherData.level,
+          nodelevel: nodeLevel,
           placeID: placeID,
           placeNameZH: placeNameZH,
           placeNameJA: gatherPlaceData[0],
