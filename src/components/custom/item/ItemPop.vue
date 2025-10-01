@@ -558,6 +558,32 @@ const innerPopTrigger = computed(() => {
             {{ t('item.text.gather_website.note') }}
           </div>
         </div>
+        <!-- 收藏品交易 -->
+        <div class="description-block" v-if="itemInfo.collectInfo">
+          <div class="title">
+            {{ t('common.submission') }}
+            <div class="extra">{{ t('common.collectable_submission') }}</div>
+          </div>
+          <n-divider class="item-divider" />
+          <div class="content">
+            <div style="margin-left:1em;width:fit-content; display:grid;grid-template-columns:repeat(2,1fr);column-gap: 4px;">
+              <div style="text-align: left;">{{ t('common.collectability') }}</div>
+              <div style="text-align: right;">{{ t('common.reward') }}</div>
+              <template
+                v-for="(reward, rewardIndex) in itemInfo.collectInfo.rewards"
+                :key="`collect-reward-${rewardIndex}`"
+              >
+                <div style="text-align: left;">
+                  {{ reward.collectabilityMin }}～{{ reward.collectabilityMax ?? '' }}
+                </div>
+                <div class="flex-vac" style="justify-content: flex-end;">
+                  <div>{{ reward.scripAmount }}</div>
+                  <ItemSpan :item-info="getItemInfo(itemInfo.collectInfo.rewardScrip)" hide-name hide-pop-icon />
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
         <!-- 兑换 -->
         <div class="description-block" v-if="tradeCostList.length">
           <div class="title">{{ t('common.trade') }}</div>

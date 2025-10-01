@@ -51,7 +51,8 @@ import {
   XivUnpackedTerritories,
   XivItemTypes,
   XivUnpackedTradeMap,
-  type ItemTradeInfo
+  type ItemTradeInfo,
+  XivUnpackedCollectableSubmissions
 } from '@/assets/data'
 import {
   XivMaps, type XivMapAetheryteInfo,
@@ -211,7 +212,17 @@ export interface ItemInfo {
   isCrystal: boolean,
   isAethersand: boolean,
   isFishingItem: boolean,
-  tradeInfo: ItemTradeInfo | undefined
+  tradeInfo: ItemTradeInfo | undefined,
+  collectInfo?: {
+    levelMin: number,
+    levelMax: number,
+    rewardScrip: number,
+    rewards: {
+      collectabilityMin: number,
+      collectabilityMax?: number,
+      scripAmount: number,
+    }[]
+  }
 }
 
 /**
@@ -451,9 +462,6 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     }
   }
 
-  // * 组装物品兑换信息
-  itemInfo.tradeInfo = XivUnpackedTradeMap[itemInfo.id]
-
   itemInfo.isCrystal = itemInfo.uiTypeId === 59
   itemInfo.isAethersand = itemInfo.name_en.endsWith('Aethersand')
 
@@ -461,6 +469,29 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // 目前也没有数据，给个标识让人去饿猫鱼糕找吧！
   // 如果可以兑换，那一般不是钓鱼采集品(例如 [44174]ロイヤルロブスター)
   itemInfo.isFishingItem = !itemInfo.tradeInfo && itemType === 47
+
+  // * 组装物品兑换信息
+  itemInfo.tradeInfo = XivUnpackedTradeMap[itemInfo.id]
+
+  // * 组装物品收藏品交易信息
+  const csd = XivUnpackedCollectableSubmissions[itemInfo.id]
+  if (csd) {
+    itemInfo.collectInfo = {
+      levelMin: csd.levels[0],
+      levelMax: csd.levels[1],
+      rewardScrip: csd.rewardScrip,
+      rewards: [],
+    }
+    for (let i = 0; i < csd.rewards.length; i++) {
+      const currReward = csd.rewards[i]
+      const nextReward = csd.rewards[i + 1]
+      itemInfo.collectInfo.rewards.push({
+        collectabilityMin: currReward[0],
+        collectabilityMax: nextReward?.[0] ? nextReward[0]-1 : undefined,
+        scripAmount: currReward[1],
+      })
+    }
+  }
 
   // * 组装完毕，返回结果
   return itemInfo
