@@ -22,7 +22,7 @@ const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
-const { calGearSelections, getSpecialItems, getTradeMap, getPatchData } = useNbbCal()
+const { calGearSelections, getSpecialItems, getPatchData } = useNbbCal()
 
 const workState = ref({
   patch: '',
@@ -98,9 +98,6 @@ const statistics = computed(() => {
 const specialItems = computed(() => {
   return getSpecialItems(workState.value.patch || '7.0')
 })
-const tradeMap = computed(() => {
-  return getTradeMap()
-})
 </script>
 
 <template>
@@ -154,7 +151,6 @@ const tradeMap = computed(() => {
           :master-craftings="specialItems.masterCrafting"
           :normal-craftings="specialItems.normalCrafting"
           :alkahests="specialItems.alkahests"
-          :trade-map="tradeMap"
           :gear-selections="workState.gears"
         />
       </n-grid-item>

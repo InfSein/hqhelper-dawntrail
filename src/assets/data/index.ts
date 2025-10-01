@@ -150,6 +150,15 @@ export const XivUnpackedRecipes = JsonXivUnpackedRecipes as Record<number, {
 
 import JsonXivUnpackedTerritories from './unpacks/territory.json'
 export const XivUnpackedTerritories = JsonXivUnpackedTerritories as Record<number, number[]>
+
+export interface ItemTradeInfo {
+  receiveCount: number,
+  costId: number,
+  costCount: number,
+  tradeAlter?: ItemTradeInfo
+}
+import JsonXivUnpackedTradeMap from './unpacks/trade-map.json'
+export const XivUnpackedTradeMap = JsonXivUnpackedTradeMap as Record<number, ItemTradeInfo>
 // #endregion
 
 // #region Other

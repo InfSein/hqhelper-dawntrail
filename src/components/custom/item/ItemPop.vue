@@ -35,7 +35,7 @@ const currentET = inject<Ref<EorzeaTime>>('currentET')!
 // const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const {
-  uiLanguage, itemLanguage, itemServer,
+  uiLanguage, itemLanguage,
 } = UseConfig(userConfig, funcConfig)
 
 interface ItemPopProps {
@@ -199,14 +199,13 @@ const tradeCostList = computed(() => {
   let level = 0
 
   while (current) {
-    const cost = itemServer.value === 'chs' ? current.costCHS : current.costGlobal
     result.push({
-      costId: cost.costId,
-      costCount: cost.costCount,
+      costId: current.costId,
+      costCount: current.costCount,
       receiveCount: current.receiveCount,
       level
     })
-    current = current.costAlter
+    current = current.tradeAlter
     level++
   }
 

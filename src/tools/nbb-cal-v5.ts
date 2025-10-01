@@ -32,23 +32,6 @@ export interface IHqVer {
     alkahests?: number[];
     masterCrafting?: number[];
     normalCrafting?: number[];
-    tradeShops?: TradeShop[];
-}
-
-export interface TradeShop {
-    id: string;
-    receiveId: number;
-    receiveCount: number;
-    receiveHqCount: boolean;
-    costId: number;
-    costCount: number;
-    costHqCount: number;
-    costCHS: CostCHS | boolean;
-}
-export interface CostCHS {
-    costId: number;
-    costCount: number;
-    costHqCount: number;
 }
 
 export interface IHqConfig {

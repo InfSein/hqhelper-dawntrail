@@ -50,7 +50,9 @@ import {
   XivUnpackedPlaceNames,
   XivUnpackedRecipes,
   XivUnpackedTerritories,
-  XivItemTypes
+  XivItemTypes,
+  XivUnpackedTradeMap,
+  type ItemTradeInfo
 } from '@/assets/data'
 import {
   XivMaps, type XivMapAetheryteInfo,
@@ -59,8 +61,7 @@ import {
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
-const { getTradeMap, getReduceMap, getReduceMapReverted } = useNbbCal()
-const tradeMap = getTradeMap()
+const { getReduceMap, getReduceMapReverted } = useNbbCal()
 const reduceMap = getReduceMap()
 const revertedReduceMap = getReduceMapReverted()
 
@@ -213,18 +214,6 @@ export interface ItemInfo {
   isAethersand: boolean,
   isFishingItem: boolean,
   tradeInfo: ItemTradeInfo | undefined
-}
-export interface ItemTradeInfo {
-  receiveCount: number,
-  costGlobal: {
-    costId: number,
-    costCount: number
-  },
-  costCHS: {
-    costId: number,
-    costCount: number
-  },
-  costAlter?: ItemTradeInfo
 }
 
 /**
@@ -469,7 +458,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   }
 
   // * 组装物品兑换信息
-  itemInfo.tradeInfo = tradeMap?.[itemInfo.id]
+  itemInfo.tradeInfo = XivUnpackedTradeMap[itemInfo.id]
 
   itemInfo.isCrystal = itemInfo.uiTypeId === 59
   itemInfo.isAethersand = itemInfo.name_en.endsWith('Aethersand')

@@ -12,13 +12,14 @@ import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import ModalProStatements from '../modals/ModalProStatements.vue'
 import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
 import ModalImExportMain from '../modals/ModalImExportMain.vue'
+import { XivUnpackedTradeMap } from '@/assets/data'
 import { type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import type { GearSelections } from '@/models/gears'
 import { useStore } from '@/store'
 import { useDialog } from '@/tools/dialog'
 import { useFufuCal } from '@/tools/use-fufu-cal'
-import { calCostAndBenefit, getItemInfo, getItemPriceInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
+import { calCostAndBenefit, getItemInfo, getItemPriceInfo, type ItemInfo } from '@/tools/item'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -38,23 +39,9 @@ interface StatisticsPanelProps {
   masterCraftings: number[] | undefined,
   normalCraftings: number[] | undefined,
   alkahests: number[] | undefined,
-  tradeMap: Record<number, ItemTradeInfo>,
   gearSelections: GearSelections
 }
 const props = defineProps<StatisticsPanelProps>()
-
-const getTradeCost = (itemTradeInfo: ItemTradeInfo) => {
-  let server = userConfig.value.item_server
-  if (!server || server === 'auto') {
-    const lang = userConfig.value.language_ui
-    if (lang === 'zh') {
-      server = 'chs'
-    } else {
-      server = 'global'
-    }
-  }
-  return server === 'chs' ? itemTradeInfo?.costCHS : itemTradeInfo?.costGlobal
-}
 
 const showBiColorItemsInTomeScriptButton = computed(() => {
   return userConfig.value?.tomescript_show_bicolor_items ?? false
@@ -98,16 +85,13 @@ const reagents = computed(() => {
 
 const tomeScriptItems = computed(() => {
   const items = {} as Record<number, ItemInfo[]>
-  if (!props.tradeMap) {
-    return items
-  }
   for (const id in props.statistics.lvBase) {
     try {
       const _id = parseInt(id)
       if (props.aethersandGatherings?.length && props.aethersandGatherings.includes(_id)) continue
-      const itemTradeInfo = props.tradeMap[_id]
+      const itemTradeInfo = XivUnpackedTradeMap[_id]
       if (itemTradeInfo) {
-        const costId = getTradeCost(itemTradeInfo).costId
+        const costId = itemTradeInfo.costId
         if (!showBiColorItemsInTomeScriptButton.value && costId === 26807) continue // 处理双色宝石
         if (!items[costId]) items[costId] = []
         const item = props.statistics.lvBase[id]
@@ -332,7 +316,6 @@ const handleAnalysisItemPrices = async () => {
           </ItemButton>
           <TomeScriptButton
             :items="tomeScriptItems"
-            :trade-map="tradeMap"
             :btn-style="reagents.length === 4 ? 'grid-column-start: span 2;' : ''"
           />
         </div>

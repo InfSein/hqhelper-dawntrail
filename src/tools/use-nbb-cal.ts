@@ -6,9 +6,9 @@ import {
   XivUnpackedRecipes
 } from '@/assets/data'
 import hqConfig from '@/assets/data/unpacks/hq-config.json'
-import { Cal, type CostCHS, type IHqConfig, type TradeShop } from './nbb-cal-v5'
+import { Cal, type IHqConfig } from './nbb-cal-v5'
 import type { GearSelections } from '@/models/gears'
-import { getItemInfo, type ItemInfo, type ItemTradeInfo } from './item'
+import { getItemInfo, type ItemInfo } from './item'
 
 export function useNbbCal() {
   const langHash: any = { 'lang-zh': 2, 'lang-en': 1, 'lang-ja': 0 };
@@ -104,79 +104,6 @@ export function useNbbCal() {
       masterCrafting: data?.masterCrafting,
       normalCrafting: data?.normalCrafting,
       alkahests: data?.alkahests
-    }
-  }
-
-  /**
-   * 获取可以兑换的道具jsmap
-   * @returns Record<number, ItemTradeInfo>
-   *  * key: 兑换所得道具的 itemID
-   */
-  const getTradeMap = () => {
-    const map = {} as Record<number, ItemTradeInfo>
-    let trades: TradeShop[] = []
-    for (const patch in config) {
-      if (config[patch].tradeShops) {
-        trades.push(...config[patch].tradeShops)
-      }
-    }
-    trades = removeDuplicates(trades)
-    trades.forEach(trade => {
-      const itemID = trade.receiveId
-      if (itemID) {
-        const costGlobal = {
-          costId: trade.costId,
-          costCount: trade.costCount
-        }
-        const costCHS = (trade.costCHS || costGlobal) as CostCHS
-        const tradeInfo : ItemTradeInfo = {
-          receiveCount: trade.receiveCount,
-          costGlobal: costGlobal,
-          costCHS: costCHS
-        }
-        if (map[itemID]) {
-          let ptr = map[itemID]; let loop = true; let looptime = 0
-          while (loop && looptime < 10) {
-            if (!ptr.costAlter) {
-              ptr.costAlter = tradeInfo
-              loop = false
-            } else {
-              ptr = ptr.costAlter
-              looptime++
-            }
-          }
-        } else {
-          map[itemID] = {
-            receiveCount: trade.receiveCount,
-            costGlobal: costGlobal,
-            costCHS: costCHS
-          }
-        }
-      }
-    })
-    return map
-
-    function removeDuplicates(shops: TradeShop[]): TradeShop[] {
-      const seen = new Set<string>()
-      const result: TradeShop[] = []
-
-      for (const shop of shops) {
-        const key = [
-          shop.receiveId,
-          shop.receiveCount,
-          shop.receiveHqCount,
-          shop.costId,
-          shop.costCount,
-          shop.costHqCount
-        ].join('|')
-
-        if (!seen.has(key)) {
-          seen.add(key)
-          result.push(shop)
-        }
-      }
-
-      return result
     }
   }
 
@@ -324,7 +251,7 @@ export function useNbbCal() {
 
   return {
     doCal, getItem, getPatchData, getItemsName, calGearSelections, getRecipeMap,
-    calItems, getSpecialItems, getTradeMap, getReduceMap, getReduceMapReverted, getFoodAndTincs,
+    calItems, getSpecialItems, getReduceMap, getReduceMapReverted, getFoodAndTincs,
     getFoodAndTincs_v2, getLimitedGatherings
   }
 }
