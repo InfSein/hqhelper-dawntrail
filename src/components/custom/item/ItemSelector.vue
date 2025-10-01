@@ -24,7 +24,7 @@ const itemOptions = computed(() => {
   if (optionsPreset.value === 'craftable') {
     return Object.values(XivUnpackedItems).filter(item => item.rids?.length > 0).map(item => {
       return {
-        label: item.lang[0],
+        label: item.name[0],
         value: item.id
       }
     })

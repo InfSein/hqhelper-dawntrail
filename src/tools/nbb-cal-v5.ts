@@ -3,123 +3,13 @@
  * 2016-12-10 
  */
 
-import type { XivUnpackedItem } from "@/assets/data";
-import type { AccessoryAffix, AttireAffix } from "@/models/gears";
-
-export interface IHqJobs {
-    [key: string]: any;
-    MainHand?: Record<number, number[]>;
-    OffHand?: Record<number, number[]>;
-    HeadAttire?: Record<AttireAffix, number[]>;
-    BodyAttire?: Record<AttireAffix, number[]>;
-    HandsAttire?: Record<AttireAffix, number[]>;
-    LegsAttire?: Record<AttireAffix, number[]>;
-    FeetAttire?: Record<AttireAffix, number[]>;
-    Earrings?: Record<AccessoryAffix, number[]>;
-    Necklace?: Record<AccessoryAffix, number[]>;
-    Wrist?: Record<AccessoryAffix, number[]>;
-    Rings?: Record<AccessoryAffix, number[]>;
-    Meal?: number[][];
-    Medicine?: number[][];
-}
-
-export interface IHqVer {
-    available: boolean;
-    jobs: IHqJobs;
-    normalGathering?: number[];
-    reduceGathering?: number[][];
-    limitedGathering?: number[];
-    alkahests?: number[];
-    masterCrafting?: number[];
-    normalCrafting?: number[];
-}
-
-export interface IHqConfig {
-    [keys: string]: IHqVer;
-}
-
-export interface IItem {
-    desc: any;
-    id: number;
-    lang: any[];
-    //ab: any[];
-    icon: number;
-    /** 物等 */
-    ilv: number;
-    /** UI分类 */
-    uc: number;
-    /** 搜索分类 */
-    sc: number;
-    /** 可否hq */
-    hq: boolean;
-    /** 可否染色 */
-    dye: number | boolean;
-    act: number;
-    /**  */
-    desy?: number;
-    /** 可否交易 */
-    tradable: boolean
-    /**  */
-    collectable: boolean;
-    /** 可否精选 */
-    reduce: number;
-    /** 装备等级 */
-    elv: number;
-    /** 职业组 */
-    jobs: number;
-    /** 魔晶石安全孔 */
-    ms: number;
-    /** 可否禁断 */
-    jd: boolean;
-    p: number | string;
-    bpm?: any[];
-    /**
-     * 特殊属性
-     */
-    spm?: any[];
-    /**  */
-    actParm?: any[];
-    /** 配方id */
-    rids: string[];
-    /** 星级 */
-    recipeStar?: string;
-}
-
-/**
-* 配方
-*/
-export interface IRecipe {
-    id: number;
-    job: number;
-    it: number;
-    /** 基本属性 */
-    bp: any[];
-    /** 素材 [id,数量,id,数量,....] */
-    m: any[];
-    /** 配方等阶 */
-    rlv: number;
-    /** 水晶 */
-    s: any[];
-    sp1: any[];
-    /** 特殊属性2: 必要加工、作业数值、简易制作门槛：必要加工、作业数值 */
-    sp2: any[];
-    /** 特殊属性3： 属性，buff，必要物品，？ */
-    sp3: any[];
-    /** 简易制作 */
-    qs: boolean;
-    /** hq制作 */
-    hq: boolean;
-    /** 职业图标 */
-    jobIcon?: number;
-    /** Secret Recipe Book 秘籍id */
-    srb?: number;
-}
+import type { XivUnpackedItem, XivUnpackedRecipe } from "@/assets/data";
 
 export class Cal {
     itemData: Record<number, XivUnpackedItem>
-    recipeData: { [keys: number | string]: IRecipe };
+    recipeData: { [keys: number | string]: XivUnpackedRecipe };
 
-    constructor(a: Record<number, XivUnpackedItem>, b: { [keys: number | string]: IRecipe }) {
+    constructor(a: Record<number, XivUnpackedItem>, b: { [keys: number | string]: XivUnpackedRecipe }) {
         // console.log("Cal init....")
         this.itemData = a;
         this.recipeData = b;
@@ -185,7 +75,7 @@ export class Cal {
             const item = this.itemData[Number(id)];
 
             if (repice) {
-                const pc = parseInt(repice.bp[1]);
+                const pc = repice.yields;
                 mkc = parseInt((need / pc).toString());
                 mkc += (need % pc) > 0 ? 1 : 0;
                 b[id] = {
@@ -193,7 +83,7 @@ export class Cal {
                     rid: calMap[id][2],
                     checked: calMap[id][3],
                     job: repice.job,
-                    name: item.lang,
+                    name: item.name,
                     icon: item.icon,
                     desc: item.desc,
                     uc: item.uc,
@@ -206,7 +96,7 @@ export class Cal {
                     id: Number(id),
                     checked: calMap[id][3],
                     rid: [],
-                    name: item.lang,
+                    name: item.name,
                     icon: item.icon,
                     desc: item.desc,
                     uc: item.uc,
@@ -229,16 +119,16 @@ export class Cal {
             if (typeof rid === 'object' && rid.length !== undefined) rid = rid[0];
             // console.log('calHelper rid', rid)
             const recipe = this.recipeData[rid];
-            const material = recipe.m;
-            const shard = recipe.s;
+            const material = recipe.materials;
+            const shard = recipe.crystals;
             const mkc = itemTemMap[id].mkc;
 
-            for (let i = 0; i < 4; i += 2) {
+            for (let i = 0; i < shard.length; i += 2) {
                 if (hideCluster) continue;
                 const shardId = shard[i];
                 if (shardId <= 0) continue;
                 const item = this.itemData[shardId];
-                const count = mkc * parseInt(shard[i + 1]);
+                const count = mkc * shard[i + 1];
                 if (reMap[shardId]) {
                     const shardCount2 = parseInt(reMap[shardId]['need']) + count;
                     reMap[shardId].need = shardCount2;
@@ -247,7 +137,7 @@ export class Cal {
                         id: shardId,
                         rid: [],
                         icon: item.icon,
-                        name: item.lang,
+                        name: item.name,
                         desc: item.desc,
                         uc: item.uc,
                         need: count,
@@ -261,7 +151,7 @@ export class Cal {
                 const itemId = material[j];
                 if (shipArr.indexOf(Number(itemId)) >= 0) continue;
                 const item = this.itemData[itemId];
-                const count = mkc * parseInt(material[j + 1]);
+                const count = mkc * material[j + 1];
                 if (reMap[itemId]) {
                     const count2 = parseInt(reMap[itemId]['need']) + count;
                     reMap[itemId].need = count2;
@@ -269,7 +159,7 @@ export class Cal {
                     reMap[itemId] = {
                         id: itemId,
                         rid: item.rids,
-                        name: item.lang,
+                        name: item.name,
                         icon: item.icon,
                         desc: item.desc,
                         uc: item.uc,
@@ -289,7 +179,7 @@ export class Cal {
 
             if (jj.rid && jj.rid.length > 0) {
                 const _recipe1 = this.recipeData[jj.rid[0]];
-                pc1 = parseInt(_recipe1.bp[1]);
+                pc1 = _recipe1.yields
                 mkc1 = parseInt((need1 / pc1).toString());
                 mkc1 += (need1 % pc1) > 0 ? 1 : 0;
             }

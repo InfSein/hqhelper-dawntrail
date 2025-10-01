@@ -262,7 +262,7 @@ export function useFufuCal(
         }
       } else if (item.canReduceFrom?.length) {
         aethersands.push(item)
-      } else if (item.tradeInfo?.costGlobal) {
+      } else if (item.tradeInfo?.costId) {
         // 部分道具同时具备可采集/精选和可兑换的属性，需要注意区分
         itemsTradable.push(item)
       } else {

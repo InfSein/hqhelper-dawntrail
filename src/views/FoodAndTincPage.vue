@@ -12,6 +12,7 @@ import ItemSelectionPanel from '@/components/ft-helper/ItemSelectionPanel.vue'
 import StatisticsPanel from '@/components/ft-helper/StatisticsPanel.vue'
 import ModalJoinInWorkflow from '@/components/modals/ModalJoinInWorkflow.vue'
 import { useStore } from '@/store'
+import { HqData } from '@/assets/data'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import type { UserConfigModel } from '@/models/config-user'
 
@@ -21,7 +22,7 @@ const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
-const { calItems, getFoodAndTincs } = useNbbCal()
+const { calItems } = useNbbCal()
 
 const workState = ref({
   patch: '7.2',
@@ -55,18 +56,15 @@ if (!disable_workstate_cache) {
 }
 
 const fixItemSelections = () => {
-  const { data } = getFoodAndTincs()
-  data.forEach(pd => {
-    pd.foods?.forEach(item => {
-      if (workState.value.itemSelected[item] === undefined) {
-        workState.value.itemSelected[item] = 0
-      }
-    })
-    pd.tincs?.forEach(item => {
-      if (workState.value.itemSelected[item] === undefined) {
-        workState.value.itemSelected[item] = 0
-      }
-    })
+  HqData.meals.forEach(item => {
+    if (workState.value.itemSelected[item] === undefined) {
+      workState.value.itemSelected[item] = 0
+    }
+  })
+  HqData.medicines.forEach(item => {
+    if (workState.value.itemSelected[item] === undefined) {
+      workState.value.itemSelected[item] = 0
+    }
   })
 }
 fixItemSelections()

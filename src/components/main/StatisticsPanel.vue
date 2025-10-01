@@ -33,11 +33,7 @@ const { getStatementData } = useFufuCal(userConfig, funcConfig, t)
 interface StatisticsPanelProps {
   patchSelected: string,
   statistics: any,
-  normalGatherings: number[] | undefined,
-  limitedGatherings: number[] | undefined,
   aethersandGatherings: number[] | undefined,
-  masterCraftings: number[] | undefined,
-  normalCraftings: number[] | undefined,
   alkahests: number[] | undefined,
   gearSelections: GearSelections
 }
@@ -69,7 +65,7 @@ const lvBaseItems = computed(() => {
 const reagents = computed(() => {
   const placeHolder = getItemInfo(0)
   if (!props.alkahests?.length) {
-    return [placeHolder,placeHolder,placeHolder,placeHolder,placeHolder]
+    return [placeHolder,placeHolder,placeHolder,placeHolder]
   }
   const crafts = []
   props.alkahests.forEach(alkahest => {
@@ -116,45 +112,28 @@ const tomeScriptItems = computed(() => {
   return items
 })
 
-/**
- * 要展示的秘籍半成品。
- * 
- * 按照制作职业排序，一般顺序为`刻木-锻铁-雕金-制革-裁缝`。
- * ? 理论上按照成品id升序排序就可以达到这个效果，有待验证
- */
-const masterPrecrafts = computed(() => {
-  if (!props.masterCraftings?.length) {
-    return [] as ItemInfo[]
-  }
-  const crafts : ItemInfo[] = []
-  props.masterCraftings.forEach(mc => {
-    if (props.alkahests?.includes(mc)) return // 忽略特殊秘籍半成品：炼金幻水
-    const item = props.statistics.lv1[mc.toString()] ?? mc
-    crafts.push(getItemInfo(item))
-  })
-  return crafts
-})
-
-/**
- * 表示要展示的普通半成品。
- */
-const commonPrecrafts = computed(() => {
-  if (!props.normalCraftings?.length) {
-    return [] as ItemInfo[]
-  }
-  const crafts = []
+const precrafts = computed(() => {
+  const common = []; const master = []
   for (const id in props.statistics.lv1) {
     try {
-      const _id = parseInt(id)
-      if (props.normalCraftings.includes(_id)) {
-        const item = props.statistics.lv1[id]
-        crafts.push(getItemInfo(item))
+      const itemCalculated = props.statistics.lv1[id]
+      const item = getItemInfo(itemCalculated)
+      if (item.craftInfo?.recipeId) {
+        if (item.craftInfo.masterRecipeId) {
+          if (props.alkahests?.includes(item.id)) continue
+          master.push(item)
+        } else {
+          common.push(item)
+        }
       }
     } catch (error) {
       console.warn('[compute.commonPrecrafts] Error processing item ' + id + ':', error)
     }
   }
-  return crafts
+  return {
+    commonPrecrafts: common,
+    masterPrecrafts: master,
+  }
 })
 
 /**
@@ -347,7 +326,7 @@ const handleAnalysisItemPrices = async () => {
       >
         <div class="container">
           <ItemList
-            :items="masterPrecrafts"
+            :items="precrafts.masterPrecrafts"
             :list-height="isMobile ? undefined : 320"
             :show-collector-icon="!userConfig.hide_collector_icons"
           />
@@ -362,7 +341,7 @@ const handleAnalysisItemPrices = async () => {
       >
         <div class="container">
           <ItemList
-            :items="commonPrecrafts"
+            :items="precrafts.commonPrecrafts"
             :list-height="isMobile ? undefined : 320"
             :show-collector-icon="!userConfig.hide_collector_icons"
           />

@@ -3,10 +3,11 @@ import { ref } from 'vue'
 import {
   XivUnpackedGatheringItems,
   XivUnpackedItems,
-  XivUnpackedRecipes
+  XivUnpackedRecipes,
+  HqData,
+  type XivPatchVer,
 } from '@/assets/data'
-import hqConfig from '@/assets/data/unpacks/hq-config.json'
-import { Cal, type IHqConfig } from './nbb-cal-v5'
+import { Cal } from './nbb-cal-v5'
 import type { GearSelections } from '@/models/gears'
 import { getItemInfo, type ItemInfo } from './item'
 
@@ -14,26 +15,27 @@ export function useNbbCal() {
   const langHash: any = { 'lang-zh': 2, 'lang-en': 1, 'lang-ja': 0 };
 
   const cal = ref(new Cal(XivUnpackedItems, XivUnpackedRecipes))
-  const config: IHqConfig = hqConfig
 
   const doCal = (calMap: any[] | { [keys: string]: any }, hideCluster = false, shipArr0: any[] = [], shipArr1: any[] = [], shipArr2: any[] = [], shipArr3: any[] = [], shipArr4: any[] = []) => {
     return cal.value.doCal(calMap, hideCluster, shipArr0, shipArr1, shipArr2, shipArr3, shipArr4);
   }
 
-  const calGearSelections = (input: GearSelections, patch: string = '7.0') => {
-    const job = config[patch].jobs;
+  const calGearSelections = (input: GearSelections, patch: XivPatchVer = '7.0') => {
+    const patchData = HqData.patches[patch] as any
+    if (!patchData) {
+      return undefined
+    }
     const data = JSON.parse(JSON.stringify(input));
     const out: { [keys: string]: any } = {};
-    if (job['MainHand'] === undefined) {
-      return undefined;
-    }
     for (const gearKey in data) {
       const gear = data[gearKey];
       for (const jobId in gear) {
         if (gear[jobId] > 0) {
-          const hqInfo = job[gearKey][jobId]
-          if (hqInfo[0] > 0) {
-            out[hqInfo[0]] = [hqInfo[0], gear[jobId], hqInfo[1], false];
+          const item = patchData?.[gearKey]?.[jobId]
+          if (item) {
+            out[item] = [item, gear[jobId], recipeMap[item], false];
+          } else {
+            console.log('wrong index?', gearKey, jobId)
           }
         }
       }
@@ -44,7 +46,7 @@ export function useNbbCal() {
   const getRecipeMap = () => {
     const map : Record<number, number> = {}
     Object.values(XivUnpackedRecipes).forEach(recipe => {
-      map[recipe.it] = recipe.id
+      map[recipe.target] = recipe.id
     })
     return map
   }
@@ -68,41 +70,23 @@ export function useNbbCal() {
     return cal.value.itemData[Number(id)];
   }
 
-  const getPatchData = (patch: string = '7.0') => {
-    return config[patch]
+  const getPatchData = (patch: XivPatchVer = '7.0') => {
+    return HqData.patches[patch]
   }
 
   const getItemsName = (ids: number, lang = 'lang-zh') => {
     const item = cal.value.itemData[ids];
     if (item) {
-      return item.lang[langHash[lang]];
+      return item.name[langHash[lang]];
     }
     return;
   }
 
-  const getSpecialItems = (patch: string = '7.0') => {
-    const data = config[patch]
-
-    // * 处理灵砂 
-    // (数据中是以精选组的格式存储的，每个数组中的第一个元素代表精选所得的道具，第二个元素代表精选的来源)
-    const aethersands: number[] = []
-    data.reduceGathering?.forEach(_item => {
-      if (
-        _item.length >= 2
-        && !aethersands.includes(_item[0])
-        && XivUnpackedItems[_item[0]] // 当前版本用不到的灵砂不会被导入物品表，这里筛掉这些数据
-      ) {
-        aethersands.push(_item[0])
-      }
-    })
+  const getSpecialItems = (patch: XivPatchVer = '7.0') => {
+    const data = HqData.patches[patch]
 
     return {
-      normalGathering: data?.normalGathering,
-      reduceGathering: data?.reduceGathering,
-      aethersands: aethersands,
-      limitedGathering: data?.limitedGathering,
-      masterCrafting: data?.masterCrafting,
-      normalCrafting: data?.normalCrafting,
+      aethersands: Object.keys(data?.reduces ?? []).map(Number),
       alkahests: data?.alkahests
     }
   }
@@ -115,15 +99,10 @@ export function useNbbCal() {
    */
   const getReduceMap = () => {
     const map = {} as Record<number, number[]>
-    for (const patch in config) {
-      const reduces = config[patch].reduceGathering
-      reduces?.forEach(reduceGroup => {
-        const idGot = reduceGroup[0]
-        const idGive = reduceGroup[1]
-        if (idGot && idGive) {
-          if (!map[idGot]) map[idGot] = []
-          if (!map[idGot].includes(idGive)) map[idGot].push(idGive)
-        }
+    for (const patch in HqData.patches) {
+      const reduces = HqData.patches[patch as XivPatchVer]?.reduces
+      Object.entries(reduces ?? {})?.forEach(([k,v]) => {
+        map[Number(k)] = v
       })
     }
     return map
@@ -136,99 +115,41 @@ export function useNbbCal() {
    */
   const getReduceMapReverted = () => {
     const map = {} as Record<number, number>
-    for (const patch in config) {
-      const reduces = config[patch].reduceGathering
-      reduces?.forEach(reduceGroup => {
-        const idGot = reduceGroup[0]
-        const idGive = reduceGroup[1]
-        if (idGot && idGive) {
-          map[idGive] = idGot
-        }
+    for (const patch in HqData.patches) {
+      const reduces = HqData.patches[patch as XivPatchVer]?.reduces
+      Object.entries(reduces ?? {})?.forEach(([k,v]) => {
+        v.forEach(v2 => {
+          map[v2] = Number(k)
+        })
       })
     }
     return map
   }
 
-  const getFoodAndTincs = () => {
-    const data = [] as {
-      patch: string, // "7.0" | "7.1" | "7.2" | "7.3" | "7.4",
-      count: number,
-      foods: number[],
-      tincs: number[]
-    }[]
-    const recipeMap : Record<number, number> = {}
-    for (const patch in config) {
-      const o = config[patch].jobs
-      const foods: number[] = []
-      const tincs: number[] = []
-      o.Meal?.forEach(mealGroup => {
-        if (mealGroup.length >= 2) {
-          foods.push(mealGroup[0])
-          recipeMap[mealGroup[0]] = mealGroup[1]
-        }
-      })
-      o.Medicine?.forEach(tincGroup => {
-        if (tincGroup.length >= 2) {
-          tincs.push(tincGroup[0])
-          recipeMap[tincGroup[0]] = tincGroup[1]
-        }
-      })
-      data.push({
-        patch,
-        count: foods.length + tincs.length,
-        foods,
-        tincs
-      })
-    }
-
-    return {
-      data, recipeMap
-    }
-  }
   const getFoodAndTincs_v2 = () => {
     const data = {} as Record<string, {
       count: number,
       foods: ItemInfo[],
       tincs: ItemInfo[]
     }> // key: patch
-    for (const patch in config) {
-      const o = config[patch].jobs
-      o.Meal?.forEach(mealGroup => {
-        if (mealGroup.length >= 2) {
-          const itemID = mealGroup[0]
-          const itemInfo = getItemInfo(itemID)
-          const p = itemInfo.patch
-          if (!data[p]) data[p] = {
-            count: 0,
-            foods: [],
-            tincs: []
-          }
-          if (data[p].foods.map(food => food.id).includes(itemID)) return // 去重
-          data[p].foods.push(itemInfo)
-          data[p].count++
-        }
-      })
-      o.Medicine?.forEach(tincGroup => {
-        if (tincGroup.length >= 2) {
-          const itemID = tincGroup[0]
-          const itemInfo = getItemInfo(itemID)
-          const p = itemInfo.patch
-          if (!data[p]) data[p] = {
-            count: 0,
-            foods: [],
-            tincs: []
-          }
-          if (data[p].tincs.map(tinc => tinc.id).includes(itemID)) return // 去重
-          data[p].tincs.push(itemInfo)
-          data[p].count++
-        }
-      })
-      if (!data[patch]) data[patch] = {
+    const dealItem = (itemID: number, key: "foods" | "tincs") => {
+      const itemInfo = getItemInfo(itemID)
+      const p = itemInfo.patch
+      if (!data[p]) data[p] = {
         count: 0,
         foods: [],
         tincs: []
       }
+      if (data[p][key].map(food => food.id).includes(itemID)) return // 去重
+      data[p][key].push(itemInfo)
+      data[p].count++
     }
+    HqData.meals.forEach(itemID => {
+      dealItem(itemID, 'foods')
+    })
+    HqData.medicines?.forEach(itemID => {
+      dealItem(itemID, 'tincs')
+    })
     return data
   }
 
@@ -251,7 +172,7 @@ export function useNbbCal() {
 
   return {
     doCal, getItem, getPatchData, getItemsName, calGearSelections, getRecipeMap,
-    calItems, getSpecialItems, getReduceMap, getReduceMapReverted, getFoodAndTincs,
+    calItems, getSpecialItems, getReduceMap, getReduceMapReverted,
     getFoodAndTincs_v2, getLimitedGatherings
   }
 }

@@ -14,6 +14,7 @@ import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears
 import { getDefaultGearSelections, fixGearSelections } from '@/models/gears'
 import { useStore } from '@/store'
 import { useNbbCal } from '@/tools/use-nbb-cal'
+import type { XivPatchVer } from '@/assets/data';
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -90,13 +91,13 @@ const handleImportState = (patch: string, gearSelections?: GearSelections) => {
 provide('handleImportState', handleImportState)
 
 const patchData = computed(() => {
-  return getPatchData(workState.value.patch)
+  return getPatchData(workState.value.patch as XivPatchVer) ?? undefined
 })
 const statistics = computed(() => {
-  return calGearSelections(workState.value.gears, workState.value.patch || '7.0')
+  return calGearSelections(workState.value.gears, (workState.value.patch || '7.0') as XivPatchVer)
 })
 const specialItems = computed(() => {
-  return getSpecialItems(workState.value.patch || '7.0')
+  return getSpecialItems((workState.value.patch || '7.0') as XivPatchVer)
 })
 </script>
 
@@ -145,11 +146,7 @@ const specialItems = computed(() => {
           class="h-full"
           :patch-selected="workState.patch"
           :statistics="statistics"
-          :normal-gatherings="specialItems.normalGathering"
-          :limited-gatherings="specialItems.limitedGathering"
           :aethersand-gatherings="specialItems.aethersands"
-          :master-craftings="specialItems.masterCrafting"
-          :normal-craftings="specialItems.normalCrafting"
           :alkahests="specialItems.alkahests"
           :gear-selections="workState.gears"
         />

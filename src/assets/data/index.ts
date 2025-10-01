@@ -5,6 +5,8 @@ import type {
 } from '@/models/gears'
 // #endregion
 
+export type XivPatchVer = "7.0" | "7.1" | "7.2" | "7.3" | "7.4"
+
 // #region Translations
 import JsonXivTranslatedItemDescriptions from './translations/xiv-item-descriptions.json'
 export const XivTranslatedItemDescriptions = JsonXivTranslatedItemDescriptions as Record<number, string>
@@ -20,10 +22,6 @@ export const XivTranslatedPlaces = JsonXivTranslatedPlaces as Record<number, str
 // #endregion
 
 // #region Unpacks
-/*
-  忽略以下 JSON:
-  * src\assets\data\unpacks\hq-config.json - 因为只在 use-nbb-cal 中使用，并且已经进行了类型声明 (虽然后续可能还要改)
- */
 
 import JsonXivUnpackedCollectableSubmissions from './unpacks/collectable-submissions.json'
 export const XivUnpackedCollectableSubmissions = JsonXivUnpackedCollectableSubmissions as Record<number, {
@@ -76,32 +74,50 @@ export const XivUnpackedGatheringItems = JsonXivUnpackedGatheringItems as Record
   folkloreBook?: number
 }>
 
-import JsonXivUnpackedItems from './unpacks/item.json'
+import JsonHqData from './unpacks/hqdata.json'
+export interface HqDataVer {
+  mainHand: Record<number, number>
+  offHand: Record<number, number>
+  headAttire: Record<AttireAffix, number>
+  bodyAttire: Record<AttireAffix, number>
+  handsAttire: Record<AttireAffix, number>
+  legsAttire: Record<AttireAffix, number>
+  feetAttire: Record<AttireAffix, number>
+  earrings: Record<AccessoryAffix, number>
+  necklace: Record<AccessoryAffix, number>
+  wrist: Record<AccessoryAffix, number>
+  rings: Record<AccessoryAffix, number>
+  reduces: Record<number, number[]>
+  alkahests: number[]
+}
+export const HqData = JsonHqData as {
+  patches: { [K in XivPatchVer]: HqDataVer | null }
+  meals: number[]
+  medicines: number[]
+}
+
+import JsonXivUnpackedItems from './unpacks/items.json'
 export interface XivUnpackedItem {
-  rids: string[]
+  rids: number[]
   id: number
-  lang: string[],
+  name: string[]
+  desc: string[]
   icon: number
   ilv: number
+  elv: number
   uc: number
   sc: number
-  hq: boolean
-  dye: number
-  act: number
+  jobs: number
+  hqable: boolean
   tradable: boolean
   collectable: boolean
-  reduce: boolean
-  elv: number
-  jobs: number
-  ms: number
-  jd: boolean
+  rarity: number
   p: string
-  desc: string[]
   bpm: number[][]
-  spm?: number[][]
-  actParm: any[][]
+  apm: any[][]
   // 允许扩展
   [key: string]: any
+
 }
 export const XivUnpackedItems = JsonXivUnpackedItems as Record<number, XivUnpackedItem>
 
@@ -129,24 +145,24 @@ import JsonXivUnpackedPlaceNames from './unpacks/place-name.json'
  */
 export const XivUnpackedPlaceNames = JsonXivUnpackedPlaceNames as Record<number, string[]>
 
-import JsonXivUnpackedRecipes from './unpacks/recipe.json'
-export const XivUnpackedRecipes = JsonXivUnpackedRecipes as Record<number, {
+import JsonXivUnpackedRecipes from './unpacks/recipes.json'
+export interface XivUnpackedRecipe {
   id: number
-  job: number
-  it: number
-  bp: number[]
-  m: number[]
+  clv: number
+  star: number
+  target: number
   rlv: number
-  s: number[]
-  sp1: number[]
-  sp2: number[]
-  sp3: number[]
-  qs: boolean
-  hq: boolean
+  job: number
+  yields: number
+  sp: number[]
+  qsable: boolean
+  hqable: boolean
+  thresholds: number[]
   srb: number
-  noteBook: number[]
-  noteBookCHS: number[] | false
-}>
+  materials: number[]
+  crystals: number[]
+}
+export const XivUnpackedRecipes = JsonXivUnpackedRecipes as Record<number, XivUnpackedRecipe>
 
 import JsonXivUnpackedTerritories from './unpacks/territory.json'
 export const XivUnpackedTerritories = JsonXivUnpackedTerritories as Record<number, number[]>
