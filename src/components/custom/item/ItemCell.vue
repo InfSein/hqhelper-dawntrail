@@ -73,12 +73,14 @@ const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
             {{ getJobName(XivJobs[itemInfo.craftInfo.jobId]) + ' ' + t('common.val_level', itemInfo.craftInfo.craftLevel) + '★'.repeat(itemInfo.craftInfo?.starCount || 0) }}
           </span>
         </div>
-        <div v-if="itemInfo.gatherInfo?.jobId" class="cell gatherer">
+        <div v-else-if="itemInfo.gatherInfo?.jobId" class="cell gatherer">
           <XivFARImage
             :src="XivJobs[itemInfo.gatherInfo.jobId].job_icon_url"
             :size="12"
           />
-          <span>{{ getJobName(XivJobs[itemInfo.gatherInfo.jobId]) }}</span>
+          <span>
+            {{ getJobName(XivJobs[itemInfo.gatherInfo.jobId]) + ' ' + t('common.val_level', itemInfo.gatherInfo.level) + '★'.repeat(itemInfo.gatherInfo?.star || 0) }}
+          </span>
         </div>
         <div v-else-if="itemInfo.canReduceFrom?.length">{{ t('common.reduce') }}</div>
         <div v-else-if="getTradeCost(itemInfo, amount)">
@@ -96,7 +98,8 @@ const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
           />
           <span>{{ getJobName(XivJobs[18]) }}</span>
         </div>
-        <div v-if="itemInfo.isCrystal">{{ t('game.crystal') }}</div>
+        <div v-else-if="itemInfo.isCrystal">{{ t('game.crystal') }}</div>
+        <div v-else>{{ t('common.other') }}</div>
       </div>
     </div>
   </div>
