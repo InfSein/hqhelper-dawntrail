@@ -131,7 +131,7 @@
     "src/components/ft-helper/ItemSelectionPanel.vue": {
         "description": "选择食药"
     },
-    "src/components/ft-helper/StatisticsPanel.vue": {
+    "src/components/shared/StatisticsPanel.vue": {
         "description": "查看统计"
     },
     "src/views": {
@@ -166,5 +166,11 @@
     },
     "src/components/gatherclock/GatherItemCard.vue": {
         "description": "采集品卡片"
+    },
+    "src/components/shared": {
+        "description": "共用页面级组件"
+    },
+    "src/components/fc-helper": {
+        "description": "富婆衣下属组件"
     }
 }

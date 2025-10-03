@@ -39,6 +39,9 @@ export const XivUnpackedCollectableSubmissions = JsonXivUnpackedCollectableSubmi
   rewardScrip: number
 }>
 
+import JsonXivUnpackedFashionClothes from './unpacks/fashion-clothes.json'
+export const XivUnpackedFashionClothes = JsonXivUnpackedFashionClothes as Record<string, number[]>
+
 import JsonXivUnpackedGatheringItems from './unpacks/gathering-items.json'
 export const XivUnpackedGatheringItems = JsonXivUnpackedGatheringItems as Record<number, {
   level: number

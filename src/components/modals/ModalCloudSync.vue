@@ -18,6 +18,7 @@ import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { type CloudConfigModel } from '@/models/config-cloud'
 import { fixWorkState as fixWorkflowWorkState } from '@/models/workflow'
 import { fixWorkState as fixMacromanageWorkState } from '@/models/macromanage'
+import { fixWorkState as fixFashionclothWorkState } from '@/models/fc-helper'
 import { HqList, type NbbResponse } from '@/models/nbb-cloud'
 import { deepCopy } from '@/tools'
 import { useDialog } from '@/tools/dialog'
@@ -141,6 +142,10 @@ const syncRangeGroups = computed(() => {
           label: t('common.appfunc.fthelper'),
         },
         {
+          value: HqList.WorkstateBackupFashioncloth,
+          label: t('common.appfunc.fchelper'),
+        },
+        {
           value: HqList.WorkstateBackupWorkflow,
           label: t('common.appfunc.workflow'),
         },
@@ -254,6 +259,7 @@ const handleUpload = async () => {
         delete obj.gatherclock_cache_work_state
         delete obj.workflow_cache_work_state
         delete obj.macromanage_cache_work_state
+        delete obj.fashioncloth_cache_work_state
         content = JSON.stringify(obj)
         break
       }
@@ -283,6 +289,11 @@ const handleUpload = async () => {
       }
       case HqList.WorkstateBackupMacromanage: {
         const workstate = fixMacromanageWorkState(userConfig.value.macromanage_cache_work_state)
+        content = JSON.stringify(workstate)
+        break
+      }
+      case HqList.WorkstateBackupFashioncloth: {
+        const workstate = fixFashionclothWorkState(userConfig.value.fashioncloth_cache_work_state)
         content = JSON.stringify(workstate)
         break
       }
@@ -386,6 +397,12 @@ const handleDownload = async () => {
     newUserConfig.macromanage_cache_work_state = fixMacromanageWorkState(JSON.parse(cloudLists.value![HqList.WorkstateBackupMacromanage].content))
   } else {
     newUserConfig.macromanage_cache_work_state = oldUserConfig.macromanage_cache_work_state
+  }
+
+  if (syncTargets.value.includes(HqList.WorkstateBackupFashioncloth)) {
+    newUserConfig.fashioncloth_cache_work_state = fixFashionclothWorkState(JSON.parse(cloudLists.value![HqList.WorkstateBackupFashioncloth].content))
+  } else {
+    newUserConfig.fashioncloth_cache_work_state = oldUserConfig.fashioncloth_cache_work_state
   }
 
   if (JSON.stringify(oldUserConfig) !== JSON.stringify(newUserConfig)) {

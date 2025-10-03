@@ -14,6 +14,7 @@ import {
   HomeOutlined,
   AccessAlarmsOutlined,
   FastfoodOutlined,
+  CheckroomFilled,
   WavesOutlined,
   CodeOutlined,
   HelpOutlineOutlined,
@@ -217,6 +218,20 @@ const menuData = computed(() => {
           label: t('common.appfunc.cal_food_and_tinc'),
           description: t('appheader.menu.tooltip.fthelper'),
           routerKey: 'fthelper',
+          allowNewWindow: true,
+          defaultNewWindowOption: {
+            width: 1600,
+            height: 800,
+            top: 120,
+            left: 45
+          },
+        },
+        {
+          type: 'router',
+          icon: CheckroomFilled,
+          label: t('common.appfunc.fchelper'),
+          description: t('appheader.menu.tooltip.fchelper'),
+          routerKey: 'fchelper',
           allowNewWindow: true,
           defaultNewWindowOption: {
             width: 1600,

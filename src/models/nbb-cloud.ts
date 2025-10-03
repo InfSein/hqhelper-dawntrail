@@ -7,6 +7,7 @@ export enum HqList {
   WorkstateBackupGatherClock,
   WorkstateBackupWorkflow,
   WorkstateBackupMacromanage,
+  WorkstateBackupFashioncloth,
   DataBackupInventory = 16,
 }
 

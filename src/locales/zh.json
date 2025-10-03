@@ -37,6 +37,7 @@
         "devtool": "帝国正在开发究极神兵的后续机体……",
         "donate_us": "请务必量力而行。",
         "download_client": "以备不时之需。",
+        "fchelper": "用这个来算富婆衣的应该确实是富婆……",
         "fthelper": "帮助你制作食物与爆发药。能帮到就好。",
         "gather_clock": "挖穿艾欧泽亚的好帮手！",
         "ingame_inventory": "喂喂，你的背包已经装满了啊。",
@@ -692,6 +693,7 @@
       "devtool": "开发工具",
       "donate_us": "赞助我们",
       "download_client": "下载客户端",
+      "fchelper": "时装计算",
       "food_and_tinc_new_window": "食药计算(新窗口)",
       "fthelper": "食药计算器",
       "func_setting": "功能设置",
@@ -777,6 +779,7 @@
     "export": "导出",
     "export_excel": "导出Excel",
     "export_to_excel": "导出为Excel",
+    "fashion_cloth": "时装",
     "favorite": {
       "desc": {
         "desc_1": "点击此按钮来收藏/取消收藏这个采集品。",
@@ -1104,6 +1107,14 @@
   "err_404": {
     "advise": "请尝试回到上一页或直接返回首页。",
     "page_not_exist": "访问的页面不存在。"
+  },
+  "fc_helper": {
+    "tooltip": {
+      "clear_selected": "清空已选择的时装"
+    }
+  },
+  "fchelper": {
+    "select_fashion_cloth": "选择时装"
   },
   "festival_egg": {
     "chirstmas": {
@@ -2088,6 +2099,7 @@
       "message": {
         "join_succeed": "加入成功",
         "no_armor": "还未选择任何装备",
+        "no_fashion_cloth": "还未选择任何时装",
         "no_food_tinc": "还未选择任何食物/爆发药"
       },
       "title": "加入工作流"
@@ -2105,6 +2117,7 @@
       "confirm_delete": "确认要删除这条工作流吗?",
       "delete_this_workflow": "删除这条工作流",
       "join_in_workflow": "加入到工作流",
+      "join_selected_fashion_clothes_in_workflow": "将已选的时装加入到某条工作流",
       "join_selected_food_and_tinc_in_workflow": "将已选的食药加入到某条工作流",
       "manage_existed_workflows": "管理已有工作流",
       "manage_workflows": "管理工作流",

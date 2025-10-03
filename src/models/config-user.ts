@@ -3,6 +3,7 @@ import {
 } from '@/tools'
 import { fixWorkState as fixWorkflowWorkState, type WorkState as WorkflowWorkState } from '@/models/workflow'
 import { fixWorkState as fixMacromanageWorkState, type WorkState as MacromanageWorkState } from '@/models/macromanage'
+import { fixWorkState as fixFashionclothWorkState, type WorkState as FashionclothWorkState } from '@/models/fc-helper'
 
 export type UserConfigKey = "general" | "appearance" | "enhancements" | "performance" | "special" | "update"
 
@@ -75,6 +76,7 @@ export interface UserConfigModel {
   gatherclock_cache_work_state: any
   workflow_cache_work_state: WorkflowWorkState
   macromanage_cache_work_state: MacromanageWorkState
+  fashioncloth_cache_work_state: FashionclothWorkState
   // #endregion
 }
 
@@ -120,6 +122,7 @@ const defaultUserConfig: UserConfigModel = {
   gatherclock_cache_work_state: {},
   workflow_cache_work_state: fixWorkflowWorkState(),
   macromanage_cache_work_state: fixMacromanageWorkState(),
+  fashioncloth_cache_work_state: fixFashionclothWorkState(),
 }
 
 /**
