@@ -45,8 +45,10 @@ export function useNbbCal() {
 
   const getRecipeMap = () => {
     const map : Record<number, number> = {}
-    Object.values(XivUnpackedRecipes).forEach(recipe => {
-      map[recipe.target] = recipe.id
+    Object.values(XivUnpackedItems).forEach(item => {
+      if (item.rids?.length) {
+        map[item.id] = item.rids[0]
+      }
     })
     return map
   }
