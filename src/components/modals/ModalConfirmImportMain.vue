@@ -149,7 +149,6 @@ const patchOptions = computed(() => {
       disabled: !patch.updated
     }
   })
-  console.log(opt)
   return opt
 })
 

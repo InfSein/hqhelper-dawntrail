@@ -34,8 +34,8 @@ export function useNbbCal() {
           const item = patchData?.[gearKey]?.[jobId]
           if (item) {
             out[item] = [item, gear[jobId], recipeMap[item], false];
-          } else {
-            console.log('wrong index?', gearKey, jobId)
+          } else if (item !== 0) {
+            console.warn('wrong index?', gearKey, jobId)
           }
         }
       }
