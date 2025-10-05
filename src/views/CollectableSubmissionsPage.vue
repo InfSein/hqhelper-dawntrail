@@ -1,21 +1,21 @@
-<script setup lang="ts" name="Fashion Clothes">
+<script setup lang="ts" name="Collectable Submissions">
 import { computed, inject, ref, watch, type Ref } from 'vue'
 import {
   NBackTop,
   useMessage
 } from 'naive-ui'
 import {
-  CheckroomFilled
+  TaskAltOutlined
 } from '@vicons/material'
 import RouterCard from '@/components/custom/general/RouterCard.vue'
-import ItemSelectionPanel from '@/components/fc-helper/ItemSelectionPanel.vue'
+import ItemSelectionPanel from '@/components/cs-helper/ItemSelectionPanel.vue'
 import StatisticsPanel from '@/components/shared/StatisticsPanel.vue'
 import ModalJoinInWorkflow from '@/components/modals/ModalJoinInWorkflow.vue'
 import { useStore } from '@/store'
-import { XivUnpackedFashionClothes } from '@/assets/data'
+import { XivUnpackedCollectableSubmissions } from '@/assets/data'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import type { UserConfigModel } from '@/models/config-user'
-import { fixWorkState } from '@/models/fc-helper'
+import { fixWorkState } from '@/models/cs-helper'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -29,7 +29,7 @@ const workState = ref(fixWorkState())
 
 const disable_workstate_cache = userConfig.value.disable_workstate_cache ?? false
 if (!disable_workstate_cache) {
-  const cachedWorkState = userConfig.value.fashioncloth_cache_work_state
+  const cachedWorkState = userConfig.value.cshelper_cache_work_state
   if (cachedWorkState && JSON.stringify(cachedWorkState).length > 2) {
     workState.value = fixWorkState(cachedWorkState)
   }
@@ -39,7 +39,7 @@ if (!disable_workstate_cache) {
     if (workState.value && userConfig) {
       try {
         await Promise.resolve()
-        userConfig.value.fashioncloth_cache_work_state = workState.value
+        userConfig.value.cshelper_cache_work_state = workState.value
         store.setUserConfig(userConfig.value)
       } catch (error) {
         console.error('Error handling workState change:', error)
@@ -51,16 +51,60 @@ if (!disable_workstate_cache) {
 }
 
 const fixItemSelections = () => {
-  Object.values(XivUnpackedFashionClothes).forEach(itemList => {
-    itemList.forEach(item => {
-      workState.value.itemSelected[item] ??= 0
-    })
+  Object.keys(XivUnpackedCollectableSubmissions).forEach(item => {
+    workState.value.free.itemSelected[Number(item)] ??= 0
   })
 }
 fixItemSelections()
 
+const targetData = computed(() => {
+  let targetEachGreater = 0, targetEachLesser = 0
+  if (workState.value.target.greater.item) {
+    targetEachGreater = XivUnpackedCollectableSubmissions[workState.value.target.greater.item].rewards[2][1]
+  }
+  if (workState.value.target.lesser.item) {
+    targetEachLesser = XivUnpackedCollectableSubmissions[workState.value.target.lesser.item].rewards[2][1]
+  }
+
+  let requireGreater : number | '???' = 0, requireLesser : number | '???' = 0
+  if (workState.value.target.greater.scrip) {
+    if (targetEachGreater) {
+      requireGreater = Math.ceil(workState.value.target.greater.scrip / targetEachGreater)
+    } else {
+      requireGreater = '???'
+    }
+  }
+  if (workState.value.target.lesser.scrip) {
+    if (targetEachLesser) {
+      requireLesser = Math.ceil(workState.value.target.lesser.scrip / targetEachLesser)
+    } else {
+      requireLesser = '???'
+    }
+  }
+
+  return {
+    requireGreater, requireLesser
+  }
+})
+const currSelectedItems = computed(() => {
+  if (workState.value.mode === 'target') {
+    const selected : Record<number, number> = {}
+    if (workState.value.target.greater.item && targetData.value.requireGreater && targetData.value.requireGreater !== '???') {
+      selected[workState.value.target.greater.item] = targetData.value.requireGreater
+    }
+    if (workState.value.target.lesser.item && targetData.value.requireLesser && targetData.value.requireLesser !== '???') {
+      selected[workState.value.target.lesser.item] = targetData.value.requireLesser
+    }
+    return selected
+  } else if (workState.value.mode === 'free') {
+    return workState.value.free.itemSelected
+  } else {
+    console.warn('unset mode!')
+    return {}
+  }
+})
 const statistics = computed(() => {
-  const value = calItems(workState.value.itemSelected)
+  const value = calItems(currSelectedItems.value)
   return value
 })
 
@@ -74,7 +118,7 @@ const workflowItems = computed(() => {
 })
 const handleJoinWorkflow = () => {
   if (!Object.values(workflowItems.value).length) {
-    NAIVE_UI_MESSAGE.error(t('workflow.join_in_workflow.message.no_fashion_cloth')); return
+    NAIVE_UI_MESSAGE.error(t('workflow.join_in_workflow.message.no_colleactable_submission')); return
   }
   showModalJoinInWorkflow.value = true
 }
@@ -85,13 +129,13 @@ const handleJoinWorkflow = () => {
     <RouterCard
       id="router-card"
       v-show="appMode !== 'overlay'"
-      :page-name="t('common.appfunc.fchelper')"
-      :page-icon="CheckroomFilled"
+      :page-name="t('common.appfunc.cshelper')"
+      :page-icon="TaskAltOutlined"
     />
     <div id="left-layout">
       <ItemSelectionPanel
-        v-model:patch="workState.patch"
-        v-model:item-selected="workState.itemSelected"
+        v-model:work-state="workState"
+        :target-data="targetData"
         @join-workflow="handleJoinWorkflow"
       />
     </div>
@@ -99,7 +143,7 @@ const handleJoinWorkflow = () => {
       <StatisticsPanel
         v-model:hide-precraft-materials="workState.hidePrecraftMaterials"
         :statistics="statistics"
-        :item-selected="workState.itemSelected"
+        :item-selected="currSelectedItems"
       />
     </div>
     

@@ -305,6 +305,7 @@ const handleItemButtonClick = async () => {
         display: flex;
         align-items: center;
         gap: 2px;
+        justify-content: end;
         .item-name {
           white-space: nowrap;
           text-overflow: ellipsis;

@@ -171,6 +171,9 @@
         "description": "共用页面级组件"
     },
     "src/components/fc-helper": {
-        "description": "富婆衣下属组件"
+        "description": "时装计算下属组件"
+    },
+    "src/views/FashionClothesPage.vue": {
+        "description": "时装计算页面"
     }
 }

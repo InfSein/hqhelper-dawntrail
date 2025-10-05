@@ -34,6 +34,7 @@
         "changelog": "修正……改良……开始对循环程序进行更新……",
         "check_updates": "更新目标的战力等级……变更攻击模式……",
         "contact_us": "关注我们喵，关注我们谢谢喵。",
+        "cshelper": "没想到罗薇娜商会竟然能如此不留余力地帮助我们！",
         "devtool": "帝国正在开发究极神兵的后续机体……",
         "donate_us": "请务必量力而行。",
         "download_client": "以备不时之需。",
@@ -690,6 +691,7 @@
       "copy_macro": "复制宏",
       "craft_macro": "生产宏",
       "craft_statement": "制作报表",
+      "cshelper": "收藏品计算",
       "devtool": "开发工具",
       "donate_us": "赞助我们",
       "download_client": "下载客户端",
@@ -1037,6 +1039,20 @@
       "cal_hq_price_here": "此处计入物品的HQ价格。",
       "cal_nq_price_here": "此处计入物品的NQ价格。"
     }
+  },
+  "cs_helper": {
+    "tooltip": {
+      "clear_selected": "清空已选择的收藏品"
+    },
+    "group": {
+      "lv81_90": "81～90级",
+      "lv91_100": "91～100级"
+    },
+    "mode": {
+      "free": "自由模式",
+      "target": "目标模式"
+    },
+    "select_collectable_submission": "选择收藏品"
   },
   "donate_us": {
     "desc": {
@@ -2099,6 +2115,7 @@
       "message": {
         "join_succeed": "加入成功",
         "no_armor": "还未选择任何装备",
+        "no_colleactable_submission": "还未选择任何收藏品",
         "no_fashion_cloth": "还未选择任何时装",
         "no_food_tinc": "还未选择任何食物/爆发药"
       },
@@ -2117,6 +2134,7 @@
       "confirm_delete": "确认要删除这条工作流吗?",
       "delete_this_workflow": "删除这条工作流",
       "join_in_workflow": "加入到工作流",
+      "join_selected_collectable_submissions_in_workflow": "将已选的收藏品加入到某条工作流",
       "join_selected_fashion_clothes_in_workflow": "将已选的时装加入到某条工作流",
       "join_selected_food_and_tinc_in_workflow": "将已选的食药加入到某条工作流",
       "manage_existed_workflows": "管理已有工作流",
