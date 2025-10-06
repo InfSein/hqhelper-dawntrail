@@ -19,6 +19,7 @@ import type { FuncConfigModel } from '@/models/config-func'
 import UseConfig from '@/tools/use-config'
 import { getItemInfo } from '@/tools/item'
 import { ExpansionSpecialItems } from '@/variables'
+import ItemSubmissionReward from '../custom/item/ItemSubmissionReward.vue'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -108,7 +109,13 @@ const handleJoinWorkflow = () => {
         </template>
 
         <n-tabs v-model:value="workState.mode" type="segment" animated>
-          <n-tab-pane name="target" :tab="t('cs_helper.mode.target')">
+          <n-tab-pane name="target">
+            <template #tab>
+              <div>
+                <i class="xiv e05e"></i>
+                {{ t('cs_helper.mode.target') }}
+              </div>
+            </template>
             <div class="item-selection-container">
               <n-card size="small">
                 <template #header>
@@ -121,16 +128,18 @@ const handleJoinWorkflow = () => {
                   </div>
                 </template>
                 
-                <div class="item-btn-container">
+                <div class="target-card-container">
                   <div class="item">
-                    目标票据数
+                    <i class="xiv e05e"></i>
+                    {{ t('cs_helper.action.target_scrip_amount') }}
                     <n-input-number
                       v-model:value="workState.target.greater.scrip"
                       :min="0" :max="9999999"
                     />
                   </div>
                   <div class="item">
-                    制作物品
+                    <i class="xiv collectables"></i>
+                    {{ t('cs_helper.action.craft_target') }}
                     <ItemSelector
                       v-model:model-value="workState.target.greater.item"
                       dont-clean-after-select
@@ -139,8 +148,22 @@ const handleJoinWorkflow = () => {
                     />
                   </div>
                   <div class="item">
-                    需要制作
-                    <div>{{ targetData.requireGreater }}个</div>
+                    <i class="xiv crystal"></i>
+                    {{ t('cs_helper.action.reward') }}
+                    <div class="submission-reward-container">
+                      <ItemSubmissionReward v-if="workState.target.greater.item" :item-info="getItemInfo(workState.target.greater.item)" />
+                      <div v-else>{{ t('cs_helper.message.select_craft_target_first') }}</div>
+                    </div>
+                  </div>
+                  <div class="item require-amount-container">
+                    <div class="title">
+                      <i class="xiv arrow-right"></i>
+                      {{ t('cs_helper.action.need_craft') }}
+                    </div>
+                    <div class="amount">
+                      <span class="require-amount">{{ targetData.requireGreater }}</span>
+                      {{ t('common.unit.ge') }}
+                    </div>
                   </div>
                 </div>
               </n-card>
@@ -155,16 +178,18 @@ const handleJoinWorkflow = () => {
                   </div>
                 </template>
                 
-                <div class="item-btn-container">
+                <div class="target-card-container">
                   <div class="item">
-                    目标票据数
+                    <i class="xiv e05e"></i>
+                    {{ t('cs_helper.action.target_scrip_amount') }}
                     <n-input-number
                       v-model:value="workState.target.lesser.scrip"
                       :min="0" :max="9999999"
                     />
                   </div>
                   <div class="item">
-                    制作物品
+                    <i class="xiv collectables"></i>
+                    {{ t('cs_helper.action.craft_target') }}
                     <ItemSelector
                       v-model:model-value="workState.target.lesser.item"
                       dont-clean-after-select
@@ -173,8 +198,22 @@ const handleJoinWorkflow = () => {
                     />
                   </div>
                   <div class="item">
-                    需要制作
-                    <div>{{ targetData.requireLesser }}个</div>
+                    <i class="xiv crystal"></i>
+                    {{ t('cs_helper.action.reward') }}
+                    <div class="submission-reward-container">
+                      <ItemSubmissionReward v-if="workState.target.lesser.item" :item-info="getItemInfo(workState.target.lesser.item)" />
+                      <div v-else>{{ t('cs_helper.message.select_craft_target_first') }}</div>
+                    </div>
+                  </div>
+                  <div class="item require-amount-container">
+                    <div class="title">
+                      <i class="xiv arrow-right"></i>
+                      {{ t('cs_helper.action.need_craft') }}
+                    </div>
+                    <div class="amount">
+                      <span class="require-amount">{{ targetData.requireLesser }}</span>
+                      {{ t('common.unit.ge') }}
+                    </div>
                   </div>
                 </div>
               </n-card>
@@ -189,7 +228,13 @@ const handleJoinWorkflow = () => {
               />
             </div>
           </n-tab-pane>
-          <n-tab-pane name="free" :tab="t('cs_helper.mode.free')">
+          <n-tab-pane name="free">
+            <template #tab>
+              <div>
+                <i class="xiv ilv"></i>
+                {{ t('cs_helper.mode.free') }}
+              </div>
+            </template>
             <div>
               <n-tabs v-model:value="workState.free.job" type="line" animated style="--n-tab-gap: 24px;">
                 <n-tab-pane
@@ -283,9 +328,41 @@ const handleJoinWorkflow = () => {
   flex-direction: column;
   gap: 10px;
 
+  .target-card-container,
   .item-btn-container {
     display: flex;
     flex-direction: column;
+  }
+  .target-card-container {
+    padding: 0 18px 12px 18px;
+
+    .item {
+      padding: 4px 6px;
+      border-radius: 4px;
+      transition: background-color 0.5s ease;
+    }
+    .item:hover {
+      background-color: var(--color-background-hover);
+    }
+    .submission-reward-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .require-amount-container {
+      position: relative;
+      padding-top: 10px;
+      .title {
+        position: absolute;
+        top: 4px; left: 4px;
+      }
+      .amount {
+        text-align: right;
+        .require-amount {
+          font-size: 26px;
+        }
+      }
+    }
   }
 }
 .actions {

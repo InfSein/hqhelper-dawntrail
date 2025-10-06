@@ -9,7 +9,7 @@ export interface WorkState {
   itemSelected: Record<number, number>;
 }
 export const defaultWorkState: WorkState = {
-  patch: '7.2',
+  patch: '7.3',
   hidePrecraftMaterials: false,
   itemSelected: {},
 }

@@ -175,5 +175,8 @@
     },
     "src/views/FashionClothesPage.vue": {
         "description": "时装计算页面"
+    },
+    "src/components/cs-helper": {
+        "description": "工票计算下属组件"
     }
 }

@@ -19,6 +19,7 @@ import { type CloudConfigModel } from '@/models/config-cloud'
 import { fixWorkState as fixWorkflowWorkState } from '@/models/workflow'
 import { fixWorkState as fixMacromanageWorkState } from '@/models/macromanage'
 import { fixWorkState as fixFashionclothWorkState } from '@/models/fc-helper'
+import { fixWorkState as fixCsHelperWorkState } from '@/models/cs-helper'
 import { HqList, type NbbResponse } from '@/models/nbb-cloud'
 import { deepCopy } from '@/tools'
 import { useDialog } from '@/tools/dialog'
@@ -140,6 +141,10 @@ const syncRangeGroups = computed(() => {
         {
           value: HqList.WorkstateBackupFtHelper,
           label: t('common.appfunc.fthelper'),
+        },
+        {
+          value: HqList.WorkstateBackupCsHelper,
+          label: t('common.appfunc.cshelper'),
         },
         {
           value: HqList.WorkstateBackupFashioncloth,
@@ -297,6 +302,11 @@ const handleUpload = async () => {
         content = JSON.stringify(workstate)
         break
       }
+      case HqList.WorkstateBackupCsHelper: {
+        const workstate = fixCsHelperWorkState(userConfig.value.cshelper_cache_work_state)
+        content = JSON.stringify(workstate)
+        break
+      }
       case HqList.DataBackupInventory: 
         content = JSON.stringify({
           inventory_statement_enable_sync: funcConfig.value.inventory_statement_enable_sync,
@@ -403,6 +413,12 @@ const handleDownload = async () => {
     newUserConfig.fashioncloth_cache_work_state = fixFashionclothWorkState(JSON.parse(cloudLists.value![HqList.WorkstateBackupFashioncloth].content))
   } else {
     newUserConfig.fashioncloth_cache_work_state = oldUserConfig.fashioncloth_cache_work_state
+  }
+
+  if (syncTargets.value.includes(HqList.WorkstateBackupCsHelper)) {
+    newUserConfig.cshelper_cache_work_state = fixCsHelperWorkState(JSON.parse(cloudLists.value![HqList.WorkstateBackupCsHelper].content))
+  } else {
+    newUserConfig.cshelper_cache_work_state = oldUserConfig.cshelper_cache_work_state
   }
 
   if (JSON.stringify(oldUserConfig) !== JSON.stringify(newUserConfig)) {

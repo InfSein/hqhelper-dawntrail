@@ -24,6 +24,7 @@ import type { UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel, type ItemPriceType } from '@/models/config-func'
 import type EorzeaTime from '@/tools/eorzea-time'
 import UseConfig from '@/tools/use-config'
+import ItemSubmissionReward from './ItemSubmissionReward.vue'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -566,22 +567,7 @@ const innerPopTrigger = computed(() => {
           </div>
           <n-divider class="item-divider" />
           <div class="content">
-            <div style="margin-left:1em;width:fit-content; display:grid;grid-template-columns:repeat(2,1fr);column-gap: 4px;">
-              <div style="text-align: left;">{{ t('common.collectability') }}</div>
-              <div style="text-align: right;">{{ t('common.reward') }}</div>
-              <template
-                v-for="(reward, rewardIndex) in itemInfo.collectInfo.rewards"
-                :key="`collect-reward-${rewardIndex}`"
-              >
-                <div style="text-align: left;">
-                  {{ reward.collectabilityMin }}～{{ reward.collectabilityMax ?? '' }}
-                </div>
-                <div class="flex-vac" style="justify-content: flex-end;">
-                  <div>{{ reward.scripAmount }}</div>
-                  <ItemSpan :item-info="getItemInfo(itemInfo.collectInfo.rewardScrip)" hide-name hide-pop-icon />
-                </div>
-              </template>
-            </div>
+            <ItemSubmissionReward :item-info="itemInfo" />
           </div>
         </div>
         <!-- 兑换 -->

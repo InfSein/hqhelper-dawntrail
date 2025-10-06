@@ -691,7 +691,7 @@
       "copy_macro": "复制宏",
       "craft_macro": "生产宏",
       "craft_statement": "制作报表",
-      "cshelper": "收藏品计算",
+      "cshelper": "工票计算",
       "devtool": "开发工具",
       "donate_us": "赞助我们",
       "download_client": "下载客户端",
@@ -955,6 +955,9 @@
     "tomescript_type": "点数类型",
     "trade": "兑换",
     "twitter_x": "推特 (X)",
+    "unit": {
+      "ge": "个"
+    },
     "unit_price": "单价",
     "unknown": "未知",
     "update_immedi": "立即更新",
@@ -1041,18 +1044,27 @@
     }
   },
   "cs_helper": {
-    "tooltip": {
-      "clear_selected": "清空已选择的收藏品"
+    "action": {
+      "craft_target": "制作物品",
+      "need_craft": "需要制作",
+      "reward": "报酬",
+      "target_scrip_amount": "目标票据数"
     },
     "group": {
       "lv81_90": "81～90级",
       "lv91_100": "91～100级"
     },
+    "message": {
+      "select_craft_target_first": "请先选择制作物品"
+    },
     "mode": {
       "free": "自由模式",
       "target": "目标模式"
     },
-    "select_collectable_submission": "选择收藏品"
+    "select_collectable_submission": "选择收藏品",
+    "tooltip": {
+      "clear_selected": "清空已选择的收藏品"
+    }
   },
   "donate_us": {
     "desc": {
