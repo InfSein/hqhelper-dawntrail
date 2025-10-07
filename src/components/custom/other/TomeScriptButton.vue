@@ -8,7 +8,8 @@ import {
   CodeSharp
 } from '@vicons/material'
 import ItemSpan from '../item/ItemSpan.vue'
-import { getItemInfo, type ItemInfo, type ItemTradeInfo } from '@/tools/item'
+import { XivUnpackedTradeMap } from '@/assets/data'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
 import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
 import type { FuncConfigModel } from '@/models/config-func'
 import type { MacroGenerateMode } from '@/models/config-func'
@@ -37,7 +38,6 @@ interface TomeScriptButtonProps {
    * * value: [item, item, ...]
    */
   items: Record<number, ItemInfo[]>
-  tradeMap: Record<number, ItemTradeInfo>
   btnStyle?: string
 }
 const props = defineProps<TomeScriptButtonProps>()
@@ -49,21 +49,9 @@ const handleShowBiColorItemsChange = (val: boolean) => {
   store.setUserConfig(newConfig)
 }
 
-const getTradeCost = (itemTradeInfo: ItemTradeInfo) => {
-  let server = userConfig.value.item_server
-  if (!server || server === 'auto') {
-    const lang = userConfig.value.language_ui
-    if (lang === 'zh') {
-      server = 'chs'
-    } else {
-      server = 'global'
-    }
-  }
-  return server === 'chs' ? itemTradeInfo?.costCHS : itemTradeInfo?.costGlobal
-}
 const getItemPrice = (itemInfo: ItemInfo) => {
   const itemID = itemInfo.id
-  const tradeCost = getTradeCost(props.tradeMap[itemID])
+  const tradeCost = XivUnpackedTradeMap[itemID]
   return tradeCost?.costCount ?? 0
 }
 const tomeScripts = computed(() => {

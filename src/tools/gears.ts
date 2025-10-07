@@ -1,7 +1,6 @@
 import type { Ref } from "vue"
 import type { AccessoryAffix, AttireAffix, GearSelections } from "@/models/gears"
-import type { IHqVer } from "./nbb-cal-v5"
-import { XivGearRecomm, XivGearSets, type XivGearSet } from "@/assets/data"
+import { XivGearRecomm, XivGearSets, type HqDataVer, type XivGearSet } from "@/assets/data"
 
 export const getGearRecomm = (patch: string, jobId: number) => {
   const result : XivGearSet[] = []
@@ -14,43 +13,43 @@ export const getGearRecomm = (patch: string, jobId: number) => {
 }
 
 export const useGearAdder = () => {
-  const addMainOffHand = (gearSelections: Ref<GearSelections>, patchData: IHqVer | undefined, jobId: number) => {
-    if (patchData?.jobs.MainHand?.[jobId]?.[0]) {
-      gearSelections.value.MainHand[jobId]++
+  const addMainOffHand = (gearSelections: Ref<GearSelections>, patchData: HqDataVer | undefined, jobId: number) => {
+    if (patchData?.mainHand?.[jobId]) {
+      gearSelections.value.mainHand[jobId]++
     }
-    if (patchData?.jobs.OffHand?.[jobId]?.[0]) {
-      gearSelections.value.OffHand[jobId]++
-    }
-  }
-  const addAttire = (gearSelections: Ref<GearSelections>, patchData: IHqVer | undefined, affix: AttireAffix) => {
-    if (patchData?.jobs.HeadAttire?.[affix]?.[0]) {
-      gearSelections.value.HeadAttire[affix]++
-    }
-    if (patchData?.jobs.BodyAttire?.[affix]?.[0]) {
-      gearSelections.value.BodyAttire[affix]++
-    }
-    if (patchData?.jobs.HandsAttire?.[affix]?.[0]) {
-      gearSelections.value.HandsAttire[affix]++
-    }
-    if (patchData?.jobs.LegsAttire?.[affix]?.[0]) {
-      gearSelections.value.LegsAttire[affix]++
-    }
-    if (patchData?.jobs.FeetAttire?.[affix]?.[0]) {
-      gearSelections.value.FeetAttire[affix]++
+    if (patchData?.offHand?.[jobId]) {
+      gearSelections.value.offHand[jobId]++
     }
   }
-  const addAccessory = (gearSelections: Ref<GearSelections>, patchData: IHqVer | undefined, affix: AccessoryAffix) => {
-    if (patchData?.jobs.Earrings?.[affix]?.[0]) {
-      gearSelections.value.Earrings[affix]++
+  const addAttire = (gearSelections: Ref<GearSelections>, patchData: HqDataVer | undefined, affix: AttireAffix) => {
+    if (patchData?.headAttire?.[affix]) {
+      gearSelections.value.headAttire[affix]++
     }
-    if (patchData?.jobs.Necklace?.[affix]?.[0]) {
-      gearSelections.value.Necklace[affix]++
+    if (patchData?.bodyAttire?.[affix]) {
+      gearSelections.value.bodyAttire[affix]++
     }
-    if (patchData?.jobs.Wrist?.[affix]?.[0]) {
-      gearSelections.value.Wrist[affix]++
+    if (patchData?.handsAttire?.[affix]) {
+      gearSelections.value.handsAttire[affix]++
     }
-    if (patchData?.jobs.Rings?.[affix]?.[0]) {
-      gearSelections.value.Rings[affix] += 2
+    if (patchData?.legsAttire?.[affix]) {
+      gearSelections.value.legsAttire[affix]++
+    }
+    if (patchData?.feetAttire?.[affix]) {
+      gearSelections.value.feetAttire[affix]++
+    }
+  }
+  const addAccessory = (gearSelections: Ref<GearSelections>, patchData: HqDataVer | undefined, affix: AccessoryAffix) => {
+    if (patchData?.earrings?.[affix]) {
+      gearSelections.value.earrings[affix]++
+    }
+    if (patchData?.necklace?.[affix]) {
+      gearSelections.value.necklace[affix]++
+    }
+    if (patchData?.wrist?.[affix]) {
+      gearSelections.value.wrist[affix]++
+    }
+    if (patchData?.rings?.[affix]) {
+      gearSelections.value.rings[affix] += 2
     }
   }
 

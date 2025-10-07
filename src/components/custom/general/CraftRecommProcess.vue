@@ -29,7 +29,7 @@ const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 // const NAIVE_UI_MESSAGE = useMessage()
 
 const {
-  itemLanguage, itemServer,
+  itemLanguage,
 } = UseConfig(userConfig, funcConfig)
 
 const expandedBlocks = defineModel<Record<number, string[]>>('expandedBlocks', { required: true })
@@ -94,7 +94,7 @@ const tomeScripts = computed(() : ItemInfo[] => {
   const tradeMap: Record<number, number> = {}
     group.items.forEach(item => {
     if (completedItems.value[groupIndex][item.id]) return
-    const cost = itemServer.value === 'chs' ? item.tradeInfo?.costCHS : item.tradeInfo?.costGlobal
+    const cost = item.tradeInfo
     if (cost) {
       const tradeprice = cost.costCount * item.amount
       if (tradeMap[cost.costId]) {

@@ -1,35 +1,35 @@
 {
-  "MainHand": {
+  "mainHand": {
     "icon": "./image/game-gear-slot/mainhand.png"
   },
-  "OffHand": {
+  "offHand": {
     "icon": "./image/game-gear-slot/offhand.png"
   },
-  "HeadAttire": {
+  "headAttire": {
     "icon": "./image/game-gear-slot/head.png"
   },
-  "BodyAttire": {
+  "bodyAttire": {
     "icon": "./image/game-gear-slot/body.png"
   },
-  "HandsAttire": {
+  "handsAttire": {
     "icon": "./image/game-gear-slot/hands.png"
   },
-  "LegsAttire": {
+  "legsAttire": {
     "icon": "./image/game-gear-slot/legs.png"
   },
-  "FeetAttire": {
+  "feetAttire": {
     "icon": "./image/game-gear-slot/feet.png"
   },
-  "Earrings": {
+  "earrings": {
     "icon": "./image/game-gear-slot/ear.png"
   },
-  "Necklace": {
+  "necklace": {
     "icon": "./image/game-gear-slot/neck.png"
   },
-  "Wrist": {
+  "wrist": {
     "icon": "./image/game-gear-slot/wrist.png"
   },
-  "Rings": {
+  "rings": {
     "icon": "./image/game-gear-slot/ring.png"
   }
 }

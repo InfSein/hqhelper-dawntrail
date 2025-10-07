@@ -34,9 +34,11 @@
         "changelog": "修正……改良……开始对循环程序进行更新……",
         "check_updates": "更新目标的战力等级……变更攻击模式……",
         "contact_us": "关注我们喵，关注我们谢谢喵。",
+        "cshelper": "没想到罗薇娜商会竟然能如此不留余力地帮助我们！",
         "devtool": "帝国正在开发究极神兵的后续机体……",
         "donate_us": "请务必量力而行。",
         "download_client": "以备不时之需。",
+        "fchelper": "到底有没有能让我大吃一惊的未来的时尚引领者呢……",
         "fthelper": "帮助你制作食物与爆发药。能帮到就好。",
         "gather_clock": "挖穿艾欧泽亚的好帮手！",
         "ingame_inventory": "喂喂，你的背包已经装满了啊。",
@@ -689,9 +691,11 @@
       "copy_macro": "复制宏",
       "craft_macro": "生产宏",
       "craft_statement": "制作报表",
+      "cshelper": "工票计算",
       "devtool": "开发工具",
       "donate_us": "赞助我们",
       "download_client": "下载客户端",
+      "fchelper": "时装计算",
       "food_and_tinc_new_window": "食药计算(新窗口)",
       "fthelper": "食药计算器",
       "func_setting": "功能设置",
@@ -741,6 +745,8 @@
     "click_to_copy": "点击以复制",
     "client_version": "客户端版本",
     "close": "关闭",
+    "collectability": "收藏价值",
+    "collectable_submission": "收藏品交易",
     "comment": "备注",
     "confirm": "确认",
     "content": "内容",
@@ -775,6 +781,7 @@
     "export": "导出",
     "export_excel": "导出Excel",
     "export_to_excel": "导出为Excel",
+    "fashion_cloth": "时装",
     "favorite": {
       "desc": {
         "desc_1": "点击此按钮来收藏/取消收藏这个采集品。",
@@ -910,6 +917,7 @@
     "remain_with_colon": "剩余:",
     "reset_to_0": "清零",
     "retry": "重试",
+    "reward": "奖励",
     "route_card_desc": "※ 您正处于HqHelper的子页面。",
     "rule": "规则",
     "save": "保存",
@@ -929,6 +937,7 @@
     "statistics": "统计",
     "step_and_sec": "{step_count}步{time_count}秒",
     "strict": "严格",
+    "submission": "交易",
     "subtotal": "小计",
     "summation": "累加",
     "sync": "同步",
@@ -946,6 +955,9 @@
     "tomescript_type": "点数类型",
     "trade": "兑换",
     "twitter_x": "推特 (X)",
+    "unit": {
+      "ge": "个"
+    },
     "unit_price": "单价",
     "unknown": "未知",
     "update_immedi": "立即更新",
@@ -1031,6 +1043,29 @@
       "cal_nq_price_here": "此处计入物品的NQ价格。"
     }
   },
+  "cs_helper": {
+    "action": {
+      "craft_target": "制作物品",
+      "need_craft": "需要制作",
+      "reward": "报酬",
+      "target_scrip_amount": "目标票据数"
+    },
+    "group": {
+      "lv81_90": "81～90级",
+      "lv91_100": "91～100级"
+    },
+    "message": {
+      "select_craft_target_first": "请先选择制作物品"
+    },
+    "mode": {
+      "free": "自由模式",
+      "target": "目标模式"
+    },
+    "select_collectable_submission": "选择收藏品",
+    "tooltip": {
+      "clear_selected": "清空已选择的收藏品"
+    }
+  },
   "donate_us": {
     "desc": {
       "desc_1": "万分感谢您对HqHelper的支持。",
@@ -1100,6 +1135,14 @@
   "err_404": {
     "advise": "请尝试回到上一页或直接返回首页。",
     "page_not_exist": "访问的页面不存在。"
+  },
+  "fc_helper": {
+    "tooltip": {
+      "clear_selected": "清空已选择的时装"
+    }
+  },
+  "fchelper": {
+    "select_fashion_cloth": "选择时装"
   },
   "festival_egg": {
     "chirstmas": {
@@ -1333,6 +1376,7 @@
       "craftsmanship_with_val": "作业精度{val}",
       "curr_show_hqornq": "正在展示物品的{0}属性",
       "gather_condi": "采集条件：",
+      "gather_level_info": "{lv}级{job}",
       "gather_pos_info": "该物品可以在以下位置采集：",
       "gather_time_info": "该物品只能在以下ET内采集：",
       "gather_website": {
@@ -2083,6 +2127,8 @@
       "message": {
         "join_succeed": "加入成功",
         "no_armor": "还未选择任何装备",
+        "no_colleactable_submission": "还未选择任何收藏品",
+        "no_fashion_cloth": "还未选择任何时装",
         "no_food_tinc": "还未选择任何食物/爆发药"
       },
       "title": "加入工作流"
@@ -2100,6 +2146,8 @@
       "confirm_delete": "确认要删除这条工作流吗?",
       "delete_this_workflow": "删除这条工作流",
       "join_in_workflow": "加入到工作流",
+      "join_selected_collectable_submissions_in_workflow": "将已选的收藏品加入到某条工作流",
+      "join_selected_fashion_clothes_in_workflow": "将已选的时装加入到某条工作流",
       "join_selected_food_and_tinc_in_workflow": "将已选的食药加入到某条工作流",
       "manage_existed_workflows": "管理已有工作流",
       "manage_workflows": "管理工作流",

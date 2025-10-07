@@ -10,9 +10,9 @@ import XivFARImage from '../custom/general/XivFARImage.vue'
 import JobButton from '../custom/job/JobButton.vue'
 import {
   XivJobs,
-  XivRoles
+  XivRoles,
+  type HqDataVer
 }from '@/assets/data'
-import type { IHqVer } from '@/tools/nbb-cal-v5'
 import type { GearSelections } from '@/models/gears'
 
 const t = inject<(message: string, args?: any) => string>('t')!
@@ -24,7 +24,7 @@ const affixesSelected = defineModel<any>('affixesSelected', { required: true })
 const gearsSelected = defineModel<GearSelections>('gearsSelected', { required: true })
 interface JobPanelProps {
   patchSelected: string
-  patchData?: IHqVer
+  patchData?: HqDataVer
 }
 const props = defineProps<JobPanelProps>()
 const emit = defineEmits(['onJobButtonDupliClick'])
@@ -85,7 +85,7 @@ const jobImageSize = computed(() => {
 })
 
 const isJobAvailable = (jobId: number) => {
-  return props.patchData?.jobs?.MainHand?.[jobId]?.[0]
+  return !!props.patchData?.mainHand?.[jobId]
 }
 const isJobGroupAvailable = (group: number[]) => {
   return group.some((jobId: number) => isJobAvailable(jobId))
@@ -146,7 +146,7 @@ const isJobGroupAvailable = (group: number[]) => {
               :job-icon="XivJobs[job].job_icon_url"
               :img-size="jobImageSize"
               :btn-color="role.role_color"
-              :count="gearsSelected?.MainHand?.[job] || 0"
+              :count="gearsSelected?.mainHand?.[job] || 0"
               :class="{'selected': jobSelected === job}"
               :disabled="!patchSelected || !isJobAvailable(job)"
               :patch-selected="patchSelected"

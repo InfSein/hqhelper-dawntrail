@@ -9,10 +9,9 @@ import {
   AddCircleOutlineOutlined, AddCircleOutlined, ClearAllOutlined
 } from '@vicons/material'
 import XivFARImage from '../general/XivFARImage.vue'
-import { XivJobs, XivGearSlots, XivRoles, type XivRole } from '@/assets/data'
+import { XivJobs, XivGearSlots, XivRoles, type XivRole, type HqDataVer } from '@/assets/data'
 import type { GearSelections } from '@/models/gears'
 import { getGearRecomm, useGearAdder } from '@/tools/gears'
-import type { IHqVer } from '@/tools/nbb-cal-v5'
 import useUiTools from '@/tools/ui'
 import { visitUrl } from '@/tools'
 import type { UserConfigModel } from '@/models/config-user'
@@ -57,7 +56,7 @@ interface JobButtonProps {
   /** 按钮是否禁用(可选,默认false) */
   disabled?: boolean;
   patchSelected: string;
-  patchData?: IHqVer
+  patchData?: HqDataVer
 }
 const props = defineProps<JobButtonProps>()
 const emit = defineEmits(['on-btn-clicked'])
@@ -104,8 +103,8 @@ const currJobGears = computed(() => {
   const accessories : GearInfo[] = [];
 
   // 主副手
-  (['MainHand', 'OffHand']).forEach(_key => {
-    const key = _key as 'MainHand' | 'OffHand'
+  (['mainHand', 'offHand']).forEach(_key => {
+    const key = _key as 'mainHand' | 'offHand'
     if (gearsSelected.value?.[key]?.[props.jobId]) {
       weapons.push({
         key: key,
@@ -116,8 +115,8 @@ const currJobGears = computed(() => {
   });
 
   // 防具
-  (['HeadAttire', 'BodyAttire', 'HandsAttire', 'LegsAttire', 'FeetAttire']).forEach(_key => {
-    const key = _key as 'HeadAttire' | 'BodyAttire' | 'HandsAttire' | 'LegsAttire' | 'FeetAttire'
+  (['headAttire', 'bodyAttire', 'handsAttire', 'legsAttire', 'feetAttire']).forEach(_key => {
+    const key = _key as 'headAttire' | 'bodyAttire' | 'handsAttire' | 'legsAttire' | 'feetAttire'
     if (roleInfo.value?.attire && gearsSelected.value?.[key]?.[roleInfo.value.attire]) {
       attires.push({
         key: key,
@@ -128,8 +127,8 @@ const currJobGears = computed(() => {
   });
 
   // 首饰
-  (['Earrings', 'Necklace', 'Wrist', 'Rings']).forEach(_key => {
-    const key = _key as 'Earrings' | 'Necklace' | 'Wrist' | 'Rings'
+  (['earrings', 'necklace', 'wrist', 'rings']).forEach(_key => {
+    const key = _key as 'earrings' | 'necklace' | 'wrist' | 'rings'
     if (roleInfo.value?.accessory && gearsSelected.value?.[key]?.[roleInfo.value.accessory]) {
       accessories.push({
         key: key,
@@ -303,20 +302,20 @@ const contextOptions = computed(() => {
           },
           icon: renderIcon(ClearAllOutlined, { color: 'red' }),
           click: () => {
-            gearsSelected.value.MainHand[props.jobId] = 0
-            gearsSelected.value.OffHand[props.jobId] = 0
+            gearsSelected.value.mainHand[props.jobId] = 0
+            gearsSelected.value.offHand[props.jobId] = 0
             if (roleInfo.value?.attire) {
-              gearsSelected.value.HeadAttire[roleInfo.value.attire] = 0
-              gearsSelected.value.BodyAttire[roleInfo.value.attire] = 0
-              gearsSelected.value.HandsAttire[roleInfo.value.attire] = 0
-              gearsSelected.value.LegsAttire[roleInfo.value.attire] = 0
-              gearsSelected.value.FeetAttire[roleInfo.value.attire] = 0
+              gearsSelected.value.headAttire[roleInfo.value.attire] = 0
+              gearsSelected.value.bodyAttire[roleInfo.value.attire] = 0
+              gearsSelected.value.handsAttire[roleInfo.value.attire] = 0
+              gearsSelected.value.legsAttire[roleInfo.value.attire] = 0
+              gearsSelected.value.feetAttire[roleInfo.value.attire] = 0
             }
             if (roleInfo.value?.accessory) {
-              gearsSelected.value.Earrings[roleInfo.value.accessory] = 0
-              gearsSelected.value.Necklace[roleInfo.value.accessory] = 0
-              gearsSelected.value.Wrist[roleInfo.value.accessory] = 0
-              gearsSelected.value.Rings[roleInfo.value.accessory] = 0
+              gearsSelected.value.earrings[roleInfo.value.accessory] = 0
+              gearsSelected.value.necklace[roleInfo.value.accessory] = 0
+              gearsSelected.value.wrist[roleInfo.value.accessory] = 0
+              gearsSelected.value.rings[roleInfo.value.accessory] = 0
             }
           }
         },

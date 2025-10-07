@@ -35,7 +35,6 @@ const historyChangelogs = computed(() => {
 })
 const latestPatchNoteNumWidth = computed(() => {
   const maxLengthOfNote = latestPatchNote.value.changes.map(change => change.changes.length).reduce((a, b) => Math.max(a, b), 0)
-  console.log('maxLengthOfNote:', maxLengthOfNote)
   return maxLengthOfNote > 9 ? '24px' : '16px'
 })
 

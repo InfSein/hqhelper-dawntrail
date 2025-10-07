@@ -24,6 +24,7 @@ import type { UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel, type ItemPriceType } from '@/models/config-func'
 import type EorzeaTime from '@/tools/eorzea-time'
 import UseConfig from '@/tools/use-config'
+import ItemSubmissionReward from './ItemSubmissionReward.vue'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -35,7 +36,7 @@ const currentET = inject<Ref<EorzeaTime>>('currentET')!
 // const appMode = inject<Ref<"overlay" | "" | undefined>>('appMode') ?? ref('')
 
 const {
-  uiLanguage, itemLanguage, itemServer,
+  uiLanguage, itemLanguage,
 } = UseConfig(userConfig, funcConfig)
 
 interface ItemPopProps {
@@ -199,14 +200,13 @@ const tradeCostList = computed(() => {
   let level = 0
 
   while (current) {
-    const cost = itemServer.value === 'chs' ? current.costCHS : current.costGlobal
     result.push({
-      costId: cost.costId,
-      costCount: cost.costCount,
+      costId: current.costId,
+      costCount: current.costCount,
       receiveCount: current.receiveCount,
       level
     })
-    current = current.costAlter
+    current = current.tradeAlter
     level++
   }
 
@@ -482,7 +482,13 @@ const innerPopTrigger = computed(() => {
                 class="icon"
                 :src="XivJobs[itemInfo.gatherInfo.jobId].job_icon_url"
               />
-              <p>{{ getJobName(XivJobs[itemInfo.gatherInfo.jobId]) }}</p>
+              <p v-if="itemInfo.gatherInfo.level !== itemInfo.gatherInfo.nodelevel">
+                {{ t('item.text.gather_level_info', {
+                  lv: itemInfo.gatherInfo.level,
+                  job: getJobName(XivJobs[itemInfo.gatherInfo.jobId])
+                }) }}
+              </p>
+              <p v-else>{{ getJobName(XivJobs[itemInfo.gatherInfo.jobId]) }}</p>
             </div>
             <div v-if="itemInfo.isFishingItem" class="extra">
               <XivFARImage
@@ -551,6 +557,17 @@ const innerPopTrigger = computed(() => {
           </div>
           <div v-show="false" class="content extra" v-if="itemInfo.isFishingItem">
             {{ t('item.text.gather_website.note') }}
+          </div>
+        </div>
+        <!-- 收藏品交易 -->
+        <div class="description-block" v-if="itemInfo.collectInfo">
+          <div class="title">
+            {{ t('common.submission') }}
+            <div class="extra">{{ t('common.collectable_submission') }}</div>
+          </div>
+          <n-divider class="item-divider" />
+          <div class="content">
+            <ItemSubmissionReward :item-info="itemInfo" />
           </div>
         </div>
         <!-- 兑换 -->
