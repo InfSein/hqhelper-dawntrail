@@ -56,7 +56,7 @@ export const getStaffMebers = (
           donate_desc: t('donate_us.final_confirm.desc.desc_3'),
           donate_ways: [
             { type: 'afd', data_type: 'url', data: 'https://afdian.com/a/infseins' },
-            { type: 'alipay', data_type: 'qrcode', data: 'https://qr.alipay.com/2m614685fmq0ypfw2wipoff' },
+            // { type: 'alipay', data_type: 'qrcode', data: 'https://qr.alipay.com/2m614685fmq0ypfw2wipoff' },
             { type: 'wechat_admire', data_type: 'img', data: './image/donate-img/infsein.wechat_admire.png' },
           ]
         },

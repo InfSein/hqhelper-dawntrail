@@ -316,9 +316,8 @@ export const getItemInfo = (item: number | CalculatedItem) => {
 
   // * 组装物品特殊属性
   itemInfo.attrsProvided = []
-  if (_item.spm?.length) {
-    const spm = _item.spm as number[][]
-    spm.forEach(sp => {
+  if (_item.bpm?.length) {
+    _item.bpm.forEach(sp => {
       const attr = []
       attr.push(sp[0])
       attr.push(sp[1])

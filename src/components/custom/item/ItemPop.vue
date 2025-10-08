@@ -161,7 +161,7 @@ const getPlaceName = () => {
 }
 const itemHasHQ = computed(() => {
   if (props.itemInfo.tempAttrsProvided?.length) {
-    return props.itemInfo.tempAttrsProvided.every(subArr => subArr.length >= 5)
+    return props.itemInfo.tempAttrsProvided.every(subArr => subArr[1])
   } else {
     return props.itemInfo.attrsProvided.every(subArr => subArr[2] > 0)
   }
