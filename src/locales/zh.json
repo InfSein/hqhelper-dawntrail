@@ -34,9 +34,11 @@
         "changelog": "修正……改良……开始对循环程序进行更新……",
         "check_updates": "更新目标的战力等级……变更攻击模式……",
         "contact_us": "关注我们喵，关注我们谢谢喵。",
+        "cshelper": "没想到罗薇娜商会竟然能如此不留余力地帮助我们！",
         "devtool": "帝国正在开发究极神兵的后续机体……",
         "donate_us": "请务必量力而行。",
         "download_client": "以备不时之需。",
+        "fchelper": "到底有没有能让我大吃一惊的未来的时尚引领者呢……",
         "fthelper": "帮助你制作食物与爆发药。能帮到就好。",
         "gather_clock": "挖穿艾欧泽亚的好帮手！",
         "ingame_inventory": "喂喂，你的背包已经装满了啊。",
@@ -594,12 +596,32 @@
         "text_1": "追加了全新的弹窗对话框界面。"
       }
     },
+    "2_3_5": {
+      "breaking": {
+        "text_1": "我们已将能工巧匠81级～100级的商会交易收藏品加入HqHelper数据库。",
+        "text_2": "通过全新的工票计算器，您可以更加便捷地完成巧手工票的收集工作。",
+        "text_3": "工票计算器有两种模式，可以点击“选择收藏品”区域顶部的标签来进行切换：",
+        "text_4": "“目标模式”可以设定筹集工票的目标数量与制作物品，程序会自动计算出需要制作的数量及相应的制作素材；",
+        "text_5": "“自由模式”会直接陈列出81级～100级的能工巧匠商会交易收藏品，您可以随意设置数量进行计算。",
+        "text_6": "您可以在工票计算器界面中将目标物品加入到工作流，也可以在工作流界面中直接将相关道具设为制作目标。",
+        "text_7": "今后我们会同时整理当前资料片的时装道具。",
+        "text_8": "现可点击装备／食物／药品等道具物品悬浮窗中新增的切换按钮来切换显示NQ／HQ属性。",
+        "text_9": "默认显示的属性仍和之前版本一样是HQ属性。"
+      },
+      "feat": {
+        "text_1": "采集时钟现在还会显示各个未可采集物品距离变得可采集的剩余时间。",
+        "text_2": "优化了采集时钟在特定设备上的显示效果。",
+        "text_3": "点击专业版制作报表表格中“已有”列的输入框不会再选中/取消选中物品行。",
+        "text_4": "增加／调整了赞助方式。",
+        "text_5": "优化了客户端出现部分常见错误时的提示文本。"
+      }
+    },
     "breaking": "重要变更",
     "feat": "功能更新",
     "fix": "问题修复",
     "milestone": "里程碑",
     "shared": {
-      "add_new_func": "追加了“{f}”功能。",
+      "add_new_func": "实装全新功能「{f}」。",
       "chs_db_update": "国服数据库更新至{ver}。",
       "chs_db_update_with_comma": "国服数据库更新至{ver}，",
       "detail_optimized": "进行了一些细节优化。",
@@ -689,9 +711,11 @@
       "copy_macro": "复制宏",
       "craft_macro": "生产宏",
       "craft_statement": "制作报表",
+      "cshelper": "工票计算",
       "devtool": "开发工具",
       "donate_us": "赞助我们",
       "download_client": "下载客户端",
+      "fchelper": "时装计算",
       "food_and_tinc_new_window": "食药计算(新窗口)",
       "fthelper": "食药计算器",
       "func_setting": "功能设置",
@@ -715,7 +739,7 @@
       "performance": "性能",
       "update": "更新"
     },
-    "armor_attr": "装备属性",
+    "armor_attr": "属性",
     "ask_every_time": "每次询问",
     "auto": "自动",
     "auto_refresh": "自动刷新",
@@ -741,6 +765,8 @@
     "click_to_copy": "点击以复制",
     "client_version": "客户端版本",
     "close": "关闭",
+    "collectability": "收藏价值",
+    "collectable_submission": "收藏品交易",
     "comment": "备注",
     "confirm": "确认",
     "content": "内容",
@@ -775,6 +801,7 @@
     "export": "导出",
     "export_excel": "导出Excel",
     "export_to_excel": "导出为Excel",
+    "fashion_cloth": "时装",
     "favorite": {
       "desc": {
         "desc_1": "点击此按钮来收藏/取消收藏这个采集品。",
@@ -910,6 +937,7 @@
     "remain_with_colon": "剩余:",
     "reset_to_0": "清零",
     "retry": "重试",
+    "reward": "奖励",
     "route_card_desc": "※ 您正处于HqHelper的子页面。",
     "rule": "规则",
     "save": "保存",
@@ -929,6 +957,7 @@
     "statistics": "统计",
     "step_and_sec": "{step_count}步{time_count}秒",
     "strict": "严格",
+    "submission": "交易",
     "subtotal": "小计",
     "summation": "累加",
     "sync": "同步",
@@ -946,6 +975,9 @@
     "tomescript_type": "点数类型",
     "trade": "兑换",
     "twitter_x": "推特 (X)",
+    "unit": {
+      "ge": "个"
+    },
     "unit_price": "单价",
     "unknown": "未知",
     "update_immedi": "立即更新",
@@ -1031,6 +1063,29 @@
       "cal_nq_price_here": "此处计入物品的NQ价格。"
     }
   },
+  "cs_helper": {
+    "action": {
+      "craft_target": "制作物品",
+      "need_craft": "需要制作",
+      "reward": "报酬",
+      "target_scrip_amount": "目标票据数"
+    },
+    "group": {
+      "lv81_90": "81～90级",
+      "lv91_100": "91～100级"
+    },
+    "message": {
+      "select_craft_target_first": "请先选择制作物品"
+    },
+    "mode": {
+      "free": "自由模式",
+      "target": "目标模式"
+    },
+    "select_collectable_submission": "选择收藏品",
+    "tooltip": {
+      "clear_selected": "清空已选择的收藏品"
+    }
+  },
   "donate_us": {
     "desc": {
       "desc_1": "万分感谢您对HqHelper的支持。",
@@ -1056,7 +1111,9 @@
     "start_donate": {
       "desc": {
         "desc_1": "请点击下方链接进行赞助：",
-        "desc_2": "请使用移动端的QQ或TIM扫描下方二维码："
+        "desc_2": "请使用移动端的QQ或TIM扫描下方二维码：",
+        "desc_3": "请使用支付宝扫描下方二维码：",
+        "desc_4": "请使用微信扫描下方图片："
       },
       "title": "开始赞助"
     },
@@ -1066,8 +1123,10 @@
     },
     "way": {
       "aifadian": "爱发电",
+      "alipay": "支付宝",
       "placeholder": "请选择赞助方式",
-      "title": "赞助方式"
+      "title": "赞助方式",
+      "wechat_admire": "微信支付(赞赏码)"
     }
   },
   "download_page": {
@@ -1096,6 +1155,14 @@
   "err_404": {
     "advise": "请尝试回到上一页或直接返回首页。",
     "page_not_exist": "访问的页面不存在。"
+  },
+  "fc_helper": {
+    "tooltip": {
+      "clear_selected": "清空已选择的时装"
+    }
+  },
+  "fchelper": {
+    "select_fashion_cloth": "选择时装"
   },
   "festival_egg": {
     "chirstmas": {
@@ -1216,7 +1283,7 @@
       "title": "配置时钟"
     },
     "remain_time": {
-      "tooltip": "现可采集物品的剩余可采集时间 / 未可采集物品距离得可采集的剩余时间"
+      "tooltip": "现可采集物品的剩余可采集时间 / 未可采集物品距离变得可采集的剩余时间"
     },
     "text": {
       "no_items": "没有物品",
@@ -1321,11 +1388,15 @@
       "basic_info": "[{patch}版本] [{id}]",
       "cannot_hq": "无法制作优质道具",
       "cannot_quick_synthesis": "无法进行简易制作",
+      "cannot_switch_hqornq": "物品没有{0}，无法切换",
+      "click_to_switch_hqornq": "点击可以进行切换",
       "control_with_val": "加工精度{val}",
       "copy_other_names": "复制其他道具名",
       "craft_condi": "制作条件：",
       "craftsmanship_with_val": "作业精度{val}",
+      "curr_show_hqornq": "正在展示物品的{0}属性",
       "gather_condi": "采集条件：",
+      "gather_level_info": "{lv}级{job}",
       "gather_pos_info": "该物品可以在以下位置采集：",
       "gather_time_info": "该物品只能在以下ET内采集：",
       "gather_website": {
@@ -2034,6 +2105,9 @@
       "download_client_pack_failed_with_error": "下载安装包失败：{errmsg}",
       "download_update_pack_failed_with_error": "下载更新包失败：{errmsg}",
       "downloaded_and_speed": "已下载 {now} / {total} MB | 当前速度：{speed}MB/s",
+      "error_404_possible_reason": "远程服务器没有相应文件，可能还未上传完毕。请稍等片刻后重试。",
+      "error_epem_operation_not_permitted": "权限不足，无法访问文件。请尝试以管理员权限运行 HqHelper。",
+      "error_with_netcode": "请求失败，发生了{0}错误。",
       "require_ver_plus_client_to_see_progress": "{ver}版本以上的客户端才能查看当前更新进度。",
       "server_under_maintenance": "服务器正在维护，暂时不能更新。",
       "stage_failed": "{stage}失败",
@@ -2073,6 +2147,8 @@
       "message": {
         "join_succeed": "加入成功",
         "no_armor": "还未选择任何装备",
+        "no_colleactable_submission": "还未选择任何收藏品",
+        "no_fashion_cloth": "还未选择任何时装",
         "no_food_tinc": "还未选择任何食物/爆发药"
       },
       "title": "加入工作流"
@@ -2090,6 +2166,8 @@
       "confirm_delete": "确认要删除这条工作流吗?",
       "delete_this_workflow": "删除这条工作流",
       "join_in_workflow": "加入到工作流",
+      "join_selected_collectable_submissions_in_workflow": "将已选的收藏品加入到某条工作流",
+      "join_selected_fashion_clothes_in_workflow": "将已选的时装加入到某条工作流",
       "join_selected_food_and_tinc_in_workflow": "将已选的食药加入到某条工作流",
       "manage_existed_workflows": "管理已有工作流",
       "manage_workflows": "管理工作流",

@@ -34,9 +34,11 @@
         "changelog": "修正……改良……サークルプログラムの更新を開始……",
         "check_updates": "目標の戦力レベルを更新……攻撃パターンの変更を実行しまス……",
         "contact_us": "フォローしてくださいにゃ、大感謝にゃ。",
+        "cshelper": "まさかロウェナ商会が、ここまで全力で私たちを支援してくれるなんて！",
         "devtool": "アルテマウェポンの後継機が開発されていた、とな……。",
         "donate_us": "無理のない範囲でお願いします。",
         "download_client": "いざという時のために。",
+        "fchelper": "果たして、私を心から驚かせる未来のファッションリーダーは現れるのかしら……",
         "fthelper": "調理品と薬品の制作にサポートいたします。お願い、ワタシを使ってください。",
         "gather_clock": "エオルゼアを掘り尽くすための最高のサポーター！",
         "ingame_inventory": "おいおい、荷物がいっぱいじゃないか。",
@@ -594,12 +596,32 @@
         "text_1": "新しいポップアップウィンドウを追加しました。"
       }
     },
+    "2_3_5": {
+      "breaking": {
+        "text_1": "クラフターのレベル81～100の商会取引収集品を、HqHelperデータベースに追加しました。",
+        "text_2": "新しいスクリップ計算ツールによって、より便利にクラフタースクリップの収集作業を行うことができます。",
+        "text_3": "スクリップ計算ツールには2つのモードがあり、「収集品を選択」エリア上部のタブをクリックすることで切り替えることができます。",
+        "text_4": "「目標モード」では、集めたいスクリップの目標数と製作アイテムを設定することで、必要な製作数と対応する素材を自動で計算してくれます；",
+        "text_5": "「フリーモード」では、レベル81～100のクラフターおよびギャザラーの商会取引収集品が一覧表示され、自由に数量を設定して計算することができます。",
+        "text_6": "スクリップ計算ツールの画面で目標アイテムをワークフローに追加することも、ワークフロー画面から直接関連アイテムを製作目標として設定することもできます。",
+        "text_7": "今後は、当該拡張パッチで追加されたおしゃれ装備を同時に整理を進めていく予定です。",
+        "text_8": "装備品・食事・薬品などのアイテムツールチップに追加された切り替えボタンをクリックすることで、NQ／HQのステータス表示を切り替えられるようになりました。",
+        "text_9": "デフォルトで表示されるステータスは、以前と同様にHQ属性となっています。"
+      },
+      "feat": {
+        "text_1": "採集時計では、各まだ採集可能でないアイテムが採集可能になるまでの残り時間も表示されるようになりました。",
+        "text_2": "特定のデバイスでの採集時計の表示が最適化されました。",
+        "text_3": "プロ版のレポートの「既にあり」列の入力欄をクリックしても、アイテム行が選択／解除されなくなりました。",
+        "text_4": "スポンサーシップの方法が追加・調整されました。",
+        "text_5": "クライアントで一部のよくあるエラーが発生した際の表示メッセージが最適化されました。"
+      }
+    },
     "breaking": "重要な変更",
     "feat": "機能アップデート",
     "fix": "不具合修正",
     "milestone": "マイルストーン",
     "shared": {
-      "add_new_func": "「{f}」機能を追加",
+      "add_new_func": "新機能「{f}」が実装されました。",
       "chs_db_update": "中国版データベースが{ver}に更新されました。",
       "chs_db_update_with_comma": "中国版データベースが{ver}に更新されました、",
       "detail_optimized": "細かい部分を最適化しました。",
@@ -689,9 +711,11 @@
       "copy_macro": "マクロをコピー",
       "craft_macro": "生産マクロ",
       "craft_statement": "素材リストを生成する",
+      "cshelper": "スクリップ計算",
       "devtool": "開発ツール",
       "donate_us": "スポンサーになる",
       "download_client": "クライアントをダウンロードする",
+      "fchelper": "おしゃれ装備計算",
       "food_and_tinc_new_window": "調理品&薬品(別ウィンド)",
       "fthelper": "調理品&薬品の计算",
       "func_setting": "機能設定",
@@ -715,7 +739,7 @@
       "performance": "機能",
       "update": "アップデート"
     },
-    "armor_attr": "装備品の詳細",
+    "armor_attr": "属性",
     "ask_every_time": "毎回確認",
     "auto": "オート",
     "auto_refresh": "自動リフレッシュ",
@@ -741,6 +765,8 @@
     "click_to_copy": "クリックでコピー",
     "client_version": "クライアントバーション",
     "close": "閉じる",
+    "collectability": "収集価値",
+    "collectable_submission": "収集品取引",
     "comment": "備考",
     "confirm": "確認",
     "content": "コンテンツ",
@@ -775,6 +801,7 @@
     "export": "エクスポート",
     "export_excel": "Excelシートにエクスポート",
     "export_to_excel": "エクセルシートへエクスポート",
+    "fashion_cloth": "おしゃれ装備",
     "favorite": {
       "desc": {
         "desc_1": "このボタンをクリックして、この採集品をお気に入りに登録/登録解除します。",
@@ -910,6 +937,7 @@
     "remain_with_colon": "残り:",
     "reset_to_0": "クリア",
     "retry": "再試行",
+    "reward": "報酬",
     "route_card_desc": "※ 今が表示されているのはHqHelperのサブページです。",
     "rule": "ルール",
     "save": "保存する",
@@ -929,6 +957,7 @@
     "statistics": "集計",
     "step_and_sec": "{step_count}ターン{time_count}秒",
     "strict": "厳密",
+    "submission": "取引",
     "subtotal": "小計",
     "summation": "累積",
     "sync": "同期",
@@ -946,6 +975,9 @@
     "tomescript_type": "トークンタイプ",
     "trade": "交換",
     "twitter_x": "Twitter (X)",
+    "unit": {
+      "ge": "個"
+    },
     "unit_price": "単価",
     "unknown": "不明",
     "update_immedi": "今すぐアップデートする",
@@ -1031,6 +1063,29 @@
       "cal_nq_price_here": "NQの価格が計算に含まれています。"
     }
   },
+  "cs_helper": {
+    "action": {
+      "craft_target": "製作アイテム",
+      "need_craft": "制作必要",
+      "reward": "報酬",
+      "target_scrip_amount": "目標スクリップ数"
+    },
+    "group": {
+      "lv81_90": "レベル81〜90",
+      "lv91_100": "レベル91〜100"
+    },
+    "message": {
+      "select_craft_target_first": "アイテムを選択してください"
+    },
+    "mode": {
+      "free": "フリーモード",
+      "target": "目標モード"
+    },
+    "select_collectable_submission": "収集品を選択する",
+    "tooltip": {
+      "clear_selected": "選択済みの収集品をクリアする"
+    }
+  },
   "donate_us": {
     "desc": {
       "desc_1": "HqHelperへのご支援に心より感謝申し上げます",
@@ -1056,7 +1111,9 @@
     "start_donate": {
       "desc": {
         "desc_1": "下記リンクからスポンサーになる：",
-        "desc_2": "モバイル版のQQ/TIMでQRコードをスキャン："
+        "desc_2": "モバイル版のQQ/TIMでQRコードをスキャン：",
+        "desc_3": "AlipayでQRコードをスキャンしてください：",
+        "desc_4": "WechatでQRコードをスキャンしてください："
       },
       "title": "スポンサーになる"
     },
@@ -1066,8 +1123,10 @@
     },
     "way": {
       "aifadian": "Afdian（愛発電）",
+      "alipay": "Alipay",
       "placeholder": "スポンサーになる方法を選択",
-      "title": "スポンサーになる方法"
+      "title": "スポンサーになる方法",
+      "wechat_admire": "Wechatpay"
     }
   },
   "download_page": {
@@ -1096,6 +1155,14 @@
   "err_404": {
     "advise": "前のページ、またはホームページに戻ってください。",
     "page_not_exist": "アクセスされたページは存在しません。"
+  },
+  "fc_helper": {
+    "tooltip": {
+      "clear_selected": "選択済みのおしゃれ装備をクリアする"
+    }
+  },
+  "fchelper": {
+    "select_fashion_cloth": "おしゃれ装備を選択する"
   },
   "festival_egg": {
     "chirstmas": {
@@ -1216,7 +1283,7 @@
       "title": "時計を設定"
     },
     "remain_time": {
-      "tooltip": "現在採集可能なアイテムの残り採集可能時間 / 採集不可能なアイテムが採集可能になるまでの残り時間"
+      "tooltip": "採集可能なアイテムの残り採集時間／まだ採集できないアイテムが採集可能になるまでの残り時間"
     },
     "text": {
       "no_items": "アイテムがありません",
@@ -1321,11 +1388,15 @@
       "basic_info": "[パッチ{patch}] [{id}]",
       "cannot_hq": "HQ製作不可",
       "cannot_quick_synthesis": "簡易製作不可",
+      "cannot_switch_hqornq": "アイテムの{0}がないため、切り替えできません",
+      "click_to_switch_hqornq": "クリックすると切り替えが可能です",
       "control_with_val": "加工精度{val}",
       "copy_other_names": "他のアイテム名をコピー",
       "craft_condi": "製作可能条件：",
       "craftsmanship_with_val": "作業精度{val}",
+      "curr_show_hqornq": "現在、アイテムの{0}ステータスを表示中です",
       "gather_condi": "採集条件：",
+      "gather_level_info": "レベル{lv}の{job}",
       "gather_pos_info": "アイテムは次の場所で収集できます：",
       "gather_time_info": "該当アイテムは以下のET内のみ採集可能：",
       "gather_website": {
@@ -2034,6 +2105,9 @@
       "download_client_pack_failed_with_error": "インストールパッケージのダウンロードに失敗しました：{errmsg}",
       "download_update_pack_failed_with_error": "ダウンロードが失敗しました：{errmsg}",
       "downloaded_and_speed": "ダウンロード済み {now} / {total} MB | 現在の速度：{speed}MB/s",
+      "error_404_possible_reason": "リモートサーバーに該当ファイルが存在しません。まだアップロードが完了していない可能性があります。しばらく待ってから再試行してください。",
+      "error_epem_operation_not_permitted": "権限が不足しているため、ファイルにアクセスできません。HqHelper を管理者権限で実行してみてください。",
+      "error_with_netcode": "リクエストに失敗しました。{0} エラーが発生しました。",
       "require_ver_plus_client_to_see_progress": "{ver}バージョン以降のクライアントのみが、現在の更新進行状況を確認できます。",
       "server_under_maintenance": "サーバーはメンテナンス中のため、現在アップデートできません。",
       "stage_failed": "{stage}失敗",
@@ -2073,6 +2147,8 @@
       "message": {
         "join_succeed": "追加に成功しました",
         "no_armor": "まだ装備が選択されていません",
+        "no_colleactable_submission": "まだ収集品が選択されていません",
+        "no_fashion_cloth": "まだおしゃれ装備が選択されていません",
         "no_food_tinc": "まだ調理品&薬品を選択していません"
       },
       "title": "ワークフローに追加"
@@ -2090,6 +2166,8 @@
       "confirm_delete": "本当にこのワークフローを削除しますか？",
       "delete_this_workflow": "このワークフローを削除する",
       "join_in_workflow": "ワークフローに追加",
+      "join_selected_collectable_submissions_in_workflow": "選択した収集品を特定のワークフローに追加する",
+      "join_selected_fashion_clothes_in_workflow": "選択したおしゃれ装備を特定のワークフローに追加する",
       "join_selected_food_and_tinc_in_workflow": "選択済みの調理品&薬品をワークフローに追加する",
       "manage_existed_workflows": "既存ワークフローの管理",
       "manage_workflows": "ワークフローの管理",

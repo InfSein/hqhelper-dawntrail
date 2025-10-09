@@ -12,7 +12,7 @@ const territoryPath = path.resolve(__dirname, '../src/assets/data/unpacks/territ
 const placeNameFull = JSON.parse(fs.readFileSync(placeNameFullPath, 'utf8'))
 const territoryFull = JSON.parse(fs.readFileSync(territoryFullPath, 'utf8'))
 
-const gatheringItems = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../src/assets/data/unpacks/gathering-item.json'), 'utf8'))
+const gatheringItems = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../src/assets/data/unpacks/gathering-items.json'), 'utf8'))
 const maps = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../src/assets/data/unpacks/maps.json'), 'utf8'))
 
 console.log('[scripts/compress-data.cjs] Raw data have been loaded.')

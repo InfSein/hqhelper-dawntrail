@@ -112,7 +112,27 @@ const handleProgress = (progressData: ProgressData) => {
 
   updateTip.contentText = ''
   if (error?.msg) {
-    updateTip.contentText = error.msg
+    const err = error.msg
+    updateTip.contentText = err
+    try {
+      const matchCommonNetworkError = err.match(/AxiosError: Request failed with status code (\d{1,4})/)
+      if (matchCommonNetworkError) {
+        const errNetCode = matchCommonNetworkError[1]
+        updateTip.contentText = t('update.message.error_with_netcode', [errNetCode])
+        if (errNetCode === '404') {
+          updateTip.contentText += t('update.message.error_404_possible_reason')
+        }
+      }
+      if (err.includes('EPERM: operation not permitted, copyfile')) {
+        updateTip.contentText = t('update.message.error_epem_operation_not_permitted')
+      }
+    } catch (e) {
+      console.error(
+        '更新发生错误，并且错误文本解析期间出现问题。',
+        '\nerror:', error,
+        '\nparse error:', e,
+      )
+    }
   }
 
   if (progressData.stage === 'end') {

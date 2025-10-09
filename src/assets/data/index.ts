@@ -5,6 +5,8 @@ import type {
 } from '@/models/gears'
 // #endregion
 
+export type XivPatchVer = "7.0" | "7.1" | "7.2" | "7.3" | "7.4"
+
 // #region Translations
 import JsonXivTranslatedItemDescriptions from './translations/xiv-item-descriptions.json'
 export const XivTranslatedItemDescriptions = JsonXivTranslatedItemDescriptions as Record<number, string>
@@ -20,27 +22,45 @@ export const XivTranslatedPlaces = JsonXivTranslatedPlaces as Record<number, str
 // #endregion
 
 // #region Unpacks
-/*
-  忽略以下 JSON:
-  * src\assets\data\unpacks\hq-config.json - 因为只在 use-nbb-cal 中使用，并且已经进行了类型声明 (虽然后续可能还要改)
- */
 
-import JsonXivUnpackedGatheringItems from './unpacks/gathering-item.json'
+import JsonXivUnpackedCollectableSubmissions from './unpacks/collectable-submissions.json'
+export const XivUnpackedCollectableSubmissions = JsonXivUnpackedCollectableSubmissions as Record<number, {
+  id: number
+  /**
+   * 等级组
+   * @var [levelMin, levelMax]
+   */
+  levels: number[]
+  /**
+   * 奖励组，从低到高排列
+   * @var [[所需收藏价值,奖励的票据数], ...]
+   */
+  rewards: number[][]
+  rewardScrip: number
+}>
+
+import JsonXivUnpackedFashionClothes from './unpacks/fashion-clothes.json'
+export const XivUnpackedFashionClothes = JsonXivUnpackedFashionClothes as Record<string, number[]>
+
+import JsonXivUnpackedGatheringItems from './unpacks/gathering-items.json'
 export const XivUnpackedGatheringItems = JsonXivUnpackedGatheringItems as Record<number, {
   level: number
+  star: number
   /**
    * 采集点类型I
-   * * 0=採掘,1=砕岩,2=伐採,3=草刈
+   * * 0=采掘,1=碎石,2=采伐,3=割草
    */
   type: number
   /**
    * 采集点类型II
-   * * 1=常规点，2=收藏品，3=工艺馆，4=灵砂，5=传承录
+   * todo ??待考察 * 1=常规点，2=收藏品，3=工艺馆，4=灵砂，5=传承录
    */
-  pointType?: number
-  territory?: number
-  place?: number
-  popType?: string
+  pointType: number
+  pointLevel: number
+  territory: number
+  place: number
+  coords: { x: string, y: string }
+  popType: "normal" | "legendary" | "ephemeral"
   popTime?: {
     start1: string
     end1: string
@@ -48,42 +68,59 @@ export const XivUnpackedGatheringItems = JsonXivUnpackedGatheringItems as Record
     end2: string
     start3: string
     end3: string
-  } | false
-  coords?: { x: string, y: string }
+  }
   /**
    * 采集点是否需要习得传承录方可采集
    * * 为数字时，代表所需传承录的道具ID
-   * * 为 false 或 undefined 时，代表不需要传承录或缺失数据
+   * * 为 undefined 时，代表不需要传承录或缺失数据
    */
-  folkloreBook?: number | false
+  folkloreBook?: number
 }>
 
-import JsonXivUnpackedItems from './unpacks/item.json'
+import JsonHqData from './unpacks/hqdata.json'
+export interface HqDataVer {
+  mainHand: Record<number, number>
+  offHand: Record<number, number>
+  headAttire: Record<AttireAffix, number>
+  bodyAttire: Record<AttireAffix, number>
+  handsAttire: Record<AttireAffix, number>
+  legsAttire: Record<AttireAffix, number>
+  feetAttire: Record<AttireAffix, number>
+  earrings: Record<AccessoryAffix, number>
+  necklace: Record<AccessoryAffix, number>
+  wrist: Record<AccessoryAffix, number>
+  rings: Record<AccessoryAffix, number>
+  reduces: Record<number, number[]>
+  alkahests: number[]
+}
+export const HqData = JsonHqData as {
+  patches: { [K in XivPatchVer]: HqDataVer | null }
+  meals: number[]
+  medicines: number[]
+}
+
+import JsonXivUnpackedItems from './unpacks/items.json'
 export interface XivUnpackedItem {
-  rids: string[]
+  rids: number[]
   id: number
-  lang: string[],
+  name: string[]
+  desc: string[]
   icon: number
   ilv: number
+  elv: number
   uc: number
   sc: number
-  hq: boolean
-  dye: number
-  act: number
+  jobs: number
+  hqable: boolean
   tradable: boolean
   collectable: boolean
-  reduce: boolean
-  elv: number
-  jobs: number
-  ms: number
-  jd: boolean
+  rarity: number
   p: string
-  desc: string[]
   bpm: number[][]
-  spm?: number[][]
-  actParm: any[][]
+  apm: any[][]
   // 允许扩展
   [key: string]: any
+
 }
 export const XivUnpackedItems = JsonXivUnpackedItems as Record<number, XivUnpackedItem>
 
@@ -111,27 +148,36 @@ import JsonXivUnpackedPlaceNames from './unpacks/place-name.json'
  */
 export const XivUnpackedPlaceNames = JsonXivUnpackedPlaceNames as Record<number, string[]>
 
-import JsonXivUnpackedRecipes from './unpacks/recipe.json'
-export const XivUnpackedRecipes = JsonXivUnpackedRecipes as Record<number, {
+import JsonXivUnpackedRecipes from './unpacks/recipes.json'
+export interface XivUnpackedRecipe {
   id: number
-  job: number
-  it: number
-  bp: number[]
-  m: number[]
+  clv: number
+  star: number
+  target: number
   rlv: number
-  s: number[]
-  sp1: number[]
-  sp2: number[]
-  sp3: number[]
-  qs: boolean
-  hq: boolean
+  job: number
+  yields: number
+  sp: number[]
+  qsable: boolean
+  hqable: boolean
+  thresholds: number[]
   srb: number
-  noteBook: number[]
-  noteBookCHS: number[] | false
-}>
+  materials: number[]
+  crystals: number[]
+}
+export const XivUnpackedRecipes = JsonXivUnpackedRecipes as Record<number, XivUnpackedRecipe>
 
 import JsonXivUnpackedTerritories from './unpacks/territory.json'
 export const XivUnpackedTerritories = JsonXivUnpackedTerritories as Record<number, number[]>
+
+export interface ItemTradeInfo {
+  receiveCount: number,
+  costId: number,
+  costCount: number,
+  tradeAlter?: ItemTradeInfo
+}
+import JsonXivUnpackedTradeMap from './unpacks/trade-map.json'
+export const XivUnpackedTradeMap = JsonXivUnpackedTradeMap as Record<number, ItemTradeInfo>
 // #endregion
 
 // #region Other
@@ -204,10 +250,10 @@ export const XivGearSlots = JsonXivGearSlots as Record<keyof GearSelections, {
 import JsonXivItemTypes from './xiv-item-types.json'
 export const XivItemTypes = JsonXivItemTypes as Record<number, {
   id: number
-  lang: string[]
   icon: number
-  order_minor: number
-  order_major: number
+  name: string[]
+  /** 顺序号，固定2个元素。第1个为majorOrder，第2个为minorOrder。 */
+  order: number[]
 }>
 
 import JsonXivJobs from './xiv-jobs.json'

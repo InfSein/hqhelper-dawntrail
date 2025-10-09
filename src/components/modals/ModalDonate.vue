@@ -59,6 +59,12 @@ const availableDonateWays = computed(() => {
       case 'qq':
         donateWayLabel = 'QQ'
         break
+      case 'alipay':
+        donateWayLabel = t('donate_us.way.alipay')
+        break
+      case 'wechat_admire':
+        donateWayLabel = t('donate_us.way.wechat_admire')
+        break
       default:
         donateWayLabel = data.type
     }
@@ -149,7 +155,12 @@ const handleStaffSelectionUpdate = () => {
           </div>
           <div v-else-if="currentDonateWay.data_type === 'qrcode'">
             <p v-if="currentDonateWay.type === 'qq'">{{ t('donate_us.start_donate.desc.desc_2') }}</p>
+            <p v-else-if="currentDonateWay.type === 'alipay'">{{ t('donate_us.start_donate.desc.desc_3') }}</p>
             <n-qr-code class="staff-qrcode" :value="currentDonateWay.data" :size="88" :padding="4" />
+          </div>
+          <div v-else-if="currentDonateWay.data_type === 'img'">
+            <p v-if="currentDonateWay.type === 'wechat_admire'">{{ t('donate_us.start_donate.desc.desc_4') }}</p>
+            <img :src="currentDonateWay.data" alt="donate-qrcode" style="width: 88px; height: 88px;" />
           </div>
         </GroupBox>
       </div>

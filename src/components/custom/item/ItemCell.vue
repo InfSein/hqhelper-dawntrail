@@ -6,19 +6,19 @@ import { inject, type Ref } from 'vue'
 import XivFARImage from '../general/XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
 import type { UserConfigModel } from '@/models/config-user'
-import type { FuncConfigModel } from '@/models/config-func'
+// import type { FuncConfigModel } from '@/models/config-func'
 import { XivJobs, type XivJob } from '@/assets/data'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
-import UseConfig from '@/tools/use-config'
+// import UseConfig from '@/tools/use-config'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
-const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+// const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
-const {
-  itemServer,
-} = UseConfig(userConfig, funcConfig)
+// const {
+//   itemServer,
+// } = UseConfig(userConfig, funcConfig)
 
 interface ItemCellProps {
   itemInfo: ItemInfo
@@ -41,7 +41,7 @@ const getJobName = (jobInfo: XivJob) => {
 }
 const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
   if (!itemInfo.tradeInfo) return undefined
-  const cost = itemServer.value === 'chs' ? itemInfo.tradeInfo.costCHS : itemInfo.tradeInfo.costGlobal
+  const cost = itemInfo.tradeInfo
   const receive = itemInfo.tradeInfo.receiveCount || 1
   const totalCost = amount * cost.costCount / receive
   return {
@@ -73,12 +73,14 @@ const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
             {{ getJobName(XivJobs[itemInfo.craftInfo.jobId]) + ' ' + t('common.val_level', itemInfo.craftInfo.craftLevel) + '★'.repeat(itemInfo.craftInfo?.starCount || 0) }}
           </span>
         </div>
-        <div v-if="itemInfo.gatherInfo?.jobId" class="cell gatherer">
+        <div v-else-if="itemInfo.gatherInfo?.jobId" class="cell gatherer">
           <XivFARImage
             :src="XivJobs[itemInfo.gatherInfo.jobId].job_icon_url"
             :size="12"
           />
-          <span>{{ getJobName(XivJobs[itemInfo.gatherInfo.jobId]) }}</span>
+          <span>
+            {{ getJobName(XivJobs[itemInfo.gatherInfo.jobId]) + ' ' + t('common.val_level', itemInfo.gatherInfo.level) + '★'.repeat(itemInfo.gatherInfo?.star || 0) }}
+          </span>
         </div>
         <div v-else-if="itemInfo.canReduceFrom?.length">{{ t('common.reduce') }}</div>
         <div v-else-if="getTradeCost(itemInfo, amount)">
@@ -96,7 +98,8 @@ const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
           />
           <span>{{ getJobName(XivJobs[18]) }}</span>
         </div>
-        <div v-if="itemInfo.isCrystal">{{ t('game.crystal') }}</div>
+        <div v-else-if="itemInfo.isCrystal">{{ t('game.crystal') }}</div>
+        <div v-else>{{ t('common.other') }}</div>
       </div>
     </div>
   </div>

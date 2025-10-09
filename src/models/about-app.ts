@@ -17,8 +17,8 @@ interface DonateInfo {
   donate_ways: DonateWay[]
 }
 interface DonateWay {
-  type: "qq" | "afd"
-  data_type: "url" | "qrcode"
+  type: "qq" | "afd" | "alipay" | "wechat_admire"
+  data_type: "url" | "qrcode" | "img"
   data: string
 }
 
@@ -55,8 +55,9 @@ export const getStaffMebers = (
           self: true,
           donate_desc: t('donate_us.final_confirm.desc.desc_3'),
           donate_ways: [
-            { type: 'qq', data_type: 'qrcode', data: 'https://i.qianbao.qq.com/wallet/sqrcode.htm?m=tenpay&f=wallet&a=1&ac=CAEQlJC58QoYw9aqoAZCIDNmNDlkNDI3ZmI2ZjY2Yjg2ZGJmNGQ2YTk2MjA5ZDFl_xxx_sign&u=2922268692&n=float' },
             { type: 'afd', data_type: 'url', data: 'https://afdian.com/a/infseins' },
+            // { type: 'alipay', data_type: 'qrcode', data: 'https://qr.alipay.com/2m614685fmq0ypfw2wipoff' },
+            { type: 'wechat_admire', data_type: 'img', data: './image/donate-img/infsein.wechat_admire.png' },
           ]
         },
       ),

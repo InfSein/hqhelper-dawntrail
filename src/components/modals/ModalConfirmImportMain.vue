@@ -49,17 +49,17 @@ const emit = defineEmits(['onImportConfirmed'])
 const patchSelected = ref(props.defaultPatch)
 
 const slots = [
-  { key: 'MainHand', text: t('game.gear.tool.mainhand.title'), icon: './image/game-gear-slot/mainhand.png' },
-  { key: 'OffHand', text: t('game.gear.tool.offhand.title'), icon: './image/game-gear-slot/offhand.png' },
-  { key: 'HeadAttire', text: t('game.gear.attire.head.title'), icon: './image/game-gear-slot/head.png' },
-  { key: 'BodyAttire', text: t('game.gear.attire.body.title'), icon: './image/game-gear-slot/body.png' },
-  { key: 'HandsAttire', text: t('game.gear.attire.hands.title'), icon: './image/game-gear-slot/hands.png' },
-  { key: 'LegsAttire', text: t('game.gear.attire.legs.title'), icon: './image/game-gear-slot/legs.png' },
-  { key: 'FeetAttire', text: t('game.gear.attire.feet.title'), icon: './image/game-gear-slot/feet.png' },
-  { key: 'Earrings', text: t('game.gear.accessory.earring.title'), icon: './image/game-gear-slot/ear.png' },
-  { key: 'Necklace', text: t('game.gear.accessory.necklace.title'), icon: './image/game-gear-slot/neck.png' },
-  { key: 'Wrist', text: t('game.gear.accessory.wrist.title'), icon: './image/game-gear-slot/wrist.png' },
-  { key: 'Rings', text: t('game.gear.accessory.rings.title'), icon: './image/game-gear-slot/ring.png' },
+  { key: 'mainHand', text: t('game.gear.tool.mainhand.title'), icon: './image/game-gear-slot/mainhand.png' },
+  { key: 'offHand', text: t('game.gear.tool.offhand.title'), icon: './image/game-gear-slot/offhand.png' },
+  { key: 'headAttire', text: t('game.gear.attire.head.title'), icon: './image/game-gear-slot/head.png' },
+  { key: 'bodyAttire', text: t('game.gear.attire.body.title'), icon: './image/game-gear-slot/body.png' },
+  { key: 'handsAttire', text: t('game.gear.attire.hands.title'), icon: './image/game-gear-slot/hands.png' },
+  { key: 'legsAttire', text: t('game.gear.attire.legs.title'), icon: './image/game-gear-slot/legs.png' },
+  { key: 'feetAttire', text: t('game.gear.attire.feet.title'), icon: './image/game-gear-slot/feet.png' },
+  { key: 'earrings', text: t('game.gear.accessory.earring.title'), icon: './image/game-gear-slot/ear.png' },
+  { key: 'necklace', text: t('game.gear.accessory.necklace.title'), icon: './image/game-gear-slot/neck.png' },
+  { key: 'wrist', text: t('game.gear.accessory.wrist.title'), icon: './image/game-gear-slot/wrist.png' },
+  { key: 'rings', text: t('game.gear.accessory.rings.title'), icon: './image/game-gear-slot/ring.png' },
 ]
 const gearRows = computed(() => {
   const rows : string[][] = []
@@ -70,8 +70,8 @@ const gearRows = computed(() => {
     const jobId = Number(_jobid)
     const job = XivJobs[jobId]
     const name = job[`job_name_${uiLanguage.value}`] || '???'
-    const mainCount = gearSelections.MainHand[jobId]
-    const offCount = gearSelections.OffHand[jobId]
+    const mainCount = gearSelections.mainHand[jobId]
+    const offCount = gearSelections.offHand[jobId]
     if (mainCount || offCount) {
       const rowData : string[] = [
         name,
@@ -100,11 +100,11 @@ const gearRows = computed(() => {
     if (attireValid) {
       const attireAffix = affix as AttireAffix
       rowCounts.push(
-        gearSelections.HeadAttire[attireAffix] || 0,
-        gearSelections.BodyAttire[attireAffix] || 0,
-        gearSelections.HandsAttire[attireAffix] || 0,
-        gearSelections.LegsAttire[attireAffix] || 0,
-        gearSelections.FeetAttire[attireAffix] || 0
+        gearSelections.headAttire[attireAffix] || 0,
+        gearSelections.bodyAttire[attireAffix] || 0,
+        gearSelections.handsAttire[attireAffix] || 0,
+        gearSelections.legsAttire[attireAffix] || 0,
+        gearSelections.feetAttire[attireAffix] || 0
       )
     } else {
       rowCounts.push(
@@ -114,10 +114,10 @@ const gearRows = computed(() => {
     if (accessoryValid) {
       const accessoryAffix = affix as AccessoryAffix
       rowCounts.push(
-        gearSelections.Earrings[accessoryAffix] || 0,
-        gearSelections.Necklace[accessoryAffix] || 0,
-        gearSelections.Wrist[accessoryAffix] || 0,
-        gearSelections.Rings[accessoryAffix] || 0
+        gearSelections.earrings[accessoryAffix] || 0,
+        gearSelections.necklace[accessoryAffix] || 0,
+        gearSelections.wrist[accessoryAffix] || 0,
+        gearSelections.rings[accessoryAffix] || 0
       )
     } else {
       rowCounts.push(
@@ -149,7 +149,6 @@ const patchOptions = computed(() => {
       disabled: !patch.updated
     }
   })
-  console.log(opt)
   return opt
 })
 

@@ -81,8 +81,8 @@ export const export2Excel = (
         name = job.job_name_en
         break
     }
-    const mainCount = gearSelections.MainHand[jobId]
-    const offCount = gearSelections.OffHand[jobId]
+    const mainCount = gearSelections.mainHand[jobId]
+    const offCount = gearSelections.offHand[jobId]
     if (mainCount || offCount) {
       const rowData : string[] = [
         name,
@@ -123,11 +123,11 @@ export const export2Excel = (
     if (attireValid) {
       const attireAffix = affix as AttireAffix
       rowCounts.push(
-        gearSelections.HeadAttire[attireAffix] || 0,
-        gearSelections.BodyAttire[attireAffix] || 0,
-        gearSelections.HandsAttire[attireAffix] || 0,
-        gearSelections.LegsAttire[attireAffix] || 0,
-        gearSelections.FeetAttire[attireAffix] || 0
+        gearSelections.headAttire[attireAffix] || 0,
+        gearSelections.bodyAttire[attireAffix] || 0,
+        gearSelections.handsAttire[attireAffix] || 0,
+        gearSelections.legsAttire[attireAffix] || 0,
+        gearSelections.feetAttire[attireAffix] || 0
       )
     } else {
       rowCounts.push(
@@ -137,10 +137,10 @@ export const export2Excel = (
     if (accessoryValid) {
       const accessoryAffix = affix as AccessoryAffix
       rowCounts.push(
-        gearSelections.Earrings[accessoryAffix] || 0,
-        gearSelections.Necklace[accessoryAffix] || 0,
-        gearSelections.Wrist[accessoryAffix] || 0,
-        gearSelections.Rings[accessoryAffix] || 0
+        gearSelections.earrings[accessoryAffix] || 0,
+        gearSelections.necklace[accessoryAffix] || 0,
+        gearSelections.wrist[accessoryAffix] || 0,
+        gearSelections.rings[accessoryAffix] || 0
       )
     } else {
       rowCounts.push(
@@ -460,8 +460,8 @@ export const importExcel = (file: File) : Promise<GearSelections> => {
             )
             if (job) {
               const jobId = job.job_id
-              gearSelections.MainHand[jobId] = parseInt(row[1] || '0', 10)
-              gearSelections.OffHand[jobId] = parseInt(row[2] || '0', 10)
+              gearSelections.mainHand[jobId] = parseInt(row[1] || '0', 10)
+              gearSelections.offHand[jobId] = parseInt(row[2] || '0', 10)
             }
           } else {
             // 词缀数据解析
@@ -477,19 +477,19 @@ export const importExcel = (file: File) : Promise<GearSelections> => {
 
               if (attireCounts.some((count) => count > 0)) {
                 const id = affix.key as AttireAffix
-                gearSelections.HeadAttire[id] = attireCounts[0]
-                gearSelections.BodyAttire[id] = attireCounts[1]
-                gearSelections.HandsAttire[id] = attireCounts[2]
-                gearSelections.LegsAttire[id] = attireCounts[3]
-                gearSelections.FeetAttire[id] = attireCounts[4]
+                gearSelections.headAttire[id] = attireCounts[0]
+                gearSelections.bodyAttire[id] = attireCounts[1]
+                gearSelections.handsAttire[id] = attireCounts[2]
+                gearSelections.legsAttire[id] = attireCounts[3]
+                gearSelections.feetAttire[id] = attireCounts[4]
               }
 
               if (accessoryCounts.some((count) => count > 0)) {
                 const id = affix.key as AccessoryAffix
-                gearSelections.Earrings[id] = accessoryCounts[0]
-                gearSelections.Necklace[id] = accessoryCounts[1]
-                gearSelections.Wrist[id] = accessoryCounts[2]
-                gearSelections.Rings[id] = accessoryCounts[3]
+                gearSelections.earrings[id] = accessoryCounts[0]
+                gearSelections.necklace[id] = accessoryCounts[1]
+                gearSelections.wrist[id] = accessoryCounts[2]
+                gearSelections.rings[id] = accessoryCounts[3]
               }
             }
           }

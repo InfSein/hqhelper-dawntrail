@@ -14,6 +14,8 @@ import {
   HomeOutlined,
   AccessAlarmsOutlined,
   FastfoodOutlined,
+  TaskAltOutlined,
+  CheckroomFilled,
   WavesOutlined,
   CodeOutlined,
   HelpOutlineOutlined,
@@ -31,6 +33,8 @@ import {
   DarkModeTwotone, LightModeTwotone,
   UpdateSharp
 } from '@vicons/material'
+import AccountView from './AccountView.vue'
+import HqLogo from './HqLogo.vue'
 import ModalPreferences from '@/components/modals/ModalPreferences.vue'
 import ModalInventory from '@/components/modals/ModalInventory.vue'
 import ModalContactUs from '@/components/modals/ModalContactUs.vue'
@@ -47,7 +51,6 @@ import { useDialog } from '@/tools/dialog'
 import EorzeaTime from '@/tools/eorzea-time'
 import useUiTools from '@/tools/ui'
 import AppStatus from '@/variables/app-status'
-import AccountView from './AccountView.vue'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -216,6 +219,34 @@ const menuData = computed(() => {
           label: t('common.appfunc.cal_food_and_tinc'),
           description: t('appheader.menu.tooltip.fthelper'),
           routerKey: 'fthelper',
+          allowNewWindow: true,
+          defaultNewWindowOption: {
+            width: 1600,
+            height: 800,
+            top: 120,
+            left: 45
+          },
+        },
+        {
+          type: 'router',
+          icon: TaskAltOutlined,
+          label: t('common.appfunc.cshelper'),
+          description: t('appheader.menu.tooltip.cshelper'),
+          routerKey: 'cshelper',
+          allowNewWindow: true,
+          defaultNewWindowOption: {
+            width: 1600,
+            height: 800,
+            top: 120,
+            left: 45
+          },
+        },
+        {
+          type: 'router',
+          icon: CheckroomFilled,
+          label: t('common.appfunc.fchelper'),
+          description: t('appheader.menu.tooltip.fchelper'),
+          routerKey: 'fchelper',
           allowNewWindow: true,
           defaultNewWindowOption: {
             width: 1600,
@@ -665,7 +696,7 @@ const handleCheckUpdates = async () => {
     </div>
     <div class="header-content">
       <div class="app-info">
-        <i class="xiv hq logo-font"></i>
+        <HqLogo :size="isMobile ? 24 : 15" />
         <p class="app-name">HqHelper</p>
 
         <n-popover :trigger="isMobile ? 'click' : 'hover'" :keep-alive-on-hover="isMobile" style="max-width: 260px;">
@@ -811,9 +842,6 @@ const handleCheckUpdates = async () => {
     line-height: 1;
     margin: 5px 0;
 
-    .logo-font {
-      color: var(--n-text-color);
-    }
     .app-name {
       margin: 0 5px 0 3px;
       font-weight: 600;
@@ -864,10 +892,6 @@ const handleCheckUpdates = async () => {
 @media screen and (max-width: 767px) {
   .app-header .header-content .app-info {
     height: 100%;
-
-    .logo-font {
-      font-size: 24px;
-    }
   }
   .header-content, .app-info {
     width: 100%;

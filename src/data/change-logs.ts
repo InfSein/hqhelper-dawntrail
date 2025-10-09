@@ -76,6 +76,49 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.3.5',
+      date: '2025-10-08',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('changelog.shared.global_db_update', {
+              ver: '7.35'
+            }),
+            t('changelog.shared.add_new_func', t('common.appfunc.cshelper'))
+              + '<br>' + t('changelog.2_3_5.breaking.text_1')
+              + '<br>' + t('changelog.2_3_5.breaking.text_2')
+              + '<br>' + t('changelog.2_3_5.breaking.text_3')
+              + '<ul><li>' + t('changelog.2_3_5.breaking.text_4')
+                + '<br>' + renderImg('https://infsein.github.io/static/hqhelper/patchnote/2.3.5/1.png') + '</li>'
+              + '<li>' + t('changelog.2_3_5.breaking.text_5')
+                + '<br>' + renderImg('https://infsein.github.io/static/hqhelper/patchnote/2.3.5/2.png') + '</li></ul>' +
+              t('changelog.2_3_5.breaking.text_6'),
+            t('changelog.shared.add_new_func', t('common.appfunc.fchelper'))
+              + '<br>' + t('changelog.2_3_5.breaking.text_7')
+              + '<br>' + renderImg('https://infsein.github.io/static/hqhelper/patchnote/2.3.5/3.png'),
+            t('changelog.2_3_5.breaking.text_8')
+              + '<br>※ ' + t('changelog.2_3_5.breaking.text_9')
+              + '<br>' + renderImg('https://infsein.github.io/static/hqhelper/patchnote/2.3.5/5.png'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_3_5.feat.text_1')
+              + '<br>' + renderImg('https://infsein.github.io/static/hqhelper/patchnote/2.3.5/6.png'),
+            t('changelog.2_3_5.feat.text_2'),
+            t('changelog.2_3_5.feat.text_3'),
+            t('changelog.2_3_5.feat.text_4')
+              + '<br>' + renderImg('https://infsein.github.io/static/hqhelper/patchnote/2.3.5/7.png'),
+            t('changelog.2_3_5.feat.text_5'),
+            t('changelog.shared.detail_optimized'),
+            isZh ? '追加和修订了部分物品的笔记 (仅在界面语言设置为简体中文时显示)。' : '',
+          ]
+        }
+      ]
+    },
+    {
       version: '2.3.4',
       date: '2025-09-16',
       changes: [

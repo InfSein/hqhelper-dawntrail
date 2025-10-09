@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, h, inject } from 'vue'
+import { computed, h, inject } from 'vue'
 import {
   NSelect,
   type SelectOption, type SelectRenderLabel
@@ -11,21 +11,33 @@ import { getItemInfo, getMaterialItems } from '@/tools/item'
 const t = inject<(message: string, args?: any) => string>('t')!
 
 interface ItemSelectorProps {
-  optionsPreset?: "craftable" | "materials"
+  /** 仅在 custom 模式有效 */
+  options?: number[]
+  optionsPreset?: "craftable" | "custom" | "materials"
   containerId?: string
+  dontCleanAfterSelect?: boolean
 }
 const props = defineProps<ItemSelectorProps>()
 const emits = defineEmits(['onItemSelected'])
 
-const itemInputVal = ref<number | null>(null)
+const itemInputValue = defineModel<number | null>({
+  default: null,
+})
 
 const optionsPreset = computed(() => props.optionsPreset ?? 'craftable')
 const itemOptions = computed(() => {
   if (optionsPreset.value === 'craftable') {
     return Object.values(XivUnpackedItems).filter(item => item.rids?.length > 0).map(item => {
       return {
-        label: item.lang[0],
+        label: item.name[0],
         value: item.id
+      }
+    })
+  } else if (optionsPreset.value === 'custom' && props.options) {
+    return props.options.map(item => {
+      return {
+        label: 'item-' + item,
+        value: item
       }
     })
   } else {
@@ -78,13 +90,13 @@ const filterItem = (pattern: string, option: SelectOption) => {
 const handleItemInputValueUpdate = (value: number) => {
   if (!value) return
   emits('onItemSelected', value)
-  itemInputVal.value = null
+  if (!props.dontCleanAfterSelect) itemInputValue.value = null
 }
 </script>
 
 <template>
   <n-select
-    v-model:value="itemInputVal"
+    v-model:value="itemInputValue"
     filterable
     :filter="filterItem"
     :options="itemOptions"

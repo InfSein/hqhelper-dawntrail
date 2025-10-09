@@ -12,13 +12,13 @@ import XivFARImage from '../custom/general/XivFARImage.vue'
 import {
   XivGearAffixes,
   XivRoles, type XivRole,
-  XivJobs
+  XivJobs,
+  type HqDataVer
 } from '@/assets/data'
 import type { GearSelections, AttireAffix, AccessoryAffix } from '@/models/gears'
 import { attireAffixes, accessoryAffixes } from '@/models/gears'
 import { type UserConfigModel } from '@/models/config-user'
 import { deepCopy } from '@/tools'
-import type { IHqVer } from '@/tools/nbb-cal-v5'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -27,7 +27,7 @@ const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
   
 const props = defineProps({
   patchData: {
-    type: Object as PropType<IHqVer | undefined>,
+    type: Object as PropType<HqDataVer | undefined>,
     required: false // prevent vue warn `Expected Object, got Undefined`
   }
 })
@@ -36,17 +36,17 @@ const getAffixName = (affix: AttireAffix | AccessoryAffix) => {
   return XivGearAffixes[affix][`name_${uiLanguage}`]
 }
 const attireGearSlots = [
-  { key: 'HeadAttire', text: t('game.gear.attire.head.title'), icon: './image/game-gear-slot/head.png' },
-  { key: 'BodyAttire', text: t('game.gear.attire.body.title'), icon: './image/game-gear-slot/body.png' },
-  { key: 'HandsAttire', text: t('game.gear.attire.hands.title'), icon: './image/game-gear-slot/hands.png' },
-  { key: 'LegsAttire', text: t('game.gear.attire.legs.title'), icon: './image/game-gear-slot/legs.png' },
-  { key: 'FeetAttire', text: t('game.gear.attire.feet.title'), icon: './image/game-gear-slot/feet.png' },
+  { key: 'headAttire', text: t('game.gear.attire.head.title'), icon: './image/game-gear-slot/head.png' },
+  { key: 'bodyAttire', text: t('game.gear.attire.body.title'), icon: './image/game-gear-slot/body.png' },
+  { key: 'handsAttire', text: t('game.gear.attire.hands.title'), icon: './image/game-gear-slot/hands.png' },
+  { key: 'legsAttire', text: t('game.gear.attire.legs.title'), icon: './image/game-gear-slot/legs.png' },
+  { key: 'feetAttire', text: t('game.gear.attire.feet.title'), icon: './image/game-gear-slot/feet.png' },
 ]
 const accessoryGearSlots = [
-  { key: 'Earrings', text: t('game.gear.accessory.earring.title'), icon: './image/game-gear-slot/ear.png' },
-  { key: 'Necklace', text: t('game.gear.accessory.necklace.title'), icon: './image/game-gear-slot/neck.png' },
-  { key: 'Wrist', text: t('game.gear.accessory.wrist.title'), icon: './image/game-gear-slot/wrist.png' },
-  { key: 'Rings', text: t('game.gear.accessory.rings.title'), icon: './image/game-gear-slot/ring.png' },
+  { key: 'earrings', text: t('game.gear.accessory.earring.title'), icon: './image/game-gear-slot/ear.png' },
+  { key: 'necklace', text: t('game.gear.accessory.necklace.title'), icon: './image/game-gear-slot/neck.png' },
+  { key: 'wrist', text: t('game.gear.accessory.wrist.title'), icon: './image/game-gear-slot/wrist.png' },
+  { key: 'rings', text: t('game.gear.accessory.rings.title'), icon: './image/game-gear-slot/ring.png' },
 ]
 
 const showModal = defineModel<boolean>('show', { required: true })
@@ -83,20 +83,20 @@ const getJobName = (jobId: number) => {
 }
 
 const getVShowOfMainoffHandGroup = (role: XivRole) => {
-  return role.jobs.some(jobId => props.patchData?.jobs?.MainHand?.[jobId]?.[0] || props.patchData?.jobs?.OffHand?.[jobId]?.[0])
+  return role.jobs.some(jobId => props.patchData?.mainHand?.[jobId] || props.patchData?.offHand?.[jobId])
 }
 const getVShowOfAttireAffixRow = (attire: AttireAffix) => {
-  return props.patchData?.jobs?.HeadAttire?.[attire]?.[0]
-    || props.patchData?.jobs?.BodyAttire?.[attire]?.[0]
-    || props.patchData?.jobs?.HandsAttire?.[attire]?.[0]
-    || props.patchData?.jobs?.LegsAttire?.[attire]?.[0]
-    || props.patchData?.jobs?.FeetAttire?.[attire]?.[0]
+  return props.patchData?.headAttire?.[attire]
+    || props.patchData?.bodyAttire?.[attire]
+    || props.patchData?.handsAttire?.[attire]
+    || props.patchData?.legsAttire?.[attire]
+    || props.patchData?.feetAttire?.[attire]
 }
 const getVShowOfAccessoryAffixRow = (accessory: AccessoryAffix) => {
-  return props.patchData?.jobs?.Earrings?.[accessory]?.[0]
-    || props.patchData?.jobs?.Necklace?.[accessory]?.[0]
-    || props.patchData?.jobs?.Wrist?.[accessory]?.[0]
-    || props.patchData?.jobs?.Rings?.[accessory]?.[0]
+  return props.patchData?.earrings?.[accessory]
+    || props.patchData?.necklace?.[accessory]
+    || props.patchData?.wrist?.[accessory]
+    || props.patchData?.rings?.[accessory]
 }
 
 const handleClose = () => {
@@ -104,10 +104,10 @@ const handleClose = () => {
 }
 
 const handleSave = () => {
-  for (const _id in localSelections.value.MainHand) {
+  for (const _id in localSelections.value.mainHand) {
     const id = Number(_id)
-    if (props.patchData?.jobs?.OffHand?.[id]?.[0]) {
-      localSelections.value.OffHand[id] = localSelections.value.MainHand[id]
+    if (props.patchData?.offHand?.[id]) {
+      localSelections.value.offHand[id] = localSelections.value.mainHand[id]
     }
   }
   gearSelections.value = deepCopy(localSelections.value)
@@ -151,14 +151,14 @@ const handleSave = () => {
               <div class="input-container">
                 <p v-for="job in role.jobs" :key="'weapon-mainhand-' + job">
                   <n-input-number
-                    v-model:value="localSelections.MainHand[job]"
+                    v-model:value="localSelections.mainHand[job]"
                     :input-props="{ type: 'number' }"
                     :min="0"
                     :max="99999"
                     :precision="0"
                     :title="getJobName(job)"
                     :show-button="!isMobile"
-                    :disabled="!patchData?.jobs?.MainHand?.[job]?.[0] && !patchData?.jobs?.OffHand?.[job]?.[0]"
+                    :disabled="!patchData?.mainHand?.[job] && !patchData?.offHand?.[job]"
                   >
                     <template #prefix>
                       <XivFARImage 
@@ -223,8 +223,8 @@ const handleSave = () => {
                   <td>{{ getAffixName(attire) }}</td>
                   <td>
                     <n-input-number
-                      v-model:value="localSelections.HeadAttire[attire]"
-                      :disabled="!patchData?.jobs?.HeadAttire?.[attire]?.[0]"
+                      v-model:value="localSelections.headAttire[attire]"
+                      :disabled="!patchData?.headAttire?.[attire]"
                       :input-props="{ type: 'number' }"
                       :min="0"
                       :max="99999"
@@ -235,8 +235,8 @@ const handleSave = () => {
                   </td>
                   <td>
                     <n-input-number
-                      v-model:value="localSelections.BodyAttire[attire]"
-                      :disabled="!patchData?.jobs?.BodyAttire?.[attire]?.[0]"
+                      v-model:value="localSelections.bodyAttire[attire]"
+                      :disabled="!patchData?.bodyAttire?.[attire]"
                       :input-props="{ type: 'number' }"
                       :min="0"
                       :max="99999"
@@ -247,8 +247,8 @@ const handleSave = () => {
                   </td>
                   <td>
                     <n-input-number
-                      v-model:value="localSelections.HandsAttire[attire]"
-                      :disabled="!patchData?.jobs?.HandsAttire?.[attire]?.[0]"
+                      v-model:value="localSelections.handsAttire[attire]"
+                      :disabled="!patchData?.handsAttire?.[attire]"
                       :input-props="{ type: 'number' }"
                       :min="0"
                       :max="99999"
@@ -259,8 +259,8 @@ const handleSave = () => {
                   </td>
                   <td>
                     <n-input-number
-                      v-model:value="localSelections.LegsAttire[attire]"
-                      :disabled="!patchData?.jobs?.LegsAttire?.[attire]?.[0]"
+                      v-model:value="localSelections.legsAttire[attire]"
+                      :disabled="!patchData?.legsAttire?.[attire]"
                       :input-props="{ type: 'number' }"
                       :min="0"
                       :max="99999"
@@ -271,8 +271,8 @@ const handleSave = () => {
                   </td>
                   <td>
                     <n-input-number
-                      v-model:value="localSelections.FeetAttire[attire]"
-                      :disabled="!patchData?.jobs?.FeetAttire?.[attire]?.[0]"
+                      v-model:value="localSelections.feetAttire[attire]"
+                      :disabled="!patchData?.feetAttire?.[attire]"
                       :input-props="{ type: 'number' }"
                       :min="0"
                       :max="99999"
@@ -332,8 +332,8 @@ const handleSave = () => {
                   <td>{{ getAffixName(accessory) }}</td>
                   <td>
                     <n-input-number
-                      v-model:value="localSelections.Earrings[accessory]"
-                      :disabled="!patchData?.jobs?.Earrings?.[accessory]?.[0]"
+                      v-model:value="localSelections.earrings[accessory]"
+                      :disabled="!patchData?.earrings?.[accessory]"
                       :input-props="{ type: 'number' }"
                       :min="0"
                       :max="99999"
@@ -344,8 +344,8 @@ const handleSave = () => {
                   </td>
                   <td>
                     <n-input-number
-                      v-model:value="localSelections.Necklace[accessory]"
-                      :disabled="!patchData?.jobs?.Necklace?.[accessory]?.[0]"
+                      v-model:value="localSelections.necklace[accessory]"
+                      :disabled="!patchData?.necklace?.[accessory]"
                       :input-props="{ type: 'number' }"
                       :min="0"
                       :max="99999"
@@ -356,8 +356,8 @@ const handleSave = () => {
                   </td>
                   <td>
                     <n-input-number
-                      v-model:value="localSelections.Wrist[accessory]"
-                      :disabled="!patchData?.jobs?.Wrist?.[accessory]?.[0]"
+                      v-model:value="localSelections.wrist[accessory]"
+                      :disabled="!patchData?.wrist?.[accessory]"
                       :input-props="{ type: 'number' }"
                       :min="0"
                       :max="99999"
@@ -368,8 +368,8 @@ const handleSave = () => {
                   </td>
                   <td>
                     <n-input-number
-                      v-model:value="localSelections.Rings[accessory]"
-                      :disabled="!patchData?.jobs?.Rings?.[accessory]?.[0]"
+                      v-model:value="localSelections.rings[accessory]"
+                      :disabled="!patchData?.rings?.[accessory]"
                       :input-props="{ type: 'number' }"
                       :min="0"
                       :max="99999"
@@ -412,13 +412,13 @@ const handleSave = () => {
               <div class="input-container">
                 <p v-for="job in role.jobs" :key="'m-weapon-mainhand-' + job">
                   <n-input-number
-                    v-model:value="localSelections.MainHand[job]"
+                    v-model:value="localSelections.mainHand[job]"
                     :input-props="{ type: 'number' }"
                     :min="0"
                     :max="99999"
                     :precision="0"
                     :title="getJobName(job)"
-                    :disabled="!patchData?.jobs?.MainHand?.[job]?.[0] && !patchData?.jobs?.OffHand?.[job]?.[0]"
+                    :disabled="!patchData?.mainHand?.[job] && !patchData?.offHand?.[job]"
                   >
                     <template #prefix>
                       <XivFARImage 

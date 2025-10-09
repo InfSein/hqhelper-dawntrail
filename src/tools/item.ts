@@ -21,15 +21,14 @@ const phItem : XivUnpackedItem = {
   need: 0,
   icon: -1,
   name: ['','',''],
-  lang: ['','',''], // ? 物品表中的物品名字段叫lang，而计算出来的结构体叫name
   desc: ['','',''],
   uc: -1,
   pc: -1,
   mkc: -1,
-  rids: [], ilv: -1, sc: 0, hq: false,
+  rids: [], ilv: -1, sc: 0, hqable: false, rarity: 0,
   dye: 0, act: 0, tradable: false, collectable: false, reduce: false,
   elv: 0, ms: 0, bpm: [], spm: [], 
-  jobs: 0, jd: false, p: '', actParm: []
+  jobs: 0, jd: false, p: '', apm: []
 }
 
 export interface StatementRow {
@@ -50,7 +49,10 @@ import {
   XivUnpackedPlaceNames,
   XivUnpackedRecipes,
   XivUnpackedTerritories,
-  XivItemTypes
+  XivItemTypes,
+  XivUnpackedTradeMap,
+  type ItemTradeInfo,
+  XivUnpackedCollectableSubmissions
 } from '@/assets/data'
 import {
   XivMaps, type XivMapAetheryteInfo,
@@ -59,8 +61,7 @@ import {
 import { deepCopy } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
-const { getTradeMap, getReduceMap, getReduceMapReverted } = useNbbCal()
-const tradeMap = getTradeMap()
+const { getReduceMap, getReduceMapReverted } = useNbbCal()
 const reduceMap = getReduceMap()
 const revertedReduceMap = getReduceMapReverted()
 
@@ -71,7 +72,7 @@ const revertedReduceMap = getReduceMapReverted()
 export const getMaterialItems = () => {
   return [...new Set(
     Object.values(XivUnpackedRecipes)
-      .flatMap(recipe => recipe.m.filter((_, i) => i % 2 === 0))
+      .flatMap(recipe => recipe.materials.filter((_, i) => i % 2 === 0))
   )].sort((a, b) => a - b);
 }
 
@@ -148,10 +149,6 @@ export interface ItemInfo {
     jobId: number,
     /** 配方ID */
     recipeId: number,
-    /** 国际服配方顺序号 */
-    recipeOrder: number,
-    /** 国服配方顺序号 (国服未实装道具会使用国际服的) */
-    recipeOrderCHS: number,
     /** 制作等级 */
     craftLevel: number,
     /** 产量 (一次制作可以获得几个成品) */
@@ -177,18 +174,24 @@ export interface ItemInfo {
       /** 加工精度 */
       control: number,
     },
-    /** 简易制作门槛 (目前的解包数据未正确提供,请勿引用) */
+    /** 简易制作门槛 (已随版本更新失效)
+     * todo 待整改 */
     qsThresholds: {
       /** 作业精度 */
       craftsmanship: number,
       /** 加工精度 */
       control: number,
     },
+    /** 推荐作业精度，达到此属性后简易制作必定成功 */
+    suggestedCraftsmanship: number,
     /** 秘籍书的物品ID，有这个属性表明制作该物品需要习得秘籍 */
     masterRecipeId: number
   },
   gatherInfo: {
     jobId: number,
+    level: number,
+    nodelevel: number,
+    star: number,
     placeID: number,
     placeNameZH: string,
     placeNameJA: string,
@@ -210,19 +213,17 @@ export interface ItemInfo {
   isCrystal: boolean,
   isAethersand: boolean,
   isFishingItem: boolean,
-  tradeInfo: ItemTradeInfo | undefined
-}
-export interface ItemTradeInfo {
-  receiveCount: number,
-  costGlobal: {
-    costId: number,
-    costCount: number
-  },
-  costCHS: {
-    costId: number,
-    costCount: number
-  },
-  costAlter?: ItemTradeInfo
+  tradeInfo: ItemTradeInfo | undefined,
+  collectInfo?: {
+    levelMin: number,
+    levelMax: number,
+    rewardScrip: number,
+    rewards: {
+      collectabilityMin: number,
+      collectabilityMax?: number,
+      scripAmount: number,
+    }[]
+  }
 }
 
 /**
@@ -259,20 +260,20 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     valid: itemValid,
     amount: itemAmount
   } as ItemInfo
-  if (_item.lang.length !== 3 || _item.desc.length !== 3) {
+  if (_item.name.length !== 3 || _item.desc.length !== 3) {
     console.error('[getItemInfo] 数据不符合规范:', _item)
     return itemInfo
   }
   itemInfo.itemLevel = _item.ilv
-  itemInfo.name_ja = _item.lang[0]
-  itemInfo.name_en = _item.lang[1]
-  itemInfo.name_zh = _item.lang[2]
+  itemInfo.name_ja = _item.name[0]
+  itemInfo.name_en = _item.name[1]
+  itemInfo.name_zh = _item.name[2]
   itemInfo.descJA = _item.desc[0]
   itemInfo.descEN = _item.desc[1]
   itemInfo.descZH = _item.desc[2]
   itemInfo.classJobId = _item.jobs
   itemInfo.patch = _item.p || '7.3'
-  itemInfo.hqable = _item.hq
+  itemInfo.hqable = _item.hqable
   itemInfo.tradable = _item.tradable
 
   // * 针对还没有中文名/中文描述的道具，尝试从暂译表中获取暂译
@@ -306,18 +307,17 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   const itemType : number = _item.uc
   if (typeMap?.[itemType]) {
     itemInfo.uiTypeId = itemType
-    itemInfo.uiTypeOrder = typeMap[itemType].order_major * 256 + typeMap[itemType].order_minor
-    itemInfo.uiTypeNameJA = typeMap[itemType].lang[0]
-    itemInfo.uiTypeNameEN = typeMap[itemType].lang[1]
-    itemInfo.uiTypeNameZH = typeMap[itemType].lang[2]
+    itemInfo.uiTypeOrder = typeMap[itemType].order[0] * 256 + typeMap[itemType].order[1]
+    itemInfo.uiTypeNameJA = typeMap[itemType].name[0]
+    itemInfo.uiTypeNameEN = typeMap[itemType].name[1]
+    itemInfo.uiTypeNameZH = typeMap[itemType].name[2].replace(/（/, '(').replace(/）/, ')')
     itemInfo.uiTypeIconUrl = getImgCdnUrl(typeMap[itemType].icon)
   }
 
   // * 组装物品特殊属性
   itemInfo.attrsProvided = []
-  if (_item.spm?.length) {
-    const spm = _item.spm as number[][]
-    spm.forEach(sp => {
+  if (_item.bpm?.length) {
+    _item.bpm.forEach(sp => {
       const attr = []
       attr.push(sp[0])
       attr.push(sp[1])
@@ -326,7 +326,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
       itemInfo.attrsProvided.push(attr)
     })
   }
-  itemInfo.tempAttrsProvided = _item.actParm
+  itemInfo.tempAttrsProvided = _item.apm
 
   // * 组装物品精选信息
   itemInfo.canReduceFrom = []
@@ -348,9 +348,10 @@ export const getItemInfo = (item: number | CalculatedItem) => {
       case 2: gntype_zh = '良材'; gntype_en = 'mature tree'; gntype_ja = '伐採'; break
       case 3: gntype_zh = '草场'; gntype_en = 'lush vegetation'; gntype_ja = '草刈'; break
     }
-    gntype_zh = gatherData.level + '级' + gntype_zh
-    gntype_en = 'Lv ' + gatherData.level + ' ' + gntype_en
-    gntype_ja = 'レベル' + gatherData.level + gntype_ja
+    const nodeLevel = gatherData.pointLevel
+    gntype_zh = nodeLevel + '级' + '★'.repeat(gatherData.star) + gntype_zh
+    gntype_en = 'Lv ' + nodeLevel + '★'.repeat(gatherData.star) + ' ' + gntype_en
+    gntype_ja = 'レベル' + nodeLevel + '★'.repeat(gatherData.star) + gntype_ja
     const territoryID = gatherData.territory
     if (territoryID && XivUnpackedTerritories[territoryID]) {
       const territoryData = XivUnpackedTerritories[territoryID]
@@ -366,6 +367,9 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         const posVal = calculatePosVal(posX, posY)
         itemInfo.gatherInfo = {
           jobId: gatherJob,
+          level: gatherData.level,
+          nodelevel: nodeLevel,
+          star: gatherData.star,
           placeID: placeID,
           placeNameZH: placeNameZH,
           placeNameJA: gatherPlaceData[0],
@@ -405,11 +409,11 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.craftRequires = []
   itemInfo.craftRequireCrystals = []
   if (_item.rids?.length) {
-    const recipeID = Number(_item.rids[0])
+    const recipeID = _item.rids[0]
     const recipe = XivUnpackedRecipes[recipeID]
     if (recipe) {
       // console.log('item:', _item, '\nrecipe:', recipe, '\n')
-      const items = recipe.m
+      const items = recipe.materials
       if (items?.length % 2 === 0) {
         for (let ptr = 0; ptr < items.length; ptr += 2) {
           const requiredItemID = items[ptr]
@@ -420,7 +424,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         }
       }
 
-      const crystals = recipe.s
+      const crystals = recipe.crystals
       if (crystals?.length % 2 === 0) {
         for (let ptr = 0; ptr < crystals.length; ptr += 2) {
           const requiredItemID = crystals[ptr]
@@ -433,38 +437,31 @@ export const getItemInfo = (item: number | CalculatedItem) => {
         }
       }
 
-      const noteBookCHS = recipe.noteBookCHS || recipe.noteBook
-      const recipeOrderCHS = noteBookCHS[0] * 160 + noteBookCHS[1]
-
       itemInfo.craftInfo = {
         jobId: recipe.job + 8, // 解包配方的jobId是从0开始
         recipeId: recipeID,
-        recipeOrder: recipe.noteBook[0] * 160 + recipe.noteBook[1],
-        recipeOrderCHS: recipeOrderCHS,
-        craftLevel: recipe.bp?.[2],
-        yields: recipe.bp?.[1],
-        starCount: recipe.bp?.[3],
+        craftLevel: recipe.clv,
+        yields: recipe.yields,
+        starCount: recipe.star,
         rLv: recipe.rlv,
-        qsable: recipe.qs,
-        hqable: recipe.hq,
-        durability: recipe.sp1?.[2],
-        progress: recipe.sp1?.[0],
-        quality: recipe.sp1?.[1],
+        qsable: recipe.qsable,
+        hqable: recipe.hqable,
+        durability: recipe.sp?.[2],
+        progress: recipe.sp?.[0],
+        quality: recipe.sp?.[1],
         thresholds: {
-          craftsmanship: recipe.sp2?.[0],
-          control: recipe.sp2?.[1]
+          craftsmanship: recipe.thresholds[0],
+          control: recipe.thresholds[1]
         },
         qsThresholds: {
-          craftsmanship: recipe.sp2?.[2],
-          control: recipe.sp2?.[3]
+          craftsmanship: recipe.thresholds[2],
+          control: recipe.thresholds[3]
         },
+        suggestedCraftsmanship: recipe.thresholds[4],
         masterRecipeId: recipe.srb
       }
     }
   }
-
-  // * 组装物品兑换信息
-  itemInfo.tradeInfo = tradeMap?.[itemInfo.id]
 
   itemInfo.isCrystal = itemInfo.uiTypeId === 59
   itemInfo.isAethersand = itemInfo.name_en.endsWith('Aethersand')
@@ -473,6 +470,29 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   // 目前也没有数据，给个标识让人去饿猫鱼糕找吧！
   // 如果可以兑换，那一般不是钓鱼采集品(例如 [44174]ロイヤルロブスター)
   itemInfo.isFishingItem = !itemInfo.tradeInfo && itemType === 47
+
+  // * 组装物品兑换信息
+  itemInfo.tradeInfo = XivUnpackedTradeMap[itemInfo.id]
+
+  // * 组装物品收藏品交易信息
+  const csd = XivUnpackedCollectableSubmissions[itemInfo.id]
+  if (csd) {
+    itemInfo.collectInfo = {
+      levelMin: csd.levels[0],
+      levelMax: csd.levels[1],
+      rewardScrip: csd.rewardScrip,
+      rewards: [],
+    }
+    for (let i = 0; i < csd.rewards.length; i++) {
+      const currReward = csd.rewards[i]
+      const nextReward = csd.rewards[i + 1]
+      itemInfo.collectInfo.rewards.push({
+        collectabilityMin: currReward[0],
+        collectabilityMax: nextReward?.[0] ? nextReward[0]-1 : undefined,
+        scripAmount: currReward[1],
+      })
+    }
+  }
 
   // * 组装完毕，返回结果
   return itemInfo

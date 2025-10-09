@@ -137,6 +137,7 @@ const handleRowClick = (row: StatementRow) => {
                   :show-button="!isMobile"
                   placeholder="0"
                   @update:value="handleNumInputLoop(item)"
+                  @click.stop @mousedown.stop @focus.stop
                 />
               </td>
               <td>
@@ -180,6 +181,7 @@ const handleRowClick = (row: StatementRow) => {
                   :precision="0"
                   :size="showItemDetails ? 'small' : 'tiny'"
                   button-placement="both"
+                  @click.stop @mousedown.stop @focus.stop
                 />
               </td>
               <td>

@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import MainPage from '@/views/MainPage.vue'
 import FoodAndTincPage from '@/views/FoodAndTincPage.vue'
+import CollectableSubmissionsPage from '@/views/CollectableSubmissionsPage.vue'
+import FashionClothesPage from '@/views/FashionClothesPage.vue'
 import GatherClockPage from '@/views/GatherClockPage.vue'
 import WorkflowPage from '@/views/WorkflowPage.vue'
 import WorkflowProcessPage from '@/views/WorkflowProcessPage.vue'
@@ -16,6 +18,8 @@ import ErrorPage404 from '@/views/ErrorPage404.vue'
 const routes = [
   { path: '/', component: MainPage },
   { path: '/fthelper', component: FoodAndTincPage },
+  { path: '/cshelper', component: CollectableSubmissionsPage },
+  { path: '/fchelper', component: FashionClothesPage },
   { path: '/gatherclock', component: GatherClockPage },
   { path: '/workflow', component: WorkflowPage },
   { path: '/workflow_process', component: WorkflowProcessPage },

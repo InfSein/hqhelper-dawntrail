@@ -17,12 +17,12 @@ import ModalSelectedGears from '../modals/ModalSelectedGears.vue'
 import {
   XivGearAffixes,
   XivJobs,
-  XivRoles
+  XivRoles,
+  type HqDataVer
 } from '@/assets/data'
 import type { AttireAffix, AccessoryAffix, GearSelections } from '@/models/gears'
 import { getDefaultGearSelections } from '@/models/gears'
 import { type UserConfigModel } from '@/models/config-user'
-import type { IHqVer } from '@/tools/nbb-cal-v5'
 import { useGearAdder } from '@/tools/gears'
 
 const t = inject<(message: string, args?: any) => string>('t')!
@@ -34,7 +34,7 @@ const gearSelections = defineModel<GearSelections>('gearSelections', { required:
 export interface GearSelectionPanelProps {
   patchSelected: string
   jobId: number
-  patchData?: IHqVer
+  patchData?: HqDataVer
   attireAffix: AttireAffix
   accessoryAffix: AccessoryAffix
 }
@@ -68,10 +68,10 @@ const jobNotSelected = computed(() => {
   return !XivJobs?.[props.jobId]
 })
 const disableMainhand = computed(() => {
-  return jobNotSelected.value || !props.patchData?.jobs?.MainHand?.[props.jobId]?.[0]
+  return jobNotSelected.value || !props.patchData?.mainHand?.[props.jobId]
 })
 const disableOffhand = computed(() => {
-  return jobNotSelected.value || !props.patchData?.jobs?.OffHand?.[props.jobId]?.[0]
+  return jobNotSelected.value || !props.patchData?.offHand?.[props.jobId]
 })
 const disableAttire = computed(() => {
   return !XivGearAffixes?.[props.attireAffix]
@@ -81,24 +81,24 @@ const disableAccessory = computed(() => {
 })
 const disableAllAttires = computed(() => {
   return disableAttire.value || (
-    !props.patchData?.jobs?.HeadAttire?.[props.attireAffix]?.[0]
-    && !props.patchData?.jobs?.BodyAttire?.[props.attireAffix]?.[0]
-    && !props.patchData?.jobs?.HandsAttire?.[props.attireAffix]?.[0]
-    && !props.patchData?.jobs?.LegsAttire?.[props.attireAffix]?.[0]
-    && !props.patchData?.jobs?.FeetAttire?.[props.attireAffix]?.[0]
+    !props.patchData?.headAttire?.[props.attireAffix]
+    && !props.patchData?.bodyAttire?.[props.attireAffix]
+    && !props.patchData?.handsAttire?.[props.attireAffix]
+    && !props.patchData?.legsAttire?.[props.attireAffix]
+    && !props.patchData?.feetAttire?.[props.attireAffix]
   )
 })
 const disableAllAccessories = computed(() => {
   return disableAccessory.value || (
-    !props.patchData?.jobs?.Earrings?.[props.accessoryAffix]?.[0]
-    && !props.patchData?.jobs?.Necklace?.[props.accessoryAffix]?.[0]
-    && !props.patchData?.jobs?.Wrist?.[props.accessoryAffix]?.[0]
-    && !props.patchData?.jobs?.Rings?.[props.accessoryAffix]?.[0]
+    !props.patchData?.earrings?.[props.accessoryAffix]
+    && !props.patchData?.necklace?.[props.accessoryAffix]
+    && !props.patchData?.wrist?.[props.accessoryAffix]
+    && !props.patchData?.rings?.[props.accessoryAffix]
   )
 })
 
 // #region Slot Computeds
-const createWeaponComputed = (key: "MainHand" | "OffHand") => {
+const createWeaponComputed = (key: "mainHand" | "offHand") => {
   return computed({
     get: () => {
       return gearSelections.value?.[key]?.[props.jobId] || 0
@@ -110,7 +110,7 @@ const createWeaponComputed = (key: "MainHand" | "OffHand") => {
     }
   })
 }
-const createAttireComputed = (key: "HeadAttire" | "BodyAttire" | "HandsAttire" | "LegsAttire" | "FeetAttire") => {
+const createAttireComputed = (key: "headAttire" | "bodyAttire" | "handsAttire" | "legsAttire" | "feetAttire") => {
   return computed({
     get: () => {
       return gearSelections.value?.[key]?.[props.attireAffix] || 0
@@ -122,7 +122,7 @@ const createAttireComputed = (key: "HeadAttire" | "BodyAttire" | "HandsAttire" |
     }
   })
 }
-const createAccessoryComputed = (key: "Earrings" | "Necklace" | "Wrist" | "Rings") => {
+const createAccessoryComputed = (key: "earrings" | "necklace" | "wrist" | "rings") => {
   return computed({
     get: () => {
       return gearSelections.value?.[key]?.[props.accessoryAffix] || 0
@@ -134,17 +134,17 @@ const createAccessoryComputed = (key: "Earrings" | "Necklace" | "Wrist" | "Rings
     }
   })
 }
-const MainHand = createWeaponComputed('MainHand')
-const OffHand = createWeaponComputed('OffHand')
-const HeadAttire = createAttireComputed('HeadAttire')
-const BodyAttire = createAttireComputed('BodyAttire')
-const HandsAttire = createAttireComputed('HandsAttire')
-const LegsAttire = createAttireComputed('LegsAttire')
-const FeetAttire = createAttireComputed('FeetAttire')
-const Earrings = createAccessoryComputed('Earrings')
-const Necklace = createAccessoryComputed('Necklace')
-const Wrist = createAccessoryComputed('Wrist')
-const Rings = createAccessoryComputed('Rings')
+const MainHand = createWeaponComputed('mainHand')
+const OffHand = createWeaponComputed('offHand')
+const HeadAttire = createAttireComputed('headAttire')
+const BodyAttire = createAttireComputed('bodyAttire')
+const HandsAttire = createAttireComputed('handsAttire')
+const LegsAttire = createAttireComputed('legsAttire')
+const FeetAttire = createAttireComputed('feetAttire')
+const Earrings = createAccessoryComputed('earrings')
+const Necklace = createAccessoryComputed('necklace')
+const Wrist = createAccessoryComputed('wrist')
+const Rings = createAccessoryComputed('rings')
 // #endregion
 
 // #region Button Functions
@@ -212,7 +212,7 @@ const handleJoinWorkflow = () => {
 // #region Dropdown Options
 const displayQuickOperates = computed(() => {
   // * 简单算法，有刻木主手代表是有生产采集新装的版本
-  return !!props.patchData?.jobs?.MainHand?.[8]?.[0]
+  return !!props.patchData?.mainHand?.[8]
 })
 
 const quickOperatesOptions = computed(() => {
@@ -355,7 +355,7 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/mainhand.png"
                 :slot-description="t('game.gear.tool.mainhand.detailed')"
-                :related-item="patchData?.jobs.MainHand?.[jobId]?.[0] ?? 0"
+                :related-item="patchData?.mainHand?.[jobId] ?? 0"
               />
             </td>
             <td><Stepper v-model:value="MainHand" :disabled="disableMainhand" /></td>
@@ -363,7 +363,7 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/offhand.png"
                 :slot-description="t('game.gear.tool.offhand.detailed')"
-                :related-item="patchData?.jobs.OffHand?.[jobId]?.[0] ?? 0"
+                :related-item="patchData?.offHand?.[jobId] ?? 0"
               />
             </td>
             <td><Stepper v-model:value="OffHand" :disabled="disableOffhand" /></td>
@@ -378,18 +378,18 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/head.png"
                 :slot-description="t('game.gear.attire.head.detailed')"
-                :related-item="patchData?.jobs.HeadAttire?.[attireAffix]?.[0] ?? 0"
+                :related-item="patchData?.headAttire?.[attireAffix] ?? 0"
               />
             </td>
-            <td><Stepper v-model:value="HeadAttire" :disabled="disableAttire || !patchData?.jobs?.HeadAttire?.[attireAffix]?.[0]" /></td>
+            <td><Stepper v-model:value="HeadAttire" :disabled="disableAttire || !patchData?.headAttire?.[attireAffix]" /></td>
             <td style="min-width: 40px;">
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/ear.png"
                 :slot-description="t('game.gear.accessory.earring.detailed')"
-                :related-item="patchData?.jobs.Earrings?.[accessoryAffix]?.[0] ?? 0"
+                :related-item="patchData?.earrings?.[accessoryAffix] ?? 0"
               />
             </td>
-            <td><Stepper v-model:value="Earrings" :disabled="disableAccessory || !patchData?.jobs?.Earrings?.[accessoryAffix]?.[0]" /></td>
+            <td><Stepper v-model:value="Earrings" :disabled="disableAccessory || !patchData?.earrings?.[accessoryAffix]" /></td>
           </tr>
 
           <tr>
@@ -397,18 +397,18 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/body.png"
                 :slot-description="t('game.gear.attire.body.detailed')"
-                :related-item="patchData?.jobs.BodyAttire?.[attireAffix]?.[0] ?? 0"
+                :related-item="patchData?.bodyAttire?.[attireAffix] ?? 0"
               />
             </td>
-            <td><Stepper v-model:value="BodyAttire" :disabled="disableAttire || !patchData?.jobs?.BodyAttire?.[attireAffix]?.[0]" /></td>
+            <td><Stepper v-model:value="BodyAttire" :disabled="disableAttire || !patchData?.bodyAttire?.[attireAffix]" /></td>
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/neck.png"
                 :slot-description="t('game.gear.accessory.necklace.detailed')"
-                :related-item="patchData?.jobs.Necklace?.[accessoryAffix]?.[0] ?? 0"
+                :related-item="patchData?.necklace?.[accessoryAffix] ?? 0"
               />
             </td>
-            <td><Stepper v-model:value="Necklace" :disabled="disableAccessory || !patchData?.jobs?.Necklace?.[accessoryAffix]?.[0]" /></td>
+            <td><Stepper v-model:value="Necklace" :disabled="disableAccessory || !patchData?.necklace?.[accessoryAffix]" /></td>
           </tr>
 
           <tr>
@@ -416,18 +416,18 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/hands.png"
                 :slot-description="t('game.gear.attire.hands.detailed')"
-                :related-item="patchData?.jobs.HandsAttire?.[attireAffix]?.[0] ?? 0"
+                :related-item="patchData?.handsAttire?.[attireAffix] ?? 0"
               />
             </td>
-            <td><Stepper v-model:value="HandsAttire" :disabled="disableAttire || !patchData?.jobs?.HandsAttire?.[attireAffix]?.[0]" /></td>
+            <td><Stepper v-model:value="HandsAttire" :disabled="disableAttire || !patchData?.handsAttire?.[attireAffix]" /></td>
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/wrist.png"
                 :slot-description="t('game.gear.accessory.wrist.detailed')"
-                :related-item="patchData?.jobs.Wrist?.[accessoryAffix]?.[0] ?? 0"
+                :related-item="patchData?.wrist?.[accessoryAffix] ?? 0"
               />
             </td>
-            <td><Stepper v-model:value="Wrist" :disabled="disableAccessory || !patchData?.jobs?.Wrist?.[accessoryAffix]?.[0]" /></td>
+            <td><Stepper v-model:value="Wrist" :disabled="disableAccessory || !patchData?.wrist?.[accessoryAffix]" /></td>
           </tr>
 
           <tr>
@@ -435,18 +435,18 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/legs.png"
                 :slot-description="t('game.gear.attire.legs.detailed')"
-                :related-item="patchData?.jobs.LegsAttire?.[attireAffix]?.[0] ?? 0"
+                :related-item="patchData?.legsAttire?.[attireAffix] ?? 0"
               />
             </td>
-            <td><Stepper v-model:value="LegsAttire" :disabled="disableAttire || !patchData?.jobs?.LegsAttire?.[attireAffix]?.[0]" /></td>
+            <td><Stepper v-model:value="LegsAttire" :disabled="disableAttire || !patchData?.legsAttire?.[attireAffix]" /></td>
             <td>
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/ring.png"
                 :slot-description="t('game.gear.accessory.rings.detailed')"
-                :related-item="patchData?.jobs.Rings?.[accessoryAffix]?.[0] ?? 0"
+                :related-item="patchData?.rings?.[accessoryAffix] ?? 0"
               />
             </td>
-            <td><Stepper v-model:value="Rings" :disabled="disableAccessory || !patchData?.jobs?.Rings?.[accessoryAffix]?.[0]" /></td>
+            <td><Stepper v-model:value="Rings" :disabled="disableAccessory || !patchData?.rings?.[accessoryAffix]" /></td>
           </tr>
 
           <tr>
@@ -454,10 +454,10 @@ defineExpose({
               <GearSlot
                 slot-icon-src="./image/game-gear-slot/feet.png"
                 :slot-description="t('game.gear.attire.feet.detailed')"
-                :related-item="patchData?.jobs.FeetAttire?.[attireAffix]?.[0] ?? 0"
+                :related-item="patchData?.feetAttire?.[attireAffix] ?? 0"
               />
             </td>
-            <td><Stepper v-model:value="FeetAttire" :disabled="disableAttire || !patchData?.jobs?.FeetAttire?.[attireAffix]?.[0]" /></td>
+            <td><Stepper v-model:value="FeetAttire" :disabled="disableAttire || !patchData?.feetAttire?.[attireAffix]" /></td>
             <td></td>
             <td></td>
           </tr>
