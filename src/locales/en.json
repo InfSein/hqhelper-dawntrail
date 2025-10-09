@@ -34,9 +34,11 @@
         "changelog": "See what's new in this version, or check out the changelog.",
         "check_updates": "Check version update of the application.",
         "contact_us": "Get ways to contact with us.",
+        "cshelper": "Help you collect materials for collectable submissions.",
         "devtool": "Open devtool for client.",
         "donate_us": "Donate. Please act within your means.",
         "download_client": "Download the client of HqHelper.",
+        "fchelper": "Help you collect materials for fashion clothes in this expansion.",
         "fthelper": "Help you craft meal(food) and medicine(tincture).",
         "gather_clock": "View time-limited gatherings.",
         "ingame_inventory": "Manage your in-game inventory and determine whether to sync.",
@@ -594,12 +596,32 @@
         "text_1": "Added new interface of application dialog."
       }
     },
+    "2_3_5": {
+      "breaking": {
+        "text_1": "We have already added collectable submission items during Lv.81 to Lv.100 into the HqHelper database.",
+        "text_2": "With the new CS(collectable submissions) Helper, you could collect craft scrips more conveniently.",
+        "text_3": "It has two modes which can click the tab in top area of 'Select Collection':",
+        "text_4": "The 'target mode' could set the target scrips and crafting items, and app would automatically calculate quantity and corresponding material to be produced;",
+        "text_5": "The 'free mode' would list all collections that DoH delivery collections during Lv.81 to Lv.100, and you could calculate any amount by your will.",
+        "text_6": "You can add the target item to the workflow in the CsHelper interface, or set the relevant item directly in the workflow interface.",
+        "text_7": "From now, we would collate fashion clothes in this expansion.",
+        "text_8": "Now you could click the new switch button to switch the display of NQ/HQ attribute item provided in item popup.",
+        "text_9": "The default display attribute is still HQ as in previous versions."
+      },
+      "feat": {
+        "text_1": "Now the gather clock would also display the remaining time that the un-gatherable items become gatherable.",
+        "text_2": "Optimize the display of gather clock on a specific device.",
+        "text_3": "Now clicking the input box in 'Prepared' column would not select or deselect the item row in pro statement.",
+        "text_4": "The way of sponsorships were added/adjusted.",
+        "text_5": "Optimized tip text when client occurs some common errors."
+      }
+    },
     "breaking": "BREAKING CHANGES",
     "feat": "FEATURES",
     "fix": "BUG FIXES",
     "milestone": "Milestone",
     "shared": {
-      "add_new_func": "The “{f}” feature has been added.",
+      "add_new_func": "Added a new feature: '{f}'.",
       "chs_db_update": "CHS game data updated to {ver}.",
       "chs_db_update_with_comma": "CHS game data updated to {ver}, ",
       "detail_optimized": "Optimized some details.",
@@ -689,9 +711,11 @@
       "copy_macro": "Copy macro",
       "craft_macro": "Craft macro",
       "craft_statement": "Crafting Statements",
+      "cshelper": "CS Helper",
       "devtool": "Dev Tools",
       "donate_us": "Donate us",
       "download_client": "Download client",
+      "fchelper": "FC Helper",
       "food_and_tinc_new_window": "Food & Tinctures (New window)",
       "fthelper": "FT Helper",
       "func_setting": "Function Preferences",
@@ -715,7 +739,7 @@
       "performance": "Performance",
       "update": "Update"
     },
-    "armor_attr": "Bonuses",
+    "armor_attr": "Attribute",
     "ask_every_time": "Ask every time",
     "auto": "Auto",
     "auto_refresh": "Auto-refresh",
@@ -741,6 +765,8 @@
     "click_to_copy": "Click to copy",
     "client_version": "Client Version",
     "close": "Close",
+    "collectability": "Collectability",
+    "collectable_submission": "Collectable Submission",
     "comment": "Remark",
     "confirm": "Confirm",
     "content": "Content",
@@ -775,6 +801,7 @@
     "export": "Export",
     "export_excel": "Export Excel",
     "export_to_excel": "Export to .xlsx",
+    "fashion_cloth": "Fashion Cloth",
     "favorite": {
       "desc": {
         "desc_1": "Click to star/unstar this item.",
@@ -910,6 +937,7 @@
     "remain_with_colon": "Remains:",
     "reset_to_0": "Reset",
     "retry": "Retry",
+    "reward": "Reward",
     "route_card_desc": "※ You are currently on a subpage of HqHelper.",
     "rule": "Rules",
     "save": "Save",
@@ -929,6 +957,7 @@
     "statistics": "Statistics",
     "step_and_sec": "{step_count}Step,{time_count}Sec",
     "strict": "Strict",
+    "submission": "Submission",
     "subtotal": "Total",
     "summation": "Add",
     "sync": "Synchronous",
@@ -946,6 +975,9 @@
     "tomescript_type": "Tome Script Type",
     "trade": "Exchanges",
     "twitter_x": "Twitter (X)",
+    "unit": {
+      "ge": "(s)"
+    },
     "unit_price": "Price",
     "unknown": "UNKNOWN",
     "update_immedi": "Update now",
@@ -1031,6 +1063,29 @@
       "cal_nq_price_here": "Calculated by items' NQ price."
     }
   },
+  "cs_helper": {
+    "action": {
+      "craft_target": "Craft Target",
+      "need_craft": "Need to craft",
+      "reward": "Reward",
+      "target_scrip_amount": "Target Scrip Amount"
+    },
+    "group": {
+      "lv81_90": "Lv. 81~90",
+      "lv91_100": "Lv. 91~100"
+    },
+    "message": {
+      "select_craft_target_first": "Please select craft target first"
+    },
+    "mode": {
+      "free": "Free Mode",
+      "target": "Target Mode"
+    },
+    "select_collectable_submission": "Select Collection",
+    "tooltip": {
+      "clear_selected": "Clear collections selected"
+    }
+  },
   "donate_us": {
     "desc": {
       "desc_1": "Thanks for your support for HqHelper.",
@@ -1056,7 +1111,9 @@
     "start_donate": {
       "desc": {
         "desc_1": "Please click the link below to sponsor:",
-        "desc_2": "Please use the mobile QQ or TIM to scan the QR code below:"
+        "desc_2": "Please use the mobile QQ or TIM to scan the QR code below:",
+        "desc_3": "Please use Alipay to scan the Qr code below:",
+        "desc_4": "Please use WeChat to scan the image below:"
       },
       "title": "Start sponsoring"
     },
@@ -1066,8 +1123,10 @@
     },
     "way": {
       "aifadian": "Aifadian",
+      "alipay": "Alipay",
       "placeholder": "Please select sponsorship method",
-      "title": "Sponsorship method"
+      "title": "Sponsorship method",
+      "wechat_admire": "WeChat Pay"
     }
   },
   "download_page": {
@@ -1096,6 +1155,14 @@
   "err_404": {
     "advise": "Please try Go Back or Back to Home Page.",
     "page_not_exist": "Page does not exist."
+  },
+  "fc_helper": {
+    "tooltip": {
+      "clear_selected": "Clear fashion clothes selected"
+    }
+  },
+  "fchelper": {
+    "select_fashion_cloth": "Select Fashion Cloth"
   },
   "festival_egg": {
     "chirstmas": {
@@ -1216,7 +1283,7 @@
       "title": "Clock Configurations"
     },
     "remain_time": {
-      "tooltip": "Remaining time of the currently gatherable item / Remaining time until the start time of ungatherable item"
+      "tooltip": "Remaining time of the currently gatherable item / Remaining time until the start time of un-gatherable item"
     },
     "text": {
       "no_items": "No items here.",
@@ -1321,11 +1388,15 @@
       "basic_info": "[Patch{patch}] [{id}]",
       "cannot_hq": "High-quality Uncraftable",
       "cannot_quick_synthesis": "Quick Synthesis Unavailable",
+      "cannot_switch_hqornq": "Item does not have {0}, cannot switch",
+      "click_to_switch_hqornq": "Click to switch",
       "control_with_val": "{val} Control",
       "copy_other_names": "Copy item name (other lang)",
       "craft_condi": "Required:",
       "craftsmanship_with_val": "{val} Craftsmanship",
+      "curr_show_hqornq": "Displaying {0} attribute of the item",
       "gather_condi": "Gathering conditions:",
+      "gather_level_info": "{job} Lv. {lv}",
       "gather_pos_info": "This item could be gathered at:",
       "gather_time_info": "This item could be gathered only in following ET:",
       "gather_website": {
@@ -2034,6 +2105,9 @@
       "download_client_pack_failed_with_error": "Failed to download the installer package: {errmsg}",
       "download_update_pack_failed_with_error": "Download update pack failed: {errmsg}",
       "downloaded_and_speed": "Downloaded {now} / {total} MB | Current speed: {speed}MB/s",
+      "error_404_possible_reason": "Remote server does not have the corresponding file and may not have been uploaded yet. Please wait a moment and try again.",
+      "error_epem_operation_not_permitted": "Insufficient permissions to access the file. Please try running HqHelper as an administrator.",
+      "error_with_netcode": "Request failed, an {0} error occurred.",
       "require_ver_plus_client_to_see_progress": "Only clients with version: {ver} or higher can view the current update progress.",
       "server_under_maintenance": "Server is maintaining, can't update for now.",
       "stage_failed": "{stage} failed",
@@ -2073,6 +2147,8 @@
       "message": {
         "join_succeed": "Successfully Joined",
         "no_armor": "No equipment selected yet",
+        "no_colleactable_submission": "No collections selected yet",
+        "no_fashion_cloth": "No fashion cloth selected yet",
         "no_food_tinc": "No food/medicine selected yet."
       },
       "title": "Join Workflow"
@@ -2090,6 +2166,8 @@
       "confirm_delete": "Delete this workflow?",
       "delete_this_workflow": "Delete this workflow",
       "join_in_workflow": "Add to workflow",
+      "join_selected_collectable_submissions_in_workflow": "Add selected collections to a workflow",
+      "join_selected_fashion_clothes_in_workflow": "Add selected fashion clothes to a workflow",
       "join_selected_food_and_tinc_in_workflow": "Add the selected food and medicine to a workflow",
       "manage_existed_workflows": "Manage existing workflows",
       "manage_workflows": "Manage workflows",
