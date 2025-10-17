@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { computed, h, inject, onMounted, ref, type Component, type Ref, type VNode } from 'vue'
 import {
-  NButton, NDrawer, NDrawerContent, NDropdown, NDivider, NIcon, NPopover,
-  useMessage,
+  NButton, NIcon, NTooltip, // 这些组件在函数中进行了引用，不能依赖自动引入
   type DropdownOption, type MenuOption,
-NTooltip,
 } from 'naive-ui'
 import {
   ArrowCircleLeftOutlined,

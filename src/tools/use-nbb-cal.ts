@@ -1,5 +1,4 @@
 
-import { ref } from 'vue'
 import {
   XivUnpackedGatheringItems,
   XivUnpackedItems,

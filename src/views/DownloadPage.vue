@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref } from 'vue'
-import {
-  NAlert, NBackTop, NButton, NDivider, NIcon, NSpin,
-  useMessage
-} from 'naive-ui'
 import type { Type } from 'naive-ui/es/button/src/interface'
 import {
   LandscapeRound, FlightLandRound,

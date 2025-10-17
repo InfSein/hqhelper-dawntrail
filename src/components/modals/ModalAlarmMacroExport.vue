@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { computed, h, inject, ref, type Ref } from 'vue'
 import {
-  NCheckbox, NIcon, NPopover, NTree,
   type TreeOption
 } from 'naive-ui'
 import { 

@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
-import {
-  NButton, NDivider, NEmpty, NIcon,
-  useMessage
-} from 'naive-ui'
 import {
   CopyAllOutlined
 } from '@vicons/material'

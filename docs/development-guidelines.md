@@ -60,10 +60,6 @@ https://thewakingsands.github.io/ffxiv-axis-font-icons/
 
 ```vue
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
-import {
-  NButton,
-} from 'naive-ui'
 import { 
   CodeSharp, SaveOutlined
 } from '@vicons/material'

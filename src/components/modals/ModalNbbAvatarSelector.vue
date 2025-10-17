@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
-import {
-  NButton, NIcon,
-} from 'naive-ui'
 import { 
   FaceRetouchingNaturalFilled, DoneOutlined,
 } from '@vicons/material'

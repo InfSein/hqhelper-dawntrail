@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, onBeforeUnmount, onMounted, ref, watch, type Ref } from 'vue'
-import {
-  NBackTop, NButton, NCard, NDivider, NDropdown, NEl, NEmpty, NForm, NFormItem, NGrid, NGridItem, NSelect, NSwitch,
-} from 'naive-ui'
 import {
   AccessAlarmsOutlined,
 } from '@vicons/material'

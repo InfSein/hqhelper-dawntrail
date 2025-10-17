@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
-import {
-  NButton, NIcon, NInputGroup, NInputGroupLabel, NTabs, NTabPane,
-  useMessage
-} from 'naive-ui'
 import { 
   BackpackFilled,
   DeleteSweepRound,

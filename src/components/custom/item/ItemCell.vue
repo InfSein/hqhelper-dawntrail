@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { inject, type Ref } from 'vue'
-// import {
-//   NInputNumber, NScrollbar, NTable
-// } from 'naive-ui'
 import XivFARImage from '../general/XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
 import type { UserConfigModel } from '@/models/config-user'

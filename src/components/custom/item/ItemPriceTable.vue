@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { inject, type Ref } from 'vue'
-import {
-  NScrollbar, NTable
-} from 'naive-ui'
 import ItemCell from './ItemCell.vue'
 import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/config-user'

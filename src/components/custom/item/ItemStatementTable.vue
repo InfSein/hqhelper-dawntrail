@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
-import {
-  NInputNumber, NScrollbar, NTable
-} from 'naive-ui'
 import ItemCell from './ItemCell.vue'
 import StatementListPop from './StatementListPop.vue'
 import { getItemInfo, type ItemInfo, type StatementRow } from '@/tools/item'

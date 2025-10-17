@@ -18,6 +18,9 @@ coverage
 /cypress/videos/
 /cypress/screenshots/
 
+# Auto generated
+src/components.d.ts
+
 # Plugins
 private-folder-alias.json
 

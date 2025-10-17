@@ -1,8 +1,10 @@
-import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
+import { fileURLToPath, URL } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import VueDevTools from 'vite-plugin-vue-devtools'
+import Components from 'unplugin-vue-components/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,6 +12,24 @@ export default defineConfig({
   plugins: [
     vue(),
     VueDevTools(),
+    AutoImport({
+      imports: [
+        'vue', 'vue-router', 'pinia',
+        {
+          'naive-ui': [
+            'useMessage',
+          ]
+        }
+      ],
+      dts: 'src/auto-imports.d.ts',
+    }),
+    Components({
+      dirs: [],
+      deep: true,
+      resolvers: [NaiveUiResolver()],
+      dts: 'src/components.d.ts',
+      directoryAsNamespace: false,
+    }),
   ],
   resolve: {
     alias: {
@@ -20,19 +40,20 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
     host: "0.0.0.0",
-    watch: {
-      // 3. tell vite to ignore watching `src-tauri`
-      ignored: ["**/src-tauri/**"],
-    },
   },
   build: {
     outDir: 'dist',
+    emptyOutDir: true,
     assetsDir: 'assets',
     rollupOptions: {
       output: {
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
         assetFileNames: 'assets/[name].[hash].[ext]',
+        manualChunks: {
+          vendor: ['vue', 'vue-router', 'pinia'],
+          icons: ['@vicons/material'],
+        }
       }
     }
   },

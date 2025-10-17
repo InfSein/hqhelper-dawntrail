@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { inject, ref, type PropType, type Ref } from 'vue'
 import Stepper from '../general/Stepper.vue'
 import ItemButton from './ItemButton.vue'
 import type { ItemInfo } from '@/tools/item'

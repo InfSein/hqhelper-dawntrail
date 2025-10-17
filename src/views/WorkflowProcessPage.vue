@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch, type Ref } from 'vue'
-import {
-  NBackTop,
-} from 'naive-ui'
 // import {
 //   SettingsSharp,
 //   VisibilitySharp, VisibilityOffSharp,

@@ -1,10 +1,4 @@
 <script setup lang="ts">
-import { ref, computed, inject } from 'vue'
-import type { Ref } from 'vue'
-import {
-  NAlert, NButton, NButtonGroup, NDivider, NFlex, NIcon, NPopover,
-  useMessage,
-} from 'naive-ui'
 import { 
   JoinLeftOutlined,
   KeyboardArrowDownRound

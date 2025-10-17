@@ -1,8 +1,4 @@
 <script lang="ts" setup>
-import { computed, h, inject, nextTick, ref, type Ref, type VNode } from 'vue'
-import {
-  NBadge, NButton, NDropdown, NPopover
-} from 'naive-ui'
 import {
   FileDownloadDoneOutlined,
   AccessibilityNewOutlined,

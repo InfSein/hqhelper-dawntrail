@@ -1,9 +1,4 @@
 <script setup lang="ts" name="ErrorPage404">
-import { computed, inject } from 'vue'
-import {
-  NButton, NResult
-} from 'naive-ui'
-
 const t = inject<(message: string, args?: any) => string>('t')!
 
 const descriptions = computed(() => {

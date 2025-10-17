@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
 import { 
   FestivalOutlined
 } from '@vicons/material'

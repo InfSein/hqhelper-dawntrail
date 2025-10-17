@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
-import {
-  NAlert, NIcon, NScrollbar, NSpin, NTable, NTooltip,
-} from 'naive-ui'
 import {
   ChecklistRtlSharp,
   RefreshOutlined,
