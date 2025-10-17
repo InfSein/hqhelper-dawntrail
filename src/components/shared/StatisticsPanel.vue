@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
-import {
-  NSwitch,
-  useMessage
-} from 'naive-ui'
 import CraftStatistics from '../custom/general/CraftStatistics.vue'
 import FoldableCard from '../templates/FoldableCard.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'

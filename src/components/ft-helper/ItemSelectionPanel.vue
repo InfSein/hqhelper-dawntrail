@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
-import {
-  NCard, NTabs, NTabPane
-} from 'naive-ui'
 import {
   JoinLeftOutlined,
   DeleteSweepRound

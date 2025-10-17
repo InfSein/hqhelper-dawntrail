@@ -510,7 +510,7 @@ import {
   LanguageOutlined,
   OpenInNewFilled
 } from '@vicons/material'
-import { h, type Component } from 'vue'
+import { type Component } from 'vue'
 import { NIcon } from 'naive-ui'
 import { getNearestAetheryte } from './map'
 import type { FuncConfigModel } from '@/models/config-func'

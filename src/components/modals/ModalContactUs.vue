@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
-import {
-  NButton, NDivider, NFlex, NGradientText, NIcon, NPopover, NQrCode, NScrollbar, NTabs, NTabPane
-} from 'naive-ui'
 import {
   ContactlessSharp, CloseSharp
 } from '@vicons/material'

@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
-import {
-  NButton, NIcon, NSelect, NScrollbar, NTable
-} from 'naive-ui'
 import { 
   UnarchiveOutlined,
   DoneOutlined

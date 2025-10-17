@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
-import {
-  NAlert, NButton, NDivider, NIcon, NInputGroup, NInputGroupLabel, NGradientText, NQrCode, NSelect,
-} from 'naive-ui'
 import { 
   HandshakeOutlined,
   ChecklistRtlSharp,

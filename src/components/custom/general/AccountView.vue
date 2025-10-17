@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { inject, onMounted, type Ref } from 'vue'
-import {
-  NAvatar, NButton, NDivider, NIcon, NPopover,
-  useMessage,
-} from 'naive-ui'
 import {
   LogInOutlined, LogOutOutlined, PersonAddAlt1Filled,
   CloudSyncOutlined,

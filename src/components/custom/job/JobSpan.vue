@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, type Ref } from 'vue'
 import XivFARImage from '../general/XivFARImage.vue'
 import { XivJobs, type XivJob } from '@/assets/data'
 import type { UserConfigModel } from '@/models/config-user'

@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
-import {
-  NButton, NIcon, NLayout, NLayoutContent, NLayoutSider, NMenu, NTabs, NTabPane,
-  useMessage
-} from 'naive-ui'
 import {
   SettingsSharp,
   SettingsSuggestFilled,

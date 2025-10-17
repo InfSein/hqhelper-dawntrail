@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import XivFARImage from '../general/XivFARImage.vue'
 import { drawMap, type XivMapInfo } from '@/tools/map'
 

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import CraftActionButton from '@/components/custom/action/CraftActionButton.vue'
 import { XivCraftActionGroups, XivCraftActions } from '@/assets/data'

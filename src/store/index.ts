@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia'
 import { getItem, setItem } from './storage'
 import { _user_config, _func_config, _cloud_config } from './keys'
 import type { UserConfigModel } from '@/models/config-user'

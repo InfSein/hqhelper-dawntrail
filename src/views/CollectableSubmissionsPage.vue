@@ -1,9 +1,4 @@
 <script setup lang="ts" name="Collectable Submissions">
-import { computed, inject, ref, watch, type Ref } from 'vue'
-import {
-  NBackTop,
-  useMessage
-} from 'naive-ui'
 import {
   TaskAltOutlined
 } from '@vicons/material'

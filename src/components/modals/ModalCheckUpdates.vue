@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, reactive, ref, type Ref } from 'vue'
-import {
-  NAlert, NButton, NCard, NIcon, NInput, NRadio
-} from 'naive-ui'
 import {
   UpdateSharp,
   VpnLockRound,

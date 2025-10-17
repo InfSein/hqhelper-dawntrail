@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
-import {
-  NButton, NDivider, NIcon, NPopover, NProgress,
-} from 'naive-ui'
 import {
   NotificationsRound, NotificationsNoneRound,
   StarBorderRound, StarRound,

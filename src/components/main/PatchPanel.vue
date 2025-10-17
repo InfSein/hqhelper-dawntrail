@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { ref, inject, type Ref, computed } from 'vue'
-import {
-  NButton, NDivider, NFlex, NPopover
-} from 'naive-ui'
 // import {
 //   InfoOutlined,
 // } from '@vicons/material'

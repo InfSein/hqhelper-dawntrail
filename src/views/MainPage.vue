@@ -1,9 +1,4 @@
 <script lang="ts" setup>
-import { computed, inject, provide, ref, watch, type Ref } from 'vue';
-import {
-  NBackTop, NGrid, NGridItem,
-  useMessage
-} from 'naive-ui'
 import PatchPanel from '@/components/main/PatchPanel.vue'
 import JobPanel from '@/components/main/JobPanel.vue'
 import GearSelectionPanel from '@/components/main/GearSelectionPanel.vue'
@@ -163,21 +158,10 @@ const specialItems = computed(() => {
 </template>
 
 <style scoped>
-/* All */
 #main-container {
-  max-width: 100%;
-  font-weight: 400;
-}
-
-/* PC only */
-@media screen and (min-width: 768px) {
-  #main-container {
-    height: 100%;
-    overflow: auto;
-  }
-}
-
-/* Mobile only */
-@media screen and (max-width: 767px) {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 </style>

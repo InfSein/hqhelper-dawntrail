@@ -1,14 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import MainPage from '@/views/MainPage.vue'
-import FoodAndTincPage from '@/views/FoodAndTincPage.vue'
-import CollectableSubmissionsPage from '@/views/CollectableSubmissionsPage.vue'
-import FashionClothesPage from '@/views/FashionClothesPage.vue'
-import GatherClockPage from '@/views/GatherClockPage.vue'
-import WorkflowPage from '@/views/WorkflowPage.vue'
-import WorkflowProcessPage from '@/views/WorkflowProcessPage.vue'
-import DownloadPage from '@/views/DownloadPage.vue'
-import MacroManagePage from '@/views/MacroManagePage.vue'
-import ErrorPage404 from '@/views/ErrorPage404.vue'
 
 /* 
  * 增加路由页面时请注意：
@@ -16,15 +6,42 @@ import ErrorPage404 from '@/views/ErrorPage404.vue'
  */
 
 const routes = [
-  { path: '/', component: MainPage },
-  { path: '/fthelper', component: FoodAndTincPage },
-  { path: '/cshelper', component: CollectableSubmissionsPage },
-  { path: '/fchelper', component: FashionClothesPage },
-  { path: '/gatherclock', component: GatherClockPage },
-  { path: '/workflow', component: WorkflowPage },
-  { path: '/workflow_process', component: WorkflowProcessPage },
-  { path: '/download', component: DownloadPage },
-  { path: '/macromanage', component: MacroManagePage },
+  { 
+    path: '/', 
+    component: () => import('@/views/MainPage.vue') 
+  },
+  { 
+    path: '/fthelper', 
+    component: () => import('@/views/FoodAndTincPage.vue') 
+  },
+  { 
+    path: '/cshelper', 
+    component: () => import('@/views/CollectableSubmissionsPage.vue') 
+  },
+  { 
+    path: '/fchelper', 
+    component: () => import('@/views/FashionClothesPage.vue') 
+  },
+  { 
+    path: '/gatherclock', 
+    component: () => import('@/views/GatherClockPage.vue') 
+  },
+  { 
+    path: '/workflow', 
+    component: () => import('@/views/WorkflowPage.vue') 
+  },
+  { 
+    path: '/workflow_process', 
+    component: () => import('@/views/WorkflowProcessPage.vue') 
+  },
+  { 
+    path: '/download', 
+    component: () => import('@/views/DownloadPage.vue') 
+  },
+  { 
+    path: '/macromanage', 
+    component: () => import('@/views/MacroManagePage.vue') 
+  },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
@@ -32,9 +49,8 @@ const routes = [
       keepAlive: false,
       showTabBar: false
     },
-    component: ErrorPage404
+    component: () => import('@/views/ErrorPage404.vue')
   }
-
 ]
 
 const router = createRouter({

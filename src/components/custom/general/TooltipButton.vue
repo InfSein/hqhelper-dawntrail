@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { inject, ref, computed, type Ref, type Component } from 'vue'
+import { type Component } from 'vue'
 import {
-  NButton, NIcon, NPopover, NTooltip,
+  NPopover, NTooltip, // 这些组件在函数中进行了引用，不能依赖自动引入
   type PopoverTrigger
 } from 'naive-ui'
 import type { Type } from 'naive-ui/es/button/src/interface'

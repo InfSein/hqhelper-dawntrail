@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
-import {
-  NButton, NIcon, NPopover
-} from 'naive-ui'
 import {
   OpenInNewFilled
 } from '@vicons/material'

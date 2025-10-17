@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
-import {
-  NButton, NCascader, NCollapse, NCollapseItem, NIcon, NInput, NRadioButton, NRadioGroup, NSelect, NSwitch
-} from 'naive-ui'
 import {
   KeyboardArrowRightOutlined
 } from '@vicons/material'

@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
-import {
-  NCheckbox, NInputGroup, NInputGroupLabel, NSelect,
-  useMessage
-} from 'naive-ui'
 import { 
   CodeSharp, ContentCopyRound
 } from '@vicons/material'

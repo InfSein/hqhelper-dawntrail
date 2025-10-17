@@ -1,9 +1,4 @@
 <script setup lang="ts" name="FT Helper">
-import { computed, inject, ref, watch, type Ref } from 'vue'
-import {
-  NBackTop,
-  useMessage
-} from 'naive-ui'
 import {
   FastfoodOutlined
 } from '@vicons/material'

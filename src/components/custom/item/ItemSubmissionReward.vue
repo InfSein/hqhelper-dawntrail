@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { inject } from 'vue'
 import ItemSpan from './ItemSpan.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 

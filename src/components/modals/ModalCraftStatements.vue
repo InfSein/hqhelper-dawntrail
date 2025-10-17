@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
-// import {
-//   NTabs, NTabPane
-// } from 'naive-ui'
 import { 
   TableViewOutlined
 } from '@vicons/material'

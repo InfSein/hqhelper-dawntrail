@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed, provide, ref, getCurrentInstance, onMounted, watch, onBeforeUnmount } from 'vue'
 import {
   darkTheme, lightTheme, useOsTheme,
   zhCN, enUS, jaJP, dateZhCN, dateEnUS, dateJaJP,
@@ -10,11 +9,6 @@ import {
 import AppHeader from './components/custom/general/AppHeader.vue'
 import AccountView from './components/custom/general/AccountView.vue'
 import Dialog from "@/components/custom/general/Dialog.vue"
-import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
-import ModalCheckUpdates from './components/modals/ModalCheckUpdates.vue'
-import ModalLogin from '@/components/modals/ModalLogin.vue'
-import ModalCloudSync from './components/modals/ModalCloudSync.vue'
-import { useRoute } from 'vue-router'
 import { useStore } from '@/store/index'
 import { useElectronSync } from '@/composables/electron-sync'
 import { useLocale } from './locales'
@@ -24,8 +18,13 @@ import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from './models/config-func'
 import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
 import AppStatus from './variables/app-status'
-import ModalFestivalEgg from './components/modals/ModalFestivalEgg.vue'
 import { registerDialogProvider, useDialog } from './tools/dialog'
+
+const ModalCopyAsMacro = defineAsyncComponent(() => import('@/components/modals/ModalCopyAsMacro.vue'))
+const ModalCheckUpdates = defineAsyncComponent(() => import('@/components/modals/ModalCheckUpdates.vue'))
+const ModalLogin = defineAsyncComponent(() => import('@/components/modals/ModalLogin.vue'))
+const ModalCloudSync = defineAsyncComponent(() => import('@/components/modals/ModalCloudSync.vue'))
+const ModalFestivalEgg = defineAsyncComponent(() => import('@/components/modals/ModalFestivalEgg.vue'))
 
 const route = useRoute()
 const store = useStore()
@@ -377,7 +376,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
     <n-dialog-provider>
     <n-message-provider :placement="naiveUiMessagePlacement">
       <div :class="appClass" :data-theme="theme">
-        <n-layout id="main-layout" position="absolute" :native-scrollbar="false">
+        <n-layout id="main-layout" position="absolute">
           <n-layout-header v-if="appMode !== 'overlay'" id="app-layout-header" position="absolute" bordered>
             <AppHeader class="app-header" />
           </n-layout-header>
@@ -417,7 +416,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
   }
 }
 
-:deep(#main-content>.n-scrollbar>.n-scrollbar-container) {
+:deep(#main-content>.n-scrollbar) {
   padding: 1rem;
 }
 .n-layout-header {

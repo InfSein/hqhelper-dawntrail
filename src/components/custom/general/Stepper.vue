@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import {
-  NButton, NIcon, NInputNumber
-} from 'naive-ui'
 import {
   AddSharp, MinusSharp
 } from '@vicons/material'

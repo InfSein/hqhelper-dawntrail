@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref } from 'vue'
-import {
-  NDivider, NTable
-} from 'naive-ui'
 // import {
 //   RefreshOutlined
 // } from '@vicons/material'

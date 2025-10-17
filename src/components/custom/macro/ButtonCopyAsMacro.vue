@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
-import {
-  NButton, NIcon,
-  useMessage
-} from 'naive-ui'
 import {
   CodeSharp
 } from '@vicons/material'

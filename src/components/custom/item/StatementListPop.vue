@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
-import {
-  NButton, NDivider, NIcon, NInput, NPopover, NRadio, NRadioGroup,
-  useMessage
-} from 'naive-ui'
 import {
   ViewListSharp, CopyAllOutlined
 } from '@vicons/material'

@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
-import {
-  NButton, NIcon, NInput,
-  useMessage
-} from 'naive-ui'
 import { 
   ArchiveSharp, UnarchiveSharp,
   ContentCopyRound, FileDownloadOutlined

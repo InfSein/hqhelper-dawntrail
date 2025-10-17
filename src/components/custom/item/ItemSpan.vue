@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, nextTick, onMounted, ref, type Ref } from 'vue'
-import {
-  NDropdown, NIcon,
-  useMessage
-} from 'naive-ui'
 import {
   InfoOutlined
 } from '@vicons/material'
