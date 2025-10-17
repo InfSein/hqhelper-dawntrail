@@ -2,7 +2,9 @@
   "name": "7.x HQ Helper",
   "short_name": "HqHelper",
   "start_url": "/#/",
+  "scope": "/",
   "display": "standalone",
+  "categories": ["utilities", "productivity"],
   "background_color": "#fff",
   "theme_color": "#fff",
   "icons": [
