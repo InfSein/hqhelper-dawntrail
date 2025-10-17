@@ -71,3 +71,7 @@
 
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.0/static-pages.zip)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.1/static-pages.zip)
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.2/static-pages.zip)
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.3/static-pages.zip)
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.4/static-pages.zip)
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.5/static-pages.zip)
