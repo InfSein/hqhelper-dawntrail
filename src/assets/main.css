@@ -44,10 +44,6 @@
   --color-background-hover: #2A2A2E;
 }
 
-.n-scrollbar-content:has(#main-container) {
-  min-height: 100%;
-}
-
 a {
   text-decoration: none;
   color: hsla(160, 100%, 37%, 1);

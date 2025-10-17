@@ -344,6 +344,7 @@ const handleJoinWorkflow = () => {
       display: flex;
       align-items: center;
       justify-content: center;
+      min-height: 4lh;
     }
     .require-amount-container {
       position: relative;

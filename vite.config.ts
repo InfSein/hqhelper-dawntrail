@@ -25,6 +25,7 @@ export default defineConfig({
     }),
     Components({
       dirs: [],
+      deep: true,
       resolvers: [NaiveUiResolver()],
       dts: 'src/components.d.ts',
       directoryAsNamespace: false,
