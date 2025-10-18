@@ -703,7 +703,6 @@ const handleCheckUpdates = async () => {
           <div class="flex-col">
             <p>{{ t('common.chs_data_version', AppStatus.SupportedGameVersion.CN) }}</p>
             <p>{{ t('common.global_data_version', AppStatus.SupportedGameVersion.GLOBAL) }}</p>
-            <p>{{ t('appheader.tooltip.announcement_for_item_zh_translation') }}</p>
           </div>
         </n-popover>
 

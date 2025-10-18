@@ -239,7 +239,6 @@ export function useFufuCal(
     processes_craftable_item_sortby: string,
     processes_merge_gatherings: boolean,
     language_ui: "zh" | "en" | "ja",
-    item_server: 'chs' | 'global',
     t: (message: string, args?: any) => string
   ) => {
     const itemsGatherableCommon : ItemInfo[] = []

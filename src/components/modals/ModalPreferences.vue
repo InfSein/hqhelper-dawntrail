@@ -108,20 +108,6 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               ],
             },
             {
-              key: 'item_server',
-              label: t('common.server'),
-              descriptions: [
-                t('preference.item_server.desc.desc_1'),
-                t('preference.item_server.desc.desc_2'),
-              ],
-              type: 'radio-group',
-              options: [
-                { value: 'auto', label: t('common.auto') },
-                { value: 'chs', label: t('preference.server.option.chs') },
-                { value: 'global', label: t('preference.server.option.global') }
-              ],
-            },
-            {
               key: 'action_after_savesettings',
               label: t('preference.auto_refresh_after_save.title'),
               warnings: [

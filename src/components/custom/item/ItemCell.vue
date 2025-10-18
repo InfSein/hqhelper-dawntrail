@@ -12,10 +12,6 @@ const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
-// const {
-//   itemServer,
-// } = UseConfig(userConfig, funcConfig)
-
 interface ItemCellProps {
   itemInfo: ItemInfo
   amount: number

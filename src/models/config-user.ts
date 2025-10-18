@@ -15,8 +15,6 @@ export interface UserConfigModel {
   language_ui: 'zh' | 'en' | 'ja'
   /** 物品语言 */
   language_item: 'auto' | 'zh' | 'en' | 'ja'
-  /** 服务器 */
-  item_server: 'auto' | 'chs' | 'global'
   /** 保存偏好设置后执行的操作 */
   action_after_savesettings: 'ask' | 'reload' | 'none'
   // * appearance
@@ -86,7 +84,6 @@ const defaultUserConfig: UserConfigModel = {
   // general
   language_ui: 'zh',
   language_item: 'auto',
-  item_server: 'auto',
   action_after_savesettings: 'ask',
   // appearance
   theme: 'light',
