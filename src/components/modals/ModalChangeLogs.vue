@@ -122,7 +122,7 @@ const handleSwitchShowHistory = () => {
               }})
             </n-text>
           </n-h1>
-          <n-divider style="margin: 8px 0 12px 0;" />
+          <n-divider style="margin: 8px 0 12px;" />
           <div class="latest-update-content">
             <div
               v-for="(change, changeIndex) in latestPatchNote.changes"

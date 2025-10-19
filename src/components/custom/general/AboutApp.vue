@@ -132,7 +132,7 @@ const viewSponsors = () => {
     
     .logo-content {
       display: flex;
-      padding: 0.4em 0.5em 0 0.5em;
+      padding: 0.4em 0.5em 0;
       line-height: 1;
       font-size: 32px;
       font-weight: 900;

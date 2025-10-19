@@ -334,7 +334,7 @@ const handleJoinWorkflow = () => {
     flex-direction: column;
   }
   .target-card-container {
-    padding: 0 18px 12px 18px;
+    padding: 0 18px 12px;
 
     .item {
       padding: 4px 6px;

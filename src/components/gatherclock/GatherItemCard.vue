@@ -286,7 +286,7 @@ const handleStarButtonClick = (item: ItemInfo) => {
     .standard-info {
       position: relative;
       line-height: 1.2;
-      margin: 0 0.1rem 0.2rem 0.1rem;
+      margin: 0 0.1rem 0.2rem;
       --font-size: var(--n-font-size);
 
       .gather-job {

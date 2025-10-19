@@ -735,7 +735,7 @@ const handleCheckUpdates = async () => {
           </n-button>
         </div>
       </div>
-      <n-divider v-if="useDesktopUi" style="margin: -1px 0 3px 0;" />
+      <n-divider v-if="useDesktopUi" style="margin: -1px 0 3px;" />
       <div class="app-menu" v-if="useDesktopUi">
         <n-dropdown
           size="small"
@@ -775,7 +775,7 @@ const handleCheckUpdates = async () => {
       <n-drawer-content>
         <div class="drawer">
           <AccountView />
-          <n-divider style="margin: 12px 0 8px 0;" />
+          <n-divider style="margin: 12px 0 8px;" />
           <div class="drawer-main">
             <n-button
               v-for="(item, key) in mobileMenuData"

@@ -109,7 +109,7 @@ const patchPatterns = computed(() => {
           <HelpButton icon="info" :size="22" :placement="isMobile ? 'bottom' : 'right-start'" pop-type="popover" style="margin-left: 0.5em;">
             <div class="pop-wrapper">
               <div>{{ t('main.select_patch.info.info_1') }}</div>
-              <n-divider style="margin: 1px 5px 3px 5px" />
+              <n-divider style="margin: 1px 5px 3px" />
               <ul>
                 <li v-for="(pattern, patternIndex) in patchPatterns" :key="patternIndex">{{ pattern }}</li>
               </ul>

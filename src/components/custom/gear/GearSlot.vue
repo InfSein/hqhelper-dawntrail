@@ -61,6 +61,6 @@ const itemInfo = computed(() => {
 
 <style scoped>
 .block-divider {
-  margin: 1px 0 5px 0 !important;
+  margin: 1px 0 5px !important;
 }
 </style>
