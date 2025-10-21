@@ -227,6 +227,9 @@ const appClass = computed(() => {
 })
 
 const showFestivalEgg = ref(false)
+provide('displayFestivalEggModal', () => {
+  showFestivalEgg.value = true
+})
 const dialogRef = ref<InstanceType<typeof Dialog> | null>(null)
 const { confirm } = useDialog(t)
 

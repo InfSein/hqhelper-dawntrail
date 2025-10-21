@@ -1550,6 +1550,18 @@
             "tooltip_1": "添加所有能工巧匠职业的主手&副手工具各1件。"
           }
         },
+        "add_crafter_tool_main": {
+          "title": "添加一套生产主手",
+          "tooltip": {
+            "tooltip_1": "添加所有能工巧匠职业的主手工具各1件。"
+          }
+        },
+        "add_crafter_tool_off": {
+          "title": "添加一套生产副手",
+          "tooltip": {
+            "tooltip_1": "添加所有能工巧匠职业的副手工具各1件。"
+          }
+        },
         "add_gatherer_suit": {
           "title": "添加一套采集防具&首饰",
           "tooltip": {
@@ -1560,6 +1572,18 @@
           "title": "添加一套采集主副手",
           "tooltip": {
             "tooltip_1": "添加所有大地使者职业的主手&副手工具各1件。"
+          }
+        },
+        "add_gatherer_tool_main": {
+          "title": "添加一套采集主手",
+          "tooltip": {
+            "tooltip_1": "添加所有大地使者职业的主手工具各1件。\t"
+          }
+        },
+        "add_gatherer_tool_off": {
+          "title": "添加一套采集副手",
+          "tooltip": {
+            "tooltip_1": "添加所有大地使者职业的副手工具各1件。\t"
           }
         },
         "title": "快速操作"
@@ -1650,6 +1674,9 @@
       "title": "在每个生产宏的开头使用/macrolock"
     },
     "costandbenefit_show_item_details": "成本/收益分析中显示物品详情",
+    "custom_add_suit_options": {
+      "title": "自定义添加部件的可选项"
+    },
     "custom_font": {
       "desc": {
         "desc_1": "全局性地修改程序/网站的字体。",
@@ -1866,6 +1893,13 @@
       "warn": {
         "need_refresh": "修改此选项的设置后需要刷新一次页面方可生效。"
       }
+    },
+    "split_quick_operate_options_main_off": {
+      "desc": {
+        "desc_1": "将主界面快速操作选项中的“添加一套xx主副手”拆分为“添加一套xx主手”和“添加一套xx副手”。",
+        "desc_2": "这适用于一些会使用肝武主手作为生产采集配装的场合。"
+      },
+      "title": "拆分快速操作中的主副手选项"
     },
     "statement_ignore_crystals": {
       "desc": {

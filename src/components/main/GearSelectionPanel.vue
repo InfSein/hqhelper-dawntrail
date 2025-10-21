@@ -162,6 +162,7 @@ const clearCurrent = () => {
   Rings.value = 0
 }
 const {
+  addMainHand, addOffHand,
   addMainOffHand,
   addAttire,
   addAccessory
@@ -210,17 +211,43 @@ const displayQuickOperates = computed(() => {
 })
 
 const quickOperatesOptions = computed(() => {
+  const mainoffOptions = userConfig.value.split_quick_operate_options_main_off
+    ? [
+      {
+        key: 'add-crafter-main',
+        label: t('main.select_gear.quick_operate.add_crafter_tool_main.title'),
+        description: t('main.select_gear.quick_operate.add_crafter_tool_main.tooltip.tooltip_1')
+      },
+      {
+        key: 'add-crafter-off',
+        label: t('main.select_gear.quick_operate.add_crafter_tool_off.title'),
+        description: t('main.select_gear.quick_operate.add_crafter_tool_off.tooltip.tooltip_1')
+      },
+      {
+        key: 'add-gatherer-main',
+        label: t('main.select_gear.quick_operate.add_gatherer_tool_main.title'),
+        description: t('main.select_gear.quick_operate.add_gatherer_tool_main.tooltip.tooltip_1')
+      },
+      {
+        key: 'add-gatherer-off',
+        label: t('main.select_gear.quick_operate.add_gatherer_tool_off.title'),
+        description: t('main.select_gear.quick_operate.add_gatherer_tool_off.tooltip.tooltip_1')
+      },
+    ]
+    : [
+      {
+        key: 'add-crafter-mainoff',
+        label: t('main.select_gear.quick_operate.add_crafter_tool.title'),
+        description: t('main.select_gear.quick_operate.add_crafter_tool.tooltip.tooltip_1')
+      },
+      {
+        key: 'add-gatherer-mainoff',
+        label: t('main.select_gear.quick_operate.add_gatherer_tool.title'),
+        description: t('main.select_gear.quick_operate.add_gatherer_tool.tooltip.tooltip_1')
+      },
+    ]
   return [
-    {
-      key: 'add-crafter-mainoff',
-      label: t('main.select_gear.quick_operate.add_crafter_tool.title'),
-      description: t('main.select_gear.quick_operate.add_crafter_tool.tooltip.tooltip_1')
-    },
-    {
-      key: 'add-gatherer-mainoff',
-      label: t('main.select_gear.quick_operate.add_gatherer_tool.title'),
-      description: t('main.select_gear.quick_operate.add_gatherer_tool.tooltip.tooltip_1')
-    },
+    ...mainoffOptions,
     {
       key: 'add-crafter-aaa', 
       label: t('main.select_gear.quick_operate.add_crafter_suit.title'), 
@@ -237,9 +264,25 @@ const handleQuickOperatesSelect = (key: string) => {
   if (jobNotSelected.value) {
     NAIVE_UI_MESSAGE.error(t('main.select_gear.warn.select_job_first')); return
   }
-  if (key === 'add-crafter-mainoff') {
+  if (key === 'add-crafter-main') {
+    XivRoles.crafter.jobs.forEach(jobId => {
+      addMainHand(gearSelections, props.patchData, jobId)
+    })
+  } else if (key === 'add-crafter-off') {
+    XivRoles.crafter.jobs.forEach(jobId => {
+      addOffHand(gearSelections, props.patchData, jobId)
+    })
+  } else if (key === 'add-crafter-mainoff') {
     XivRoles.crafter.jobs.forEach(jobId => {
       addMainOffHand(gearSelections, props.patchData, jobId)
+    })
+  } else if (key === 'add-gatherer-main') {
+    XivRoles.gatherer.jobs.forEach(jobId => {
+      addMainHand(gearSelections, props.patchData, jobId)
+    })
+  } else if (key === 'add-gatherer-off') {
+    XivRoles.gatherer.jobs.forEach(jobId => {
+      addOffHand(gearSelections, props.patchData, jobId)
     })
   } else if (key === 'add-gatherer-mainoff') {
     XivRoles.gatherer.jobs.forEach(jobId => {
@@ -288,14 +331,14 @@ const addsuitOptions = computed(() => {
     {
       key: 'add-attire-and-accessory',
       label: t('main.select_gear.add.attire_and_accessory'),
-      disabled: disableAllAttires.value || disableAllAccessories.value
+      disabled: disableAllAttires.value && disableAllAccessories.value
     },
     {
       key: 'add-suit',
       label: t('main.select_gear.add.whole_suit'),
       disabled: disableMainhand.value && disableOffhand.value && disableAllAttires.value && disableAllAccessories.value
     },
-  ]
+  ].filter(option => userConfig.value.custom_add_suit_options.includes(option.key))
 })
 const handleAddsuitSelect = (key: string) => {
   if (key === 'add-weapon') {

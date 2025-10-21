@@ -31,6 +31,10 @@ export interface UserConfigModel {
   disable_patchcard_autofold: boolean
   /** 禁用重复点击已选择的职业按钮时添加主副手 */
   disable_jobbtn_doubleclick: boolean
+  /** 拆分快速操作中的主副手选项 */
+  split_quick_operate_options_main_off: boolean
+  /** 自定义添加部件的可选项 */
+  custom_add_suit_options: string[]
   /** 物品悬浮窗制作素材显示水晶 */
   item_pop_craft_show_crystals: boolean
   /** 手动控制二级悬浮窗 */
@@ -93,6 +97,10 @@ const defaultUserConfig: UserConfigModel = {
   // enhancements
   disable_patchcard_autofold: false,
   disable_jobbtn_doubleclick: false,
+  split_quick_operate_options_main_off: false,
+  custom_add_suit_options: [
+    'add-weapon', 'add-attire', 'add-accessory', 'add-suit', 'manage'
+  ],
   item_pop_craft_show_crystals: false,
   click_to_show_pop_in_span: false,
   item_amount_use_comma: false,

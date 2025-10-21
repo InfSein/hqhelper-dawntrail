@@ -37,7 +37,6 @@ import ModalInventory from '@/components/modals/ModalInventory.vue'
 import ModalContactUs from '@/components/modals/ModalContactUs.vue'
 import ModalChangeLogs from '@/components/modals/ModalChangeLogs.vue'
 import ModalAboutApp from '@/components/modals/ModalAboutApp.vue'
-import ModalFestivalEgg from '@/components/modals/ModalFestivalEgg.vue'
 import ModalDonate from '@/components/modals/ModalDonate.vue'
 // import ChristmasTree from '@/assets/icons/ChristmasTree.vue'
 import { useStore } from '@/store'
@@ -59,6 +58,7 @@ const theme = inject<Ref<"light" | "dark">>('theme') ?? ref('light')
 // const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 const switchTheme = inject<() => void>('switchTheme')!
 const displayCheckUpdatesModal = inject<() => void>('displayCheckUpdatesModal')!
+// const displayFestivalEggModal = inject<() => void>('displayFestivalEggModal')!
 
 const useDesktopUi = computed(() => {
   return !isMobile.value || !!window.electronAPI
@@ -91,7 +91,6 @@ const showInventoryModal = ref(false)
 const showAboutAppModal = ref(false)
 const showContactModal = ref(false)
 const showChangeLogsModal = ref(false)
-const showFestivalEggModal = ref(false)
 const showDonateModal = ref(false)
 
 interface MyMenuItem {
@@ -706,7 +705,7 @@ const handleCheckUpdates = async () => {
           </div>
         </n-popover>
 
-        <!-- <ChristmasTree v-if="showFestivalEgg" style="margin-left: 8px; cursor: pointer;" @click="showFestivalEggModal = true" /> -->
+        <!-- <ChristmasTree v-if="showFestivalEgg" style="margin-left: 8px; cursor: pointer;" @click="displayFestivalEggModal" /> -->
 
         <n-divider vertical></n-divider>
 
@@ -799,7 +798,6 @@ const handleCheckUpdates = async () => {
     <ModalAboutApp v-model:show="showAboutAppModal" />
     <ModalContactUs v-model:show="showContactModal" />
     <ModalChangeLogs v-model:show="showChangeLogsModal" />
-    <ModalFestivalEgg v-model:show="showFestivalEggModal" />
     <ModalDonate v-model:show="showDonateModal" />
   </div>
 </template>

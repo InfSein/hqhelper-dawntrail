@@ -204,6 +204,15 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               type: 'switch'
             },
             {
+              key: 'split_quick_operate_options_main_off',
+              label: t('preference.split_quick_operate_options_main_off.title'),
+              descriptions: [
+                t('preference.split_quick_operate_options_main_off.desc.desc_1'),
+                t('preference.split_quick_operate_options_main_off.desc.desc_2'),
+              ],
+              type: 'switch'
+            },
+            {
               key: 'item_pop_craft_show_crystals',
               label: t('preference.item_pop_craft_show_crystals.title'),
               hide: isMobile.value,
@@ -268,6 +277,19 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
                 { value: 'tight', label: t('preference.item_list_style.option.tight') },
                 { value: 'modern', label: t('preference.item_list_style.option.modern') },
                 { value: 'teamcraft', label: t('preference.item_list_style.option.teamcraft') },
+              ]
+            },
+            {
+              key: 'custom_add_suit_options',
+              label: t('preference.custom_add_suit_options.title'),
+              type: 'select',
+              multiple: true,
+              options: [
+                { value: 'add-weapon', label: t('main.select_gear.add.mainoff_hand') },
+                { value: 'add-attire', label: t('main.select_gear.add.attire') },
+                { value: 'add-accessory', label: t('main.select_gear.add.accessory') },
+                { value: 'add-attire-and-accessory', label: t('main.select_gear.add.attire_and_accessory') },
+                { value: 'add-suit', label: t('main.select_gear.add.whole_suit') },
               ]
             },
           ]
