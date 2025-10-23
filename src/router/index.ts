@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import MainPage from '@/views/MainPage.vue'
 
 /* 
  * 增加路由页面时请注意：
@@ -6,10 +7,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
  */
 
 const routes = [
-  { 
-    path: '/', 
-    component: () => import('@/views/MainPage.vue') 
-  },
+  { path: '/', component: MainPage },
   { 
     path: '/fthelper', 
     component: () => import('@/views/FoodAndTincPage.vue') 
