@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
 import MainPage from '@/views/MainPage.vue'
 
 /* 
@@ -6,7 +6,7 @@ import MainPage from '@/views/MainPage.vue'
     1. 路由页面中必须有 id="main-container" 的元素，否则AppHeader会无法拉出抽屉
  */
 
-const routes = [
+const routes : RouteRecordRaw[] = [
   { path: '/', component: MainPage },
   { 
     path: '/fthelper', 
