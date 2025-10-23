@@ -1577,13 +1577,13 @@
         "add_gatherer_tool_main": {
           "title": "添加一套采集主手",
           "tooltip": {
-            "tooltip_1": "添加所有大地使者职业的主手工具各1件。\t"
+            "tooltip_1": "添加所有大地使者职业的主手工具各1件。"
           }
         },
         "add_gatherer_tool_off": {
           "title": "添加一套采集副手",
           "tooltip": {
-            "tooltip_1": "添加所有大地使者职业的副手工具各1件。\t"
+            "tooltip_1": "添加所有大地使者职业的副手工具各1件。"
           }
         },
         "title": "快速操作"
@@ -1674,9 +1674,6 @@
       "title": "在每个生产宏的开头使用/macrolock"
     },
     "costandbenefit_show_item_details": "成本/收益分析中显示物品详情",
-    "custom_add_suit_options": {
-      "title": "自定义添加部件的可选项"
-    },
     "custom_font": {
       "desc": {
         "desc_1": "全局性地修改程序/网站的字体。",

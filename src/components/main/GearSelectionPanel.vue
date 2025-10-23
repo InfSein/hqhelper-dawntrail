@@ -338,7 +338,7 @@ const addsuitOptions = computed(() => {
       label: t('main.select_gear.add.whole_suit'),
       disabled: disableMainhand.value && disableOffhand.value && disableAllAttires.value && disableAllAccessories.value
     },
-  ].filter(option => userConfig.value.custom_add_suit_options.includes(option.key))
+  ]
 })
 const handleAddsuitSelect = (key: string) => {
   if (key === 'add-weapon') {

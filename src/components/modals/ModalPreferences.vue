@@ -279,19 +279,6 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
                 { value: 'teamcraft', label: t('preference.item_list_style.option.teamcraft') },
               ]
             },
-            {
-              key: 'custom_add_suit_options',
-              label: t('preference.custom_add_suit_options.title'),
-              type: 'select',
-              multiple: true,
-              options: [
-                { value: 'add-weapon', label: t('main.select_gear.add.mainoff_hand') },
-                { value: 'add-attire', label: t('main.select_gear.add.attire') },
-                { value: 'add-accessory', label: t('main.select_gear.add.accessory') },
-                { value: 'add-attire-and-accessory', label: t('main.select_gear.add.attire_and_accessory') },
-                { value: 'add-suit', label: t('main.select_gear.add.whole_suit') },
-              ]
-            },
           ]
         },
         /* Performance */
