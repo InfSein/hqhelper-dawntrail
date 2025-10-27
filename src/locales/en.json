@@ -616,6 +616,21 @@
         "text_5": "Optimized tip text when client occurs some common errors."
       }
     },
+    "2_3_6": {
+      "breaking": {
+        "text_1": "Following changes have been implemented due to patch sync between CHS server and global server:",
+        "text_2": "Remove settings: {0}→{1}→{2};",
+        "text_3": "Remove feature: {0}→{1}",
+        "text_4": "Adjust / remove some regional descriptions."
+      },
+      "feat": {
+        "text_1": "Added new setting of '{f}' to 'enhancement' block of preference."
+      },
+      "fix": {
+        "text_1": "Fixed a part of the page that will not show scrollbar correctly.",
+        "text_2": "Fix the problem of displaying the content position for some pages."
+      }
+    },
     "breaking": "BREAKING CHANGES",
     "feat": "FEATURES",
     "fix": "BUG FIXES",
@@ -627,6 +642,7 @@
       "detail_optimized": "Optimized some details.",
       "game_db_update": "Game data updated to {ver}.",
       "global_db_update": "Global game data updated to {ver}.",
+      "optimize_page_perform": "Some page performance was optimized.",
       "released_func": "Function \"{f}\" released.",
       "require_setting": "Need to deal settings in \"{f2}\" tab of \"{f1}\" first.",
       "temp_not_support_mobile": "This function does not support mobile devices now."
@@ -815,6 +831,7 @@
     "fold_all": "Collapse all",
     "follow_preference_of_item_price": "Follow the 'Item Price' settings in 'Function Preferences'.",
     "food": "Food",
+    "game_data_version": "Game data version: Patch {val}",
     "game_macro": "Game macro",
     "gather": "Gathering",
     "gatherable_now": "Can gather now",
@@ -1550,6 +1567,18 @@
             "tooltip_1": "Add 1 mainhand and offhand tool for all crafters."
           }
         },
+        "add_crafter_tool_main": {
+          "title": "Add 1 set of crafters' mainhand tools",
+          "tooltip": {
+            "tooltip_1": "Add 1 mainhand tool for all crafters."
+          }
+        },
+        "add_crafter_tool_off": {
+          "title": "Add 1 set of crafters' offhand tools",
+          "tooltip": {
+            "tooltip_1": "Add 1 offhand tool for all crafters."
+          }
+        },
         "add_gatherer_suit": {
           "title": "Add 1 set of gatherers' attire&accessory",
           "tooltip": {
@@ -1560,6 +1589,18 @@
           "title": "Add 1 set of gatherers' tools",
           "tooltip": {
             "tooltip_1": "Add 1 mainhand and offhand tool for all gatherers."
+          }
+        },
+        "add_gatherer_tool_main": {
+          "title": "Add 1 set of gatherers' mainhand tools",
+          "tooltip": {
+            "tooltip_1": "Add 1 mainhand tool for all gatherers."
+          }
+        },
+        "add_gatherer_tool_off": {
+          "title": "Add 1 set of gatherers' offhand tools",
+          "tooltip": {
+            "tooltip_1": "Add 1 offhand tool for all gatherers."
           }
         },
         "title": "Quick Operations"
@@ -1866,6 +1907,13 @@
       "warn": {
         "need_refresh": "After changing the settings of this option, you need to refresh the page once to take effect."
       }
+    },
+    "split_quick_operate_options_main_off": {
+      "desc": {
+        "desc_1": "Split \"Add 1 set of xxx' tools\" to \"Add 1 set of xxx' mainhand tools\" and \"Add 1 set of xxx' offhand tools\" in the main UI Quick Operation option.",
+        "desc_2": "This would fit some situations if you use cosmos tool as your crafter's or gatherer's bis."
+      },
+      "title": "Split add tool options to add main/offhand tool in quick operations."
     },
     "statement_ignore_crystals": {
       "desc": {
