@@ -3,7 +3,7 @@ import {
   darkTheme, lightTheme, useOsTheme,
   zhCN, enUS, jaJP, dateZhCN, dateEnUS, dateJaJP,
   NConfigProvider, NDialogProvider, NGlobalStyle, NMessageProvider,
-  NLayout, NLayoutHeader, NLayoutContent,
+  NLayout, NLayoutHeader,
   type GlobalThemeOverrides
 } from 'naive-ui'
 import AppHeader from './components/custom/general/AppHeader.vue'
@@ -380,17 +380,17 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
     <n-message-provider :placement="naiveUiMessagePlacement">
       <div :class="appClass" :data-theme="theme">
         <n-layout id="main-layout" position="absolute">
-          <n-layout-header v-if="appMode !== 'overlay'" id="app-layout-header" position="absolute" bordered>
+          <n-layout-header v-if="appMode !== 'overlay'" bordered id="app-layout-header">
             <AppHeader class="app-header" />
           </n-layout-header>
 
-          <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
+          <n-layout id="main-content" position="absolute" :native-scrollbar="false">
             <router-view />
-          </n-layout-content>
-          
+          </n-layout>
+
           <AccountView v-if="!isMobile && appMode !== 'overlay'" trigger-class="account-view" />
         </n-layout>
-        
+
         <Dialog ref="dialogRef" />
         <ModalCopyAsMacro
           v-model:show="showCopyMacroModal"
@@ -412,29 +412,22 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
 </template>
 
 <style scoped>
-#app-layout-header {
-  .app-header {
-    position: relative;
-    z-index: 1;
-  }
-}
-
-:deep(#main-content>.n-scrollbar) {
-  padding: 1rem;
-}
-#main-container {
-  min-height: calc(100vh - 70px - 2rem);
-}
-
-.n-layout-header {
-  height: 70px;
+.app-header {
+  height: 69px;
   padding: 10px 20px;
   z-index: 1000;
+  position: relative;
+  z-index: 1;
 }
-.n-layout-content {
-  margin-top: 70px;
+#main-content {
+  top: 70px;
+
+  #main-container {
+    min-height: calc(100vh - 70px);
+    padding: 1rem;
+  }
 }
-.env-overlay .n-layout-content {
-  margin-top: 0;
+.env-overlay #main-content {
+  top: 0;
 }
 </style>
