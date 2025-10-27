@@ -81,6 +81,19 @@ onMounted(() => {
   }
 })
 
+const versionTooltip = computed(() => {
+  if (AppStatus.SupportedGameVersion.CN === AppStatus.SupportedGameVersion.GLOBAL) {
+    return [
+      t('common.game_data_version', AppStatus.SupportedGameVersion.CN)
+    ]
+  } else {
+    return [
+      t('common.chs_data_version', AppStatus.SupportedGameVersion.CN),
+      t('common.global_data_version', AppStatus.SupportedGameVersion.GLOBAL),
+    ]
+  }
+})
+
 const showMenus = ref(false)
 const menuDropdownVisiGroup = ref([false, false, false, false, false, false])
 
@@ -700,8 +713,7 @@ const handleCheckUpdates = async () => {
             <p>{{ AppStatus.Version }}</p>
           </template>
           <div class="flex-col">
-            <p>{{ t('common.chs_data_version', AppStatus.SupportedGameVersion.CN) }}</p>
-            <p>{{ t('common.global_data_version', AppStatus.SupportedGameVersion.GLOBAL) }}</p>
+            <p v-for="(tt, ttIndex) in versionTooltip" :key="`version-tooltip-${ttIndex}`">{{ tt }}</p>
           </div>
         </n-popover>
 

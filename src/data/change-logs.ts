@@ -62,6 +62,10 @@ const renderLink = (url: string, text?: string) => {
   text ??= url
   return `<a target="_blank" href="${url}">${text}</a>`
 }
+const renderList = (list: string[]) => {
+  const content = list.map(line => `<li>${line}</li>`).join('')
+  return `<ul>${content}</ul>`
+}
 // const refer = (text: string) => `<span class="font-small" style="font-style: italic;">${text}</span>`
 export const getChangelogs = (
   ui_lang: 'zh' | 'ja' | 'en',
@@ -75,6 +79,42 @@ export const getChangelogs = (
   }
   const isZh = ui_lang === 'zh'
   return [
+    {
+      version: '2.3.6',
+      date: '2025-11-04',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('changelog.shared.game_db_update', {
+              ver: '7.38'
+            }),
+            t('changelog.2_3_6.breaking.text_1')
+              + '<br>'
+              + renderList([
+                t('changelog.2_3_6.breaking.text_2', [t('common.appfunc.user_preference'),t('common.appsetting.general'),t('common.server')]),
+                t('changelog.2_3_6.breaking.text_3', [t('common.appfunc.recomm_process'),t('recomm_process.text.hide_items_not_installed_in_chs')]),
+                t('changelog.2_3_6.breaking.text_4')
+              ])
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('changelog.2_3_6.fix.text_1'),
+            t('changelog.2_3_6.fix.text_2'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_3_6.feat.text_1', t('preference.split_quick_operate_options_main_off.title'))
+              + '<br>' + renderImg('https://infsein.github.io/static/hqhelper/patchnote/2.3.6/1.png'),
+            t('changelog.shared.optimize_page_perform'),
+          ]
+        }
+      ]
+    },
     {
       version: '2.3.5',
       date: '2025-10-08',

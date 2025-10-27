@@ -33,6 +33,16 @@ const latestPatchNoteNumWidth = computed(() => {
   const maxLengthOfNote = latestPatchNote.value.changes.map(change => change.changes.length).reduce((a, b) => Math.max(a, b), 0)
   return maxLengthOfNote > 9 ? '24px' : '16px'
 })
+const latestPatchGameVerText = computed(() => {
+  if (AppStatus.SupportedGameVersion.CN === AppStatus.SupportedGameVersion.GLOBAL) {
+    return t('common.game_data_version', AppStatus.SupportedGameVersion.CN)
+  } else {
+    return t('common.chs_and_global_data_version', {
+      cnver: AppStatus.SupportedGameVersion.CN,
+      glbver: AppStatus.SupportedGameVersion.GLOBAL,
+    })
+  }
+})
 
 const getChanges = (change: PatchChangeGroup) => {
   return change.changes.filter(str => str !== '')
@@ -110,12 +120,7 @@ const handleSwitchShowHistory = () => {
             <n-text>v{{ latestPatchNote.version }}</n-text>
             <n-text depth="3" class="date">{{ latestPatchNote.date }}</n-text>
             <n-text v-if="!isMobile" depth="3" class="data-version">
-              ({{
-                t('common.chs_and_global_data_version', {
-                  cnver: AppStatus.SupportedGameVersion.CN,
-                  glbver: AppStatus.SupportedGameVersion.GLOBAL,
-                })
-              }})
+              ({{ latestPatchGameVerText }})
             </n-text>
           </n-h1>
           <n-divider style="margin: 8px 0 12px 0;" />
