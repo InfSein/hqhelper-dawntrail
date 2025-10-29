@@ -589,7 +589,8 @@ export const getItemContexts = (
       key: 'open-in-garland',
       icon: renderIcon(OpenInNewFilled),
       click: () => {
-        window.open(`https://www.garlandtools.org/db/#item/${itemInfo.id}`)
+        const domain = itemLanguage === 'zh' ? 'garlandtools.cn' : 'www.garlandtools.org'
+        window.open(`https://${domain}/db/#item/${itemInfo.id}`)
       }
     },
     {

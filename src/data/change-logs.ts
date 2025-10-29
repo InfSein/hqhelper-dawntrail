@@ -63,7 +63,7 @@ const renderLink = (url: string, text?: string) => {
   return `<a target="_blank" href="${url}">${text}</a>`
 }
 const renderList = (list: string[]) => {
-  const content = list.map(line => `<li>${line}</li>`).join('')
+  const content = list.filter(line => !!line).map(line => `<li>${line}</li>`).join('')
   return `<ul>${content}</ul>`
 }
 // const refer = (text: string) => `<span class="font-small" style="font-style: italic;">${text}</span>`
@@ -92,6 +92,7 @@ export const getChangelogs = (
             t('changelog.2_3_6.breaking.text_1')
               + '<br>'
               + renderList([
+                isZh ? '现在物品语言设置为中文时，物品右键菜单中的“在花环数据库中打开”会访问国内的镜像站点(garlandtools.cn)；' : '',
                 t('changelog.2_3_6.breaking.text_2', [t('common.appfunc.user_preference'),t('common.appsetting.general'),t('common.server')]),
                 t('changelog.2_3_6.breaking.text_3', [t('common.appfunc.recomm_process'),t('recomm_process.text.hide_items_not_installed_in_chs')]),
                 t('changelog.2_3_6.breaking.text_4')
