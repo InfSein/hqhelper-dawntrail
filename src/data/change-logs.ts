@@ -86,7 +86,7 @@ export const getChangelogs = (
         {
           name: groupName.breaking,
           changes: [
-            t('changelog.shared.game_db_update', {
+            t('changelog.shared.chs_db_update', {
               ver: '7.38'
             }),
             t('changelog.2_3_6.breaking.text_1')
