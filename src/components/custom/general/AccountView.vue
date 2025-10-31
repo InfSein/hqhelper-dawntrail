@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import {
   LogInOutlined, LogOutOutlined, PersonAddAlt1Filled,
+  ContentCopyRound,
   CloudSyncOutlined,
   EditNoteOutlined,
 } from '@vicons/material'
 import { useStore } from '@/store'
 import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
+import { CopyToClipboard } from '@/tools'
+import { useDialog } from '@/tools/dialog'
 import { useNbbCloud } from '@/tools/nbb-cloud'
 import useCloud from '@/tools/cloud'
 
@@ -17,6 +20,7 @@ const displayCloudSyncModal = inject<() => {}>('displayCloudSyncModal')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
 
 const store = useStore()
+const { confirmWarning } = useDialog(t)
 const NAIVE_UI_MESSAGE = useMessage()
 const {
   updateUserInfo,
@@ -24,15 +28,19 @@ const {
 } = useNbbCloud(cloudConfig)
 const {
   avatarUrl,
+  userId,
   userNickName,
   userLoggedIn,
   userTitle,
+  userSpecialTitle,
 } = useCloud(cloudConfig, t)
 
 interface AccountViewProps {
   triggerClass?: string
 }
 defineProps<AccountViewProps>()
+
+const wrapper = ref<HTMLElement>()
 
 onMounted(async () => {
   const nextUpdateTime = cloudConfig.value.nbb_userinfo_last_update + 5000
@@ -65,7 +73,18 @@ const handleEditUserInfo = () => {
 const handleCloudSync = () => {
   displayCloudSyncModal()
 }
-const handleLogout = () => {
+const handleCopyUserId = async () => {
+  const errored = await CopyToClipboard(userId.value.toString(), wrapper.value)
+  if (errored) {
+    NAIVE_UI_MESSAGE.error(t('common.message.copy_failed'))
+    return
+  }
+  NAIVE_UI_MESSAGE.success(t('common.message.copy_succeed'))
+}
+const handleLogout = async () => {
+  if (!await confirmWarning(t('cloud.message.confirm_logout'))) {
+    return
+  }
   const newCloudConfig = fixCloudConfig()
   store.setCloudConfig(newCloudConfig)
   appForceUpdate()
@@ -107,11 +126,16 @@ const handleLogout = () => {
             class="button-avatar"
           />
           <div class="button-text">{{ userNickName }}</div>
+          <div class="button-text-tag" v-if="userSpecialTitle" :style="{
+            '--tag-color': userSpecialTitle.tagColor,
+          }" :title="userSpecialTitle.desc">
+            {{ userSpecialTitle.tag }}
+          </div>
         </div>
       </n-button>
     </template>
 
-    <div class="avpop-wrapper">
+    <div class="avpop-wrapper" ref="wrapper">
       <div class="user-base" v-show="!isMobile">
         <n-avatar
           :size="32"
@@ -123,8 +147,22 @@ const handleLogout = () => {
           <div class="user-name">{{ userNickName }}</div>
         </div>
       </div>
-      <div v-if="isMobile" style="height: 3px;" />
-      <n-divider v-else style="margin: 4px 0" />
+      <n-divider v-if="!isMobile" style="margin: 4px 0" />
+      <div class="user-props" v-show="userLoggedIn">
+        <div class="flex-vac gap-2">
+          <div>
+            <span class="no-select">{{ t('common.uid') }}: </span>
+            <span>{{ userId }}</span>
+          </div>
+          <n-button text @click="handleCopyUserId" style="--n-text-color: gray;">
+            <n-icon><ContentCopyRound /></n-icon>
+          </n-button>
+        </div>
+        <div v-if="userSpecialTitle" class="no-select">
+          {{ userSpecialTitle.tag }}: {{ userSpecialTitle.desc }}
+        </div>
+      </div>
+      <n-divider style="margin: 4px 0" />
       <div v-if="!userLoggedIn" class="unlogged-wrapper">
         <div class="group-title">
           {{ t('common.account') }}
@@ -194,6 +232,16 @@ const handleLogout = () => {
     height: var(--tsize);
     line-height: var(--tsize);
   }
+  .button-text-tag {
+    font-size: 10px;
+    line-height: 10px;
+    padding: 2px 4px;
+    margin-left: 2px;
+    border: 1px solid var(--tag-color);
+    border-radius: 28px;
+    color: white;
+    background-color: var(--tag-color);
+  }
   .button-text-sub {
     font-size: var(--tsize-sub);
     height: var(--tsize-sub);
@@ -226,6 +274,11 @@ const handleLogout = () => {
         font-weight: bold;
       }
     }
+  }
+  .user-props {
+    line-height: 1.2;
+    font-size: 12px;
+    color: gray;
   }
   .unlogged-wrapper,
   .logged-wrapper {

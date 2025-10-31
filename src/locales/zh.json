@@ -660,6 +660,7 @@
       "cannot_sync_because_modules_data_not_uploaded": "同步无法进行，因为以下模块还没有上传过数据：",
       "confirm_download_1": "确定要将云端数据下载到本地吗?",
       "confirm_download_2": "这将覆盖本地的现有数据。",
+      "confirm_logout": "确认要登出吗?",
       "confirm_upload_1": "确定要将本地数据上传到云端吗?",
       "confirm_upload_2": "这将覆盖云端的现有数据。",
       "data_consistent": "本地数据与云端一致",
@@ -992,6 +993,7 @@
     "tomescript_type": "点数类型",
     "trade": "兑换",
     "twitter_x": "推特 (X)",
+    "uid": "UID",
     "unit": {
       "ge": "个"
     },
