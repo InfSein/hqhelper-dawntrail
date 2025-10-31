@@ -147,7 +147,8 @@ const handleLogout = async () => {
           <div class="user-name">{{ userNickName }}</div>
         </div>
       </div>
-      <n-divider v-if="!isMobile" style="margin: 4px 0" />
+      <div v-if="isMobile" style="height: 3px;" />
+      <n-divider v-else style="margin: 4px 0" />
       <div class="user-props" v-show="userLoggedIn">
         <div class="flex-vac gap-2">
           <div>
