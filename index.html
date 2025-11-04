@@ -2,16 +2,34 @@
 <html lang="en">
 
 <head>
+  <title>7.x HQ Helper</title>
+  <link rel="icon" href="./icons/logo_v2_192x192.png">
+  <link rel="manifest" href="./manifest.json">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>7.x HQ Helper</title>
-  <link rel="icon" href="./icons/logo_v2_192x192.png">
-  <link rel="manifest" href="./manifest.json">
-  <script type="module" crossorigin src="./assets/index.BjeEFtZw.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index.BXdJAhZo.css">
+  <meta name="keywords" content="ff14,ffxiv,最终幻想,生产,采集,hqhelper,hq helper,740hq,750hq,770hq">
+  <meta name="description" content="面向《最终幻想XIV》生产采集玩家的秘籍配方制作计算器。">
+  <script>
+    const lang = navigator.language || navigator.userLanguage;
+
+    const descriptions = {
+      en: "One web app for ffxiv master crafters.",
+      ja: "ファイナルファンタジーXIVの生産＆採集プレイヤー向けの秘伝書レシピ計算ツール。",
+    };
+
+    const descTag = document.querySelector('meta[name="description"]');
+    if (lang && descTag) {
+      if (lang.startsWith('ja')) descTag.setAttribute('content', descriptions.ja);
+      else if (lang.startsWith('en')) descTag.setAttribute('content', descriptions.en);
+    }
+  </script>
+  <script type="module" crossorigin src="./assets/index.Cask5RuP.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/vendor.Bn-7_sVg.js">
+  <link rel="modulepreload" crossorigin href="./assets/icons.BPYJy1hK.js">
+  <link rel="stylesheet" crossorigin href="./assets/index.F7_4A7nk.css">
 </head>
 
 <body>
