@@ -1,9 +1,4 @@
 <script setup lang="ts" generic="DataRow">
-import { inject, onMounted, ref, watch, type Ref } from 'vue'
-import {
-  NButton, NIcon, NInput, NInputGroup, NInputGroupLabel, NTable,
-  useMessage
-} from 'naive-ui'
 import { 
   ListFilled,
   DeleteFilled,

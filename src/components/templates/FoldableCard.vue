@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, type Ref, shallowRef, inject, type Component } from 'vue'
-import {
-  NButton, NCard, NIcon
-} from 'naive-ui'
+import { type Component } from 'vue'
 import {
   KeyboardArrowUpRound, KeyboardArrowDownRound,
   KeyboardArrowLeftRound, KeyboardArrowRightRound

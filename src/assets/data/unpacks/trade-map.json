@@ -625,8 +625,13 @@
     "costCount": 500,
     "tradeAlter": {
       "receiveCount": 1,
-      "costId": 45690,
-      "costCount": 1000
+      "costId": 46178,
+      "costCount": 1,
+      "tradeAlter": {
+        "receiveCount": 1,
+        "costId": 45690,
+        "costCount": 1000
+      }
     }
   },
   "46314": {

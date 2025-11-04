@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
-// import {
-//   NSwitch,
-// } from 'naive-ui'
 import GroupBox from '@/components/templates/GroupBox.vue'
 import ItemList from '@/components/custom/item/ItemList.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'

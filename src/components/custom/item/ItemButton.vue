@@ -1,9 +1,4 @@
 <script lang="ts" setup>
-import { computed, inject, nextTick, ref, type Ref } from 'vue'
-import {
-  NButton, NDropdown, 
-  useMessage
-} from 'naive-ui'
 // import {
 //   FileCopyOutlined,
 //   LanguageOutlined,

@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { inject, type Ref } from 'vue'
-// import {
-//   NInputNumber, NScrollbar, NTable
-// } from 'naive-ui'
 import XivFARImage from '../general/XivFARImage.vue'
 import ItemSpan from './ItemSpan.vue'
 import type { UserConfigModel } from '@/models/config-user'
@@ -15,10 +11,6 @@ const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 // const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
-
-// const {
-//   itemServer,
-// } = UseConfig(userConfig, funcConfig)
 
 interface ItemCellProps {
   itemInfo: ItemInfo

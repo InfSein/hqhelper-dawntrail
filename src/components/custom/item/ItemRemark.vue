@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { inject } from 'vue'
 import ItemSpan from './ItemSpan.vue'
 import LocationSpan from '../map/LocationSpan.vue'
 import { getItemInfo } from '@/tools/item'

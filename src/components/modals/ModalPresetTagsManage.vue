@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
-import {
-  NButton, NIcon,
-  useMessage
-} from 'naive-ui'
 import { 
   SettingsSharp,
   SaveOutlined

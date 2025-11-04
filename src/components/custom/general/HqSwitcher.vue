@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
-import {
-  NIcon,
-} from 'naive-ui'
 import {
   WifiProtectedSetupFilled,
 } from '@vicons/material'

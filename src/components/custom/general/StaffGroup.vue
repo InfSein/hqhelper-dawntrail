@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
-import {
-  NAvatar, NDivider, NPopover
-} from 'naive-ui'
 import type { StaffMember } from '@/models/about-app'
 
 const t = inject<(message: string, args?: any) => string>('t')!

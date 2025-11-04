@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, onBeforeUnmount, ref, watch, type Ref } from 'vue'
-import {
-  NBackTop, NButton, NFloatButton, NFloatButtonGroup, NIcon, NInputGroup, NInputGroupLabel, NTabs, NTabPane, NTooltip, 
-  useMessage
-} from 'naive-ui'
 import {
   AddSharp, SettingsSharp,
   // ModeEditFilled, DeleteFilled,
@@ -12,7 +7,6 @@ import {
   TableViewOutlined,
   AllInclusiveSharp,
   OpenInNewOutlined,
-  VisibilitySharp, VisibilityOffSharp,
   UnfoldMoreSharp, UnfoldLessSharp,
 } from '@vicons/material'
 import FoldableCard from '@/components/templates/FoldableCard.vue'
@@ -35,7 +29,6 @@ import { useDialog } from '@/tools/dialog'
 import { calCostAndBenefit, getItemInfo, getItemPriceInfo, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { useFufuCal } from '@/tools/use-fufu-cal'
-import UseConfig from '@/tools/use-config'
 import CraftRecommProcess from '@/components/custom/general/CraftRecommProcess.vue'
 import TooltipButton from '@/components/custom/general/TooltipButton.vue'
 import ModalWorkflowsManage from '@/components/modals/ModalWorkflowsManage.vue'
@@ -52,9 +45,6 @@ const NAIVE_UI_MESSAGE = useMessage()
 const { emitSync, onSync } = useElectronSync()
 const { calItems } = useNbbCal()
 const { getStatementData, getProStatementData, calRecommProcessData, calRecommProcessGroups } = useFufuCal(userConfig, funcConfig, t)
-const {
-  itemServer,
-} = UseConfig(userConfig, funcConfig)
 
 const workState = ref(fixWorkState())
 
@@ -269,7 +259,6 @@ const recommProcessGroups = computed(() => {
     funcConfig.value.processes_craftable_item_sortby,
     funcConfig.value.processes_merge_gatherings,
     userConfig.value.language_ui,
-    itemServer.value,
     t
   )
 })
@@ -353,13 +342,6 @@ const handleOpenProcessInNewWindow = () => {
       `height=${height}, width=${width}, top=200, left=200`
     )
   }
-}
-const handleHideOrShowChsOfflineItems = () => {
-  currentWorkflow.value.recommData.hideChsOfflineItems = !currentWorkflow.value.recommData.hideChsOfflineItems
-  const message = currentWorkflow.value.recommData.hideChsOfflineItems
-    ? t('recomm_process.message.hided_unchs_items')
-    : t('recomm_process.message.showed_unchs_items')
-  NAIVE_UI_MESSAGE.success(message)
 }
 const handleCollapseOrUncollapseAllRecommGroupBlocks = () => {
   const cacheRecommGroupAllCollapsed = recommGroupAllCollapsed.value
@@ -621,17 +603,6 @@ const setInventoryByStatementPrepared = () => {
                     </n-float-button>
                   </template>
                   {{ t('common.open_in_new_window') }}
-                </n-tooltip>
-                <n-tooltip v-if="recommProcessGroups.length && itemServer === 'chs'" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
-                  <template #trigger>
-                    <n-float-button @click="handleHideOrShowChsOfflineItems">
-                      <n-icon>
-                        <VisibilitySharp v-if="currentWorkflow.recommData.hideChsOfflineItems" />
-                        <VisibilityOffSharp v-else />
-                      </n-icon>
-                    </n-float-button>
-                  </template>
-                  {{ currentWorkflow.recommData.hideChsOfflineItems ? t('recomm_process.text.show_items_not_installed_in_chs') : t('recomm_process.text.hide_items_not_installed_in_chs') }}
                 </n-tooltip>
                 <n-tooltip v-if="recommProcessGroups.length" :trigger="isMobile ? 'manual' : 'hover'" placement="left">
                   <template #trigger>

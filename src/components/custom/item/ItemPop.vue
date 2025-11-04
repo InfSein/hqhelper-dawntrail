@@ -1,9 +1,4 @@
 <script lang="ts" setup>
-import { computed, inject, onMounted, ref, type Ref } from 'vue'
-import {
-  NButton, NDivider, NIcon, NPopover,
-  useMessage
-} from 'naive-ui'
 import {
   OpenInNewFilled,
   RefreshOutlined

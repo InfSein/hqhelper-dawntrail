@@ -13,13 +13,19 @@ export const getGearRecomm = (patch: string, jobId: number) => {
 }
 
 export const useGearAdder = () => {
-  const addMainOffHand = (gearSelections: Ref<GearSelections>, patchData: HqDataVer | undefined, jobId: number) => {
+  const addMainHand = (gearSelections: Ref<GearSelections>, patchData: HqDataVer | undefined, jobId: number) => {
     if (patchData?.mainHand?.[jobId]) {
       gearSelections.value.mainHand[jobId]++
     }
+  }
+  const addOffHand = (gearSelections: Ref<GearSelections>, patchData: HqDataVer | undefined, jobId: number) => {
     if (patchData?.offHand?.[jobId]) {
       gearSelections.value.offHand[jobId]++
     }
+  }
+  const addMainOffHand = (gearSelections: Ref<GearSelections>, patchData: HqDataVer | undefined, jobId: number) => {
+    addMainHand(gearSelections, patchData, jobId)
+    addOffHand(gearSelections, patchData, jobId)
   }
   const addAttire = (gearSelections: Ref<GearSelections>, patchData: HqDataVer | undefined, affix: AttireAffix) => {
     if (patchData?.headAttire?.[affix]) {
@@ -54,6 +60,7 @@ export const useGearAdder = () => {
   }
 
   return {
+    addMainHand, addOffHand,
     addMainOffHand,
     addAttire,
     addAccessory

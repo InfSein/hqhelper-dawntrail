@@ -2,6 +2,13 @@ import { computed, type Ref } from "vue"
 import { getImgCdnUrl } from "./item"
 import type { CloudConfigModel } from "@/models/config-cloud"
 
+interface UserSpecialTitle {
+  key: "dev" | "staff" | "vip"
+  tag: string
+  tagColor: string
+  desc: string
+}
+
 const useCloud = (
   cloudConfig: Ref<CloudConfigModel>,
   t: (message: string, args?: any) => string,
@@ -15,6 +22,9 @@ const useCloud = (
       return './image/game-job/companion/none.png'
     }
   })
+  const userId = computed(() => {
+    return cloudConfig.value.nbb_account_uid
+  })
   const userNickName = computed(() => {
     return cloudConfig.value.nbb_account_nickname || t('cloud.text.not_logged_in')
   })
@@ -24,11 +34,26 @@ const useCloud = (
     return cloudConfig.value.nbb_account_title || '-'
   })
 
+  const userSpecialTitle = computed(() : UserSpecialTitle | undefined => {
+    if (!userLoggedIn.value) return undefined
+    if (userId.value === 2956) {
+      return {
+        key: 'dev',
+        tag: 'DEV',
+        tagColor: '#2080f0',
+        desc: 'HqHelper的开发者'
+      }
+    }
+    return undefined
+  })
+
   return {
     avatarUrl,
+    userId,
     userNickName,
     userLoggedIn,
     userTitle,
+    userSpecialTitle,
   }
 }
 

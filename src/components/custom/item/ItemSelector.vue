@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { computed, h, inject } from 'vue'
 import {
-  NSelect,
   type SelectOption, type SelectRenderLabel
 } from 'naive-ui'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'

@@ -616,6 +616,21 @@
         "text_5": "优化了客户端出现部分常见错误时的提示文本。"
       }
     },
+    "2_3_6": {
+      "breaking": {
+        "text_1": "因国服版本与国际服同步，进行以下变更：",
+        "text_2": "移除设置项：{0}->{1}->{2}；",
+        "text_3": "移除功能：{0}->{1}；",
+        "text_4": "调整／移除了部分区域的描述文本。"
+      },
+      "feat": {
+        "text_1": "偏好设置的「增强」选项卡增加新的设置项“{f}”。"
+      },
+      "fix": {
+        "text_1": "修复了部分页面不会正常显示滚动条的问题。",
+        "text_2": "修复了部分页面的显示内容位置错误的问题。"
+      }
+    },
     "breaking": "重要变更",
     "feat": "功能更新",
     "fix": "问题修复",
@@ -627,6 +642,7 @@
       "detail_optimized": "进行了一些细节优化。",
       "game_db_update": "国服／国际服数据库更新至{ver}。",
       "global_db_update": "国际服数据库更新至{ver}。",
+      "optimize_page_perform": "优化了一些页面性能。",
       "released_func": "实装了“{f}”功能。",
       "require_setting": "需要在“{f1}”的“{f2}”选项卡中进行设置。",
       "temp_not_support_mobile": "此功能暂不支持移动端。"
@@ -644,6 +660,7 @@
       "cannot_sync_because_modules_data_not_uploaded": "同步无法进行，因为以下模块还没有上传过数据：",
       "confirm_download_1": "确定要将云端数据下载到本地吗?",
       "confirm_download_2": "这将覆盖本地的现有数据。",
+      "confirm_logout": "确认要登出吗?",
       "confirm_upload_1": "确定要将本地数据上传到云端吗?",
       "confirm_upload_2": "这将覆盖云端的现有数据。",
       "data_consistent": "本地数据与云端一致",
@@ -815,6 +832,7 @@
     "fold_all": "全部折叠",
     "follow_preference_of_item_price": "遵循“功能设置”中的“物品价格”设置。",
     "food": "食物",
+    "game_data_version": "游戏数据版本：{val}",
     "game_macro": "游戏宏",
     "gather": "采集",
     "gatherable_now": "现可采集",
@@ -975,6 +993,7 @@
     "tomescript_type": "点数类型",
     "trade": "兑换",
     "twitter_x": "推特 (X)",
+    "uid": "UID",
     "unit": {
       "ge": "个"
     },
@@ -1550,6 +1569,18 @@
             "tooltip_1": "添加所有能工巧匠职业的主手&副手工具各1件。"
           }
         },
+        "add_crafter_tool_main": {
+          "title": "添加一套生产主手",
+          "tooltip": {
+            "tooltip_1": "添加所有能工巧匠职业的主手工具各1件。"
+          }
+        },
+        "add_crafter_tool_off": {
+          "title": "添加一套生产副手",
+          "tooltip": {
+            "tooltip_1": "添加所有能工巧匠职业的副手工具各1件。"
+          }
+        },
         "add_gatherer_suit": {
           "title": "添加一套采集防具&首饰",
           "tooltip": {
@@ -1560,6 +1591,18 @@
           "title": "添加一套采集主副手",
           "tooltip": {
             "tooltip_1": "添加所有大地使者职业的主手&副手工具各1件。"
+          }
+        },
+        "add_gatherer_tool_main": {
+          "title": "添加一套采集主手",
+          "tooltip": {
+            "tooltip_1": "添加所有大地使者职业的主手工具各1件。"
+          }
+        },
+        "add_gatherer_tool_off": {
+          "title": "添加一套采集副手",
+          "tooltip": {
+            "tooltip_1": "添加所有大地使者职业的副手工具各1件。"
           }
         },
         "title": "快速操作"
@@ -1866,6 +1909,13 @@
       "warn": {
         "need_refresh": "修改此选项的设置后需要刷新一次页面方可生效。"
       }
+    },
+    "split_quick_operate_options_main_off": {
+      "desc": {
+        "desc_1": "将主界面快速操作选项中的“添加一套xx主副手”拆分为“添加一套xx主手”和“添加一套xx副手”。",
+        "desc_2": "这适用于一些会使用肝武主手作为生产采集配装的场合。"
+      },
+      "title": "拆分快速操作中的主副手选项"
     },
     "statement_ignore_crystals": {
       "desc": {

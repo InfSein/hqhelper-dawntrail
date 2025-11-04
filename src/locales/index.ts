@@ -1,5 +1,4 @@
 import { useI18n } from 'vue-i18n'
-import { computed } from 'vue'
 
 export type AvailableLocale = "zh" | "en" | "ja"
 

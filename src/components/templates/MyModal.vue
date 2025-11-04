@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, watch, type Component } from 'vue'
-import {
-  NButton, NIcon, NModal
-} from 'naive-ui'
+import { type Component } from 'vue'
 import {
   SettingsSharp
 } from '@vicons/material'

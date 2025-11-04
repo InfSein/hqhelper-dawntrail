@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
-import {
-  NButton, NCard, NCheckbox, NIcon, NSpin,
-  useMessage,
-} from 'naive-ui'
 import { 
   CloudSyncOutlined,
   ChecklistRtlOutlined,

@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, type Ref } from 'vue'
-import {
-  NButton, NIcon, NLayout, NLayoutContent, NLayoutSider, NMenu, NTabs, NTabPane,
-  useMessage
-} from 'naive-ui'
 import {
   SettingsSharp,
   SettingsSuggestFilled,
@@ -113,20 +108,6 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               ],
             },
             {
-              key: 'item_server',
-              label: t('common.server'),
-              descriptions: [
-                t('preference.item_server.desc.desc_1'),
-                t('preference.item_server.desc.desc_2'),
-              ],
-              type: 'radio-group',
-              options: [
-                { value: 'auto', label: t('common.auto') },
-                { value: 'chs', label: t('preference.server.option.chs') },
-                { value: 'global', label: t('preference.server.option.global') }
-              ],
-            },
-            {
               key: 'action_after_savesettings',
               label: t('preference.auto_refresh_after_save.title'),
               warnings: [
@@ -219,6 +200,15 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               descriptions: [
                 t('preference.disable_jobbtn_doubleclick.desc.desc_1'),
                 t('preference.disable_jobbtn_doubleclick.desc.desc_2'),
+              ],
+              type: 'switch'
+            },
+            {
+              key: 'split_quick_operate_options_main_off',
+              label: t('preference.split_quick_operate_options_main_off.title'),
+              descriptions: [
+                t('preference.split_quick_operate_options_main_off.desc.desc_1'),
+                t('preference.split_quick_operate_options_main_off.desc.desc_2'),
               ],
               type: 'switch'
             },

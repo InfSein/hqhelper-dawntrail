@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { inject, ref, type PropType, type Ref } from 'vue'
-import {
-  NButton, NCard, NIcon, NInputNumber, NScrollbar, NTable, NTabs, NTabPane
-} from 'naive-ui'
 import { 
   CheckroomSharp, SaveOutlined
 } from '@vicons/material'

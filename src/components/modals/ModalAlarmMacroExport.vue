@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { computed, h, inject, ref, type Ref } from 'vue'
 import {
-  NCheckbox, NIcon, NPopover, NTree,
   type TreeOption
 } from 'naive-ui'
 import { 
@@ -81,9 +79,11 @@ const itemTreeData = computed(() => {
     keys.push(groupKey)
   })
 
+  const autoExpandKeys = treeData.slice(-2).map(element => element.key!)
+
   return {
     treeData,
-    keys
+    keys, autoExpandKeys,
   }
 })
 const macro = computed(() => {
@@ -170,9 +170,13 @@ const getPlaceName = (itemInfo : ItemInfo) => {
           checkable
           :selectable="false"
           :data="itemTreeData.treeData"
-          :default-expanded-keys="itemTreeData.keys"
+          :default-expanded-keys="itemTreeData.autoExpandKeys"
           :default-checked-keys="[]"
           @update:checked-keys="handleItemTreeSelectedKeysUpdate"
+          :style="{
+            maxHeight: isMobile ? 'unset' : '365px',
+            overflowY: 'auto',
+          }"
         />
       </GroupBox>
       <div id="right-container">

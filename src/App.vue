@@ -1,20 +1,14 @@
 <script setup lang="ts">
-import { computed, provide, ref, getCurrentInstance, onMounted, watch, onBeforeUnmount } from 'vue'
 import {
   darkTheme, lightTheme, useOsTheme,
   zhCN, enUS, jaJP, dateZhCN, dateEnUS, dateJaJP,
   NConfigProvider, NDialogProvider, NGlobalStyle, NMessageProvider,
-  NLayout, NLayoutHeader, NLayoutContent,
+  NLayout, NLayoutHeader,
   type GlobalThemeOverrides
 } from 'naive-ui'
 import AppHeader from './components/custom/general/AppHeader.vue'
 import AccountView from './components/custom/general/AccountView.vue'
 import Dialog from "@/components/custom/general/Dialog.vue"
-import ModalCopyAsMacro from './components/modals/ModalCopyAsMacro.vue'
-import ModalCheckUpdates from './components/modals/ModalCheckUpdates.vue'
-import ModalLogin from '@/components/modals/ModalLogin.vue'
-import ModalCloudSync from './components/modals/ModalCloudSync.vue'
-import { useRoute } from 'vue-router'
 import { useStore } from '@/store/index'
 import { useElectronSync } from '@/composables/electron-sync'
 import { useLocale } from './locales'
@@ -24,8 +18,13 @@ import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from './models/config-func'
 import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
 import AppStatus from './variables/app-status'
-import ModalFestivalEgg from './components/modals/ModalFestivalEgg.vue'
 import { registerDialogProvider, useDialog } from './tools/dialog'
+
+const ModalCopyAsMacro = defineAsyncComponent(() => import('@/components/modals/ModalCopyAsMacro.vue'))
+const ModalCheckUpdates = defineAsyncComponent(() => import('@/components/modals/ModalCheckUpdates.vue'))
+const ModalLogin = defineAsyncComponent(() => import('@/components/modals/ModalLogin.vue'))
+const ModalCloudSync = defineAsyncComponent(() => import('@/components/modals/ModalCloudSync.vue'))
+const ModalFestivalEgg = defineAsyncComponent(() => import('@/components/modals/ModalFestivalEgg.vue'))
 
 const route = useRoute()
 const store = useStore()
@@ -228,6 +227,9 @@ const appClass = computed(() => {
 })
 
 const showFestivalEgg = ref(false)
+provide('displayFestivalEggModal', () => {
+  showFestivalEgg.value = true
+})
 const dialogRef = ref<InstanceType<typeof Dialog> | null>(null)
 const { confirm } = useDialog(t)
 
@@ -377,18 +379,18 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
     <n-dialog-provider>
     <n-message-provider :placement="naiveUiMessagePlacement">
       <div :class="appClass" :data-theme="theme">
-        <n-layout id="main-layout" position="absolute" :native-scrollbar="false">
-          <n-layout-header v-if="appMode !== 'overlay'" id="app-layout-header" position="absolute" bordered>
+        <n-layout id="main-layout" position="absolute">
+          <n-layout-header v-if="appMode !== 'overlay'" bordered id="app-layout-header">
             <AppHeader class="app-header" />
           </n-layout-header>
 
-          <n-layout-content id="main-content" position="absolute" :native-scrollbar="false">
+          <n-layout id="main-content" position="absolute" :native-scrollbar="false">
             <router-view />
-          </n-layout-content>
-          
+          </n-layout>
+
           <AccountView v-if="!isMobile && appMode !== 'overlay'" trigger-class="account-view" />
         </n-layout>
-        
+
         <Dialog ref="dialogRef" />
         <ModalCopyAsMacro
           v-model:show="showCopyMacroModal"
@@ -410,25 +412,22 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
 </template>
 
 <style scoped>
-#app-layout-header {
-  .app-header {
-    position: relative;
-    z-index: 1;
-  }
-}
-
-:deep(#main-content>.n-scrollbar>.n-scrollbar-container) {
-  padding: 1rem;
-}
-.n-layout-header {
-  height: 70px;
+.app-header {
+  height: 69px;
   padding: 10px 20px;
   z-index: 1000;
+  position: relative;
+  z-index: 1;
 }
-.n-layout-content {
-  margin-top: 70px;
+#main-content {
+  top: 70px;
+
+  #main-container {
+    min-height: calc(100vh - 70px);
+    padding: 1rem;
+  }
 }
-.env-overlay .n-layout-content {
-  margin-top: 0;
+.env-overlay #main-content {
+  top: 0;
 }
 </style>

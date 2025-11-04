@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { computed, h, inject, onBeforeUnmount, onMounted, ref, watch, type Ref, type VNode } from 'vue'
 import {
-  NBackTop, NButton, NButtonGroup, NDataTable, NDivider, NDropdown, NEmpty, NIcon, NInput, NInputGroup, NInputGroupLabel, NSelect, NTag,
-  useMessage,
+  NButton, NDivider, NTag, // 这些组件在函数中进行了引用，不能依赖自动引入
   type DataTableColumns,
 } from 'naive-ui'
 import {
@@ -76,7 +74,7 @@ watch(workState, async () => {
 
 const tableHeight = ref(300)
 const updateHeights = () => {
-  tableHeight.value = window.innerHeight - 280
+  tableHeight.value = window.innerHeight - 285
 }
 onMounted(() => {
   updateHeights()

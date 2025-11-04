@@ -19,26 +19,12 @@ const useConfig = (
     }
     return userConfig.value.language_ui
   })
-  /** 物品服务器 */
-  const itemServer = computed(() => {
-    let server = userConfig.value.item_server
-    if (!server || server === 'auto') {
-      if (itemLanguage.value === 'zh') {
-        server = 'chs'
-      } else {
-        server = 'global'
-      }
-    }
-    return server
-  })
 
   return {
     /** 界面语言 */
     uiLanguage,
     /** 物品语言 */
     itemLanguage,
-    /** 物品服务器 */
-    itemServer,
   }
 }
 

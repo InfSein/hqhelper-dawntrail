@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { inject, ref, computed, type Ref } from 'vue'
 import {
-  NIcon, NPopover, NTooltip,
   type PopoverTrigger
 } from 'naive-ui'
 import {

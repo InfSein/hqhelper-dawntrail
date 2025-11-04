@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch, type Ref } from 'vue'
-import {
-  NBackTop,
-} from 'naive-ui'
 // import {
 //   SettingsSharp,
 //   VisibilitySharp, VisibilityOffSharp,
@@ -16,7 +12,6 @@ import { type FuncConfigModel } from '@/models/config-func'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { useFufuCal } from '@/tools/use-fufu-cal'
-import UseConfig from '@/tools/use-config'
 import CraftRecommProcess from '@/components/custom/general/CraftRecommProcess.vue'
 import { deepCopy } from '@/tools'
 
@@ -30,9 +25,6 @@ const store = useStore()
 const { emitSync, onSync } = useElectronSync()
 const { calItems } = useNbbCal()
 const { getStatementData, getProStatementData, calRecommProcessData, calRecommProcessGroups } = useFufuCal(userConfig, funcConfig, t)
-const {
-  itemServer,
-} = UseConfig(userConfig, funcConfig)
 
 const workState = ref(fixWorkState())
 
@@ -116,7 +108,6 @@ const recommProcessGroups = computed(() => {
     funcConfig.value.processes_craftable_item_sortby,
     funcConfig.value.processes_merge_gatherings,
     userConfig.value.language_ui,
-    itemServer.value,
     t
   )
 })

@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch, type Ref } from 'vue'
-import {
-  NButton, NIcon,
-  useMessage
-} from 'naive-ui'
 import { 
   AllInclusiveSharp, CopyAllOutlined
 } from '@vicons/material'
@@ -26,7 +21,7 @@ const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const NAIVE_UI_MESSAGE = useMessage()
 const { calRecommProcessGroups } = useFufuCal(userConfig, funcConfig, t)
 const {
-  itemLanguage, itemServer,
+  itemLanguage,
 } = UseConfig(userConfig, funcConfig)
   
 const showModal = defineModel<boolean>('show', { required: true })
@@ -70,7 +65,6 @@ const itemGroups = computed(() => {
     funcConfig.value.processes_craftable_item_sortby,
     funcConfig.value.processes_merge_gatherings,
     userConfig.value.language_ui,
-    itemServer.value,
     t
   )
 })
@@ -109,13 +103,6 @@ const handleCollapseOrUncollapseAllBlocks = () => {
     expandedBlocks.value[i] = allCollapsed ? ['1'] : []
   }
 }
-const handleHideOrShowChsOfflineItems = () => {
-  hideChsOfflineItems.value = !hideChsOfflineItems.value
-  const message = hideChsOfflineItems.value
-    ? t('recomm_process.message.hided_unchs_items')
-    : t('recomm_process.message.showed_unchs_items')
-  NAIVE_UI_MESSAGE.success(message)
-}
 const handleCopyProcesses = () => {
   const text = itemGroups.value.map((group, index) => {
     return (index+1) + '. ' + group.title + ':\n' + group.items.map(item => {
@@ -146,7 +133,6 @@ const handleSettingButtonClick = () => {
         <span class="title">{{ t('common.appfunc.recomm_process') }}</span>
         <div class="card-title-actions">
           <a href="javascript:void(0);" @click="handleCollapseOrUncollapseAllBlocks">[{{ isBlocksAllCollapsed() ? t('common.expand_all') : t('common.fold_all') }}]</a>
-          <a v-if="itemServer === 'chs'" href="javascript:void(0);" @click="handleHideOrShowChsOfflineItems">[{{ hideChsOfflineItems ? t('recomm_process.text.show_items_not_installed_in_chs') : t('recomm_process.text.hide_items_not_installed_in_chs') }}]</a>
         </div>
       </div>
     </template>
