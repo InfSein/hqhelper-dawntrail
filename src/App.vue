@@ -14,9 +14,10 @@ import { useElectronSync } from '@/composables/electron-sync'
 import { useLocale } from './locales'
 import { checkAppUpdates, CopyToClipboard, deepCopy, sleep } from './tools'
 import EorzeaTime from './tools/eorzea-time'
-import { type UserConfigModel, fixUserConfig } from '@/models/config-user'
+import { fixUserConfig , type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from './models/config-func'
-import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
+import { fixCloudConfig, type CloudConfigModel } from '@/models/config-cloud'
+import { fixMainCache, type MainCacheModel } from '@/models/cache-main'
 import AppStatus from './variables/app-status'
 import { registerDialogProvider, useDialog } from './tools/dialog'
 
@@ -34,6 +35,7 @@ const { emitSync, onSync } = useElectronSync()
 const userConfig = ref<UserConfigModel>(fixUserConfig(store.userConfig))
 const funcConfig = ref<FuncConfigModel>(fixFuncConfig(store.funcConfig, store.userConfig))
 const cloudConfig = ref<CloudConfigModel>(fixCloudConfig(store.cloudConfig))
+const mainCache = ref<MainCacheModel>(fixMainCache(store.mainCache))
 const locale = computed(() => {
   return userConfig.value?.language_ui ?? 'zh'
 })
@@ -85,33 +87,38 @@ const appForceUpdate = () => {
   handleAppUpdate(
     store.userConfig,
     store.funcConfig,
-    store.cloudConfig
+    store.cloudConfig,
+    store.mainCache
   )
   // Update electron settings
   emitSync('update-setting', deepCopy({
     userConfig: userConfig.value,
     funcConfig: funcConfig.value,
     cloudConfig: cloudConfig.value,
+    mainCache: mainCache.value,
   }))
 }
 onSync('update-setting', (value) => {
   console.log('on-sync was called', value)
   const {
-    userConfig: _userConfig, funcConfig: _funcConfig, cloudConfig: _cloudConfig
+    userConfig: _userConfig, funcConfig: _funcConfig, cloudConfig: _cloudConfig, mainCache: _mainCache
   } = value
-  handleAppUpdate(_userConfig, _funcConfig, _cloudConfig)
+  handleAppUpdate(_userConfig, _funcConfig, _cloudConfig, _mainCache)
   store.setUserConfig(userConfig.value)
   store.setFuncConfig(funcConfig.value)
   store.setCloudConfig(cloudConfig.value)
+  store.setMainCache(mainCache.value)
 })
 const handleAppUpdate = (
   _userConfig: UserConfigModel | undefined,
   _funcConfig: FuncConfigModel | undefined,
   _cloudConfig: CloudConfigModel | undefined,
+  _mainCache: MainCacheModel | undefined
 ) => {
   userConfig.value = fixUserConfig(_userConfig)
   funcConfig.value = fixFuncConfig(_funcConfig, _userConfig)
   cloudConfig.value = fixCloudConfig(_cloudConfig)
+  mainCache.value = fixMainCache(_mainCache)
   // Update i18n
   setLocale(locale.value)
   // Update vue
@@ -157,6 +164,7 @@ const t = (message: string, args?: any) => {
 provide('userConfig', userConfig)
 provide('funcConfig', funcConfig)
 provide('cloudConfig', cloudConfig)
+provide('mainCache', mainCache)
 provide('t', t)
 provide('theme', theme)
 provide('locale', locale)

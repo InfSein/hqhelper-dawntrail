@@ -1,6 +1,7 @@
 import { computed, type Ref } from "vue"
 import { getImgCdnUrl } from "./item"
 import type { CloudConfigModel } from "@/models/config-cloud"
+import type { MainCacheModel } from "@/models/cache-main"
 
 interface UserSpecialTitle {
   key: "dev" | "staff" | "vip"
@@ -11,6 +12,7 @@ interface UserSpecialTitle {
 
 const useCloud = (
   cloudConfig: Ref<CloudConfigModel>,
+  mainCache: Ref<MainCacheModel>,
   t: (message: string, args?: any) => string,
 ) => {
   const avatarUrl = computed(() => {
@@ -40,8 +42,16 @@ const useCloud = (
       return {
         key: 'dev',
         tag: 'DEV',
-        tagColor: '#2080f0',
+        tagColor: 'var(--color-info)',
         desc: 'HqHelper的开发者'
+      }
+    }
+    if (mainCache.value.sponsor_nbbids.includes(userId.value)) {
+      return {
+        key: 'vip',
+        tag: 'VIP',
+        tagColor: 'var(--color-error)',
+        desc: 'HqHelper的赞助者'
       }
     }
     return undefined
