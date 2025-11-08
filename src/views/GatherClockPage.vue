@@ -626,7 +626,7 @@ const handleShowAlarmMacroExportModal = () => {
         <div v-if="!patch.items?.length" class="flex-center w-full" :style="isMobile ? 'min-height: 300px;' : ''">
           <n-empty size="large" :description="t('gather_clock.text.no_items')" />
         </div>
-        <n-grid cols="1 600:2 900:3 1200:4 1500:5" :x-gap="5" :y-gap="5">
+        <n-grid cols="1 600:2 900:3 1200:4 1500:5 1900:6" :x-gap="5" :y-gap="5">
           <n-grid-item
             v-for="item in getSortedItems(patch.items)"
             :key="item.id"

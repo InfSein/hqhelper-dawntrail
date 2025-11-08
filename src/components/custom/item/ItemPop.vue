@@ -564,7 +564,9 @@ const innerPopTrigger = computed(() => {
         <div class="description-block" v-if="itemInfo.collectInfo">
           <div class="title">
             {{ t('common.submission') }}
-            <div class="extra">{{ t('common.collectable_submission') }}</div>
+            <div class="extra">
+              <i class="xiv collectables"></i>{{ t('common.collectable_submission') }}
+            </div>
           </div>
           <n-divider class="item-divider" />
           <div class="content">
