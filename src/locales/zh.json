@@ -1424,6 +1424,7 @@
       },
       "is_tradable": "该物品可以通过兑换获得：",
       "item_level_with_val": "物品品级 {ilv}",
+      "medicine_recovery_info": "恢复{0}最大值的{1}% (上限{2})",
       "multi_get_each_trade": "每次兑换可获得{val}个",
       "need_learn": "需要习得",
       "not_installed_in_chs": "该物品国服尚未实装。",
