@@ -358,7 +358,6 @@ const handleAnalysisItemPrices = async () => {
                   <ItemList
                     :items="gatheringsCommon"
                     :list-height="isMobile ? undefined : 320"
-                    :btn-pop-max-width="isMobile ? undefined : '340px'"
                     :show-collector-icon="!userConfig.hide_collector_icons"
                   />
                 </div>
@@ -368,7 +367,6 @@ const handleAnalysisItemPrices = async () => {
                   <ItemList
                     :items="gatheringsTimed"
                     :list-height="isMobile ? undefined : 320"
-                    :btn-pop-max-width="isMobile ? undefined : '340px'"
                     :show-collector-icon="!userConfig.hide_collector_icons"
                   />
                 </div>
@@ -378,7 +376,6 @@ const handleAnalysisItemPrices = async () => {
                   <ItemList
                     :items="crystals"
                     :list-height="isMobile ? undefined : 320"
-                    :btn-pop-max-width="isMobile ? undefined : '340px'"
                   />
                 </div>
               </n-collapse-item>
