@@ -7,6 +7,7 @@ import {
 } from '@vicons/material'
 import { useStore } from '@/store'
 import { type CloudConfigModel, fixCloudConfig } from '@/models/config-cloud'
+import type { MainCacheModel } from '@/models/cache-main'
 import { CopyToClipboard } from '@/tools'
 import { useDialog } from '@/tools/dialog'
 import { useNbbCloud } from '@/tools/nbb-cloud'
@@ -15,6 +16,7 @@ import useCloud from '@/tools/cloud'
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile')!
 const cloudConfig = inject<Ref<CloudConfigModel>>('cloudConfig')!
+const mainCache = inject<Ref<MainCacheModel>>('mainCache')!
 const displayLoginModal = inject<(action: "login" | "register" | "edituser") => void>('displayLoginModal')!
 const displayCloudSyncModal = inject<() => {}>('displayCloudSyncModal')!
 const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
@@ -33,7 +35,7 @@ const {
   userLoggedIn,
   userTitle,
   userSpecialTitle,
-} = useCloud(cloudConfig, t)
+} = useCloud(cloudConfig, mainCache, t)
 
 interface AccountViewProps {
   triggerClass?: string
@@ -160,7 +162,8 @@ const handleLogout = async () => {
           </n-button>
         </div>
         <div v-if="userSpecialTitle" class="no-select">
-          {{ userSpecialTitle.tag }}: {{ userSpecialTitle.desc }}
+          <i class="xiv diaem-nm"></i>
+          {{ userSpecialTitle.desc }}
         </div>
       </div>
       <n-divider style="margin: 4px 0" />

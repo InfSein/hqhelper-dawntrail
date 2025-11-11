@@ -161,6 +161,25 @@ const itemHasHQ = computed(() => {
     return props.itemInfo.attrsProvided.every(subArr => subArr[2] > 0)
   }
 })
+const itemTempAttrTexts = computed(() : string[] => {
+  if (!props.itemInfo.tempAttrsProvided?.length) {
+    return []
+  }
+  return props.itemInfo.tempAttrsProvided.map(attr => buildAttrText(attr, showItemHqAttr.value))
+
+  function buildAttrText(attr: number[], hq: boolean) {
+    const attrId = attr[0]
+    const attrPercent = hq ? attr[4] : attr[2]
+    const attrMax = hq ? attr[5] : attr[3]
+    switch (attrId) {
+      case 7: // 体力
+      case 8: // 魔力
+        return t('item.text.medicine_recovery_info', [getAttrName(attrId), attrPercent, attrMax])
+      default:
+        return `${getAttrName(attrId)} +${attrPercent}% ${t('common.quoted_maximum', attrMax)}`
+    }
+  }
+})
 const itemCraftRequires = computed(() => {
   const requires : {
     id: number;
@@ -417,22 +436,9 @@ const innerPopTrigger = computed(() => {
             <HqSwitcher v-model:hq="showItemHqAttr" :readonly="!itemHasHQ" :size="12" class="extra" />
           </div>
           <n-divider class="item-divider" />
-          <div class="content" v-if="showItemHqAttr">
-            <div
-              class="item"
-              v-for="(attr, index) in itemInfo.tempAttrsProvided"
-              :key="'temp-attr-hq' + index"
-            >
-              <div>{{ `${getAttrName(attr[0])} +${attr[4]}% ${t('common.quoted_maximum', attr[5])}` }}</div>
-            </div>
-          </div>
-          <div class="content" v-else>
-            <div
-              class="item"
-              v-for="(attr, index) in itemInfo.tempAttrsProvided"
-              :key="'temp-attr-nq' + index"
-            >
-              <div>{{ `${getAttrName(attr[0])} +${attr[2]}% ${t('common.quoted_maximum', attr[3])}` }}</div>
+          <div class="content">
+            <div class="item" v-for="(attrText, atIndex) in itemTempAttrTexts" :key="'temp-attr-' + atIndex">
+              <div>{{ attrText }}</div>
             </div>
           </div>
           <div v-if="isMobile" class="content extra">
@@ -558,7 +564,9 @@ const innerPopTrigger = computed(() => {
         <div class="description-block" v-if="itemInfo.collectInfo">
           <div class="title">
             {{ t('common.submission') }}
-            <div class="extra">{{ t('common.collectable_submission') }}</div>
+            <div class="extra">
+              <i class="xiv collectables"></i>{{ t('common.collectable_submission') }}
+            </div>
           </div>
           <n-divider class="item-divider" />
           <div class="content">

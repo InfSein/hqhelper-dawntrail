@@ -80,6 +80,28 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.3.7',
+      date: '2025-11-11',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('changelog.shared.global_db_update', {
+              ver: '7.38'
+            })
+              + '<br> ※ ' + t('changelog.2_1_2.breaking.text_1'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            isZh ? '追加和修订了部分物品的笔记 (仅在界面语言设置为简体中文时显示)。' : '',
+            t('changelog.shared.detail_optimized'),
+          ]
+        }
+      ]
+    },
+    {
       version: '2.3.6',
       date: '2025-11-04',
       changes: [

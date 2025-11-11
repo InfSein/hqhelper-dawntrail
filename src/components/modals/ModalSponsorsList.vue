@@ -4,17 +4,22 @@ import {
   RefreshOutlined,
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
+import { useStore } from '@/store'
 import { useDialog } from '@/tools/dialog'
+import type { MainCacheModel } from '@/models/cache-main'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const mainCache = inject<Ref<MainCacheModel>>('mainCache')!
 
+const store = useStore()
 const { alertInfo } = useDialog(t)
 
 const showModal = defineModel<boolean>('show', { required: true })
 
 interface SponsorInfo {
   name: string;
+  nbbid?: number;
   date: string;
   word: string;
   sponsored: number[];
@@ -46,6 +51,8 @@ const loadSponsors = async () => {
       }
     }
     sponsors.value = sponsorsContent.data.content.sponsors
+    mainCache.value.sponsor_nbbids = sponsors.value.flatMap(s => s.nbbid ? [s.nbbid] : [])
+    store.setMainCache(mainCache.value)
     sponsorLoadingStatus.value = 'finished'
   } catch (e: any) {
     sponsorLoadingStatus.value = 'error'
