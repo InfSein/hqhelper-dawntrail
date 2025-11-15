@@ -124,6 +124,7 @@ const handleIgnoreAnnouncement = async (aid: AnnouncementId) => {
   .announcement-content {
 
     .content-actions-container {
+      margin-top: 5px;
       display: flex;
       gap: 0 4px;
       justify-content: flex-end;
