@@ -26,6 +26,28 @@
       "web": "当前网页版本：{v}"
     }
   },
+  "announcement": {
+    "action": {
+      "feedback_github": "反馈问题(Github)",
+      "feedback_qquery": "反馈问题(QQ问卷)",
+      "follow_us": "关注我们",
+      "ignore": "不再显示",
+      "join_q_group": "加入Q群"
+    },
+    "content": {
+      "content_1_1": "随着 7.4 版本实装，整个金曦之遗辉资料片的主要 HQ 制作装备已经全部推出，HqHelper 在 7.0 的使命也告一段落。",
+      "content_1_2": "我们仍会随着游戏版本推进继续更新 HqHelper 的资料库，但将主要以热更新方式完成，不会再频繁发布例行更新。",
+      "content_1_3": "您仍可通过下方各种方式联系我们，指出缺漏、提出需求或给予赞助，以帮助我们将 HqHelper 变得更好。",
+      "content_1_4": "感谢一直以来的支持，我们 8.0 再见！"
+    },
+    "message": {
+      "ignore_confirm": "确定不再显示这一公告吗？",
+      "ignored": "此公告将不再显示"
+    },
+    "title": {
+      "title_1": "金曦之遗辉步入尾声……"
+    }
+  },
   "appheader": {
     "menu": {
       "tooltip": {
