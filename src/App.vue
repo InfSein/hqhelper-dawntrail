@@ -450,7 +450,6 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
 #main-content {
   top: 70px;
   background-image: var(--app-bg);
-  background-repeat: no-repeat;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% auto;
