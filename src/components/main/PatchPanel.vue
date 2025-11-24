@@ -125,7 +125,7 @@ const patchPatterns = computed(() => {
         <template #trigger>
           <n-button
             class="patch-button"
-            :class="patch.v === patchSelected ? 'selected' : ''"
+            :class="patch.v === patchSelected ? 'selected no-border' : ''"
             :disabled="!patch.updated"
             @click="handlePatchSelect(patch)"
             :style="`background-image: url(${getPatchBackground(patch)});`"

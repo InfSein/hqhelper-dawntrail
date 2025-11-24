@@ -55,9 +55,6 @@ const statementBlocks = computed(() => {
     },
   ]
 })
-const groupBoxTitleBackground = computed(() => {
-  return props.insideModal ? 'var(--n-color-modal)' : 'var(--n-color-embedded)'
-})
 </script>
 
 <template>
@@ -84,7 +81,6 @@ const groupBoxTitleBackground = computed(() => {
       :key="block.id"
       :id="block.id"
       class="group"
-      :title-background-color="groupBoxTitleBackground"
     >
       <template #title>{{ block.name }}</template>
       <div class="container">

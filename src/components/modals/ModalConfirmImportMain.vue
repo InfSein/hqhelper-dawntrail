@@ -163,7 +163,7 @@ const handleSubmit = () => {
     @on-load="onLoad"
   >
     <div class="wrapper">
-      <GroupBox v-if="isMobile" :title="t('main.imexport.import_parts')" title-background-color="var(--n-color-modal)">
+      <GroupBox v-if="isMobile" :title="t('main.imexport.import_parts')">
         <n-scrollbar trigger="none" x-scrollable :style="{ width: '100%', height: '300px', 'margin-top': '-2px' }">
           <n-table class="table" size="small" :single-line="false">
             <thead>
@@ -201,7 +201,7 @@ const handleSubmit = () => {
           </n-table>
         </n-scrollbar>
       </GroupBox>
-      <GroupBox v-else :title="t('main.imexport.import_parts')" title-background-color="var(--n-color-modal)">
+      <GroupBox v-else :title="t('main.imexport.import_parts')">
         <n-table class="table" size="small" :single-line="false">
           <thead>
             <tr>
@@ -239,7 +239,7 @@ const handleSubmit = () => {
           </n-table>
         </n-scrollbar>
       </GroupBox>
-      <GroupBox :title="t('main.select_patch.title')" title-background-color="var(--n-color-modal)">
+      <GroupBox :title="t('main.select_patch.title')">
         <n-select v-model:value="patchSelected" :placeholder="t('main.imexport.confirm_import_patch')" :options="patchOptions" />
       </GroupBox>
     </div>

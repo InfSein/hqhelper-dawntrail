@@ -131,7 +131,6 @@ const handleSave = () => {
               :key="roleIndex"
               v-show="getVShowOfMainoffHandGroup(role)"
               :border-color="role.role_color"
-              title-background-color="var(--n-color-modal)"
               container-extra-style="padding: 8px;"
             >
               <template #title>
@@ -392,7 +391,6 @@ const handleSave = () => {
               :key="'m-'+roleIndex"
               v-show="getVShowOfMainoffHandGroup(role)"
               :border-color="role.role_color"
-              title-background-color="var(--n-color-modal)"
               container-extra-style="padding: 8px;"
             >
               <template #title>
@@ -435,7 +433,6 @@ const handleSave = () => {
               v-for="(attire, attireIndex) in attireAffixes"
               :key="'m-at'+attireIndex"
               v-show="getVShowOfAttireAffixRow(attire)"
-              title-background-color="var(--n-color-modal)"
               container-extra-style="padding: 8px;"
             >
               <template #title>
@@ -473,7 +470,6 @@ const handleSave = () => {
               v-for="(accessory, accessoryIndex) in accessoryAffixes"
               :key="'m-ac'+accessoryIndex"
               v-show="getVShowOfAccessoryAffixRow(accessory)"
-              title-background-color="var(--n-color-modal)"
               container-extra-style="padding: 8px;"
             >
               <template #title>

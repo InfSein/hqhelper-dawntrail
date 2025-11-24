@@ -55,6 +55,12 @@ const folderText = computed(() => {
   return folded.value ? t('common.expand') : t('common.fold')
 })
 
+const cardClasses = computed(() => {
+  return [
+    userConfig.value.custom_background ? 'glasscard' : ''
+  ].join(' ')
+})
+
 const updateUi = () => {
   if (folded.value) {
     folderIcon.value = expandIcon.value
@@ -87,7 +93,7 @@ defineExpose({
 </script>
 
 <template>
-  <n-card :id="'card-'+cardKey" :size="cardSize" :title="title" :content-style="cardContentStyle" embedded :bordered="showCardBorder">
+  <n-card :id="'card-'+cardKey" :size="cardSize" :title="title" :class="cardClasses" :content-style="cardContentStyle" embedded :bordered="showCardBorder">
     <template #header>
       <slot name="header" />
       <span v-if="description" class="description">{{ description }}</span>

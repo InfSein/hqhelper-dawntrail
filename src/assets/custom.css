@@ -129,6 +129,11 @@
 }
 
 /* Ui-lib Customs */
+.n-button.no-border {
+  .n-button__border, .n-button__state-border {
+    border: 1px solid transparent !important;
+  }
+}
 .card-title-text {
   margin-left: 3px;
   font-size: var(--n-title-font-size);

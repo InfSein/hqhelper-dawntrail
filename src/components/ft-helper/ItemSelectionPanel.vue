@@ -6,11 +6,13 @@ import {
 import FoldableCard from '../templates/FoldableCard.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'
 import ItemStepper from '../custom/item/ItemStepper.vue'
+import TooltipButton from '../custom/general/TooltipButton.vue'
 import { useNbbCal } from '@/tools/use-nbb-cal'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
-import TooltipButton from '../custom/general/TooltipButton.vue'
+import type { UserConfigModel } from '@/models/config-user'
 
 const t = inject<(message: string, args?: any) => string>('t')!
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 const patchModel = defineModel<string>('patch', { required: true })
 const itemSelected = defineModel<Record<number, number>>('itemSelected', { required: true })
@@ -69,7 +71,7 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
           :disabled="!foodAndTinc.count"
         >
           <div class="item-selection-container">
-            <n-card size="small">
+            <n-card size="small" :class="userConfig.custom_background ? 'glasscard smallcard' : ''">
               <template #header>
                 <div class="card-title">
                   <XivFARImage

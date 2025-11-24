@@ -513,7 +513,6 @@ const handleDownload = async () => {
               v-for="group in syncRangeGroups"
               :key="group.key"
               :title="group.title"
-              title-background-color="var(--n-color-embedded-modal)"
             >
               <div class="sync-range-container">
                 <div

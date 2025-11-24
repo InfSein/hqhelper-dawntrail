@@ -110,12 +110,12 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
           {{ t('common.export') }}
         </template>
         <div class="pane-container export-panel">
-          <GroupBox id="gbx-file-name" :title="t('common.file_name')" title-background-color="var(--n-color-modal)">
+          <GroupBox id="gbx-file-name" :title="t('common.file_name')">
             <n-input v-model:value="fileName" maxlength="100" :placeholder="t('common.will_be_named_with_time_when_empty')">
               <template #suffix>.json</template>
             </n-input>
           </GroupBox>
-          <GroupBox id="gbx-cautions" :title="t('common.cautions')" title-background-color="var(--n-color-modal)">
+          <GroupBox id="gbx-cautions" :title="t('common.cautions')">
             <ul>
               <li>{{ t('macro_manage.imexport.desc.desc_1') }}</li>
               <li>{{ t('macro_manage.imexport.desc.desc_2') }}</li>

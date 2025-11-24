@@ -20,6 +20,8 @@ export interface UserConfigModel {
   // * appearance
   /** 主题 */
   theme: 'light' | 'dark' | 'system'
+  /** 自定义背景 */
+  custom_background: string
   /** 自定义字体 */
   custom_font: string
   /** 字体大小 */
@@ -89,6 +91,7 @@ const defaultUserConfig: UserConfigModel = {
   action_after_savesettings: 'ask',
   // appearance
   theme: 'light',
+  custom_background: '',
   custom_font: '',
   custom_font_size: '14px',
   hide_collector_icons: false,

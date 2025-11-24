@@ -134,12 +134,12 @@ const onImportConfirmed = () => {
           {{ t('common.export_to_excel') }}
         </template>
         <div class="pane-container export-panel">
-          <GroupBox id="gbx-file-name" :title="t('common.file_name')" title-background-color="var(--n-color-modal)">
+          <GroupBox id="gbx-file-name" :title="t('common.file_name')">
             <n-input v-model:value="fileName" maxlength="100" :placeholder="t('common.will_be_named_with_time_when_empty')">
               <template #suffix>.xlsx</template>
             </n-input>
           </GroupBox>
-          <GroupBox :title="t('common.options')" title-background-color="var(--n-color-modal)">
+          <GroupBox :title="t('common.options')">
             <n-checkbox v-model:checked="exportItemPrices">
               <div class="flex-center">
                 <div>{{ t('main.imexport.export_cost_and_benefit') }}</div>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ModalDonate from '@/components/modals/ModalDonate.vue'
 import { useStore } from '@/store'
+import type { UserConfigModel } from '@/models/config-user'
 import type { MainCacheModel } from '@/models/cache-main'
 import {
   visitUrl,
@@ -11,6 +12,7 @@ import {
 } from '@/variables'
 
 const t = inject<(message: string, args?: any) => string>('t')!
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const mainCache = inject<Ref<MainCacheModel>>('mainCache')!
 
 const store = useStore()
@@ -84,7 +86,7 @@ const handleIgnoreAnnouncement = async (aid: AnnouncementId) => {
 </script>
 
 <template>
-  <div v-if="announcementsToShow.length" class="announcements-container">
+  <div v-if="announcementsToShow.length" class="announcements-container" :class="userConfig.custom_background ? 'glasscard' : ''">
     <n-alert
       v-for="announcement in announcementsToShow"
       :key="'anno-' + announcement.id"
@@ -120,6 +122,8 @@ const handleIgnoreAnnouncement = async (aid: AnnouncementId) => {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  background-color: var(--glasscard-bg);
+  border-radius: 4px;
 
   .announcement-content {
 

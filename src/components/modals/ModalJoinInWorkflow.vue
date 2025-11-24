@@ -132,7 +132,7 @@ const handleSubmit = () => {
     @on-load="onLoad"
   >
     <div class="wrapper" ref="wrapper">
-      <GroupBox id="atw-header" title-background-color="var(--n-color-modal)">
+      <GroupBox id="atw-header">
         <template #title>
           <span class="title">{{ t('common.options') }}</span>
         </template>
@@ -145,7 +145,7 @@ const handleSubmit = () => {
           <n-select v-model:value="joinMode" :options="joinModeOptions" :render-option="optionsRenderer" />
         </n-input-group>
       </GroupBox>
-      <GroupBox id="atw-content" title-background-color="var(--n-color-modal)">
+      <GroupBox id="atw-content">
         <template #title>
           <span class="title">{{ t('common.preview') }}</span>
         </template>

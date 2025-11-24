@@ -1716,6 +1716,14 @@
       "title": "在每个生产宏的开头使用/macrolock"
     },
     "costandbenefit_show_item_details": "成本/收益分析中显示物品详情",
+    "custom_background": {
+      "desc": {
+        "desc_1": "设置背景之后，界面的部分元素将自动启用毛玻璃效果。",
+        "desc_2": "若设置之后发现部分区域的可视度下降，请考虑切换主题设置。",
+        "desc_3": "部分或全部的预设图片来自 SQUARE ENIX 和/或 盛趣游戏 ，这些图片的版权亦仅由上述机构持有，HqHelper 不主张任何相关权利"
+      },
+      "title": "自定义背景"
+    },
     "custom_font": {
       "desc": {
         "desc_1": "全局性地修改程序/网站的字体。",

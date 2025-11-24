@@ -12,7 +12,7 @@ import Dialog from "@/components/custom/general/Dialog.vue"
 import { useStore } from '@/store/index'
 import { useElectronSync } from '@/composables/electron-sync'
 import { useLocale } from './locales'
-import { checkAppUpdates, CopyToClipboard, deepCopy, sleep } from './tools'
+import { checkAppUpdates, CopyToClipboard, deepCopy, getAppBackground, sleep } from './tools'
 import EorzeaTime from './tools/eorzea-time'
 import { fixUserConfig , type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from './models/config-func'
@@ -124,6 +124,8 @@ const handleAppUpdate = (
   // Update vue
   const instance = getCurrentInstance()
   instance?.proxy?.$forceUpdate()
+  // 加载背景
+  getAppBackground(userConfig.value.custom_background).then(val => appBg.value = val)
 }
 const switchTheme = () => {
   userConfig.value.theme = theme.value === 'light' ? 'dark' : 'light'
@@ -233,6 +235,12 @@ const appClass = computed(() => {
   ]
   return classes.join(' ')
 })
+const appStyle = computed(() => {
+  const styles = [
+    '--app-bg: ' + appBg.value
+  ]
+  return styles.join(';')
+})
 
 const showFestivalEgg = ref(false)
 provide('displayFestivalEggModal', () => {
@@ -240,6 +248,8 @@ provide('displayFestivalEggModal', () => {
 })
 const dialogRef = ref<InstanceType<typeof Dialog> | null>(null)
 const { confirm } = useDialog(t)
+
+const appBg = ref('')
 
 onMounted(async () => {
   // 注册对话框
@@ -314,6 +324,8 @@ onMounted(async () => {
   window.addEventListener('resize', updateIsMobile)
   updateDraggableArea()
   window.addEventListener('resize', updateDraggableArea)
+  // 加载背景
+  appBg.value = await getAppBackground(userConfig.value.custom_background)
 })
 onBeforeUnmount(() => {
   window.removeEventListener('resize', updateIsMobile)
@@ -360,6 +372,14 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
   }
   fontFamily = 'FFXIV, ' + fontFamily
   const fontSize = userConfig.value.custom_font_size || '14px'
+
+  /*
+  let buttonBorder : string | undefined = undefined
+  if (userConfig.value.custom_background) {
+    buttonBorder = theme.value === 'dark' ? undefined : '1px solid #b9b9ba'
+  }
+  */
+
   return {
     common: {
       fontFamily,
@@ -386,7 +406,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
     <n-global-style />
     <n-dialog-provider>
     <n-message-provider :placement="naiveUiMessagePlacement">
-      <div :class="appClass" :data-theme="theme">
+      <div :class="appClass" :style="appStyle" :data-theme="theme">
         <n-layout id="main-layout" position="absolute">
           <n-layout-header v-if="appMode !== 'overlay'" bordered id="app-layout-header">
             <AppHeader class="app-header" />
@@ -429,6 +449,11 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
 }
 #main-content {
   top: 70px;
+  background-image: var(--app-bg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
 
   #main-container {
     min-height: calc(100vh - 70px);
