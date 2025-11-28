@@ -62,7 +62,7 @@ const handleStartUpload = async () => {
   }
   if (customImage.value) {
     if (!await confirm(
-      '已经上传过背景图片，再次上传会将其覆盖。'
+      t('common.image_selector.tooltip.custom_image_would_be_rewritten')
       + '\n' + t('common.message.ask_continue')
     )) return
   }
@@ -100,6 +100,7 @@ const handleImageUpload = async (e: Event) => {
         class="image-button-content"
       >
         <div class="image-button-text">
+          {{ image.label }}
         </div>
       </div>
     </n-button>
@@ -108,11 +109,9 @@ const handleImageUpload = async (e: Event) => {
       class="image-button"
       @click="handleStartUpload"
     >
-      <div
-        class="image-button-content"
-      >
+      <div class="image-button-content">
         <div class="image-button-text">
-          上传
+          {{ t('common.image_selector.text.custom_image') }}
         </div>
       </div>
     </n-button>

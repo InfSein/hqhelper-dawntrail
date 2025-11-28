@@ -152,7 +152,7 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               ],
               type: 'image-select',
               options: [
-                { value: '', label: t('common.nothing') },
+                { value: '', label: t('preference.custom_background.option.no_background') },
                 { value: 'https://fu5.web.sdo.com/10036/202511/17624187245354.jpg' },
                 { value: 'https://fu5.web.sdo.com/10036/202511/17621672273734.jpg' },
                 { value: 'https://fu5.web.sdo.com/10036/202511/17621669788001.jpg' },

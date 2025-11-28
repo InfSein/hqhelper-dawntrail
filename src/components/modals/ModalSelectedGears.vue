@@ -15,6 +15,7 @@ import type { GearSelections, AttireAffix, AccessoryAffix } from '@/models/gears
 import { attireAffixes, accessoryAffixes } from '@/models/gears'
 import { type UserConfigModel } from '@/models/config-user'
 import { deepCopy } from '@/tools'
+import { getGearIcon } from '@/tools/gears'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
@@ -32,17 +33,17 @@ const getAffixName = (affix: AttireAffix | AccessoryAffix) => {
   return XivGearAffixes[affix][`name_${uiLanguage}`]
 }
 const attireGearSlots = [
-  { key: 'headAttire', text: t('game.gear.attire.head.title'), icon: './image/game-gear-slot/head.png' },
-  { key: 'bodyAttire', text: t('game.gear.attire.body.title'), icon: './image/game-gear-slot/body.png' },
-  { key: 'handsAttire', text: t('game.gear.attire.hands.title'), icon: './image/game-gear-slot/hands.png' },
-  { key: 'legsAttire', text: t('game.gear.attire.legs.title'), icon: './image/game-gear-slot/legs.png' },
-  { key: 'feetAttire', text: t('game.gear.attire.feet.title'), icon: './image/game-gear-slot/feet.png' },
+  { key: 'headAttire', text: t('game.gear.attire.head.title'), icon: getGearIcon('headAttire') },
+  { key: 'bodyAttire', text: t('game.gear.attire.body.title'), icon: getGearIcon('bodyAttire') },
+  { key: 'handsAttire', text: t('game.gear.attire.hands.title'), icon: getGearIcon('handsAttire') },
+  { key: 'legsAttire', text: t('game.gear.attire.legs.title'), icon: getGearIcon('legsAttire') },
+  { key: 'feetAttire', text: t('game.gear.attire.feet.title'), icon: getGearIcon('feetAttire') },
 ]
 const accessoryGearSlots = [
-  { key: 'earrings', text: t('game.gear.accessory.earring.title'), icon: './image/game-gear-slot/ear.png' },
-  { key: 'necklace', text: t('game.gear.accessory.necklace.title'), icon: './image/game-gear-slot/neck.png' },
-  { key: 'wrist', text: t('game.gear.accessory.wrist.title'), icon: './image/game-gear-slot/wrist.png' },
-  { key: 'rings', text: t('game.gear.accessory.rings.title'), icon: './image/game-gear-slot/ring.png' },
+  { key: 'earrings', text: t('game.gear.accessory.earring.title'), icon: getGearIcon('earrings') },
+  { key: 'necklace', text: t('game.gear.accessory.necklace.title'), icon: getGearIcon('necklace') },
+  { key: 'wrist', text: t('game.gear.accessory.wrist.title'), icon: getGearIcon('wrist') },
+  { key: 'rings', text: t('game.gear.accessory.rings.title'), icon: getGearIcon('rings') },
 ]
 
 const showModal = defineModel<boolean>('show', { required: true })
@@ -117,7 +118,7 @@ const handleSave = () => {
     :icon="CheckroomSharp"
     :title="t('main.select_gear.view_selected')"
     max-width="1500px"
-    :height="(pageHeight - 80) + 'px'"
+    :height="(pageHeight - (isMobile ? 165 : 80)) + 'px'"
     content-extra-style="overflow-y: auto;"
     @on-load="onLoad"
   >
@@ -131,7 +132,6 @@ const handleSave = () => {
               :key="roleIndex"
               v-show="getVShowOfMainoffHandGroup(role)"
               :border-color="role.role_color"
-              container-extra-style="padding: 8px;"
             >
               <template #title>
                 <XivFARImage
@@ -174,34 +174,15 @@ const handleSave = () => {
             <thead>
               <tr>
                 <th>{{ t('game.gear.affix') }}</th>
-                <th>
+                <th
+                  v-for="attire in attireGearSlots"
+                  :key="'th-attire-' + attire.key"
+                >
                   <div class="th-inner">
-                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/head.png" />
-                    <span>{{ t('game.gear.attire.head.title') }}</span>
-                  </div>
-                </th>
-                <th>
-                  <div class="th-inner">
-                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/body.png" />
-                    <span>{{ t('game.gear.attire.body.title') }}</span>
-                  </div>
-                </th>
-                <th>
-                  <div class="th-inner">
-                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/hands.png" />
-                    <span>{{ t('game.gear.attire.hands.title') }}</span>
-                  </div>
-                </th>
-                <th>
-                  <div class="th-inner">
-                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/legs.png" />
-                    <span>{{ t('game.gear.attire.legs.title') }}</span>
-                  </div>
-                </th>
-                <th>
-                  <div class="th-inner">
-                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/feet.png" />
-                    <span>{{ t('game.gear.attire.feet.title') }}</span>
+                    <n-icon size="15" color="var(--color-text)">
+                      <component :is="attire.icon" />
+                    </n-icon>
+                    <span>{{ attire.text }}</span>
                   </div>
                 </th>
               </tr>
@@ -288,28 +269,15 @@ const handleSave = () => {
             <thead>
               <tr>
                 <th>{{ t('game.gear.affix') }}</th>
-                <th>
+                <th
+                  v-for="accessory in accessoryGearSlots"
+                  :key="'th-accessory-' + accessory.key"
+                >
                   <div class="th-inner">
-                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/ear.png" />
-                    <span>{{ t('game.gear.accessory.earring.title') }}</span>
-                  </div>
-                </th>
-                <th>
-                  <div class="th-inner">
-                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/neck.png" />
-                    <span>{{ t('game.gear.accessory.necklace.title') }}</span>
-                  </div>
-                </th>
-                <th>
-                  <div class="th-inner">
-                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/wrist.png" />
-                    <span>{{ t('game.gear.accessory.wrist.title') }}</span>
-                  </div>
-                </th>
-                <th>
-                  <div class="th-inner">
-                    <XivFARImage v-show="!isMobile" :size="15" src="./image/game-gear-slot/ring.png" />
-                    <span>{{ t('game.gear.accessory.rings.title') }}</span>
+                    <n-icon size="15" color="var(--color-text)">
+                      <component :is="accessory.icon" />
+                    </n-icon>
+                    <span>{{ accessory.text }}</span>
                   </div>
                 </th>
                 <th v-if="!isMobile"></th>
@@ -452,10 +420,9 @@ const handleSave = () => {
                     :title="gear.text"
                   >
                     <template #prefix>
-                      <XivFARImage 
-                        :src="gear.icon"
-                        :size="15"
-                      />
+                      <n-icon size="15" color="var(--color-text-sub)">
+                        <component :is="gear.icon" />
+                      </n-icon>
                     </template>
                   </n-input-number>
                 </p>
@@ -489,10 +456,9 @@ const handleSave = () => {
                     :title="gear.text"
                   >
                     <template #prefix>
-                      <XivFARImage 
-                        :src="gear.icon"
-                        :size="15"
-                      />
+                      <n-icon size="15" color="var(--color-text-sub)">
+                        <component :is="gear.icon" />
+                      </n-icon>
                     </template>
                   </n-input-number>
                 </p>

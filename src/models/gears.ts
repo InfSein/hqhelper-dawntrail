@@ -1,3 +1,19 @@
+export const gearSlots = [
+  "mainHand",
+  "offHand",
+  "headAttire",
+  "bodyAttire",
+  "handsAttire",
+  "legsAttire",
+  "feetAttire",
+  "earrings",
+  "necklace",
+  "wrist",
+  "rings"
+] as const
+
+export type GearSlot = typeof gearSlots[number]
+
 export const attireAffixes = [
   "fending",
   "maiming",

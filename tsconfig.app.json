@@ -6,6 +6,7 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.vue",
+    "env.vite.d.ts",
     "env.electron.d.ts"
   ],
   "exclude": ["src/**/__tests__/*"],

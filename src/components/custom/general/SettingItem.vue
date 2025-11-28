@@ -137,7 +137,7 @@ const warnings = computed(() => {
         v-model:selectedImage="formData[settingItem.key]"
         :images="settingItem.options"
         :customable="settingItem.custom"
-        style="max-width: 80%;"
+        style="max-width: 90%;"
       />
     </div>
   </div>

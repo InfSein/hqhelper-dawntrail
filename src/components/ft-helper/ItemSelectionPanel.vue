@@ -93,7 +93,7 @@ const handleExportToNgaBbsCode = (items : ItemInfo[]) => {
                 />
               </div>
             </n-card>
-            <n-card size="small">
+            <n-card size="small" :class="userConfig.custom_background ? 'glasscard smallcard' : ''">
               <template #header>
                 <div class="card-title">
                   <XivFARImage
