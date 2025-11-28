@@ -237,7 +237,7 @@ const appClass = computed(() => {
 })
 const appStyle = computed(() => {
   const styles = [
-    '--app-bg: ' + appBg.value
+    appMode.value === 'overlay' ? '' : '--app-bg: ' + appBg.value
   ]
   return styles.join(';')
 })
@@ -455,7 +455,6 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
   background-size: 100% auto;
 
   #main-container {
-    min-height: calc(100vh - 70px);
     padding: 1rem;
   }
 }
