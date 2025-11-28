@@ -86,3 +86,17 @@
   justify-content: flex-end;
   gap: 8px;
 }
+
+.glasscard {
+  box-shadow: var(--glasscard-shadow);
+  background: var(--glasscard-bg) !important;
+  backdrop-filter: blur(var(--glasscard-blur)) saturate(var(--glasscard-saturate));
+  -webkit-backdrop-filter: blur(var(--glasscard-blur)) saturate(var(--glasscard-saturate));
+
+  --color-border: #9e9e9e;
+}
+.glasscard.smallcard {
+  box-shadow: unset;
+  background: var(--glasscard-bg-small) !important;
+  border: 1px solid var(--glasscard-bordercolor-small, --n-border-color);
+}

@@ -102,7 +102,7 @@ const handleStaffSelectionUpdate = () => {
   >
     <div class="wrapper">
       <div v-if="cautionsConfirmed" class="donate-container">
-        <GroupBox :title="t('common.options')" title-background-color="var(--n-color-modal)">
+        <GroupBox :title="t('common.options')">
           <n-input-group>
             <n-input-group-label size="small">{{ t('donate_us.target.title') }}</n-input-group-label>
             <n-select size="small"
@@ -121,7 +121,7 @@ const handleStaffSelectionUpdate = () => {
             />
           </n-input-group>
         </GroupBox>
-        <GroupBox :title="t('donate_us.final_confirm.title')" title-background-color="var(--n-color-modal)">
+        <GroupBox :title="t('donate_us.final_confirm.title')">
           <div>
             <div style="float: left;">{{ t('donate_us.final_confirm.desc.desc_1') }}</div>
             <StaffGroup :group-members="[currentDonateStaff]" style="float: left;" />
@@ -140,7 +140,7 @@ const handleStaffSelectionUpdate = () => {
             />
           </div>
         </GroupBox>
-        <GroupBox :title="t('donate_us.start_donate.title')" title-background-color="var(--n-color-modal)">
+        <GroupBox :title="t('donate_us.start_donate.title')">
           <div v-if="currentDonateWay.data_type === 'url'">
             <p>{{ t('donate_us.start_donate.desc.desc_1') }}</p>
             <a :href="currentDonateWay.data" target="_blank">{{ currentDonateWay.data }}</a>

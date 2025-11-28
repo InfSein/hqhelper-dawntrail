@@ -869,6 +869,14 @@
     "hqhelper_version": "HqHelper版本",
     "id_macro": "{id}号宏",
     "ignore": "忽略",
+    "image_selector": {
+      "text": {
+        "custom_image": "自选图片…"
+      },
+      "tooltip": {
+        "custom_image_would_be_rewritten": "已经上传过背景图片，再次上传会将其覆盖。"
+      }
+    },
     "imexport": "导入/导出",
     "import": "导入",
     "import_from_excel": "从Excel导入",
@@ -1716,6 +1724,17 @@
       "title": "在每个生产宏的开头使用/macrolock"
     },
     "costandbenefit_show_item_details": "成本/收益分析中显示物品详情",
+    "custom_background": {
+      "desc": {
+        "desc_1": "设置背景之后，界面的部分元素将自动启用毛玻璃效果。",
+        "desc_2": "若设置之后发现部分区域的可视度下降，请考虑切换「主题」的设置。",
+        "desc_3": "预设的背景图片部分或全部来自 SQUARE ENIX 和/或 盛趣游戏 ，这些图片资源的版权亦仅由其持有，HqHelper 不主张任何相关权利。"
+      },
+      "option": {
+        "no_background": "无背景"
+      },
+      "title": "自定义背景"
+    },
     "custom_font": {
       "desc": {
         "desc_1": "全局性地修改程序/网站的字体。",

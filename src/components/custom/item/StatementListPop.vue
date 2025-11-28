@@ -107,7 +107,6 @@ const handleCopyList = async () => {
       <div class="groupboxes-container">
         <GroupBox
           :title="t('common.options')"
-          title-background-color="var(--n-color-modal, var(--n-color))"
           class="config-container"
         >
           <div class="config-item">
@@ -132,7 +131,6 @@ const handleCopyList = async () => {
         </GroupBox>
         <GroupBox
           :title="t('common.content')"
-          title-background-color="var(--n-color-modal, var(--n-color))"
         >
           <div class="actions-container">
             <ButtonCopyAsMacro

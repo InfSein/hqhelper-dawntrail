@@ -2,6 +2,7 @@ import type { Component, StyleValue } from "vue"
 import type { CascaderOption } from "naive-ui"
 import type { UserConfigKey } from "./config-user"
 import type { FuncConfigKey } from "./config-func"
+import type { dbKey } from "@/tools/idb"
 
 export interface CallResult <T = string> {
   success: boolean
@@ -42,7 +43,7 @@ export interface PreferenceRow {
   text: string
   children: PreferenceItem[]
 }
-export type PreferenceItem = PreferenceItemCommon | PreferenceItemSelect | PreferenceItemButton
+export type PreferenceItem = PreferenceItemCommon | PreferenceItemSelect | PreferenceItemButton | PreferenceItemImageSelect
 interface PreferenceItemBase {
   key: string
   label: string
@@ -67,5 +68,18 @@ interface PreferenceItemButton extends PreferenceItemBase {
     type?: 'default' | 'tertiary' | 'primary' | 'success' | 'info' | 'warning' | 'error'
     icon?: Component
     onClick: () => void
+  }
+}
+export interface PreferenceItemImageSelectOption {
+  value: string
+  label?: string
+  desc?: string | string[]
+}
+interface PreferenceItemImageSelect extends PreferenceItemBase {
+  type: "image-select"
+  options: PreferenceItemImageSelectOption[]
+  custom?: {
+    allow: boolean
+    key: dbKey
   }
 }

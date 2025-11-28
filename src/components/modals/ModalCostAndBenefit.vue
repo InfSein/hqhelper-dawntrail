@@ -84,7 +84,6 @@ const handleSettingButtonClick = () => {
         :descriptions="[
           t('cost_and_benefit.tooltip.cal_nq_price_here')
         ]"
-        title-background-color="var(--n-color-modal)"
       >
         <ItemPriceTable
           price-type="NQ"
@@ -98,7 +97,6 @@ const handleSettingButtonClick = () => {
         :descriptions="[
           t('cost_and_benefit.tooltip.cal_hq_price_here')
         ]"
-        title-background-color="var(--n-color-modal)"
       >
         <ItemPriceTable
           price-type="HQ"

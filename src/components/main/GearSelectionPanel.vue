@@ -390,7 +390,7 @@ defineExpose({
           <tr>
             <td>
               <GearSlot
-                slot-icon-src="./image/game-gear-slot/mainhand.png"
+                gear-slot="mainHand"
                 :slot-description="t('game.gear.tool.mainhand.detailed')"
                 :related-item="patchData?.mainHand?.[jobId] ?? 0"
               />
@@ -398,7 +398,7 @@ defineExpose({
             <td><Stepper v-model:value="MainHand" :disabled="disableMainhand" /></td>
             <td>
               <GearSlot
-                slot-icon-src="./image/game-gear-slot/offhand.png"
+                gear-slot="offHand"
                 :slot-description="t('game.gear.tool.offhand.detailed')"
                 :related-item="patchData?.offHand?.[jobId] ?? 0"
               />
@@ -413,7 +413,7 @@ defineExpose({
           <tr>
             <td style="min-width: 40px;">
               <GearSlot
-                slot-icon-src="./image/game-gear-slot/head.png"
+                gear-slot="headAttire"
                 :slot-description="t('game.gear.attire.head.detailed')"
                 :related-item="patchData?.headAttire?.[attireAffix] ?? 0"
               />
@@ -421,7 +421,7 @@ defineExpose({
             <td><Stepper v-model:value="HeadAttire" :disabled="disableAttire || !patchData?.headAttire?.[attireAffix]" /></td>
             <td style="min-width: 40px;">
               <GearSlot
-                slot-icon-src="./image/game-gear-slot/ear.png"
+                gear-slot="earrings"
                 :slot-description="t('game.gear.accessory.earring.detailed')"
                 :related-item="patchData?.earrings?.[accessoryAffix] ?? 0"
               />
@@ -432,7 +432,7 @@ defineExpose({
           <tr>
             <td>
               <GearSlot
-                slot-icon-src="./image/game-gear-slot/body.png"
+                gear-slot="bodyAttire"
                 :slot-description="t('game.gear.attire.body.detailed')"
                 :related-item="patchData?.bodyAttire?.[attireAffix] ?? 0"
               />
@@ -440,7 +440,7 @@ defineExpose({
             <td><Stepper v-model:value="BodyAttire" :disabled="disableAttire || !patchData?.bodyAttire?.[attireAffix]" /></td>
             <td>
               <GearSlot
-                slot-icon-src="./image/game-gear-slot/neck.png"
+                gear-slot="necklace"
                 :slot-description="t('game.gear.accessory.necklace.detailed')"
                 :related-item="patchData?.necklace?.[accessoryAffix] ?? 0"
               />
@@ -451,7 +451,7 @@ defineExpose({
           <tr>
             <td>
               <GearSlot
-                slot-icon-src="./image/game-gear-slot/hands.png"
+                gear-slot="handsAttire"
                 :slot-description="t('game.gear.attire.hands.detailed')"
                 :related-item="patchData?.handsAttire?.[attireAffix] ?? 0"
               />
@@ -459,7 +459,7 @@ defineExpose({
             <td><Stepper v-model:value="HandsAttire" :disabled="disableAttire || !patchData?.handsAttire?.[attireAffix]" /></td>
             <td>
               <GearSlot
-                slot-icon-src="./image/game-gear-slot/wrist.png"
+                gear-slot="wrist"
                 :slot-description="t('game.gear.accessory.wrist.detailed')"
                 :related-item="patchData?.wrist?.[accessoryAffix] ?? 0"
               />
@@ -470,7 +470,7 @@ defineExpose({
           <tr>
             <td>
               <GearSlot
-                slot-icon-src="./image/game-gear-slot/legs.png"
+                gear-slot="legsAttire"
                 :slot-description="t('game.gear.attire.legs.detailed')"
                 :related-item="patchData?.legsAttire?.[attireAffix] ?? 0"
               />
@@ -478,7 +478,7 @@ defineExpose({
             <td><Stepper v-model:value="LegsAttire" :disabled="disableAttire || !patchData?.legsAttire?.[attireAffix]" /></td>
             <td>
               <GearSlot
-                slot-icon-src="./image/game-gear-slot/ring.png"
+                gear-slot="rings"
                 :slot-description="t('game.gear.accessory.rings.detailed')"
                 :related-item="patchData?.rings?.[accessoryAffix] ?? 0"
               />
@@ -489,7 +489,7 @@ defineExpose({
           <tr>
             <td>
               <GearSlot
-                slot-icon-src="./image/game-gear-slot/feet.png"
+                gear-slot="feetAttire"
                 :slot-description="t('game.gear.attire.feet.detailed')"
                 :related-item="patchData?.feetAttire?.[attireAffix] ?? 0"
               />

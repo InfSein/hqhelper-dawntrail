@@ -2,8 +2,10 @@
 import {
   HomeOutlined
 } from '@vicons/material'
+import type { UserConfigModel } from '@/models/config-user'
 
 const t = inject<(message: string, args?: any) => string>('t')!
+const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 
 defineProps({
   pageName: {
@@ -15,10 +17,16 @@ defineProps({
     required: true
   }
 })
+
+const cardClasses = computed(() => {
+  return [
+    userConfig.value.custom_background ? 'glasscard' : ''
+  ].join(' ')
+})
 </script>
 
 <template>
-  <n-card id="router-card" embedded :bordered="false">
+  <n-card id="router-card" :class="cardClasses" embedded :bordered="false">
     <div class="wrapper">
       <n-breadcrumb separator=">">
         <n-breadcrumb-item @click="$router.push('/')" :title="t('common.back_to_index')">
