@@ -49,7 +49,7 @@ defineProps({
 
 <style scoped>
 .group-box {
-  padding: 0 8px 8px 8px;
+  padding: 0 8px 8px;
   margin-top: -12px;
   border-radius: var(--n-border-radius);
 
