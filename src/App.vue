@@ -443,7 +443,6 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
 .app-header {
   height: 69px;
   padding: 10px 20px;
-  z-index: 1000;
   position: relative;
   z-index: 1;
 }

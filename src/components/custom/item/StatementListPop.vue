@@ -103,7 +103,7 @@ const handleCopyList = async () => {
         <n-icon :size="16"><ViewListSharp /></n-icon>
         <span>{{ t('common.list') }}</span>
       </div>
-      <n-divider style="margin: 0 0 3px 0;" />
+      <n-divider style="margin: 0 0 3px;" />
       <div class="groupboxes-container">
         <GroupBox
           :title="t('common.options')"

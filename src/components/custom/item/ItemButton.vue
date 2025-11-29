@@ -376,7 +376,7 @@ const handleItemButtonClick = async () => {
       }
       .extra {
         font-size: calc(var(--n-font-size) - 2px);
-        margin: 2px 0 5px 0;
+        margin: 2px 0 5px;
       }
     }
     .description-block {
