@@ -153,7 +153,7 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
               <n-text style="font-size: 16px">
                 {{ t('common.click_or_drag_to_upload') }}
               </n-text>
-              <n-p depth="3" style="margin: 8px 0 0 0">
+              <n-p depth="3" style="margin: 8px 0 0">
                 {{ t('macro_manage.imexport.desc.desc_3') }}
               </n-p>
             </n-upload-dragger>

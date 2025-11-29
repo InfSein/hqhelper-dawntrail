@@ -159,7 +159,7 @@ const handleStaffSelectionUpdate = () => {
       <div v-else class="cautions-container">
         <p class="bold">{{ t('donate_us.desc.desc_1') }}</p>
         <p class="bold">{{ t('donate_us.desc.desc_2') }}</p>
-        <n-divider style="margin: 1px 5px 3px 5px" />
+        <n-divider style="margin: 1px 5px 3px" />
         <ul>
           <li>{{ t('donate_us.desc.desc_3') }}</li>
           <li>{{ t('donate_us.desc.desc_4') }}</li>
