@@ -83,9 +83,6 @@ i.xiv.e031::before {
 i.xiv.e032::before {
   content: '\e032';
 }
-i.xiv.e032::before {
-  content: '\e032';
-}
 i.xiv.ilv::before {
   content: '\e033';
 }
@@ -103,6 +100,12 @@ i.xiv.interact::before {
 }
 i.xiv.e035::before {
   content: '\e035';
+}
+i.xiv.klv::before {
+  content: '\e037';
+}
+i.xiv.e037::before {
+  content: '\e037';
 }
 i.xiv.rlv::before {
   content: '\e038';
@@ -139,9 +142,6 @@ i.xiv.collectables::before {
 }
 i.xiv.e03d::before {
   content: '\e03d';
-}
-i.xiv.e03e::before {
-  content: '\e03e';
 }
 i.xiv.e03e::before {
   content: '\e03e';
@@ -287,9 +287,6 @@ i.xiv.e059::before {
 i.xiv.e05a::before {
   content: '\e05a';
 }
-i.xiv.e05a::before {
-  content: '\e05a';
-}
 i.xiv.debuff::before {
   content: '\e05b';
 }
@@ -305,17 +302,8 @@ i.xiv.e05c::before {
 i.xiv.e05d::before {
   content: '\e05d';
 }
-i.xiv.e05d::before {
-  content: '\e05d';
-}
 i.xiv.e05e::before {
   content: '\e05e';
-}
-i.xiv.e05e::before {
-  content: '\e05e';
-}
-i.xiv.e05f::before {
-  content: '\e05f';
 }
 i.xiv.e05f::before {
   content: '\e05f';
@@ -779,9 +767,6 @@ i.xiv.e0af::before {
 i.xiv.e0b0::before {
   content: '\e0b0';
 }
-i.xiv.e0b0::before {
-  content: '\e0b0';
-}
 i.xiv.instance-1::before {
   content: '\e0b1';
 }
@@ -835,9 +820,6 @@ i.xiv.instance-9::before {
 }
 i.xiv.e0b9::before {
   content: '\e0b9';
-}
-i.xiv.e0ba::before {
-  content: '\e0ba';
 }
 i.xiv.e0ba::before {
   content: '\e0ba';
