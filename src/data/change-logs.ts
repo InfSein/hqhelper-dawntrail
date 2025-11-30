@@ -56,6 +56,7 @@ export interface PatchChangeGroup {
 
 const halfEmBlock = '<span style="display:inline-block;width:0.5em;"></span>'
 const emBlock = '<span style="display:inline-block;width:1em;"></span>'
+const br = '<br>'
 const tipper = '<br>' +  halfEmBlock + ' ※ '
 const renderImg = (url: string) => `<img src="${url}" style="max-width: 70%;" />`
 const renderLink = (url: string, text?: string) => {
@@ -79,6 +80,35 @@ export const getChangelogs = (
   }
   const isZh = ui_lang === 'zh'
   return [
+    {
+      version: '2.4.0',
+      date: '2025-12-16',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('changelog.shared.game_db_update', {
+              ver: '7.4'
+            })
+              + br + t('changelog.2_4_0.breaking.text_1')
+              + t('changelog.2_4_0.breaking.text_2'),
+            t('changelog.2_0_12.feat.text_5', {
+              f1: t('common.appfunc.user_preference'),
+              f2: t('common.appsetting.appearance'),
+              f3: t('preference.custom_background.title')
+            }),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_4_0.feat.text_1'),
+            isZh ? '追加和修订了部分物品的笔记 (仅在界面语言设置为简体中文时显示)。' : '',
+            t('changelog.shared.detail_optimized'),
+          ]
+        }
+      ]
+    },
     {
       version: '2.3.7',
       date: '2025-11-11',
