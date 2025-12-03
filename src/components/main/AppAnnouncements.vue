@@ -20,6 +20,7 @@ const NAIVE_UI_MESSAGE = useMessage()
 const { confirm } = useDialog(t)
 
 const showDonateModal = ref(false)
+const hiddenAnnouncements = ref<AnnouncementId[]>([])
 
 interface Announcement {
   id: AnnouncementId,
@@ -62,7 +63,9 @@ const announcements = computed(() : Announcement[] => {
 const announcementsToShow = computed(() : Announcement[] => {
   return announcements.value
     .filter(announcement => {
-      return !announcement.hidden && !mainCache.value.ignore_announcements.includes(announcement.id)
+      return !announcement.hidden
+        && !mainCache.value.ignore_announcements.includes(announcement.id)
+        && !hiddenAnnouncements.value.includes(announcement.id)
     })
     .map(announcement => {
       return {
@@ -72,6 +75,10 @@ const announcementsToShow = computed(() : Announcement[] => {
     })
 })
 
+const handleCloseAnnouncement = (aid: AnnouncementId) => {
+  hiddenAnnouncements.value.push(aid)
+  return true
+}
 const handleIgnoreAnnouncement = async (aid: AnnouncementId) => {
   if (!await confirm(
     t('announcement.message.ignore_confirm')
@@ -93,6 +100,7 @@ const handleIgnoreAnnouncement = async (aid: AnnouncementId) => {
       :type="announcement.type"
       :title="announcement.title"
       closable
+      @close="handleCloseAnnouncement(announcement.id)"
     >
       <div class="announcement-content">
         <div class="content-text" v-html="announcement.content.join('<br>')" />
