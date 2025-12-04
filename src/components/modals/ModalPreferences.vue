@@ -321,7 +321,7 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               warnings: [
                 {
                   value: t('preference.disable_workstate_cache.desc.desc_3'),
-                  class: 'red',
+                  style: 'color: var(--color-error)',
                 }
               ],
               type: 'switch',
@@ -568,7 +568,7 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               warnings: [
                 {
                   value: t('preference.universalis_server.desc.desc_2'),
-                  class: 'red',
+                  style: 'color: var(--color-error)',
                 }
               ],
               type: 'cascader',
