@@ -26,6 +26,28 @@
       "web": "Current webpage version: {v}"
     }
   },
+  "announcement": {
+    "action": {
+      "feedback_github": "Feedback (GitHub)",
+      "feedback_qquery": "Feedback (QQ Query)",
+      "follow_us": "Follow us",
+      "ignore": "Don't show this again",
+      "join_q_group": "Join Q-Group"
+    },
+    "content": {
+      "content_1_1": "With the implementation of Patch 7.4, the main high quality crafting gear for the entire DAWNTRAIL expansion has been fully released. The mission of HqHelper for version 7.0 has also come to a close.",
+      "content_1_2": "We will still continue to update HqHelper's database as the game version advances, but this will mainly be done via hotfixes and we will no longer be releasing frequent routine updates.",
+      "content_1_3": "You can still contact us through the various methods below to point out omissions, suggest new features/needs, or offer sponsorship, helping us to make HqHelper even better.",
+      "content_1_4": "Thank you for your continued support, and we'll see you in 8.0!"
+    },
+    "message": {
+      "ignore_confirm": "Are you sure you want to stop showing this announcement?",
+      "ignored": "This announcement will no longer be displayed."
+    },
+    "title": {
+      "title_1": "The DAWNTRAIL era is coming to an end..."
+    }
+  },
   "appheader": {
     "menu": {
       "tooltip": {
@@ -631,6 +653,15 @@
         "text_2": "Fix the problem of displaying the content position for some pages."
       }
     },
+    "2_4_0": {
+      "breaking": {
+        "text_1": "The item level 770 gear, food, and gemdraughts added in Patch 7.4 will be the highest quality crafted items for the entire 7.x cycle of combat jobs, and can be used all the way through the leveling period of 8.0.",
+        "text_2": "Get prepared for the finale of AAC and DAWNTRAIL!"
+      },
+      "feat": {
+        "text_1": "Optimized the display effect of gear slot icons."
+      }
+    },
     "breaking": "BREAKING CHANGES",
     "feat": "FEATURES",
     "fix": "BUG FIXES",
@@ -660,6 +691,7 @@
       "cannot_sync_because_modules_data_not_uploaded": "Synchronization cannot proceed because the following modules have not yet uploaded data:",
       "confirm_download_1": "Are you sure you want to download cloud data to the local?",
       "confirm_download_2": "This will overwrite the existing local data.",
+      "confirm_logout": "Do you really want to log out?",
       "confirm_upload_1": "Are you sure you want to upload local data to the cloud?",
       "confirm_upload_2": "This will overwrite the existing data in the cloud.",
       "data_consistent": "Local data is consistent with cloud data",
@@ -846,6 +878,14 @@
     "hqhelper_version": "HqHelper Version",
     "id_macro": "Macro #{id}",
     "ignore": "Ignore",
+    "image_selector": {
+      "text": {
+        "custom_image": "Select image..."
+      },
+      "tooltip": {
+        "custom_image_would_be_rewritten": "A background image has already been uploaded. Uploading again will overwrite it."
+      }
+    },
     "imexport": "Import/Export",
     "import": "Import",
     "import_from_excel": "Import from .xlsx",
@@ -992,6 +1032,7 @@
     "tomescript_type": "Tome Script Type",
     "trade": "Exchanges",
     "twitter_x": "Twitter (X)",
+    "uid": "UID",
     "unit": {
       "ge": "(s)"
     },
@@ -1422,6 +1463,7 @@
       },
       "is_tradable": "This item could be traded by:",
       "item_level_with_val": "ITEM LEVEL {ilv}",
+      "medicine_recovery_info": "Restores up to {1}% of {0} ({2} points max)",
       "multi_get_each_trade": "Could get {val} each exchanging.",
       "need_learn": "Need to learn",
       "not_installed_in_chs": "The item has not yet been installed in CHS.",
@@ -1691,6 +1733,17 @@
       "title": "Use /macrolock at the beginning of each craft macro"
     },
     "costandbenefit_show_item_details": "Display item details in cost/benefit analysis",
+    "custom_background": {
+      "desc": {
+        "desc_1": "After setting the background, some elements of the interface will automatically enable the frosted glass effect.",
+        "desc_2": "If you find that visibility in certain areas decreases after setting this, please consider switching the 'Theme' setting.",
+        "desc_3": "The preset background images are partially or fully sourced from SQUARE ENIX and/or 盛趣游戏. The copyright for these image resources is held exclusively by them, and HqHelper does not claim any related rights."
+      },
+      "option": {
+        "no_background": "No Background"
+      },
+      "title": "Custom Background"
+    },
     "custom_font": {
       "desc": {
         "desc_1": "Change the font of text in program/website globally.",
