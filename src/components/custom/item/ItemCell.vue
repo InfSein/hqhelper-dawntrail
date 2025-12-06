@@ -24,11 +24,11 @@ defineProps<ItemCellProps>()
 const getJobName = (jobInfo: XivJob) => {
   switch (userConfig.value.language_ui) {
     case 'ja':
-      return jobInfo?.job_name_ja || t('common.unknown')
+      return (jobInfo?.job_name_ja || t('common.unknown')).substring(0, 2)
     case 'en':
-      return jobInfo?.job_name_en || t('common.unknown')
+      return jobInfo?.short_name || t('common.unknown')
     default:
-      return jobInfo?.job_name_zh || t('common.unknown')
+      return (jobInfo?.job_name_zh || t('common.unknown')).substring(0, 2)
   }
 }
 const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
@@ -74,23 +74,36 @@ const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
             {{ getJobName(XivJobs[itemInfo.gatherInfo.jobId]) + ' ' + t('common.val_level', itemInfo.gatherInfo.level) + '★'.repeat(itemInfo.gatherInfo?.star || 0) }}
           </span>
         </div>
-        <div v-else-if="itemInfo.canReduceFrom?.length">{{ t('common.reduce') }}</div>
+        <div v-else-if="itemInfo.canReduceFrom?.length" class="cell reduce">
+          <XivFARImage
+            src="./ui/reduce.png"
+            :size="12"
+          />
+          <span>{{ t('common.reduce') }}</span>
+        </div>
         <div v-else-if="getTradeCost(itemInfo, amount)">
           <ItemSpan
             :item-info="getItemInfo(getTradeCost(itemInfo, amount)!.costItem)"
             :img-size="12"
             :amount="getTradeCost(itemInfo, amount)!.costCount"
             hide-pop-icon hide-name show-amount
+            container-style="gap: 0;"
           />
         </div>
-        <div v-else-if="itemInfo.isFishingItem">
+        <div v-else-if="itemInfo.isFishingItem" class="cell fishing">
           <XivFARImage
             :src="XivJobs[18].job_icon_url"
             :size="12"
           />
           <span>{{ getJobName(XivJobs[18]) }}</span>
         </div>
-        <div v-else-if="itemInfo.isCrystal">{{ t('game.crystal') }}</div>
+        <div v-else-if="itemInfo.isCrystal" class="cell crystal">
+          <XivFARImage
+            src="https://icon.nbbjack.com/060000/060151.png"
+            :size="12"
+          />
+          <span>{{ t('game.crystal') }}</span>
+        </div>
         <div v-else>{{ t('common.other') }}</div>
       </div>
     </div>
@@ -121,9 +134,6 @@ const getTradeCost = (itemInfo: ItemInfo, amount: number) => {
     .cell {
       display: flex;
       align-items: center;
-    }
-    .cell.crafter,
-    .cell.gatherer {
       gap: 2px;
     }
   }
