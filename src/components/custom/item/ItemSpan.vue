@@ -233,7 +233,7 @@ const handleItemIconClick = async () => {
           @touchstart.passive="handleItemButtonTouchStart" 
           @touchmove.passive="handleItemButtonTouchMove" 
           @touchend.passive="handleItemButtonTouchEnd"
-          @click="handleItemIconClick"
+          @click.stop="handleItemIconClick"
         >
           <InfoOutlined />
           <n-dropdown
