@@ -274,7 +274,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.classJobId = _item.jobs
   itemInfo.patch = _item.p || '7.3'
   itemInfo.hqable = _item.hqable
-  itemInfo.tradable = _item.tradable
+  itemInfo.tradable = _item.tradable && !_item.collectable
 
   // * 针对还没有中文名/中文描述的道具，尝试从暂译表中获取暂译
   if (!itemInfo.name_zh) {
