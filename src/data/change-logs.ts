@@ -103,6 +103,7 @@ export const getChangelogs = (
           name: groupName.feature,
           changes: [
             t('changelog.2_4_0.feat.text_1'),
+            isZh ? '修订了“参考资料”中的推荐攻略，并调整了菜单项的显示效果 (仅在界面语言设置为简体中文时显示)。' : '',
             isZh ? '追加和修订了部分物品的笔记 (仅在界面语言设置为简体中文时显示)。' : '',
             t('changelog.shared.detail_optimized'),
           ]

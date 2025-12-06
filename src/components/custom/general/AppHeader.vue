@@ -169,15 +169,31 @@ const menuData = computed(() => {
           label: '推荐攻略',
           icon: FilePresentOutlined,
           hide: isMobile.value,
-          children: buildOuterlinkOptions([
-            { url: 'https://bbs.nga.cn/read.php?tid=41158426', label: '生产职业90-100练级攻略 by竹笙微凉_' },
-            { url: 'https://bbs.nga.cn/read.php?tid=40690311', label: '7.x星级配方制作攻略 by月下独翼' },
-            { url: 'https://bbs.nga.cn/read.php?tid=41258536', label: '7.x秘籍配方采集制作攻略 by竹笙微凉_' },
-            { url: 'https://bbs.nga.cn/read.php?tid=41277468', label: '7.0灵砂/工票鱼信息整理 by plas_g' },
-            { url: 'https://bbs.nga.cn/read.php?tid=42046664', label: '7.0捕鱼人大地票据指南 by f(x)=kx+b' },
-            { url: 'https://bbs.nga.cn/read.php?tid=43895399', label: '宇宙探索攻略 by 天然呆树歌' },
-            { url: 'https://www.kdocs.cn/l/ceEcTzlFQBUy', label: '全战职开荒/毕业配装 by 孤风行' }
-          ], 'ref-oth-book'),
+          children: buildOuterlinkGroups([
+            {
+              key: 'master-recipe',
+              title: '手法参考',
+              options: [
+                { url: 'https://bbs.nga.cn/read.php?tid=40690311', label: '7.x星级配方制作攻略 by月下独翼' },
+                { url: 'https://bbs.nga.cn/read.php?tid=41060177', label: '7.x秘籍配方制作攻略 by竹笙微凉_' },
+              ]
+            },
+            {
+              key: 'cosmos-explore',
+              title: '宇宙探索',
+              options: [
+                { url: 'https://bbs.nga.cn/read.php?tid=43895399', label: '宇宙探索攻略 by 天然呆树歌' },
+                { url: 'https://bbs.nga.cn/read.php?tid=45044038', label: '玻璃星任务宏&收益分析 by plas_g' },
+              ]
+            },
+            {
+              key: 'other',
+              title: '其他',
+              options: [
+                { url: 'https://www.kdocs.cn/l/ceEcTzlFQBUy', label: '全战职开荒/毕业配装 by 孤风行' },
+              ]
+            },
+          ]),
         },
         {
           type: 'common',
@@ -486,6 +502,9 @@ const buildMenuOption = (menuOption : MyMenuOption) : DropdownOption => {
       hide: menuOption.hide,
       disabled: menuOption.disabled,
       children: menuOption.children,
+      props: {
+        class: 'no-select',
+      },
       click: menuOption.click,
       customRenderer: menuOption.customRenderer
     }
@@ -503,12 +522,64 @@ const buildOuterlinkOptions = (
       key: `${key}-${index}`,
       icon: renderIcon(icon ?? OpenInNewOutlined),
       label: option.label,
+      props: {
+        class: 'no-select',
+      },
       click: () => {
         visitUrl(option.url)
       },
       description: option.description ?? option.url
     }
   })
+}
+const buildOuterlinkGroups = (
+  groups: {
+    title: string
+    options: {
+      url: string, label: string, description?: string
+    }[],
+    key: string,
+    icon?: Component
+  }[]
+) => {
+  const renderGroupTitle = (title: string, groupIndex: number) => {
+    return () => h(
+      'div',
+      {
+        class: 'no-select',
+        style: {
+          padding: groupIndex ? '0 0.8em' : '0.2em 0.8em 0',
+        }
+      },
+      [
+        h('p', { class: 'bold' }, title),
+      ]
+    )
+  }
+
+  return groups.map((group, groupIndex) => {
+    return [
+      {
+        key: group.key + '_title',
+        type: 'render',
+        render: renderGroupTitle(group.title, groupIndex)
+      },
+      ...group.options.map((option, optionIndex) => {
+        return {
+          key: `${group.key}-${optionIndex}`,
+          icon: renderIcon(group.icon ?? OpenInNewOutlined),
+          label: option.label,
+          props: {
+            style: 'margin: 0 1em; user-select: none;'
+          },
+          click: () => {
+            visitUrl(option.url)
+          },
+          description: option.description ?? option.url,
+        }
+      }),
+    ]
+  }).flat()
 }
 const resolveRouterMenuOption = (menuOption: RouterMenuOption) => {
   const routerUrl = `/${menuOption.routerKey}`
@@ -568,7 +639,7 @@ const resolveRouterMenuOption = (menuOption: RouterMenuOption) => {
                 quaternary: true,
                 size: 'small',
                 disabled: currentlyOnPage || menuOption.disabled,
-                class: 'appheader-menu-button',
+                class: 'appheader-menu-button no-select',
                 style: menuOption.allowNewWindow ? 'flex: 1;' : 'width: 100%;',
                 onClick: redirectToPage,
               },
