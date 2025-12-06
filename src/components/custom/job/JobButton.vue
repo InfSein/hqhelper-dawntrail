@@ -378,7 +378,7 @@ const renderJobContextHeader = () => {
         },
         [
           h('p', {class:'font-big'}, props.jobName),
-          h('p', {class:'font-small'}, jobSubName.value)
+          h('p', {class:'font-small', style: 'color: var(--color-text-sub);'}, jobSubName.value)
         ]
       )
     ]
