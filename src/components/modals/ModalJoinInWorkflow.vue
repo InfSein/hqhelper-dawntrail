@@ -136,14 +136,16 @@ const handleSubmit = () => {
         <template #title>
           <span class="title">{{ t('common.options') }}</span>
         </template>
-        <n-input-group>
-          <n-input-group-label>{{ t('common.target') }}</n-input-group-label>
-          <n-select v-model:value="targetWorkflow" :options="workflowOptions" :placeholder="t('workflow.join_in_workflow.desc.desc_1')" />
-        </n-input-group>
-        <n-input-group v-show="targetWorkflow !== 'add'">
-          <n-input-group-label>{{ t('common.mode') }}</n-input-group-label>
-          <n-select v-model:value="joinMode" :options="joinModeOptions" :render-option="optionsRenderer" />
-        </n-input-group>
+        <div class="options-container">
+          <n-input-group>
+            <n-input-group-label>{{ t('common.target') }}</n-input-group-label>
+            <n-select v-model:value="targetWorkflow" :options="workflowOptions" :placeholder="t('workflow.join_in_workflow.desc.desc_1')" />
+          </n-input-group>
+          <n-input-group v-show="targetWorkflow !== 'add'">
+            <n-input-group-label>{{ t('common.mode') }}</n-input-group-label>
+            <n-select v-model:value="joinMode" :options="joinModeOptions" :render-option="optionsRenderer" />
+          </n-input-group>
+        </div>
       </GroupBox>
       <GroupBox id="atw-content">
         <template #title>
@@ -180,5 +182,14 @@ const handleSubmit = () => {
   flex-direction: column;
   gap: 15px;
   user-select: text;
+
+  .options-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.theme-dark .options-container {
+  gap: 1px;
 }
 </style>

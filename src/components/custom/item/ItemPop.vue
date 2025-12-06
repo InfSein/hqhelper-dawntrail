@@ -662,8 +662,8 @@ const innerPopTrigger = computed(() => {
               </div>
             </div>
             <div class="other-attrs">
-              <div v-if="!itemInfo.craftInfo?.qsable" class="red">{{ t('item.text.cannot_quick_synthesis') }}</div>
-              <div v-if="!itemInfo.craftInfo?.hqable" class="red">{{ t('item.text.cannot_hq') }}</div>
+              <div v-if="!itemInfo.craftInfo?.qsable" style="color: var(--color-error);">{{ t('item.text.cannot_quick_synthesis') }}</div>
+              <div v-if="!itemInfo.craftInfo?.hqable" style="color: var(--color-error);">{{ t('item.text.cannot_hq') }}</div>
             </div>
           </div>
         </div>
@@ -675,7 +675,7 @@ const innerPopTrigger = computed(() => {
               <div>
                 {{ t('common.last_update_with_val', itemPriceInfo.lastUpdate) }}
               </div>
-              <div v-if="itemPriceInfo.priceExpired" class="red">
+              <div v-if="itemPriceInfo.priceExpired" style="color: var(--color-error);">
                 ({{ t('common.expired') }})
               </div>
               <a

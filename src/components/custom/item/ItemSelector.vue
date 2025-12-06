@@ -27,14 +27,12 @@ const itemOptions = computed(() => {
   if (optionsPreset.value === 'craftable') {
     return Object.values(XivUnpackedItems).filter(item => item.rids?.length > 0).map(item => {
       return {
-        label: item.name[0],
         value: item.id
       }
     })
   } else if (optionsPreset.value === 'custom' && props.options) {
     return props.options.map(item => {
       return {
-        label: 'item-' + item,
         value: item
       }
     })
@@ -42,7 +40,6 @@ const itemOptions = computed(() => {
     const items = getMaterialItems()
     return items.map(item => {
       return {
-        label: 'item-' + item,
         value: item
       }
     })
