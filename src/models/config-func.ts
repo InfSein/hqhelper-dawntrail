@@ -113,8 +113,8 @@ const defaultFuncConfig: FuncConfigModel = {
   universalis_expireTime: 6 * 60 * 60 * 1000, // 默认6小时
   export_item_price: false,
   costandbenefit_show_item_details: false,
-  universalis_showpriceinpop: false,
-  universalis_poppricetypes: [],
+  universalis_showpriceinpop: true,
+  universalis_poppricetypes: ['marketLowestPrice', 'purchasePrice'],
   // * 背包库存
   inventory_statement_enable_sync: false,
   inventory_workflow_enable_sync: false,
