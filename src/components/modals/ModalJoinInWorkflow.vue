@@ -38,6 +38,11 @@ const onLoad = () => {
   joinMode.value = funcConfig.value.workflow_default_join_mode
   itemsToAdd.value = deepCopy(props.items)
   targetWorkflow.value = workflowOptions.value[0].value
+  workflowOptions.value.forEach(option => {
+    if (option.value === userConfig.value.workflow_cache_work_state.lastjoinWorkflow) {
+      targetWorkflow.value = option.value
+    }
+  })
 }
 
 const targetWorkflow = ref<number | "add">(0)
@@ -92,6 +97,7 @@ const handleSubmit = () => {
     const workflow = getDefaultWorkflow()
     workflow.targetItems = itemsToAdd.value
     newUserConfig.workflow_cache_work_state.workflows.push(workflow)
+    newUserConfig.workflow_cache_work_state.lastjoinWorkflow = newUserConfig.workflow_cache_work_state.workflows.length - 1
   } else {
     let workflow = newUserConfig.workflow_cache_work_state.workflows[targetWorkflow.value]
     if (joinMode.value === 'overwrite') {
@@ -110,6 +116,7 @@ const handleSubmit = () => {
       }
     }
     newUserConfig.workflow_cache_work_state.workflows[targetWorkflow.value] = workflow
+    newUserConfig.workflow_cache_work_state.lastjoinWorkflow = targetWorkflow.value
   }
   store.setUserConfig(newUserConfig)
   if (joinMode.value !== funcConfig.value.workflow_default_join_mode) {
