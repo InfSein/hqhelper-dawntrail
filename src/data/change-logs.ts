@@ -100,6 +100,12 @@ export const getChangelogs = (
           ]
         },
         {
+          name: groupName.bugfix,
+          changes: [
+            t('changelog.2_4_0.fix.text_1'),
+          ]
+        },
+        {
           name: groupName.feature,
           changes: [
             isZh ? '修订了“参考资料”中的推荐攻略，并调整了菜单项的显示效果 (仅在界面语言设置为简体中文时显示)。' : '',
