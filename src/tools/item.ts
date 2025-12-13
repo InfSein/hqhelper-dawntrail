@@ -76,6 +76,21 @@ export const getMaterialItems = () => {
   )].sort((a, b) => a - b);
 }
 
+/**
+ * 获取物品名称映射表
+ * @映射规则 `item_name` -> `item_id`
+ * @注释 `item_name` 包括中英日文版本，道具出现重复时会覆盖
+ */
+export const getItemNameRevertMap = () => {
+  const map = new Map<string, number>()
+  for (const item of Object.values(XivUnpackedItems)) {
+    map.set(item.name[0], item.id)
+    map.set(item.name[1], item.id)
+    map.set(item.name[2], item.id)
+  }
+  return map
+}
+
 export interface ItemInfo {
   id: number
   valid: boolean
@@ -576,7 +591,23 @@ export const getItemContexts = (
     },
     {
       type: 'divider',
-      key: 'd1'
+      key: 'd1',
+      show: !!itemInfo?.craftInfo?.recipeId
+    },
+    {
+      label: t('workflow.text.join_in_workflow'),
+      key: 'join-to-workflow',
+      show: !!itemInfo?.craftInfo?.recipeId,
+      icon: renderIcon(JoinLeftOutlined),
+      click: () => {
+        joinItemsToWorkflow({
+          [itemInfo.id]: 1,
+        })
+      }
+    },
+    {
+      type: 'divider',
+      key: 'd2'
     },
     {
       label: t('common.open_in.huijiwiki2'),
@@ -609,22 +640,6 @@ export const getItemContexts = (
       icon: renderIcon(OpenInNewFilled),
       click: () => {
         window.open(`https://universalis.app/market/${itemInfo.id}`)
-      }
-    },
-    {
-      type: 'divider',
-      key: 'd2',
-      show: !!itemInfo?.craftInfo?.recipeId
-    },
-    {
-      label: t('workflow.text.join_in_workflow'),
-      key: 'join-to-workflow',
-      show: !!itemInfo?.craftInfo?.recipeId,
-      icon: renderIcon(JoinLeftOutlined),
-      click: () => {
-        joinItemsToWorkflow({
-          [itemInfo.id]: 1,
-        })
       }
     },
     {
