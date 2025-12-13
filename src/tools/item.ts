@@ -508,7 +508,8 @@ export const getImgCdnUrl = (iconID: number, isHq = false) => {
 import {
   FileCopyOutlined,
   LanguageOutlined,
-  OpenInNewFilled
+  OpenInNewFilled,
+  JoinLeftOutlined,
 } from '@vicons/material'
 import { type Component } from 'vue'
 import { NIcon } from 'naive-ui'
@@ -519,7 +520,8 @@ export const getItemContexts = (
   itemInfo: ItemInfo,
   itemLanguage: "zh" | "en" | "ja",
   t: (message: string, args?: any) => string,
-  handleCopy: (content: string, successMessage?: string) => Promise<void>
+  handleCopy: (content: string, successMessage?: string) => Promise<void>,
+  joinItemsToWorkflow: (items: Record<number, number>) => void
 ) => {
   if (!itemInfo.id) {
     return {
@@ -612,6 +614,22 @@ export const getItemContexts = (
     {
       type: 'divider',
       key: 'd2',
+      show: !!itemInfo?.craftInfo?.recipeId
+    },
+    {
+      label: t('workflow.text.join_in_workflow'),
+      key: 'join-to-workflow',
+      show: !!itemInfo?.craftInfo?.recipeId,
+      icon: renderIcon(JoinLeftOutlined),
+      click: () => {
+        joinItemsToWorkflow({
+          [itemInfo.id]: 1,
+        })
+      }
+    },
+    {
+      type: 'divider',
+      key: 'd3',
       show: !!itemInfo?.craftInfo?.recipeId
     },
     {

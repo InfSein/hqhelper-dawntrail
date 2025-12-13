@@ -14,6 +14,7 @@ const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const joinItemsToWorkflow = inject<(items: Record<number, number>) => void>('joinItemsToWorkflow')!
 
 const NAIVE_UI_MESSAGE = useMessage()
 const {
@@ -104,7 +105,7 @@ const handleCopy = async (content: string, successMessage?: string) => {
     NAIVE_UI_MESSAGE.success(successMessage ?? t('common.message.copy_succeed'))
   }
 }
-const { options, handleKeyEvent } = getItemContexts(props.itemInfo, itemLanguage.value, t, handleCopy)
+const { options, handleKeyEvent } = getItemContexts(props.itemInfo, itemLanguage.value, t, handleCopy, joinItemsToWorkflow)
 const handleContextMenu = (e: MouseEvent) => {
   e.preventDefault()
   showDropdownRef.value = false

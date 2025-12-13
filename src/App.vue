@@ -22,6 +22,7 @@ import AppStatus from './variables/app-status'
 import { registerDialogProvider, useDialog } from './tools/dialog'
 
 const ModalCopyAsMacro = defineAsyncComponent(() => import('@/components/modals/ModalCopyAsMacro.vue'))
+const ModalJoinInWorkflow = defineAsyncComponent(() => import('@/components/modals/ModalJoinInWorkflow.vue'))
 const ModalCheckUpdates = defineAsyncComponent(() => import('@/components/modals/ModalCheckUpdates.vue'))
 const ModalLogin = defineAsyncComponent(() => import('@/components/modals/ModalLogin.vue'))
 const ModalCloudSync = defineAsyncComponent(() => import('@/components/modals/ModalCloudSync.vue'))
@@ -204,6 +205,14 @@ const copyAsMacro = async (macroMap: Record<MacroGenerateMode, string>, containe
   }
 }
 provide('copyAsMacro', copyAsMacro)
+
+const showModalJoinInWorkflow = ref(false)
+const itemsToJoinInWorkflow = ref<Record<number, number>>({})
+const joinItemsToWorkflow = (items: Record<number, number>) => {
+  itemsToJoinInWorkflow.value = items
+  showModalJoinInWorkflow.value = true
+}
+provide('joinItemsToWorkflow', joinItemsToWorkflow)
 
 const showCheckUpdatesModal = ref(false)
 const displayCheckUpdatesModal = () => {
@@ -423,6 +432,10 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
         <ModalCopyAsMacro
           v-model:show="showCopyMacroModal"
           :macro-map="macroMapValue"
+        />
+        <ModalJoinInWorkflow
+          v-model:show="showModalJoinInWorkflow"
+          :items="itemsToJoinInWorkflow"
         />
         <ModalCheckUpdates v-model:show="showCheckUpdatesModal" />
         <ModalLogin
