@@ -39,7 +39,7 @@ const onLoad = () => {
   itemsToAdd.value = deepCopy(props.items)
   targetWorkflow.value = workflowOptions.value[0].value
   workflowOptions.value.forEach(option => {
-    if (option.value === userConfig.value.workflow_cache_work_state.lastjoinWorkflow) {
+    if (option.value === funcConfig.value.workflow_default_join_target) {
       targetWorkflow.value = option.value
     }
   })
@@ -89,6 +89,7 @@ const joinModeOptions = computed(() => {
 
 const handleSubmit = () => {
   const newUserConfig = fixUserConfig(store.userConfig)
+  const newFuncConfig = fixFuncConfig(store.funcConfig)
   if (targetWorkflow.value === 'add') {
     if (newUserConfig.workflow_cache_work_state.workflows.length >= _VAR_MAX_WORKFLOW) {
       NAIVE_UI_MESSAGE.warning(t('workflow.message.max_len', _VAR_MAX_WORKFLOW))
@@ -97,7 +98,7 @@ const handleSubmit = () => {
     const workflow = getDefaultWorkflow()
     workflow.targetItems = itemsToAdd.value
     newUserConfig.workflow_cache_work_state.workflows.push(workflow)
-    newUserConfig.workflow_cache_work_state.lastjoinWorkflow = newUserConfig.workflow_cache_work_state.workflows.length - 1
+    newFuncConfig.workflow_default_join_target = newUserConfig.workflow_cache_work_state.workflows.length - 1
   } else {
     let workflow = newUserConfig.workflow_cache_work_state.workflows[targetWorkflow.value]
     if (joinMode.value === 'overwrite') {
@@ -116,14 +117,13 @@ const handleSubmit = () => {
       }
     }
     newUserConfig.workflow_cache_work_state.workflows[targetWorkflow.value] = workflow
-    newUserConfig.workflow_cache_work_state.lastjoinWorkflow = targetWorkflow.value
+    newFuncConfig.workflow_default_join_target = targetWorkflow.value
   }
   store.setUserConfig(newUserConfig)
   if (joinMode.value !== funcConfig.value.workflow_default_join_mode) {
-    const newFuncConfig = fixFuncConfig(store.funcConfig)
     newFuncConfig.workflow_default_join_mode = joinMode.value
-    store.setFuncConfig(newFuncConfig)
   }
+  store.setFuncConfig(newFuncConfig)
   NAIVE_UI_MESSAGE.success(t('workflow.join_in_workflow.message.join_succeed'))
   showModal.value = false
 }

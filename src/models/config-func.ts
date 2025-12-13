@@ -81,6 +81,7 @@ export interface FuncConfigModel {
 
   // #region 隐藏的配置项
   workflow_default_join_mode: WorkflowJoinMode
+  workflow_default_join_target: number
   // #endregion
 
   // #region 缓存
@@ -124,6 +125,7 @@ const defaultFuncConfig: FuncConfigModel = {
   inventory_data: {},
   // * 隐藏的配置项
   workflow_default_join_mode: 'accumulation',
+  workflow_default_join_target: 0,
   // * 缓存
   cache_item_prices: {},
 }

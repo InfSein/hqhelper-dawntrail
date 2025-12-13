@@ -40,12 +40,10 @@ export const _VAR_MAX_WORKFLOW = 5;
 
 export interface WorkState {
   currentWorkflow: number;
-  lastjoinWorkflow: number;
   workflows: Workflow[];
 }
 export const defaultWorkState: WorkState = {
   currentWorkflow: 0,
-  lastjoinWorkflow: 0,
   workflows: [getDefaultWorkflow()]
 }
 
