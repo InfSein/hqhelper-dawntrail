@@ -59,15 +59,6 @@ const getPatchName = (patch: XivPatch) => {
   return t('main.select_patch.patch_button.text', { v: patch.v, name: patchName })
 }
 
-const getPatchBackground = (patch: XivPatch) => {
-  if (patch.v === patchSelected.value) {
-    if (patch.background) {
-      return patch.background
-    }
-  }
-  return ''
-}
-
 const patchPatterns = computed(() => {
   return [
     t('main.select_patch.info.info_2', {
@@ -128,7 +119,7 @@ const patchPatterns = computed(() => {
             :class="patch.v === patchSelected ? 'selected no-border' : ''"
             :disabled="!patch.updated"
             @click="handlePatchSelect(patch)"
-            :style="`background-image: url(${getPatchBackground(patch)});`"
+            :style="`--patch-bg: url(${patch.background});`"
           >
             <div
               class="patch-button-content"
@@ -170,10 +161,6 @@ const patchPatterns = computed(() => {
     padding: 5px 10px;
     width: 19%;
     height: 120px;
-      background-position-x: center;
-      background-position-y: center;
-      background-repeat: no-repeat;
-      background-size: auto 100%;
 
     .patch-button-content {
       display: flex;
@@ -181,6 +168,7 @@ const patchPatterns = computed(() => {
       align-items: end;
       width: 100%;
       height: 100%;
+      z-index: 1;
       background-position-x: center;
       background-position-y: center;
       background-repeat: no-repeat;
@@ -194,6 +182,26 @@ const patchPatterns = computed(() => {
       color: white;
       text-shadow: 2px 2px 4px #000000;
     }
+  }
+  .patch-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--patch-bg);
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    opacity: 0;
+    transform: scale(1.05);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+    z-index: 0;
+  }
+  .patch-button.selected::before {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 .popover-container .sub {
