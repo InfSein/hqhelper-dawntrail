@@ -67,6 +67,9 @@ const renderList = (list: string[]) => {
   const content = list.filter(line => !!line).map(line => `<li>${line}</li>`).join('')
   return `<ul>${content}</ul>`
 }
+const getNoteImage = (ver: string, filename: string) => {
+  return renderImg(`https://infsein.github.io/static/hqhelper/patchnote/${ver}/${filename}`)
+}
 // const refer = (text: string) => `<span class="font-small" style="font-style: italic;">${text}</span>`
 export const getChangelogs = (
   ui_lang: 'zh' | 'ja' | 'en',
@@ -91,12 +94,14 @@ export const getChangelogs = (
               ver: '7.4'
             })
               + br + t('changelog.2_4_0.breaking.text_1')
-              + t('changelog.2_4_0.breaking.text_2'),
+              + t('changelog.2_4_0.breaking.text_2')
+              + '<br>' + getNoteImage('2.4.0', 'patch_logo.png'),
             t('changelog.2_0_12.feat.text_5', {
               f1: t('common.appfunc.user_preference'),
               f2: t('common.appsetting.appearance'),
               f3: t('preference.custom_background.title')
-            }),
+            })
+              + '<br>' + getNoteImage('2.4.0', 'intro.png'),
           ]
         },
         {
@@ -110,10 +115,13 @@ export const getChangelogs = (
           changes: [
             isZh ? '修订了“参考资料”中的推荐攻略，并调整了菜单项的显示效果 (仅在界面语言设置为简体中文时显示)。' : '',
             isZh ? '追加和修订了部分物品的笔记 (仅在界面语言设置为简体中文时显示)。' : '',
-            t('changelog.2_4_0.feat.text_5'),
-            t('changelog.2_4_0.feat.text_2'),
+            t('changelog.2_4_0.feat.text_6')
+              + '<br>' + getNoteImage('2.4.0', 'workflow_import.png'),
+            t('changelog.2_4_0.feat.text_5')
+              + '<br>' + getNoteImage('2.4.0', 'context.png'),
             t('changelog.2_4_0.feat.text_3')
               + '<br>※ ' + t('changelog.2_4_0.feat.text_4'),
+            t('changelog.2_4_0.feat.text_2'),
             t('changelog.2_4_0.feat.text_1'),
             t('changelog.shared.optimize_ui_detail'),
           ]
