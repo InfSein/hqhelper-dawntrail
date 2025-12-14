@@ -104,7 +104,7 @@ const isJobGroupAvailable = (group: number[]) => {
     <n-alert
       v-else-if="jobSelected && !isJobAvailable(jobSelected)"
       type="info"
-      style="margin-bottom: 4px;"
+      style="margin-bottom: 15px;"
     >
       {{ t('main.message.curr_job_not_valid') }}
     </n-alert>
