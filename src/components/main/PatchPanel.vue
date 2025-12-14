@@ -58,6 +58,10 @@ const getPatchName = (patch: XivPatch) => {
 
   return t('main.select_patch.patch_button.text', { v: patch.v, name: patchName })
 }
+const getPatchBackground = (patch: XivPatch) => {
+  const base = import.meta.env.BASE_URL
+  return (patch.background ?? '').replace('./', base)
+}
 
 const patchPatterns = computed(() => {
   return [
@@ -119,7 +123,7 @@ const patchPatterns = computed(() => {
             :class="patch.v === patchSelected ? 'selected no-border' : ''"
             :disabled="!patch.updated"
             @click="handlePatchSelect(patch)"
-            :style="`--patch-bg: url(${patch.background});`"
+            :style="`--patch-bg: url(${getPatchBackground(patch)});`"
           >
             <div
               class="patch-button-content"
