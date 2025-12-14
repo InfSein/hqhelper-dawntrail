@@ -58,10 +58,6 @@ const getPatchName = (patch: XivPatch) => {
 
   return t('main.select_patch.patch_button.text', { v: patch.v, name: patchName })
 }
-const getPatchBackground = (patch: XivPatch) => {
-  const base = import.meta.env.BASE_URL
-  return (patch.background ?? '').replace('./', base)
-}
 
 const patchPatterns = computed(() => {
   return [
@@ -123,8 +119,11 @@ const patchPatterns = computed(() => {
             :class="patch.v === patchSelected ? 'selected no-border' : ''"
             :disabled="!patch.updated"
             @click="handlePatchSelect(patch)"
-            :style="`--patch-bg: url(${getPatchBackground(patch)});`"
           >
+            <div
+              class="patch-button-background"
+              :style="`background-image: url(${patch.background});`"
+            />
             <div
               class="patch-button-content"
               :style="`background-image: url(${patch.logo});`"
@@ -187,23 +186,22 @@ const patchPatterns = computed(() => {
       text-shadow: 2px 2px 4px #000000;
     }
   }
-  .patch-button::before {
+  .patch-button-background {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: var(--patch-bg);
     background-position-x: center;
     background-position-y: center;
     background-repeat: no-repeat;
     background-size: auto 100%;
     opacity: 0;
-    transform: scale(1.05);
+    transform: scale(1.02);
     transition:
       opacity 0.3s ease,
       transform 0.3s ease;
     z-index: 0;
   }
-  .patch-button.selected::before {
+  .patch-button.selected .patch-button-background {
     opacity: 1;
     transform: scale(1);
   }

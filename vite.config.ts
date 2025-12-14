@@ -7,11 +7,9 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 
-const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? ''
-
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: process.env.GITHUB_ACTIONS ? `/${repoName}/` : '/',
+  base: './',
   plugins: [
     vue(),
     VueDevTools(),
