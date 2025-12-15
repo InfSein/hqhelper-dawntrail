@@ -46,7 +46,7 @@
     "name_zh": "雾中奇境",
     "name_en": "Into the Mist",
     "name_ja": "霧の中の理想郷",
-    "updated": false,
+    "updated": true,
     "combat_hq_il": 770,
     "logo": "./image/game-patch/patch-7.4.png",
     "background": "./image/game-patch/patch-7.4-background.jpg"
