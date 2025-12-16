@@ -76,6 +76,21 @@ export const getMaterialItems = () => {
   )].sort((a, b) => a - b);
 }
 
+/**
+ * 获取物品名称映射表
+ * @映射规则 `item_name` -> `item_id`
+ * @注释 `item_name` 包括中英日文版本，道具出现重复时会覆盖
+ */
+export const getItemNameRevertMap = () => {
+  const map = new Map<string, number>()
+  for (const item of Object.values(XivUnpackedItems)) {
+    map.set(item.name[0], item.id)
+    map.set(item.name[1], item.id)
+    map.set(item.name[2], item.id)
+  }
+  return map
+}
+
 export interface ItemInfo {
   id: number
   valid: boolean
@@ -274,7 +289,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.classJobId = _item.jobs
   itemInfo.patch = _item.p || '7.3'
   itemInfo.hqable = _item.hqable
-  itemInfo.tradable = _item.tradable
+  itemInfo.tradable = _item.tradable && !_item.collectable
 
   // * 针对还没有中文名/中文描述的道具，尝试从暂译表中获取暂译
   if (!itemInfo.name_zh) {
@@ -508,7 +523,8 @@ export const getImgCdnUrl = (iconID: number, isHq = false) => {
 import {
   FileCopyOutlined,
   LanguageOutlined,
-  OpenInNewFilled
+  OpenInNewFilled,
+  JoinLeftOutlined,
 } from '@vicons/material'
 import { type Component } from 'vue'
 import { NIcon } from 'naive-ui'
@@ -519,7 +535,8 @@ export const getItemContexts = (
   itemInfo: ItemInfo,
   itemLanguage: "zh" | "en" | "ja",
   t: (message: string, args?: any) => string,
-  handleCopy: (content: string, successMessage?: string) => Promise<void>
+  handleCopy: (content: string, successMessage?: string) => Promise<void>,
+  joinItemsToWorkflow: (items: Record<number, number>) => void
 ) => {
   if (!itemInfo.id) {
     return {
@@ -574,7 +591,23 @@ export const getItemContexts = (
     },
     {
       type: 'divider',
-      key: 'd1'
+      key: 'd1',
+      show: !!itemInfo?.craftInfo?.recipeId
+    },
+    {
+      label: t('workflow.text.join_in_workflow'),
+      key: 'join-to-workflow',
+      show: !!itemInfo?.craftInfo?.recipeId,
+      icon: renderIcon(JoinLeftOutlined),
+      click: () => {
+        joinItemsToWorkflow({
+          [itemInfo.id]: 1,
+        })
+      }
+    },
+    {
+      type: 'divider',
+      key: 'd2'
     },
     {
       label: t('common.open_in.huijiwiki2'),
@@ -611,7 +644,7 @@ export const getItemContexts = (
     },
     {
       type: 'divider',
-      key: 'd2',
+      key: 'd3',
       show: !!itemInfo?.craftInfo?.recipeId
     },
     {

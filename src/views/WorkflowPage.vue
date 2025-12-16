@@ -10,6 +10,7 @@ import {
   UnfoldMoreSharp, UnfoldLessSharp,
 } from '@vicons/material'
 import FoldableCard from '@/components/templates/FoldableCard.vue'
+import ImportItemListPop from '@/components/workflow/ImportItemListPop.vue'
 import ItemSelector from '@/components/custom/item/ItemSelector.vue'
 import ItemSelectTable from '@/components/custom/item/ItemSelectTable.vue'
 import CraftStatistics from '@/components/custom/general/CraftStatistics.vue'
@@ -202,8 +203,10 @@ const handleClearCurrentWorkflow = () => {
   }
   NAIVE_UI_MESSAGE.success(t('common.cleared'))
 }
+const selectCardFolded = ref(false)
 const selectCardWidth = ref('450px')
 const handleSelectCardFoldStatusChanged = (folded: boolean) => {
+  selectCardFolded.value = folded
   if (folded) {
     selectCardWidth.value = '200px'
   } else {
@@ -477,6 +480,11 @@ const setInventoryByStatementPrepared = () => {
         <template #header>
           <i class="xiv square-1"></i>
           <span class="card-title-text">{{ t('common.select_item2') }}</span>
+          <ImportItemListPop>
+            <a v-show="!selectCardFolded" class="card-title-extra" href="javascript:void(0);">
+              [{{ t('common.import') }}]
+            </a>
+          </ImportItemListPop>
         </template>
         <div class="block items-block">
           <div class="top-actions">

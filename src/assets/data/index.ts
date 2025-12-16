@@ -1,7 +1,6 @@
 // #region Import for other ts files
 import type {
   AttireAffix, AccessoryAffix,
-  GearSelections
 } from '@/models/gears'
 // #endregion
 
@@ -241,11 +240,6 @@ export interface XivGearSet {
 }
 export const XivGearRecomm = JsonXivGearRecomm as Record<string, Record<number, number[]>>
 export const XivGearSets = JsonXivGearSets as Record<number, XivGearSet>
-
-import JsonXivGearSlots from './xiv-gear-slots.json'
-export const XivGearSlots = JsonXivGearSlots as Record<keyof GearSelections, {
-  icon: string
-}>
 
 import JsonXivItemTypes from './xiv-item-types.json'
 export const XivItemTypes = JsonXivItemTypes as Record<number, {

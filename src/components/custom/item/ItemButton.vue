@@ -17,6 +17,7 @@ const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+const joinItemsToWorkflow = inject<(items: Record<number, number>) => void>('joinItemsToWorkflow')!
 
 const NAIVE_UI_MESSAGE = useMessage()
 const {
@@ -112,7 +113,7 @@ const handleCopy = async (content: string, successMessage?: string) => {
   }
 }
 const itemContexts = computed(() => {
-  return getItemContexts(props.itemInfo, itemLanguage.value, t, handleCopy)
+  return getItemContexts(props.itemInfo, itemLanguage.value, t, handleCopy, joinItemsToWorkflow)
 })
 const handleContextMenu = (e: MouseEvent) => {
   e.preventDefault()
@@ -376,7 +377,7 @@ const handleItemButtonClick = async () => {
       }
       .extra {
         font-size: calc(var(--n-font-size) - 2px);
-        margin: 2px 0 5px 0;
+        margin: 2px 0 5px;
       }
     }
     .description-block {

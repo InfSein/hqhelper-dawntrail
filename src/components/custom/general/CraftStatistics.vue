@@ -159,7 +159,7 @@ const otherMaterials = computed(() => {
 
 <template>
   <div class="cs-wrapper">
-    <GroupBox id="common-precrafts-group" class="group" title-background-color="var(--n-color-embedded)">
+    <GroupBox id="common-precrafts-group" class="group">
       <template #title>{{ t('statistics.group.precrafts') }}</template>
       <div class="container">
         <ItemList
@@ -170,7 +170,7 @@ const otherMaterials = computed(() => {
       </div>
     </GroupBox>
     <GroupBox
-      id="tome-script-group" class="group" title-background-color="var(--n-color-embedded)"
+      id="tome-script-group" class="group"
       :title="t('statistics.group.trade_items')"
       :descriptions="materialTargetDescription"
     >
@@ -182,7 +182,7 @@ const otherMaterials = computed(() => {
       </div>
     </GroupBox>
     <GroupBox
-      id="crystals-group" class="group" title-background-color="var(--n-color-embedded)"
+      id="crystals-group" class="group"
       :title="t('statistics.group.crystal')"
       :descriptions="materialTargetDescription"
     >
@@ -194,7 +194,7 @@ const otherMaterials = computed(() => {
       </div>
     </GroupBox>
     <GroupBox
-      id="common-gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
+      id="common-gatherings-group" class="group"
       :title="t('statistics.group.common_gathering2')"
       :descriptions="materialTargetDescription"
     >
@@ -207,7 +207,7 @@ const otherMaterials = computed(() => {
       </div>
     </GroupBox>
     <GroupBox
-      id="timed-gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
+      id="timed-gatherings-group" class="group"
       :title="t('statistics.group.time_limited_gathering_and_aethersands')"
       :descriptions="materialTargetDescription"
     >
@@ -220,7 +220,7 @@ const otherMaterials = computed(() => {
       </div>
     </GroupBox>
     <GroupBox
-      id="other-materials-group" class="group" title-background-color="var(--n-color-embedded)"
+      id="other-materials-group" class="group"
       :title="t('statistics.group.other_materials.title')"
       :descriptions="[
         t('statistics.group.other_materials.tooltip'),

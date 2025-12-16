@@ -84,7 +84,7 @@ defineExpose({
             :content="dialog.content"
             :closable="dialog.closable"
             :type="dialog.type"
-            style="border-radius: initial; padding: 20px 28px 16px 28px;"
+            style="border-radius: initial; padding: 20px 28px 16px;"
           />
           <div class="dialog-footer">
             <n-button v-if="dialog.negativeText" ghost class="dialog-button" @click="handleCancelDialog(dialog)">

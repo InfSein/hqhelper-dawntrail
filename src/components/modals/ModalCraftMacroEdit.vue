@@ -109,7 +109,7 @@ const modalTitle = computed(() => {
 })
 const craftActionsMacroLines = computed(() => {
   const macros = exportCraftMacroText(formCraftActions.value.map(action => XivCraftActions[action.val]))
-  return [...macros[`macros_${formCraftActionsExportLang.value}`].map(str => str.split('\r\n')).flat()]
+  return macros[`macros_${formCraftActionsExportLang.value}`].map(str => str.split('\r\n')).flat()
 })
 const groupLabelStyle = computed(() => {
   let width = 25
@@ -285,7 +285,7 @@ const handleSave = async () => {
                         <n-icon :size="16"><LocalOfferFilled /></n-icon>
                         <span>{{ t('macro_manage.text.preset_tags') }}</span>
                       </div>
-                      <n-divider style="margin: 0 0 3px 0;" />
+                      <n-divider style="margin: 0 0 3px;" />
                       <div v-if="userConfig.macromanage_cache_work_state.presetTags.length" class="flex-wrap gap-2">
                         <n-tag
                           v-for="(tag, tagIndex) in userConfig.macromanage_cache_work_state.presetTags"
@@ -310,7 +310,7 @@ const handleSave = async () => {
                         style="align-self: center;"
                         :description="t('macro_manage.message.no_preset_tags')"
                       />
-                      <n-divider style="margin: 3px 0 3px 0;" />
+                      <n-divider style="margin: 3px 0;" />
                       <div class="flex" style="justify-content: end;">
                         <n-button size="tiny" @click="showPresetTagsManageModal = true">
                           <template #icon>
@@ -354,7 +354,7 @@ const handleSave = async () => {
                         <n-icon :size="16"><BuildFilled /></n-icon>
                         <span>{{ t('macro_manage.text.preset_creqs') }}</span>
                       </div>
-                      <n-divider style="margin: 0 0 3px 0;" />
+                      <n-divider style="margin: 0 0 3px;" />
                       <div v-if="userConfig.macromanage_cache_work_state.presetCReqs.length" class="flex-col gap-2">
                         <n-button
                           v-for="(creq, creqIndex) in userConfig.macromanage_cache_work_state.presetCReqs"
@@ -373,7 +373,7 @@ const handleSave = async () => {
                         class="font-small no-margin-empty"
                         :description="t('macro_manage.message.no_preset_creqs')"
                       />
-                      <n-divider style="margin: 3px 0 3px 0;" />
+                      <n-divider style="margin: 3px 0;" />
                       <div class="flex" style="justify-content: end;">
                         <n-button size="tiny" @click="showPresetCReqsManageModal = true">
                           <template #icon>

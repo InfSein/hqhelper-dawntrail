@@ -10,6 +10,9 @@ import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
 import ModalSponsorsList from './ModalSponsorsList.vue'
 import { getStaffMebers } from '@/models/about-app'
+import {
+  qGroupInfo,
+} from '@/variables'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -25,13 +28,6 @@ const showSponsorsList = ref(false)
 
 const onLoad = () => {
   cautionsConfirmed.value = false
-}
-
-const pageData = {
-  qGroupInfo: {
-    groupNumber: '721051298',
-    groupUrl: 'https://jq.qq.com/?_wv=1027&k=LIfWPbZg',
-  }
 }
 
 const donatableStaffs = computed(() => {
@@ -106,7 +102,7 @@ const handleStaffSelectionUpdate = () => {
   >
     <div class="wrapper">
       <div v-if="cautionsConfirmed" class="donate-container">
-        <GroupBox :title="t('common.options')" title-background-color="var(--n-color-modal)">
+        <GroupBox :title="t('common.options')">
           <n-input-group>
             <n-input-group-label size="small">{{ t('donate_us.target.title') }}</n-input-group-label>
             <n-select size="small"
@@ -125,7 +121,7 @@ const handleStaffSelectionUpdate = () => {
             />
           </n-input-group>
         </GroupBox>
-        <GroupBox :title="t('donate_us.final_confirm.title')" title-background-color="var(--n-color-modal)">
+        <GroupBox :title="t('donate_us.final_confirm.title')">
           <div>
             <div style="float: left;">{{ t('donate_us.final_confirm.desc.desc_1') }}</div>
             <StaffGroup :group-members="[currentDonateStaff]" style="float: left;" />
@@ -144,7 +140,7 @@ const handleStaffSelectionUpdate = () => {
             />
           </div>
         </GroupBox>
-        <GroupBox :title="t('donate_us.start_donate.title')" title-background-color="var(--n-color-modal)">
+        <GroupBox :title="t('donate_us.start_donate.title')">
           <div v-if="currentDonateWay.data_type === 'url'">
             <p>{{ t('donate_us.start_donate.desc.desc_1') }}</p>
             <a :href="currentDonateWay.data" target="_blank">{{ currentDonateWay.data }}</a>
@@ -163,7 +159,7 @@ const handleStaffSelectionUpdate = () => {
       <div v-else class="cautions-container">
         <p class="bold">{{ t('donate_us.desc.desc_1') }}</p>
         <p class="bold">{{ t('donate_us.desc.desc_2') }}</p>
-        <n-divider style="margin: 1px 5px 3px 5px" />
+        <n-divider style="margin: 1px 5px 3px" />
         <ul>
           <li>{{ t('donate_us.desc.desc_3') }}</li>
           <li>{{ t('donate_us.desc.desc_4') }}</li>
@@ -172,12 +168,12 @@ const handleStaffSelectionUpdate = () => {
         <n-alert :title="t('donate_us.desc.desc_7')" type="info" style="margin-top: auto; line-height: 1.2;">
           <p>
             <span>{{ t('contact_us.feedback.desc.desc_3') }}</span>
-            <a :href="pageData.qGroupInfo.groupUrl" target="_blank">{{ t('common.click_here') }}</a>
+            <a :href="qGroupInfo.groupUrl" target="_blank">{{ t('common.click_here') }}</a>
             <span>{{ t('contact_us.feedback.desc.desc_4') }}</span>
           </p>
           <p>
             <span>{{ t('contact_us.feedback.desc.desc_5') }}</span>
-            <n-gradient-text type="info" style="padding: 0 5px;">{{ pageData.qGroupInfo.groupNumber }}</n-gradient-text>
+            <n-gradient-text type="info" style="padding: 0 5px;">{{ qGroupInfo.groupNumber }}</n-gradient-text>
             <span>{{ t('contact_us.feedback.desc.desc_6') }}</span>
           </p>
         </n-alert>

@@ -147,7 +147,7 @@ const handleDownloadBtnClick = (link: string) => {
           <ul>
             <li v-for="(content, contentIndex) in intro.contents" :key="introIndex + '-content-' + contentIndex">{{ content }}</li>
           </ul>
-          <n-divider style="margin: 1px 5px 3px 5px" />
+          <n-divider style="margin: 1px 5px 3px" />
         </div>
       </div>
     </FoldableCard>

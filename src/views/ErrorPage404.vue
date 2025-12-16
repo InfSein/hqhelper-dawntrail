@@ -26,12 +26,16 @@ const descriptions = computed(() => {
 </template>
 
 <style scoped>
-.footer-container {
-  display: flex;
-  justify-content: center;
+#main-container {
+  min-height: calc(100vh - 70px);
   
-  .n-button {
-    margin: 5px;
+  .footer-container {
+    display: flex;
+    justify-content: center;
+    
+    .n-button {
+      margin: 5px;
+    }
   }
 }
 </style>

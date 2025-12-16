@@ -26,6 +26,28 @@
       "web": "Current webpage version: {v}"
     }
   },
+  "announcement": {
+    "action": {
+      "feedback_github": "Feedback (GitHub)",
+      "feedback_qquery": "Feedback (QQ Query)",
+      "follow_us": "Follow us",
+      "ignore": "Don't show this again",
+      "join_q_group": "Join Q-Group"
+    },
+    "content": {
+      "content_1_1": "With the implementation of Patch 7.4, the main high quality crafting gear for the entire DAWNTRAIL expansion has been fully released. The mission of HqHelper for version 7.0 has also come to a close.",
+      "content_1_2": "We will still continue to update HqHelper's database as the game version advances, but this will mainly be done via hotfixes and we will no longer be releasing frequent routine updates.",
+      "content_1_3": "You can still contact us through the various methods below to point out omissions, suggest new features/needs, or offer sponsorship, helping us to make HqHelper even better.",
+      "content_1_4": "Thank you for your continued support, and we'll see you in 8.0!"
+    },
+    "message": {
+      "ignore_confirm": "Are you sure you want to stop showing this announcement?",
+      "ignored": "This announcement will no longer be displayed."
+    },
+    "title": {
+      "title_1": "The DAWNTRAIL era is coming to an end..."
+    }
+  },
   "appheader": {
     "menu": {
       "tooltip": {
@@ -631,6 +653,23 @@
         "text_2": "Fix the problem of displaying the content position for some pages."
       }
     },
+    "2_4_0": {
+      "breaking": {
+        "text_1": "The item level 770 gear, food, and gemdraughts added in Patch 7.4 will be the highest quality crafted items for the entire 7.x cycle of combat jobs, and can be used all the way through the leveling period of 8.0.",
+        "text_2": "Get prepared for the finale of AAC and DAWNTRAIL!"
+      },
+      "feat": {
+        "text_1": "Optimized the display effect of gear slot icons.",
+        "text_2": "Now click on the item info icon would no longer trigger other click events, including select/unselect the item row in statement and input selection.",
+        "text_3": "The \"Join Workflow\" popup will now remember the last selected workflow.",
+        "text_4": "However, if the existing workflow is deleted or sequenced, the workflow that this function remembers may be misplaced or reset.",
+        "text_5": "Items can now be added directly to workflows from the right-click menu of item buttons and item info icons.",
+        "text_6": "Added a feature to import item lists into the workflow page."
+      },
+      "fix": {
+        "text_1": "Fixed an issue where the order of Alchemist potions for patch 7.0 and 7.2 was incorrect in the main interface statistics section."
+      }
+    },
     "breaking": "BREAKING CHANGES",
     "feat": "FEATURES",
     "fix": "BUG FIXES",
@@ -643,6 +682,7 @@
       "game_db_update": "Game data updated to {ver}.",
       "global_db_update": "Global game data updated to {ver}.",
       "optimize_page_perform": "Some page performance was optimized.",
+      "optimize_ui_detail": "Optimized multiple interfaces' details.",
       "released_func": "Function \"{f}\" released.",
       "require_setting": "Need to deal settings in \"{f2}\" tab of \"{f1}\" first.",
       "temp_not_support_mobile": "This function does not support mobile devices now."
@@ -660,6 +700,7 @@
       "cannot_sync_because_modules_data_not_uploaded": "Synchronization cannot proceed because the following modules have not yet uploaded data:",
       "confirm_download_1": "Are you sure you want to download cloud data to the local?",
       "confirm_download_2": "This will overwrite the existing local data.",
+      "confirm_logout": "Do you really want to log out?",
       "confirm_upload_1": "Are you sure you want to upload local data to the cloud?",
       "confirm_upload_2": "This will overwrite the existing data in the cloud.",
       "data_consistent": "Local data is consistent with cloud data",
@@ -846,6 +887,14 @@
     "hqhelper_version": "HqHelper Version",
     "id_macro": "Macro #{id}",
     "ignore": "Ignore",
+    "image_selector": {
+      "text": {
+        "custom_image": "Select image..."
+      },
+      "tooltip": {
+        "custom_image_would_be_rewritten": "A background image has already been uploaded. Uploading again will overwrite it."
+      }
+    },
     "imexport": "Import/Export",
     "import": "Import",
     "import_from_excel": "Import from .xlsx",
@@ -992,6 +1041,7 @@
     "tomescript_type": "Tome Script Type",
     "trade": "Exchanges",
     "twitter_x": "Twitter (X)",
+    "uid": "UID",
     "unit": {
       "ge": "(s)"
     },
@@ -1422,6 +1472,7 @@
       },
       "is_tradable": "This item could be traded by:",
       "item_level_with_val": "ITEM LEVEL {ilv}",
+      "medicine_recovery_info": "Restores up to {1}% of {0} ({2} points max)",
       "multi_get_each_trade": "Could get {val} each exchanging.",
       "need_learn": "Need to learn",
       "not_installed_in_chs": "The item has not yet been installed in CHS.",
@@ -1691,6 +1742,17 @@
       "title": "Use /macrolock at the beginning of each craft macro"
     },
     "costandbenefit_show_item_details": "Display item details in cost/benefit analysis",
+    "custom_background": {
+      "desc": {
+        "desc_1": "After setting the background, some elements of the interface will automatically enable the frosted glass effect.",
+        "desc_2": "If you find that visibility in certain areas decreases after setting this, please consider switching the 'Theme' setting.",
+        "desc_3": "The preset background images are partially or fully sourced from SQUARE ENIX and/or 盛趣游戏. The copyright for these image resources is held exclusively by them, and HqHelper does not claim any related rights."
+      },
+      "option": {
+        "no_background": "No Background"
+      },
+      "title": "Custom Background"
+    },
     "custom_font": {
       "desc": {
         "desc_1": "Change the font of text in program/website globally.",
@@ -2181,6 +2243,21 @@
     }
   },
   "workflow": {
+    "import": {
+      "itemlist": {
+        "message": {
+          "error_content_invalid_after": "Import would be canceled.",
+          "error_content_invalid_prev": "There was a problem with the entered content. Please check: ",
+          "error_count_invalid": "The quantity “{1}” in line {0} is invalid. It must be an integer greater than 0",
+          "error_format_invalid": "The content “{1}” in line {0} is in an unsupported format",
+          "error_item_duplicated": "The item “{1}” in line {0} is duplicated with a previous line",
+          "error_item_not_craftable": "The item “{1}” in line {0} cannot be crafted",
+          "error_item_not_found": "The item “{1}” in line {0} is not included in HqHelper’s database"
+        },
+        "tip_1": "You can enter an item list here to import them into the workflow in bulk.",
+        "tip_2": "Multiple formats and languages are supported; please refer to the examples shown in the input box below."
+      }
+    },
     "join_in_workflow": {
       "desc": {
         "desc_1": "Select which workflow to join in here",

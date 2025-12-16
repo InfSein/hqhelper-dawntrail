@@ -38,6 +38,11 @@ const onLoad = () => {
   joinMode.value = funcConfig.value.workflow_default_join_mode
   itemsToAdd.value = deepCopy(props.items)
   targetWorkflow.value = workflowOptions.value[0].value
+  workflowOptions.value.forEach(option => {
+    if (option.value === funcConfig.value.workflow_default_join_target) {
+      targetWorkflow.value = option.value
+    }
+  })
 }
 
 const targetWorkflow = ref<number | "add">(0)
@@ -84,6 +89,7 @@ const joinModeOptions = computed(() => {
 
 const handleSubmit = () => {
   const newUserConfig = fixUserConfig(store.userConfig)
+  const newFuncConfig = fixFuncConfig(store.funcConfig)
   if (targetWorkflow.value === 'add') {
     if (newUserConfig.workflow_cache_work_state.workflows.length >= _VAR_MAX_WORKFLOW) {
       NAIVE_UI_MESSAGE.warning(t('workflow.message.max_len', _VAR_MAX_WORKFLOW))
@@ -92,6 +98,7 @@ const handleSubmit = () => {
     const workflow = getDefaultWorkflow()
     workflow.targetItems = itemsToAdd.value
     newUserConfig.workflow_cache_work_state.workflows.push(workflow)
+    newFuncConfig.workflow_default_join_target = newUserConfig.workflow_cache_work_state.workflows.length - 1
   } else {
     let workflow = newUserConfig.workflow_cache_work_state.workflows[targetWorkflow.value]
     if (joinMode.value === 'overwrite') {
@@ -110,13 +117,13 @@ const handleSubmit = () => {
       }
     }
     newUserConfig.workflow_cache_work_state.workflows[targetWorkflow.value] = workflow
+    newFuncConfig.workflow_default_join_target = targetWorkflow.value
   }
   store.setUserConfig(newUserConfig)
   if (joinMode.value !== funcConfig.value.workflow_default_join_mode) {
-    const newFuncConfig = fixFuncConfig(store.funcConfig)
     newFuncConfig.workflow_default_join_mode = joinMode.value
-    store.setFuncConfig(newFuncConfig)
   }
+  store.setFuncConfig(newFuncConfig)
   NAIVE_UI_MESSAGE.success(t('workflow.join_in_workflow.message.join_succeed'))
   showModal.value = false
 }
@@ -132,20 +139,22 @@ const handleSubmit = () => {
     @on-load="onLoad"
   >
     <div class="wrapper" ref="wrapper">
-      <GroupBox id="atw-header" title-background-color="var(--n-color-modal)">
+      <GroupBox id="atw-header">
         <template #title>
           <span class="title">{{ t('common.options') }}</span>
         </template>
-        <n-input-group>
-          <n-input-group-label>{{ t('common.target') }}</n-input-group-label>
-          <n-select v-model:value="targetWorkflow" :options="workflowOptions" :placeholder="t('workflow.join_in_workflow.desc.desc_1')" />
-        </n-input-group>
-        <n-input-group v-show="targetWorkflow !== 'add'">
-          <n-input-group-label>{{ t('common.mode') }}</n-input-group-label>
-          <n-select v-model:value="joinMode" :options="joinModeOptions" :render-option="optionsRenderer" />
-        </n-input-group>
+        <div class="options-container">
+          <n-input-group>
+            <n-input-group-label>{{ t('common.target') }}</n-input-group-label>
+            <n-select v-model:value="targetWorkflow" :options="workflowOptions" :placeholder="t('workflow.join_in_workflow.desc.desc_1')" />
+          </n-input-group>
+          <n-input-group v-show="targetWorkflow !== 'add'">
+            <n-input-group-label>{{ t('common.mode') }}</n-input-group-label>
+            <n-select v-model:value="joinMode" :options="joinModeOptions" :render-option="optionsRenderer" />
+          </n-input-group>
+        </div>
       </GroupBox>
-      <GroupBox id="atw-content" title-background-color="var(--n-color-modal)">
+      <GroupBox id="atw-content">
         <template #title>
           <span class="title">{{ t('common.preview') }}</span>
         </template>
@@ -180,5 +189,14 @@ const handleSubmit = () => {
   flex-direction: column;
   gap: 15px;
   user-select: text;
+
+  .options-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.theme-dark .options-container {
+  gap: 1px;
 }
 </style>

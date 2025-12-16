@@ -103,11 +103,10 @@ const handleCopyList = async () => {
         <n-icon :size="16"><ViewListSharp /></n-icon>
         <span>{{ t('common.list') }}</span>
       </div>
-      <n-divider style="margin: 0 0 3px 0;" />
+      <n-divider style="margin: 0 0 3px;" />
       <div class="groupboxes-container">
         <GroupBox
           :title="t('common.options')"
-          title-background-color="var(--n-color-modal, var(--n-color))"
           class="config-container"
         >
           <div class="config-item">
@@ -132,7 +131,6 @@ const handleCopyList = async () => {
         </GroupBox>
         <GroupBox
           :title="t('common.content')"
-          title-background-color="var(--n-color-modal, var(--n-color))"
         >
           <div class="actions-container">
             <ButtonCopyAsMacro

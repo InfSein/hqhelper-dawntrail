@@ -12,7 +12,7 @@ import Dialog from "@/components/custom/general/Dialog.vue"
 import { useStore } from '@/store/index'
 import { useElectronSync } from '@/composables/electron-sync'
 import { useLocale } from './locales'
-import { checkAppUpdates, CopyToClipboard, deepCopy, sleep } from './tools'
+import { checkAppUpdates, CopyToClipboard, deepCopy, getAppBackground, sleep } from './tools'
 import EorzeaTime from './tools/eorzea-time'
 import { fixUserConfig , type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from './models/config-func'
@@ -22,6 +22,7 @@ import AppStatus from './variables/app-status'
 import { registerDialogProvider, useDialog } from './tools/dialog'
 
 const ModalCopyAsMacro = defineAsyncComponent(() => import('@/components/modals/ModalCopyAsMacro.vue'))
+const ModalJoinInWorkflow = defineAsyncComponent(() => import('@/components/modals/ModalJoinInWorkflow.vue'))
 const ModalCheckUpdates = defineAsyncComponent(() => import('@/components/modals/ModalCheckUpdates.vue'))
 const ModalLogin = defineAsyncComponent(() => import('@/components/modals/ModalLogin.vue'))
 const ModalCloudSync = defineAsyncComponent(() => import('@/components/modals/ModalCloudSync.vue'))
@@ -124,6 +125,8 @@ const handleAppUpdate = (
   // Update vue
   const instance = getCurrentInstance()
   instance?.proxy?.$forceUpdate()
+  // 加载背景
+  getAppBackground(userConfig.value.custom_background).then(val => appBg.value = val)
 }
 const switchTheme = () => {
   userConfig.value.theme = theme.value === 'light' ? 'dark' : 'light'
@@ -203,6 +206,14 @@ const copyAsMacro = async (macroMap: Record<MacroGenerateMode, string>, containe
 }
 provide('copyAsMacro', copyAsMacro)
 
+const showModalJoinInWorkflow = ref(false)
+const itemsToJoinInWorkflow = ref<Record<number, number>>({})
+const joinItemsToWorkflow = (items: Record<number, number>) => {
+  itemsToJoinInWorkflow.value = items
+  showModalJoinInWorkflow.value = true
+}
+provide('joinItemsToWorkflow', joinItemsToWorkflow)
+
 const showCheckUpdatesModal = ref(false)
 const displayCheckUpdatesModal = () => {
   showCheckUpdatesModal.value = true
@@ -233,6 +244,12 @@ const appClass = computed(() => {
   ]
   return classes.join(' ')
 })
+const appStyle = computed(() => {
+  const styles = [
+    appMode.value === 'overlay' ? '' : '--app-bg: ' + appBg.value
+  ]
+  return styles.join(';')
+})
 
 const showFestivalEgg = ref(false)
 provide('displayFestivalEggModal', () => {
@@ -240,6 +257,8 @@ provide('displayFestivalEggModal', () => {
 })
 const dialogRef = ref<InstanceType<typeof Dialog> | null>(null)
 const { confirm } = useDialog(t)
+
+const appBg = ref('')
 
 onMounted(async () => {
   // 注册对话框
@@ -314,6 +333,8 @@ onMounted(async () => {
   window.addEventListener('resize', updateIsMobile)
   updateDraggableArea()
   window.addEventListener('resize', updateDraggableArea)
+  // 加载背景
+  appBg.value = await getAppBackground(userConfig.value.custom_background)
 })
 onBeforeUnmount(() => {
   window.removeEventListener('resize', updateIsMobile)
@@ -360,6 +381,14 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
   }
   fontFamily = 'FFXIV, ' + fontFamily
   const fontSize = userConfig.value.custom_font_size || '14px'
+
+  /*
+  let buttonBorder : string | undefined = undefined
+  if (userConfig.value.custom_background) {
+    buttonBorder = theme.value === 'dark' ? undefined : '1px solid #b9b9ba'
+  }
+  */
+
   return {
     common: {
       fontFamily,
@@ -386,7 +415,7 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
     <n-global-style />
     <n-dialog-provider>
     <n-message-provider :placement="naiveUiMessagePlacement">
-      <div :class="appClass" :data-theme="theme">
+      <div :class="appClass" :style="appStyle" :data-theme="theme">
         <n-layout id="main-layout" position="absolute">
           <n-layout-header v-if="appMode !== 'overlay'" bordered id="app-layout-header">
             <AppHeader class="app-header" />
@@ -403,6 +432,10 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
         <ModalCopyAsMacro
           v-model:show="showCopyMacroModal"
           :macro-map="macroMapValue"
+        />
+        <ModalJoinInWorkflow
+          v-model:show="showModalJoinInWorkflow"
+          :items="itemsToJoinInWorkflow"
         />
         <ModalCheckUpdates v-model:show="showCheckUpdatesModal" />
         <ModalLogin
@@ -423,15 +456,17 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
 .app-header {
   height: 69px;
   padding: 10px 20px;
-  z-index: 1000;
   position: relative;
   z-index: 1;
 }
 #main-content {
   top: 70px;
+  background-image: var(--app-bg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
 
   #main-container {
-    min-height: calc(100vh - 70px);
     padding: 1rem;
   }
 }

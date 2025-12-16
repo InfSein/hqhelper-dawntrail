@@ -58,9 +58,6 @@ onBeforeUnmount(() => {
 const showItemDetails = computed(() => {
   return !funcConfig.value.prostate_concise_mode
 })
-const groupBoxTitleBackground = computed(() => {
-  return props.insideModal ? 'var(--n-color-modal)' : 'var(--n-color-embedded)'
-})
 const highlightedItems = computed(() : number[] => {
   if (!selectedItem.value || funcConfig.value.statement_no_highlights) return []
   if (!selectedItem.value.craftRequires.length) return [selectedItem.value.id]
@@ -170,7 +167,6 @@ defineExpose({
       :key="block.id"
       :id="block.id"
       class="group"
-      :title-background-color="groupBoxTitleBackground"
     >
       <template #title>{{ block.name }}</template>
       <div class="container">

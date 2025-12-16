@@ -479,13 +479,13 @@ const handleSettingButtonClick = () => {
             <n-button-group>
               <n-button ghost @click="handleExportButtonClick">
                 <template #icon>
-                  <n-icon :component="ArchiveSharp" />
+                  <n-icon :component="UnarchiveSharp" />
                 </template>
                 {{ t('common.export') }}
               </n-button>
               <n-button ghost @click="handleImportButtonClick">
                 <template #icon>
-                  <n-icon :component="UnarchiveSharp" />
+                  <n-icon :component="ArchiveSharp" />
                 </template>
                 {{ t('common.import') }}
               </n-button>

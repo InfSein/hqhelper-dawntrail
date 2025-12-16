@@ -5,6 +5,7 @@ import {
 import HelpButton from './HelpButton.vue'
 import type { AppTextUi, PreferenceItem } from '@/models'
 import useUiTools from '@/tools/ui'
+import ImageSelector from './ImageSelector.vue'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -131,6 +132,13 @@ const warnings = computed(() => {
         </template>
         {{ settingItem.buttonProps?.text }}
       </n-button>
+      <ImageSelector
+        v-if="settingItem.type === 'image-select'"
+        v-model:selectedImage="formData[settingItem.key]"
+        :images="settingItem.options"
+        :customable="settingItem.custom"
+        style="max-width: 90%;"
+      />
     </div>
   </div>
 </template>

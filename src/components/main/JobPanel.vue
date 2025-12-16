@@ -115,8 +115,6 @@ const isJobGroupAvailable = (group: number[]) => {
         :key="roleIndex"
         v-show="!patchSelected || isJobGroupAvailable(role.jobs)"
         :border-color="role.role_color"
-        title-background-color="var(--n-color-embedded)"
-        container-extra-style="padding: 8px 8px 7px 8px;"
       >
         <template #title>
           <XivFARImage

@@ -1,9 +1,11 @@
 import clipBoard from "vue-clipboard3"
 import * as LzString from 'lz-string'
 import type { AppVersionJson, CallResult } from "@/models"
+import useIdb from "./idb"
 
 const Clip = clipBoard
 const { toClipboard } = Clip()
+const { appBackground } = useIdb()
 
 export const deepCopy = <T>(obj: T): T => {
   try {
@@ -84,6 +86,19 @@ export const checkAppUpdates = async () : Promise<CallResult<AppVersionJson>> =>
       success: false, message: e?.message || 'UNKNOWN ERROR' + e
     }
   }
+}
+
+export const getAppBackground = async (bg_config: string) => {
+  if (!bg_config) return ''
+  if (bg_config === 'custom') {
+    const imageBlob = await appBackground.get()
+    if (!imageBlob) {
+      console.error('Custom background image not found'); return ''
+    }
+    const src = URL.createObjectURL(imageBlob)
+    return `url(${src})`
+  }
+  return `url(${bg_config})`
 }
 
 /**

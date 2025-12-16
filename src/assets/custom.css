@@ -44,7 +44,7 @@
   right: 0;
 }
 .no-margin {
-  margin: 0 0 0 0 !important;
+  margin: 0 !important;
 }
 
 /* Control */
@@ -129,6 +129,11 @@
 }
 
 /* Ui-lib Customs */
+.n-button.no-border {
+  .n-button__border, .n-button__state-border {
+    border: 1px solid transparent !important;
+  }
+}
 .card-title-text {
   margin-left: 3px;
   font-size: var(--n-title-font-size);
@@ -190,6 +195,12 @@
   --n-title-margin: -2px 0 3px 0;
   --n-title-font-weight: bold;
   --n-title-font-size: 18px;
+}
+table.n-table.tiny-table {
+  font-size: 12px;
+  --n-line-height: 1 !important;
+  --n-th-padding: 4px 6px !important;
+  --n-td-padding: 4px 6px !important;
 }
 table.n-table tbody tr:hover td {
   background-color: var(--n-th-color-popover);

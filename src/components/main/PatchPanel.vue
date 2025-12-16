@@ -59,15 +59,6 @@ const getPatchName = (patch: XivPatch) => {
   return t('main.select_patch.patch_button.text', { v: patch.v, name: patchName })
 }
 
-const getPatchBackground = (patch: XivPatch) => {
-  if (patch.v === patchSelected.value) {
-    if (patch.background) {
-      return patch.background
-    }
-  }
-  return ''
-}
-
 const patchPatterns = computed(() => {
   return [
     t('main.select_patch.info.info_2', {
@@ -105,7 +96,7 @@ const patchPatterns = computed(() => {
           <HelpButton icon="info" :size="22" :placement="isMobile ? 'bottom' : 'right-start'" pop-type="popover" style="margin-left: 0.5em;">
             <div class="pop-wrapper">
               <div>{{ t('main.select_patch.info.info_1') }}</div>
-              <n-divider style="margin: 1px 5px 3px 5px" />
+              <n-divider style="margin: 1px 5px 3px" />
               <ul>
                 <li v-for="(pattern, patternIndex) in patchPatterns" :key="patternIndex">{{ pattern }}</li>
               </ul>
@@ -125,11 +116,14 @@ const patchPatterns = computed(() => {
         <template #trigger>
           <n-button
             class="patch-button"
-            :class="patch.v === patchSelected ? 'selected' : ''"
+            :class="patch.v === patchSelected ? 'selected no-border' : ''"
             :disabled="!patch.updated"
             @click="handlePatchSelect(patch)"
-            :style="`background-image: url(${getPatchBackground(patch)});`"
           >
+            <div
+              class="patch-button-background"
+              :style="`background-image: url(${patch.background});`"
+            />
             <div
               class="patch-button-content"
               :style="`background-image: url(${patch.logo});`"
@@ -170,10 +164,6 @@ const patchPatterns = computed(() => {
     padding: 5px 10px;
     width: 19%;
     height: 120px;
-      background-position-x: center;
-      background-position-y: center;
-      background-repeat: no-repeat;
-      background-size: auto 100%;
 
     .patch-button-content {
       display: flex;
@@ -181,6 +171,7 @@ const patchPatterns = computed(() => {
       align-items: end;
       width: 100%;
       height: 100%;
+      z-index: 1;
       background-position-x: center;
       background-position-y: center;
       background-repeat: no-repeat;
@@ -194,6 +185,25 @@ const patchPatterns = computed(() => {
       color: white;
       text-shadow: 2px 2px 4px #000000;
     }
+  }
+  .patch-button-background {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    opacity: 0;
+    transform: scale(1.02);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+    z-index: 0;
+  }
+  .patch-button.selected .patch-button-background {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 .popover-container .sub {

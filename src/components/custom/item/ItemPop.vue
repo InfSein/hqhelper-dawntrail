@@ -286,19 +286,23 @@ const itemPriceInfo = computed(() => {
 
   // 组装各个类型的价格
   const prices = funcConfig.value.universalis_poppricetypes.map(priceType => {
-    const priceNq = Math.floor(priceInfo?.[`${priceType}NQ`] ?? 0) || '???'
-    const priceHq = Math.floor(priceInfo?.[`${priceType}HQ`] ?? 0) || '???'
+    const priceNq = Math.floor(priceInfo?.[`${priceType}NQ`] ?? 0)
+    const priceHq = Math.floor(priceInfo?.[`${priceType}HQ`] ?? 0)
     const tooltipForNoPrice = t('item.price.no_price') + '\n' + t('item.price.no_price_reason')
     const styleForNoPrice = 'cursor: help; text-decoration: underline dashed gray;'
+    let priceStrNq = priceNq.toLocaleString(), priceStrHq = priceHq.toLocaleString()
     let tipNq = '', tipHq = '', styleNq = '', styleHq = ''
-    if (priceNq === '???') {
+    if (!priceNq) {
+      priceStrNq = '???'
       tipNq = tooltipForNoPrice; styleNq = styleForNoPrice
     }
-    if (priceHq === '???') {
+    if (!priceHq) {
+      priceStrHq = '???'
       tipHq = tooltipForNoPrice; styleHq = styleForNoPrice
     }
     return {
       name: getPriceTypeName(priceType),
+      priceStrNq, priceStrHq,
       priceNq, tipNq, styleNq,
       priceHq, tipHq, styleHq
     }
@@ -658,8 +662,8 @@ const innerPopTrigger = computed(() => {
               </div>
             </div>
             <div class="other-attrs">
-              <div v-if="!itemInfo.craftInfo?.qsable" class="red">{{ t('item.text.cannot_quick_synthesis') }}</div>
-              <div v-if="!itemInfo.craftInfo?.hqable" class="red">{{ t('item.text.cannot_hq') }}</div>
+              <div v-if="!itemInfo.craftInfo?.qsable" style="color: var(--color-error);">{{ t('item.text.cannot_quick_synthesis') }}</div>
+              <div v-if="!itemInfo.craftInfo?.hqable" style="color: var(--color-error);">{{ t('item.text.cannot_hq') }}</div>
             </div>
           </div>
         </div>
@@ -671,7 +675,7 @@ const innerPopTrigger = computed(() => {
               <div>
                 {{ t('common.last_update_with_val', itemPriceInfo.lastUpdate) }}
               </div>
-              <div v-if="itemPriceInfo.priceExpired" class="red">
+              <div v-if="itemPriceInfo.priceExpired" style="color: var(--color-error);">
                 ({{ t('common.expired') }})
               </div>
               <a
@@ -688,19 +692,29 @@ const innerPopTrigger = computed(() => {
           <n-divider class="item-divider" />
           <div class="content">
             <div v-if="itemPriceInfo.prices.length" class="content-item-prices">
-              <div></div>
-              <div class="font-center">[NQ]</div>
-              <div v-if="itemInfo.hqable" class="font-center">[HQ]</div>
-              <div v-else />
-              <template
-                v-for="(price, index) in itemPriceInfo.prices"
-                :key="'price-' + index"
-              >
-                <div>{{ price.name }}</div>
-                <div class="font-center" :style="price.styleNq" :title="price.tipNq">{{ price.priceNq }}</div>
-                <div v-if="itemInfo.hqable" class="font-center" :style="price.styleHq" :title="price.tipHq">{{ price.priceHq }}</div>
-                <div v-else />
-              </template>
+              <n-table size="small" class="tiny-table w-full">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>NQ</th>
+                    <th v-if="itemInfo.hqable">HQ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(price, index) in itemPriceInfo.prices"
+                    :key="'price-' + index"
+                  >
+                    <td>{{ price.name }}</td>
+                    <td>
+                      <div :style="price.styleNq" :title="price.tipNq">{{ price.priceStrNq }}</div>
+                    </td>
+                    <td v-if="itemInfo.hqable">
+                      <div :style="price.styleHq" :title="price.tipHq">{{ price.priceStrHq }}</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </n-table>
             </div>
             <div v-else style="text-indent: 1em;">
               {{ t('item.price.no_show_price_type_setted', t('preference.universalis_poppricetypes.title')) }}
@@ -743,6 +757,7 @@ const innerPopTrigger = computed(() => {
       .main span.extra-name {
         line-height: 1;
         font-size: calc(var(--n-font-size) - 2px);
+        color: var(--color-text-sub);
       }
     }
   }
@@ -791,7 +806,7 @@ const innerPopTrigger = computed(() => {
       }
       .extra {
         font-size: calc(var(--n-font-size) - 2px);
-        margin: 2px 0 5px 0;
+        margin: 2px 0 5px;
       }
     }
     .description-block {
@@ -848,11 +863,17 @@ const innerPopTrigger = computed(() => {
         column-gap: 5px;
       }
       .content .content-item-prices {
-        display: grid;
-        grid-template-columns: repeat(3, auto);
-        column-gap: 8px;
         width: fit-content;
+        margin-top: 2px;
         margin-left: 1em;
+
+        td {
+          min-width: 50px;
+        }
+        tr>th:not(:first-child),
+        tr>td:not(:first-child) {
+          text-align: right;
+        }
       }
       .content .other-attrs,
       .content.extra {

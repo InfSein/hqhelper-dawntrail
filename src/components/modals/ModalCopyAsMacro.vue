@@ -120,7 +120,7 @@ const handleClose = () => {
     @on-load="onLoad"
   >
     <div class="wrapper" ref="wrapper">
-      <GroupBox id="marco-preview" title-background-color="var(--n-color-modal)" :content-style="macroContentStyle">
+      <GroupBox id="marco-preview" :content-style="macroContentStyle">
         <template #title>
           <span class="title">{{ t('common.preview') }}</span>
         </template>
@@ -132,7 +132,7 @@ const handleClose = () => {
           hide-copy-button
         />
       </GroupBox>
-      <GroupBox id="marco-settings" title-background-color="var(--n-color-modal)">
+      <GroupBox id="marco-settings">
         <template #title>
           <span class="title">{{ t('common.options') }}</span>
         </template>

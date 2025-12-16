@@ -113,7 +113,7 @@ const handleJoinWorkflow = () => {
               </div>
             </template>
             <div class="item-selection-container">
-              <n-card size="small">
+              <n-card size="small" :class="userConfig.custom_background ? 'glasscard smallcard' : ''">
                 <template #header>
                   <div class="card-title">
                     <XivFARImage
@@ -163,7 +163,7 @@ const handleJoinWorkflow = () => {
                   </div>
                 </div>
               </n-card>
-              <n-card size="small">
+              <n-card size="small" :class="userConfig.custom_background ? 'glasscard smallcard' : ''">
                 <template #header>
                   <div class="card-title">
                     <XivFARImage
@@ -250,7 +250,7 @@ const handleJoinWorkflow = () => {
                   </template>
 
                   <div class="item-selection-container">
-                    <n-card size="small">
+                    <n-card size="small" :class="userConfig.custom_background ? 'glasscard smallcard' : ''">
                       <template #header>
                         <div class="card-title">
                           <span class="title">{{ t('cs_helper.group.lv91_100') }}</span>
@@ -267,7 +267,7 @@ const handleJoinWorkflow = () => {
                         />
                       </div>
                     </n-card>
-                    <n-card size="small">
+                    <n-card size="small" :class="userConfig.custom_background ? 'glasscard smallcard' : ''">
                       <template #header>
                         <div class="card-title">
                           <span class="title">{{ t('cs_helper.group.lv81_90') }}</span>
@@ -330,7 +330,7 @@ const handleJoinWorkflow = () => {
     flex-direction: column;
   }
   .target-card-container {
-    padding: 0 18px 12px 18px;
+    padding: 0 18px 12px;
 
     .item {
       padding: 4px 6px;

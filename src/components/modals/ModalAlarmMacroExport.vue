@@ -160,7 +160,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
     max-width="730px"
   >
     <div class="wrapper" ref="wrapper">
-      <GroupBox id="select-items" title-background-color="var(--n-color-modal)">
+      <GroupBox id="select-items">
         <template #title>
           <span class="title">{{ t('common.select_item') }}</span>
         </template>
@@ -180,7 +180,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
         />
       </GroupBox>
       <div id="right-container">
-        <GroupBox id="export-settings" title-background-color="var(--n-color-modal)">
+        <GroupBox id="export-settings">
           <template #title>
             <span class="title">{{ t('common.options') }}</span>
           </template>
@@ -219,7 +219,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
             </n-checkbox>
           </div>
         </GroupBox>
-        <GroupBox id="macro-preview" title-background-color="var(--n-color-modal)">
+        <GroupBox id="macro-preview">
           <template #title>
             <span class="title">{{ t('common.preview') }}</span>
           </template>

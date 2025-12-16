@@ -272,7 +272,7 @@ const handleAnalysisItemPrices = async () => {
     </template>
     <div class="wrapper">
       <GroupBox
-        id="reagents-group" class="group" title-background-color="var(--n-color-embedded)" title-max-width="200px"
+        id="reagents-group" class="group" title-max-width="200px"
         :title="t('common.special')"
         :descriptions="[
           t('statistics.group_tooltip.special')
@@ -296,7 +296,7 @@ const handleAnalysisItemPrices = async () => {
         </div>
       </GroupBox>
       <GroupBox
-        id="aethersands-group" class="group" title-background-color="var(--n-color-embedded)"
+        id="aethersands-group" class="group"
         :title="t('statistics.group.aethersands')"
         :descriptions="[
           t('statistics.group_tooltip.common_material_lvbase')
@@ -314,7 +314,7 @@ const handleAnalysisItemPrices = async () => {
         </div>
       </GroupBox>
       <GroupBox
-        id="master-precrafts-group" class="group" title-background-color="var(--n-color-embedded)"
+        id="master-precrafts-group" class="group"
         :title="t('statistics.group.common_master_precrafts')"
         :descriptions="[
           t('statistics.group_tooltip.common_master_precrafts')
@@ -329,7 +329,7 @@ const handleAnalysisItemPrices = async () => {
         </div>
       </GroupBox>
       <GroupBox
-        id="common-precrafts-group" class="group" title-background-color="var(--n-color-embedded)"
+        id="common-precrafts-group" class="group"
         :title="t('statistics.group.common_precrafts')"
         :descriptions="[
           t('statistics.group_tooltip.common_material_lv1')
@@ -345,7 +345,7 @@ const handleAnalysisItemPrices = async () => {
       </GroupBox>
       <div id="statistics-footer">
         <GroupBox
-          id="gatherings-group" class="group" title-background-color="var(--n-color-embedded)"
+          id="gatherings-group" class="group"
           :title="t('statistics.group.gatherings.title')"
           :descriptions="[
             t('statistics.group_tooltip.common_material_lvbase')
@@ -383,7 +383,7 @@ const handleAnalysisItemPrices = async () => {
           </div>
         </GroupBox>
         <GroupBox
-          id="price-analysis-group" class="group" title-background-color="var(--n-color-embedded)"
+          id="price-analysis-group" class="group"
           :title="t('statistics.group.cost_and_benefit.title')"
           :descriptions="[
             t('statistics.group.cost_and_benefit.button.tooltip.tooltip_1'),
@@ -460,6 +460,11 @@ const handleAnalysisItemPrices = async () => {
   gap: 5px;
   padding: 0 10px;
 }
+#statistics-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 
 /* Desktop only */
 @media screen and (min-width: 768px) {
@@ -472,10 +477,6 @@ const handleAnalysisItemPrices = async () => {
   #statistics-footer {
     grid-row: 1 / 3;
     grid-column: 3;
-
-    #price-analysis-group {
-      margin-top: 15px;
-    }
   }
 }
 

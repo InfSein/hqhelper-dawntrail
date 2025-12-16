@@ -151,22 +151,24 @@ const handleLogout = async () => {
       </div>
       <div v-if="isMobile" style="height: 3px;" />
       <n-divider v-else style="margin: 4px 0" />
-      <div class="user-props" v-show="userLoggedIn">
-        <div class="flex-vac gap-2">
-          <div>
-            <span class="no-select">{{ t('common.uid') }}: </span>
-            <span>{{ userId }}</span>
+      <template v-if="userLoggedIn">
+        <div class="user-props">
+          <div class="flex-vac gap-2">
+            <div>
+              <span class="no-select">{{ t('common.uid') }}: </span>
+              <span>{{ userId }}</span>
+            </div>
+            <n-button text @click="handleCopyUserId" style="--n-text-color: gray;">
+              <n-icon><ContentCopyRound /></n-icon>
+            </n-button>
           </div>
-          <n-button text @click="handleCopyUserId" style="--n-text-color: gray;">
-            <n-icon><ContentCopyRound /></n-icon>
-          </n-button>
+          <div v-if="userSpecialTitle" class="no-select">
+            <i class="xiv diaem-nm"></i>
+            {{ userSpecialTitle.desc }}
+          </div>
         </div>
-        <div v-if="userSpecialTitle" class="no-select">
-          <i class="xiv diaem-nm"></i>
-          {{ userSpecialTitle.desc }}
-        </div>
-      </div>
-      <n-divider style="margin: 4px 0" />
+        <n-divider style="margin: 4px 0" />
+      </template>
       <div v-if="!userLoggedIn" class="unlogged-wrapper">
         <div class="group-title">
           {{ t('common.account') }}

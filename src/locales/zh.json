@@ -26,6 +26,28 @@
       "web": "当前网页版本：{v}"
     }
   },
+  "announcement": {
+    "action": {
+      "feedback_github": "反馈问题(Github)",
+      "feedback_qquery": "反馈问题(QQ问卷)",
+      "follow_us": "关注我们",
+      "ignore": "不再显示",
+      "join_q_group": "加入Q群"
+    },
+    "content": {
+      "content_1_1": "随着 7.4 版本实装，整个金曦之遗辉资料片的主要 HQ 制作装备已经全部推出，HqHelper 在 7.0 的使命也告一段落。",
+      "content_1_2": "我们仍会随着游戏版本推进继续更新 HqHelper 的资料库，但将主要以热更新方式完成，不会再频繁发布例行更新。",
+      "content_1_3": "您仍可通过下方各种方式联系我们，指出缺漏、提出需求或给予赞助，以帮助我们将 HqHelper 变得更好。",
+      "content_1_4": "感谢一直以来的支持，我们 8.0 再见！"
+    },
+    "message": {
+      "ignore_confirm": "确定不再显示这一公告吗？",
+      "ignored": "此公告将不再显示"
+    },
+    "title": {
+      "title_1": "金曦之遗辉步入尾声……"
+    }
+  },
   "appheader": {
     "menu": {
       "tooltip": {
@@ -631,6 +653,23 @@
         "text_2": "修复了部分页面的显示内容位置错误的问题。"
       }
     },
+    "2_4_0": {
+      "breaking": {
+        "text_1": "7.4 版本所追加的 770 品级装备、食物与爆发药将是整个 7.x 版本战斗职业的最高品级制作道具，可以一直沿用到 8.0 的练级期。",
+        "text_2": "做好准备，迎接阿卡狄亚和金曦之遗辉的尾声吧！"
+      },
+      "feat": {
+        "text_1": "优化了装备部件图标的显示效果。",
+        "text_2": "现在点击物品信息图标时不会再触发其他点击事件，包括专业版制作报表的选中/取消选中物品行和物品选择框的选中等。",
+        "text_3": "“加入工作流”弹窗现在会记住上次选择的工作流。",
+        "text_4": "不过，如果对既有工作流进行了删除或调整顺序的操作，此功能所记住的工作流可能会发生错位或重置。",
+        "text_5": "现可在物品按钮和物品信息图标的右键菜单中直接将物品加入到工作流。",
+        "text_6": "向工作流页面中追加了导入物品清单的功能。"
+      },
+      "fix": {
+        "text_1": "修复了主界面统计区域7.0/7.2版本炼金宝水的顺序不正确的问题。"
+      }
+    },
     "breaking": "重要变更",
     "feat": "功能更新",
     "fix": "问题修复",
@@ -643,6 +682,7 @@
       "game_db_update": "国服／国际服数据库更新至{ver}。",
       "global_db_update": "国际服数据库更新至{ver}。",
       "optimize_page_perform": "优化了一些页面性能。",
+      "optimize_ui_detail": "优化了多处界面细节。",
       "released_func": "实装了“{f}”功能。",
       "require_setting": "需要在“{f1}”的“{f2}”选项卡中进行设置。",
       "temp_not_support_mobile": "此功能暂不支持移动端。"
@@ -847,6 +887,14 @@
     "hqhelper_version": "HqHelper版本",
     "id_macro": "{id}号宏",
     "ignore": "忽略",
+    "image_selector": {
+      "text": {
+        "custom_image": "自选图片…"
+      },
+      "tooltip": {
+        "custom_image_would_be_rewritten": "已经上传过背景图片，再次上传会将其覆盖。"
+      }
+    },
     "imexport": "导入/导出",
     "import": "导入",
     "import_from_excel": "从Excel导入",
@@ -1694,6 +1742,17 @@
       "title": "在每个生产宏的开头使用/macrolock"
     },
     "costandbenefit_show_item_details": "成本/收益分析中显示物品详情",
+    "custom_background": {
+      "desc": {
+        "desc_1": "设置背景之后，界面的部分元素将自动启用毛玻璃效果。",
+        "desc_2": "若设置之后发现部分区域的可视度下降，请考虑切换「主题」的设置。",
+        "desc_3": "预设的背景图片部分或全部来自 SQUARE ENIX 和/或 盛趣游戏 ，这些图片资源的版权亦仅由其持有，HqHelper 不主张任何相关权利。"
+      },
+      "option": {
+        "no_background": "无背景"
+      },
+      "title": "自定义背景"
+    },
     "custom_font": {
       "desc": {
         "desc_1": "全局性地修改程序/网站的字体。",
@@ -2184,6 +2243,21 @@
     }
   },
   "workflow": {
+    "import": {
+      "itemlist": {
+        "message": {
+          "error_content_invalid_after": "导入操作将被取消。",
+          "error_content_invalid_prev": "输入的内容存在问题，请检查：",
+          "error_count_invalid": "第{0}行的数量“{1}”不正确，必须是大于0的整数",
+          "error_format_invalid": "第{0}行的内容“{1}”格式不受支持",
+          "error_item_duplicated": "第{0}行的物品“{1}”与之前的行重复",
+          "error_item_not_craftable": "第{0}行的物品“{1}”不可制作",
+          "error_item_not_found": "第{0}行的物品“{1}”未被HqHelper的数据库收录"
+        },
+        "tip_1": "可以在此处输入物品清单，将它们批量导入到工作流。",
+        "tip_2": "支持识别多种格式和语言，可参阅下方输入框的示例。"
+      }
+    },
     "join_in_workflow": {
       "desc": {
         "desc_1": "在这里选择要加入到哪条工作流",

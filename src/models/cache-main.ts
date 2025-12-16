@@ -4,10 +4,12 @@ import {
 
 export interface MainCacheModel {
   sponsor_nbbids: number[]
+  ignore_announcements: number[]
 }
 
 const defaultMainCache: MainCacheModel = {
   sponsor_nbbids: [],
+  ignore_announcements: [],
 }
 
 /**

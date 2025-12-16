@@ -5,8 +5,8 @@ import {
 import { 
   ImportExportOutlined,
   ArchiveSharp, UnarchiveSharp,
-  FileDownloadOutlined,
-  UnarchiveOutlined
+  DoneOutlined,
+  ArchiveOutlined,
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
@@ -106,16 +106,16 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
     <n-tabs type="segment" animated v-model:value="currTab">
       <n-tab-pane name="export">
         <template #tab>
-          <n-icon><ArchiveSharp /></n-icon>
+          <n-icon><UnarchiveSharp /></n-icon>
           {{ t('common.export') }}
         </template>
         <div class="pane-container export-panel">
-          <GroupBox id="gbx-file-name" :title="t('common.file_name')" title-background-color="var(--n-color-modal)">
+          <GroupBox id="gbx-file-name" :title="t('common.file_name')">
             <n-input v-model:value="fileName" maxlength="100" :placeholder="t('common.will_be_named_with_time_when_empty')">
               <template #suffix>.json</template>
             </n-input>
           </GroupBox>
-          <GroupBox id="gbx-cautions" :title="t('common.cautions')" title-background-color="var(--n-color-modal)">
+          <GroupBox id="gbx-cautions" :title="t('common.cautions')">
             <ul>
               <li>{{ t('macro_manage.imexport.desc.desc_1') }}</li>
               <li>{{ t('macro_manage.imexport.desc.desc_2') }}</li>
@@ -124,16 +124,16 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
           <div class="submit-bar">
             <n-button type="primary" :disabled="exporting" :loading="exporting" @click="handleExport">
               <template #icon>
-                <n-icon><FileDownloadOutlined /></n-icon>
+                <n-icon><DoneOutlined /></n-icon>
               </template>
-              {{ t('common.export') }}
+              {{ t('common.confirm') }}
             </n-button>
           </div>
         </div>
       </n-tab-pane>
       <n-tab-pane name="import">
         <template #tab>
-          <n-icon><UnarchiveSharp /></n-icon>
+          <n-icon><ArchiveSharp /></n-icon>
           {{ t('common.import') }}
         </template>
         <div class="pane-container import-panel">
@@ -147,13 +147,13 @@ const handleBeforeUpload = async ({ file }: { file: UploadFileInfo }) => {
             <n-upload-dragger>
               <div style="margin-bottom: 12px">
                 <n-icon size="48" :depth="3">
-                  <UnarchiveOutlined />
+                  <ArchiveOutlined />
                 </n-icon>
               </div>
               <n-text style="font-size: 16px">
                 {{ t('common.click_or_drag_to_upload') }}
               </n-text>
-              <n-p depth="3" style="margin: 8px 0 0 0">
+              <n-p depth="3" style="margin: 8px 0 0">
                 {{ t('macro_manage.imexport.desc.desc_3') }}
               </n-p>
             </n-upload-dragger>

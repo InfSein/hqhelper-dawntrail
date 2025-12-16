@@ -1,6 +1,34 @@
 import type { Ref } from "vue"
-import type { AccessoryAffix, AttireAffix, GearSelections } from "@/models/gears"
+import type { AccessoryAffix, AttireAffix, GearSelections, GearSlot } from "@/models/gears"
 import { XivGearRecomm, XivGearSets, type HqDataVer, type XivGearSet } from "@/assets/data"
+
+import mainhandIcon from '@/assets/icons/game-gear/Armoury_MainArm.svg'
+import offhandIcon from '@/assets/icons/game-gear/Armoury_SubArm.svg'
+import headIcon from '@/assets/icons/game-gear/Armoury_Head.svg'
+import bodyIcon from '@/assets/icons/game-gear/Armoury_Body.svg'
+import handsIcon from '@/assets/icons/game-gear/Armoury_Hands.svg'
+import legsIcon from '@/assets/icons/game-gear/Armoury_Legs.svg'
+import feetIcon from '@/assets/icons/game-gear/Armoury_Feet.svg'
+import earringsIcon from '@/assets/icons/game-gear/Armoury_Earrings.svg'
+import necklaceIcon from '@/assets/icons/game-gear/Armoury_Necklace.svg'
+import wristIcon from '@/assets/icons/game-gear/Armoury_Bracelets.svg'
+import ringsIcon from '@/assets/icons/game-gear/Armoury_Ring.svg'
+
+export const getGearIcon = (slot: GearSlot) => {
+  switch (slot) {
+    case 'mainHand': return mainhandIcon
+    case 'offHand': return offhandIcon
+    case 'headAttire': return headIcon
+    case 'bodyAttire': return bodyIcon
+    case 'handsAttire': return handsIcon
+    case 'legsAttire': return legsIcon
+    case 'feetAttire': return feetIcon
+    case 'earrings': return earringsIcon
+    case 'necklace': return necklaceIcon
+    case 'wrist': return wristIcon
+    case 'rings': return ringsIcon
+  }
+}
 
 export const getGearRecomm = (patch: string, jobId: number) => {
   const result : XivGearSet[] = []

@@ -5,14 +5,15 @@ import {
   AddCircleOutlineOutlined, AddCircleOutlined, ClearAllOutlined
 } from '@vicons/material'
 import XivFARImage from '../general/XivFARImage.vue'
-import { XivJobs, XivGearSlots, XivRoles, type XivRole, type HqDataVer } from '@/assets/data'
+import { XivJobs, XivRoles, type XivRole, type HqDataVer } from '@/assets/data'
 import type { GearSelections } from '@/models/gears'
-import { getGearRecomm, useGearAdder } from '@/tools/gears'
+import { getGearIcon, getGearRecomm, useGearAdder } from '@/tools/gears'
 import useUiTools from '@/tools/ui'
 import { visitUrl } from '@/tools'
 import type { UserConfigModel } from '@/models/config-user'
 import type { FuncConfigModel } from '@/models/config-func'
 import UseConfig from '@/tools/use-config'
+import { NIcon } from 'naive-ui'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -105,7 +106,7 @@ const currJobGears = computed(() => {
       weapons.push({
         key: key,
         amount: gearsSelected.value[key][props.jobId],
-        icon: XivGearSlots[key].icon
+        icon: getGearIcon(key)
       })
     }
   });
@@ -117,7 +118,7 @@ const currJobGears = computed(() => {
       attires.push({
         key: key,
         amount: gearsSelected.value[key][roleInfo.value.attire],
-        icon: XivGearSlots[key].icon
+        icon: getGearIcon(key)
       })
     }
   });
@@ -129,7 +130,7 @@ const currJobGears = computed(() => {
       accessories.push({
         key: key,
         amount: gearsSelected.value[key][roleInfo.value.accessory],
-        icon: XivGearSlots[key].icon
+        icon: getGearIcon(key)
       })
     }
   });
@@ -294,9 +295,9 @@ const contextOptions = computed(() => {
           key: 'selected-clear',
           label: t('common.clear_selected'),
           props: {
-            style: 'color: red;' + groupOptionStyle
+            style: 'color: var(--color-error);' + groupOptionStyle
           },
-          icon: renderIcon(ClearAllOutlined, { color: 'red' }),
+          icon: renderIcon(ClearAllOutlined, { color: 'var(--color-error)' }),
           click: () => {
             gearsSelected.value.mainHand[props.jobId] = 0
             gearsSelected.value.offHand[props.jobId] = 0
@@ -377,7 +378,7 @@ const renderJobContextHeader = () => {
         },
         [
           h('p', {class:'font-big'}, props.jobName),
-          h('p', {class:'font-small'}, jobSubName.value)
+          h('p', {class:'font-small', style: 'color: var(--color-text-sub);'}, jobSubName.value)
         ]
       )
     ]
@@ -448,10 +449,13 @@ const renderGearsSelectedHeader = () => {
         },
         [
           h(
-            XivFARImage,
+            NIcon,
             {
-              src: gearInfo.icon,
+              color: 'var(--color-text-sub)',
               size: 12
+            },
+            {
+              default: () => h(gearInfo.icon)
             }
           ),
           h('p', null, gearInfo.amount)

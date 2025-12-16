@@ -12,10 +12,6 @@ defineProps({
     type: String,
     default: ''
   },
-  titleBackgroundColor: {
-    type: String,
-    default: 'var(--n-color)'
-  },
   titleMaxWidth: {
     type: String,
     default: 'unset'
@@ -36,31 +32,25 @@ defineProps({
 </script>
 
 <template>
-  <div class="group-box" :style="`border: 1px dashed ${borderColor}; ${containerExtraStyle}`">
-    <div
-      class="group-box-title"
-      :style="{ backgroundColor: titleBackgroundColor, maxWidth: titleMaxWidth }"
-    >
+  <fieldset class="group-box" :style="`border: 1px dashed ${borderColor}; ${containerExtraStyle}`">
+    <legend class="group-box-title" :style="{ maxWidth: titleMaxWidth }">
       <slot name="title">
         <div>{{ title }}</div>
         <div v-if="descriptions?.length" style="margin-left: 1px;">
-          <HelpButton
-            icon="info"
-            :size="18"
-            :descriptions="descriptions"
-          />
+          <HelpButton icon="info" :size="18" :descriptions="descriptions" />
         </div>
       </slot>
-    </div>
+    </legend>
     <div class="group-box-content" :style="contentStyle">
       <slot />
     </div>
-  </div>
+  </fieldset>
 </template>
 
 <style scoped>
 .group-box {
-  padding: 8px;
+  padding: 0 8px 8px;
+  margin-top: -12px;
   border-radius: var(--n-border-radius);
 
   .group-box-title {
@@ -68,21 +58,12 @@ defineProps({
     justify-content: center;
     align-items: center;
     font-size: 14px;
-    margin-top: -22px;
-    margin-left: 1px;
     width: fit-content;
-    text-align: center;
     color: var(--n-text-color);
     white-space: nowrap;       /* 防止文本换行 */
     overflow: hidden;          /* 隐藏溢出的内容 */
     text-overflow: ellipsis;
-
-    .title-content {
-      display: flex;
-      align-items: center;
-    }
   }
-
   .group-box-content {
     height: 100%;
   }

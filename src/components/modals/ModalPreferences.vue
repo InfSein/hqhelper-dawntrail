@@ -29,6 +29,7 @@ import { fixWorkState } from '@/models/workflow'
 import { deepCopy } from '@/tools'
 import { useDialog } from '@/tools/dialog'
 import useUiTools from '@/tools/ui'
+import { dbKey } from '@/tools/idb'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -137,6 +138,34 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
                 { value: 'light', label: t('preference.theme.option.light') },
                 { value: 'dark', label: t('preference.theme.option.dark') }
               ]
+            },
+            {
+              key: 'custom_background',
+              label: t('preference.custom_background.title'),
+              warnings: [
+                t('preference.custom_background.desc.desc_1'),
+                t('preference.custom_background.desc.desc_2'),
+                {
+                  value: t('preference.custom_background.desc.desc_3'),
+                  class: 'text-sub font-small',
+                },
+              ],
+              type: 'image-select',
+              options: [
+                { value: '', label: t('preference.custom_background.option.no_background') },
+                ...(isMobile.value
+                  ? []
+                  : [
+                    { value: 'https://fu5.web.sdo.com/10036/202511/17624187245354.jpg' },
+                    { value: 'https://fu5.web.sdo.com/10036/202511/17621672273734.jpg' },
+                    { value: 'https://fu5.web.sdo.com/10036/202511/17621669788001.jpg' },
+                  ]
+                )
+              ],
+              custom: {
+                allow: true,
+                key: dbKey.appBackground,
+              }
             },
             {
               key: 'custom_font_size',
@@ -297,7 +326,7 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               warnings: [
                 {
                   value: t('preference.disable_workstate_cache.desc.desc_3'),
-                  class: 'red',
+                  style: 'color: var(--color-error)',
                 }
               ],
               type: 'switch',
@@ -544,7 +573,7 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               warnings: [
                 {
                   value: t('preference.universalis_server.desc.desc_2'),
-                  class: 'red',
+                  style: 'color: var(--color-error)',
                 }
               ],
               type: 'cascader',

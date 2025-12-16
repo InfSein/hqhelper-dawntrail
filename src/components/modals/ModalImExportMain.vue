@@ -4,9 +4,9 @@ import {
 } from 'naive-ui'
 import { 
   ImportExportOutlined,
-  ArrowUpwardOutlined, ArrowDownwardOutlined,
-  FileDownloadOutlined,
-  UnarchiveOutlined
+  ArchiveSharp, UnarchiveSharp,
+  DoneOutlined,
+  ArchiveOutlined,
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
@@ -130,16 +130,16 @@ const onImportConfirmed = () => {
     <n-tabs type="segment" animated>
       <n-tab-pane name="export">
         <template #tab>
-          <n-icon><ArrowDownwardOutlined /></n-icon>
+          <n-icon><UnarchiveSharp /></n-icon>
           {{ t('common.export_to_excel') }}
         </template>
         <div class="pane-container export-panel">
-          <GroupBox id="gbx-file-name" :title="t('common.file_name')" title-background-color="var(--n-color-modal)">
+          <GroupBox id="gbx-file-name" :title="t('common.file_name')">
             <n-input v-model:value="fileName" maxlength="100" :placeholder="t('common.will_be_named_with_time_when_empty')">
               <template #suffix>.xlsx</template>
             </n-input>
           </GroupBox>
-          <GroupBox :title="t('common.options')" title-background-color="var(--n-color-modal)">
+          <GroupBox :title="t('common.options')">
             <n-checkbox v-model:checked="exportItemPrices">
               <div class="flex-center">
                 <div>{{ t('main.imexport.export_cost_and_benefit') }}</div>
@@ -159,16 +159,16 @@ const onImportConfirmed = () => {
           <div class="submit-bar">
             <n-button type="primary" :disabled="exporting" :loading="exporting" @click="handleExportExcel">
               <template #icon>
-                <n-icon><FileDownloadOutlined /></n-icon>
+                <n-icon><DoneOutlined /></n-icon>
               </template>
-              {{ t('common.export') }}
+              {{ t('common.confirm') }}
             </n-button>
           </div>
         </div>
       </n-tab-pane>
       <n-tab-pane name="import">
         <template #tab>
-          <n-icon><ArrowUpwardOutlined /></n-icon>
+          <n-icon><ArchiveSharp /></n-icon>
           {{ t('common.import_from_excel') }}
         </template>
         <div class="pane-container import-panel">
@@ -182,13 +182,13 @@ const onImportConfirmed = () => {
             <n-upload-dragger>
               <div style="margin-bottom: 12px">
                 <n-icon size="48" :depth="3">
-                  <UnarchiveOutlined />
+                  <ArchiveOutlined />
                 </n-icon>
               </div>
               <n-text style="font-size: 16px">
                 {{ t('common.click_or_drag_to_upload') }}
               </n-text>
-              <n-p depth="3" style="margin: 8px 0 0 0">
+              <n-p depth="3" style="margin: 8px 0 0">
                 {{ t('main.imexport.need_to_ensure_first_worksheet') }}
               </n-p>
             </n-upload-dragger>

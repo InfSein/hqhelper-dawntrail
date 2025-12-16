@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import AppAnnouncements from '@/components/main/AppAnnouncements.vue'
 import PatchPanel from '@/components/main/PatchPanel.vue'
 import JobPanel from '@/components/main/JobPanel.vue'
 import GearSelectionPanel from '@/components/main/GearSelectionPanel.vue'
@@ -98,12 +99,7 @@ const specialItems = computed(() => {
 
 <template>
   <div id="main-container">
-    <!-- <n-alert
-      type="info"
-      style="margin-bottom: 10px;"
-    >
-      {{ t('我们已经开始内测，并提供7.0版本生产采集新HQ的装备数据。如果遇到问题，请通过“联系我们”中的方式反馈。') }}
-    </n-alert> -->
+    <AppAnnouncements />
     <n-grid cols="4" item-responsive :x-gap="10" :y-gap="10">
       <n-grid-item span="4">
         <PatchPanel

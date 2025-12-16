@@ -5,12 +5,12 @@ import {
 } from '@vicons/material'
 import MyModal from '../templates/MyModal.vue'
 import GroupBox from '../templates/GroupBox.vue'
-import XivFARImage from '../custom/general/XivFARImage.vue'
 import { XivGearAffixes, XivJobs, XivPatches } from '@/assets/data'
 import type { UserConfigModel } from '@/models/config-user'
 import type { FuncConfigModel } from '@/models/config-func'
 import UseConfig from '@/tools/use-config'
 import { accessoryAffixes, attireAffixes, fixGearSelections, type AccessoryAffix, type AttireAffix, type GearSelections } from '@/models/gears'
+import { getGearIcon } from '@/tools/gears'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -45,17 +45,17 @@ const emit = defineEmits(['onImportConfirmed'])
 const patchSelected = ref(props.defaultPatch)
 
 const slots = [
-  { key: 'mainHand', text: t('game.gear.tool.mainhand.title'), icon: './image/game-gear-slot/mainhand.png' },
-  { key: 'offHand', text: t('game.gear.tool.offhand.title'), icon: './image/game-gear-slot/offhand.png' },
-  { key: 'headAttire', text: t('game.gear.attire.head.title'), icon: './image/game-gear-slot/head.png' },
-  { key: 'bodyAttire', text: t('game.gear.attire.body.title'), icon: './image/game-gear-slot/body.png' },
-  { key: 'handsAttire', text: t('game.gear.attire.hands.title'), icon: './image/game-gear-slot/hands.png' },
-  { key: 'legsAttire', text: t('game.gear.attire.legs.title'), icon: './image/game-gear-slot/legs.png' },
-  { key: 'feetAttire', text: t('game.gear.attire.feet.title'), icon: './image/game-gear-slot/feet.png' },
-  { key: 'earrings', text: t('game.gear.accessory.earring.title'), icon: './image/game-gear-slot/ear.png' },
-  { key: 'necklace', text: t('game.gear.accessory.necklace.title'), icon: './image/game-gear-slot/neck.png' },
-  { key: 'wrist', text: t('game.gear.accessory.wrist.title'), icon: './image/game-gear-slot/wrist.png' },
-  { key: 'rings', text: t('game.gear.accessory.rings.title'), icon: './image/game-gear-slot/ring.png' },
+  { key: 'mainHand', text: t('game.gear.tool.mainhand.title'), icon: getGearIcon('mainHand') },
+  { key: 'offHand', text: t('game.gear.tool.offhand.title'), icon: getGearIcon('offHand') },
+  { key: 'headAttire', text: t('game.gear.attire.head.title'), icon: getGearIcon('headAttire') },
+  { key: 'bodyAttire', text: t('game.gear.attire.body.title'), icon: getGearIcon('bodyAttire') },
+  { key: 'handsAttire', text: t('game.gear.attire.hands.title'), icon: getGearIcon('handsAttire') },
+  { key: 'legsAttire', text: t('game.gear.attire.legs.title'), icon: getGearIcon('legsAttire') },
+  { key: 'feetAttire', text: t('game.gear.attire.feet.title'), icon: getGearIcon('feetAttire') },
+  { key: 'earrings', text: t('game.gear.accessory.earring.title'), icon: getGearIcon('earrings') },
+  { key: 'necklace', text: t('game.gear.accessory.necklace.title'), icon: getGearIcon('necklace') },
+  { key: 'wrist', text: t('game.gear.accessory.wrist.title'), icon: getGearIcon('wrist') },
+  { key: 'rings', text: t('game.gear.accessory.rings.title'), icon: getGearIcon('rings') },
 ]
 const gearRows = computed(() => {
   const rows : string[][] = []
@@ -163,7 +163,7 @@ const handleSubmit = () => {
     @on-load="onLoad"
   >
     <div class="wrapper">
-      <GroupBox v-if="isMobile" :title="t('main.imexport.import_parts')" title-background-color="var(--n-color-modal)">
+      <GroupBox v-if="isMobile" :title="t('main.imexport.import_parts')">
         <n-scrollbar trigger="none" x-scrollable :style="{ width: '100%', height: '300px', 'margin-top': '-2px' }">
           <n-table class="table" size="small" :single-line="false">
             <thead>
@@ -201,7 +201,7 @@ const handleSubmit = () => {
           </n-table>
         </n-scrollbar>
       </GroupBox>
-      <GroupBox v-else :title="t('main.imexport.import_parts')" title-background-color="var(--n-color-modal)">
+      <GroupBox v-else :title="t('main.imexport.import_parts')">
         <n-table class="table" size="small" :single-line="false">
           <thead>
             <tr>
@@ -211,7 +211,9 @@ const handleSubmit = () => {
                 :key="slot.key"
               >
                 <div class="th-inner">
-                  <XivFARImage :size="15" :src="slot.icon" />
+                  <n-icon size="15" color="var(--color-text)">
+                    <component :is="slot.icon" />
+                  </n-icon>
                   <span>{{ slot.text }}</span>
                 </div>
               </th>
@@ -239,7 +241,7 @@ const handleSubmit = () => {
           </n-table>
         </n-scrollbar>
       </GroupBox>
-      <GroupBox :title="t('main.select_patch.title')" title-background-color="var(--n-color-modal)">
+      <GroupBox :title="t('main.select_patch.title')">
         <n-select v-model:value="patchSelected" :placeholder="t('main.imexport.confirm_import_patch')" :options="patchOptions" />
       </GroupBox>
     </div>

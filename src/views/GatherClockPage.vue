@@ -588,7 +588,7 @@ const handleShowAlarmMacroExportModal = () => {
         </n-form>
       </div>
     </FoldableCard>
-    <n-card embedded :bordered="false" :content-style="isVerticalOverlay ? 'padding: 1em 0.5em;' : undefined">
+    <n-card embedded :bordered="false" :class="userConfig.custom_background ? 'glasscard' : ''" :content-style="isVerticalOverlay ? 'padding: 1em 0.5em;' : undefined">
       <div class="title-actions">
         <n-button
           v-for="patch in gatherData"

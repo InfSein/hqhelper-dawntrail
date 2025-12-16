@@ -513,7 +513,6 @@ const handleDownload = async () => {
               v-for="group in syncRangeGroups"
               :key="group.key"
               :title="group.title"
-              title-background-color="var(--n-color-embedded-modal)"
             >
               <div class="sync-range-container">
                 <div
@@ -594,7 +593,7 @@ const handleDownload = async () => {
     padding: 0 12px;
 
     button {
-      padding: 12px 12px 24px 12px;
+      padding: 12px 12px 24px;
       border: 1px solid transparent;
       border-radius: 3px;
 

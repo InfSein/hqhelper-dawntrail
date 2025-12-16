@@ -3,7 +3,14 @@
 > [!TIP]\
 > 热更新等需要重新上传Release文件的场合，那一版本的已统计下载量会被清空。
 
+**第2代HqHelper总下载量：**
+
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github) ＋ ![Client Downloads](https://img.shields.io/github/downloads/InfSein/hqhelper-client/total?style=flat&logo=github)
+
+**第1代HqHelper下载量统计：**
+
+- 初次安装：23,902(微云) + 3,417(百度网盘) + ???(NGA论坛)
+- 增量更新：24,232(GitHub)
 
 ## 客户端本体
 
@@ -67,7 +74,7 @@
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.6/static-pages.zip)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.2.7/static-pages.zip)
 
-### 2.3.x (对应 FFXIV 的 7.3~7.35)
+### 2.3.x (对应 FFXIV 的 7.3~7.38)
 
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.0/static-pages.zip)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.1/static-pages.zip)
@@ -75,3 +82,9 @@
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.3/static-pages.zip)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.4/static-pages.zip)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.5/static-pages.zip)
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.6/static-pages.zip)
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.3.7/static-pages.zip)
+
+### 2.4.x (对应 FFXIV 的 7.4~7.45)
+
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.4.0/static-pages.zip)

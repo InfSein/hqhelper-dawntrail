@@ -1,26 +1,20 @@
 <script setup lang="ts">
-import XivFARImage from '../general/XivFARImage.vue'
+import type { GearSlot } from '@/models/gears'
 import ItemButton from '../item/ItemButton.vue'
 import { getItemInfo } from '@/tools/item'
+import { getGearIcon } from '@/tools/gears'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
-const props = defineProps({
-  slotIconSrc: {
-    type: String,
-    required: true
-  },
-  slotDescription: {
-    type: String,
-    required: true
-  },
-  relatedItem: {
-    type: Number,
-    required: true
-  }
-})
+interface GearSlotProps {
+  gearSlot: GearSlot
+  slotDescription: string
+  relatedItem: number
+}
+const props = defineProps<GearSlotProps>()
 
+const gearIcon = computed(() => getGearIcon(props.gearSlot))
 const itemInfo = computed(() => {
   if (!props.relatedItem) return false
   return getItemInfo(props.relatedItem)
@@ -31,10 +25,9 @@ const itemInfo = computed(() => {
   <n-popover :trigger="isMobile ? 'click' : 'hover'" style="max-width: 300px;">
     <template #trigger>
       <div class="flex-center">
-        <XivFARImage
-          :src="slotIconSrc"
-          :size="20"
-        />
+        <n-icon size="20" color="var(--color-text-sub)">
+          <gearIcon />
+        </n-icon>
       </div>
     </template>
     <div>
@@ -57,6 +50,6 @@ const itemInfo = computed(() => {
 
 <style scoped>
 .block-divider {
-  margin: 1px 0 5px 0 !important;
+  margin: 1px 0 5px !important;
 }
 </style>
