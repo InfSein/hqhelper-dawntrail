@@ -659,7 +659,15 @@
         "text_2": "Get prepared for the finale of AAC and DAWNTRAIL!"
       },
       "feat": {
-        "text_1": "Optimized the display effect of gear slot icons."
+        "text_1": "Optimized the display effect of gear slot icons.",
+        "text_2": "Now click on the item info icon would no longer trigger other click events, including select/unselect the item row in statement and input selection.",
+        "text_3": "The \"Join Workflow\" popup will now remember the last selected workflow.",
+        "text_4": "However, if the existing workflow is deleted or sequenced, the workflow that this function remembers may be misplaced or reset.",
+        "text_5": "Items can now be added directly to workflows from the right-click menu of item buttons and item info icons.",
+        "text_6": "Added a feature to import item lists into the workflow page."
+      },
+      "fix": {
+        "text_1": "Fixed an issue where the order of Alchemist potions for patch 7.0 and 7.2 was incorrect in the main interface statistics section."
       }
     },
     "breaking": "BREAKING CHANGES",
@@ -674,6 +682,7 @@
       "game_db_update": "Game data updated to {ver}.",
       "global_db_update": "Global game data updated to {ver}.",
       "optimize_page_perform": "Some page performance was optimized.",
+      "optimize_ui_detail": "Optimized multiple interfaces' details.",
       "released_func": "Function \"{f}\" released.",
       "require_setting": "Need to deal settings in \"{f2}\" tab of \"{f1}\" first.",
       "temp_not_support_mobile": "This function does not support mobile devices now."
@@ -2234,6 +2243,21 @@
     }
   },
   "workflow": {
+    "import": {
+      "itemlist": {
+        "message": {
+          "error_content_invalid_after": "Import would be canceled.",
+          "error_content_invalid_prev": "There was a problem with the entered content. Please check: ",
+          "error_count_invalid": "The quantity “{1}” in line {0} is invalid. It must be an integer greater than 0",
+          "error_format_invalid": "The content “{1}” in line {0} is in an unsupported format",
+          "error_item_duplicated": "The item “{1}” in line {0} is duplicated with a previous line",
+          "error_item_not_craftable": "The item “{1}” in line {0} cannot be crafted",
+          "error_item_not_found": "The item “{1}” in line {0} is not included in HqHelper’s database"
+        },
+        "tip_1": "You can enter an item list here to import them into the workflow in bulk.",
+        "tip_2": "Multiple formats and languages are supported; please refer to the examples shown in the input box below."
+      }
+    },
     "join_in_workflow": {
       "desc": {
         "desc_1": "Select which workflow to join in here",
