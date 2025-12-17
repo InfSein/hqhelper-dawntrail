@@ -361,10 +361,14 @@ const innerPopTrigger = computed(() => {
 <template>
   <n-popover
     v-if="itemInfo.id && !disablePop"
+    scrollable
     :trigger="popTrigger || (isMobile ? 'click' : 'hover')"
     :placement="isMobile ? 'bottom' : 'right-start'"
     :width="popUseCustomWidth ? popCustomWidth : (isMobile ? 'trigger' : undefined)"
-    :style="{ maxWidth: popMaxWidth ?? (isMobile ? 'unset' : '290px') }"
+    :style="{
+      maxWidth: popMaxWidth ?? (isMobile ? 'unset' : '290px'),
+      maxHeight: '550px',
+    }"
   >
     <template #trigger>
       <slot />
