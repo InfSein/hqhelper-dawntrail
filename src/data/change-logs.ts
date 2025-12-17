@@ -84,6 +84,28 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.4.1',
+      date: '2025-12-18',
+      changes: [
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('changelog.2_4_1.fix.text_1'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_4_1.feat.text_1')
+              + '<br>' + getNoteImage('2.4.1', '1.png'),
+            t('changelog.2_4_1.feat.text_2')
+              + '<br>' + getNoteImage('2.4.1', '2.png'),
+            t('changelog.shared.optimize_ui_detail'),
+          ]
+        }
+      ]
+    },
+    {
       version: '2.4.0',
       date: '2025-12-16',
       changes: [
