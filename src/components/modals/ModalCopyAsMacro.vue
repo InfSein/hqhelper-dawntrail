@@ -198,8 +198,6 @@ const handleClose = () => {
   user-select: text;
 
   #marco-preview {
-    margin-top: 10px;
-
     .group-box-content {
       max-height: 300px;
       overflow-y: auto;

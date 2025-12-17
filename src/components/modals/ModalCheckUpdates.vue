@@ -386,7 +386,7 @@ const handleSettingButtonClick = () => {
     @on-setting-button-clicked="handleSettingButtonClick"
   >
     <div class="wrapper">
-      <FoldableCard class="card proxy" card-key="modal-cu-proxy" card-size="small" show-card-border>
+      <FoldableCard class="card proxy" card-key="modal-cu-proxy" card-size="small" disable-glass show-card-border>
         <template #header>
           <div class="card-title">
             <n-icon><VpnLockRound /></n-icon>

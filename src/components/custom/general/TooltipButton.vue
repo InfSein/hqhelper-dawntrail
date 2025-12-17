@@ -61,6 +61,7 @@ const handleButtonClick = () => {
         :tertiary="tertiary" 
         :quaternary="quaternary" 
         :size="size" 
+        :type="type"
         :class="btnClass" 
         :style="btnStyle" 
         @click="handleButtonClick"
