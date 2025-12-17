@@ -94,16 +94,13 @@ const tomeScriptItems = computed(() => {
     }
   }
   // 根据道具商店兑换顺序重组排序
-  // 逻辑应该是：优先根据物品类型ID排序，然后按照物品ID排序
   for (const costId in items) {
     const _costId = Number(costId)
-    items[_costId] = items[_costId].sort((a, b) => {
-      if (a.uiTypeId === b.uiTypeId) {
-        return a.id - b.id
-      } else {
-        return a.uiTypeId - b.uiTypeId
-      }
-    })
+    items[_costId] = items[_costId].sort((a, b) => 
+      (a.uiTypeId - b.uiTypeId) ||
+      ((a.order ?? Infinity) - (b.order ?? Infinity)) ||
+      (a.id - b.id)
+    )
   }
   return items
 })

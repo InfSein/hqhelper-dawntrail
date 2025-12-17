@@ -6,6 +6,11 @@ import type {
 
 export type XivPatchVer = "7.0" | "7.1" | "7.2" | "7.3" | "7.4"
 
+// #region Manuals
+import JsonXivItemOrder from './manuals/xiv-item-order.json'
+export const XivItemOrder = JsonXivItemOrder as Record<number, number>
+// #endregion
+
 // #region Translations
 import JsonXivTranslatedItemDescriptions from './translations/xiv-item-descriptions.json'
 export const XivTranslatedItemDescriptions = JsonXivTranslatedItemDescriptions as Record<number, string>
