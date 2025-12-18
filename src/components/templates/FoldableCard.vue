@@ -15,6 +15,7 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 interface FoldableCardProps {
   cardKey: string
   cardSize?: 'medium' | 'small' | 'large' | 'huge'
+  disableGlass?: boolean
   showCardBorder?: boolean
   unfoldable?: boolean
   foldDirection?: 'horizontal' | 'vertical'
@@ -57,7 +58,7 @@ const folderText = computed(() => {
 
 const cardClasses = computed(() => {
   return [
-    userConfig.value.custom_background ? 'glasscard' : ''
+    (userConfig.value.custom_background && !props.disableGlass) ? 'glasscard' : ''
   ].join(' ')
 })
 

@@ -41,6 +41,7 @@ export interface StatementRow {
 }
 
 import {
+  XivItemOrder,
   XivTranslatedItemDescriptions,
   XivTranslatedItemNames,
   XivTranslatedPlaces,
@@ -93,6 +94,11 @@ export const getItemNameRevertMap = () => {
 
 export interface ItemInfo {
   id: number
+  /**
+   * 手动指定的顺序号
+   * 在实际排序时，会根据 `物品类型->手动顺序号->id` 的优先级进行排序
+   */
+  order?: number
   valid: boolean
   amount: number
   patch: string
@@ -279,6 +285,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     console.error('[getItemInfo] 数据不符合规范:', _item)
     return itemInfo
   }
+  itemInfo.order = XivItemOrder[_item.id]
   itemInfo.itemLevel = _item.ilv
   itemInfo.name_ja = _item.name[0]
   itemInfo.name_en = _item.name[1]

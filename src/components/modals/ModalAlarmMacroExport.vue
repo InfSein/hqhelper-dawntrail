@@ -227,7 +227,7 @@ const getPlaceName = (itemInfo : ItemInfo) => {
           <MacroViewer
             class="preview-container"
             :macro-lines="macro"
-            content-height="190px"
+            :content-height="isMobile ? '240px' : '190px'"
             :container-id="modalId"
           />
         </GroupBox>
@@ -272,10 +272,6 @@ const getPlaceName = (itemInfo : ItemInfo) => {
     }
   }
 
-  #marco-preview {
-    margin-top: 10px;
-
-  }
   .settings-container {
     display: flex;
     flex-direction: column;

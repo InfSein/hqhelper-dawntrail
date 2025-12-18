@@ -670,6 +670,15 @@
         "text_1": "Fixed an issue where the order of Alchemist potions for patch 7.0 and 7.2 was incorrect in the main interface statistics section."
       }
     },
+    "2_4_1": {
+      "feat": {
+        "text_1": "Optimized material order of tome-script statistics in patch 7.4, that makes them matches the in-game shop.",
+        "text_2": "Optimized the item order in the “Trade items” group under “Recomm. Process”. Items are now first grouped by the tome-scripts required for exchange, then sorted according to the in-game shop order."
+      },
+      "fix": {
+        "text_1": "Fixed an issue where, after enabling “Show item prices in item popup”, some item popup could overflow the window due to excessive content length."
+      }
+    },
     "breaking": "BREAKING CHANGES",
     "feat": "FEATURES",
     "fix": "BUG FIXES",

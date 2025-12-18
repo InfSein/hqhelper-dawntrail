@@ -244,7 +244,7 @@ export function useFufuCal(
     const itemsGatherableCommon : ItemInfo[] = []
     const itemsGatherableLimited : ItemInfo[] = []
     const aethersands : ItemInfo[] = []
-    const itemsTradable : ItemInfo[] = []
+    let itemsTradable : ItemInfo[] = []
     const itemsOtherCollectable : ItemInfo[] = []
     const itemsPrePrePrecraft : Record<number, ItemInfo[]> = {}
     const itemsPrePrecraft : Record<number, ItemInfo[]> = {}
@@ -271,7 +271,15 @@ export function useFufuCal(
         }
       }
     })
-  
+
+    // 对部分组的物品进行排序
+    itemsTradable = itemsTradable.sort((a, b) =>
+      (a.tradeInfo!.costId - b.tradeInfo!.costId) ||
+      (a.uiTypeId - b.uiTypeId) ||
+      ((a.order ?? Infinity) - (b.order ?? Infinity)) ||
+      (a.id - b.id)
+    )
+
     // 逐级遍历半成品
     lv1Items.forEach(item => {
       if (item.craftInfo?.jobId) {
