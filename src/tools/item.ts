@@ -59,7 +59,7 @@ import {
   XivMaps, type XivMapAetheryteInfo,
   calculatePosVal,
 } from '@/tools/map'
-import { deepCopy } from '.'
+import { deepCopy, range } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
 const { getReduceMap, getReduceMapReverted } = useNbbCal()
@@ -71,10 +71,13 @@ const revertedReduceMap = getReduceMapReverted()
  * 素材物品指可以用来制作其他物品的道具
  */
 export const getMaterialItems = () => {
-  return [...new Set(
-    Object.values(XivUnpackedRecipes)
-      .flatMap(recipe => recipe.materials.filter((_, i) => i % 2 === 0))
-  )].sort((a, b) => a - b);
+  return [
+    ...range(2, 19), // 碎晶／水晶／晶簇
+    ...new Set(
+      Object.values(XivUnpackedRecipes)
+        .flatMap(recipe => recipe.materials.filter((_, i) => i % 2 === 0))
+    )
+  ].sort((a, b) => a - b);
 }
 
 /**
