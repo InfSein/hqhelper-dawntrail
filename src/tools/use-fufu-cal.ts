@@ -275,8 +275,8 @@ export function useFufuCal(
     // 对部分组的物品进行排序
     itemsTradable = itemsTradable.sort((a, b) =>
       (a.tradeInfo!.costId - b.tradeInfo!.costId) ||
-      (a.uiTypeId - b.uiTypeId) ||
-      ((a.order ?? Infinity) - (b.order ?? Infinity)) ||
+      (a.uiTypeOrder - b.uiTypeOrder) ||
+      (a.sortOrder - b.sortOrder) ||
       (a.id - b.id)
     )
 
@@ -385,13 +385,14 @@ export function useFufuCal(
         const items = craftings[jobId]
         //const rokey = item_server === 'chs' ? 'recipeOrderCHS' : 'recipeOrder'
         if (processes_craftable_item_sortby === 'recipeOrder') {
-          items.sort((a, b) => {
-            if (a.uiTypeOrder !== b.uiTypeOrder) {
-              return a.uiTypeOrder - b.uiTypeOrder
-            } else {
-              return a.id - b.id
-            }
-          })
+          items.sort((a, b) => 
+            (a.craftInfo.craftLevel - b.craftInfo.craftLevel) ||
+            (a.craftInfo.starCount - b.craftInfo.starCount) ||
+            (a.craftInfo.rLv - b.craftInfo.rLv) ||
+            (a.uiTypeOrder - b.uiTypeOrder) ||
+            (a.sortOrder - b.sortOrder) ||
+            (a.id - b.id)
+          )
         }
         groups.push({
           type: `craft-${type}`,

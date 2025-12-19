@@ -97,8 +97,8 @@ const tomeScriptItems = computed(() => {
   for (const costId in items) {
     const _costId = Number(costId)
     items[_costId] = items[_costId].sort((a, b) => 
-      (a.uiTypeId - b.uiTypeId) ||
-      ((a.order ?? Infinity) - (b.order ?? Infinity)) ||
+      (a.uiTypeOrder - b.uiTypeOrder) ||
+      (a.sortOrder - b.sortOrder) ||
       (a.id - b.id)
     )
   }
