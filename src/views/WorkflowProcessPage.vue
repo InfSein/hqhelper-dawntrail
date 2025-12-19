@@ -169,7 +169,6 @@ fixPreparedItems()
       :item-groups="recommProcessGroups"
       content-max-height="auto"
       content-max-width="auto"
-      :hide-chs-offline-items="currentWorkflow.recommData.hideChsOfflineItems"
     />
 
     <n-back-top />

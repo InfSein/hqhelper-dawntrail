@@ -598,7 +598,6 @@ const setInventoryByStatementPrepared = () => {
                 :item-groups="recommProcessGroups"
                 :content-max-height="pageHeightVals.recommProcess"
                 content-max-width="1080px"
-                :hide-chs-offline-items="currentWorkflow.recommData.hideChsOfflineItems"
               />
 
               <n-float-button-group v-if="!isMobile" right="20px" bottom="5px">

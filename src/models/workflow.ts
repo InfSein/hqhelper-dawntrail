@@ -16,7 +16,6 @@ export interface Workflow {
     materialsLvBase: Record<number, number>
   },
   recommData: {
-    hideChsOfflineItems: boolean,
     expandedBlocks: Record<number, string[]>,
     /** (groupId, (itemId, checked)) */
     completedItems: Record<number, Record<number, boolean>>
@@ -30,7 +29,6 @@ const defaultWorkflow: Workflow = {
     materialsLvBase: {},
   },
   recommData: {
-    hideChsOfflineItems: false,
     expandedBlocks: {},
     completedItems: {}
   }
@@ -52,8 +50,6 @@ export const fixWorkState = (state?: WorkState) : WorkState => {
   _state.workflows.forEach(workflow => {
     if (!workflow.recommData) {
       workflow.recommData = deepCopy(defaultWorkflow.recommData)
-    } else if (workflow.recommData.hideChsOfflineItems === undefined) {
-      workflow.recommData.hideChsOfflineItems = false
     }
   })
   return _state
