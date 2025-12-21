@@ -51,10 +51,10 @@ const macroContent = computed(() => {
   return props.macroMap[macroMode.value]
 })
 const macroLines = computed(() => {
-  return macroContent.value.split('\n').map(line => macroPrefix.value + line)
+  return macroContent.value.split('\r\n').map(line => macroPrefix.value + line)
 })
 const macro = computed(() => {
-  return macroLines.value.join('\n')
+  return macroLines.value.join('\r\n')
 })
 const macroColor = computed(() => {
   switch (macroPrefix.value) {

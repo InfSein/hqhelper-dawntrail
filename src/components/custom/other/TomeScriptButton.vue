@@ -86,7 +86,7 @@ const macroMap = computed(() : Record<MacroGenerateMode, string> => {
     let tomeScriptName = getItemName(getItemInfo(tomeScriptID))
 
     // Group Title
-    result.multiLine += `【${tomeScriptName}】x${tomeScripts.value[tomeScriptID]}\n`
+    result.multiLine += `【${tomeScriptName}】x${tomeScripts.value[tomeScriptID]}\r\n`
     if (itemLanguage.value === 'en') {
       tomeScriptName = `"${tomeScriptName}"`
     }
@@ -105,7 +105,7 @@ const macroMap = computed(() : Record<MacroGenerateMode, string> => {
       }
     })
     result.singleLine += slItems.join(', ') + '; '
-    result.multiLine += mlItems.join('\n') + '\n'
+    result.multiLine += mlItems.join('\r\n') + '\r\n'
   }
 
   result.multiLine = result.multiLine.trim()

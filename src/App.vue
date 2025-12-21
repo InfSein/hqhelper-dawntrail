@@ -189,12 +189,13 @@ const copyAsMacro = async (macroMap: Record<MacroGenerateMode, string>, containe
   result: "success" | "info" | "error"
   msg: string
 } | undefined> => {
-  const macroContent = macroMap[funcConfig.value.macro_generate_mode]
+  let macroContent = macroMap[funcConfig.value.macro_generate_mode]
   if (!macroContent) {
     return { result: 'info', msg: t('common.message.nothing_to_copy') }
   }
+  macroContent = macroContent.split('\r\n').map(line => `${funcConfig.value.macro_copy_prefix}${line}`).join('\r\n')
   if (funcConfig.value.macro_direct_copy) {
-    const errored = await CopyToClipboard(funcConfig.value.macro_copy_prefix + macroContent, container)
+    const errored = await CopyToClipboard(macroContent, container)
     if (errored) {
       return { result: 'error', msg: t('common.message.copy_failed') }
     }
