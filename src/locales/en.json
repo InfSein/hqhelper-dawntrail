@@ -679,6 +679,17 @@
         "text_1": "Fixed an issue where, after enabling “Show item prices in item popup”, some item popup could overflow the window due to excessive content length."
       }
     },
+    "2_4_2": {
+      "feat": {
+        "text_1": "Now you can set the inventory of Shard/Crystal/Cluster in '{0}'."
+      },
+      "fix": {
+        "text_1": "Fully fixed the issue where the order of items is still inconsistent with the in-game order even after setting the '{f2}' of '{f1}' to '{f3}' in the preference settings.",
+        "text_2": "Fixed an issue where some items were still shown as exchangeable with Allagan Tomestones of Heliometry.",
+        "text_3": "Fixed an issue where, after setting {0} to {1}, only the first line of the generated macro could be pasted into the game.",
+        "text_4": "Fixed an issue where, after setting {0} to {1}, part of the generated macro was not correctly prefixed."
+      }
+    },
     "breaking": "BREAKING CHANGES",
     "feat": "FEATURES",
     "fix": "BUG FIXES",
