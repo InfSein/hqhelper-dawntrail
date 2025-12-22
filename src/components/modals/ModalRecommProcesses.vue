@@ -28,7 +28,6 @@ const showModal = defineModel<boolean>('show', { required: true })
 const expandedBlocks = ref<Record<number, string[]>>({})
 /** (groupId, (itemId, checked)) */
 const completedItems = ref<Record<number, Record<number, boolean>>>({})
-const hideChsOfflineItems = ref(false)
 
 watch(showModal, async(newVal, oldVal) => {
   if (newVal && !oldVal) {
@@ -40,7 +39,6 @@ watch(showModal, async(newVal, oldVal) => {
         completedItems.value[i][item.id] = false
       })
     }
-    hideChsOfflineItems.value = false
   }
 })
 
@@ -143,7 +141,6 @@ const handleSettingButtonClick = () => {
       :item-groups="itemGroups"
       item-span-max-width="250px"
       :container-id="modalId"
-      :hide-chs-offline-items="hideChsOfflineItems"
     />
 
     <template #action>

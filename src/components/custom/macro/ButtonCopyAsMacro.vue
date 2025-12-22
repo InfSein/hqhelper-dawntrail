@@ -62,14 +62,14 @@ const macroMap = computed(() : Record<MacroGenerateMode, string> => {
       itemCount++
 
       if (itemCount >= itemsPerLine) {
-        result.multiLine += '・' + currentLine.join(', ') + '\n'
+        result.multiLine += '・' + currentLine.join(', ') + '\r\n'
         currentLine = []
         itemCount = 0
       }
     }
   })
   if (currentLine.length) {
-    result.multiLine += '・' + currentLine.join(', ') + '\n'
+    result.multiLine += '・' + currentLine.join(', ') + '\r\n'
   }
 
   result.multiLine = result.multiLine.trim()

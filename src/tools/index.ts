@@ -43,6 +43,9 @@ export const decompressString = (input: string): string => {
   return LzString.decompressFromBase64(input)
 }
 
+/** 生成一个数组，包含从`from`到`to`之间的所有整数 */
+export const range = (from: number, to: number) => Array.from({ length: to - from + 1 }, (_, i) => from + i)
+
 /** 检查数组中的重复元素 */
 export const findDuplicatesFromArray = <T>(arr : T[]): T[] => {
   const countMap = new Map<T, number>()

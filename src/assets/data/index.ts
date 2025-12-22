@@ -7,22 +7,8 @@ import type {
 export type XivPatchVer = "7.0" | "7.1" | "7.2" | "7.3" | "7.4"
 
 // #region Manuals
-import JsonXivItemOrder from './manuals/xiv-item-order.json'
-export const XivItemOrder = JsonXivItemOrder as Record<number, number>
-// #endregion
-
-// #region Translations
-import JsonXivTranslatedItemDescriptions from './translations/xiv-item-descriptions.json'
-export const XivTranslatedItemDescriptions = JsonXivTranslatedItemDescriptions as Record<number, string>
-
-import JsonXivTranslatedItemNames from './translations/xiv-item-names.json'
-export const XivTranslatedItemNames = JsonXivTranslatedItemNames as Record<number, string>
-
-import JsonXivItemRemarks from './translations/xiv-item-remarks.json'
+import JsonXivItemRemarks from './manuals/xiv-item-remarks.json'
 export const XivItemRemarks = JsonXivItemRemarks as Record<number, string[]>
-
-import JsonXivTranslatedPlaces from './translations/xiv-places.json'
-export const XivTranslatedPlaces = JsonXivTranslatedPlaces as Record<number, string>
 // #endregion
 
 // #region Unpacks
@@ -114,6 +100,7 @@ export interface XivUnpackedItem {
   elv: number
   uc: number
   sc: number
+  so: number
   jobs: number
   hqable: boolean
   tradable: boolean

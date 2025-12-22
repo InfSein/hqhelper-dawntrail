@@ -25,7 +25,7 @@ const phItem : XivUnpackedItem = {
   uc: -1,
   pc: -1,
   mkc: -1,
-  rids: [], ilv: -1, sc: 0, hqable: false, rarity: 0,
+  rids: [], ilv: -1, sc: 0, so: 0, hqable: false, rarity: 0,
   dye: 0, act: 0, tradable: false, collectable: false, reduce: false,
   elv: 0, ms: 0, bpm: [], spm: [], 
   jobs: 0, jd: false, p: '', apm: []
@@ -41,10 +41,6 @@ export interface StatementRow {
 }
 
 import {
-  XivItemOrder,
-  XivTranslatedItemDescriptions,
-  XivTranslatedItemNames,
-  XivTranslatedPlaces,
   XivUnpackedGatheringItems,
   XivUnpackedItems, type XivUnpackedItem,
   XivUnpackedPlaceNames,
@@ -59,7 +55,7 @@ import {
   XivMaps, type XivMapAetheryteInfo,
   calculatePosVal,
 } from '@/tools/map'
-import { deepCopy } from '.'
+import { deepCopy, range } from '.'
 import { useNbbCal } from './use-nbb-cal'
 
 const { getReduceMap, getReduceMapReverted } = useNbbCal()
@@ -71,10 +67,13 @@ const revertedReduceMap = getReduceMapReverted()
  * 素材物品指可以用来制作其他物品的道具
  */
 export const getMaterialItems = () => {
-  return [...new Set(
-    Object.values(XivUnpackedRecipes)
-      .flatMap(recipe => recipe.materials.filter((_, i) => i % 2 === 0))
-  )].sort((a, b) => a - b);
+  return [
+    ...range(2, 19), // 碎晶／水晶／晶簇
+    ...new Set(
+      Object.values(XivUnpackedRecipes)
+        .flatMap(recipe => recipe.materials.filter((_, i) => i % 2 === 0))
+    )
+  ].sort((a, b) => a - b);
 }
 
 /**
@@ -99,6 +98,7 @@ export interface ItemInfo {
    * 在实际排序时，会根据 `物品类型->手动顺序号->id` 的优先级进行排序
    */
   order?: number
+  sortOrder: number
   valid: boolean
   amount: number
   patch: string
@@ -128,10 +128,6 @@ export interface ItemInfo {
   hqable: boolean
   /** 可否交易 */
   tradable: boolean
-  /** 是否还未在国服实装 */
-  chsOffline?: boolean
-  /** 是否使用了中文暂译 */
-  usedZHTemp?: boolean
   /**
    * 物品特殊属性，常见于成品装备。
    * 
@@ -285,7 +281,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
     console.error('[getItemInfo] 数据不符合规范:', _item)
     return itemInfo
   }
-  itemInfo.order = XivItemOrder[_item.id]
+  itemInfo.sortOrder = _item.so
   itemInfo.itemLevel = _item.ilv
   itemInfo.name_ja = _item.name[0]
   itemInfo.name_en = _item.name[1]
@@ -298,28 +294,6 @@ export const getItemInfo = (item: number | CalculatedItem) => {
   itemInfo.hqable = _item.hqable
   itemInfo.tradable = _item.tradable && !_item.collectable
 
-  // * 针对还没有中文名/中文描述的道具，尝试从暂译表中获取暂译
-  if (!itemInfo.name_zh) {
-    const tempZhMap = XivTranslatedItemNames
-    if (tempZhMap?.[itemInfo.id]) {
-      itemInfo.name_zh = tempZhMap[itemInfo.id]
-      itemInfo.usedZHTemp = true
-    } else if (itemInfo.name_ja) {
-      console.log('[开发提示] 此物品需要填写中文暂译:', itemInfo)
-    }
-    itemInfo.chsOffline = true
-  }
-  if (!itemInfo.descZH) {
-    const tempZhMap = XivTranslatedItemDescriptions
-    if (tempZhMap?.[itemInfo.id]) {
-      itemInfo.descZH = tempZhMap[itemInfo.id]
-      itemInfo.usedZHTemp = true
-    } else {
-      // 物品描述暂译目前还不是必要的
-      // console.log('[开发提示] 此物品需要填写中文暂译:', itemInfo)
-    }
-  }
-  
   // * 组装物品图标URL
   itemInfo.iconUrl = getImgCdnUrl(_item.icon)
   itemInfo.hqIconUrl = getImgCdnUrl(_item.icon, true)
@@ -380,10 +354,6 @@ export const getItemInfo = (item: number | CalculatedItem) => {
       const placeID = territoryData[2]
       const gatherPlaceData = XivUnpackedPlaceNames[placeID]
       if (gatherPlaceData) {
-        let placeNameZH = gatherPlaceData[2]
-        if (!placeNameZH) {
-          placeNameZH = XivTranslatedPlaces[placeID] || '未翻译的地点'
-        }
         const posX = Number(gatherData!.coords!.x)
         const posY = Number(gatherData!.coords!.y)
         const posVal = calculatePosVal(posX, posY)
@@ -393,7 +363,7 @@ export const getItemInfo = (item: number | CalculatedItem) => {
           nodelevel: nodeLevel,
           star: gatherData.star,
           placeID: placeID,
-          placeNameZH: placeNameZH,
+          placeNameZH: gatherPlaceData[2],
           placeNameJA: gatherPlaceData[0],
           placeNameEN: gatherPlaceData[1],
           gntype_zh, gntype_en, gntype_ja,

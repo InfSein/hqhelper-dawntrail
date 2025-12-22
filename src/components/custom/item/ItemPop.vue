@@ -193,13 +193,13 @@ const itemCraftRequires = computed(() => {
 })
 const itemTailDescriptions = computed(() => {
   const descriptions : string[] = []
-  if (itemLanguage.value === 'zh') {
-    if (props.itemInfo.usedZHTemp) {
-      descriptions.push(t('item.text.zh_name_is_temp'))
-    } else if (props.itemInfo.chsOffline) {
-      descriptions.push(t('item.text.not_installed_in_chs'))
-    }
-  }
+  // if (itemLanguage.value === 'zh') {
+  //   if (props.itemInfo.usedZHTemp) {
+  //     descriptions.push(t('item.text.zh_name_is_temp'))
+  //   } else if (props.itemInfo.chsOffline) {
+  //     descriptions.push(t('item.text.not_installed_in_chs'))
+  //   }
+  // }
   return descriptions
 })
 interface RenderedTradeCost {
@@ -250,11 +250,7 @@ const openInAngler = () => {
     case 'zh': lang = 'cn'; break
     case 'ja': lang = 'jp'; break
   }
-  let name = getItemName()
-  if (props.itemInfo.chsOffline) {
-    lang = 'en'
-    name = props.itemInfo.name_en
-  }
+  const name = getItemName()
   const domain = `https://${lang}.ff14angler.com/`
   window.open(`${domain}?search=${name}`)
 }
@@ -384,9 +380,9 @@ const innerPopTrigger = computed(() => {
         <div class="item-names">
           <div class="main">
             <span>{{ getItemName() }}</span>
-            <span class="extra-name" v-if="itemLanguage === 'zh' && itemInfo.usedZHTemp">
+            <!-- <span class="extra-name" v-if="itemLanguage === 'zh' && itemInfo.usedZHTemp">
               {{ t('common.temp_trans') }}
-            </span>
+            </span> -->
           </div>
           <div class="sub">{{ getItemSubName() }}</div>
         </div>

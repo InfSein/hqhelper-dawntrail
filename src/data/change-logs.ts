@@ -84,6 +84,38 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.4.2',
+      date: '2025-12-22',
+      changes: [
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('changelog.2_4_2.fix.text_1', {
+              f1: t('common.appfunc.recomm_process'),
+              f2: t('preference.processes_craftable_item_sortby.title'),
+              f3: t('preference.processes_craftable_item_sortby.option.crafting_log')
+            }),
+            t('changelog.2_4_2.fix.text_3', [
+              t('preference.macro_generate_mode.title'),
+              t('preference.macro_generate_mode.option.multi_line'),
+            ]),
+            t('changelog.2_4_2.fix.text_4', [
+              t('preference.macro_generate_mode.title'),
+              t('preference.macro_generate_mode.option.multi_line'),
+            ]),
+            t('changelog.2_4_2.fix.text_2'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_4_2.feat.text_1', [t('common.appfunc.ingame_inventory')]),
+            isZh ? '追加和修订了部分物品的笔记 (仅在界面语言设置为简体中文时显示)。' : '',
+          ]
+        }
+      ]
+    },
+    {
       version: '2.4.1',
       date: '2025-12-18',
       changes: [

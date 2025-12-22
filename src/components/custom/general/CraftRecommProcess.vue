@@ -8,7 +8,6 @@ import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import LocationSpan from '@/components/custom/map/LocationSpan.vue'
 import { type UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
-import { deepCopy } from '@/tools'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import UseConfig from '@/tools/use-config'
 import { XivJobs, type XivJob } from '@/assets/data'
@@ -44,15 +43,7 @@ const showItemGatherDetails = computed(() => {
   return funcConfig.value.processes_show_item_details
 })
 const itemGroups = computed(() => {
-  if (props.hideChsOfflineItems) {
-    const _itemGroups = deepCopy(props.itemGroups)
-    _itemGroups.forEach(itemGroup => {
-      itemGroup.items = itemGroup.items.filter(item => !item.chsOffline)
-    })
-    return _itemGroups
-  } else {
-    return props.itemGroups
-  }
+  return props.itemGroups
 })
 
 const getJobName = (jobInfo: XivJob) => {

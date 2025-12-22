@@ -98,7 +98,7 @@ const canPinWindow = computed(() => {
 })
 
 const workState = ref({
-  patch: '7.2-740',
+  patch: '7.4-740',
   /** 是否将整个窗口置顶 (限v5及以上的客户端使用) */
   pinWindow: false,
   /** 通知方式 */

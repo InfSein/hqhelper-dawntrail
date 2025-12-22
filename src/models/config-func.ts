@@ -105,9 +105,9 @@ const defaultFuncConfig: FuncConfigModel = {
   statement_no_highlights: false,
   prostate_concise_mode: false,
   // * 推荐流程
-  processes_show_item_details: false,
-  processes_merge_gatherings: false,
-  processes_craftable_item_sortby: 'itemId',
+  processes_show_item_details: true,
+  processes_merge_gatherings: true,
+  processes_craftable_item_sortby: 'recipeOrder',
   // * 物品价格
   universalis_server: '陆行鸟',
   universalis_priceType: 'averagePrice',
