@@ -248,7 +248,7 @@ export interface ItemInfo {
  * @param item 物品ID或是`nbb-cal`传入的物品信息
  * @returns 处理后的道具信息
  */
-export const getItemInfo = (item: number | CalculatedItem) => {
+export const getItemInfo = (item: `${number}` | number | CalculatedItem) => {
   // * 尝试从items表中获取物品完整信息
   let itemID = 0, itemAmount = 0
   if (typeof item === 'number' || typeof item === 'string') {
