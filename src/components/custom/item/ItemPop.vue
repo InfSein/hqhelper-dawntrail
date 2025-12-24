@@ -536,12 +536,33 @@ const innerPopTrigger = computed(() => {
               <div class="green">{{ timeCanGather(timeLimit) }}</div>
             </div>
           </div>
-          <div class="content" v-if="itemInfo.gatherInfo?.folkloreId">
+          <div class="content" v-if="itemInfo.gatherInfo?.folkloreId || itemInfo?.gatherInfo?.requirement">
             <div>{{ t('item.text.gather_condi') }}</div>
+            <div class="item small-font" v-if="itemInfo?.gatherInfo?.requirement">
+              <div>
+                {{ t('item.text.perception_with_val', itemInfo.gatherInfo?.requirement) }}
+              </div>
+            </div>
             <div class="item small-font" v-if="itemInfo.gatherInfo?.folkloreId">
               {{ t('item.text.need_learn') }}
               <ItemSpan span-max-width="180px" :img-size="12" :item-info="getItemInfo(itemInfo.gatherInfo.folkloreId)" :container-id="containerId" />
             </div>
+          </div>
+          <div class="content" v-if="itemInfo.gatherInfo?.bonuses?.length">
+            <div>{{ t('item.text.gather_bonus') }}</div>
+            <ul class="list small-font">
+              <li
+                v-for="(bonus, bonusIndex) in itemInfo.gatherInfo.bonuses"
+                :key="'bonus-' + bonusIndex"
+              >
+                {{
+                  t('item.text.gather_bonus_description', [
+                    getAttrName(bonus.condition.attribute),
+                    bonus.condition.value,
+                  ])
+                }}{{ bonus.bonus[`text_${uiLanguage}`] }}
+              </li>
+            </ul>
           </div>
           <div class="content" v-if="itemInfo.isFishingItem">
             <div>{{ t('item.text.gather_website.intro') }}</div>
@@ -691,7 +712,7 @@ const innerPopTrigger = computed(() => {
           </div>
           <n-divider class="item-divider" />
           <div class="content">
-            <div v-if="itemPriceInfo.prices.length" class="content-item-prices">
+            <div v-if="itemPriceInfo.prices.length" class="content-table">
               <n-table size="small" class="tiny-table w-full">
                 <thead>
                   <tr>
@@ -862,7 +883,14 @@ const innerPopTrigger = computed(() => {
         grid-template-columns: repeat(2, minmax(0,1fr));
         column-gap: 5px;
       }
-      .content .content-item-prices {
+      .content .list {
+        margin-left: 1em;
+        padding-left: 1em;
+        li::marker {
+          content: ' > ';
+        }
+      }
+      .content .content-table {
         width: fit-content;
         margin-top: 2px;
         margin-left: 1em;

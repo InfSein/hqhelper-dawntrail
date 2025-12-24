@@ -47,6 +47,7 @@ import {
   XivUnpackedRecipes,
   XivUnpackedTerritories,
   XivItemTypes,
+  XivGatheringBonuses,
   XivUnpackedTradeMap,
   type ItemTradeInfo,
   XivUnpackedCollectableSubmissions
@@ -225,7 +226,21 @@ export interface ItemInfo {
       start: string,
       end: string
     }[],
-    timeLimitDescription: string
+    timeLimitDescription: string,
+    /** 采集需要的最低鉴别力 */
+    requirement?: number,
+    /** 采集点的特效列表 */
+    bonuses: {
+      condition: {
+        attribute: number,
+        value: number,
+      },
+      bonus: {
+        text_zh: string,
+        text_en: string,
+        text_ja: string,
+      },
+    }[],
   },
   isCrystal: boolean,
   isAethersand: boolean,
@@ -369,7 +384,23 @@ export const getItemInfo = (item: `${number}` | number | CalculatedItem) => {
           gntype_zh, gntype_en, gntype_ja,
           posX, posY, posVal,
           timeLimitInfo: [],
-          timeLimitDescription: ''
+          timeLimitDescription: '',
+          requirement: gatherData.requirement,
+          bonuses: gatherData.bonuses.map(bonus => {
+            const [condi, condiVal, bonusId, bonusVal] = bonus
+            const r = (s: string) => s.replace(/{val1}/g, bonusVal.toString())
+            return {
+              condition: {
+                attribute: condi === 19 ? 10 : condi + 58,
+                value: condiVal
+              },
+              bonus: {
+                text_zh: r(XivGatheringBonuses[bonusId].text_zh),
+                text_en: r(XivGatheringBonuses[bonusId].text_en),
+                text_ja: r(XivGatheringBonuses[bonusId].text_ja),
+              }
+            }
+          })
         };
         if (gatherData.folkloreBook) {
           itemInfo.gatherInfo.folkloreId = gatherData.folkloreBook
