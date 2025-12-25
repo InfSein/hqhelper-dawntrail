@@ -19,6 +19,7 @@ interface LocationSpanProps {
   hideMapButton?: boolean
   /** 手动指定地图按钮悬浮窗的触发方式 */
   popTrigger?: 'hover' | 'click' | 'manual'
+  popStyle?: string
 }
 const props = defineProps<LocationSpanProps>()
 
@@ -61,6 +62,7 @@ const mapButtonSize = computed(() => {
         :flag-x="coordinateX"
         :flag-y="coordinateY"
         :pop-trigger="popTrigger"
+        :pop-style="popStyle"
       />
     </span>
   </div>

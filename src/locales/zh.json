@@ -1460,6 +1460,21 @@
     "clear_inventory": "清空库存"
   },
   "item": {
+    "gather_threshold": {
+      "boon_rate": "同级{0}%额外采集率",
+      "intuition_rate": "价值提升几率{0}%",
+      "meticulous_rate": "慎重{0}%触发",
+      "must_gain": "同级100%获得率",
+      "scour_base_gain": "提纯+{0}",
+      "scrutiny_multi": "集中检查倍率{0}%",
+      "title": {
+        "field": "项目",
+        "gather_threshold": "获得力阈值",
+        "perception_threshold": "鉴别力阈值",
+        "threshold": "阈值"
+      },
+      "yield_plus": "高产II/丰收II +{0}"
+    },
     "price": {
       "no_price": "没有价格。",
       "no_price_reason": "可能原因：未获取过价格/物品未实装或不存在此品质/交易数据不足",
@@ -1492,6 +1507,8 @@
         "intro": "可以在以下网站中查询该物品的采集方法：",
         "note": "※ 国服未实装的道具可能在部分网站中没有数据。"
       },
+      "gathering_detail_type1": "难度系数：获得{0} / 鉴别{1}",
+      "gathering_detail_type2": "难度系数：{0}",
       "is_tradable": "该物品可以通过兑换获得：",
       "item_level_with_val": "物品品级 {ilv}",
       "medicine_recovery_info": "恢复{0}最大值的{1}% (上限{2})",

@@ -20,6 +20,7 @@ import { fixFuncConfig, type FuncConfigModel, type ItemPriceType } from '@/model
 import type EorzeaTime from '@/tools/eorzea-time'
 import UseConfig from '@/tools/use-config'
 import ItemSubmissionReward from './ItemSubmissionReward.vue'
+import HelpButton from '../general/HelpButton.vue'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -178,6 +179,85 @@ const itemTempAttrTexts = computed(() : string[] => {
       default:
         return `${getAttrName(attrId)} +${attrPercent}% ${t('common.quoted_maximum', attrMax)}`
     }
+  }
+})
+const itemGatherDifficulty = computed(() => {
+  if (!props.itemInfo.gatherInfo?.difficulty) return undefined
+
+  const [diffGather, diffPerception] = props.itemInfo.gatherInfo.difficulty
+  const diffText = diffGather !== diffPerception
+    ? t('item.text.gathering_detail_type1', [diffGather, diffPerception])
+    : t('item.text.gathering_detail_type2', [diffGather])
+  
+  const processThreshold = (threshold: { field: string; value: number; upstair?: boolean; }, keyval: number) => {
+    const func = threshold.upstair ? Math.ceil : Math.floor
+    return { ...threshold, value: func(threshold.value * keyval) }
+  }
+  const gatherThresholds = [
+    {
+      field: t('item.gather_threshold.must_gain'),
+      value: 0.8,
+    },
+    ...(
+      !props.itemInfo.collectable ? [
+        {
+          field: t('item.gather_threshold.yield_plus', [2]),
+          value: 0.9,
+        },
+        {
+          field: t('item.gather_threshold.yield_plus', [3]),
+          value: 1.1,
+        },
+      ] : []
+    ),
+    ...(
+      props.itemInfo.collectable ? [
+        {
+          field: t('item.gather_threshold.scour_base_gain', [200]),
+          value: 0.95,
+          upstair: true,
+        },
+        {
+          field: t('item.gather_threshold.meticulous_rate', [25]),
+          value: 1,
+        },
+      ] : []
+    )
+  ].map(threshold => processThreshold(threshold, diffGather))
+  const perceptionThresholds = [
+    ...(
+      !props.itemInfo.collectable ? [
+        {
+          field: t('item.gather_threshold.boon_rate', [30]),
+          value: 0.95,
+          upstair: true,
+        },
+        {
+          field: t('item.gather_threshold.boon_rate', [60]),
+          value: 1.5,
+          upstair: true,
+        },
+      ] : []
+    ),
+    ...(
+      props.itemInfo.collectable ? [
+        {
+          field: t('item.gather_threshold.scrutiny_multi', [125]),
+          value: 0.95,
+          upstair: true,
+        },
+        {
+          field: t('item.gather_threshold.intuition_rate', [40]),
+          value: 1,
+        },
+      ] : []
+    ),
+  ].map(threshold => processThreshold(threshold, diffPerception))
+
+  return {
+    diffGather, diffPerception,
+    diffText,
+    gatherThresholds, perceptionThresholds,
   }
 })
 const itemCraftRequires = computed(() => {
@@ -509,6 +589,57 @@ const innerPopTrigger = computed(() => {
           </div>
           <n-divider class="item-divider" />
           <div class="content" v-if="itemInfo.gatherInfo">
+            <div class="other-attrs" v-if="itemGatherDifficulty" style="gap: 2px;">
+              {{ itemGatherDifficulty.diffText }}
+              <HelpButton
+                :size="12"
+                icon="question"
+                color="var(--color-info)"
+                pop-type="popover"
+                :placement="isMobile ? 'bottom' : 'right-start'"
+                style="padding: 0;"
+              >
+                <div>
+                  <div class="bold">{{ t('item.gather_threshold.title.gather_threshold') }}</div>
+                  <n-table size="small" class="content-table tiny-table w-full">
+                    <thead>
+                      <tr>
+                        <th>{{ t('item.gather_threshold.title.field') }}</th>
+                        <th>{{ t('item.gather_threshold.title.threshold') }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="(threshold, index) in itemGatherDifficulty.gatherThresholds"
+                        :key="'gatherThresholds-' + index"
+                      >
+                        <td>{{ threshold.field }}</td>
+                        <td>{{ threshold.value }}</td>
+                      </tr>
+                    </tbody>
+                  </n-table>
+                  <div style="height: 4px;" />
+                  <div class="bold">{{ t('item.gather_threshold.title.perception_threshold') }}</div>
+                  <n-table size="small" class="content-table tiny-table w-full">
+                    <thead>
+                      <tr>
+                        <th>{{ t('item.gather_threshold.title.field') }}</th>
+                        <th>{{ t('item.gather_threshold.title.threshold') }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="(threshold, index) in itemGatherDifficulty.perceptionThresholds"
+                        :key="'perceptionThresholds-' + index"
+                      >
+                        <td>{{ threshold.field }}</td>
+                        <td>{{ threshold.value }}</td>
+                      </tr>
+                    </tbody>
+                  </n-table>
+                </div>
+              </HelpButton>
+            </div>
             <div>{{ t('item.text.gather_pos_info') }}</div>
             <div class="item">
               <LocationSpan
@@ -517,6 +648,7 @@ const innerPopTrigger = computed(() => {
                 :coordinate-x="itemInfo.gatherInfo.posX"
                 :coordinate-y="itemInfo.gatherInfo.posY"
                 :pop-trigger="innerPopTrigger"
+                pop-style="padding: 0;"
               />
             </div>
             <div class="other-attrs" v-if="itemInfo.gatherInfo.recommAetheryte" style="margin-left: 1em;">
@@ -760,6 +892,15 @@ const innerPopTrigger = computed(() => {
 .small-font {
   font-size: calc(var(--n-font-size) - 2px);
 }
+.content-table {
+  td {
+    min-width: 50px;
+  }
+  tr>th:not(:first-child),
+  tr>td:not(:first-child) {
+    text-align: right;
+  }
+}
 .item-popover {
   user-select: text;
   
@@ -894,19 +1035,12 @@ const innerPopTrigger = computed(() => {
         width: fit-content;
         margin-top: 2px;
         margin-left: 1em;
-
-        td {
-          min-width: 50px;
-        }
-        tr>th:not(:first-child),
-        tr>td:not(:first-child) {
-          text-align: right;
-        }
       }
       .content .other-attrs,
       .content.extra {
         display: flex;
-        gap: 5px;
+        align-items: center;
+        gap: 0 5px;
         flex-wrap: wrap;
         font-size: calc(var(--n-font-size) - 2px);
       }

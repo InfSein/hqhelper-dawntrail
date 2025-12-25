@@ -129,6 +129,8 @@ export interface ItemInfo {
   hqable: boolean
   /** 可否交易 */
   tradable: boolean
+  /** 可否制作/采集收藏品 */
+  collectable: boolean
   /**
    * 物品特殊属性，常见于成品装备。
    * 
@@ -227,6 +229,8 @@ export interface ItemInfo {
       end: string
     }[],
     timeLimitDescription: string,
+    /** 难度系数，格式为[获得难度,鉴别难度] */
+    difficulty: [number, number],
     /** 采集需要的最低鉴别力 */
     requirement?: number,
     /** 采集点的特效列表 */
@@ -308,6 +312,7 @@ export const getItemInfo = (item: `${number}` | number | CalculatedItem) => {
   itemInfo.patch = _item.p || '7.3'
   itemInfo.hqable = _item.hqable
   itemInfo.tradable = _item.tradable && !_item.collectable
+  itemInfo.collectable = _item.collectable
 
   // * 组装物品图标URL
   itemInfo.iconUrl = getImgCdnUrl(_item.icon)
@@ -385,6 +390,7 @@ export const getItemInfo = (item: `${number}` | number | CalculatedItem) => {
           posX, posY, posVal,
           timeLimitInfo: [],
           timeLimitDescription: '',
+          difficulty: [gatherData.difficulty[0], gatherData.difficulty[1]],
           requirement: gatherData.requirement,
           bonuses: gatherData.bonuses.map(bonus => {
             const [condi, condiVal, bonusId, bonusVal] = bonus

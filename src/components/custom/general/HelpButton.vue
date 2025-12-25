@@ -11,7 +11,7 @@ import {
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 interface HelpButtonProps {
-  icon: "info" | "question" | "warning"
+  icon?: "info" | "question" | "warning"
   color?: string,
   size?: number,
   placement?: import("vueuc/lib/binder/src/interface").Placement,

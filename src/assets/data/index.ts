@@ -51,6 +51,7 @@ export const XivUnpackedGatheringItems = JsonXivUnpackedGatheringItems as Record
   place: number
   coords: { x: string, y: string }
   bonuses: number[][]
+  difficulty: number[]
   popType: "normal" | "legendary" | "ephemeral"
   requirement?: number
   popTime?: {
