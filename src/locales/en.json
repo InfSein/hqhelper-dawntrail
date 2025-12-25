@@ -1,47 +1,47 @@
 {
   "about_app": {
     "staff": {
-      "contributor": "Contributors",
+      "contributor": "Contributor",
       "jobs": {
-        "etnatker": "Contributed to the feature that displays material lists in Teamcraft format",
-        "infsein": "Responsible for all design and development work",
-        "kim": "Contributed initial UI Japanese internationalization",
-        "nbb": "Responsible for providing game data and hosting support",
-        "personal_page": "Personal homepages: ",
-        "wcy": "Contributed the initial version of Windows client framework",
-        "yakita": "Responsible for the Japanese UI internationalization and the Chinese translation of upcoming item names"
+        "etnatker": "Contributed to the Teamcraft format material list feature",
+        "infsein": "Lead Designer and Developer",
+        "kim": "Contributed initial Japanese UI localization",
+        "nbb": "Provided game data and hosting support",
+        "personal_page": "Personal Homepage: ",
+        "wcy": "Contributed to the initial Windows client framework",
+        "yakita": "Responsible for Japanese UI localization and Chinese translation of new items"
       },
       "producer": "Producers",
       "title": "Staff"
     },
     "thank_donate": {
       "desc": {
-        "desc_1": "The birth and continuous development of HqHelper cannot be separated from the support of users.",
-        "desc_2": "to view the thankyou list."
+        "desc_1": "HqHelper's creation and ongoing development depend on user support.",
+        "desc_2": "to view the acknowledgement list."
       },
-      "title": "ThanksTo: Sponsorship"
+      "title": "Acknowledgements: Sponsorship"
     },
     "version": {
-      "client": "Current client version: {v}",
-      "web": "Current webpage version: {v}"
+      "client": "Client Version: {v}",
+      "web": "Web Version: {v}"
     }
   },
   "announcement": {
     "action": {
       "feedback_github": "Feedback (GitHub)",
-      "feedback_qquery": "Feedback (QQ Query)",
+      "feedback_qquery": "Feedback (QQ Questionnaire)",
       "follow_us": "Follow us",
       "ignore": "Don't show this again",
       "join_q_group": "Join Q-Group"
     },
     "content": {
-      "content_1_1": "With the implementation of Patch 7.4, the main high quality crafting gear for the entire DAWNTRAIL expansion has been fully released. The mission of HqHelper for version 7.0 has also come to a close.",
-      "content_1_2": "We will still continue to update HqHelper's database as the game version advances, but this will mainly be done via hotfixes and we will no longer be releasing frequent routine updates.",
-      "content_1_3": "You can still contact us through the various methods below to point out omissions, suggest new features/needs, or offer sponsorship, helping us to make HqHelper even better.",
-      "content_1_4": "Thank you for your continued support, and we'll see you in 8.0!"
+      "content_1_1": "With the release of Patch 7.4, the main high-quality crafting gear for the DAWNTRAIL expansion is complete. HqHelper's mission for version 7.0 has concluded.",
+      "content_1_2": "We will continue to update HqHelper's database as the game progresses, but primarily via hotfixes rather than frequent routine updates.",
+      "content_1_3": "You can still contact us through the channels below to report issues, suggest features, or offer sponsorship to help improve HqHelper.",
+      "content_1_4": "Thank you for your continued support. See you in 8.0!"
     },
     "message": {
-      "ignore_confirm": "Are you sure you want to stop showing this announcement?",
+      "ignore_confirm": "Are you sure you want to dismiss this announcement?",
       "ignored": "This announcement will no longer be displayed."
     },
     "title": {
@@ -51,31 +51,31 @@
   "appheader": {
     "menu": {
       "tooltip": {
-        "about_app": "Get something about us.",
-        "already_in_page": "You have already been inside the page of {val}.",
-        "changelog": "See what's new in this version, or check out the changelog.",
-        "check_updates": "Check version update of the application.",
-        "contact_us": "Get ways to contact with us.",
-        "cshelper": "Help you collect materials for collectable submissions.",
-        "devtool": "Open devtool for client.",
-        "donate_us": "Donate. Please act within your means.",
-        "download_client": "Download the client of HqHelper.",
-        "fchelper": "Help you collect materials for fashion clothes in this expansion.",
-        "fthelper": "Help you craft meal(food) and medicine(tincture).",
-        "gather_clock": "View time-limited gatherings.",
-        "ingame_inventory": "Manage your in-game inventory and determine whether to sync.",
-        "macro_manage": "Manage your craft macros.",
-        "open_in_new_window": "Open the {tool} in a new window",
-        "theme_switch_to_dark": "Switch to dark theme.",
-        "theme_switch_to_light": "Switch to light theme.",
-        "user_preference": "Change app settings by your will.",
-        "workflow": "Workflow allows you to freely add items as production targets."
+        "about_app": "Learn more about us.",
+        "already_in_page": "You are already on the {val} page.",
+        "changelog": "Check out what's new in this version.",
+        "check_updates": "Check for updates.",
+        "contact_us": "Contact us.",
+        "cshelper": "Helps you collect materials for collectable submissions.",
+        "devtool": "Open client devtools.",
+        "donate_us": "Donate. Please support us responsibly.",
+        "download_client": "Download HqHelper client.",
+        "fchelper": "Helps you collect materials for fashion accessories.",
+        "fthelper": "Helps you craft food and tinctures.",
+        "gather_clock": "Track time-limited gatherings.",
+        "ingame_inventory": "Manage in-game inventory and sync settings.",
+        "macro_manage": "Manage crafting macros.",
+        "open_in_new_window": "Open {tool} in a new window",
+        "theme_switch_to_dark": "Switch to Dark Mode.",
+        "theme_switch_to_light": "Switch to Light Mode.",
+        "user_preference": "Customize application settings.",
+        "workflow": "Workflow allows you to organize production targets."
       }
     },
     "tooltip": {
-      "already_in_index": "...But you have already been inside the home page of HqHelper.",
+      "already_in_index": "...You are already on the HqHelper home page.",
       "announcement_for_item_zh_translation": "DONT_SHOW",
-      "back_to_index": "Click to back to home page."
+      "back_to_index": "Return to the home page."
     }
   },
   "changelog": {
@@ -695,7 +695,7 @@
     "fix": "BUG FIXES",
     "milestone": "Milestone",
     "shared": {
-      "add_new_func": "Added a new feature: '{f}'.",
+      "add_new_func": "The “{f}” feature has been added.",
       "chs_db_update": "CHS game data updated to {ver}.",
       "chs_db_update_with_comma": "CHS game data updated to {ver}, ",
       "detail_optimized": "Optimized some details.",
@@ -798,12 +798,12 @@
       "func_setting": "Function Preferences",
       "gather_clock": "Gather Clock",
       "ingame_inventory": "In-game Inventory",
-      "item_price": "Item price",
-      "macro_manage": "Macro manage",
+      "item_price": "Item Price",
+      "macro_manage": "Macro Management",
       "recomm_process": "Recomm. Process",
       "setting_and_update": "Settings & Updates",
       "switch_theme": "Switch Theme",
-      "thank_list": "Thankyou List",
+      "thank_list": "Acknowledgements",
       "useful_tools": "Tools",
       "user_preference": "User Preferences",
       "workflow": "Workflow"
@@ -816,30 +816,30 @@
       "performance": "Performance",
       "update": "Update"
     },
-    "armor_attr": "Attribute",
+    "armor_attr": "Bonuses",
     "ask_every_time": "Ask every time",
     "auto": "Auto",
     "auto_refresh": "Auto-refresh",
-    "auxiliary_tools": "Tools",
-    "back_to_index": "Back to Home Page",
-    "back_to_upper": "Go Back",
-    "basic_info": "Base info",
+    "auxiliary_tools": "Auxiliary Tools",
+    "back_to_index": "Back to Home",
+    "back_to_upper": "Back",
+    "basic_info": "Basic Info",
     "benefit": "Benefit",
-    "brief_intro": "Introduction",
+    "brief_intro": "Intro",
     "cancel": "Cancel",
-    "cautions": "CAUTIONS",
-    "check_failed": "Check failed",
+    "cautions": "Cautions",
+    "check_failed": "Check Failed",
     "checking": "Checking...",
-    "chs_and_global_data_version": "CN Server {cnver} / Global Server {glbver}",
+    "chs_and_global_data_version": "CN: {cnver} / Global: {glbver}",
     "chs_data_version": "DONT_SHOW",
     "clear": "Clear",
-    "clear_selected": "Clear selected",
+    "clear_selected": "Clear Selected",
     "cleared": "Cleared",
     "click": "Click",
-    "click_here": "CLICK HERE",
-    "click_here_show_menu": "CLICK HERE",
-    "click_or_drag_to_upload": "Click or drag the file to this area to upload",
-    "click_to_copy": "Click to copy",
+    "click_here": "Click Here",
+    "click_here_show_menu": "Click to Show Menu",
+    "click_or_drag_to_upload": "Click or drag file here to upload",
+    "click_to_copy": "Click to Copy",
     "client_version": "Client Version",
     "close": "Close",
     "collectability": "Collectability",
@@ -848,26 +848,26 @@
     "confirm": "Confirm",
     "content": "Content",
     "copy": "Copy",
-    "copy_item_name": "Copy item name",
+    "copy_item_name": "Copy Item Name",
     "cost": "Cost",
     "cover": "Cover",
     "craft": {
       "control": "Control",
       "cp": "CP",
       "craftsmanship": "Craftsmanship",
-      "title": "Recipe"
+      "title": "Crafting"
     },
-    "craft_job": "Craft Job",
-    "craft_requirements": "Attribute requirements",
+    "craft_job": "Crafter",
+    "craft_requirements": "Stat Requirements",
     "curr_version_with_val": "Current Version: {v}",
     "current": "Current",
     "data": "Data",
     "data_missing": "Data missing",
     "delete": "Delete",
-    "developing": "Under development",
+    "developing": "In Development",
     "disable": "Disable",
-    "dont_refresh": "Don't refresh",
-    "drag_to_sort": "Drag to sort",
+    "dont_refresh": "Do Not Refresh",
+    "drag_to_sort": "Drag to Sort",
     "edit": "Edit",
     "effect": "Effects",
     "email": "Email",
@@ -877,79 +877,79 @@
     "expired": "Expired",
     "export": "Export",
     "export_excel": "Export Excel",
-    "export_to_excel": "Export to .xlsx",
-    "fashion_cloth": "Fashion Cloth",
+    "export_to_excel": "Export to Excel",
+    "fashion_cloth": "Fashion Clothes",
     "favorite": {
       "desc": {
         "desc_1": "Click to star/unstar this item.",
-        "desc_2": "Item stared would be shown in \"Starred\" column."
+        "desc_2": "Starred items will appear in the \"Starred\" tab."
       },
       "title": "Star"
     },
     "favorited": "Starred",
     "file_name": "File name",
     "fold": "Fold",
-    "fold_all": "Collapse all",
-    "follow_preference_of_item_price": "Follow the 'Item Price' settings in 'Function Preferences'.",
+    "fold_all": "Collapse All",
+    "follow_preference_of_item_price": "Follows \"Item Price\" settings in Preferences.",
     "food": "Food",
     "game_data_version": "Game data version: Patch {val}",
-    "game_macro": "Game macro",
+    "game_macro": "Game Macro",
     "gather": "Gathering",
-    "gatherable_now": "Can gather now",
+    "gatherable_now": "Gatherable Now",
     "gear_set": {
-      "recomm": "Recomm. gear sets",
-      "simulate": "Gearing simulator",
-      "title": "Gears"
+      "recomm": "Recommended Gearsets",
+      "simulate": "Gear Simulator",
+      "title": "Gear"
     },
-    "global_data_version": "Game data version: Patch {val}",
-    "go_back": "Return",
+    "global_data_version": "Global Data: Patch {val}",
+    "go_back": "Back",
     "here": "HERE",
     "hqhelper_version": "HqHelper Version",
     "id_macro": "Macro #{id}",
     "ignore": "Ignore",
     "image_selector": {
       "text": {
-        "custom_image": "Select image..."
+        "custom_image": "Choose Image..."
       },
       "tooltip": {
-        "custom_image_would_be_rewritten": "A background image has already been uploaded. Uploading again will overwrite it."
+        "custom_image_would_be_rewritten": "Uploading a new image will overwrite the existing one."
       }
     },
     "imexport": "Import/Export",
     "import": "Import",
-    "import_from_excel": "Import from .xlsx",
-    "index": "Home Page",
+    "import_from_excel": "Import from Excel",
+    "index": "Home",
     "item": "Item",
     "item_name": "Item Name",
     "item_price_type": "Item Price Type",
-    "item_search_input_placeholder": "Search by item name/ID/ilv/patch",
-    "item_search_input_placeholder_2": "Search by macro's name/remark/tags and items' name/ID/ilv/patch",
+    "item_search_input_placeholder": "Search by Name/ID/iLv/Patch",
+    "item_search_input_placeholder_2": "Search Macros or Items...",
     "job": "Job",
     "job_or_affix": "Job/Affix",
-    "just_now": "Just now",
+    "just_now": "Just Now",
     "lang_en": "English",
     "lang_ja": "Japanese",
     "lang_zh": "Chinese",
     "last_update_with_val": "Last update: {val}",
     "latest_version": "Latest Version: ",
-    "line_max_len": "Up to {limit} lines",
-    "list": "View list",
-    "load_failed": "Failed to load.",
+    "line_max_len": "Max {limit} lines",
+    "list": "List",
+    "load_failed": "Load Failed",
     "loading": "Loading...",
     "login": "Login",
-    "login_name": "Loginname",
+    "login_name": "Username",
     "logout": "Log out",
     "loose": "Loose",
-    "macro_content": "Macro content",
+    "macro_content": "Macro Content",
     "macro_with_index": "Macro #{index}",
-    "main_ui": "Main interface",
+    "main_ui": "Main Interface",
     "manage": "Manage",
     "map": "Map",
     "medicine": "Medicine",
     "message": {
       "ask_continue": "Continue?",
       "changes_saved": "Saved",
-      "confirm_delete_with_name": "Are you sure you want to delete {name}?",
+      "confirm_delete_with_name": "Delete {name}?",
       "copied_with_content": "\"{content}\" copied",
       "copy_failed": "Copy action failed",
       "copy_failed_unexpected_error": "Copy action failed: unexpected error.",
@@ -961,15 +961,15 @@
       "export_failed_with_error": "Exporting failed: {err}",
       "get_price_failed": "Get Item Price Failed",
       "import_failed": "Import failed",
-      "import_failed_with_error": "Importing failed: {err}",
-      "import_succeed": "Import succeeded",
+      "import_failed_with_error": "Import Failed: {err}",
+      "import_succeed": "Import Successful",
       "item_already_have": "This item already exists",
       "nothing_to_copy": "Nothing to copy.",
       "operation_irreversible": "This operation is irreversible.",
-      "please_input_item_name": "Please input item name",
+      "please_input_item_name": "Please enter item name",
       "please_input_val": "Please input {val}",
       "please_wait_for_a_while": "Please wait a while.",
-      "sync_succeed": "Sync succeed"
+      "sync_succeed": "Sync Successful"
     },
     "mode": "Mode",
     "mquoted_view_statement": "[View statements]",
@@ -981,9 +981,9 @@
     "no_content": "No content",
     "no_content_matched": "No matching content",
     "no_data": "No data",
-    "no_required_items": "Now items required",
+    "no_required_items": "No items required",
     "not_planned": "No plans yet",
-    "note_x": "Note {val}：",
+    "note_x": "Note {val}: ",
     "nothing": "None",
     "number": "No.",
     "open_in": {
@@ -1003,71 +1003,71 @@
     "other": "Other",
     "overwrite": "Overwrite",
     "password": "Password",
-    "patch_x": "Patch{val}",
+    "patch_x": "Patch {val}",
     "please_refer_to": "Please refer to:",
     "prefix": "Prefix",
     "preset": "Presets",
     "preview": "Preview",
     "price": "Price",
-    "process": "Processes",
+    "process": "Steps",
     "qq": "QQ",
     "quoted_leveling": "(Leveling)",
     "quoted_maximum": "(Max {val})",
     "recheck": "Recheck",
-    "recomm": "Recomm.",
+    "recomm": "Recomm",
     "reduce": "Aetherial Reduction",
     "refresh": "Refresh",
     "refreshing": "Refreshing...",
     "register": "Register",
-    "remain_time": "Remaining time",
-    "remain_with_colon": "Remains:",
-    "reset_to_0": "Reset",
+    "remain_time": "Time Remaining",
+    "remain_with_colon": "Remaining:",
+    "reset_to_0": "Reset to 0",
     "retry": "Retry",
     "reward": "Reward",
-    "route_card_desc": "※ You are currently on a subpage of HqHelper.",
+    "route_card_desc": "※ You are on an HqHelper subpage.",
     "rule": "Rules",
     "save": "Save",
-    "save_succeed": "Successfully saved",
+    "save_succeed": "Saved Successfully",
     "select_all": "Select All",
-    "select_invert": "Select Invert",
+    "select_invert": "Invert Selection",
     "select_item": "Select Items",
     "select_item2": "Select Item",
     "selected": "Selected",
-    "server": "Item Server",
+    "server": "Server",
     "setting": "Settings",
-    "simulate_craft": "Simulate",
+    "simulate_craft": "Simulate Craft",
     "simulator": "Simulator",
     "special": "Special",
     "special_notice": "Special Reminder",
     "statement": "Statements",
     "statistics": "Statistics",
-    "step_and_sec": "{step_count}Step,{time_count}Sec",
+    "step_and_sec": "{step_count} steps, {time_count}s",
     "strict": "Strict",
     "submission": "Submission",
-    "subtotal": "Total",
-    "summation": "Add",
-    "sync": "Synchronous",
+    "subtotal": "Subtotal",
+    "summation": "Accumulate",
+    "sync": "Sync",
     "tag": "Tag",
     "target": "Target",
     "temp_trans": "DONT_SHOW",
     "time": {
-      "val_days": "{val} Days",
-      "val_hours": "{val} Hours"
+      "val_days": "{val}d",
+      "val_hours": "{val}h"
     },
     "timeout": "timeout",
     "tinc": "Tinctures",
-    "tip": "Notice",
-    "tomescript": "TomeScript",
-    "tomescript_type": "Tome Script Type",
-    "trade": "Exchanges",
+    "tip": "Tip",
+    "tomescript": "Tomestone",
+    "tomescript_type": "Tomestone Type",
+    "trade": "Exchange",
     "twitter_x": "Twitter (X)",
     "uid": "UID",
     "unit": {
       "ge": "(s)"
     },
-    "unit_price": "Price",
+    "unit_price": "Unit Price",
     "unknown": "UNKNOWN",
-    "update_immedi": "Update now",
+    "update_immedi": "Update Now",
     "updating": "Updating",
     "val_control": "Control {control_val}",
     "val_craftsmanship": "Craftsmanship {craftsmanship_val}",
@@ -1079,11 +1079,11 @@
     "val_seconds": "{second}s",
     "verify_code": "Verify code",
     "view_analysis": "View Analysis",
-    "view_statement": "View statements",
+    "view_statement": "View Statements",
     "warn": "Warning",
     "weibo": "Weibo",
-    "will_be_named_with_time_when_empty": "If not filled, it will be named by time by default",
-    "work_state": "Work States"
+    "will_be_named_with_time_when_empty": "Defaults to time if empty",
+    "work_state": "Work State"
   },
   "contact_us": {
     "feedback": {
@@ -1091,48 +1091,48 @@
         "qr_code": "OR scan this qr-code"
       },
       "desc": {
-        "desc_1": "As long as you use QQ, communicating through Q-Group will be the most convenient way. ",
-        "desc_10": "to create an issue. ",
-        "desc_11": "Please note that you should follow the community guidelines and read the issue guideline carefully. ",
-        "desc_2": "You can ask questions, give suggestions, or just chat inside. ",
-        "desc_3": "If you have already logged into QQ, just",
-        "desc_4": "to join our Q-Group. ",
-        "desc_5": "You can also search the group number",
-        "desc_6": "to join. ",
-        "desc_7": "In Github, you can create issues to report bugs or suggest improvements and new features. ",
-        "desc_8": "Through this way of feedback, you can track the progress of the problem at any time. ",
-        "desc_9": "If you have a Github account, you can"
+        "desc_1": "The most convenient way to reach us is via our QQ Group.",
+        "desc_10": "to create an issue.",
+        "desc_11": "Please follow community guidelines and read the issue template carefully.",
+        "desc_2": "Feel free to ask questions, share suggestions, or just chat.",
+        "desc_3": "If you have QQ, simply",
+        "desc_4": "to join.",
+        "desc_5": "You can also search for group number",
+        "desc_6": ".",
+        "desc_7": "On GitHub, you can open issues to report bugs or suggest features.",
+        "desc_8": "This allows you to track the progress of your request.",
+        "desc_9": "If you have a GitHub account, you can"
       },
       "sub_title": {
-        "github_issue": "Create an issue on Github"
+        "github_issue": "Create an Issue on GitHub"
       },
       "title": "Consultation & Feedback"
     },
     "follow": {
       "desc": {
-        "desc_1": "We welcome you to follow HqHelper's latest news through social media, as long as you don't mind being disturbed. ",
-        "desc_2": "Our Weibo account only provides Chinese contents. ",
-        "desc_3": "to follow us. ",
-        "desc_4": "Our twitter(X) account now provides limited English contents. "
+        "desc_1": "Follow HqHelper on social media for the latest news.",
+        "desc_2": "Our Weibo account provides content in Chinese.",
+        "desc_3": "to follow us.",
+        "desc_4": "Our Twitter (X) account provides limited content in English."
       },
-      "title": "Follow latest news"
+      "title": "Follow Us"
     }
   },
   "copy_macro": {
     "message": {
-      "failed": "Copy action failed, please select the text in the preview area and copy manually"
+      "failed": "Copy failed. Please manually select and copy the text from the preview area."
     },
     "mode": {
       "multi_line": {
         "desc": {
-          "desc_1": "Currently in multi-line mode",
-          "desc_2": "The copied macro needs to be pasted into the user macro to be executed and sent"
+          "desc_1": "Multi-line mode active",
+          "desc_2": "Paste the copied macro into in-game User Macros to execute."
         }
       },
       "single_line": {
         "desc": {
-          "desc_1": "Currently in single-line mode",
-          "desc_2": "The copied macro can be pasted directly into the in-game chat box to send"
+          "desc_1": "Single-line mode active",
+          "desc_2": "Paste the copied macro directly into the in-game chat box."
         }
       }
     },
@@ -1146,14 +1146,14 @@
   },
   "cost_and_benefit": {
     "tooltip": {
-      "cal_hq_price_here": "Calculated by items' HQ price.",
-      "cal_nq_price_here": "Calculated by items' NQ price."
+      "cal_hq_price_here": "Based on HQ item prices.",
+      "cal_nq_price_here": "Based on NQ item prices."
     }
   },
   "cs_helper": {
     "action": {
       "craft_target": "Craft Target",
-      "need_craft": "Need to craft",
+      "need_craft": "Required to Craft",
       "reward": "Reward",
       "target_scrip_amount": "Target Scrip Amount"
     },
@@ -1162,7 +1162,7 @@
       "lv91_100": "Lv. 91~100"
     },
     "message": {
-      "select_craft_target_first": "Please select craft target first"
+      "select_craft_target_first": "Please select a crafting target first."
     },
     "mode": {
       "free": "Free Mode",
@@ -1170,86 +1170,86 @@
     },
     "select_collectable_submission": "Select Collection",
     "tooltip": {
-      "clear_selected": "Clear collections selected"
+      "clear_selected": "Clear selected collections"
     }
   },
   "donate_us": {
     "desc": {
-      "desc_1": "Thanks for your support for HqHelper.",
-      "desc_2": "However, please read the following notes before starting the sponsorship:",
-      "desc_3": "After sponsoring, your ID and message will be updated to the thankyou list. The thankyou list is manually counted and may have a delay of several days.",
-      "desc_4": "You can specify the sponsor ID and message you want to display in the transfer note/sponsorship message.",
-      "desc_5": "Sponsorship is about the intention, not the amount, and there are no returns. Please act within your means.",
-      "desc_6": "After joining the thankyou list, you can also modify your name. However, this requires manual entry, so it cannot be changed frequently.",
-      "desc_7": "If you encounter any problems, please contact us in the QQ group."
+      "desc_1": "Thank you for supporting HqHelper.",
+      "desc_2": "Please read the following before sponsoring:",
+      "desc_3": "Sponsor ID and message will be added to the Acknowledgements list. Updates are manual and may take a few days.",
+      "desc_4": "Specify your display ID and message in the transfer note.",
+      "desc_5": "Sponsorship is voluntary and non-refundable. Please contribute responsibly within your means.",
+      "desc_6": "You can request name changes later, but please avoid frequent updates as they are processed manually.",
+      "desc_7": "For any issues, please contact us via the QQ Group."
     },
     "final_confirm": {
       "desc": {
-        "desc_1": "You will start sponsoring",
+        "desc_1": "You are about to sponsor",
         "desc_2": "，to support HqHelper's {contents}.",
-        "desc_3": "developments",
-        "desc_4": "data update and balance the expenses of the hosting server (nbb.fan)",
-        "desc_5": "※Please indicate in the sponsorship message that you are sponsoring because of HqHelper.",
-        "desc_6": "This member has other projects that are also accepting sponsorship.",
-        "desc_7": "If you do not specify, we may ignore you when counting the thankyou list."
+        "desc_3": "development",
+        "desc_4": "data updates and server costs (nbb.fan)",
+        "desc_5": "※Please mention 'HqHelper' in your sponsorship message.",
+        "desc_6": "This member accepts sponsorship for multiple projects.",
+        "desc_7": "If unspecified, your contribution may not be credited to HqHelper."
       },
-      "title": "Final confirmation"
+      "title": "Confirm Sponsorship"
     },
     "start_donate": {
       "desc": {
-        "desc_1": "Please click the link below to sponsor:",
-        "desc_2": "Please use the mobile QQ or TIM to scan the QR code below:",
-        "desc_3": "Please use Alipay to scan the Qr code below:",
-        "desc_4": "Please use WeChat to scan the image below:"
+        "desc_1": "Click the link below to sponsor:",
+        "desc_2": "Scan the QR code with mobile QQ or TIM:",
+        "desc_3": "Scan with Alipay:",
+        "desc_4": "Scan with WeChat:"
       },
-      "title": "Start sponsoring"
+      "title": "Sponsor Now"
     },
     "target": {
-      "placeholder": "Please select staff to sponsor",
-      "title": "Sponsorship target"
+      "placeholder": "Select recipient",
+      "title": "Recipient"
     },
     "way": {
       "aifadian": "Aifadian",
       "alipay": "Alipay",
-      "placeholder": "Please select sponsorship method",
-      "title": "Sponsorship method",
+      "placeholder": "Select payment method",
+      "title": "Payment Method",
       "wechat_admire": "WeChat Pay"
     }
   },
   "download_page": {
     "link": {
-      "cn_with_index": "CN Users' download link {index}",
-      "global": "International download link"
+      "cn_with_index": "CN Download Link {index}",
+      "global": "Global Download Link"
     },
     "text": {
-      "text_1": "Most of HqHelper's features can be used directly on the web.",
+      "text_1": "Most HqHelper features are available on the web.",
       "text_10": "※ Only compatible with Windows 7 or later",
       "text_11": "{platform} Client",
       "text_12": "※Only available for Mac OS 10.13 or later",
       "text_13": "※Only available for devices with M-series chips",
-      "text_14": "We currently cannot provide Apple developer signatures. During installation, you might see a message saying \"'HqHelper' is damaged and can't be opened. You should move it to the Trash.\"",
-      "text_15": "You need to disable security check restrictions or add HqHelper to the whitelist to install successfully.",
-      "text_2": "However, to accommodate user preferences and enable features that browsers cannot support, we also provide a client version.",
-      "text_3": "Are there any special features?",
-      "text_4": "Even if the network is poor or the remote server crashes, the client can still provide basic calculation services.",
-      "text_5": "The client allows you to pin the gathering timer when opened in a new window like overlay.",
-      "text_6": "You can bookmark this page to easily download the latest version of the client in the future.",
-      "text_7": "The client is merely a container for HqHelper. After downloading the latest client version, you may still need to update HqHelper separately.",
+      "text_14": "We do not have an Apple developer signature. If you see 'HqHelper is damaged'...",
+      "text_15": "You must disable Gatekeeper or whitelist HqHelper to install.",
+      "text_2": "However, we provide a client version for exclusive features not possible in a browser.",
+      "text_3": "Client-Exclusive Features:",
+      "text_4": "Offline capability for basic calculations.",
+      "text_5": "Gathering timer overlay with pinning support.",
+      "text_6": "Bookmark this page for easy access to client updates.",
+      "text_7": "The client is a container; internal HqHelper updates may still be required.",
       "text_8": "Current latest version: {ver}",
-      "text_9": "Click the button below to download."
+      "text_9": "Click below to download."
     }
   },
   "err_404": {
-    "advise": "Please try Go Back or Back to Home Page.",
-    "page_not_exist": "Page does not exist."
+    "advise": "Please go Back or return to Home.",
+    "page_not_exist": "Page not found."
   },
   "fc_helper": {
     "tooltip": {
-      "clear_selected": "Clear fashion clothes selected"
+      "clear_selected": "Clear selected fashion clothes"
     }
   },
   "fchelper": {
-    "select_fashion_cloth": "Select Fashion Cloth"
+    "select_fashion_cloth": "Select Fashion Clothes"
   },
   "festival_egg": {
     "chirstmas": {
@@ -1263,11 +1263,11 @@
   },
   "ft_helper": {
     "option": {
-      "hide_precraft_materials": "Hide materials of precrafts"
+      "hide_precraft_materials": "Hide precraft materials"
     },
-    "select_food_and_tinc": "Select food and tinctures",
+    "select_food_and_tinc": "Select Food & Tinctures",
     "tooltip": {
-      "clear_selected": "Clear selected food and medicine"
+      "clear_selected": "Clear selected food and medicines"
     }
   },
   "game": {
@@ -1322,7 +1322,7 @@
           "detailed": "Weapon/Tool: Mainhand",
           "title": "Mainhand"
         },
-        "mainoff_hand": "Main/Off-hand",
+        "mainoff_hand": "Main/Offhand",
         "offhand": {
           "detailed": "Weapon/Tool: Offhand",
           "title": "Offhand"
@@ -1335,32 +1335,32 @@
     "export_alarm_macro": {
       "preference": {
         "alarm_name_includes": "Alarm name includes:",
-        "clean_old_alarms": "Clear old alarms",
-        "no_repeat": "No repeat"
+        "clean_old_alarms": "Clear Existing Alarms",
+        "no_repeat": "Do Not Repeat"
       },
-      "title": "Export alarm macro",
+      "title": "Export Alarm Macro",
       "tooltip": {
-        "alarm_name_length": "Alarm name has 20 characters limit, and will be truncated if too long."
+        "alarm_name_length": "Alarm names are limited to 20 characters and will be truncated."
       }
     },
     "grouptitle_with_patch_and_il": "Patch {patch} (IL{il})",
     "message": {
       "following_items_can_be_gathered": "Following items can be gathered:",
-      "system_notice_denied": "Noitfication permission was rejected, please check browser's website permission setting.",
-      "system_notice_not_supported": "Current browser/device does not support system notification function."
+      "system_notice_denied": "Notification permission denied. Please check browser settings.",
+      "system_notice_not_supported": "Your browser/device does not support system notifications."
     },
     "preference": {
-      "disable_item_pop": "Ban item button popup",
+      "disable_item_pop": "Disable Item Popups",
       "mention_way": {
         "option": {
           "sound": "Sound",
-          "system_notice": "System notification"
+          "system_notice": "System Notification"
         },
-        "title": "Notification way"
+        "title": "Notification Method"
       },
       "pin_gatherable_items": "Pin gatherable items",
-      "pin_window": "Window top",
-      "show_map": "Show gather map",
+      "pin_window": "Always on Top",
+      "show_map": "Show Gathering Map",
       "sort_by": {
         "option": {
           "gather_start_time": "Start Time"
@@ -1370,29 +1370,29 @@
       "title": "Clock Configurations"
     },
     "remain_time": {
-      "tooltip": "Remaining time of the currently gatherable item / Remaining time until the start time of un-gatherable item"
+      "tooltip": "Time remaining for active nodes / Time until spawn for inactive nodes."
     },
     "text": {
       "no_items": "No items here.",
       "star_with_item": "Star \"{val}\"",
-      "subscribe": "Subscribe",
-      "subscribe_with_item": "Subscribe \"{val}\"",
-      "subscribed": "Subscribed",
-      "un_star_all": "Unstar all",
+      "subscribe": "Track",
+      "subscribe_with_item": "Track \"{val}\"",
+      "subscribed": "Tracked",
+      "un_star_all": "Unstar All",
       "un_star_with_item": "Unstar \"{val}\"",
-      "unsubscribe_all": "Unsubscribe all",
-      "unsubscribe_with_item": "Unsubscribe \"{val}\""
+      "unsubscribe_all": "Untrack All",
+      "unsubscribe_with_item": "Untrack \"{val}\""
     },
     "tooltip": {
-      "subscribe_1": "Click to subscribe/unsubscribe this item.",
-      "subscribe_2": "When the subscribed item can be gathered, we will send you a notification according to your setting \"{setting}\"."
+      "subscribe_1": "Click to track/untrack this item.",
+      "subscribe_2": "When the tracked item is gatherable, we will send you a notification according to your \"{setting}\" setting."
     }
   },
   "ingame_inventory": {
     "preference": {
       "inventory_other_items_way": {
         "desc": {
-          "desc_1": "How to handle items that are not in the in-game inventory when deciding between automatic or manual synchronization."
+          "desc_1": "How to handle items missing from in-game inventory during sync."
         },
         "option": {
           "ignore": {
@@ -1402,108 +1402,128 @@
           },
           "reset_to_0": {
             "tooltip": {
-              "tooltip_1": "Reset the quantity to 0"
+              "tooltip_1": "Reset quantity to 0"
             }
           }
         },
-        "title": "How to handle items not in in-game inventory"
+        "title": "Handle items missing from inventory"
       },
       "inventory_statement_enable_sync": {
         "desc": {
-          "desc_1": "After enabling this option, every time the pro statment is opened in the main interface and FT Helper, the 'Prepared' quantity in the statement will be set as the quantity of in-game inventory."
+          "desc_1": "Enable to auto-sync 'Prepared' quantity with in-game inventory when opening the Crafting List."
         },
-        "title": "Enable automatic sync of in-game inventory in the statement modal"
+        "title": "Auto-sync Inventory to Statement"
       },
       "inventory_sync_reverse_mode": {
         "desc": {
-          "desc_1": "Determine how to handle items with zero 'Prepared' quantity and items that are not in the statement when performing reverse synchronization."
+          "desc_1": "Handle zero-quantity or missing items during reverse sync."
         },
         "option": {
           "loose": {
             "tooltip": {
-              "tooltip_1": "Ignore items with 'Prepared' quantity of 0 and items not in the statement"
+              "tooltip_1": "Ignore items with 0 'Prepared' or missing from statement"
             }
           },
           "overwrite": {
             "tooltip": {
-              "tooltip_1": "Completely reset inventory and overwrite existing inventory with statement data"
+              "tooltip_1": "Overwrite inventory completely with statement data"
             }
           },
           "strict": {
             "tooltip": {
-              "tooltip_1": "Synchronize items with 'Prepared' quantity of 0, ignore items not in the statement"
+              "tooltip_1": "Sync 0 quantities, ignore missing items"
             }
           }
         },
-        "title": "Reverse synchronization mode"
+        "title": "Reverse Sync Mode"
       },
       "inventory_workflow_enable_sync": {
         "desc": {
-          "desc_1": "Clicking the button would make the 'Prepared' quantity set to the quantity of in-game inventory."
+          "desc_1": "Clicking the button sets 'Prepared' quantity to in-game inventory amount."
         },
-        "title": "Enable manual sync of in-game inventory in the workflow"
+        "title": "Enable Manual Inventory Sync"
       },
       "inventory_workflow_enable_sync_reverse": {
         "desc": {
-          "desc_1": "After clicking the button, the inventory quantity will be set to the 'Prepared' quantity in the statement."
+          "desc_1": "Clicking the button sets in-game inventory to 'Prepared' quantity."
         },
-        "title": "Enable inventory reverse synchronization in workflow"
+        "title": "Enable Reverse Inventory Sync"
       }
     },
     "shared": {
       "desc": {
-        "add_button_to_workflow_when_enabled": "After enabling this option, a '{f2}' button will be added to the '{f1}' page of the workflow."
+        "add_button_to_workflow_when_enabled": "Enabling this adds a '{f2}' button to the workflow '{f1}' page."
       }
     }
   },
   "inventory": {
-    "clear_inventory": "Clear the inventory"
+    "clear_inventory": "Clear Inventory"
   },
   "item": {
+    "gather_threshold": {
+      "boon_rate": "+{0}% Boon bonus",
+      "intuition_rate": "Intuition Rate reach {0}%",
+      "meticulous_rate": "Meticulous Rate reach {0}%",
+      "must_gain": "100% Gather",
+      "scour_base_gain": "Scour +{0}",
+      "scrutiny_multi": "Scrutiny multiplier for {0}%",
+      "title": {
+        "field": "Item",
+        "gather_threshold": "Gathering Threshold",
+        "perception_threshold": "Perception Threshold",
+        "threshold": "Threshold"
+      },
+      "yield_plus": "+{0} BY2/BH2"
+    },
     "price": {
-      "no_price": "No price.",
-      "no_price_reason": "Possible reasons: Price not retrieved/Item not implemented or does not exist in this quality/Insufficient transaction data.",
-      "no_price_received": "No price retrieved.",
-      "no_price_received_reason": "Possible reasons: Item not implemented/Insufficient transaction data.",
-      "no_show_price_type_setted": "No price types set to display yet. Please configure in the '{option}' setting in preferences.",
-      "refreshing": "Refreshing price",
-      "update_failed": "Failed to update price",
-      "update_succeed": "Price updated"
+      "no_price": "No Price.",
+      "no_price_reason": "Reasons: Price not fetched, item not exist, or insufficient data.",
+      "no_price_received": "No Price Retrieved",
+      "no_price_received_reason": "Reasons: Item not exist or insufficient data.",
+      "no_show_price_type_setted": "No price types selected. Please configure '{option}' in Preferences.",
+      "refreshing": "Refreshing Price",
+      "update_failed": "Price Update Failed",
+      "update_succeed": "Price Updated"
     },
     "text": {
-      "attribute_isnq_or_hq_desc": "※ Only the {val} attribute of the item is displayed here",
-      "basic_info": "[Patch{patch}] [{id}]",
-      "cannot_hq": "High-quality Uncraftable",
-      "cannot_quick_synthesis": "Quick Synthesis Unavailable",
-      "cannot_switch_hqornq": "Item does not have {0}, cannot switch",
+      "attribute_isnq_or_hq_desc": "※ Displaying {val} attributes.",
+      "basic_info": "[Patch {patch}] [ID: {id}]",
+      "cannot_hq": "HQ Unavailable",
+      "cannot_quick_synthesis": "No Quick Synthesis",
+      "cannot_switch_hqornq": "Cannot switch (Item lacks {0})",
       "click_to_switch_hqornq": "Click to switch",
-      "control_with_val": "{val} Control",
-      "copy_other_names": "Copy item name (other lang)",
-      "craft_condi": "Required:",
-      "craftsmanship_with_val": "{val} Craftsmanship",
-      "curr_show_hqornq": "Displaying {0} attribute of the item",
-      "gather_condi": "Gathering conditions:",
+      "control_with_val": "Control: {val}",
+      "copy_other_names": "Copy Name (Other Langs)",
+      "craft_condi": "Requirements:",
+      "craftsmanship_with_val": "Craftsmanship: {val}",
+      "curr_show_hqornq": "Displaying status: {0}",
+      "gather_bonus": "Gathering Bonus: ",
+      "gather_bonus_description": "{0} reaches {1}: ",
+      "gather_condi": "Gathering Conditions:",
       "gather_level_info": "{job} Lv. {lv}",
-      "gather_pos_info": "This item could be gathered at:",
-      "gather_time_info": "This item could be gathered only in following ET:",
+      "gather_pos_info": "Gatherable at:",
+      "gather_time_info": "Gatherable during ET:",
       "gather_website": {
-        "intro": "You might obtain gathering ways of this item in:",
-        "note": "※ Items that not implemented in the CHS server may not have data on some of the given websites."
+        "intro": "External sources:",
+        "note": "Note: Items not implemented in CHS may lack data."
       },
-      "is_tradable": "This item could be traded by:",
+      "gathering_detail_type1": "Difficulty factor：gets{0} / ID{1}",
+      "gathering_detail_type2": "Difficulty factor: {0}",
+      "is_tradable": "Tradeable via:",
       "item_level_with_val": "ITEM LEVEL {ilv}",
-      "medicine_recovery_info": "Restores up to {1}% of {0} ({2} points max)",
-      "multi_get_each_trade": "Could get {val} each exchanging.",
+      "medicine_recovery_info": "Restores {1}% of {0} (Max {2})",
+      "multi_get_each_trade": "Yields {val} per exchange.",
       "need_learn": "Need to learn",
-      "not_installed_in_chs": "The item has not yet been installed in CHS.",
+      "not_installed_in_chs": "Item not implemented in CHS.",
+      "perception_with_val": "Perception needs to reach {val}",
       "quoted_position": "(X:{x}, Y:{y})",
-      "recipe_detail": "Durability {dur} / Progress {pro} / Quality {qua}",
+      "recipe_detail": "Durability: {dur} / Progress: {pro} / Quality: {qua}",
       "recipe_level_info": "{job} Lv. {lv}{star}",
-      "reduce_can_get": "Reduce this item might get:",
-      "reduce_info": "This item could be reduced from:",
-      "simulate_craft_bestcraft": "Simulate-craft in BestCraft",
-      "simulate_craft_teamcraft": "Simulate-craft in TeamCraft",
-      "timelimited_gatherable": "ONGOING",
+      "reduce_can_get": "Aetherial Reduction yields:",
+      "reduce_info": "Reducible from:",
+      "simulate_craft_bestcraft": "Simulate in BestCraft",
+      "simulate_craft_teamcraft": "Simulate in Teamcraft",
+      "timelimited_gatherable": "ACTIVE",
       "yields_info": "Yields: {val}",
       "zh_name_is_temp": "DONT_SHOW"
     }
@@ -1511,108 +1531,108 @@
   "macro_manage": {
     "imexport": {
       "desc": {
-        "desc_1": "Unlike the import / export on the main interface, the exported file here is not a table that can be read and edited, but a simple data file.",
-        "desc_2": "Please do not directly edit the content of the exported file to avoid data damage.",
-        "desc_3": "Import your own backup or someone else's share"
+        "desc_1": "This export is a raw data file, not an editable table.",
+        "desc_2": "Do not edit the file directly to avoid corruption.",
+        "desc_3": "Import backups or shared macros."
       },
-      "title": "Macro manage: Import / Export"
+      "title": "Macro Manager: Import / Export"
     },
     "message": {
-      "cannot_set_all_zero_creqs": "Cannot set frequently used attribute sets with all values as 0",
-      "cannot_set_duplicate_creqs": "Cannot set duplicate frequently used attribute sets",
-      "cannot_set_empty_tag": "Cannot set tags with blank content",
-      "confirm_delete_all": "Are you sure you want to delete ALL macros?",
-      "confirm_import": "Import them?",
-      "macro_amount_limited": "The number of macros has reached the maximum limit",
-      "macro_content_cannot_empty": "Macro content cannot be empty",
-      "no_actions_recognized": "No action was recognized",
-      "no_macro_added": "No macros was added yet",
-      "no_preset_creqs": "No frequently used attribute sets set yet",
-      "no_preset_tags": "No frequently used tags set yet",
-      "only_json_can_be_imported": "Only .json file can be imported",
-      "preset_creq_max_len": "Maximum {num} frequently used attribute sets can be added",
-      "preset_tag_max_len": "Maximum {num} frequently used tags can be added",
-      "readed_num_macros_from_file": "Readed {num} macro(s) from file.",
-      "relate_item_deduplicate": "The following items in the related items are duplicated and will be automatically deduplicated:",
-      "relate_item_max_len": "The number of related items has reached the limit",
-      "tag_max_len": "Maximum {num} tags can be set",
-      "warn_saved_macros_would_be_dropped": "Current {num} macros would be dropped!"
+      "cannot_set_all_zero_creqs": "Cannot set attribute set with all zeros.",
+      "cannot_set_duplicate_creqs": "Duplicate attribute set.",
+      "cannot_set_empty_tag": "Tag content cannot be empty.",
+      "confirm_delete_all": "Delete ALL macros?",
+      "confirm_import": "Import?",
+      "macro_amount_limited": "Macro limit reached.",
+      "macro_content_cannot_empty": "Macro content cannot be empty.",
+      "no_actions_recognized": "No valid actions found.",
+      "no_macro_added": "No macros added.",
+      "no_preset_creqs": "No attribute sets saved.",
+      "no_preset_tags": "No tags saved.",
+      "only_json_can_be_imported": "Only .json files allowed.",
+      "preset_creq_max_len": "Max {num} attribute sets allowed.",
+      "preset_tag_max_len": "Max {num} tags allowed.",
+      "readed_num_macros_from_file": "Read {num} macros from file.",
+      "relate_item_deduplicate": "Duplicate related items removed:",
+      "relate_item_max_len": "Related item limit reached.",
+      "tag_max_len": "Max {num} tags allowed.",
+      "warn_saved_macros_would_be_dropped": "Warning: {num} existing macros will be overwritten!"
     },
     "text": {
-      "add_macro": "Add macro",
-      "attr_auto_cal_when_zero": "Automatically calculated when filled with 0",
-      "auto_cal_by_macro_when_empty_or_zero": "Will be automatically calculated based on the macro content when not filled or filled with 0.",
-      "batch_operate": "Batch Operation",
-      "can_select_item_or_input_name": "Select items from HqHelper's database or enter the item name yourself.",
-      "cover_auto_val_when_inputed": "Correspondingly, once filled, it will override the automatically calculated CP consumption.",
-      "delete_all_macros": "Delete all macros",
-      "drag_to_sort": "You can long press the skill button below to drag and customize the order.",
-      "edit_macro": "Edit macro",
-      "existing_items": "Existing items",
+      "add_macro": "Add Macro",
+      "attr_auto_cal_when_zero": "Auto-calculated if 0",
+      "auto_cal_by_macro_when_empty_or_zero": "Auto-calculated based on macro if empty/0.",
+      "batch_operate": "Batch Operations",
+      "can_select_item_or_input_name": "Select from DB or enter name.",
+      "cover_auto_val_when_inputed": "Manual input overrides auto-calculation.",
+      "delete_all_macros": "Delete All Macros",
+      "drag_to_sort": "Long press to drag and reorder.",
+      "edit_macro": "Edit Macro",
+      "existing_items": "Existing Items",
       "filter_or_search": "Filter / Search",
       "import_action": {
-        "text_1": "Copy and paste the craft action macro in game to the input box below.",
-        "text_2": "There is no limit on the number of lines in the input box. When assembling multiple macros, after pasting the first macro, wrap and paste the second one.",
-        "text_3": "Ultimately, it is necessary to ensure one action per line. Only recognize lines starting with “/ac”, “/action” or “/技能”, and action names can be enclosed in double quotation marks.",
-        "text_4": "Supports macros in Chinese, English, and Japanese, which can be freely combined.",
-        "text_5": "After editing the technique in FCO simulator or BestCraft simulator, click 'Export Process' and paste the process code into the input box below."
+        "text_1": "Paste in-game macro code below.",
+        "text_2": "Unlimited lines. Paste multiple macros sequentially.",
+        "text_3": "Ensure one action per line. Supports /ac, /action. Quotes allowed.",
+        "text_4": "Supports mixed languages (EN/JA/ZH).",
+        "text_5": "Paste process code from FCO/BestCraft here."
       },
-      "import_source": "Import: ",
-      "input_item_name": "Input item name",
-      "macro_lang": "Macro language",
-      "macro_lang_with_colon": "Macro language: ",
+      "import_source": "Import Source: ",
+      "input_item_name": "Enter Item Name",
+      "macro_lang": "Macro Language",
+      "macro_lang_with_colon": "Language: ",
       "macro_name": "Macro Name",
-      "no_macro_content_set": "No macro content set yet",
-      "no_relate_item_set": "Not set any related items yet",
-      "please_input_content_to_import": "Please input the content to import",
+      "no_macro_content_set": "No Content",
+      "no_relate_item_set": "No Related Items",
+      "please_input_content_to_import": "Paste content to import",
       "preset_creq_info": "Craftsmanship {val1} / Control {val2} / CP {val3}",
-      "preset_creqs": "Frequently Used Attribute Sets",
-      "preset_creqs_manage": "Manage Frequently Used Attribute Sets",
-      "preset_creqs_manage_table_head": "Frequently Used Attribute Sets (Craftsmanship/Control/CP)",
-      "preset_tags": "Frequently Used Tags",
-      "preset_tags_manage": "Manage Frequently Used Tags",
+      "preset_creqs": "Attribute Sets",
+      "preset_creqs_manage": "Manage Attribute Sets",
+      "preset_creqs_manage_table_head": "Attribute Sets (Craftsmanship/Control/CP)",
+      "preset_tags": "Saved Tags",
+      "preset_tags_manage": "Manage Tags",
       "relate_item": "Related Items",
-      "relate_item_desc": "The related items can be set to a maximum of {limit_1}, but the table on the macro management page will only display the first {limit_2}.",
+      "relate_item_desc": "Max {limit_1} related items. Table displays first {limit_2}.",
       "select_from_db": "Select from DB",
       "tag_name": "Tag Name",
       "tag_with_colon": "Tags: "
     },
-    "title": "Craft macro management"
+    "title": "Macro Management"
   },
   "main": {
     "imexport": {
-      "confirm_import_content": "Confirm import content",
-      "confirm_import_patch": "Select the version to import",
-      "export_cost_and_benefit": "Export cost/benefit analysis",
-      "import_parts": "Import parts",
-      "need_to_ensure_first_worksheet": "Make sure the first worksheet of the table is 'View Selected'",
-      "no_file_received": "No file obtained",
-      "only_xlsx_can_be_imported": "Only .xlsx files can be imported",
-      "open_folder_after_export": "Open the export directory after export succeeded."
+      "confirm_import_content": "Confirm Import Content",
+      "confirm_import_patch": "Select Patch to Import",
+      "export_cost_and_benefit": "Export Cost/Benefit Analysis",
+      "import_parts": "Import Parts",
+      "need_to_ensure_first_worksheet": "Ensure first sheet is 'View Selected'",
+      "no_file_received": "No file received",
+      "only_xlsx_can_be_imported": "Only .xlsx files supported",
+      "open_folder_after_export": "Open export folder upon success"
     },
     "message": {
-      "curr_job_not_valid": "Job selected is not available in current version, please reselect.",
-      "switch_patch_will_clean_gears": "Switch patch would clear all your gear selections."
+      "curr_job_not_valid": "Selected job unavailable in current patch. Please reselect.",
+      "switch_patch_will_clean_gears": "Switching patches will clear gear selections."
     },
     "select_gear": {
       "add": {
-        "accessory": "Add 1 set of accessory",
-        "attire": "Add 1 set of attire",
-        "attire_and_accessory": "Add 1 set of attire & accessory",
-        "mainoff_hand": "Add 1 set of mainhand&offhand",
-        "whole_suit": "Add suit"
+        "accessory": "Add 1 Accessory Set",
+        "attire": "Add 1 Attire Set",
+        "attire_and_accessory": "Add 1 Attire & Accessory Set",
+        "mainoff_hand": "Add 1 Main/Offhand Set",
+        "whole_suit": "Add 1 Full Set"
       },
       "clear": {
         "all": {
-          "title": "Clear all",
+          "title": "Clear All",
           "tooltip": {
-            "tooltip_1": "Clear all gears selected for all jobs."
+            "tooltip_1": "Clear gear selections for ALL jobs."
           }
         },
         "current": {
-          "title": "Clear current",
+          "title": "Clear Current",
           "tooltip": {
-            "tooltip_1": "Clear gears selected for current job."
+            "tooltip_1": "Clear gear selections for current job."
           }
         }
       },
@@ -1620,58 +1640,58 @@
         "un_selected": "None"
       },
       "info": {
-        "info_1": "Same equipments will be merged in displaying.",
-        "info_2": "Current mainhand and offhand correspond to job: {val}",
-        "info_3": "Current attire correspond to affix: {val}",
-        "info_4": "Current accessory correspond to affix: {val}"
+        "info_1": "Duplicate equipment will be merged.",
+        "info_2": "Current Main/Offhand: {val}",
+        "info_3": "Current Attire Affix: {val}",
+        "info_4": "Current Accessory Affix: {val}"
       },
       "quick_operate": {
         "add_crafter_suit": {
-          "title": "Add 1 set of crafters' attire&accessory",
+          "title": "Add Crafter Attire & Acc.",
           "tooltip": {
-            "tooltip_1": "Add a set of protective attire and accessory commonly used by crafters."
+            "tooltip_1": "Add shared crafter attire and accessories."
           }
         },
         "add_crafter_tool": {
-          "title": "Add 1 set of crafters' tools",
+          "title": "Add Crafter Tools",
           "tooltip": {
-            "tooltip_1": "Add 1 mainhand and offhand tool for all crafters."
+            "tooltip_1": "Add Main/Offhand tools for all crafters."
           }
         },
         "add_crafter_tool_main": {
-          "title": "Add 1 set of crafters' mainhand tools",
+          "title": "Add Crafter Mainhands",
           "tooltip": {
-            "tooltip_1": "Add 1 mainhand tool for all crafters."
+            "tooltip_1": "Add Mainhand tools for all crafters."
           }
         },
         "add_crafter_tool_off": {
-          "title": "Add 1 set of crafters' offhand tools",
+          "title": "Add Crafter Offhands",
           "tooltip": {
-            "tooltip_1": "Add 1 offhand tool for all crafters."
+            "tooltip_1": "Add Offhand tools for all crafters."
           }
         },
         "add_gatherer_suit": {
-          "title": "Add 1 set of gatherers' attire&accessory",
+          "title": "Add Gatherer Attire & Acc.",
           "tooltip": {
-            "tooltip_1": "Add a set of protective attire and accessory commonly used by gatherers."
+            "tooltip_1": "Add shared gatherer attire and accessories."
           }
         },
         "add_gatherer_tool": {
-          "title": "Add 1 set of gatherers' tools",
+          "title": "Add Gatherer Tools",
           "tooltip": {
-            "tooltip_1": "Add 1 mainhand and offhand tool for all gatherers."
+            "tooltip_1": "Add Main/Offhand tools for all gatherers."
           }
         },
         "add_gatherer_tool_main": {
-          "title": "Add 1 set of gatherers' mainhand tools",
+          "title": "Add Gatherer Mainhands",
           "tooltip": {
-            "tooltip_1": "Add 1 mainhand tool for all gatherers."
+            "tooltip_1": "Add Mainhand tools for all gatherers."
           }
         },
         "add_gatherer_tool_off": {
-          "title": "Add 1 set of gatherers' offhand tools",
+          "title": "Add Gatherer Offhands",
           "tooltip": {
-            "tooltip_1": "Add 1 offhand tool for all gatherers."
+            "tooltip_1": "Add Offhand tools for all gatherers."
           }
         },
         "title": "Quick Operations"
@@ -1679,16 +1699,16 @@
       "title": "Select Gears",
       "view_selected": "View Selected",
       "warn": {
-        "select_job_first": "Please select job"
+        "select_job_first": "Please Select Job"
       }
     },
     "select_job": {
       "desc": {
-        "selected": "Selected: Job {val}"
+        "selected": "Selected: {val}"
       },
       "title": "Select Job",
       "warn": {
-        "select_patch_first": "Please select patch"
+        "select_patch_first": "Please Select Patch"
       }
     },
     "select_patch": {
@@ -1696,19 +1716,19 @@
         "selected": "Selected: Patch {val}"
       },
       "info": {
-        "info_1": "FFXIV's crafting gear update pattern is relatively stable, which allows us to predict the updates in each minor patch.",
-        "info_2": "{patch} version will add HQ white gear of item level {ilv} for crafter and gatherers;",
-        "info_3": "{patch} version will add HQ green gear of item level {ilv} for combat jobs, as well as corresponding secret food/medicine of the same item level;",
-        "info_4": "{patch} version will add HQ white gear of item level {ilv} for crafter and gatherers (excluding accessories);",
-        "info_5": "{patch} version will add HQ green gear of item level {ilv} for crafter and gatherers, which is also the endgame gear for crafting and gathering in this DLC;",
-        "info_6": "Patch {patch} will not add new HQ gear."
+        "info_1": "FFXIV's crafting gear update pattern is stable, allowing us to predict patch updates.",
+        "info_2": "{patch}: Adds HQ White Gear (iLv {ilv}) for Crafter/Gatherer.",
+        "info_3": "{patch}: Adds HQ Green Gear (iLv {ilv}) for Combat Jobs, plus Food/Tinctures.",
+        "info_4": "{patch}: Adds HQ White Gear (iLv {ilv}) for Crafter/Gatherer (no accessories).",
+        "info_5": "{patch}: Adds HQ Green Gear (iLv {ilv}) for Crafter/Gatherer (endgame gear).",
+        "info_6": "{patch}: No new HQ gear."
       },
       "patch_button": {
         "text": "Patch{v}: {name}",
         "tooltip": {
-          "tooltip_1": "This patch provides new HQ crafting items:",
-          "tooltip_2": "Non-combat jobs' {il} HQ",
-          "tooltip_3": "Combat jobs' {il} HQ"
+          "tooltip_1": "This patch adds:",
+          "tooltip_2": "DoH/DoL iLv{il} HQ",
+          "tooltip_3": "Combat iLv{il} HQ"
         }
       },
       "title": "Select Patch"
@@ -1730,23 +1750,23 @@
   "preference": {
     "auto_refresh_after_save": {
       "desc": {
-        "desc_1": "This setting will take effect on this time's saving. Automatic refresh will only be performed when necessary."
+        "desc_1": "Takes effect upon next save. Auto-refresh only triggered when necessary."
       },
-      "title": "Automatically refresh after saving settings"
+      "title": "Auto-Refresh After Save"
     },
     "click_to_show_pop_in_span": {
       "desc": {
-        "desc_1": "Some elements in item popup may have sub popup, such as craft materials and map buttons.",
-        "desc_2": "In default case, the sub popup will be opened immediately when mouse hover on the element. If you think this is too easy to trigger, you can turn on this option to control the sub popup by left click only."
+        "desc_1": "Some item popups contain interactive elements (e.g., crafting materials, map buttons).",
+        "desc_2": "Enable this to open sub-popups only on click, instead of hover."
       },
-      "title": "Control sub item popup manually"
+      "title": "Manual Control for Sub-Popups"
     },
-    "cmacro_end_tipper_content": "Final craft macro execution end reminder",
+    "cmacro_end_tipper_content": "Final Macro Completion Reminder",
     "cmacro_remove_quotes": {
       "desc": {
         "desc_1": "When the action name contains spaces, double quotation marks must be used or manually converted to Auto-translate, otherwise an error will be reported during execution."
       },
-      "title": "Remove double quotes from craft macro skill names"
+      "title": "Remove double quotes from craft macro action names"
     },
     "cmacro_transition_tipper_content": {
       "desc": {
