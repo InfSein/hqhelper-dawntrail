@@ -14,13 +14,19 @@ import {
 import type { GearSelections, AttireAffix, AccessoryAffix } from '@/models/gears'
 import { attireAffixes, accessoryAffixes } from '@/models/gears'
 import { type UserConfigModel } from '@/models/config-user'
+import { type FuncConfigModel } from '@/models/config-func'
 import { deepCopy } from '@/tools'
 import { getGearIcon } from '@/tools/gears'
+import useConfig from '@/tools/use-config'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
-const uiLanguage = userConfig.value?.language_ui ?? 'zh'
+const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+
+const {
+  uiLanguage,
+} = useConfig(userConfig, funcConfig)
   
 const props = defineProps({
   patchData: {
@@ -30,21 +36,25 @@ const props = defineProps({
 })
 // const jobIds = Object.keys(XivJobs).map(jobId => parseInt(jobId))
 const getAffixName = (affix: AttireAffix | AccessoryAffix) => {
-  return XivGearAffixes[affix][`name_${uiLanguage}`]
+  return XivGearAffixes[affix][`name_${uiLanguage.value}`]
 }
-const attireGearSlots = [
-  { key: 'headAttire', text: t('game.gear.attire.head.title'), icon: getGearIcon('headAttire') },
-  { key: 'bodyAttire', text: t('game.gear.attire.body.title'), icon: getGearIcon('bodyAttire') },
-  { key: 'handsAttire', text: t('game.gear.attire.hands.title'), icon: getGearIcon('handsAttire') },
-  { key: 'legsAttire', text: t('game.gear.attire.legs.title'), icon: getGearIcon('legsAttire') },
-  { key: 'feetAttire', text: t('game.gear.attire.feet.title'), icon: getGearIcon('feetAttire') },
-]
-const accessoryGearSlots = [
-  { key: 'earrings', text: t('game.gear.accessory.earring.title'), icon: getGearIcon('earrings') },
-  { key: 'necklace', text: t('game.gear.accessory.necklace.title'), icon: getGearIcon('necklace') },
-  { key: 'wrist', text: t('game.gear.accessory.wrist.title'), icon: getGearIcon('wrist') },
-  { key: 'rings', text: t('game.gear.accessory.rings.title'), icon: getGearIcon('rings') },
-]
+const attireGearSlots = computed(() => {
+  return [
+    { key: 'headAttire', text: t('game.gear.attire.head.title'), icon: getGearIcon('headAttire') },
+    { key: 'bodyAttire', text: t('game.gear.attire.body.title'), icon: getGearIcon('bodyAttire') },
+    { key: 'handsAttire', text: t('game.gear.attire.hands.title'), icon: getGearIcon('handsAttire') },
+    { key: 'legsAttire', text: t('game.gear.attire.legs.title'), icon: getGearIcon('legsAttire') },
+    { key: 'feetAttire', text: t('game.gear.attire.feet.title'), icon: getGearIcon('feetAttire') },
+  ]
+})
+const accessoryGearSlots = computed(() => {
+  return [
+    { key: 'earrings', text: t('game.gear.accessory.earring.title'), icon: getGearIcon('earrings') },
+    { key: 'necklace', text: t('game.gear.accessory.necklace.title'), icon: getGearIcon('necklace') },
+    { key: 'wrist', text: t('game.gear.accessory.wrist.title'), icon: getGearIcon('wrist') },
+    { key: 'rings', text: t('game.gear.accessory.rings.title'), icon: getGearIcon('rings') },
+  ]
+})
 
 const showModal = defineModel<boolean>('show', { required: true })
 const gearSelections = defineModel<GearSelections>('gearSelections', { required: true })
@@ -58,7 +68,7 @@ const onLoad = () => {
 }
 
 const getRoleName = (role: any) => {
-  switch (uiLanguage) {
+  switch (uiLanguage.value) {
     case 'ja':
       return role.role_name_ja
     case 'en':
@@ -69,7 +79,7 @@ const getRoleName = (role: any) => {
 }
 const getJobName = (jobId: number) => {
   const _job = XivJobs[jobId]
-  switch (uiLanguage) {
+  switch (uiLanguage.value) {
     case 'ja':
       return _job.job_name_ja
     case 'en':

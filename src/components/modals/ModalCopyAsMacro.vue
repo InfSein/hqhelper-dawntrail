@@ -30,17 +30,21 @@ const macroPrefix = ref('')
 const macroMode = ref<MacroGenerateMode>('singleLine')
 const noMoreInquiries = ref(false)
 
-const prefixOptions = [
-  { value: '', label: t('preference.macro_copy_prefix.option.none') },
-  { value: '/e ', label: t('preference.macro_copy_prefix.option.echo') },
-  { value: '/p ', label: t('preference.macro_copy_prefix.option.party') },
-  { value: '/fc ', label: t('preference.macro_copy_prefix.option.free_company') },
-  { value: '/b ', label: t('preference.macro_copy_prefix.option.beginner') },
-]
-const modeOptions = [
-  { value: 'singleLine', label: t('preference.macro_generate_mode.option.single_line') },
-  { value: 'multiLine', label: t('preference.macro_generate_mode.option.multi_line') },
-]
+const prefixOptions = computed(() => {
+  return [
+    { value: '', label: t('preference.macro_copy_prefix.option.none') },
+    { value: '/e ', label: t('preference.macro_copy_prefix.option.echo') },
+    { value: '/p ', label: t('preference.macro_copy_prefix.option.party') },
+    { value: '/fc ', label: t('preference.macro_copy_prefix.option.free_company') },
+    { value: '/b ', label: t('preference.macro_copy_prefix.option.beginner') },
+  ]
+})
+const modeOptions = computed(() => {
+  return [
+    { value: 'singleLine', label: t('preference.macro_generate_mode.option.single_line') },
+    { value: 'multiLine', label: t('preference.macro_generate_mode.option.multi_line') },
+  ]
+})
 
 const onLoad = () => {
   macroPrefix.value = funcConfig.value.macro_copy_prefix
