@@ -6,8 +6,6 @@ import {
   CodeSharp,
   HelpOutlineRound
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
-import GroupBox from '../templates/GroupBox.vue'
 import ItemSpan from '../custom/item/ItemSpan.vue'
 import MacroViewer from '../custom/macro/MacroViewer.vue'
 import { XivJobs, type XivJob } from '@/assets/data'

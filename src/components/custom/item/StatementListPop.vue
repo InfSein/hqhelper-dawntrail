@@ -2,7 +2,6 @@
 import {
   ViewListSharp, CopyAllOutlined
 } from '@vicons/material'
-import GroupBox from '@/components/templates/GroupBox.vue'
 import ButtonCopyAsMacro from '../macro/ButtonCopyAsMacro.vue'
 import type { ItemInfo, StatementRow } from '@/tools/item'
 import type { UserConfigModel } from '@/models/config-user'

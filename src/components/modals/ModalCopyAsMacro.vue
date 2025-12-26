@@ -2,8 +2,6 @@
 import { 
   CodeSharp, ContentCopyRound
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
-import GroupBox from '../templates/GroupBox.vue'
 import MacroViewer from '../custom/macro/MacroViewer.vue'
 import TooltipButton from '@/components/custom/general/TooltipButton.vue'
 // import ModalPreferences from './ModalPreferences.vue'
@@ -141,22 +139,22 @@ const handleClose = () => {
           <span class="title">{{ t('common.options') }}</span>
         </template>
         <div class="settings-container">
-          <n-input-group>
-            <n-input-group-label size="small">{{ t('common.prefix') }}</n-input-group-label>
-            <n-select size="small"
-              v-model:value="macroPrefix"
-              :options="prefixOptions"
-              :placeholder="t('copy_macro.text.please_select_macro_prefix')"
-            />
-          </n-input-group>
-          <n-input-group>
-            <n-input-group-label size="small">{{ t('common.mode') }}</n-input-group-label>
-            <n-select size="small"
-              v-model:value="macroMode"
-              :options="modeOptions"
-              :placeholder="t('copy_macro.text.please_select_macro_mode')"
-            />
-          </n-input-group>
+          <CompactForm size="small">
+            <CompactFormItem :label="t('common.prefix')">
+              <n-select
+                v-model:value="macroPrefix"
+                :options="prefixOptions"
+                :placeholder="t('copy_macro.text.please_select_macro_prefix')"
+              />
+            </CompactFormItem>
+            <CompactFormItem :label="t('common.mode')">
+              <n-select
+                v-model:value="macroMode"
+                :options="modeOptions"
+                :placeholder="t('copy_macro.text.please_select_macro_mode')"
+              />
+            </CompactFormItem>
+          </CompactForm>
           <n-checkbox v-model:checked="noMoreInquiries">
             {{ t('copy_macro.option.macro_direct_copy') }}
           </n-checkbox>

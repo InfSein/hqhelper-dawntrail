@@ -9,7 +9,6 @@ import {
   OpenInNewOutlined,
   UnfoldMoreSharp, UnfoldLessSharp,
 } from '@vicons/material'
-import FoldableCard from '@/components/templates/FoldableCard.vue'
 import ImportItemListPop from '@/components/workflow/ImportItemListPop.vue'
 import ItemSelector from '@/components/custom/item/ItemSelector.vue'
 import ItemSelectTable from '@/components/custom/item/ItemSelectTable.vue'

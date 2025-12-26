@@ -2,7 +2,6 @@
 import { 
   AllInclusiveSharp, CopyAllOutlined
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
 import CraftRecommProcess from '../custom/general/CraftRecommProcess.vue'
 import ModalPreferences from './ModalPreferences.vue'
 import { type UserConfigModel } from '@/models/config-user'

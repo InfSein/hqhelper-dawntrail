@@ -1,6 +1,4 @@
 <script setup lang='ts'>
-import FoldableCard from '../templates/FoldableCard.vue'
-import GroupBox from '../templates/GroupBox.vue'
 import ItemButton from '../custom/item/ItemButton.vue'
 import ItemList from '../custom/item/ItemList.vue'
 import TomeScriptButton from '../custom/other/TomeScriptButton.vue'

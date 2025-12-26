@@ -4,7 +4,6 @@ import {
   DeleteSweepRound
 } from '@vicons/material'
 import ItemSelector from '@/components/custom/item/ItemSelector.vue'
-import FoldableCard from '@/components/templates/FoldableCard.vue'
 import XivFARImage from '@/components/custom/general/XivFARImage.vue'
 import ItemStepper from '@/components/custom/item/ItemStepper.vue'
 import TooltipButton from '@/components/custom/general/TooltipButton.vue'

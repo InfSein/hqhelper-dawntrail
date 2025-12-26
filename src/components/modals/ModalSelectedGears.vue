@@ -2,8 +2,6 @@
 import { 
   CheckroomSharp, SaveOutlined
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
-import GroupBox from '../templates/GroupBox.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'
 import {
   XivGearAffixes,

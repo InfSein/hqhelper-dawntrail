@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import GroupBox from '@/components/templates/GroupBox.vue'
 import ItemList from '@/components/custom/item/ItemList.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import { useNbbCal } from '@/tools/use-nbb-cal'

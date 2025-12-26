@@ -3,7 +3,6 @@ import type { Type } from 'naive-ui/es/button/src/interface'
 import {
   LandscapeRound, FlightLandRound,
 } from '@vicons/material'
-import FoldableCard from '@/components/templates/FoldableCard.vue'
 import { checkAppUpdates } from '@/tools'
 import type { AppVersionJson } from '@/models'
 

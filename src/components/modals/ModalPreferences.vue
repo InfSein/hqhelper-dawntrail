@@ -17,7 +17,6 @@ import {
   ArchiveSharp, UnarchiveSharp,
   SaveOutlined
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
 import AboutApp from '../custom/general/AboutApp.vue'
 import SettingItem from '../custom/general/SettingItem.vue'
 import ModalPreferencesImportExport from './ModalPreferencesImportExport.vue'

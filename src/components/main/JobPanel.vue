@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { type UserConfigModel } from '@/models/config-user'
-import FoldableCard from '../templates/FoldableCard.vue'
-import GroupBox from '../templates/GroupBox.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'
 import JobButton from '../custom/job/JobButton.vue'
 import {

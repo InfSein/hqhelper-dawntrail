@@ -4,7 +4,6 @@ import {
   SaveOutlined
 } from '@vicons/material'
 import DraggableTable from '../custom/general/DraggableTable.vue'
-import MyModal from '../templates/MyModal.vue'
 import { useStore } from '@/store'
 import { _VAR_PRESET_TAG_MAXAMOUNT } from '@/models/macromanage'
 import type { UserConfigModel } from '@/models/config-user'

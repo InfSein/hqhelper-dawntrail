@@ -45,7 +45,6 @@ https://thewakingsands.github.io/ffxiv-axis-font-icons/
 import { 
   CodeSharp, SaveOutlined
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
 
 const showModal = defineModel<boolean>('show', { required: true })
 

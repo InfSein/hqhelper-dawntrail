@@ -6,9 +6,7 @@ import {
   BrowserUpdatedRound,
   SpeedRound, RefreshRound
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
 import ModalPreferences from './ModalPreferences.vue'
-import FoldableCard from '../templates/FoldableCard.vue'
 import type { ProcessStage, ProgressData } from 'env.electron'
 import { useStore } from '@/store'
 import AppStatus from '@/variables/app-status'

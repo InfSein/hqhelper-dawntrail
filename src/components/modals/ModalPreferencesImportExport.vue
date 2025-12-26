@@ -3,7 +3,6 @@ import {
   ArchiveSharp, UnarchiveSharp,
   ContentCopyRound, FileDownloadOutlined
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
 import { CopyToClipboard, deepCopy } from '@/tools'
 import { exportPreferences, importPreferences } from '@/tools/preferences'
 import { type UserConfigModel, fixUserConfig } from '@/models/config-user'

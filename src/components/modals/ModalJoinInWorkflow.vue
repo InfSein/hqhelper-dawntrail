@@ -3,8 +3,6 @@ import {
   WaterDropOutlined,
   DoneOutlined,
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
-import GroupBox from '../templates/GroupBox.vue'
 import { deepCopy } from '@/tools'
 import useUiTools from '@/tools/ui'
 import { useStore } from '@/store'
@@ -144,14 +142,14 @@ const handleSubmit = () => {
           <span class="title">{{ t('common.options') }}</span>
         </template>
         <div class="options-container">
-          <n-input-group>
-            <n-input-group-label>{{ t('common.target') }}</n-input-group-label>
-            <n-select v-model:value="targetWorkflow" :options="workflowOptions" :placeholder="t('workflow.join_in_workflow.desc.desc_1')" />
-          </n-input-group>
-          <n-input-group v-show="targetWorkflow !== 'add'">
-            <n-input-group-label>{{ t('common.mode') }}</n-input-group-label>
-            <n-select v-model:value="joinMode" :options="joinModeOptions" :render-option="optionsRenderer" />
-          </n-input-group>
+          <CompactForm>
+            <CompactFormItem :label="t('common.target')">
+              <n-select v-model:value="targetWorkflow" :options="workflowOptions" :placeholder="t('workflow.join_in_workflow.desc.desc_1')" />
+            </CompactFormItem>
+            <CompactFormItem :label="t('common.mode')">
+              <n-select v-model:value="joinMode" :options="joinModeOptions" :render-option="optionsRenderer" />
+            </CompactFormItem>
+          </CompactForm>
         </div>
       </GroupBox>
       <GroupBox id="atw-content">

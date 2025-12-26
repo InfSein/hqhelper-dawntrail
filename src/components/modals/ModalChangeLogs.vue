@@ -4,7 +4,6 @@ import {
   CopyAllOutlined,
   HistoryOutlined, StickyNote2Outlined,
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
 import { getChangelogs, type PatchChangeGroup } from '@/data/change-logs'
 import type { UserConfigModel } from '@/models/config-user'
 import AppStatus from '@/variables/app-status'

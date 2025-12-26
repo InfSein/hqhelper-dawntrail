@@ -2,7 +2,6 @@
 import { 
   FaceRetouchingNaturalFilled, DoneOutlined,
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'
 import { getImgCdnUrl } from '@/tools/item'
 

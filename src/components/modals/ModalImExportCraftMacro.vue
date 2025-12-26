@@ -8,8 +8,6 @@ import {
   DoneOutlined,
   ArchiveOutlined,
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
-import GroupBox from '../templates/GroupBox.vue'
 import {
   type RecordedCraftMacro,
 } from '@/models/macromanage'
