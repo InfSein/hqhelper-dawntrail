@@ -528,12 +528,16 @@ const handleSave = async () => {
                   :animation="150"
                   class="actions-container"
                 >
-                  <CraftActionButton
+                  <div
                     v-for="item in formCraftActions"
                     :key="item.id"
-                    :craft-action="XivCraftActions[item.val]"
-                    :btn-size="48"
-                  />
+                    style="line-height: 1;"
+                  >
+                    <CraftActionButton
+                      :craft-action="XivCraftActions[item.val]"
+                      :btn-size="48"
+                    />
+                  </div>
                 </VueDraggable>
                 <n-empty
                   v-else
