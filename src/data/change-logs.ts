@@ -25,8 +25,8 @@ export interface PatchChangeGroup {
 
 /*
     {
-      version: '2.3.0',
-      date: '2025-08-05',
+      version: '2.4.3',
+      date: '2026-01-04',
       changes: [
         {
           name: groupName.breaking,
@@ -83,6 +83,41 @@ export const getChangelogs = (
   }
   const isZh = ui_lang === 'zh'
   return [
+    {
+      version: '2.4.3',
+      date: '2026-01-04',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('changelog.2_4_3.breaking.text_1')
+              + br + getNoteImage('2.4.3', '1.png')
+              + br + getNoteImage('2.4.3', '2.png'),
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('changelog.2_4_3.fix.text_1'),
+            t('changelog.2_4_3.fix.text_2'),
+            t('changelog.2_4_3.fix.text_3'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_0_12.feat.text_5', {
+              f1: t('common.appfunc.user_preference'),
+              f2: t('common.appfunc.item_price'),
+              f3: t('preference.costandbenefit_item_sort_by.title')
+            })
+              + br + t('changelog.2_4_3.feat.text_1')
+              + br + getNoteImage('2.4.3', '3.png')
+              + br + getNoteImage('2.4.3', '4.png'),
+          ]
+        }
+      ]
+    },
     {
       version: '2.4.2',
       date: '2025-12-22',
