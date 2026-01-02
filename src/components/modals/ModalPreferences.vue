@@ -799,6 +799,28 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               type: 'switch'
             },
             {
+              key: 'costandbenefit_item_sort_by',
+              label: t('preference.costandbenefit_item_sort_by.title'),
+              warnings: [
+                t('preference.costandbenefit_item_sort_by.desc.desc_1'),
+              ],
+              type: 'select',
+              options: [
+                {
+                  value: 'itemId',
+                  label: t('game.item_id')
+                },
+                {
+                  value: 'priceAsc',
+                  label: t('preference.costandbenefit_item_sort_by.option.price_asc')
+                },
+                {
+                  value: 'priceDesc',
+                  label: t('preference.costandbenefit_item_sort_by.option.price_desc')
+                },
+              ]
+            },
+            {
               key: 'universalis_showpriceinpop',
               label: t('preference.universalis_showpriceinpop.title'),
               descriptions: [

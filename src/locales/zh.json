@@ -1781,6 +1781,16 @@
       },
       "title": "在每个生产宏的开头使用/macrolock"
     },
+    "costandbenefit_item_sort_by": {
+      "desc": {
+        "desc_1": "未获取到价格(显示为“???”或“未知”)的物品，在排序时视作价格为0。"
+      },
+      "option": {
+        "price_asc": "按价格(从低到高)",
+        "price_desc": "按价格(从高到低)"
+      },
+      "title": "成本/收益分析中物品排序规则"
+    },
     "costandbenefit_show_item_details": "成本/收益分析中显示物品详情",
     "custom_background": {
       "desc": {
