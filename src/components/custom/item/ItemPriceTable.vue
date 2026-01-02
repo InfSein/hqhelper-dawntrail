@@ -36,6 +36,10 @@ const items = computed(() => {
       return [...parsedItems].sort((a, b) => getPrice(a.itemInfo) - getPrice(b.itemInfo))
     case 'priceDesc':
       return [...parsedItems].sort((a, b) => getPrice(b.itemInfo) - getPrice(a.itemInfo))
+    case 'subTotalAsc':
+      return [...parsedItems].sort((a, b) => getPrice(a.itemInfo) * a.itemInfo.amount - getPrice(b.itemInfo) * b.itemInfo.amount)
+    case 'subTotalDesc':
+      return [...parsedItems].sort((a, b) => getPrice(b.itemInfo) * b.itemInfo.amount - getPrice(a.itemInfo) * a.itemInfo.amount)
   }
 })
 

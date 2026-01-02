@@ -58,7 +58,7 @@ export interface FuncConfigModel {
   /** 成本/收益分析：显示物品详情 */
   costandbenefit_show_item_details: boolean
   /** 成本/收益分析：物品排序规则 */
-  costandbenefit_item_sort_by: "itemId" | "priceAsc" | "priceDesc"
+  costandbenefit_item_sort_by: "itemId" | "priceAsc" | "priceDesc" | "subTotalAsc" | "subTotalDesc"
   /** 在物品悬浮窗中展示物品价格 */
   universalis_showpriceinpop: boolean
   /** 在物品悬浮窗中展示的物品价格类型 */

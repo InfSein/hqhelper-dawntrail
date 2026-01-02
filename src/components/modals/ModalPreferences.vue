@@ -818,6 +818,14 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
                   value: 'priceDesc',
                   label: t('preference.costandbenefit_item_sort_by.option.price_desc')
                 },
+                {
+                  value: 'subTotalAsc',
+                  label: t('preference.costandbenefit_item_sort_by.option.subtotal_asc')
+                },
+                {
+                  value: 'subTotalDesc',
+                  label: t('preference.costandbenefit_item_sort_by.option.subtotal_desc')
+                },
               ]
             },
             {
