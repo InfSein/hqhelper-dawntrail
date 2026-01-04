@@ -3,8 +3,6 @@ import {
   UnarchiveOutlined,
   DoneOutlined
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
-import GroupBox from '../templates/GroupBox.vue'
 import { XivGearAffixes, XivJobs, XivPatches } from '@/assets/data'
 import type { UserConfigModel } from '@/models/config-user'
 import type { FuncConfigModel } from '@/models/config-func'

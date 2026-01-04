@@ -2,7 +2,6 @@
 // import { 
 //   TableViewOutlined
 // } from '@vicons/material'
-import GroupBox from '@/components/templates/GroupBox.vue'
 import ItemStatementTable from '@/components/custom/item/ItemStatementTable.vue'
 import { useStore } from '@/store'
 import { type FuncConfigModel } from '@/models/config-func'

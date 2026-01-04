@@ -50,7 +50,10 @@ export const XivUnpackedGatheringItems = JsonXivUnpackedGatheringItems as Record
   territory: number
   place: number
   coords: { x: string, y: string }
+  bonuses: number[][]
+  difficulty: number[]
   popType: "normal" | "legendary" | "ephemeral"
+  requirement?: number
   popTime?: {
     start1: string
     end1: string
@@ -190,6 +193,13 @@ export interface XivCraftActionGroup {
   actions: number[]
 }
 export const XivCraftActionGroups = JsonXivCraftActionGroups as Record<XivCraftActionGroupKey, XivCraftActionGroup>
+
+import JsonXivGatheringBonuses from './xiv-gathering-bonuses.json'
+export const XivGatheringBonuses = JsonXivGatheringBonuses as Record<number, {
+  text_zh: string
+  text_ja: string
+  text_en: string
+}>
 
 import JsonXivCraftActions from './xiv-craft-actions.json'
 export interface XivCraftAction {

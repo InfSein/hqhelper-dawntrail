@@ -26,7 +26,7 @@ export default defineConfig({
       dts: 'src/auto-imports.d.ts',
     }),
     Components({
-      dirs: [],
+      dirs: ['src/components/templates'],
       deep: true,
       resolvers: [NaiveUiResolver()],
       dts: 'src/components.d.ts',

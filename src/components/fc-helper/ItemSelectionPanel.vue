@@ -3,7 +3,6 @@ import {
   JoinLeftOutlined,
   DeleteSweepRound
 } from '@vicons/material'
-import FoldableCard from '../templates/FoldableCard.vue'
 import XivFARImage from '../custom/general/XivFARImage.vue'
 import ItemStepper from '../custom/item/ItemStepper.vue'
 import TooltipButton from '../custom/general/TooltipButton.vue'

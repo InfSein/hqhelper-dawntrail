@@ -3,7 +3,6 @@ import {
   ChecklistRtlSharp,
   RefreshOutlined,
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
 import { useStore } from '@/store'
 import { useDialog } from '@/tools/dialog'
 import type { MainCacheModel } from '@/models/cache-main'

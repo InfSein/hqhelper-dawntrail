@@ -2,7 +2,6 @@
 import { 
   TableViewOutlined
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
 import ModalRecommProcesses from './ModalRecommProcesses.vue'
 import ModalPreferences from './ModalPreferences.vue'
 import { type UserConfigModel } from '@/models/config-user'

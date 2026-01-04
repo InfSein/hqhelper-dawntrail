@@ -2,7 +2,6 @@
 import { 
   TableViewOutlined
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
 import CraftStatements from '../custom/general/CraftStatements.vue'
 import ModalPreferences from './ModalPreferences.vue'
 import type { ItemInfo } from '@/tools/item'

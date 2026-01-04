@@ -2,7 +2,6 @@
 import {
   ContactlessSharp, CloseSharp
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
 import IconQQ from '@/assets/icons/external/IconQQ.vue'
 import IconGithub from '@/assets/icons/external/IconGithub.vue'
 import IconWeibo from '@/assets/icons/external/IconWeibo.vue'

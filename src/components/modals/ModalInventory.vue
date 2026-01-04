@@ -4,7 +4,6 @@ import {
   DeleteSweepRound,
   SaveOutlined,
 } from '@vicons/material'
-import MyModal from '@/components/templates/MyModal.vue'
 import TooltipButton from '@/components/custom/general/TooltipButton.vue'
 import SettingItem from '@/components/custom/general/SettingItem.vue'
 import ItemSelector from '@/components/custom/item/ItemSelector.vue'

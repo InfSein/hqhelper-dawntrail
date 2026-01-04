@@ -7,7 +7,6 @@ import {
   EditNoteOutlined, LabelImportantFilled, FaceRetouchingNaturalFilled,
   DoneOutlined,
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
 import ModalNbbAvatarSelector from './ModalNbbAvatarSelector.vue'
 import { useStore } from '@/store'
 import { type CloudConfigModel } from '@/models/config-cloud'

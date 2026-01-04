@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ItemCell from './ItemCell.vue'
-import { getItemInfo, type StatementRow } from '@/tools/item'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -17,29 +17,28 @@ defineProps<ItemSelectTableProps>()
 
 const tableContainer = ref<HTMLElement>()
 
+interface ItemSelectRow {
+  info: ItemInfo,
+  amount: number
+}
+
 const rows = computed(() => {
-  const rowsAll : StatementRow[] = []
+  const rowsAll : ItemSelectRow[] = []
   for (const itemId in items.value) {
     const id = Number(itemId)
     const itemInfo = getItemInfo(id)
     const amount = items.value[id]
     itemInfo.amount = amount
-    const _total = amount, _prepared = 0
-    if (!_total || _total <= 0) continue
-    const item : StatementRow = {
+    const item : ItemSelectRow = {
       info: itemInfo,
-      amount: {
-        total: _total,
-        prepared: _prepared,
-        remain: _total - _prepared
-      }
+      amount: amount
     }
     rowsAll.push(item)
   }
   return rowsAll
 })
 
-const handleDealNumInputEdge = (row: StatementRow) => {
+const handleDealNumInputEdge = (row: ItemSelectRow) => {
   const itemId = row.info.id
   if (items.value[itemId] <= 0) {
     delete items.value[itemId]
@@ -64,7 +63,7 @@ const handleDealNumInputEdge = (row: StatementRow) => {
             <td>
               <ItemCell
                 :item-info="item.info"
-                :amount="item.amount.remain"
+                :amount="item.amount"
                 :show-item-details="showItemDetails"
                 :item-span-max-width="itemSpanMaxWidth"
                 :container-id="containerId"

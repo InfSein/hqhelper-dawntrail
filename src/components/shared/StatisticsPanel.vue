@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import CraftStatistics from '../custom/general/CraftStatistics.vue'
-import FoldableCard from '../templates/FoldableCard.vue'
 import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import ModalProStatements from '../modals/ModalProStatements.vue'
 import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'

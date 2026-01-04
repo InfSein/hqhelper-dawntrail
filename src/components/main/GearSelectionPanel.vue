@@ -3,7 +3,6 @@ import {
   JoinLeftOutlined,
   KeyboardArrowDownRound
 } from '@vicons/material'
-import FoldableCard from '../templates/FoldableCard.vue'
 import Stepper from '../custom/general/Stepper.vue'
 import GearSlot from '../custom/gear/GearSlot.vue'
 import TooltipButton from '../custom/general/TooltipButton.vue'

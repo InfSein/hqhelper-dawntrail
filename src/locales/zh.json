@@ -690,6 +690,19 @@
         "text_4": "修复了将{0}设置为{1}后，生成宏的部分内容未能被正确附加宏前缀的问题。"
       }
     },
+    "2_4_3": {
+      "breaking": {
+        "text_1": "可采集道具的物品悬浮窗追加了采集难度系数和采集点特效的信息。"
+      },
+      "feat": {
+        "text_1": "现可按照物品价格进行排序。"
+      },
+      "fix": {
+        "text_1": "修复了少数情况下可能会将背包库存的部分物品数量设置为负数，并因此无法查看和修改该物品库存的问题。",
+        "text_2": "修复了宏管理中，宏内容在拖拽排序后可能会出现不明元素并进而导致页面崩溃的问题。",
+        "text_3": "修复了部分UI文本在切换界面语言后不会立即跟随设置变更显示语言的问题。"
+      }
+    },
     "breaking": "重要变更",
     "feat": "功能更新",
     "fix": "问题修复",
@@ -1460,6 +1473,21 @@
     "clear_inventory": "清空库存"
   },
   "item": {
+    "gather_threshold": {
+      "boon_rate": "同级{0}%额外采集率",
+      "intuition_rate": "价值提升几率{0}%",
+      "meticulous_rate": "慎重{0}%触发",
+      "must_gain": "同级100%获得率",
+      "scour_base_gain": "提纯+{0}",
+      "scrutiny_multi": "集中检查倍率{0}%",
+      "title": {
+        "field": "项目",
+        "gather_threshold": "获得力阈值",
+        "perception_threshold": "鉴别力阈值",
+        "threshold": "阈值"
+      },
+      "yield_plus": "高产II/丰收II +{0}"
+    },
     "price": {
       "no_price": "没有价格。",
       "no_price_reason": "可能原因：未获取过价格/物品未实装或不存在此品质/交易数据不足",
@@ -1482,6 +1510,8 @@
       "craft_condi": "制作条件：",
       "craftsmanship_with_val": "作业精度{val}",
       "curr_show_hqornq": "正在展示物品的{0}属性",
+      "gather_bonus": "采集加成：",
+      "gather_bonus_description": "{0}达到{1}：",
       "gather_condi": "采集条件：",
       "gather_level_info": "{lv}级{job}",
       "gather_pos_info": "该物品可以在以下位置采集：",
@@ -1490,12 +1520,15 @@
         "intro": "可以在以下网站中查询该物品的采集方法：",
         "note": "※ 国服未实装的道具可能在部分网站中没有数据。"
       },
+      "gathering_detail_type1": "难度系数：获得{0} / 鉴别{1}",
+      "gathering_detail_type2": "难度系数：{0}",
       "is_tradable": "该物品可以通过兑换获得：",
       "item_level_with_val": "物品品级 {ilv}",
       "medicine_recovery_info": "恢复{0}最大值的{1}% (上限{2})",
       "multi_get_each_trade": "每次兑换可获得{val}个",
       "need_learn": "需要习得",
       "not_installed_in_chs": "该物品国服尚未实装。",
+      "perception_with_val": "鉴别力需要达到{val}",
       "quoted_position": "(X:{x}, Y:{y})",
       "recipe_detail": "耐久{dur} / 难度{pro} / 品质{qua}",
       "recipe_level_info": "{lv}级{star}{job}配方",
@@ -1760,6 +1793,18 @@
         "desc_1": "启用后生成的生产宏在执行期间不会被其他宏打断，不过各宏的技能容量也会减少。"
       },
       "title": "在每个生产宏的开头使用/macrolock"
+    },
+    "costandbenefit_item_sort_by": {
+      "desc": {
+        "desc_1": "未获取到价格(显示为“???”或“未知”)的物品，在排序时视作价格为0。"
+      },
+      "option": {
+        "price_asc": "按单价(从低到高)",
+        "price_desc": "按单价(从高到低)",
+        "subtotal_asc": "按总价(从低到高)",
+        "subtotal_desc": "按总价(从高到低)"
+      },
+      "title": "成本/收益分析中物品排序规则"
     },
     "costandbenefit_show_item_details": "成本/收益分析中显示物品详情",
     "custom_background": {

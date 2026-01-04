@@ -2,7 +2,6 @@
 // import { 
 //   TableViewOutlined
 // } from '@vicons/material'
-import GroupBox from '@/components/templates/GroupBox.vue'
 import ItemList from '@/components/custom/item/ItemList.vue'
 import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/config-user'

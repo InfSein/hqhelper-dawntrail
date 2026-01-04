@@ -5,8 +5,6 @@ import {
   CloudOutlined,
   CloudDownloadRound, CloudUploadRound,
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
-import GroupBox from '../templates/GroupBox.vue'
 import { useStore } from '@/store'
 import { fixUserConfig, type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'

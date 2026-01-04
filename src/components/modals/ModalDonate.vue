@@ -6,8 +6,6 @@ import {
 } from '@vicons/material'
 import HelpButton from '../custom/general/HelpButton.vue'
 import StaffGroup from '../custom/general/StaffGroup.vue'
-import MyModal from '../templates/MyModal.vue'
-import GroupBox from '../templates/GroupBox.vue'
 import ModalSponsorsList from './ModalSponsorsList.vue'
 import { getStaffMebers } from '@/models/about-app'
 import {
@@ -103,23 +101,23 @@ const handleStaffSelectionUpdate = () => {
     <div class="wrapper">
       <div v-if="cautionsConfirmed" class="donate-container">
         <GroupBox :title="t('common.options')">
-          <n-input-group>
-            <n-input-group-label size="small">{{ t('donate_us.target.title') }}</n-input-group-label>
-            <n-select size="small"
-              v-model:value="selectedStaff"
-              :options="donatableStaffs"
-              :placeholder="t('donate_us.target.placeholder')"
-              @update:value="handleStaffSelectionUpdate"
-            />
-          </n-input-group>
-          <n-input-group style="margin-top: -1px;">
-            <n-input-group-label size="small">{{ t('donate_us.way.title') }}</n-input-group-label>
-            <n-select size="small"
-              v-model:value="selectedDonateWay"
-              :options="availableDonateWays"
-              :placeholder="t('donate_us.way.placeholder')"
-            />
-          </n-input-group>
+          <CompactForm size="small">
+            <CompactFormItem :label="t('donate_us.target.title')">
+              <n-select
+                v-model:value="selectedStaff"
+                :options="donatableStaffs"
+                :placeholder="t('donate_us.target.placeholder')"
+                @update:value="handleStaffSelectionUpdate"
+              />
+            </CompactFormItem>
+            <CompactFormItem :label="t('donate_us.way.title')">
+              <n-select
+                v-model:value="selectedDonateWay"
+                :options="availableDonateWays"
+                :placeholder="t('donate_us.way.placeholder')"
+              />
+            </CompactFormItem>
+          </CompactForm>
         </GroupBox>
         <GroupBox :title="t('donate_us.final_confirm.title')">
           <div>

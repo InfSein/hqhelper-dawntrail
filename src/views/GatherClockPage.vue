@@ -2,7 +2,6 @@
 import {
   AccessAlarmsOutlined,
 } from '@vicons/material'
-import FoldableCard from '@/components/templates/FoldableCard.vue'
 import RouterCard from '@/components/custom/general/RouterCard.vue'
 import GatherItemCard from '@/components/gatherclock/GatherItemCard.vue'
 import ModalAlarmMacroExport from '@/components/modals/ModalAlarmMacroExport.vue'

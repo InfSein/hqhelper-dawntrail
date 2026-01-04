@@ -2,7 +2,6 @@
 import { 
   FestivalOutlined
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)

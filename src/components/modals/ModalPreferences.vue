@@ -17,7 +17,6 @@ import {
   ArchiveSharp, UnarchiveSharp,
   SaveOutlined
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
 import AboutApp from '../custom/general/AboutApp.vue'
 import SettingItem from '../custom/general/SettingItem.vue'
 import ModalPreferencesImportExport from './ModalPreferencesImportExport.vue'
@@ -798,6 +797,36 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               key: 'costandbenefit_show_item_details',
               label: t('preference.costandbenefit_show_item_details'),
               type: 'switch'
+            },
+            {
+              key: 'costandbenefit_item_sort_by',
+              label: t('preference.costandbenefit_item_sort_by.title'),
+              warnings: [
+                t('preference.costandbenefit_item_sort_by.desc.desc_1'),
+              ],
+              type: 'select',
+              options: [
+                {
+                  value: 'itemId',
+                  label: t('game.item_id')
+                },
+                {
+                  value: 'priceAsc',
+                  label: t('preference.costandbenefit_item_sort_by.option.price_asc')
+                },
+                {
+                  value: 'priceDesc',
+                  label: t('preference.costandbenefit_item_sort_by.option.price_desc')
+                },
+                {
+                  value: 'subTotalAsc',
+                  label: t('preference.costandbenefit_item_sort_by.option.subtotal_asc')
+                },
+                {
+                  value: 'subTotalDesc',
+                  label: t('preference.costandbenefit_item_sort_by.option.subtotal_desc')
+                },
+              ]
             },
             {
               key: 'universalis_showpriceinpop',

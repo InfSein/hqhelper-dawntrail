@@ -4,7 +4,6 @@ import {
   SaveOutlined
 } from '@vicons/material'
 import DraggableTable from '../custom/general/DraggableTable.vue'
-import MyModal from '../templates/MyModal.vue'
 import HelpButton from '../custom/general/HelpButton.vue'
 import { _VAR_MAX_WORKFLOW, getDefaultWorkflow, type Workflow } from '@/models/workflow'
 

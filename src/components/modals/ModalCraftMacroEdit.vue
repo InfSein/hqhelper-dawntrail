@@ -12,7 +12,6 @@ import {
   SettingsRound,
 } from '@vicons/material'
 import { VueDraggable } from 'vue-draggable-plus'
-import MyModal from '@/components/templates/MyModal.vue'
 import HelpButton from '@/components/custom/general/HelpButton.vue'
 import ItemSelector from '@/components/custom/item/ItemSelector.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
@@ -110,16 +109,6 @@ const modalTitle = computed(() => {
 const craftActionsMacroLines = computed(() => {
   const macros = exportCraftMacroText(formCraftActions.value.map(action => XivCraftActions[action.val]))
   return macros[`macros_${formCraftActionsExportLang.value}`].map(str => str.split('\r\n')).flat()
-})
-const groupLabelStyle = computed(() => {
-  let width = 25
-  if (userConfig.value.language_ui === 'ja') {
-    width = 35
-  }
-  return [
-    `width: ${width}%;`,
-    'text-align: center;'
-  ].join(' ')
 })
 
 const handlePresetTagClick = (tag: string) => {
@@ -446,18 +435,18 @@ const handleSave = async () => {
               <div class="form-tip">
                 <p>{{ t('macro_manage.text.can_select_item_or_input_name') }}</p>
               </div>
-              <div class="form-input">
-                <n-input-group style="margin-top: 2px;">
-                  <n-input-group-label :style="groupLabelStyle">{{ t('macro_manage.text.select_from_db') }}</n-input-group-label>
-                  <ItemSelector :container-id="modalId" @on-item-selected="handleAddRelateItem"/>
-                </n-input-group>
-                <n-input-group style="margin-top: 1px;">
-                  <n-input-group-label :style="groupLabelStyle">{{ t('macro_manage.text.input_item_name') }}</n-input-group-label>
-                  <n-input v-model:value="relateItemName" />
-                  <n-button type="primary" @click="handleAddRelateItemStr">
-                    {{ t('common.add') }}
-                  </n-button>
-                </n-input-group>
+              <div class="form-input" style="padding-top: 2px;">
+                <CompactForm>
+                  <CompactFormItem :label="t('macro_manage.text.select_from_db')">
+                    <ItemSelector :container-id="modalId" @on-item-selected="handleAddRelateItem"/>
+                  </CompactFormItem>
+                  <CompactFormItem :label="t('macro_manage.text.input_item_name')">
+                    <n-input v-model:value="relateItemName" />
+                    <n-button type="primary" @click="handleAddRelateItemStr">
+                      {{ t('common.add') }}
+                    </n-button>
+                  </CompactFormItem>
+                </CompactForm>
               </div>
             </div>
             <div class="form-block">
@@ -539,12 +528,16 @@ const handleSave = async () => {
                   :animation="150"
                   class="actions-container"
                 >
-                  <CraftActionButton
+                  <div
                     v-for="item in formCraftActions"
                     :key="item.id"
-                    :craft-action="XivCraftActions[item.val]"
-                    :btn-size="48"
-                  />
+                    style="line-height: 1;"
+                  >
+                    <CraftActionButton
+                      :craft-action="XivCraftActions[item.val]"
+                      :btn-size="48"
+                    />
+                  </div>
                 </VueDraggable>
                 <n-empty
                   v-else

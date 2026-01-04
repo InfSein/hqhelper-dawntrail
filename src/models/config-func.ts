@@ -57,6 +57,8 @@ export interface FuncConfigModel {
   export_item_price: boolean
   /** 成本/收益分析：显示物品详情 */
   costandbenefit_show_item_details: boolean
+  /** 成本/收益分析：物品排序规则 */
+  costandbenefit_item_sort_by: "itemId" | "priceAsc" | "priceDesc" | "subTotalAsc" | "subTotalDesc"
   /** 在物品悬浮窗中展示物品价格 */
   universalis_showpriceinpop: boolean
   /** 在物品悬浮窗中展示的物品价格类型 */
@@ -114,6 +116,7 @@ const defaultFuncConfig: FuncConfigModel = {
   universalis_expireTime: 6 * 60 * 60 * 1000, // 默认6小时
   export_item_price: false,
   costandbenefit_show_item_details: false,
+  costandbenefit_item_sort_by: 'itemId',
   universalis_showpriceinpop: true,
   universalis_poppricetypes: ['marketLowestPrice', 'purchasePrice'],
   // * 背包库存

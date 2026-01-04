@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import MyModal from '../templates/MyModal.vue'
 import AboutApp from '../custom/general/AboutApp.vue'
 import { InfoSharp } from '@vicons/material'
 

@@ -15,10 +15,39 @@ interface ItemPriceTableProps {
   priceType: 'NQ' | 'HQ',
   containerId?: string,
 }
-defineProps<ItemPriceTableProps>()
+const props = defineProps<ItemPriceTableProps>()
 
+const items = computed(() => {
+  const parsedItems = props.items.map(item => {
+    return {
+      itemInfo: item,
+      amount: getItemAmount(item.amount),
+      price: getItemPrice(item, props.priceType),
+    }
+  })
+
+  const getPrice = (item: ItemInfo) => {
+    return getItemPriceDecimal(item, props.priceType) ?? 0
+  }
+  switch(funcConfig.value.costandbenefit_item_sort_by) {
+    case 'itemId':
+      return [...parsedItems].sort((a, b) => a.itemInfo.id - b.itemInfo.id)
+    case 'priceAsc':
+      return [...parsedItems].sort((a, b) => getPrice(a.itemInfo) - getPrice(b.itemInfo))
+    case 'priceDesc':
+      return [...parsedItems].sort((a, b) => getPrice(b.itemInfo) - getPrice(a.itemInfo))
+    case 'subTotalAsc':
+      return [...parsedItems].sort((a, b) => getPrice(a.itemInfo) * a.itemInfo.amount - getPrice(b.itemInfo) * b.itemInfo.amount)
+    case 'subTotalDesc':
+      return [...parsedItems].sort((a, b) => getPrice(b.itemInfo) * b.itemInfo.amount - getPrice(a.itemInfo) * a.itemInfo.amount)
+  }
+})
+
+const getItemPriceDecimal = (item: ItemInfo, type: 'NQ' | 'HQ') => {
+  return funcConfig.value.cache_item_prices[item.id]?.[`${funcConfig.value.universalis_priceType}${type}`]
+}
 const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
-  const price = funcConfig.value.cache_item_prices[item.id]?.[`${funcConfig.value.universalis_priceType}${type}`]
+  const price = getItemPriceDecimal(item, type)
   if (price === undefined) {
     return {
       price: t('common.unknown'),
@@ -62,23 +91,23 @@ const getItemAmount = (amount: number) => {
           <tr v-for="(item, index) in items" :key="'item-' + index">
             <td>
               <ItemCell
-                :item-info="item"
-                :amount="item.amount"
+                :item-info="item.itemInfo"
+                :amount="item.itemInfo.amount"
                 :show-item-details="showItemDetails"
                 :container-id="containerId"
               />
             </td>
             <td>
-              {{ getItemAmount(item.amount) }}
+              {{ item.amount }}
             </td>
             <td>
-              <span :style="getItemPrice(item, priceType).style" :title="getItemPrice(item, priceType).tooltip">
-                {{ getItemPrice(item, priceType).price }}
+              <span :style="item.price.style" :title="item.price.tooltip">
+                {{ item.price.price }}
               </span>
             </td>
             <td>
-              <span :style="getItemPrice(item, priceType).style" :title="getItemPrice(item, priceType).tooltip">
-                {{ getItemPrice(item, priceType).total }}
+              <span :style="item.price.style" :title="item.price.tooltip">
+                {{ item.price.total }}
               </span>
             </td>
           </tr>

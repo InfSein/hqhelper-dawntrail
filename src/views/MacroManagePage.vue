@@ -11,7 +11,6 @@ import {
   AddTaskOutlined,
   EditNoteOutlined, DeleteFilled,
 } from '@vicons/material'
-import FoldableCard from '@/components/templates/FoldableCard.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import ModalCraftMacroEdit from '@/components/modals/ModalCraftMacroEdit.vue'
 import ModalPreferences from '@/components/modals/ModalPreferences.vue'

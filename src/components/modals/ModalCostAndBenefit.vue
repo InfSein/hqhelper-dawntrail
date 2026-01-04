@@ -2,8 +2,6 @@
 import { 
   AttachMoneyOutlined
 } from '@vicons/material'
-import MyModal from '../templates/MyModal.vue'
-import GroupBox from '../templates/GroupBox.vue'
 import ItemPriceTable from '../custom/item/ItemPriceTable.vue'
 import ModalPreferences from './ModalPreferences.vue'
 import type { ItemInfo } from '@/tools/item'
