@@ -54,14 +54,6 @@ jobs:
           PREV_TAG=$(git describe --tags --abbrev=0 --first-parent master^ 2>/dev/null || echo "initial")
           echo "PREV_TAG=$PREV_TAG" >> $GITHUB_ENV
 
-      # 生成从上一个标签到当前的更改日志
-      - name: Generate Changelog
-        id: generate_changelog
-        run: |
-          git log ${{ env.PREV_TAG }}..HEAD --grep='^feat:\|^fix:' --pretty=format:"* %s" | awk '{sub(/^feat:/, ""); sub(/^fix:/, ""); print}' | tr '\n' ';' > changelog.txt
-          CHANGELOG=$(<changelog.txt)
-          echo "CHANGELOG=$CHANGELOG" >> $GITHUB_ENV
-
       # 检查是否存在同版本的 Release
       - name: Check for Existing Release
         id: check_release
@@ -77,7 +69,7 @@ jobs:
       # 创建或更新 Release，描述中包含变更日志和提交历史
       - name: Create or Update Release
         run: |
-          RELEASE_NOTES=$(echo -e "## 更新日志\n\n$(echo '${{ env.CHANGELOG }}' | tr ';' '\n')\n\n\n\n**查看所有更改**: https://github.com/InfSein/hqhelper-dawntrail/compare/${{ env.PREV_TAG }}...v${{ env.VERSION }}")
+          RELEASE_NOTES=$(echo -e "## Release v${{ env.VERSION }}\n\nPlease refer the [CHANGELOG.md](https://github.com/InfSein/hqhelper-dawntrail/blob/master/CHANGELOG.md) for details.\n\n\n\n**Since last release**: https://github.com/InfSein/hqhelper-dawntrail/compare/${{ env.PREV_TAG }}...v${{ env.VERSION }}")
     
           if [ "${{ env.exists }}" = "true" ]; then
             gh release upload "v${{ env.VERSION }}" static-pages.zip --clobber
