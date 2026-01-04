@@ -690,6 +690,19 @@
         "text_4": "Fixed an issue where, after setting {0} to {1}, part of the generated macro was not correctly prefixed."
       }
     },
+    "2_4_3": {
+      "breaking": {
+        "text_1": "Added gathering difficulty coefficients and gathering point bonuses to the tooltips of gatherable items."
+      },
+      "feat": {
+        "text_1": "Now you can sort items by item price."
+      },
+      "fix": {
+        "text_1": "Fixed an issue where, in rare cases, the quantity of some items in the inventory could be set to a negative value, preventing the inventory from being viewed or edited.",
+        "text_2": "Fixed the issue that dragging the macro content action in Macro Manage might append unknown element that could cause the page crashing.",
+        "text_3": "Fix some UI text issues when switching the language of the interface without immediately following the changes to the settings."
+      }
+    },
     "breaking": "BREAKING CHANGES",
     "feat": "FEATURES",
     "fix": "BUG FIXES",
@@ -1780,6 +1793,18 @@
         "desc_1": "Enabling this option will prevent the generated craft macro from being interrupted by other macros during execution, but the skill capacity of each macro will also be reduced."
       },
       "title": "Use /macrolock at the beginning of each craft macro"
+    },
+    "costandbenefit_item_sort_by": {
+      "desc": {
+        "desc_1": "Items not fetched for price (displayed as \"???\" or \"unknown\") are considered to be price 0 in sorting."
+      },
+      "option": {
+        "price_asc": "By Unit Price (Low to High)",
+        "price_desc": "By Unit Price (High to Low)",
+        "subtotal_asc": "By Total (Low to High)",
+        "subtotal_desc": "By Total (High to Low)"
+      },
+      "title": "Items sorting rules in cost/benefit analysis"
     },
     "costandbenefit_show_item_details": "Display item details in cost/benefit analysis",
     "custom_background": {

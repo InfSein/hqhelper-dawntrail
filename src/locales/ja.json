@@ -690,6 +690,19 @@
         "text_4": "{0}を{1}に設定した場合、生成されるマクロの一部内容がマクロのプレフィックスに正しく付加されない問題を修正しました。"
       }
     },
+    "2_4_3": {
+      "breaking": {
+        "text_1": "採集可能なアイテムに、採集の難易度や採集ポイントのエフェクト情報が追加されました。"
+      },
+      "feat": {
+        "text_1": "アイテムを価額順に並べるようになりました。"
+      },
+      "fix": {
+        "text_1": "一部の状況において、在庫の一部アイテムの所持数が負の値に設定され、その結果、当該アイテムの在庫を確認・編集できなくなる問題を修正しました。",
+        "text_2": "マクロ管理において、マクロ内容をドラッグして並び替えた際に不明な要素が表示され、ページがクラッシュする可能性があった問題を修正しました。",
+        "text_3": "画面言語を切り替えた後、一部のUIテキストが設定変更に即座に反映されない問題を修正しました。"
+      }
+    },
     "breaking": "重要な変更",
     "feat": "機能アップデート",
     "fix": "不具合修正",
@@ -1460,6 +1473,21 @@
     "clear_inventory": "「在庫一覧」をクリアする"
   },
   "item": {
+    "gather_threshold": {
+      "boon_rate": "同レベルで{0}%の採集率アップ",
+      "intuition_rate": "価値の上昇率{0}％",
+      "meticulous_rate": "慎重の出現率{0}％",
+      "must_gain": "同レベルで100%の採集率アップ",
+      "scour_base_gain": "純化+{0}",
+      "scrutiny_multi": "集中検分倍率{0}%",
+      "title": {
+        "field": "プロジェクト",
+        "gather_threshold": "獲得力の閾値",
+        "perception_threshold": "技術力の閾値",
+        "threshold": "閾値"
+      },
+      "yield_plus": "バウンティフルイールドII/バウンティフルハーベストII +{0}"
+    },
     "price": {
       "no_price": "価格がありません。",
       "no_price_reason": "予想の原因：価格が取得されていない/アイテムが実装されていない、またはその品質が存在しない/取引データが不足している",
@@ -1482,6 +1510,8 @@
       "craft_condi": "製作可能条件：",
       "craftsmanship_with_val": "作業精度{val}",
       "curr_show_hqornq": "現在、アイテムの{0}ステータスを表示中です",
+      "gather_bonus": "採集バフ：",
+      "gather_bonus_description": "{0}が{1}：",
       "gather_condi": "採集条件：",
       "gather_level_info": "レベル{lv}の{job}",
       "gather_pos_info": "アイテムは次の場所で収集できます：",
@@ -1490,12 +1520,15 @@
         "intro": "以下のサイトで該当アイテムの採集方法が掲載されています：",
         "note": "※ 中国版で実装されていないアイテムは一部のサイトで未掲載の可能性があります。"
       },
+      "gathering_detail_type1": "難易度：獲得力{0} /技術力{1}",
+      "gathering_detail_type2": "難易度：{0}",
       "is_tradable": "交換で入手可能なアイテムです：",
       "item_level_with_val": "アイテムレベル {ilv}",
       "medicine_recovery_info": "{0} の最大値の {1}% を回復する（上限 {2}）",
       "multi_get_each_trade": "一回交換で{val}個が入手されます",
       "need_learn": "修得必要：",
       "not_installed_in_chs": "このアイテムは中国サーバーでまだ実装されていません。",
+      "perception_with_val": "最低技術力：{val}",
       "quoted_position": "(X:{x}, Y:{y})",
       "recipe_detail": "耐久{dur} / 難易度{pro} / 品質{qua}",
       "recipe_level_info": "{job} Lv. {lv}{star}",
@@ -1760,6 +1793,18 @@
         "desc_1": "有効にすると、生成されたマクロは実行中に他のマクロに中断されませんが、各マクロのアクション容量も減少します。"
       },
       "title": "各生産マクロの先頭に/macrolockを使用"
+    },
+    "costandbenefit_item_sort_by": {
+      "desc": {
+        "desc_1": "価格を取得できませんでした（「??」または「不明」と表示）のアイテムは0とみなされます。"
+      },
+      "option": {
+        "price_asc": "単価順（安から高）",
+        "price_desc": "単価順（高から安）",
+        "subtotal_asc": "総価順（安から高）",
+        "subtotal_desc": "総価順（高から安）"
+      },
+      "title": "コスト/収益分析のアイテム並び順の基準"
     },
     "costandbenefit_show_item_details": "コスト/収益分析におけるアイテム詳細の表示機能を追加しました",
     "custom_background": {

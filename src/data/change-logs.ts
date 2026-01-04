@@ -114,6 +114,7 @@ export const getChangelogs = (
               + br + t('changelog.2_4_3.feat.text_1')
               + br + getNoteImage('2.4.3', '3.png')
               + br + getNoteImage('2.4.3', '4.png'),
+            t('changelog.shared.detail_optimized'),
           ]
         }
       ]
