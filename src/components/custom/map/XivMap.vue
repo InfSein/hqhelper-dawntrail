@@ -47,9 +47,9 @@ const getAetheryteName = (aetheryte: XivMapAetheryteInfo) => {
       />
       <div class="markers-overlay">
         <!-- 目的地旗帜 -->
-        <img 
+        <XivFARImage 
           class="marker flag"
-          src="/ui/flag.png"
+          src="./ui/flag.png"
           :style="getPositionStyle(flagX, flagY)"
         />
         <!-- 以太之光 -->
@@ -62,9 +62,9 @@ const getAetheryteName = (aetheryte: XivMapAetheryteInfo) => {
             content-style="padding: 0;"
           >
             <template #trigger>
-              <img 
+              <XivFARImage 
                 class="marker aetheryte"
-                src="/ui/aetheryte.png"
+                src="./ui/aetheryte.png"
                 :style="getPositionStyle(aetheryte.x, aetheryte.y)"
               />
             </template>
