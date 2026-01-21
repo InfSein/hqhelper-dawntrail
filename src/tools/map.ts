@@ -47,6 +47,9 @@ export interface XivMapAetheryteInfo {
 }
 export const XivMaps = parseUnpackedMapData(XivUnpackedMaps)
 
+/**
+ * @deprecated 现通过 src\components\custom\map\XivMap.vue 组件的元素排布实现绘制。
+ */
 export const drawMap = (
   mapSrc: string, 
   mapSize: number,
