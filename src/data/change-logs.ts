@@ -84,6 +84,31 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.4.4',
+      date: '2026-01-27',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('changelog.shared.game_db_update', {
+              ver: '7.41'
+            })
+              + (isZh ? (br + 
+                '7.41版本对部分已有道具的名称进行了修订。涉及HqHelper的道具名变更如下：'
+                + renderList(['高密度轻银矿 → 高密度轻铝矿'])
+              ) : ''),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_4_4.feat.text_1')
+              + br + getNoteImage('2.4.4', '1.png')
+          ]
+        }
+      ]
+    },
+    {
       version: '2.4.3',
       date: '2026-01-04',
       changes: [

@@ -1,7 +1,7 @@
 {
   "about_app": {
     "staff": {
-      "contributor": "Contributors",
+      "contributor": "Contributor",
       "jobs": {
         "etnatker": "Contributed to the Teamcraft format material list feature",
         "infsein": "Lead Designer and Developer",
@@ -701,6 +701,11 @@
         "text_1": "Fixed an issue where, in rare cases, the quantity of some items in the inventory could be set to a negative value, preventing the inventory from being viewed or edited.",
         "text_2": "Fixed the issue that dragging the macro content action in Macro Manage might append unknown element that could cause the page crashing.",
         "text_3": "Fix some UI text issues when switching the language of the interface without immediately following the changes to the settings."
+      }
+    },
+    "2_4_4": {
+      "feat": {
+        "text_1": "Improved the clarity of the gathering maps. Additionally, hovering the cursor over a teleport point now displays the name of that teleport location."
       }
     },
     "breaking": "BREAKING CHANGES",
