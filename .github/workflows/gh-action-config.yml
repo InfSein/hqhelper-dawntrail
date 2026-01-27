@@ -69,7 +69,7 @@ jobs:
       # 创建或更新 Release，描述中包含变更日志和提交历史
       - name: Create or Update Release
         run: |
-          RELEASE_NOTES=$(echo -e "## Release v${{ env.VERSION }}\n\nPlease refer the [CHANGELOG.md](https://github.com/InfSein/hqhelper-dawntrail/blob/master/CHANGELOG.md) for details.\n\n\n\n**Since last release**: https://github.com/InfSein/hqhelper-dawntrail/compare/${{ env.PREV_TAG }}...v${{ env.VERSION }}")
+          RELEASE_NOTES=$(echo -e "Please refer the [CHANGELOG.md](https://github.com/InfSein/hqhelper-dawntrail/blob/master/CHANGELOG.md) for details.\n\n\n\n**Since last release**: https://github.com/InfSein/hqhelper-dawntrail/compare/${{ env.PREV_TAG }}...v${{ env.VERSION }}")
     
           if [ "${{ env.exists }}" = "true" ]; then
             gh release upload "v${{ env.VERSION }}" static-pages.zip --clobber
