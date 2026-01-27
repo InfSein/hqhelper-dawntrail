@@ -10,7 +10,7 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
 const {
-  uiLanguage,
+  itemLanguage,
 } = UseConfig(userConfig, funcConfig)
 
 interface MapButtonProps {
@@ -32,7 +32,7 @@ const getPositionStyle = (x: number, y: number) => {
   }
 }
 const getAetheryteName = (aetheryte: XivMapAetheryteInfo) => {
-  return aetheryte[`name_${uiLanguage.value}`]
+  return aetheryte[`name_${itemLanguage.value}`]
 }
 </script>
 
