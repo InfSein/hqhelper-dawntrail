@@ -894,6 +894,7 @@ export const calCostAndBenefit = (
   statementData: StatementData
 ) => {
   let updateRequired = false
+  let totalCostIsUnknown = false, totalBenefitIsUnknown = false
   const itemsCost = {} as Record<number, {
     amount: number,
     price: ItemPriceInfo
@@ -917,6 +918,7 @@ export const calCostAndBenefit = (
       }
     } else {
       updateRequired = true
+      totalCostIsUnknown = true
     }
   })
   statementData.craftTargets.forEach(item => {
@@ -927,19 +929,23 @@ export const calCostAndBenefit = (
       }
     } else {
       updateRequired = true
+      totalBenefitIsUnknown = true
     }
   })
   let costInfo = '???', benefitInfo = '???'
-  if (!updateRequired) {
-    let costTotal = 0, benefitTotal = 0
-    const priceKey = funcConfig.universalis_priceType
+  const priceKey = funcConfig.universalis_priceType
+  if (!totalCostIsUnknown) {
+    let costTotal = 0
     Object.values(itemsCost).forEach(item => {
       costTotal += item.amount * (item.price[`${priceKey}NQ`] ?? 0)
     })
+    costInfo = Math.floor(costTotal).toLocaleString()
+  }
+  if (!totalBenefitIsUnknown) {
+    let benefitTotal = 0
     Object.values(itemsBenefit).forEach(item => {
       benefitTotal += item.amount * (item.price[`${priceKey}HQ`] ?? 0)
     })
-    costInfo = Math.floor(costTotal).toLocaleString()
     benefitInfo = Math.floor(benefitTotal).toLocaleString()
   }
   return {
