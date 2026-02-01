@@ -9,8 +9,9 @@ import {
   KeyboardArrowDownRound,
   ArchiveSharp, UnarchiveSharp,
   AddTaskOutlined,
-  EditNoteOutlined, DeleteFilled,
+  ShareOutlined, EditNoteOutlined, DeleteFilled,
 } from '@vicons/material'
+import { compress } from 'xiv-cac-utils'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import ModalCraftMacroEdit from '@/components/modals/ModalCraftMacroEdit.vue'
 import ModalPreferences from '@/components/modals/ModalPreferences.vue'
@@ -279,12 +280,26 @@ const tableColumns = computed(() => {
     {
       title: t('common.manage'),
       key: 'manage',
-      width: 180,
+      width: 270,
       render(row) {
         return h(
           'div',
           { class: 'flex gap-4' },
           [
+            h(
+              NButton,
+              {
+                strong: true,
+                tertiary: true,
+                size: 'small',
+                style: 'width: fit-content;',
+                onClick: () => handleShareRow(row)
+              },
+              {
+                icon: renderIcon(ShareOutlined),
+                default: () => t('common.share')
+              }
+            ),
             h(
               NButton,
               {
@@ -374,6 +389,24 @@ const handleAddRow = () => {
       workState.value.recordIndex = macroid
     }
     return macroid
+  }
+}
+const handleShareRow = async (row: CraftMacroRow) => {
+  const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)
+  if (index !== -1) {
+    const macro = workState.value.recordedCraftMacros[index]
+    const cac = compress({
+      type: 'id',
+      actions: macro.craftActions,
+    })
+    const response = await CopyToClipboard(cac)
+    if (response) {
+      NAIVE_UI_MESSAGE.error(t('common.message.copy_failed_unexpected_error'))
+    } else {
+      NAIVE_UI_MESSAGE.success(t('common.message.copy_succeed'))
+    }
+  } else {
+    handleReportDataMissing(row.id)
   }
 }
 const handleEditRow = (row: CraftMacroRow) => {

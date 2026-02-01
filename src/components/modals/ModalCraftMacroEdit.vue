@@ -12,6 +12,7 @@ import {
   SettingsRound,
 } from '@vicons/material'
 import { VueDraggable } from 'vue-draggable-plus'
+import { decompress } from 'xiv-cac-utils'
 import HelpButton from '@/components/custom/general/HelpButton.vue'
 import ItemSelector from '@/components/custom/item/ItemSelector.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
@@ -66,7 +67,7 @@ const formCraftActions = ref<{
   id: number,
   val: number,
 }[]>([])
-const formCraftActionsImportType = ref<"gamemacro" | "simulator">('gamemacro')
+const formCraftActionsImportType = ref<"gamemacro" | "simulator" | "cac">('gamemacro')
 const formCraftActionsImport = ref('')
 const formCraftActionsExportLang = ref<"zh" | "en" | "ja">('zh')
 const showPresetTagsManageModal = ref(false)
@@ -185,6 +186,8 @@ const handleImportCraftActions = () => {
     importedActions = parseCraftMacroText(formCraftActionsImport.value).map(action => action.id)
   } else if (formCraftActionsImportType.value === 'simulator') {
     importedActions = parseCraftProcedure(formCraftActionsImport.value).map(action => action.id)
+  } else if (formCraftActionsImportType.value === 'cac') {
+    importedActions = decompress(formCraftActionsImport.value).map(action => action.ids[0])
   } else {
     NAIVE_UI_MESSAGE.error('Unexpected formCraftActionsImportType'); return
   }
@@ -566,6 +569,11 @@ const handleSave = async () => {
                       value="simulator"
                       :label="t('common.simulator')"
                     />
+                    <n-radio
+                      key="cac"
+                      value="cac"
+                      :label="t('common.cac')"
+                    />
                   </n-radio-group>
                 </div>
                 <div class="lh-120" style="margin-bottom: 4px;">
@@ -578,13 +586,22 @@ const handleSave = async () => {
                   <div v-else-if="formCraftActionsImportType === 'simulator'">
                     <p>{{ t('macro_manage.text.import_action.text_5') }}</p>
                   </div>
+                  <div v-else-if="formCraftActionsImportType === 'cac'">
+                    <p>{{ t('macro_manage.text.import_action.text_6') }}</p>
+                    <p>{{ t('macro_manage.text.import_action.text_7') }}</p>
+                  </div>
                 </div>
                 <n-input
                   v-model:value="formCraftActionsImport"
+                  v-if="formCraftActionsImportType !== 'cac'"
                   type="textarea"
                   :autosize="{
                     minRows: 3,
                   }"
+                />
+                <n-input
+                  v-model:value="formCraftActionsImport"
+                  v-else
                 />
                 <n-button
                   ghost

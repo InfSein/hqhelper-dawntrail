@@ -33,6 +33,7 @@
     "vue-gtag": "^3.6.3",
     "vue-i18n": "^11.1.12",
     "vue-router": "^4.5.1",
+    "xiv-cac-utils": "0.0.2",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
