@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import type { DataTableColumns } from 'naive-ui'
+
+type SortOrder = 'ascend' | 'descend' | false
 import ItemCell from './ItemCell.vue'
 import type { ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/config-user'
 import type { FuncConfigModel } from '@/models/config-func'
 
 const t = inject<(message: string, args?: any) => string>('t')!
-// const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
+const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
@@ -17,31 +20,101 @@ interface ItemPriceTableProps {
 }
 const props = defineProps<ItemPriceTableProps>()
 
-const items = computed(() => {
-  const parsedItems = props.items.map(item => {
+interface TableRow {
+  key: number
+  itemInfo: ItemInfo
+  amount: number | string
+  price: {
+    price: string
+    total: string
+    tooltip: string
+    style: any
+    rawPrice: number
+    rawTotal: number
+  }
+}
+
+const priceSortOrder = ref<SortOrder>(false)
+const subTotalSortOrder = ref<SortOrder>(false)
+
+onMounted(() => {
+  const sortBy = funcConfig.value.costandbenefit_item_sort_by
+  if (sortBy === 'priceAsc') priceSortOrder.value = 'ascend'
+  else if (sortBy === 'priceDesc') priceSortOrder.value = 'descend'
+  else if (sortBy === 'subTotalAsc') subTotalSortOrder.value = 'ascend'
+  else if (sortBy === 'subTotalDesc') subTotalSortOrder.value = 'descend'
+})
+
+const tableData = computed<TableRow[]>(() => {
+  const rawData = props.items.map(item => {
+    const priceInfo = getItemPrice(item, props.priceType)
     return {
+      key: item.id,
       itemInfo: item,
       amount: getItemAmount(item.amount),
-      price: getItemPrice(item, props.priceType),
+      price: priceInfo
     }
   })
 
-  const getPrice = (item: ItemInfo) => {
-    return getItemPriceDecimal(item, props.priceType) ?? 0
-  }
-  switch(funcConfig.value.costandbenefit_item_sort_by) {
-    case 'itemId':
-      return [...parsedItems].sort((a, b) => a.itemInfo.id - b.itemInfo.id)
-    case 'priceAsc':
-      return [...parsedItems].sort((a, b) => getPrice(a.itemInfo) - getPrice(b.itemInfo))
-    case 'priceDesc':
-      return [...parsedItems].sort((a, b) => getPrice(b.itemInfo) - getPrice(a.itemInfo))
-    case 'subTotalAsc':
-      return [...parsedItems].sort((a, b) => getPrice(a.itemInfo) * a.itemInfo.amount - getPrice(b.itemInfo) * b.itemInfo.amount)
-    case 'subTotalDesc':
-      return [...parsedItems].sort((a, b) => getPrice(b.itemInfo) * b.itemInfo.amount - getPrice(a.itemInfo) * a.itemInfo.amount)
-  }
+  // 默认按照 itemId 排序，如果 table 没有其他排序状态的话
+  return rawData.sort((a, b) => a.itemInfo.id - b.itemInfo.id)
 })
+
+const columns = computed<DataTableColumns<TableRow>>(() => [
+  {
+    title: t('common.item'),
+    key: 'item',
+    width: isMobile.value ? '49%' : '46%',
+    render(row) {
+      return h(ItemCell, {
+        itemInfo: row.itemInfo,
+        amount: row.itemInfo.amount,
+        showItemDetails: props.showItemDetails,
+        itemSpanMaxWidth: `${window.innerWidth - 285}px`,
+        containerId: props.containerId
+      })
+    }
+  },
+  {
+    title: t('common.amount'),
+    key: 'amount',
+    width: isMobile.value ? '17%' : '18%',
+    align: 'center'
+  },
+  {
+    title: t('common.unit_price'),
+    key: 'price',
+    width: isMobile.value ? '17%' : '18%',
+    align: 'center',
+    sorter: (rowA, rowB) => rowA.price.rawPrice - rowB.price.rawPrice,
+    sortOrder: priceSortOrder.value,
+    render(row) {
+      return h('span', {
+        style: row.price.style,
+        title: row.price.tooltip
+      }, row.price.price)
+    }
+  },
+  {
+    title: t('common.subtotal'),
+    key: 'subTotal',
+    width: isMobile.value ? '17%' : '18%',
+    align: 'center',
+    sorter: (rowA, rowB) => rowA.price.rawTotal - rowB.price.rawTotal,
+    sortOrder: subTotalSortOrder.value,
+    render(row) {
+      return h('span', {
+        style: row.price.style,
+        title: row.price.tooltip
+      }, row.price.total)
+    }
+  }
+])
+
+const handleSorterChange = (sorter: any) => {
+  priceSortOrder.value = (sorter && sorter.columnKey === 'price') ? sorter.order : false
+  subTotalSortOrder.value = (sorter && sorter.columnKey === 'subTotal') ? sorter.order : false
+}
 
 const getItemPriceDecimal = (item: ItemInfo, type: 'NQ' | 'HQ') => {
   return funcConfig.value.cache_item_prices[item.id]?.[`${funcConfig.value.universalis_priceType}${type}`]
@@ -51,7 +124,11 @@ const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
   if (price === undefined) {
     return {
       price: t('common.unknown'),
-      total: t('common.unknown')
+      total: t('common.unknown'),
+      tooltip: '',
+      style: '',
+      rawPrice: -1,
+      rawTotal: -1
     }
   } else {
     const p = Math.floor(price)
@@ -61,7 +138,9 @@ const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
       price: p ? p.toLocaleString() : '???',
       total: p ? (p * item.amount).toLocaleString() : '???',
       tooltip: p ? '' : tooltipForNoPrice,
-      style: p ? '' : styleForNoPrice
+      style: p ? '' : styleForNoPrice,
+      rawPrice: p,
+      rawTotal: p * item.amount
     }
   }
 }
@@ -75,64 +154,35 @@ const getItemAmount = (amount: number) => {
 
 <template>
   <div class="table-container">
-    <n-table class="table" size="small" :single-line="false">
-      <thead>
-        <tr>
-          <th>{{ t('common.item') }}</th>
-          <th>{{ t('common.amount') }}</th>
-          <th>{{ t('common.unit_price') }}</th>
-          <th>{{ t('common.subtotal') }}</th>
-        </tr>
-      </thead>
-    </n-table>
-    <n-scrollbar trigger="none" :style="{ height: '450px', 'margin-top': '-2px' }">
-      <n-table class="table" size="small" :single-line="false">
-        <tbody>
-          <tr v-for="(item, index) in items" :key="'item-' + index">
-            <td>
-              <ItemCell
-                :item-info="item.itemInfo"
-                :amount="item.itemInfo.amount"
-                :show-item-details="showItemDetails"
-                :container-id="containerId"
-              />
-            </td>
-            <td>
-              {{ item.amount }}
-            </td>
-            <td>
-              <span :style="item.price.style" :title="item.price.tooltip">
-                {{ item.price.price }}
-              </span>
-            </td>
-            <td>
-              <span :style="item.price.style" :title="item.price.tooltip">
-                {{ item.price.total }}
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </n-table>
-    </n-scrollbar>
+    <n-data-table
+      class="table"
+      size="small"
+      :columns="columns"
+      :data="tableData"
+      :min-height="450"
+      :max-height="450"
+      :single-line="false"
+      @update:sorter="handleSorterChange"
+    />
   </div>
 </template>
 
 <style scoped>
 /* All */
-.table {
+:deep(.table) {
   width: 100%;
 
   th {
     font-weight: bold;
   }
-  th:first-child, td:first-child {
-    width: 49%;
+  .n-data-table-td {
+    padding: 6px;
   }
-  th:nth-child(2), td:nth-child(2),
-  th:nth-child(3), td:nth-child(3),
-  th:nth-child(4), td:nth-child(4) {
-    width: 17%;
-    text-align: center;
+  .n-data-table-tbody {
+    /* naive-ui对末行样式进行修正，使其不显示底部边框，但是对这里的固定高度表格来说不适用，因此回滚 */
+    .n-data-table-td.n-data-table-td--last-row {
+      border-bottom: 1px solid var(--n-merged-border-color);
+    }
   }
 }
 
@@ -142,14 +192,14 @@ const getItemAmount = (amount: number) => {
 
 /* Mobile */
 @media screen and (max-width: 767px) {
-  .table {
+  :deep(.table) {
     th:first-child, td:first-child {
-      width: 46%;
+      width: 46% !important;
     }
     th:nth-child(2), td:nth-child(2),
     th:nth-child(3), td:nth-child(3),
     th:nth-child(4), td:nth-child(4) {
-      width: 18%;
+      width: 18% !important;
       text-align: center;
     }
   }

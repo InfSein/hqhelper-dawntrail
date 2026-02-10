@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useTemplateRef } from 'vue'
+import type { ScrollbarInst } from 'naive-ui'
 import ItemCell from './ItemCell.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 
@@ -16,6 +18,9 @@ interface ItemSelectTableProps {
 defineProps<ItemSelectTableProps>()
 
 const tableContainer = ref<HTMLElement>()
+const scrollbarRef = useTemplateRef<ScrollbarInst>('scrollbarRef')
+const highlightedItemId = ref<number | null>(null)
+let highlightTimer: number | null = null
 
 interface ItemSelectRow {
   info: ItemInfo,
@@ -44,6 +49,26 @@ const handleDealNumInputEdge = (row: ItemSelectRow) => {
     delete items.value[itemId]
   }
 }
+
+const scrollToItem = (itemId: number) => {
+  const el = document.getElementById(`item-row-${itemId}`)
+  if (el && scrollbarRef.value) {
+    scrollbarRef.value.scrollTo({
+      top: el.offsetTop,
+      behavior: 'smooth'
+    })
+    highlightedItemId.value = itemId
+    if (highlightTimer) clearTimeout(highlightTimer)
+    highlightTimer = setTimeout(() => {
+      highlightedItemId.value = null
+      highlightTimer = null
+    }, 1000)
+  }
+}
+
+defineExpose({
+  scrollToItem
+})
 </script>
 
 <template>
@@ -56,10 +81,15 @@ const handleDealNumInputEdge = (row: ItemSelectRow) => {
         </tr>
       </thead>
     </n-table>
-    <n-scrollbar trigger="none" :style="{ height: contentHeight ?? '450px', 'margin-top': '-2px' }">
+    <n-scrollbar ref="scrollbarRef" trigger="none" :style="{ height: contentHeight ?? '450px', 'margin-top': '-2px' }">
       <n-table class="table" size="small" :single-line="false">
         <tbody>
-          <tr v-for="item in rows" :key="'item-' + item.info.id">
+          <tr 
+            v-for="item in rows" 
+            :key="'item-' + item.info.id" 
+            :id="'item-row-' + item.info.id"
+            :class="{ 'highlighted-row': highlightedItemId === item.info.id }"
+          >
             <td>
               <ItemCell
                 :item-info="item.info"
@@ -128,5 +158,11 @@ const handleDealNumInputEdge = (row: ItemSelectRow) => {
       text-align: center;
     }
   }
+}
+
+.highlighted-row td {
+  transition: background-color 0.5s ease;
+  color: white;
+  background-color: #3364C7;
 }
 </style>

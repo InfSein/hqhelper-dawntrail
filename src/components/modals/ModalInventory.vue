@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useTemplateRef } from 'vue'
 import { 
   BackpackFilled,
   DeleteSweepRound,
@@ -97,10 +98,13 @@ const inventorySettingItems = computed(() : Setting[] => {
   ]
 })
 
+const itemTableRef = useTemplateRef<InstanceType<typeof ItemSelectTable>>('itemTableRef')
+
 const handleItemInputValueUpdate = (value: number) => {
   if (!value) return
   if (formFuncConfigData.value.inventory_data[value]) {
     NAIVE_UI_MESSAGE.info(t('common.message.item_already_have'))
+    itemTableRef.value?.scrollToItem(value)
   } else {
     formFuncConfigData.value.inventory_data[value] = 1
   }
@@ -154,6 +158,7 @@ const handleSave = () => {
           </div>
           <div class="content-table">
             <ItemSelectTable
+              ref="itemTableRef"
               v-model:items="formFuncConfigData.inventory_data"
               show-item-details
               item-span-max-width="260px"

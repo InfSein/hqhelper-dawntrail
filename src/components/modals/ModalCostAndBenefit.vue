@@ -42,7 +42,7 @@ const handleSettingButtonClick = () => {
     :icon="AttachMoneyOutlined"
     :title="t('statistics.group.cost_and_benefit.title')"
     max-width="1200px"
-    :height="isMobile ? '650px' : '600px'"
+    :height="isMobile ? '700px' : '600px'"
     show-setting
     @on-setting-button-clicked="handleSettingButtonClick"
   >
