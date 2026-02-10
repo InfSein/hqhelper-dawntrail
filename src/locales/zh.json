@@ -1809,7 +1809,7 @@
         "subtotal_asc": "按总价(从低到高)",
         "subtotal_desc": "按总价(从高到低)"
       },
-      "title": "成本/收益分析中物品排序规则"
+      "title": "成本/收益分析中物品默认排序规则"
     },
     "costandbenefit_show_item_details": "成本/收益分析中显示物品详情",
     "custom_background": {

@@ -786,14 +786,6 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               ]
             },
             {
-              key: 'export_item_price',
-              label: t('preference.export_item_price.title'),
-              descriptions: [
-                t('preference.export_item_price.desc.desc_1'),
-              ],
-              type: 'switch'
-            },
-            {
               key: 'costandbenefit_show_item_details',
               label: t('preference.costandbenefit_show_item_details'),
               type: 'switch'
@@ -801,7 +793,7 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'costandbenefit_item_sort_by',
               label: t('preference.costandbenefit_item_sort_by.title'),
-              warnings: [
+              descriptions: [
                 t('preference.costandbenefit_item_sort_by.desc.desc_1'),
               ],
               type: 'select',
