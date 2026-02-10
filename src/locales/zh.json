@@ -988,7 +988,8 @@
       "please_input_item_name": "请输入物品名",
       "please_input_val": "请输入{val}",
       "please_wait_for_a_while": "请稍等片刻。",
-      "sync_succeed": "同步成功"
+      "sync_succeed": "同步成功",
+      "operation_failed": "操作失败"
     },
     "mode": "模式",
     "mquoted_view_statement": "[查看报表]",
