@@ -548,10 +548,12 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               type: 'select',
               options: [
                 { value: 'itemId', label: t('game.item_id') },
-                { value: 'recipeOrder', label: t('preference.processes_craftable_item_sortby.option.crafting_log') }
+                { value: 'recipeOrder', label: t('preference.processes_craftable_item_sortby.option.crafting_log') },
+                { value: 'recipeOrderSearch', label: t('preference.processes_craftable_item_sortby.option.crafting_log_search') },
               ],
               descriptions: [
                 t('preference.processes_craftable_item_sortby.desc.desc_1'),
+                t('preference.processes_craftable_item_sortby.desc.desc_2'),
               ],
             }
           ]
