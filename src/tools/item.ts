@@ -891,7 +891,8 @@ const getMultiItemPrice = async (
 }
 export const calCostAndBenefit = (
   funcConfig: FuncConfigModel,
-  statementData: StatementData
+  costItems: ItemInfo[],
+  benefitItems: ItemInfo[],
 ) => {
   let updateRequired = false
   let totalCostIsUnknown = false, totalBenefitIsUnknown = false
@@ -910,7 +911,7 @@ export const calCostAndBenefit = (
     return priceInfo && priceInfo.updateTime > expiresAfter
       && priceInfo.v && priceInfo.v >= ItemPriceApiVersion
   }
-  statementData.materialsLvBase.forEach(item => {
+  costItems.forEach(item => {
     if (cacheNotExpired(item)) {
       itemsCost[item.id] = {
         amount: item.amount,
@@ -921,7 +922,7 @@ export const calCostAndBenefit = (
       totalCostIsUnknown = true
     }
   })
-  statementData.craftTargets.forEach(item => {
+  benefitItems.forEach(item => {
     if (cacheNotExpired(item)) {
       itemsBenefit[item.id] = {
         amount: item.amount,

@@ -4,6 +4,7 @@ import {
 } from '@vicons/material'
 import ItemPriceTable from '../custom/item/ItemPriceTable.vue'
 import ModalPreferences from './ModalPreferences.vue'
+import { calCostAndBenefit } from '@/tools/item'
 import type { ItemInfo } from '@/tools/item'
 import type { FuncConfigModel } from '@/models/config-func'
 
@@ -20,10 +21,14 @@ const showModal = defineModel<boolean>('show', { required: true })
 interface ModalCostAndBenefitProps {
   costItems: ItemInfo[],
   benefitItems: ItemInfo[],
-  costInfo?: string,
-  benefitInfo?: string
 }
-defineProps<ModalCostAndBenefitProps>()
+const props = defineProps<ModalCostAndBenefitProps>()
+
+const costAndBenefit = computed(() => {
+  return calCostAndBenefit(funcConfig.value, props.costItems, props.benefitItems)
+})
+const costInfo = computed(() => costAndBenefit.value.costInfo)
+const benefitInfo = computed(() => costAndBenefit.value.benefitInfo)
 
 const showItemDetails = computed(() => {
   return funcConfig.value.costandbenefit_show_item_details
