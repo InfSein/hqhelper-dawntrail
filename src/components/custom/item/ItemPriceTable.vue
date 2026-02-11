@@ -122,9 +122,10 @@ const getItemPriceDecimal = (item: ItemInfo, type: 'NQ' | 'HQ') => {
 const getItemPrice = (item: ItemInfo, type: 'NQ' | 'HQ') => {
   const price = getItemPriceDecimal(item, type)
   if (price === undefined) {
+    const text = item.tradable ? t('common.unknown') : t('common.untradable')
     return {
-      price: t('common.unknown'),
-      total: t('common.unknown'),
+      price: text,
+      total: text,
       tooltip: '',
       style: '',
       rawPrice: -1,

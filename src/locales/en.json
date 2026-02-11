@@ -1018,6 +1018,7 @@
     "open_in_new_window": "Open in new window",
     "options": "Options",
     "or": "or",
+    "or_more": "or more",
     "other": "Other",
     "overwrite": "Overwrite",
     "password": "Password",
@@ -2213,7 +2214,10 @@
             "tooltip_2": "Benefit means sold earns, not deducted by cost."
           }
         },
-        "title": "Cost/Benefit"
+        "title": "Cost/Benefit",
+        "tooltip": {
+          "benefit_is_partial": "Some item prices could not be retrieved. This total is based only on the prices successfully fetched."
+        }
       },
       "crystal": "Crystals",
       "direct_materials": "Direct Materials",
