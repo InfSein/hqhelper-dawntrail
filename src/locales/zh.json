@@ -824,7 +824,8 @@
       "thank_list": "致谢名单",
       "useful_tools": "实用工具",
       "user_preference": "偏好设置",
-      "workflow": "工作流"
+      "workflow": "工作流",
+      "gathering_path": "采集路径"
     },
     "appsetting": {
       "appearance": "外观",
