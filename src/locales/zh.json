@@ -987,7 +987,9 @@
       "please_input_item_name": "请输入物品名",
       "please_input_val": "请输入{val}",
       "please_wait_for_a_while": "请稍等片刻。",
-      "sync_succeed": "同步成功"
+      "sync_succeed": "同步成功",
+      "get_price_timeout": "请求超时，请检查网络连接。此外，这也可能是Universalis的服务器问题，您可等待片刻后重试。",
+      "get_price_network_error": "连接失败，请检查网络设置。"
     },
     "mode": "模式",
     "mquoted_view_statement": "[查看报表]",

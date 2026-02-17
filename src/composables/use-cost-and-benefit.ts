@@ -2,6 +2,7 @@ import type { ComputedRef, Ref } from 'vue'
 import { useStore } from '@/store'
 import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
 import { useDialog } from '@/tools/dialog'
+import { handleGetPriceError } from '@/tools/error'
 import { calCostAndBenefit, getItemPriceInfo } from '@/tools/item'
 import type { StatementData } from '@/tools/use-fufu-cal'
 
@@ -11,6 +12,7 @@ import type { StatementData } from '@/tools/use-fufu-cal'
 export function useCostAndBenefit(statementData: ComputedRef<StatementData>) {
   const t = inject<(message: string, args?: any) => string>('t')!
   const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
+
   const store = useStore()
   const { alertError } = useDialog(t)
   const NAIVE_UI_MESSAGE = useMessage()
@@ -45,8 +47,8 @@ export function useCostAndBenefit(statementData: ComputedRef<StatementData>) {
         })
         await store.setFuncConfig(fixFuncConfig(newConfig, store.userConfig))
       } catch (error: any) {
-        console.error(error)
-        await alertError(t('common.message.get_price_failed') + '\n' + (error?.message ?? error))
+        const errMsg = handleGetPriceError(error, t)
+        await alertError(t('common.message.get_price_failed') + '\n' + errMsg)
       }
       updatingPrice.value = false
     }
