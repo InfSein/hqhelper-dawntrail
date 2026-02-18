@@ -6,22 +6,20 @@ import ModalCraftStatements from '../modals/ModalCraftStatements.vue'
 import ModalProStatements from '../modals/ModalProStatements.vue'
 import ModalCostAndBenefit from '../modals/ModalCostAndBenefit.vue'
 import ModalImExportMain from '../modals/ModalImExportMain.vue'
+import { useCostAndBenefit } from '@/composables/use-cost-and-benefit'
 import { XivUnpackedTradeMap } from '@/assets/data'
 import { type UserConfigModel } from '@/models/config-user'
-import { fixFuncConfig, type FuncConfigModel } from '@/models/config-func'
+import { type FuncConfigModel } from '@/models/config-func'
 import type { GearSelections } from '@/models/gears'
-import { useStore } from '@/store'
-import { useDialog } from '@/tools/dialog'
+
 import { useFufuCal } from '@/tools/use-fufu-cal'
-import { calCostAndBenefit, getItemInfo, getItemPriceInfo, type ItemInfo } from '@/tools/item'
+import { getItemInfo, type ItemInfo } from '@/tools/item'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
-const store = useStore()
-const { alertError } = useDialog(t)
 const { getStatementData } = useFufuCal(userConfig, funcConfig, t)
 
 interface StatisticsPanelProps {
@@ -220,41 +218,14 @@ const handleDisplayImportExportModal = () => {
 }
 const showImportExportModal = ref(false)
 
-const showCostAndBenefitModal = ref(false)
-const costAndBenefit = computed(() => {
-  return calCostAndBenefit(funcConfig.value, statementData.value)
-})
-const updatingPrice = ref(false)
-const updateItemPrices = async () => {
-  if (costAndBenefit.value.updateRequired) {
-    updatingPrice.value = true
-    try {
-      const items : number[] = []
-      statementData.value.craftTargets.forEach(item => {
-        items.push(item.id)
-      })
-      statementData.value.materialsLvBase.forEach(item => {
-        items.push(item.id)
-      })
-      const itemPrices = await getItemPriceInfo([...new Set(items)], funcConfig.value.universalis_server)
-      const newConfig = funcConfig.value
-      Object.keys(itemPrices).forEach(id => {
-        const itemID = Number(id)
-        newConfig.cache_item_prices[itemID] = itemPrices[itemID]
-      })
-      await store.setFuncConfig(fixFuncConfig(newConfig, store.userConfig))
-    } catch (error : any) {
-      console.error(error)
-      await alertError(t('common.message.get_price_failed') + '\n' + (error?.message ?? error))
-    }
-    updatingPrice.value = false
-  }
-}
+const {
+  showModal: showCostAndBenefitModal,
+  updatingPrice,
+  costAndBenefit,
+  updateItemPrices,
+  openModal: handleAnalysisItemPrices,
+} = useCostAndBenefit(statementData)
 provide('updateItemPrices', updateItemPrices)
-const handleAnalysisItemPrices = async () => {
-  await updateItemPrices()
-  showCostAndBenefitModal.value = true
-}
 </script>
 
 <template>
@@ -416,8 +387,6 @@ const handleAnalysisItemPrices = async () => {
       v-model:show="showCostAndBenefitModal"
       :cost-items="statementData.materialsLvBase"
       :benefit-items="statementData.craftTargets"
-      :cost-info="costAndBenefit.costInfo"
-      :benefit-info="costAndBenefit.benefitInfo"
     />
   </FoldableCard>
 </template>

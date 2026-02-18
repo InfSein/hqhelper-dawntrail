@@ -6,21 +6,19 @@
 import XivFARImage from '@/components/custom/general/XivFARImage.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import LocationSpan from '@/components/custom/map/LocationSpan.vue'
-import { type UserConfigModel } from '@/models/config-user'
-import { type FuncConfigModel } from '@/models/config-func'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import UseConfig from '@/tools/use-config'
 import { XivJobs, type XivJob } from '@/assets/data'
 import type EorzeaTime from '@/tools/eorzea-time'
 import type { RecommItemGroup } from '@/models/item'
+import { type UserConfigModel } from '@/models/config-user'
+import { type FuncConfigModel } from '@/models/config-func'
+import GatheringPathPopover from '@/components/custom/map/GatheringPathPopover.vue'
 
 const t = inject<(message: string, args?: any) => string>('t')!
-// const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
-// const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
-// const NAIVE_UI_MESSAGE = useMessage()
 
 const {
   itemLanguage,
@@ -165,6 +163,13 @@ const isItemGatherableNow = (item: ItemInfo) => {
                   container-style="gap: 0;"
                 />
               </div>
+              <GatheringPathPopover 
+                v-if="group.type === 'gather-common'"
+                :group="group"
+                :group-index="groupIndex"
+                :completed-items="completedItems[groupIndex]"
+                style="margin-left: 4px;"
+              />
             </div>
           </template>
 

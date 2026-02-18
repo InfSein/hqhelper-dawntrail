@@ -8,19 +8,20 @@ import ItemSpan from './ItemSpan.vue'
 import ItemRemark from './ItemRemark.vue'
 import XivFARImage from '../general/XivFARImage.vue'
 import LocationSpan from '../map/LocationSpan.vue'
+import ItemSubmissionReward from './ItemSubmissionReward.vue'
+import HelpButton from '../general/HelpButton.vue'
 import {
   XivItemRemarks,
   XivJobs, type XivJob,
   XivAttributes
 } from '@/assets/data'
 import { useStore } from '@/store'
-import { getItemInfo, getItemPriceInfo, type ItemInfo } from '@/tools/item'
 import type { UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel, type ItemPriceType } from '@/models/config-func'
 import type EorzeaTime from '@/tools/eorzea-time'
+import { handleGetPriceError } from '@/tools/error'
+import { getItemInfo, getItemPriceInfo, type ItemInfo } from '@/tools/item'
 import UseConfig from '@/tools/use-config'
-import ItemSubmissionReward from './ItemSubmissionReward.vue'
-import HelpButton from '../general/HelpButton.vue'
 
 const store = useStore()
 const NAIVE_UI_MESSAGE = useMessage()
@@ -417,10 +418,9 @@ const refreshItemPrice = async () => {
     await store.setFuncConfig(fixFuncConfig(newConfig, store.userConfig))
     funcConfig.value = newConfig
     NAIVE_UI_MESSAGE.success(t('item.price.update_succeed'))
-  } catch (err: any) {
-    const errMsg = t('item.price.update_failed') + '\n' + err.message
-    console.error(errMsg, '\n', err)
-    NAIVE_UI_MESSAGE.error(errMsg)
+  } catch (error: any) {
+    const errMsg = handleGetPriceError(error, t)
+    NAIVE_UI_MESSAGE.error(t('common.message.get_price_failed') + '\n' + errMsg)
   }
   refreshingItemPrice.value = false
 }
