@@ -4,6 +4,10 @@ import HelpButton from '../custom/general/HelpButton.vue'
 // const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 
 defineProps({
+  tiny: {
+    type: Boolean,
+    default: false
+  },
   borderColor: {
     type: String,
     default: '#919191',
@@ -32,8 +36,8 @@ defineProps({
 </script>
 
 <template>
-  <fieldset class="group-box" :style="`border: 1px dashed ${borderColor}; ${containerExtraStyle}`">
-    <legend class="group-box-title" :style="{ maxWidth: titleMaxWidth }">
+  <fieldset class="group-box" :style="`border: 1px dashed ${borderColor}; ${tiny ? 'padding: 0 8px 4px 8px' : ''}; ${containerExtraStyle}`">
+    <legend class="group-box-title" :style="{ maxWidth: titleMaxWidth, marginBottom: tiny ? '-7px' : undefined }">
       <slot name="title">
         <div>{{ title }}</div>
         <div v-if="descriptions?.length" style="margin-left: 1px;">

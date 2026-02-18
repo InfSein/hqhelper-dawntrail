@@ -1110,7 +1110,9 @@
     "will_be_named_with_time_when_empty": "不填则默认以时间命名",
     "work_state": "工作状态",
     "untradable": "不可交易",
-    "future_plan": "未来计划"
+    "future_plan": "未来计划",
+    "click_to_edit": "点此编辑",
+    "learn_more": "了解更多"
   },
   "contact_us": {
     "feedback": {
@@ -1604,7 +1606,7 @@
         "text_3": "最终需要保证一行一个技能。只会识别以“/ac”、“/action”或“/技能”开头的行，技能名可以加双引号。",
         "text_4": "支持中文，英文和日文的宏，可以自由组合。",
         "text_5": "在FCO模拟器或BestCraft模拟器中编辑手法后，点击“导出工序”，将工序代码粘贴到下方输入框即可。",
-        "text_6": "CAC工序码是一个压缩生产工序的全新标准，由HqHelper的作者提出并制定。",
+        "text_6": "CAC工序码是一个压缩生产工序的全新标准。",
         "text_7": "将工序码或是分享链接粘贴到下方输入框即可识别出完整工序。"
       },
       "import_source": "导入来源：",
@@ -1625,7 +1627,11 @@
       "relate_item_desc": "关联物品可以设置最多{limit_1}个，不过宏管理页面的表格只会展示前{limit_2}个。",
       "select_from_db": "从数据库中选择",
       "tag_name": "标签名称",
-      "tag_with_colon": "标签："
+      "tag_with_colon": "标签：",
+      "edit_actions": "编辑工序",
+      "click_to_edit_pre": "也可以在宏编辑器中自由设置工序：",
+      "add_action": "添加技能",
+      "remove_action": "删除此技能"
     },
     "title": "生产宏管理"
   },

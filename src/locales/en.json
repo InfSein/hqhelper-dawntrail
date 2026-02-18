@@ -1614,7 +1614,9 @@
       "relate_item_desc": "Max {limit_1} related items. Table displays first {limit_2}.",
       "select_from_db": "Select from DB",
       "tag_name": "Tag Name",
-      "tag_with_colon": "Tags: "
+      "tag_with_colon": "Tags: ",
+      "edit_actions": "Edit Actions",
+      "add_action": "Add action"
     },
     "title": "Macro Management"
   },
