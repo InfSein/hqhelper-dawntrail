@@ -383,7 +383,7 @@ export function useFufuCal(
         const jobId = Number(_jobID)
         const job = XivJobs[jobId]
         const items = craftings[jobId]
-        //const rokey = item_server === 'chs' ? 'recipeOrderCHS' : 'recipeOrder'
+        // NOTE: 'recipeOrderSearch' is the same as 'itemId'.
         if (processes_craftable_item_sortby === 'recipeOrder') {
           items.sort((a, b) => 
             (a.craftInfo.craftLevel - b.craftInfo.craftLevel) ||

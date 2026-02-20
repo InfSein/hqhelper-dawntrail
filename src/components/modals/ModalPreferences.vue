@@ -548,10 +548,12 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               type: 'select',
               options: [
                 { value: 'itemId', label: t('game.item_id') },
-                { value: 'recipeOrder', label: t('preference.processes_craftable_item_sortby.option.crafting_log') }
+                { value: 'recipeOrder', label: t('preference.processes_craftable_item_sortby.option.crafting_log') },
+                { value: 'recipeOrderSearch', label: t('preference.processes_craftable_item_sortby.option.crafting_log_search') },
               ],
               descriptions: [
                 t('preference.processes_craftable_item_sortby.desc.desc_1'),
+                t('preference.processes_craftable_item_sortby.desc.desc_2'),
               ],
             }
           ]
@@ -786,14 +788,6 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               ]
             },
             {
-              key: 'export_item_price',
-              label: t('preference.export_item_price.title'),
-              descriptions: [
-                t('preference.export_item_price.desc.desc_1'),
-              ],
-              type: 'switch'
-            },
-            {
               key: 'costandbenefit_show_item_details',
               label: t('preference.costandbenefit_show_item_details'),
               type: 'switch'
@@ -801,7 +795,7 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
             {
               key: 'costandbenefit_item_sort_by',
               label: t('preference.costandbenefit_item_sort_by.title'),
-              warnings: [
+              descriptions: [
                 t('preference.costandbenefit_item_sort_by.desc.desc_1'),
               ],
               type: 'select',

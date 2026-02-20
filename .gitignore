@@ -24,6 +24,9 @@ src/components.d.ts
 # Plugins
 private-folder-alias.json
 
+# Ai
+.agent
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

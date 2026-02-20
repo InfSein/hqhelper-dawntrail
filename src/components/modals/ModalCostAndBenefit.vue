@@ -3,7 +3,10 @@ import {
   AttachMoneyOutlined
 } from '@vicons/material'
 import ItemPriceTable from '../custom/item/ItemPriceTable.vue'
+import TooltipText from '../custom/general/TooltipText.vue'
+import HelpButton from '../custom/general/HelpButton.vue'
 import ModalPreferences from './ModalPreferences.vue'
+import { calCostAndBenefit } from '@/tools/item'
 import type { ItemInfo } from '@/tools/item'
 import type { FuncConfigModel } from '@/models/config-func'
 
@@ -20,10 +23,16 @@ const showModal = defineModel<boolean>('show', { required: true })
 interface ModalCostAndBenefitProps {
   costItems: ItemInfo[],
   benefitItems: ItemInfo[],
-  costInfo?: string,
-  benefitInfo?: string
 }
-defineProps<ModalCostAndBenefitProps>()
+const props = defineProps<ModalCostAndBenefitProps>()
+
+const costAndBenefit = computed(() => {
+  return calCostAndBenefit(funcConfig.value, props.costItems, props.benefitItems)
+})
+const costInfo = computed(() => costAndBenefit.value.costInfo)
+const benefitInfo = computed(() => costAndBenefit.value.benefitInfo)
+const isCostPartial = computed(() => costAndBenefit.value.isCostPartial)
+const isBenefitPartial = computed(() => costAndBenefit.value.isBenefitPartial)
 
 const showItemDetails = computed(() => {
   return funcConfig.value.costandbenefit_show_item_details
@@ -42,7 +51,7 @@ const handleSettingButtonClick = () => {
     :icon="AttachMoneyOutlined"
     :title="t('statistics.group.cost_and_benefit.title')"
     max-width="1200px"
-    :height="isMobile ? '650px' : '600px'"
+    :height="isMobile ? '700px' : '600px'"
     show-setting
     @on-setting-button-clicked="handleSettingButtonClick"
   >
@@ -52,7 +61,15 @@ const handleSettingButtonClick = () => {
         :tab="t('common.cost')"
       >
         <div class="container">
-          <div class="align-right">{{ t('statistics.group.cost_and_benefit.button.text.text_1', costInfo) }}</div>
+          <div class="align-right">
+            <span>{{ t('statistics.group.cost_and_benefit.button.text.text_1', { val: costInfo }) }}</span>
+            <i class="xiv gil"></i>
+            <TooltipText
+              v-if="isCostPartial"
+              :text="t('common.or_more')"
+              :tooltip="t('statistics.group.cost_and_benefit.tooltip.benefit_is_partial')"
+            />
+          </div>
           <ItemPriceTable
             price-type="NQ"
             :items="costItems"
@@ -66,7 +83,15 @@ const handleSettingButtonClick = () => {
         :tab="t('common.benefit')"
       >
         <div class="container">
-          <div class="align-right">{{ t('statistics.group.cost_and_benefit.button.text.text_2', benefitInfo) }}</div>
+          <div class="align-right">
+            <span>{{ t('statistics.group.cost_and_benefit.button.text.text_2', { val: benefitInfo }) }}</span>
+            <i class="xiv gil"></i>
+            <TooltipText
+              v-if="isBenefitPartial"
+              :text="t('common.or_more')"
+              :tooltip="t('statistics.group.cost_and_benefit.tooltip.benefit_is_partial')"
+            />
+          </div>
           <ItemPriceTable
             price-type="HQ"
             :items="benefitItems"
@@ -78,11 +103,20 @@ const handleSettingButtonClick = () => {
     </n-tabs>
     <div v-else class="wrapper">
       <GroupBox
-        :title="t('statistics.group.cost_and_benefit.button.text.text_1', costInfo) + '&#xE049;'"
-        :descriptions="[
-          t('cost_and_benefit.tooltip.cal_nq_price_here')
-        ]"
+        :descriptions="[t('cost_and_benefit.tooltip.cal_nq_price_here')]"
       >
+        <template #title>
+          <div class="group-title">
+            <span>{{ t('statistics.group.cost_and_benefit.button.text.text_1', { val: costInfo }) }}</span>
+            <i class="xiv gil"></i>
+            <TooltipText
+              v-if="isCostPartial"
+              :text="t('common.or_more')"
+              :tooltip="t('statistics.group.cost_and_benefit.tooltip.benefit_is_partial')"
+            />
+            <HelpButton icon="info" :size="18" :descriptions="[t('cost_and_benefit.tooltip.cal_nq_price_here')]" />
+          </div>
+        </template>
         <ItemPriceTable
           price-type="NQ"
           :items="costItems"
@@ -90,12 +124,19 @@ const handleSettingButtonClick = () => {
           :container-id="modalId"
         />
       </GroupBox>
-      <GroupBox
-        :title="t('statistics.group.cost_and_benefit.button.text.text_2', benefitInfo) + '&#xE049;'"
-        :descriptions="[
-          t('cost_and_benefit.tooltip.cal_hq_price_here')
-        ]"
-      >
+      <GroupBox>
+        <template #title>
+          <div class="group-title">
+            <span>{{ t('statistics.group.cost_and_benefit.button.text.text_2', { val: benefitInfo }) }}</span>
+            <i class="xiv gil"></i>
+            <TooltipText
+              v-if="isBenefitPartial"
+              :text="t('common.or_more')"
+              :tooltip="t('statistics.group.cost_and_benefit.tooltip.benefit_is_partial')"
+            />
+            <HelpButton icon="info" :size="18" :descriptions="[t('cost_and_benefit.tooltip.cal_hq_price_here')]" />
+          </div>
+        </template>
         <ItemPriceTable
           price-type="HQ"
           :items="benefitItems"
@@ -118,5 +159,11 @@ const handleSettingButtonClick = () => {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
+
+  .group-title {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+  }
 }
 </style>
