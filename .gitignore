@@ -20,6 +20,7 @@ coverage
 
 # Auto generated
 src/components.d.ts
+CHANGELOG_AUTO.md
 
 # Plugins
 private-folder-alias.json
@@ -37,5 +38,4 @@ private-folder-alias.json
 *.njsproj
 *.sln
 *.sw?
-
 *.tsbuildinfo

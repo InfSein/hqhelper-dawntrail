@@ -1,0 +1,73 @@
+name: Check version
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - master
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+
+      - name: Fetch base branch
+        run: git fetch origin master
+
+      - name: Check if version in package.json changed
+        id: check_version
+        run: |
+          git diff origin/master...HEAD package.json > diff.txt
+          if grep '"version":' diff.txt > /dev/null; then
+            echo "Version updated."
+            echo "updated=true" >> $GITHUB_OUTPUT
+          else
+            echo "Version NOT updated!"
+            echo "updated=false" >> $GITHUB_OUTPUT
+            echo "::warning file=package.json,line=3::版本号未更新"
+          fi
+
+      - name: Manage version comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+
+            const existingComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
+              comment.body.includes('[BotCheck:Version]')
+            );
+
+            const versionUpdated = ${{ steps.check_version.outputs.updated }};
+
+            const newBody = versionUpdated
+              ? '✅ The version bumped correctly.\r\n<p align="right"><sub>[BotCheck:Version]</sub></p>'
+              : '⚠️ The version in `package.json` is not bumped.\r\nIf you are contributing new features, please consider change the target branch to `dev`, because the `master` branch is only for release.\r\n<p align="right"><sub>[BotCheck:Version]</sub></p>';
+
+            if (existingComment) {
+              if (existingComment.body !== newBody) {
+                await github.rest.issues.updateComment({
+                  comment_id: existingComment.id,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: newBody
+                });
+              }
+            } else if (!versionUpdated) {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: newBody
+              });
+            }

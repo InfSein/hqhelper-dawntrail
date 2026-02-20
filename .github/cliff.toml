@@ -1,0 +1,39 @@
+# git-cliff configuration file
+# https://git-cliff.org/docs/configuration
+[changelog]
+header = ""
+body = """
+{% if version %}\
+    ## [{{ version | trim_start_matches(pat="v") }}]
+{% else %}\
+    ## [unreleased]
+{% endif %}\
+{% for group, commits in commits | group_by(attribute="group") %}
+    ### {{ group | upper_first }}
+    {% for commit in commits %}
+        - {{ commit.message | upper_first }} ({{ commit.id | truncate(length=7, end="") }})\
+    {% endfor %}
+{% endfor %}
+"""
+footer = ""
+trim = true
+
+[git]
+conventional_commits = true
+filter_unconventional = false
+split_commits = false
+commit_parsers = [
+  { message = "^feat", group = "🚀 Features" },
+  { message = "^fix", group = "🐛 Bug Fixes" },
+  { message = "^doc", group = "📚 Documentation" },
+  { message = "^perf", group = "⚡ Performance" },
+  { message = "^refactor", group = "🚜 Refactor" },
+  { message = "^style", group = "🎨 Styling" },
+  { message = "^test", group = "🧪 Testing" },
+  { message = "^chore\\(release\\)|^build|^temp", skip = true },
+  { message = "^chore|^ci", group = "⚙️ Miscellaneous Tasks" },
+  { message = ".*", group = "💬 Other Changes" },
+]
+filter_commits = false
+topo_order = false
+sort_commits = "oldest"
