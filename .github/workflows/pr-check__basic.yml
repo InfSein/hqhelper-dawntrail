@@ -2,8 +2,10 @@ name: PR Basic Check
 
 on:
   pull_request:
-    branches:
-      - master
+    branches: [master, dev]
+
+permissions:
+  contents: read
 
 jobs:
   quality-check:
