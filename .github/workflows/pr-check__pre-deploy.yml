@@ -80,7 +80,9 @@ jobs:
         id: git-cliff
         with:
           config: .github/cliff.toml
-          args: ${{ env.EXISTS == 'true' && '--latest' || '--unreleased' }} --strip header
+          args: >-
+            ${{ env.EXISTS == 'true' && '--latest' || (env.PREV_TAG != '' && format('{0}..{1}', env.PREV_TAG, github.event.pull_request.head.sha) || github.event.pull_request.head.sha) }}
+            --strip header
         env:
           OUTPUT: CHANGELOG_AUTO.md
           GITHUB_REPO: ${{ github.repository }}
