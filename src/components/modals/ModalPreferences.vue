@@ -610,7 +610,14 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
                       children: dealSimOptions([
                         '豆豆柴',"水晶塔","银泪湖","太阳海岸","伊修加德","红茶川","黄金谷","月牙湾","雪松原"
                       ])
-                    }
+                    },
+                    {
+                      value: 'g_陸行鳥',
+                      label: '陸行鳥(繁中服)',
+                      children: dealSimOptions([
+                        '陸行鳥',"伊弗利特","迦樓羅","利維坦","鳳凰","奧汀","巴哈姆特","拉姆","泰坦",
+                      ])
+                    },
                   ]
                 },
                 {
