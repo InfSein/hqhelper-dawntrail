@@ -1,0 +1,100 @@
+name: Pre-Deploy Check
+
+on:
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+
+  # =========================
+  # 1. Build
+  # =========================
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+
+  # =========================
+  # 2. Dry-run Release Notes
+  # =========================
+  release-notes-check:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version from package.json
+        id: version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Get previous tag
+        id: prev_tag
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          echo "PREV_TAG=$PREV_TAG" >> $GITHUB_ENV
+
+      - name: Check if release exists
+        id: check_release
+        run: |
+          if gh release view "v${{ env.VERSION }}" > /dev/null 2>&1; then
+            echo "EXISTS=true" >> $GITHUB_ENV
+          else
+            echo "EXISTS=false" >> $GITHUB_ENV
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate Release Notes (Dry Run)
+        uses: orhun/git-cliff-action@v4
+        id: git-cliff
+        with:
+          config: .github/cliff.toml
+          args: ${{ env.EXISTS == 'true' && '--latest' || '--unreleased' }} --strip header
+        env:
+          OUTPUT: CHANGELOG_AUTO.md
+          GITHUB_REPO: ${{ github.repository }}
+
+      - name: Verify Release Notes Generation
+        run: |
+          if [ ! -f CHANGELOG_AUTO.md ]; then
+            touch CHANGELOG_AUTO.md
+          fi
+
+          echo "" >> CHANGELOG_AUTO.md
+          echo "Please refer the [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/master/CHANGELOG.md) for details." >> CHANGELOG_AUTO.md
+          echo "" >> CHANGELOG_AUTO.md
+          echo "**Since last release**: https://github.com/${{ github.repository }}/compare/${{ env.PREV_TAG }}...v${{ env.VERSION }}" >> CHANGELOG_AUTO.md
+
+          echo "✅ CHANGELOG_AUTO.md generated successfully!"
+          cat CHANGELOG_AUTO.md
