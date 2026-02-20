@@ -47,7 +47,7 @@ export const getStaffMebers = (
     return {
       infsein: createStaffMember(
         "InfSein",
-        "./image/staff/all-infsein.jpg",
+        "./image/staff/infsein.jpg",
         t('about_app.staff.jobs.infsein'),
         ["我问遍了整个猫区，他们都说我是最帅的肥"],
         [{ name: "Github", url: "https://github.com/InfSein" }],
@@ -76,7 +76,7 @@ export const getStaffMebers = (
       ),
       yakita: createStaffMember(
         "夜北Yakita",
-        "./image/staff/lt-yakita.jpg",
+        "https://avatars.githubusercontent.com/u/95864377?v=4",
         t('about_app.staff.jobs.yakita'),
         ["简直是世间精品库啵"],
         [
@@ -93,7 +93,7 @@ export const getStaffMebers = (
       ),
       wcy: createStaffMember(
         "joj",
-        "./image/staff/client-wcy.jpg",
+        "https://avatars.githubusercontent.com/u/30862125?v=4",
         t('about_app.staff.jobs.wcy'),
         ["在线求职"],
         [{ name: "Github", url: "https://github.com/wanchenyang521" }]
