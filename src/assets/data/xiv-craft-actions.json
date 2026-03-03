@@ -498,5 +498,20 @@
     "cost_cp": 1,
     "from_action_sheet": true,
     "icon": 1983
+  },
+  "41269": {
+    "id": 41269,
+    "key": "dutyAction2",
+    "name_zh": "任务指令2",
+    "name_ja": "コンテンツアクション2",
+    "name_en": "Duty Action II",
+    "wait_time": 3,
+    "simulator_keys": [
+      "material_miracle",
+      "stellar_steady_hand"
+    ],
+    "cost_cp": 0,
+    "from_action_sheet": true,
+    "icon": 124
   }
 }

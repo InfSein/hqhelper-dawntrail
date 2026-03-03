@@ -10,8 +10,11 @@ import {
   DoneOutlined,
   SaveOutlined,
   SettingsRound,
+  EditRound,
+  OpenInNewOutlined,
 } from '@vicons/material'
 import { VueDraggable } from 'vue-draggable-plus'
+import { decompress } from 'xiv-cac-utils'
 import HelpButton from '@/components/custom/general/HelpButton.vue'
 import ItemSelector from '@/components/custom/item/ItemSelector.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
@@ -19,6 +22,7 @@ import CraftActionButton from '@/components/custom/action/CraftActionButton.vue'
 import MacroViewer from '@/components/custom/macro/MacroViewer.vue'
 import ModalPresetTagsManage from './ModalPresetTagsManage.vue'
 import ModalPresetCReqsManage from './ModalPresetCReqsManage.vue'
+import ModalCraftActionsEdit from './ModalCraftActionsEdit.vue'
 import { XivCraftActions } from '@/assets/data'
 import {
   _VAR_TAG_MAXLEN, _VAR_REMARK_MAXLINE,
@@ -66,11 +70,12 @@ const formCraftActions = ref<{
   id: number,
   val: number,
 }[]>([])
-const formCraftActionsImportType = ref<"gamemacro" | "simulator">('gamemacro')
+const formCraftActionsImportType = ref<"gamemacro" | "simulator" | "cac">('gamemacro')
 const formCraftActionsImport = ref('')
 const formCraftActionsExportLang = ref<"zh" | "en" | "ja">('zh')
 const showPresetTagsManageModal = ref(false)
 const showPresetCReqsManageModal = ref(false)
+const showCraftActionsEditModal = ref(false)
 
 interface ModalCraftMacroEditProps {
   action: "add" | "edit";
@@ -185,6 +190,9 @@ const handleImportCraftActions = () => {
     importedActions = parseCraftMacroText(formCraftActionsImport.value).map(action => action.id)
   } else if (formCraftActionsImportType.value === 'simulator') {
     importedActions = parseCraftProcedure(formCraftActionsImport.value).map(action => action.id)
+  } else if (formCraftActionsImportType.value === 'cac') {
+    const cac = formCraftActionsImport.value.replace(/http(s?):\/\/cac.nbb.fan\/\?s=/, '')
+    importedActions = decompress(cac).map(action => action.ids[0])
   } else {
     NAIVE_UI_MESSAGE.error('Unexpected formCraftActionsImportType'); return
   }
@@ -517,9 +525,18 @@ const handleSave = async () => {
         <n-tab-pane name="craftActions" :tab="t('common.macro_content')">
           <div class="tabpane-wrapper">
             <div class="form-block">
-              <div class="form-title">{{ t('common.current') }}</div>
+              <div class="form-title">
+                {{ t('common.current') }}
+              </div>
               <div class="form-tip">
                 <p>{{ t('macro_manage.text.drag_to_sort') }}</p>
+                <div class="flex-vac">
+                  {{ t('macro_manage.text.click_to_edit_pre') }}
+                  <a href="javascript:void(0)" class="flex-vac" @click="showCraftActionsEditModal = true">
+                    <n-icon :size="14" :component="EditRound" />
+                    <span>{{ t('common.click_to_edit') }}</span>
+                  </a>
+                </div>
               </div>
               <div class="form-input">
                 <VueDraggable
@@ -566,6 +583,11 @@ const handleSave = async () => {
                       value="simulator"
                       :label="t('common.simulator')"
                     />
+                    <n-radio
+                      key="cac"
+                      value="cac"
+                      :label="t('common.cac')"
+                    />
                   </n-radio-group>
                 </div>
                 <div class="lh-120" style="margin-bottom: 4px;">
@@ -578,13 +600,28 @@ const handleSave = async () => {
                   <div v-else-if="formCraftActionsImportType === 'simulator'">
                     <p>{{ t('macro_manage.text.import_action.text_5') }}</p>
                   </div>
+                  <div v-else-if="formCraftActionsImportType === 'cac'">
+                    <div class="flex-vac">
+                      {{ t('macro_manage.text.import_action.text_6') }}
+                      <a href="https://cac.nbb.fan/" target="_blank" class="flex-vac">
+                        <n-icon :size="14" :component="OpenInNewOutlined" />
+                        {{ t('common.learn_more') }}
+                      </a>
+                    </div>
+                    <p>{{ t('macro_manage.text.import_action.text_7') }}</p>
+                  </div>
                 </div>
                 <n-input
                   v-model:value="formCraftActionsImport"
+                  v-if="formCraftActionsImportType !== 'cac'"
                   type="textarea"
                   :autosize="{
                     minRows: 3,
                   }"
+                />
+                <n-input
+                  v-model:value="formCraftActionsImport"
+                  v-else
                 />
                 <n-button
                   ghost
@@ -644,6 +681,10 @@ const handleSave = async () => {
     />
     <ModalPresetCReqsManage
       v-model:show="showPresetCReqsManageModal"
+    />
+    <ModalCraftActionsEdit
+      v-model:show="showCraftActionsEditModal"
+      v-model:craftActions="formCraftActions"
     />
   </MyModal>
 </template>

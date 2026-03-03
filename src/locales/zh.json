@@ -860,6 +860,7 @@
     "basic_info": "基本信息",
     "benefit": "收益",
     "brief_intro": "简介",
+    "cac": "CAC工序码",
     "cancel": "取消",
     "cautions": "注意事项",
     "check_failed": "检测失败",
@@ -1006,7 +1007,10 @@
       "please_input_item_name": "请输入物品名",
       "please_input_val": "请输入{val}",
       "please_wait_for_a_while": "请稍等片刻。",
-      "sync_succeed": "同步成功"
+      "sync_succeed": "同步成功",
+      "operation_failed": "操作失败",
+      "get_price_timeout": "请求超时，请检查网络连接。此外，这也可能是Universalis的服务器问题，您可等待片刻后重试。",
+      "get_price_network_error": "连接失败，请检查网络设置。"
     },
     "mode": "模式",
     "mquoted_view_statement": "[查看报表]",
@@ -1073,6 +1077,7 @@
     "selected": "已选",
     "server": "服务器",
     "setting": "设置",
+    "share": "分享",
     "simulate_craft": "模拟制作",
     "simulator": "模拟器",
     "special": "特殊",
@@ -1122,7 +1127,11 @@
     "warn": "警告",
     "weibo": "微博",
     "will_be_named_with_time_when_empty": "不填则默认以时间命名",
-    "work_state": "工作状态"
+    "work_state": "工作状态",
+    "untradable": "不可交易",
+    "future_plan": "未来计划",
+    "click_to_edit": "点此编辑",
+    "learn_more": "了解更多"
   },
   "contact_us": {
     "feedback": {
@@ -1615,7 +1624,9 @@
         "text_2": "输入框没有行数限制，组装多个宏时，粘贴完第一个宏之后换行粘贴第二个即可。",
         "text_3": "最终需要保证一行一个技能。只会识别以“/ac”、“/action”或“/技能”开头的行，技能名可以加双引号。",
         "text_4": "支持中文，英文和日文的宏，可以自由组合。",
-        "text_5": "在FCO模拟器或BestCraft模拟器中编辑手法后，点击“导出工序”，将工序代码粘贴到下方输入框即可。"
+        "text_5": "在FCO模拟器或BestCraft模拟器中编辑手法后，点击“导出工序”，将工序代码粘贴到下方输入框即可。",
+        "text_6": "CAC工序码是一个压缩生产工序的全新标准。",
+        "text_7": "将工序码或是分享链接粘贴到下方输入框即可识别出完整工序。"
       },
       "import_source": "导入来源：",
       "input_item_name": "自行输入物品名",
@@ -1635,7 +1646,11 @@
       "relate_item_desc": "关联物品可以设置最多{limit_1}个，不过宏管理页面的表格只会展示前{limit_2}个。",
       "select_from_db": "从数据库中选择",
       "tag_name": "标签名称",
-      "tag_with_colon": "标签："
+      "tag_with_colon": "标签：",
+      "edit_actions": "编辑工序",
+      "click_to_edit_pre": "也可以在宏编辑器中自由设置工序：",
+      "add_action": "添加技能",
+      "remove_action": "删除此技能"
     },
     "title": "生产宏管理"
   },

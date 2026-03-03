@@ -9,13 +9,14 @@ import {
   KeyboardArrowDownRound,
   ArchiveSharp, UnarchiveSharp,
   AddTaskOutlined,
-  EditNoteOutlined, DeleteFilled,
+  ShareOutlined, EditNoteOutlined, DeleteFilled,
 } from '@vicons/material'
+import { compress, decompress } from 'xiv-cac-utils'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import ModalCraftMacroEdit from '@/components/modals/ModalCraftMacroEdit.vue'
 import ModalPreferences from '@/components/modals/ModalPreferences.vue'
 import ModalImExportCraftMacro from '@/components/modals/ModalImExportCraftMacro.vue'
-import { XivCraftActions } from '@/assets/data'
+import { XivCraftActions, XivUnpackedItems } from '@/assets/data'
 import { useStore } from '@/store'
 import {
   _VAR_MACRO_MAXAMOUNT,
@@ -35,6 +36,8 @@ const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 
 const store = useStore()
+const route = useRoute()
+const router = useRouter()
 const { confirmWarning } = useDialog(t)
 const NAIVE_UI_MESSAGE = useMessage()
 const { renderIcon } = useUiTools(isMobile)
@@ -75,9 +78,59 @@ const tableHeight = ref(300)
 const updateHeights = () => {
   tableHeight.value = window.innerHeight - 285
 }
+const handleUrlParamsImport = () => {
+  const importCode = route.query.import as string
+  const itemId = Number(route.query.item) || 0
+  const nameParam = route.query.name as string
+
+  if (!importCode) return
+
+  try {
+    const actions = decompress(importCode)
+    if (!actions || !actions.length) {
+      throw new Error('Invalid macro content')
+    }
+
+    if (workState.value.recordedCraftMacros.length >= _VAR_MACRO_MAXAMOUNT) {
+      NAIVE_UI_MESSAGE.error(t('macro_manage.message.macro_amount_limited'))
+      return
+    }
+
+    const macroid = getMacroId()
+    const newMacro = getDefaultCraftMacro(macroid)
+
+    if (itemId && XivUnpackedItems[itemId]) {
+      newMacro.relateItems.push(itemId)
+    } else if (nameParam) {
+      newMacro.relateItems.push(nameParam)
+    }
+
+    newMacro.craftActions = actions.map(a => a.ids[0])
+
+    macroEditTarget.value = newMacro
+    macroEditAction.value = 'add'
+    showModalCraftMacroEdit.value = true
+
+    function getMacroId () {
+      let macroid = workState.value.recordIndex
+      while (workState.value.recordedCraftMacros.find(macro => macro.id === macroid)) {
+        macroid++
+      }
+      if (workState.value.recordIndex !== macroid) {
+        workState.value.recordIndex = macroid
+      }
+      return macroid
+    }
+  } catch (e: any) {
+    NAIVE_UI_MESSAGE.error(t('common.message.import_failed') + ':\n' + e.message)
+    console.error('Import failed:', e)
+  }
+}
+
 onMounted(() => {
   updateHeights()
   window.addEventListener('resize', updateHeights)
+  handleUrlParamsImport()
 })
 onBeforeUnmount(() => {
   window.removeEventListener('resize', updateHeights)
@@ -279,7 +332,7 @@ const tableColumns = computed(() => {
     {
       title: t('common.manage'),
       key: 'manage',
-      width: 180,
+      width: 270,
       render(row) {
         return h(
           'div',
@@ -297,6 +350,20 @@ const tableColumns = computed(() => {
               {
                 icon: renderIcon(EditNoteOutlined),
                 default: () => t('common.edit')
+              }
+            ),
+            h(
+              NButton,
+              {
+                strong: true,
+                tertiary: true,
+                size: 'small',
+                style: 'width: fit-content;',
+                onClick: () => handleShareRow(row)
+              },
+              {
+                icon: renderIcon(ShareOutlined),
+                default: () => t('common.share')
               }
             ),
             h(
@@ -376,6 +443,29 @@ const handleAddRow = () => {
     return macroid
   }
 }
+const handleShareRow = async (row: CraftMacroRow) => {
+  const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)
+  if (index !== -1) {
+    try {
+      const macro = workState.value.recordedCraftMacros[index]
+      const cac = compress({
+        type: 'id',
+        actions: macro.craftActions,
+      })
+      const response = await CopyToClipboard(`https://cac.nbb.fan/?s=${cac}`)
+      if (response) {
+        NAIVE_UI_MESSAGE.error(t('common.message.copy_failed_unexpected_error'))
+      } else {
+        NAIVE_UI_MESSAGE.success(t('common.message.copy_succeed'))
+      }
+    } catch (e: any) {
+      NAIVE_UI_MESSAGE.error(t('common.message.operation_failed') + ':\n' + e.message)
+      console.error('Share failed:', e)
+    }
+  } else {
+    handleReportDataMissing(row.id)
+  }
+}
 const handleEditRow = (row: CraftMacroRow) => {
   const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)
   if (index !== -1) {
@@ -427,6 +517,15 @@ const handleMacroEditSubmit = (macro: RecordedCraftMacro) => {
     console.warn('unexpected action')
   }
   showModalCraftMacroEdit.value = false
+
+  // Clear URL params if macro was imported via URL
+  if (route.query.import) {
+    const query = { ...route.query }
+    delete query.import
+    delete query.item
+    delete query.name
+    router.replace({ query })
+  }
 }
 const showPreferencesModal = ref(false)
 const handleSettingButtonClick = () => {
