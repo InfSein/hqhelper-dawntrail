@@ -1780,6 +1780,12 @@
     }
   },
   "map": {
+    "gathering_path": {
+      "text": {
+        "empty_hint": "未找到可用路径。"
+      },
+      "title": "路径总览"
+    },
     "text": {
       "open_in": {
         "ffcafe": "在FFCAFE互动地图中打开"

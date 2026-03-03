@@ -27,6 +27,7 @@ private-folder-alias.json
 
 # Ai
 .agent
+AGENTS.md
 
 # Editor directories and files
 .vscode/*
