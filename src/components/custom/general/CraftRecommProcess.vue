@@ -6,6 +6,7 @@
 import XivFARImage from '@/components/custom/general/XivFARImage.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import LocationSpan from '@/components/custom/map/LocationSpan.vue'
+import GatheringPathButton from '@/components/custom/map/GatheringPathButton.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import UseConfig from '@/tools/use-config'
 import { XivJobs, type XivJob } from '@/assets/data'
@@ -13,7 +14,6 @@ import type EorzeaTime from '@/tools/eorzea-time'
 import type { RecommItemGroup } from '@/models/item'
 import { type UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
-import GatheringPathPopover from '@/components/custom/map/GatheringPathPopover.vue'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
@@ -97,6 +97,17 @@ const tomeScripts = computed(() : ItemInfo[] => {
   return tomeScripts
 })
 
+const getGatheringPathTargets = (group: RecommItemGroup, groupIndex: number) => {
+  const targets: ItemInfo[] = []
+  group.items.forEach(item => {
+    if (completedItems.value[groupIndex][item.id]) return
+    if (item.gatherInfo) {
+      targets.push(item)
+    }
+  })
+  return targets
+}
+
 const handleItemCompletionChange = (groupIndex: number) => {
   let needToCollapseGroup = true
   Object.values(completedItems.value[groupIndex]).forEach(completed => {
@@ -163,11 +174,9 @@ const isItemGatherableNow = (item: ItemInfo) => {
                   container-style="gap: 0;"
                 />
               </div>
-              <GatheringPathPopover 
+              <GatheringPathButton 
                 v-if="group.type === 'gather-common'"
-                :group="group"
-                :group-index="groupIndex"
-                :completed-items="completedItems[groupIndex]"
+                :target-items="getGatheringPathTargets(group, groupIndex)"
                 style="margin-left: 4px;"
               />
             </div>
