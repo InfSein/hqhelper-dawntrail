@@ -2,18 +2,14 @@
 import { MapOutlined } from '@vicons/material'
 import XivFARImage from '../general/XivFARImage.vue'
 import ItemPop from '../item/ItemPop.vue'
-import { XivJobs, type XivJob } from '@/assets/data'
+import { XivJobs } from '@/assets/data'
 import type { UserConfigModel } from '@/models/config-user'
 import type { FuncConfigModel } from '@/models/config-func'
 import type { ItemInfo } from '@/tools/item'
 import { XivMaps, type XivMapAetheryteInfo, type XivMapInfo } from '@/tools/map'
 import UseConfig from '@/tools/use-config'
 
-interface GatheringPathButtonProps {
-  targetItems: ItemInfo[]
-}
-const props = defineProps<GatheringPathButtonProps>()
-
+const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
@@ -21,6 +17,14 @@ const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
 const {
   itemLanguage,
 } = UseConfig(userConfig, funcConfig)
+
+interface GatheringPathButtonProps {
+  targetItems: ItemInfo[]
+
+  /** 物品按钮所处容器的ID，在模态框等场景时必须传递，否则无法正常复制物品名 */
+  containerId?: string
+}
+const props = defineProps<GatheringPathButtonProps>()
 
 interface GatheringTarget {
   item: ItemInfo
@@ -186,11 +190,11 @@ const displayMapRenderData = computed(() => {
 
 const shouldShowButton = computed(() => gatheringTargets.value.length > 0)
 
-const popoverWidth = computed(() => isMobile.value ? '92vw' : '486px')
-const popoverMaxHeight = computed(() => isMobile.value ? '74vh' : '550px')
+const popoverWidth = computed(() => isMobile.value ? '85vw' : '486px')
+const popoverMaxHeight = computed(() => isMobile.value ? '64vh' : '560px')
 
 const MAP_SIZE = 222
-const PATH_END_PADDING_PX = 9
+const PATH_END_PADDING_PX = 7
 
 function getMapScale(mapSize: number) {
   return mapSize / 40
@@ -413,26 +417,12 @@ function solveRouteWithGreedy(targets: GatheringTarget[]) {
   return order
 }
 
-function getMapName(map: XivMapInfo) {
-  return map[`name_${itemLanguage.value}`]
-}
-
-function getAetheryteName(aetheryte: XivMapAetheryteInfo) {
-  return aetheryte[`name_${itemLanguage.value}`]
-}
-
-function getJobInfo(jobId: number): XivJob | undefined {
-  return XivJobs[jobId]
-}
-
 function hasGatherJobSvg(jobId: number) {
   return GATHER_JOB_SVG_IDS.has(jobId)
 }
-
 function getGatherJobSvgSrc(jobId: number) {
   return `/image/game-job/svg/class_job_${jobId.toString().padStart(3, '0')}.svg`
 }
-
 function getGatherJobSvgStyle(jobId: number) {
   const svg = getGatherJobSvgSrc(jobId)
   return {
@@ -459,20 +449,24 @@ function getGatherJobSvgStyle(jobId: number) {
 
       <div class="path-popover">
         <div class="popover-header">
-          <div class="title">推荐路径</div>
+          <div class="title font-big">
+            <n-icon :size="16" :component="MapOutlined" />
+            <span>{{ t('map.gathering_path.title') }}</span>
+          </div>
+          <n-divider style="margin: 0 0 3px;" />
         </div>
 
         <div v-if="!pathActions.length" class="empty-hint">
-          未找到可用路径。
+          {{ t('map.gathering_path.text.empty_hint') }}
         </div>
 
-        <div v-else class="map-mode">
+        <div v-else class="map-container">
           <div
             v-for="entry in displayMapRenderData"
             :key="entry.placeId"
             class="map-panel"
           >
-            <div class="map-title">{{ getMapName(entry.map) }}</div>
+            <div class="map-title">{{ entry.map[`name_${itemLanguage}`] }}</div>
             <div class="map-content" :style="{ width: MAP_SIZE + 'px', height: MAP_SIZE + 'px' }">
               <XivFARImage
                 class="map-image"
@@ -491,7 +485,7 @@ function getGatherJobSvgStyle(jobId: number) {
                     orient="auto"
                     markerUnits="strokeWidth"
                   >
-                    <path d="M0,1 L5,2.5 L0,4 Z" :fill="PATH_COLOR" />
+                    <path d="M0,0.5 L5,2.5 L0,4.5 Z" :fill="PATH_COLOR" />
                   </marker>
                 </defs>
                 <line
@@ -523,12 +517,12 @@ function getGatherJobSvgStyle(jobId: number) {
                         :style="getPositionStyle(aetheryte.x, aetheryte.y)"
                       />
                     </template>
-                    <div class="tooltip">{{ getAetheryteName(aetheryte) }}</div>
+                    <div class="tooltip">{{ aetheryte[`name_${itemLanguage}`] }}</div>
                   </n-tooltip>
                 </template>
 
                 <template v-for="(target, targetIndex) in entry.targets" :key="`target-${entry.placeId}-${target.item.id}-${targetIndex}`">
-                  <ItemPop :item-info="target.item">
+                  <ItemPop :item-info="target.item" :container-id="containerId">
                     <template #default>
                       <div
                         class="marker gather-point"
@@ -546,7 +540,7 @@ function getGatherJobSvgStyle(jobId: number) {
                         <XivFARImage
                           v-else
                           :size="16"
-                          :src="getJobInfo(target.item.gatherInfo?.jobId || 0)?.job_icon_url || './image/game-job/companion/none.png'"
+                          :src="XivJobs[target.item.gatherInfo?.jobId || 0]?.job_icon_url || './image/game-job/companion/none.png'"
                         />
                       </div>
                     </template>
@@ -570,18 +564,13 @@ function getGatherJobSvgStyle(jobId: number) {
 .path-popover {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
 
-.popover-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-
-  .title {
-    font-size: 15px;
-    font-weight: 600;
+  .popover-header {
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
   }
 }
 
@@ -589,80 +578,77 @@ function getGatherJobSvgStyle(jobId: number) {
   color: var(--color-text-sub);
 }
 
-.map-mode {
+.map-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-}
-
-.map-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: 4px;
+  justify-content: center;
 
-  .map-title {
-    font-size: 12px;
-  }
-}
+  .map-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
 
-.map-content {
-  position: relative;
+    .map-content {
+      position: relative;
 
-  .map-image {
-    display: block;
-    pointer-events: none;
-  }
-
-  .path-svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 4;
-  }
-
-  .markers-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-
-    .marker {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      z-index: 5;
-      pointer-events: auto;
-    }
-
-    .gather-point {
-      width: 16px;
-      height: 16px;
-
-      .gather-point-icon-box {
-        display: inline-flex;
-        width: 16px;
-        height: 16px;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #9B4545;
-        border-radius: 4px;
-        background: rgba(255, 255, 255, 0.9);
-        box-sizing: border-box;
+      .map-image {
+        display: block;
+        pointer-events: none;
       }
 
-      .gather-point-icon-svg {
-        display: block;
-        width: 12px;
-        height: 12px;
-        -webkit-mask-repeat: no-repeat;
-        mask-repeat: no-repeat;
-        -webkit-mask-position: center;
-        mask-position: center;
-        -webkit-mask-size: contain;
-        mask-size: contain;
+      .path-svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 4;
+      }
+
+      .markers-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+
+        .marker {
+          position: absolute;
+          transform: translate(-50%, -50%);
+          z-index: 5;
+          pointer-events: auto;
+        }
+
+        .gather-point {
+          width: 16px;
+          height: 16px;
+
+          .gather-point-icon-box {
+            display: inline-flex;
+            width: 16px;
+            height: 16px;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #9B4545;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.9);
+            box-sizing: border-box;
+          }
+
+          .gather-point-icon-svg {
+            display: block;
+            width: 14px;
+            height: 14px;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
+            -webkit-mask-size: contain;
+            mask-size: contain;
+          }
+        }
       }
     }
   }

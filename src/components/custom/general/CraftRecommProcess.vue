@@ -177,6 +177,7 @@ const isItemGatherableNow = (item: ItemInfo) => {
               <GatheringPathButton 
                 v-if="group.type === 'gather-common'"
                 :target-items="getGatheringPathTargets(group, groupIndex)"
+                :container-id="containerId"
                 style="margin-left: 4px;"
               />
             </div>
