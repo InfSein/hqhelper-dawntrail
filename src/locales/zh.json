@@ -711,12 +711,17 @@
     "2_4_5": {
       "breaking": {
         "text_1": "对物品价格及其关联的成本/收益分析功能进行了多项优化。",
+        "text_10": "对生产宏管理功能进行了多项优化。",
+        "text_11": "接入CAC工序码标准，现可通过CAC工序码导入和分享制作手法。",
+        "text_12": "追加了工序编辑器，今后可以更加便利地编辑宏内容。",
         "text_2": "提升了一次性请求较多物品价格时的稳定性，并且优化了各处细节。",
         "text_3": "现可选择繁中服的各个服务器作为物品价格服务器。",
         "text_4": "现在成本/收益分析中的表格支持按单价/总价进行即时排序。",
         "text_5": "现在不可交易物品的价格不再显示为“未知”，而是“不可交易”，从而和真正价格未知的物品区分开。",
         "text_6": "现在成本/收益物品中含有不可交易/未获取到价格的物品时仍会计算有价格物品的总成本/收益，这时还会显示对应的提示文本。",
-        "text_7": "重制了客户端下载页面。"
+        "text_7": "重制了客户端下载页面。",
+        "text_8": "推荐流程中追加了“路径总览”功能。",
+        "text_9": "现可通过全新的总览按钮查看非限时采集品在地图上的总体分布，从而更快捷地决定采集路线。"
       },
       "feat": {
         "text_1": "现在在背包库存的搜索框选择已有物品时，会滚动到其所在的位置并高亮显示一段时间。",
@@ -875,6 +880,7 @@
     "click_here_show_menu": "点此展开菜单",
     "click_or_drag_to_upload": "点击或者拖动文件到该区域来上传",
     "click_to_copy": "点击以复制",
+    "click_to_edit": "点此编辑",
     "client_version": "客户端版本",
     "close": "关闭",
     "collectability": "收藏价值",
@@ -968,6 +974,7 @@
     "lang_zh": "中文",
     "last_update_with_val": "上次更新: {val}",
     "latest_version": "最新版本：",
+    "learn_more": "了解更多",
     "line_max_len": "最多{limit}行",
     "list": "清单",
     "load_failed": "加载失败",
@@ -1003,14 +1010,12 @@
       "import_succeed": "导入成功",
       "item_already_have": "已有该物品",
       "nothing_to_copy": "没有需要复制的内容",
+      "operation_failed": "操作失败",
       "operation_irreversible": "此操作不可逆。",
       "please_input_item_name": "请输入物品名",
       "please_input_val": "请输入{val}",
       "please_wait_for_a_while": "请稍等片刻。",
-      "sync_succeed": "同步成功",
-      "operation_failed": "操作失败",
-      "get_price_timeout": "请求超时，请检查网络连接。此外，这也可能是Universalis的服务器问题，您可等待片刻后重试。",
-      "get_price_network_error": "连接失败，请检查网络设置。"
+      "sync_succeed": "同步成功"
     },
     "mode": "模式",
     "mquoted_view_statement": "[查看报表]",
@@ -1127,11 +1132,7 @@
     "warn": "警告",
     "weibo": "微博",
     "will_be_named_with_time_when_empty": "不填则默认以时间命名",
-    "work_state": "工作状态",
-    "untradable": "不可交易",
-    "future_plan": "未来计划",
-    "click_to_edit": "点此编辑",
-    "learn_more": "了解更多"
+    "work_state": "工作状态"
   },
   "contact_us": {
     "feedback": {
@@ -1608,14 +1609,17 @@
       "warn_saved_macros_would_be_dropped": "已存储的{num}条宏将会丢失!"
     },
     "text": {
+      "add_action": "添加技能",
       "add_macro": "添加宏",
       "attr_auto_cal_when_zero": "此属性填0时会自动计算",
       "auto_cal_by_macro_when_empty_or_zero": "不填或填0时会根据宏内容自动计算。",
       "batch_operate": "批量操作",
       "can_select_item_or_input_name": "可以从HqHelper的数据库中选择物品，也可以自行输入物品名称。",
+      "click_to_edit_pre": "也可以在宏编辑器中自由设置工序：",
       "cover_auto_val_when_inputed": "相应的，一旦填写就会覆盖掉自动计算的制作力消耗。",
       "delete_all_macros": "删除所有宏",
       "drag_to_sort": "可以长按下方技能按钮拖拽来自定义排序。",
+      "edit_actions": "编辑工序",
       "edit_macro": "编辑宏",
       "existing_items": "已有物品",
       "filter_or_search": "筛选／检索",
@@ -1644,13 +1648,10 @@
       "preset_tags_manage": "管理常用标签",
       "relate_item": "关联物品",
       "relate_item_desc": "关联物品可以设置最多{limit_1}个，不过宏管理页面的表格只会展示前{limit_2}个。",
+      "remove_action": "删除此技能",
       "select_from_db": "从数据库中选择",
       "tag_name": "标签名称",
-      "tag_with_colon": "标签：",
-      "edit_actions": "编辑工序",
-      "click_to_edit_pre": "也可以在宏编辑器中自由设置工序：",
-      "add_action": "添加技能",
-      "remove_action": "删除此技能"
+      "tag_with_colon": "标签："
     },
     "title": "生产宏管理"
   },

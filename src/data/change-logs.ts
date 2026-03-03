@@ -98,6 +98,16 @@ export const getChangelogs = (
                 + renderList(['阳光棱晶'])
                 + '除此以外无实际变更。'
               ) : ''),
+            t('changelog.2_4_5.breaking.text_8')
+              + br + t('changelog.2_4_5.breaking.text_9')
+              + br + getNoteImage('2.4.5', '4.jpg'),
+            t('changelog.2_4_5.breaking.text_10')
+              + renderList([
+                t('changelog.2_4_5.breaking.text_11'),
+                t('changelog.2_4_5.breaking.text_12'),
+              ])
+              + getNoteImage('2.4.5', '1.jpg')
+              + br + getNoteImage('2.4.5', '2.jpg'),
             t('changelog.2_4_5.breaking.text_1')
               + renderList([
                 t('changelog.2_4_5.breaking.text_2'),
@@ -105,7 +115,8 @@ export const getChangelogs = (
                 t('changelog.2_4_5.breaking.text_4'),
                 t('changelog.2_4_5.breaking.text_5'),
                 t('changelog.2_4_5.breaking.text_6'),
-              ]),
+              ])
+              + getNoteImage('2.4.5', '3.jpg'),
             t('changelog.2_4_5.breaking.text_7'),
           ]
         },
