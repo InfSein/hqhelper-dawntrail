@@ -20,12 +20,14 @@ coverage
 
 # Auto generated
 src/components.d.ts
+CHANGELOG_AUTO.md
 
 # Plugins
 private-folder-alias.json
 
 # Ai
 .agent
+AGENTS.md
 
 # Editor directories and files
 .vscode/*
@@ -37,5 +39,4 @@ private-folder-alias.json
 *.njsproj
 *.sln
 *.sw?
-
 *.tsbuildinfo

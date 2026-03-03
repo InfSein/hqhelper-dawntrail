@@ -2,8 +2,8 @@
   "name": "hqhelper-dawntrail",
   "version": "2.4.4",
   "gamever": {
-    "cn": "7.41",
-    "global": "7.41"
+    "cn": "7.45",
+    "global": "7.45"
   },
   "private": true,
   "type": "module",
@@ -56,5 +56,8 @@
     "vite-plugin-vue-devtools": "^8.0.6",
     "vite-svg-loader": "^5.1.0",
     "vue-tsc": "^3.2.4"
+  },
+  "overrides": {
+    "tar": "^7.5.9"
   }
 }
