@@ -80,7 +80,7 @@ const handleSave = () => {
     @on-load="onLoad"
   >
     <div class="edit-actions-wrapper" :class="{ 'is-mobile': isMobile }">
-      <!-- Left / Top: Current actions (draggable) -->
+      <!-- Current actions -->
       <div class="edit-actions-panel current-panel">
         <FoldableCard
           unexpandable
@@ -133,7 +133,7 @@ const handleSave = () => {
         </FoldableCard>
       </div>
 
-      <!-- Right / Bottom: Skill palette grouped -->
+      <!-- Skill palette grouped -->
       <div class="edit-actions-panel palette-panel">
         <FoldableCard
           unexpandable
@@ -184,7 +184,7 @@ const handleSave = () => {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  height: 440px;
+  max-height: 60vh;
   overflow-y: auto;
 
   .edit-actions-panel {
