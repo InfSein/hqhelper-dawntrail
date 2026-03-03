@@ -25,7 +25,7 @@ import {
 } from '@/models/macromanage'
 import type { UserConfigModel } from '@/models/config-user'
 import { type FuncConfigModel } from '@/models/config-func'
-import { CopyToClipboard, deepCopy, visitUrl } from '@/tools'
+import { CopyToClipboard, deepCopy } from '@/tools'
 import { useDialog } from '@/tools/dialog'
 import useUiTools from '@/tools/ui'
 import useMacroHelper from '@/tools/macro-helper'
@@ -345,11 +345,11 @@ const tableColumns = computed(() => {
                 tertiary: true,
                 size: 'small',
                 style: 'width: fit-content;',
-                onClick: () => handleShareRow(row)
+                onClick: () => handleEditRow(row)
               },
               {
-                icon: renderIcon(ShareOutlined),
-                default: () => t('common.share')
+                icon: renderIcon(EditNoteOutlined),
+                default: () => t('common.edit')
               }
             ),
             h(
@@ -359,11 +359,11 @@ const tableColumns = computed(() => {
                 tertiary: true,
                 size: 'small',
                 style: 'width: fit-content;',
-                onClick: () => handleEditRow(row)
+                onClick: () => handleShareRow(row)
               },
               {
-                icon: renderIcon(EditNoteOutlined),
-                default: () => t('common.edit')
+                icon: renderIcon(ShareOutlined),
+                default: () => t('common.share')
               }
             ),
             h(
@@ -452,7 +452,12 @@ const handleShareRow = async (row: CraftMacroRow) => {
         type: 'id',
         actions: macro.craftActions,
       })
-      visitUrl(`https://cac.nbb.fan/?s=${cac}`)
+      const response = await CopyToClipboard(`https://cac.nbb.fan/?s=${cac}`)
+      if (response) {
+        NAIVE_UI_MESSAGE.error(t('common.message.copy_failed_unexpected_error'))
+      } else {
+        NAIVE_UI_MESSAGE.success(t('common.message.copy_succeed'))
+      }
     } catch (e: any) {
       NAIVE_UI_MESSAGE.error(t('common.message.operation_failed') + ':\n' + e.message)
       console.error('Share failed:', e)

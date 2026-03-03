@@ -76,7 +76,7 @@ const handleSave = () => {
     v-model:show="showModal"
     :icon="EditRound"
     :title="t('macro_manage.text.edit_actions')"
-    max-width="800px"
+    max-width="850px"
     @on-load="onLoad"
   >
     <div class="edit-actions-wrapper" :class="{ 'is-mobile': isMobile }">
