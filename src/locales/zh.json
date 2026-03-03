@@ -708,6 +708,21 @@
         "text_1": "提高了采集地图的清晰度。此外，现在光标悬浮在传送点上时，会提示该传送点的名称。"
       }
     },
+    "2_4_5": {
+      "breaking": {
+        "text_1": "对物品价格及其关联的成本/收益分析功能进行了多项优化。",
+        "text_2": "提升了一次性请求较多物品价格时的稳定性，并且优化了各处细节。",
+        "text_3": "现可选择繁中服的各个服务器作为物品价格服务器。",
+        "text_4": "现在成本/收益分析中的表格支持按单价/总价进行即时排序。",
+        "text_5": "现在不可交易物品的价格不再显示为“未知”，而是“不可交易”，从而和真正价格未知的物品区分开。",
+        "text_6": "现在成本/收益物品中含有不可交易/未获取到价格的物品时仍会计算有价格物品的总成本/收益，这时还会显示对应的提示文本。",
+        "text_7": "重制了客户端下载页面。"
+      },
+      "feat": {
+        "text_1": "现在在背包库存的搜索框选择已有物品时，会滚动到其所在的位置并高亮显示一段时间。",
+        "text_2": "设置项“制作物品排序规则”追加可选项“制作笔记顺序（搜索）”。"
+      }
+    },
     "breaking": "重要变更",
     "feat": "功能更新",
     "fix": "问题修复",
@@ -815,6 +830,7 @@
       "fthelper": "食药计算器",
       "func_setting": "功能设置",
       "gather_clock": "采集时钟",
+      "gathering_path": "采集路径",
       "ingame_inventory": "背包库存",
       "item_price": "物品价格",
       "macro_manage": "宏管理",
@@ -824,8 +840,7 @@
       "thank_list": "致谢名单",
       "useful_tools": "实用工具",
       "user_preference": "偏好设置",
-      "workflow": "工作流",
-      "gathering_path": "采集路径"
+      "workflow": "工作流"
     },
     "appsetting": {
       "appearance": "外观",
@@ -911,6 +926,7 @@
     "fold_all": "全部折叠",
     "follow_preference_of_item_price": "遵循“功能设置”中的“物品价格”设置。",
     "food": "食物",
+    "future_plan": "未来计划",
     "game_data_version": "游戏数据版本：{val}",
     "game_macro": "游戏宏",
     "gather": "采集",
@@ -979,6 +995,8 @@
       "deleted": "已删除",
       "export_failed_with_error": "导出失败：{err}",
       "get_price_failed": "获取价格失败",
+      "get_price_network_error": "连接失败，请检查网络设置。",
+      "get_price_timeout": "请求超时，请检查网络连接。此外，这也可能是Universalis的服务器问题，您可等待片刻后重试。",
       "import_failed": "导入失败",
       "import_failed_with_error": "导入失败：{err}",
       "import_succeed": "导入成功",
@@ -988,9 +1006,7 @@
       "please_input_item_name": "请输入物品名",
       "please_input_val": "请输入{val}",
       "please_wait_for_a_while": "请稍等片刻。",
-      "sync_succeed": "同步成功",
-      "get_price_timeout": "请求超时，请检查网络连接。此外，这也可能是Universalis的服务器问题，您可等待片刻后重试。",
-      "get_price_network_error": "连接失败，请检查网络设置。"
+      "sync_succeed": "同步成功"
     },
     "mode": "模式",
     "mquoted_view_statement": "[查看报表]",
@@ -1021,8 +1037,8 @@
     "open_in_new_window": "在新窗口中打开",
     "options": "选项",
     "or": "或",
-    "other": "其他",
     "or_more": "以上",
+    "other": "其他",
     "overwrite": "覆写",
     "password": "密码",
     "patch_x": "版本{val}",
@@ -1089,6 +1105,7 @@
     },
     "unit_price": "单价",
     "unknown": "未知",
+    "untradable": "不可交易",
     "update_immedi": "立即更新",
     "updating": "正在更新",
     "val_control": "{control_val}加工",
@@ -1105,9 +1122,7 @@
     "warn": "警告",
     "weibo": "微博",
     "will_be_named_with_time_when_empty": "不填则默认以时间命名",
-    "work_state": "工作状态",
-    "untradable": "不可交易",
-    "future_plan": "未来计划"
+    "work_state": "工作状态"
   },
   "contact_us": {
     "feedback": {
@@ -1253,6 +1268,7 @@
       "text_13": "※仅适用于搭载了M系列芯片的设备",
       "text_14": "我们暂时没有能力提供 Apple 开发者签名，安装时可能会提示「“HqHelper”已损坏，无法打开。你应该将它移到废纸篓」。",
       "text_15": "你需要解除安全检查限制或是将 HqHelper 添加到白名单方可成功安装。",
+      "text_16": "客户端还可以用新窗口打开工作流的推荐流程。",
       "text_2": "不过，为了满足部分用户的习惯和实现一些浏览器无法完成的功能，我们也提供客户端服务。",
       "text_3": "有什么特别功能吗？",
       "text_4": "即使网络不佳或远程服务器崩溃，客户端也能正常提供基础的计算服务。",
@@ -1260,8 +1276,7 @@
       "text_6": "您可以收藏此页面，从而在未来方便地下载到最新版本的客户端。",
       "text_7": "客户端仅是搭载 HqHelper 的“容器”，下载最新版本的客户端后可能仍需要更新一次 HqHelper 的版本。",
       "text_8": "当前最新版本：{ver}",
-      "text_9": "点击下方按钮来进行下载。",
-      "text_16": "客户端还可以用新窗口打开工作流的推荐流程。"
+      "text_9": "点击下方按钮来进行下载。"
     }
   },
   "err_404": {
