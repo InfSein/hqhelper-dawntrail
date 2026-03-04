@@ -190,8 +190,8 @@ const displayMapRenderData = computed(() => {
 
 const shouldShowButton = computed(() => gatheringTargets.value.length > 0)
 
-const popoverWidth = computed(() => isMobile.value ? '85vw' : '486px')
-const popoverMaxHeight = computed(() => isMobile.value ? '64vh' : '560px')
+const popoverWidth = computed(() => isMobile.value ? '85vw' : '498px')
+const popoverContentMaxHeight = computed(() => isMobile.value ? '60vh' : '515px')
 
 const MAP_SIZE = 222
 const PATH_END_PADDING_PX = 7
@@ -438,8 +438,7 @@ function getGatherJobSvgStyle(jobId: number) {
     <n-popover
       :trigger="isMobile ? 'click' : 'hover'"
       :placement="isMobile ? 'bottom' : 'right-start'"
-      scrollable
-      :style="{ width: popoverWidth, maxHeight: popoverMaxHeight }"
+      :style="{ width: popoverWidth }"
     >
       <template #trigger>
         <n-button quaternary size="tiny" class="n-square-button">
@@ -460,96 +459,98 @@ function getGatherJobSvgStyle(jobId: number) {
           {{ t('map.gathering_path.text.empty_hint') }}
         </div>
 
-        <div v-else class="map-container">
-          <div
-            v-for="entry in displayMapRenderData"
-            :key="entry.placeId"
-            class="map-panel"
-          >
-            <div class="map-title">{{ entry.map[`name_${itemLanguage}`] }}</div>
-            <div class="map-content" :style="{ width: MAP_SIZE + 'px', height: MAP_SIZE + 'px' }">
-              <XivFARImage
-                class="map-image"
-                :size="MAP_SIZE"
-                :src="entry.map.map_src"
-              />
-
-              <svg class="path-svg" :width="MAP_SIZE" :height="MAP_SIZE">
-                <defs>
-                  <marker
-                    :id="`gather-path-arrowhead-${entry.placeId}`"
-                    markerWidth="5"
-                    markerHeight="5"
-                    refX="5"
-                    refY="2.5"
-                    orient="auto"
-                    markerUnits="strokeWidth"
-                  >
-                    <path d="M0,0.5 L5,2.5 L0,4.5 Z" :fill="PATH_COLOR" />
-                  </marker>
-                </defs>
-                <line
-                  v-for="(line, lineIndex) in entry.lines"
-                  :key="`line-${entry.placeId}-${lineIndex}`"
-                  :x1="getLineStyle(line).x1"
-                  :y1="getLineStyle(line).y1"
-                  :x2="getLineStyle(line).x2"
-                  :y2="getLineStyle(line).y2"
-                  :stroke="PATH_COLOR"
-                  :stroke-width="1.5"
-                  :marker-end="`url(#gather-path-arrowhead-${entry.placeId})`"
+        <n-scrollbar v-else trigger="none" :style="{ maxHeight: popoverContentMaxHeight }">
+          <div class="map-container">
+            <div
+              v-for="entry in displayMapRenderData"
+              :key="entry.placeId"
+              class="map-panel"
+            >
+              <div class="map-title">{{ entry.map[`name_${itemLanguage}`] }}</div>
+              <div class="map-content" :style="{ width: MAP_SIZE + 'px', height: MAP_SIZE + 'px' }">
+                <XivFARImage
+                  class="map-image"
+                  :size="MAP_SIZE"
+                  :src="entry.map.map_src"
                 />
-              </svg>
 
-              <div class="markers-overlay">
-                <template v-for="(aetheryte, idx) in entry.map.aetherytes" :key="`aeth-${entry.placeId}-${idx}`">
-                  <n-tooltip
-                    :trigger="isMobile ? 'click' : 'hover'"
-                    :show-arrow="false"
-                    :keep-alive-on-hover="false"
-                    style="padding: 4px 8px;"
-                    content-style="padding: 0;"
-                  >
-                    <template #trigger>
-                      <XivFARImage
-                        class="marker aetheryte"
-                        src="./ui/aetheryte.png"
-                        :style="getPositionStyle(aetheryte.x, aetheryte.y)"
-                      />
-                    </template>
-                    <div class="tooltip">{{ aetheryte[`name_${itemLanguage}`] }}</div>
-                  </n-tooltip>
-                </template>
+                <svg class="path-svg" :width="MAP_SIZE" :height="MAP_SIZE">
+                  <defs>
+                    <marker
+                      :id="`gather-path-arrowhead-${entry.placeId}`"
+                      markerWidth="5"
+                      markerHeight="5"
+                      refX="5"
+                      refY="2.5"
+                      orient="auto"
+                      markerUnits="strokeWidth"
+                    >
+                      <path d="M0,0.5 L5,2.5 L0,4.5 Z" :fill="PATH_COLOR" />
+                    </marker>
+                  </defs>
+                  <line
+                    v-for="(line, lineIndex) in entry.lines"
+                    :key="`line-${entry.placeId}-${lineIndex}`"
+                    :x1="getLineStyle(line).x1"
+                    :y1="getLineStyle(line).y1"
+                    :x2="getLineStyle(line).x2"
+                    :y2="getLineStyle(line).y2"
+                    :stroke="PATH_COLOR"
+                    :stroke-width="1.5"
+                    :marker-end="`url(#gather-path-arrowhead-${entry.placeId})`"
+                  />
+                </svg>
 
-                <template v-for="(target, targetIndex) in entry.targets" :key="`target-${entry.placeId}-${target.item.id}-${targetIndex}`">
-                  <ItemPop :item-info="target.item" :container-id="containerId">
-                    <template #default>
-                      <div
-                        class="marker gather-point"
-                        :style="getPositionStyle(target.x, target.y)"
-                      >
-                        <span
-                          v-if="hasGatherJobSvg(target.item.gatherInfo?.jobId || 0)"
-                          class="gather-point-icon-box"
+                <div class="markers-overlay">
+                  <template v-for="(aetheryte, idx) in entry.map.aetherytes" :key="`aeth-${entry.placeId}-${idx}`">
+                    <n-tooltip
+                      :trigger="isMobile ? 'click' : 'hover'"
+                      :show-arrow="false"
+                      :keep-alive-on-hover="false"
+                      style="padding: 4px 8px;"
+                      content-style="padding: 0;"
+                    >
+                      <template #trigger>
+                        <XivFARImage
+                          class="marker aetheryte"
+                          src="./ui/aetheryte.png"
+                          :style="getPositionStyle(aetheryte.x, aetheryte.y)"
+                        />
+                      </template>
+                      <div class="tooltip">{{ aetheryte[`name_${itemLanguage}`] }}</div>
+                    </n-tooltip>
+                  </template>
+
+                  <template v-for="(target, targetIndex) in entry.targets" :key="`target-${entry.placeId}-${target.item.id}-${targetIndex}`">
+                    <ItemPop :item-info="target.item" :container-id="containerId">
+                      <template #default>
+                        <div
+                          class="marker gather-point"
+                          :style="getPositionStyle(target.x, target.y)"
                         >
                           <span
-                            class="gather-point-icon-svg"
-                            :style="getGatherJobSvgStyle(target.item.gatherInfo?.jobId || 0)"
+                            v-if="hasGatherJobSvg(target.item.gatherInfo?.jobId || 0)"
+                            class="gather-point-icon-box"
+                          >
+                            <span
+                              class="gather-point-icon-svg"
+                              :style="getGatherJobSvgStyle(target.item.gatherInfo?.jobId || 0)"
+                            />
+                          </span>
+                          <XivFARImage
+                            v-else
+                            :size="16"
+                            :src="XivJobs[target.item.gatherInfo?.jobId || 0]?.job_icon_url || './image/game-job/companion/none.png'"
                           />
-                        </span>
-                        <XivFARImage
-                          v-else
-                          :size="16"
-                          :src="XivJobs[target.item.gatherInfo?.jobId || 0]?.job_icon_url || './image/game-job/companion/none.png'"
-                        />
-                      </div>
-                    </template>
-                  </ItemPop>
-                </template>
+                        </div>
+                      </template>
+                    </ItemPop>
+                  </template>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </n-scrollbar>
       </div>
     </n-popover>
   </div>
@@ -575,6 +576,9 @@ function getGatherJobSvgStyle(jobId: number) {
 }
 
 .empty-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--color-text-sub);
 }
 
@@ -583,6 +587,7 @@ function getGatherJobSvgStyle(jobId: number) {
   flex-wrap: wrap;
   gap: 4px;
   justify-content: center;
+  padding-right: 12px;
 
   .map-panel {
     display: flex;

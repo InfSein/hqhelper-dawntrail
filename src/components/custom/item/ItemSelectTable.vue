@@ -62,7 +62,7 @@ const scrollToItem = (itemId: number) => {
     highlightTimer = setTimeout(() => {
       highlightedItemId.value = null
       highlightTimer = null
-    }, 1000)
+    }, 1500)
   }
 }
 

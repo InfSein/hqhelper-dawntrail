@@ -530,9 +530,9 @@ const handleSave = async () => {
               </div>
               <div class="form-tip">
                 <p>{{ t('macro_manage.text.drag_to_sort') }}</p>
-                <div class="flex-vac">
+                <div class="flex-vac flex-wrap">
                   {{ t('macro_manage.text.click_to_edit_pre') }}
-                  <a href="javascript:void(0)" class="flex-vac" @click="showCraftActionsEditModal = true">
+                  <a href="javascript:void(0)" class="flex-vac" style="padding: 0 3px;" @click="showCraftActionsEditModal = true">
                     <n-icon :size="14" :component="EditRound" />
                     <span>{{ t('common.click_to_edit') }}</span>
                   </a>
