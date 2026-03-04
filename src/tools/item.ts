@@ -544,7 +544,6 @@ import { type Component } from 'vue'
 import { NIcon } from 'naive-ui'
 import { getNearestAetheryte } from './map'
 import type { FuncConfigModel } from '@/models/config-func'
-import type { StatementData } from './use-fufu-cal'
 export const getItemContexts = (
   itemInfo: ItemInfo,
   itemLanguage: "zh" | "en" | "ja",
@@ -834,7 +833,7 @@ export const getItemPriceInfo = async (
       return await getItemPrice(item[0], server)
     } else {
       // universalis单次最多请求100个物品的数据，因此需要分块请求
-      const chunkSize = 100
+      const chunkSize = 50
       const results : Record<number, ItemPriceInfo> = {}
       const chunkedItems = Array(Math.ceil(item.length / chunkSize))
         .fill(null)
@@ -891,62 +890,60 @@ const getMultiItemPrice = async (
 }
 export const calCostAndBenefit = (
   funcConfig: FuncConfigModel,
-  statementData: StatementData
+  costItems: ItemInfo[],
+  benefitItems: ItemInfo[],
 ) => {
   let updateRequired = false
-  const itemsCost = {} as Record<number, {
-    amount: number,
-    price: ItemPriceInfo
-  }>
-  const itemsBenefit = {} as Record<number, {
-    amount: number,
-    price: ItemPriceInfo
-  }>
   const priceCache = funcConfig.cache_item_prices
   const expiresAfter = Date.now() - funcConfig.universalis_expireTime
-  function cacheNotExpired(item: ItemInfo) {
+  const priceKey = funcConfig.universalis_priceType
+
+  const cacheNotExpired = (item: ItemInfo) => {
     const priceInfo = priceCache[item.id]
     return priceInfo && priceInfo.updateTime > expiresAfter
       && priceInfo.v && priceInfo.v >= ItemPriceApiVersion
   }
-  statementData.materialsLvBase.forEach(item => {
-    if (cacheNotExpired(item)) {
-      itemsCost[item.id] = {
-        amount: item.amount,
-        price: priceCache[item.id]
+
+  const calculateTotal = (items: ItemInfo[], priceType: 'NQ' | 'HQ') => {
+    let total = 0
+    let partial = false
+    let hasValue = false
+    const itemsMap: Record<number, { amount: number, price: ItemPriceInfo }> = {}
+
+    items.forEach(item => {
+      if (cacheNotExpired(item)) {
+        const p = priceCache[item.id]
+        itemsMap[item.id] = { amount: item.amount, price: p }
+        total += item.amount * (p[`${priceKey}${priceType}`] ?? 0)
+        hasValue = true
+      } else if (item.tradable) {
+        updateRequired = true
+        partial = true
       }
-    } else {
-      updateRequired = true
-    }
-  })
-  statementData.craftTargets.forEach(item => {
-    if (cacheNotExpired(item)) {
-      itemsBenefit[item.id] = {
-        amount: item.amount,
-        price: priceCache[item.id]
-      }
-    } else {
-      updateRequired = true
-    }
-  })
-  let costInfo = '???', benefitInfo = '???'
-  if (!updateRequired) {
-    let costTotal = 0, benefitTotal = 0
-    const priceKey = funcConfig.universalis_priceType
-    Object.values(itemsCost).forEach(item => {
-      costTotal += item.amount * (item.price[`${priceKey}NQ`] ?? 0)
     })
-    Object.values(itemsBenefit).forEach(item => {
-      benefitTotal += item.amount * (item.price[`${priceKey}HQ`] ?? 0)
-    })
-    costInfo = Math.floor(costTotal).toLocaleString()
-    benefitInfo = Math.floor(benefitTotal).toLocaleString()
+
+    let totalStr = Math.floor(total).toLocaleString()
+    if (items.length > 0 && !hasValue) {
+      totalStr = '???'; partial = false
+    }
+
+    return { 
+      total: totalStr, 
+      partial, 
+      itemsMap 
+    }
   }
+
+  const costRes = calculateTotal(costItems, 'NQ')
+  const benefitRes = calculateTotal(benefitItems, 'HQ')
+
   return {
     updateRequired,
-    itemsCost,
-    itemsBenefit,
-    costInfo,
-    benefitInfo
+    itemsCost: costRes.itemsMap,
+    itemsBenefit: benefitRes.itemsMap,
+    costInfo: costRes.total,
+    benefitInfo: benefitRes.total,
+    isCostPartial: costRes.partial,
+    isBenefitPartial: benefitRes.partial
   }
 }

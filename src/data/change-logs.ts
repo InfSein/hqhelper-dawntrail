@@ -84,6 +84,52 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.4.5',
+      date: '2026-03-04',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('changelog.shared.game_db_update', {
+              ver: '7.45'
+            })
+              + (isZh ? (br + 
+                '7.45版本对部分已有道具的描述进行了修订。涉及HqHelper的道具有：'
+                + renderList(['阳光棱晶'])
+                + '除此以外无实际变更。'
+              ) : ''),
+            t('changelog.2_4_5.breaking.text_8')
+              + br + t('changelog.2_4_5.breaking.text_9')
+              + br + getNoteImage('2.4.5', '4.jpg'),
+            t('changelog.2_4_5.breaking.text_10')
+              + renderList([
+                t('changelog.2_4_5.breaking.text_11'),
+                t('changelog.2_4_5.breaking.text_12'),
+              ])
+              + getNoteImage('2.4.5', '1.jpg')
+              + br + getNoteImage('2.4.5', '2.jpg'),
+            t('changelog.2_4_5.breaking.text_1')
+              + renderList([
+                t('changelog.2_4_5.breaking.text_2'),
+                t('changelog.2_4_5.breaking.text_3'),
+                t('changelog.2_4_5.breaking.text_4'),
+                t('changelog.2_4_5.breaking.text_5'),
+                t('changelog.2_4_5.breaking.text_6'),
+              ])
+              + getNoteImage('2.4.5', '3.jpg'),
+            t('changelog.2_4_5.breaking.text_7'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_4_5.feat.text_1'),
+            t('changelog.2_4_5.feat.text_2'),
+          ]
+        }
+      ]
+    },
+    {
       version: '2.4.4',
       date: '2026-01-27',
       changes: [

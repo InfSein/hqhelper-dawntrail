@@ -708,6 +708,26 @@
         "text_1": "Improved the clarity of the gathering maps. Additionally, hovering the cursor over a teleport point now displays the name of that teleport location."
       }
     },
+    "2_4_5": {
+      "breaking": {
+        "text_1": "Item prices and their associated cost/benefit analysis features were optimized.",
+        "text_10": "Various optimizations have been made for macro management functions.",
+        "text_11": "Access to CAC process code standards is now available through the CAC process code to import and share the crafting method.",
+        "text_12": "A process editor has been added to make it easier to edit macro content in the future.",
+        "text_2": "The stability of one-off requests for more items has been improved and details have been optimized.",
+        "text_3": "You can now select TC servers to serve as the item price server.",
+        "text_4": "The table in the cost/benefit analysis now supports immediate ranking by unit price/total price.",
+        "text_5": "The prices of non-tradable items are no longer shown as “unknown” but as “Untradable”, thus distinguishing them from items whose true prices are unknown.",
+        "text_6": "The total cost/return of price/earnings items is calculated when they contain non-tradable/unobtained items, and the corresponding hint text is also shown.",
+        "text_7": "Client download page has been recreated.",
+        "text_8": "Append the \"Path Overview\" feature to the recommended process.",
+        "text_9": "The global distribution of unlimited collections on the map is now available through a completely new overview button, leading to a faster decision on the collection route."
+      },
+      "feat": {
+        "text_1": "Now when the inventory search box in the inventory of the inventory selects existing items, scroll to its location and highlight it for some time.",
+        "text_2": "Set the \"Crafted Item Sort Rules\" to append the option \"Craft note order (Search)\"."
+      }
+    },
     "breaking": "BREAKING CHANGES",
     "feat": "FEATURES",
     "fix": "BUG FIXES",
@@ -815,6 +835,7 @@
       "fthelper": "FT Helper",
       "func_setting": "Function Preferences",
       "gather_clock": "Gather Clock",
+      "gathering_path": "Gathering Path",
       "ingame_inventory": "In-game Inventory",
       "item_price": "Item Price",
       "macro_manage": "Macro Management",
@@ -844,6 +865,7 @@
     "basic_info": "Basic Info",
     "benefit": "Benefit",
     "brief_intro": "Intro",
+    "cac": "CAC",
     "cancel": "Cancel",
     "cautions": "Cautions",
     "check_failed": "Check Failed",
@@ -858,6 +880,7 @@
     "click_here_show_menu": "Click to Show Menu",
     "click_or_drag_to_upload": "Click or drag file here to upload",
     "click_to_copy": "Click to Copy",
+    "click_to_edit": "Click to edit",
     "client_version": "Client Version",
     "close": "Close",
     "collectability": "Collectability",
@@ -910,6 +933,7 @@
     "fold_all": "Collapse All",
     "follow_preference_of_item_price": "Follows \"Item Price\" settings in Preferences.",
     "food": "Food",
+    "future_plan": "Future Planning",
     "game_data_version": "Game data version: Patch {val}",
     "game_macro": "Game Macro",
     "gather": "Gathering",
@@ -950,6 +974,7 @@
     "lang_zh": "Chinese",
     "last_update_with_val": "Last update: {val}",
     "latest_version": "Latest Version: ",
+    "learn_more": "Learn more",
     "line_max_len": "Max {limit} lines",
     "list": "List",
     "load_failed": "Load Failed",
@@ -978,11 +1003,14 @@
       "deleted": "Deleted",
       "export_failed_with_error": "Exporting failed: {err}",
       "get_price_failed": "Get Item Price Failed",
+      "get_price_network_error": "Connection failed, please check network settings.",
+      "get_price_timeout": "Request timed out, please check your internet connection. In addition, this may also be a problem with Universalis, you can wait for a snippet and try again.",
       "import_failed": "Import failed",
       "import_failed_with_error": "Import Failed: {err}",
       "import_succeed": "Import Successful",
       "item_already_have": "This item already exists",
       "nothing_to_copy": "Nothing to copy.",
+      "operation_failed": "Operation failed",
       "operation_irreversible": "This operation is irreversible.",
       "please_input_item_name": "Please enter item name",
       "please_input_val": "Please input {val}",
@@ -1018,6 +1046,7 @@
     "open_in_new_window": "Open in new window",
     "options": "Options",
     "or": "or",
+    "or_more": "or more",
     "other": "Other",
     "overwrite": "Overwrite",
     "password": "Password",
@@ -1053,6 +1082,7 @@
     "selected": "Selected",
     "server": "Server",
     "setting": "Settings",
+    "share": "Share",
     "simulate_craft": "Simulate Craft",
     "simulator": "Simulator",
     "special": "Special",
@@ -1085,6 +1115,7 @@
     },
     "unit_price": "Unit Price",
     "unknown": "UNKNOWN",
+    "untradable": "Untradable",
     "update_immedi": "Update Now",
     "updating": "Updating",
     "val_control": "Control {control_val}",
@@ -1247,6 +1278,7 @@
       "text_13": "※Only available for devices with M-series chips",
       "text_14": "We do not have an Apple developer signature. If you see 'HqHelper is damaged'...",
       "text_15": "You must disable Gatekeeper or whitelist HqHelper to install.",
+      "text_16": "Clients can also open workflow recommended processes in new windows.",
       "text_2": "However, we provide a client version for exclusive features not possible in a browser.",
       "text_3": "Client-Exclusive Features:",
       "text_4": "Offline capability for basic calculations.",
@@ -1577,14 +1609,17 @@
       "warn_saved_macros_would_be_dropped": "Warning: {num} existing macros will be overwritten!"
     },
     "text": {
+      "add_action": "Add action",
       "add_macro": "Add Macro",
       "attr_auto_cal_when_zero": "Auto-calculated if 0",
       "auto_cal_by_macro_when_empty_or_zero": "Auto-calculated based on macro if empty/0.",
       "batch_operate": "Batch Operations",
       "can_select_item_or_input_name": "Select from DB or enter name.",
+      "click_to_edit_pre": "You can also set the process in the macro editor: ",
       "cover_auto_val_when_inputed": "Manual input overrides auto-calculation.",
       "delete_all_macros": "Delete All Macros",
       "drag_to_sort": "Long press to drag and reorder.",
+      "edit_actions": "Edit Actions",
       "edit_macro": "Edit Macro",
       "existing_items": "Existing Items",
       "filter_or_search": "Filter / Search",
@@ -1593,7 +1628,9 @@
         "text_2": "Unlimited lines. Paste multiple macros sequentially.",
         "text_3": "Ensure one action per line. Supports /ac, /action. Quotes allowed.",
         "text_4": "Supports mixed languages (EN/JA/ZH).",
-        "text_5": "Paste process code from FCO/BestCraft here."
+        "text_5": "Paste process code from FCO/BestCraft here.",
+        "text_6": "CAC is a new standard for compressed crafting processes.",
+        "text_7": "Paste the process code or share link to the input box below to identify the full process."
       },
       "import_source": "Import Source: ",
       "input_item_name": "Enter Item Name",
@@ -1611,6 +1648,7 @@
       "preset_tags_manage": "Manage Tags",
       "relate_item": "Related Items",
       "relate_item_desc": "Max {limit_1} related items. Table displays first {limit_2}.",
+      "remove_action": "Delete this skill",
       "select_from_db": "Select from DB",
       "tag_name": "Tag Name",
       "tag_with_colon": "Tags: "
@@ -1758,6 +1796,12 @@
     }
   },
   "map": {
+    "gathering_path": {
+      "text": {
+        "empty_hint": "No available paths found."
+      },
+      "title": "Path Overview"
+    },
     "text": {
       "open_in": {
         "ffcafe": "Open in FFCAFE Interactive Map"
@@ -1995,10 +2039,12 @@
     },
     "processes_craftable_item_sortby": {
       "desc": {
-        "desc_1": "If you choose 'Crafting log order', the items will be sorted according to the order of the recipes in the crafting log (the crafting interface opened by pressing N in the game)."
+        "desc_1": "If you choose 'Crafting log order', the items will be sorted according to the order of the recipes in the crafting log (the crafting interface opened by pressing N in the game).",
+        "desc_2": "Note that the search sequence does not correspond to the standard order of note creation when using the search feature in the notes."
       },
       "option": {
-        "crafting_log": "Crafting log order"
+        "crafting_log": "Crafting log order",
+        "crafting_log_search": "Crafting log order (search)"
       },
       "title": "Craftable item sorting by"
     },
@@ -2213,7 +2259,10 @@
             "tooltip_2": "Benefit means sold earns, not deducted by cost."
           }
         },
-        "title": "Cost/Benefit"
+        "title": "Cost/Benefit",
+        "tooltip": {
+          "benefit_is_partial": "Some item prices could not be retrieved. This total is based only on the prices successfully fetched."
+        }
       },
       "crystal": "Crystals",
       "direct_materials": "Direct Materials",

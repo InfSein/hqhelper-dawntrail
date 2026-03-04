@@ -708,6 +708,26 @@
         "text_1": "提高了采集地图的清晰度。此外，现在光标悬浮在传送点上时，会提示该传送点的名称。"
       }
     },
+    "2_4_5": {
+      "breaking": {
+        "text_1": "对物品价格及其关联的成本/收益分析功能进行了多项优化。",
+        "text_10": "对生产宏管理功能进行了多项优化。",
+        "text_11": "接入CAC工序码标准，现可通过CAC工序码导入和分享制作手法。",
+        "text_12": "追加了工序编辑器，今后可以更加便利地编辑宏内容。",
+        "text_2": "提升了一次性请求较多物品价格时的稳定性，并且优化了各处细节。",
+        "text_3": "现可选择繁中服的各个服务器作为物品价格服务器。",
+        "text_4": "现在成本/收益分析中的表格支持按单价/总价进行即时排序。",
+        "text_5": "现在不可交易物品的价格不再显示为“未知”，而是“不可交易”，从而和真正价格未知的物品区分开。",
+        "text_6": "现在成本/收益物品中含有不可交易/未获取到价格的物品时仍会计算有价格物品的总成本/收益，这时还会显示对应的提示文本。",
+        "text_7": "重制了客户端下载页面。",
+        "text_8": "推荐流程中追加了“路径总览”功能。",
+        "text_9": "现可通过全新的总览按钮查看非限时采集品在地图上的总体分布，从而更快捷地决定采集路线。"
+      },
+      "feat": {
+        "text_1": "现在在背包库存的搜索框选择已有物品时，会滚动到其所在的位置并高亮显示一段时间。",
+        "text_2": "设置项“制作物品排序规则”追加可选项“制作笔记顺序（搜索）”。"
+      }
+    },
     "breaking": "重要变更",
     "feat": "功能更新",
     "fix": "问题修复",
@@ -815,6 +835,7 @@
       "fthelper": "食药计算器",
       "func_setting": "功能设置",
       "gather_clock": "采集时钟",
+      "gathering_path": "采集路径",
       "ingame_inventory": "背包库存",
       "item_price": "物品价格",
       "macro_manage": "宏管理",
@@ -844,6 +865,7 @@
     "basic_info": "基本信息",
     "benefit": "收益",
     "brief_intro": "简介",
+    "cac": "CAC工序码",
     "cancel": "取消",
     "cautions": "注意事项",
     "check_failed": "检测失败",
@@ -858,6 +880,7 @@
     "click_here_show_menu": "点此展开菜单",
     "click_or_drag_to_upload": "点击或者拖动文件到该区域来上传",
     "click_to_copy": "点击以复制",
+    "click_to_edit": "点此编辑",
     "client_version": "客户端版本",
     "close": "关闭",
     "collectability": "收藏价值",
@@ -910,6 +933,7 @@
     "fold_all": "全部折叠",
     "follow_preference_of_item_price": "遵循“功能设置”中的“物品价格”设置。",
     "food": "食物",
+    "future_plan": "未来计划",
     "game_data_version": "游戏数据版本：{val}",
     "game_macro": "游戏宏",
     "gather": "采集",
@@ -950,6 +974,7 @@
     "lang_zh": "中文",
     "last_update_with_val": "上次更新: {val}",
     "latest_version": "最新版本：",
+    "learn_more": "了解更多",
     "line_max_len": "最多{limit}行",
     "list": "清单",
     "load_failed": "加载失败",
@@ -978,11 +1003,14 @@
       "deleted": "已删除",
       "export_failed_with_error": "导出失败：{err}",
       "get_price_failed": "获取价格失败",
+      "get_price_network_error": "连接失败，请检查网络设置。",
+      "get_price_timeout": "请求超时，请检查网络连接。此外，这也可能是Universalis的服务器问题，您可等待片刻后重试。",
       "import_failed": "导入失败",
       "import_failed_with_error": "导入失败：{err}",
       "import_succeed": "导入成功",
       "item_already_have": "已有该物品",
       "nothing_to_copy": "没有需要复制的内容",
+      "operation_failed": "操作失败",
       "operation_irreversible": "此操作不可逆。",
       "please_input_item_name": "请输入物品名",
       "please_input_val": "请输入{val}",
@@ -1018,6 +1046,7 @@
     "open_in_new_window": "在新窗口中打开",
     "options": "选项",
     "or": "或",
+    "or_more": "以上",
     "other": "其他",
     "overwrite": "覆写",
     "password": "密码",
@@ -1053,6 +1082,7 @@
     "selected": "已选",
     "server": "服务器",
     "setting": "设置",
+    "share": "分享",
     "simulate_craft": "模拟制作",
     "simulator": "模拟器",
     "special": "特殊",
@@ -1085,6 +1115,7 @@
     },
     "unit_price": "单价",
     "unknown": "未知",
+    "untradable": "不可交易",
     "update_immedi": "立即更新",
     "updating": "正在更新",
     "val_control": "{control_val}加工",
@@ -1241,12 +1272,13 @@
     },
     "text": {
       "text_1": "HqHelper 的大多数功能在网页端即可完成。",
-      "text_10": "※仅适用于 Windows 7 或更高版本",
+      "text_10": "※ 需要 Windows 7 或更高版本的系统",
       "text_11": "{platform} 客户端",
-      "text_12": "※仅适用于 Mac OS 10.13 或更高版本",
+      "text_12": "※ 需要 10.13 或更高版本的 Mac OS，并且仅限M系列芯片的设备使用",
       "text_13": "※仅适用于搭载了M系列芯片的设备",
       "text_14": "我们暂时没有能力提供 Apple 开发者签名，安装时可能会提示「“HqHelper”已损坏，无法打开。你应该将它移到废纸篓」。",
       "text_15": "你需要解除安全检查限制或是将 HqHelper 添加到白名单方可成功安装。",
+      "text_16": "客户端还可以用新窗口打开工作流的推荐流程。",
       "text_2": "不过，为了满足部分用户的习惯和实现一些浏览器无法完成的功能，我们也提供客户端服务。",
       "text_3": "有什么特别功能吗？",
       "text_4": "即使网络不佳或远程服务器崩溃，客户端也能正常提供基础的计算服务。",
@@ -1577,14 +1609,17 @@
       "warn_saved_macros_would_be_dropped": "已存储的{num}条宏将会丢失!"
     },
     "text": {
+      "add_action": "添加技能",
       "add_macro": "添加宏",
       "attr_auto_cal_when_zero": "此属性填0时会自动计算",
       "auto_cal_by_macro_when_empty_or_zero": "不填或填0时会根据宏内容自动计算。",
       "batch_operate": "批量操作",
       "can_select_item_or_input_name": "可以从HqHelper的数据库中选择物品，也可以自行输入物品名称。",
+      "click_to_edit_pre": "也可以在宏编辑器中自由设置工序：",
       "cover_auto_val_when_inputed": "相应的，一旦填写就会覆盖掉自动计算的制作力消耗。",
       "delete_all_macros": "删除所有宏",
       "drag_to_sort": "可以长按下方技能按钮拖拽来自定义排序。",
+      "edit_actions": "编辑工序",
       "edit_macro": "编辑宏",
       "existing_items": "已有物品",
       "filter_or_search": "筛选／检索",
@@ -1593,7 +1628,9 @@
         "text_2": "输入框没有行数限制，组装多个宏时，粘贴完第一个宏之后换行粘贴第二个即可。",
         "text_3": "最终需要保证一行一个技能。只会识别以“/ac”、“/action”或“/技能”开头的行，技能名可以加双引号。",
         "text_4": "支持中文，英文和日文的宏，可以自由组合。",
-        "text_5": "在FCO模拟器或BestCraft模拟器中编辑手法后，点击“导出工序”，将工序代码粘贴到下方输入框即可。"
+        "text_5": "在FCO模拟器或BestCraft模拟器中编辑手法后，点击“导出工序”，将工序代码粘贴到下方输入框即可。",
+        "text_6": "CAC工序码是一个压缩生产工序的全新标准。",
+        "text_7": "将工序码或是分享链接粘贴到下方输入框即可识别出完整工序。"
       },
       "import_source": "导入来源：",
       "input_item_name": "自行输入物品名",
@@ -1611,6 +1648,7 @@
       "preset_tags_manage": "管理常用标签",
       "relate_item": "关联物品",
       "relate_item_desc": "关联物品可以设置最多{limit_1}个，不过宏管理页面的表格只会展示前{limit_2}个。",
+      "remove_action": "删除此技能",
       "select_from_db": "从数据库中选择",
       "tag_name": "标签名称",
       "tag_with_colon": "标签："
@@ -1758,6 +1796,12 @@
     }
   },
   "map": {
+    "gathering_path": {
+      "text": {
+        "empty_hint": "未找到可用路径。"
+      },
+      "title": "路径总览"
+    },
     "text": {
       "open_in": {
         "ffcafe": "在FFCAFE互动地图中打开"
@@ -1809,7 +1853,7 @@
         "subtotal_asc": "按总价(从低到高)",
         "subtotal_desc": "按总价(从高到低)"
       },
-      "title": "成本/收益分析中物品排序规则"
+      "title": "成本/收益分析中物品默认排序规则"
     },
     "costandbenefit_show_item_details": "成本/收益分析中显示物品详情",
     "custom_background": {
@@ -1995,10 +2039,12 @@
     },
     "processes_craftable_item_sortby": {
       "desc": {
-        "desc_1": "如果选择“制作笔记顺序”，将优先按照制作笔记(游戏内按N打开的制作界面)中配方的顺序排列。"
+        "desc_1": "如果选择“制作笔记顺序”，将优先按照制作笔记(游戏内按N打开的制作界面)中配方的顺序排列。",
+        "desc_2": "请注意，在制作笔记中使用搜索功能时，搜索出的顺序与制作笔记标准顺序并不一致。"
       },
       "option": {
-        "crafting_log": "制作笔记顺序"
+        "crafting_log": "制作笔记顺序",
+        "crafting_log_search": "制作笔记顺序（搜索）"
       },
       "title": "制作物品排序规则"
     },
@@ -2213,7 +2259,10 @@
             "tooltip_2": "“收益”是指卖出制作成品所能获得的金钱，并未扣除成本。"
           }
         },
-        "title": "成本/收益预估"
+        "title": "成本/收益预估",
+        "tooltip": {
+          "benefit_is_partial": "有些物品的价格获取失败了，该数字仅基于获取成功的物品计算。"
+        }
       },
       "crystal": "水晶统计",
       "direct_materials": "直接素材统计",

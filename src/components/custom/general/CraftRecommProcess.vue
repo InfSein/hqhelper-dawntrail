@@ -6,21 +6,19 @@
 import XivFARImage from '@/components/custom/general/XivFARImage.vue'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import LocationSpan from '@/components/custom/map/LocationSpan.vue'
-import { type UserConfigModel } from '@/models/config-user'
-import { type FuncConfigModel } from '@/models/config-func'
+import GatheringPathButton from '@/components/custom/map/GatheringPathButton.vue'
 import { getItemInfo, type ItemInfo } from '@/tools/item'
 import UseConfig from '@/tools/use-config'
 import { XivJobs, type XivJob } from '@/assets/data'
 import type EorzeaTime from '@/tools/eorzea-time'
 import type { RecommItemGroup } from '@/models/item'
+import { type UserConfigModel } from '@/models/config-user'
+import { type FuncConfigModel } from '@/models/config-func'
 
 const t = inject<(message: string, args?: any) => string>('t')!
-// const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
 const currentET = inject<Ref<EorzeaTime>>('currentET')!
 const userConfig = inject<Ref<UserConfigModel>>('userConfig')!
 const funcConfig = inject<Ref<FuncConfigModel>>('funcConfig')!
-// const appForceUpdate = inject<() => {}>('appForceUpdate') ?? (() => {})
-// const NAIVE_UI_MESSAGE = useMessage()
 
 const {
   itemLanguage,
@@ -99,6 +97,17 @@ const tomeScripts = computed(() : ItemInfo[] => {
   return tomeScripts
 })
 
+const getGatheringPathTargets = (group: RecommItemGroup, groupIndex: number) => {
+  const targets: ItemInfo[] = []
+  group.items.forEach(item => {
+    if (completedItems.value[groupIndex][item.id]) return
+    if (item.gatherInfo) {
+      targets.push(item)
+    }
+  })
+  return targets
+}
+
 const handleItemCompletionChange = (groupIndex: number) => {
   let needToCollapseGroup = true
   Object.values(completedItems.value[groupIndex]).forEach(completed => {
@@ -165,6 +174,12 @@ const isItemGatherableNow = (item: ItemInfo) => {
                   container-style="gap: 0;"
                 />
               </div>
+              <GatheringPathButton 
+                v-if="group.type === 'gather-common'"
+                :target-items="getGatheringPathTargets(group, groupIndex)"
+                :container-id="containerId"
+                style="margin-left: 4px;"
+              />
             </div>
           </template>
 

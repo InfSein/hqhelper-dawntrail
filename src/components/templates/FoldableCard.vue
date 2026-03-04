@@ -17,6 +17,8 @@ interface FoldableCardProps {
   cardSize?: 'medium' | 'small' | 'large' | 'huge'
   disableGlass?: boolean
   showCardBorder?: boolean
+  unexpandable?: boolean
+  scrollable?: boolean
   unfoldable?: boolean
   foldDirection?: 'horizontal' | 'vertical'
   title?: string
@@ -38,7 +40,7 @@ const foldOnDefault : boolean = !userConfig.value.disable_workstate_cache && (ui
 
 const folded = ref(foldOnDefault)
 const folderIcon = shallowRef(KeyboardArrowUpRound)
-const cardContentStyle = ref('')
+const cardContentExtraStyle = ref('')
 
 const cardSize = computed(() => {
   return props.cardSize ?? 'medium'
@@ -61,14 +63,21 @@ const cardClasses = computed(() => {
     (userConfig.value.custom_background && !props.disableGlass) ? 'glasscard' : ''
   ].join(' ')
 })
+const cardContentStyles = computed(() => {
+  return [
+    cardContentExtraStyle.value,
+    props.unexpandable ? 'overflow: hidden' : '',
+    props.scrollable ? 'overflow-y: auto' : ''
+  ].join('; ')
+})
 
 const updateUi = () => {
   if (folded.value) {
     folderIcon.value = expandIcon.value
-    cardContentStyle.value = 'padding: 0;'
+    cardContentExtraStyle.value = 'padding: 0'
   } else {
     folderIcon.value = foldIcon.value
-    cardContentStyle.value = ''
+    cardContentExtraStyle.value = ''
   }
 }
 updateUi()
@@ -94,9 +103,9 @@ defineExpose({
 </script>
 
 <template>
-  <n-card :id="'card-'+cardKey" :size="cardSize" :title="title" :class="cardClasses" :content-style="cardContentStyle" embedded :bordered="showCardBorder">
+  <n-card :id="'card-'+cardKey" :size="cardSize" :class="cardClasses" :content-style="cardContentStyles" embedded :bordered="showCardBorder">
     <template #header>
-      <slot name="header" />
+      <slot name="header">{{ title }}</slot>
       <span v-if="description" class="description">{{ description }}</span>
     </template>
     <template #header-extra>

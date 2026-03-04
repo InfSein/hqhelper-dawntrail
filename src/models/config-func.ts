@@ -44,7 +44,7 @@ export interface FuncConfigModel {
   /** 推荐流程：合并采集物品 */
   processes_merge_gatherings: boolean
   /** 推荐流程：制作物品排序规则 */
-  processes_craftable_item_sortby: "itemId" | "recipeOrder"
+  processes_craftable_item_sortby: "itemId" | "recipeOrder" | "recipeOrderSearch"
 
   // * 物品价格
   /** 物品价格服务器 */
