@@ -8,7 +8,7 @@ import {
   SettingsSuggestFilled,
   KeyboardArrowDownRound,
   ArchiveSharp, UnarchiveSharp,
-  AddTaskOutlined,
+  AddTaskOutlined, PlaylistAddCheckOutlined,
   ShareOutlined, EditNoteOutlined, DeleteFilled,
 } from '@vicons/material'
 import { compress, decompress } from 'xiv-cac-utils'
@@ -16,6 +16,7 @@ import ItemSpan from '@/components/custom/item/ItemSpan.vue'
 import ModalCraftMacroEdit from '@/components/modals/ModalCraftMacroEdit.vue'
 import ModalPreferences from '@/components/modals/ModalPreferences.vue'
 import ModalImExportCraftMacro from '@/components/modals/ModalImExportCraftMacro.vue'
+import ModalBatchAddCraftMacro from '@/components/modals/ModalBatchAddCraftMacro.vue'
 import { XivCraftActions, XivUnpackedItems } from '@/assets/data'
 import { useStore } from '@/store'
 import {
@@ -48,6 +49,7 @@ const {
 const workState = ref<WorkState>(fixWorkState())
 const showModalCraftMacroEdit = ref(false)
 const showModalImExport = ref(false)
+const showModalBatchAdd = ref(false)
 const imexportMode = ref<"import" | "export">('import')
 const macroEditTarget = ref(getDefaultCraftMacro(-1))
 const macroEditAction = ref<"add" | "edit">('add')
@@ -145,6 +147,11 @@ const macroItemLanguageOptions = computed(() => {
 })
 const multiOperateDropdownOptions = computed(() => {
   return [
+    {
+      label: t('macro_manage.text.batch_add'),
+      key: 'batch-add',
+      icon: renderIcon(PlaylistAddCheckOutlined),
+    },
     {
       label: t('macro_manage.text.delete_all_macros'),
       key: 'delete',
@@ -399,7 +406,9 @@ const handleReportDataMissing = (macro: RecordedCraftMacro | number) => {
   )
 }
 const handleMultiOperateDropdownSelect = async (key: string | number) => {
-  if (key === 'delete') {
+  if (key === 'batch-add') {
+    showModalBatchAdd.value = true
+  } else if (key === 'delete') {
     if (!workState.value.recordedCraftMacros.length) {
       NAIVE_UI_MESSAGE.info(t('macro_manage.message.no_macro_added'))
       return
@@ -527,6 +536,17 @@ const handleMacroEditSubmit = (macro: RecordedCraftMacro) => {
     router.replace({ query })
   }
 }
+const handleBatchAddSubmit = (macros: RecordedCraftMacro[]) => {
+  const newWorkState = fixWorkState(deepCopy(userConfig.value.macromanage_cache_work_state))
+  for (const macro of macros) {
+    newWorkState.recordedCraftMacros.push(macro)
+  }
+  // 更新 recordIndex 为最大 id + 1
+  newWorkState.recordIndex = Math.max(0, ...newWorkState.recordedCraftMacros.map(m => m.id)) + 1
+  workState.value = newWorkState
+  NAIVE_UI_MESSAGE.success(t('macro_manage.message.batch_add_success', { count: macros.length }))
+}
+
 const showPreferencesModal = ref(false)
 const handleSettingButtonClick = () => {
   showPreferencesModal.value = true
@@ -634,6 +654,12 @@ const handleSettingButtonClick = () => {
       v-model:show="showModalImExport"
       v-model:recorded-macros="workState.recordedCraftMacros"
       :mode="imexportMode"
+    />
+    <ModalBatchAddCraftMacro
+      v-model:show="showModalBatchAdd"
+      :current-macro-count="workState.recordedCraftMacros.length"
+      :next-record-index="workState.recordIndex"
+      @on-submit="handleBatchAddSubmit"
     />
   </div>
 </template>

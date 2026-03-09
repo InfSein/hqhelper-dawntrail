@@ -23,6 +23,7 @@
   --color-error: #d03050;
   --color-border: rgb(239, 239, 245);
   --color-background: #fff;
+  --color-base: #fff;
   --color-background-embedded: rgb(250, 250, 252);
   --color-background-modal: #fff;
   --color-background-action: rgb(250, 250, 252);
@@ -43,6 +44,7 @@
   --color-error: #e88080;
   --color-border: rgba(255, 255, 255, 0.09);
   --color-background: rgb(16, 16, 20);
+  --color-base: #000;
   --color-background-embedded: rgb(24, 24, 28);
   --color-background-modal: rgb(44, 44, 50);
   --color-background-action: rgb(56, 56, 62);

@@ -54,6 +54,18 @@ export const getDefaultCraftMacro = (id: number) => {
   return macro
 }
 
+/**
+ * 准备宏数据以保存。处理默认名称和 requirements 的清零逻辑。
+ * @param macro 宏对象
+ * @param defaultName 当 name 为空时使用的默认名称
+ */
+export const prepareMacroForSave = (macro: RecordedCraftMacro, defaultName: string) => {
+  if (!macro.name) macro.name = defaultName
+  if (!macro.requirements.craftsmanship) delete macro.requirements.craftsmanship
+  if (!macro.requirements.control) delete macro.requirements.control
+  if (!macro.requirements.cp) delete macro.requirements.cp
+}
+
 export interface CraftMacroRow {
   id: number,
   name: string,

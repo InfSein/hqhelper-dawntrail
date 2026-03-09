@@ -27,7 +27,7 @@ import { XivCraftActions } from '@/assets/data'
 import {
   _VAR_TAG_MAXLEN, _VAR_REMARK_MAXLINE,
   _VAR_RELATEITEM_MAXLEN, _VAR_TABLESHOW_RELATEITEM_MAXLEN,
-  getDefaultCraftMacro,
+  getDefaultCraftMacro, prepareMacroForSave,
   type RecordedCraftMacro,
   type StrictCraftRequirements,
 } from '@/models/macromanage'
@@ -232,10 +232,7 @@ const handleSave = async () => {
   }
 
   // 处理一些属性
-  if (!formData.value.name) formData.value.name = t('common.id_macro', formData.value.id)
-  if (!formData.value.requirements.craftsmanship) delete formData.value.requirements.craftsmanship
-  if (!formData.value.requirements.control) delete formData.value.requirements.control
-  if (!formData.value.requirements.cp) delete formData.value.requirements.cp
+  prepareMacroForSave(formData.value, t('common.id_macro', formData.value.id))
   formData.value.relateItems = relateItems
   formData.value.craftActions = formCraftActions.value.map(action => action.val)
 
