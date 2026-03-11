@@ -699,6 +699,10 @@ const resolveRouterMenuOption = (menuOption: RouterMenuOption) => {
 //   const date = now.getDate()
 //   return (now.getMonth() === 11) && ((date === 24 && now.getHours() >= 18) || date === 25)
 // })
+const isFoolsDay = computed(() => {
+  const now = new Date()
+  return now.getMonth() === 3 && now.getDate() === 1
+})
 
 const canRouteBack = computed(() => {
   return router.currentRoute.value.path !== '/'
@@ -776,8 +780,8 @@ const handleCheckUpdates = async () => {
     </div>
     <div class="header-content">
       <div class="app-info">
-        <HqLogo :size="isMobile ? 24 : 15" />
-        <p class="app-name">HqHelper</p>
+        <HqLogo :size="isMobile ? 24 : 15" :nq="isFoolsDay" />
+        <p class="app-name">{{ isFoolsDay ? 'NqHelper' : 'HqHelper' }}</p>
 
         <n-popover :trigger="isMobile ? 'click' : 'hover'" :keep-alive-on-hover="isMobile" style="max-width: 260px;">
           <template #trigger>
