@@ -192,7 +192,12 @@ const handleImportCraftActions = () => {
     importedActions = parseCraftProcedure(formCraftActionsImport.value).map(action => action.id)
   } else if (formCraftActionsImportType.value === 'cac') {
     const cac = formCraftActionsImport.value.replace(/http(s?):\/\/cac.nbb.fan\/\?s=/, '')
-    importedActions = decompress(cac).map(action => action.ids[0])
+    try {
+      importedActions = decompress(cac).map(action => action.ids[0])
+    } catch (error: any) {
+      NAIVE_UI_MESSAGE.error(t('macro_manage.message.cac_import_error', [error.message]))
+      return
+    }
   } else {
     NAIVE_UI_MESSAGE.error('Unexpected formCraftActionsImportType'); return
   }

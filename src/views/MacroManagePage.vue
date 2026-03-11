@@ -520,6 +520,7 @@ const handleMacroEditSubmit = (macro: RecordedCraftMacro) => {
     }
   } else if (macroEditAction.value === 'add') {
     newWorkState.recordedCraftMacros.push(macro)
+    newWorkState.recordIndex = Math.max(0, ...newWorkState.recordedCraftMacros.map(m => m.id)) + 1
     workState.value = newWorkState
     NAIVE_UI_MESSAGE.success(t('common.message.dataname_saved', macro.name))
   } else {
@@ -541,7 +542,6 @@ const handleBatchAddSubmit = (macros: RecordedCraftMacro[]) => {
   for (const macro of macros) {
     newWorkState.recordedCraftMacros.push(macro)
   }
-  // 更新 recordIndex 为最大 id + 1
   newWorkState.recordIndex = Math.max(0, ...newWorkState.recordedCraftMacros.map(m => m.id)) + 1
   workState.value = newWorkState
   NAIVE_UI_MESSAGE.success(t('macro_manage.message.batch_add_success', { count: macros.length }))

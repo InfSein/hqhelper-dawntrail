@@ -157,7 +157,7 @@ const previewColumns = computed((): DataTableColumns<ParsedMacroEntry> => {
     {
       title: t('common.content'),
       key: 'content',
-      width: 140,
+      width: 60,
       render(row) {
         return h('div', { class: 'flex-vac gap-2' }, [
           h('span', null, getActionsSummary(row.craftActions)),
@@ -185,7 +185,7 @@ const previewColumns = computed((): DataTableColumns<ParsedMacroEntry> => {
     {
       title: t('macro_manage.text.batch_add_creqs'),
       key: 'requirements',
-      width: 300,
+      width: 180,
       align: 'center',
       render(row) {
         return h(NInputGroup, null, {
@@ -326,7 +326,7 @@ const getActionsSummary = (craftActions: number[]) => {
         <div class="modal-submit-container">
           <n-button type="primary" @click="handleConfirm">
             <template #icon>
-              <n-icon><PlaylistAddCheckOutlined /></n-icon>
+              <n-icon><DoneOutlined /></n-icon>
             </template>
             {{ t('common.confirm') }}
           </n-button>
