@@ -27,7 +27,7 @@ import { XivCraftActions } from '@/assets/data'
 import {
   _VAR_TAG_MAXLEN, _VAR_REMARK_MAXLINE,
   _VAR_RELATEITEM_MAXLEN, _VAR_TABLESHOW_RELATEITEM_MAXLEN,
-  getDefaultCraftMacro,
+  getDefaultCraftMacro, prepareMacroForSave,
   type RecordedCraftMacro,
   type StrictCraftRequirements,
 } from '@/models/macromanage'
@@ -192,7 +192,12 @@ const handleImportCraftActions = () => {
     importedActions = parseCraftProcedure(formCraftActionsImport.value).map(action => action.id)
   } else if (formCraftActionsImportType.value === 'cac') {
     const cac = formCraftActionsImport.value.replace(/http(s?):\/\/cac.nbb.fan\/\?s=/, '')
-    importedActions = decompress(cac).map(action => action.ids[0])
+    try {
+      importedActions = decompress(cac).map(action => action.ids[0])
+    } catch (error: any) {
+      NAIVE_UI_MESSAGE.error(t('macro_manage.message.cac_import_error', [error.message]))
+      return
+    }
   } else {
     NAIVE_UI_MESSAGE.error('Unexpected formCraftActionsImportType'); return
   }
@@ -232,10 +237,7 @@ const handleSave = async () => {
   }
 
   // 处理一些属性
-  if (!formData.value.name) formData.value.name = t('common.id_macro', formData.value.id)
-  if (!formData.value.requirements.craftsmanship) delete formData.value.requirements.craftsmanship
-  if (!formData.value.requirements.control) delete formData.value.requirements.control
-  if (!formData.value.requirements.cp) delete formData.value.requirements.cp
+  prepareMacroForSave(formData.value, t('common.id_macro', formData.value.id))
   formData.value.relateItems = relateItems
   formData.value.craftActions = formCraftActions.value.map(action => action.val)
 
