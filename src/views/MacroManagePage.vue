@@ -10,6 +10,7 @@ import {
   ArchiveSharp, UnarchiveSharp,
   AddTaskOutlined, PlaylistAddCheckOutlined,
   ShareOutlined, EditNoteOutlined, DeleteFilled,
+  ChecklistOutlined,
 } from '@vicons/material'
 import { compress, decompress } from 'xiv-cac-utils'
 import ItemSpan from '@/components/custom/item/ItemSpan.vue'
@@ -151,6 +152,11 @@ const multiOperateDropdownOptions = computed(() => {
       label: t('macro_manage.text.batch_add'),
       key: 'batch-add',
       icon: renderIcon(PlaylistAddCheckOutlined),
+    },
+    {
+      label: '选择',
+      key: 'select',
+      icon: renderIcon(ChecklistOutlined),
     },
     {
       label: t('macro_manage.text.delete_all_macros'),
@@ -316,7 +322,10 @@ const tableColumns = computed(() => {
             ),
             h(
               'div',
-              { class: 'flex-vac gap-2' },
+              { 
+                class: 'flex-vac gap-2',
+                style: selectMode.value ? 'visibility: hidden;' : ''
+              },
               macros.map((macro, index) => {
                 return h(
                   NButton,
@@ -343,7 +352,10 @@ const tableColumns = computed(() => {
       render(row) {
         return h(
           'div',
-          { class: 'flex gap-4' },
+          { 
+            class: 'flex gap-4',
+            style: selectMode.value ? 'visibility: hidden;' : ''
+          },
           [
             h(
               NButton,
@@ -418,10 +430,97 @@ const handleMultiOperateDropdownSelect = async (key: string | number) => {
     }
     workState.value.recordedCraftMacros = []
     NAIVE_UI_MESSAGE.success(t('common.message.deleted'))
+  } else if (key === 'select') {
+    handleSelectModeEnter()
   } else {
     console.warn('unexpected multi operate dropdown key:', key)
   }
 }
+
+const selectMode = ref(false)
+const checkedRowKeys = ref<number[]>([])
+
+const handleSelectModeEnter = () => {
+  selectMode.value = true
+  checkedRowKeys.value = []
+}
+
+const handleSelectModeExit = () => {
+  selectMode.value = false
+  checkedRowKeys.value = []
+}
+
+const handleSelectAll = () => {
+  checkedRowKeys.value = tableData.value.map(row => row.id)
+}
+
+const handleInvertSelection = () => {
+  const allIds = tableData.value.map(row => row.id)
+  checkedRowKeys.value = allIds.filter(id => !checkedRowKeys.value.includes(id))
+}
+
+const handleShareSelected = async () => {
+  if (!checkedRowKeys.value.length) {
+    NAIVE_UI_MESSAGE.warning('请先选择要分享的宏')
+    return
+  }
+  const lines = checkedRowKeys.value.map(id => {
+    const macro = workState.value.recordedCraftMacros.find(m => m.id === id)
+    if (!macro) return ''
+    const row = unarchiveMacroRow(macro)
+    const cac = compress({
+      type: 'id',
+      actions: macro.craftActions,
+    })
+    return `${cac} ${row.name} ${row.requirements.craftsmanship || 0} ${row.requirements.control || 0} ${row.requirements.cp || 0}`
+  }).filter(Boolean)
+  
+  const text = lines.join('\n')
+  const response = await CopyToClipboard(text)
+  if (response) {
+    NAIVE_UI_MESSAGE.error(t('common.message.copy_failed_unexpected_error'))
+  } else {
+    NAIVE_UI_MESSAGE.success(t('common.message.copy_succeed'))
+  }
+}
+
+const handleDeleteSelected = async () => {
+  if (!checkedRowKeys.value.length) {
+    NAIVE_UI_MESSAGE.warning('请先选择要删除的宏')
+    return
+  }
+  if (!await confirmWarning(`确定要删除选中的 ${checkedRowKeys.value.length} 个项目吗？\n${t('common.message.operation_irreversible')}`)) {
+    return
+  }
+  workState.value.recordedCraftMacros = workState.value.recordedCraftMacros.filter(
+    macro => !checkedRowKeys.value.includes(macro.id)
+  )
+  NAIVE_UI_MESSAGE.success(t('common.message.deleted'))
+}
+
+const rowProps = (row: CraftMacroRow) => {
+  return {
+    style: selectMode.value ? 'cursor: pointer;' : '',
+    onClick: () => {
+      if (selectMode.value) {
+        const index = checkedRowKeys.value.indexOf(row.id)
+        if (index > -1) {
+          checkedRowKeys.value.splice(index, 1)
+        } else {
+          checkedRowKeys.value.push(row.id)
+        }
+      }
+    }
+  }
+}
+
+const rowClassName = (row: CraftMacroRow) => {
+  if (selectMode.value && checkedRowKeys.value.includes(row.id)) {
+    return 'selected-row'
+  }
+  return ''
+}
+
 const handleImportButtonClick = () => {
   imexportMode.value = 'import'
   showModalImExport.value = true
@@ -582,41 +681,62 @@ const handleSettingButtonClick = () => {
             />
           </n-input-group>
           <div id="querier-actions">
-            <n-dropdown
-              placement="bottom-end"
-              :options="multiOperateDropdownOptions"
-              @select="handleMultiOperateDropdownSelect"
-            >
-              <n-button ghost icon-placement="right">
+            <template v-if="!selectMode">
+              <n-dropdown
+                placement="bottom-end"
+                :options="multiOperateDropdownOptions"
+                @select="handleMultiOperateDropdownSelect"
+              >
+                <n-button ghost icon-placement="right">
+                  <template #icon>
+                    <n-icon :component="KeyboardArrowDownRound" />
+                  </template>
+                  {{ t('macro_manage.text.batch_operate') }}
+                </n-button>
+              </n-dropdown>
+              <n-button-group>
+                <n-button ghost @click="handleExportButtonClick">
+                  <template #icon>
+                    <n-icon :component="UnarchiveSharp" />
+                  </template>
+                  {{ t('common.export') }}
+                </n-button>
+                <n-button ghost @click="handleImportButtonClick">
+                  <template #icon>
+                    <n-icon :component="ArchiveSharp" />
+                  </template>
+                  {{ t('common.import') }}
+                </n-button>
+              </n-button-group>
+              <n-button
+                type="primary"
+                @click="handleAddRow"
+              >
                 <template #icon>
-                  <n-icon :component="KeyboardArrowDownRound" />
+                  <n-icon :component="AddTaskOutlined" />
                 </template>
-                {{ t('macro_manage.text.batch_operate') }}
+                {{ t('common.add2') }}
               </n-button>
-            </n-dropdown>
-            <n-button-group>
-              <n-button ghost @click="handleExportButtonClick">
-                <template #icon>
-                  <n-icon :component="UnarchiveSharp" />
-                </template>
-                {{ t('common.export') }}
+            </template>
+            <template v-else>
+              <n-button-group>
+                <n-button ghost @click="handleSelectAll">全选</n-button>
+                <n-button ghost @click="handleInvertSelection">反选</n-button>
+              </n-button-group>
+              <n-button-group>
+                <n-button ghost @click="handleShareSelected">
+                  <template #icon><n-icon :component="ShareOutlined" /></template>
+                  分享
+                </n-button>
+                <n-button ghost type="error" @click="handleDeleteSelected">
+                  <template #icon><n-icon :component="DeleteFilled" /></template>
+                  删除
+                </n-button>
+              </n-button-group>
+              <n-button ghost @click="handleSelectModeExit">
+                退出选择模式
               </n-button>
-              <n-button ghost @click="handleImportButtonClick">
-                <template #icon>
-                  <n-icon :component="ArchiveSharp" />
-                </template>
-                {{ t('common.import') }}
-              </n-button>
-            </n-button-group>
-            <n-button
-              type="primary"
-              @click="handleAddRow"
-            >
-              <template #icon>
-                <n-icon :component="AddTaskOutlined" />
-              </template>
-              {{ t('common.add2') }}
-            </n-button>
+            </template>
           </div>
         </div>
         <n-data-table
@@ -624,6 +744,8 @@ const handleSettingButtonClick = () => {
           scroll-x="100%"
           :columns="tableColumns"
           :data="tableData"
+          :row-props="rowProps"
+          :row-class-name="rowClassName"
           :pagination="false"
           :max-height="tableHeight"
           :virtual-scroll="tableData.length > 200"
@@ -665,6 +787,9 @@ const handleSettingButtonClick = () => {
 </template>
 
 <style scoped>
+:deep(.selected-row > td) {
+  background-color: var(--n-td-color-hover) !important;
+}
 #main-container {
   max-width: 100%;
   gap: 0.6rem;
