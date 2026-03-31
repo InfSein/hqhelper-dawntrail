@@ -8,11 +8,11 @@
 ![Downloads of HqHelper Webpack](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github&label=downloads@webpack&color=blue)
 ![Downloads of HqHelper Client](https://img.shields.io/github/downloads/InfSein/hqhelper-client/total?style=flat&logo=github&label=downloads@client&color=blue)
 
-**第1代HqHelper下载量(估算量)：**
+**第1代HqHelper总下载量：**
 
 ![Downloads of HqHelper Gen1, from github](https://img.shields.io/github/downloads/InfSein/HqHelper_Document/total?style=flat&logo=github&label=downloads@github&color=blue)
-![Downloads of HqHelper Gen1, from weiyun](https://img.shields.io/badge/downloads@weiyun-23,902-blue?logo=speedtest)
-![Downloads of HqHelper Gen1, from baidu](https://img.shields.io/badge/downloads@baidu-3,417-blue?logo=speedtest)
+![Downloads of HqHelper Gen1, from weiyun](https://img.shields.io/badge/downloads@weiyun-24k-blue?logo=speedtest)
+![Downloads of HqHelper Gen1, from baidu](https://img.shields.io/badge/downloads@baidu-3.4k-blue?logo=speedtest)
 ![Downloads of HqHelper Gen1, from nga](https://img.shields.io/badge/downloads@nga-unknown-blue?logo=speedtest)
 
 ## 客户端本体
@@ -94,3 +94,5 @@
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.4.1/total)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.4.2/total)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.4.3/total)
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.4.4/total)
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.4.5/total)

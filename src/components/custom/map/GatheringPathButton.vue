@@ -421,7 +421,7 @@ function hasGatherJobSvg(jobId: number) {
   return GATHER_JOB_SVG_IDS.has(jobId)
 }
 function getGatherJobSvgSrc(jobId: number) {
-  return `/image/game-job/svg/class_job_${jobId.toString().padStart(3, '0')}.svg`
+  return `./image/game-job/svg/class_job_${jobId.toString().padStart(3, '0')}.svg`
 }
 function getGatherJobSvgStyle(jobId: number) {
   const svg = getGatherJobSvgSrc(jobId)
