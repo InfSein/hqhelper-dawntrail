@@ -14,7 +14,7 @@
 [![GitHub License](https://img.shields.io/github/license/InfSein/hqhelper-dawntrail?style=flat&logo=github)](/LICENSE) ![GitHub Repo stars](https://img.shields.io/github/stars/InfSein/hqhelper-dawntrail?style=flat&logo=github) ![Github Created At](https://img.shields.io/github/created-at/InfSein/hqhelper-dawntrail?style=flat&logo=github) <br>
 [![CodeFactor](https://www.codefactor.io/repository/github/infsein/hqhelper-dawntrail/badge/dev)](https://www.codefactor.io/repository/github/infsein/hqhelper-dawntrail/overview/dev) [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/InfSein/hqhelper-dawntrail/dev)](https://github.com/InfSein/hqhelper-dawntrail/commits/master) [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/InfSein/hqhelper-dawntrail) <br>
 [![GitHub Release](https://img.shields.io/github/v/release/InfSein/hqhelper-dawntrail?style=flat&logo=github)](https://github.com/InfSein/hqhelper-dawntrail/releases) [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/total?style=flat&logo=github)](https://github.com/InfSein/hqhelper-dawntrail/releases) [![Crowdin](https://badges.crowdin.net/hqhelper/localized.svg)](https://crowdin.com/project/hqhelper) <br>
-[![Based on Vite](https://img.shields.io/badge/Vite-7.1.12-646CFF?style=flat&logo=vite)](https://github.com/vitejs/vite) [![Based on Vue3](https://img.shields.io/badge/Vue-3.5.22-4FC08D?style=flat&logo=vue.js)](https://github.com/vuejs/core) [![Based on TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?style=flat&logo=typescript)](https://github.com/microsoft/TypeScript) [![Based on Naive UI](https://img.shields.io/badge/Naive%20UI-2.43.1-008080?style=flat&logo=npm)](https://github.com/tusen-ai/naive-ui)
+[![Based on Vite](https://img.shields.io/badge/Vite-7.3.2-646CFF?style=flat&logo=vite)](https://github.com/vitejs/vite) [![Based on Vue3](https://img.shields.io/badge/Vue-3.5.28-4FC08D?style=flat&logo=vue.js)](https://github.com/vuejs/core) [![Based on TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?style=flat&logo=typescript)](https://github.com/microsoft/TypeScript) [![Based on Naive UI](https://img.shields.io/badge/Naive%20UI-2.43.2-008080?style=flat&logo=npm)](https://github.com/tusen-ai/naive-ui)
 
 Master formula calculator for FFXIV crafters.
 
@@ -86,6 +86,10 @@ For example, `2.1.17` represents:
 - The `2nd` generation `HqHelper`, designed specifically for the `7.x` expansion version of `Final Fantasy XIV`;
 - Adapt to the `1st` medium version of `Final Fantasy XIV`, which is version `7.1`;
 - On the basis of adapting to version `7.1`, the `17th` version app updated.
+
+### Activity Overview
+
+![Repobeats analytics image](https://repobeats.axiom.co/api/embed/63a7eccc9d5dbb3887525e67ed8bf2512246388b.svg "Repobeats analytics image")
 
 ### Star History
 
