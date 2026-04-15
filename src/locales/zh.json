@@ -1879,6 +1879,16 @@
       "title": "成本/收益分析中物品默认排序规则"
     },
     "costandbenefit_show_item_details": "成本/收益分析中显示物品详情",
+    "custom_aihelper_apikey": {
+      "desc": {
+        "desc_1": "填写自己的 API Key 以更加自由地进行对话，不再受到速率限制。",
+        "desc_2": "与之对应的，您将需要承担智能助手处理时产生的词元消耗费用。"
+      },
+      "title": "自定义智能助手密钥"
+    },
+    "custom_aihelper_model": {
+      "title": "自定义智能助手模型"
+    },
     "custom_background": {
       "desc": {
         "desc_1": "设置背景之后，界面的部分元素将自动启用毛玻璃效果。",
@@ -1944,6 +1954,12 @@
         "desc_3": "注意：禁用工作状态记忆后，已记录的工作状态将被立即删除！"
       },
       "title": "禁用工作状态记忆"
+    },
+    "enable_aihelper": {
+      "desc": {
+        "desc_1": "智能助手允许你以对话的方式对 HqHelper 进行操作。"
+      },
+      "title": "启用智能助手"
     },
     "enable_dev_mode": "启用开发者模式",
     "export": {

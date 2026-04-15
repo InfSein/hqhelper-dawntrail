@@ -1,6 +1,7 @@
 import {
   assignDefaults
 } from '@/tools'
+import { defaultAiModel, type AvailableAiModel } from './ai'
 import { fixWorkState as fixWorkflowWorkState, type WorkState as WorkflowWorkState } from '@/models/workflow'
 import { fixWorkState as fixMacromanageWorkState, type WorkState as MacromanageWorkState } from '@/models/macromanage'
 import { fixWorkState as fixFashionclothWorkState, type WorkState as FashionclothWorkState } from '@/models/fc-helper'
@@ -50,6 +51,12 @@ export interface UserConfigModel {
   // * performance
   /** 禁用工作状态记忆 */
   disable_workstate_cache: boolean
+  /** 启用AI助手 */
+  enable_aihelper: boolean
+  /** 自定义AI助手模型 */
+  custom_aihelper_model: AvailableAiModel
+  /** 自定义AI助手API Key */
+  custom_aihelper_apikey: string
   /** 启用开发者模式 */
   enable_dev_mode: boolean
   // * update
@@ -107,6 +114,9 @@ const defaultUserConfig: UserConfigModel = {
   item_list_style: 'standard',
   // performance
   disable_workstate_cache: false,
+  enable_aihelper: false,
+  custom_aihelper_model: defaultAiModel,
+  custom_aihelper_apikey: '',
   enable_dev_mode: false,
   // update
   disable_auto_update: false,

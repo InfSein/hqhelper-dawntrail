@@ -29,6 +29,7 @@ import { deepCopy } from '@/tools'
 import { useDialog } from '@/tools/dialog'
 import useUiTools from '@/tools/ui'
 import { dbKey } from '@/tools/idb'
+import { availableAiModels, availableAiModelValues } from '@/models/ai'
 
 const t = inject<(message: string, args?: any) => string>('t')!
 const isMobile = inject<Ref<boolean>>('isMobile') ?? ref(false)
@@ -330,6 +331,29 @@ const preferenceGroups = computed(() : PreferenceGroup[] => {
               ],
               type: 'switch',
               require_reload: true
+            },
+            {
+              key: 'enable_aihelper',
+              label: t('preference.enable_aihelper.title'),
+              descriptions: [
+                t('preference.enable_aihelper.desc.desc_1'),
+              ],
+              type: 'switch',
+            },
+            {
+              key: 'custom_aihelper_model',
+              label: t('preference.custom_aihelper_model.title'),
+              type: 'select',
+              options: availableAiModels,
+            },
+            {
+              key: 'custom_aihelper_apikey',
+              label: t('preference.custom_aihelper_apikey.title'),
+              descriptions: [
+                t('preference.custom_aihelper_apikey.desc.desc_1'),
+                t('preference.custom_aihelper_apikey.desc.desc_2'),
+              ],
+              type: 'string',
             },
             {
               key: 'enable_dev_mode',
