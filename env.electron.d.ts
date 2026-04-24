@@ -28,7 +28,7 @@ export interface ElectronAPI {
   clientVersion: Promise<string>;
 
   /** 向给定URL发送GET请求，成功时返回字符串格式的数据；失败时throw error */
-  httpGet: (url: string) => Promise<string>;
+  httpGet: (url: string, timeout?: number) => Promise<string>;
   /** 检查给定域名的延迟，返回延迟时间(ms)或超时信息 */
   simulatePing: (domain: string) => Promise<number | "error" | "timeout">;
   /** 从给定URL下载WEB项目更新包，并在下载成功后自动替换-重启 */

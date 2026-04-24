@@ -857,7 +857,7 @@ const getItemPrice = async (
     + '?listings=10'
   let response : string
   if (window.electronAPI?.httpGet) {
-    response = await window.electronAPI.httpGet(url)
+    response = await window.electronAPI.httpGet(url, 30000)
   } else {
     response = await fetch(url)
       .then(response => response.text())
@@ -875,7 +875,7 @@ const getMultiItemPrice = async (
   const url = `https://universalis.app/api/v2/${server}/${itemstr}?listings=10`
   let response : string
   if (window.electronAPI?.httpGet) {
-    response = await window.electronAPI.httpGet(url)
+    response = await window.electronAPI.httpGet(url, 30000)
   } else {
     response = await fetch(url)
       .then(response => response.text())
