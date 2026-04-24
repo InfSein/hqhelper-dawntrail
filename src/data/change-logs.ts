@@ -84,6 +84,41 @@ export const getChangelogs = (
   const isZh = ui_lang === 'zh'
   return [
     {
+      version: '2.5.0',
+      date: '2026-04-28',
+      changes: [
+        {
+          name: groupName.breaking,
+          changes: [
+            t('changelog.shared.game_db_update', {
+              ver: '7.5'
+            }),
+          ]
+        },
+        {
+          name: groupName.bugfix,
+          changes: [
+            t('changelog.2_5_0.fix.text_9'),
+            t('changelog.2_5_0.fix.text_8'),
+            t('changelog.2_5_0.fix.text_1'),
+            t('changelog.2_5_0.fix.text_2'),
+            t('changelog.2_5_0.fix.text_3'),
+            t('changelog.2_5_0.fix.text_4'),
+            t('changelog.2_5_0.fix.text_5'),
+            t('changelog.2_5_0.fix.text_6'),
+            t('changelog.2_5_0.fix.text_7'),
+          ]
+        },
+        {
+          name: groupName.feature,
+          changes: [
+            t('changelog.2_5_0.feat.text_1')
+              + br + t('changelog.2_5_0.feat.text_2'),
+          ]
+        }
+      ]
+    },
+    {
       version: '2.4.5',
       date: '2026-03-04',
       changes: [

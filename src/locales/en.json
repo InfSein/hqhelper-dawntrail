@@ -1113,7 +1113,7 @@
     "unit": {
       "ge": "(s)"
     },
-    "unit_price": "Unit Price",
+    "unit_price": "Price",
     "unknown": "UNKNOWN",
     "untradable": "Untradable",
     "update_immedi": "Update Now",
@@ -1868,8 +1868,8 @@
         "desc_1": "Items not fetched for price (displayed as \"???\" or \"unknown\") are considered to be price 0 in sorting."
       },
       "option": {
-        "price_asc": "By Unit Price (Low to High)",
-        "price_desc": "By Unit Price (High to Low)",
+        "price_asc": "By Price (Low to High)",
+        "price_desc": "By Price (High to Low)",
         "subtotal_asc": "By Total (Low to High)",
         "subtotal_desc": "By Total (High to Low)"
       },
@@ -2252,8 +2252,8 @@
       "use_amount_of": "Amount use:"
     },
     "table": {
-      "prepared": "Prepared",
-      "requires": "Requires",
+      "prepared": "Prep.",
+      "requires": "Reqs.",
       "total": "Total"
     },
     "text": {
