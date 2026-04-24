@@ -291,6 +291,7 @@ provide('updateItemPrices', updateItemPrices)
             :items="precrafts.masterPrecrafts"
             :list-height="isMobile ? undefined : 320"
             :show-collector-icon="!userConfig.hide_collector_icons"
+            :btn-info-max-width="isMobile ? undefined : '192px'"
           />
         </div>
       </GroupBox>
@@ -306,6 +307,7 @@ provide('updateItemPrices', updateItemPrices)
             :items="precrafts.commonPrecrafts"
             :list-height="isMobile ? undefined : 320"
             :show-collector-icon="!userConfig.hide_collector_icons"
+            :btn-info-max-width="isMobile ? undefined : '192px'"
           />
         </div>
       </GroupBox>
