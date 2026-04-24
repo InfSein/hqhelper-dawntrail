@@ -914,6 +914,7 @@
     "email": "邮箱",
     "error": "错误",
     "example_pre": "例如：",
+    "exit_selection_mode": "退出选择模式",
     "expand": "展开",
     "expand_all": "全部展开",
     "expired": "已过期",
@@ -1644,6 +1645,7 @@
       "drag_to_sort": "可以长按下方技能按钮拖拽来自定义排序。",
       "edit_actions": "编辑工序",
       "edit_macro": "编辑宏",
+      "enable_select_mode": "选择…",
       "existing_items": "已有物品",
       "filter_or_search": "筛选／检索",
       "import_action": {

@@ -75,7 +75,7 @@ watch(workState, async () => {
   } else {
     console.warn('workState or userConfig is not defined')
   }
-}, {deep: true})
+}, { deep: true })
 
 const tableHeight = ref(300)
 const updateHeights = () => {
@@ -114,7 +114,7 @@ const handleUrlParamsImport = () => {
     macroEditAction.value = 'add'
     showModalCraftMacroEdit.value = true
 
-    function getMacroId () {
+    function getMacroId() {
       let macroid = workState.value.recordIndex
       while (workState.value.recordedCraftMacros.find(macro => macro.id === macroid)) {
         macroid++
@@ -154,7 +154,7 @@ const multiOperateDropdownOptions = computed(() => {
       icon: renderIcon(PlaylistAddCheckOutlined),
     },
     {
-      label: '选择',
+      label: t('macro_manage.text.enable_select_mode'),
       key: 'select',
       icon: renderIcon(ChecklistOutlined),
     },
@@ -322,7 +322,7 @@ const tableColumns = computed(() => {
             ),
             h(
               'div',
-              { 
+              {
                 class: 'flex-vac gap-2',
                 style: selectMode.value ? 'visibility: hidden;' : ''
               },
@@ -352,7 +352,7 @@ const tableColumns = computed(() => {
       render(row) {
         return h(
           'div',
-          { 
+          {
             class: 'flex gap-4',
             style: selectMode.value ? 'visibility: hidden;' : ''
           },
@@ -474,7 +474,7 @@ const handleShareSelected = async () => {
     })
     return `${cac} ${row.name} ${row.requirements.craftsmanship || 0} ${row.requirements.control || 0} ${row.requirements.cp || 0}`
   }).filter(Boolean)
-  
+
   const text = lines.join('\n')
   const response = await CopyToClipboard(text)
   if (response) {
@@ -540,7 +540,7 @@ const handleAddRow = () => {
   macroEditAction.value = 'add'
   showModalCraftMacroEdit.value = true
 
-  function getMacroId () {
+  function getMacroId() {
     let macroid = workState.value.recordIndex
     while (workState.value.recordedCraftMacros.find(macro => macro.id === macroid)) {
       macroid++
@@ -585,7 +585,7 @@ const handleEditRow = (row: CraftMacroRow) => {
   }
 }
 const handleDeleteRow = async (row: CraftMacroRow) => {
-  if (!await confirmWarning(t('common.message.confirm_delete_with_name', row.name) + '\n' + t('common.message.operation_irreversible'))){
+  if (!await confirmWarning(t('common.message.confirm_delete_with_name', row.name) + '\n' + t('common.message.operation_irreversible'))) {
     return
   }
   const index = workState.value.recordedCraftMacros.findIndex(macro => macro.id === row.id)
@@ -708,10 +708,7 @@ const handleSettingButtonClick = () => {
                   {{ t('common.import') }}
                 </n-button>
               </n-button-group>
-              <n-button
-                type="primary"
-                @click="handleAddRow"
-              >
+              <n-button type="primary" @click="handleAddRow">
                 <template #icon>
                   <n-icon :component="AddTaskOutlined" />
                 </template>
@@ -720,21 +717,21 @@ const handleSettingButtonClick = () => {
             </template>
             <template v-else>
               <n-button-group>
-                <n-button ghost @click="handleSelectAll">全选</n-button>
-                <n-button ghost @click="handleInvertSelection">反选</n-button>
+                <n-button ghost @click="handleSelectAll">{{ t('common.select_all') }}</n-button>
+                <n-button ghost @click="handleInvertSelection">{{ t('common.select_invert') }}</n-button>
               </n-button-group>
               <n-button-group>
                 <n-button ghost @click="handleShareSelected">
                   <template #icon><n-icon :component="ShareOutlined" /></template>
-                  分享
+                  {{ t('common.share') }}
                 </n-button>
                 <n-button ghost type="error" @click="handleDeleteSelected">
                   <template #icon><n-icon :component="DeleteFilled" /></template>
-                  删除
+                  {{ t('common.delete') }}
                 </n-button>
               </n-button-group>
               <n-button ghost @click="handleSelectModeExit">
-                退出选择模式
+                {{ t('common.exit_selection_mode') }}
               </n-button>
             </template>
           </div>
@@ -758,7 +755,7 @@ const handleSettingButtonClick = () => {
         </n-data-table>
       </div>
     </FoldableCard>
-    
+
     <n-back-top />
 
     <ModalCraftMacroEdit
@@ -851,7 +848,7 @@ const handleSettingButtonClick = () => {
 @media screen and (max-width: 767px) {
   .query-options {
     flex-direction: column;
-    
+
     #querier-search {
       width: 100%;
     }
