@@ -70,7 +70,7 @@ const columns = computed<DataTableColumns<TableRow>>(() => [
         itemInfo: row.itemInfo,
         amount: row.itemInfo.amount,
         showItemDetails: props.showItemDetails,
-        itemSpanMaxWidth: `${window.innerWidth - 285}px`,
+        itemSpanMaxWidth: isMobile.value ? `${window.innerWidth - 285}px` : '210px',
         containerId: props.containerId
       })
     }

@@ -17,6 +17,7 @@ interface HelpButtonProps {
   placement?: import("vueuc/lib/binder/src/interface").Placement,
   popTrigger?: PopoverTrigger,
   popType?: "popover" | "tooltip",
+  popStyle?: string,
   descriptions?: string[]
 }
 const props = defineProps<HelpButtonProps>()
@@ -35,10 +36,11 @@ const icon = computed(() => {
 const placement = computed(() => props.placement)
 const popTrigger = computed(() => props.popTrigger ?? (isMobile.value ? 'click' : 'hover'))
 const popType = computed(() => props.popType ?? 'tooltip')
+const popStyle = computed(() => props.popStyle ?? (isMobile.value ? 'max-width: 250px;' : ''))
 </script>
 
 <template>
-  <n-tooltip v-if="popType === 'tooltip'" :trigger="popTrigger" :placement="placement" :style="isMobile ? 'max-width: 250px;' : ''">
+  <n-tooltip v-if="popType === 'tooltip'" :trigger="popTrigger" :placement="placement" :style="popStyle">
     <template #trigger>
       <n-icon :component="icon" :size="size ?? 18" :color="color" style="display: flex;" />
     </template>
@@ -48,7 +50,7 @@ const popType = computed(() => props.popType ?? 'tooltip')
       </div>
     </slot>
   </n-tooltip>
-  <n-popover v-else-if="popType === 'popover'" :trigger="popTrigger" :placement="placement" :style="isMobile ? 'max-width: 250px;' : ''">
+  <n-popover v-else-if="popType === 'popover'" :trigger="popTrigger" :placement="placement" :style="popStyle">
     <template #trigger>
       <n-icon :component="icon" :size="size ?? 18" :color="color" style="display: flex;" />
     </template>

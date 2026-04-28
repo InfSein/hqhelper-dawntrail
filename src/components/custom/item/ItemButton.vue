@@ -40,6 +40,9 @@ interface ItemButtonProps {
   /** 按钮额外类名 */
   btnExtraClass?: string;
 
+  /** 物品信息区域的最大宽度。不指定时会自动全局处理 */
+  itemInfoMaxWidth?: string
+
   /** 悬浮窗使用自定义宽度 */
   popUseCustomWidth?: boolean;
   /** 悬浮窗的自定义宽度，必须同时设置`popUseCustomWidth`才能生效 */
@@ -212,7 +215,7 @@ const handleItemButtonClick = async () => {
             />
           </div>
 
-          <div v-if="showName" class="item-info">
+          <div v-if="showName" class="item-info" :style="{ maxWidth: itemInfoMaxWidth }">
             <div class="item-name-container">
               <XivFARImage
                 v-if="showCollectorIcon && itemInfo.craftInfo?.jobId"
@@ -304,6 +307,7 @@ const handleItemButtonClick = async () => {
         justify-content: end;
         .item-name {
           white-space: nowrap;
+          overflow: hidden;
           text-overflow: ellipsis;
         }
       }
@@ -411,6 +415,13 @@ const handleItemButtonClick = async () => {
       font-size: calc(var(--n-font-size) - 2px);
       line-height: 1;
     }
+  }
+}
+
+/* Mobile only */
+@media screen and (max-width: 767px) {
+  .item-info {
+    max-width: 220px;
   }
 }
 </style>

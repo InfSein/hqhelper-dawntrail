@@ -26,60 +26,41 @@ const getItemName = (itemInfo: ItemInfo) => {
   }
 }
   
-const props = defineProps({
-  items: {
-    type: Array as PropType<ItemInfo[]>,
-    required: true
-  },
+interface ItemListProps {
+  items: ItemInfo[]
   /** 为物品容器指定额外的样式 */
-  displayStyle: {
-    type: String,
-    default: ''
-  },
+  displayStyle?: string
   /** 为滚动容器指定额外的样式 */
-  scrollStyle: {
-    type: String,
-    default: ''
-  },
+  scrollStyle?: string
   /** 清单区域的高度(不计入操作按钮) */
-  listHeight: {
-    type: Number
-  },
+  listHeight?: number
   /** 是否隐藏清单顶部的操作按钮 */
-  hideActions: {
-    type: Boolean,
-    default: false
-  },
+  hideActions?: boolean
   /** 是否隐藏物品清单为空时的提示 */
-  hideEmpty: {
-    type: Boolean,
-    default: false
-  },
+  hideEmpty?: boolean
+  /** 物品按钮内物品信息区域的最大宽度。不指定时会自动全局处理 */
+  btnInfoMaxWidth?: string
   /** 物品按钮悬浮窗的最大宽度 */
-  btnPopMaxWidth: {
-    type: String,
-    default: undefined
-  },
+  btnPopMaxWidth?: string
   /** 物品悬浮窗使用自定义宽度 */
-  btnPopUseCustomWidth: {
-    type: Boolean,
-    default: false
-  },
+  btnPopUseCustomWidth?: boolean
   /** 物品悬浮窗的自定义宽度，必须同时设置`btnPopUseCustomWidth`才能生效 */
-  btnPopCustomWidth: {
-    type: Number,
-    default: undefined
-  },
+  btnPopCustomWidth?: number
   /** 是否在物品名前展示生产/采集职业的图标 */
-  showCollectorIcon: {
-    type: Boolean,
-    default: false
-  },
+  showCollectorIcon?: boolean
   /** 物品按钮所处容器的ID，在模态框等场景时必须传递，否则无法正常复制物品名 */
-  containerId: {
-    type: String,
-    default: ''
-  }
+  containerId?: string
+}
+const props = withDefaults(defineProps<ItemListProps>(), {
+  displayStyle: '',
+  scrollStyle: '',
+  hideActions: false,
+  hideEmpty: false,
+  btnPopMaxWidth: undefined,
+  btnPopUseCustomWidth: false,
+  btnPopCustomWidth: undefined,
+  showCollectorIcon: false,
+  containerId: ''
 })
 
 const getContainerStyles = () => {
@@ -147,6 +128,7 @@ const listContainer = ref<HTMLElement>()
           :pop-max-width="btnPopMaxWidth"
           :show-collector-icon="showCollectorIcon"
           :container-id="containerId"
+          :item-info-max-width="btnInfoMaxWidth"
           :pop-use-custom-width="btnPopUseCustomWidth"
           :pop-custom-width="btnPopCustomWidth"
         >

@@ -41,6 +41,11 @@ const updateSize = () => {
   if (cspWrapper.value?.offsetWidth) {
     const eachBlockWidth = (cspWrapper.value.offsetWidth - 20) / 3
     itemSpanMaxWidth.value = ((eachBlockWidth - 16) * 0.4 - 48) + 'px'
+  } else if (isMobile.value) {
+    const width = props.insideModal
+      ? window.innerWidth * 0.98 - 280
+      : window.innerWidth - 300
+    itemSpanMaxWidth.value = width + 'px'
   } else {
     itemSpanMaxWidth.value = 'inherit'
   }
@@ -155,6 +160,7 @@ defineExpose({
           :show-item-details="showItemDetails"
           :container-id="containerId"
           :content-height="contentHeight"
+          :item-span-max-width="itemSpanMaxWidth"
           :highlighted-items="highlightedItems"
         />
       </div>

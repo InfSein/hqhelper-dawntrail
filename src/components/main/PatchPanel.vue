@@ -93,7 +93,14 @@ const patchPatterns = computed(() => {
         <i class="xiv square-1"></i>
         <span class="card-title-text">{{ t('main.select_patch.title') }}</span>
         <div style="margin-left: 1px;">
-          <HelpButton icon="info" :size="22" :placement="isMobile ? 'bottom' : 'right-start'" pop-type="popover" style="margin-left: 0.5em;">
+          <HelpButton
+            icon="info"
+            :size="22"
+            :placement="isMobile ? 'bottom' : 'right-start'"
+            pop-type="popover"
+            :pop-style="isMobile ? 'max-width: 300px' : ''"
+            style="margin-left: 0.5em;"
+          >
             <div class="pop-wrapper">
               <div>{{ t('main.select_patch.info.info_1') }}</div>
               <n-divider style="margin: 1px 5px 3px" />
