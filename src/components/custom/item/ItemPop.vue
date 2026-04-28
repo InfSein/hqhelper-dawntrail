@@ -799,7 +799,7 @@ const innerPopTrigger = computed(() => {
             <div class="other-attrs" v-if="(itemInfo.craftInfo?.yields || 1) > 1">
               {{ t('item.text.yields_info', itemInfo.craftInfo?.yields) }}
             </div>
-            <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship && itemInfo.craftInfo?.thresholds?.control">
+            <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship || itemInfo.craftInfo?.thresholds?.control || itemInfo.craftInfo?.masterRecipeId">
               <div>{{ t('item.text.craft_condi') }}</div>
               <div class="item small-font">
                 <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship">
