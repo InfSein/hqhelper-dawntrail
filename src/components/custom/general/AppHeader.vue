@@ -733,6 +733,8 @@ const openModal = (click?: (() => void)) => {
 const handleCheckUpdates = async () => {
   if (window.electronAPI?.clientVersion) {
     displayCheckUpdatesModal()
+  } else if (window.androidAPI?.checkUpdate) {
+    window.androidAPI.checkUpdate()
   } else {
     try {
       const checkUpdateResponse = await checkAppUpdates()

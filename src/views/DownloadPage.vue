@@ -53,6 +53,13 @@ const platformCards = computed(() => [
     version: appVersionInfo.value?.electron,
     btnData: macAppBtns.value,
     extra: t('download_page.text.text_12'),
+  },
+  {
+    key: 'android',
+    title: 'Android',
+    icon: AndroidRound,
+    version: appVersionInfo.value?.android,
+    btnData: androidAppBtns.value,
   }
 ])
 
@@ -61,14 +68,21 @@ interface DownloadBtn {
   link: string
 }
 
-const getPlatformBtns = (isMac: boolean) => {
+const getPlatformBtns = (platform: "win" | "mac" | "android") => {
   const vi = appVersionInfo.value
   if (!vi) return undefined
-  const dlink = isMac 
-    ? vi.dlink_electron_mac.replace('~VERSION', vi.electron)
-    : vi.dlink_electron.replace('~VERSION', vi.electron)
-  const subLinks = isMac ? vi.client_info.mac_cn_sub_links : vi.client_info.cn_sub_links
-  
+  let dlink = '', subLinks: string[] = []
+  if (platform === 'android') {
+    dlink = vi.dlink_android.replace('~VERSION', vi.android)
+    subLinks = vi.client_info.android_cn_sub_links
+  } else if (platform === 'win') {
+    dlink = vi.dlink_electron_mac.replace('~VERSION', vi.electron)
+    subLinks = vi.client_info.mac_cn_sub_links
+  } else { // win
+    dlink = vi.dlink_electron.replace('~VERSION', vi.electron)
+    subLinks = vi.client_info.cn_sub_links
+  }
+
   let index = 1
   const primaryBtns: DownloadBtn[] = []
   const subBtns: DownloadBtn[] = []
@@ -97,8 +111,9 @@ const getPlatformBtns = (isMac: boolean) => {
   return { primaryBtns, subBtns }
 }
 
-const winAppBtns = computed(() => getPlatformBtns(false))
-const macAppBtns = computed(() => getPlatformBtns(true))
+const winAppBtns = computed(() => getPlatformBtns('win'))
+const macAppBtns = computed(() => getPlatformBtns('mac'))
+const androidAppBtns = computed(() => getPlatformBtns('android'))
 
 const handleDownloadBtnClick = (link: string) => {
   window.open(link, '_blank')
@@ -227,7 +242,7 @@ const handleDownloadBtnClick = (link: string) => {
               <n-icon :component="AppleRound" :size="20" />
               <span>iOS: {{ t('common.not_planned') }}</span>
             </div>
-            <div class="mobile-item">
+            <div class="mobile-item" v-show="false">
               <n-icon :component="AndroidRound" :size="20" />
               <span>Android: {{ t('common.developing') }}</span>
             </div>
