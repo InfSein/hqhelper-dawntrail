@@ -833,6 +833,7 @@
     "add_item": "アイテム追加",
     "all_changes_effects_after_save": "全ての変更は保存ボタンをクリックしてから有効になります",
     "amount": "数",
+    "and": "と",
     "appfunc": {
       "about": "他の説明",
       "about_app": "当ツールについて",
@@ -1593,6 +1594,7 @@
       "simulate_craft_bestcraft": "BestCraftで製作をシミュレーション",
       "simulate_craft_teamcraft": "TeamCraftで製作をシミュレーション",
       "timelimited_gatherable": "採集可能期間中",
+      "trade_also_receive": "両替機能で獲得",
       "yields_info": "Yields: {val}",
       "zh_name_is_temp": "DONT_SHOW"
     }

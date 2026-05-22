@@ -833,6 +833,7 @@
     "add_item": "Add Item",
     "all_changes_effects_after_save": "All changes will only take effect after clicking save.",
     "amount": "Amount",
+    "and": "And",
     "appfunc": {
       "about": "About",
       "about_app": "About us",
@@ -1593,6 +1594,7 @@
       "simulate_craft_bestcraft": "Simulate in BestCraft",
       "simulate_craft_teamcraft": "Simulate in Teamcraft",
       "timelimited_gatherable": "ACTIVE",
+      "trade_also_receive": "Would also receive:",
       "yields_info": "Yields: {val}",
       "zh_name_is_temp": "DONT_SHOW"
     }
