@@ -165,9 +165,15 @@ import JsonXivUnpackedTerritories from './unpacks/territory.json'
 export const XivUnpackedTerritories = JsonXivUnpackedTerritories as Record<number, number[]>
 
 export interface ItemTradeInfo {
-  receiveCount: number,
+  receiveCount: number
+  receive2Id?: number
+  receive2Count?: number
   costId: number,
-  costCount: number,
+  costCount: number
+  cost2Id?: number
+  cost2Count?: number
+  cost3Id?: number
+  cost3Count?: number
   tradeAlter?: ItemTradeInfo
 }
 import JsonXivUnpackedTradeMap from './unpacks/trade-map.json'

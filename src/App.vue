@@ -272,7 +272,7 @@ onMounted(async () => {
   // 处理全局页面参数
   appMode.value = route.query.mode as typeof appMode.value
   // 处理自动更新
-  if (!userConfig.value.disable_auto_update && appMode.value !== 'overlay') {
+  if (!userConfig.value.disable_auto_update && appMode.value !== 'overlay' && !window.androidAPI?.checkUpdate) {
     try {
       const checkUpdateResponse = await checkAppUpdates()
       if (checkUpdateResponse.success) {
