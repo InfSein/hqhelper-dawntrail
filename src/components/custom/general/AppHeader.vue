@@ -425,7 +425,7 @@ const menuData = computed(() => {
           type: 'router',
           icon: DevicesOutlined,
           label: t('common.appfunc.download_client'),
-          hide: !!window.electronAPI || isMobile.value,
+          hide: !!window.electronAPI || !!window.androidAPI,
           description: t('appheader.menu.tooltip.download_client'),
           routerKey: 'download',
           allowNewWindow: false,
