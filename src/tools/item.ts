@@ -544,6 +544,7 @@ import { type Component } from 'vue'
 import { NIcon } from 'naive-ui'
 import { getNearestAetheryte } from './map'
 import type { FuncConfigModel } from '@/models/config-func'
+import type { ApiPriceInfo } from '@/types/universalis'
 export const getItemContexts = (
   itemInfo: ItemInfo,
   itemLanguage: "zh" | "en" | "ja",
@@ -723,7 +724,7 @@ export interface ItemPriceInfo {
   v?: number,
   /** 更新时间，毫秒级时间戳 */
   updateTime: number,
-  // 以下是 v2 之后添加的字段
+  // * 以下是 v2 之后添加的字段
   /** 交易板的挂牌均价 (仅计入前10条) */
   marketPriceNQ?: number,
   /** 交易板的挂牌均价 (仅计入前10条) */
@@ -799,38 +800,19 @@ const parseApiPriceInfo = (apiPriceInfo : ApiPriceInfo) => {
 
   return itemPriceInfo
 }
-interface ApiPriceInfo {
-  itemID: number,
-  worldID: number,
-  worldName: string,
-  listings: ApiListInfo[],
-  recentHistory: ApiListInfo[],
-  currentAveragePriceNQ: number,
-  currentAveragePriceHQ: number,
-  averagePriceNQ: number,
-  averagePriceHQ: number,
-  minPriceNQ: number,
-  minPriceHQ: number,
-  maxPriceNQ: number,
-  maxPriceHQ: number
-}
-interface ApiListInfo {
-  pricePerUnit: number
-  hq: boolean
-  quantity: number
-  total: number
-}
+
 export const getItemPriceInfo = async (
   item : number | number[],
-  server : string
+  server : string,
+  listAll = false, // 是否列出所有交易记录。默认只取前十条以提升查询速度。
 ) : Promise<Record<number, ItemPriceInfo>> => {
   if (typeof item === 'number') {
-    return await getItemPrice(item, server)
+    return await getItemPrice(item, server, listAll)
   } else {
     if (!item?.length) {
       return {}
     } else if (item.length === 1) {
-      return await getItemPrice(item[0], server)
+      return await getItemPrice(item[0], server, listAll)
     } else {
       // universalis单次最多请求100个物品的数据，因此需要分块请求
       const chunkSize = 50
@@ -839,7 +821,7 @@ export const getItemPriceInfo = async (
         .fill(null)
         .map((_, index) => item.slice(index * chunkSize, (index + 1) * chunkSize))
       const responses = await Promise.all(
-        chunkedItems.map(chunk => getMultiItemPrice(chunk, server))
+        chunkedItems.map(chunk => getMultiItemPrice(chunk, server, listAll))
       )
       responses.forEach(response => {
         Object.assign(results, response)
@@ -850,11 +832,12 @@ export const getItemPriceInfo = async (
 }
 const getItemPrice = async (
   item : number,
-  server: string
+  server: string,
+  listAll = false,
 ) => {
   const itemstr = item.toString()
   const url = `https://universalis.app/api/v2/${server}/${itemstr}`
-    + '?listings=10'
+    + listAll ? '' : '?listings=10'
   let response : string
   if (window.electronAPI?.httpGet) {
     response = await window.electronAPI.httpGet(url, 30000)
@@ -869,10 +852,11 @@ const getItemPrice = async (
 }
 const getMultiItemPrice = async (
   item : number[],
-  server: string
+  server: string,
+  listAll = false,
 ) => {
   const itemstr = item.join(',')
-  const url = `https://universalis.app/api/v2/${server}/${itemstr}?listings=10`
+  const url = `https://universalis.app/api/v2/${server}/${itemstr}${listAll ? '' : '?listings=10'}`
   let response : string
   if (window.electronAPI?.httpGet) {
     response = await window.electronAPI.httpGet(url, 30000)
