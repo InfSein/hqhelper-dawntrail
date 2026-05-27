@@ -544,7 +544,7 @@ import { type Component } from 'vue'
 import { NIcon } from 'naive-ui'
 import { getNearestAetheryte } from './map'
 import type { FuncConfigModel } from '@/models/config-func'
-import type { ApiPriceInfo } from '@/types/universalis'
+import type { ApiPriceInfo } from '@/types/api.universalis'
 export const getItemContexts = (
   itemInfo: ItemInfo,
   itemLanguage: "zh" | "en" | "ja",
