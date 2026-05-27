@@ -544,7 +544,7 @@ import { type Component } from 'vue'
 import { NIcon } from 'naive-ui'
 import { getNearestAetheryte } from './map'
 import type { FuncConfigModel } from '@/models/config-func'
-import type { ApiPriceInfo } from '@/types/api.universalis'
+import type { ApiHistoryInfo, ApiListInfo, ApiPriceInfo } from '@/types/api.universalis'
 export const getItemContexts = (
   itemInfo: ItemInfo,
   itemLanguage: "zh" | "en" | "ja",
@@ -704,29 +704,29 @@ export const getItemContexts = (
   return { options, handleKeyEvent }
 }
 
-export const ItemPriceApiVersion = 2
+export const ItemPriceApiVersion = 3
 export interface ItemPriceInfo {
-  itemID: number,
-  worldID: number,
-  worldName: string,
-  currentAveragePriceNQ: number,
-  currentAveragePriceHQ: number,
-  averagePriceNQ: number,
-  averagePriceHQ: number,
-  minPriceNQ: number,
-  minPriceHQ: number,
-  maxPriceNQ: number,
-  maxPriceHQ: number,
+  itemID: number
+  worldID: number
+  worldName: string
+  currentAveragePriceNQ: number
+  currentAveragePriceHQ: number
+  averagePriceNQ: number
+  averagePriceHQ: number
+  minPriceNQ: number
+  minPriceHQ: number
+  maxPriceNQ: number
+  maxPriceHQ: number
   /** 代表此缓存数据记录时，程序相关代码的版本。
    * 最初版本的缓存值为 `undefined`, 之后递增1。
    * 在进行破坏性变更时会提升此值，以方便程序判断是否需要重新加载缓存数据。
    */
-  v?: number,
+  v?: number
   /** 更新时间，毫秒级时间戳 */
-  updateTime: number,
+  updateTime: number
   // * 以下是 v2 之后添加的字段
   /** 交易板的挂牌均价 (仅计入前10条) */
-  marketPriceNQ?: number,
+  marketPriceNQ?: number
   /** 交易板的挂牌均价 (仅计入前10条) */
   marketPriceHQ?: number
   /** 交易板当前最低价 */
@@ -734,11 +734,18 @@ export interface ItemPriceInfo {
   /** 交易板当前最低价 */
   marketLowestPriceHQ?: number
   /** 最近成交价格 (仅计入前5条) */
-  purchasePriceNQ?: number,
+  purchasePriceNQ?: number
   /** 最近成交价格 (仅计入前5条) */
   purchasePriceHQ?: number
+  // * 以下是 v3 之后添加的字段
+  /** 是否列出了所有交易记录 */
+  listAll?: boolean
+  /** 当前寄售列表 */
+  marketListing?: ApiListInfo[]
+  /** 最近成交历史 */
+  purchaseHistory?: ApiHistoryInfo[]
 }
-const parseApiPriceInfo = (apiPriceInfo : ApiPriceInfo) => {
+const parseApiPriceInfo = (apiPriceInfo : ApiPriceInfo, listAll = false) => {
   const itemPriceInfo : ItemPriceInfo = {
     itemID: apiPriceInfo.itemID,
     worldID: apiPriceInfo.worldID,
@@ -798,6 +805,12 @@ const parseApiPriceInfo = (apiPriceInfo : ApiPriceInfo) => {
   itemPriceInfo.marketLowestPriceHQ = marketLowestPriceHQ
   // #endregion
 
+  // #region v3
+  itemPriceInfo.listAll = listAll
+  itemPriceInfo.marketListing = apiPriceInfo.listings
+  itemPriceInfo.purchaseHistory = apiPriceInfo.recentHistory
+  // #endregion
+
   return itemPriceInfo
 }
 
@@ -846,7 +859,7 @@ const getItemPrice = async (
       .then(response => response.text())
   }
   const data = {} as Record<number, ItemPriceInfo>
-  data[item] = parseApiPriceInfo(JSON.parse(response) as ApiPriceInfo)
+  data[item] = parseApiPriceInfo(JSON.parse(response) as ApiPriceInfo, listAll)
   data[item].updateTime = Date.now()
   return data
 }
@@ -868,7 +881,7 @@ const getMultiItemPrice = async (
   const items = data.items as Record<number, ApiPriceInfo>
   const result = {} as Record<number, ItemPriceInfo>
   Object.values(items).forEach(item => {
-    result[item.itemID] = parseApiPriceInfo(item)
+    result[item.itemID] = parseApiPriceInfo(item, listAll)
   })
   return result
 }

@@ -14,6 +14,7 @@ import { useElectronSync } from '@/composables/electron-sync'
 import { useLocale } from './locales'
 import { checkAppUpdates, CopyToClipboard, deepCopy, getAppBackground, sleep } from './tools'
 import EorzeaTime from './tools/eorzea-time'
+import { getItemInfo, type ItemInfo } from './tools/item'
 import { fixUserConfig , type UserConfigModel } from '@/models/config-user'
 import { fixFuncConfig, type FuncConfigModel, type MacroGenerateMode } from './models/config-func'
 import { fixCloudConfig, type CloudConfigModel } from '@/models/config-cloud'
@@ -27,6 +28,7 @@ const ModalCheckUpdates = defineAsyncComponent(() => import('@/components/modals
 const ModalLogin = defineAsyncComponent(() => import('@/components/modals/ModalLogin.vue'))
 const ModalCloudSync = defineAsyncComponent(() => import('@/components/modals/ModalCloudSync.vue'))
 const ModalFestivalEgg = defineAsyncComponent(() => import('@/components/modals/ModalFestivalEgg.vue'))
+const ModalItemPriceDetail = defineAsyncComponent(() => import('@/components/modals/ModalItemPriceDetail.vue'))
 
 const route = useRoute()
 const store = useStore()
@@ -234,6 +236,14 @@ const displayCloudSyncModal = () => {
   showModalCloudSync.value = true
 }
 provide('displayCloudSyncModal', displayCloudSyncModal)
+
+const showModalItemPriceDetail = ref(false)
+const modalItemPriceDetailItems = ref<ItemInfo[]>([])
+const showItemPriceDetail = (items: ItemInfo[]) => {
+  modalItemPriceDetailItems.value = items
+  showModalItemPriceDetail.value = true
+}
+provide('showItemPriceDetail', showItemPriceDetail)
 
 const appClass = computed(() => {
   const classes = [
@@ -447,6 +457,10 @@ const naiveUIThemeOverrides = computed(() : GlobalThemeOverrides => {
           v-model:show="showModalCloudSync"
         />
         <ModalFestivalEgg v-model:show="showFestivalEgg" />
+        <ModalItemPriceDetail
+          v-model:show="showModalItemPriceDetail"
+          :items="modalItemPriceDetailItems"
+        />
       </div>
     </n-message-provider>
     </n-dialog-provider>
