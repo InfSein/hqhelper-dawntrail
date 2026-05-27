@@ -68,7 +68,7 @@ const handleShowItemPriceDetail = () => {
           {{ t('statistics.group.cost_and_benefit.title') }}
         </span>
         <div class="card-title-actions">
-          <a href="javascript:void(0);" @click="handleShowItemPriceDetail">[{{ '查看详表' }}]</a>
+          <a href="javascript:void(0);" @click="handleShowItemPriceDetail">[{{ t('item.price.detail_table.intro') }}]</a>
         </div>
       </div>
     </template>

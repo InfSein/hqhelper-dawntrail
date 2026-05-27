@@ -1546,12 +1546,24 @@
       "yield_plus": "高产II/丰收II +{0}"
     },
     "price": {
+      "detail_table": {
+        "empty": {
+          "no_data": "暂无数据",
+          "no_item_selected": "请选择物品"
+        },
+        "group_marketboard": "当前价格",
+        "group_purchasehistory": "历史交易",
+        "intro": "查看详表",
+        "loading": "正在获取物品价格……",
+        "title": "物品价格详表"
+      },
       "no_price": "没有价格。",
       "no_price_reason": "可能原因：未获取过价格/物品未实装或不存在此品质/交易数据不足",
       "no_price_received": "没有获取到价格。",
       "no_price_received_reason": "可能原因：物品未实装/交易数据不足",
       "no_show_price_type_setted": "还没有设置要显示哪些价格类型。请在偏好设置的“{option}”设置项中进行配置。",
       "refreshing": "正在刷新价格",
+      "show_hq_only": "只看HQ",
       "update_failed": "更新价格失败",
       "update_succeed": "更新价格成功"
     },
