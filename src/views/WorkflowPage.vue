@@ -116,33 +116,6 @@ onBeforeUnmount(() => {
 })
 
 // #region header
-/*
-const handleEditWorkflow = (flowIndex: number) => {
-  const flow = workState.value.workflows[flowIndex]
-  const oldName = flow.name || t('workflow.text.workflow_with_index', flowIndex + 1)
-  // todo Electron 不支持 prompt()。等待后续替换为组件对话框。
-  const newName = prompt(t('workflow.text.rename_to'), oldName)
-  if (newName) {
-    flow.name = newName
-  }
-}
-const handleDeleteWorkflow = (flowIndex: number) => {
-  if (workState.value.workflows.length <= 1) {
-    NAIVE_UI_MESSAGE.warning(t('workflow.text.min_len'))
-    return
-  }
-  if (!confirm(t('workflow.text.confirm_delete'))) {
-    return
-  }
-  workState.value.workflows.splice(flowIndex, 1)
-  if (workState.value.currentWorkflow >= flowIndex) {
-    workState.value.currentWorkflow--
-    if (workState.value.currentWorkflow < 0) {
-      workState.value.currentWorkflow = 0
-    }
-  }
-}
-*/
 const handleAddWorkflow = () => {
   if (workState.value.workflows.length >= _VAR_MAX_WORKFLOW) {
     NAIVE_UI_MESSAGE.warning(t('workflow.message.max_len', _VAR_MAX_WORKFLOW))
@@ -394,15 +367,6 @@ const setInventoryByStatementPrepared = () => {
         <div class="action">
           <p>{{ t('workflow.text.switch_workflows') }}</p>
           <div class="flex-wrap" style="gap: 5px;">
-            <!-- <n-button-group
-            >
-              <n-button v-show="false" size="tiny" class="n-square-button" :title="t('workflow.text.rename_this_workflow')" @click="handleEditWorkflow(flowIndex)">
-                <n-icon :size="16"><ModeEditFilled /></n-icon>
-              </n-button>
-              <n-button v-show="false" size="tiny" class="n-square-button" :title="t('workflow.text.delete_this_workflow')" @click="handleDeleteWorkflow(flowIndex)">
-                <n-icon :size="16"><DeleteFilled /></n-icon>
-              </n-button>
-            </n-button-group> -->
             <n-button
               v-for="(flow, flowIndex) in workState.workflows"
               :key="flowIndex"
