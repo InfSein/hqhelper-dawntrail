@@ -425,7 +425,7 @@ const menuData = computed(() => {
           type: 'router',
           icon: DevicesOutlined,
           label: t('common.appfunc.download_client'),
-          hide: !!window.electronAPI || isMobile.value,
+          hide: !!window.electronAPI || !!window.androidAPI,
           description: t('appheader.menu.tooltip.download_client'),
           routerKey: 'download',
           allowNewWindow: false,
@@ -733,6 +733,8 @@ const openModal = (click?: (() => void)) => {
 const handleCheckUpdates = async () => {
   if (window.electronAPI?.clientVersion) {
     displayCheckUpdatesModal()
+  } else if (window.androidAPI?.checkUpdate) {
+    window.androidAPI.checkUpdate()
   } else {
     try {
       const checkUpdateResponse = await checkAppUpdates()

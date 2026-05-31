@@ -96,3 +96,7 @@
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.4.3/total)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.4.4/total)
 ![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.4.5/total)
+
+### 2.5.x (对应 FFXIV 的 7.5~7.56)
+
+![](https://img.shields.io/github/downloads/InfSein/hqhelper-dawntrail/v2.5.0/total)

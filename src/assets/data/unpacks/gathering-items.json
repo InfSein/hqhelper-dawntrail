@@ -7,6 +7,7 @@
   "5110": {"level":9,"star":0,"type":0,"pointType":1,"pointLevel":10,"territory":1,"place":0,"coords":{"x":"20.20","y":"22.59"},"bonuses":[[15,52,22,40],[14,57,14,1]],"difficulty":[125,125],"popType":"normal"},
   "5113": {"level":25,"star":0,"type":0,"pointType":1,"pointLevel":25,"territory":153,"place":78,"coords":{"x":"16.05","y":"19.49"},"bonuses":[[15,98,22,40],[14,171,14,1]],"difficulty":[205,205],"popType":"normal"},
   "5116": {"level":47,"star":0,"type":0,"pointType":1,"pointLevel":50,"territory":147,"place":258,"coords":{"x":"23.35","y":"24.35"},"bonuses":[[15,214,22,40],[14,295,14,1]],"difficulty":[315,315],"popType":"normal"},
+  "5346": {"level":31,"star":0,"type":3,"pointType":1,"pointLevel":35,"territory":153,"place":79,"coords":{"x":"17.47","y":"28.66"},"bonuses":[[15,153,22,40],[14,216,14,1]],"difficulty":[235,235],"popType":"normal"},
   "12531": {"level":51,"star":0,"type":1,"pointType":1,"pointLevel":55,"territory":397,"place":2202,"coords":{"x":"15.58","y":"11.80"},"bonuses":[[14,395,14,1],[19,577,18,1],[15,444,23,20]],"difficulty":[635,635],"popType":"normal"},
   "12597": {"level":51,"star":0,"type":3,"pointType":1,"pointLevel":55,"territory":397,"place":2202,"coords":{"x":"17.11","y":"15.62"},"bonuses":[[14,395,14,1],[19,577,18,1],[15,444,23,20]],"difficulty":[635,635],"popType":"normal"},
   "12631": {"level":54,"star":0,"type":0,"pointType":1,"pointLevel":55,"territory":398,"place":2004,"coords":{"x":"26.43","y":"30.79"},"bonuses":[[14,395,14,1],[19,577,18,1],[15,444,23,20]],"difficulty":[648,648],"popType":"normal"},

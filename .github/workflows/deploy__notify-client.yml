@@ -18,3 +18,10 @@ jobs:
           token: ${{ secrets.PAT_FOR_CLIENT }}
           repository: InfSein/hqhelper-client
           event-type: update-submodule
+
+      - name: Trigger workflow in hqhelper-android
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PAT_FOR_CLIENT }}
+          repository: InfSein/hqhelper-android
+          event-type: update-submodule

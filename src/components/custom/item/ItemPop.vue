@@ -287,6 +287,12 @@ interface RenderedTradeCost {
   costId: number
   costCount: number
   receiveCount: number
+  receive2Id?: number
+  receive2Count?: number
+  cost2Id?: number
+  cost2Count?: number
+  cost3Id?: number
+  cost3Count?: number
   level: number // 嵌套层级，方便渲染缩进或分隔
 }
 const tradeCostList = computed(() => {
@@ -299,6 +305,12 @@ const tradeCostList = computed(() => {
       costId: current.costId,
       costCount: current.costCount,
       receiveCount: current.receiveCount,
+      receive2Id: current.receive2Id,
+      receive2Count: current.receive2Count,
+      cost2Id: current.cost2Id,
+      cost2Count: current.cost2Count,
+      cost3Id: current.cost3Id,
+      cost3Count: current.cost3Count,
       level
     })
     current = current.tradeAlter
@@ -737,7 +749,7 @@ const innerPopTrigger = computed(() => {
           <div class="content">
             <div>{{ t('item.text.is_tradable') }}</div>
             <template v-for="(cost, index) in tradeCostList" :key="index">
-              <div class="item">
+              <div class="item trade-item">
                 {{ index > 0 ? t('common.or') : '' }}
                 <ItemSpan
                   span-max-width="230px"
@@ -747,8 +759,40 @@ const innerPopTrigger = computed(() => {
                   :container-id="containerId"
                 />
               </div>
+              <div class="item trade-item trade-item-l2" v-if="cost.cost2Id && cost.cost2Count">
+                {{ t('common.and') }}
+                <ItemSpan
+                  span-max-width="210px"
+                  :item-info="getItemInfo(cost.cost2Id)"
+                  :amount="cost.cost2Count"
+                  show-amount
+                  :container-id="containerId"
+                />
+              </div>
+              <div class="item trade-item trade-item-l2" v-if="cost.cost3Id && cost.cost3Count">
+                {{ t('common.and') }}
+                <ItemSpan
+                  span-max-width="210px"
+                  :item-info="getItemInfo(cost.cost3Id)"
+                  :amount="cost.cost3Count"
+                  show-amount
+                  :container-id="containerId"
+                />
+              </div>
               <div class="item other-attrs" v-if="cost.receiveCount > 1">
                 {{ t('item.text.multi_get_each_trade', cost.receiveCount) }}
+              </div>
+              <div class="item other-attrs trade-item" v-if="cost.receive2Id && cost.receive2Count">
+                {{ t('item.text.trade_also_receive') }}
+                <ItemSpan
+                  span-max-width="80px"
+                  :item-info="getItemInfo(cost.receive2Id)"
+                  :img-size="12"
+                  :amount="cost.receive2Count"
+                  :show-amount="cost.receive2Count > 1"
+                  :container-id="containerId"
+                  style="width: fit-content;"
+                />
               </div>
             </template>
           </div>
@@ -799,7 +843,7 @@ const innerPopTrigger = computed(() => {
             <div class="other-attrs" v-if="(itemInfo.craftInfo?.yields || 1) > 1">
               {{ t('item.text.yields_info', itemInfo.craftInfo?.yields) }}
             </div>
-            <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship && itemInfo.craftInfo?.thresholds?.control">
+            <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship || itemInfo.craftInfo?.thresholds?.control || itemInfo.craftInfo?.masterRecipeId">
               <div>{{ t('item.text.craft_condi') }}</div>
               <div class="item small-font">
                 <div v-if="itemInfo.craftInfo?.thresholds?.craftsmanship">
@@ -1009,6 +1053,12 @@ const innerPopTrigger = computed(() => {
         flex-wrap: wrap;
         align-items: center;
         gap: 3px;
+      }
+      .content .item.trade-item {
+        flex-wrap: nowrap;
+      }
+      .content .item.trade-item-l2 {
+        margin-left: 1.5em;
       }
       .content .item.actions {
         margin: 3px 1em;

@@ -833,6 +833,7 @@
     "add_item": "添加物品",
     "all_changes_effects_after_save": "所有修改都只在点击保存之后才会生效。",
     "amount": "数量",
+    "and": "与",
     "appfunc": {
       "about": "关于",
       "about_app": "关于本作",
@@ -1593,6 +1594,7 @@
       "simulate_craft_bestcraft": "在BestCraft中模拟制作",
       "simulate_craft_teamcraft": "在TeamCraft中模拟制作",
       "timelimited_gatherable": "进行中",
+      "trade_also_receive": "通过此兑换还可获得",
       "yields_info": "每次制作会产出{val}个成品",
       "zh_name_is_temp": "该物品国服尚未实装，中文名为临时译名。"
     }

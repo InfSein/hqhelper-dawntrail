@@ -19,13 +19,16 @@ export interface AppTextUi {
 export interface AppVersionJson {
   hqhelper: string;
   electron: string;
+  android: string;
   dlink_hqhelper: string;
   dlink_electron: string;
   dlink_electron_mac: string;
+  dlink_android: string;
   client_info: {
     recomm_proxy: string;
     cn_sub_links: string[];
     mac_cn_sub_links: string[];
+    android_cn_sub_links: string[];
   }
   maintenance_webpack: boolean;
   maintenance_client: boolean;
