@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "Vue.volar",
+    "dbaeumer.vscode-eslint",
+    "lokalise.i18n-ally",
+    "bradlc.vscode-tailwindcss"
+  ]
+}

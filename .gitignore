@@ -1,0 +1,45 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+.venv
+node_modules
+.DS_Store
+dist
+dist-ssr
+electron
+coverage
+*.local
+
+/cypress/videos/
+/cypress/screenshots/
+
+# Auto generated
+src/components.d.ts
+CHANGELOG_AUTO.md
+
+# Plugins
+private-folder-alias.json
+
+# Ai
+.agent
+.agents
+AGENTS.md
+skills-lock.json
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.tsbuildinfo

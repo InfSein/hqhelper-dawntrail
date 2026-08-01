@@ -1,0 +1,483 @@
+{
+  "0": {
+    "title_zh": "坦克通用开荒配装(除骑士)",
+    "title_en": "Tank General Starter (Except PLD)",
+    "title_ja": "タンク通用ギアセット（ナイト以外）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "tN2IWqXavtje6lx8U0xwXf3zZB5666PewJstplRyu8PaBbEVJW"
+  },
+  "1": {
+    "title_zh": "骑士专用开荒配装",
+    "title_en": "PLD Class-Specific Starter",
+    "title_ja": "ナイト専用ギアセット（早期攻略用）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "s11bCdbrGnOu8ivzM4quHAZZpSLaRqXEG1D4hY8qfFVWDlR8Y6rB"
+  },
+  "2": {
+    "title_zh": "DK&枪刃可选开荒配装",
+    "title_en": "DRK & GNB Class-Specific Starter",
+    "title_ja": "暗黒＆ガンブレ適用ギアセット（早期攻略用）",
+    "gcd": 2.45,
+    "author": "孤风行",
+    "set_no": "t2ifvnl5shOasDKAw5EP494OSUbhWrnJdqSxIfIhuNgrHnkNSti967v"
+  },
+  "3": {
+    "title_zh": "学者专用开荒配装",
+    "title_en": "SCH Class-Specific Starter",
+    "title_ja": "学者専用ギアセット（早期攻略用）",
+    "gcd": 2.31,
+    "author": "孤风行",
+    "set_no": "jSqiaEKzBCEKInv2Fx3LAVzKdkJ7zx7CX75IG4Sveanhi"
+  },
+  "4": {
+    "title_zh": "学者&占星开荒配装",
+    "title_en": "SCH & AST Class-Specific Starter",
+    "title_ja": "学者＆占星術師適用ギアセット（早期攻略用）",
+    "gcd": 2.4,
+    "author": "孤风行",
+    "set_no": "1GwRRk2mmYADfYGTwAqi2t6ct0nFxhV9EdA1yeEgGVTkPZbaSR"
+  },
+  "5": {
+    "title_zh": "占星专用开荒配装",
+    "title_en": "AST Class-Specific Starter",
+    "title_ja": "占星術師専用ギアセット（早期攻略用）",
+    "gcd": 2.45,
+    "author": "孤风行",
+    "set_no": "25Qd9OOzuakvCBESDQ3K85TIQAniuh9Cthb0sINPlgaOIdz1gw"
+  },
+  "6": {
+    "title_zh": "白魔&贤者开荒配装",
+    "title_en": "WHM & SGE Class-Specific Starter",
+    "title_ja": "白魔道士＆賢者適用ギアセット（早期攻略用）",
+    "gcd": 2.46,
+    "author": "孤风行",
+    "set_no": "6DIYa91feHFOoHLDxflWBsNw8kUMJ5XKEmJ39doHzicvlWQe"
+  },
+  "7": {
+    "title_zh": "龙骑专用开荒配装 (兼容2.5镰刀)",
+    "title_en": "DRG Class-Specific Starter (Compatible with 2.5SS RPR)",
+    "title_ja": "竜騎士専用ギアセット（2.5秒SSリーパー兼用可）（早期攻略用）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "8cRws0hK4eo4ys7dzuKfCbFJwu9YrfMFmBWPVaiNoTVpImr0bHo8NK"
+  },
+  "8": {
+    "title_zh": "镰刀专用开荒配装 (兼容2.5龙骑)",
+    "title_en": "RPR Class-Specific Starter (Compatible with 2.5SS DRG)",
+    "title_ja": "リーパー専用ギアセット（2.5秒SS竜騎士兼用可）（早期攻略用）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "apQ0UjaGP4RxAu6wJze2BrxdZwRCVUEV6I7G454H7a4pQYCsTjj79x"
+  },
+  "9": {
+    "title_zh": "武僧开荒配装1",
+    "title_en": "MNK Class-Specific Starter I",
+    "title_ja": "モンク専用ギアセット１（早期攻略用）",
+    "gcd": 1.94,
+    "author": "孤风行",
+    "set_no": "3xeHGDfGMnI9jxubsHkz56VGAXG8l6DACQrpWN1XNpGkruWa37qztcjCAFN"
+  },
+  "10": {
+    "title_zh": "武僧开荒配装2",
+    "title_en": "MNK Class-Specific Starter II",
+    "title_ja": "専用ギアセット２（早期攻略用）",
+    "gcd": 1.93,
+    "author": "孤风行",
+    "set_no": "3vlzBH4hjlkKYPrIte0IODydMj8wARAvH59VYwTmsupk3Ztj90bjrwPk4Fx"
+  },
+  "11": {
+    "title_zh": "武士开荒配装1",
+    "title_en": "SAM Class-Specific Starter I",
+    "title_ja": "侍専用ギアセット１（早期攻略用）",
+    "gcd": 2.14,
+    "author": "孤风行",
+    "set_no": "88XC5fImcWFfheTj1TEbZY4wUsToybWJp8uazAuKFOx13DKgV4VxflaKy"
+  },
+  "12": {
+    "title_zh": "武士开荒配装2 (兼容龙镰首饰)",
+    "title_en": "SAM Class-Specific Starter II",
+    "title_ja": "侍専用ギアセット２（早期攻略用）",
+    "gcd": 2.17,
+    "author": "孤风行",
+    "set_no": "bwRWvFlA1sqRGNTrY18r0g7BW3Wp7ahSeFHd2CmnNiDWJnZNI4ZEX1s"
+  },
+  "13": {
+    "title_zh": "蝰蛇开荒配装1 (兼容忍者)",
+    "title_en": "VPR Class-Specific Starter I",
+    "title_ja": "ヴァイパー専用ギアセット１（早期攻略用）",
+    "gcd": 2.12,
+    "author": "孤风行",
+    "set_no": "eccpNIMYKQTnMB9vX98CwWdDfdcGmVr2c1PVrbEJprRa0ogjGj3EqXK"
+  },
+  "14": {
+    "title_zh": "蝰蛇开荒配装2",
+    "title_en": "VPR Class-Specific Starter II",
+    "title_ja": "ヴァイパー専用ギアセット２（早期攻略用）",
+    "gcd": 2.08,
+    "author": "孤风行",
+    "set_no": "jLieYbjDe0SImQo8kYaHCr9x45byJFRkvPOp3mtlTuRrFndRMmDahrH8iec"
+  },
+  "15": {
+    "title_zh": "忍者开荒配装 (兼容蝰蛇2.12)",
+    "title_en": "NIN Class-Specific Starter",
+    "title_ja": "忍者専用ギアセット (2.12秒SSヴァイパー兼用可)",
+    "gcd": 2.12,
+    "author": "孤风行",
+    "set_no": "jFMLglWWnwd6FqSyZCocdA9QChL2FbXCXa9SNJF565BuHX12vuasgv7"
+  },
+  "16": {
+    "title_zh": "机工开荒配装 (兼容其他远敏,及蝰忍首饰)",
+    "title_en": "MCH Class-Specific Starter (Compatible with other Aim DPS, or Scout DPS accessories)",
+    "title_ja": "機工士専用ギアセット (レンジ・ヴァイパー忍者アクセサリー兼用可)",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "fNWw342UjYS8LVI4mJaiVHbD9Pr54TrYKwLIvtWCBuzGKngbvnvF7Rg"
+  },
+  "17": {
+    "title_zh": "诗人开荒配装 (兼容其他远敏,及蝰忍首饰)",
+    "title_en": "BRD Class-Specific Starter (Compatible with other Aim DPS, or Scout DPS accessories)",
+    "title_ja": "詩人専用ギアセット (レンジ・ヴァイパー忍者アクセサリー兼用可)",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "jTRoGY6zTX18VxVmur4hcVQwUqhuJDH0fF93GomoDCmDiXrZAGPdGgJ"
+  },
+  "18": {
+    "title_zh": "舞者开荒配装 (兼容其他远敏,及蝰忍首饰)",
+    "title_en": "DNC Class-Specific Starter (Compatible with other Aim DPS, or Scout DPS accessories)",
+    "title_ja": "踊り子専用ギアセット (レンジ・ヴァイパー忍者アクセサリー兼用可)",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "d4BT3wEfDnc8jgIpOjZGVmGwNzeM3oJqM3iDoBzLSsi50ME5uMPeC47"
+  },
+  "19": {
+    "title_zh": "画师开荒配装1 (兼容其他法系)",
+    "title_en": "PCT Class-Specific Starter I (Compatible with other Cast DPS)",
+    "title_ja": "ピクトマンサー専用ギアセット１ (キャスター兼用可)",
+    "gcd": 2.45,
+    "author": "孤风行",
+    "set_no": "el0bRn74xrBJiSxpBVUmu6nLNo0dW4atHVoqyrVnE7286UYJc8kCVgXCr"
+  },
+  "20": {
+    "title_zh": "画师开荒配装2 (兼容其他法系)",
+    "title_en": "PCT Class-Specific Starter II (Compatible with other Cast DPS)",
+    "title_ja": "ピクトマンサー専用ギアセット２ (キャスター兼用可)",
+    "gcd": 2.48,
+    "author": "孤风行",
+    "set_no": "6sAYd6t9I3UTcuoi4xRVRNXpGUvUIyY7cBEmOKv6vDi4S1rbtny1zd"
+  },
+  "21": {
+    "title_zh": "召唤开荒配装1 (兼容其他法系)",
+    "title_en": "SMN Class-Specific Starter I (Compatible with other Cast DPS)",
+    "title_ja": "召喚士専用ギアセット１ (キャスター兼用可)",
+    "gcd": 2.45,
+    "author": "孤风行",
+    "set_no": "jPhfsDIfOhfBdGPyiBrnDIifHZKMHkXJydT6CDVSk6NAdooH4kSf10KDn"
+  },
+  "22": {
+    "title_zh": "召唤开荒配装2 (兼容其他法系)",
+    "title_en": "SMN Class-Specific Starter II (Compatible with other Cast DPS)",
+    "title_ja": "召喚士専用ギアセット２ (キャスター兼用可)",
+    "gcd": 2.48,
+    "author": "孤风行",
+    "set_no": "4sD8IvrkRohjRwiwN7X6HoOUdwIYdsjU1jpucJoiBFFwYFguxdrz4l"
+  },
+  "23": {
+    "title_zh": "赤魔开荒配装 (兼容其他法系)",
+    "title_en": "RDM Class-Specific Starter (Compatible with other Cast DPS)",
+    "title_ja": "赤魔道士専用ギアセット (キャスター兼用可)",
+    "gcd": 2.48,
+    "author": "孤风行",
+    "set_no": "5xnF9GMm81uJw4Ez3Ha2A4GSrGIB5vOHKlQ2I89pho61X2dUD6sXxQ"
+  },
+  "24": {
+    "title_zh": "黑魔开荒配装 (兼容其他法系)",
+    "title_en": "BLM Class-Specific Starter (Compatible with other Cast DPS)",
+    "title_ja": "黒魔道士専用ギアセット (キャスター兼用可)",
+    "gcd": 2.42,
+    "author": "孤风行",
+    "set_no": "5ExGJGpY6mleBmguoEJFQ1u8ONNUc4X44FEbnVhLhs7T0NyFvlwrbIoqmR6"
+  },
+  "25": {
+    "title_zh": "690HQ首推禁断配装 (全生产通用)",
+    "title_en": "690HQ Recommended (For all DoH)",
+    "title_ja": "690HQ禁断ギアセット（一押し）（全クラフター通用）",
+    "author": "月下独翼",
+    "set_no": "4cSahhsSiBL7mNfYuWzjMcJM2P7LrKopHV2kxlrGBoIpXfKZnNQOQvPzslOE2tEKpoq"
+  },
+  "26": {
+    "title_zh": "690HQ丐版禁断配装 (全生产通用)",
+    "title_en": "690HQ Budget (For all DoH)",
+    "title_ja": "690HQ禁断ギアセット（貧乏版）（全クラフター通用）",
+    "author": "月下独翼",
+    "set_no": "4cS5zngZUUakpWNcMUU3bq4IeJKCYttfeyKjOU9guvJUIOKEcxUQVRzSVFhZzzUkmBM"
+  },
+  "27": {
+    "title_zh": "690HQ顶配禁断配装 (全生产通用)",
+    "title_en": "690HQ Best (For all DoH)",
+    "title_ja": "690HQ禁断ギアセット（最強版）（全クラフター通用）",
+    "author": "月下独翼",
+    "set_no": "4c3fs61lBX5nyYScCwHxuoyuavaZMrTNeRa0VMyG0co7J4q4yNvPSzbzODhs6Z36kNM"
+  },
+  "28": {
+    "title_zh": "720HQ妥当禁断配装 (全生产通用)(后续配方难度未定,自行考虑)",
+    "title_en": "720HQ Balanced (For all DoH)(Future recipe difficulty is uncertain, consider it on your own)",
+    "title_ja": "690HQ禁断ギアセット（経済版）（全クラフター通用）（未来パッチの難易度は未知なので足りない場合は自己責任）",
+    "author": "月下独翼",
+    "set_no": "OD0XO70zvsnZ9g8uYC4lyJHplzFegyMvNRpOV7QNTLQfqbyEmjlOTTgUUEgP3CjGLc"
+  },
+  "29": {
+    "title_zh": "720HQ中产禁断配装 (全生产通用)",
+    "title_en": "720HQ Recommended (For all DoH)",
+    "title_ja": "720HQ禁断ギアセット（一押し）（全クラフター通用）",
+    "author": "竹笙微凉_",
+    "set_no": "2TFFdaefE3NuMfQF9Dx6Dsxd1L0n3Z9k5gd2OwantWBSgrjCG4Y0cjlQN6e5j7sgal5"
+  },
+  "30": {
+    "title_zh": "720HQ丐版禁断配装 (全生产通用)",
+    "title_en": "720HQ Budget (For all DoH)",
+    "title_ja": "720HQ禁断ギアセット（貧乏版）（全クラフター通用）",
+    "author": "竹笙微凉_",
+    "set_no": "1izGgjUw5991OrA79oEpuevrpwGtFqcXDxGEO095rE2HxmXn2VDXIlFax030nlBN"
+  },
+  "31": {
+    "title_zh": "720HQ豪华禁断配装 (全生产通用)",
+    "title_en": "720HQ Best (For all DoH)",
+    "title_ja": "720HQ禁断ギアセット（最強版）（全クラフター通用）",
+    "author": "竹笙微凉_",
+    "set_no": "1kMSKb8WemAc97UJP2ego8imCxlOaygWY6KbQ5zzC2uz79WBhamjion2WDF"
+  },
+  "32": {
+    "title_zh": "坦克通用开荒配装1",
+    "title_en": "Tank General Starter I",
+    "title_ja": "タンク通用ギアセット（早期攻略用）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "GMYkjYhPlGXVR2dmjLGJxcStF7yJqHUVTZVPKmTtUWtPS"
+  },
+  "33": {
+    "title_zh": "坦克通用开荒配装2",
+    "title_en": "Class-Specific Starter II",
+    "title_ja": "タンク通用ギアセット2（早期攻略用）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "1U8Xl7nOmpw9tNbG4iErzPTZNL9b1GL9EcBEOLlOgrXL0RC"
+  },
+  "34": {
+    "title_zh": "学者开荒配装",
+    "title_en": "SCH Class-Specific Starter",
+    "title_ja": "学者専用ギアセット（早期攻略用）",
+    "gcd": 2.31,
+    "author": "孤风行",
+    "set_no": "823HkQfdbALXPczNNrTknbt0o3YHQm4j6Xop6VtPIgI7wAEFK"
+  },
+  "35": {
+    "title_zh": "白魔&贤者开荒配装",
+    "title_en": "WHM & SGE Class-Specific Starter",
+    "title_ja": "白魔道士＆賢者適用ギアセット（早期攻略用）",
+    "gcd": 2.45,
+    "author": "孤风行",
+    "set_no": "5zjURlmi2DeuQfwGdwU42MV125vXtjBjh8LSs3jqFZ5B2Xeb"
+  },
+  "36": {
+    "title_zh": "治疗通用开荒配装",
+    "title_en": "Healer General Starter",
+    "title_ja": "ヒーラー通用ギアセット（早期攻略用）",
+    "gcd": 2.4,
+    "author": "孤风行",
+    "set_no": "7VlQFIczYgjoApsCVckV4Epw3adyrg3eK95bHyBMQtefrOXiQ"
+  },
+  "37": {
+    "title_zh": "龙骑开荒配装1",
+    "title_en": "DRG Class-Specific Starter I",
+    "title_ja": "竜騎士専用ギアセット1（早期攻略用）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "9cOWzhanTQtW6BacFkMkklFCCZNgSsh6iOIiWvXi61sWcyny"
+  },
+  "38": {
+    "title_zh": "龙骑开荒配装2",
+    "title_en": "DRG Class-Specific Starter II",
+    "title_ja": "竜騎士専用ギアセット2（早期攻略用）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "JCOFvJEhImYRFlQlnGdJ7aPPiWQmYglRLz9Rwb5F7CUkqRkyU"
+  },
+  "39": {
+    "title_zh": "镰刀开荒配装1",
+    "title_en": "RPR Class-Specific Starter I",
+    "title_ja": "リーパー専用ギアセット1（早期攻略用）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "9cO4DCmJWI0seE8Otr5tOdyqEI3YrtxQTHlNoPJhwntvLHEL"
+  },
+  "40": {
+    "title_zh": "镰刀开荒配装2",
+    "title_en": "RPR Class-Specific Starter II",
+    "title_ja": "リーパー専用ギアセット2（早期攻略用）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "18fyrVF7TrhFFLhqoMarxLuy7nfzjKwqATL6vztCoq3zV9JZVp"
+  },
+  "41": {
+    "title_zh": "武僧开荒配装1",
+    "title_en": "MNK Class-Specific Starter I",
+    "title_ja": "モンク専用ギアセット１（早期攻略用）",
+    "gcd": 1.94,
+    "author": "孤风行",
+    "set_no": "hL00QMCxQRa7G5TIrcqWp7tdYicY63ZN21t4u4SI3TdhKqm9R9l"
+  },
+  "42": {
+    "title_zh": "武僧开荒配装2",
+    "title_en": "MNK Class-Specific Starter II",
+    "title_ja": "モンク専用ギアセット２（早期攻略用）",
+    "gcd": 1.94,
+    "author": "孤风行",
+    "set_no": "c5WR2B1aR9w6RgJVh0IlnNwhWShv6dgh5mX3W2Zjbus21hGAPcBxd"
+  },
+  "43": {
+    "title_zh": "武士开荒配装1",
+    "title_en": "SAM Class-Specific Starter I",
+    "title_ja": "侍専用ギアセット１（早期攻略用）",
+    "gcd": 2.14,
+    "author": "孤风行",
+    "set_no": "288fJRSeYYYNksoP7Yl7Z3Y6wsDiIAoIiVIBXQrjbvXNi7N88Tqp1R4"
+  },
+  "44": {
+    "title_zh": "武士开荒配装2",
+    "title_en": "SAM Class-Specific Starter II",
+    "title_ja": "侍専用ギアセット２（早期攻略用）",
+    "gcd": 2.14,
+    "author": "孤风行",
+    "set_no": "6xK9wg0vvYN25vQa66BeGL43ZAPj11CoWKadqLszxYuK2Ir6G9v10LI"
+  },
+  "45": {
+    "title_zh": "蝰蛇开荒配装1",
+    "title_en": "VPR Class-Specific Starter I",
+    "title_ja": "ヴァイパー専用ギアセット１（早期攻略用）",
+    "gcd": 2.12,
+    "author": "孤风行",
+    "set_no": "1oST0hKYQZZsbVDkcYeB7EUW6lAtFddad8rFDR7JtmgdDPN8U"
+  },
+  "46": {
+    "title_zh": "蝰蛇开荒配装2",
+    "title_en": "VPR Class-Specific Starter II",
+    "title_ja": "ヴァイパー専用ギアセット２（早期攻略用）",
+    "gcd": 2.12,
+    "author": "孤风行",
+    "set_no": "gjw9AZ3wugmqOCWHEGNf5R0iYHjJ0EttO8r856SbK8HgjzEuaM"
+  },
+  "47": {
+    "title_zh": "蝰蛇开荒配装3",
+    "title_en": "VPR Class-Specific Starter III",
+    "title_ja": "ヴァイパー専用ギアセット３（早期攻略用）",
+    "gcd": 2.08,
+    "author": "孤风行",
+    "set_no": "58VgqJWn5EGtPWs95uIehEb0a3UZ8dVi3RCFG2STBRqfK7lj5jaOk"
+  },
+  "48": {
+    "title_zh": "蝰蛇开荒配装4",
+    "title_en": "VPR Class-Specific Starter IV",
+    "title_ja": "ヴァイパー専用ギアセット４（早期攻略用）",
+    "gcd": 2.08,
+    "author": "孤风行",
+    "set_no": "9XNwMr2ZPuqKJSaJg4dn5gTbB5puUQyYIdnV3v7pzVtHKsGypEnlpRK"
+  },
+  "49": {
+    "title_zh": "忍者开荒配装1",
+    "title_en": "NIN Class-Specific Starter I",
+    "title_ja": "忍者専用ギアセット１ （早期攻略用）",
+    "gcd": 2.12,
+    "author": "孤风行",
+    "set_no": "1oSYHmxW0TxO2nEAeg43y9yRCnqKu5FeUvFcRfOzhA6URkMGx"
+  },
+  "50": {
+    "title_zh": "忍者开荒配装2",
+    "title_en": "NIN Class-Specific Starter II",
+    "title_ja": "忍者専用ギアセット２ （早期攻略用）",
+    "gcd": 2.12,
+    "author": "孤风行",
+    "set_no": "c1rfKjbWs0pGqMod4NHi3I3KldJSH5ACJHBc2KU7K2bbbvcEln"
+  },
+  "51": {
+    "title_zh": "机工开荒配装",
+    "title_en": "MCH Class-Specific Starter",
+    "title_ja": "機工士専用ギアセット （早期攻略用）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "3DzHPpWnNSa3wYryVPVDFprgS8KZGBlsL9oUUMH3CGH5nWe"
+  },
+  "52": {
+    "title_zh": "诗人开荒配装",
+    "title_en": "BRD Class-Specific Starter",
+    "title_ja": "詩人専用ギアセット （早期攻略用）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "3DzSfOoAaDz8pIDO99ogS2gB5ppmHO6IbARrzMgKHmjtBYd"
+  },
+  "53": {
+    "title_zh": "舞者开荒配装",
+    "title_en": "DNC Class-Specific Starter",
+    "title_ja": "踊り子専用ギアセット （早期攻略用）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "3DzAnHTXfTJhL0SfcTK2O6yTzO0rwSNIjpdoJdzh8MowmMj"
+  },
+  "54": {
+    "title_zh": "画家开荒配装1",
+    "title_en": "PCT Class-Specific Starter I",
+    "title_ja": "ピクトマンサー専用ギアセット１ （早期攻略用）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "2uPh4cmx1L8BNnqi7PjvkybItHieqNq4dzrd1oq9G4Pipldiaf"
+  },
+  "55": {
+    "title_zh": "画家开荒配装2",
+    "title_en": "PCT Class-Specific Starter II",
+    "title_ja": "ピクトマンサー専用ギアセット１（早期攻略用）",
+    "gcd": 2.48,
+    "author": "孤风行",
+    "set_no": "MbStYN02DbCWsEtCAnO6SAA8YizsAwP0DmVa412ouIq1l8YNCcj"
+  },
+  "56": {
+    "title_zh": "赤魔开荒配装1",
+    "title_en": "RDM Class-Specific Starter I",
+    "title_ja": "赤魔道士専用ギアセット１（早期攻略用）",
+    "gcd": 2.5,
+    "author": "孤风行",
+    "set_no": "28xq9hZ8Cx2zsUQH7lCkpBQnFTL3L4Q638qt87zHBma1cW79sG"
+  },
+  "57": {
+    "title_zh": "赤魔开荒配装2",
+    "title_en": "RDM Class-Specific Starter II",
+    "title_ja": "赤魔道士専用ギアセット２（早期攻略用）",
+    "gcd": 2.48,
+    "author": "孤风行",
+    "set_no": "FfKIpxKVSab32ajwz1Qpyc2y6RsFbCUdQQDeec4vFhhUfOryUhw"
+  },
+  "58": {
+    "title_zh": "召唤开荒配装",
+    "title_en": "SMN Class-Specific Starter",
+    "title_ja": "召喚士専用ギアセット",
+    "gcd": 2.48,
+    "author": "孤风行",
+    "set_no": "yiVXX8pgsEfPYB05EbXzO4GDps21przzRGRfgbpOYtqTjaffkWt"
+  },
+  "59": {
+    "title_zh": "黑魔开荒配装1",
+    "title_en": "BLM Class-Specific Starter I",
+    "title_ja": "黒魔道士専用ギアセット１ （早期攻略用）",
+    "gcd": 2.42,
+    "author": "孤风行",
+    "set_no": "xpdPV9jNafHAxK4NJLrIMSr78BXiVsG3nlx8tfq30HgbiNLLIna"
+  },
+  "60": {
+    "title_zh": "黑魔开荒配装2",
+    "title_en": "BLM Class-Specific Starter II",
+    "title_ja": "黒魔道士専用ギアセット２ （早期攻略用）",
+    "gcd": 2.18,
+    "author": "孤风行",
+    "set_no": "uGokejuULO5Js21uYqS8rPPAEch0UTzmVJHl1XodfaokcI"
+  }
+}
